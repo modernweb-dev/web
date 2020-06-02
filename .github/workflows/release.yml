@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.changeset/*.md'
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+
+
+      - name: Setup Node.js 12.x
+        uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Changeset version
+        run: yarn changeset version
+
+      - name: Commit version updates
+        run: |
+          git config --local user.email "joren.broekema@gmail.com"
+          git config --local user.name "Joren Broekema"
+      - run: git add .
+      - run: "git commit -m 'chore: release new versions'"
+
+      - name: Release to NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: yarn changeset publish
+
+      - name: Push commits and tags to GitHub
+        run: git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} --follow-tags

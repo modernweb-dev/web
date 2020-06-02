@@ -1,0 +1,23 @@
+name: Verify changes
+
+on: pull_request
+
+jobs:
+  verify:
+    name: Verify changes
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 13.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install dependencies
+      run: yarn --frozen-lockfile
+    - name: Lint
+      run: yarn lint
+    - name: Test
+      run: yarn test
