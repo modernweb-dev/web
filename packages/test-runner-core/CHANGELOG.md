@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.1.2
+
+### Patch Changes
+
+- 692bf8d: Export constants
+
 ## 0.1.1
 
 ### Patch Changes
