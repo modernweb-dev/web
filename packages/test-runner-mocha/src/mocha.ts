@@ -1,0 +1,84 @@
+import {
+  sessionFinished,
+  getConfig,
+  captureConsoleOutput,
+  logUncaughtErrors,
+  sessionStarted,
+  FailedImport,
+  TestResult,
+} from '@web/test-runner-framework';
+import 'mocha/mocha.js';
+
+captureConsoleOutput();
+logUncaughtErrors();
+
+(async () => {
+  sessionStarted();
+  const { testFile, debug } = await getConfig();
+  const div = document.createElement('div');
+  div.id = 'mocha';
+  document.body.appendChild(div);
+
+  if (debug) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = new URL('../assets/mocha.css', import.meta.url).href;
+    document.head.appendChild(link);
+  }
+
+  // Import mocha here, so that we can capture it's console output
+  // TS gives a warning for dynamically importing mocha with a bare import
+
+  mocha.setup({ ui: 'bdd', allowUncaught: false });
+  const failedImports: FailedImport[] = [];
+
+  await import(new URL(testFile, document.baseURI).href).catch(error => {
+    failedImports.push({ file: testFile, error: { message: error.message, stack: error.stack } });
+  });
+
+  mocha.run(failures => {
+    // setTimeout to wait for logs to come in
+    setTimeout(() => {
+      const testResults: TestResult[] = [];
+
+      function iterateTests(prefix: string, tests: Mocha.Test[]) {
+        for (const test of tests) {
+          // add test if it isn't pending (skipped)
+          if (!test.isPending()) {
+            const name = `${prefix}${test.title}`;
+            const err = test.err as Error & { actual?: string; expected?: string };
+            testResults.push({
+              name,
+              passed: test.isPassed(),
+              error: err
+                ? {
+                    message: err.message,
+                    stack: err.stack,
+                    expected: err.expected,
+                    actual: err.actual,
+                  }
+                : undefined,
+            });
+          }
+        }
+      }
+
+      function iterateSuite(prefix: string, suite: Mocha.Suite) {
+        iterateTests(prefix, suite.tests);
+
+        for (const childSuite of suite.suites) {
+          const newPrefix = `${prefix}${childSuite.title} > `;
+          iterateSuite(newPrefix, childSuite);
+        }
+      }
+
+      iterateSuite('', mocha.suite);
+
+      sessionFinished({
+        passed: failedImports.length === 0 && failures === 0,
+        failedImports,
+        tests: testResults,
+      });
+    });
+  });
+})();

@@ -3,9 +3,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "yarn build:node && yarn build:browser",
-    "build:browser": "tsc --build packages/test-runner-framework/tsconfig.json",
-    "build:node": "tsc --build packages/tsconfig.project.json",
+    "build": "tsc --build packages/tsconfig.project.json",
     "build:watch": "tsc --build --watch packages/tsconfig.project.json",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js,.html . --fix --ignore-path .gitignore",

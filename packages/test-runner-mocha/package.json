@@ -1,0 +1,31 @@
+{
+  "name": "@web/test-runner-mocha",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Modern web test runner: mocha",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-mocha"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha",
+  "main": "dist/mocha.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo 'no tests for this package yet'"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@web/test-runner-framework": "^0.1.0",
+    "mocha": "^7.2.0"
+  }
+}

@@ -2,6 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const nodePackages = ['test-runner-core', 'test-runner-cli'];
+const browserPackages = ['test-runner-framework', 'test-runner-mocha'];
+const packages = [...nodePackages, ...browserPackages];
 
 const PACKAGE_TSCONFIG = 'tsconfig.json';
 const PROJECT_TSCONFIG = 'tsconfig.project.json';
@@ -23,7 +25,7 @@ const packageJSONMap: Map<
 
 const packageDirnameMap: Map<PackageName, DirectoryName> = new Map();
 
-nodePackages.forEach(packageDirname => {
+packages.forEach(packageDirname => {
   const packageJSONPath = path.join(packagesRoot, packageDirname, 'package.json');
   const packageJSONData = JSON.parse(fs.readFileSync(packageJSONPath).toString());
   const packageName = packageJSONData.name;
@@ -62,11 +64,11 @@ packageDirnameMap.forEach((packageDirname, packageName) => {
   const tsconfigPath = path.join(packagesRoot, packageDirname, PACKAGE_TSCONFIG);
 
   const internalDependencies = resolveInternalDependencies(internalDependencyMap.get(packageName)!);
-
   const tsconfigData = {
     extends: '../../tsconfig.base.json',
     compilerOptions: {
       outDir: './dist',
+      module: browserPackages.includes(packageDirname) ? 'ESNext' : 'commonjs',
       rootDir: './src',
       composite: true,
     },

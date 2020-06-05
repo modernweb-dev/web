@@ -3,11 +3,15 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "module": "commonjs",
+    "module": "ESNext",
     "rootDir": "./src",
     "composite": true
   },
-  "references": [],
+  "references": [
+    {
+      "path": "../test-runner-framework/tsconfig.json"
+    }
+  ],
   "include": [
     "src"
   ],

@@ -21,5 +21,7 @@
     "build": "tsc",
     "test": "echo 'no tests for this package yet'"
   },
-  "files": ["dist"]
+  "files": [
+    "dist"
+  ]
 }
