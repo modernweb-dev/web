@@ -23,4 +23,4 @@ packages/*/yarn.lock
 
 ## build output
 dist
-.tsbuildinfo
+tsconfig.tsbuildinfo
