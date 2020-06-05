@@ -3,13 +3,16 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "build": "tsc --build packages/tsconfig.project.json",
+    "build:watch": "tsc --build --watch packages/tsconfig.project.json",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js,.html . --fix --ignore-path .gitignore",
     "format:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --write --ignore-path .gitignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --ext .ts,.js,.html . --ignore-path .gitignore",
     "lint:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --check --ignore-path .gitignore",
-    "test": "echo 'no tests in this repo yet'"
+    "test": "yarn workspaces run test",
+    "update:tsconfig": "ts-node scripts/update-package-tsconfig.ts"
   },
   "devDependencies": {
     "@changesets/cli": "^2.8.0",
@@ -28,7 +31,7 @@
     "prettier-plugin-package": "^1.0.0",
     "sinon": "^9.0.2",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.5"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
