@@ -18,7 +18,6 @@ jobs:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
-
       - name: Setup Node.js 12.x
         uses: actions/setup-node@master
         with:
@@ -27,6 +26,9 @@ jobs:
 
       - name: Install Dependencies
         run: yarn
+
+      - name: Build
+        run: yarn workspaces run build
 
       - name: Changeset version
         run: yarn changeset version

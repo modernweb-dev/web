@@ -8,16 +8,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [10.x, 13.x]
+        node-version: [10.x, 14.x]
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup Node ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Install dependencies
-      run: yarn --frozen-lockfile
-    - name: Lint
-      run: yarn lint
-    - name: Test
-      run: yarn test
+      - uses: actions/checkout@v2
+
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Build
+        run: yarn workspaces run build
+
+      - name: Test
+        run: yarn workspaces run test

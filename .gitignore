@@ -6,7 +6,7 @@
 .DS_Store
 
 ## code coverage folders
-coverage/
+/coverage/
 
 ## npm
 node_modules
