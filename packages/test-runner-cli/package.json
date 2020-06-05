@@ -1,0 +1,44 @@
+{
+  "name": "@web/test-runner-cli",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Modern web test runner: cli",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-cli"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-cli",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo 'no tests for this package yet'"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@types/camelcase": "^5.2.0",
+    "@types/command-line-args": "^5.0.0",
+    "@types/diff": "^4.0.2",
+    "@web/test-runner-core": "^0.1.0",
+    "camelcase": "^6.0.0",
+    "chalk": "^4.0.0",
+    "cli-cursor": "^3.1.0",
+    "command-line-args": "^5.1.1",
+    "diff": "^4.0.2",
+    "globby": "^11.0.1",
+    "log-update": "^4.0.0",
+    "portfinder": "^1.0.26"
+  },
+  "devDependencies": {
+    "@types/globby": "^9.1.0"
+  }
+}
