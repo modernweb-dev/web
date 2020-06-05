@@ -1,0 +1,34 @@
+{
+  "name": "@web/test-runner-puppeteer",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Modern web test runner: puppeteer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-puppeteer"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer",
+  "main": "dist/puppeteerLauncher.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo 'no tests for this package yet'"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@web/test-runner-core": "^0.1.2",
+    "puppeteer": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "^3.0.0"
+  }
+}
