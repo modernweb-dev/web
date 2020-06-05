@@ -2,38 +2,49 @@
   "name": "@web/root",
   "private": true,
   "license": "MIT",
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
-    "test": "echo 'no tests in this repo yet'",
-    "lint:eslint": "eslint --ext .js,.html . --ignore-path .gitignore",
-    "format:eslint": "eslint --ext .js,.html . --fix --ignore-path .gitignore",
-    "lint:prettier": "prettier \"**/*.{js,md}\" --check --ignore-path .gitignore",
-    "format:prettier": "prettier \"**/*.{js,md}\" --write --ignore-path .gitignore",
+    "format": "npm run format:eslint && npm run format:prettier",
+    "format:eslint": "eslint --ext .ts,.js,.html . --fix --ignore-path .gitignore",
+    "format:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --write --ignore-path .gitignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
-    "format": "npm run format:eslint && npm run format:prettier"
+    "lint:eslint": "eslint --ext .ts,.js,.html . --ignore-path .gitignore",
+    "lint:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --check --ignore-path .gitignore",
+    "test": "echo 'no tests in this repo yet'"
   },
   "devDependencies": {
     "@changesets/cli": "^2.8.0",
-    "@open-wc/eslint-config": "^2.0.0",
-    "eslint": "^6.1.0",
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "@types/sinon": "^9.0.4",
+    "@typescript-eslint/eslint-plugin": "^3.1.0",
+    "@typescript-eslint/parser": "^3.1.0",
+    "chai": "^4.2.0",
+    "eslint": "^7.1.0",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^1.0.0",
     "lint-staged": "^8.0.0",
-    "prettier": "^2.0.4"
+    "mocha": "^7.2.0",
+    "prettier": "^2.0.4",
+    "prettier-plugin-package": "^1.0.0",
+    "sinon": "^9.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.3"
   },
   "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
     "extends": [
-      "@open-wc/eslint-config",
-      "eslint-config-prettier"
-    ]
-  },
-  "prettier": {
-    "singleQuote": true,
-    "arrowParens": "avoid",
-    "printWidth": 100,
-    "trailingComma": "all"
+      "eslint:recommended",
+      "eslint-config-prettier",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-explicit-any": "off"
+    }
   },
   "husky": {
     "hooks": {
@@ -46,5 +57,14 @@
       "prettier --write",
       "git add"
     ]
-  }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "printWidth": 100,
+    "trailingComma": "all"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

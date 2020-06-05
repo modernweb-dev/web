@@ -1,0 +1,36 @@
+{
+  "name": "@web/test-runner-core",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Modern web test runner: core",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-core"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-core",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter progress",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "istanbul-lib-coverage": "^3.0.0",
+    "uuid": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/istanbul-lib-coverage": "^2.0.2",
+    "@types/uuid": "^8.0.0"
+  }
+}
