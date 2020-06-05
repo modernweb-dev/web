@@ -4,8 +4,6 @@ Modern Web, also known as `@web` on npm, is a collection of modern web developme
 
 ## Packages
 
--
-
 ## Guiding Principles
 
 ### Low barrier to entry
