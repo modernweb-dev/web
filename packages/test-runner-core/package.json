@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-core",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "publishConfig": {
     "access": "public"
   },
@@ -22,9 +22,7 @@
     "test": "mocha test/**/*.test.ts --require ts-node/register --reporter progress",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "dependencies": {
     "istanbul-lib-coverage": "^3.0.0",
     "uuid": "^8.1.0"
