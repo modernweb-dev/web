@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const nodePackages = ['test-runner-core', 'test-runner-cli'];
+const nodePackages = ['test-runner-core', 'test-runner-cli', 'test-runner-dev-server'];
 const browserPackages = ['test-runner-framework', 'test-runner-mocha'];
 const packages = [...nodePackages, ...browserPackages];
 

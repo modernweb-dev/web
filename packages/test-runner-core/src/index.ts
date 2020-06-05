@@ -1,3 +1,5 @@
+import * as constants from './browser-launcher/constants';
+export { constants };
 export { BrowserLauncher } from './browser-launcher/BrowserLauncher';
 export { TestRunner } from './runner/TestRunner';
 export {
