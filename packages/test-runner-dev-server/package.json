@@ -1,0 +1,36 @@
+{
+  "name": "@web/test-runner-dev-server",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Modern web test runner: dev-server",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-dev-server"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-dev-server",
+  "main": "dist/createDevServer.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo 'no tests for this package yet'"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@types/co-body": "^5.1.0",
+    "@web/test-runner-core": "^0.1.1",
+    "co-body": "^6.0.0",
+    "deepmerge": "^4.2.2",
+    "dependency-graph": "^0.9.0",
+    "es-dev-server": "^1.54.1",
+    "koa": "^2.12.0"
+  }
+}
