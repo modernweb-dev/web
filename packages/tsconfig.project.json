@@ -15,6 +15,9 @@
       "path": "./test-runner-dev-server/tsconfig.json"
     },
     {
+      "path": "./test-runner-puppeteer/tsconfig.json"
+    },
+    {
       "path": "./test-runner-mocha/tsconfig.json"
     }
   ]

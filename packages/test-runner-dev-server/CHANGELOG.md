@@ -1,6 +1,7 @@
 # @web/test-runner-dev-server
 
 ## 0.2.0
+
 ### Minor Changes
 
 - 692bf8d: first setup
