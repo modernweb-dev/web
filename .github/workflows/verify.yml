@@ -24,7 +24,7 @@ jobs:
         run: yarn lint
 
       - name: Build
-        run: yarn workspaces run build
+        run: yarn build
 
       - name: Test
         run: yarn workspaces run test

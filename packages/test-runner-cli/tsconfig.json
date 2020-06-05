@@ -8,7 +8,7 @@
   },
   "references": [
     {
-      "path": "../test-runner-core/tsconfig.package.json"
+      "path": "../test-runner-core/tsconfig.json"
     }
   ],
   "include": [
