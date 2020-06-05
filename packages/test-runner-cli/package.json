@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-cli",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "publishConfig": {
     "access": "public"
   },
@@ -21,14 +21,12 @@
     "build": "tsc",
     "test": "echo 'no tests for this package yet'"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "dependencies": {
     "@types/camelcase": "^5.2.0",
     "@types/command-line-args": "^5.0.0",
     "@types/diff": "^4.0.2",
-    "@web/test-runner-core": "^0.1.0",
+    "@web/test-runner-core": "^0.1.1",
     "camelcase": "^6.0.0",
     "chalk": "^4.0.0",
     "cli-cursor": "^3.1.0",

@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-framework",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "publishConfig": {
     "access": "public"
   },
@@ -21,7 +21,5 @@
     "build": "tsc",
     "test": "echo 'no tests for this package yet'"
   },
-  "files": [
-    "dist"
-  ]
+  "files": ["dist"]
 }
