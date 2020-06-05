@@ -5,9 +5,14 @@
     "outDir": "./dist",
     "module": "ESNext",
     "rootDir": "./src",
-    "noImplicitAny": false,
     "composite": true
   },
-  "include": ["src"],
-  "exclude": ["tests", "dist"]
+  "references": [],
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "tests",
+    "dist"
+  ]
 }

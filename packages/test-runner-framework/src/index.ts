@@ -3,6 +3,8 @@ import {
   RuntimeConfig,
   FrameworkTestSessionResult,
   BrowserTestSessionResult,
+  FailedImport,
+  TestResult,
 } from './types';
 
 const PARAM_SESSION_ID = 'wtr-session-id';
@@ -94,3 +96,12 @@ export async function sessionFinished(result: FrameworkTestSessionResult): Promi
   });
   await postJSON(`/wtr/${sessionId}/session-finished`, sessionResult);
 }
+
+export {
+  TestResultError,
+  RuntimeConfig,
+  FrameworkTestSessionResult,
+  BrowserTestSessionResult,
+  FailedImport,
+  TestResult,
+};
