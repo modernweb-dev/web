@@ -6,11 +6,11 @@
     "build": "tsc --build packages/tsconfig.project.json",
     "build:watch": "tsc --build --watch packages/tsconfig.project.json",
     "format": "npm run format:eslint && npm run format:prettier",
-    "format:eslint": "eslint --ext .ts,.js,.html . --fix --ignore-path .gitignore",
-    "format:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --write --ignore-path .gitignore",
+    "format:eslint": "eslint --ext .ts,.js,.html . --fix",
+    "format:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
-    "lint:eslint": "eslint --ext .ts,.js,.html . --ignore-path .gitignore",
-    "lint:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --check --ignore-path .gitignore",
+    "lint:eslint": "eslint --ext .ts,.js,.html .",
+    "lint:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --check --ignore-path .eslintignore",
     "test": "yarn workspaces run test",
     "update:tsconfig": "ts-node scripts/update-package-tsconfig.ts"
   },
@@ -58,7 +58,7 @@
   "lint-staged": {
     "*.js": [
       "eslint --fix",
-      "prettier --write",
+      "prettier --write --ignore-path .eslintignore",
       "git add"
     ]
   },
