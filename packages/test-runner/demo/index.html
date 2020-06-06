@@ -1,0 +1,15 @@
+<html>
+  <body>
+    <div id="mocha"></div>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <link rel="stylesheet" href="./node_modules/mocha/mocha.css" />
+    <script>
+      mocha.setup({ ui: 'bdd' });
+    </script>
+    <script type="module" src="./test/a.test.js"></script>
+    <script type="module" src="./test/b.test.js"></script>
+    <script type="module">
+      mocha.run();
+    </script>
+  </body>
+</html>

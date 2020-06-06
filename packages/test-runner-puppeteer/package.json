@@ -21,7 +21,9 @@
     "build": "tsc",
     "test": "echo 'no tests for this package yet'"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@web/test-runner-core": "^0.1.2",
     "puppeteer": "^3.3.0"

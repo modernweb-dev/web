@@ -1,0 +1,39 @@
+{
+  "name": "@web/test-runner",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Modern web test runner",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner",
+  "main": "dist/index.js",
+  "bin": {
+    "web-test-runner": "./dist/test-runner.js",
+    "wtr": "./dist/test-runner.js"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "cd ../../ && ts-node packages/test-runner/src/test-runner.ts packages/test-runner/demo/**/pass-*.test.js",
+    "test:many": "cd ../../ && ts-node packages/test-runner/src/test-runner.ts packages/test-runner/demo/test/many/**/*.test.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@web/test-runner-cli": "^0.1.0",
+    "@web/test-runner-core": "^0.1.2",
+    "@web/test-runner-dev-server": "^0.2.0",
+    "@web/test-runner-mocha": "^0.1.0",
+    "@web/test-runner-puppeteer": "^0.1.0"
+  }
+}
