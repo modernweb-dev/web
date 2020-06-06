@@ -30,7 +30,7 @@ function validateConfig(config: Partial<TestRunnerConfig>): config is TestRunner
   if (!Array.isArray(config.files) || config.files.length === 0) {
     throw new Error('No test files configured.');
   }
-  if (!(typeof config.testFrameworkImport === 'string')) {
+  if (typeof config.testFrameworkImport !== 'string') {
     throw new Error('No testFrameworkImport specified.');
   }
   if (!config.browsers) {
@@ -39,10 +39,10 @@ function validateConfig(config: Partial<TestRunnerConfig>): config is TestRunner
   if (!config.server) {
     throw new Error('No server specified.');
   }
-  if (!(typeof config.address !== 'string')) {
+  if (typeof config.address !== 'string') {
     throw new Error('No address specified.');
   }
-  if (!(typeof config.port !== 'number')) {
+  if (typeof config.port !== 'number') {
     throw new Error('No port specified.');
   }
 
@@ -99,6 +99,10 @@ export async function startTestRunner({
     /* eslint-disable-next-line no-console */
     console.error(error);
     stop();
+  });
+
+  runner.on('quit', passed => {
+    process.exit(passed ? 0 : 1);
   });
 
   await runner.start();
