@@ -9,13 +9,13 @@ function isSameError(a: TestResultError, b: TestResultError) {
 
 export function getSessionErrors(sessions: TestSession[]) {
   const entries: TerminalEntry[] = [];
-  const sessionsWithError = sessions.filter(s => !!s.result?.error);
+  const sessionsWithError = sessions.filter(s => !!s.error);
   if (sessionsWithError.length === 0) {
     return entries;
   }
 
   const allSameError = sessionsWithError.every(e =>
-    isSameError(e.result!.error!, sessionsWithError[0].result!.error!),
+    isSameError(e.error!, sessionsWithError[0].error!),
   );
 
   if (allSameError) {
@@ -31,7 +31,7 @@ export function getSessionErrors(sessions: TestSession[]) {
       indent: 1,
     });
     entries.push({
-      text: formatError(sessionsWithError[0].result!.error!),
+      text: formatError(sessionsWithError[0].error!),
       indent: 6,
     });
     entries.push('');
@@ -45,7 +45,7 @@ export function getSessionErrors(sessions: TestSession[]) {
       indent: 1,
     });
     entries.push({
-      text: formatError(session.result!.error!),
+      text: formatError(session.error!),
       indent: 6,
     });
     entries.push('');

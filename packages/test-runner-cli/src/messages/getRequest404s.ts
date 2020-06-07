@@ -7,15 +7,15 @@ export function getRequest404s(sessions: TestSession[]) {
   const common404s: string[] = [];
   const request404sPerBrowser = new Map<string, string[]>();
 
-  const all404s = sessions.map(s => s.result!.request404s);
+  const all404s = sessions.map(s => s.request404s);
   for (const session of sessions) {
-    for (const request404 of session.result!.request404s) {
+    for (const request404 of session.request404s) {
       // for the first session, we always include all request 404s
       // for others we deduplicate 404s, this way we can allow the same 404
       // msg appearing multiple times while also deduplicating common 404s
       // between browsers
       if (session === sessions[0] || !common404s.includes(request404)) {
-        if (all404s.every(r404s => r404s.has(request404))) {
+        if (all404s.every(r404s => r404s.includes(request404))) {
           common404s.push(request404);
         } else {
           let request404sForBrowser = request404sPerBrowser.get(session.browserName);

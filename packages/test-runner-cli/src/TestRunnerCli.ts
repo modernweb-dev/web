@@ -259,7 +259,7 @@ export class TestRunnerCli {
     this.menuFailedFiles = [];
 
     for (const testFile of this.runner.testFiles) {
-      if (Array.from(this.sessions.forTestFile(testFile)).every(t => t.result?.passed)) {
+      if (Array.from(this.sessions.forTestFile(testFile)).every(t => t.passed)) {
         this.menuSucceededFiles.push(testFile);
       } else {
         this.menuFailedFiles.push(testFile);

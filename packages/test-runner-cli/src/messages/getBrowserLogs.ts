@@ -7,9 +7,9 @@ export function getBrowserLogs(sessions: TestSession[]) {
   const commonLogs: string[] = [];
   const logsByBrowser = new Map<string, string[]>();
 
-  const allLogs = sessions.map(s => s.result!.logs);
+  const allLogs = sessions.map(s => s.logs);
   for (const session of sessions) {
-    for (const log of session.result!.logs) {
+    for (const log of session.logs) {
       // for the first session, we always include all logs
       // for others we deduplicate logs, this way we can allow the same log
       // msg appearing multiple times while also deduplicating common logs
