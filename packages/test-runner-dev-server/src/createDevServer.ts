@@ -3,12 +3,25 @@ import { createConfig, startServer, Config } from 'es-dev-server';
 import deepmerge from 'deepmerge';
 import { Context, Next } from 'koa';
 import net from 'net';
+import path from 'path';
 import parse from 'co-body';
 import chokidar from 'chokidar';
 import { dependencyGraphMiddleware } from './dependencyGraphMiddleware';
 import { createTestPage } from './createTestPage';
+import { toBrowserPath } from './utils';
+
+export { Config as DevServerConfig };
+
+function createBrowserFilePath(rootDir: string, filePath: string) {
+  const fullFilePath = filePath.startsWith(process.cwd())
+    ? filePath
+    : path.join(process.cwd(), filePath);
+  const relativeToRootDir = path.relative(rootDir, fullFilePath);
+  return toBrowserPath(relativeToRootDir);
+}
 
 export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
+  const rootDir = devServerConfig.rootDir ?? process.cwd();
   let server: net.Server;
 
   return {
@@ -85,6 +98,7 @@ export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
                   if (command === 'config') {
                     ctx.body = JSON.stringify({
                       ...session,
+                      testFile: createBrowserFilePath(rootDir, session.testFile),
                       watch: !!config.watch,
                     } as any);
                     return;
