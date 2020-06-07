@@ -100,6 +100,7 @@ export function getTestProgressReport(config: TestRunnerConfig, args: TestProgre
   const failedTests = new Set<string>();
   const finishedFiles = new Set<string>();
   const browserProgressEntries: string[] = [];
+  let failed = false;
 
   const minWidth = browserNames.sort((a, b) => b.length - a.length)[0].length + 1;
   for (const browser of browserNames) {
@@ -109,6 +110,10 @@ export function getTestProgressReport(config: TestRunnerConfig, args: TestProgre
     let failedTestsForBrowser = 0;
 
     for (const session of sessionsForBrowser) {
+      if (!session.result?.passed) {
+        failed = true;
+      }
+
       if (session.status === SESSION_STATUS.FINISHED) {
         const { testFile, result } = session;
         finishedFiles.add(testFile);
@@ -167,12 +172,16 @@ export function getTestProgressReport(config: TestRunnerConfig, args: TestProgre
       const durationInSec = (Date.now() - startTime) / 1000;
       const duration = Math.trunc(durationInSec * 10) / 10;
 
-      if (failedTests.size > 0) {
-        entries.push(
-          chalk.bold(
-            `Finished running tests in ${duration}s with ${failedTests.size} tests failed.`,
-          ),
-        );
+      if (failed) {
+        if (failedTests.size > 0) {
+          entries.push(
+            chalk.bold(
+              `Finished running tests in ${duration}s with ${failedTests.size} tests failed.`,
+            ),
+          );
+        } else {
+          entries.push(chalk.bold(`Failed to run any tests.`));
+        }
       } else {
         entries.push(chalk.bold(`Finished running tests in ${duration}s, all tests passed! 🎉`));
       }
