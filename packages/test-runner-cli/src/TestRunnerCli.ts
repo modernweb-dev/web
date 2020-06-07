@@ -36,6 +36,7 @@ export class TestRunnerCli {
   private activeMenu: MenuType = MENUS.OVERVIEW;
   private menuSucceededFiles: string[] = [];
   private menuFailedFiles: string[] = [];
+  private openingDebugBrowser = false;
 
   constructor(private config: TestRunnerConfig, private runner: TestRunner) {
     this.sessions = runner.sessions;
@@ -86,7 +87,7 @@ export class TestRunnerCli {
         case 'D':
           if (this.activeMenu === MENUS.OVERVIEW) {
             if (this.runner.focusedTestFile) {
-              this.runner.startDebugFocusedTestFile();
+              this.startDebugFocusedTestFile();
             } else {
               this.switchMenu(MENUS.DEBUG_SELECT_FILE);
             }
@@ -159,10 +160,10 @@ export class TestRunnerCli {
 
     if (focusedTestFile) {
       this.runner.focusedTestFile = focusedTestFile;
-      this.switchMenu(MENUS.OVERVIEW);
       if (debug) {
-        this.runner.startDebugFocusedTestFile();
+        this.startDebugFocusedTestFile();
       }
+      this.switchMenu(MENUS.OVERVIEW);
     } else {
       this.terminal.clear();
       this.logSelectFilesMenu();
@@ -242,6 +243,17 @@ export class TestRunnerCli {
     }
   }
 
+  private async startDebugFocusedTestFile() {
+    this.openingDebugBrowser = true;
+    this.logTestProgress();
+    try {
+      await this.runner.startDebugFocusedTestFile();
+    } finally {
+      this.openingDebugBrowser = false;
+      this.logTestProgress();
+    }
+  }
+
   private logSelectFilesMenu() {
     this.menuSucceededFiles = [];
     this.menuFailedFiles = [];
@@ -279,6 +291,7 @@ export class TestRunnerCli {
         sessions: this.sessions,
         startTime: this.runner.startTime,
         focusedTestFile: this.runner.focusedTestFile,
+        openingDebugBrowser: this.openingDebugBrowser,
       }),
     );
 
