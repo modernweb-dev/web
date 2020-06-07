@@ -7,7 +7,20 @@
     "rootDir": "./src",
     "composite": true
   },
-  "references": [],
+  "references": [
+    {
+      "path": "../test-runner-core/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-framework/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-dev-server/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-mocha/tsconfig.json"
+    }
+  ],
   "include": [
     "src"
   ],

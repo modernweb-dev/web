@@ -26,12 +26,14 @@
     "test": "cd ../../ && ts-node packages/test-runner/src/test-runner.ts packages/test-runner/demo/**/pass-*.test.js",
     "test:many": "cd ../../ && ts-node packages/test-runner/src/test-runner.ts packages/test-runner/demo/test/many/**/*.test.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
+    "@web/test-runner-chrome": "^0.0.0",
     "@web/test-runner-cli": "^0.1.1",
     "@web/test-runner-core": "^0.1.2",
     "@web/test-runner-dev-server": "^0.2.0",
-    "@web/test-runner-mocha": "^0.1.0",
-    "@web/test-runner-chrome": "^0.0.0"
+    "@web/test-runner-mocha": "^0.1.0"
   }
 }
