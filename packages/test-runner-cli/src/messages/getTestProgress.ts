@@ -9,6 +9,7 @@ export interface TestProgressArgs {
   sessions: TestSessionManager;
   startTime: number;
   focusedTestFile?: string;
+  openingDebugBrowser: boolean;
 }
 
 const fullProgress = '█';
@@ -81,6 +82,7 @@ export function getTestProgressReport(config: TestRunnerConfig, args: TestProgre
     sessions,
     startTime,
     focusedTestFile,
+    openingDebugBrowser,
   } = args;
   const testFiles = focusedTestFile ? [focusedTestFile] : allTestFiles;
 
@@ -157,7 +159,9 @@ export function getTestProgressReport(config: TestRunnerConfig, args: TestProgre
 
   entries.push('');
   if (testRun !== -1 && unfinishedSessions.length === 0) {
-    if (config.watch) {
+    if (openingDebugBrowser) {
+      entries.push(chalk.bold(`Opening debug browser...`));
+    } else if (config.watch) {
       entries.push(chalk.bold(`Finished running tests, watching for file changes...`));
     } else {
       const durationInSec = (Date.now() - startTime) / 1000;
