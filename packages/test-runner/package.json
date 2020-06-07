@@ -32,6 +32,6 @@
     "@web/test-runner-core": "^0.1.2",
     "@web/test-runner-dev-server": "^0.2.0",
     "@web/test-runner-mocha": "^0.1.0",
-    "@web/test-runner-puppeteer": "^0.1.0"
+    "@web/test-runner-chrome": "^0.0.0"
   }
 }

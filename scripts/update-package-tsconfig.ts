@@ -6,6 +6,7 @@ const nodePackages = [
   'test-runner-core',
   'test-runner-cli',
   'test-runner-dev-server',
+  'test-runner-chrome',
   'test-runner-puppeteer',
 ];
 const browserPackages = ['test-runner-framework', 'test-runner-mocha'];
