@@ -149,7 +149,6 @@ export class TestRunner extends EventEmitter<EventMap> {
       console.error('');
     }
 
-    console.log('stopping server');
     await this.stop();
     this.emit('quit', false);
   }
