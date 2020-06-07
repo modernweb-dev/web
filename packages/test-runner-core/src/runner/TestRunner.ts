@@ -138,7 +138,7 @@ export class TestRunner extends EventEmitter<EventMap> {
 
     for (const session of this.sessions.forTestFile(this.focusedTestFile)) {
       // TODO: select browser for session
-      this.browsers[0].startDebugSession(session);
+      return this.browsers[0].startDebugSession(session);
     }
   }
 
