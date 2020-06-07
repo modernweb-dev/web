@@ -114,10 +114,14 @@ export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
                   if (command === 'session-finished') {
                     ctx.status = 200;
                     const result = (await parse.json(ctx)) as any;
-                    sessions.updateStatus(session, SESSION_STATUS.FINISHED, {
-                      ...result,
-                      request404s: request404sPerSession.get(sessionId) ?? new Set(),
-                    });
+                    sessions.updateStatus(
+                      {
+                        ...session,
+                        ...result,
+                        request404s: [...(request404sPerSession.get(sessionId) ?? [])],
+                      },
+                      SESSION_STATUS.FINISHED,
+                    );
                     return;
                   }
                 }
