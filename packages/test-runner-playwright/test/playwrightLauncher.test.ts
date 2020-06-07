@@ -4,7 +4,7 @@ import { TestRunnerConfig, TestRunner } from '@web/test-runner-core';
 import { createDevServer } from '@web/test-runner-dev-server';
 import { playwrightLauncher, BrowserType } from '../src/playwrightLauncher';
 
-it('runs tests with playwright', function(done) {
+it('runs tests with playwright', function (done) {
   this.timeout(50000);
   const browserTypes = ['chromium', 'firefox', 'webkit'] as BrowserType[];
   const testFiles = [
