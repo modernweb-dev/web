@@ -8,6 +8,7 @@ const nodePackages = [
   'test-runner-dev-server',
   'test-runner-chrome',
   'test-runner-puppeteer',
+  'test-runner-playwright',
 ];
 const browserPackages = ['test-runner-framework', 'test-runner-mocha'];
 const packages = [...nodePackages, ...browserPackages];

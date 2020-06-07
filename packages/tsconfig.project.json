@@ -25,6 +25,9 @@
     },
     {
       "path": "./test-runner-puppeteer/tsconfig.json"
+    },
+    {
+      "path": "./test-runner-playwright/tsconfig.json"
     }
   ]
 }

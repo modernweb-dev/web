@@ -1,0 +1,36 @@
+{
+  "name": "@web/test-runner-playwright",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Modern web test runner: playwright",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-playwright"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-playwright",
+  "main": "dist/playwrightLauncher.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter progress",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@web/test-runner-core": "^0.2.0",
+    "playwright": "^1.0.2"
+  },
+  "devDependencies": {
+    "@web/test-runner-dev-server": "^0.2.1",
+    "@web/test-runner-mocha": "^0.1.0"
+  }
+}
