@@ -7,10 +7,7 @@ import { playwrightLauncher, BrowserType } from '../src/playwrightLauncher';
 it('runs tests with playwright', function (done) {
   this.timeout(50000);
   const browserTypes = ['chromium', 'firefox', 'webkit'] as BrowserType[];
-  const testFiles = [
-    'packages/test-runner-playwright/test/fixtures/test-a.test.js',
-    'packages/test-runner-playwright/test/fixtures/test-b.test.js',
-  ];
+  const testFiles = ['test/fixtures/test-a.test.js', 'test/fixtures/test-b.test.js'];
 
   const config: TestRunnerConfig = {
     files: [],
