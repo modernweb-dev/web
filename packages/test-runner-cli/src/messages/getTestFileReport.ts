@@ -13,7 +13,7 @@ export function getTestFileReport(
   serverAddress: string,
   sessionsForTestFile: TestSession[],
 ) {
-  const failedSessions = sessionsForTestFile.filter(s => !s.result!.passed);
+  const failedSessions = sessionsForTestFile.filter(s => !s.passed);
   const entries: TerminalEntry[] = [];
 
   entries.push(...getBrowserLogs(sessionsForTestFile));

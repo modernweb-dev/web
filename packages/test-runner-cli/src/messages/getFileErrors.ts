@@ -12,14 +12,14 @@ export function getFileErrors(
   const entries: TerminalEntry[] = [];
 
   const sessionsThatFailedToImport = failedSessions.filter(s =>
-    s.result!.failedImports.some(imp => imp.file === testFile),
+    s.failedImports.some(imp => imp.file === testFile),
   );
 
   if (sessionsThatFailedToImport.length > 0) {
     const session =
       sessionsThatFailedToImport.find(s => s.browserName === favoriteBrowser) ||
       sessionsThatFailedToImport[0];
-    const failedImport = session.result!.failedImports.find(i => i.file === testFile)!;
+    const failedImport = session.failedImports.find(i => i.file === testFile)!;
     const failedBrowsers = sessionsThatFailedToImport.map(s => s.browserName);
     const failedOn = getFailedOnBrowsers(allBrowserNames, failedBrowsers);
 
@@ -30,7 +30,7 @@ export function getFileErrors(
   const testErrorsPerBrowser = new Map<string, Map<string, TestResultError>>();
 
   for (const session of failedSessions) {
-    for (const test of session.result!.tests) {
+    for (const test of session.tests) {
       if (test.error) {
         let testErrorsForBrowser = testErrorsPerBrowser.get(test.name);
         if (!testErrorsForBrowser) {
