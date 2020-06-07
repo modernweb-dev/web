@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.2.2
+
+### Patch Changes
+
+- 998dda8: add root dir and symlink flags
+- Updated dependencies [df85d7e]
+  - @web/test-runner-dev-server@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes

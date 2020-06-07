@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-dev-server",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "publishConfig": {
     "access": "public"
   },
@@ -21,9 +21,7 @@
     "build": "tsc",
     "test": "echo 'no tests for this package yet'"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "dependencies": {
     "@types/co-body": "^5.1.0",
     "@web/test-runner-core": "^0.2.0",

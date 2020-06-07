@@ -1,5 +1,11 @@
 # @web/test-runner-dev-server
 
+## 0.2.2
+
+### Patch Changes
+
+- df85d7e: resolve file path relative to root dir
+
 ## 0.2.1
 
 ### Patch Changes
