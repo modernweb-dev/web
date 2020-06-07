@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.1.3
+
+### Patch Changes
+
+- ce0798f: report opening debug browser
+- Updated dependencies [ce0798f]
+  - @web/test-runner-core@0.2.1
+
 ## 0.1.2
 
 ### Patch Changes
