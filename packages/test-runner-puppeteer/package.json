@@ -19,16 +19,20 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "echo 'no tests for this package yet'"
+    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter progress",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
   },
   "files": [
     "dist"
   ],
   "dependencies": {
+    "@web/test-runner-chrome": "^0.0.0",
     "@web/test-runner-core": "^0.1.2",
+    "@types/puppeteer": "^3.0.0",
     "puppeteer": "^3.3.0"
   },
   "devDependencies": {
-    "@types/puppeteer": "^3.0.0"
+    "@web/test-runner-dev-server": "^0.2.0",
+    "@web/test-runner-mocha": "^0.1.0"
   }
 }
