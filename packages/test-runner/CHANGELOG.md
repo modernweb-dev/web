@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.2.3
+
+### Patch Changes
+
+- a0b2c81: add puppeteer and playwright flags
+
 ## 0.2.2
 
 ### Patch Changes
