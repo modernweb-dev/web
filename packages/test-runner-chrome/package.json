@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-chrome",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "publishConfig": {
     "access": "public"
   },
@@ -22,16 +22,14 @@
     "test": "mocha test/**/*.test.ts --require ts-node/register --reporter progress",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "dependencies": {
     "@types/puppeteer-core": "^2.0.0",
     "chrome-launcher": "^0.13.3",
     "puppeteer-core": "^3.3.0"
   },
   "devDependencies": {
-    "@web/test-runner-dev-server": "^0.2.0",
+    "@web/test-runner-dev-server": "^0.2.1",
     "@web/test-runner-mocha": "^0.1.0"
   }
 }

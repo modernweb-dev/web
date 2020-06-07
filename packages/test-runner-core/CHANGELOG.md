@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.2.0
+
+### Minor Changes
+
+- 37eb13a: don't wait for browser to close
+
 ## 0.1.2
 
 ### Patch Changes
