@@ -22,6 +22,9 @@
     },
     {
       "path": "./test-runner/tsconfig.json"
+    },
+    {
+      "path": "./test-runner-chrome/tsconfig.json"
     }
   ]
 }
