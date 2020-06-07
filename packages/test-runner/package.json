@@ -27,7 +27,9 @@
     "test:many": "node dist/test-runner.js --root-dir ../.. demo/test/many/**/*.test.js",
     "test:watch": "node dist/test-runner.js --root-dir ../.. demo/**/pass-*.test.js --watch"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@web/test-runner-chrome": "^0.2.0",
     "@web/test-runner-cli": "^0.1.2",
