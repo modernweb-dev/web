@@ -1,5 +1,5 @@
 import * as puppeteerCore from 'puppeteer-core';
-import { Page, Browser, launch as puppeteerCoreLaunch } from 'puppeteer-core';
+import { Page, Browser, LaunchOptions, launch as puppeteerCoreLaunch } from 'puppeteer-core';
 import { Launcher as ChromeLauncher } from 'chrome-launcher';
 import { BrowserLauncher, constants, TestRunnerConfig, TestSession } from '@web/test-runner-core';
 
@@ -24,9 +24,9 @@ export function chromeLauncher({
   let debugBrowser: undefined | Browser = undefined;
 
   const createUrl = (session: TestSession) => `${serverAddress}?${PARAM_SESSION_ID}=${session.id}`;
-  function launchBrowser() {
+  function launchBrowser(options: Partial<LaunchOptions> = {}) {
     if (puppeteer) {
-      return puppeteer.launch({ args });
+      return puppeteer.launch({ ...options, args });
     } else {
       const executablePath = installationPath
         ? installationPath
@@ -40,7 +40,7 @@ export function chromeLauncher({
         );
       }
 
-      return puppeteerCoreLaunch({ executablePath, args });
+      return puppeteerCoreLaunch({ ...options, executablePath, args });
     }
   }
 
@@ -67,7 +67,7 @@ export function chromeLauncher({
       if (debugBrowser?.isConnected()) {
         await debugBrowser.close();
       }
-      debugBrowser = await launchBrowser();
+      debugBrowser = await launchBrowser({ devtools: true });
       const page = await debugBrowser.newPage();
       await page.goto(`${createUrl(session)}&${PARAM_DEBUG}=true`);
     },
