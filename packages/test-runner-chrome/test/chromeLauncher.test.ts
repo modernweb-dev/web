@@ -31,8 +31,8 @@ it('runs tests with chrome', function (done) {
     expect(sessions.length).to.equal(2, 'there should be two test sessions');
     expect(sessions[0].testFile).to.equal('test/fixtures/test-a.test.js', 'test a should be run');
     expect(sessions[1].testFile).to.equal('test/fixtures/test-b.test.js', 'test b should be run');
-    expect(sessions[0].result?.passed).to.equal(true, 'test a should pass');
-    expect(sessions[1].result?.passed).to.equal(true, 'test b should pass');
+    expect(sessions[0].passed).to.equal(true, 'test a should pass');
+    expect(sessions[1].passed).to.equal(true, 'test b should pass');
     done();
   });
 

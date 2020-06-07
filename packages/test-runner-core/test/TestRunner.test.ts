@@ -59,7 +59,7 @@ it('closes test runner for a succesful test', async () => {
   });
 
   const sessions = Array.from(runner.sessions.all());
-  runner.sessions.updateStatus(sessions[0], SESSION_STATUS.FINISHED, { passed: true });
+  runner.sessions.updateStatus({ ...sessions[0], passed: true }, SESSION_STATUS.FINISHED);
 
   expect(browser.stopSession.callCount).to.equal(1, 'browser session is stopped');
   await timeout();
@@ -79,7 +79,7 @@ it('closes test runner for a failed test', async () => {
   });
 
   const sessions = Array.from(runner.sessions.all());
-  runner.sessions.updateStatus(sessions[0], SESSION_STATUS.FINISHED, { passed: false });
+  runner.sessions.updateStatus({ ...sessions[0], passed: false }, SESSION_STATUS.FINISHED);
 
   expect(browser.stopSession.callCount).to.equal(1, 'browser session is stopped');
   await timeout();
