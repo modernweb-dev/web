@@ -26,17 +26,11 @@ export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
 
   return {
     async start({ config, testFiles, sessions, runner }) {
-      const request404sPerSession = new Map<string, Set<string>>();
       const testFrameworkImport = process.env.LOCAL_TESTING
         ? config.testFrameworkImport.replace('web-test-runner', '.')
         : config.testFrameworkImport;
 
       function onRerunSessions(sessionIds: string[]) {
-        for (const id of sessionIds) {
-          // clear stored 404s on reload
-          request404sPerSession.delete(id);
-        }
-
         const sessionsToRerun = sessionIds.map(id => {
           const session = sessions.get(id);
           if (!session) {
@@ -49,12 +43,15 @@ export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
       }
 
       function onRequest404(sessionId: string, url: string) {
-        let request404sForSession = request404sPerSession.get(sessionId);
-        if (!request404sForSession) {
-          request404sForSession = new Set<string>();
-          request404sPerSession.set(sessionId, request404sForSession);
+        const session = sessions.get(sessionId);
+        if (!session) {
+          throw new Error(`Could not find session ${sessionId}`);
         }
-        request404sForSession.add(url);
+
+        const { request404s } = session;
+        if (!request404s.includes(url)) {
+          sessions.update({ ...session, request404s: [...request404s, url] });
+        }
       }
 
       const fileWatcher = chokidar.watch([]);
@@ -118,7 +115,6 @@ export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
                       {
                         ...session,
                         ...result,
-                        request404s: [...(request404sPerSession.get(sessionId) ?? [])],
                       },
                       SESSION_STATUS.FINISHED,
                     );
@@ -130,8 +126,7 @@ export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
               },
 
               dependencyGraphMiddleware({
-                // TODO: Configurable cwd?
-                rootDir: process.cwd(),
+                rootDir,
                 fileWatcher,
                 onRequest404,
                 onRerunSessions,
