@@ -1,5 +1,12 @@
 # @web/test-runner
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [79f9e6b]
+  - @web/test-runner-chrome@0.2.0
+
 ## 0.2.0
 
 ### Minor Changes
