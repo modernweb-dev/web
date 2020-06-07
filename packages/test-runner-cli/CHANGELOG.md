@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.1.4
+
+### Patch Changes
+
+- 988c93c: don't report sessions that never started as succesful
+- Updated dependencies [e30036b]
+  - @web/test-runner-core@0.2.2
+
 ## 0.1.3
 
 ### Patch Changes

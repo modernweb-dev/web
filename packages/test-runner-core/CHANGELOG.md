@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.2.2
+
+### Patch Changes
+
+- e30036b: remove console statement
+
 ## 0.2.1
 
 ### Patch Changes
