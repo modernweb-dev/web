@@ -8,13 +8,17 @@ export function createTestSessions(browserNames: string[], testFiles: string[]):
   // when running each test files in a separate tab, we group tests by file
   for (const testFile of testFiles) {
     const group = testFile;
-    const sessionsForFile = browserNames.map(browserName => ({
+    const sessionsForFile: TestSession[] = browserNames.map(browserName => ({
       id: uuid(),
       testRun: -1,
       group,
       browserName,
       status: SESSION_STATUS.SCHEDULED,
       testFile,
+      tests: [],
+      logs: [],
+      failedImports: [],
+      request404s: [],
     }));
 
     for (const session of sessionsForFile) {
