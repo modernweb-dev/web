@@ -21,7 +21,9 @@
     "build": "tsc",
     "test": "echo 'no tests for this package yet'"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@types/camelcase": "^5.2.0",
     "@types/command-line-args": "^5.0.0",

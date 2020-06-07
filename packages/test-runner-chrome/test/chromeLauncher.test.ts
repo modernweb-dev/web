@@ -4,7 +4,7 @@ import { TestRunnerConfig, TestRunner } from '@web/test-runner-core';
 import { createDevServer } from '@web/test-runner-dev-server';
 import { chromeLauncher } from '../src/chromeLauncher';
 
-it('runs tests with chrome', function(done) {
+it('runs tests with chrome', function (done) {
   this.timeout(50000);
 
   const config: TestRunnerConfig = {

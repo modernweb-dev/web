@@ -26,9 +26,9 @@
     "dist"
   ],
   "dependencies": {
+    "@types/puppeteer": "^3.0.0",
     "@web/test-runner-chrome": "^0.0.0",
     "@web/test-runner-core": "^0.1.2",
-    "@types/puppeteer": "^3.0.0",
     "puppeteer": "^3.3.0"
   },
   "devDependencies": {
