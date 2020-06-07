@@ -120,21 +120,15 @@ export class TestRunner extends EventEmitter<EventMap> {
     }
 
     this.stopped = true;
-    const tasks: Promise<any>[] = [];
-    tasks.push(
-      this.config.server.stop().catch(error => {
-        console.error(error);
-      }),
-    );
+    this.config.server.stop().catch(error => {
+      console.error(error);
+    });
 
     for (const browser of this.browsers) {
-      tasks.push(
-        browser.stop().catch(error => {
-          console.error(error);
-        }),
-      );
+      browser.stop().catch(error => {
+        console.error(error);
+      });
     }
-    await Promise.all(tasks);
   }
 
   startDebugFocusedTestFile() {
