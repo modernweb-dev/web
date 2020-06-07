@@ -1,5 +1,13 @@
 # @web/test-runner-dev-server
 
+## 0.2.3
+
+### Patch Changes
+
+- 5a88530: merge TestSession and TestSessionResult
+- Updated dependencies [5a88530]
+  - @web/test-runner-core@0.2.3
+
 ## 0.2.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-cli",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "publishConfig": {
     "access": "public"
   },
@@ -28,7 +28,7 @@
     "@types/camelcase": "^5.2.0",
     "@types/command-line-args": "^5.0.0",
     "@types/diff": "^4.0.2",
-    "@web/test-runner-core": "^0.2.2",
+    "@web/test-runner-core": "^0.2.3",
     "camelcase": "^6.0.0",
     "chalk": "^4.0.0",
     "cli-cursor": "^3.1.0",
