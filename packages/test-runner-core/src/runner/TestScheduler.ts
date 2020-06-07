@@ -1,8 +1,7 @@
 import { TestSessionManager } from '../test-session/TestSessionManager';
-import { TestSession } from '../test-session/TestSession';
+import { TestSession, TestResultError } from '../test-session/TestSession';
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
-import { TestResultError } from '../test-session/TestSessionResult';
 
 export interface TestSchedulerConfig {
   concurrency?: number;
@@ -73,7 +72,7 @@ export class TestScheduler {
   }
 
   private setSessionFailed(session: TestSession, error: TestResultError) {
-    this.sessions.updateStatus(session, SESSION_STATUS.FINISHED, { passed: false, error });
+    this.sessions.updateStatus({ ...session, passed: false, error }, SESSION_STATUS.FINISHED);
   }
 
   private setSessionStartedTimeout(testRun: number, sessionId: string) {

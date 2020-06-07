@@ -21,8 +21,8 @@ export function getTestCoverage(
   const coverageMap = createCoverageMap();
 
   for (const session of sessions) {
-    if (session.result!.testCoverage) {
-      coverageMap.merge(session.result!.testCoverage);
+    if (session.testCoverage) {
+      coverageMap.merge(session.testCoverage);
     }
   }
 

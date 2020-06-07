@@ -1,6 +1,5 @@
 import { TestSession } from './TestSession';
 import { TestSessionStatus } from './TestSessionStatus';
-import { TestSessionResult } from './TestSessionResult';
 import { EventEmitter } from '../utils/EventEmitter';
 
 interface EventMap {
@@ -23,24 +22,8 @@ export class TestSessionManager extends EventEmitter<EventMap> {
     this.sessionsMap.set(session.id, session);
   }
 
-  updateStatus(
-    session: TestSession,
-    status: TestSessionStatus,
-    result: Partial<TestSessionResult> = {},
-  ) {
-    const updatedSession: TestSession = {
-      ...session,
-      status,
-      result: {
-        passed: false,
-        logs: [],
-        tests: [],
-        failedImports: [],
-        request404s: new Set(),
-        error: undefined,
-        ...result,
-      },
-    };
+  updateStatus(session: TestSession, status: TestSessionStatus) {
+    const updatedSession: TestSession = { ...session, status };
     this.update(updatedSession);
     this.emit('session-status-updated', updatedSession);
   }
@@ -90,10 +73,10 @@ export class TestSessionManager extends EventEmitter<EventMap> {
   }
 
   passed() {
-    return this.filtered(s => s.result?.passed);
+    return this.filtered(s => s.passed);
   }
 
   failed() {
-    return this.filtered(s => !s.result?.passed);
+    return this.filtered(s => !s.passed);
   }
 }
