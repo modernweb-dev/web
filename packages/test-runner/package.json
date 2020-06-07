@@ -24,7 +24,8 @@
   "scripts": {
     "build": "tsc",
     "test": "cd ../../ && ts-node packages/test-runner/src/test-runner.ts packages/test-runner/demo/**/pass-*.test.js",
-    "test:many": "cd ../../ && ts-node packages/test-runner/src/test-runner.ts packages/test-runner/demo/test/many/**/*.test.js"
+    "test:many": "cd ../../ && ts-node packages/test-runner/src/test-runner.ts packages/test-runner/demo/test/many/**/*.test.js",
+    "test:watch": "cd ../../ && ts-node packages/test-runner/src/test-runner.ts packages/test-runner/demo/**/pass-*.test.js --watch"
   },
   "files": [
     "dist"
