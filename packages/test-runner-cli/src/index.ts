@@ -1,1 +1,1 @@
-export { startTestRunner, StartTestrunnerArgs } from './startTestRunner';
+export { startTestRunner, readConfig } from './startTestRunner';

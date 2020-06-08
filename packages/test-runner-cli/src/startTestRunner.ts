@@ -2,7 +2,7 @@ import { getPortPromise } from 'portfinder';
 import { TestRunner, TestRunnerConfig, CoverageConfig } from '@web/test-runner-core';
 import { TestRunnerCli } from './TestRunnerCli';
 import { collectTestFiles } from './config/collectTestFiles';
-import { readFileConfig } from './config/readFileConfig';
+import { readFileConfig } from '../js/readFileConfig';
 import { readCliArgs } from './config/readCliArgs';
 import { OptionDefinition } from 'command-line-args';
 
@@ -19,12 +19,6 @@ const defaultBaseConfig: Partial<TestRunnerConfig> = {
 const defaultCoverageConfig: CoverageConfig = {
   exclude: ['**/node_modules/**/*'],
 };
-
-export interface StartTestrunnerArgs {
-  defaultConfig?: Partial<TestRunnerConfig>;
-  cliOptions?: OptionDefinition[];
-  argv?: string[];
-}
 
 function validateConfig(config: Partial<TestRunnerConfig>): config is TestRunnerConfig {
   if (!Array.isArray(config.files) || config.files.length === 0) {
@@ -49,16 +43,16 @@ function validateConfig(config: Partial<TestRunnerConfig>): config is TestRunner
   return true;
 }
 
-export async function startTestRunner({
-  defaultConfig: customConfig,
-  cliOptions,
-  argv,
-}: StartTestrunnerArgs = {}) {
+export interface ReadConfigArgs {
+  cliOptions?: OptionDefinition[];
+  argv?: string[];
+}
+
+export async function readConfig(args: ReadConfigArgs = {}) {
   const fileConfig = await readFileConfig();
-  const cliArgsConfig = readCliArgs(cliOptions, argv);
+  const { cliArgsConfig, cliArgs } = readCliArgs(args.cliOptions, args.argv);
   const config: Partial<TestRunnerConfig> = {
     ...defaultBaseConfig,
-    ...customConfig,
     ...fileConfig,
     ...cliArgsConfig,
   };
@@ -72,6 +66,10 @@ export async function startTestRunner({
     config.port = await getPortPromise({ port });
   }
 
+  return { cliArgs, config };
+}
+
+export async function startTestRunner(config: Partial<TestRunnerConfig>) {
   if (!validateConfig(config)) {
     throw new Error('Invalid config');
   }

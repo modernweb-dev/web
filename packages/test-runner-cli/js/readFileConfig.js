@@ -1,11 +1,16 @@
-import fs from 'fs';
-import path from 'path';
-import { TestRunnerConfig } from '@web/test-runner-core';
+/**
+ * This file is not TS because we need to preserve the dynamic import statement when compiling to commonjs.
+ * This is needed to support ESM and CJS configs
+ */
+
+/* eslint-disable */
+const fs = require('fs');
+const path = require('path');
 
 const CONFIG_NAME = 'web-test-runner';
 const EXTENSIONS = ['.mjs', '.cjs', '.js'];
 
-export async function readFileConfig(): Promise<Partial<TestRunnerConfig>> {
+async function readFileConfig() {
   // check if node version supports dynamic imports
   const supportsEsm = await (async () => {
     try {
@@ -43,3 +48,5 @@ export async function readFileConfig(): Promise<Partial<TestRunnerConfig>> {
 
   return {};
 }
+
+module.exports = { readFileConfig };
