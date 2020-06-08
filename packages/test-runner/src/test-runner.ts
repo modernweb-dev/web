@@ -1,12 +1,16 @@
 #!/usr/bin/env node
-import { TestRunnerConfig } from '@web/test-runner-core';
-import { startTestRunner } from '@web/test-runner-cli';
+import { TestRunnerConfig as BaseTestRunnerConfig } from '@web/test-runner-core';
+import { readConfig, startTestRunner } from '@web/test-runner-cli';
 import { createDevServer, DevServerConfig } from '@web/test-runner-dev-server';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import commandLineArgs from 'command-line-args';
 import { puppeteerLauncher, playwrightLauncher } from './loadLauncher';
 
-const options: commandLineArgs.OptionDefinition[] = [
+export interface TestRunnerConfig extends BaseTestRunnerConfig {
+  devServer: DevServerConfig;
+}
+
+const cliOptions: commandLineArgs.OptionDefinition[] = [
   {
     name: 'root-dir',
     type: String,
@@ -30,30 +34,36 @@ const options: commandLineArgs.OptionDefinition[] = [
   },
 ];
 
-const args = commandLineArgs(options, { partial: true });
-const devServerConfig: Partial<DevServerConfig> = {};
-let browsers = chromeLauncher();
+(async () => {
+  const result = await readConfig({ cliOptions });
+  const args = result.cliArgs;
+  const partialConfig = result.config as TestRunnerConfig;
 
-if ('root-dir' in args) {
-  devServerConfig.rootDir = args['root-dir'];
-}
+  const devServerConfig: Partial<DevServerConfig> = partialConfig.devServer ?? {};
+  let browsers = chromeLauncher();
 
-if ('preserve-symlinks' in args) {
-  devServerConfig.preserveSymlinks = !!args['preserve-symlinks'];
-}
+  if ('root-dir' in args) {
+    devServerConfig.rootDir = args['root-dir'];
+  }
 
-if (args.puppeteer) {
-  browsers = puppeteerLauncher();
-}
+  if ('preserve-symlinks' in args) {
+    devServerConfig.preserveSymlinks = !!args['preserve-symlinks'];
+  }
 
-if (args.playwright) {
-  browsers = playwrightLauncher(args.browsers ?? ['chromium']);
-}
+  if (args.puppeteer) {
+    browsers = puppeteerLauncher();
+  }
 
-const defaultConfig: Partial<TestRunnerConfig> = {
-  testFrameworkImport: '@web/test-runner-mocha',
-  browsers,
-  server: createDevServer(devServerConfig),
-};
+  if (args.playwright) {
+    browsers = playwrightLauncher(args.browsers ?? ['chromium']);
+  }
 
-startTestRunner({ defaultConfig, argv: args._unknown ?? [] });
+  const config: Partial<TestRunnerConfig> = {
+    ...partialConfig,
+    testFrameworkImport: '@web/test-runner-mocha',
+    browsers,
+    server: createDevServer(devServerConfig),
+  };
+
+  startTestRunner(config);
+})();
