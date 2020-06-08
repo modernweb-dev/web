@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.2.1
+
+### Patch Changes
+
+- 6b06aca: Speed up chrome installation lookup on mac
+
 ## 0.2.0
 
 ### Minor Changes
