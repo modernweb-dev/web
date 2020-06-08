@@ -1,5 +1,11 @@
 # @web/test-runner-dev-server
 
+## 0.2.4
+
+### Patch Changes
+
+- 41489f6: log 404s also when session times out
+
 ## 0.2.3
 
 ### Patch Changes
