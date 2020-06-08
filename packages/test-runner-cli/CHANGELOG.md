@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.1.7
+
+### Patch Changes
+
+- 3467256: add js directory to publish config
+
 ## 0.1.6
 
 ### Patch Changes
