@@ -1,5 +1,11 @@
 # @web/test-runner-dev-server
 
+## 0.2.5
+
+### Patch Changes
+
+- 4ebbe8a: Rerun all sessions when an unknown file changes
+
 ## 0.2.4
 
 ### Patch Changes
