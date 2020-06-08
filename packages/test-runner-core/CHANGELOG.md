@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.2.4
+
+### Patch Changes
+
+- 444ee32: support multiple browser launchers
+
 ## 0.2.3
 
 ### Patch Changes
