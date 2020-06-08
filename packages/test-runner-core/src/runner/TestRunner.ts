@@ -26,15 +26,15 @@ export class TestRunner extends EventEmitter<EventMap> {
   public stopped = false;
   public focusedTestFile: string | undefined;
 
-  private browsers: BrowserLauncher[];
+  private browserLaunchers: BrowserLauncher[];
   private scheduler: TestScheduler;
 
   constructor(config: TestRunnerConfig, testFiles: string[]) {
     super();
     this.config = config;
     this.testFiles = testFiles;
-    this.browsers = Array.isArray(config.browsers) ? config.browsers : [config.browsers];
-    this.scheduler = new TestScheduler(config, this.browsers, this.sessions);
+    this.browserLaunchers = Array.isArray(config.browsers) ? config.browsers : [config.browsers];
+    this.scheduler = new TestScheduler(config, this.sessions);
 
     this.sessions.on('session-status-updated', session => {
       if (session.status === SESSION_STATUS.FINISHED) {
@@ -52,14 +52,22 @@ export class TestRunner extends EventEmitter<EventMap> {
       this.started = true;
       this.startTime = Date.now();
 
+      const browserNamesPerLauncher = new Map<BrowserLauncher, string[]>();
       this.browserNames = [];
 
-      for (const browser of this.browsers) {
-        const names = await browser.start(this.config);
+      for (const launcher of this.browserLaunchers) {
+        const names = await launcher.start(this.config);
         if (!Array.isArray(names) || names.length === 0 || names.some(n => typeof n !== 'string')) {
           throw new Error('Browser start must return an array of strings.');
         }
-        this.browserNames.push(...names);
+
+        for (const name of names) {
+          if (this.browserNames.includes(name)) {
+            throw new Error(`Multiple browser launchers return the same browser name ${name}`);
+          }
+          this.browserNames.push(name);
+        }
+        browserNamesPerLauncher.set(launcher, names);
       }
 
       this.favoriteBrowser =
@@ -68,7 +76,7 @@ export class TestRunner extends EventEmitter<EventMap> {
           return n.includes('chrome') || n.includes('chromium') || n.includes('firefox');
         }) ?? this.browserNames[0];
 
-      const createdSessions = createTestSessions(this.browserNames, this.testFiles);
+      const createdSessions = createTestSessions(browserNamesPerLauncher, this.testFiles);
 
       for (const session of createdSessions) {
         this.sessions.add(session);
@@ -99,11 +107,6 @@ export class TestRunner extends EventEmitter<EventMap> {
       return;
     }
 
-    if (this.browsers.length > 1) {
-      // TODO: only pass sessions to browsers associated with it
-      throw new Error('Multiple browsers are not yet supported');
-    }
-
     try {
       this.testRun += 1;
 
@@ -124,7 +127,7 @@ export class TestRunner extends EventEmitter<EventMap> {
       console.error(error);
     });
 
-    for (const browser of this.browsers) {
+    for (const browser of this.browserLaunchers) {
       browser.stop().catch(error => {
         console.error(error);
       });
@@ -136,10 +139,16 @@ export class TestRunner extends EventEmitter<EventMap> {
       throw new Error('Cannot debug without a focused test file.');
     }
 
+    const startPromises: Promise<void>[] = [];
+
     for (const session of this.sessions.forTestFile(this.focusedTestFile)) {
-      // TODO: select browser for session
-      return this.browsers[0].startDebugSession(session);
+      startPromises.push(
+        session.browserLauncher.startDebugSession(session).catch(error => {
+          console.error(error);
+        }),
+      );
     }
+    return Promise.all(startPromises);
   }
 
   async quit(error?: any) {
@@ -155,10 +164,7 @@ export class TestRunner extends EventEmitter<EventMap> {
 
   private async onSessionFinished(session: TestSession) {
     try {
-      // TODO: find correct browser for session
-      for (const browser of this.browsers) {
-        browser.stopSession(session);
-      }
+      session.browserLauncher.stopSession(session);
 
       this.scheduler.runScheduled(this.testRun).catch(error => {
         this.quit(error);
