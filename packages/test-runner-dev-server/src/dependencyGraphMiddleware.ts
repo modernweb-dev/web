@@ -9,7 +9,7 @@ const { PARAM_SESSION_ID } = constants;
 
 export interface DependencyGraphMiddlewareArgs {
   onRequest404: (sessionId: string, url: string) => void;
-  onRerunSessions: (sessionIds: string[]) => void;
+  onRerunSessions: (sessionIds?: string[]) => void;
   rootDir: string;
   fileWatcher: FSWatcher;
 }
@@ -72,8 +72,13 @@ export function dependencyGraphMiddleware({
       }
     }
 
-    // re run specified sessions
-    onRerunSessions(Array.from(sessionsToRerun));
+    if (sessionsToRerun.size > 0) {
+      // re run specified sessions
+      onRerunSessions(Array.from(sessionsToRerun));
+    } else {
+      // re run alll sessions
+      onRerunSessions();
+    }
 
     pendingChangedFiles = new Set<string>();
   }

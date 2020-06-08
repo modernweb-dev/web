@@ -21,24 +21,21 @@ function createBrowserFilePath(rootDir: string, filePath: string) {
 }
 
 export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
-  const rootDir = devServerConfig.rootDir ?? process.cwd();
+  const rootDir = devServerConfig.rootDir ? path.resolve(devServerConfig.rootDir) : process.cwd();
   let server: net.Server;
 
   return {
     async start({ config, testFiles, sessions, runner }) {
-      const testFrameworkImport = process.env.LOCAL_TESTING
-        ? config.testFrameworkImport.replace('web-test-runner', '.')
-        : config.testFrameworkImport;
-
-      function onRerunSessions(sessionIds: string[]) {
-        const sessionsToRerun = sessionIds.map(id => {
-          const session = sessions.get(id);
-          if (!session) {
-            throw new Error(`Could not find session ${id}`);
-          }
-          return session;
-        });
-
+      function onRerunSessions(sessionIds?: string[]) {
+        const sessionsToRerun = sessionIds
+          ? sessionIds.map(id => {
+              const session = sessions.get(id);
+              if (!session) {
+                throw new Error(`Could not find session ${id}`);
+              }
+              return session;
+            })
+          : sessions.all();
         runner.runTests(sessionsToRerun);
       }
 
@@ -140,7 +137,7 @@ export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
                       type: 'html',
                       body: config.testRunnerHtml
                         ? config.testRunnerHtml(config)
-                        : createTestPage(context, testFrameworkImport),
+                        : createTestPage(context, config.testFrameworkImport),
                     };
                   }
                 },
