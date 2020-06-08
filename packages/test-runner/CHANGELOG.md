@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.2.5
+
+### Patch Changes
+
+- 0e10aa4: Update dependencies
+
 ## 0.2.4
 
 ### Patch Changes
