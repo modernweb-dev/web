@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.1.6
+
+### Patch Changes
+
+- f63ab90: allow configuring dev server from config
+
 ## 0.1.5
 
 ### Patch Changes
