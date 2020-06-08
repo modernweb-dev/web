@@ -1,21 +1,22 @@
 import * as puppeteerCore from 'puppeteer-core';
 import { Page, Browser, LaunchOptions, launch as puppeteerCoreLaunch } from 'puppeteer-core';
-import { Launcher as ChromeLauncher } from 'chrome-launcher';
 import { BrowserLauncher, constants, TestRunnerConfig, TestSession } from '@web/test-runner-core';
+import { findExecutablePath } from './findExecutablePath';
 
 const { PARAM_SESSION_ID, PARAM_DEBUG } = constants;
 
 export interface ChromeLauncherConfig {
-  installationPath?: string;
+  executablePath?: string;
   puppeteer?: typeof puppeteerCore;
   args: string[];
 }
 
 export function chromeLauncher({
-  installationPath,
+  executablePath: customExecutablePath,
   puppeteer,
   args,
 }: Partial<ChromeLauncherConfig> = {}): BrowserLauncher {
+  const executablePath = customExecutablePath ?? findExecutablePath();
   const activePages = new Map<string, Page>();
   const inactivePages: Page[] = [];
   let config: TestRunnerConfig;
@@ -28,18 +29,6 @@ export function chromeLauncher({
     if (puppeteer) {
       return puppeteer.launch({ ...options, args });
     } else {
-      const executablePath = installationPath
-        ? installationPath
-        : ChromeLauncher.getInstallations()[0];
-
-      if (!executablePath) {
-        throw new Error(
-          'Could not automatically find any installation of Chrome. ' +
-            'If it is installed, use the "installationPath" option to set it manually.  ' +
-            'Use @web/test-runner-puppeteer or @web/test-runner-playwright for a bundled browser.',
-        );
-      }
-
       return puppeteerCoreLaunch({ ...options, executablePath, args });
     }
   }
