@@ -22,7 +22,8 @@
     "test": "echo 'no tests for this package yet'"
   },
   "files": [
-    "dist"
+    "dist",
+    "js"
   ],
   "dependencies": {
     "@types/camelcase": "^5.2.0",
