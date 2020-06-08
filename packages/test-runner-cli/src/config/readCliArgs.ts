@@ -1,8 +1,8 @@
 import { TestRunnerConfig } from '@web/test-runner-core';
-import commandLineArgs from 'command-line-args';
+import commandLineArgs, { OptionDefinition } from 'command-line-args';
 import camelCase from 'camelcase';
 
-const defaultCommandLineArgs: commandLineArgs.OptionDefinition[] = [
+const defaultOptions: OptionDefinition[] = [
   {
     name: 'files',
     type: String,
@@ -31,16 +31,24 @@ const defaultCommandLineArgs: commandLineArgs.OptionDefinition[] = [
   },
 ];
 
-export function readCliArgs(
-  extraOptions: commandLineArgs.OptionDefinition[] = [],
-  argv = process.argv,
-): Partial<TestRunnerConfig> {
-  const args = commandLineArgs([...defaultCommandLineArgs, ...extraOptions], { argv });
-  const config: Partial<TestRunnerConfig> = {};
+interface ReturnValue {
+  cliArgs: Record<string, any>;
+  cliArgsConfig: Partial<TestRunnerConfig>;
+}
 
-  for (const [key, value] of Object.entries(args)) {
-    config[camelCase(key) as keyof TestRunnerConfig] = value;
+export function readCliArgs(
+  extraOptions: OptionDefinition[] = [],
+  argv = process.argv,
+): ReturnValue {
+  const cliArgs = commandLineArgs([...defaultOptions, ...extraOptions], { argv });
+  const cliArgsConfig: Partial<TestRunnerConfig> = {};
+
+  for (const [key, value] of Object.entries(cliArgs)) {
+    // the default options can be converted to camelcase directly
+    if (defaultOptions.find(e => e.name === key)) {
+      cliArgsConfig[camelCase(key) as keyof TestRunnerConfig] = value;
+    }
   }
 
-  return config;
+  return { cliArgs, cliArgsConfig };
 }
