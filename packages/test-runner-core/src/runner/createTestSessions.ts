@@ -1,28 +1,32 @@
 import { v4 as uuid } from 'uuid';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
 import { TestSession } from '../test-session/TestSession';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 
-export function createTestSessions(browserNames: string[], testFiles: string[]): TestSession[] {
+export function createTestSessions(
+  browserNamesPerLauncher: Map<BrowserLauncher, string[]>,
+  testFiles: string[],
+): TestSession[] {
   const sessions = [];
 
-  // when running each test files in a separate tab, we group tests by file
   for (const testFile of testFiles) {
-    const group = testFile;
-    const sessionsForFile: TestSession[] = browserNames.map(browserName => ({
-      id: uuid(),
-      testRun: -1,
-      group,
-      browserName,
-      status: SESSION_STATUS.SCHEDULED,
-      testFile,
-      tests: [],
-      logs: [],
-      failedImports: [],
-      request404s: [],
-    }));
+    for (const [browserLauncher, browserNames] of browserNamesPerLauncher) {
+      for (const browserName of browserNames) {
+        const session: TestSession = {
+          id: uuid(),
+          testRun: -1,
+          browserName,
+          browserLauncher,
+          status: SESSION_STATUS.SCHEDULED,
+          testFile,
+          tests: [],
+          logs: [],
+          failedImports: [],
+          request404s: [],
+        };
 
-    for (const session of sessionsForFile) {
-      sessions.push(session);
+        sessions.push(session);
+      }
     }
   }
 
