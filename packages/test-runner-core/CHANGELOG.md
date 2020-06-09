@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.2.5
+
+### Patch Changes
+
+- 115442b: add readme, package tags and description
+
 ## 0.2.4
 
 ### Patch Changes

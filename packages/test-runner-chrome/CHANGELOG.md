@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.2.2
+
+### Patch Changes
+
+- 115442b: add readme, package tags and description
+
 ## 0.2.1
 
 ### Patch Changes

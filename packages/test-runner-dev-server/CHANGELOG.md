@@ -1,5 +1,13 @@
 # @web/test-runner-dev-server
 
+## 0.2.6
+
+### Patch Changes
+
+- 115442b: add readme, package tags and description
+- Updated dependencies [115442b]
+  - @web/test-runner-core@0.2.5
+
 ## 0.2.5
 
 ### Patch Changes

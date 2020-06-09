@@ -1,17 +1,10 @@
 {
   "name": "@web/test-runner-core",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "publishConfig": {
     "access": "public"
   },
   "description": "Web test runner core",
-  "keywords": [
-    "web",
-    "test",
-    "runner",
-    "testrunner",
-    "core"
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -31,6 +24,13 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "core"
   ],
   "dependencies": {
     "istanbul-lib-coverage": "^3.0.0",

@@ -1,19 +1,10 @@
 {
   "name": "@web/test-runner-cli",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "publishConfig": {
     "access": "public"
   },
   "description": "CLI for Web Test Runner",
-  "keywords": [
-    "web",
-    "test",
-    "runner",
-    "testrunner",
-    "terminal",
-    "console",
-    "CLI"
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -34,11 +25,20 @@
     "dist",
     "js"
   ],
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "terminal",
+    "console",
+    "CLI"
+  ],
   "dependencies": {
     "@types/camelcase": "^5.2.0",
     "@types/command-line-args": "^5.0.0",
     "@types/diff": "^4.0.2",
-    "@web/test-runner-core": "^0.2.3",
+    "@web/test-runner-core": "^0.2.5",
     "camelcase": "^6.0.0",
     "chalk": "^4.0.0",
     "cli-cursor": "^3.1.0",

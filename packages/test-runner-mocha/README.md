@@ -43,11 +43,7 @@ import '../my-element.js';
 
 describe('my-element', () => {
   it('should render properly', async () => {
-    const element = await fixture(
-      html`
-        <my-element></my-element>
-      `,
-    );
+    const element = await fixture(html` <my-element></my-element> `);
     expect(element.localName).to.equal('my-element');
   });
 });

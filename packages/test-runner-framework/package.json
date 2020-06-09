@@ -1,17 +1,10 @@
 {
   "name": "@web/test-runner-framework",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "access": "public"
   },
   "description": "Test framework for Web Test Runner",
-  "keywords": [
-    "web",
-    "test",
-    "runner",
-    "testrunner",
-    "framework"
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -30,5 +23,12 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "framework"
   ]
 }

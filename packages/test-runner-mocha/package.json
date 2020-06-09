@@ -1,18 +1,10 @@
 {
   "name": "@web/test-runner-mocha",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "access": "public"
   },
   "description": "Mocha test framework for Web Test Runner",
-  "keywords": [
-    "web",
-    "test",
-    "runner",
-    "testrunner",
-    "mocha",
-    "framework"
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -32,8 +24,16 @@
   "files": [
     "dist"
   ],
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "mocha",
+    "framework"
+  ],
   "dependencies": {
-    "@web/test-runner-framework": "^0.1.0",
+    "@web/test-runner-framework": "^0.1.1",
     "mocha": "^7.2.0"
   }
 }

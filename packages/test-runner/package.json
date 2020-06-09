@@ -1,19 +1,10 @@
 {
   "name": "@web/test-runner",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "publishConfig": {
     "access": "public"
   },
   "description": "Test runner for web applications",
-  "keywords": [
-    "web",
-    "test",
-    "runner",
-    "testrunner",
-    "default",
-    "implementation",
-    "cli"
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -41,12 +32,21 @@
   "files": [
     "dist"
   ],
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "default",
+    "implementation",
+    "cli"
+  ],
   "dependencies": {
-    "@web/test-runner-chrome": "^0.2.1",
-    "@web/test-runner-cli": "^0.1.7",
-    "@web/test-runner-core": "^0.2.3",
-    "@web/test-runner-dev-server": "^0.2.5",
-    "@web/test-runner-mocha": "^0.1.0",
+    "@web/test-runner-chrome": "^0.2.2",
+    "@web/test-runner-cli": "^0.1.8",
+    "@web/test-runner-core": "^0.2.5",
+    "@web/test-runner-dev-server": "^0.2.6",
+    "@web/test-runner-mocha": "^0.1.1",
     "command-line-args": "^5.1.1"
   }
 }

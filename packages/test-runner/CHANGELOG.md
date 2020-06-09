@@ -1,5 +1,17 @@
 # @web/test-runner
 
+## 0.2.6
+
+### Patch Changes
+
+- 115442b: add readme, package tags and description
+- Updated dependencies [115442b]
+  - @web/test-runner-chrome@0.2.2
+  - @web/test-runner-cli@0.1.8
+  - @web/test-runner-core@0.2.5
+  - @web/test-runner-dev-server@0.2.6
+  - @web/test-runner-mocha@0.1.1
+
 ## 0.2.5
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.1.8
+
+### Patch Changes
+
+- 115442b: add readme, package tags and description
+- Updated dependencies [115442b]
+  - @web/test-runner-core@0.2.5
+
 ## 0.1.7
 
 ### Patch Changes
