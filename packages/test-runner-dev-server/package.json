@@ -4,7 +4,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Modern web test runner: dev-server",
+  "description": "Dev server for Web Test Runner",
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "dev",
+    "server"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

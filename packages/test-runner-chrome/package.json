@@ -4,7 +4,16 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Modern web test runner: chrome",
+  "description": "Chrome browser launcher for Web Test Runner",
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "chrome",
+    "browser",
+    "launcher"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

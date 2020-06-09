@@ -4,7 +4,16 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Modern web test runner: puppeteer",
+  "description": "Puppeteer browser launcher for Web Test Runner",
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "puppeteer",
+    "browser",
+    "launcher"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
