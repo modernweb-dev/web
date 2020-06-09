@@ -4,7 +4,14 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Modern web test runner: framework",
+  "description": "Test framework for Web Test Runner",
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "framework"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

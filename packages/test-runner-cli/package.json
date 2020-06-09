@@ -4,7 +4,16 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Modern web test runner: cli",
+  "description": "CLI for Web Test Runner",
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "terminal",
+    "console",
+    "CLI"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
