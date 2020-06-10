@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.1.10
+
+### Patch Changes
+
+- 44acd58: don't throw when there is no config in node 10
+
 ## 0.1.9
 
 ### Patch Changes
