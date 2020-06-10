@@ -24,7 +24,7 @@ async function readFileConfig() {
   const configFileName = path.join(process.cwd(), `${CONFIG_NAME}.config`);
 
   if (!supportsEsm) {
-    const resolvedPath = require.resolve(configFileName);
+    const resolvedPath = path.resolve(configFileName);
     // node version doesn't support ESM, load it as cjs
     return fs.existsSync(resolvedPath) ? require(resolvedPath) : {};
   }
