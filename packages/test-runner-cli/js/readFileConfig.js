@@ -24,9 +24,13 @@ async function readFileConfig() {
   const configFileName = path.join(process.cwd(), `${CONFIG_NAME}.config`);
 
   if (!supportsEsm) {
-    const resolvedPath = path.resolve(configFileName);
-    // node version doesn't support ESM, load it as cjs
-    return fs.existsSync(resolvedPath) ? require(resolvedPath) : {};
+    try {
+      // node version doesn't support ESM, load it as cjs
+      return require(configFileName);
+    } catch {
+      // no config found
+      return {};
+    }
   }
 
   // load config using dynamic import, resolving .mjs over .cjs over .js.
