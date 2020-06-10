@@ -18,6 +18,14 @@ const defaultBaseConfig: Partial<TestRunnerConfig> = {
 
 const defaultCoverageConfig: CoverageConfig = {
   exclude: ['**/node_modules/**/*'],
+  threshold: {
+    statements: 60,
+    functions: 60,
+    branches: 60,
+    lines: 60,
+  },
+  report: true,
+  reportDir: 'coverage',
 };
 
 function validateConfig(config: Partial<TestRunnerConfig>): config is TestRunnerConfig {
