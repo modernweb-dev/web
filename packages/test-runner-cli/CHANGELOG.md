@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.1.11
+
+### Patch Changes
+
+- 3d35527: fix config loading on node 10 and 12
+
 ## 0.1.10
 
 ### Patch Changes
