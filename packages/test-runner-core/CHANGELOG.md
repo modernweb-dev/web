@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.2.6
+
+### Patch Changes
+
+- 4d0d854: write test coverage details
+
 ## 0.2.5
 
 ### Patch Changes

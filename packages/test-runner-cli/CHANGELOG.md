@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.1.9
+
+### Patch Changes
+
+- 4d0d854: write test coverage details
+- Updated dependencies [4d0d854]
+  - @web/test-runner-core@0.2.6
+
 ## 0.1.8
 
 ### Patch Changes
