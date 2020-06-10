@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.2.7
+
+### Patch Changes
+
+- ccce5e1: add babel plugin
+- Updated dependencies [ccce5e1]
+  - @web/test-runner-dev-server@0.2.7
+
 ## 0.2.6
 
 ### Patch Changes
