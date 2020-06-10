@@ -6,12 +6,15 @@ import {
   SESSION_STATUS,
 } from '@web/test-runner-core';
 import chalk from 'chalk';
+import path from 'path';
+import openBrowser from 'open';
 import { getTestProgressReport } from './messages/getTestProgress';
 import { Terminal, TerminalEntry } from './Terminal';
 import { getTestFileReport } from './messages/getTestFileReport';
 import { getTestCoverage } from './messages/getTestCoverage';
 import { getWatchCommands } from './messages/getWatchCommands';
 import { getSelectFilesMenu } from './messages/getSelectFilesMenu';
+import { writeCoverageReport } from './messages/writeCoverageReport';
 
 export type MenuType = 'overview' | 'focus' | 'debug';
 
@@ -96,6 +99,13 @@ export class TestRunnerCli {
         case 'F':
           if (this.activeMenu === MENUS.OVERVIEW) {
             this.switchMenu(MENUS.FOCUS_SELECT_FILE);
+          }
+          return;
+        case 'C':
+          if (typeof this.config.coverage === 'object') {
+            openBrowser(
+              `file://${path.resolve(this.config.coverage.reportDir, 'lcov-report', 'index.html')}`,
+            );
           }
           return;
         case KEYCODES.ESCAPE:
@@ -211,9 +221,14 @@ export class TestRunnerCli {
   }
 
   private logTestCoverage(testCoverage: TestCoverage) {
-    const threshold =
-      typeof this.config.coverage === 'object' ? this.config.coverage.threshold : undefined;
-    this.terminal.logStatic(getTestCoverage(testCoverage, threshold));
+    if (typeof this.config.coverage !== 'object') {
+      throw new Error('Coverage config is not an object.');
+    }
+
+    this.terminal.logStatic(
+      getTestCoverage(testCoverage, !!this.config.watch, this.config.coverage),
+    );
+    writeCoverageReport(testCoverage, this.config.coverage);
   }
 
   private switchMenu(menu: MenuType) {
@@ -300,7 +315,7 @@ export class TestRunnerCli {
     }
 
     if (this.config.watch) {
-      entries.push(...getWatchCommands(this.activeMenu, this.runner.focusedTestFile), '');
+      entries.push(...getWatchCommands(!!this.config.coverage, this.runner.focusedTestFile), '');
     }
 
     if (logStatic) {

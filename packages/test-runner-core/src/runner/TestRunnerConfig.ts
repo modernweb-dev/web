@@ -12,6 +12,8 @@ export interface CoverageConfig {
   include?: string[];
   exclude?: string[];
   threshold?: CoverageThresholdConfig;
+  report: boolean;
+  reportDir: string;
 }
 
 export interface TestRunnerConfig {

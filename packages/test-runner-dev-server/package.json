@@ -35,6 +35,7 @@
   "dependencies": {
     "@types/co-body": "^5.1.0",
     "@web/test-runner-core": "^0.2.5",
+    "babel-plugin-istanbul": "^6.0.0",
     "co-body": "^6.0.0",
     "deepmerge": "^4.2.2",
     "dependency-graph": "^0.9.0",
