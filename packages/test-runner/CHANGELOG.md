@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.2.9
+
+### Patch Changes
+
+- 61afea4: improve speed when test coverage is enabled
+- Updated dependencies [61afea4]
+  - @web/test-runner-dev-server@0.2.8
+
 ## 0.2.8
 
 ### Patch Changes
