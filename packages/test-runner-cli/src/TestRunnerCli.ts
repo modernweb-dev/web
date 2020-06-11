@@ -40,6 +40,7 @@ export class TestRunnerCli {
   private menuSucceededFiles: string[] = [];
   private menuFailedFiles: string[] = [];
   private openingDebugBrowser = false;
+  private testCoverage?: TestCoverage;
 
   constructor(private config: TestRunnerConfig, private runner: TestRunner) {
     this.sessions = runner.sessions;
@@ -113,6 +114,9 @@ export class TestRunnerCli {
             this.runner.focusedTestFile = undefined;
             this.logTestResults(true);
             this.logTestProgress();
+            if (this.testCoverage) {
+              this.logTestCoverage(this.testCoverage);
+            }
           }
           return;
         case KEYCODES.ENTER:
@@ -153,7 +157,8 @@ export class TestRunnerCli {
         return;
       }
 
-      if (testCoverage) {
+      this.testCoverage = testCoverage;
+      if (testCoverage && !this.runner.focusedTestFile) {
         this.logTestCoverage(testCoverage);
       }
     });
