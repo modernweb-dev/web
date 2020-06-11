@@ -4,4 +4,4 @@ CLI for use Web Test Runner. Reads command line args, configuration files, repor
 
 Documentation for this package is not yet finished.
 
-See [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner) for a default implementation.
+See [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner) for a default implementation and CLI for the test runner.

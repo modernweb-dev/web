@@ -4,17 +4,17 @@
 
 A test runner for web applications.
 
-👉&nbsp; Headless browsers with puppeteer, playwright, or selenium.
+👉&nbsp;&nbsp; Headless browsers with puppeteer, playwright, or selenium.
 \
-🚧&nbsp; Reports logs, 404s, and errors from the browser.
+🚧&nbsp;&nbsp; Reports logs, 404s, and errors from the browser.
 \
-📦&nbsp; Supports native es modules.
+📦&nbsp;&nbsp; Supports native es modules.
 \
-🔧&nbsp; Runs tests in parallel and in isolation.
+🔧&nbsp;&nbsp; Runs tests in parallel and in isolation.
 \
-👀&nbsp; Interactive watch mode.
+👀&nbsp;&nbsp; Interactive watch mode.
 \
-🏃&nbsp; Reruns only changed tests.
+🏃&nbsp;&nbsp; Reruns only changed tests.
 
 ## Getting started
 
@@ -73,6 +73,20 @@ npm i -D @web/test-runner-playwright
 # add the flag
 wtr test/**/*.test.js --playwright --browsers chromium firefox webkit
 ```
+
+## Commands
+
+| name        | type         | description                                                                                 |
+| ----------- | ------------ | ------------------------------------------------------------------------------------------- |
+| files       | string       | test files glob. this is the default option, so you do not need to specify it.              |
+| watch       | boolean      | runs in watch mode                                                                          |
+| coverage    | boolean      | whether to analyze test coverage                                                            |
+| puppeteer   | boolean      | whether to run tests with @web/test-runner-puppeteer                                        |
+| playwright  | boolean      | whether to run tests with @web/test-runner-playwright                                       |
+| browsers    | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit |
+| config      | config       | where to read the config from                                                               |
+| concurrency | number       | amount of test files to run concurrently                                                    |
+| config      | config       | where to read the config from                                                               |
 
 ## Configuration
 
@@ -161,6 +175,6 @@ es-dev-server has an extensive configuration and plugin system, check out the do
 
 ## Advanced customization
 
-This package is opinionated, and implements defaults so that people can get started without much configuration.
+This package is the opinionated default implementation of the test runner, so that people can get started without much configuration.
 
 For more advanced configuration you can use the individual packages this project is based on. See [@web/test-runner-core](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-core) and [@web/test-runner-cli](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-core) to learn more about that.

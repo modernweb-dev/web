@@ -4,4 +4,4 @@ Browser launcher for `@web/test-runner`. Looks for a locally installed instance 
 
 If you don't want to install Chrome globally, for example in a CI environment, you can use [@web/test-runner-puppeeteer](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer) or [@web/test-runner-playwright](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-playwright)
 
-See [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner) for a default implementation.
+See [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner) for a default implementation and CLI for the test runner.

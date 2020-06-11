@@ -51,16 +51,6 @@ export function chromeLauncher({
         await debugBrowser.close();
       }
     },
-
-    async startDebugSession(session) {
-      if (debugBrowser?.isConnected()) {
-        await debugBrowser.close();
-      }
-      debugBrowser = await launchBrowser({ devtools: true });
-      const page = await debugBrowser.newPage();
-      await page.goto(`${createUrl(session)}&${PARAM_DEBUG}=true`);
-    },
-
     async startSession(session) {
       if (!browser.isConnected()) {
         throw new Error('Browser is closed');
@@ -83,6 +73,15 @@ export function chromeLauncher({
         activePages.delete(session.id);
         inactivePages.push(page);
       }
+    },
+
+    async startDebugSession(session) {
+      if (debugBrowser?.isConnected()) {
+        await debugBrowser.close();
+      }
+      debugBrowser = await launchBrowser({ devtools: true });
+      const page = await debugBrowser.newPage();
+      await page.goto(`${createUrl(session)}&${PARAM_DEBUG}=true`);
     },
   };
 }
