@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.2.10
+
+### Patch Changes
+
+- ed7b8db: add assets to published files
+- Updated dependencies [ed7b8db]
+  - @web/test-runner-mocha@0.1.2
+
 ## 0.2.9
 
 ### Patch Changes
