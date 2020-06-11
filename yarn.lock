@@ -2713,10 +2713,10 @@ es-abstract@^1.17.0-next.1, es-abstract@^1.17.5:
     string.prototype.trimleft "^2.1.1"
     string.prototype.trimright "^2.1.1"
 
-es-dev-server@^1.54.1:
-  version "1.54.1"
-  resolved "https://registry.yarnpkg.com/es-dev-server/-/es-dev-server-1.54.1.tgz#4378ab5c4c511a5d5495e3276786014fc4d6b450"
-  integrity sha512-fHjHcXtT7XLZurLQhWZVNKHWJ3Nm+EC/H87ajmbxoIcawdayioMJmeigvQmh7JJSpleENe7YS+05n5abJwOIgg==
+es-dev-server@^1.55.0:
+  version "1.55.0"
+  resolved "https://registry.yarnpkg.com/es-dev-server/-/es-dev-server-1.55.0.tgz#c378990096a0f5c6bd41054a5405d8ffd7c38fa3"
+  integrity sha512-D4be5MVGBDw2/OO79xCTw1qqMbttao8SovhRelhUQ7+dFaInF/dC+so6vJKuuTFvVRpSVXF320F/0rMJ8R5FcA==
   dependencies:
     "@babel/core" "^7.9.0"
     "@babel/plugin-proposal-dynamic-import" "^7.8.3"

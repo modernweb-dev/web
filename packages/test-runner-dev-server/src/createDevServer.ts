@@ -51,6 +51,21 @@ export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
         }
       }
 
+      const hasCustomBabelConfig = devServerConfig.babel || devServerConfig.babelConfig;
+      let coverageExclude: string[] | undefined = undefined;
+      let coverageInclude: string[] | undefined = undefined;
+      if (config.coverage) {
+        if (typeof config.coverage === 'object') {
+          coverageExclude = [
+            ...testFiles.map(t => path.resolve(t)),
+            ...(config.coverage.exclude ?? []),
+          ];
+          coverageInclude = config.coverage.include;
+        } else {
+          coverageExclude = testFiles.map(t => path.resolve(t));
+        }
+      }
+
       const fileWatcher = chokidar.watch([]);
       const serverConfig = createConfig(
         deepmerge(
@@ -59,21 +74,21 @@ export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
             nodeResolve: true,
             logStartup: false,
             logCompileErrors: false,
+
+            // add babel plugin for test coverage
             babelConfig: config.coverage
               ? {
                   plugins: [
-                    [
-                      require.resolve('babel-plugin-istanbul'),
-                      {
-                        exclude:
-                          typeof config.coverage === 'boolean'
-                            ? [testFiles]
-                            : [...testFiles, ...(config.coverage.exclude ?? [])],
-                      },
-                    ],
+                    [require.resolve('babel-plugin-istanbul'), { exclude: coverageExclude }],
                   ],
                 }
               : undefined,
+
+            // only transform test coverage file if user did not also add a babel plugin
+            // this improves speed a lot
+            customBabelInclude: !hasCustomBabelConfig ? coverageInclude : undefined,
+            customBabelExclude: !hasCustomBabelConfig ? coverageExclude : undefined,
+
             middlewares: [
               async function middleware(ctx: Context, next: Next) {
                 if (ctx.path.startsWith('/wtr/')) {
