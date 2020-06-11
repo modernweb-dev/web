@@ -49,12 +49,12 @@ export function captureConsoleOutput() {
 
 export function logUncaughtErrors() {
   window.addEventListener('error', e => {
-    console.error(`Uncaught error: ${e.error.stack}`);
+    console.error(`Uncaught error: ${e?.error?.stack ?? e?.error}`);
   });
 
   window.addEventListener('unhandledrejection', e => {
     e.promise.catch(error => {
-      console.error(`Unhandled rejection: ${error.stack}`);
+      console.error(`Unhandled rejection: ${error?.stack ?? error}`);
     });
   });
 }
@@ -66,13 +66,13 @@ export async function getConfig(): Promise<RuntimeConfig & { debug: boolean }> {
       ...(await response.json()),
       debug,
     };
-  } catch (error) {
-    await error({ message: 'Failed to fetch session config', stack: error.stack });
-    throw error;
+  } catch (err) {
+    await sessionError({ message: 'Failed to fetch session config', stack: err?.stack });
+    throw err;
   }
 }
 
-export function error(error: TestResultError) {
+export function sessionError(error: TestResultError) {
   return sessionFinished({
     passed: false,
     error,
