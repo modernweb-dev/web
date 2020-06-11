@@ -1,12 +1,16 @@
 # Test Runner Framework
 
-Package used by test frameworks to communicate with the test runner. You could use this package directly from the browser, or use it to implement your own test framework.
+Browser library to communicate with the test runner.
 
 See [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner) for a default implementation and CLI for the test runner.
 
 ## Usage
 
-This package is a browser library that can be used to signal to the test runner. This is a simple example implementation:
+For a simple setup, you can use this library directly in your project and avoid using a testing framework.
+
+You can also use this as a wrapper around an existing testing framework, and kick off the test execution and report the results back. See [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha) as an example of that.
+
+This is a simple example implementation:
 
 ```js
 import {
