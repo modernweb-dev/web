@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.2.12
+
+### Patch Changes
+
+- b1ff44a: don't log coverage in focus mode
+- Updated dependencies [b1ff44a]
+  - @web/test-runner-cli@0.1.12
+
 ## 0.2.11
 
 ### Patch Changes

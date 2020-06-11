@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.1.12
+
+### Patch Changes
+
+- b1ff44a: don't log coverage in focus mode
+
 ## 0.1.11
 
 ### Patch Changes
