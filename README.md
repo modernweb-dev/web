@@ -2,6 +2,10 @@
 
 Modern Web, also known as `@web` on npm, is a collection of modern web development tools.
 
+## Packages
+
+- [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner)
+
 ## Guiding Principles
 
 ### Low barrier to entry
