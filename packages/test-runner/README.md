@@ -78,7 +78,7 @@ wtr test/**/*.test.js --playwright --browsers chromium firefox webkit
 
 Web test runner looks for a configuration file in the current working directory called `web-test-runner.config`.
 
-The file extension can be `.js`, `.cjs` or `.mjs`. A `.js` file will be loaded as an es module or common js module based on the node js package type of your project.
+The file extension can be `.js`, `.cjs` or `.mjs`. A `.js` file will be loaded as an es module or common js module based on your version of node, and the package type of your project.
 
 <details>
 <summary>View example</summary>
