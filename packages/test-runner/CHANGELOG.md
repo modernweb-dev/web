@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.2.11
+
+### Patch Changes
+
+- 7a7967f: handle non-object errors
+
 ## 0.2.10
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/test-runner-framework
 
+## 0.1.2
+
+### Patch Changes
+
+- 7a7967f: handle non-object errors
+
 ## 0.1.1
 
 ### Patch Changes
