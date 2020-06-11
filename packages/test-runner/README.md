@@ -4,15 +4,17 @@
 
 A test runner for web applications.
 
-👉 Headless testing on real browsers with puppeteer, playwright, or selenium.
+👉&nbsp; Headless browsers with puppeteer, playwright, or selenium.
 \
-🔧 Write tests and configuration using native es modules.
+🚧&nbsp; Reports logs, 404s, and errors from the browser.
 \
-🔍 Runs tests in parallel and isolation
+📦&nbsp; Supports native es modules.
 \
-👀 Interactive watch mode, rerunning only changed tests.
+🔧&nbsp; Runs tests in parallel and in isolation.
 \
-🚧 Reports logs, 404s, and errors that happen in the browser.
+👀&nbsp; Interactive watch mode.
+\
+🏃&nbsp; Reruns only changed tests.
 
 ## Getting started
 
