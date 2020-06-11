@@ -22,6 +22,7 @@
     "test": "echo 'no tests for this package yet'"
   },
   "files": [
+    "assets",
     "dist"
   ],
   "keywords": [
