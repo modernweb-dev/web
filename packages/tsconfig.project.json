@@ -3,7 +3,7 @@
   "files": [],
   "references": [
     {
-      "path": "./test-runner-framework/tsconfig.json"
+      "path": "./test-runner-browser-lib/tsconfig.json"
     },
     {
       "path": "./test-runner-core/tsconfig.json"

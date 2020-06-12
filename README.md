@@ -27,7 +27,7 @@ The main package for the test runner is [@web/test-runner](https://github.com/mo
 
 - [@web/test-runner-core](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-core)
 - [@web/test-runner-cli](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-cli)
-- [@web/test-runner-framework](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-framework)
+- [@web/test-runner-browser-lib](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browser-lib)
 
 ### Browser launchers
 

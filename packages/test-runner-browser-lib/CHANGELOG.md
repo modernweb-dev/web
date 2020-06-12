@@ -1,4 +1,4 @@
-# @web/test-runner-framework
+# @web/test-runner-browser-lib
 
 ## 0.1.2
 
