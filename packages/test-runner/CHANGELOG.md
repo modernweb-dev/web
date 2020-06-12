@@ -1,5 +1,20 @@
 # @web/test-runner
 
+## 0.5.0
+
+### Minor Changes
+
+- 1d277e9: rename framework to browser-lib
+
+### Patch Changes
+
+- Updated dependencies [1d277e9]
+  - @web/test-runner-chrome@0.4.0
+  - @web/test-runner-core@0.5.0
+  - @web/test-runner-mocha@0.2.0
+  - @web/test-runner-cli@0.3.1
+  - @web/test-runner-server@0.4.1
+
 ## 0.4.0
 
 ### Minor Changes

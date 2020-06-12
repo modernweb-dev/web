@@ -1,5 +1,16 @@
 # @web/test-runner-playwright
 
+## 0.3.0
+
+### Minor Changes
+
+- 1d277e9: rename framework to browser-lib
+
+### Patch Changes
+
+- Updated dependencies [1d277e9]
+  - @web/test-runner-core@0.5.0
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @web/test-runner-puppeteer
 
+## 0.4.0
+
+### Minor Changes
+
+- 1d277e9: rename framework to browser-lib
+
+### Patch Changes
+
+- Updated dependencies [1d277e9]
+  - @web/test-runner-chrome@0.4.0
+  - @web/test-runner-core@0.5.0
+
 ## 0.3.0
 
 ### Minor Changes

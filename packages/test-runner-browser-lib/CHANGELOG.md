@@ -1,5 +1,11 @@
 # @web/test-runner-browser-lib
 
+## 0.2.0
+
+### Minor Changes
+
+- 1d277e9: rename framework to browser-lib
+
 ## 0.1.2
 
 ### Patch Changes

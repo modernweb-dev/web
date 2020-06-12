@@ -1,5 +1,12 @@
 # @web/test-runner-cli
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [1d277e9]
+  - @web/test-runner-core@0.5.0
+
 ## 0.3.0
 
 ### Minor Changes

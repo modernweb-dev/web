@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.5.0
+
+### Minor Changes
+
+- 1d277e9: rename framework to browser-lib
+
 ## 0.4.0
 
 ### Minor Changes
