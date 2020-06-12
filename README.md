@@ -1,5 +1,3 @@
-# Web
-
 <p align="center"><img src="./assets/logo.png" width="60%"/></p>
 
 <h3 align="center">Developer tools for modern web development.</h3>
