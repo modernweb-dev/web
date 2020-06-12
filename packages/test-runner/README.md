@@ -101,13 +101,8 @@ The file extension can be `.js`, `.cjs` or `.mjs`. A `.js` file will be loaded a
 export default {
   concurrency: 10,
   watch: true,
-  coverage: {
-    threshold: {
-      statements: 70,
-      branches: 70,
-      functions: 70,
-      lines: 70,
-    },
+  devServer: {
+    rootDir: '../../',
   },
 };
 ```
@@ -129,6 +124,8 @@ export interface CoverageConfig {
   include?: string[];
   exclude?: string[];
   threshold?: CoverageThresholdConfig;
+  report: boolean;
+  reportDir: string;
 }
 
 export interface TestRunnerConfig {
@@ -141,7 +138,8 @@ export interface TestRunnerConfig {
   port: number;
   testRunnerHtml?: (config: TestRunnerConfig) => string;
   watch?: boolean;
-  coverage?: boolean | CoverageConfig;
+  coverage?: boolean;
+  coverageConfig?: CoverageConfig;
   concurrency?: number;
   browserStartTimeout?: number;
   sessionStartTimeout?: number;
@@ -152,7 +150,37 @@ export interface TestRunnerConfig {
 
 </details>
 
-### Server and code transformation
+## Test coverage
+
+You can run tests with test coverage using the `--coverage` flag:
+
+```bash
+wtr test/**/*.test.js --coverage
+```
+
+In the config you can define test coverage thresholds, the test run fails if you drop below this level. You can also configure where and if the detailed test report is written to disk.
+
+<details>
+<summary>View example</summary>
+
+```js
+export default {
+  coverageConfig: {
+    report: true,
+    reportDir: 'test-coverage',
+    threshold: {
+      statements: 70,
+      branches: 70,
+      functions: 70,
+      lines: 70,
+    },
+  },
+};
+```
+
+</details>
+
+## Server and code transformation
 
 This package uses [@web/test-runner-dev-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-dev-server). You can configure the dev server from the config:
 

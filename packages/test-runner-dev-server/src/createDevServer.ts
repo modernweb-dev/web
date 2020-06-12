@@ -55,15 +55,11 @@ export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
       let coverageExclude: string[] | undefined = undefined;
       let coverageInclude: string[] | undefined = undefined;
       if (config.coverage) {
-        if (typeof config.coverage === 'object') {
-          coverageExclude = [
-            ...testFiles.map(t => path.resolve(t)),
-            ...(config.coverage.exclude ?? []),
-          ];
-          coverageInclude = config.coverage.include;
-        } else {
-          coverageExclude = testFiles.map(t => path.resolve(t));
-        }
+        coverageExclude = [
+          ...testFiles.map(t => path.resolve(t)),
+          ...(config.coverageConfig!.exclude ?? []),
+        ];
+        coverageInclude = config.coverageConfig!.include;
       }
 
       const fileWatcher = chokidar.watch([]);
