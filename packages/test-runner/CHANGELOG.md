@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.5.1
+
+### Patch Changes
+
+- 01fac81: always use a random port
+- Updated dependencies [01fac81]
+  - @web/test-runner-cli@0.3.2
+
 ## 0.5.0
 
 ### Minor Changes

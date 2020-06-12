@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.3.2
+
+### Patch Changes
+
+- 01fac81: always use a random port
+
 ## 0.3.1
 
 ### Patch Changes

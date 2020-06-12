@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "publishConfig": {
     "access": "public"
   },
@@ -43,7 +43,7 @@
   ],
   "dependencies": {
     "@web/test-runner-chrome": "^0.4.0",
-    "@web/test-runner-cli": "^0.3.1",
+    "@web/test-runner-cli": "^0.3.2",
     "@web/test-runner-core": "^0.5.0",
     "@web/test-runner-mocha": "^0.2.0",
     "@web/test-runner-server": "^0.4.1",
