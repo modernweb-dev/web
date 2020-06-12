@@ -1,6 +1,8 @@
 # Web
 
-Modern Web, also known as `@web` on npm, is a collection of modern web development tools.
+<p align="center"><img src="./assets/logo.png" width="60%"/></p>
+
+<h2 align="center">Developer tools for web development with a low barrier to entry and close to the platform.</h2>
 
 ## Guiding Principles
 
@@ -16,6 +18,10 @@ Both from a speed and size perspective, we focus on tooling that helps create pe
 
 Following platform will ensure that your knowledge and skills learnt, remain relevant over time. Frameworks may come and go, but the platform stays.
 This means that we value platform solutions over tooling that goes into the opposite direcction.
+
+## open-wc
+
+Modern Web is a branch off from and started by the same team behind [open-wc](https://github.com/open-wc/open-wc/). For more information, [see this issue](https://github.com/open-wc/open-wc/issues/1681) at the open-wc repository.
 
 ## Test Runner
 
