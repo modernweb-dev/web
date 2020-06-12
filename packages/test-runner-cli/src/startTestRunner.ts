@@ -1,5 +1,6 @@
 import { getPortPromise } from 'portfinder';
 import { TestRunner, TestRunnerConfig, CoverageConfig } from '@web/test-runner-core';
+import deepmerge from 'deepmerge';
 import { TestRunnerCli } from './TestRunnerCli';
 import { collectTestFiles } from './config/collectTestFiles';
 import { readFileConfig } from '../js/readFileConfig';
@@ -19,10 +20,10 @@ const defaultBaseConfig: Partial<TestRunnerConfig> = {
 const defaultCoverageConfig: CoverageConfig = {
   exclude: ['**/node_modules/**/*'],
   threshold: {
-    statements: 60,
-    functions: 60,
-    branches: 60,
-    lines: 60,
+    statements: 0,
+    functions: 0,
+    branches: 0,
+    lines: 0,
   },
   report: true,
   reportDir: 'coverage',
@@ -65,8 +66,10 @@ export async function readConfig(args: ReadConfigArgs = {}) {
     ...cliArgsConfig,
   };
 
-  if (config.coverage === true) {
-    config.coverage = defaultCoverageConfig;
+  if (config.coverageConfig) {
+    deepmerge(config.coverageConfig, defaultCoverageConfig);
+  } else {
+    config.coverageConfig = defaultCoverageConfig;
   }
 
   if (typeof config.port !== 'number') {

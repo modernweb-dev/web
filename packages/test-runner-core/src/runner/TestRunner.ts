@@ -177,10 +177,10 @@ export class TestRunner extends EventEmitter<EventMap> {
         let passedCoverage = true;
         let testCoverage: TestCoverage | undefined = undefined;
         if (this.config.coverage) {
-          const coverageThreshold =
-            typeof this.config.coverage === 'object' ? this.config.coverage.threshold : undefined;
-
-          testCoverage = getTestCoverage(this.sessions.all(), coverageThreshold);
+          testCoverage = getTestCoverage(
+            this.sessions.all(),
+            this.config.coverageConfig!.threshold,
+          );
           passedCoverage = testCoverage.passed;
         }
 

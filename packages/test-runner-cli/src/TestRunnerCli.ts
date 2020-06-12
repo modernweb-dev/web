@@ -103,9 +103,13 @@ export class TestRunnerCli {
           }
           return;
         case 'C':
-          if (typeof this.config.coverage === 'object') {
+          if (this.config.coverage) {
             openBrowser(
-              `file://${path.resolve(this.config.coverage.reportDir, 'lcov-report', 'index.html')}`,
+              `file://${path.resolve(
+                this.config.coverageConfig!.reportDir,
+                'lcov-report',
+                'index.html',
+              )}`,
             );
           }
           return;
@@ -226,14 +230,10 @@ export class TestRunnerCli {
   }
 
   private logTestCoverage(testCoverage: TestCoverage) {
-    if (typeof this.config.coverage !== 'object') {
-      throw new Error('Coverage config is not an object.');
-    }
-
     this.terminal.logStatic(
-      getTestCoverage(testCoverage, !!this.config.watch, this.config.coverage),
+      getTestCoverage(testCoverage, !!this.config.watch, this.config.coverageConfig!),
     );
-    writeCoverageReport(testCoverage, this.config.coverage);
+    writeCoverageReport(testCoverage, this.config.coverageConfig!);
   }
 
   private switchMenu(menu: MenuType) {

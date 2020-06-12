@@ -25,7 +25,8 @@ export interface TestRunnerConfig {
   port: number;
   testRunnerHtml?: (config: TestRunnerConfig) => string;
   watch?: boolean;
-  coverage?: boolean | CoverageConfig;
+  coverage?: boolean;
+  coverageConfig?: CoverageConfig;
   concurrency?: number;
   browserStartTimeout?: number;
   sessionStartTimeout?: number;
