@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.4.0
+
+### Minor Changes
+
+- ccb63df: @web/test-runner-dev-server to @web/test-runner-server
+
 ## 0.3.0
 
 ### Minor Changes

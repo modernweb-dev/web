@@ -1,5 +1,19 @@
 # @web/test-runner
 
+## 0.4.0
+
+### Minor Changes
+
+- ccb63df: @web/test-runner-dev-server to @web/test-runner-server
+
+### Patch Changes
+
+- Updated dependencies [ccb63df]
+  - @web/test-runner-chrome@0.3.0
+  - @web/test-runner-cli@0.3.0
+  - @web/test-runner-core@0.4.0
+  - @web/test-runner-server@0.4.0
+
 ## 0.3.1
 
 ### Patch Changes
