@@ -2,9 +2,7 @@
 
 <p align="center"><img src="./assets/logo.png" width="60%"/></p>
 
-<h2 align="center">Developer tools for web development with a low barrier to entry and close to the platform.</h2>
-
-## Guiding Principles
+<h3 align="center">Developer tools for modern web development.</h3>
 
 ### Low barrier to entry
 
