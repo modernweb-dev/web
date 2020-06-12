@@ -12,6 +12,8 @@ import { toBrowserPath } from './utils';
 
 export { Config as DevServerConfig };
 
+const IGNORED_404s = ['favicon.ico'];
+
 function createBrowserFilePath(rootDir: string, filePath: string) {
   const fullFilePath = filePath.startsWith(process.cwd())
     ? filePath
@@ -46,7 +48,7 @@ export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
         }
 
         const { request404s } = session;
-        if (!request404s.includes(url)) {
+        if (!request404s.includes(url) && !IGNORED_404s.some(i => url.endsWith(i))) {
           sessions.update({ ...session, request404s: [...request404s, url] });
         }
       }
