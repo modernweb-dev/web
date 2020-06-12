@@ -1,4 +1,4 @@
-# Test Runner Framework
+# Test Runner Browser Lib
 
 Browser library to communicate with the test runner.
 
@@ -20,7 +20,7 @@ import {
   sessionStarted,
   sessionFinished,
   sessionError,
-} from '@web/test-runner-framework';
+} from '@web/test-runner-browser-lib';
 
 // optionally capture console and uncaught errors
 captureConsoleOutput();

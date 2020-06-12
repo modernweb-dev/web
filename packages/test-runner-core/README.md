@@ -18,11 +18,11 @@ Browser launchers boot up and control a browser instance. Implementations:
 
 ## Test frameworks
 
-Test frameworks run the actual tests in the browser. Web test runner relies on existing test frameworks. Implementations
+Test frameworks run the actual tests in the browser. Web test runner relies on existing test frameworks. Implementations:
 
 - [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha)
 
-[Read more here](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-framework) to learn more about implementing your own test framework, or to use no framework at all.
+[Read more here](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browser-lib) to learn more about using the browser library without a testing framework, or to implement your own testing framework.
 
 ## Servers
 

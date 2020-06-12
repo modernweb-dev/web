@@ -10,7 +10,7 @@ const nodePackages = [
   'test-runner-puppeteer',
   'test-runner-playwright',
 ];
-const browserPackages = ['test-runner-framework', 'test-runner-mocha'];
+const browserPackages = ['test-runner-browser-lib', 'test-runner-mocha'];
 const packages = [...nodePackages, ...browserPackages];
 
 const PACKAGE_TSCONFIG = 'tsconfig.json';

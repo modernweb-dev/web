@@ -9,14 +9,9 @@
   },
   "references": [
     {
-      "path": "../test-runner-framework/tsconfig.json"
+      "path": "../test-runner-browser-lib/tsconfig.json"
     }
   ],
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "tests",
-    "dist"
-  ]
+  "include": ["src"],
+  "exclude": ["tests", "dist"]
 }

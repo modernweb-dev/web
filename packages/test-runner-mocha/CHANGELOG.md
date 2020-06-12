@@ -12,7 +12,7 @@
 
 - 115442b: add readme, package tags and description
 - Updated dependencies [115442b]
-  - @web/test-runner-framework@0.1.1
+  - @web/test-runner-browser-lib@0.1.1
 
 ## 0.1.0
 

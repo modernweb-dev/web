@@ -6,7 +6,7 @@ import {
   sessionStarted,
   FailedImport,
   TestResult,
-} from '@web/test-runner-framework';
+} from '@web/test-runner-browser-lib';
 import 'mocha/mocha.js';
 
 captureConsoleOutput();

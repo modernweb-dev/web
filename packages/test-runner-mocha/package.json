@@ -34,7 +34,7 @@
     "framework"
   ],
   "dependencies": {
-    "@web/test-runner-framework": "^0.1.1",
+    "@web/test-runner-browser-lib": "^0.1.1",
     "mocha": "^7.2.0"
   }
 }
