@@ -1,5 +1,18 @@
 # @web/test-runner
 
+## 0.3.0
+
+### Minor Changes
+
+- 0c83d7e: create separate coverage and coverageConfig options
+
+### Patch Changes
+
+- Updated dependencies [0c83d7e]
+  - @web/test-runner-cli@0.2.0
+  - @web/test-runner-core@0.3.0
+  - @web/test-runner-dev-server@0.3.0
+
 ## 0.2.12
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.3.0
+
+### Minor Changes
+
+- 0c83d7e: create separate coverage and coverageConfig options
+
 ## 0.2.6
 
 ### Patch Changes

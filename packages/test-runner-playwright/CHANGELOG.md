@@ -1,5 +1,12 @@
 # @web/test-runner-playwright
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [0c83d7e]
+  - @web/test-runner-core@0.3.0
+
 ## 0.1.1
 
 ### Patch Changes
