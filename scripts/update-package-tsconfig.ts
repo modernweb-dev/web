@@ -5,7 +5,7 @@ const nodePackages = [
   'test-runner',
   'test-runner-core',
   'test-runner-cli',
-  'test-runner-dev-server',
+  'test-runner-server',
   'test-runner-chrome',
   'test-runner-puppeteer',
   'test-runner-playwright',

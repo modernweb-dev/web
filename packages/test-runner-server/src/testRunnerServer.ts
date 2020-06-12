@@ -10,7 +10,7 @@ import { dependencyGraphMiddleware } from './dependencyGraphMiddleware';
 import { createTestPage } from './createTestPage';
 import { toBrowserPath } from './utils';
 
-export { Config as DevServerConfig };
+export { Config as ServerConfig };
 
 const IGNORED_404s = ['favicon.ico'];
 
@@ -22,7 +22,7 @@ function createBrowserFilePath(rootDir: string, filePath: string) {
   return toBrowserPath(relativeToRootDir);
 }
 
-export function createDevServer(devServerConfig: Partial<Config> = {}): Server {
+export function testRunnerServer(devServerConfig: Partial<Config> = {}): Server {
   const rootDir = devServerConfig.rootDir ? path.resolve(devServerConfig.rootDir) : process.cwd();
   let server: net.Server;
 

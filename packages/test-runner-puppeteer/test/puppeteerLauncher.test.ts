@@ -1,7 +1,7 @@
 import path from 'path';
 import { expect } from 'chai';
 import { TestRunnerConfig, TestRunner } from '@web/test-runner-core';
-import { createDevServer } from '@web/test-runner-dev-server';
+import { testRunnerServer } from '@web/test-runner-server';
 import { puppeteerLauncher } from '../src/puppeteerLauncher';
 
 it('runs tests with puppeteer', function (done) {
@@ -18,7 +18,7 @@ it('runs tests with puppeteer', function (done) {
     sessionStartTimeout: 10000,
     sessionFinishTimeout: 20000,
     browsers: puppeteerLauncher(),
-    server: createDevServer({ rootDir: path.join(process.cwd(), '..', '..') }),
+    server: testRunnerServer({ rootDir: path.join(process.cwd(), '..', '..') }),
   };
 
   const runner = new TestRunner(config, [

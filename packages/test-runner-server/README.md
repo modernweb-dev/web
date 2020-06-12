@@ -1,6 +1,6 @@
-# Test Runner Dev Server
+# Test Runner Server
 
-Server for serving test files, based on [es-dev-server](https://github.com/open-wc/open-wc/tree/master/packages/es-dev-server).
+Server for communicating with the browser and serving test files, based on [es-dev-server](https://github.com/open-wc/open-wc/tree/master/packages/es-dev-server).
 
 See [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner) for a default implementation and CLI for the test runner.
 

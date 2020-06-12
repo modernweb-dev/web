@@ -36,10 +36,10 @@
   ],
   "dependencies": {
     "@web/test-runner-core": "^0.3.0",
-    "playwright": "^1.0.2"
+    "playwright": "1.0.2"
   },
   "devDependencies": {
-    "@web/test-runner-dev-server": "^0.3.0",
-    "@web/test-runner-mocha": "^0.1.1"
+    "@web/test-runner-mocha": "^0.1.1",
+    "@web/test-runner-server": "^0.3.0"
   }
 }

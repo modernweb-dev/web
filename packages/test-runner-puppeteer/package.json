@@ -41,7 +41,7 @@
     "puppeteer": "^3.3.0"
   },
   "devDependencies": {
-    "@web/test-runner-dev-server": "^0.3.0",
-    "@web/test-runner-mocha": "^0.1.1"
+    "@web/test-runner-mocha": "^0.1.1",
+    "@web/test-runner-server": "^0.3.0"
   }
 }

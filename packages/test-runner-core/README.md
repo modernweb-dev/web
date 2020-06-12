@@ -28,6 +28,6 @@ Test frameworks run the actual tests in the browser. Web test runner relies on e
 
 The server serves the test code and files and communicates with the browser, returning configuration and receiving test results. Implementations:
 
-- [@web/test-runner-dev-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-dev-server)
+- [@web/test-runner-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server)
 
 [Read more here](./docs/dev-server.md) to learn about creating your own test runner server.

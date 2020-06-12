@@ -1,19 +1,19 @@
 {
-  "name": "@web/test-runner-dev-server",
+  "name": "@web/test-runner-server",
   "version": "0.3.1",
   "publishConfig": {
     "access": "public"
   },
-  "description": "Dev server for Web Test Runner",
+  "description": "Server for Web Test Runner",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/modernweb-dev/web.git",
-    "directory": "packages/test-runner-dev-server"
+    "directory": "packages/test-runner-server"
   },
   "author": "modern-web",
-  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-dev-server",
-  "main": "dist/createDevServer.js",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server",
+  "main": "dist/testRunnerServer.js",
   "engines": {
     "node": ">=10.0.0"
   },

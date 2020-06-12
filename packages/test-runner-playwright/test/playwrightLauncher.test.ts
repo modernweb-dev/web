@@ -1,7 +1,7 @@
 import path from 'path';
 import { expect } from 'chai';
 import { TestRunnerConfig, TestRunner } from '@web/test-runner-core';
-import { createDevServer } from '@web/test-runner-dev-server';
+import { testRunnerServer } from '@web/test-runner-server';
 import { playwrightLauncher, BrowserType } from '../src/playwrightLauncher';
 
 it('runs tests with playwright', function (done) {
@@ -20,7 +20,7 @@ it('runs tests with playwright', function (done) {
     sessionStartTimeout: 10000,
     sessionFinishTimeout: 20000,
     browsers: playwrightLauncher({ browserTypes }),
-    server: createDevServer({ rootDir: path.join(process.cwd(), '..', '..') }),
+    server: testRunnerServer({ rootDir: path.join(process.cwd(), '..', '..') }),
   };
 
   const runner = new TestRunner(config, testFiles);

@@ -1,4 +1,4 @@
-# @web/test-runner-dev-server
+# @web/test-runner-server
 
 ## 0.3.1
 
