@@ -20,31 +20,25 @@ describe('my test', () => {
 
 Configuring mocha to use TDD is [not yet supported](https://github.com/modernweb-dev/web/issues/59).
 
-### Writing assertions
+### Browser compatible code
 
-You can use any assertion library as long as it works in the browser. For example this es module version of chai:
+Web Test Runner is based on bundle-free development, and runs your tests in the browser without any modification. This means you need to make sure your tests, code and test libraries can work in the browser as is. For example they should be standard es modules.
+
+The test runner server can be configured to do some code transformations on the fly, although this may impact performance. [Check out the docs](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server) to learn more about that.
+
+### Libraries
+
+[@open-wc/testing](https://open-wc.org/testing/testing.html) is a general purpose library, including assertions via chai, HTML test fixtures, a11y tests and test helpers.
+
+It is an opinionated implementation which brings together multiple libraries. You could also use the individual libraries together:
+
+- [@bundled-es-modules/chai](https://www.npmjs.com/package/@bundled-es-modules/chai)
+- [@open-wc/testing-helpers](https://www.npmjs.com/package/@open-wc/testing-helpers)
+- [@open-wc/chai-dom-equals](https://www.npmjs.com/package/@open-wc/chai-dom-equals)
+- [chai-a11y-axe](https://www.npmjs.com/package/chai-a11y-axe)
+
+For stubbing and mocking, we recommend [sinon](https://www.npmjs.com/package/sinon) which ships an es module variant out of the box:
 
 ```js
-import { expect } from '@bundled-es-modules/chai';
-
-test('foo is bar', () => {
-  expect(foo).to.equal('bar');
-});
-```
-
-### Creating HTML test fixture
-
-To scaffold an HTML test fixture you can use the `@open-wc/testing-helpers` library.
-
-```js
-import { fixture, html } from '@open-wc/testing-helpers';
-import { expect } from '@bundled-es-modules/chai';
-import '../my-element.js';
-
-describe('my-element', () => {
-  it('should render properly', async () => {
-    const element = await fixture(html` <my-element></my-element> `);
-    expect(element.localName).to.equal('my-element');
-  });
-});
+import { stub, useFakeTimers } from 'sinon';
 ```
