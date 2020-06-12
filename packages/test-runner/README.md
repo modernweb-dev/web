@@ -182,7 +182,7 @@ export default {
 
 ## Server and code transformation
 
-This package uses [@web/test-runner-dev-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-dev-server). You can configure the dev server from the config:
+This package uses [@web/test-runner-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server). You can configure the dev server from the config:
 
 <details>
   <summary>View example</summary>

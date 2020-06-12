@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import { TestRunnerConfig as BaseTestRunnerConfig } from '@web/test-runner-core';
 import { readConfig, startTestRunner } from '@web/test-runner-cli';
-import { createDevServer, DevServerConfig } from '@web/test-runner-dev-server';
+import { testRunnerServer, ServerConfig } from '@web/test-runner-server';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import commandLineArgs from 'command-line-args';
 import { puppeteerLauncher, playwrightLauncher } from './loadLauncher';
 
 export interface TestRunnerConfig extends BaseTestRunnerConfig {
-  devServer: DevServerConfig;
+  devServer: ServerConfig;
 }
 
 const cliOptions: commandLineArgs.OptionDefinition[] = [
@@ -39,7 +39,7 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
   const args = result.cliArgs;
   const partialConfig = result.config as TestRunnerConfig;
 
-  const devServerConfig: Partial<DevServerConfig> = partialConfig.devServer ?? {};
+  const devServerConfig: Partial<ServerConfig> = partialConfig.devServer ?? {};
   let browsers = chromeLauncher();
 
   if ('root-dir' in args) {
@@ -62,7 +62,7 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
     ...partialConfig,
     testFrameworkImport: '@web/test-runner-mocha',
     browsers,
-    server: createDevServer(devServerConfig),
+    server: testRunnerServer(devServerConfig),
   };
 
   startTestRunner(config);

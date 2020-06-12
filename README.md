@@ -41,4 +41,4 @@ The main package for the test runner is [@web/test-runner](https://github.com/mo
 
 ### Servers
 
-- [@web/test-runner-dev-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-dev-server)
+- [@web/test-runner-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server)

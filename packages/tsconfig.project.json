@@ -3,16 +3,16 @@
   "files": [],
   "references": [
     {
-      "path": "./test-runner-core/tsconfig.json"
-    },
-    {
       "path": "./test-runner-framework/tsconfig.json"
     },
     {
-      "path": "./test-runner-dev-server/tsconfig.json"
+      "path": "./test-runner-core/tsconfig.json"
     },
     {
       "path": "./test-runner-mocha/tsconfig.json"
+    },
+    {
+      "path": "./test-runner-server/tsconfig.json"
     },
     {
       "path": "./test-runner-chrome/tsconfig.json"
