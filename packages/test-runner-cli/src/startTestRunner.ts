@@ -10,7 +10,6 @@ import { OptionDefinition } from 'command-line-args';
 const defaultBaseConfig: Partial<TestRunnerConfig> = {
   watch: false,
   address: 'http://localhost',
-  port: 9542,
   concurrency: 10,
   browserStartTimeout: 30000,
   sessionStartTimeout: 10000,
