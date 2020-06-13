@@ -1,16 +1,11 @@
+import { createSessionUrl } from './createSessionUrl';
+import { TestRunnerConfig } from './TestRunnerConfig';
 import { TestSessionManager } from '../test-session/TestSessionManager';
 import { TestSession, TestResultError } from '../test-session/TestSession';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
 
-export interface TestSchedulerConfig {
-  concurrency?: number;
-  browserStartTimeout?: number;
-  sessionStartTimeout?: number;
-  sessionFinishTimeout?: number;
-}
-
 export class TestScheduler {
-  constructor(private config: TestSchedulerConfig, private sessions: TestSessionManager) {}
+  constructor(private config: TestRunnerConfig, private sessions: TestSessionManager) {}
 
   async schedule(testRun: number, sessionsToSchedule: Iterable<TestSession>) {
     for (const session of sessionsToSchedule) {
@@ -55,7 +50,10 @@ export class TestScheduler {
 
     try {
       // TODO: Select associated browser
-      await session.browserLauncher.startSession(session);
+      await session.browserLauncher.startSession(
+        session,
+        createSessionUrl(this.config, session, false),
+      );
 
       // when the browser started, wait for session to ping back on time
       this.setSessionStartedTimeout(testRun, session.id);

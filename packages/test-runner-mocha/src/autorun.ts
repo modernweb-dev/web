@@ -22,12 +22,9 @@ logUncaughtErrors();
   if (debug) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = new URL('../assets/mocha.css', import.meta.url).href;
+    link.href = new URL('./assets/mocha.css', import.meta.url).href;
     document.head.appendChild(link);
   }
-
-  // Import mocha here, so that we can capture it's console output
-  // TS gives a warning for dynamically importing mocha with a bare import
 
   mocha.setup({ ui: 'bdd', allowUncaught: false });
   const failedImports: FailedImport[] = [];

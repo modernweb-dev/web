@@ -13,7 +13,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha",
-  "main": "dist/mocha.js",
+  "main": "standalone.js",
   "engines": {
     "node": ">=10.0.0"
   },

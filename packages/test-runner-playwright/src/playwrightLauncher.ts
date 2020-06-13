@@ -1,7 +1,5 @@
 import playwright, { Browser, Page } from 'playwright';
-import { BrowserLauncher, constants, TestRunnerConfig, TestSession } from '@web/test-runner-core';
-
-const { PARAM_SESSION_ID, PARAM_DEBUG } = constants;
+import { BrowserLauncher } from '@web/test-runner-core';
 
 export type BrowserType = 'chromium' | 'firefox' | 'webkit';
 
@@ -17,7 +15,6 @@ export function playwrightLauncher({
   const browsers = new Map<string, Browser>();
   const debugBrowsers = new Map<string, Browser>();
   const activePages = new Map<string, Page>();
-  const createUrl = (session: TestSession) => `${serverAddress}?${PARAM_SESSION_ID}=${session.id}`;
   const inactivePages: Page[] = [];
 
   if (browserTypes.some(t => !validBrowserTypes.includes(t))) {
@@ -28,13 +25,8 @@ export function playwrightLauncher({
     );
   }
 
-  let config: TestRunnerConfig;
-  let serverAddress: string;
-
   return {
-    async start(_config) {
-      config = _config;
-      serverAddress = `${config.address}:${config.port}/`;
+    async start() {
       const browserNames: string[] = [];
 
       for (const type of browserTypes) {
@@ -56,24 +48,7 @@ export function playwrightLauncher({
       }
     },
 
-    async startDebugSession(session) {
-      const browserType = session.browserName.toLowerCase() as BrowserType;
-      if (!validBrowserTypes.includes(browserType)) {
-        throw new Error(`Invalid browser type: ${browserType}`);
-      }
-
-      let browser = debugBrowsers.get(browserType);
-      if (browser && browser.isConnected()) {
-        await browser.close();
-      }
-      browser = await playwright[browserType].launch({ headless: false });
-      debugBrowsers.set(browserType, browser);
-
-      const page = await browser.newPage();
-      await page.goto(`${createUrl(session)}&${PARAM_DEBUG}=true`);
-    },
-
-    async startSession(session) {
+    async startSession(session, url) {
       const browser = browsers.get(session.browserName);
       if (!browser) {
         throw new Error(`Unknown browser name: ${browser}`);
@@ -90,7 +65,7 @@ export function playwrightLauncher({
       }
 
       activePages.set(session.id, page);
-      await page.goto(createUrl(session));
+      await page.goto(url);
     },
 
     stopSession(session) {
@@ -99,6 +74,23 @@ export function playwrightLauncher({
         activePages.delete(session.id);
         inactivePages.push(page);
       }
+    },
+
+    async startDebugSession(session, url) {
+      const browserType = session.browserName.toLowerCase() as BrowserType;
+      if (!validBrowserTypes.includes(browserType)) {
+        throw new Error(`Invalid browser type: ${browserType}`);
+      }
+
+      let browser = debugBrowsers.get(browserType);
+      if (browser && browser.isConnected()) {
+        await browser.close();
+      }
+      browser = await playwright[browserType].launch({ headless: false });
+      debugBrowsers.set(browserType, browser);
+
+      const page = await browser.newPage();
+      await page.goto(url);
     },
   };
 }

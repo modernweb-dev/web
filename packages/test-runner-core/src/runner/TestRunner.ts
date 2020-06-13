@@ -7,6 +7,7 @@ import { TestScheduler } from './TestScheduler';
 import { TestSessionManager } from '../test-session/TestSessionManager';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
 import { EventEmitter } from '../utils/EventEmitter';
+import { createSessionUrl } from './createSessionUrl';
 
 interface EventMap {
   'test-run-started': { testRun: number; sessions: Iterable<TestSession> };
@@ -143,9 +144,11 @@ export class TestRunner extends EventEmitter<EventMap> {
 
     for (const session of this.sessions.forTestFile(this.focusedTestFile)) {
       startPromises.push(
-        session.browserLauncher.startDebugSession(session).catch(error => {
-          console.error(error);
-        }),
+        session.browserLauncher
+          .startDebugSession(session, createSessionUrl(this.config, session, true))
+          .catch(error => {
+            console.error(error);
+          }),
       );
     }
     return Promise.all(startPromises);

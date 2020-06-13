@@ -8,9 +8,11 @@ See [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages
 
 For a simple setup, you can use this library directly in your project and avoid using a testing framework.
 
-You can also use this as a wrapper around an existing testing framework, and kick off the test execution and report the results back. See [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha) as an example of that.
+You can also use this as a wrapper around an existing testing framework. To kick off the test execution and report the results back. See [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha) as an example of that.
 
-This is a simple example implementation:
+### JS tests
+
+This is a simple example implementation for JS tests:
 
 ```js
 import {
@@ -32,7 +34,6 @@ logUncaughtErrors();
 
   // fetch the config for this test run
   const { testFile, debug } = await getConfig();
-
   const failedImports = [];
 
   // load the test file, catching errors
@@ -40,22 +41,65 @@ logUncaughtErrors();
     failedImports.push({ file: testFile, error: { message: error.message, stack: error.stack } });
   });
 
-  // run the actual tests, this would be your implementation
-  let testResults;
   try {
-    testResults = await runTests();
+    // run the actual tests, this is what you will implement
+    const testResults = await runTests();
+
+    // notify tests run finished
+    sessionFinished({
+      passed: failedImports.length === 0 && testResults.passed,
+      failedImports,
+      tests: testResults,
+    });
   } catch (error) {
+    // notify an error occurred
     sessionError(error);
     return;
   }
-
-  // notify tests run finished
-  sessionFinished({
-    passed: failedImports.length === 0 && testResults.passed,
-    failedImports,
-    tests: testResults,
-  });
 })();
 ```
+
+### HTML tests
+
+If you want to use this library directly in a HTML test, you can do something like this:
+
+```html
+<html>
+  <body>
+    <script type="module">
+      import {
+        captureConsoleOutput,
+        logUncaughtErrors,
+        sessionStarted,
+        sessionFinished,
+        sessionError,
+      } from '@web/test-runner-browser-lib';
+      // optionally capture console and uncaught errors
+      captureConsoleOutput();
+      logUncaughtErrors();
+      // notify the test runner that we're alive
+      sessionStarted();
+
+      try {
+        // run the actual tests, this is what you will implement
+        const testResults = await runTests();
+
+        // notify tests run finished
+        sessionFinished({
+          passed: testResults.passed,
+          failedImports,
+          tests: testResults,
+        });
+      } catch (error) {
+        // notify an error occurred
+        sessionError(error);
+        return;
+      }
+    </script>
+  </body>
+</html>
+```
+
+## Types
 
 Check out [the type declarations](./src/types.ts) for the full interface of the test results.

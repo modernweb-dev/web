@@ -42,10 +42,6 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
   const devServerConfig: Partial<ServerConfig> = partialConfig.devServer ?? {};
   let browsers = chromeLauncher();
 
-  if ('root-dir' in args) {
-    devServerConfig.rootDir = args['root-dir'];
-  }
-
   if ('preserve-symlinks' in args) {
     devServerConfig.preserveSymlinks = !!args['preserve-symlinks'];
   }
@@ -60,10 +56,18 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
 
   const config: Partial<TestRunnerConfig> = {
     ...partialConfig,
-    testFrameworkImport: '@web/test-runner-mocha',
+    testFrameworkImport: '@web/test-runner-mocha/autorun.js',
     browsers,
     server: testRunnerServer(devServerConfig),
   };
+
+  // sync dev server and test runner root dir
+  config.rootDir = devServerConfig.rootDir;
+
+  // root dir from args takes priority
+  if ('root-dir' in args) {
+    config.rootDir = args['root-dir'];
+  }
 
   startTestRunner(config);
 })();

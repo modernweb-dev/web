@@ -1,5 +1,7 @@
 /coverage/
 /packages/*/coverage
+/packages/test-runner-mocha/*.js
+/packages/test-runner-mocha/*.d.ts
 node_modules
 dist
 demo

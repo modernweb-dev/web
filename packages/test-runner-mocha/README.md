@@ -6,7 +6,9 @@ See [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages
 
 ## Writing tests
 
-Mocha relies on global variables, in any test file `describe` and `it` are available globally:
+### Writing JS tests
+
+Mocha relies on global variables, in any JS test file `describe` and `it` are available globally and can be used directly:
 
 ```js
 describe('my test', () => {
@@ -16,6 +18,32 @@ describe('my test', () => {
     }
   });
 });
+```
+
+### Writing HTML tests
+
+If you're writing tests as HTML, you can import this library to run tests with mocha:
+
+```html
+<html>
+  <body>
+    <script type="module">
+      // after importing "@web/test-runner-mocha", describe and it will be available globally
+      import { runTests } from '@web/test-runner-mocha';
+
+      describe('my test', () => {
+        it('foo is bar', () => {
+          if ('foo' !== 'bar') {
+            throw new Error('foo does not equal bar');
+          }
+        });
+      });
+
+      // you need to call runTests() when you've loaded all your tests
+      runTests();
+    </script>
+  </body>
+</html>
 ```
 
 Configuring mocha to use TDD is [not yet supported](https://github.com/modernweb-dev/web/issues/59).
