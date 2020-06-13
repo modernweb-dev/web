@@ -1,6 +1,7 @@
 import { getPortPromise } from 'portfinder';
 import { TestRunner, TestRunnerConfig, CoverageConfig } from '@web/test-runner-core';
 import deepmerge from 'deepmerge';
+import chalk from 'chalk';
 import { TestRunnerCli } from './TestRunnerCli';
 import { collectTestFiles } from './config/collectTestFiles';
 import { readFileConfig } from '../js/readFileConfig';
@@ -28,7 +29,7 @@ const defaultCoverageConfig: CoverageConfig = {
   reportDir: 'coverage',
 };
 
-function validateConfig(config: Partial<TestRunnerConfig>): config is TestRunnerConfig {
+function validateConfig(config: Partial<TestRunnerConfig>): TestRunnerConfig {
   if (!Array.isArray(config.files) || config.files.length === 0) {
     throw new Error('No test files configured.');
   }
@@ -48,7 +49,7 @@ function validateConfig(config: Partial<TestRunnerConfig>): config is TestRunner
     throw new Error('No port specified.');
   }
 
-  return true;
+  return config as TestRunnerConfig;
 }
 
 export interface ReadConfigArgs {
@@ -57,8 +58,8 @@ export interface ReadConfigArgs {
 }
 
 export async function readConfig(args: ReadConfigArgs = {}) {
-  const fileConfig = await readFileConfig();
   const { cliArgsConfig, cliArgs } = readCliArgs(args.cliOptions, args.argv);
+  const fileConfig = await readFileConfig(cliArgs.config);
   const config: Partial<TestRunnerConfig> = {
     ...defaultBaseConfig,
     ...fileConfig,
@@ -79,9 +80,13 @@ export async function readConfig(args: ReadConfigArgs = {}) {
   return { cliArgs, config };
 }
 
-export async function startTestRunner(config: Partial<TestRunnerConfig>) {
-  if (!validateConfig(config)) {
-    throw new Error('Invalid config');
+export async function startTestRunner(partialConfig: Partial<TestRunnerConfig>) {
+  let config: TestRunnerConfig;
+  try {
+    config = validateConfig(partialConfig);
+  } catch (error) {
+    console.error(chalk.red(`\nFailed to start test runner: ${error.message}\n`));
+    process.exit(1);
   }
 
   const testFiles = await collectTestFiles(

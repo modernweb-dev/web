@@ -1,3 +1,3 @@
 import { TestRunnerConfig } from '@web/test-runner-core';
 
-export function readFileConfig(): Promise<Partial<TestRunnerConfig>>;
+export function readFileConfig(path?: string): Promise<Partial<TestRunnerConfig>>;
