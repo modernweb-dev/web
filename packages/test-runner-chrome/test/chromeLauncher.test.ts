@@ -10,7 +10,8 @@ it('runs tests with chrome', function (done) {
   const config: TestRunnerConfig = {
     files: [],
     watch: false,
-    testFrameworkImport: '@web/test-runner-mocha',
+    testFrameworkImport: '@web/test-runner-mocha/autorun.js',
+    rootDir: path.join(process.cwd(), '..', '..'),
     address: 'http://localhost',
     port: 9542,
     concurrency: 10,
@@ -18,7 +19,7 @@ it('runs tests with chrome', function (done) {
     sessionStartTimeout: 10000,
     sessionFinishTimeout: 20000,
     browsers: chromeLauncher(),
-    server: testRunnerServer({ rootDir: path.join(process.cwd(), '..', '..') }),
+    server: testRunnerServer(),
   };
 
   const runner = new TestRunner(config, [

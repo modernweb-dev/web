@@ -42,15 +42,25 @@ Run with test coverage:
 wtr test/**/*.test.js --coverage
 ```
 
-### Writing tests
+## Writing tests
 
-Web test runner can support different test frameworks. By default we use [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha), check out the docs to learn more about authoring tests.
+Web test runner can support different test frameworks. By default we use [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha), check out the docs to learn more about writing tests.
 
-### Browsers
+### JS tests
+
+When you point the test runner at a JS file, it will hand the file to the configured test framework to load and run it.
+
+See the config section to learn more about how to configure the test framework, and how to customize the HTML of the test page.
+
+### HTML tests
+
+When you point the test runner at a HTML file you can take full control over the test environment. There is no automatic bootstrapping of a test framework, you need to make sure things are set up and results are communicated back to the test runner. [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha) can be used as a library for HTML tests, taking care of most of the heavy lifting. You can also use the low level [@web/test-runner-browser-lib](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browser-lib) for full control.
+
+## Browsers
 
 By default tests are run with the locally installed instance of Chrome.
 
-#### Puppeteer
+### Puppeteer
 
 You can run tests with puppeteer, which will download it's own instance of Chromium instead of relying on a globally installed version of Chrome.
 
@@ -62,7 +72,7 @@ npm i -D @web/test-runner-puppeteer
 wtr test/**/*.test.js --puppeteer
 ```
 
-#### Playwright
+### Playwright
 
 You can run tests with playwright, which like puppeteer downloads it's own browsers. Playwright allows testing on chromium, firefox and webkit.
 
@@ -200,6 +210,35 @@ export default {
 </details>
 
 es-dev-server has an extensive configuration and plugin system, check out the docs for all options.
+
+## Customizing test runner HTML
+
+When running javascript tests, the test runner runs the test in a standard minimal HTML page. You can provide a custom HTML container to run the tests in with the `testRunnerHtml` function. This function receive the module import for the test runner, and the test runner config.
+
+You can use this to set up the testing environment, for example to set global variables or load test boostrap code.
+
+<details>
+  <summary>View example</summary>
+
+```js
+export default {
+  testRunnerHtml: (testRunnerImport, config) => `
+    <html>
+      <body>
+        <script type="module">
+          window.someGlobal = 'foo';
+        </script>
+
+        <script type="module">
+          import '${testRunnerImport}';
+        </script>
+      </body>
+    </html>
+  `,
+};
+```
+
+</details>
 
 ## Advanced customization
 

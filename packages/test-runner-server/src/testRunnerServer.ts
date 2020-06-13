@@ -23,11 +23,12 @@ function createBrowserFilePath(rootDir: string, filePath: string) {
 }
 
 export function testRunnerServer(devServerConfig: Partial<Config> = {}): Server {
-  const rootDir = devServerConfig.rootDir ? path.resolve(devServerConfig.rootDir) : process.cwd();
   let server: net.Server;
 
   return {
     async start({ config, testFiles, sessions, runner }) {
+      const { rootDir } = config;
+
       function onRerunSessions(sessionIds?: string[]) {
         const sessionsToRerun = sessionIds
           ? sessionIds.map(id => {
@@ -69,6 +70,7 @@ export function testRunnerServer(devServerConfig: Partial<Config> = {}): Server 
         deepmerge(
           {
             port: config.port,
+            rootDir,
             nodeResolve: true,
             logStartup: false,
             logCompileErrors: false,
@@ -146,11 +148,12 @@ export function testRunnerServer(devServerConfig: Partial<Config> = {}): Server 
               {
                 serve(context: Context) {
                   if (context.path === '/') {
+                    const testRunnerImport = `${config.testFrameworkImport}${context.URL.search}`;
                     return {
                       type: 'html',
                       body: config.testRunnerHtml
-                        ? config.testRunnerHtml(config)
-                        : createTestPage(context, config.testFrameworkImport),
+                        ? config.testRunnerHtml(testRunnerImport, config)
+                        : createTestPage(testRunnerImport),
                     };
                   }
                 },

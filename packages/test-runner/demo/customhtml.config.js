@@ -1,10 +1,11 @@
 module.exports = {
-  html: ({ testRunnerImport }) => `
+  testRunnerHtml: testRunnerImport => `
     <html>
       <head></head>
       <body>
         <script type="module">
-          ${testRunnerImport}
+          import '${testRunnerImport}';
+          console.log("custom HTML page");
         </script>
       </body>
     </html>

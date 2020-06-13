@@ -24,6 +24,7 @@ function createTestRunner(extraConfig: Partial<TestRunnerConfig> = {}, testFiles
 
   const config: TestRunnerConfig = {
     files: [],
+    rootDir: process.cwd(),
     testFrameworkImport: 'my-framework.js',
     concurrency: 10,
     browsers: browser,

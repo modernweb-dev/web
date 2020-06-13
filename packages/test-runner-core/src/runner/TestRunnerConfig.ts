@@ -23,7 +23,8 @@ export interface TestRunnerConfig {
   server: Server;
   address: string;
   port: number;
-  testRunnerHtml?: (config: TestRunnerConfig) => string;
+  rootDir: string;
+  testRunnerHtml?: (testRunnerImport: string, config: TestRunnerConfig) => string;
   watch?: boolean;
   coverage?: boolean;
   coverageConfig?: CoverageConfig;
