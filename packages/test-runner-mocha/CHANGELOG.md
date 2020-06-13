@@ -1,5 +1,13 @@
 # @web/test-runner-mocha
 
+## 0.2.1
+
+### Patch Changes
+
+- 45a2f21: add ability to run HTML tests
+- Updated dependencies [45a2f21]
+  - @web/test-runner-browser-lib@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes

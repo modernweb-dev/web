@@ -1,5 +1,14 @@
 # @web/test-runner-puppeteer
 
+## 0.4.1
+
+### Patch Changes
+
+- 45a2f21: add ability to run HTML tests
+- Updated dependencies [45a2f21]
+  - @web/test-runner-chrome@0.4.1
+  - @web/test-runner-core@0.5.1
+
 ## 0.4.0
 
 ### Minor Changes

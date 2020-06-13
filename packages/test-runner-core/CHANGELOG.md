@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.5.1
+
+### Patch Changes
+
+- 45a2f21: add ability to run HTML tests
+
 ## 0.5.0
 
 ### Minor Changes

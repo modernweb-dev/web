@@ -1,5 +1,11 @@
 # @web/test-runner-browser-lib
 
+## 0.2.1
+
+### Patch Changes
+
+- 45a2f21: add ability to run HTML tests
+
 ## 0.2.0
 
 ### Minor Changes

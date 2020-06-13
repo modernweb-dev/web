@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.3.1
+
+### Patch Changes
+
+- 45a2f21: add ability to run HTML tests
+- Updated dependencies [45a2f21]
+  - @web/test-runner-core@0.5.1
+
 ## 0.3.0
 
 ### Minor Changes

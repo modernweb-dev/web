@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.4.1
+
+### Patch Changes
+
+- 45a2f21: add ability to run HTML tests
+
 ## 0.4.0
 
 ### Minor Changes

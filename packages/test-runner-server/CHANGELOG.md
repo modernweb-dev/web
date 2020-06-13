@@ -1,5 +1,13 @@
 # @web/test-runner-server
 
+## 0.4.2
+
+### Patch Changes
+
+- 45a2f21: add ability to run HTML tests
+- Updated dependencies [45a2f21]
+  - @web/test-runner-core@0.5.1
+
 ## 0.4.1
 
 ### Patch Changes
