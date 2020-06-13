@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.3.3
+
+### Patch Changes
+
+- 07b4aa0: fix reading config from CLI arg
+
 ## 0.3.2
 
 ### Patch Changes
