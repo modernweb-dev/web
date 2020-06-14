@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.3.4
+
+### Patch Changes
+
+- c6d2cc5: set default rootDir
+
 ## 0.3.3
 
 ### Patch Changes
