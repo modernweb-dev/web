@@ -22,6 +22,10 @@
     "test": "echo 'no tests for this package yet'"
   },
   "files": [
+    "*.d.ts",
+    "*.d.ts.map",
+    "*.js",
+    "*.js.map",
     "assets",
     "dist"
   ],
