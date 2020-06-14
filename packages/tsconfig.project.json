@@ -28,6 +28,9 @@
     },
     {
       "path": "./test-runner-playwright/tsconfig.json"
+    },
+    {
+      "path": "./test-runner-selenium/tsconfig.json"
     }
   ]
 }

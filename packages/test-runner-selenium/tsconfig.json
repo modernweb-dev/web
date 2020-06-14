@@ -2,16 +2,12 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": ".",
-    "module": "ESNext",
+    "outDir": "./dist",
+    "module": "commonjs",
     "rootDir": "./src",
     "composite": true
   },
-  "references": [
-    {
-      "path": "../test-runner-browser-lib/tsconfig.json"
-    }
-  ],
+  "references": [],
   "include": [
     "src"
   ],

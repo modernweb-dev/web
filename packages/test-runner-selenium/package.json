@@ -1,0 +1,46 @@
+{
+  "name": "@web/test-runner-selenium",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Selenium browser launcher for Web Test Runner",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-selenium"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-selenium",
+  "main": "dist/seleniumLauncher.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter progress",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "selenium",
+    "webdriver",
+    "browser",
+    "launcher"
+  ],
+  "dependencies": {
+    "selenium-webdriver": "^4.0.0-alpha.7"
+  },
+  "devDependencies": {
+    "@types/selenium-standalone": "^6.15.1",
+    "@types/selenium-webdriver": "^4.0.9",
+    "selenium-standalone": "^6.17.0"
+  }
+}
