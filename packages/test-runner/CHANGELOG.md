@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.5.4
+
+### Patch Changes
+
+- ea8d173: don't overide default root dir
+- Updated dependencies [ea8d173]
+  - @web/test-runner-mocha@0.2.2
+
 ## 0.5.3
 
 ### Patch Changes

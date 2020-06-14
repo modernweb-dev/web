@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.2.2
+
+### Patch Changes
+
+- ea8d173: publish new files to NPM
+
 ## 0.2.1
 
 ### Patch Changes
