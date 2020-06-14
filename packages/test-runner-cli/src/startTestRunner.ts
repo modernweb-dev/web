@@ -10,6 +10,7 @@ import { OptionDefinition } from 'command-line-args';
 
 const defaultBaseConfig: Partial<TestRunnerConfig> = {
   watch: false,
+  rootDir: process.cwd(),
   address: 'http://localhost',
   concurrency: 10,
   browserStartTimeout: 30000,
@@ -47,6 +48,9 @@ function validateConfig(config: Partial<TestRunnerConfig>): TestRunnerConfig {
   }
   if (typeof config.port !== 'number') {
     throw new Error('No port specified.');
+  }
+  if (typeof config.rootDir !== 'string') {
+    throw new Error('No rootDir specified.');
   }
 
   return config as TestRunnerConfig;
