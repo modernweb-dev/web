@@ -50,7 +50,7 @@ export function chromeLauncher({
       }
 
       let page: Page;
-      if (true && inactivePages.length === 0) {
+      if (inactivePages.length === 0) {
         page = await browser.newPage();
       } else {
         page = inactivePages.pop()!;
