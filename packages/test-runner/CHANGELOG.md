@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.5.3
+
+### Patch Changes
+
+- 3d3a375: update dependencies
+
 ## 0.5.2
 
 ### Patch Changes
