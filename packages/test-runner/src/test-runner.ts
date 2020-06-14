@@ -62,10 +62,12 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
   };
 
   // sync dev server and test runner root dir
-  config.rootDir = devServerConfig.rootDir;
+  if (devServerConfig.rootDir) {
+    config.rootDir = devServerConfig.rootDir;
+  }
 
   // root dir from args takes priority
-  if ('root-dir' in args) {
+  if (typeof args['root-dir'] === 'string') {
     config.rootDir = args['root-dir'];
   }
 
