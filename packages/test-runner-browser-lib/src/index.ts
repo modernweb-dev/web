@@ -7,6 +7,9 @@ import {
   TestResult,
 } from './types';
 
+// mocking libraries might overwrite window.fetch, by grabbing a reference here
+// we make sure we are using the original fetch instead of the mocked variant
+const fetch = window.fetch;
 const PARAM_SESSION_ID = 'wtr-session-id';
 const PARAM_DEBUG = 'wtr-debug';
 
