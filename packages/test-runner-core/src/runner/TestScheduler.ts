@@ -5,7 +5,37 @@ import { TestSession, TestResultError } from '../test-session/TestSession';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
 
 export class TestScheduler {
-  constructor(private config: TestRunnerConfig, private sessions: TestSessionManager) {}
+  private timeoutIdsPerSession = new Map<string, NodeJS.Timeout[]>();
+
+  constructor(private config: TestRunnerConfig, private sessions: TestSessionManager) {
+    sessions.on('session-status-updated', session => {
+      const timeoutIds = this.timeoutIdsPerSession.get(session.id);
+      if (timeoutIds && session.status === SESSION_STATUS.FINISHED) {
+        this.clearTimeouts(timeoutIds);
+      }
+    });
+  }
+
+  stop() {
+    for (const ids of this.timeoutIdsPerSession.values()) {
+      this.clearTimeouts(ids);
+    }
+  }
+
+  private addTimeoutId(sessionId: string, id: NodeJS.Timeout) {
+    let timeoutIds = this.timeoutIdsPerSession.get(sessionId);
+    if (!timeoutIds) {
+      timeoutIds = [];
+      this.timeoutIdsPerSession.set(sessionId, timeoutIds);
+    }
+    timeoutIds.push(id);
+  }
+
+  private clearTimeouts(timeoutIds: NodeJS.Timeout[]) {
+    for (const id of timeoutIds) {
+      clearTimeout(id);
+    }
+  }
 
   async schedule(testRun: number, sessionsToSchedule: Iterable<TestSession>) {
     for (const session of sessionsToSchedule) {
@@ -40,13 +70,14 @@ export class TestScheduler {
     let browserStartResponded = false;
 
     // browser should be started within the specified milliseconds
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       if (!browserStartResponded) {
         this.setSessionFailed(this.sessions.get(session.id)!, {
           message: `Browser did not start after ${this.config.browserStartTimeout}ms.`,
         });
       }
-    }, this.config.browserStartTimeout);
+    }, this.config.browserStartTimeout!);
+    this.addTimeoutId(session.id, timeoutId);
 
     try {
       // TODO: Select associated browser
@@ -69,7 +100,7 @@ export class TestScheduler {
   }
 
   private setSessionStartedTimeout(testRun: number, sessionId: string) {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       const session = this.sessions.get(sessionId)!;
       if (session.testRun !== testRun) {
         // session reloaded in the meantime
@@ -89,11 +120,13 @@ export class TestScheduler {
       }
 
       this.setSessionFinishedTimeout(testRun, session.id);
-    }, this.config.sessionStartTimeout);
+    }, this.config.sessionStartTimeout!);
+
+    this.addTimeoutId(sessionId, timeoutId);
   }
 
   private setSessionFinishedTimeout(testRun: number, sessionId: string) {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       const session = this.sessions.get(sessionId)!;
       if (session.testRun !== testRun) {
         // session reloaded in the meantime
@@ -106,5 +139,7 @@ export class TestScheduler {
         });
       }
     }, this.config.sessionFinishTimeout!);
+
+    this.addTimeoutId(sessionId, timeoutId);
   }
 }
