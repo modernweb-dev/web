@@ -37,7 +37,7 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
 (async () => {
   const result = await readConfig({ cliOptions });
   const args = result.cliArgs;
-  const partialConfig = result.config as TestRunnerConfig;
+  const partialConfig = result.config as Partial<TestRunnerConfig>;
 
   const devServerConfig: Partial<ServerConfig> = partialConfig.devServer ?? {};
   let browsers = chromeLauncher();
@@ -55,10 +55,10 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
   }
 
   const config: Partial<TestRunnerConfig> = {
-    ...partialConfig,
     testFrameworkImport: '@web/test-runner-mocha/autorun.js',
     browsers,
     server: testRunnerServer(devServerConfig),
+    ...partialConfig,
   };
 
   // sync dev server and test runner root dir

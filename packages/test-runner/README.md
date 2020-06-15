@@ -240,6 +240,26 @@ export default {
 
 </details>
 
+## Customizing browser configuration
+
+You can customize the configuration to launch browsers by creating the browser launchers yourself instead of the CLI.
+
+<details>
+  <summary>View example</summary>
+
+```js
+// import the browser launcher you want to use
+const { chromeLauncher } = require('@web/test-runner-chrome');
+
+module.exports = {
+  browsers: chromeLauncher({ args: ['--no-sandbox'] }),
+};
+```
+
+</details>
+
+Check the docs for [@web/test-runner-chrome](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-chrome), [@web/test-runner-puppeteer](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer) and [@web/test-runner-playwright](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-playwright) for all options.
+
 ## Advanced customization
 
 This package is the opinionated default implementation of the test runner, so that people can get started without much configuration.
