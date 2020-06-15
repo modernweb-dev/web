@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.3.2
+
+### Patch Changes
+
+- 0f8935d: make going to a URL non-blocking
+- Updated dependencies [64d867c]
+  - @web/test-runner-core@0.5.3
+
 ## 0.3.1
 
 ### Patch Changes

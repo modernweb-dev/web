@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.5.3
+
+### Patch Changes
+
+- 64d867c: don't schedule sessions in parallel
+
 ## 0.5.2
 
 ### Patch Changes

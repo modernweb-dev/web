@@ -1,5 +1,15 @@
 # @web/test-runner-puppeteer
 
+## 0.4.2
+
+### Patch Changes
+
+- 0f8935d: make going to a URL non-blocking
+- Updated dependencies [64d867c]
+- Updated dependencies [0f8935d]
+  - @web/test-runner-core@0.5.3
+  - @web/test-runner-chrome@0.4.2
+
 ## 0.4.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.4.2
+
+### Patch Changes
+
+- 0f8935d: make going to a URL non-blocking
+
 ## 0.4.1
 
 ### Patch Changes
