@@ -45,8 +45,7 @@ export class TestScheduler {
     return this.runScheduled(testRun);
   }
 
-  runScheduled(testRun: number): Promise<void[]> {
-    const scheduleTasks: Promise<void>[] = [];
+  async runScheduled(testRun: number) {
     const scheduledIt = this.sessions.forStatus(SESSION_STATUS.SCHEDULED);
     const runningCount = Array.from(
       this.sessions.forStatus(SESSION_STATUS.INITIALIZING, SESSION_STATUS.STARTED),
@@ -59,10 +58,8 @@ export class TestScheduler {
         break;
       }
 
-      scheduleTasks.push(this.runSession(testRun, value));
+      await this.runSession(testRun, value);
     }
-
-    return Promise.all(scheduleTasks);
   }
 
   private async runSession(testRun: number, session: TestSession) {
