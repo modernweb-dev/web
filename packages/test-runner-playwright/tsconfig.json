@@ -21,6 +21,11 @@
       "path": "../test-runner-server/tsconfig.json"
     }
   ],
-  "include": ["src"],
-  "exclude": ["tests", "dist"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "tests",
+    "dist"
+  ]
 }
