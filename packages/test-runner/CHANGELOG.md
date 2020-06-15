@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.5.6
+
+### Patch Changes
+
+- 9d64995: handle mocking fetch
+- Updated dependencies [9d64995]
+  - @web/test-runner-mocha@0.2.3
+
 ## 0.5.5
 
 ### Patch Changes

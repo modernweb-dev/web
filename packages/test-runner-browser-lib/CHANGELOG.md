@@ -1,5 +1,11 @@
 # @web/test-runner-browser-lib
 
+## 0.2.2
+
+### Patch Changes
+
+- 9d64995: handle mocking fetch
+
 ## 0.2.1
 
 ### Patch Changes
