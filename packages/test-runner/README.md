@@ -240,7 +240,7 @@ export default {
 
 </details>
 
-## Customizing browser configuration
+## Customizing browser launch options
 
 You can customize the configuration to launch browsers by creating the browser launchers yourself instead of the CLI.
 
