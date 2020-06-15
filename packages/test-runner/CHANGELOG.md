@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.5.7
+
+### Patch Changes
+
+- fe3a850: don't override config defaults
+
 ## 0.5.6
 
 ### Patch Changes
