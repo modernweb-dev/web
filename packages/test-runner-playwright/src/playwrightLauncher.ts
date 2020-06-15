@@ -41,10 +41,15 @@ export function playwrightLauncher({
 
     async stop() {
       for (const browser of browsers.values()) {
-        await browser.close();
+        if (browser.isConnected()) {
+          await browser.close();
+        }
       }
+
       for (const browser of debugBrowsers.values()) {
-        await browser.close();
+        if (browser.isConnected()) {
+          await browser.close();
+        }
       }
     },
 
@@ -65,7 +70,9 @@ export function playwrightLauncher({
       }
 
       activePages.set(session.id, page);
-      await page.goto(url);
+
+      // creating a new page is blocking, but going to a URL is not
+      page.goto(url);
     },
 
     stopSession(session) {

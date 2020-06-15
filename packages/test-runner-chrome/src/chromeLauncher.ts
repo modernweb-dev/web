@@ -57,7 +57,9 @@ export function chromeLauncher({
       }
 
       activePages.set(session.id, page);
-      await page.goto(url);
+
+      // creating a new page is blocking, but going to a URL is not
+      page.goto(url);
     },
 
     stopSession(session) {
