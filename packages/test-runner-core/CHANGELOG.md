@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.5.2
+
+### Patch Changes
+
+- f5eff91: clear timeouts on close
+
 ## 0.5.1
 
 ### Patch Changes
