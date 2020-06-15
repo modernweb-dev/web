@@ -24,6 +24,11 @@
       "path": "../test-runner-chrome/tsconfig.json"
     }
   ],
-  "include": ["src"],
-  "exclude": ["tests", "dist"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "tests",
+    "dist"
+  ]
 }
