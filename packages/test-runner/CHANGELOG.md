@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.5.5
+
+### Patch Changes
+
+- ebfdfd2: add selenium browser launcher
+- Updated dependencies [ebfdfd2]
+  - @web/test-runner-core@0.5.4
+
 ## 0.5.4
 
 ### Patch Changes
