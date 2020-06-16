@@ -20,10 +20,11 @@ logUncaughtErrors();
   document.body.appendChild(div);
 
   if (debug) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = new URL('./assets/mocha.css', import.meta.url).href;
-    document.head.appendChild(link);
+    import('./styles').then(module => {
+      const styleElement = document.createElement('style');
+      styleElement.textContent = module.styles;
+      document.head.appendChild(styleElement);
+    });
   }
 
   mocha.setup({ ui: 'bdd', allowUncaught: false });

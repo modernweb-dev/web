@@ -1,4 +1,5 @@
 /** Temporarily copy mocha CSS */
+export const styles = `
 @charset "utf-8";
 
 body {
@@ -334,3 +335,4 @@ body {
     position: absolute;
   }
 }
+`;
