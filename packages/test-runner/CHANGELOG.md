@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.5.8
+
+### Patch Changes
+
+- 1ed03f5: add mocha debug CSS from JS (for now)
+- Updated dependencies [1ed03f5]
+  - @web/test-runner-mocha@0.2.4
+
 ## 0.5.7
 
 ### Patch Changes
