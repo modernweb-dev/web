@@ -37,15 +37,15 @@ export class TestScheduler {
     }
   }
 
-  async schedule(testRun: number, sessionsToSchedule: Iterable<TestSession>) {
+  schedule(testRun: number, sessionsToSchedule: Iterable<TestSession>) {
     for (const session of sessionsToSchedule) {
       this.sessions.updateStatus(session, SESSION_STATUS.SCHEDULED);
     }
 
-    return this.runScheduled(testRun);
+    this.runScheduled(testRun);
   }
 
-  async runScheduled(testRun: number) {
+  runScheduled(testRun: number) {
     const scheduledIt = this.sessions.forStatus(SESSION_STATUS.SCHEDULED);
     const runningCount = Array.from(
       this.sessions.forStatus(SESSION_STATUS.INITIALIZING, SESSION_STATUS.STARTED),
@@ -58,7 +58,7 @@ export class TestScheduler {
         break;
       }
 
-      await this.runSession(testRun, value);
+      this.runSession(testRun, value);
     }
   }
 
@@ -77,7 +77,6 @@ export class TestScheduler {
     this.addTimeoutId(session.id, timeoutId);
 
     try {
-      // TODO: Select associated browser
       await session.browserLauncher.startSession(
         session,
         createSessionUrl(this.config, session, false),

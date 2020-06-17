@@ -18,6 +18,9 @@ export interface BrowserLauncher {
   /**
    * Start a single test sessions in a single browser page or tab. This should
    * open the browser for the given URL.
+   *
+   * This function can be called multiple times in parallel, implementations which cannot
+   * handle opening browser pages in parallel should set up a queuing system.
    * @param session
    */
   startSession(session: TestSession, url: string): Promise<void>;

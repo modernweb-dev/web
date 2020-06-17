@@ -63,16 +63,14 @@ export function playwrightLauncher({
       }
 
       let page: Page;
-      if (true && inactivePages.length === 0) {
+      if (inactivePages.length === 0) {
         page = await browser.newPage();
       } else {
         page = inactivePages.pop()!;
       }
 
       activePages.set(session.id, page);
-
-      // creating a new page is blocking, but going to a URL is not
-      page.goto(url);
+      await page.goto(url);
     },
 
     stopSession(session) {
