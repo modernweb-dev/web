@@ -25,15 +25,38 @@ it('runs tests with chrome', function (done) {
   const runner = new TestRunner(config, [
     'test/fixtures/test-a.test.js',
     'test/fixtures/test-b.test.js',
+    'test/fixtures/test-c.test.js',
+    'test/fixtures/test-d.test.js',
+    'test/fixtures/test-e.test.js',
+    'test/fixtures/test-f.test.js',
+    'test/fixtures/test-g.test.js',
+    'test/fixtures/test-h.test.js',
+    'test/fixtures/test-i.test.js',
+    'test/fixtures/test-j.test.js',
+    'test/fixtures/test-k.test.js',
+    'test/fixtures/test-l.test.js',
+    'test/fixtures/test-m.test.js',
+    'test/fixtures/test-n.test.js',
+    'test/fixtures/test-o.test.js',
   ]);
 
   runner.on('quit', () => {
     const sessions = Array.from(runner.sessions.all());
-    expect(sessions.length).to.equal(2, 'there should be two test sessions');
-    expect(sessions[0].testFile).to.equal('test/fixtures/test-a.test.js', 'test a should be run');
-    expect(sessions[1].testFile).to.equal('test/fixtures/test-b.test.js', 'test b should be run');
-    expect(sessions[0].passed).to.equal(true, 'test a should pass');
-    expect(sessions[1].passed).to.equal(true, 'test b should pass');
+    expect(sessions.length).to.equal(15, 'there should be 15 test sessions');
+
+    for (const session of sessions) {
+      if (!session.passed) {
+        if (session.error instanceof Error) {
+          done(session.error);
+        } else if (session.error) {
+          done(new Error(session.error.message));
+        } else {
+          done(new Error('unknown error'));
+        }
+        return;
+      }
+    }
+
     done();
   });
 

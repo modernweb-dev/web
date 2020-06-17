@@ -47,7 +47,7 @@ it('runs tests with selenium', function (done) {
     rootDir: path.join(process.cwd(), '..', '..'),
     address: 'http://localhost',
     port: 9542,
-    concurrency: 2,
+    concurrency: 4,
     browserStartTimeout: 30000,
     sessionStartTimeout: 10000,
     sessionFinishTimeout: 20000,
@@ -74,15 +74,32 @@ it('runs tests with selenium', function (done) {
     'test/fixtures/test-c.test.js',
     'test/fixtures/test-d.test.js',
     'test/fixtures/test-e.test.js',
+    'test/fixtures/test-f.test.js',
+    'test/fixtures/test-g.test.js',
+    'test/fixtures/test-h.test.js',
+    'test/fixtures/test-i.test.js',
+    'test/fixtures/test-j.test.js',
+    'test/fixtures/test-k.test.js',
+    'test/fixtures/test-l.test.js',
+    'test/fixtures/test-m.test.js',
+    'test/fixtures/test-n.test.js',
+    'test/fixtures/test-o.test.js',
   ]);
 
   runner.on('quit', () => {
     const sessions = Array.from(runner.sessions.all());
-    expect(sessions.length).to.equal(10, 'there should be two test sessions');
+    expect(sessions.length).to.equal(30, 'there should be 30 test sessions');
 
     for (const session of sessions) {
       if (!session.passed) {
-        throw session.error;
+        if (session.error instanceof Error) {
+          done(session.error);
+        } else if (session.error) {
+          done(new Error(session.error.message));
+        } else {
+          done(new Error('unknown error'));
+        }
+        return;
       }
     }
 

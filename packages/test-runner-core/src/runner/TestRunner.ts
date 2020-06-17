@@ -129,11 +129,15 @@ export class TestRunner extends EventEmitter<EventMap> {
       console.error(error);
     });
 
+    const stopActions = [];
     for (const browser of this.browserLaunchers) {
-      browser.stop().catch(error => {
-        console.error(error);
-      });
+      stopActions.push(
+        browser.stop().catch(error => {
+          console.error(error);
+        }),
+      );
     }
+    await Promise.all(stopActions);
   }
 
   startDebugFocusedTestFile() {
@@ -169,10 +173,7 @@ export class TestRunner extends EventEmitter<EventMap> {
   private async onSessionFinished(session: TestSession) {
     try {
       session.browserLauncher.stopSession(session);
-
-      this.scheduler.runScheduled(this.testRun).catch(error => {
-        this.quit(error);
-      });
+      this.scheduler.runScheduled(this.testRun);
 
       const finishedAll = Array.from(this.sessions.all()).every(
         s => s.status === SESSION_STATUS.FINISHED,

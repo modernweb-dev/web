@@ -6,8 +6,29 @@ import { playwrightLauncher, BrowserType } from '../src/playwrightLauncher';
 
 it('runs tests with playwright', function (done) {
   this.timeout(50000);
-  const browserTypes = ['chromium', 'firefox', 'webkit'] as BrowserType[];
-  const testFiles = ['test/fixtures/test-a.test.js', 'test/fixtures/test-b.test.js'];
+  const browserTypes = [
+    'chromium',
+    'firefox',
+    // webkit is causing issues in the CI right now
+    // 'webkit'
+  ] as BrowserType[];
+  const testFiles = [
+    'test/fixtures/test-a.test.js',
+    'test/fixtures/test-b.test.js',
+    'test/fixtures/test-c.test.js',
+    'test/fixtures/test-d.test.js',
+    'test/fixtures/test-e.test.js',
+    'test/fixtures/test-f.test.js',
+    'test/fixtures/test-g.test.js',
+    'test/fixtures/test-h.test.js',
+    'test/fixtures/test-i.test.js',
+    'test/fixtures/test-j.test.js',
+    'test/fixtures/test-k.test.js',
+    'test/fixtures/test-l.test.js',
+    'test/fixtures/test-m.test.js',
+    'test/fixtures/test-n.test.js',
+    'test/fixtures/test-o.test.js',
+  ];
 
   const config: TestRunnerConfig = {
     files: [],
@@ -28,7 +49,7 @@ it('runs tests with playwright', function (done) {
 
   runner.on('quit', () => {
     const sessions = Array.from(runner.sessions.all());
-    expect(sessions.length).to.equal(6, 'there should be six test sessions');
+    expect(sessions.length).to.equal(30, 'there should be six test sessions');
 
     for (const browserType of browserTypes) {
       for (const testFile of testFiles) {
@@ -41,6 +62,20 @@ it('runs tests with playwright', function (done) {
         }
       }
     }
+
+    for (const session of sessions) {
+      if (!session.passed) {
+        if (session.error instanceof Error) {
+          done(session.error);
+        } else if (session.error) {
+          done(new Error(session.error.message));
+        } else {
+          done(new Error('unknown error'));
+        }
+        return;
+      }
+    }
+
     done();
   });
 
