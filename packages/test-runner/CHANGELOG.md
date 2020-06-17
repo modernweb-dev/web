@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.5.11
+
+### Patch Changes
+
+- 54e2737: serialize logged complex objects
+
 ## 0.5.10
 
 ### Patch Changes

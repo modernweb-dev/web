@@ -1,5 +1,11 @@
 # @web/test-runner-browser-lib
 
+## 0.2.3
+
+### Patch Changes
+
+- 54e2737: serialize logged complex objects
+
 ## 0.2.2
 
 ### Patch Changes
