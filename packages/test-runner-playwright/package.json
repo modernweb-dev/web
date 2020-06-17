@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-playwright",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "publishConfig": {
     "access": "public"
   },
@@ -35,7 +35,7 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.5.3",
+    "@web/test-runner-core": "^0.5.5",
     "playwright": "1.0.2"
   },
   "devDependencies": {

@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.4.3
+
+### Patch Changes
+
+- 56ed519: open browser windows sequentially in selenium
+
 ## 0.4.2
 
 ### Patch Changes
