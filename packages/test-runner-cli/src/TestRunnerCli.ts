@@ -154,6 +154,7 @@ export class TestRunnerCli {
       }
 
       this.logTestResults();
+      this.logTestProgress();
     });
 
     this.runner.on('test-run-finished', ({ testCoverage }) => {
