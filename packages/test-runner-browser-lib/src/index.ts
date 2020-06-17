@@ -6,6 +6,7 @@ import {
   FailedImport,
   TestResult,
 } from './types';
+import { stringify } from './stringify';
 
 // mocking libraries might overwrite window.fetch, by grabbing a reference here
 // we make sure we are using the original fetch instead of the mocked variant
@@ -31,20 +32,11 @@ function postJSON(url: string, body: unknown) {
 
 const logs: string[] = [];
 
-function stringify(obj: unknown) {
-  try {
-    return JSON.stringify(obj);
-  } catch (error) {
-    // some objects can't be stringified, such as circular objects
-    return obj;
-  }
-}
-
 export function captureConsoleOutput() {
   for (const level of ['log', 'error', 'debug', 'warn'] as (keyof Console)[]) {
     const original: (...args: any[]) => any = console[level];
     console[level] = (...args: any[]) => {
-      logs.push(args.map(a => (typeof a === 'object' ? stringify(a) : a)).join(' '));
+      logs.push(args.map(a => stringify(a)).join(' '));
       original.apply(console, args);
     };
   }
