@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.3.5
+
+### Patch Changes
+
+- f356e4c: re-render progress bar on rerun
+
 ## 0.3.4
 
 ### Patch Changes
