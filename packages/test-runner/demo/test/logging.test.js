@@ -52,3 +52,14 @@ console.log(myComment);
 
 const textNode = document.createTextNode('this is a text node');
 console.log(textNode);
+
+class Foo {}
+const foo = new Foo();
+foo.bar = 'buz';
+foo.lorem = 'ipsum';
+
+console.log(foo);
+
+const url = new URL(window.location);
+console.log(url);
+console.log(url.searchParams);
