@@ -1,5 +1,11 @@
 # @web/test-runner-server
 
+## 0.4.3
+
+### Patch Changes
+
+- f2bf9ae: first setup of browserstack
+
 ## 0.4.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.5.12
+
+### Patch Changes
+
+- f2bf9ae: first setup of browserstack
+- Updated dependencies [f2bf9ae]
+  - @web/test-runner-server@0.4.3
+
 ## 0.5.11
 
 ### Patch Changes
