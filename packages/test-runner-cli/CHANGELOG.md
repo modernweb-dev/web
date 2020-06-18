@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.3.6
+
+### Patch Changes
+
+- 4f54bd3: only remove server adress in stack trace
+
 ## 0.3.5
 
 ### Patch Changes
