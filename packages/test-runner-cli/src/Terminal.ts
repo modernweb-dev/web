@@ -15,7 +15,7 @@ interface EventMap {
   input: string;
 }
 
-function buildLogString(entries: TerminalEntry[], serverAddress: RegExp) {
+function buildLogString(entries: TerminalEntry[]) {
   const strings: string[] = [];
 
   for (const entry of entries) {
@@ -30,9 +30,7 @@ function buildLogString(entries: TerminalEntry[], serverAddress: RegExp) {
       indent = entry.indent;
     }
 
-    strings.push(
-      ...stringsToAdd.map(str => `${' '.repeat(indent)}${str.replace(serverAddress, '')}`),
-    );
+    strings.push(...stringsToAdd.map(str => `${' '.repeat(indent)}${str}`));
   }
 
   return strings.join('\n');
@@ -42,11 +40,9 @@ export class Terminal extends EventEmitter<EventMap> {
   private originalFunctions: Partial<Record<keyof Console, (...args: any[]) => any>> = {};
   private previousDynamic: TerminalEntry[] = [];
   private started = false;
-  private serverAddress?: RegExp;
   public isInteractive = process.stdout.isTTY;
 
-  start(serverAddress: string) {
-    this.serverAddress = new RegExp(serverAddress, 'g');
+  start() {
     // start off with an empty line
     console.log('');
 
@@ -126,7 +122,7 @@ export class Terminal extends EventEmitter<EventMap> {
       return;
     }
 
-    console.log(buildLogString(entries, this.serverAddress!));
+    console.log(buildLogString(entries));
   }
 
   logPendingUserInput(string: string) {
@@ -140,7 +136,7 @@ export class Terminal extends EventEmitter<EventMap> {
     }
 
     this.previousDynamic = entries;
-    logUpdate(buildLogString(entries, this.serverAddress!));
+    logUpdate(buildLogString(entries));
   }
 
   private relogDynamic() {

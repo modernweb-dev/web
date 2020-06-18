@@ -8,6 +8,7 @@ export function getFileErrors(
   allBrowserNames: string[],
   favoriteBrowser: string,
   failedSessions: TestSession[],
+  serverAddressRegExp: RegExp,
 ) {
   const entries: TerminalEntry[] = [];
 
@@ -24,7 +25,7 @@ export function getFileErrors(
     const failedOn = getFailedOnBrowsers(allBrowserNames, failedBrowsers);
 
     entries.push({ text: `❌ Failed to run test file${failedOn}`, indent: 1 });
-    entries.push({ text: formatError(failedImport.error), indent: 6 });
+    entries.push({ text: formatError(failedImport.error, serverAddressRegExp), indent: 6 });
     entries.push('');
   }
   const testErrorsPerBrowser = new Map<string, Map<string, TestResultError>>();
@@ -50,7 +51,7 @@ export function getFileErrors(
       const failedOn = getFailedOnBrowsers(allBrowserNames, failedBrowsers);
 
       entries.push({ text: `❌ ${name}${failedOn}`, indent: 1 });
-      entries.push({ text: formatError(favoriteError), indent: 6 });
+      entries.push({ text: formatError(favoriteError, serverAddressRegExp), indent: 6 });
       entries.push('');
     }
   }
