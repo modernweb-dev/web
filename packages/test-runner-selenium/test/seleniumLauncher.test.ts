@@ -55,15 +55,15 @@ it('runs tests with selenium', function (done) {
       seleniumLauncher({
         driverBuilder: new Builder()
           .forBrowser('chrome')
-          // .setChromeOptions(new ChromeOptions().headless())
+          .setChromeOptions(new ChromeOptions().headless())
           .usingServer('http://localhost:4444/wd/hub'),
       }),
-      // seleniumLauncher({
-      //   driverBuilder: new Builder()
-      //     .forBrowser('firefox')
-      //     .setFirefoxOptions(new FirefoxOptions().headless())
-      //     .usingServer('http://localhost:4444/wd/hub'),
-      // }),
+      seleniumLauncher({
+        driverBuilder: new Builder()
+          .forBrowser('firefox')
+          .setFirefoxOptions(new FirefoxOptions().headless())
+          .usingServer('http://localhost:4444/wd/hub'),
+      }),
     ],
     server: testRunnerServer(),
   };

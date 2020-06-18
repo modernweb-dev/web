@@ -106,10 +106,9 @@ export function testRunnerServer(devServerConfig: Partial<Config> = {}): Server 
 
                   if (command === 'config') {
                     ctx.body = JSON.stringify({
-                      ...session,
                       testFile: createBrowserFilePath(rootDir, session.testFile),
                       watch: !!config.watch,
-                    } as any);
+                    });
                     return;
                   }
 
