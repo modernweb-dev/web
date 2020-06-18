@@ -1,4 +1,4 @@
-export function stringify(value: unknown, depth = 5): string {
+export function stringify(value: any, depth = 5): string {
   if (depth === 0) {
     return '...';
   }
@@ -12,31 +12,7 @@ export function stringify(value: unknown, depth = 5): string {
 
   switch (typeof value) {
     case 'object':
-      if (Array.isArray(value)) {
-        return `[${value.map(v => stringify(v, depth - 1)).join(', ')}]`;
-      }
-
-      if (value instanceof Date) {
-        return value.toString();
-      }
-
-      if (value instanceof Text) {
-        return `Text: ${value.nodeValue ?? ''}`;
-      }
-
-      if (value instanceof Comment) {
-        return `Comment: ${value.nodeValue}`;
-      }
-
-      if (value instanceof Element) {
-        return value.outerHTML;
-      }
-
-      if (value instanceof Error) {
-        return `${value.toString()} ${value.stack}`;
-      }
-
-      return value ? serializeObject(value as Record<string, unknown>, depth) : 'undefined';
+      return stringifyObject(value, depth);
     case 'undefined':
       return 'undefined';
     case 'function':
@@ -61,7 +37,40 @@ export function stringify(value: unknown, depth = 5): string {
   }
 }
 
-function serializeObject(value: Record<string, unknown>, depth: number) {
+function stringifyObject(value: any, depth: number) {
+  if (value == null) {
+    return 'undefined';
+  }
+
+  if (Array.isArray(value)) {
+    return `[${value.map(v => stringify(v, depth - 1)).join(', ')}]`;
+  }
+
+  if (value instanceof Text) {
+    return `Text: ${value.nodeValue ?? ''}`;
+  }
+
+  if (value instanceof Comment) {
+    return `Comment: ${value.nodeValue}`;
+  }
+
+  if (value instanceof Element) {
+    return value.outerHTML;
+  }
+
+  if (value instanceof Error) {
+    return `${value.toString()} ${value.stack}`;
+  }
+
+  const toStringed = value.toString();
+  if (!toStringed.startsWith('[object')) {
+    return toStringed;
+  }
+
+  return stringifyRecord(value as Record<string, unknown>, depth);
+}
+
+function stringifyRecord(value: Record<string, unknown>, depth: number) {
   const className = value?.constructor?.name;
   const prefix = className && className !== 'Object' ? className : null;
 
