@@ -3,6 +3,10 @@ import chalk from 'chalk';
 import * as diff from 'diff';
 import { getErrorLocation } from './getErrorLocation';
 
+function formatStackTrace(stack: string, serverAddress: RegExp) {
+  return stack.replace(serverAddress, '');
+}
+
 function renderDiff(actual: string, expected: string) {
   function cleanUp(line: string) {
     if (line[0] === '+') {
@@ -31,7 +35,7 @@ function renderDiff(actual: string, expected: string) {
   return `${chalk.green('+ expected')} ${chalk.red('- actual')}\n\n${diffMsg}`;
 }
 
-export function formatError(err: TestResultError): string {
+export function formatError(err: TestResultError, serverAddress: RegExp): string {
   const errorLocation = getErrorLocation(err);
   let errorString =
     errorLocation != null ? `${chalk.gray('at:')} ${chalk.white(errorLocation)}\n` : '';
@@ -45,7 +49,7 @@ export function formatError(err: TestResultError): string {
     errorString +=
       errorLocation || !err.stack
         ? `${chalk.gray('error:')} ${chalk.red(err.message)}`
-        : `${chalk.red(err.stack)}`;
+        : `${chalk.red(formatStackTrace(err.stack, serverAddress))}`;
   }
 
   return errorString;

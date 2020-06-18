@@ -33,6 +33,7 @@ const KEYCODES = {
 
 export class TestRunnerCli {
   private serverAddress: string;
+  private serverAddressRegExp: RegExp;
   private terminal = new Terminal();
   private reportedFilesByTestRun = new Map<number, Set<string>>();
   private sessions: TestSessionManager;
@@ -45,6 +46,7 @@ export class TestRunnerCli {
   constructor(private config: TestRunnerConfig, private runner: TestRunner) {
     this.sessions = runner.sessions;
     this.serverAddress = `${config.address}:${config.port}/`;
+    this.serverAddressRegExp = new RegExp(this.serverAddress, 'g');
 
     if (config.watch && !this.terminal.isInteractive) {
       this.runner.quit(new Error('Cannot run watch mode in a non-interactive (TTY) terminal.'));
@@ -55,7 +57,7 @@ export class TestRunnerCli {
     this.setupTerminalEvents();
     this.setupRunnerEvents();
 
-    this.terminal.start(this.serverAddress);
+    this.terminal.start();
     if (this.config.watch) {
       this.terminal.clear();
     }
@@ -223,7 +225,7 @@ export class TestRunnerCli {
           testFile,
           browserNames,
           favoriteBrowser,
-          this.serverAddress,
+          this.serverAddressRegExp,
           sessionsForTestFile,
         ),
       );

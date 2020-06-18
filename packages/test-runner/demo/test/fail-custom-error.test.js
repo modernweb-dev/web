@@ -1,6 +1,5 @@
-import { expect } from './chai.js';
-import './shared-a.js';
+import { throwError } from './shared-a.js';
 
 it('custom error', () => {
-  throw Error('Some error');
+  throwError();
 });

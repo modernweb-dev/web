@@ -7,7 +7,7 @@ function isSameError(a: TestResultError, b: TestResultError) {
   return a.message === b.message && a.stack === b.stack;
 }
 
-export function getSessionErrors(sessions: TestSession[]) {
+export function getSessionErrors(sessions: TestSession[], serverAddressRegExp: RegExp) {
   const entries: TerminalEntry[] = [];
   const sessionsWithError = sessions.filter(s => !!s.error);
   if (sessionsWithError.length === 0) {
@@ -31,7 +31,7 @@ export function getSessionErrors(sessions: TestSession[]) {
       indent: 1,
     });
     entries.push({
-      text: formatError(sessionsWithError[0].error!),
+      text: formatError(sessionsWithError[0].error!, serverAddressRegExp),
       indent: 6,
     });
     entries.push('');
@@ -45,7 +45,7 @@ export function getSessionErrors(sessions: TestSession[]) {
       indent: 1,
     });
     entries.push({
-      text: formatError(session.error!),
+      text: formatError(session.error!, serverAddressRegExp),
       indent: 6,
     });
     entries.push('');

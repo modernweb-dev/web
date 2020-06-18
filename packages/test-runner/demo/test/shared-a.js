@@ -3,3 +3,7 @@
 export function sharedA() {
   return 'hello world';
 }
+
+export function throwError() {
+  throw Error('Some error');
+}

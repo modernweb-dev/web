@@ -10,7 +10,7 @@ export function getTestFileReport(
   testFile: string,
   allBrowserNames: string[],
   favoriteBrowser: string,
-  serverAddress: string,
+  serverAddressRegExp: RegExp,
   sessionsForTestFile: TestSession[],
 ) {
   const failedSessions = sessionsForTestFile.filter(s => !s.passed);
@@ -18,10 +18,18 @@ export function getTestFileReport(
 
   entries.push(...getBrowserLogs(sessionsForTestFile));
   entries.push(...getRequest404s(sessionsForTestFile));
-  entries.push(...getSessionErrors(sessionsForTestFile));
+  entries.push(...getSessionErrors(sessionsForTestFile, serverAddressRegExp));
 
   if (failedSessions.length > 0) {
-    entries.push(...getFileErrors(testFile, allBrowserNames, favoriteBrowser, failedSessions));
+    entries.push(
+      ...getFileErrors(
+        testFile,
+        allBrowserNames,
+        favoriteBrowser,
+        failedSessions,
+        serverAddressRegExp,
+      ),
+    );
   }
 
   if (entries.length > 0) {
