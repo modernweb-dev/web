@@ -1,5 +1,11 @@
 # @web/test-runner-browser-lib
 
+## 0.2.4
+
+### Patch Changes
+
+- 589ac94: use custom toString when logging objects
+
 ## 0.2.3
 
 ### Patch Changes

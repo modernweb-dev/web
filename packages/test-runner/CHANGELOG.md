@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.5.13
+
+### Patch Changes
+
+- 589ac94: use custom toString when logging objects
+
 ## 0.5.12
 
 ### Patch Changes
