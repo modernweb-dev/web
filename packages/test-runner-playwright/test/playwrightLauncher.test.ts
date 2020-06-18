@@ -49,7 +49,7 @@ it('runs tests with playwright', function (done) {
 
   runner.on('quit', () => {
     const sessions = Array.from(runner.sessions.all());
-    expect(sessions.length).to.equal(30, 'there should be six test sessions');
+    expect(sessions.length).to.equal(30, 'there should be 30 test sessions');
 
     for (const browserType of browserTypes) {
       for (const testFile of testFiles) {

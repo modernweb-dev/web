@@ -31,6 +31,9 @@
     },
     {
       "path": "./test-runner-selenium/tsconfig.json"
+    },
+    {
+      "path": "./test-runner-browserstack/tsconfig.json"
     }
   ]
 }

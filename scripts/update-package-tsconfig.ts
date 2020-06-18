@@ -10,6 +10,7 @@ const nodePackages = [
   'test-runner-puppeteer',
   'test-runner-playwright',
   'test-runner-selenium',
+  'test-runner-browserstack',
 ];
 const browserPackages = ['test-runner-browser-lib', 'test-runner-mocha'];
 const packages = [...nodePackages, ...browserPackages];
