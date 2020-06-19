@@ -5,18 +5,10 @@
     "outDir": "./dist",
     "module": "commonjs",
     "rootDir": "./src",
+    "experimentalDecorators": true,
     "composite": true
   },
-  "references": [
-    {
-      "path": "../test-runner-selenium/tsconfig.json"
-    }
-  ],
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "tests",
-    "dist"
-  ]
+  "references": [],
+  "include": ["src"],
+  "exclude": ["tests", "dist"]
 }

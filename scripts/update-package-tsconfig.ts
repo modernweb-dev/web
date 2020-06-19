@@ -11,6 +11,7 @@ const nodePackages = [
   'test-runner-playwright',
   'test-runner-selenium',
   'test-runner-browserstack',
+  'dev-server-esbuild',
 ];
 const browserPackages = ['test-runner-browser-lib', 'test-runner-mocha'];
 const packages = [...nodePackages, ...browserPackages];
