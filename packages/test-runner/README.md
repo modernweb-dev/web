@@ -211,6 +211,12 @@ export default {
 
 es-dev-server has an extensive configuration and plugin system, check out the docs for all options.
 
+### Typescript and JSX
+
+Tests run in the browser, code written in TS or JSX needs to be compiled before it is possible to test them in the browser. You could do this transformation outside of the test runner, for example using `babel` or `tsc`. This would be the most predictable, but not the fastest approach.
+
+Another option is to use something like [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server).
+
 ## Customizing test runner HTML
 
 When running javascript tests, the test runner runs the test in a standard minimal HTML page. You can provide a custom HTML container to run the tests in with the `testRunnerHtml` function. This function receive the module import for the test runner, and the test runner config.

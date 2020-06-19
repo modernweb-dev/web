@@ -1,0 +1,51 @@
+{
+  "name": "@web/dev-server-esbuild",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Plugin for using esbuild in @web/dev-server",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/dev-server-esbuild"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "start:demo:jsx": "es-dev-server --config demo/jsx/server.config.js",
+    "start:demo:ts": "es-dev-server --config demo/ts/server.config.js",
+    "test": "echo 'this package has no tests yet'"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "web",
+    "dev",
+    "server",
+    "test",
+    "runner",
+    "testrunner",
+    "typescript",
+    "jsx",
+    "compile",
+    "transform"
+  ],
+  "dependencies": {
+    "@babel/code-frame": "^7.10.1",
+    "chalk": "^4.1.0",
+    "esbuild": "^0.5.3"
+  },
+  "devDependencies": {
+    "@types/babel__code-frame": "^7.0.1",
+    "es-dev-server": "^1.55.0",
+    "lit-element": "^2.3.1",
+    "preact": "^10.4.4"
+  }
+}
