@@ -91,6 +91,7 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
         try {
           const { js, warnings } = await service.transform(context.body, {
             sourcefile: filePath,
+            sourcemap: 'inline',
             target: args.target ?? 'esnext',
             jsxFactory: args.jsxFactory,
             jsxFragment: args.jsxFragment,
