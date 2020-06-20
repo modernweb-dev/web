@@ -19,7 +19,7 @@ npm i -D @web/dev-server-esbuild
 Create a `es-dev-server.config.js` file:
 
 ```js
-const esBuildPlugin = require('@web/dev-server-esbuild');
+const { esbuildPlugin } = require('@web/dev-server-esbuild');
 
 module.exports = {
   plugins: [esbuildPlugin({ ts: true })],
@@ -31,7 +31,7 @@ module.exports = {
 Create a `web-test-runner.config.js` file:
 
 ```js
-const esBuildPlugin = require('@web/dev-server-esbuild');
+const { esbuildPlugin } = require('@web/dev-server-esbuild');
 
 module.exports = {
   devServer: {
@@ -45,7 +45,7 @@ module.exports = {
 We expose the following options for esbuild:
 
 ```ts
-interface EsBuildPluginArgs {
+interface EsbuildPluginArgs {
   target?: Target;
   js?: boolean;
   jsx?: boolean;
