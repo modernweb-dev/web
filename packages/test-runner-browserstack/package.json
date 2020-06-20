@@ -19,8 +19,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "echo 'tests not run in CI'",
     "test:browserstack": "mocha test/**/*.test.ts --require ts-node/register --reporter progress",
+    "test:ci": "echo 'no tests in the CI'",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
   },
   "files": [

@@ -27,18 +27,21 @@ npm i -D @web/test-runner
 Do a single test run:
 
 ```bash
+web-test-runner test/**/*.test.js
 wtr test/**/*.test.js
 ```
 
 Run in watch mode, reloading on file changes:
 
 ```bash
+web-test-runner test/**/*.test.js --watch
 wtr test/**/*.test.js --watch
 ```
 
 Run with test coverage:
 
 ```bash
+web-test-runner test/**/*.test.js --coverage
 wtr test/**/*.test.js --coverage
 ```
 

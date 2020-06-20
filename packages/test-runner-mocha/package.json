@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "echo 'no tests for this package yet'"
+    "test:ci": "echo 'no tests for this package yet'"
   },
   "files": [
     "*.d.ts",
@@ -37,7 +37,7 @@
     "framework"
   ],
   "dependencies": {
-    "@web/test-runner-browser-lib": "^0.2.2",
+    "@web/test-runner-browser-lib": "^0.2.4",
     "mocha": "^7.2.0"
   }
 }

@@ -25,6 +25,7 @@
     "build": "tsc",
     "test": "node dist/test-runner.js --preserve-symlinks --root-dir ../.. demo/**/pass-*.test.{js,html}",
     "test:bare": "node dist/test-runner.js --preserve-symlinks --root-dir ../..",
+    "test:ci": "yarn test",
     "test:custom-html": "node dist/test-runner.js --root-dir ../.. demo/**/pass-*.test.{js,html} --config demo/customhtml.config.js --watch",
     "test:logging": "node dist/test-runner.js --preserve-symlinks --root-dir ../.. demo/test/logging.test.js",
     "test:many": "node dist/test-runner.js --root-dir ../.. demo/test/many/**/*.test.js",
