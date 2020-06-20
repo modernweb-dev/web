@@ -13,7 +13,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild",
-  "main": "dist/index.js",
+  "main": "dist/esbuildPlugin.js",
   "engines": {
     "node": ">=10.0.0"
   },
