@@ -69,6 +69,7 @@
     "trailingComma": "all"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "demo/projects/*"
   ]
 }
