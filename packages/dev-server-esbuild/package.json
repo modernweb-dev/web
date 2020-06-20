@@ -20,7 +20,7 @@
   "scripts": {
     "start:demo:jsx": "es-dev-server --config demo/jsx/server.config.js",
     "start:demo:ts": "es-dev-server --config demo/ts/server.config.js",
-    "test": "echo 'this package has no tests yet'"
+    "test:ci": "echo 'this package has no tests yet'"
   },
   "files": [
     "dist"

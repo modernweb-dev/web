@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "echo 'no tests for this package yet'"
+    "test:ci": "echo 'no tests for this package yet'"
   },
   "files": [
     "dist",
@@ -40,9 +40,9 @@
     "@types/diff": "^4.0.2",
     "@types/istanbul-lib-report": "^3.0.0",
     "@types/istanbul-reports": "^1.1.2",
-    "@web/test-runner-core": "^0.5.0",
+    "@web/test-runner-core": "^0.5.5",
     "camelcase": "^6.0.0",
-    "chalk": "^4.0.0",
+    "chalk": "^4.1.0",
     "cli-cursor": "^3.1.0",
     "command-line-args": "^5.1.1",
     "deepmerge": "^4.2.2",

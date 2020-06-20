@@ -20,6 +20,7 @@
   "scripts": {
     "build": "tsc",
     "test": "mocha test/**/*.test.ts --require ts-node/register --reporter progress",
+    "test:ci": "yarn test",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
   },
   "files": [
@@ -39,7 +40,7 @@
     "playwright": "1.0.2"
   },
   "devDependencies": {
-    "@web/test-runner-mocha": "^0.2.1",
-    "@web/test-runner-server": "^0.4.2"
+    "@web/test-runner-mocha": "^0.2.4",
+    "@web/test-runner-server": "^0.4.4"
   }
 }

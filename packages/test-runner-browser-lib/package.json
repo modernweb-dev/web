@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "echo 'no tests for this package yet'"
+    "test:ci": "echo 'no tests for this package yet'"
   },
   "files": [
     "dist"
