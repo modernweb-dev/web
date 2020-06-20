@@ -1,5 +1,11 @@
 # @web/test-runner-server
 
+## 0.4.4
+
+### Patch Changes
+
+- 52803c0: add esbuild plugin
+
 ## 0.4.3
 
 ### Patch Changes
