@@ -1,0 +1,29 @@
+{
+  "name": "@web/demo-lit-element-ts",
+  "version": "0.0.0",
+  "description": "Webcomponent lit-element following open-wc recommendations",
+  "license": "MIT",
+  "author": "modern web",
+  "main": "index.js",
+  "module": "index.js",
+  "scripts": {
+    "start": "es-dev-server --app-index demo/projects/lit-element-ts/demo/index.html --node-resolve --open --watch",
+    "test": "wtr test/**/*.test.ts",
+    "test:watch": "wtr test/**/*.test.ts --watch",
+    "tsc:watch": "tsc --watch"
+  },
+  "dependencies": {
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.2"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^2.0.0",
+    "@open-wc/testing-karma": "^3.0.0",
+    "@types/node": "13.11.1",
+    "concurrently": "^5.1.0",
+    "deepmerge": "^3.2.0",
+    "es-dev-server": "^1.23.0",
+    "tslib": "^1.11.0",
+    "typescript": "~3.8.2"
+  }
+}

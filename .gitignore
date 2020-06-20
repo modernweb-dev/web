@@ -6,7 +6,8 @@
 .DS_Store
 
 ## code coverage folders
-/packages/test-runner/coverage
+/packages/*/coverage
+/demo/projects/*/coverage
 /coverage/
 
 ## npm

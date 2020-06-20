@@ -1,0 +1,24 @@
+{
+  "name": "@web/demo-lit-element",
+  "version": "0.0.0",
+  "description": "Webcomponent lit-element following open-wc recommendations",
+  "license": "MIT",
+  "author": "my-element",
+  "main": "index.js",
+  "module": "index.js",
+  "scripts": {
+    "start": "es-dev-server --app-index demo/index.html --node-resolve --open --watch",
+    "test": "wtr test/**/*.test.js --coverage",
+    "test:watch": "wtr test/**/*.test.js --watch"
+  },
+  "dependencies": {
+    "@web/test-runner": "^0.5.15",
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.2"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^2.0.0",
+    "deepmerge": "^3.2.0",
+    "es-dev-server": "^1.23.0"
+  }
+}
