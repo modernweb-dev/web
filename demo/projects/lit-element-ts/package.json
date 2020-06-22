@@ -21,7 +21,7 @@
   "devDependencies": {
     "@open-wc/testing": "^2.0.0",
     "@types/node": "13.11.1",
-    "@web/dev-server-esbuild": "^0.0.2",
+    "@web/dev-server-esbuild": "^0.0.3",
     "@web/test-runner": "^0.5.15",
     "deepmerge": "^4.2.2",
     "es-dev-server": "^1.55.0",
