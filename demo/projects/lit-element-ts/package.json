@@ -10,7 +10,7 @@
   "scripts": {
     "start": "es-dev-server --app-index demo/projects/lit-element-ts/demo/index.html --node-resolve --open --watch",
     "test": "web-test-runner test/**/*.test.ts",
-    "test:ci": "node ../../../packages/test-runner/dist/test-runner.js test/**/*.test.ts --coverage",
+    "test:ci": "node ../../../packages/test-runner/dist/test-runner.js test/**/*.test.ts",
     "test:watch": "web-test-runner test/**/*.test.ts --watch",
     "tsc:watch": "tsc --watch"
   },

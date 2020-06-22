@@ -10,7 +10,7 @@
   "scripts": {
     "start": "es-dev-server --app-index demo/index.html --node-resolve --open --watch",
     "test": "web-test-runner test/**/*.test.js --coverage",
-    "test:ci": "node ../../../packages/test-runner/dist/test-runner.js test/**/*.test.js --coverage",
+    "test:ci": "node ../../../packages/test-runner/dist/test-runner.js test/**/*.test.js",
     "test:watch": "web-test-runner test/**/*.test.js --watch"
   },
   "dependencies": {
