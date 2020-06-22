@@ -14,6 +14,7 @@ export interface EsBuildPluginArgs {
   tsx?: boolean;
   jsxFactory?: string;
   jsxFragment?: string;
+  loaders: Record<string, Loader>;
   define?: { [key: string]: string };
 }
 
@@ -37,22 +38,33 @@ function logEsBuildMessages(filePath: string, code: string, messages: Message[],
 }
 
 function getEsBuildLoader(context: Context, args: EsBuildPluginArgs): Loader | null {
-  if (args.js && context.response.is('js')) {
-    return 'js';
+  if (context.response.is('js') && (args?.loaders?.js || args.js)) {
+    return args?.loaders?.js ?? 'js';
   }
-  if (args.ts && context.path.endsWith('.ts')) {
-    return 'ts';
+  if (context.path.endsWith('.ts') && (args?.loaders?.ts || args.ts)) {
+    return args?.loaders?.ts ?? 'ts';
   }
-  if (args.tsx && context.path.endsWith('.tsx')) {
-    return 'tsx';
+  if (context.path.endsWith('.tsx') && (args?.loaders?.tsx || args.tsx)) {
+    return args?.loaders?.tsx ?? 'tsx';
   }
-  if (args.jsx && context.path.endsWith('.jsx')) {
-    return 'jsx';
+  if (context.path.endsWith('.jsx') && (args?.loaders?.jsx || args.jsx)) {
+    return args?.loaders?.jsx ?? 'jsx';
   }
   return null;
 }
 
 export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
+  const handledExtensions = args.loaders ? Object.keys(args.loaders).map(e => `.${e}`) : [];
+  if (args.ts) {
+    handledExtensions.push('.ts');
+  }
+  if (args.jsx) {
+    handledExtensions.push('.jsx');
+  }
+  if (args.tsx) {
+    handledExtensions.push('.tsx');
+  }
+
   let rootDir: string;
   let service: Service;
 
@@ -69,15 +81,7 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
     },
 
     resolveMimeType(context) {
-      if (args.ts && context.path.endsWith('.ts')) {
-        return 'js';
-      }
-
-      if (args.tsx && context.path.endsWith('.tsx')) {
-        return 'js';
-      }
-
-      if (args.jsx && context.path.endsWith('.jsx')) {
+      if (handledExtensions.some(ext => context.path.endsWith(ext))) {
         return 'js';
       }
     },

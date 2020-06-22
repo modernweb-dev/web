@@ -40,7 +40,7 @@ module.exports = {
 };
 ```
 
-## Confiugration
+## Configuration
 
 We expose the following options for esbuild:
 
@@ -53,6 +53,7 @@ interface EsbuildPluginArgs {
   tsx?: boolean;
   jsxFactory?: string;
   jsxFragment?: string;
+  loaders: Record<string, Loader>;
   define?: { [key: string]: string };
 }
 ```
@@ -85,6 +86,12 @@ import { h, Fragment } from 'preact';
 
 ```js
 esbuildPlugin({ jsx: true, jsxFactory: 'h', jsxFragment: 'Fragment' });
+```
+
+If you want to use jsx inside .js files you need to set up a custom loader:
+
+```ts
+esbuildPlugin({ loaders: { js: 'jsx' }, jsxFactory: 'h', jsxFragment: 'Fragment' });
 ```
 
 **TSX**
