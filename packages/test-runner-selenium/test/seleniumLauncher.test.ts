@@ -92,10 +92,11 @@ it('runs tests with selenium', function (done) {
 
     for (const session of sessions) {
       if (!session.passed) {
-        if (session.error instanceof Error) {
-          done(session.error);
-        } else if (session.error) {
-          done(new Error(session.error.message));
+        const error = session.errors[0];
+        if (error instanceof Error) {
+          done(error);
+        } else if (error) {
+          done(new Error(error.message));
         } else {
           done(new Error('unknown error'));
         }

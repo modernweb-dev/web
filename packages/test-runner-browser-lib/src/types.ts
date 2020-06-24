@@ -3,11 +3,6 @@ export interface RuntimeConfig {
   watch: boolean;
 }
 
-export interface FailedImport {
-  file: string;
-  error: TestResultError;
-}
-
 export interface TestResultError {
   message: string;
   stack?: string;
@@ -23,12 +18,12 @@ export interface TestResult {
 
 export interface FrameworkTestSessionResult {
   passed: boolean;
-  error?: TestResultError;
+  errors?: TestResultError[];
   tests: TestResult[];
-  failedImports: FailedImport[];
 }
 
 export interface BrowserTestSessionResult extends FrameworkTestSessionResult {
   testCoverage?: unknown;
+  errors: TestResultError[];
   logs: string[];
 }

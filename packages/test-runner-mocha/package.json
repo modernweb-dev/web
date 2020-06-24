@@ -39,5 +39,8 @@
   "dependencies": {
     "@web/test-runner-browser-lib": "^0.2.4",
     "mocha": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^7.0.2"
   }
 }

@@ -1,10 +1,10 @@
 import { TestSession } from '@web/test-runner-core';
 import chalk from 'chalk';
 import { TerminalEntry } from '../Terminal';
-import { getFileErrors } from './getFileErrors';
+import { getTestsErrors } from './getTestsErrors';
 import { getBrowserLogs } from './getBrowserLogs';
 import { getRequest404s } from './getRequest404s';
-import { getSessionErrors } from './getSessionErrors';
+import { getTestFileErrors } from './getTestFileErrors';
 
 export function getTestFileReport(
   testFile: string,
@@ -18,11 +18,18 @@ export function getTestFileReport(
 
   entries.push(...getBrowserLogs(sessionsForTestFile));
   entries.push(...getRequest404s(sessionsForTestFile));
-  entries.push(...getSessionErrors(sessionsForTestFile, serverAddressRegExp));
+  entries.push(
+    ...getTestFileErrors(
+      allBrowserNames,
+      favoriteBrowser,
+      sessionsForTestFile,
+      serverAddressRegExp,
+    ),
+  );
 
   if (failedSessions.length > 0) {
     entries.push(
-      ...getFileErrors(
+      ...getTestsErrors(
         testFile,
         allBrowserNames,
         favoriteBrowser,
