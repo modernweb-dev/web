@@ -31,7 +31,7 @@ const defaultCoverageConfig: CoverageConfig = {
 };
 
 function validateConfig(config: Partial<TestRunnerConfig>): TestRunnerConfig {
-  if (!Array.isArray(config.files) || config.files.length === 0) {
+  if (!(typeof config.files === 'string' || Array.isArray(config.files)) || config.files.length === 0) {
     throw new Error('No test files configured.');
   }
   if (typeof config.testFrameworkImport !== 'string') {
