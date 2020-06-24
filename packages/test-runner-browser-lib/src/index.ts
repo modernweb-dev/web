@@ -3,7 +3,6 @@ import {
   RuntimeConfig,
   FrameworkTestSessionResult,
   BrowserTestSessionResult,
-  FailedImport,
   TestResult,
 } from './types';
 import { stringify } from './stringify';
@@ -70,8 +69,7 @@ export async function getConfig(): Promise<RuntimeConfig & { debug: boolean }> {
 export function sessionError(error: TestResultError) {
   return sessionFinished({
     passed: false,
-    error,
-    failedImports: [],
+    errors: [error],
     tests: [],
   });
 }
@@ -84,6 +82,7 @@ export async function sessionFinished(result: FrameworkTestSessionResult): Promi
   const sessionResult: BrowserTestSessionResult = {
     logs,
     testCoverage: (window as any).__coverage__,
+    errors: [],
     ...result,
   };
   await Promise.all(Array.from(pendingLogs)).catch(error => {
@@ -97,6 +96,5 @@ export {
   RuntimeConfig,
   FrameworkTestSessionResult,
   BrowserTestSessionResult,
-  FailedImport,
   TestResult,
 };

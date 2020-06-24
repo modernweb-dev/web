@@ -91,8 +91,8 @@ export class TestScheduler {
     }
   }
 
-  private setSessionFailed(session: TestSession, error: TestResultError) {
-    this.sessions.updateStatus({ ...session, passed: false, error }, SESSION_STATUS.FINISHED);
+  private setSessionFailed(session: TestSession, ...errors: TestResultError[]) {
+    this.sessions.updateStatus({ ...session, passed: false, errors }, SESSION_STATUS.FINISHED);
   }
 
   private setSessionStartedTimeout(testRun: number, sessionId: string) {

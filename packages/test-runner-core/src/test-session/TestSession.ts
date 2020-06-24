@@ -2,11 +2,6 @@ import { CoverageMapData } from 'istanbul-lib-coverage';
 import { TestSessionStatus } from './TestSessionStatus';
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 
-export interface FailedImport {
-  file: string;
-  error: TestResultError;
-}
-
 export interface TestResultError {
   message: string;
   stack?: string;
@@ -28,10 +23,9 @@ export interface TestSession {
   testFile: string;
   status: TestSessionStatus;
   passed?: boolean;
-  error?: TestResultError;
+  errors: TestResultError[];
   tests: TestResult[];
   logs: string[];
-  failedImports: FailedImport[];
   request404s: string[];
   testCoverage?: CoverageMapData;
 }

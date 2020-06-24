@@ -19,9 +19,9 @@ export function createTestSessions(
           browserLauncher,
           status: SESSION_STATUS.SCHEDULED,
           testFile,
+          errors: [],
           tests: [],
           logs: [],
-          failedImports: [],
           request404s: [],
         };
 

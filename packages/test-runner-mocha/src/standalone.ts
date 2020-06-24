@@ -3,9 +3,9 @@ import {
   captureConsoleOutput,
   logUncaughtErrors,
   sessionStarted,
-  TestResult,
 } from '@web/test-runner-browser-lib';
 import 'mocha/mocha.js';
+import { collectTestResults } from './collectTestResults';
 
 captureConsoleOutput();
 logUncaughtErrors();
@@ -17,44 +17,11 @@ export function runTests() {
   mocha.run(failures => {
     // setTimeout to wait for event loop to unwind and collect all logs
     setTimeout(() => {
-      const testResults: TestResult[] = [];
-
-      function collectTests(prefix: string, tests: Mocha.Test[]) {
-        for (const test of tests) {
-          // add test if it isn't pending (skipped)
-          if (!test.isPending()) {
-            const name = `${prefix}${test.title}`;
-            const err = test.err as Error & { actual?: string; expected?: string };
-            testResults.push({
-              name,
-              passed: test.isPassed(),
-              error: err
-                ? {
-                    message: err.message,
-                    stack: err.stack,
-                    expected: err.expected,
-                    actual: err.actual,
-                  }
-                : undefined,
-            });
-          }
-        }
-      }
-
-      function collectSuite(prefix: string, suite: Mocha.Suite) {
-        collectTests(prefix, suite.tests);
-
-        for (const childSuite of suite.suites) {
-          const newPrefix = `${prefix}${childSuite.title} > `;
-          collectSuite(newPrefix, childSuite);
-        }
-      }
-
-      collectSuite('', mocha.suite);
+      const { testResults, hookErrors } = collectTestResults(mocha);
 
       sessionFinished({
-        passed: failures === 0,
-        failedImports: [],
+        passed: hookErrors.length === 0 && failures === 0,
+        errors: hookErrors,
         tests: testResults,
       });
     });
