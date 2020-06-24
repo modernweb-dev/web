@@ -39,7 +39,13 @@ export class TestScheduler {
 
   schedule(testRun: number, sessionsToSchedule: Iterable<TestSession>) {
     for (const session of sessionsToSchedule) {
-      this.sessions.updateStatus(session, SESSION_STATUS.SCHEDULED);
+      this.sessions.updateStatus(
+        {
+          ...session,
+          request404s: [],
+        },
+        SESSION_STATUS.SCHEDULED,
+      );
     }
 
     this.runScheduled(testRun);
