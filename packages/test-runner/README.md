@@ -99,7 +99,6 @@ wtr test/**/*.test.js --playwright --browsers chromium firefox webkit
 | browsers    | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit |
 | config      | config       | where to read the config from                                                               |
 | concurrency | number       | amount of test files to run concurrently                                                    |
-| config      | config       | where to read the config from                                                               |
 
 ## Configuration
 
