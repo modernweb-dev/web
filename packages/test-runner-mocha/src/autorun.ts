@@ -6,7 +6,6 @@ import {
   sessionStarted,
   TestResultError,
 } from '@web/test-runner-browser-lib';
-import type { Hook } from 'mocha';
 import 'mocha/mocha.js';
 import { collectTestResults } from './collectTestResults';
 
