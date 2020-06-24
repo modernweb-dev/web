@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.3.7
+
+### Patch Changes
+
+- d8475e5: validate config now accepts a string for as files field
+
 ## 0.3.6
 
 ### Patch Changes
