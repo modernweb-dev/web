@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.5.7
+
+### Patch Changes
+
+- 50d1036: reset request 404s on rerun
+
 ## 0.5.6
 
 ### Patch Changes

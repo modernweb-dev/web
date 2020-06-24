@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.5.17
+
+### Patch Changes
+
+- 50d1036: reset request 404s on rerun
+- Updated dependencies [50d1036]
+  - @web/test-runner-core@0.5.7
+
 ## 0.5.16
 
 ### Patch Changes
