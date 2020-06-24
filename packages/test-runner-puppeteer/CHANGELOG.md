@@ -1,5 +1,14 @@
 # @web/test-runner-puppeteer
 
+## 0.4.4
+
+### Patch Changes
+
+- 14b7fae: handle errors in mocha hooks
+- Updated dependencies [14b7fae]
+  - @web/test-runner-chrome@0.4.4
+  - @web/test-runner-core@0.5.6
+
 ## 0.4.3
 
 ### Patch Changes

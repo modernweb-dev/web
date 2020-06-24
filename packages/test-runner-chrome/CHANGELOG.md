@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.4.4
+
+### Patch Changes
+
+- 14b7fae: handle errors in mocha hooks
+
 ## 0.4.3
 
 ### Patch Changes

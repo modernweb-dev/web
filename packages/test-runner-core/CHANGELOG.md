@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.5.6
+
+### Patch Changes
+
+- 14b7fae: handle errors in mocha hooks
+
 ## 0.5.5
 
 ### Patch Changes

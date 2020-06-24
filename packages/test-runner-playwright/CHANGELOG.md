@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.3.4
+
+### Patch Changes
+
+- 14b7fae: handle errors in mocha hooks
+- Updated dependencies [14b7fae]
+  - @web/test-runner-core@0.5.6
+
 ## 0.3.3
 
 ### Patch Changes

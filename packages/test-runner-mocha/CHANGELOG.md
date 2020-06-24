@@ -1,5 +1,13 @@
 # @web/test-runner-mocha
 
+## 0.2.5
+
+### Patch Changes
+
+- 14b7fae: handle errors in mocha hooks
+- Updated dependencies [14b7fae]
+  - @web/test-runner-browser-lib@0.2.5
+
 ## 0.2.4
 
 ### Patch Changes

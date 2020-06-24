@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-mocha",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "publishConfig": {
     "access": "public"
   },
@@ -37,7 +37,7 @@
     "framework"
   ],
   "dependencies": {
-    "@web/test-runner-browser-lib": "^0.2.4",
+    "@web/test-runner-browser-lib": "^0.2.5",
     "mocha": "^7.2.0"
   },
   "devDependencies": {

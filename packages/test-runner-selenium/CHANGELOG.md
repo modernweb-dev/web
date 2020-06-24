@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.0.4
+
+### Patch Changes
+
+- 14b7fae: handle errors in mocha hooks
+
 ## 0.0.3
 
 ### Patch Changes
