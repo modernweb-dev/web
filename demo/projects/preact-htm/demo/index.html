@@ -1,0 +1,18 @@
+<html>
+  <body>
+    <div id="app"></div>
+
+    <script type="module">
+      import { render } from 'preact';
+      import { html } from 'htm/preact';
+      import App from '../src/App';
+
+      render(
+        html`
+          <${App} />
+        `,
+        document.getElementById('app'),
+      );
+    </script>
+  </body>
+</html>
