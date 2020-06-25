@@ -13,6 +13,11 @@ import { toBrowserPath } from './utils';
 export { Config as ServerConfig };
 
 const IGNORED_404s = ['favicon.ico'];
+const CACHED_PATTERNS = [
+  'node_modules/@web/test-runner-',
+  'node_modules/mocha/',
+  'node_modules/chai/',
+];
 
 function createBrowserFilePath(rootDir: string, filePath: string) {
   const fullFilePath = filePath.startsWith(process.cwd())
@@ -142,9 +147,18 @@ export function testRunnerServer(devServerConfig: Partial<Config> = {}): Server 
                 onRequest404,
                 onRerunSessions,
               }),
+
+              async (context: Context, next: Next) => {
+                await next();
+
+                if (CACHED_PATTERNS.some(pattern => context.path.includes(pattern))) {
+                  context.response.set('cache-control', 'public, max-age=31536000');
+                }
+              },
             ],
             plugins: [
               {
+                name: 'wtr-serve-html',
                 serve(context: Context) {
                   if (context.path === '/') {
                     const testRunnerImport = `${config.testFrameworkImport}${context.URL.search}`;
