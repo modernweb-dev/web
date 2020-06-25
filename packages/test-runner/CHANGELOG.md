@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.5.18
+
+### Patch Changes
+
+- 2f4ea46: resolve stack trace paths relative to the root dir
+- Updated dependencies [2f4ea46]
+  - @web/test-runner-cli@0.3.9
+
 ## 0.5.17
 
 ### Patch Changes

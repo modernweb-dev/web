@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.3.9
+
+### Patch Changes
+
+- 2f4ea46: resolve stack trace paths relative to the root dir
+
 ## 0.3.8
 
 ### Patch Changes
