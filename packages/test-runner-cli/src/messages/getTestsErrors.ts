@@ -34,18 +34,18 @@ function renderDiff(actual: string, expected: string) {
   return `${chalk.green('+ expected')} ${chalk.red('- actual')}\n\n${diffMsg}`;
 }
 
-export function formatError(err: TestResultError, serverAddress: RegExp): string {
+export function formatError(err: TestResultError, rootDir: string, serverAddress: string): string {
   const strings: string[] = [];
 
   if (typeof err.expected === 'string' && typeof err.actual === 'string') {
-    const errorLocation = getErrorLocation(err);
+    const errorLocation = getErrorLocation(err, rootDir, serverAddress);
     if (errorLocation != null) {
       strings.push(`${chalk.gray('at:')} ${chalk.white(errorLocation)}`);
     }
     strings.push(`${chalk.gray('error:')} ${chalk.red(err.message)}`);
     strings.push(renderDiff(err.actual, err.expected));
   } else if (err.stack) {
-    strings.push(`${chalk.red(formatStackTrace(err, serverAddress))}`);
+    strings.push(`${chalk.red(formatStackTrace(err, rootDir, serverAddress))}`);
   } else {
     strings.push(chalk.red(err.message ?? 'Unknown error'));
   }
@@ -58,7 +58,8 @@ export function getTestsErrors(
   allBrowserNames: string[],
   favoriteBrowser: string,
   failedSessions: TestSession[],
-  serverAddressRegExp: RegExp,
+  rootDir: string,
+  serverAddress: string,
 ) {
   const entries: TerminalEntry[] = [];
   const testErrorsPerBrowser = new Map<string, Map<string, TestResultError>>();
@@ -84,7 +85,7 @@ export function getTestsErrors(
       const failedOn = getFailedOnBrowsers(allBrowserNames, failedBrowsers);
 
       entries.push({ text: `❌ ${name}${failedOn}`, indent: 1 });
-      entries.push({ text: formatError(favoriteError, serverAddressRegExp), indent: 6 });
+      entries.push({ text: formatError(favoriteError, rootDir, serverAddress), indent: 6 });
       entries.push('');
     }
   }

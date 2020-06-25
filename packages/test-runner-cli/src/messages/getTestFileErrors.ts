@@ -2,8 +2,8 @@ import { TestSession, TestResultError } from '@web/test-runner-core';
 import { TerminalEntry } from '../Terminal';
 import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers';
 import { formatStackTrace } from './utils/formatStackTrace';
-import { formatErrorMessage } from './utils/formatErrorMessage';
 import chalk from 'chalk';
+import { replaceRelativeStackFilePath } from './utils/replaceRelativeStackFilePath';
 
 function isSameError(a: TestResultError, b: TestResultError) {
   return a.message === b.message && a.stack === b.stack;
@@ -19,7 +19,8 @@ export function getTestFileErrors(
   browserNames: string[],
   favoriteBrowser: string,
   sessionsForTestFile: TestSession[],
-  serverAddressRegExp: RegExp,
+  rootDir: string,
+  serverAddress: string,
 ) {
   const entries: TerminalEntry[] = [];
   const reports: ErrorReport[] = [];
@@ -40,7 +41,7 @@ export function getTestFileErrors(
   }
 
   for (const report of reports) {
-    const formattedStacktrace = formatStackTrace(report.error, serverAddressRegExp);
+    const formattedStacktrace = formatStackTrace(report.error, rootDir, serverAddress);
 
     if (formattedStacktrace) {
       const [first, ...rest] = formattedStacktrace.split('\n');
@@ -60,7 +61,9 @@ export function getTestFileErrors(
       // there was no stack trace, so just print the error message
       entries.push({
         text: `❌ ${
-          formatErrorMessage(report.error, serverAddressRegExp) ?? 'Unknown error'
+          report.error.message
+            ? replaceRelativeStackFilePath(report.error.message, rootDir, serverAddress)
+            : 'Unknown error'
         } ${getFailedOnBrowsers(browserNames, report.failedBrowsers)}`,
         indent: 1,
       });

@@ -10,7 +10,8 @@ export function getTestFileReport(
   testFile: string,
   allBrowserNames: string[],
   favoriteBrowser: string,
-  serverAddressRegExp: RegExp,
+  rootDir: string,
+  serverAddress: string,
   sessionsForTestFile: TestSession[],
 ) {
   const failedSessions = sessionsForTestFile.filter(s => !s.passed);
@@ -23,7 +24,8 @@ export function getTestFileReport(
       allBrowserNames,
       favoriteBrowser,
       sessionsForTestFile,
-      serverAddressRegExp,
+      rootDir,
+      serverAddress,
     ),
   );
 
@@ -34,7 +36,8 @@ export function getTestFileReport(
         allBrowserNames,
         favoriteBrowser,
         failedSessions,
-        serverAddressRegExp,
+        rootDir,
+        serverAddress,
       ),
     );
   }

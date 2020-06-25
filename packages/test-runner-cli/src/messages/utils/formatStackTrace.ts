@@ -1,6 +1,7 @@
 import { TestResultError } from '@web/test-runner-core';
+import { replaceRelativeStackFilePath } from './replaceRelativeStackFilePath';
 
-export function formatStackTrace(error: TestResultError, serverAddress: RegExp) {
+export function formatStackTrace(error: TestResultError, rootDir: string, serverAddress: string) {
   if (!error.stack) {
     return '';
   }
@@ -13,10 +14,13 @@ export function formatStackTrace(error: TestResultError, serverAddress: RegExp) 
     strings.unshift(`${error.message}\n`);
   }
 
-  return (
-    strings
-      // remove server address and indent with 2 spaces
-      .map((str, i) => `${' '.repeat(i === 0 ? 0 : 2)}${str.trim().replace(serverAddress, '')}`)
-      .join('\n')
-  );
+  return strings
+    .map((str, i) => {
+      // ensure there is an indentation of 2 spaces
+      const trimmedString = `${' '.repeat(i === 0 ? 0 : 2)}${str.trim()}`;
+
+      // replace browser url with relative file path
+      return replaceRelativeStackFilePath(trimmedString, rootDir, serverAddress);
+    })
+    .join('\n');
 }
