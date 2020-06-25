@@ -1,0 +1,20 @@
+{
+  "name": "@web/demo-preact-htm",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "start": "es-dev-server",
+    "test": "web-test-runner test/**/*.test.js",
+    "test:ci": "node ../../../packages/test-runner/dist/test-runner.js test/**/*.test.js",
+    "test:watch": "web-test-runner test/**/*.test.js --watch"
+  },
+  "dependencies": {
+    "htm": "^3.0.4",
+    "preact": "^10.4.4"
+  },
+  "devDependencies": {
+    "@bundled-es-modules/chai": "^4.2.2"
+  }
+}

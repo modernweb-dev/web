@@ -1,4 +1,5 @@
 import { expect } from '@bundled-es-modules/chai';
+import { html } from 'htm/preact';
 import App from '../src/App';
 import { fixture } from './test-helpers';
 
@@ -6,7 +7,11 @@ let element;
 let restoreFixture;
 
 beforeEach(() => {
-  ({ element, restoreFixture } = fixture(<App />));
+  ({ element, restoreFixture } = fixture(
+    html`
+      <${App} />
+    `,
+  ));
 });
 
 afterEach(() => {

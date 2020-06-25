@@ -1,13 +1,14 @@
 {
-  "name": "@web/demo-preact",
+  "name": "@web/demo-preact-tsx",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
   "main": "index.js",
   "scripts": {
     "start": "es-dev-server",
-    "test": "web-test-runner test/**/*.test.jsx",
-    "test:watch": "web-test-runner test/**/*.test.jsx --watch"
+    "test": "web-test-runner test/**/*.test.tsx",
+    "test:ci": "node ../../../packages/test-runner/dist/test-runner.js test/**/*.test.tsx",
+    "test:watch": "web-test-runner test/**/*.test.tsx --watch"
   },
   "dependencies": {
     "preact": "^10.4.4"

@@ -59,6 +59,14 @@ See the config section to learn more about how to configure the test framework, 
 
 When you point the test runner at a HTML file you can take full control over the test environment. There is no automatic bootstrapping of a test framework, you need to make sure things are set up and results are communicated back to the test runner. [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha) can be used as a library for HTML tests, taking care of most of the heavy lifting. You can also use the low level [@web/test-runner-browser-lib](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browser-lib) for full control.
 
+## Example projects
+
+- [lit-element](https://github.com/modernweb-dev/web/tree/master/demo/projects/lit-element)
+- [lit-element typescript](https://github.com/modernweb-dev/web/tree/master/demo/projects/lit-element-ts)
+- [preact htm](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-htm)
+- [preact jsx](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-jsx)
+- [preact tsx](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-tsx)
+
 ## Browsers
 
 By default tests are run with the locally installed instance of Chrome.
