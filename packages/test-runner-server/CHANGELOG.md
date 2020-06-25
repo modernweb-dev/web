@@ -1,5 +1,11 @@
 # @web/test-runner-server
 
+## 0.4.5
+
+### Patch Changes
+
+- 2804b98: cache test runner libs
+
 ## 0.4.4
 
 ### Patch Changes
