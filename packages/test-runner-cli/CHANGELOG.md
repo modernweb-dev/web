@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.3.10
+
+### Patch Changes
+
+- f7c3e08: Create a separate config loader package
+- Updated dependencies [f7c3e08]
+  - @web/config-loader@0.0.1
+
 ## 0.3.9
 
 ### Patch Changes
