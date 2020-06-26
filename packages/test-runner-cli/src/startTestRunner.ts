@@ -1,10 +1,10 @@
 import { getPortPromise } from 'portfinder';
 import { TestRunner, TestRunnerConfig, CoverageConfig } from '@web/test-runner-core';
+import { readConfig as readFileConfig, ConfigLoaderError } from '@web/config-loader';
 import deepmerge from 'deepmerge';
 import chalk from 'chalk';
 import { TestRunnerCli } from './TestRunnerCli';
 import { collectTestFiles } from './config/collectTestFiles';
-import { readFileConfig } from '../js/readFileConfig';
 import { readCliArgs } from './config/readCliArgs';
 import { OptionDefinition } from 'command-line-args';
 
@@ -66,25 +66,33 @@ export interface ReadConfigArgs {
 
 export async function readConfig(args: ReadConfigArgs = {}) {
   const { cliArgsConfig, cliArgs } = readCliArgs(args.cliOptions, args.argv);
-  const fileConfig = await readFileConfig(cliArgs.config);
-  const config: Partial<TestRunnerConfig> = {
-    ...defaultBaseConfig,
-    ...fileConfig,
-    ...cliArgsConfig,
-  };
+  try {
+    const fileConfig = await readFileConfig('web-test-runner.config', cliArgs.config);
+    const config: Partial<TestRunnerConfig> = {
+      ...defaultBaseConfig,
+      ...fileConfig,
+      ...cliArgsConfig,
+    };
 
-  if (config.coverageConfig) {
-    deepmerge(config.coverageConfig, defaultCoverageConfig);
-  } else {
-    config.coverageConfig = defaultCoverageConfig;
+    if (config.coverageConfig) {
+      deepmerge(config.coverageConfig, defaultCoverageConfig);
+    } else {
+      config.coverageConfig = defaultCoverageConfig;
+    }
+
+    if (typeof config.port !== 'number') {
+      const port = 9000 + Math.floor(Math.random() * 1000);
+      config.port = await getPortPromise({ port });
+    }
+
+    return { cliArgs, config };
+  } catch (error) {
+    if (error instanceof ConfigLoaderError) {
+      console.error(chalk.red(`\n${error.message}\n`));
+      process.exit(1);
+    }
+    throw error;
   }
-
-  if (typeof config.port !== 'number') {
-    const port = 9000 + Math.floor(Math.random() * 1000);
-    config.port = await getPortPromise({ port });
-  }
-
-  return { cliArgs, config };
 }
 
 export async function startTestRunner(partialConfig: Partial<TestRunnerConfig>) {

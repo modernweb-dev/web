@@ -1,0 +1,42 @@
+{
+  "name": "@web/config-loader",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Load a esm or cjs config from the file system",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/config-loader"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/config-loader",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha test/**/*.test.js --require ts-node/register --reporter progress",
+    "test:ci": "echo 'no tests for this package yet'",
+    "test:watch": "mocha test/**/*.test.js --watch --watch-files .,src,test --reporter progress"
+  },
+  "files": [
+    "src",
+    "*.js",
+    "*.d.ts"
+  ],
+  "keywords": [
+    "web",
+    "node",
+    "config",
+    "loader",
+    "esm",
+    "es module"
+  ],
+  "devDependencies": {
+    "semver": "^7.3.2"
+  }
+}
