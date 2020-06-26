@@ -2,6 +2,7 @@
 /packages/*/coverage
 /packages/test-runner-mocha/*.js
 /packages/test-runner-mocha/*.d.ts
+/packages/config-loader/
 node_modules
 dist
 demo

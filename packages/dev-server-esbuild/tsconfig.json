@@ -5,7 +5,6 @@
     "outDir": "./dist",
     "module": "commonjs",
     "rootDir": "./src",
-    "experimentalDecorators": true,
     "composite": true
   },
   "references": [],
