@@ -24,6 +24,12 @@
       "path": "./test-runner-selenium/tsconfig.json"
     },
     {
+      "path": "./dev-server-core/tsconfig.json"
+    },
+    {
+      "path": "./dev-server-esbuild/tsconfig.json"
+    },
+    {
       "path": "./test-runner/tsconfig.json"
     },
     {
@@ -34,9 +40,6 @@
     },
     {
       "path": "./test-runner-browserstack/tsconfig.json"
-    },
-    {
-      "path": "./dev-server-esbuild/tsconfig.json"
     }
   ]
 }

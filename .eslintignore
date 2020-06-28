@@ -3,6 +3,7 @@
 /packages/test-runner-mocha/*.js
 /packages/test-runner-mocha/*.d.ts
 /packages/config-loader/
+/packages/*/test/fixtures
 node_modules
 dist
 demo

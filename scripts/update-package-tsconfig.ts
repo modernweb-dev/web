@@ -2,6 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const nodePackages = [
+  'dev-server-core',
+  'dev-server-esbuild',
   'test-runner',
   'test-runner-core',
   'test-runner-cli',
@@ -11,7 +13,6 @@ const nodePackages = [
   'test-runner-playwright',
   'test-runner-selenium',
   'test-runner-browserstack',
-  'dev-server-esbuild',
 ];
 const browserPackages = ['test-runner-browser-lib', 'test-runner-mocha'];
 const packages = [...nodePackages, ...browserPackages];
