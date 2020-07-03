@@ -11,7 +11,7 @@
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --ext .ts,.js .",
     "lint:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --check --ignore-path .eslintignore",
-    "reinstall-workspace": "rm -rf node_modules && rm -rf packages/*/node_modules && rm -rf demo/projects/*/node_modules && yarn install",
+    "reinstall-workspace": "rm -rf node_modules && rm -rf packages/*/node_modules && rm -rf demo/projects/*/node_modules && rm -rf packages/*/dist && rm -rf packages/*/tsconfig.tsbuildinfo && yarn install && yarn build",
     "test": "yarn workspaces run test:ci",
     "update-dependency": "node scripts/update-dependency.js",
     "update:tsconfig": "ts-node scripts/update-package-tsconfig.ts"

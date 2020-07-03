@@ -1,0 +1,1 @@
+export { rollupAdapter } from './rollupAdapter';

@@ -3,6 +3,9 @@
   "files": [],
   "references": [
     {
+      "path": "./dev-server-core/tsconfig.json"
+    },
+    {
       "path": "./test-runner-browser-lib/tsconfig.json"
     },
     {
@@ -24,10 +27,10 @@
       "path": "./test-runner-selenium/tsconfig.json"
     },
     {
-      "path": "./dev-server-core/tsconfig.json"
+      "path": "./dev-server-esbuild/tsconfig.json"
     },
     {
-      "path": "./dev-server-esbuild/tsconfig.json"
+      "path": "./dev-server-rollup/tsconfig.json"
     },
     {
       "path": "./test-runner/tsconfig.json"

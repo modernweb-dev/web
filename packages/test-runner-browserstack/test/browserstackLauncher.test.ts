@@ -6,7 +6,7 @@ import { browserstackLauncher } from '../src/browserstackLauncher';
 
 let runner: TestRunner;
 
-it('runs tests with selenium', function (done) {
+it('runs tests with selenium', function(done) {
   this.timeout(1000 * 60 * 5);
 
   const sharedCapabilities = {
@@ -15,9 +15,8 @@ it('runs tests with selenium', function (done) {
 
     project: '@web/test-runner-browserstack',
     name: 'integration test',
-    build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${
-      process.env.GITHUB_RUN_NUMBER ?? ''
-    }`,
+    build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${process.env.GITHUB_RUN_NUMBER ??
+      ''}`,
   };
 
   const config: TestRunnerConfig = {
