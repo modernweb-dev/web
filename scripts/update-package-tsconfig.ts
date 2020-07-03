@@ -4,6 +4,7 @@ import * as path from 'path';
 const nodePackages = [
   'dev-server-core',
   'dev-server-esbuild',
+  'dev-server-rollup',
   'test-runner',
   'test-runner-core',
   'test-runner-cli',

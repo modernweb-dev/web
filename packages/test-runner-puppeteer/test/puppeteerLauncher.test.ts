@@ -4,7 +4,7 @@ import { TestRunnerConfig, TestRunner } from '@web/test-runner-core';
 import { testRunnerServer } from '@web/test-runner-server';
 import { puppeteerLauncher } from '../src/puppeteerLauncher';
 
-it('runs tests with puppeteer', function (done) {
+it('runs tests with puppeteer', function(done) {
   this.timeout(50000);
 
   const config: TestRunnerConfig = {
