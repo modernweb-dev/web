@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Plugin for using rollup plugins in @web/dev-server",
+  "description": "Use rollup plugins in @web/dev-server",
   "license": "MIT",
   "repository": {
     "type": "git",

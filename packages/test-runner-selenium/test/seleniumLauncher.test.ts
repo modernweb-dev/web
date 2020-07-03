@@ -32,12 +32,12 @@ async function startSeleniumServer() {
 
 let seleniumServer: selenium.ChildProcess;
 
-before(async function() {
+before(async function () {
   this.timeout(50000);
   seleniumServer = await startSeleniumServer();
 });
 
-it('runs tests with selenium', function(done) {
+it('runs tests with selenium', function (done) {
   this.timeout(50000);
 
   const config: TestRunnerConfig = {
