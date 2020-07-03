@@ -40,6 +40,7 @@ export function pluginServeMiddleware(plugins: Plugin[]): Middleware {
         return;
       } else if (typeof response === 'string') {
         context.body = response;
+        context.type = path.extname(path.basename(context.path));
         context.status = 200;
         return;
       }
