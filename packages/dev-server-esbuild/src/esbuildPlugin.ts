@@ -1,11 +1,11 @@
 import { startService, Service, Loader, Message, Target } from 'esbuild';
-import { Context } from 'koa';
 import path from 'path';
 import chalk from 'chalk';
 import { Plugin } from '@web/dev-server-core';
 import { codeFrameColumns } from '@babel/code-frame';
 import { URL, pathToFileURL, fileURLToPath } from 'url';
-import { isRecentModernBrowser } from './isRecentModernBrowser';
+import { getEsbuildLoader } from './getEsBuildLoader';
+import { getEsbuildTarget } from './getEsBuildTarget';
 
 export type PluginTarget = Target | 'auto';
 
@@ -38,35 +38,6 @@ function logEsBuildMessages(filePath: string, code: string, messages: Message[],
       console.error(result);
     }
   }
-}
-
-function getEsBuildLoader(context: Context, args: EsBuildPluginArgs): Loader | null {
-  if (context.path.endsWith('.ts') && (args?.loaders?.ts || args.ts)) {
-    return args?.loaders?.ts ?? 'ts';
-  }
-  if (context.path.endsWith('.tsx') && (args?.loaders?.tsx || args.tsx)) {
-    return args?.loaders?.tsx ?? 'tsx';
-  }
-  if (context.path.endsWith('.jsx') && (args?.loaders?.jsx || args.jsx)) {
-    return args?.loaders?.jsx ?? 'jsx';
-  }
-  if (context.response.is('js') && (args?.loaders?.js || args.js)) {
-    return args?.loaders?.js ?? 'js';
-  }
-  return null;
-}
-
-function getEsBuildTarget(target: PluginTarget, userAgent?: string) {
-  if (target !== 'auto') {
-    return target;
-  }
-
-  if (userAgent && isRecentModernBrowser(userAgent)) {
-    return 'esnext';
-  }
-
-  // when auto is set and this isn't a recent modern browser, we compile to es2017
-  return 'es2017';
 }
 
 export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
@@ -105,14 +76,21 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
       }
     },
 
+    transformCacheKey(context) {
+      // the transformed files are cached per esbuild transform target
+      return getEsbuildLoader(context, args)
+        ? getEsbuildTarget(esBuildTarget, context.headers['user-agent'])
+        : undefined;
+    },
+
     async transform(context) {
-      const loader = getEsBuildLoader(context, args);
+      const loader = getEsbuildLoader(context, args);
       if (!loader) {
         // we are not handling this file
         return;
       }
 
-      const target = getEsBuildTarget(esBuildTarget, context.headers['user-agent']);
+      const target = getEsbuildTarget(esBuildTarget, context.headers['user-agent']);
       if (target === 'esnext' && loader === 'js') {
         // no need run esbuild, this probably happens when target is auto and
         return;

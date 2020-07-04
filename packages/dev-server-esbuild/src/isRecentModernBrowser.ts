@@ -1,6 +1,8 @@
 import { browsers } from 'mdn-browser-compat-data';
 import { UAParser } from 'ua-parser-js';
 
+const cache = new Map<string, boolean>();
+
 interface Release {
   status: string;
 }
@@ -42,12 +44,19 @@ export function isRecentModernBrowserForBrowser(browser: string, version: string
 }
 
 export function isRecentModernBrowser(userAgent: string) {
-  const parser = new UAParser(userAgent);
-  const browser = parser.getBrowser();
-
-  if (!browser || !browser.name || !browser.major) {
-    return false;
+  const cached = cache.get(userAgent);
+  if (cached) {
+    return cached;
   }
 
-  return isRecentModernBrowserForBrowser(browser.name, browser.major);
+  const parser = new UAParser(userAgent);
+  const browser = parser.getBrowser();
+  let result = false;
+
+  if (browser?.name && browser?.major) {
+    result = isRecentModernBrowserForBrowser(browser.name, browser.major);
+  }
+
+  cache.set(userAgent, result);
+  return result;
 }
