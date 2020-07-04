@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.0.3
+
+### Patch Changes
+
+- 9302247: allow plugins to set a transform cache key
+
 ## 0.0.2
 
 ### Patch Changes

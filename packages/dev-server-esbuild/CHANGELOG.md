@@ -1,5 +1,14 @@
 # @web/dev-server-esbuild
 
+## 0.0.5
+
+### Patch Changes
+
+- 5da18d7: compile class fields strictly
+- d1cc35c: set transform cache key
+- Updated dependencies [9302247]
+  - @web/dev-server-core@0.0.3
+
 ## 0.0.4
 
 ### Patch Changes
