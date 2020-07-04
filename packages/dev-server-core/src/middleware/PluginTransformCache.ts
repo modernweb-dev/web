@@ -10,7 +10,7 @@ interface CacheEntry {
 }
 
 export class PluginTransformCache {
-  private cacheKeysForFilePaths = new Map<string, string>();
+  private cacheKeysPerFilePath = new Map<string, Set<string>>();
 
   private lruCache: LRUCache<string, CacheEntry>;
 
@@ -21,9 +21,9 @@ export class PluginTransformCache {
       noDisposeOnSet: true,
       dispose: cacheKey => {
         // remove file path -> url mapping when we are no longer caching it
-        for (const [filePath, cacheKeyForFilePath] of this.cacheKeysForFilePaths.entries()) {
-          if (cacheKeyForFilePath === cacheKey) {
-            this.cacheKeysForFilePaths.delete(filePath);
+        for (const [filePath, cacheKeysForFilePath] of this.cacheKeysPerFilePath.entries()) {
+          if (cacheKeysForFilePath.has(cacheKey)) {
+            this.cacheKeysPerFilePath.delete(filePath);
             return;
           }
         }
@@ -32,25 +32,33 @@ export class PluginTransformCache {
 
     // remove file from cache on change
     fileWatcher.addListener('change', (filePath: string) => {
-      const cacheKey = this.cacheKeysForFilePaths.get(filePath);
-      if (cacheKey) {
-        this.lruCache.del(cacheKey);
+      const cacheKeys = this.cacheKeysPerFilePath.get(filePath);
+      if (cacheKeys) {
+        for (const cacheKey of cacheKeys) {
+          this.lruCache.del(cacheKey);
+        }
       }
     });
   }
 
-  async get(context: Context) {
-    return this.lruCache.get(context.url);
+  async get(cacheKey: string) {
+    return this.lruCache.get(cacheKey);
   }
 
-  async set(context: Context) {
+  async set(context: Context, cacheKey: string) {
     try {
       const body = await getResponseBody(context);
       const filePath = getRequestFilePath(context, this.rootDir);
 
       if (typeof body === 'string') {
-        this.cacheKeysForFilePaths.set(filePath, context.url);
-        this.lruCache.set(context.url, {
+        let cacheKeysForFilePath = this.cacheKeysPerFilePath.get(filePath);
+        if (!cacheKeysForFilePath) {
+          cacheKeysForFilePath = new Set();
+          this.cacheKeysPerFilePath.set(filePath, cacheKeysForFilePath);
+        }
+        cacheKeysForFilePath.add(cacheKey);
+
+        this.lruCache.set(cacheKey, {
           body,
           headers: context.response.headers,
           filePath,

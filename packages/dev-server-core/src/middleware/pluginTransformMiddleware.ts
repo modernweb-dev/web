@@ -22,13 +22,20 @@ export function pluginTransformMiddleware(
   }
 
   return async (context, next) => {
-    const result = await cache.get(context);
+    // The cache key is the request URL plus any specific cache keys provided by plugins.
+    // For example plugins might do different transformations based on user agent.
+    const cacheKey =
+      context.url +
+      (await Promise.all(transformPlugins.map(p => p.transformCacheKey?.(context))))
+        .filter(_ => _)
+        .join('_');
+    const result = await cache.get(cacheKey);
     if (result) {
       context.body = result.body;
       for (const [k, v] of Object.entries(result.headers)) {
         context.response.set(k, v);
       }
-      logger.debug(`Serving ${context.url} from plugin transform cache`);
+      logger.debug(`Serving cache key "${cacheKey}" from plugin transform cache`);
       return;
     }
 
@@ -45,6 +52,7 @@ export function pluginTransformMiddleware(
       let transformCache = true;
       for (const plugin of transformPlugins) {
         const result = await plugin.transform?.(context);
+
         if (typeof result === 'object') {
           transformCache = result.transformCache === false ? false : transformCache;
           if (result.body != null) {
@@ -62,8 +70,8 @@ export function pluginTransformMiddleware(
       }
 
       if (transformCache) {
-        logger.debug(`Added ${context.url} to plugin transform cache`);
-        cache.set(context);
+        logger.debug(`Added cache key "${cacheKey}" to plugin transform cache`);
+        cache.set(context, cacheKey);
       }
     } catch (error) {
       if (error instanceof RequestCancelledError) {
