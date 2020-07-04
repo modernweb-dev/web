@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.0.4
+
+### Patch Changes
+
+- a4d32b3: add auto compatibility mode
+
 ## 0.0.3
 
 ### Patch Changes
