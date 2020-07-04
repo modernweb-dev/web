@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 
 import { createTestServer } from '../helpers';
+import { fetchText, expectIncludes } from '../../../src/test-helpers';
 
 describe('plugin-transform middleware', () => {
   it('can transform a served file', async () => {
@@ -217,6 +218,65 @@ describe('plugin-transform middleware', () => {
 
       expect(response.status).to.equal(200);
       expect(responseText).to.equal('Hello world! injected text');
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('plugins can configure cache keys', async () => {
+    let callCountA = 0;
+    let callCountB = 0;
+
+    const { host, server } = await createTestServer({
+      plugins: [
+        {
+          name: 'test',
+
+          transformCacheKey(context) {
+            return context.headers['user-agent'];
+          },
+
+          transform(context) {
+            if (context.path === '/src/hello-world.txt') {
+              if (context.headers['user-agent'] === 'agent-a') {
+                callCountA += 1;
+                return `${context.body} injected text A ${callCountA}`;
+              }
+
+              if (context.headers['user-agent'] === 'agent-b') {
+                callCountB += 1;
+                return `${context.body} injected text B ${callCountB}`;
+              }
+            }
+          },
+        },
+      ],
+    });
+
+    try {
+      // response is transformed based on user agent
+      const responseA1 = await fetchText(`${host}/src/hello-world.txt`, {
+        headers: { 'user-agent': 'agent-a' },
+      });
+      expectIncludes(responseA1, 'Hello world! injected text A 1');
+
+      const responseB1 = await fetchText(`${host}/src/hello-world.txt`, {
+        headers: { 'user-agent': 'agent-b' },
+      });
+      expectIncludes(responseB1, 'Hello world! injected text B 1');
+
+      // A1 and B1 are now cached separately, we should receive them based on user agent
+      const responseA2 = await fetchText(`${host}/src/hello-world.txt`, {
+        headers: { 'user-agent': 'agent-a' },
+      });
+      expectIncludes(responseA2, 'Hello world! injected text A 1');
+      expect(callCountA).to.equal(1);
+
+      const responseB2 = await fetchText(`${host}/src/hello-world.txt`, {
+        headers: { 'user-agent': 'agent-b' },
+      });
+      expectIncludes(responseB2, 'Hello world! injected text B 1');
+      expect(callCountB).to.equal(1);
     } finally {
       server.stop();
     }

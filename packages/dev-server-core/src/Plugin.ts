@@ -33,6 +33,7 @@ export interface Plugin {
   serverStop?(): void | Promise<void>;
   serve?(context: Context): ServeResult | Promise<ServeResult>;
   transform?(context: Context): TransformResult | Promise<TransformResult>;
+  transformCacheKey?(context: Context): string | undefined | Promise<string> | Promise<undefined>;
   resolveImport?(args: {
     source: string;
     context: Context;
