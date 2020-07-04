@@ -43,7 +43,7 @@
     "@babel/code-frame": "^7.10.1",
     "@web/dev-server-core": "^0.0.2",
     "chalk": "^4.1.0",
-    "esbuild": "^0.5.3",
+    "esbuild": "^0.5.20",
     "mdn-browser-compat-data": "^1.0.29",
     "ua-parser-js": "^0.7.21"
   },
