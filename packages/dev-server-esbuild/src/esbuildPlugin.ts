@@ -4,8 +4,8 @@ import chalk from 'chalk';
 import { Plugin } from '@web/dev-server-core';
 import { codeFrameColumns } from '@babel/code-frame';
 import { URL, pathToFileURL, fileURLToPath } from 'url';
-import { getEsbuildLoader } from './getEsBuildLoader';
-import { getEsbuildTarget } from './getEsBuildTarget';
+import { getEsbuildLoader } from './getEsbuildLoader';
+import { getEsbuildTarget } from './getEsbuildTarget';
 
 export type PluginTarget = Target | 'auto';
 
@@ -104,6 +104,7 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
           sourcemap: 'inline',
           loader,
           target,
+          strict: ['class-fields'],
           jsxFactory: args.jsxFactory,
           jsxFragment: args.jsxFragment,
         });
