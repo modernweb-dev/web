@@ -6,13 +6,7 @@
       "path": "./dev-server-core/tsconfig.json"
     },
     {
-      "path": "./test-runner-browser-lib/tsconfig.json"
-    },
-    {
       "path": "./test-runner-core/tsconfig.json"
-    },
-    {
-      "path": "./test-runner-mocha/tsconfig.json"
     },
     {
       "path": "./test-runner-server/tsconfig.json"

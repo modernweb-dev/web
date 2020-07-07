@@ -55,7 +55,7 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
   }
 
   const config: Partial<TestRunnerConfig> = {
-    testFrameworkImport: '@web/test-runner-mocha/autorun.js',
+    testFrameworkImport: '@web/test-runner-mocha/dist/autorun.js',
     browsers,
     server: testRunnerServer(devServerConfig),
     ...partialConfig,

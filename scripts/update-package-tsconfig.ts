@@ -16,9 +16,6 @@ const nodePackages = [
   'test-runner-browserstack',
 ];
 const browserPackages = ['test-runner-browser-lib', 'test-runner-mocha'];
-const packages = [...nodePackages, ...browserPackages];
-
-const rootOutDir = ['test-runner-mocha'];
 
 const PACKAGE_TSCONFIG = 'tsconfig.json';
 const PROJECT_TSCONFIG = 'tsconfig.project.json';
@@ -40,7 +37,7 @@ const packageJSONMap: Map<
 
 const packageDirnameMap: Map<PackageName, DirectoryName> = new Map();
 
-packages.forEach(packageDirname => {
+nodePackages.forEach(packageDirname => {
   const packageJSONPath = path.join(packagesRoot, packageDirname, 'package.json');
   const packageJSONData = JSON.parse(fs.readFileSync(packageJSONPath).toString());
   const packageName = packageJSONData.name;
@@ -79,20 +76,31 @@ packageDirnameMap.forEach((packageDirname, packageName) => {
   const tsconfigPath = path.join(packagesRoot, packageDirname, PACKAGE_TSCONFIG);
 
   const internalDependencies = resolveInternalDependencies(internalDependencyMap.get(packageName)!);
-  const tsconfigData = {
-    extends: '../../tsconfig.base.json',
-    compilerOptions: {
-      outDir: rootOutDir.includes(packageDirname) ? './' : './dist',
-      module: browserPackages.includes(packageDirname) ? 'ESNext' : 'commonjs',
-      rootDir: './src',
-      composite: true,
-    },
-    references: internalDependencies.map(dep => {
-      return { path: `../${packageDirnameMap.get(dep)}/${PACKAGE_TSCONFIG}` };
-    }),
-    include: ['src'],
-    exclude: ['tests', 'dist'],
-  };
+  const tsconfigData = browserPackages.includes(packageDirname)
+    ? {
+        extends: '../../tsconfig.browser.json',
+        compilerOptions: {
+          outDir: './dist',
+          module: 'ESNext',
+          rootDir: './src',
+        },
+        include: ['src'],
+        exclude: ['tests', 'dist'],
+      }
+    : {
+        extends: '../../tsconfig.base.json',
+        compilerOptions: {
+          outDir: './dist',
+          module: 'commonjs',
+          rootDir: './src',
+          composite: true,
+        },
+        references: internalDependencies.map(dep => {
+          return { path: `../${packageDirnameMap.get(dep)}/${PACKAGE_TSCONFIG}` };
+        }),
+        include: ['src'],
+        exclude: ['tests', 'dist'],
+      };
   fs.writeFileSync(tsconfigPath, TSCONFIG_COMMENT + JSON.stringify(tsconfigData, null, '  '));
 });
 
