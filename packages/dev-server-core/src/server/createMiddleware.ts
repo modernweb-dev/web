@@ -2,7 +2,8 @@ import { Middleware } from 'koa';
 import koaEtag from 'koa-etag';
 import koaStatic from 'koa-static';
 import { FSWatcher } from 'chokidar';
-import { Config } from '../Config';
+
+import { DevServerCoreConfig } from '../DevServerCoreConfig';
 import { basePathMiddleware } from '../middleware/basePathMiddleware';
 import { etagCacheMiddleware } from '../middleware/etagCacheMiddleware';
 import { historyApiFallbackMiddleware } from '../middleware/historyApiFallbackMiddleware';
@@ -12,13 +13,14 @@ import { pluginTransformMiddleware } from '../middleware/pluginTransformMiddlewa
 import { Logger } from '../logger/Logger';
 import { EventStreamManager } from '../event-stream/EventStreamManager';
 import { eventStreamMiddleware } from '../event-stream/eventStreamMiddleware';
+import { watchServedFilesMiddleware } from '../middleware/watchServedFilesMiddleware';
 
 /**
  * Creates middlewares based on the given configuration. The middlewares can be
  * used by a koa server using `app.use()`:
  */
 export function createMiddleware(
-  config: Config,
+  config: DevServerCoreConfig,
   eventStream: EventStreamManager,
   logger: Logger,
   fileWatcher: FSWatcher,
@@ -41,6 +43,10 @@ export function createMiddleware(
     middlewares.push(m);
   }
 
+  // watch files that are served
+  middlewares.push(watchServedFilesMiddleware(fileWatcher, config.rootDir));
+
+  // set up event stream for pushing events to the browser
   middlewares.push(eventStreamMiddleware(eventStream));
 
   // serves 304 responses if resource hasn't changed

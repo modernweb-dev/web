@@ -1,4 +1,4 @@
-import { TestRunnerConfig, TestSessionManager, SESSION_STATUS } from '@web/test-runner-core';
+import { TestRunnerCoreConfig, TestSessionManager, SESSION_STATUS } from '@web/test-runner-core';
 import chalk from 'chalk';
 import { TerminalEntry } from '../Terminal';
 
@@ -74,7 +74,7 @@ function getProgressReport(
   return `${`${name}:`.padEnd(minWidth)} ${progressBar} | ${testResults}`;
 }
 
-export function getTestProgressReport(config: TestRunnerConfig, args: TestProgressArgs) {
+export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestProgressArgs) {
   const {
     browserNames,
     testRun,

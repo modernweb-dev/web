@@ -5,9 +5,9 @@ import {
   fetchText,
   expectIncludes,
 } from '../../src/test-helpers';
-import { Config } from '../../src/Config';
+import { DevServerCoreConfig } from '../../src/DevServerCoreConfig';
 
-export function createTestServer(config: Partial<Config> = {}) {
+export function createTestServer(config: Partial<DevServerCoreConfig> = {}) {
   return originalCreateTestServer({
     ...config,
     rootDir: path.resolve(__dirname, '..', 'fixtures', 'basic'),

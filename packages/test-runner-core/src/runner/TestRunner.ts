@@ -1,4 +1,4 @@
-import { TestRunnerConfig } from './TestRunnerConfig';
+import { TestRunnerCoreConfig } from './TestRunnerCoreConfig';
 import { createTestSessions } from './createTestSessions';
 import { TestSession } from '../test-session/TestSession';
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
@@ -16,7 +16,7 @@ interface EventMap {
 }
 
 export class TestRunner extends EventEmitter<EventMap> {
-  public config: TestRunnerConfig;
+  public config: TestRunnerCoreConfig;
   public sessions = new TestSessionManager();
   public browserNames: string[] = [];
   public testFiles: string[];
@@ -30,7 +30,7 @@ export class TestRunner extends EventEmitter<EventMap> {
   private browserLaunchers: BrowserLauncher[];
   private scheduler: TestScheduler;
 
-  constructor(config: TestRunnerConfig, testFiles: string[]) {
+  constructor(config: TestRunnerCoreConfig, testFiles: string[]) {
     super();
     this.config = config;
     this.testFiles = testFiles;

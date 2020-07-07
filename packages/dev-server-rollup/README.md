@@ -21,15 +21,13 @@ const replace = require('@rollup/plugin-replace');
 const { rollupAdapter } = require('@web/dev-server-rollup');
 
 module.exports = {
-  plugins: [
-    wrapRollupPlugin(replace({ include: ['src/**/*.js'], __environment__: '"development"' })),
-  ],
+  plugins: [rollupAdapter(replace({ include: ['src/**/*.js'], __environment__: '"development"' }))],
 };
 ```
 
 ## Performance
 
-Some rollup plugins do expensive operations. During development, this matters a lot more than during a production build. It's recommended to always scope the usage of plugins using the `include` and/or `exclude` options.
+Some rollup plugins do expensive operations. During development, this matters a lot more than during a production build. It's recommended to always scope the usage of plugins using the `include` and/or `exclude` options available in most rollup plugins.
 
 ## non-standard file types
 
@@ -43,12 +41,14 @@ module.exports = {
   plugins: [
     {
       name: 'json-mime-type-plugin',
+
       resolveMimeType(context) {
         if (context.path.endsWith('.json')) {
           return 'js';
         }
       },
     },
+
     rollupAdapter(json()),
   ],
 };

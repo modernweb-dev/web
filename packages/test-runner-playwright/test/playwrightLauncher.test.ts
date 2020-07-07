@@ -1,6 +1,6 @@
 import path from 'path';
 import { expect } from 'chai';
-import { TestRunnerConfig, TestRunner } from '@web/test-runner-core';
+import { TestRunnerCoreConfig, TestRunner } from '@web/test-runner-core';
 import { testRunnerServer } from '@web/test-runner-server';
 import { playwrightLauncher, BrowserType } from '../src/playwrightLauncher';
 
@@ -30,19 +30,20 @@ it('runs tests with playwright', function (done) {
     'test/fixtures/test-o.test.js',
   ];
 
-  const config: TestRunnerConfig = {
+  const config: TestRunnerCoreConfig = {
     files: [],
     watch: false,
-    testFrameworkImport: '@web/test-runner-mocha/dist/autorun.js',
+    testFramework: '@web/test-runner-mocha/dist/autorun.js',
     rootDir: path.join(process.cwd(), '..', '..'),
-    address: 'http://localhost',
+    protocol: 'http:',
+    hostname: 'localhost',
     port: 9542,
     concurrency: 10,
     browserStartTimeout: 30000,
     sessionStartTimeout: 10000,
     sessionFinishTimeout: 20000,
     browsers: playwrightLauncher({ browserTypes }),
-    server: testRunnerServer({ rootDir: path.join(process.cwd(), '..', '..') }),
+    server: testRunnerServer(),
   };
 
   const runner = new TestRunner(config, testFiles);

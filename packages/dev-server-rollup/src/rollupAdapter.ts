@@ -1,7 +1,7 @@
 /* eslint-disable no-control-regex */
 import path from 'path';
 import whatwgUrl from 'whatwg-url';
-import { Plugin as WdsPlugin, Config, FSWatcher } from '@web/dev-server-core';
+import { Plugin as WdsPlugin, DevServerCoreConfig, FSWatcher } from '@web/dev-server-core';
 import { URL, pathToFileURL, fileURLToPath } from 'url';
 import { Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';
@@ -25,7 +25,7 @@ export function rollupAdapter(
   const transformedFiles = new Set();
   let rollupPluginContexts: RollupPluginContexts;
   let fileWatcher: FSWatcher;
-  let config: Config;
+  let config: DevServerCoreConfig;
   let rootDir: string;
 
   const wdsPlugin: WdsPlugin = {
@@ -69,13 +69,24 @@ export function rollupAdapter(
         context,
       );
 
+      let resolvableImport = source;
+      let importSuffix = '';
+      // we have to special case node-resolve because it doesn't support resolving
+      // with hash/params at the moment
+      if (rollupPlugin.name === 'node-resolve') {
+        const [withoutHash, hash] = source.split('#');
+        const [importPath, params] = withoutHash.split('?');
+        importSuffix = `${params ? `?${params}` : ''}${hash ? `#${hash}` : ''}`;
+        resolvableImport = importPath;
+      }
+
       // if the import was already a fully resolved file path, it was probably injected by a plugin.
       // in that case use that instead of resolving it through a plugin hook. this puts the resolved file
       // path through the regular logic to turn it into a relative browser import
       // otherwise call the resolveID hook on the plugin
       const result = injectedFilePath
-        ? source
-        : await rollupPlugin.resolveId?.call(rollupPluginContext, source, filePath);
+        ? resolvableImport
+        : await rollupPlugin.resolveId?.call(rollupPluginContext, resolvableImport, filePath);
 
       let resolvedImportFilePath: string | undefined = undefined;
       if (typeof result === 'string') {
@@ -100,18 +111,18 @@ export function rollupAdapter(
 
         const prefixedImportPath =
           resolvedImportPath.startsWith('/') || resolvedImportPath.startsWith('.')
-            ? resolvedImportPath
-            : `./${resolvedImportPath}`;
+            ? `${resolvedImportPath}${importSuffix}`
+            : `./${resolvedImportPath}${importSuffix}`;
 
         if (!hasNullByte) {
           return prefixedImportPath;
-        } else {
-          const suffix = `${NULL_BYTE_PARAM}=${encodeURIComponent(resolvedImportFilePath)}`;
-          if (prefixedImportPath.includes('?')) {
-            return `${prefixedImportPath}&${suffix}`;
-          }
-          return `${prefixedImportPath}?${suffix}`;
         }
+
+        const suffix = `${NULL_BYTE_PARAM}=${encodeURIComponent(resolvedImportFilePath)}`;
+        if (prefixedImportPath.includes('?')) {
+          return `${prefixedImportPath}&${suffix}`;
+        }
+        return `${prefixedImportPath}?${suffix}`;
       }
 
       // if the resolved import includes a null byte (\0) there is some special logic
@@ -123,7 +134,7 @@ export function rollupAdapter(
         )}`;
       }
 
-      return resolvedImportFilePath;
+      return `${resolvedImportFilePath}${importSuffix}`;
     },
 
     async serve(context) {
@@ -174,6 +185,7 @@ export function rollupAdapter(
           fileWatcher,
           context,
         );
+
         const result = await rollupPlugin.transform?.call(
           rollupPluginContext as TransformPluginContext,
           context.body,

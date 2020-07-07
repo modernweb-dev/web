@@ -1,6 +1,6 @@
 import { stub } from 'sinon';
 import { expect } from 'chai';
-import { TestRunnerConfig } from '../src/runner/TestRunnerConfig';
+import { TestRunnerCoreConfig } from '../src/runner/TestRunnerCoreConfig';
 import { TestRunner } from '../src/runner/TestRunner';
 import { SESSION_STATUS } from '../src/test-session/TestSessionStatus';
 
@@ -8,7 +8,7 @@ async function timeout(ms = 0) {
   return new Promise(r => setTimeout(r, ms));
 }
 
-function createTestRunner(extraConfig: Partial<TestRunnerConfig> = {}, testFiles = ['a.js']) {
+function createTestRunner(extraConfig: Partial<TestRunnerCoreConfig> = {}, testFiles = ['a.js']) {
   const browser = {
     start: stub().returns(Promise.resolve(['myBrowser'])),
     stop: stub().returns(Promise.resolve()),
@@ -22,14 +22,16 @@ function createTestRunner(extraConfig: Partial<TestRunnerConfig> = {}, testFiles
     stop: stub().returns(Promise.resolve()),
   };
 
-  const config: TestRunnerConfig = {
+  const config: TestRunnerCoreConfig = {
     files: [],
     rootDir: process.cwd(),
-    testFrameworkImport: 'my-framework.js',
+    testFramework: 'my-framework.js',
     concurrency: 10,
     browsers: browser,
+    watch: false,
     server,
-    address: 'http://localhost',
+    protocol: 'http:',
+    hostname: 'localhost',
     port: 8000,
     ...extraConfig,
   };

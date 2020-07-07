@@ -1,5 +1,5 @@
 import path from 'path';
-import { TestRunnerConfig } from './TestRunnerConfig';
+import { TestRunnerCoreConfig } from './TestRunnerCoreConfig';
 import { TestSession } from '../test-session/TestSession';
 import { PARAM_SESSION_ID, PARAM_DEBUG } from '../browser-launcher/constants';
 
@@ -9,7 +9,11 @@ export function toBrowserPath(filePath: string) {
   return filePath.replace(toBrowserPathRegExp, '/');
 }
 
-export function createSessionUrl(config: TestRunnerConfig, session: TestSession, debug: boolean) {
+export function createSessionUrl(
+  config: TestRunnerCoreConfig,
+  session: TestSession,
+  debug: boolean,
+) {
   let browserPath: string;
 
   if (session.testFile.endsWith('.html')) {
@@ -21,5 +25,5 @@ export function createSessionUrl(config: TestRunnerConfig, session: TestSession,
   }
   const params = `?${PARAM_SESSION_ID}=${session.id}${debug ? `&${PARAM_DEBUG}=true` : ''}`;
 
-  return `${config.address}:${config.port}${browserPath}${params}`;
+  return `${config.protocol}//${config.hostname}:${config.port}${browserPath}${params}`;
 }

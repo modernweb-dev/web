@@ -1,7 +1,7 @@
 import selenium from 'selenium-standalone';
 import path from 'path';
 import { expect } from 'chai';
-import { TestRunnerConfig, TestRunner } from '@web/test-runner-core';
+import { TestRunnerCoreConfig, TestRunner } from '@web/test-runner-core';
 import { testRunnerServer } from '@web/test-runner-server';
 import { seleniumLauncher } from '../src/seleniumLauncher';
 import { Builder } from 'selenium-webdriver';
@@ -40,12 +40,13 @@ before(async function () {
 it('runs tests with selenium', function (done) {
   this.timeout(50000);
 
-  const config: TestRunnerConfig = {
+  const config: TestRunnerCoreConfig = {
     files: [],
     watch: false,
-    testFrameworkImport: '@web/test-runner-mocha/dist/autorun.js',
+    testFramework: '@web/test-runner-mocha/dist/autorun.js',
     rootDir: path.join(process.cwd(), '..', '..'),
-    address: 'http://localhost',
+    protocol: 'http:',
+    hostname: 'localhost',
     port: 9542,
     concurrency: 4,
     browserStartTimeout: 30000,

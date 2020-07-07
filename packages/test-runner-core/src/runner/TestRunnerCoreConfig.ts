@@ -16,16 +16,17 @@ export interface CoverageConfig {
   reportDir: string;
 }
 
-export interface TestRunnerConfig {
+export interface TestRunnerCoreConfig {
   files: string | string[];
-  testFrameworkImport: string;
+  testFramework: string;
   browsers: BrowserLauncher | BrowserLauncher[];
   server: Server;
-  address: string;
+  protocol: string;
+  hostname: string;
   port: number;
   rootDir: string;
-  testRunnerHtml?: (testRunnerImport: string, config: TestRunnerConfig) => string;
-  watch?: boolean;
+  testRunnerHtml?: (testRunnerImport: string, config: TestRunnerCoreConfig) => string;
+  watch: boolean;
   coverage?: boolean;
   coverageConfig?: CoverageConfig;
   concurrency?: number;

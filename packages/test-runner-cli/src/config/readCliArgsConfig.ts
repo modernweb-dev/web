@@ -1,4 +1,3 @@
-import { TestRunnerConfig } from '@web/test-runner-core';
 import commandLineArgs, { OptionDefinition } from 'command-line-args';
 import camelCase from 'camelcase';
 
@@ -29,26 +28,22 @@ const defaultOptions: OptionDefinition[] = [
     name: 'static-logging',
     type: Boolean,
   },
+  {
+    name: 'root-dir',
+    type: String,
+  },
 ];
 
-interface ReturnValue {
-  cliArgs: Record<string, any>;
-  cliArgsConfig: Partial<TestRunnerConfig>;
-}
-
-export function readCliArgs(
+export function readCliArgsConfig<T>(
   extraOptions: OptionDefinition[] = [],
   argv = process.argv,
-): ReturnValue {
+): Partial<T> {
   const cliArgs = commandLineArgs([...defaultOptions, ...extraOptions], { argv });
-  const cliArgsConfig: Partial<TestRunnerConfig> = {};
+  const cliArgsConfig: Partial<T> = {};
 
   for (const [key, value] of Object.entries(cliArgs)) {
-    // the default options can be converted to camelcase directly
-    if (defaultOptions.find(e => e.name === key)) {
-      cliArgsConfig[camelCase(key) as keyof TestRunnerConfig] = value;
-    }
+    cliArgsConfig[camelCase(key) as keyof T] = value;
   }
 
-  return { cliArgs, cliArgsConfig };
+  return cliArgsConfig;
 }

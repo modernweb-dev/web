@@ -3,10 +3,10 @@ export { constants };
 export { BrowserLauncher } from './browser-launcher/BrowserLauncher';
 export { TestRunner } from './runner/TestRunner';
 export {
-  TestRunnerConfig,
+  TestRunnerCoreConfig,
   CoverageConfig,
   CoverageThresholdConfig,
-} from './runner/TestRunnerConfig';
+} from './runner/TestRunnerCoreConfig';
 export { TestCoverage } from './coverage/getTestCoverage';
 export { Server } from './server/Server';
 export { TestSession, TestResultError, TestResult } from './test-session/TestSession';

@@ -190,11 +190,9 @@ describe('resolveModuleImports()', () => {
     } catch (error) {
       thrown = true;
       expect(error.message).to.equal('Syntax error');
-      expect(error.location).to.eql({
-        file: '/root/my-file.js',
-        column: 3,
-        line: 16,
-      });
+      expect(error.filePath).to.equal('/root/my-file.js');
+      expect(error.column).to.equal(3);
+      expect(error.line).to.equal(16);
     }
 
     expect(thrown).to.be.true;

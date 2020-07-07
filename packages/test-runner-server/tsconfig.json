@@ -12,11 +12,6 @@
       "path": "../test-runner-core/tsconfig.json"
     }
   ],
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "tests",
-    "dist"
-  ]
+  "include": ["src"],
+  "exclude": ["tests", "dist"]
 }
