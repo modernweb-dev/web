@@ -151,7 +151,10 @@ export function testRunnerServer(devServerConfig: Partial<Config> = {}): Server 
               async (context: Context, next: Next) => {
                 await next();
 
-                if (CACHED_PATTERNS.some(pattern => context.path.includes(pattern))) {
+                if (
+                  path.extname(context.path) &&
+                  (!config.watch || CACHED_PATTERNS.some(pattern => context.path.includes(pattern)))
+                ) {
                   context.response.set('cache-control', 'public, max-age=31536000');
                 }
               },
