@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.5.21",
+  "version": "0.5.22",
   "publishConfig": {
     "access": "public"
   },
@@ -50,7 +50,7 @@
     "@web/test-runner-cli": "^0.3.10",
     "@web/test-runner-core": "^0.5.7",
     "@web/test-runner-mocha": "^0.2.5",
-    "@web/test-runner-server": "^0.4.5",
+    "@web/test-runner-server": "^0.4.6",
     "command-line-args": "^5.1.1"
   }
 }

@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.5.22
+
+### Patch Changes
+
+- 7acda96: browser cache files in non-watch mode
+- Updated dependencies [7acda96]
+  - @web/test-runner-server@0.4.6
+
 ## 0.5.21
 
 ### Patch Changes
