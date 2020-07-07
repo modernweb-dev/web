@@ -63,7 +63,7 @@ describe('cjs package', () => {
     } catch (error) {
       thrown = true;
       expect(error.message).to.include(
-        'You are using es module syntax in a config loaded as common js module.',
+        'You are using es module syntax in a config loaded as CommonJS module.',
       );
     }
     expect(thrown).to.equal(true);
@@ -76,7 +76,7 @@ describe('cjs package', () => {
     } catch (error) {
       thrown = true;
       expect(error.message).to.include(
-        'You are using es module syntax in a config loaded as common js module.',
+        'You are using es module syntax in a config loaded as CommonJS module.',
       );
     }
     expect(thrown).to.equal(true);
@@ -90,7 +90,7 @@ describe('cjs package', () => {
       } catch (error) {
         thrown = true;
         expect(error.message).to.include(
-          'You are using commonjs syntax in a config loaded as es module.',
+          'You are using CommonJS syntax in a config loaded as es module.',
         );
       }
       expect(thrown).to.equal(true);
@@ -116,7 +116,7 @@ describe('mjs package', () => {
       } catch (error) {
         thrown = true;
         expect(error.message).to.include(
-          'You are using commonjs syntax in a config loaded as es module.',
+          'You are using CommonJS syntax in a config loaded as es module.',
         );
       }
       expect(thrown).to.equal(true);
@@ -135,7 +135,7 @@ describe('mjs package', () => {
       } catch (error) {
         thrown = true;
         expect(error.message).to.include(
-          'You are using commonjs syntax in a config loaded as es module.',
+          'You are using CommonJS syntax in a config loaded as es module.',
         );
       }
       expect(thrown).to.equal(true);
@@ -153,7 +153,7 @@ describe('mjs package', () => {
     } catch (error) {
       thrown = true;
       expect(error.message).to.include(
-        'You are using es module syntax in a config loaded as common js module.',
+        'You are using es module syntax in a config loaded as CommonJS module.',
       );
     }
     expect(thrown).to.equal(true);

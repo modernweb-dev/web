@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsc",
     "test": "mocha test/**/*.test.js --require ts-node/register --reporter progress",
-    "test:ci": "echo 'no tests for this package yet'",
+    "test:ci": "yarn test",
     "test:watch": "mocha test/**/*.test.js --watch --watch-files .,src,test --reporter progress"
   },
   "files": [
