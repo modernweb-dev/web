@@ -7,26 +7,27 @@ import {
   TestResultError,
 } from '@web/test-runner-browser-lib';
 import 'mocha/mocha.js';
+/* eslint-disable-next-line */
+// @ts-ignore
+import styles from 'mocha/mocha.css';
 import { collectTestResults } from './collectTestResults';
 
 captureConsoleOutput();
 logUncaughtErrors();
+sessionStarted();
 
 (async () => {
   const errors: TestResultError[] = [];
 
-  sessionStarted();
   const { testFile, debug } = await getConfig();
   const div = document.createElement('div');
   div.id = 'mocha';
   document.body.appendChild(div);
 
   if (debug) {
-    import('./styles').then(module => {
-      const styleElement = document.createElement('style');
-      styleElement.textContent = module.styles;
-      document.head.appendChild(styleElement);
-    });
+    const styleElement = document.createElement('style');
+    styleElement.textContent = styles;
+    document.head.appendChild(styleElement);
   }
 
   mocha.setup({ ui: 'bdd', allowUncaught: false });

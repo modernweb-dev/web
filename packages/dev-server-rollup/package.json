@@ -39,7 +39,7 @@
   ],
   "dependencies": {
     "@web/dev-server-core": "^0.0.3",
-    "rollup": "^2.18.2",
+    "rollup": "^2.20.0",
     "whatwg-url": "^8.1.0"
   },
   "devDependencies": {

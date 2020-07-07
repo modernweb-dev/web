@@ -10,7 +10,7 @@ it('runs tests with puppeteer', function (done) {
   const config: TestRunnerConfig = {
     files: [],
     watch: false,
-    testFrameworkImport: '@web/test-runner-mocha/autorun.js',
+    testFrameworkImport: '@web/test-runner-mocha/dist/autorun.js',
     rootDir: path.join(process.cwd(), '..', '..'),
     address: 'http://localhost',
     port: 9542,

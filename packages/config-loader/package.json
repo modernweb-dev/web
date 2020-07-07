@@ -24,9 +24,9 @@
     "test:watch": "mocha test/**/*.test.js --watch --watch-files .,src,test --reporter progress"
   },
   "files": [
-    "src",
+    "*.d.ts",
     "*.js",
-    "*.d.ts"
+    "src"
   ],
   "keywords": [
     "web",

@@ -1,5 +1,4 @@
 import nodeResolve from '@rollup/plugin-node-resolve';
-import path from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
 import { rollupAdapter } from '../../src/rollupAdapter';
