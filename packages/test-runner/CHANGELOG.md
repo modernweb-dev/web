@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.5.21
+
+### Patch Changes
+
+- 7fbda3c: update mocha import
+
 ## 0.5.20
 
 ### Patch Changes
