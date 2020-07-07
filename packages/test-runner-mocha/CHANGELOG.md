@@ -1,5 +1,13 @@
 # @web/test-runner-mocha
 
+## 0.2.6
+
+### Patch Changes
+
+- d1c095a: bundle browser libs
+- Updated dependencies [d1c095a]
+  - @web/test-runner-browser-lib@0.2.6
+
 ## 0.2.5
 
 ### Patch Changes
