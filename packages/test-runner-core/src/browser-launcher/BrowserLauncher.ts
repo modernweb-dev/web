@@ -1,4 +1,4 @@
-import { TestRunnerConfig } from '../runner/TestRunnerConfig';
+import { TestRunnerCoreConfig } from '../runner/TestRunnerCoreConfig';
 import { TestSession } from '../test-session/TestSession';
 
 export interface BrowserLauncher {
@@ -7,7 +7,7 @@ export interface BrowserLauncher {
    * starts.
    * @param config The test runner config.
    */
-  start(config: TestRunnerConfig): Promise<string[]>;
+  start(config: TestRunnerCoreConfig): Promise<string[]>;
 
   /**
    * One time teardown for the browser launcher. Called when the test runner

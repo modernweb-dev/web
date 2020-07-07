@@ -15,6 +15,8 @@ A test runner for web applications.
 👀&nbsp;&nbsp; Interactive watch mode.
 \
 🏃&nbsp;&nbsp; Reruns only changed tests.
+\
+🚀&nbsp;&nbsp; Powered by [esbuild](https://github.com/evanw/esbuild) and [rollup](https://www.npmjs.com/package/rollup) plugins
 
 ## Getting started
 
@@ -27,22 +29,22 @@ npm i -D @web/test-runner
 Do a single test run:
 
 ```bash
-web-test-runner test/**/*.test.js
-wtr test/**/*.test.js
+web-test-runner test/**/*.test.js --node-resolve
+wtr test/**/*.test.js --node-resolve
 ```
 
 Run in watch mode, reloading on file changes:
 
 ```bash
-web-test-runner test/**/*.test.js --watch
-wtr test/**/*.test.js --watch
+web-test-runner test/**/*.test.js --node-resolve --watch
+wtr test/**/*.test.js --node-resolve --watch
 ```
 
-Run with test coverage:
+Run with test coverag (this is slower):
 
 ```bash
-web-test-runner test/**/*.test.js --coverage
-wtr test/**/*.test.js --coverage
+web-test-runner test/**/*.test.js --node-resolve --coverage
+wtr test/**/*.test.js --node-resolve --coverage
 ```
 
 ## Writing tests
@@ -80,7 +82,7 @@ You can run tests with puppeteer, which will download it's own instance of Chrom
 npm i -D @web/test-runner-puppeteer
 
 # add the flag
-wtr test/**/*.test.js --puppeteer
+wtr test/**/*.test.js --node-resolve --puppeteer
 ```
 
 ### Playwright
@@ -92,21 +94,23 @@ You can run tests with playwright, which like puppeteer downloads it's own brows
 npm i -D @web/test-runner-playwright
 
 # add the flag
-wtr test/**/*.test.js --playwright --browsers chromium firefox webkit
+wtr test/**/*.test.js --node-resolve --playwright --browsers chromium firefox webkit
 ```
 
 ## Commands
 
-| name        | type         | description                                                                                 |
-| ----------- | ------------ | ------------------------------------------------------------------------------------------- |
-| files       | string       | test files glob. this is the default option, so you do not need to specify it.              |
-| watch       | boolean      | runs in watch mode                                                                          |
-| coverage    | boolean      | whether to analyze test coverage                                                            |
-| puppeteer   | boolean      | whether to run tests with @web/test-runner-puppeteer                                        |
-| playwright  | boolean      | whether to run tests with @web/test-runner-playwright                                       |
-| browsers    | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit |
-| config      | config       | where to read the config from                                                               |
-| concurrency | number       | amount of test files to run concurrently                                                    |
+| name              | type         | description                                                                                 |
+| ----------------- | ------------ | ------------------------------------------------------------------------------------------- |
+| files             | string       | test files glob. this is the default option, so you do not need to specify it.              |
+| watch             | boolean      | runs in watch mode                                                                          |
+| coverage          | boolean      | whether to analyze test coverage                                                            |
+| node-resolve      | boolean      | resolve bare module imports                                                                 |
+| preserve-symlinks | boolean      | preserve symlinks when resolving imports                                                    |
+| puppeteer         | boolean      | whether to run tests with @web/test-runner-puppeteer                                        |
+| playwright        | boolean      | whether to run tests with @web/test-runner-playwright                                       |
+| browsers          | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit |
+| config            | config       | where to read the config from                                                               |
+| concurrency       | number       | amount of test files to run concurrently                                                    |
 
 ## Configuration
 
@@ -120,10 +124,10 @@ The file extension can be `.js`, `.cjs` or `.mjs`. A `.js` file will be loaded a
 ```js
 export default {
   concurrency: 10,
+  nodeResolve: true,
   watch: true,
-  devServer: {
-    rootDir: '../../',
-  },
+  // in a monorepo you need to set set the root dir to resolve modules
+  rootDir: '../../',
 };
 ```
 
@@ -133,6 +137,8 @@ export default {
   <summary>Full config type definition</summary>
 
 ```ts
+import { Plugin, Middleware } from '@web/dev-server';
+
 export interface CoverageThresholdConfig {
   statements: number;
   branches: number;
@@ -150,17 +156,27 @@ export interface CoverageConfig {
 
 export interface TestRunnerConfig {
   files: string | string[];
-  testFrameworkImport: string;
-  browsers: BrowserLauncher | BrowserLauncher[];
-  server: Server;
-  devServer: EsDevServerConfig;
-  address: string;
-  port: number;
-  testRunnerHtml?: (config: TestRunnerConfig) => string;
+  concurrency?: number;
   watch?: boolean;
+  nodeResolve?: boolean;
+  preserveSymlinks?: boolean;
+
+  testFramework?: string;
+  browsers?: BrowserLauncher | BrowserLauncher[];
+  server?: Server;
+
+  middleware?: Middleware[];
+  plugins?: Plugin[];
+
+  protocol?: string;
+  hostname?: string;
+  port?: number;
+
+  testRunnerHtml?: (config: TestRunnerConfig) => string;
+
   coverage?: boolean;
   coverageConfig?: CoverageConfig;
-  concurrency?: number;
+
   browserStartTimeout?: number;
   sessionStartTimeout?: number;
   sessionFinishTimeout?: number;
@@ -202,24 +218,22 @@ export default {
 
 ## Server and code transformation
 
-This package uses [@web/test-runner-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server). You can configure the dev server from the config:
+The test runner is powered [@web/test-runner-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server) which has powerful plugin and middleware system.
+
+You can use existing dev serve plugins, write your own or reuse rollup plugins using [@web/dev-server-rollup](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-rollup). Middleware and plugins can be configured from the test runner config.
 
 <details>
   <summary>View example</summary>
 
 ```js
 export default {
-  devServer: {
-    rootDir: '../..',
-    middlewares: [],
-    plugins: [],
-  },
+  rootDir: '../..',
+  middleware: [],
+  plugins: [],
 };
 ```
 
 </details>
-
-es-dev-server has an extensive configuration and plugin system, check out the docs for all options.
 
 ### Typescript and JSX
 

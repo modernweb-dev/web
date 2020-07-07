@@ -7,7 +7,7 @@ import fs from 'fs';
 import net, { Server, Socket, ListenOptions } from 'net';
 
 import { EventStreamManager } from '../event-stream/EventStreamManager';
-import { Config } from '../Config';
+import { DevServerCoreConfig } from '../DevServerCoreConfig';
 import { createMiddleware } from './createMiddleware';
 import { Logger } from '../logger/Logger';
 import { createPlugins } from './createPlugins';
@@ -27,7 +27,7 @@ function httpsRedirect(req: IncomingMessage, res: ServerResponse) {
  * http server instances.
  */
 export function createServer(
-  cfg: Config,
+  cfg: DevServerCoreConfig,
   eventStreams: EventStreamManager,
   logger: Logger,
   fileWatcher: FSWatcher,

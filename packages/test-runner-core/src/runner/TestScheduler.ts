@@ -1,5 +1,5 @@
 import { createSessionUrl } from './createSessionUrl';
-import { TestRunnerConfig } from './TestRunnerConfig';
+import { TestRunnerCoreConfig } from './TestRunnerCoreConfig';
 import { TestSessionManager } from '../test-session/TestSessionManager';
 import { TestSession, TestResultError } from '../test-session/TestSession';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
@@ -7,7 +7,7 @@ import { SESSION_STATUS } from '../test-session/TestSessionStatus';
 export class TestScheduler {
   private timeoutIdsPerSession = new Map<string, NodeJS.Timeout[]>();
 
-  constructor(private config: TestRunnerConfig, private sessions: TestSessionManager) {
+  constructor(private config: TestRunnerCoreConfig, private sessions: TestSessionManager) {
     sessions.on('session-status-updated', session => {
       const timeoutIds = this.timeoutIdsPerSession.get(session.id);
       if (timeoutIds && session.status === SESSION_STATUS.FINISHED) {

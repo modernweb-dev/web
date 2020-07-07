@@ -2,7 +2,7 @@ import { FSWatcher } from 'chokidar';
 import Koa, { Context } from 'koa';
 import { Server } from 'net';
 
-import { Config } from './Config';
+import { DevServerCoreConfig } from './DevServerCoreConfig';
 import { Logger } from './logger/Logger';
 import { EventStreamManager } from './event-stream/EventStreamManager';
 
@@ -18,7 +18,7 @@ export type ResolveResult = void | string | { id?: string };
 export type ResolveMimeTypeResult = void | string | { type?: string };
 
 export interface ServerArgs {
-  config: Config;
+  config: DevServerCoreConfig;
   app: Koa;
   server: Server;
   fileWatcher: FSWatcher;

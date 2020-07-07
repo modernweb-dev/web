@@ -3,9 +3,9 @@ import { expect } from 'chai';
 import fetch, { RequestInit } from 'node-fetch';
 
 import { DevServer } from './server/DevServer';
-import { Config } from './Config';
+import { DevServerCoreConfig } from './DevServerCoreConfig';
 
-const defaultConfig: Omit<Config, 'port' | 'rootDir'> = {
+const defaultConfig: Omit<DevServerCoreConfig, 'port' | 'rootDir'> = {
   hostname: 'localhost',
   middleware: [],
   plugins: [],
@@ -29,7 +29,7 @@ const mockLogger = {
   },
 };
 
-export async function createTestServer(config: Partial<Config>) {
+export async function createTestServer(config: Partial<DevServerCoreConfig>) {
   if (!config.rootDir) {
     throw new Error('A rootDir must be configured.');
   }

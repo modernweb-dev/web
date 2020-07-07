@@ -1,5 +1,5 @@
 import {
-  TestRunnerConfig,
+  TestRunnerCoreConfig,
   TestSessionManager,
   TestRunner,
   TestCoverage,
@@ -42,9 +42,9 @@ export class TestRunnerCli {
   private openingDebugBrowser = false;
   private testCoverage?: TestCoverage;
 
-  constructor(private config: TestRunnerConfig, private runner: TestRunner) {
+  constructor(private config: TestRunnerCoreConfig, private runner: TestRunner) {
     this.sessions = runner.sessions;
-    this.serverAddress = `${config.address}:${config.port}/`;
+    this.serverAddress = `${config.protocol}//${config.hostname}:${config.port}/`;
 
     if (config.watch && !this.terminal.isInteractive) {
       this.runner.quit(new Error('Cannot run watch mode in a non-interactive (TTY) terminal.'));

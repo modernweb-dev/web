@@ -1,9 +1,9 @@
-import { Config } from '../Config';
+import { DevServerCoreConfig } from '../DevServerCoreConfig';
 import { Plugin } from '../Plugin';
 import { resolveModuleImportsPlugin } from '../plugins/resolveModuleImportsPlugin';
 import { eventStreamPlugin } from '../event-stream/eventStreamPlugin';
 
-export function createPlugins(config: Config) {
+export function createPlugins(config: DevServerCoreConfig) {
   const plugins: Plugin[] = [];
 
   if (config.plugins.some(pl => 'resolveImport' in pl)) {

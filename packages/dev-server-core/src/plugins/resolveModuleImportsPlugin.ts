@@ -101,11 +101,13 @@ export async function resolveModuleImports(
     [imports] = await parse(code, filePath);
   } catch (error) {
     if (typeof error.idx === 'number') {
-      throw new PluginSyntaxError('Syntax error', {
-        file: filePath,
-        line: error.idx - code.lastIndexOf('\n', error.idx - 1),
-        column: code.slice(0, error.idx).split('\n').length,
-      });
+      throw new PluginSyntaxError(
+        'Syntax error',
+        filePath,
+        code,
+        error.idx - code.lastIndexOf('\n', error.idx - 1),
+        code.slice(0, error.idx).split('\n').length,
+      );
     }
     throw error;
   }

@@ -1,20 +1,32 @@
 #!/usr/bin/env node
-import { TestRunnerConfig as BaseTestRunnerConfig } from '@web/test-runner-core';
-import { readConfig, startTestRunner } from '@web/test-runner-cli';
-import { testRunnerServer, ServerConfig } from '@web/test-runner-server';
+import { TestRunnerCoreConfig } from '@web/test-runner-core';
+import {
+  readCliArgsConfig,
+  readConfig,
+  startTestRunner,
+  validateCoreConfig,
+} from '@web/test-runner-cli';
+import { testRunnerServer, TestRunnerServerConfig } from '@web/test-runner-server';
 import { chromeLauncher } from '@web/test-runner-chrome';
+import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
 import commandLineArgs from 'command-line-args';
-import { puppeteerLauncher, playwrightLauncher } from './loadLauncher';
+import chalk from 'chalk';
 
-export interface TestRunnerConfig extends BaseTestRunnerConfig {
-  devServer: ServerConfig;
+import { puppeteerLauncher, playwrightLauncher } from './loadLauncher';
+import { nodeResolvePlugin } from './nodeResolvePlugin';
+
+export interface TestRunnerConfig extends TestRunnerCoreConfig, TestRunnerServerConfig {
+  nodeResolve?: boolean | RollupNodeResolveOptions;
+  preserveSymlinks?: boolean;
+}
+
+export interface TestRunnerCliArgsConfig extends Omit<TestRunnerConfig, 'browsers'> {
+  puppeteer?: boolean;
+  playwright?: boolean;
+  browsers?: string[];
 }
 
 const cliOptions: commandLineArgs.OptionDefinition[] = [
-  {
-    name: 'root-dir',
-    type: String,
-  },
   {
     name: 'preserve-symlinks',
     type: Boolean,
@@ -32,44 +44,71 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
     type: String,
     multiple: true,
   },
+  {
+    name: 'node-resolve',
+    type: Boolean,
+  },
+  {
+    name: 'debug',
+    type: Boolean,
+  },
 ];
 
 (async () => {
-  const result = await readConfig({ cliOptions });
-  const args = result.cliArgs;
-  const partialConfig = result.config as Partial<TestRunnerConfig>;
+  try {
+    const cliArgs = readCliArgsConfig<TestRunnerCliArgsConfig>(cliOptions);
+    const cliArgsConfig: Partial<TestRunnerConfig> = {};
+    for (const [key, value] of Object.entries(cliArgs)) {
+      if (key !== 'browsers') {
+        // cli args are read from a file, they are validated by cli-options and later on as well
+        (cliArgsConfig as any)[key] = value;
+      }
+    }
 
-  const devServerConfig: Partial<ServerConfig> = partialConfig.devServer ?? {};
-  let browsers = chromeLauncher();
+    cliArgsConfig.testFramework = '@web/test-runner-mocha/dist/autorun.js';
 
-  if ('preserve-symlinks' in args) {
-    devServerConfig.preserveSymlinks = !!args['preserve-symlinks'];
+    if (cliArgs.puppeteer) {
+      cliArgsConfig.browsers = puppeteerLauncher();
+    } else if (cliArgs.playwright) {
+      cliArgsConfig.browsers = playwrightLauncher(cliArgs.browsers ?? ['chromium']);
+    } else {
+      cliArgsConfig.browsers = chromeLauncher();
+    }
+
+    const config = await readConfig<TestRunnerConfig>(cliArgsConfig);
+    const { rootDir } = config;
+
+    if (typeof rootDir !== 'string') {
+      throw new Error('No rootDir specified.');
+    }
+
+    if (!config.server) {
+      const serverConfig: TestRunnerServerConfig = {
+        plugins: config.plugins ?? [],
+        middleware: config.middleware ?? [],
+      };
+
+      if (config.nodeResolve) {
+        const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
+        serverConfig.plugins!.push(
+          nodeResolvePlugin(rootDir, config.preserveSymlinks, userOptions),
+        );
+      }
+
+      config.server = testRunnerServer(serverConfig);
+    } else {
+      if (config.nodeResolve) {
+        throw new Error('Cannot use the nodeResolve option when configuring a custom server.');
+      }
+      if (config.preserveSymlinks) {
+        throw new Error('Cannot use the preserveSymlinks option when configuring a custom server.');
+      }
+    }
+
+    const validatedConfig = validateCoreConfig<TestRunnerConfig>(config);
+    startTestRunner(validatedConfig);
+  } catch (error) {
+    console.error(chalk.red(`\nFailed to start test runner: ${error.message}\n`));
+    process.exit(1);
   }
-
-  if (args.puppeteer) {
-    browsers = puppeteerLauncher();
-  }
-
-  if (args.playwright) {
-    browsers = playwrightLauncher(args.browsers ?? ['chromium']);
-  }
-
-  const config: Partial<TestRunnerConfig> = {
-    testFrameworkImport: '@web/test-runner-mocha/dist/autorun.js',
-    browsers,
-    server: testRunnerServer(devServerConfig),
-    ...partialConfig,
-  };
-
-  // sync dev server and test runner root dir
-  if (devServerConfig.rootDir) {
-    config.rootDir = devServerConfig.rootDir;
-  }
-
-  // root dir from args takes priority
-  if (typeof args['root-dir'] === 'string') {
-    config.rootDir = args['root-dir'];
-  }
-
-  startTestRunner(config);
 })();

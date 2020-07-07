@@ -1,190 +1,61 @@
-import { Server, SESSION_STATUS } from '@web/test-runner-core';
-import { createConfig, startServer, Config } from 'es-dev-server';
+import { Server } from '@web/test-runner-core';
+import { DevServerCoreConfig, DevServer, Plugin } from '@web/dev-server-core';
 import deepmerge from 'deepmerge';
-import { Context, Next } from 'koa';
-import net from 'net';
-import path from 'path';
-import parse from 'co-body';
 import chokidar from 'chokidar';
-import { dependencyGraphMiddleware } from './dependencyGraphMiddleware';
-import { createTestPage } from './createTestPage';
-import { toBrowserPath } from './utils';
 
-export { Config as ServerConfig };
+import { watchFilesMiddleware } from './watchFilesMiddleware';
+import { TestServerLogger } from './TestServerLogger';
+import { serveTestRunnerHtmlPlugin } from './serveTestRunnerHtmlPlugin';
+import { cacheMiddleware } from './cacheMiddleware';
+import { testRunnerApiMiddleware } from './testRunnerApiMiddleware';
+import { TestRunnerServerConfig } from './TestRunnerServerConfig';
+import { serveTestFrameworkPlugin } from './serveTestFrameworkPlugin';
+import { testCoveragePlugin } from './testCoveragePlugin';
 
-const IGNORED_404s = ['favicon.ico'];
 const CACHED_PATTERNS = [
   'node_modules/@web/test-runner-',
   'node_modules/mocha/',
   'node_modules/chai/',
 ];
+const isDefined = (_: unknown) => Boolean(_);
 
-function createBrowserFilePath(rootDir: string, filePath: string) {
-  const fullFilePath = filePath.startsWith(process.cwd())
-    ? filePath
-    : path.join(process.cwd(), filePath);
-  const relativeToRootDir = path.relative(rootDir, fullFilePath);
-  return toBrowserPath(relativeToRootDir);
-}
-
-export function testRunnerServer(devServerConfig: Partial<Config> = {}): Server {
-  let server: net.Server;
+export function testRunnerServer(testRunnerServerConfig: TestRunnerServerConfig = {}): Server {
+  let devServer: DevServer;
 
   return {
     async start({ config, testFiles, sessions, runner }) {
-      const { rootDir } = config;
-
-      function onRerunSessions(sessionIds?: string[]) {
-        const sessionsToRerun = sessionIds
-          ? sessionIds.map(id => {
-              const session = sessions.get(id);
-              if (!session) {
-                throw new Error(`Could not find session ${id}`);
-              }
-              return session;
-            })
-          : sessions.all();
-        runner.runTests(sessionsToRerun);
-      }
-
-      function onRequest404(sessionId: string, url: string) {
-        const session = sessions.get(sessionId);
-        if (!session) {
-          throw new Error(`Could not find session ${sessionId}`);
-        }
-
-        const { request404s } = session;
-        if (!request404s.includes(url) && !IGNORED_404s.some(i => url.endsWith(i))) {
-          sessions.update({ ...session, request404s: [...request404s, url] });
-        }
-      }
-
-      const hasCustomBabelConfig = devServerConfig.babel || devServerConfig.babelConfig;
-      let coverageExclude: string[] | undefined = undefined;
-      let coverageInclude: string[] | undefined = undefined;
-      if (config.coverage) {
-        coverageExclude = [
-          ...testFiles.map(t => path.resolve(t)),
-          ...(config.coverageConfig!.exclude ?? []),
-        ];
-        coverageInclude = config.coverageConfig!.include;
-      }
+      const { testFramework, rootDir } = config;
 
       const fileWatcher = chokidar.watch([]);
-      const serverConfig = createConfig(
-        deepmerge(
-          {
-            port: config.port,
-            rootDir,
-            nodeResolve: true,
-            logStartup: false,
-            logCompileErrors: false,
+      const serverConfig = deepmerge.all<DevServerCoreConfig>([
+        {
+          port: config.port,
+          hostname: config.hostname,
+          rootDir,
 
-            // add babel plugin for test coverage
-            babelConfig: config.coverage
-              ? {
-                  plugins: [
-                    [require.resolve('babel-plugin-istanbul'), { exclude: coverageExclude }],
-                  ],
-                }
-              : undefined,
+          middleware: [
+            testRunnerApiMiddleware(sessions, rootDir, config),
+            watchFilesMiddleware({ runner, sessions, rootDir, fileWatcher }),
+            cacheMiddleware(CACHED_PATTERNS, config.watch),
+            ...(testRunnerServerConfig.middleware || []),
+          ],
 
-            // only transform test coverage file if user did not also add a babel plugin
-            // this improves speed a lot
-            customBabelInclude: !hasCustomBabelConfig ? coverageInclude : undefined,
-            customBabelExclude: !hasCustomBabelConfig ? coverageExclude : undefined,
+          plugins: [
+            serveTestRunnerHtmlPlugin(config),
+            serveTestFrameworkPlugin(testFramework),
+            config.coverage ? testCoveragePlugin(testFiles, config.coverageConfig) : undefined,
+            ...(testRunnerServerConfig.plugins || []),
+          ].filter(isDefined) as Plugin[],
+        },
+      ]);
 
-            middlewares: [
-              async function middleware(ctx: Context, next: Next) {
-                if (ctx.path.startsWith('/wtr/')) {
-                  const [, , sessionId, command] = ctx.path.split('/');
-                  if (!sessionId) return next();
-                  if (!command) return next();
-
-                  const session = sessions.get(sessionId);
-                  if (!session) {
-                    ctx.status = 400;
-                    ctx.body = `Session id ${sessionId} not found`;
-                    console.error(ctx.body);
-                    return;
-                  }
-
-                  if (command === 'config') {
-                    ctx.body = JSON.stringify({
-                      testFile: createBrowserFilePath(rootDir, session.testFile),
-                      watch: !!config.watch,
-                    });
-                    return;
-                  }
-
-                  // TODO: Handle race conditions for these requests
-                  if (command === 'session-started') {
-                    ctx.status = 200;
-                    sessions.updateStatus(session, SESSION_STATUS.STARTED);
-                    return;
-                  }
-
-                  if (command === 'session-finished') {
-                    ctx.status = 200;
-                    const result = (await parse.json(ctx)) as any;
-                    sessions.updateStatus(
-                      {
-                        ...session,
-                        ...result,
-                      },
-                      SESSION_STATUS.FINISHED,
-                    );
-                    return;
-                  }
-                }
-
-                return next();
-              },
-
-              dependencyGraphMiddleware({
-                rootDir,
-                fileWatcher,
-                onRequest404,
-                onRerunSessions,
-              }),
-
-              async (context: Context, next: Next) => {
-                await next();
-
-                if (
-                  path.extname(context.path) &&
-                  (!config.watch || CACHED_PATTERNS.some(pattern => context.path.includes(pattern)))
-                ) {
-                  context.response.set('cache-control', 'public, max-age=31536000');
-                }
-              },
-            ],
-            plugins: [
-              {
-                name: 'wtr-serve-html',
-                serve(context: Context) {
-                  if (context.path === '/') {
-                    const testRunnerImport = `${config.testFrameworkImport}${context.URL.search}`;
-                    return {
-                      type: 'html',
-                      body: config.testRunnerHtml
-                        ? config.testRunnerHtml(testRunnerImport, config)
-                        : createTestPage(testRunnerImport),
-                    };
-                  }
-                },
-              },
-            ],
-          },
-          devServerConfig,
-        ),
-      );
-
-      ({ server } = await startServer(serverConfig, fileWatcher));
+      const logger = new TestServerLogger(!!testRunnerServerConfig.debug);
+      devServer = new DevServer(serverConfig, logger, fileWatcher);
+      await devServer.start();
     },
 
     async stop() {
-      await server?.close();
+      await devServer?.stop();
     },
   };
 }

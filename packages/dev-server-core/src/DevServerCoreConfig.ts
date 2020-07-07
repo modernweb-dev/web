@@ -1,8 +1,7 @@
 import { Middleware } from 'koa';
 import { Plugin } from './Plugin';
 
-export interface Config {
-  // Server configuration
+export interface DevServerCoreConfig {
   port: number;
   rootDir: string;
   hostname: string;

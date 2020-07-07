@@ -11,8 +11,8 @@ Browser launchers boot up and control a browser instance. Implementations:
 - [@web/test-runner-chrome](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-chrome)
 - [@web/test-runner-puppeteer](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer)
 - [@web/test-runner-playwright](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-playwright)
-- `@web/test-runner-selenium` (coming soon)
-- `@web/test-runner-browserstack` (coming soon)
+- [@web/test-runner-selenium](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-selenium)
+- [@web/test-runner-browserstack](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browserstack)
 
 [Read more here](./docs/browser-launcher.md) to learn about creating your own browser launcher.
 

@@ -4,7 +4,7 @@ import chokidar from 'chokidar';
 import { promisify } from 'util';
 
 import { EventStreamManager } from '../event-stream/EventStreamManager';
-import { Config } from '../Config';
+import { DevServerCoreConfig } from '../DevServerCoreConfig';
 import { createServer } from './createServer';
 import { Logger } from '../logger/Logger';
 
@@ -14,7 +14,7 @@ export class DevServer {
   public eventStreams = new EventStreamManager();
 
   constructor(
-    public config: Config,
+    public config: DevServerCoreConfig,
     public logger: Logger,
     public fileWatcher = chokidar.watch([]),
   ) {

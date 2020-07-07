@@ -1,6 +1,6 @@
 import { createCoverageMap, CoverageSummaryData, CoverageMap } from 'istanbul-lib-coverage';
 import { TestSession } from '../test-session/TestSession';
-import { CoverageThresholdConfig } from '../runner/TestRunnerConfig';
+import { CoverageThresholdConfig } from '../runner/TestRunnerCoreConfig';
 
 export const coverageTypes: (keyof CoverageSummaryData)[] = [
   'lines',

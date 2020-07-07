@@ -1,28 +1,55 @@
-import { constants } from '@web/test-runner-core';
+import { constants, TestSessionManager, TestRunner } from '@web/test-runner-core';
+import { Middleware, Context } from '@web/dev-server-core';
 import { DepGraph } from 'dependency-graph';
 import debounce from 'debounce';
 import path from 'path';
-import { Middleware } from 'koa';
 import { FSWatcher } from 'chokidar';
+import { TEST_FRAMEWORK_PATH } from './serveTestFrameworkPlugin';
 
+const IGNORED_404s = ['favicon.ico'];
 const { PARAM_SESSION_ID } = constants;
 
 export interface DependencyGraphMiddlewareArgs {
-  onRequest404: (sessionId: string, url: string) => void;
-  onRerunSessions: (sessionIds?: string[]) => void;
+  runner: TestRunner;
+  sessions: TestSessionManager;
   rootDir: string;
   fileWatcher: FSWatcher;
+}
+
+function onRerunSessions(runner: TestRunner, sessions: TestSessionManager, sessionIds?: string[]) {
+  const sessionsToRerun = sessionIds
+    ? sessionIds.map(id => {
+        const session = sessions.get(id);
+        if (!session) {
+          throw new Error(`Could not find session ${id}`);
+        }
+        return session;
+      })
+    : sessions.all();
+  runner.runTests(sessionsToRerun);
+}
+
+function onRequest404(sessions: TestSessionManager, sessionId: string, url: string) {
+  const session = sessions.get(sessionId);
+  if (!session) {
+    throw new Error(`Could not find session ${sessionId}`);
+  }
+
+  const { request404s } = session;
+  if (!request404s.includes(url) && !IGNORED_404s.some(i => url.endsWith(i))) {
+    sessions.update({ ...session, request404s: [...request404s, url] });
+  }
 }
 
 function toFilePath(browserPath: string) {
   return browserPath.replace(new RegExp('/', 'g'), path.sep);
 }
 
-export function dependencyGraphMiddleware({
+export function watchFilesMiddleware({
   rootDir,
   fileWatcher,
-  onRequest404,
-  onRerunSessions,
+  sessions,
+  runner,
 }: DependencyGraphMiddlewareArgs): Middleware {
   const fileGraph = new DepGraph({ circular: true });
   const urlGraph = new DepGraph({ circular: true });
@@ -30,6 +57,7 @@ export function dependencyGraphMiddleware({
 
   function getSessionIdsForPath(path: string) {
     const ids = new Set<string>();
+
     if (urlGraph.hasNode(path)) {
       for (const dependant of urlGraph.dependantsOf(path)) {
         if (dependant.startsWith('\0')) {
@@ -42,11 +70,13 @@ export function dependencyGraphMiddleware({
         }
       }
     }
+
     return ids;
   }
 
   function getSessionIdsForFile(file: string) {
     const ids = new Set<string>();
+
     if (fileGraph.hasNode(file)) {
       for (const dependant of fileGraph.dependantsOf(file)) {
         if (dependant.startsWith('\0')) {
@@ -59,6 +89,7 @@ export function dependencyGraphMiddleware({
         }
       }
     }
+
     return ids;
   }
 
@@ -74,10 +105,10 @@ export function dependencyGraphMiddleware({
 
     if (sessionsToRerun.size > 0) {
       // re run specified sessions
-      onRerunSessions(Array.from(sessionsToRerun));
+      onRerunSessions(runner, sessions, Array.from(sessionsToRerun));
     } else {
       // re run alll sessions
-      onRerunSessions();
+      onRerunSessions(runner, sessions);
     }
 
     pendingChangedFiles = new Set<string>();
@@ -93,27 +124,35 @@ export function dependencyGraphMiddleware({
   fileWatcher.addListener('change', onFileChanged);
   fileWatcher.addListener('unlink', onFileChanged);
 
-  return async (ctx, next) => {
-    let dependantUrl;
-    let dependencyPath;
-    let dependencyUrl;
-
-    if (ctx.path.endsWith('/')) {
-      // If the request is for a HTML file without a file extension, we should set itself as the dependant
-      dependantUrl = new URL(ctx.href);
-      dependencyPath = `${ctx.path}index.html`;
-      dependencyUrl = dependencyPath;
-    } else if (!ctx.headers.referer) {
-      // certain files like source maps are fetched without a referer, we skip those
-      return next();
-    } else {
-      dependantUrl = new URL(ctx.headers.referer as string);
-      dependencyPath = ctx.path;
-      dependencyUrl = ctx.url;
+  function addDependencyMapping(ctx: Context) {
+    if (ctx.path === TEST_FRAMEWORK_PATH || ctx.path.endsWith('/')) {
+      // the test framework or test runner HTML don't need to be tracked
+      // we specifcally don't want to track the test framework, because it
+      // requests all test files which would mess up the dependancy graph
+      return;
     }
 
+    // who is requesting this dependency
+    let dependantUrl: URL;
+    if (ctx.URL.searchParams.has(PARAM_SESSION_ID)) {
+      // if the requested file itself has a session id in the URL, use that as the dependant
+      // this way when this file changes, we know session it belongs to
+      dependantUrl = ctx.URL;
+    } else if (ctx.headers.referer) {
+      // most requests contain a referer, the file which requested this file
+      dependantUrl = new URL(ctx.headers.referer as string);
+    } else {
+      // certain files like source maps are fetched without a referer, we skip those
+      return;
+    }
+
+    const dependencyPath = ctx.path;
+    const dependencyUrl = ctx.url;
+
     const dependantFilePath = dependantUrl.searchParams.has(PARAM_SESSION_ID)
-      ? // the dependant is the test HTML file, we remember the full href and mark it with a null byte
+      ? // the dependant is the test file itself,
+        // we remember the full href and mark it with a null byte so that
+        // later we can extract the session id
         `\0${dependantUrl.href}`
       : // the dependant is a "regular" file, we resolve it to the file path
         path.join(rootDir, toFilePath(dependantUrl.pathname));
@@ -129,12 +168,16 @@ export function dependencyGraphMiddleware({
     urlGraph.addNode(dependantPath);
     urlGraph.addNode(dependencyUrl);
     urlGraph.addDependency(dependantPath, dependencyUrl);
+  }
+
+  return async (ctx, next) => {
+    addDependencyMapping(ctx);
 
     await next();
 
     if (ctx.status === 404) {
       for (const sessionId of getSessionIdsForPath(ctx.url)) {
-        onRequest404(sessionId, ctx.url.substring(1));
+        onRequest404(sessions, sessionId, ctx.url.substring(1));
       }
     }
   };

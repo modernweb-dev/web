@@ -12,29 +12,13 @@ Install the package:
 npm i -D @web/dev-server-esbuild
 ```
 
-### In es-dev-server
-
-Create a `es-dev-server.config.js` file:
+Create a configuration file:
 
 ```js
 const { esbuildPlugin } = require('@web/dev-server-esbuild');
 
 module.exports = {
   plugins: [esbuildPlugin({ ts: true })],
-};
-```
-
-### In @web/test-runner
-
-Create a `web-test-runner.config.js` file:
-
-```js
-const { esbuildPlugin } = require('@web/dev-server-esbuild');
-
-module.exports = {
-  devServer: {
-    plugins: [esbuildPlugin({ ts: true })],
-  },
 };
 ```
 
