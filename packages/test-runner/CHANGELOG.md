@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.4
+
+### Patch Changes
+
+- 93dbfe5: remove minified test framework from stack trace
+- Updated dependencies [93dbfe5]
+  - @web/test-runner-cli@0.4.2
+
 ## 0.6.3
 
 ### Patch Changes
