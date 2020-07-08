@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.4.1
+
+### Patch Changes
+
+- 307dd02: improve failure message
+
 ## 0.4.0
 
 ### Minor Changes

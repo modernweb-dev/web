@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.2
+
+### Patch Changes
+
+- 307dd02: improve failure message
+- Updated dependencies [307dd02]
+  - @web/test-runner-cli@0.4.1
+
 ## 0.6.1
 
 ### Patch Changes
