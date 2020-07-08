@@ -178,6 +178,7 @@ export class TestRunner extends EventEmitter<EventMap> {
       const finishedAll = Array.from(this.sessions.all()).every(
         s => s.status === SESSION_STATUS.FINISHED,
       );
+
       if (finishedAll) {
         let passedCoverage = true;
         let testCoverage: TestCoverage | undefined = undefined;
@@ -189,7 +190,11 @@ export class TestRunner extends EventEmitter<EventMap> {
           passedCoverage = testCoverage.passed;
         }
 
-        this.emit('test-run-finished', { testRun: this.testRun, testCoverage });
+        setTimeout(() => {
+          // emit finished event after a timeout to ensure all event listeners have processed
+          // the session status updated event
+          this.emit('test-run-finished', { testRun: this.testRun, testCoverage });
+        });
 
         if (!this.config.watch) {
           setTimeout(async () => {
