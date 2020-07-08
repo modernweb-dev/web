@@ -1,4 +1,4 @@
-import { startService, Service, Loader, Message, Target } from 'esbuild';
+import { startService, Service, Loader, Message } from 'esbuild';
 import path from 'path';
 import chalk from 'chalk';
 import { Plugin } from '@web/dev-server-core';
@@ -7,10 +7,8 @@ import { URL, pathToFileURL, fileURLToPath } from 'url';
 import { getEsbuildLoader } from './getEsbuildLoader';
 import { getEsbuildTarget } from './getEsbuildTarget';
 
-export type PluginTarget = Target | 'auto';
-
 export interface EsBuildPluginArgs {
-  target?: PluginTarget;
+  target?: string;
   js?: boolean;
   jsx?: boolean;
   ts?: boolean;
