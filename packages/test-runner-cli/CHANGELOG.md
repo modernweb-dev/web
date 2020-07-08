@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.4.3
+
+### Patch Changes
+
+- eaf714d: print pending files in blue
+
 ## 0.4.2
 
 ### Patch Changes
