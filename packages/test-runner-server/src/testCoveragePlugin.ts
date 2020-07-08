@@ -57,7 +57,7 @@ export function testCoveragePlugin(testFiles: string[], coverageConfig?: Coverag
           require.resolve('@babel/plugin-syntax-numeric-separator'),
           require.resolve('@babel/plugin-syntax-top-level-await'),
           require.resolve('@babel/plugin-syntax-logical-assignment-operators'),
-          require.resolve('@babel/plugin-syntax-exp'),
+          require.resolve('@babel/plugin-syntax-export-default-from'),
         ],
       });
 
