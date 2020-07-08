@@ -74,7 +74,7 @@ export async function readConfig<T extends TestRunnerCoreConfig & { config?: str
     }
 
     if (config.coverageConfig) {
-      config.coverageConfig = deepmerge(config.coverageConfig!, defaultCoverageConfig);
+      config.coverageConfig = deepmerge(defaultCoverageConfig, config.coverageConfig!);
     } else {
       config.coverageConfig = defaultCoverageConfig;
     }
