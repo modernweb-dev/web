@@ -49,7 +49,16 @@ export function testCoveragePlugin(testFiles: string[], coverageConfig?: Coverag
         sourceType: 'module',
         configFile: false,
         babelrc: false,
-        plugins: [[require.resolve('babel-plugin-istanbul')]],
+        plugins: [
+          require.resolve('babel-plugin-istanbul'),
+          require.resolve('@babel/plugin-syntax-dynamic-import'),
+          require.resolve('@babel/plugin-syntax-import-meta'),
+          require.resolve('@babel/plugin-syntax-class-properties'),
+          require.resolve('@babel/plugin-syntax-numeric-separator'),
+          require.resolve('@babel/plugin-syntax-top-level-await'),
+          require.resolve('@babel/plugin-syntax-logical-assignment-operators'),
+          require.resolve('@babel/plugin-syntax-exp'),
+        ],
       });
 
       return transformed?.code ?? undefined;
