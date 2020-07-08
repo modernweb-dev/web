@@ -1,5 +1,12 @@
 # @web/test-runner-server
 
+## 0.5.2
+
+### Patch Changes
+
+- 3cdb338: don't run test coverage on test framework
+- 4f72c90: add babel syntax plugins
+
 ## 0.5.1
 
 ### Patch Changes
