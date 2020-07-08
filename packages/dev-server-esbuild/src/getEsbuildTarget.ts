@@ -1,7 +1,6 @@
 import { isRecentModernBrowser } from './isRecentModernBrowser';
-import { PluginTarget } from './esbuildPlugin';
 
-export function getEsbuildTarget(target: PluginTarget, userAgent?: string) {
+export function getEsbuildTarget(target: string, userAgent?: string): string {
   if (target !== 'auto') {
     return target;
   }
