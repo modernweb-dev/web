@@ -3,6 +3,7 @@ import { Plugin, getRequestFilePath } from '@web/dev-server-core';
 import { transformAsync } from '@babel/core';
 import picoMatch from 'picomatch';
 import path from 'path';
+import { TEST_FRAMEWORK_PATH } from './serveTestFrameworkPlugin';
 
 export function testCoveragePlugin(testFiles: string[], coverageConfig?: CoverageConfig): Plugin {
   const resolvedTestFiles = testFiles.map(f => path.resolve(f));
@@ -20,6 +21,10 @@ export function testCoveragePlugin(testFiles: string[], coverageConfig?: Coverag
 
     async transform(context) {
       if (!context.response.is('.js')) {
+        return;
+      }
+
+      if (context.path === TEST_FRAMEWORK_PATH) {
         return;
       }
 
