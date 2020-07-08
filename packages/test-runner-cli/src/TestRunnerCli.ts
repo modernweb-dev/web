@@ -37,7 +37,7 @@ export class TestRunnerCli {
   private reportedFilesByTestRun = new Map<number, Set<string>>();
   private sessions: TestSessionManager;
   private activeMenu: MenuType = MENUS.OVERVIEW;
-  private menuSucceededFiles: string[] = [];
+  private menuSucceededAndPendingFiles: string[] = [];
   private menuFailedFiles: string[] = [];
   private openingDebugBrowser = false;
   private testCoverage?: TestCoverage;
@@ -175,7 +175,8 @@ export class TestRunnerCli {
 
   private focusTestFileNr(i: number) {
     const focusedTestFile =
-      this.menuFailedFiles[i - 1] ?? this.menuSucceededFiles[i - this.menuFailedFiles.length - 1];
+      this.menuFailedFiles[i - 1] ??
+      this.menuSucceededAndPendingFiles[i - this.menuFailedFiles.length - 1];
     const debug = this.activeMenu === MENUS.DEBUG_SELECT_FILE;
 
     if (focusedTestFile) {
@@ -277,18 +278,22 @@ export class TestRunnerCli {
   }
 
   private logSelectFilesMenu() {
-    this.menuSucceededFiles = [];
+    this.menuSucceededAndPendingFiles = [];
     this.menuFailedFiles = [];
 
     for (const testFile of this.runner.testFiles) {
-      if (Array.from(this.sessions.forTestFile(testFile)).every(t => t.passed)) {
-        this.menuSucceededFiles.push(testFile);
-      } else {
+      const sessions = Array.from(this.sessions.forTestFile(testFile));
+      if (sessions.every(t => t.status === SESSION_STATUS.FINISHED && !t.passed)) {
         this.menuFailedFiles.push(testFile);
+      } else {
+        this.menuSucceededAndPendingFiles.push(testFile);
       }
     }
 
-    const selectFilesEntries = getSelectFilesMenu(this.menuSucceededFiles, this.menuFailedFiles);
+    const selectFilesEntries = getSelectFilesMenu(
+      this.menuSucceededAndPendingFiles,
+      this.menuFailedFiles,
+    );
 
     this.terminal.logDynamic([]);
     this.terminal.logStatic(selectFilesEntries);
