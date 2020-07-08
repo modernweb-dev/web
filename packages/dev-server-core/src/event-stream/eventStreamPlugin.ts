@@ -1,10 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-ignore
-import {
-  query,
-  predicates,
-  // @ts-ignore
-} from '@open-wc/building-utils/dom5-fork';
+import { query, predicates } from '../dom5';
 import { parse as parseHtml } from 'parse5';
 import { Plugin } from '../Plugin';
 import { EVENT_STREAM_ENDPOINT } from './eventStreamMiddleware';

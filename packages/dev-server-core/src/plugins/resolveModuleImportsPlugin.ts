@@ -3,13 +3,7 @@ import path from 'path';
 import { Context } from 'koa';
 // @ts-ignore
 import { parse, ParsedImport } from 'es-module-lexer';
-import {
-  queryAll,
-  predicates,
-  getTextContent,
-  setTextContent,
-  // @ts-ignore
-} from '@open-wc/building-utils/dom5-fork';
+import { queryAll, predicates, getTextContent, setTextContent } from '../dom5';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 import { Plugin } from '../Plugin';
 import { PluginSyntaxError } from '../logger/PluginSyntaxError';
