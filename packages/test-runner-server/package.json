@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-server",
-  "version": "0.4.6",
+  "version": "0.5.0",
   "publishConfig": {
     "access": "public"
   },
@@ -36,8 +36,8 @@
     "@babel/code-frame": "^7.10.4",
     "@types/babel__core": "^7.1.9",
     "@types/co-body": "^5.1.0",
-    "@web/dev-server-core": "^0.0.3",
-    "@web/test-runner-core": "^0.5.6",
+    "@web/dev-server-core": "^0.1.0",
+    "@web/test-runner-core": "^0.6.0",
     "babel-plugin-istanbul": "^6.0.0",
     "co-body": "^6.0.0",
     "deepmerge": "^4.2.2",

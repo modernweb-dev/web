@@ -1,6 +1,6 @@
 {
   "name": "@web/demo-lit-element-ts",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "Webcomponent lit-element following open-wc recommendations",
   "license": "MIT",
@@ -21,8 +21,8 @@
   "devDependencies": {
     "@open-wc/testing": "^2.0.0",
     "@types/node": "13.11.1",
-    "@web/dev-server-esbuild": "^0.0.5",
-    "@web/test-runner": "^0.5.16",
+    "@web/dev-server-esbuild": "^0.1.0",
+    "@web/test-runner": "^0.6.0",
     "deepmerge": "^4.2.2",
     "es-dev-server": "^1.55.0",
     "tslib": "^1.11.0",

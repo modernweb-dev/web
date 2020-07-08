@@ -1,6 +1,6 @@
 {
   "name": "@web/demo-lit-element",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "Webcomponent lit-element following open-wc recommendations",
   "license": "MIT",
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@open-wc/testing": "^2.0.0",
-    "@web/test-runner": "^0.5.16",
+    "@web/test-runner": "^0.6.0",
     "deepmerge": "^4.2.2",
     "es-dev-server": "^1.55.0"
   }

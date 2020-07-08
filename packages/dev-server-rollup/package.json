@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-rollup",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "publishConfig": {
     "access": "public"
   },
@@ -38,7 +38,7 @@
     "transform"
   ],
   "dependencies": {
-    "@web/dev-server-core": "^0.0.3",
+    "@web/dev-server-core": "^0.1.0",
     "rollup": "^2.20.0",
     "whatwg-url": "^8.1.0"
   },

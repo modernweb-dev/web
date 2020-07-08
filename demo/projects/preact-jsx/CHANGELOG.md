@@ -1,11 +1,10 @@
-# @web/dev-server-core
+# @web/demo-preact-jsx
 
 ## 0.1.0
-
 ### Minor Changes
 
 - c4cb321: Use web dev server in test runner. This contains multiple breaking changes:
-
+  
   - Browsers that don't support es modules are not supported for now. We will add this back later.
   - Most es-dev-server config options are no longer available. The only options that are kept are `plugins`, `middleware`, `nodeResolve` and `preserveSymlinks`.
   - Test runner config changes:
@@ -14,21 +13,3 @@
     - `middlewares` option is now called `middleware`.
     - `testFrameworkImport` is now called `testFramework`.
     - `address` is now split into `protocol` and `hostname`.
-
-## 0.0.3
-
-### Patch Changes
-
-- 9302247: allow plugins to set a transform cache key
-
-## 0.0.2
-
-### Patch Changes
-
-- c5da67f: always deduce mime type
-
-## 0.0.1
-
-### Patch Changes
-
-- a65e3c9: first setup
