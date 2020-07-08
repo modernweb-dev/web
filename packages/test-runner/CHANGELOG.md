@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.1
+
+### Patch Changes
+
+- bfbc965: add missing dependency
+- Updated dependencies [3523426]
+  - @web/test-runner-server@0.5.1
+
 ## 0.6.0
 
 ### Minor Changes
