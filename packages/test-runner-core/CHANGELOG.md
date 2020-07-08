@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.1
+
+### Patch Changes
+
+- d1e9bec: emit test run finished after session update
+
 ## 0.6.0
 
 ### Minor Changes

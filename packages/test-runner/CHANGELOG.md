@@ -1,5 +1,16 @@
 # @web/test-runner
 
+## 0.6.6
+
+### Patch Changes
+
+- d1e9bec: emit test run finished after session update
+- a9aec33: don't overwrite use coverage config
+- Updated dependencies [d1e9bec]
+- Updated dependencies [a9aec33]
+  - @web/test-runner-core@0.6.1
+  - @web/test-runner-cli@0.4.4
+
 ## 0.6.5
 
 ### Patch Changes

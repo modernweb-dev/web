@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.4.4
+
+### Patch Changes
+
+- a9aec33: don't overwrite use coverage config
+- Updated dependencies [d1e9bec]
+  - @web/test-runner-core@0.6.1
+
 ## 0.4.3
 
 ### Patch Changes
