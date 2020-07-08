@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.1.1
+
+### Patch Changes
+
+- 59d3efe: remove dependency on building-utils
+
 ## 0.1.0
 
 ### Minor Changes

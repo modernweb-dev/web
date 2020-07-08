@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.7
+
+### Patch Changes
+
+- ca0168d: move dependencies to the correct project
+- Updated dependencies [ca0168d]
+  - @web/test-runner-server@0.5.4
+
 ## 0.6.6
 
 ### Patch Changes

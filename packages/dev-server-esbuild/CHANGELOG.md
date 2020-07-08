@@ -1,5 +1,13 @@
 # @web/dev-server-esbuild
 
+## 0.1.1
+
+### Patch Changes
+
+- 89214f0: update to latest esbuild
+- Updated dependencies [59d3efe]
+  - @web/dev-server-core@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
