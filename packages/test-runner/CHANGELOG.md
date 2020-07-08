@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.3
+
+### Patch Changes
+
+- 00c3fa2: add syntax export default from
+- Updated dependencies [00c3fa2]
+  - @web/test-runner-server@0.5.3
+
 ## 0.6.2
 
 ### Patch Changes

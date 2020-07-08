@@ -1,5 +1,11 @@
 # @web/test-runner-server
 
+## 0.5.3
+
+### Patch Changes
+
+- 00c3fa2: add syntax export default from
+
 ## 0.5.2
 
 ### Patch Changes
