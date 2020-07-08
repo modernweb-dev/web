@@ -177,6 +177,8 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
               `Finished running tests in ${duration}s with ${failedTests.size} tests failed.`,
             ),
           );
+        } else if (finishedFiles.size > 0) {
+          entries.push(chalk.bold(`Error while running tests.`));
         } else {
           entries.push(chalk.bold(`Failed to run any tests.`));
         }
