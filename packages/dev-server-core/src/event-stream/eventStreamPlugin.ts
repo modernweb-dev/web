@@ -1,5 +1,5 @@
-import { query, predicates } from '../dom5';
 import { parse as parseHtml } from 'parse5';
+import { query, predicates } from '../dom5';
 import { Plugin } from '../Plugin';
 import { EVENT_STREAM_ENDPOINT } from './eventStreamMiddleware';
 

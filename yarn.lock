@@ -1621,6 +1621,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/parse5@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@types/parse5/-/parse5-5.0.3.tgz#e7b5aebbac150f8b5fdd4a46e7f0bd8e65e19109"
+  integrity sha512-kUNnecmtkunAoQ3CnjmMkzNU/gtxG8guhi+Fk2U/kOpIKjIMKnXGp4IJCgQJrXSgMsWYimYG4TGjz/UzbGEBTw==
+
 "@types/path-is-inside@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/path-is-inside/-/path-is-inside-1.0.0.tgz#02d6ff38975d684bdec96204494baf9f29f0e17f"
