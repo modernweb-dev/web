@@ -46,17 +46,13 @@
     "cli"
   ],
   "dependencies": {
-    "@babel/core": "^7.10.4",
     "@rollup/plugin-node-resolve": "^8.1.0",
-    "@types/babel__core": "^7.1.9",
-    "@types/picomatch": "^2.2.1",
     "@web/dev-server-rollup": "^0.1.0",
     "@web/test-runner-chrome": "^0.5.0",
     "@web/test-runner-cli": "^0.4.4",
     "@web/test-runner-core": "^0.6.1",
     "@web/test-runner-mocha": "^0.2.5",
     "@web/test-runner-server": "^0.5.3",
-    "command-line-args": "^5.1.1",
-    "picomatch": "^2.2.2"
+    "command-line-args": "^5.1.1"
   }
 }

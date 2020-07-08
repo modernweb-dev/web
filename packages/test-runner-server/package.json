@@ -34,6 +34,7 @@
   ],
   "dependencies": {
     "@babel/code-frame": "^7.10.4",
+    "@babel/core": "^7.10.4",
     "@babel/plugin-syntax-class-properties": "^7.10.4",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-syntax-export-default-from": "^7.10.4",
@@ -43,12 +44,14 @@
     "@babel/plugin-syntax-top-level-await": "^7.10.4",
     "@types/babel__core": "^7.1.9",
     "@types/co-body": "^5.1.0",
+    "@types/picomatch": "^2.2.1",
     "@web/dev-server-core": "^0.1.0",
     "@web/test-runner-core": "^0.6.0",
     "babel-plugin-istanbul": "^6.0.0",
     "co-body": "^6.0.0",
     "debounce": "^1.2.0",
     "deepmerge": "^4.2.2",
-    "dependency-graph": "^0.9.0"
+    "dependency-graph": "^0.9.0",
+    "picomatch": "^2.2.2"
   }
 }
