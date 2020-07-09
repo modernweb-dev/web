@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.1.2
+
+### Patch Changes
+
+- 339722c: don't compile class fields when transforming ts
+
 ## 0.1.1
 
 ### Patch Changes
