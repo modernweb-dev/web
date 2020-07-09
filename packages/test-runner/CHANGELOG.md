@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.8
+
+### Patch Changes
+
+- afee22a: run test coverage after user plugins
+- Updated dependencies [afee22a]
+  - @web/test-runner-server@0.5.5
+
 ## 0.6.7
 
 ### Patch Changes
