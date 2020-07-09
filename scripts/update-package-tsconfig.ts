@@ -14,6 +14,7 @@ const nodePackages = [
   'test-runner-playwright',
   'test-runner-selenium',
   'test-runner-browserstack',
+  'test-runner-coverage-v8',
 ];
 const browserPackages = ['test-runner-browser-lib', 'test-runner-mocha'];
 

@@ -2,6 +2,7 @@ import fs from 'fs';
 import { Plugin } from '@web/dev-server-core';
 
 export const TEST_FRAMEWORK_PATH = '/__web-test-runner__/test-framework.js';
+const REGEXP_SOURCE_MAP = /\/\/# sourceMappingURL=.*/;
 
 function loadTestFrameworkCode(testFramework: string) {
   try {
@@ -9,7 +10,7 @@ function loadTestFrameworkCode(testFramework: string) {
       paths: [__dirname, process.cwd()],
     });
 
-    return fs.readFileSync(testFrameworkFilepath, 'utf-8');
+    return fs.readFileSync(testFrameworkFilepath, 'utf-8').replace(REGEXP_SOURCE_MAP, '');
   } catch (error) {
     throw new Error(
       `Could not find test framework "${testFramework}". Did you install this package?`,

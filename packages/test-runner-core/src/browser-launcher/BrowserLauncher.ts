@@ -1,3 +1,4 @@
+import { CoverageMapData } from 'istanbul-lib-coverage';
 import { TestRunnerCoreConfig } from '../runner/TestRunnerCoreConfig';
 import { TestSession } from '../test-session/TestSession';
 
@@ -7,7 +8,7 @@ export interface BrowserLauncher {
    * starts.
    * @param config The test runner config.
    */
-  start(config: TestRunnerCoreConfig): Promise<string[]>;
+  start(config: TestRunnerCoreConfig, testFiles: string[]): Promise<string[]>;
 
   /**
    * One time teardown for the browser launcher. Called when the test runner
@@ -32,6 +33,12 @@ export interface BrowserLauncher {
    * @param session
    */
   stopSession(session: TestSession): void;
+
+  /**
+   * Gets the test coverage for the test session if the browser launcher implementation
+   * supports it.
+   */
+  getTestCoverage?(session: TestSession): undefined | Promise<CoverageMapData | undefined>;
 
   /**
    * Starts a debug session. This should start a session like startSession, but

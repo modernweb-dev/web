@@ -5,7 +5,11 @@ function loadLauncher(name: string) {
   try {
     return require(pkg);
   } catch (error) {
-    throw new Error(`Add ${pkg} as a dependency to use the --${name} flag.`);
+    if (error.code === 'MODULE_NOT_FOUND') {
+      throw new Error(`Add ${pkg} as a dependency to use the --${name} flag.`);
+    } else {
+      throw error;
+    }
   }
 }
 

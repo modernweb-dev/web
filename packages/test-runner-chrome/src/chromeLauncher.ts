@@ -1,6 +1,7 @@
 import * as puppeteerCore from 'puppeteer-core';
 import { Page, Browser, LaunchOptions, launch as puppeteerCoreLaunch } from 'puppeteer-core';
-import { BrowserLauncher } from '@web/test-runner-core';
+import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
+import { V8Coverage, v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { findExecutablePath } from './findExecutablePath';
 
 export interface ChromeLauncherConfig {
@@ -13,12 +14,14 @@ export function chromeLauncher({
   executablePath: customExecutablePath,
   puppeteer,
   args,
-}: Partial<ChromeLauncherConfig> = {}): BrowserLauncher {
+}: Partial<ChromeLauncherConfig> = {}): BrowserLauncher & Record<string, unknown> {
   const executablePath = customExecutablePath ?? findExecutablePath();
   const activePages = new Map<string, Page>();
   const inactivePages: Page[] = [];
   let browser: Browser;
   let debugBrowser: undefined | Browser = undefined;
+  let config: TestRunnerCoreConfig;
+  let testFiles: string[];
 
   function launchBrowser(options: Partial<LaunchOptions> = {}) {
     if (puppeteer) {
@@ -29,7 +32,9 @@ export function chromeLauncher({
   }
 
   return {
-    async start() {
+    async start(_config, _testFiles) {
+      config = _config;
+      testFiles = _testFiles;
       browser = await launchBrowser();
       return ['Chrome'];
     },
@@ -57,6 +62,9 @@ export function chromeLauncher({
       }
 
       activePages.set(session.id, page);
+      if (config.coverage) {
+        await page.coverage.startJSCoverage();
+      }
       await page.goto(url);
     },
 
@@ -66,6 +74,40 @@ export function chromeLauncher({
         activePages.delete(session.id);
         inactivePages.push(page);
       }
+    },
+
+    async getTestCoverage(session) {
+      const page = activePages.get(session.id);
+      if (!page) {
+        throw new Error(`No page for session ${session.id}`);
+      }
+      let istanbulCoverage: CoverageMapData | undefined = undefined;
+
+      if (config.coverage) {
+        // TODO: this is using a private puppeteer API to grab v8 test coverage, this can be removed
+        // when https://github.com/puppeteer/puppeteer/issues/2136 is resolved
+        const response = (await (page as any)._client.send('Profiler.takePreciseCoverage')) as {
+          result: V8Coverage[];
+        };
+        // puppeteer already has the script sources available, remove this when above issue is resolved
+        const scriptSources = (page as any)?.coverage?._jsCoverage?._scriptSources;
+
+        const v8Coverage = response.result
+          // remove puppeteer specific scripts
+          .filter(r => r.url && r.url !== '__puppeteer_evaluation_script__')
+          // attach source code
+          .map(r => ({
+            ...r,
+            source: scriptSources.get(r.scriptId),
+          }));
+
+        await page.coverage?.stopJSCoverage();
+        istanbulCoverage = await v8ToIstanbul(config, testFiles, v8Coverage);
+      }
+
+      activePages.delete(session.id);
+      inactivePages.push(page);
+      return istanbulCoverage;
     },
 
     async startDebugSession(session, url) {

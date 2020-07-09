@@ -1,5 +1,6 @@
 import { TestSession } from '@web/test-runner-core';
 import chalk from 'chalk';
+import { relative } from 'path';
 import { TerminalEntry } from '../Terminal';
 import { getTestsErrors } from './getTestsErrors';
 import { getBrowserLogs } from './getBrowserLogs';
@@ -44,7 +45,7 @@ export function getTestFileReport(
 
   if (entries.length > 0) {
     entries.unshift('');
-    entries.unshift(`${chalk.bold(chalk.cyanBright(testFile))}:`);
+    entries.unshift(`${chalk.bold(chalk.cyanBright(relative(process.cwd(), testFile)))}:`);
   }
 
   return entries;

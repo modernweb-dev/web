@@ -35,6 +35,7 @@
   ],
   "dependencies": {
     "istanbul-lib-coverage": "^3.0.0",
+    "picomatch": "^2.2.2",
     "uuid": "^8.1.0"
   },
   "devDependencies": {

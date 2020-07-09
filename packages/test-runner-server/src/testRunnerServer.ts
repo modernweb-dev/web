@@ -10,7 +10,6 @@ import { cacheMiddleware } from './cacheMiddleware';
 import { testRunnerApiMiddleware } from './testRunnerApiMiddleware';
 import { TestRunnerServerConfig } from './TestRunnerServerConfig';
 import { serveTestFrameworkPlugin } from './serveTestFrameworkPlugin';
-import { testCoveragePlugin } from './testCoveragePlugin';
 
 const CACHED_PATTERNS = [
   'node_modules/@web/test-runner-',
@@ -23,7 +22,7 @@ export function testRunnerServer(testRunnerServerConfig: TestRunnerServerConfig 
   let devServer: DevServer;
 
   return {
-    async start({ config, testFiles, sessions, runner }) {
+    async start({ config, sessions, runner }) {
       const { testFramework, rootDir } = config;
 
       const fileWatcher = chokidar.watch([]);
@@ -44,7 +43,7 @@ export function testRunnerServer(testRunnerServerConfig: TestRunnerServerConfig 
             serveTestRunnerHtmlPlugin(config),
             serveTestFrameworkPlugin(testFramework),
             ...(testRunnerServerConfig.plugins || []),
-            config.coverage ? testCoveragePlugin(testFiles, config.coverageConfig) : undefined,
+            // config.coverage ? testCoveragePlugin(testFiles, config.coverageConfig) : undefined,
           ].filter(isDefined) as Plugin[],
         },
       ]);
