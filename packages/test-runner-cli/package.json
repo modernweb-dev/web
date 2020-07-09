@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-cli",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "publishConfig": {
     "access": "public"
   },
@@ -40,7 +40,7 @@
     "@types/diff": "^4.0.2",
     "@types/istanbul-lib-report": "^3.0.0",
     "@types/istanbul-reports": "^1.1.2",
-    "@web/config-loader": "^0.0.1",
+    "@web/config-loader": "^0.0.2",
     "@web/test-runner-core": "^0.6.1",
     "camelcase": "^6.0.0",
     "chalk": "^4.1.0",
