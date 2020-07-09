@@ -5,12 +5,8 @@ const requireConfig = require('./requireConfig');
 function importConfig(configPath) {
   // Conditionally requires importConfig function to avoid logging a warning on node v12
   // when not using an es modules
-  try {
-    const importConfigFunction = require('./importConfig');
-    return importConfigFunction(configPath);
-  } catch (error) {
-    console.log('error lol', error);
-  }
+  const importConfigFunction = require('./importConfig');
+  return importConfigFunction(configPath);
 }
 
 module.exports = async function importOrRequireConfig(configPath, basedir) {
