@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { TestRunnerCoreConfig } from './TestRunnerCoreConfig';
 import { createTestSessions } from './createTestSessions';
 import { TestSession } from '../test-session/TestSession';
@@ -33,7 +34,7 @@ export class TestRunner extends EventEmitter<EventMap> {
   constructor(config: TestRunnerCoreConfig, testFiles: string[]) {
     super();
     this.config = config;
-    this.testFiles = testFiles;
+    this.testFiles = testFiles.map(f => resolve(f));
     this.browserLaunchers = Array.isArray(config.browsers) ? config.browsers : [config.browsers];
     this.scheduler = new TestScheduler(config, this.sessions);
 
@@ -57,7 +58,7 @@ export class TestRunner extends EventEmitter<EventMap> {
       this.browserNames = [];
 
       for (const launcher of this.browserLaunchers) {
-        const names = await launcher.start(this.config);
+        const names = await launcher.start(this.config, this.testFiles);
         if (!Array.isArray(names) || names.length === 0 || names.some(n => typeof n !== 'string')) {
           throw new Error('Browser start must return an array of strings.');
         }
@@ -183,10 +184,7 @@ export class TestRunner extends EventEmitter<EventMap> {
         let passedCoverage = true;
         let testCoverage: TestCoverage | undefined = undefined;
         if (this.config.coverage) {
-          testCoverage = getTestCoverage(
-            this.sessions.all(),
-            this.config.coverageConfig!.threshold,
-          );
+          testCoverage = getTestCoverage(this.sessions.all(), this.config.coverageConfig);
           passedCoverage = testCoverage.passed;
         }
 

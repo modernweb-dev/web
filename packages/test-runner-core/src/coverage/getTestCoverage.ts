@@ -1,6 +1,12 @@
-import { createCoverageMap, CoverageSummaryData, CoverageMap } from 'istanbul-lib-coverage';
+import {
+  createCoverageMap,
+  CoverageSummaryData,
+  CoverageMap,
+  CoverageMapData,
+} from 'istanbul-lib-coverage';
+import path from 'path';
 import { TestSession } from '../test-session/TestSession';
-import { CoverageThresholdConfig } from '../runner/TestRunnerCoreConfig';
+import { CoverageConfig } from '../runner/TestRunnerCoreConfig';
 
 export const coverageTypes: (keyof CoverageSummaryData)[] = [
   'lines',
@@ -17,7 +23,7 @@ export interface TestCoverage {
 
 export function getTestCoverage(
   sessions: Iterable<TestSession>,
-  coverageThreshold?: CoverageThresholdConfig,
+  config?: CoverageConfig,
 ): TestCoverage {
   const coverageMap = createCoverageMap();
 
@@ -29,10 +35,10 @@ export function getTestCoverage(
 
   const summary = coverageMap.getCoverageSummary().data;
 
-  if (coverageThreshold) {
+  if (config?.threshold) {
     for (const type of coverageTypes) {
       const { pct } = summary[type];
-      if (pct < coverageThreshold[type]) {
+      if (pct < config.threshold[type]) {
         return { coverageMap, summary, passed: false };
       }
     }

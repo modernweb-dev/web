@@ -9,16 +9,28 @@
   },
   "references": [
     {
+      "path": "../dev-server-core/tsconfig.json"
+    },
+    {
       "path": "../test-runner-core/tsconfig.json"
     },
     {
+      "path": "../test-runner-coverage-v8/tsconfig.json"
+    },
+    {
       "path": "../test-runner-server/tsconfig.json"
+    },
+    {
+      "path": "../dev-server-rollup/tsconfig.json"
     },
     {
       "path": "../test-runner-chrome/tsconfig.json"
     },
     {
       "path": "../test-runner-cli/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-playwright/tsconfig.json"
     }
   ],
   "include": [

@@ -28,7 +28,7 @@ it('runs tests with playwright', function (done) {
     'test/fixtures/test-m.test.js',
     'test/fixtures/test-n.test.js',
     'test/fixtures/test-o.test.js',
-  ];
+  ].map(tf => path.join(process.cwd(), tf));
 
   const config: TestRunnerCoreConfig = {
     files: [],

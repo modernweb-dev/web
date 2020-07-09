@@ -1,5 +1,6 @@
 import playwright, { Browser, Page } from 'playwright';
-import { BrowserLauncher } from '@web/test-runner-core';
+import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
+import { v8ToIstanbul, V8Coverage } from '@web/test-runner-coverage-v8';
 
 export type BrowserType = 'chromium' | 'firefox' | 'webkit';
 
@@ -16,6 +17,8 @@ export function playwrightLauncher({
   const debugBrowsers = new Map<string, Browser>();
   const activePages = new Map<string, Page>();
   const inactivePages: Page[] = [];
+  let config: TestRunnerCoreConfig;
+  let testFiles: string[];
 
   if (browserTypes.some(t => !validBrowserTypes.includes(t))) {
     throw new Error(
@@ -26,7 +29,9 @@ export function playwrightLauncher({
   }
 
   return {
-    async start() {
+    async start(_config, _testFiles) {
+      config = _config;
+      testFiles = _testFiles;
       const browserNames: string[] = [];
 
       for (const type of browserTypes) {
@@ -70,6 +75,9 @@ export function playwrightLauncher({
       }
 
       activePages.set(session.id, page);
+      if (config.coverage) {
+        await page.coverage?.startJSCoverage();
+      }
       await page.goto(url);
     },
 
@@ -79,6 +87,23 @@ export function playwrightLauncher({
         activePages.delete(session.id);
         inactivePages.push(page);
       }
+    },
+
+    async getTestCoverage(session) {
+      const page = activePages.get(session.id);
+      if (!page) {
+        throw new Error(`No page for session ${session.id}`);
+      }
+      let istanbulCoverage: CoverageMapData | undefined = undefined;
+
+      if (config.coverage) {
+        const coverage = ((await page.coverage?.stopJSCoverage()) ?? []) as V8Coverage[];
+        istanbulCoverage = await v8ToIstanbul(config, testFiles, coverage);
+      }
+
+      activePages.delete(session.id);
+      inactivePages.push(page);
+      return istanbulCoverage;
     },
 
     async startDebugSession(session, url) {

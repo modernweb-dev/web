@@ -9,7 +9,13 @@
       "path": "./test-runner-core/tsconfig.json"
     },
     {
+      "path": "./test-runner-coverage-v8/tsconfig.json"
+    },
+    {
       "path": "./test-runner-server/tsconfig.json"
+    },
+    {
+      "path": "./dev-server-rollup/tsconfig.json"
     },
     {
       "path": "./test-runner-chrome/tsconfig.json"
@@ -18,22 +24,19 @@
       "path": "./test-runner-cli/tsconfig.json"
     },
     {
+      "path": "./test-runner-playwright/tsconfig.json"
+    },
+    {
       "path": "./test-runner-selenium/tsconfig.json"
     },
     {
       "path": "./dev-server-esbuild/tsconfig.json"
     },
     {
-      "path": "./dev-server-rollup/tsconfig.json"
-    },
-    {
       "path": "./test-runner/tsconfig.json"
     },
     {
       "path": "./test-runner-puppeteer/tsconfig.json"
-    },
-    {
-      "path": "./test-runner-playwright/tsconfig.json"
     },
     {
       "path": "./test-runner-browserstack/tsconfig.json"

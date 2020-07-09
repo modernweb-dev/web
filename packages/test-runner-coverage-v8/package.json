@@ -1,0 +1,42 @@
+{
+  "name": "@web/test-runner-coverage-v8",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Test coverage using v8",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-coverage-v8"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-coverage-v8",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test:ci": "echo 'no tests for this package yet'"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "dev",
+    "server"
+  ],
+  "dependencies": {
+    "@types/istanbul-lib-coverage": "^2.0.3",
+    "@types/picomatch": "^2.2.1",
+    "@web/test-runner-core": "^0.6.1",
+    "istanbul-lib-coverage": "^3.0.0",
+    "v8-to-istanbul": "^4.1.4"
+  }
+}

@@ -52,6 +52,7 @@
     "@web/test-runner-cli": "^0.4.4",
     "@web/test-runner-core": "^0.6.1",
     "@web/test-runner-mocha": "^0.2.5",
+    "@web/test-runner-playwright": "^0.4.0",
     "@web/test-runner-server": "^0.5.5",
     "command-line-args": "^5.1.1"
   }
