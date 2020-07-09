@@ -43,8 +43,8 @@ export function testRunnerServer(testRunnerServerConfig: TestRunnerServerConfig 
           plugins: [
             serveTestRunnerHtmlPlugin(config),
             serveTestFrameworkPlugin(testFramework),
-            config.coverage ? testCoveragePlugin(testFiles, config.coverageConfig) : undefined,
             ...(testRunnerServerConfig.plugins || []),
+            config.coverage ? testCoveragePlugin(testFiles, config.coverageConfig) : undefined,
           ].filter(isDefined) as Plugin[],
         },
       ]);
