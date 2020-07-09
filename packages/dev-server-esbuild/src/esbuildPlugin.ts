@@ -102,7 +102,8 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
           sourcemap: 'inline',
           loader,
           target,
-          strict: ['class-fields'],
+          // use strict class fields when not compiling TS
+          strict: ['ts', 'tsx'].includes(loader) ? [] : ['class-fields'],
           jsxFactory: args.jsxFactory,
           jsxFragment: args.jsxFragment,
         });
