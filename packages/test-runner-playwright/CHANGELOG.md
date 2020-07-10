@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.4.2
+
+### Patch Changes
+
+- 5ab18d8: feat(test-runner-core): batch v8 test coverage
+- Updated dependencies [5ab18d8]
+  - @web/test-runner-core@0.6.4
+
 ## 0.4.1
 
 ### Patch Changes

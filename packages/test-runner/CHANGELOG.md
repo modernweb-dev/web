@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.6.14
+
+### Patch Changes
+
+- 5ab18d8: feat(test-runner-core): batch v8 test coverage
+- Updated dependencies [5ab18d8]
+  - @web/test-runner-chrome@0.5.2
+  - @web/test-runner-core@0.6.4
+  - @web/test-runner-server@0.5.7
+
 ## 0.6.13
 
 ### Patch Changes

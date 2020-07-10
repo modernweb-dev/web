@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.4
+
+### Patch Changes
+
+- 5ab18d8: feat(test-runner-core): batch v8 test coverage
+
 ## 0.6.3
 
 ### Patch Changes
