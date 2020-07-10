@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.6.10
+
+### Patch Changes
+
+- 7e773c0: remove incorrect dependency
+
 ## 0.6.9
 
 ### Patch Changes
