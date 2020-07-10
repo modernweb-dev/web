@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.4.6
+
+### Patch Changes
+
+- 3dab600: profile test coverage through v8/chromium
+- Updated dependencies [3dab600]
+  - @web/test-runner-core@0.6.2
+
 ## 0.4.5
 
 ### Patch Changes

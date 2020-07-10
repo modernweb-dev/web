@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-coverage-v8",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "publishConfig": {
     "access": "public"
   },
@@ -35,7 +35,7 @@
   "dependencies": {
     "@types/istanbul-lib-coverage": "^2.0.3",
     "@types/picomatch": "^2.2.1",
-    "@web/test-runner-core": "^0.6.1",
+    "@web/test-runner-core": "^0.6.2",
     "istanbul-lib-coverage": "^3.0.0",
     "v8-to-istanbul": "^4.1.4"
   }

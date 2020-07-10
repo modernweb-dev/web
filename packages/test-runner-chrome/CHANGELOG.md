@@ -1,5 +1,13 @@
 # @web/test-runner-chrome
 
+## 0.5.1
+
+### Patch Changes
+
+- 3dab600: profile test coverage through v8/chromium
+- Updated dependencies [3dab600]
+  - @web/test-runner-coverage-v8@0.0.1
+
 ## 0.5.0
 
 ### Minor Changes

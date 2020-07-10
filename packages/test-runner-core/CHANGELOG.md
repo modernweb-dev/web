@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.2
+
+### Patch Changes
+
+- 3dab600: profile test coverage through v8/chromium
+
 ## 0.6.1
 
 ### Patch Changes
