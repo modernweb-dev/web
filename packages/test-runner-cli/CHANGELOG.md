@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.4.8
+
+### Patch Changes
+
+- ed59f5f: log relative test file paths
+
 ## 0.4.7
 
 ### Patch Changes

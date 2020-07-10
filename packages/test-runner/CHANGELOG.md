@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.13
+
+### Patch Changes
+
+- ed59f5f: log relative test file paths
+- Updated dependencies [ed59f5f]
+  - @web/test-runner-cli@0.4.8
+
 ## 0.6.12
 
 ### Patch Changes
