@@ -4,7 +4,7 @@ import { constants } from '@web/test-runner-core';
 const { PARAM_SESSION_ID } = constants;
 
 const REGEXP_TEST_FRAMEWORK_STACK = /.+__web-test-runner__\/.+/;
-const REGEXP_WTR_SESSION_ID = new RegExp(`\\?${PARAM_SESSION_ID}=(\\d|[a-z]|-)*`);
+export const REGEXP_WTR_SESSION_ID = new RegExp(`\\?${PARAM_SESSION_ID}=(\\d|[a-z]|-)*`);
 
 export function formatStackTrace(error: TestResultError, rootDir: string, serverAddress: string) {
   if (!error.stack) {
