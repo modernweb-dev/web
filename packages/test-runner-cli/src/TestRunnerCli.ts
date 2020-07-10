@@ -323,11 +323,15 @@ export class TestRunnerCli {
     );
 
     if (this.runner.focusedTestFile) {
-      entries.push(`Focused on test file: ${chalk.cyanBright(this.runner.focusedTestFile)}\n`);
+      entries.push(
+        `Focused on test file: ${chalk.cyanBright(
+          path.relative(process.cwd(), this.runner.focusedTestFile),
+        )}\n`,
+      );
     }
 
     if (this.config.watch) {
-      entries.push(...getWatchCommands(!!this.config.coverage, this.runner.focusedTestFile), '');
+      entries.push(...getWatchCommands(!!this.config.coverage, !!this.runner.focusedTestFile), '');
     }
 
     if (logStatic) {

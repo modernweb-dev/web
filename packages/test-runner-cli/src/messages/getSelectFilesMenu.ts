@@ -1,14 +1,15 @@
-import { TerminalEntry } from '../Terminal';
 import chalk from 'chalk';
+import { relative } from 'path';
+import { TerminalEntry } from '../Terminal';
 
 export function getSelectFilesMenu(succeededFiles: string[], failedFiles: string[]) {
   const maxI = succeededFiles.length + failedFiles.length;
   const minWidth = maxI.toString().length + 1;
 
-  function formatTestFile(f: string, i: number, offset: number, failed: boolean) {
+  function formatTestFile(file: string, i: number, offset: number, failed: boolean) {
     return `[${i + offset}]${' '.repeat(
       Math.max(0, minWidth - (i + offset).toString().length),
-    )}${chalk[failed ? 'red' : 'cyan'](f)}`;
+    )}${chalk[failed ? 'red' : 'cyan'](relative(process.cwd(), file))}`;
   }
 
   const entries: TerminalEntry[] = [
