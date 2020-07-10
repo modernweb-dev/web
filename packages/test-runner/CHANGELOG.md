@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.12
+
+### Patch Changes
+
+- a6aad93: strip test session id from test file
+- Updated dependencies [a6aad93]
+  - @web/test-runner-cli@0.4.7
+
 ## 0.6.11
 
 ### Patch Changes
