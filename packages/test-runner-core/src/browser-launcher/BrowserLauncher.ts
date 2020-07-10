@@ -38,7 +38,7 @@ export interface BrowserLauncher {
    * Gets the test coverage for the test session if the browser launcher implementation
    * supports it.
    */
-  getTestCoverage?(session: TestSession): undefined | Promise<CoverageMapData | undefined>;
+  getTestCoverage?(): undefined | Promise<CoverageMapData[] | undefined>;
 
   /**
    * Starts a debug session. This should start a session like startSession, but

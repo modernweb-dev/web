@@ -50,17 +50,7 @@ export function testRunnerApiMiddleware(
       if (command === 'session-finished') {
         ctx.status = 200;
         const result = (await parse.json(ctx)) as any;
-        const testCoverage = config.coverage
-          ? await session.browserLauncher.getTestCoverage?.(session)
-          : {};
-        sessions.updateStatus(
-          {
-            ...session,
-            ...result,
-            testCoverage,
-          },
-          SESSION_STATUS.FINISHED,
-        );
+        sessions.updateStatus({ ...session, ...result }, SESSION_STATUS.FINISHED);
         return;
       }
     }

@@ -1,4 +1,5 @@
 import { resolve } from 'path';
+
 import { TestRunnerCoreConfig } from './TestRunnerCoreConfig';
 import { createTestSessions } from './createTestSessions';
 import { TestSession } from '../test-session/TestSession';
@@ -9,6 +10,7 @@ import { TestSessionManager } from '../test-session/TestSessionManager';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
 import { EventEmitter } from '../utils/EventEmitter';
 import { createSessionUrl } from './createSessionUrl';
+import { CoverageMapData } from 'istanbul-lib-coverage';
 
 interface EventMap {
   'test-run-started': { testRun: number; sessions: Iterable<TestSession> };
@@ -26,10 +28,12 @@ export class TestRunner extends EventEmitter<EventMap> {
   public testRun = -1;
   public started = false;
   public stopped = false;
+  public running = false;
   public focusedTestFile: string | undefined;
 
   private browserLaunchers: BrowserLauncher[];
   private scheduler: TestScheduler;
+  private pendingSessions = new Set<TestSession>();
 
   constructor(config: TestRunnerCoreConfig, testFiles: string[]) {
     super();
@@ -102,19 +106,30 @@ export class TestRunner extends EventEmitter<EventMap> {
       return;
     }
 
+    if (this.running) {
+      for (const session of sessions) {
+        this.pendingSessions.add(session);
+      }
+      return;
+    }
+
     const sessionsToRun = this.focusedTestFile
       ? Array.from(sessions).filter(f => f.testFile === this.focusedTestFile)
-      : Array.from(sessions);
+      : [...sessions, ...this.pendingSessions];
+    this.pendingSessions.clear();
+
     if (sessionsToRun.length === 0) {
       return;
     }
 
     try {
       this.testRun += 1;
+      this.running = true;
 
       await this.scheduler.schedule(this.testRun, sessionsToRun);
       this.emit('test-run-started', { testRun: this.testRun, sessions: sessionsToRun });
     } catch (error) {
+      this.running = false;
       this.quit(error);
     }
   }
@@ -184,7 +199,19 @@ export class TestRunner extends EventEmitter<EventMap> {
         let passedCoverage = true;
         let testCoverage: TestCoverage | undefined = undefined;
         if (this.config.coverage) {
-          testCoverage = getTestCoverage(this.sessions.all(), this.config.coverageConfig);
+          const rawBrowserCoverage: CoverageMapData[] = [];
+          for (const launcher of this.browserLaunchers) {
+            const coverage = await launcher.getTestCoverage?.();
+            if (coverage) {
+              rawBrowserCoverage.push(...coverage);
+            }
+          }
+
+          testCoverage = getTestCoverage(
+            rawBrowserCoverage,
+            this.sessions.all(),
+            this.config.coverageConfig,
+          );
           passedCoverage = testCoverage.passed;
         }
 
@@ -192,6 +219,11 @@ export class TestRunner extends EventEmitter<EventMap> {
           // emit finished event after a timeout to ensure all event listeners have processed
           // the session status updated event
           this.emit('test-run-finished', { testRun: this.testRun, testCoverage });
+
+          this.running = false;
+          if (this.pendingSessions) {
+            this.runTests(this.pendingSessions);
+          }
         });
 
         if (!this.config.watch) {

@@ -86,6 +86,7 @@ function addingMissingCoverageBranches(coverages: CoverageMapData[]) {
 }
 
 export function getTestCoverage(
+  browserCoverage: CoverageMapData[],
   sessions: Iterable<TestSession>,
   config?: CoverageConfig,
 ): TestCoverage {
@@ -93,6 +94,7 @@ export function getTestCoverage(
   const coverages = Array.from(sessions)
     .map(s => s.testCoverage)
     .filter(c => c) as CoverageMapData[];
+  coverages.push(...browserCoverage);
 
   addingMissingCoverageBranches(coverages);
 
