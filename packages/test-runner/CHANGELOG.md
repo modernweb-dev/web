@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.11
+
+### Patch Changes
+
+- a9603b5: fix merging v8 code coverage
+- Updated dependencies [a9603b5]
+  - @web/test-runner-core@0.6.3
+
 ## 0.6.10
 
 ### Patch Changes
