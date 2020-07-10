@@ -1,5 +1,5 @@
 import playwright, { Browser, Page } from 'playwright';
-import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
+import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { v8ToIstanbul, V8Coverage } from '@web/test-runner-coverage-v8';
 
 export type BrowserType = 'chromium' | 'firefox' | 'webkit';
@@ -8,6 +8,11 @@ const validBrowserTypes: BrowserType[] = ['chromium', 'firefox', 'webkit'];
 
 export interface PlaywrightLauncherConfig {
   browserTypes: BrowserType[];
+}
+
+async function getPageCoverage(config: TestRunnerCoreConfig, testFiles: string[], page: Page) {
+  const coverage = ((await page.coverage?.stopJSCoverage()) ?? []) as V8Coverage[];
+  return v8ToIstanbul(config, testFiles, coverage);
 }
 
 export function playwrightLauncher({
@@ -70,14 +75,14 @@ export function playwrightLauncher({
       let page: Page;
       if (inactivePages.length === 0) {
         page = await browser.newPage();
+        if (config.coverage) {
+          await page.coverage?.startJSCoverage();
+        }
       } else {
         page = inactivePages.pop()!;
       }
 
       activePages.set(session.id, page);
-      if (config.coverage) {
-        await page.coverage?.startJSCoverage();
-      }
       await page.goto(url);
     },
 
@@ -89,21 +94,8 @@ export function playwrightLauncher({
       }
     },
 
-    async getTestCoverage(session) {
-      const page = activePages.get(session.id);
-      if (!page) {
-        throw new Error(`No page for session ${session.id}`);
-      }
-      let istanbulCoverage: CoverageMapData | undefined = undefined;
-
-      if (config.coverage) {
-        const coverage = ((await page.coverage?.stopJSCoverage()) ?? []) as V8Coverage[];
-        istanbulCoverage = await v8ToIstanbul(config, testFiles, coverage);
-      }
-
-      activePages.delete(session.id);
-      inactivePages.push(page);
-      return istanbulCoverage;
+    getTestCoverage() {
+      return Promise.all(inactivePages.map(page => getPageCoverage(config, testFiles, page)));
     },
 
     async startDebugSession(session, url) {
