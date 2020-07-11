@@ -1,7 +1,7 @@
 import nodeResolve from '@rollup/plugin-node-resolve';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../src/rollupAdapter';
+import { rollupAdapter } from '../../../src/rollupAdapter';
 
 describe('@rollup/plugin-node-resolve', () => {
   it('can resolve imports', async () => {

@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import path from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from './test-helpers';
-import { rollupAdapter } from '../src/rollupAdapter';
+import { rollupAdapter } from '../../src/rollupAdapter';
 
 describe('es-dev-server-rollup', () => {
   describe('resolveId', () => {

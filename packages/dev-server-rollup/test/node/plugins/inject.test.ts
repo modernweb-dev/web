@@ -2,7 +2,7 @@ import inject from '@rollup/plugin-inject';
 import path from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../src/rollupAdapter';
+import { rollupAdapter } from '../../../src/rollupAdapter';
 
 const injectedModulePath = path.join(__dirname, 'injected-module.js');
 

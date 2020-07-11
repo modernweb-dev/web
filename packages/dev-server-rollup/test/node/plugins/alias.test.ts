@@ -1,7 +1,7 @@
 import alias from '@rollup/plugin-alias';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../src/rollupAdapter';
+import { rollupAdapter } from '../../../src/rollupAdapter';
 
 describe('@rollup/plugin-alias', () => {
   it('can resolve imports', async () => {
