@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.6.17
+
+### Patch Changes
+
+- 2150a26: update dependencies
+
 ## 0.6.15
 
 ### Patch Changes
