@@ -15,6 +15,19 @@ export function createRollupPluginContextAdapter<
   return {
     ...pluginContext,
 
+    getModuleInfo(id: string) {
+      return {
+        dynamicallyImportedIds: [],
+        dynamicImporters: [],
+        hasModuleSideEffects: false,
+        id,
+        importedIds: [],
+        importers: [],
+        isEntry: false,
+        isExternal: false,
+      };
+    },
+
     addWatchFile(id: string) {
       const filePath = path.join(process.cwd(), id);
       fileWatcher.add(filePath);
