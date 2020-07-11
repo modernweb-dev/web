@@ -1,5 +1,11 @@
 # @web/test-runner-browser-lib
 
+## 0.2.7
+
+### Patch Changes
+
+- bee0993: correctly serialize objects without .toString()
+
 ## 0.2.6
 
 ### Patch Changes
