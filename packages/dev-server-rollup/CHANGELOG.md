@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.1.1
+
+### Patch Changes
+
+- 1580c82: add getModuleInfo stub
+
 ## 0.1.0
 
 ### Minor Changes
