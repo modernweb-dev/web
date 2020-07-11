@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.6.15
+
+### Patch Changes
+
+- 8b94b03: update to esbuild 0.6.x
+
 ## 0.6.14
 
 ### Patch Changes

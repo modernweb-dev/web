@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.1.3
+
+### Patch Changes
+
+- 8b94b03: update to esbuild 0.6.x
+
 ## 0.1.2
 
 ### Patch Changes
