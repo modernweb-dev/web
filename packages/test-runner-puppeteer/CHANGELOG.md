@@ -1,5 +1,12 @@
 # @web/test-runner-puppeteer
 
+## 0.5.2
+
+### Patch Changes
+
+- 835b30c: update dependencies
+  - @web/test-runner-chrome@0.5.3
+
 ## 0.5.1
 
 ### Patch Changes

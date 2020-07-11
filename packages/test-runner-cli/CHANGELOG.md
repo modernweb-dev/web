@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.4.9
+
+### Patch Changes
+
+- 835b30c: update dependencies
+
 ## 0.4.8
 
 ### Patch Changes
