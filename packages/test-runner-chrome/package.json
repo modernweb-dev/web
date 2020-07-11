@@ -42,7 +42,7 @@
     "puppeteer-core": "^3.3.0"
   },
   "devDependencies": {
-    "@web/test-runner-mocha": "^0.2.5",
+    "@web/test-runner-mocha": "^0.2.6",
     "@web/test-runner-server": "^0.5.7"
   }
 }

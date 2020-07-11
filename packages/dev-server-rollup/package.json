@@ -38,7 +38,7 @@
     "transform"
   ],
   "dependencies": {
-    "@web/dev-server-core": "^0.1.0",
+    "@web/dev-server-core": "^0.1.1",
     "rollup": "^2.20.0",
     "whatwg-url": "^8.1.0"
   },
