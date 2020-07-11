@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.5.4
+
+### Patch Changes
+
+- afc3cc7: update dependencies
+
 ## 0.5.3
 
 ### Patch Changes

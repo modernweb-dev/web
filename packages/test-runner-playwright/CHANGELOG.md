@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.4.4
+
+### Patch Changes
+
+- afc3cc7: update dependencies
+
 ## 0.4.3
 
 ### Patch Changes

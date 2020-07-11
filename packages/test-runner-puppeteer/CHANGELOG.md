@@ -1,5 +1,13 @@
 # @web/test-runner-puppeteer
 
+## 0.5.3
+
+### Patch Changes
+
+- afc3cc7: update dependencies
+- Updated dependencies [afc3cc7]
+  - @web/test-runner-chrome@0.5.4
+
 ## 0.5.2
 
 ### Patch Changes

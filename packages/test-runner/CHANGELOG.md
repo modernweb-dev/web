@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.6.18
+
+### Patch Changes
+
+- afc3cc7: update dependencies
+- Updated dependencies [afc3cc7]
+  - @web/dev-server-rollup@0.1.2
+  - @web/test-runner-chrome@0.5.4
+
 ## 0.6.17
 
 ### Patch Changes

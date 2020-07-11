@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.1.2
+
+### Patch Changes
+
+- afc3cc7: update dependencies
+
 ## 0.1.1
 
 ### Patch Changes
