@@ -62,8 +62,8 @@ function stringifyObject(value: any, depth: number) {
     return `${value.toString()} ${value.stack}`;
   }
 
-  const toStringed = value.toString();
-  if (!toStringed.startsWith('[object')) {
+  const toStringed = value.toString?.();
+  if (toStringed != null && !toStringed.startsWith('[object')) {
     return toStringed;
   }
 
