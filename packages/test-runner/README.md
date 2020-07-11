@@ -16,7 +16,7 @@ A test runner for web applications.
 \
 🏃&nbsp;&nbsp; Reruns only changed tests.
 \
-🚀&nbsp;&nbsp; Powered by [esbuild](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server) and [rollup](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-rollup) plugins
+🚀&nbsp;&nbsp; Powered by [esbuild](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild) and [rollup](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-rollup plugins)
 
 ## Getting started
 
