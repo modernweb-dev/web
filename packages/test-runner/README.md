@@ -47,21 +47,9 @@ web-test-runner test/**/*.test.js --node-resolve --coverage
 wtr test/**/*.test.js --node-resolve --coverage
 ```
 
-## Writing tests
-
-Web test runner can support different test frameworks. By default we use [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha), check out the docs to learn more about writing tests.
-
-### JS tests
-
-When you point the test runner at a JS file, it will hand the file to the configured test framework to load and run it.
-
-See the config section to learn more about how to configure the test framework, and how to customize the HTML of the test page.
-
-### HTML tests
-
-When you point the test runner at a HTML file you can take full control over the test environment. There is no automatic bootstrapping of a test framework, you need to make sure things are set up and results are communicated back to the test runner. [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha) can be used as a library for HTML tests, taking care of most of the heavy lifting. You can also use the low level [@web/test-runner-browser-lib](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browser-lib) for full control.
-
 ## Example projects
+
+Check out these example projects for a full setup.
 
 - [lit-element](https://github.com/modernweb-dev/web/tree/master/demo/projects/lit-element)
 - [lit-element typescript](https://github.com/modernweb-dev/web/tree/master/demo/projects/lit-element-ts)
@@ -69,9 +57,21 @@ When you point the test runner at a HTML file you can take full control over the
 - [preact jsx](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-jsx)
 - [preact tsx](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-tsx)
 
+## Writing tests
+
+Web test runner can support different test frameworks. By default we use [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha), check out the docs to learn more about writing tests with mocha.
+
+### JS tests
+
+When you point the test runner to a JS file, it will hand the file to the configured test framework to load and run it.
+
+### HTML tests
+
+When you point the test runner at a HTML file you can take full control over the test environment. There is no automatic bootstrapping of a test framework, you need to make sure things are set up and results are communicated back to the test runner. [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha) can be used as a library for HTML tests, taking care of most of the heavy lifting. You can also use the low level [@web/test-runner-browser-lib](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browser-lib) for full control.
+
 ## Browsers
 
-By default tests are run with the locally installed instance of Chrome.
+By default tests are run with the locally installed instance of Chrome, controlled via `puppeteer-core`.
 
 ### Puppeteer
 
@@ -122,7 +122,7 @@ The file extension can be `.js`, `.cjs` or `.mjs`. A `.js` file will be loaded a
 <summary>View example</summary>
 
 ```js
-export default {
+module.exports = {
   concurrency: 10,
   nodeResolve: true,
   watch: true,
@@ -200,7 +200,7 @@ In the config you can define test coverage thresholds, the test run fails if you
 <summary>View example</summary>
 
 ```js
-export default {
+module.exports = {
   coverageConfig: {
     report: true,
     reportDir: 'test-coverage',
@@ -218,18 +218,27 @@ export default {
 
 ## Server and code transformation
 
-The test runner is powered [@web/test-runner-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server) which has powerful plugin and middleware system.
+The test runner serves files using [@web/test-runner-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server) which under the hood is powered by [@web/dev-server-core](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core).
 
-You can use existing dev serve plugins, write your own or reuse rollup plugins using [@web/dev-server-rollup](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-rollup). Middleware and plugins can be configured from the test runner config.
+The dev server has a plugin and middleware system which you can use for manipulating the server's behavior. It also supports reusing rollup plugins with [@web/dev-server-rollup](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-rollup). Middleware and plugins can be configured from the test runner config.
 
 <details>
   <summary>View example</summary>
 
 ```js
-export default {
+const { esbuildPlugin } = require('@web/dev-server-esbuild');
+const { rollupAdapter } = require('@web/dev-server-rollup');
+const myRollupPlugin = require('my-rollup-plugin');
+
+module.exports = {
   rootDir: '../..',
   middleware: [],
-  plugins: [],
+  plugins: [
+    // regular dev server plugin
+    esbuildPlugin({ ts: true }),
+    // rollup plugin, wrapped in an adapter
+    rollupAdapter(myRollupPlugin()),
+  ],
 };
 ```
 
@@ -237,9 +246,9 @@ export default {
 
 ### Typescript and JSX
 
-Tests run in the browser, code written in TS or JSX needs to be compiled before it is possible to test them in the browser. You could do this transformation outside of the test runner, for example using `babel` or `tsc`. This would be the most predictable, but not the fastest approach.
+The tests are run in a real browser, code written in TS or JSX needs to be compiled before it is possible to test them in the browser. You could do this transformation outside of the test runner, for example using `babel` or `tsc`. This would be the most predictable, but not the fastest approach.
 
-Another option is to use something like [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server).
+A great option is to use [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server), which supports transforming TS and JSX on the fly with minimal overhead.
 
 ## Customizing test runner HTML
 
@@ -251,7 +260,7 @@ You can use this to set up the testing environment, for example to set global va
   <summary>View example</summary>
 
 ```js
-export default {
+module.exports = {
   testRunnerHtml: (testRunnerImport, config) => `
     <html>
       <body>
