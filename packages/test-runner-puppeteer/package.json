@@ -38,7 +38,7 @@
   "dependencies": {
     "@types/puppeteer": "^3.0.0",
     "@web/test-runner-chrome": "^0.5.1",
-    "@web/test-runner-core": "^0.6.2",
+    "@web/test-runner-core": "^0.6.4",
     "puppeteer": "^3.3.0"
   },
   "devDependencies": {
