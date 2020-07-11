@@ -1,7 +1,7 @@
 import replace from '@rollup/plugin-replace';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../src/rollupAdapter';
+import { rollupAdapter } from '../../../src/rollupAdapter';
 
 describe('@rollup/plugin-replace', () => {
   it('can resolve imports', async () => {

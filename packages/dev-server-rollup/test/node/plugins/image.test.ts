@@ -1,8 +1,8 @@
-/// <reference types="../../types/rollup__plugin-image" />
+/// <reference types="../../../types/rollup__plugin-image" />
 import image from '@rollup/plugin-image';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../src/rollupAdapter';
+import { rollupAdapter } from '../../../src/rollupAdapter';
 
 describe('@rollup/plugin-image', () => {
   it('can import images', async () => {
