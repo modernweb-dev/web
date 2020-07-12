@@ -28,5 +28,7 @@ packages/*/yarn.lock
 ## build output
 dist
 tsconfig.tsbuildinfo
+_site
+stats.html
 
 local.log

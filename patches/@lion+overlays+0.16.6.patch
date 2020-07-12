@@ -1,0 +1,79 @@
+diff --git a/node_modules/@lion/overlays/src/OverlayController.js b/node_modules/@lion/overlays/src/OverlayController.js
+index 02dbba6..35e6a73 100644
+--- a/node_modules/@lion/overlays/src/OverlayController.js
++++ b/node_modules/@lion/overlays/src/OverlayController.js
+@@ -385,11 +385,13 @@ export class OverlayController {
+   }
+ 
+   __storeOriginalAttrs(node, attrs) {
+-    const attrMap = {};
+-    attrs.forEach(attrName => {
+-      attrMap[attrName] = node.getAttribute(attrName);
+-    });
+-    this.__originalAttrs.set(node, attrMap);
++    if (node) {
++      const attrMap = {};
++      attrs.forEach(attrName => {
++        attrMap[attrName] = node.getAttribute(attrName);
++      });
++      this.__originalAttrs.set(node, attrMap);
++    }
+   }
+ 
+   __restorOriginalAttrs() {
+@@ -426,13 +428,18 @@ export class OverlayController {
+     const event = new CustomEvent('before-show', { cancelable: true });
+     this.dispatchEvent(event);
+     if (!event.defaultPrevented) {
+-      this._contentWrapperNode.style.display = '';
++      // this._contentWrapperNode.style.display = '';
+       this._keepBodySize({ phase: 'before-show' });
+       await this._handleFeatures({ phase: 'show' });
+       this._keepBodySize({ phase: 'show' });
+       await this._handlePosition({ phase: 'show' });
+       this.elementToFocusAfterHide = elementToFocusAfterHide;
+       this.dispatchEvent(new Event('show'));
++      await this.transitionShow({
++        backdropNode: this.backdropNode,
++        contentNode: this.contentNode,
++        _contentWrapperNode: this._contentWrapperNode,
++      });
+     }
+   }
+ 
+@@ -517,8 +524,12 @@ export class OverlayController {
+     const event = new CustomEvent('before-hide', { cancelable: true });
+     this.dispatchEvent(event);
+     if (!event.defaultPrevented) {
+-      // await this.transitionHide({ backdropNode: this.backdropNode, conentNode: this.contentNode });
+-      this._contentWrapperNode.style.display = 'none';
++      await this.transitionHide({
++        backdropNode: this.backdropNode,
++        contentNode: this.contentNode,
++        _contentWrapperNode: this._contentWrapperNode,
++      });
++      // this._contentWrapperNode.style.display = 'none';
+       this._handleFeatures({ phase: 'hide' });
+       this._keepBodySize({ phase: 'hide' });
+       this.dispatchEvent(new Event('hide'));
+diff --git a/node_modules/@lion/overlays/src/OverlayMixin.js b/node_modules/@lion/overlays/src/OverlayMixin.js
+index c8cae95..a845700 100644
+--- a/node_modules/@lion/overlays/src/OverlayMixin.js
++++ b/node_modules/@lion/overlays/src/OverlayMixin.js
+@@ -216,10 +216,12 @@ export const OverlayMixin = dedupeMixin(
+       }
+ 
+       _teardownOverlayCtrl() {
+-        this._teardownOpenCloseListeners();
+-        this.__teardownSyncFromOverlayController();
+-        this._overlayCtrl.teardown();
+-        this.__isOverlaySetup = false;
++        if (this.__isOverlaySetup) {
++          this._teardownOpenCloseListeners();
++          this.__teardownSyncFromOverlayController();
++          this._overlayCtrl.teardown();
++          this.__isOverlaySetup = false;  
++        }
+       }
+ 
+       /**

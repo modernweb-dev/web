@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Discover",
+    "children": [
+      {
+        "text": "Blog",
+        "href": "/blog/"
+      }
+    ]
+  },
+  {
+    "name": "Follow",
+    "children": [
+      {
+        "text": "Github",
+        "href": "https://github.com/modernweb-dev/web"
+      },
+      {
+        "text": "Twitter",
+        "href": "https://twitter.com/modern_web_dev"
+      },
+      {
+        "text": "Slack",
+        "href": "/about/slack/"
+      }
+    ]
+  },
+  {
+    "name": "Support",
+    "children": [
+      {
+        "text": "Sponsor",
+        "href": "/about/sponsor/"
+      },
+      {
+        "text": "Contribute",
+        "href": "https://github.com/modernweb-dev/web/blob/master/CONTRIBUTING.md"
+      }
+    ]
+  }
+]

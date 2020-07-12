@@ -1,0 +1,13 @@
+diff --git a/node_modules/@11ty/eleventy/src/Template.js b/node_modules/@11ty/eleventy/src/Template.js
+index 9cbca08..97aeab2 100644
+--- a/node_modules/@11ty/eleventy/src/Template.js
++++ b/node_modules/@11ty/eleventy/src/Template.js
+@@ -606,7 +606,7 @@ class Template extends TemplateContent {
+     }
+ 
+     await this.runLinters(content, page.inputPath, page.outputPath);
+-    content = await this.runTransforms(content, page.outputPath); // pass in page.inputPath?
++    content = await this.runTransforms(content, page.outputPath, page.inputPath);
+     return content;
+   }
+ 

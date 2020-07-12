@@ -1,3 +1,11 @@
+---
+title: Test Runner Selenium
+eleventyNavigation:
+  key: Selenium
+  parent: Test Runner
+  order: 110
+---
+
 # Web Test Runner Selenium
 
 Browser launcher for Web Test Runner using Selenium.

@@ -7,16 +7,24 @@
     "build:browser": "concurrently \"yarn workspace @web/test-runner-browser-lib build\" \"yarn workspace @web/test-runner-mocha build\" -m 1",
     "build:node": "tsc --build packages/tsconfig.project.json",
     "build:node:watch": "tsc --build --watch packages/tsconfig.project.json",
+    "build:site": "rocket-build",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js . --fix",
     "format:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --ext .ts,.js .",
     "lint:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --check --ignore-path .eslintignore",
+    "postinstall": "patch-package",
     "reinstall-workspace": "rm -rf node_modules && rm -rf packages/*/node_modules && rm -rf demo/projects/*/node_modules && rm -rf packages/*/dist && rm -rf packages/*/tsconfig.tsbuildinfo && yarn install && yarn build",
+    "start": "rocket-start",
     "test": "yarn workspaces run test:ci",
     "update-dependency": "node scripts/update-dependency.js",
     "update:tsconfig": "ts-node scripts/update-package-tsconfig.ts"
+  },
+  "dependencies": {
+    "@d4kmor/cli": "^0.1.0",
+    "@d4kmor/launch": "^0.1.0",
+    "patch-package": "^6.2.2"
   },
   "devDependencies": {
     "@changesets/cli": "^2.8.0",
