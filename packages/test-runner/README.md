@@ -10,7 +10,7 @@ A test runner for web applications.
 \
 📦&nbsp;&nbsp; Supports native es modules.
 \
-🔧&nbsp;&nbsp; Runs tests in parallel and in isolation.
+🔧&nbsp;&nbsp; Runs tests in parallel and isolation.
 \
 👀&nbsp;&nbsp; Interactive watch mode.
 \
@@ -67,15 +67,15 @@ When you point the test runner to a JS file, it will hand the file to the config
 
 ### HTML tests
 
-When you point the test runner at a HTML file you can take full control over the test environment. There is no automatic bootstrapping of a test framework, you need to make sure things are set up and results are communicated back to the test runner. [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha) can be used as a library for HTML tests, taking care of most of the heavy lifting. You can also use the low level [@web/test-runner-browser-lib](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browser-lib) for full control.
+When you point the test runner at an HTML file you can take full control over the test environment. There is no automatic bootstrapping of a test framework, you need to make sure things are set up and results are communicated back to the test runner. [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha) can be used as a library for HTML tests, taking care of most of the heavy lifting. You can also use the low level [@web/test-runner-browser-lib](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browser-lib) for full control.
 
 ## Browsers
 
-By default tests are run with the locally installed instance of Chrome, controlled via `puppeteer-core`.
+By default, tests are run with the locally installed instance of Chrome, controlled via `puppeteer-core`.
 
 ### Puppeteer
 
-You can run tests with puppeteer, which will download it's own instance of Chromium instead of relying on a globally installed version of Chrome.
+You can run tests with puppeteer, which will download its a local instance of Chromium instead of relying on a globally installed version of Chrome.
 
 ```bash
 # add the package
@@ -87,7 +87,7 @@ wtr test/**/*.test.js --node-resolve --puppeteer
 
 ### Playwright
 
-You can run tests with playwright, which like puppeteer downloads it's own browsers. Playwright allows testing on chromium, firefox and webkit.
+You can run tests with playwright, which like puppeteer downloads it's own browsers. Playwright allows testing on chromium, firefox, and WebKit.
 
 ```bash
 # add the package
@@ -216,45 +216,35 @@ module.exports = {
 
 </details>
 
+## Authoring es modules
+
+We recommend writing tests as native es modules. Check out these [es modules](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core/docs/es-modules.md) to learn more about authoring and using es modules.
+
 ## Server and code transformation
 
-The test runner serves files using [@web/test-runner-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server) which under the hood is powered by [@web/dev-server-core](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core).
+The test runner server is based on [@web/dev-server-core](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core), which has a rich plugin and middleware system. It also supports reusing rollup plugins with [@web/dev-server-rollup](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-rollup).
 
-The dev server has a plugin and middleware system which you can use for manipulating the server's behavior. It also supports reusing rollup plugins with [@web/dev-server-rollup](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-rollup). Middleware and plugins can be configured from the test runner config.
-
-<details>
-  <summary>View example</summary>
+Plugins can be installed from the configuration file, for example to use typescript:
 
 ```js
 const { esbuildPlugin } = require('@web/dev-server-esbuild');
-const { rollupAdapter } = require('@web/dev-server-rollup');
-const myRollupPlugin = require('my-rollup-plugin');
 
 module.exports = {
-  rootDir: '../..',
-  middleware: [],
-  plugins: [
-    // regular dev server plugin
-    esbuildPlugin({ ts: true }),
-    // rollup plugin, wrapped in an adapter
-    rollupAdapter(myRollupPlugin()),
-  ],
+  plugins: [esbuildPlugin({ ts: true })],
 };
 ```
 
-</details>
+Check out the full documentation for more infromation and examples:
 
-### Typescript and JSX
-
-The tests are run in a real browser, code written in TS or JSX needs to be compiled before it is possible to test them in the browser. You could do this transformation outside of the test runner, for example using `babel` or `tsc`. This would be the most predictable, but not the fastest approach.
-
-A great option is to use [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server), which supports transforming TS and JSX on the fly with minimal overhead.
+- [Common code transformations](https://github.com/modernweb-dev/web/tree/master/packages/dev-server/docs/code-transformations.md)
+- [Server Middleware](https://github.com/modernweb-dev/web/tree/master/packages/dev-server/docs/server-middleware.md)
+- [Server plugins](https://github.com/modernweb-dev/web/tree/master/packages/dev-server/docs/server-plugins.md)
 
 ## Customizing test runner HTML
 
-When running javascript tests, the test runner runs the test in a standard minimal HTML page. You can provide a custom HTML container to run the tests in with the `testRunnerHtml` function. This function receive the module import for the test runner, and the test runner config.
+When running javascript tests, the test runner runs the test in a standard minimal HTML page. You can provide a custom HTML container to run the tests in with the `testRunnerHtml` function. This function receives the module import for the test runner and the test runner config.
 
-You can use this to set up the testing environment, for example to set global variables or load test boostrap code.
+You can use this to set up the testing environment, for example, to set global variables or load test bootstrap code.
 
 <details>
   <summary>View example</summary>
@@ -301,6 +291,6 @@ Check the docs for [@web/test-runner-chrome](https://github.com/modernweb-dev/we
 
 ## Advanced customization
 
-This package is the opinionated default implementation of the test runner, so that people can get started without much configuration.
+This package is the opinionated default implementation of the test runner so that people can get started without much configuration.
 
 For more advanced configuration you can use the individual packages this project is based on. See [@web/test-runner-core](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-core) and [@web/test-runner-cli](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-core) to learn more about that.

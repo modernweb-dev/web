@@ -46,13 +46,17 @@
     "whatwg-url": "^8.1.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-template-literals": "^7.10.4",
     "@rollup/plugin-alias": "^3.1.1",
+    "@rollup/plugin-babel": "^5.0.4",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-image": "^2.0.5",
     "@rollup/plugin-inject": "^4.0.2",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@rollup/plugin-replace": "^2.3.3",
-    "chai": "^4.2.0"
+    "@rollup/plugin-url": "^5.0.1",
+    "chai": "^4.2.0",
+    "rollup-plugin-postcss": "^3.1.2"
   }
 }

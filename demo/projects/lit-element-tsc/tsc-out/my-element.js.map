@@ -1,0 +1,1 @@
+{"version":3,"file":"my-element.js","sourceRoot":"","sources":["../my-element.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,iBAAiB,CAAC;AAE5C,MAAM,CAAC,cAAc,CAAC,MAAM,CAAC,YAAY,EAAE,SAAS,CAAC,CAAC","sourcesContent":["import { MyElement } from './src/MyElement';\n\nwindow.customElements.define('my-element', MyElement);\n"]}

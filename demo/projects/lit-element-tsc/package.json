@@ -1,5 +1,5 @@
 {
-  "name": "@web/demo-lit-element-ts",
+  "name": "@web/demo-lit-element-tsc",
   "version": "0.1.0",
   "private": true,
   "description": "Webcomponent lit-element following open-wc recommendations",
@@ -8,10 +8,12 @@
   "main": "index.js",
   "module": "index.js",
   "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
     "start": "es-dev-server --app-index demo/projects/lit-element-ts/demo/index.html --node-resolve --open --watch",
-    "test": "web-test-runner test/**/*.test.ts --node-resolve",
-    "test:ci": "node ../../../packages/test-runner/dist/test-runner.js test/**/*.test.ts --node-resolve",
-    "test:watch": "web-test-runner test/**/*.test.ts --node-resolve --watch",
+    "test": "yarn build && web-test-runner tsc-out/test/**/*.test.js --node-resolve",
+    "test:ci": "node ../../../packages/test-runner/dist/test-runner.js tsc-out/test/**/*.test.js --node-resolve",
+    "test:watch": "yarn build --watch & web-test-runner dist/test/**/*.test.js --node-resolve --watch",
     "tsc:watch": "tsc --watch"
   },
   "dependencies": {
@@ -21,11 +23,10 @@
   "devDependencies": {
     "@open-wc/testing": "^2.0.0",
     "@types/node": "13.11.1",
-    "@web/dev-server-esbuild": "^0.1.0",
     "@web/test-runner": "^0.6.8",
     "deepmerge": "^4.2.2",
     "es-dev-server": "^1.55.0",
     "tslib": "^1.11.0",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.6"
   }
 }
