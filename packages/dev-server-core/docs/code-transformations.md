@@ -4,15 +4,15 @@ In `@web/dev-server` and `@web/test-runner` you can add plugins to transform cod
 
 ## Plugins
 
-Generally speaking, the two most important plugins are [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server) and [@web/dev-server-rollup](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-rollup). Esbuild can be used for fast transformations, while rollup has a rich plugin ecosystem we can reuse here.
+Generally speaking, the two most important plugins are [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild) and [@web/dev-server-rollup](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-rollup). Esbuild can be used for fast transformations, while rollup has a rich plugin ecosystem we can reuse here.
 
-Some of the examples require you to write your own plugin. The examples are straight forward, but you can check the [server plugins](http://github.com/modernweb-dev/web/tree/master/packages/test-runner/docs/server-plugins.md) docs for a more detailed explanation.
+Some of the examples require you to write your own plugin. The examples are straight forward, but you can check the [server plugins](https://github.com/modernweb-dev/web/blob/master/packages/dev-server-core/docs/server-plugins.md) docs for a more detailed explanation.
 
 ## Typescript
 
 ### esbuild
 
-To use typescript we recommend using the [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server) plugin to transform TS to JS on the fly. It is the fastest approach, introducing only a few milliseconds overhead.
+To use typescript we recommend using [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild) to transform TS to JS on the fly. It is the fastest approach, introducing only a few milliseconds overhead.
 
 <details>
 
@@ -163,7 +163,7 @@ module.exports = {
 
 ## JSX and TSX
 
-You can use [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server) to handle JSX and TSX files. Check the demos for [JSX](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-jsx) and [TSX](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-tsx)
+You can use [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild) to handle JSX and TSX files. Check the demos for [JSX](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-jsx) and [TSX](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-tsx)
 
 ## Importing JSON
 

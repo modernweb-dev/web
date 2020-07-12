@@ -236,9 +236,9 @@ module.exports = {
 
 Check out the full documentation for more infromation and examples:
 
-- [Common code transformations](https://github.com/modernweb-dev/web/tree/master/packages/dev-server/docs/code-transformations.md)
-- [Server Middleware](https://github.com/modernweb-dev/web/tree/master/packages/dev-server/docs/server-middleware.md)
-- [Server plugins](https://github.com/modernweb-dev/web/tree/master/packages/dev-server/docs/server-plugins.md)
+- [Common code transformations](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core/docs/code-transformations.md)
+- [Server Middleware](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core/docs/server-middleware.md)
+- [Server plugins](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core/docs/server-plugins.md)
 
 ## Customizing test runner HTML
 

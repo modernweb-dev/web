@@ -2,7 +2,7 @@
 
 Plugins are objects with lifecycle hooks called by the dev server as it serves files to the browser. They can be used to serve virtual files, transform files, or resolve module imports.
 
-Plugins share a similar API to [rollup](https://github.com/rollup/rollup) plugins. In fact, you can reuse rollup plugins in the dev server. See the [code transformations](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-core/docs/code-transformations.md) for examples.
+Plugins share a similar API to [rollup](https://github.com/rollup/rollup) plugins. In fact, you can reuse rollup plugins in the dev server. See the [code transformations](https://github.com/modernweb-dev/web/blob/master/packages/dev-server-core/docs/code-transformations.md) for examples.
 
 ## Adding plugins
 
