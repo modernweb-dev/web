@@ -1596,6 +1596,14 @@
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-7.0.2.tgz#b17f16cf933597e10d6d78eae3251e692ce8b0ce"
   integrity sha512-ZvO2tAcjmMi8V/5Z3JsyofMe3hasRcaw88cto5etSVMwVQfeivGAlEYmaQgceUSVYFofVjT+ioHsATjdWcFt1w==
 
+"@types/node-fetch@^2.5.7":
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.5.7.tgz#20a2afffa882ab04d44ca786449a276f9f6bbf3c"
+  integrity sha512-o2WVNf5UhWRkxlf6eq+jMZDu7kjgpgJfl4xVNlvryc95O/6F2ld8ztKX+qu+Rjyet93WAWm5LjeX9H5FGkODvw==
+  dependencies:
+    "@types/node" "*"
+    form-data "^3.0.0"
+
 "@types/node@*":
   version "14.0.22"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.22.tgz#23ea4d88189cec7d58f9e6b66f786b215eb61bdc"
@@ -2649,7 +2657,7 @@ color@^3.0.0:
     color-convert "^1.9.1"
     color-string "^1.5.2"
 
-combined-stream@^1.0.6, combined-stream@~1.0.6:
+combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
@@ -3871,6 +3879,15 @@ forever-agent@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/forever-agent/-/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
   integrity sha1-+8cfDEGt6zf5bFd60e1C2P2sypE=
+
+form-data@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-3.0.0.tgz#31b7e39c85f1355b7139ee0c647cf0de7f83c682"
+  integrity sha512-CKMFDglpbMi6PyN+brwB9Q/GOw0eAnsrEZDgcsH5Krhz5Od/haKHAX0NmQfha2zPPz0JpWzA7GJHGSnvCRLWsg==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
 
 form-data@~2.3.2:
   version "2.3.3"
@@ -5706,6 +5723,11 @@ node-fetch@3.0.0-beta.7:
   dependencies:
     data-uri-to-buffer "^3.0.1"
     fetch-blob "^2.0.0"
+
+node-fetch@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
+  integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
 
 node-releases@^1.1.58:
   version "1.1.59"

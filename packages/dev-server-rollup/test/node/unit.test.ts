@@ -1,9 +1,11 @@
 import { Plugin as RollupPlugin, AcornNode } from 'rollup';
 import { expect } from 'chai';
+import fetch from 'node-fetch';
 import path from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from './test-helpers';
 import { rollupAdapter } from '../../src/rollupAdapter';
+import { stub } from 'sinon';
 
 describe('es-dev-server-rollup', () => {
   describe('resolveId', () => {
@@ -78,6 +80,39 @@ describe('es-dev-server-rollup', () => {
       try {
         const text = await fetchText(`${host}/app.js`);
         expectIncludes(text, "import moduleA from './src/foo.js'");
+      } finally {
+        server.stop();
+      }
+    });
+
+    it('throws when resolving an import to a file outside the current root directory', async () => {
+      const resolvedId = path.resolve(process.cwd(), '..', '..', '..', 'foo.js');
+      const plugin: RollupPlugin = {
+        name: 'my-plugin',
+        resolveId() {
+          return resolvedId;
+        },
+      };
+      const mockLogger = {
+        log: stub(),
+        debug: stub(),
+        error: stub(),
+        warn: stub(),
+        logSyntaxError: stub(),
+      };
+      const { server, host } = await createTestServer(
+        {
+          plugins: [rollupAdapter(plugin)],
+        },
+        mockLogger,
+      );
+
+      try {
+        const response = await fetch(`${host}/app.js`);
+        expect(response.status).to.equal(500);
+        expect(mockLogger.error.calledOnce).to.be.true;
+        expect(mockLogger.error.getCall(0).args[0]).to.include('Resolved an import to');
+        expect(mockLogger.error.getCall(0).args[0]).to.include(resolvedId);
       } finally {
         server.stop();
       }
@@ -238,7 +273,7 @@ describe('es-dev-server-rollup', () => {
       const text = await fetchText(`${host}/app.js`);
       expectIncludes(
         text,
-        'import "/__web-dev-server__/?web-dev-server-rollup-null-byte=%00foo.js"',
+        'import "/__web-dev-server__/rollup/foo.js?web-dev-server-rollup-null-byte=%00foo.js"',
       );
     } finally {
       server.stop();
@@ -260,7 +295,7 @@ describe('es-dev-server-rollup', () => {
 
     try {
       const text = await fetchText(
-        `${host}/__web-dev-server__/?web-dev-server-rollup-null-byte=%00foo.js`,
+        `${host}/__web-dev-server__/rollup/foo.js?web-dev-server-rollup-null-byte=%00foo.js`,
       );
       expectIncludes(text, 'console.log("foo");');
     } finally {
