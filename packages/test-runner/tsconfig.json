@@ -28,9 +28,6 @@
     },
     {
       "path": "../test-runner-cli/tsconfig.json"
-    },
-    {
-      "path": "../test-runner-playwright/tsconfig.json"
     }
   ],
   "include": [

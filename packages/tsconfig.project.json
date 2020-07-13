@@ -24,9 +24,6 @@
       "path": "./test-runner-cli/tsconfig.json"
     },
     {
-      "path": "./test-runner-playwright/tsconfig.json"
-    },
-    {
       "path": "./test-runner-selenium/tsconfig.json"
     },
     {
@@ -37,6 +34,9 @@
     },
     {
       "path": "./test-runner-puppeteer/tsconfig.json"
+    },
+    {
+      "path": "./test-runner-playwright/tsconfig.json"
     },
     {
       "path": "./test-runner-browserstack/tsconfig.json"

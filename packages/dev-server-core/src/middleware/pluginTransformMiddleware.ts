@@ -6,6 +6,7 @@ import { PluginTransformCache } from './PluginTransformCache';
 import { getResponseBody, RequestCancelledError } from '../utils';
 import { PluginSyntaxError } from '../logger/PluginSyntaxError';
 import { Logger } from '../logger/Logger';
+import { PluginError } from '../logger/PluginError';
 
 /**
  * Sets up a middleware which allows plugins to transform files before they are served to the browser.
@@ -78,9 +79,19 @@ export function pluginTransformMiddleware(
       if (error instanceof RequestCancelledError) {
         return undefined;
       }
+      context.body = 'Error while transforming file. See the terminal for more information.';
+      context.status = 500;
+
       if (error instanceof PluginSyntaxError) {
         logger.logSyntaxError(error);
+        return;
       }
+
+      if (error instanceof PluginError) {
+        logger.error(error.message);
+        return;
+      }
+
       throw error;
     }
   };

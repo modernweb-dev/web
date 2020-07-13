@@ -1,17 +1,23 @@
 /* eslint-disable no-control-regex */
 import path from 'path';
 import whatwgUrl from 'whatwg-url';
-import { Plugin as WdsPlugin, DevServerCoreConfig, FSWatcher } from '@web/dev-server-core';
+import {
+  Plugin as WdsPlugin,
+  DevServerCoreConfig,
+  FSWatcher,
+  PluginError,
+} from '@web/dev-server-core';
 import { URL, pathToFileURL, fileURLToPath } from 'url';
 import { Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';
+import { red, yellow } from 'chalk';
 
-import { toBrowserPath } from './utils';
+import { toBrowserPath, isAbsoluteFilePath } from './utils';
 import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter';
 import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts';
 
 const NULL_BYTE_PARAM = 'web-dev-server-rollup-null-byte';
-const VIRTUAL_FILE_PREFIX = '/__web-dev-server__';
+const VIRTUAL_FILE_PREFIX = '/__web-dev-server__/rollup';
 
 function resolveFilePath(rootDir: string, path: string) {
   const fileUrl = new URL(`.${path}`, `${pathToFileURL(rootDir)}/`);
@@ -88,53 +94,51 @@ export function rollupAdapter(
         ? resolvableImport
         : await rollupPlugin.resolveId?.call(rollupPluginContext, resolvableImport, filePath);
 
-      let resolvedImportFilePath: string | undefined = undefined;
+      let resolvedImportPath: string | undefined = undefined;
       if (typeof result === 'string') {
-        resolvedImportFilePath = result;
+        resolvedImportPath = result;
       } else if (typeof result === 'object' && typeof result?.id === 'string') {
-        resolvedImportFilePath = result.id;
+        resolvedImportPath = result.id;
       }
 
-      if (!resolvedImportFilePath) {
+      if (!resolvedImportPath) {
         return undefined;
-      }
-
-      const hasNullByte = resolvedImportFilePath.includes('\0');
-      const withoutNullByte = hasNullByte
-        ? resolvedImportFilePath.replace(new RegExp('\0', 'g'), '')
-        : resolvedImportFilePath;
-
-      if (withoutNullByte.startsWith(rootDir)) {
-        const resolveRelativeTo = path.extname(filePath) ? path.dirname(filePath) : filePath;
-        const relativeImportFilePath = path.relative(resolveRelativeTo, withoutNullByte);
-        const resolvedImportPath = `${toBrowserPath(relativeImportFilePath)}`;
-
-        const prefixedImportPath =
-          resolvedImportPath.startsWith('/') || resolvedImportPath.startsWith('.')
-            ? `${resolvedImportPath}${importSuffix}`
-            : `./${resolvedImportPath}${importSuffix}`;
-
-        if (!hasNullByte) {
-          return prefixedImportPath;
-        }
-
-        const suffix = `${NULL_BYTE_PARAM}=${encodeURIComponent(resolvedImportFilePath)}`;
-        if (prefixedImportPath.includes('?')) {
-          return `${prefixedImportPath}&${suffix}`;
-        }
-        return `${prefixedImportPath}?${suffix}`;
       }
 
       // if the resolved import includes a null byte (\0) there is some special logic
       // these often are not valid file paths, so the browser cannot request them.
       // we rewrite them to a special URL which we deconstruct later when we load the file
-      if (resolvedImportFilePath.includes('\0')) {
-        return `${VIRTUAL_FILE_PREFIX}/?${NULL_BYTE_PARAM}=${encodeURIComponent(
-          resolvedImportFilePath,
-        )}`;
+      if (resolvedImportPath.includes('\0')) {
+        const filename = path.basename(
+          resolvedImportPath.replace(/\0*/g, '').split('?')[0].split('#')[0],
+        );
+        const urlParam = encodeURIComponent(resolvedImportPath);
+        return `${VIRTUAL_FILE_PREFIX}/${filename}?${NULL_BYTE_PARAM}=${urlParam}`;
       }
 
-      return `${resolvedImportFilePath}${importSuffix}`;
+      // some plugins don't return a file path, so we just return it as is
+      if (!isAbsoluteFilePath(resolvedImportPath)) {
+        return `${resolvedImportPath}`;
+      }
+
+      if (!resolvedImportPath.startsWith(rootDir)) {
+        throw new PluginError(
+          red(`Resolved an import to ${yellow(resolvedImportPath)}`) +
+            red('. This path is not reachable from the browser because') +
+            red(` it is outside root directory ${yellow(rootDir)}`) +
+            red(
+              `. Configure the root directory using the ${yellow('--root-dir')} or ${yellow(
+                'rootDir',
+              )} option.`,
+            ),
+        );
+      }
+
+      const resolveRelativeTo = path.extname(filePath) ? path.dirname(filePath) : filePath;
+      const relativeImportFilePath = path.relative(resolveRelativeTo, resolvedImportPath);
+      const importBrowserPath = `${toBrowserPath(relativeImportFilePath)}`;
+
+      return `./${importBrowserPath}${importSuffix}`;
     },
 
     async serve(context) {
@@ -143,7 +147,10 @@ export function rollupAdapter(
       }
 
       let filePath;
-      if (context.URL.searchParams.has(NULL_BYTE_PARAM)) {
+      if (
+        context.path.startsWith(VIRTUAL_FILE_PREFIX) &&
+        context.URL.searchParams.has(NULL_BYTE_PARAM)
+      ) {
         // if this was a special URL constructed in resolveImport to handle null bytes,
         // the file path is stored in the search paramter
         filePath = context.URL.searchParams.get(NULL_BYTE_PARAM) as string;

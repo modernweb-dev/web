@@ -80,7 +80,7 @@ module.exports.lorem = lorem;`;
       const text = await fetchText(`${host}/foo.js`);
       expectIncludes(
         text,
-        "import * as commonjsHelpers from '/__web-dev-server__/?web-dev-server-rollup-null-byte=%00commonjsHelpers.js';",
+        "import * as commonjsHelpers from '/__web-dev-server__/rollup/commonjsHelpers.js?web-dev-server-rollup-null-byte=%00commonjsHelpers.js';",
       );
       expectIncludes(text, 'var foo_1 = commonjsHelpers.createCommonjsModule(function (module) {');
       expectIncludes(text, 'module.exports.__esModule = true;');
@@ -117,7 +117,7 @@ exports.default = _default;`;
       const text = await fetchText(`${host}/foo.js`);
       expectIncludes(
         text,
-        "import * as commonjsHelpers from '/__web-dev-server__/?web-dev-server-rollup-null-byte=%00commonjsHelpers.js';",
+        "import * as commonjsHelpers from '/__web-dev-server__/rollup/commonjsHelpers.js?web-dev-server-rollup-null-byte=%00commonjsHelpers.js';",
       );
       expectIncludes(
         text,
@@ -159,7 +159,7 @@ exports.default = _default;`;
       expectIncludes(text, "import './bar.js';");
       expectIncludes(
         text,
-        "import bar from './bar.js?commonjs-proxy&web-dev-server-rollup-null-byte=%00%2F",
+        "import bar from '/__web-dev-server__/rollup/bar.js?web-dev-server-rollup-null-byte=%00",
       );
       expectIncludes(text, 'export default foo;');
       expectIncludes(text, 'export { bar_1 as bar };');
