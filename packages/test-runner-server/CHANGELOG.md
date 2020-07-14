@@ -1,5 +1,13 @@
 # @web/test-runner-server
 
+## 0.5.8
+
+### Patch Changes
+
+- 1d6d498: allow changing viewport in tests
+- Updated dependencies [1d6d498]
+  - @web/test-runner-core@0.6.5
+
 ## 0.5.7
 
 ### Patch Changes

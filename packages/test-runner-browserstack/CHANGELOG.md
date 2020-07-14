@@ -1,5 +1,13 @@
 # @web/test-runner-browserstack
 
+## 0.0.5
+
+### Patch Changes
+
+- 1d6d498: allow changing viewport in tests
+- Updated dependencies [1d6d498]
+  - @web/test-runner-selenium@0.1.1
+
 ## 0.0.4
 
 ### Patch Changes

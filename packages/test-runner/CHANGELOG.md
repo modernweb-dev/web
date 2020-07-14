@@ -1,5 +1,16 @@
 # @web/test-runner
 
+## 0.6.20
+
+### Patch Changes
+
+- 1d6d498: allow changing viewport in tests
+- Updated dependencies [1d6d498]
+  - @web/test-runner-chrome@0.5.5
+  - @web/test-runner-core@0.6.5
+  - @web/test-runner-helpers@0.0.1
+  - @web/test-runner-server@0.5.8
+
 ## 0.6.19
 
 ### Patch Changes

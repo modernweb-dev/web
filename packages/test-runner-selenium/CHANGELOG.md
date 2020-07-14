@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.1.1
+
+### Patch Changes
+
+- 1d6d498: allow changing viewport in tests
+
 ## 0.1.0
 
 ### Minor Changes
