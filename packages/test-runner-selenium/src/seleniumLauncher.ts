@@ -70,6 +70,10 @@ export class SeleniumLauncher {
     this.debugDriver = await this.driverBuilder.build();
     await this.debugDriver.navigate().to(url);
   }
+
+  setViewport() {
+    throw new Error('Setting viewport is not supported in Selenium Browser Launcher.');
+  }
 }
 
 export function seleniumLauncher(args: SeleniumLauncherArgs) {

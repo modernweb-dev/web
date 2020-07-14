@@ -39,6 +39,7 @@ export function chromeLauncher({
 }: Partial<ChromeLauncherConfig> = {}): BrowserLauncher & Record<string, unknown> {
   const executablePath = customExecutablePath ?? findExecutablePath();
   const activePages = new Map<string, Page>();
+  const debugPages = new Map<string, Page>();
   const inactivePages: Page[] = [];
   let browser: Browser;
   let debugBrowser: undefined | Browser = undefined;
@@ -87,6 +88,7 @@ export function chromeLauncher({
       }
 
       activePages.set(session.id, page);
+      await page.setViewport({ height: 600, width: 800 });
       await page.goto(url);
     },
 
@@ -108,7 +110,20 @@ export function chromeLauncher({
       }
       debugBrowser = await launchBrowser({ devtools: true });
       const page = await debugBrowser.newPage();
+      debugPages.set(session.id, page);
+      page.on('close', () => {
+        debugPages.delete(session.id);
+      });
       await page.goto(url);
+    },
+
+    setViewport(session, viewport) {
+      const page = activePages.get(session.id);
+      const debugPage = debugPages.get(session.id);
+      if (!page && !debugPage) {
+        throw new Error(`Cannot set viewport for inactive session: ${session.id}`);
+      }
+      return (page! || debugPage!).setViewport(viewport);
     },
   };
 }

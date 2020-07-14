@@ -1,5 +1,10 @@
 import { Middleware } from '@web/dev-server-core';
-import { TestSessionManager, TestRunnerCoreConfig, SESSION_STATUS } from '@web/test-runner-core';
+import {
+  TestSessionManager,
+  TestRunnerCoreConfig,
+  SESSION_STATUS,
+  Viewport,
+} from '@web/test-runner-core';
 import parse from 'co-body';
 import path from 'path';
 
@@ -44,6 +49,22 @@ export function testRunnerApiMiddleware(
       if (command === 'session-started') {
         ctx.status = 200;
         sessions.updateStatus(session, SESSION_STATUS.STARTED);
+        return;
+      }
+
+      if (command === 'viewport') {
+        try {
+          if (session.status !== SESSION_STATUS.STARTED) {
+            ctx.status = 400;
+            return;
+          }
+          const viewport = ((await parse.json(ctx)) as any) as Viewport;
+          await session.browserLauncher.setViewport(session, viewport);
+          ctx.status = 200;
+        } catch (error) {
+          console.error(error);
+          ctx.status = 500;
+        }
         return;
       }
 

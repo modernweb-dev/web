@@ -15,6 +15,7 @@ function createTestRunner(extraConfig: Partial<TestRunnerCoreConfig> = {}, testF
     startDebugSession: stub().returns(Promise.resolve()),
     startSession: stub().returns(Promise.resolve()),
     stopSession: stub().returns(Promise.resolve()),
+    setViewport: stub().returns(Promise.resolve()),
   };
 
   const server = {

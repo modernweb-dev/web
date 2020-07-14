@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": " concurrently \"yarn build:node\" \"yarn build:browser\"",
-    "build:browser": "concurrently \"yarn workspace @web/test-runner-browser-lib build\" \"yarn workspace @web/test-runner-mocha build\" -m 1",
+    "build:browser": "concurrently \"yarn workspace @web/test-runner-browser-lib build\" \"yarn workspace @web/test-runner-mocha build\" \"yarn workspace @web/test-runner-helpers build\" -m 1",
     "build:node": "tsc --build packages/tsconfig.project.json",
     "build:node:watch": "tsc --build --watch packages/tsconfig.project.json",
     "format": "npm run format:eslint && npm run format:prettier",

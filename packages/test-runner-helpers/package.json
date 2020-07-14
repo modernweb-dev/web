@@ -1,0 +1,38 @@
+{
+  "name": "@web/test-runner-helpers",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Helper library for Web Test Runner",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-helpers"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-helpers",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf dist && rollup -c rollup.config.js",
+    "build:watch": "rm -rf dist && rollup -c rollup.config.js --watch",
+    "test:ci": "echo 'no tests for this package yet'"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "browser",
+    "library",
+    "lib",
+    "framework"
+  ]
+}

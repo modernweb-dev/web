@@ -51,6 +51,7 @@
     "@web/test-runner-chrome": "^0.5.4",
     "@web/test-runner-cli": "^0.4.9",
     "@web/test-runner-core": "^0.6.4",
+    "@web/test-runner-helpers": "^0.0.0",
     "@web/test-runner-mocha": "^0.2.6",
     "@web/test-runner-server": "^0.5.7",
     "command-line-args": "^5.1.1"

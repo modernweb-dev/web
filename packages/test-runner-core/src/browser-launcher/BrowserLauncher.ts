@@ -2,6 +2,11 @@ import { CoverageMapData } from 'istanbul-lib-coverage';
 import { TestRunnerCoreConfig } from '../runner/TestRunnerCoreConfig';
 import { TestSession } from '../test-session/TestSession';
 
+export interface Viewport {
+  width: number;
+  height: number;
+}
+
 export interface BrowserLauncher {
   /**
    * One time startup for the browser launcher. Called when the test runner
@@ -47,4 +52,10 @@ export interface BrowserLauncher {
    * @param session
    */
   startDebugSession(session: TestSession, url: string): Promise<void>;
+
+  /**
+   * Sets the viewport. Not all browser implementations support this.
+   * @param viewport
+   */
+  setViewport(session: TestSession, viewport: Viewport): void | Promise<void>;
 }
