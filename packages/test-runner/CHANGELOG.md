@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.19
+
+### Patch Changes
+
+- e3bcdb6: fix(test-runner-cli): improve stack message detection
+- Updated dependencies [e3bcdb6]
+  - @web/test-runner-cli@0.4.10
+
 ## 0.6.18
 
 ### Patch Changes
