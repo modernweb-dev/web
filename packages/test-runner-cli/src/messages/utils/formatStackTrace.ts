@@ -15,7 +15,7 @@ export function formatStackTrace(error: TestResultError, rootDir: string, server
 
   // some browsers don't include the error message in the first line, so
   // we add it in that case
-  if (!strings[0].includes(error.message)) {
+  if (!error.stack.includes(error.message)) {
     strings.unshift(`${error.message}\n`);
   }
 
