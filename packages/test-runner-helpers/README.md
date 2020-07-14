@@ -19,17 +19,15 @@ import { setViewport } from '@web/test-runner-helpers';
 
 describe('my component', () => {
   it('works on 360x640', async () => {
-    await page.setViewport({ height: 640, width: 360 });
-    console.log(window.innerHeight); // 640
+    await setViewport({ width: 360, height: 640 });
     console.log(window.innerWidth); // 360
-    // test implementation
+    console.log(window.innerHeight); // 640
   });
 
   it('works on 400x800', async () => {
     await setViewport({ width: 400, height: 800 });
-    console.log(window.innerHeight); // 400
-    console.log(window.innerWidth); // 800
-    // test implementation
+    console.log(window.innerWidth); // 400
+    console.log(window.innerHeight); // 800
   });
 });
 ```
