@@ -216,6 +216,10 @@ module.exports = {
 
 </details>
 
+## Viewport
+
+You can change the viewport during tests using the [@web/test-runner-helpers](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-helpers) library.
+
 ## Authoring es modules
 
 We recommend writing tests as native es modules. Check out these [es modules](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core/docs/es-modules.md) to learn more about authoring and using es modules.

@@ -21,6 +21,7 @@ export function playwrightLauncher({
   const browsers = new Map<string, Browser>();
   const debugBrowsers = new Map<string, Browser>();
   const activePages = new Map<string, Page>();
+  const debugPages = new Map<string, Page>();
   const inactivePages: Page[] = [];
   let config: TestRunnerCoreConfig;
   let testFiles: string[];
@@ -83,6 +84,7 @@ export function playwrightLauncher({
       }
 
       activePages.set(session.id, page);
+      await page.setViewportSize({ height: 600, width: 800 });
       await page.goto(url);
     },
 
@@ -112,7 +114,20 @@ export function playwrightLauncher({
       debugBrowsers.set(browserType, browser);
 
       const page = await browser.newPage();
+      debugPages.set(session.id, page);
+      page.on('close', () => {
+        debugPages.delete(session.id);
+      });
       await page.goto(url);
+    },
+
+    setViewport(session, viewport) {
+      const page = activePages.get(session.id);
+      const debugPage = debugPages.get(session.id);
+      if (!page && !debugPage) {
+        throw new Error(`Cannot set viewport for inactive session: ${session.id}`);
+      }
+      return (page! || debugPage!).setViewportSize(viewport);
     },
   };
 }

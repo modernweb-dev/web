@@ -16,7 +16,7 @@ const nodePackages = [
   'test-runner-browserstack',
   'test-runner-coverage-v8',
 ];
-const browserPackages = ['test-runner-browser-lib', 'test-runner-mocha'];
+const browserPackages = ['test-runner-browser-lib', 'test-runner-helpers', 'test-runner-mocha'];
 
 const PACKAGE_TSCONFIG = 'tsconfig.json';
 const PROJECT_TSCONFIG = 'tsconfig.project.json';
