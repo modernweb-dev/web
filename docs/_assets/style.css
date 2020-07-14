@@ -1,0 +1,13 @@
+/* show only first level by default */
+rocket-navigation > ul ul {
+  display: none;
+}
+/* show only active/current subtree */
+li.current > ul,
+li.active > ul {
+  display: block;
+}
+
+rocket-navigation > ul > li > a {
+  font-weight: normal;
+}
