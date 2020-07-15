@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.6.23
+
+### Patch Changes
+
+- c104663: run legacy plugin after resolving imports
+
 ## 0.6.22
 
 ### Patch Changes

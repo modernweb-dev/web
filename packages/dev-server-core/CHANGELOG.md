@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.1.3
+
+### Patch Changes
+
+- c104663: run legacy plugin after resolving imports
+
 ## 0.1.2
 
 ### Patch Changes
