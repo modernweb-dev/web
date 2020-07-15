@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.1.2
+
+### Patch Changes
+
+- 2672e8a: expose isInlineScriptRequest function
+
 ## 0.1.1
 
 ### Patch Changes

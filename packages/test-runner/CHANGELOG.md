@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.6.22
+
+### Patch Changes
+
+- 2672e8a: expose isInlineScriptRequest function
+
 ## 0.6.21
 
 ### Patch Changes
