@@ -1,5 +1,5 @@
 import playwright, { Browser, Page } from 'playwright';
-import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
+import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
 import { v8ToIstanbul, V8Coverage } from '@web/test-runner-coverage-v8';
 
 export type BrowserType = 'chromium' | 'firefox' | 'webkit';
@@ -23,6 +23,9 @@ export function playwrightLauncher({
   const activePages = new Map<string, Page>();
   const debugPages = new Map<string, Page>();
   const inactivePages: Page[] = [];
+  // playwright does not indicate whether coverage is enabled, so we track it here
+  const pagesWithCoverageEnabled = new WeakSet();
+  const cachedCoverage = new WeakMap<Page, CoverageMapData>();
   let config: TestRunnerCoreConfig;
   let testFiles: string[];
 
@@ -76,13 +79,15 @@ export function playwrightLauncher({
       let page: Page;
       if (inactivePages.length === 0) {
         page = await browser.newPage();
-        if (config.coverage) {
-          await page.coverage?.startJSCoverage();
-        }
       } else {
         page = inactivePages.pop()!;
       }
 
+      if (config.coverage && page.coverage && !pagesWithCoverageEnabled.has(page)) {
+        pagesWithCoverageEnabled.add(page);
+        cachedCoverage.delete(page);
+        await page.coverage?.startJSCoverage();
+      }
       activePages.set(session.id, page);
       await page.setViewportSize({ height: 600, width: 800 });
       await page.goto(url);
@@ -96,8 +101,20 @@ export function playwrightLauncher({
       }
     },
 
-    getTestCoverage() {
-      return Promise.all(inactivePages.map(page => getPageCoverage(config, testFiles, page)));
+    async getTestCoverage() {
+      const coverages = await Promise.all(
+        inactivePages.map(page => {
+          if (pagesWithCoverageEnabled.has(page)) {
+            pagesWithCoverageEnabled.delete(page);
+            return getPageCoverage(config, testFiles, page).then(coverage => {
+              cachedCoverage.set(page, coverage);
+              return coverage;
+            });
+          }
+          return cachedCoverage.get(page)!;
+        }),
+      );
+      return coverages.filter(c => !!c);
     },
 
     async startDebugSession(session, url) {
