@@ -1,5 +1,12 @@
 # @web/test-runner
 
+## 0.6.21
+
+### Patch Changes
+
+- Updated dependencies [2a25595]
+  - @web/dev-server-legacy@0.0.1
+
 ## 0.6.20
 
 ### Patch Changes
