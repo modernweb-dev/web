@@ -7,6 +7,7 @@ import {
   Location,
   Range,
 } from 'istanbul-lib-coverage';
+import clone from 'clone';
 import { TestSession } from '../test-session/TestSession';
 import { CoverageConfig } from '../runner/TestRunnerCoreConfig';
 
@@ -91,10 +92,13 @@ export function getTestCoverage(
   config?: CoverageConfig,
 ): TestCoverage {
   const coverageMap = createCoverageMap();
-  const coverages = Array.from(sessions)
+  let coverages = Array.from(sessions)
     .map(s => s.testCoverage)
     .filter(c => c) as CoverageMapData[];
   coverages.push(...browserCoverage);
+  // istanbul mutates the coverage objects, which pollutes coverage in watch mode
+  // cloning prevents this
+  coverages = clone(coverages);
 
   addingMissingCoverageBranches(coverages);
 

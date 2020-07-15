@@ -1,6 +1,6 @@
 import * as puppeteerCore from 'puppeteer-core';
 import { Page, Browser, LaunchOptions, launch as puppeteerCoreLaunch } from 'puppeteer-core';
-import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
+import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
 import { V8Coverage, v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { findExecutablePath } from './findExecutablePath';
 
@@ -41,6 +41,9 @@ export function chromeLauncher({
   const activePages = new Map<string, Page>();
   const debugPages = new Map<string, Page>();
   const inactivePages: Page[] = [];
+  // puppeteer does not indicate whether coverage is enabled, so we track it here
+  const pagesWithCoverageEnabled = new WeakSet();
+  const cachedCoverage = new WeakMap<Page, CoverageMapData>();
   let browser: Browser;
   let debugBrowser: undefined | Browser = undefined;
   let config: TestRunnerCoreConfig;
@@ -80,13 +83,15 @@ export function chromeLauncher({
       let page: Page;
       if (inactivePages.length === 0) {
         page = await browser.newPage();
-        if (config.coverage) {
-          await page.coverage.startJSCoverage();
-        }
       } else {
         page = inactivePages.pop()!;
       }
 
+      if (config.coverage && !pagesWithCoverageEnabled.has(page)) {
+        pagesWithCoverageEnabled.add(page);
+        cachedCoverage.delete(page);
+        await page.coverage.startJSCoverage();
+      }
       activePages.set(session.id, page);
       await page.setViewport({ height: 600, width: 800 });
       await page.goto(url);
@@ -101,7 +106,18 @@ export function chromeLauncher({
     },
 
     getTestCoverage() {
-      return Promise.all(inactivePages.map(page => getPageCoverage(config, testFiles, page)));
+      return Promise.all(
+        inactivePages.map(page => {
+          if (pagesWithCoverageEnabled.has(page)) {
+            pagesWithCoverageEnabled.delete(page);
+            return getPageCoverage(config, testFiles, page).then(coverage => {
+              cachedCoverage.set(page, coverage);
+              return coverage;
+            });
+          }
+          return cachedCoverage.get(page)!;
+        }),
+      );
     },
 
     async startDebugSession(session, url) {
