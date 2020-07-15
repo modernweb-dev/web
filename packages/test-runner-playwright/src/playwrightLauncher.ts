@@ -22,10 +22,10 @@ export function playwrightLauncher({
   const debugBrowsers = new Map<string, Browser>();
   const activePages = new Map<string, Page>();
   const debugPages = new Map<string, Page>();
-  const inactivePages: Page[] = [];
+  const inactivePagesPerBrowser = new Map<string, Page[]>();
   // playwright does not indicate whether coverage is enabled, so we track it here
   const pagesWithCoverageEnabled = new WeakSet();
-  const cachedCoverage = new WeakMap<Page, CoverageMapData>();
+  const cachedCoverages = new WeakMap<Page, CoverageMapData>();
   let config: TestRunnerCoreConfig;
   let testFiles: string[];
 
@@ -48,6 +48,7 @@ export function playwrightLauncher({
         browserNames.push(name);
         const browser = await playwright[type].launch();
         browsers.set(name, browser);
+        inactivePagesPerBrowser.set(name, []);
       }
 
       return browserNames;
@@ -75,6 +76,7 @@ export function playwrightLauncher({
       if (!browser.isConnected()) {
         throw new Error('Browser is closed');
       }
+      const inactivePages = inactivePagesPerBrowser.get(session.browserName)!;
 
       let page: Page;
       if (inactivePages.length === 0) {
@@ -85,7 +87,7 @@ export function playwrightLauncher({
 
       if (config.coverage && page.coverage && !pagesWithCoverageEnabled.has(page)) {
         pagesWithCoverageEnabled.add(page);
-        cachedCoverage.delete(page);
+        cachedCoverages.delete(page);
         await page.coverage?.startJSCoverage();
       }
       activePages.set(session.id, page);
@@ -97,24 +99,31 @@ export function playwrightLauncher({
       const page = activePages.get(session.id);
       if (page) {
         activePages.delete(session.id);
-        inactivePages.push(page);
+        inactivePagesPerBrowser.get(session.browserName)!.push(page);
       }
     },
 
     async getTestCoverage() {
-      const coverages = await Promise.all(
-        inactivePages.map(page => {
+      const coverages: (CoverageMapData | Promise<CoverageMapData>)[] = [];
+
+      for (const inactivePages of inactivePagesPerBrowser.values()) {
+        for (const page of inactivePages) {
           if (pagesWithCoverageEnabled.has(page)) {
             pagesWithCoverageEnabled.delete(page);
-            return getPageCoverage(config, testFiles, page).then(coverage => {
-              cachedCoverage.set(page, coverage);
-              return coverage;
-            });
+
+            const coverage = await getPageCoverage(config, testFiles, page);
+            cachedCoverages.set(page, coverage);
+            coverages.push(coverage);
           }
-          return cachedCoverage.get(page)!;
-        }),
-      );
-      return coverages.filter(c => !!c);
+
+          const cachedCoverage = cachedCoverages.get(page)!;
+          if (cachedCoverage) {
+            coverages.push(cachedCoverage);
+          }
+        }
+      }
+
+      return Promise.all(coverages);
     },
 
     async startDebugSession(session, url) {
