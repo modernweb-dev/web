@@ -1,0 +1,59 @@
+{
+  "name": "@web/dev-server-legacy",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Plugin for legacy browsers in @web/dev-server",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/dev-server-legacy"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server-legacy",
+  "main": "dist/legacyPlugin.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --reporter progress",
+    "test:ci": "yarn test",
+    "test:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter progress"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "web",
+    "dev",
+    "server",
+    "test",
+    "runner",
+    "testrunner",
+    "typescript",
+    "jsx",
+    "compile",
+    "transform"
+  ],
+  "dependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-proposal-dynamic-import": "^7.10.4",
+    "@babel/plugin-syntax-class-properties": "^7.10.4",
+    "@babel/plugin-syntax-import-meta": "^7.10.4",
+    "@babel/plugin-syntax-numeric-separator": "^7.10.4",
+    "@babel/plugin-transform-modules-systemjs": "^7.10.5",
+    "@babel/plugin-transform-template-literals": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@types/valid-url": "^1.0.3",
+    "@web/dev-server-core": "^0.1.1",
+    "browserslist": "^4.13.0",
+    "browserslist-useragent": "^3.0.3",
+    "caniuse-api": "^3.0.0",
+    "parse5": "^6.0.0",
+    "polyfills-loader": "^1.6.1",
+    "valid-url": "^1.0.9"
+  }
+}
