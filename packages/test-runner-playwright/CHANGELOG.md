@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.4.6
+
+### Patch Changes
+
+- 4a6b9c2: make coverage work in watch mode
+- Updated dependencies [4a6b9c2]
+  - @web/test-runner-core@0.6.6
+
 ## 0.4.5
 
 ### Patch Changes

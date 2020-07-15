@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.6
+
+### Patch Changes
+
+- 4a6b9c2: make coverage work in watch mode
+
 ## 0.6.5
 
 ### Patch Changes

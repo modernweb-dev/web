@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.6.24
+
+### Patch Changes
+
+- 4a6b9c2: make coverage work in watch mode
+- Updated dependencies [4a6b9c2]
+  - @web/test-runner-chrome@0.5.6
+  - @web/test-runner-core@0.6.6
+
 ## 0.6.23
 
 ### Patch Changes

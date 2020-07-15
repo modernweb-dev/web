@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.5.6
+
+### Patch Changes
+
+- 4a6b9c2: make coverage work in watch mode
+
 ## 0.5.5
 
 ### Patch Changes
