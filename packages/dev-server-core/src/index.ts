@@ -1,9 +1,12 @@
 export { DevServer } from './server/DevServer';
 export { Plugin } from './Plugin';
 export { DevServerCoreConfig } from './DevServerCoreConfig';
-export { getResponseBody } from './utils';
-export { getRequestBrowserPath } from './utils';
-export { getRequestFilePath } from './utils';
+export {
+  getRequestBrowserPath,
+  getRequestFilePath,
+  getResponseBody,
+  isInlineScriptRequest,
+} from './utils';
 export { Logger } from './logger/Logger';
 export { EventStreamManager } from './event-stream/EventStreamManager';
 export { FSWatcher } from 'chokidar';

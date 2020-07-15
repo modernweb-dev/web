@@ -27,6 +27,7 @@
     "test:bare": "node dist/test-runner.js --preserve-symlinks --root-dir ../..",
     "test:ci": "yarn test",
     "test:custom-html": "node dist/test-runner.js --root-dir ../.. demo/**/pass-*.test.{js,html} --config demo/customhtml.config.js --watch",
+    "test:legacy": "node dist/test-runner.js --preserve-symlinks --root-dir ../.. demo/**/pass-*.test.{js,html} --config legacy.config.js",
     "test:logging": "node dist/test-runner.js --preserve-symlinks --root-dir ../.. demo/test/logging.test.js",
     "test:many": "node dist/test-runner.js --root-dir ../.. demo/test/many/**/*.test.js",
     "test:mixed": "node dist/test-runner.js --preserve-symlinks --root-dir ../.. demo/**/*.test.js",
@@ -47,6 +48,7 @@
   ],
   "dependencies": {
     "@rollup/plugin-node-resolve": "^8.1.0",
+    "@web/dev-server-legacy": "^0.0.0",
     "@web/dev-server-rollup": "^0.1.2",
     "@web/test-runner-chrome": "^0.5.5",
     "@web/test-runner-cli": "^0.4.10",

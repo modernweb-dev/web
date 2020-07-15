@@ -5,6 +5,7 @@ const nodePackages = [
   'dev-server-core',
   'dev-server-esbuild',
   'dev-server-rollup',
+  'dev-server-legacy',
   'test-runner',
   'test-runner-core',
   'test-runner-cli',
