@@ -37,6 +37,18 @@ export function createServer(
   const plugins = createPlugins(cfg);
   cfg.plugins.push(...plugins);
 
+  // special case the legacy plugin, if it is given make sure the resolve module imports plugin
+  // runs before the legacy plugin because it compiles away module syntax. ideally we have a
+  // generic API for this, but we need to design that a bit more first
+  const indexOfLegacy = cfg.plugins.findIndex(p => p.name === 'legacy');
+  let indexOfResolve = cfg.plugins.findIndex(p => p.name === 'resolve-module-imports');
+  if (indexOfLegacy !== -1 && indexOfResolve !== -1) {
+    const legacy = cfg.plugins.splice(indexOfLegacy, 1)[0];
+    // recompute after splicing
+    indexOfResolve = cfg.plugins.findIndex(p => p.name === 'resolve-module-imports');
+    cfg.plugins.splice(indexOfResolve, 1, cfg.plugins[indexOfResolve], legacy);
+  }
+
   const middleware = createMiddleware(cfg, eventStreams, logger, fileWatcher);
   for (const m of middleware) {
     app.use(m);
