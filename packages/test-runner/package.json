@@ -47,6 +47,7 @@
     "cli"
   ],
   "dependencies": {
+    "deepmerge": "^4.2.2",
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@web/dev-server-legacy": "^0.0.1",
     "@web/dev-server-rollup": "^0.1.2",
