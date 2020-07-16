@@ -56,6 +56,7 @@
     "@web/test-runner-helpers": "^0.0.1",
     "@web/test-runner-mocha": "^0.2.6",
     "@web/test-runner-server": "^0.5.8",
-    "command-line-args": "^5.1.1"
+    "command-line-args": "^5.1.1",
+    "deepmerge": "^4.2.2"
   }
 }
