@@ -13,7 +13,7 @@ export interface BrowserLauncher {
    * starts.
    * @param config The test runner config.
    */
-  start(config: TestRunnerCoreConfig, testFiles: string[]): Promise<string[]>;
+  start(config: TestRunnerCoreConfig, testFiles: string[]): Promise<string>;
 
   /**
    * One time teardown for the browser launcher. Called when the test runner

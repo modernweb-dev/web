@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+const puppeteerBrowsers = ['chrome'];
+const playwrightBrowsers = ['chromium', 'firefox', 'webkit'];
 
 function loadLauncher(name: string) {
   const pkg = `@web/test-runner-${name}`;
@@ -13,10 +15,30 @@ function loadLauncher(name: string) {
   }
 }
 
-export function puppeteerLauncher() {
-  return loadLauncher('puppeteer').puppeteerLauncher();
+export function puppeteerLauncher(browsers: string[] = ['chrome']) {
+  for (const browser of browsers) {
+    if (!puppeteerBrowsers.includes(browser)) {
+      throw new Error(
+        `Unknown puppeteer browser: ${browser}. ` +
+          `Supported browsers: ${puppeteerBrowsers.join(', ')}`,
+      );
+    }
+  }
+
+  const launcher = loadLauncher('puppeteer').puppeteerLauncher;
+  return browsers.map(product => launcher({ options: { product } }));
 }
 
-export function playwrightLauncher(browserTypes: string[]) {
-  return loadLauncher('playwright').playwrightLauncher({ browserTypes });
+export function playwrightLauncher(browsers: string[] = ['chromium']) {
+  for (const browser of browsers) {
+    if (!playwrightBrowsers.includes(browser)) {
+      throw new Error(
+        `Unknown playwright browser: ${browser}. ` +
+          `Supported browsers: ${playwrightBrowsers.join(', ')}`,
+      );
+    }
+  }
+
+  const launcher = loadLauncher('playwright').playwrightLauncher;
+  return browsers.map(product => launcher({ product }));
 }

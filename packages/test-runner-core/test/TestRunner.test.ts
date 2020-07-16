@@ -10,7 +10,7 @@ async function timeout(ms = 0) {
 
 function createTestRunner(extraConfig: Partial<TestRunnerCoreConfig> = {}, testFiles = ['a.js']) {
   const browser = {
-    start: stub().returns(Promise.resolve(['myBrowser'])),
+    start: stub().returns(Promise.resolve('myBrowser')),
     stop: stub().returns(Promise.resolve()),
     startDebugSession: stub().returns(Promise.resolve()),
     startSession: stub().returns(Promise.resolve()),
