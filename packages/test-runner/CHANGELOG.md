@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.6.25
+
+### Patch Changes
+
+- 6bcf981: correctly map pages to browsers
+
 ## 0.6.24
 
 ### Patch Changes

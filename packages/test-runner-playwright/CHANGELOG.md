@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.4.7
+
+### Patch Changes
+
+- 6bcf981: correctly map pages to browsers
+
 ## 0.4.6
 
 ### Patch Changes
