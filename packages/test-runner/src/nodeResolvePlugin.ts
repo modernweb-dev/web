@@ -8,16 +8,19 @@ export function nodeResolvePlugin(
   userOptions?: RollupNodeResolveOptions,
 ) {
   const userOptionsObject = typeof userOptions === 'object' ? userOptions : {};
-  const options: RollupNodeResolveOptions = deepmerge({
-    rootDir,
-    extensions: ['.ts', '.tsx', '.jsx', '.mjs', '.js', '.json'],
-    customResolveOptions: {
-      moduleDirectory: ['node_modules', 'web_modules'],
+  const options: RollupNodeResolveOptions = deepmerge(
+    {
+      rootDir,
+      extensions: ['.ts', '.tsx', '.jsx', '.mjs', '.js', '.json'],
+      customResolveOptions: {
+        moduleDirectory: ['node_modules', 'web_modules'],
+      },
+      browser: true,
+      // allow resolving polyfills for nodejs libs
+      preferBuiltins: false,
     },
-    browser: true,
-    // allow resolving polyfills for nodejs libs
-    preferBuiltins: false,
-  }, userOptionsObject);
+    userOptionsObject,
+  );
 
   return rollupAdapter(nodeResolve(options), { preserveSymlinks });
 }
