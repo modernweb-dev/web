@@ -10,6 +10,10 @@ export function nodeResolvePlugin(
   const options: RollupNodeResolveOptions = {
     rootDir,
     extensions: ['.ts', '.tsx', '.jsx', '.mjs', '.js', '.json'],
+    customResolveOptions: {
+      moduleDirectory: ['node_modules', 'web_modules'],
+    },
+    browser: true,
     // allow resolving polyfills for nodejs libs
     preferBuiltins: false,
     ...userOptionsObject,
