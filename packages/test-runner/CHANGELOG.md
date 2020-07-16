@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.6.26
+
+### Patch Changes
+
+- b34ec0c: Added web_modules and browser: true to the node resolve plugin
+
 ## 0.6.25
 
 ### Patch Changes
