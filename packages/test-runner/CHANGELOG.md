@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.6.27
+
+### Patch Changes
+
+- 7c3b466: revert setting browser:true by default
+
 ## 0.6.26
 
 ### Patch Changes
