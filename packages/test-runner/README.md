@@ -285,7 +285,7 @@ You can customize the configuration to launch browsers by creating the browser l
 const { chromeLauncher } = require('@web/test-runner-chrome');
 
 module.exports = {
-  browsers: chromeLauncher({ args: ['--no-sandbox'] }),
+  browsers: chromeLauncher({ launchOptions: { args: ['--no-sandbox'] } }),
 };
 ```
 

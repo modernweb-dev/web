@@ -7,7 +7,7 @@ import { findExecutablePath } from './findExecutablePath';
 export interface ChromeLauncherConfig {
   executablePath?: string;
   puppeteer?: typeof puppeteerCore;
-  args: string[];
+  launchOptions?: LaunchOptions;
 }
 
 async function getPageCoverage(config: TestRunnerCoreConfig, testFiles: string[], page: Page) {
@@ -35,7 +35,7 @@ async function getPageCoverage(config: TestRunnerCoreConfig, testFiles: string[]
 export function chromeLauncher({
   executablePath: customExecutablePath,
   puppeteer,
-  args,
+  launchOptions = {},
 }: Partial<ChromeLauncherConfig> = {}): BrowserLauncher & Record<string, unknown> {
   const executablePath = customExecutablePath ?? findExecutablePath();
   const activePages = new Map<string, Page>();
@@ -49,11 +49,11 @@ export function chromeLauncher({
   let config: TestRunnerCoreConfig;
   let testFiles: string[];
 
-  function launchBrowser(options: Partial<LaunchOptions> = {}) {
+  function launchBrowser(launchOptions: LaunchOptions) {
     if (puppeteer) {
-      return puppeteer.launch({ ...options, args });
+      return puppeteer.launch(launchOptions);
     } else {
-      return puppeteerCoreLaunch({ ...options, executablePath, args });
+      return puppeteerCoreLaunch({ ...launchOptions, executablePath });
     }
   }
 
@@ -61,8 +61,11 @@ export function chromeLauncher({
     async start(_config, _testFiles) {
       config = _config;
       testFiles = _testFiles;
-      browser = await launchBrowser();
-      return ['Chrome'];
+      browser = await launchBrowser(launchOptions);
+
+      return launchOptions.product
+        ? `${launchOptions.product[0].toUpperCase()}${launchOptions.product.substring(1)}`
+        : 'Chrome';
     },
 
     async stop() {
@@ -124,7 +127,7 @@ export function chromeLauncher({
       if (debugBrowser?.isConnected()) {
         await debugBrowser.close();
       }
-      debugBrowser = await launchBrowser({ devtools: true });
+      debugBrowser = await launchBrowser({ ...launchOptions, devtools: true });
       const page = await debugBrowser.newPage();
       debugPages.set(session.id, page);
       page.on('close', () => {

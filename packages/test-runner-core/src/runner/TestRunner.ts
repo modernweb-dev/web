@@ -58,22 +58,13 @@ export class TestRunner extends EventEmitter<EventMap> {
       this.started = true;
       this.startTime = Date.now();
 
-      const browserNamesPerLauncher = new Map<BrowserLauncher, string[]>();
+      const browserNameForLauncher = new Map<BrowserLauncher, string>();
       this.browserNames = [];
 
       for (const launcher of this.browserLaunchers) {
-        const names = await launcher.start(this.config, this.testFiles);
-        if (!Array.isArray(names) || names.length === 0 || names.some(n => typeof n !== 'string')) {
-          throw new Error('Browser start must return an array of strings.');
-        }
-
-        for (const name of names) {
-          if (this.browserNames.includes(name)) {
-            throw new Error(`Multiple browser launchers return the same browser name ${name}`);
-          }
-          this.browserNames.push(name);
-        }
-        browserNamesPerLauncher.set(launcher, names);
+        const name = await launcher.start(this.config, this.testFiles);
+        this.browserNames.push(name);
+        browserNameForLauncher.set(launcher, name);
       }
 
       this.favoriteBrowser =
@@ -82,7 +73,7 @@ export class TestRunner extends EventEmitter<EventMap> {
           return n.includes('chrome') || n.includes('chromium') || n.includes('firefox');
         }) ?? this.browserNames[0];
 
-      const createdSessions = createTestSessions(browserNamesPerLauncher, this.testFiles);
+      const createdSessions = createTestSessions(browserNameForLauncher, this.testFiles);
 
       for (const session of createdSessions) {
         this.sessions.add(session);

@@ -19,7 +19,7 @@ export class SeleniumLauncher {
     this.driver = await this.driverBuilder.build();
 
     const cap = await this.driver.getCapabilities();
-    return [`${cap.getPlatform()} ${cap.getBrowserName()} ${cap.getBrowserVersion()}`];
+    return `${cap.getPlatform()} ${cap.getBrowserName()} ${cap.getBrowserVersion()}`;
   }
 
   async stop() {

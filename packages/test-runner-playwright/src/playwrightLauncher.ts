@@ -1,13 +1,14 @@
-import playwright, { Browser, Page } from 'playwright';
+import playwright, { Browser, Page, LaunchOptions } from 'playwright';
 import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
 import { v8ToIstanbul, V8Coverage } from '@web/test-runner-coverage-v8';
 
-export type BrowserType = 'chromium' | 'firefox' | 'webkit';
+export type ProductType = 'chromium' | 'firefox' | 'webkit';
 
-const validBrowserTypes: BrowserType[] = ['chromium', 'firefox', 'webkit'];
+const validProductTypes: ProductType[] = ['chromium', 'firefox', 'webkit'];
 
 export interface PlaywrightLauncherConfig {
-  browserTypes: BrowserType[];
+  product?: ProductType;
+  launchOptions?: LaunchOptions;
 }
 
 async function getPageCoverage(config: TestRunnerCoreConfig, testFiles: string[], page: Page) {
@@ -16,24 +17,23 @@ async function getPageCoverage(config: TestRunnerCoreConfig, testFiles: string[]
 }
 
 export function playwrightLauncher({
-  browserTypes = ['chromium'],
-}: Partial<PlaywrightLauncherConfig> = {}): BrowserLauncher {
-  const browsers = new Map<string, Browser>();
-  const debugBrowsers = new Map<string, Browser>();
+  product = 'chromium',
+  launchOptions = {},
+}: PlaywrightLauncherConfig = {}): BrowserLauncher {
   const activePages = new Map<string, Page>();
   const debugPages = new Map<string, Page>();
-  const inactivePagesPerBrowser = new Map<string, Page[]>();
+  const inactivePages: Page[] = [];
   // playwright does not indicate whether coverage is enabled, so we track it here
   const pagesWithCoverageEnabled = new WeakSet();
   const cachedCoverages = new WeakMap<Page, CoverageMapData>();
+  let browser: Browser;
+  let debugBrowser: undefined | Browser = undefined;
   let config: TestRunnerCoreConfig;
   let testFiles: string[];
 
-  if (browserTypes.some(t => !validBrowserTypes.includes(t))) {
+  if (!validProductTypes.includes(product)) {
     throw new Error(
-      `Invalid browser types: ${browserTypes}. Valid browser types: ${validBrowserTypes.join(
-        ', ',
-      )}`,
+      `Invalid product: ${product}. Valid product types: ${validProductTypes.join(', ')}`,
     );
   }
 
@@ -41,42 +41,25 @@ export function playwrightLauncher({
     async start(_config, _testFiles) {
       config = _config;
       testFiles = _testFiles;
-      const browserNames: string[] = [];
+      browser = await playwright[product].launch(launchOptions);
 
-      for (const type of browserTypes) {
-        const name = `${type[0].toUpperCase()}${type.substring(1)}`;
-        browserNames.push(name);
-        const browser = await playwright[type].launch();
-        browsers.set(name, browser);
-        inactivePagesPerBrowser.set(name, []);
-      }
-
-      return browserNames;
+      return `${product[0].toUpperCase()}${product.substring(1)}`;
     },
 
     async stop() {
-      for (const browser of browsers.values()) {
-        if (browser.isConnected()) {
-          await browser.close();
-        }
+      if (browser.isConnected()) {
+        await browser.close();
       }
 
-      for (const browser of debugBrowsers.values()) {
-        if (browser.isConnected()) {
-          await browser.close();
-        }
+      if (debugBrowser?.isConnected()) {
+        await debugBrowser.close();
       }
     },
 
     async startSession(session, url) {
-      const browser = browsers.get(session.browserName);
-      if (!browser) {
-        throw new Error(`Unknown browser name: ${browser}`);
-      }
       if (!browser.isConnected()) {
         throw new Error('Browser is closed');
       }
-      const inactivePages = inactivePagesPerBrowser.get(session.browserName)!;
 
       let page: Page;
       if (inactivePages.length === 0) {
@@ -99,27 +82,25 @@ export function playwrightLauncher({
       const page = activePages.get(session.id);
       if (page) {
         activePages.delete(session.id);
-        inactivePagesPerBrowser.get(session.browserName)!.push(page);
+        inactivePages.push(page);
       }
     },
 
     async getTestCoverage() {
       const coverages: (CoverageMapData | Promise<CoverageMapData>)[] = [];
 
-      for (const inactivePages of inactivePagesPerBrowser.values()) {
-        for (const page of inactivePages) {
-          if (pagesWithCoverageEnabled.has(page)) {
-            pagesWithCoverageEnabled.delete(page);
+      for (const page of inactivePages) {
+        if (pagesWithCoverageEnabled.has(page)) {
+          pagesWithCoverageEnabled.delete(page);
 
-            const coverage = await getPageCoverage(config, testFiles, page);
-            cachedCoverages.set(page, coverage);
-            coverages.push(coverage);
-          }
+          const coverage = await getPageCoverage(config, testFiles, page);
+          cachedCoverages.set(page, coverage);
+          coverages.push(coverage);
+        }
 
-          const cachedCoverage = cachedCoverages.get(page)!;
-          if (cachedCoverage) {
-            coverages.push(cachedCoverage);
-          }
+        const cachedCoverage = cachedCoverages.get(page)!;
+        if (cachedCoverage) {
+          coverages.push(cachedCoverage);
         }
       }
 
@@ -127,19 +108,11 @@ export function playwrightLauncher({
     },
 
     async startDebugSession(session, url) {
-      const browserType = session.browserName.toLowerCase() as BrowserType;
-      if (!validBrowserTypes.includes(browserType)) {
-        throw new Error(`Invalid browser type: ${browserType}`);
+      if (debugBrowser?.isConnected()) {
+        await debugBrowser.close();
       }
-
-      let browser = debugBrowsers.get(browserType);
-      if (browser && browser.isConnected()) {
-        await browser.close();
-      }
-      browser = await playwright[browserType].launch({ headless: false });
-      debugBrowsers.set(browserType, browser);
-
-      const page = await browser.newPage();
+      debugBrowser = await playwright[product].launch({ ...launchOptions, headless: false });
+      const page = await debugBrowser.newPage();
       debugPages.set(session.id, page);
       page.on('close', () => {
         debugPages.delete(session.id);

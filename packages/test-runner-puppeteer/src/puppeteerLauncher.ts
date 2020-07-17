@@ -3,11 +3,14 @@ import { BrowserLauncher } from '@web/test-runner-core';
 import { chromeLauncher } from '@web/test-runner-chrome';
 
 export interface PuppeteerLauncherConfig {
-  args: string[];
+  launchOptions?: puppeteer.LaunchOptions;
 }
 
 export function puppeteerLauncher({
-  args,
-}: Partial<PuppeteerLauncherConfig> = {}): BrowserLauncher {
-  return chromeLauncher({ puppeteer: (puppeteer as any).default as typeof puppeteer, args });
+  launchOptions,
+}: PuppeteerLauncherConfig = {}): BrowserLauncher {
+  return chromeLauncher({
+    launchOptions,
+    puppeteer: (puppeteer as any).default as typeof puppeteer,
+  });
 }

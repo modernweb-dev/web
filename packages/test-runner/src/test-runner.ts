@@ -68,10 +68,15 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
     cliArgsConfig.testFramework = '@web/test-runner-mocha/dist/autorun.js';
 
     if (cliArgs.puppeteer) {
-      cliArgsConfig.browsers = puppeteerLauncher();
+      cliArgsConfig.browsers = puppeteerLauncher(cliArgs.browsers);
     } else if (cliArgs.playwright) {
-      cliArgsConfig.browsers = playwrightLauncher(cliArgs.browsers ?? ['chromium']);
+      cliArgsConfig.browsers = playwrightLauncher(cliArgs.browsers);
     } else {
+      if (cliArgs.browsers != null) {
+        throw new Error(
+          `The browsers option must be used along with the puppeteer or playwright option.`,
+        );
+      }
       cliArgsConfig.browsers = chromeLauncher();
     }
 
