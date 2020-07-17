@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.6.28
+
+### Patch Changes
+
+- c72ea22: allow configuring browser launch options
+- Updated dependencies [c72ea22]
+  - @web/test-runner-chrome@0.5.7
+  - @web/test-runner-core@0.6.7
+
 ## 0.6.27
 
 ### Patch Changes

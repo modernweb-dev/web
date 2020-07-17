@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.7
+
+### Patch Changes
+
+- c72ea22: allow configuring browser launch options
+
 ## 0.6.6
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.4.8
+
+### Patch Changes
+
+- c72ea22: allow configuring browser launch options
+- Updated dependencies [c72ea22]
+  - @web/test-runner-core@0.6.7
+
 ## 0.4.7
 
 ### Patch Changes

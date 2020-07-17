@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.1.2
+
+### Patch Changes
+
+- c72ea22: allow configuring browser launch options
+
 ## 0.1.1
 
 ### Patch Changes
