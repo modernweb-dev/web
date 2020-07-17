@@ -8,9 +8,15 @@ import {
   PluginError,
   PluginSyntaxError,
   Context,
+  getRequestFilePath,
 } from '@web/dev-server-core';
-import { queryAll, predicates, getTextContent } from '@web/dev-server-core/dist/dom5';
-import { parse as parseHtml } from 'parse5';
+import {
+  queryAll,
+  predicates,
+  getTextContent,
+  setTextContent,
+} from '@web/dev-server-core/dist/dom5';
+import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 import { Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';
 import { red, yellow } from 'chalk';
@@ -257,7 +263,8 @@ export function rollupAdapter(
           ),
         );
 
-        const filePath = path.join(rootDir, context.path);
+        const filePath = getRequestFilePath(context, rootDir);
+        let transformed = false;
         try {
           for (const node of inlineModuleNodes) {
             const code = getTextContent(node);
@@ -287,11 +294,14 @@ export function rollupAdapter(
 
             if (transformedCode) {
               transformedFiles.add(context.path);
-              context.body = context.body.replace(code, transformedCode);
+              setTextContent(node, transformedCode);
+              transformed = true;
             }
           }
 
-          return context.body;
+          if (transformed) {
+            return serializeHtml(documentAst);
+          }
         } catch (error) {
           throw wrapRollupError(filePath, context, error);
         }

@@ -6,6 +6,8 @@ import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/src/test
 import { esbuildPlugin } from '../src/esbuildPlugin';
 
 describe('esbuildPlugin TSX', function () {
+  this.timeout(5000);
+
   it('transforms .tsx files', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,

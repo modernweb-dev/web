@@ -1,5 +1,5 @@
 import picoMatch from 'picomatch';
-import { isAbsolute, posix } from 'path';
+import { isAbsolute, posix, sep } from 'path';
 
 import { MimeTypeMappings } from '../DevServerCoreConfig';
 import { Plugin } from '../Plugin';
@@ -25,9 +25,10 @@ export function mimeTypesPlugin(mappings: MimeTypeMappings): Plugin {
 
     serverStart({ config }) {
       ({ rootDir } = config);
+      const matcherBaseDir = config.rootDir.split(sep).join('/');
 
       for (const [pattern, mimeType] of Object.entries(mappings)) {
-        matchers.push({ fn: createMatcher(rootDir, pattern), mimeType });
+        matchers.push({ fn: createMatcher(matcherBaseDir, pattern), mimeType });
       }
     },
 
