@@ -4,7 +4,7 @@
 
 > Please note that this project is released with a [Contributor Code of Conduct](./CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
-First, create a fork of the [open-wc/open-wc](https://github.com/modernweb-dev/web) repo by hitting the `fork` button on the GitHub page.
+First, create a fork of the [modernweb-dev/web](https://github.com/modernweb-dev/web) repo by hitting the `fork` button on the GitHub page.
 
 Next, clone our repository onto your computer with this command (replacing YOUR_USERNAME with your actual GitHub username)
 
@@ -35,7 +35,7 @@ git checkout -b my-awesome-fix
 Now that you have cloned the repository, ensure you have [yarn](https://classic.yarnpkg.com/lang/en/) installed run the following commands to set up the development environment.
 
 ```sh
-yarn
+yarn install
 ```
 
 This will download and install all packages needed.
@@ -43,6 +43,18 @@ This will download and install all packages needed.
 ## Making Your Changes
 
 Make your changes to the project. Commits are linted using precommit hooks, meaning that any code that raises linting error cannot be committed. In order to help avoid that, we recommend using an IDE or editor with an eslint plugin in order to streamline the development process. Plugins are available for all the popular editors. For more information see [ESLint Integrations](https://eslint.org/docs/user-guide/integrations)
+
+### Compiling the typescript code
+
+If you're making cross-package changes, you need to compile the typescript code. We recommend executing `tsc:watch` from the root of the package and keeping that running while you make your changes.
+
+### Running tests
+
+To run the tests of a package, it's recommended to `cd` into the package directory and then using `yarn test` to run them. This way you're only running tests of that specific package.
+
+### Integration testing
+
+To see how your changes integrate with everything together you can use the `test-runner` package. There are different commands in this package which you can execute to trigger different scenarios in the test runner.
 
 ## Create a Changeset
 
@@ -73,8 +85,8 @@ Exceptions:
 
 ## Committing Your Changes
 
-Open WC uses [commitlint](https://github.com/marionebl/commitlint) to standardize commit messages in the project. Commit messages must follow the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0-beta.2/)
-Open WC uses package name as scope. So for example if you fix a _terrible bug_ in the package `@web/test-runner`, the commit message should look like this:
+Commit messages must follow the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0-beta.2/)
+Modern-web uses package name as scope. So for example if you fix a _terrible bug_ in the package `@web/test-runner`, the commit message should look like this:
 
 ```sh
 fix(test-runner): fix terrible bug
