@@ -15,7 +15,6 @@ export function nodeResolvePlugin(
       customResolveOptions: {
         moduleDirectory: ['node_modules', 'web_modules'],
       },
-      browser: true,
       // allow resolving polyfills for nodejs libs
       preferBuiltins: false,
     },
