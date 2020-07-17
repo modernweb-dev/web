@@ -42,6 +42,7 @@
   "devDependencies": {
     "@types/selenium-standalone": "^6.15.1",
     "@types/selenium-webdriver": "^4.0.9",
+    "portfinder": "^1.0.26",
     "selenium-standalone": "^6.17.0"
   }
 }

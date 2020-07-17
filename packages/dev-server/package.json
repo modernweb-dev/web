@@ -21,9 +21,6 @@
   "engines": {
     "node": ">=10.0.0"
   },
-  "scripts": {
-    "test:ci": "echo 'no test for this package'"
-  },
   "files": [
     "dist"
   ],

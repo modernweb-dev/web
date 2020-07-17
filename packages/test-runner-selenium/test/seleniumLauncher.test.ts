@@ -3,10 +3,12 @@ import path from 'path';
 import { expect } from 'chai';
 import { TestRunnerCoreConfig, TestRunner } from '@web/test-runner-core';
 import { testRunnerServer } from '@web/test-runner-server';
-import { seleniumLauncher } from '../src/seleniumLauncher';
 import { Builder } from 'selenium-webdriver';
 import { Options as ChromeOptions } from 'selenium-webdriver/chrome';
 import { Options as FirefoxOptions } from 'selenium-webdriver/firefox';
+import portfinder from 'portfinder';
+
+import { seleniumLauncher } from '../src/seleniumLauncher';
 
 async function startSeleniumServer() {
   await new Promise((resolve, reject) =>
@@ -32,6 +34,13 @@ async function startSeleniumServer() {
 
 let seleniumServer: selenium.ChildProcess;
 
+let port: number;
+beforeEach(async () => {
+  port = await portfinder.getPortPromise({
+    port: 9000 + Math.floor(Math.random() * 1000),
+  });
+});
+
 before(async function () {
   this.timeout(50000);
   seleniumServer = await startSeleniumServer();
@@ -47,7 +56,7 @@ it('runs tests with selenium', function (done) {
     rootDir: path.join(process.cwd(), '..', '..'),
     protocol: 'http:',
     hostname: 'localhost',
-    port: 9542,
+    port,
     concurrency: 4,
     browserStartTimeout: 30000,
     sessionStartTimeout: 10000,

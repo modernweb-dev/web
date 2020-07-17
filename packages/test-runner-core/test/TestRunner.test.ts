@@ -1,5 +1,7 @@
 import { stub } from 'sinon';
 import { expect } from 'chai';
+import portfinder from 'portfinder';
+
 import { TestRunnerCoreConfig } from '../src/runner/TestRunnerCoreConfig';
 import { TestRunner } from '../src/runner/TestRunner';
 import { SESSION_STATUS } from '../src/test-session/TestSessionStatus';
@@ -8,7 +10,14 @@ async function timeout(ms = 0) {
   return new Promise(r => setTimeout(r, ms));
 }
 
-function createTestRunner(extraConfig: Partial<TestRunnerCoreConfig> = {}, testFiles = ['a.js']) {
+async function createTestRunner(
+  extraConfig: Partial<TestRunnerCoreConfig> = {},
+  testFiles = ['a.js'],
+) {
+  const port = await portfinder.getPortPromise({
+    port: 9000 + Math.floor(Math.random() * 1000),
+  });
+
   const browser = {
     start: stub().returns(Promise.resolve('myBrowser')),
     stop: stub().returns(Promise.resolve()),
@@ -33,7 +42,7 @@ function createTestRunner(extraConfig: Partial<TestRunnerCoreConfig> = {}, testF
     server,
     protocol: 'http:',
     hostname: 'localhost',
-    port: 8000,
+    port,
     ...extraConfig,
   };
   const runner = new TestRunner(config, testFiles);
@@ -41,7 +50,7 @@ function createTestRunner(extraConfig: Partial<TestRunnerCoreConfig> = {}, testF
 }
 
 it('can run a single test file', async () => {
-  const { browser, server, runner } = createTestRunner();
+  const { browser, server, runner } = await createTestRunner();
 
   await runner.start();
   expect(runner.started).to.equal(true, 'runner is started');
@@ -54,7 +63,7 @@ it('can run a single test file', async () => {
 });
 
 it('closes test runner for a succesful test', async () => {
-  const { browser, server, runner } = createTestRunner();
+  const { browser, server, runner } = await createTestRunner();
   let quitResponse: boolean | null = null;
 
   await runner.start();
@@ -74,7 +83,7 @@ it('closes test runner for a succesful test', async () => {
 });
 
 it('closes test runner for a failed test', async () => {
-  const { browser, server, runner } = createTestRunner();
+  const { browser, server, runner } = await createTestRunner();
   let quitResponse: boolean | null = null;
 
   await runner.start();

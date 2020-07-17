@@ -1,5 +1,5 @@
 import { TestResult, TestResultError } from '@web/test-runner-browser-lib';
-import type { Hook } from 'mocha';
+import { Hook } from 'mocha';
 
 export function collectTestResults(mocha: BrowserMocha) {
   const testResults: TestResult[] = [];

@@ -2,11 +2,16 @@ import path from 'path';
 import { expect } from 'chai';
 import { TestRunnerConfig, TestRunner } from '@web/test-runner-core';
 import { testRunnerServer } from '@web/test-runner-server';
+import portfinder from 'portfinder';
+
 import { browserstackLauncher } from '../src/browserstackLauncher';
 
 let runner: TestRunner;
 
-it('runs tests with selenium', function (done) {
+it('runs tests with selenium', async function (done) {
+  const port = await portfinder.getPortPromise({
+    port: 9000 + Math.floor(Math.random() * 1000),
+  });
   this.timeout(1000 * 60 * 5);
 
   const sharedCapabilities = {
@@ -26,7 +31,7 @@ it('runs tests with selenium', function (done) {
     testFrameworkImport: '@web/test-runner-mocha/dist/autorun.js',
     rootDir: path.join(process.cwd(), '..', '..'),
     address: 'http://localhost',
-    port: 9542,
+    port,
     concurrency: 4,
     browserStartTimeout: 120000,
     sessionStartTimeout: 120000,

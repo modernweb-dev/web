@@ -18,8 +18,7 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "build": "tsc",
-    "test:ci": "echo 'no tests for this package yet'"
+    "build": "tsc"
   },
   "files": [
     "dist",

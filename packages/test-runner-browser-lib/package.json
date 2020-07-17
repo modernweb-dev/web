@@ -19,8 +19,8 @@
   },
   "scripts": {
     "build": "rm -rf dist && rollup -c rollup.config.js",
-    "build:watch": "rm -rf dist && rollup -c rollup.config.js --watch",
-    "test:ci": "echo 'no tests for this package yet'"
+    "build:browser": "yarn build",
+    "build:watch": "rm -rf dist && rollup -c rollup.config.js --watch"
   },
   "files": [
     "dist"
