@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@web/test-runner-mocha": "^0.2.6",
-    "@web/test-runner-server": "^0.5.7"
+    "@web/test-runner-server": "^0.5.7",
+    "portfinder": "^1.0.26"
   }
 }

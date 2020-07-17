@@ -3,10 +3,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": " concurrently \"yarn build:node\" \"yarn build:browser\"",
+    "build": "concurrently \"yarn tsc\" \"yarn build:browser\"",
     "build:browser": "concurrently \"yarn workspace @web/test-runner-browser-lib build\" \"yarn workspace @web/test-runner-mocha build\" \"yarn workspace @web/test-runner-helpers build\" -m 1",
-    "build:node": "tsc --build packages/tsconfig.project.json",
-    "build:node:watch": "tsc --build --watch packages/tsconfig.project.json",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js . --fix",
     "format:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
@@ -14,7 +12,9 @@
     "lint:eslint": "eslint --ext .ts,.js .",
     "lint:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --check --ignore-path .eslintignore",
     "reinstall-workspace": "rm -rf node_modules && rm -rf packages/*/node_modules && rm -rf demo/projects/*/node_modules && rm -rf packages/*/dist && rm -rf packages/*/tsconfig.tsbuildinfo && yarn install && yarn build",
-    "test": "yarn workspaces run test:ci",
+    "test": "node scripts/workspaces-scripts.mjs test:ci",
+    "tsc": "tsc --build packages/tsconfig.project.json",
+    "tsc:watch": "tsc --build packages/tsconfig.project.json --watch",
     "update-dependency": "node scripts/update-dependency.js",
     "update:tsconfig": "ts-node scripts/update-package-tsconfig.ts"
   },

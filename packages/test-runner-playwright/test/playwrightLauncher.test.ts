@@ -2,6 +2,8 @@ import path from 'path';
 import { expect } from 'chai';
 import { TestRunnerCoreConfig, TestRunner } from '@web/test-runner-core';
 import { testRunnerServer } from '@web/test-runner-server';
+import portfinder from 'portfinder';
+
 import { playwrightLauncher, ProductType } from '../src/playwrightLauncher';
 
 const products = [
@@ -10,6 +12,13 @@ const products = [
   // webkit does not work in our CI
   // 'webkit'
 ] as ProductType[];
+
+let port: number;
+beforeEach(async () => {
+  port = await portfinder.getPortPromise({
+    port: 9000 + Math.floor(Math.random() * 1000),
+  });
+});
 
 for (const product of products) {
   it(`runs tests with playwright on browser ${product}`, function (done) {
@@ -39,7 +48,7 @@ for (const product of products) {
       rootDir: path.join(process.cwd(), '..', '..'),
       protocol: 'http:',
       hostname: 'localhost',
-      port: 9542,
+      port,
       concurrency: 10,
       browserStartTimeout: 30000,
       sessionStartTimeout: 10000,

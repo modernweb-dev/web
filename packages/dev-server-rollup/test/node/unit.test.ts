@@ -7,7 +7,7 @@ import { createTestServer, fetchText, expectIncludes } from './test-helpers';
 import { rollupAdapter } from '../../src/rollupAdapter';
 import { stub } from 'sinon';
 
-describe('es-dev-server-rollup', () => {
+describe('@web/dev-server-rollup', () => {
   describe('resolveId', () => {
     it('can resolve imports, returning a string', async () => {
       const plugin: RollupPlugin = {

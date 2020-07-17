@@ -2,7 +2,16 @@ import path from 'path';
 import { expect } from 'chai';
 import { TestRunnerCoreConfig, TestRunner } from '@web/test-runner-core';
 import { testRunnerServer } from '@web/test-runner-server';
+import portfinder from 'portfinder';
+
 import { puppeteerLauncher } from '../src/puppeteerLauncher';
+
+let port: number;
+beforeEach(async () => {
+  port = await portfinder.getPortPromise({
+    port: 9000 + Math.floor(Math.random() * 1000),
+  });
+});
 
 it('runs tests with puppeteer', function (done) {
   this.timeout(50000);
@@ -14,7 +23,7 @@ it('runs tests with puppeteer', function (done) {
     rootDir: path.join(process.cwd(), '..', '..'),
     protocol: 'http:',
     hostname: 'localhost',
-    port: 9542,
+    port,
     concurrency: 10,
     browserStartTimeout: 30000,
     sessionStartTimeout: 10000,

@@ -38,7 +38,9 @@ export async function createTestServer(
     throw new Error('A rootDir must be configured.');
   }
 
-  const port = await portfinder.getPortPromise();
+  const port = await portfinder.getPortPromise({
+    port: 9000 + Math.floor(Math.random() * 1000),
+  });
   const server = new DevServer(
     { ...defaultConfig, ...config, rootDir: config.rootDir, port },
     _mockLogger,
