@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 import { createTestServer } from '../helpers';
 
-describe.only('mimeTypesPLugin', () => {
+describe('mimeTypesPLugin', () => {
   it('can configure mime types for files', async () => {
     const { server, host } = await createTestServer({
       mimeTypes: {

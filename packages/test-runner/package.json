@@ -23,22 +23,24 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "node dist/test-runner.js demo/**/pass-*.test.{js,html}",
-    "test:babel-coverage": "node dist/test-runner.js demo/**/pass-*.test.{js,html} --config demo/babel-coverage.config.js",
+    "test": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\"",
+    "test:babel-coverage": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --config demo/babel-coverage.config.js",
     "test:bare": "node dist/test-runner.js",
     "test:ci": "yarn test",
-    "test:custom-html": "node dist/test-runner.js demo/**/pass-*.test.{js,html} --config demo/customhtml.config.js",
-    "test:legacy": "node dist/test-runner.js demo/**/pass-*.test.{js,html} --config legacy.config.js",
-    "test:logging": "node dist/test-runner.js demo/test/logging.test.js",
-    "test:many": "node dist/test-runner.js demo/test/many/**/*.test.js",
-    "test:mixed": "node dist/test-runner.js demo/**/*.test.js",
-    "test:mocha-options": "node dist/test-runner.js --config demo/test/mocha-options/config.js",
-    "test:playwright": "node dist/test-runner.js demo/**/*.test.js --playwright --browsers chromium firefox webkit",
-    "test:puppeteer-firefox": "node dist/test-runner.js demo/**/pass-*.test.{js,html} --puppeteer --browsers firefox",
-    "test:source-maps": "node dist/test-runner.js demo/test/source-maps/**/*/*.test.js",
-    "test:watch": "node dist/test-runner.js demo/**/pass-*.test.{js,html} --watch"
+    "test:custom-html": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --config demo/customhtml.config.js",
+    "test:legacy": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --config legacy.config.js",
+    "test:logging": "node dist/test-runner.js \"demo/test/logging.test.js\"",
+    "test:many": "node dist/test-runner.js \"demo/test/many/**/*.test.js\"",
+    "test:mixed": "node dist/test-runner.js \"demo/**/*.test.js\"",
+    "test:mocha-options": "node dist/test-runner.js --config \"demo/test/mocha-options/config.js\"",
+    "test:playwright": "node dist/test-runner.js \"demo/**/*.test.js\" --playwright --browsers chromium firefox webkit",
+    "test:puppeteer-firefox": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --puppeteer --browsers firefox",
+    "test:source-maps": "node dist/test-runner.js \"demo/test/source-maps/**/*/*.test.js\"",
+    "test:watch": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --watch"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "web",
     "test",

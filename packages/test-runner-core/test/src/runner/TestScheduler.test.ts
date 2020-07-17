@@ -251,7 +251,7 @@ describe('TestScheduler', () => {
     const [scheduler, sessions, session1] = createTestFixture('1');
     scheduler.schedule(1, [session1]);
 
-    await timeout(7);
+    await timeout(8);
 
     const finalSession1 = sessions.get(session1.id)!;
     expect(finalSession1.status).to.equal(SESSION_STATUS.FINISHED);
