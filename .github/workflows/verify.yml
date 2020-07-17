@@ -3,8 +3,8 @@ name: Verify changes
 on: pull_request
 
 jobs:
-  verify:
-    name: Verify changes
+  verify-linux:
+    name: Verify linux
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -22,6 +22,32 @@ jobs:
 
       - name: Lint
         run: yarn lint
+
+      - name: Build
+        run: yarn build
+
+      - name: Test
+        run: yarn test
+        env:
+          BROWSER_STACK_ACCESS_KEY: ${{ secrets.BROWSER_STACK_ACCESS_KEY }}
+          BROWSER_STACK_USERNAME: ${{ secrets.BROWSER_STACK_USERNAME }}
+
+  verify-windows:
+    name: Verify windows
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
 
       - name: Build
         run: yarn build
