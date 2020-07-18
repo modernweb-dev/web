@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.32
+
+### Patch Changes
+
+- 1ebbf4a: fix deep cloning causing slow coverage measurements
+- Updated dependencies [1ebbf4a]
+  - @web/test-runner-core@0.6.10
+
 ## 0.6.31
 
 ### Patch Changes
