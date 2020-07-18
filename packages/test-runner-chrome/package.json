@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-chrome",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "publishConfig": {
     "access": "public"
   },

@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.5.8
+
+### Patch Changes
+
+- cfa4738: remove puppeteer dependency
+
 ## 0.5.7
 
 ### Patch Changes
