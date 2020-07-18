@@ -35,7 +35,6 @@
     "launcher"
   ],
   "dependencies": {
-    "@types/ip": "^1.1.0",
     "@web/test-runner-selenium": "^0.1.1",
     "browserstack-local": "^1.4.5",
     "ip": "^1.1.5",
@@ -43,6 +42,7 @@
     "uuid": "^8.1.0"
   },
   "devDependencies": {
+    "@types/ip": "^1.1.0",
     "portfinder": "^1.0.26"
   }
 }

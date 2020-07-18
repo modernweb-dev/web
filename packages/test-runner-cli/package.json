@@ -34,11 +34,6 @@
     "CLI"
   ],
   "dependencies": {
-    "@types/camelcase": "^5.2.0",
-    "@types/command-line-args": "^5.0.0",
-    "@types/diff": "^4.0.2",
-    "@types/istanbul-lib-report": "^3.0.0",
-    "@types/istanbul-reports": "^1.1.2",
     "@web/config-loader": "^0.0.2",
     "@web/test-runner-core": "^0.6.8",
     "camelcase": "^6.0.0",
@@ -57,7 +52,11 @@
     "source-map": "^0.7.3"
   },
   "devDependencies": {
+    "@types/command-line-args": "^5.0.0",
     "@types/convert-source-map": "^1.5.1",
-    "@types/globby": "^9.1.0"
+    "@types/diff": "^4.0.2",
+    "@types/globby": "^9.1.0",
+    "@types/istanbul-lib-report": "^3.0.0",
+    "@types/istanbul-reports": "^1.1.2"
   }
 }
