@@ -28,7 +28,7 @@ export async function startTestRunner(config: TestRunnerCoreConfig) {
     stop();
   });
 
-  runner.on('quit', passed => {
+  runner.on('stopped', passed => {
     process.exit(passed ? 0 : 1);
   });
 

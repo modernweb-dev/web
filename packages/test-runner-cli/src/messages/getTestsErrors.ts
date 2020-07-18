@@ -5,6 +5,7 @@ import chalk from 'chalk';
 import * as diff from 'diff';
 import { getErrorLocation } from './utils/getErrorLocation';
 import { formatStackTrace } from './utils/formatStackTrace';
+import { SourceMapFunction } from './utils/createSourceMapFunction';
 
 function renderDiff(actual: string, expected: string) {
   function cleanUp(line: string) {
@@ -34,18 +35,34 @@ function renderDiff(actual: string, expected: string) {
   return `${chalk.green('+ expected')} ${chalk.red('- actual')}\n\n${diffMsg}`;
 }
 
-export function formatError(err: TestResultError, rootDir: string, serverAddress: string): string {
+export async function formatError(
+  err: TestResultError,
+  userAgent: string,
+  rootDir: string,
+  stackLocationRegExp: RegExp,
+  sourceMapFunction: SourceMapFunction,
+): Promise<string> {
   const strings: string[] = [];
 
   if (typeof err.expected === 'string' && typeof err.actual === 'string') {
-    const errorLocation = getErrorLocation(err, rootDir, serverAddress);
+    const errorLocation = await getErrorLocation(
+      err,
+      userAgent,
+      rootDir,
+      stackLocationRegExp,
+      sourceMapFunction,
+    );
     if (errorLocation != null) {
       strings.push(`${chalk.gray('at:')} ${chalk.white(errorLocation)}`);
     }
     strings.push(`${chalk.gray('error:')} ${chalk.red(err.message)}`);
     strings.push(renderDiff(err.actual, err.expected));
   } else if (err.stack) {
-    strings.push(`${chalk.red(formatStackTrace(err, rootDir, serverAddress))}`);
+    strings.push(
+      `${chalk.red(
+        await formatStackTrace(err, userAgent, rootDir, stackLocationRegExp, sourceMapFunction),
+      )}`,
+    );
   } else {
     strings.push(chalk.red(err.message ?? 'Unknown error'));
   }
@@ -53,26 +70,35 @@ export function formatError(err: TestResultError, rootDir: string, serverAddress
   return strings.join('\n');
 }
 
-export function getTestsErrors(
+interface ErrorEntry {
+  error: TestResultError;
+  userAgent: string;
+}
+
+export async function getTestsErrors(
   testFile: string,
   allBrowserNames: string[],
   favoriteBrowser: string,
   failedSessions: TestSession[],
   rootDir: string,
-  serverAddress: string,
+  stackLocationRegExp: RegExp,
+  sourceMapFunction: SourceMapFunction,
 ) {
   const entries: TerminalEntry[] = [];
-  const testErrorsPerBrowser = new Map<string, Map<string, TestResultError>>();
+  const testErrorsPerBrowser = new Map<string, Map<string, ErrorEntry>>();
 
   for (const session of failedSessions) {
     for (const test of session.tests) {
       if (test.error) {
         let testErrorsForBrowser = testErrorsPerBrowser.get(test.name);
         if (!testErrorsForBrowser) {
-          testErrorsForBrowser = new Map<string, TestResultError>();
+          testErrorsForBrowser = new Map<string, ErrorEntry>();
           testErrorsPerBrowser.set(test.name, testErrorsForBrowser);
         }
-        testErrorsForBrowser.set(session.browserName, test.error!);
+        testErrorsForBrowser.set(session.browserName, {
+          error: test.error!,
+          userAgent: session.userAgent!,
+        });
       }
     }
   }
@@ -80,12 +106,15 @@ export function getTestsErrors(
   if (testErrorsPerBrowser.size > 0) {
     for (const [name, errorsForBrowser] of testErrorsPerBrowser) {
       const failedBrowsers = Array.from(errorsForBrowser.keys());
-      const favoriteError =
+      const { error, userAgent } =
         errorsForBrowser.get(favoriteBrowser) ?? errorsForBrowser.get(failedBrowsers[0])!;
       const failedOn = getFailedOnBrowsers(allBrowserNames, failedBrowsers);
 
       entries.push({ text: `❌ ${name}${failedOn}`, indent: 1 });
-      entries.push({ text: formatError(favoriteError, rootDir, serverAddress), indent: 6 });
+      entries.push({
+        text: await formatError(error, userAgent, rootDir, stackLocationRegExp, sourceMapFunction),
+        indent: 6,
+      });
       entries.push('');
     }
   }

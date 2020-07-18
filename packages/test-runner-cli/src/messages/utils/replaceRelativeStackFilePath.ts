@@ -1,15 +1,23 @@
 import { getRelativeStackFilePath } from './getRelativeStackFilePath';
+import { SourceMapFunction } from './createSourceMapFunction';
 
-export function replaceRelativeStackFilePath(
+export async function replaceRelativeStackFilePath(
   string: string,
+  userAgent: string,
   rootDir: string,
-  serverAddress: string,
+  stackLocationRegExp: RegExp,
+  sourceMapFunction: SourceMapFunction,
 ) {
-  const result = getRelativeStackFilePath(string, rootDir, serverAddress);
+  const result = await getRelativeStackFilePath(
+    string,
+    userAgent,
+    rootDir,
+    stackLocationRegExp,
+    sourceMapFunction,
+  );
   if (!result) {
-    return string.replace(serverAddress, '');
+    return string;
   }
 
-  // replace url with relative file path
-  return string.replace(result.matchedPath, result.relativeFilePath);
+  return `${string.substring(0, result.startIndex)}${result.replacedString}`;
 }

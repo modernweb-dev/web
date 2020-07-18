@@ -32,6 +32,7 @@
     "test:many": "node dist/test-runner.js --root-dir ../.. demo/test/many/**/*.test.js",
     "test:mixed": "node dist/test-runner.js --preserve-symlinks --root-dir ../.. demo/**/*.test.js",
     "test:playwright": "node dist/test-runner.js --preserve-symlinks --root-dir ../.. demo/**/*.test.js --playwright --browsers chromium firefox webkit",
+    "test:source-maps": "node dist/test-runner.js --root-dir ../.. demo/test/source-maps/**/*/*.test.js",
     "test:watch": "node dist/test-runner.js --root-dir ../.. demo/**/pass-*.test.{js,html} --watch"
   },
   "files": [

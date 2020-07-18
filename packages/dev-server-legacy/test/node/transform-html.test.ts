@@ -23,7 +23,9 @@ const inlineScriptHtmlBody = `
 </body>
 </html>`;
 
-describe.only('legacyPlugin()', () => {
+describe('legacyPlugin()', function () {
+  this.timeout(10000);
+
   it(`does not do any work on a modern browser`, async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
@@ -74,7 +76,7 @@ describe.only('legacyPlugin()', () => {
     server.stop();
   });
 
-  it.only(`handles inline scripts`, async () => {
+  it(`handles inline scripts`, async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [

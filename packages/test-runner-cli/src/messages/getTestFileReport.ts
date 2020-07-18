@@ -6,14 +6,16 @@ import { getTestsErrors } from './getTestsErrors';
 import { getBrowserLogs } from './getBrowserLogs';
 import { getRequest404s } from './getRequest404s';
 import { getTestFileErrors } from './getTestFileErrors';
+import { SourceMapFunction } from './utils/createSourceMapFunction';
 
-export function getTestFileReport(
+export async function getTestFileReport(
   testFile: string,
   allBrowserNames: string[],
   favoriteBrowser: string,
   rootDir: string,
-  serverAddress: string,
+  stackLocationRegExp: RegExp,
   sessionsForTestFile: TestSession[],
+  sourceMapFunction: SourceMapFunction,
 ) {
   const failedSessions = sessionsForTestFile.filter(s => !s.passed);
   const entries: TerminalEntry[] = [];
@@ -21,25 +23,27 @@ export function getTestFileReport(
   entries.push(...getBrowserLogs(sessionsForTestFile));
   entries.push(...getRequest404s(sessionsForTestFile));
   entries.push(
-    ...getTestFileErrors(
+    ...(await getTestFileErrors(
       allBrowserNames,
       favoriteBrowser,
       sessionsForTestFile,
       rootDir,
-      serverAddress,
-    ),
+      stackLocationRegExp,
+      sourceMapFunction,
+    )),
   );
 
   if (failedSessions.length > 0) {
     entries.push(
-      ...getTestsErrors(
+      ...(await getTestsErrors(
         testFile,
         allBrowserNames,
         favoriteBrowser,
         failedSessions,
         rootDir,
-        serverAddress,
-      ),
+        stackLocationRegExp,
+        sourceMapFunction,
+      )),
     );
   }
 

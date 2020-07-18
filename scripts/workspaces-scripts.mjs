@@ -3,6 +3,7 @@ import fs from 'fs';
 import { join, dirname, basename } from 'path';
 import { fileURLToPath } from 'url';
 import concurrently from 'concurrently';
+import chalk from 'chalk';
 
 const moduleDir = dirname(fileURLToPath(import.meta.url));
 const script = process.argv[process.argv.length - 1];
@@ -39,4 +40,35 @@ const commands = packagesWithScript.map(pkgPath => ({
   command: `cd ${pkgPath} && yarn ${script}`,
 }));
 
-concurrently(commands, { maxProcesses: 10 });
+concurrently(commands, { maxProcesses: 5 })
+  .then(() => {
+    console.log();
+    console.log(
+      chalk.green(
+        `Successfully executed command ${chalk.yellow(script)} for packages: ${chalk.yellow(
+          commands.map(c => c.name).join(', '),
+        )}`,
+      ),
+    );
+    console.log();
+  })
+  .catch(error => {
+    if (error instanceof Error) {
+      console.error(error);
+    } else if (Array.isArray(error)) {
+      const failedPackages = error
+        .map((code, i) => (code === 1 ? commands[i].name : null))
+        .filter(_ => _)
+        .join(', ');
+      console.log();
+      console.log(
+        chalk.red(
+          `Failed to execute command ${chalk.yellow(script)} for packages: ${chalk.yellow(
+            failedPackages,
+          )}`,
+        ),
+      );
+      console.log();
+    }
+    process.exit(1);
+  });
