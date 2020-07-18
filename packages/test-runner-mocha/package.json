@@ -38,11 +38,11 @@
     "framework"
   ],
   "dependencies": {
+    "@types/mocha": "^7.0.2",
     "@web/test-runner-browser-lib": "^0.2.6",
     "mocha": "^7.2.0"
   },
   "devDependencies": {
-    "@types/mocha": "^7.0.2",
     "clean-css": "^4.2.3"
   }
 }

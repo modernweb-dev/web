@@ -32,10 +32,12 @@
     "server"
   ],
   "dependencies": {
-    "@types/istanbul-lib-coverage": "^2.0.3",
-    "@types/picomatch": "^2.2.1",
     "@web/test-runner-core": "^0.6.4",
     "istanbul-lib-coverage": "^3.0.0",
     "v8-to-istanbul": "^4.1.4"
+  },
+  "devDependencies": {
+    "@types/istanbul-lib-coverage": "^2.0.3",
+    "@types/picomatch": "^2.2.1"
   }
 }
