@@ -1,12 +1,19 @@
 import { TestResultError } from '@web/test-runner-core';
 import { replaceRelativeStackFilePath } from './replaceRelativeStackFilePath';
 import { constants } from '@web/test-runner-core';
+import { SourceMapFunction } from './createSourceMapFunction';
 const { PARAM_SESSION_ID } = constants;
 
 const REGEXP_TEST_FRAMEWORK_STACK = /.+__web-test-runner__\/.+/;
 export const REGEXP_WTR_SESSION_ID = new RegExp(`\\?${PARAM_SESSION_ID}=(\\d|[a-z]|-)*`);
 
-export function formatStackTrace(error: TestResultError, rootDir: string, serverAddress: string) {
+export async function formatStackTrace(
+  error: TestResultError,
+  userAgent: string,
+  rootDir: string,
+  stackLocationRegExp: RegExp,
+  sourceMapFunction: SourceMapFunction,
+) {
   if (!error.stack) {
     return '';
   }
@@ -19,15 +26,28 @@ export function formatStackTrace(error: TestResultError, rootDir: string, server
     strings.unshift(`${error.message}\n`);
   }
 
-  return strings
-    .filter(str => !REGEXP_TEST_FRAMEWORK_STACK.test(str))
-    .map((str, i) => {
-      const withoutSessionId = str.replace(REGEXP_WTR_SESSION_ID, '');
+  const formatPromises = [];
+
+  let i = 0;
+  for (const string of strings) {
+    if (!REGEXP_TEST_FRAMEWORK_STACK.test(string)) {
+      const withoutSessionId = string.replace(REGEXP_WTR_SESSION_ID, '');
       // ensure there is an indentation of 2 spaces
       const trimmedString = `${' '.repeat(i === 0 ? 0 : 2)}${withoutSessionId.trim()}`;
 
       // replace browser url with relative file path
-      return replaceRelativeStackFilePath(trimmedString, rootDir, serverAddress);
-    })
-    .join('\n');
+      formatPromises.push(
+        replaceRelativeStackFilePath(
+          trimmedString,
+          userAgent,
+          rootDir,
+          stackLocationRegExp,
+          sourceMapFunction,
+        ),
+      );
+    }
+    i += 1;
+  }
+
+  return (await Promise.all(formatPromises)).join('\n');
 }

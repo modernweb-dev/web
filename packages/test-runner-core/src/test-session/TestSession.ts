@@ -28,4 +28,5 @@ export interface TestSession {
   logs: string[];
   request404s: string[];
   testCoverage?: CoverageMapData;
+  userAgent?: string;
 }

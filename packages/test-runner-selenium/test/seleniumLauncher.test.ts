@@ -96,7 +96,11 @@ it('runs tests with selenium', function (done) {
     'test/fixtures/test-o.test.js',
   ]);
 
-  runner.on('quit', () => {
+  runner.on('finished', () => {
+    runner.stop();
+  });
+
+  runner.on('stopped', () => {
     const sessions = Array.from(runner.sessions.all());
     expect(sessions.length).to.equal(30, 'there should be 30 test sessions');
 

@@ -15,7 +15,8 @@ import { CoverageMapData } from 'istanbul-lib-coverage';
 interface EventMap {
   'test-run-started': { testRun: number; sessions: Iterable<TestSession> };
   'test-run-finished': { testRun: number; testCoverage?: TestCoverage };
-  quit: boolean;
+  finished: boolean;
+  stopped: boolean;
 }
 
 export class TestRunner extends EventEmitter<EventMap> {
@@ -29,6 +30,7 @@ export class TestRunner extends EventEmitter<EventMap> {
   public started = false;
   public stopped = false;
   public running = false;
+  public passed = false;
   public focusedTestFile: string | undefined;
 
   private browserLaunchers: BrowserLauncher[];
@@ -88,7 +90,7 @@ export class TestRunner extends EventEmitter<EventMap> {
 
       this.runTests(this.sessions.all());
     } catch (error) {
-      this.quit(error);
+      this.stop(error);
     }
   }
 
@@ -121,11 +123,17 @@ export class TestRunner extends EventEmitter<EventMap> {
       this.emit('test-run-started', { testRun: this.testRun, sessions: sessionsToRun });
     } catch (error) {
       this.running = false;
-      this.quit(error);
+      this.stop(error);
     }
   }
 
-  async stop() {
+  async stop(error?: any) {
+    if (error instanceof Error) {
+      console.error('Error while running tests:');
+      console.error(error);
+      console.error('');
+    }
+
     if (this.stopped) {
       return;
     }
@@ -145,6 +153,7 @@ export class TestRunner extends EventEmitter<EventMap> {
       );
     }
     await Promise.all(stopActions);
+    this.emit('stopped', this.passed);
   }
 
   startDebugFocusedTestFile() {
@@ -164,17 +173,6 @@ export class TestRunner extends EventEmitter<EventMap> {
       );
     }
     return Promise.all(startPromises);
-  }
-
-  async quit(error?: any) {
-    if (error instanceof Error) {
-      console.error('Error while running tests:');
-      console.error(error);
-      console.error('');
-    }
-
-    await this.stop();
-    this.emit('quit', false);
   }
 
   private async onSessionFinished(session: TestSession) {
@@ -219,15 +217,13 @@ export class TestRunner extends EventEmitter<EventMap> {
 
         if (!this.config.watch) {
           setTimeout(async () => {
-            await this.stop();
-
-            const passed = passedCoverage && Array.from(this.sessions.failed()).length === 0;
-            this.emit('quit', passed);
+            this.passed = passedCoverage && Array.from(this.sessions.failed()).length === 0;
+            this.emit('finished', this.passed);
           });
         }
       }
     } catch (error) {
-      this.quit(error);
+      this.stop(error);
     }
   }
 }

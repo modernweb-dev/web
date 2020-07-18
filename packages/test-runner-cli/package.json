@@ -45,6 +45,7 @@
     "chalk": "^4.1.0",
     "cli-cursor": "^3.1.0",
     "command-line-args": "^5.1.1",
+    "convert-source-map": "^1.7.0",
     "deepmerge": "^4.2.2",
     "diff": "^4.0.2",
     "globby": "^11.0.1",
@@ -52,9 +53,11 @@
     "istanbul-reports": "^3.0.2",
     "log-update": "^4.0.0",
     "open": "^7.0.4",
-    "portfinder": "^1.0.26"
+    "portfinder": "^1.0.26",
+    "source-map": "^0.7.3"
   },
   "devDependencies": {
+    "@types/convert-source-map": "^1.5.1",
     "@types/globby": "^9.1.0"
   }
 }

@@ -1401,6 +1401,11 @@
   resolved "https://registry.yarnpkg.com/@types/content-disposition/-/content-disposition-0.5.3.tgz#0aa116701955c2faa0717fc69cd1596095e49d96"
   integrity sha512-P1bffQfhD3O4LW0ioENXUhZ9OIa0Zn+P7M+pWgkCKaT53wVLSq0mrKksCID/FGHpFhRSxRGhgrQmfhRuzwtKdg==
 
+"@types/convert-source-map@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@types/convert-source-map/-/convert-source-map-1.5.1.tgz#d4d180dd6adc5cb68ad99bd56e03d637881f4616"
+  integrity sha512-laiDIXqqthjJlyAMYAXOtN3N8+UlbM+KvZi4BaY5ZOekmVkBs/UxfK5O0HWeJVG2eW8F+Mu2ww13fTX+kY1FlQ==
+
 "@types/cookies@*":
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/@types/cookies/-/cookies-0.7.4.tgz#26dedf791701abc0e36b5b79a5722f40e455f87b"

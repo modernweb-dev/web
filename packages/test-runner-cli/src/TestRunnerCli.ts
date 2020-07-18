@@ -15,6 +15,10 @@ import { getTestCoverage } from './messages/getTestCoverage';
 import { getWatchCommands } from './messages/getWatchCommands';
 import { getSelectFilesMenu } from './messages/getSelectFilesMenu';
 import { writeCoverageReport } from './messages/writeCoverageReport';
+import {
+  SourceMapFunction,
+  createSourceMapFunction,
+} from './messages/utils/createSourceMapFunction';
 
 export type MenuType = 'overview' | 'focus' | 'debug';
 
@@ -32,7 +36,6 @@ const KEYCODES = {
 };
 
 export class TestRunnerCli {
-  private serverAddress: string;
   private terminal = new Terminal();
   private reportedFilesByTestRun = new Map<number, Set<string>>();
   private sessions: TestSessionManager;
@@ -41,13 +44,19 @@ export class TestRunnerCli {
   private menuFailedFiles: string[] = [];
   private openingDebugBrowser = false;
   private testCoverage?: TestCoverage;
+  private stackLocationRegExp: RegExp;
+  private sourceMapFunction: SourceMapFunction;
+  private pendingLogs: Promise<any>[] = [];
 
   constructor(private config: TestRunnerCoreConfig, private runner: TestRunner) {
     this.sessions = runner.sessions;
-    this.serverAddress = `${config.protocol}//${config.hostname}:${config.port}/`;
+    this.sourceMapFunction = createSourceMapFunction(config.protocol, config.hostname, config.port);
+    this.stackLocationRegExp = new RegExp(
+      `(\\(|@)(?:${config.protocol}:\\/\\/${config.hostname}:${config.port})*(.*\\.\\w{2,3}.*?)(?::(\\d+))?(?::(\\d+))?(\\)|$)`,
+    );
 
     if (config.watch && !this.terminal.isInteractive) {
-      this.runner.quit(new Error('Cannot run watch mode in a non-interactive (TTY) terminal.'));
+      this.runner.stop(new Error('Cannot run watch mode in a non-interactive (TTY) terminal.'));
     }
   }
 
@@ -86,7 +95,7 @@ export class TestRunnerCli {
         case KEYCODES.CTRL_C:
         case KEYCODES.CTRL_D:
         case 'Q':
-          this.runner.quit();
+          this.runner.stop();
           return;
         case 'D':
           if (this.activeMenu === MENUS.OVERVIEW) {
@@ -151,6 +160,12 @@ export class TestRunnerCli {
 
       if (testRun !== 0 && this.config.watch) {
         this.terminal.clear();
+        // create a new source map function to clear the cached source maps
+        this.sourceMapFunction = createSourceMapFunction(
+          this.config.protocol,
+          this.config.hostname,
+          this.config.port,
+        );
       }
 
       this.logTestResults();
@@ -168,7 +183,7 @@ export class TestRunnerCli {
       }
     });
 
-    this.runner.on('quit', () => {
+    this.runner.on('finished', () => {
       this.reportEnd();
     });
   }
@@ -203,7 +218,26 @@ export class TestRunnerCli {
     }
   }
 
-  private logTestResult(testFile: string, force = false) {
+  private async logTestResult(testFile: string, force = false) {
+    const forTestRun = this.runner.testRun;
+    const logPromise = this.getTestFileReport(testFile, force);
+    this.pendingLogs.push(logPromise);
+    logPromise
+      .catch(error => {
+        console.error(error);
+      })
+      .then(report => {
+        this.pendingLogs.splice(this.pendingLogs.indexOf(logPromise), 1);
+        // do the actual logging only if there is something to log, and if we're not
+        // in a new test run (for example a file changed in watch mode)
+        if (report && this.runner.testRun === forTestRun) {
+          this.terminal.logStatic(report);
+        }
+      });
+    return logPromise;
+  }
+
+  private async getTestFileReport(testFile: string, force = false) {
     const { testRun, browserNames, favoriteBrowser } = this.runner;
     const sessionsForTestFile = Array.from(this.sessions.forTestFile(testFile));
     const allFinished = sessionsForTestFile.every(s => s.status === SESSION_STATUS.FINISHED);
@@ -219,15 +253,14 @@ export class TestRunnerCli {
 
     if (force || !reportedFiles?.has(testFile)) {
       reportedFiles.add(testFile);
-      this.terminal.logStatic(
-        getTestFileReport(
-          testFile,
-          browserNames,
-          favoriteBrowser,
-          this.config.rootDir,
-          this.serverAddress,
-          sessionsForTestFile,
-        ),
+      return getTestFileReport(
+        testFile,
+        browserNames,
+        favoriteBrowser,
+        this.config.rootDir,
+        this.stackLocationRegExp,
+        sessionsForTestFile,
+        this.sourceMapFunction,
       );
     }
   }
@@ -341,8 +374,10 @@ export class TestRunnerCli {
     }
   }
 
-  private reportEnd() {
+  private async reportEnd() {
     this.logTestProgress(true);
+    await Promise.all(this.pendingLogs);
     this.terminal.stop();
+    this.runner.stop();
   }
 }

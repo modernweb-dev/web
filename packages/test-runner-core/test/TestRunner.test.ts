@@ -64,40 +64,51 @@ it('can run a single test file', async () => {
 
 it('closes test runner for a succesful test', async () => {
   const { browser, server, runner } = await createTestRunner();
-  let quitResponse: boolean | null = null;
+  let resolveStopped: (passed: boolean) => void;
+  const stopped = new Promise<boolean>(resolve => {
+    resolveStopped = resolve;
+  });
+  runner.on('finished', () => {
+    runner.stop();
+  });
+  runner.on('stopped', passed => {
+    resolveStopped(passed);
+  });
 
   await runner.start();
-  runner.on('quit', response => {
-    quitResponse = response;
-  });
 
   const sessions = Array.from(runner.sessions.all());
   runner.sessions.updateStatus({ ...sessions[0], passed: true }, SESSION_STATUS.FINISHED);
 
+  const passed = await stopped;
+
   expect(browser.stopSession.callCount).to.equal(1, 'browser session is stopped');
-  await timeout();
   expect(browser.stop.callCount).to.equal(1, 'browser is stopped');
   expect(server.stop.callCount).to.equal(1, 'server is stopped');
-  await timeout();
-  expect(quitResponse).to.equal(true, 'test runner quits with true');
+  expect(passed).to.equal(true, 'test runner quits with true');
 });
 
 it('closes test runner for a failed test', async () => {
   const { browser, server, runner } = await createTestRunner();
-  let quitResponse: boolean | null = null;
+  let resolveStopped: (passed: boolean) => void;
+  const stopped = new Promise<boolean>(resolve => {
+    resolveStopped = resolve;
+  });
+  runner.on('finished', () => {
+    runner.stop();
+  });
+  runner.on('stopped', passed => {
+    resolveStopped(passed);
+  });
 
   await runner.start();
-  runner.on('quit', response => {
-    quitResponse = response;
-  });
 
   const sessions = Array.from(runner.sessions.all());
   runner.sessions.updateStatus({ ...sessions[0], passed: false }, SESSION_STATUS.FINISHED);
+  const passed = await stopped;
 
   expect(browser.stopSession.callCount).to.equal(1, 'browser session is stopped');
-  await timeout();
   expect(browser.stop.callCount).to.equal(1, 'browser is stopped');
   expect(server.stop.callCount).to.equal(1, 'server is stopped');
-  await timeout();
-  expect(quitResponse).to.equal(false, 'test runner quits with false');
+  expect(passed).to.equal(false, 'test runner quits with false');
 });

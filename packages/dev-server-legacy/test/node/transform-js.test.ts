@@ -16,7 +16,9 @@ async function doImport() {
 
 console.log(window?.foo?.bar);`;
 
-describe('legacyPlugin()', () => {
+describe('legacyPlugin()', function () {
+  this.timeout(10000);
+
   for (const [name, userAgent] of Object.entries(modernUserAgents)) {
     it(`does not do any work on ${name}`, async () => {
       const { server, host } = await createTestServer({

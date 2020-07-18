@@ -4,6 +4,7 @@ import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers';
 import { formatStackTrace } from './utils/formatStackTrace';
 import chalk from 'chalk';
 import { replaceRelativeStackFilePath } from './utils/replaceRelativeStackFilePath';
+import { SourceMapFunction } from './utils/createSourceMapFunction';
 
 function isSameError(a: TestResultError, b: TestResultError) {
   return a.message === b.message && a.stack === b.stack;
@@ -13,14 +14,16 @@ interface ErrorReport {
   testFile: string;
   failedBrowsers: string[];
   error: TestResultError;
+  userAgent: string;
 }
 
-export function getTestFileErrors(
+export async function getTestFileErrors(
   browserNames: string[],
   favoriteBrowser: string,
   sessionsForTestFile: TestSession[],
   rootDir: string,
-  serverAddress: string,
+  stackLocationRegExp: RegExp,
+  sourceMapFunction: SourceMapFunction,
 ) {
   const entries: TerminalEntry[] = [];
   const reports: ErrorReport[] = [];
@@ -29,7 +32,12 @@ export function getTestFileErrors(
     for (const error of session.errors) {
       let report = reports.find(r => isSameError(r.error, error));
       if (!report) {
-        report = { testFile: session.testFile, failedBrowsers: [], error };
+        report = {
+          testFile: session.testFile,
+          failedBrowsers: [],
+          error,
+          userAgent: session.userAgent!,
+        };
         reports.push(report);
       }
       report.failedBrowsers.push(session.browserName);
@@ -41,7 +49,13 @@ export function getTestFileErrors(
   }
 
   for (const report of reports) {
-    const formattedStacktrace = formatStackTrace(report.error, rootDir, serverAddress);
+    const formattedStacktrace = await formatStackTrace(
+      report.error,
+      report.userAgent,
+      rootDir,
+      stackLocationRegExp,
+      sourceMapFunction,
+    );
 
     if (formattedStacktrace) {
       const [first, ...rest] = formattedStacktrace.split('\n');
@@ -62,7 +76,13 @@ export function getTestFileErrors(
       entries.push({
         text: `❌ ${
           report.error.message
-            ? replaceRelativeStackFilePath(report.error.message, rootDir, serverAddress)
+            ? await replaceRelativeStackFilePath(
+                report.error.message,
+                report.userAgent,
+                rootDir,
+                stackLocationRegExp,
+                sourceMapFunction,
+              )
             : 'Unknown error'
         } ${getFailedOnBrowsers(browserNames, report.failedBrowsers)}`,
         indent: 1,

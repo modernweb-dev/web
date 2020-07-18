@@ -50,7 +50,11 @@ it('runs tests with puppeteer', function (done) {
     'test/fixtures/test-o.test.js',
   ]);
 
-  runner.on('quit', () => {
+  runner.on('finished', () => {
+    runner.stop();
+  });
+
+  runner.on('stopped', () => {
     const sessions = Array.from(runner.sessions.all());
     expect(sessions.length).to.equal(15, 'there should be two test sessions');
 

@@ -48,7 +48,11 @@ export function testRunnerApiMiddleware(
       // TODO: Handle race conditions for these requests
       if (command === 'session-started') {
         ctx.status = 200;
-        sessions.updateStatus(session, SESSION_STATUS.STARTED);
+        sessions.update({
+          ...session,
+          status: SESSION_STATUS.STARTED,
+          userAgent: ctx.headers['user-agent'],
+        });
         return;
       }
 

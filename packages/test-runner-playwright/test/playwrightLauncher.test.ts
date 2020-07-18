@@ -59,7 +59,11 @@ for (const product of products) {
 
     const runner = new TestRunner(config, testFiles);
 
-    runner.on('quit', () => {
+    runner.on('finished', () => {
+      runner.stop();
+    });
+
+    runner.on('stopped', () => {
       const sessions = Array.from(runner.sessions.all());
       expect(sessions.length).to.equal(15, 'there should be 30 test sessions');
 

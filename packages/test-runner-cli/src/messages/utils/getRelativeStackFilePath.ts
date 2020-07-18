@@ -1,17 +1,41 @@
 import path from 'path';
 import { toFilePath } from './toFilePath';
-import { REGEXP_WTR_SESSION_ID } from './formatStackTrace';
+import { SourceMapFunction } from './createSourceMapFunction';
 
-const REGEXP_FILE_URL = /(\(|@)(?<url>.*\.\w{2,3}.*?)(:\d+:\d+)(\)|$)/;
+export async function getRelativeStackFilePath(
+  string: string,
+  userAgent: string,
+  rootDir: string,
+  stackLocationRegExp: RegExp,
+  sourceMapFunction: SourceMapFunction,
+) {
+  const match = string.match(stackLocationRegExp);
 
-export function getRelativeStackFilePath(string: string, rootDir: string, serverAddress: string) {
-  const matchedPath = string.match(REGEXP_FILE_URL)?.groups?.url;
+  if (match) {
+    const [, prefix, browserPath, line, column, suffix] = match;
+    const pathWithoutParams = browserPath.split('?')[0].split('#')[0];
+    const fullFilePath = path.join(rootDir, toFilePath(pathWithoutParams));
 
-  if (matchedPath) {
-    const urlPath = matchedPath.replace(serverAddress, '').replace(REGEXP_WTR_SESSION_ID, '');
-    const fullFilePath = path.join(rootDir, toFilePath(urlPath));
-    const relativeFilePath = path.relative(process.cwd(), fullFilePath);
-    return { url: path.posix.join(serverAddress, urlPath), urlPath, matchedPath, relativeFilePath };
+    const sourceMapResult = await sourceMapFunction(
+      pathWithoutParams,
+      fullFilePath,
+      userAgent,
+      Number(line),
+      Number(column),
+    );
+
+    const final = sourceMapResult ?? { filePath: fullFilePath, line, column };
+    const relativeFilePath = path.relative(process.cwd(), final.filePath);
+    const location = `${final.line ? `:${final.line}` : ''}${
+      final.column ? `:${final.column}` : ''
+    }`;
+    const pathWithLocation = `${relativeFilePath}${location}`;
+
+    return {
+      startIndex: match.index!,
+      replacedString: `${prefix}${pathWithLocation}${suffix}`,
+      relativeFilePath,
+    };
   }
 
   return null;
