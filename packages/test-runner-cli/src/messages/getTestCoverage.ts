@@ -21,7 +21,9 @@ export function getTestCoverage(
   const avgCoverage = Math.round((coverageSum * 100) / 4) / 100;
 
   entries.push(
-    `Test coverage: ${chalk[testCoverage.passed ? 'green' : 'red'](`${avgCoverage} %`)}`,
+    `Test coverage: ${chalk.bold(
+      chalk[testCoverage.passed ? 'green' : 'red'](`${avgCoverage} %`),
+    )}`,
   );
 
   if (!watch && coverageConfig.report) {

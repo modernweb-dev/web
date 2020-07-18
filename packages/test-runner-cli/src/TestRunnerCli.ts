@@ -11,7 +11,6 @@ import openBrowser from 'open';
 import { getTestProgressReport } from './messages/getTestProgress';
 import { Terminal, TerminalEntry } from './Terminal';
 import { getTestFileReport } from './messages/getTestFileReport';
-import { getTestCoverage } from './messages/getTestCoverage';
 import { getWatchCommands } from './messages/getWatchCommands';
 import { getSelectFilesMenu } from './messages/getSelectFilesMenu';
 import { writeCoverageReport } from './messages/writeCoverageReport';
@@ -127,9 +126,6 @@ export class TestRunnerCli {
             this.runner.focusedTestFile = undefined;
             this.logTestResults(true);
             this.logTestProgress();
-            if (this.testCoverage) {
-              this.logTestCoverage(this.testCoverage);
-            }
           }
           return;
         case KEYCODES.ENTER:
@@ -179,8 +175,9 @@ export class TestRunnerCli {
 
       this.testCoverage = testCoverage;
       if (testCoverage && !this.runner.focusedTestFile) {
-        this.logTestCoverage(testCoverage);
+        this.writeCoverageReport(testCoverage);
       }
+      this.logTestProgress();
     });
 
     this.runner.on('finished', () => {
@@ -265,10 +262,7 @@ export class TestRunnerCli {
     }
   }
 
-  private logTestCoverage(testCoverage: TestCoverage) {
-    this.terminal.logStatic(
-      getTestCoverage(testCoverage, !!this.config.watch, this.config.coverageConfig!),
-    );
+  private writeCoverageReport(testCoverage: TestCoverage) {
     writeCoverageReport(testCoverage, this.config.coverageConfig!);
   }
 
@@ -352,6 +346,10 @@ export class TestRunnerCli {
         startTime: this.runner.startTime,
         focusedTestFile: this.runner.focusedTestFile,
         openingDebugBrowser: this.openingDebugBrowser,
+        watch: this.config.watch,
+        coverage: !!this.config.coverage,
+        coverageConfig: this.config.coverageConfig,
+        testCoverage: this.testCoverage,
       }),
     );
 
