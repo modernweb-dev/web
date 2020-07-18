@@ -1,5 +1,12 @@
 # @web/test-runner-chrome
 
+## 0.5.9
+
+### Patch Changes
+
+- Updated dependencies [db5baff]
+  - @web/test-runner-coverage-v8@0.0.3
+
 ## 0.5.8
 
 ### Patch Changes

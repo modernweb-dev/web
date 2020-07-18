@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.2.7
+
+### Patch Changes
+
+- db5baff: cleanup and sort dependencies
+
 ## 0.2.6
 
 ### Patch Changes

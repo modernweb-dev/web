@@ -1,5 +1,11 @@
 # @web/test-runner-browserstack
 
+## 0.0.6
+
+### Patch Changes
+
+- db5baff: cleanup and sort dependencies
+
 ## 0.0.5
 
 ### Patch Changes

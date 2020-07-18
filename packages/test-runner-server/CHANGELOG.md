@@ -1,5 +1,14 @@
 # @web/test-runner-server
 
+## 0.5.9
+
+### Patch Changes
+
+- db5baff: cleanup and sort dependencies
+- Updated dependencies [db5baff]
+  - @web/dev-server-core@0.1.4
+  - @web/test-runner-core@0.6.9
+
 ## 0.5.8
 
 ### Patch Changes

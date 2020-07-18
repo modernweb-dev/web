@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-legacy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publishConfig": {
     "access": "public"
   },
@@ -47,7 +47,7 @@
     "@babel/plugin-transform-modules-systemjs": "^7.10.5",
     "@babel/plugin-transform-template-literals": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
-    "@web/dev-server-core": "^0.1.1",
+    "@web/dev-server-core": "^0.1.4",
     "browserslist": "^4.13.0",
     "browserslist-useragent": "^3.0.3",
     "caniuse-api": "^3.0.0",

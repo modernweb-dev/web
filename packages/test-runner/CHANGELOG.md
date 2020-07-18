@@ -1,5 +1,17 @@
 # @web/test-runner
 
+## 0.6.31
+
+### Patch Changes
+
+- db5baff: cleanup and sort dependencies
+- Updated dependencies [db5baff]
+  - @web/test-runner-cli@0.4.12
+  - @web/test-runner-core@0.6.9
+  - @web/test-runner-mocha@0.2.7
+  - @web/test-runner-server@0.5.9
+  - @web/test-runner-chrome@0.5.9
+
 ## 0.6.30
 
 ### Patch Changes

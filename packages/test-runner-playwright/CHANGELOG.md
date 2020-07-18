@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.4.9
+
+### Patch Changes
+
+- Updated dependencies [db5baff]
+  - @web/test-runner-core@0.6.9
+  - @web/test-runner-coverage-v8@0.0.3
+
 ## 0.4.8
 
 ### Patch Changes
