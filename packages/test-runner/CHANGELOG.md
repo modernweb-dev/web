@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.6.29
+
+### Patch Changes
+
+- 687089f: support source maps in error stack traces
+- Updated dependencies [687089f]
+  - @web/test-runner-cli@0.4.11
+  - @web/test-runner-core@0.6.8
+
 ## 0.6.28
 
 ### Patch Changes

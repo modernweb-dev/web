@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.8
+
+### Patch Changes
+
+- 687089f: support source maps in error stack traces
+
 ## 0.6.7
 
 ### Patch Changes
