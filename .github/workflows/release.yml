@@ -44,7 +44,7 @@ jobs:
       - name: Commit version updates
         run: |
           git config --local user.email "no-reply@modern-web.dev"
-          git config --local user.name "Modern Web Bot
+          git config --local user.name "Modern Web Bot"
       - run: git add .
       - run: "git commit -m 'chore: release new versions'"
 
