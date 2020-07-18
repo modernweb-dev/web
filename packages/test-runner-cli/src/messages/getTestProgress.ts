@@ -1,6 +1,13 @@
-import { TestRunnerCoreConfig, TestSessionManager, SESSION_STATUS } from '@web/test-runner-core';
+import {
+  TestRunnerCoreConfig,
+  TestSessionManager,
+  SESSION_STATUS,
+  TestCoverage,
+  CoverageConfig,
+} from '@web/test-runner-core';
 import chalk from 'chalk';
 import { TerminalEntry } from '../Terminal';
+import { getTestCoverage } from './getTestCoverage';
 
 export interface TestProgressArgs {
   browserNames: string[];
@@ -8,8 +15,12 @@ export interface TestProgressArgs {
   testRun: number;
   sessions: TestSessionManager;
   startTime: number;
+  watch: boolean;
   focusedTestFile?: string;
   openingDebugBrowser: boolean;
+  coverage: boolean;
+  coverageConfig?: CoverageConfig;
+  testCoverage?: TestCoverage;
 }
 
 const fullProgress = '█';
@@ -80,9 +91,13 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
     testRun,
     testFiles: allTestFiles,
     sessions,
+    watch,
     startTime,
     focusedTestFile,
     openingDebugBrowser,
+    coverage,
+    coverageConfig,
+    testCoverage,
   } = args;
   const testFiles = focusedTestFile ? [focusedTestFile] : allTestFiles;
 
@@ -161,9 +176,22 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
   }
 
   entries.push('');
+
+  if (coverage && coverageConfig) {
+    if (testCoverage) {
+      if (!testCoverage.passed) {
+        failed = true;
+      }
+      const coverageReport = getTestCoverage(testCoverage, watch, coverageConfig);
+      entries.push(...coverageReport);
+    }
+  }
+
   if (testRun !== -1 && unfinishedSessions.length === 0) {
     if (openingDebugBrowser) {
       entries.push(chalk.bold(`Opening debug browser...`));
+    } else if (coverage && !testCoverage) {
+      entries.push(chalk.bold('Calculating test coverage...'));
     } else if (config.watch) {
       entries.push(chalk.bold(`Finished running tests, watching for file changes...`));
     } else {
@@ -171,16 +199,26 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
       const duration = Math.trunc(durationInSec * 10) / 10;
 
       if (failed) {
-        if (failedTests.size > 0) {
+        if (!testCoverage?.passed) {
           entries.push(
             chalk.bold(
-              `Finished running tests in ${duration}s with ${failedTests.size} tests failed.`,
+              chalk.red(
+                `Finished running tests in ${duration}s, failed to meet coverage threshold.`,
+              ),
+            ),
+          );
+        } else if (failedTests.size > 0) {
+          entries.push(
+            chalk.bold(
+              chalk.red(
+                `Finished running tests in ${duration}s with ${failedTests.size} tests failed.`,
+              ),
             ),
           );
         } else if (finishedFiles.size > 0) {
-          entries.push(chalk.bold(`Error while running tests.`));
+          entries.push(chalk.bold(chalk.red(`Error while running tests.`)));
         } else {
-          entries.push(chalk.bold(`Failed to run any tests.`));
+          entries.push(chalk.bold(chalk.red(`Failed to run any tests.`)));
         }
       } else {
         entries.push(chalk.bold(`Finished running tests in ${duration}s, all tests passed! 🎉`));
