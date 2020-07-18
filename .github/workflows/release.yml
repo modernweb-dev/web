@@ -49,4 +49,4 @@ jobs:
       - run: "git commit -m 'chore: release new versions'"
 
       - name: Push commits and tags to GitHub
-        run: git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} --follow-tags
+        run: git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} --tags
