@@ -7,7 +7,6 @@ import {
   Location,
   Range,
 } from 'istanbul-lib-coverage';
-import clone from 'clone';
 import { TestSession } from '../test-session/TestSession';
 import { CoverageConfig } from '../runner/TestRunnerCoreConfig';
 
@@ -97,8 +96,9 @@ export function getTestCoverage(
     .filter(c => c) as CoverageMapData[];
   coverages.push(...browserCoverage);
   // istanbul mutates the coverage objects, which pollutes coverage in watch mode
-  // cloning prevents this
-  coverages = clone(coverages);
+  // cloning prevents this. JSON stringify -> parse is faster than a fancy library
+  // because we're only working with objects and arrays
+  coverages = JSON.parse(JSON.stringify(coverages));
 
   addingMissingCoverageBranches(coverages);
 

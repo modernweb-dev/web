@@ -34,13 +34,11 @@
     "core"
   ],
   "dependencies": {
-    "clone": "^2.1.2",
     "istanbul-lib-coverage": "^3.0.0",
     "picomatch": "^2.2.2",
     "uuid": "^8.1.0"
   },
   "devDependencies": {
-    "@types/clone": "^0.1.30",
     "@types/istanbul-lib-coverage": "^2.0.2",
     "@types/uuid": "^8.0.0"
   }
