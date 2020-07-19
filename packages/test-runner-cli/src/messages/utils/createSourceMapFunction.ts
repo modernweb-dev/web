@@ -36,7 +36,7 @@ async function getSourceMap(
   const { body } = await request({
     protocol,
     host,
-    path: `/${browserPath}`,
+    path: `/${encodeURI(browserPath)}`,
     port: String(port),
     method: 'GET',
     headers: { 'user-agent': userAgent },
