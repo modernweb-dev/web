@@ -199,7 +199,7 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
       const duration = Math.trunc(durationInSec * 10) / 10;
 
       if (failed) {
-        if (!testCoverage?.passed) {
+        if (coverage && !testCoverage?.passed) {
           entries.push(
             chalk.bold(
               chalk.red(
@@ -211,7 +211,7 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
           entries.push(
             chalk.bold(
               chalk.red(
-                `Finished running tests in ${duration}s with ${failedTests.size} tests failed.`,
+                `Finished running tests in ${duration}s with ${failedTests.size} failed tests.`,
               ),
             ),
           );
