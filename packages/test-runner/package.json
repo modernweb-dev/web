@@ -26,11 +26,12 @@
     "test": "node dist/test-runner.js --preserve-symlinks --root-dir ../.. demo/**/pass-*.test.{js,html}",
     "test:bare": "node dist/test-runner.js --preserve-symlinks --root-dir ../..",
     "test:ci": "yarn test",
-    "test:custom-html": "node dist/test-runner.js --root-dir ../.. demo/**/pass-*.test.{js,html} --config demo/customhtml.config.js --watch",
+    "test:custom-html": "node dist/test-runner.js --root-dir ../.. demo/**/pass-*.test.{js,html} --config demo/customhtml.config.js",
     "test:legacy": "node dist/test-runner.js --preserve-symlinks --root-dir ../.. demo/**/pass-*.test.{js,html} --config legacy.config.js",
     "test:logging": "node dist/test-runner.js --preserve-symlinks --root-dir ../.. demo/test/logging.test.js",
     "test:many": "node dist/test-runner.js --root-dir ../.. demo/test/many/**/*.test.js",
     "test:mixed": "node dist/test-runner.js --preserve-symlinks --root-dir ../.. demo/**/*.test.js",
+    "test:mocha-options": "node dist/test-runner.js --config demo/test/mocha-options/config.js",
     "test:playwright": "node dist/test-runner.js --preserve-symlinks --root-dir ../.. demo/**/*.test.js --playwright --browsers chromium firefox webkit",
     "test:source-maps": "node dist/test-runner.js --root-dir ../.. demo/test/source-maps/**/*/*.test.js",
     "test:watch": "node dist/test-runner.js --root-dir ../.. demo/**/pass-*.test.{js,html} --watch"

@@ -35,7 +35,7 @@ async function createTestRunner(
   const config: TestRunnerCoreConfig = {
     files: [],
     rootDir: process.cwd(),
-    testFramework: 'my-framework.js',
+    testFramework: { path: 'my-framework.js' },
     concurrency: 10,
     browsers: browser,
     watch: false,

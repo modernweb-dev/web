@@ -41,6 +41,7 @@ export function testRunnerApiMiddleware(
         ctx.body = JSON.stringify({
           testFile: createBrowserFilePath(rootDir, session.testFile, sessionId),
           watch: !!config.watch,
+          testFrameworkConfig: config.testFramework?.config,
         });
         return;
       }

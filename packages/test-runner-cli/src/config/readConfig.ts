@@ -30,9 +30,6 @@ export function validateCoreConfig<T extends TestRunnerCoreConfig>(config: Parti
   ) {
     throw new Error('No test files configured.');
   }
-  if (typeof config.testFramework !== 'string') {
-    throw new Error('No testFramework specified.');
-  }
   if (!config.browsers) {
     throw new Error('No browsers specified.');
   }

@@ -44,7 +44,7 @@ for (const product of products) {
     const config: TestRunnerCoreConfig = {
       files: [],
       watch: false,
-      testFramework: '@web/test-runner-mocha/dist/autorun.js',
+      testFramework: { path: require.resolve('@web/test-runner-mocha/dist/autorun.js') },
       rootDir: path.join(process.cwd(), '..', '..'),
       protocol: 'http:',
       hostname: 'localhost',
