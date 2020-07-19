@@ -36,11 +36,6 @@ jobs:
       - name: Format
         run: yarn format
 
-      - name: Release to NPM
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn changeset publish
-
       - name: Commit version updates
         run: |
           git config --local user.email "no-reply@modern-web.dev"
@@ -48,5 +43,10 @@ jobs:
       - run: git add .
       - run: "git commit -m 'chore: release new versions'"
 
+      - name: Release to NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: yarn changeset publish
+
       - name: Push commits and tags to GitHub
-        run: git push --tags https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} HEAD
+        run: git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} --follow-tags
