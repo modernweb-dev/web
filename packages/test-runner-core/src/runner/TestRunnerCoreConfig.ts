@@ -1,5 +1,6 @@
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
 import { TestFramework } from '../test-framework/TestFramework.js';
+import { Reporter } from '../reporter/Reporter.js';
 import { Server } from '../server/Server.js';
 
 export interface CoverageThresholdConfig {
@@ -21,6 +22,7 @@ export interface TestRunnerCoreConfig {
   files: string | string[];
   testFramework?: TestFramework;
   browsers: BrowserLauncher | BrowserLauncher[];
+  reporters: Reporter[];
   server: Server;
   protocol: string;
   hostname: string;
