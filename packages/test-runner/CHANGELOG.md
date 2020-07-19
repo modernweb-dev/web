@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.35
+
+### Patch Changes
+
+- f991708: encode source map url requests
+- Updated dependencies [f991708]
+  - @web/test-runner-core@0.6.11
+
 ## 0.6.34
 
 ### Patch Changes

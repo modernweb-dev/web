@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.11
+
+### Patch Changes
+
+- f991708: encode source map url requests
+
 ## 0.6.10
 
 ### Patch Changes
