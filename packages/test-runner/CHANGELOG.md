@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.33
+
+### Patch Changes
+
+- 45741c7: improve test coverage logging
+- Updated dependencies [45741c7]
+  - @web/test-runner-cli@0.4.13
+
 ## 0.6.32
 
 ### Patch Changes

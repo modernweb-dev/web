@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.6.32",
+  "version": "0.6.33",
   "publishConfig": {
     "access": "public"
   },
@@ -51,7 +51,7 @@
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@web/dev-server-rollup": "^0.1.2",
     "@web/test-runner-chrome": "^0.5.9",
-    "@web/test-runner-cli": "^0.4.12",
+    "@web/test-runner-cli": "^0.4.13",
     "@web/test-runner-core": "^0.6.10",
     "@web/test-runner-mocha": "^0.2.7",
     "@web/test-runner-server": "^0.5.9",
