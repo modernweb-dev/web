@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.34
+
+### Patch Changes
+
+- d8b5f9e: don't report test coverage if it is not enabled
+- Updated dependencies [d8b5f9e]
+  - @web/test-runner-cli@0.4.14
+
 ## 0.6.33
 
 ### Patch Changes
