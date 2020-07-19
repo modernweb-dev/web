@@ -59,7 +59,7 @@ Check out these example projects for a full setup.
 
 ## Writing tests
 
-Web test runner can support different test frameworks. By default we use [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha), check out the docs to learn more about writing tests with mocha.
+Web test runner can support different test frameworks. By default we use [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha), check out the docs to learn more about writing tests with mocha and configuring mocha options.
 
 ### JS tests
 

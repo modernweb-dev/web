@@ -19,6 +19,10 @@ export function serveTestRunnerHtmlPlugin(config: TestRunnerCoreConfig) {
     name: 'wtr-test-runner-html',
 
     serve(context: Context) {
+      if (!config.testFramework) {
+        throw new Error('Cannot test javascript files without a testFramework configured.');
+      }
+
       if (context.path === '/') {
         return {
           type: 'html',

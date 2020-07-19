@@ -41,7 +41,7 @@ export function testRunnerServer(testRunnerServerConfig: TestRunnerServerConfig 
 
           plugins: [
             serveTestRunnerHtmlPlugin(config),
-            serveTestFrameworkPlugin(testFramework),
+            testFramework && serveTestFrameworkPlugin(testFramework),
             ...(testRunnerServerConfig.plugins || []),
           ].filter(isDefined) as Plugin[],
         },

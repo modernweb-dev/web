@@ -1,6 +1,7 @@
 export interface RuntimeConfig {
   testFile: string;
   watch: boolean;
+  testFrameworkConfig?: unknown;
 }
 
 export interface TestResultError {

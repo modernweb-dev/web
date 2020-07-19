@@ -65,8 +65,6 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
       }
     }
 
-    cliArgsConfig.testFramework = '@web/test-runner-mocha/dist/autorun.js';
-
     if (cliArgs.puppeteer) {
       cliArgsConfig.browsers = puppeteerLauncher(cliArgs.browsers);
     } else if (cliArgs.playwright) {
@@ -86,6 +84,11 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
     if (typeof rootDir !== 'string') {
       throw new Error('No rootDir specified.');
     }
+
+    config.testFramework = {
+      path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
+      ...(config.testFramework ?? {}),
+    };
 
     if (!config.server) {
       const serverConfig: TestRunnerServerConfig = {

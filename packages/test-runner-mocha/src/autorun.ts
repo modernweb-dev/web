@@ -19,7 +19,7 @@ sessionStarted();
 (async () => {
   const errors: TestResultError[] = [];
 
-  const { testFile, debug } = await getConfig();
+  const { testFile, debug, testFrameworkConfig } = await getConfig();
   const div = document.createElement('div');
   div.id = 'mocha';
   document.body.appendChild(div);
@@ -30,7 +30,8 @@ sessionStarted();
     document.head.appendChild(styleElement);
   }
 
-  mocha.setup({ ui: 'bdd', allowUncaught: false });
+  const userOptions = typeof testFrameworkConfig === 'object' ? testFrameworkConfig : {};
+  mocha.setup({ ui: 'bdd', allowUncaught: false, ...userOptions });
 
   await import(new URL(testFile, document.baseURI).href).catch(error => {
     errors.push({ message: error.message, stack: error.stack });
