@@ -1,5 +1,16 @@
 # @web/test-runner
 
+## 0.6.36
+
+### Patch Changes
+
+- 27a91cc: allow configuring test framework options
+- Updated dependencies [27a91cc]
+  - @web/test-runner-cli@0.4.15
+  - @web/test-runner-core@0.6.12
+  - @web/test-runner-mocha@0.2.8
+  - @web/test-runner-server@0.5.10
+
 ## 0.6.35
 
 ### Patch Changes

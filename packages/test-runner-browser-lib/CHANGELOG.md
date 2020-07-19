@@ -1,5 +1,11 @@
 # @web/test-runner-browser-lib
 
+## 0.2.8
+
+### Patch Changes
+
+- 27a91cc: allow configuring test framework options
+
 ## 0.2.7
 
 ### Patch Changes

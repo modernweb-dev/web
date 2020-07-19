@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-server",
-  "version": "0.5.9",
+  "version": "0.5.10",
   "publishConfig": {
     "access": "public"
   },
@@ -34,7 +34,7 @@
   "dependencies": {
     "@babel/code-frame": "^7.10.4",
     "@web/dev-server-core": "^0.1.4",
-    "@web/test-runner-core": "^0.6.9",
+    "@web/test-runner-core": "^0.6.12",
     "co-body": "^6.0.0",
     "debounce": "^1.2.0",
     "deepmerge": "^4.2.2",

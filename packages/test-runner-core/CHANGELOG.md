@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.12
+
+### Patch Changes
+
+- 27a91cc: allow configuring test framework options
+
 ## 0.6.11
 
 ### Patch Changes

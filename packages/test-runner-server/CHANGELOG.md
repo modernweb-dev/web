@@ -1,5 +1,13 @@
 # @web/test-runner-server
 
+## 0.5.10
+
+### Patch Changes
+
+- 27a91cc: allow configuring test framework options
+- Updated dependencies [27a91cc]
+  - @web/test-runner-core@0.6.12
+
 ## 0.5.9
 
 ### Patch Changes
