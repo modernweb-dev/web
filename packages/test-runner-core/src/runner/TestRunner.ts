@@ -24,7 +24,6 @@ export class TestRunner extends EventEmitter<EventMap> {
   public sessions = new TestSessionManager();
   public browserNames: string[] = [];
   public testFiles: string[];
-  public favoriteBrowser = '';
   public startTime = -1;
   public testRun = -1;
   public started = false;
@@ -68,12 +67,6 @@ export class TestRunner extends EventEmitter<EventMap> {
         this.browserNames.push(name);
         browserNameForLauncher.set(launcher, name);
       }
-
-      this.favoriteBrowser =
-        this.browserNames.find(browserName => {
-          const n = browserName.toLowerCase();
-          return n.includes('chrome') || n.includes('chromium') || n.includes('firefox');
-        }) ?? this.browserNames[0];
 
       const createdSessions = createTestSessions(browserNameForLauncher, this.testFiles);
 

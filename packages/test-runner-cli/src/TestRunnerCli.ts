@@ -14,10 +14,6 @@ import { getTestFileReport } from './messages/getTestFileReport';
 import { getWatchCommands } from './messages/getWatchCommands';
 import { getSelectFilesMenu } from './messages/getSelectFilesMenu';
 import { writeCoverageReport } from './messages/writeCoverageReport';
-import {
-  SourceMapFunction,
-  createSourceMapFunction,
-} from './messages/utils/createSourceMapFunction';
 
 export type MenuType = 'overview' | 'focus' | 'debug';
 
@@ -34,6 +30,45 @@ const KEYCODES = {
   CTRL_D: '\u0004',
 };
 
+// Prevent duplicate test file reports:
+// const sessionsForTestFile = Array.from(this.sessions.forTestFile(testFile));
+// const allFinished = sessionsForTestFile.every(s => s.status === SESSION_STATUS.FINISHED);
+// if (!allFinished) {
+//   return;
+// }
+
+// let reportedFiles = this.reportedFilesByTestRun.get(testRun);
+// if (!reportedFiles) {
+//   reportedFiles = new Set();
+//   this.reportedFilesByTestRun.set(testRun, reportedFiles);
+// }
+
+// Report test progress, decide if static or dynamic:
+// const logStatic = this.config.staticLogging || !this.terminal.isInteractive;
+// if (logStatic && !final) {
+//   return;
+// }
+
+// Render test progress stuff:
+
+// if (this.runner.focusedTestFile) {
+//   entries.push(
+//     `Focused on test file: ${chalk.cyanBright(
+//       path.relative(process.cwd(), this.runner.focusedTestFile),
+//     )}\n`,
+//   );
+// }
+
+// if (this.config.watch) {
+//   entries.push(...getWatchCommands(!!this.config.coverage, !!this.runner.focusedTestFile), '');
+// }
+
+// if (logStatic) {
+//   this.terminal.logStatic(entries);
+// } else {
+//   this.terminal.logDynamic(entries);
+// }
+
 export class TestRunnerCli {
   private terminal = new Terminal();
   private reportedFilesByTestRun = new Map<number, Set<string>>();
@@ -43,16 +78,10 @@ export class TestRunnerCli {
   private menuFailedFiles: string[] = [];
   private openingDebugBrowser = false;
   private testCoverage?: TestCoverage;
-  private stackLocationRegExp: RegExp;
-  private sourceMapFunction: SourceMapFunction;
   private pendingLogs: Promise<any>[] = [];
 
   constructor(private config: TestRunnerCoreConfig, private runner: TestRunner) {
     this.sessions = runner.sessions;
-    this.sourceMapFunction = createSourceMapFunction(config.protocol, config.hostname, config.port);
-    this.stackLocationRegExp = new RegExp(
-      `(\\(|@)(?:${config.protocol}:\\/\\/${config.hostname}:${config.port})*(.*\\.\\w{2,3}.*?)(?::(\\d+))?(?::(\\d+))?(\\)|$)`,
-    );
 
     if (config.watch && !this.terminal.isInteractive) {
       this.runner.stop(new Error('Cannot run watch mode in a non-interactive (TTY) terminal.'));
@@ -156,12 +185,6 @@ export class TestRunnerCli {
 
       if (testRun !== 0 && this.config.watch) {
         this.terminal.clear();
-        // create a new source map function to clear the cached source maps
-        this.sourceMapFunction = createSourceMapFunction(
-          this.config.protocol,
-          this.config.hostname,
-          this.config.port,
-        );
       }
 
       this.logTestResults();
@@ -185,6 +208,18 @@ export class TestRunnerCli {
     });
   }
 
+  private logTestResults(force = false) {
+    const { testFiles, focusedTestFile } = this.runner;
+
+    if (focusedTestFile) {
+      this.logTestResult(focusedTestFile, force);
+    } else {
+      for (const testFile of testFiles) {
+        this.logTestResult(testFile, force);
+      }
+    }
+  }
+
   private focusTestFileNr(i: number) {
     const focusedTestFile =
       this.menuFailedFiles[i - 1] ??
@@ -203,20 +238,7 @@ export class TestRunnerCli {
     }
   }
 
-  private logTestResults(force = false) {
-    const { testFiles, focusedTestFile } = this.runner;
-
-    if (focusedTestFile) {
-      this.logTestResult(focusedTestFile, force);
-    } else {
-      for (const testFile of testFiles) {
-        this.logTestResult(testFile, force);
-      }
-    }
-  }
-
-  private async logTestResult(testFile: string, force = false) {
-    const forTestRun = this.runner.testRun;
+  private async reportTestResult({ sessions, session, testRun }) {
     const logPromise = this.getTestFileReport(testFile, force);
     this.pendingLogs.push(logPromise);
     logPromise
@@ -232,34 +254,6 @@ export class TestRunnerCli {
         }
       });
     return logPromise;
-  }
-
-  private async getTestFileReport(testFile: string, force = false) {
-    const { testRun, browserNames, favoriteBrowser } = this.runner;
-    const sessionsForTestFile = Array.from(this.sessions.forTestFile(testFile));
-    const allFinished = sessionsForTestFile.every(s => s.status === SESSION_STATUS.FINISHED);
-    if (!allFinished) {
-      return;
-    }
-
-    let reportedFiles = this.reportedFilesByTestRun.get(testRun);
-    if (!reportedFiles) {
-      reportedFiles = new Set();
-      this.reportedFilesByTestRun.set(testRun, reportedFiles);
-    }
-
-    if (force || !reportedFiles?.has(testFile)) {
-      reportedFiles.add(testFile);
-      return getTestFileReport(
-        testFile,
-        browserNames,
-        favoriteBrowser,
-        this.config.rootDir,
-        this.stackLocationRegExp,
-        sessionsForTestFile,
-        this.sourceMapFunction,
-      );
-    }
   }
 
   private writeCoverageReport(testCoverage: TestCoverage) {
@@ -328,48 +322,6 @@ export class TestRunnerCli {
       `Number of the file to ${this.activeMenu === MENUS.FOCUS_SELECT_FILE ? 'focus' : 'debug'}: `,
     );
     this.terminal.observeConfirmedInput();
-  }
-
-  private logTestProgress(final = false) {
-    const logStatic = this.config.staticLogging || !this.terminal.isInteractive;
-    if (logStatic && !final) {
-      return;
-    }
-
-    const entries: TerminalEntry[] = [];
-    entries.push(
-      ...getTestProgressReport(this.config, {
-        browserNames: this.runner.browserNames,
-        testRun: this.runner.testRun,
-        testFiles: this.runner.testFiles,
-        sessions: this.sessions,
-        startTime: this.runner.startTime,
-        focusedTestFile: this.runner.focusedTestFile,
-        openingDebugBrowser: this.openingDebugBrowser,
-        watch: this.config.watch,
-        coverage: !!this.config.coverage,
-        coverageConfig: this.config.coverageConfig,
-        testCoverage: this.testCoverage,
-      }),
-    );
-
-    if (this.runner.focusedTestFile) {
-      entries.push(
-        `Focused on test file: ${chalk.cyanBright(
-          path.relative(process.cwd(), this.runner.focusedTestFile),
-        )}\n`,
-      );
-    }
-
-    if (this.config.watch) {
-      entries.push(...getWatchCommands(!!this.config.coverage, !!this.runner.focusedTestFile), '');
-    }
-
-    if (logStatic) {
-      this.terminal.logStatic(entries);
-    } else {
-      this.terminal.logDynamic(entries);
-    }
   }
 
   private async reportEnd() {
