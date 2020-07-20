@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.6.37
+
+### Patch Changes
+
+- 3478d90: reduce .ts file extension priority
+
 ## 0.6.36
 
 ### Patch Changes
