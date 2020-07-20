@@ -11,7 +11,7 @@ export function nodeResolvePlugin(
   const options: RollupNodeResolveOptions = deepmerge(
     {
       rootDir,
-      extensions: ['.ts', '.tsx', '.jsx', '.mjs', '.js', '.json'],
+      extensions: ['.mjs', '.js', '.cjs', '.jsx', '.json', '.ts', '.tsx'],
       customResolveOptions: {
         moduleDirectory: ['node_modules', 'web_modules'],
       },
