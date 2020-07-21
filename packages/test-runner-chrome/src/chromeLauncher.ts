@@ -127,7 +127,14 @@ export function chromeLauncher({
       if (debugBrowser?.isConnected()) {
         await debugBrowser.close();
       }
-      debugBrowser = await launchBrowser({ ...launchOptions, devtools: true });
+
+      // set a default window size if the user didn't set any. this will cause the
+      // browser to be opened maximized, chrome doesn't open larger than the physical screen
+      const args = launchOptions.args?.includes('--window-size')
+        ? launchOptions.args
+        : [...(launchOptions.args ?? []), '--window-size=4000,4000'];
+      debugBrowser = await launchBrowser({ ...launchOptions, args, devtools: true });
+
       const page = await debugBrowser.newPage();
       debugPages.set(session.id, page);
       page.on('close', () => {
