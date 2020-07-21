@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.4.16
+
+### Patch Changes
+
+- e97d492: allow adding custom reporters
+- Updated dependencies [e97d492]
+  - @web/test-runner-core@0.6.13
+
 ## 0.4.15
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.13
+
+### Patch Changes
+
+- e97d492: allow adding custom reporters
+
 ## 0.6.12
 
 ### Patch Changes
