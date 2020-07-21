@@ -149,14 +149,10 @@ export class TestRunner extends EventEmitter<EventMap> {
     this.emit('stopped', this.passed);
   }
 
-  startDebugFocusedTestFile() {
-    if (!this.focusedTestFile) {
-      throw new Error('Cannot debug without a focused test file.');
-    }
-
+  startDebugBrowser(testFile: string) {
     const startPromises: Promise<void>[] = [];
 
-    for (const session of this.sessions.forTestFile(this.focusedTestFile)) {
+    for (const session of this.sessions.forTestFile(testFile)) {
       startPromises.push(
         session.browserLauncher
           .startDebugSession(session, createSessionUrl(this.config, session, true))

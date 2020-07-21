@@ -102,14 +102,16 @@ export class TestRunnerCli {
         case 'D':
           if (this.activeMenu === MENUS.OVERVIEW) {
             if (this.runner.focusedTestFile) {
-              this.startDebugFocusedTestFile();
+              this.startDebugBrowser(this.runner.focusedTestFile);
+            } else if (this.runner.testFiles.length === 1) {
+              this.startDebugBrowser(this.runner.testFiles[0]);
             } else {
               this.switchMenu(MENUS.DEBUG_SELECT_FILE);
             }
           }
           return;
         case 'F':
-          if (this.activeMenu === MENUS.OVERVIEW) {
+          if (this.activeMenu === MENUS.OVERVIEW && this.runner.testFiles.length > 1) {
             this.switchMenu(MENUS.FOCUS_SELECT_FILE);
           }
           return;
@@ -200,7 +202,7 @@ export class TestRunnerCli {
       this.runner.focusedTestFile = focusedTestFile;
       this.switchMenu(MENUS.OVERVIEW);
       if (debug) {
-        this.startDebugFocusedTestFile();
+        this.startDebugBrowser(focusedTestFile);
       }
     } else {
       this.terminal.clear();
@@ -300,7 +302,14 @@ export class TestRunnerCli {
         );
       }
 
-      reports.push(...getWatchCommands(!!this.config.coverage, !!this.runner.focusedTestFile), '');
+      reports.push(
+        ...getWatchCommands(
+          !!this.config.coverage,
+          this.runner.testFiles,
+          !!this.runner.focusedTestFile,
+        ),
+        '',
+      );
     }
 
     if (logStatic) {
@@ -341,11 +350,11 @@ export class TestRunnerCli {
     }
   }
 
-  private async startDebugFocusedTestFile() {
+  private async startDebugBrowser(testFile: string) {
     this.openingDebugBrowser = true;
     this.reportTestProgress();
     try {
-      await this.runner.startDebugFocusedTestFile();
+      await this.runner.startDebugBrowser(testFile);
     } finally {
       this.openingDebugBrowser = false;
       this.reportTestProgress();
