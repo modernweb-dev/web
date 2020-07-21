@@ -1,8 +1,8 @@
 import { Logger, ErrorWithLocation } from '@web/test-runner-core';
-import { codeFrameColumns } from '@babel/code-frame';
-import path from 'path';
 
 export class TestRunnerLogger implements Logger {
+  loggedSyntaxErrors = new Map<string, ErrorWithLocation[]>();
+
   constructor(private debugLogging: boolean = false) {}
 
   log(...messages: unknown[]) {
@@ -25,8 +25,22 @@ export class TestRunnerLogger implements Logger {
 
   logSyntaxError(error: ErrorWithLocation) {
     const { message, code, filePath, column, line } = error;
-    const result = codeFrameColumns(code, { start: { line, column } }, { highlightCode: true });
-    console.error(`Error while transforming ${path.relative(process.cwd(), filePath)}: ${message}`);
-    console.error(result);
+    let errors = this.loggedSyntaxErrors.get(filePath);
+    if (!errors) {
+      errors = [];
+      this.loggedSyntaxErrors.set(filePath, errors);
+    } else if (
+      errors.find(
+        e => e.code === code && e.message === message && e.column === column && e.line === line,
+      )
+    ) {
+      // dedupe syntax errors we already logged
+      return;
+    }
+    errors.push(error);
+  }
+
+  clearLoggedSyntaxErrors() {
+    this.loggedSyntaxErrors = new Map();
   }
 }

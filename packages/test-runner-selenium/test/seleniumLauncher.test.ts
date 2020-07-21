@@ -1,7 +1,7 @@
 import selenium from 'selenium-standalone';
 import path from 'path';
 import { expect } from 'chai';
-import { TestRunnerCoreConfig, TestRunner } from '@web/test-runner-core';
+import { TestRunnerCoreConfig, TestRunner, Logger } from '@web/test-runner-core';
 import { testRunnerServer } from '@web/test-runner-server';
 import { Builder } from 'selenium-webdriver';
 import { Options as ChromeOptions } from 'selenium-webdriver/chrome';
@@ -46,6 +46,24 @@ before(async function () {
   seleniumServer = await startSeleniumServer();
 });
 
+const logger: Logger = {
+  log(...args: any[]) {
+    console.log(...args);
+  },
+  debug() {
+    //
+  },
+  error(...args: any[]) {
+    console.log(...args);
+  },
+  warn(...args: any[]) {
+    console.log(...args);
+  },
+  logSyntaxError() {
+    //
+  },
+};
+
 it('runs tests with selenium', function (done) {
   this.timeout(50000);
 
@@ -55,6 +73,7 @@ it('runs tests with selenium', function (done) {
     reporters: [],
     testFramework: { path: require.resolve('@web/test-runner-mocha/dist/autorun.js') },
     rootDir: path.join(process.cwd(), '..', '..'),
+    logger,
     protocol: 'http:',
     hostname: 'localhost',
     port,

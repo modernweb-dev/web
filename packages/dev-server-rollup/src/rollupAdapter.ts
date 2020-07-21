@@ -134,10 +134,7 @@ export function rollupAdapter(
         // we rewrite them to a special URL which we deconstruct later when we load the file
         if (resolvedImportPath.includes('\0')) {
           const filename = path.basename(
-            resolvedImportPath
-              .replace(/\0*/g, '')
-              .split('?')[0]
-              .split('#')[0],
+            resolvedImportPath.replace(/\0*/g, '').split('?')[0].split('#')[0],
           );
           const urlParam = encodeURIComponent(resolvedImportPath);
           return `${VIRTUAL_FILE_PREFIX}/${filename}?${NULL_BYTE_PARAM}=${urlParam}`;

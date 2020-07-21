@@ -7,14 +7,16 @@ import {
   Report,
   ReportEntry,
 } from '@web/test-runner-core';
-import chalk from 'chalk';
+import { codeFrameColumns } from '@babel/code-frame';
 import path from 'path';
+import chalk from 'chalk';
 import openBrowser from 'open';
 
 import { writeCoverageReport } from './writeCoverageReport';
 import { getSelectFilesMenu } from './getSelectFilesMenu';
 import { getWatchCommands } from './getWatchCommands';
 import { Terminal } from '../Terminal';
+import { TestRunnerLogger } from '../logger/TestRunnerLogger';
 
 export type MenuType = 'overview' | 'focus' | 'debug';
 
@@ -184,6 +186,7 @@ export class TestRunnerCli {
       if (testCoverage && !this.runner.focusedTestFile) {
         this.writeCoverageReport(testCoverage);
       }
+      this.reportSyntaxErrors();
       this.reportTestProgress();
     });
 
@@ -317,6 +320,32 @@ export class TestRunnerCli {
     } else {
       this.terminal.logDynamic(reports);
     }
+  }
+
+  private reportSyntaxErrors() {
+    const logger = this.config.logger as TestRunnerLogger;
+    const { loggedSyntaxErrors } = logger;
+    if (loggedSyntaxErrors.size === 0) {
+      return;
+    }
+
+    const report: ReportEntry[] = [];
+    logger.clearLoggedSyntaxErrors();
+
+    for (const [filePath, errors] of loggedSyntaxErrors.entries()) {
+      for (const error of errors) {
+        const { message, code, line, column } = error;
+        const result = codeFrameColumns(code, { start: { line, column } }, { highlightCode: true });
+        const relativePath = path.relative(process.cwd(), filePath);
+        report.push(
+          chalk.red(`Error while transforming ${chalk.cyanBright(relativePath)}: ${message}`),
+        );
+        report.push(result);
+        report.push('');
+      }
+    }
+
+    this.terminal.logStatic(report);
   }
 
   private writeCoverageReport(testCoverage: TestCoverage) {

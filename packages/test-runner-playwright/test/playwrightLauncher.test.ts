@@ -1,10 +1,28 @@
 import path from 'path';
 import { expect } from 'chai';
-import { TestRunnerCoreConfig, TestRunner } from '@web/test-runner-core';
+import { TestRunnerCoreConfig, TestRunner, Logger } from '@web/test-runner-core';
 import { testRunnerServer } from '@web/test-runner-server';
 import portfinder from 'portfinder';
 
 import { playwrightLauncher, ProductType } from '../src/playwrightLauncher';
+
+const logger: Logger = {
+  log(...args: any[]) {
+    console.log(...args);
+  },
+  debug() {
+    //
+  },
+  error(...args: any[]) {
+    console.log(...args);
+  },
+  warn(...args: any[]) {
+    console.log(...args);
+  },
+  logSyntaxError() {
+    //
+  },
+};
 
 const products = [
   'chromium',
@@ -47,6 +65,7 @@ for (const product of products) {
       reporters: [],
       testFramework: { path: require.resolve('@web/test-runner-mocha/dist/autorun.js') },
       rootDir: path.join(process.cwd(), '..', '..'),
+      logger,
       protocol: 'http:',
       hostname: 'localhost',
       port,

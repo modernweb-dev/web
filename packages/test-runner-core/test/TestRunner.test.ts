@@ -2,13 +2,28 @@ import { stub } from 'sinon';
 import { expect } from 'chai';
 import portfinder from 'portfinder';
 
-import { TestRunnerCoreConfig } from '../src/runner/TestRunnerCoreConfig';
+import { TestRunnerCoreConfig } from '../src/config/TestRunnerCoreConfig';
 import { TestRunner } from '../src/runner/TestRunner';
+import { Logger } from '../src/logger/Logger';
 import { SESSION_STATUS } from '../src/test-session/TestSessionStatus';
 
-async function timeout(ms = 0) {
-  return new Promise(r => setTimeout(r, ms));
-}
+const logger: Logger = {
+  log(...args: any[]) {
+    console.log(...args);
+  },
+  debug() {
+    //
+  },
+  error(...args: any[]) {
+    console.log(...args);
+  },
+  warn(...args: any[]) {
+    console.log(...args);
+  },
+  logSyntaxError() {
+    //
+  },
+};
 
 async function createTestRunner(
   extraConfig: Partial<TestRunnerCoreConfig> = {},
@@ -35,6 +50,7 @@ async function createTestRunner(
   const config: TestRunnerCoreConfig = {
     files: [],
     reporters: [],
+    logger,
     rootDir: process.cwd(),
     testFramework: { path: 'my-framework.js' },
     concurrency: 10,
