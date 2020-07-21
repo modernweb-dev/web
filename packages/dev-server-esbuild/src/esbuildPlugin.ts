@@ -1,8 +1,6 @@
 import { startService, Service, Loader, Message } from 'esbuild';
 import path from 'path';
-import chalk from 'chalk';
-import { Plugin } from '@web/dev-server-core';
-import { codeFrameColumns } from '@babel/code-frame';
+import { Plugin, PluginSyntaxError, Logger, DevServerCoreConfig } from '@web/dev-server-core';
 import { URL, pathToFileURL, fileURLToPath } from 'url';
 import { getEsbuildLoader } from './getEsbuildLoader';
 import { getEsbuildTarget } from './getEsbuildTarget';
@@ -19,25 +17,6 @@ export interface EsBuildPluginArgs {
   define?: { [key: string]: string };
 }
 
-function logEsBuildMessages(filePath: string, code: string, messages: Message[], warning = false) {
-  const relativePath = path.relative(process.cwd(), filePath);
-  const color = chalk[warning ? 'yellow' : 'red'];
-
-  for (const msg of messages) {
-    console.error(
-      `${warning ? 'Warning' : `Error`} while transforming ${relativePath}:\n ${color(msg.text)}`,
-    );
-
-    if (msg.location) {
-      const location = { start: { line: msg.location.line, column: msg.location.column } };
-      const result = codeFrameColumns(code, location, {
-        highlightCode: true,
-      });
-      console.error(result);
-    }
-  }
-}
-
 export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
   const esBuildTarget = args.target ?? 'auto';
   const handledExtensions = args.loaders ? Object.keys(args.loaders).map(e => `.${e}`) : [];
@@ -51,14 +30,15 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
     handledExtensions.push('.tsx');
   }
 
-  let rootDir: string;
+  let config: DevServerCoreConfig;
+  let logger: Logger;
   let service: Service;
 
   return {
     name: 'esbuild',
 
-    async serverStart({ config }) {
-      ({ rootDir } = config);
+    async serverStart(args) {
+      ({ config, logger } = args);
       service = await startService();
 
       ['exit', 'SIGINT'].forEach(event => {
@@ -94,7 +74,9 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
         return;
       }
 
-      const filePath = fileURLToPath(new URL(`.${context.path}`, `${pathToFileURL(rootDir)}/`));
+      const filePath = fileURLToPath(
+        new URL(`.${context.path}`, `${pathToFileURL(config.rootDir)}/`),
+      );
 
       try {
         const { js, warnings } = await service.transform(context.body, {
@@ -107,18 +89,33 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
           jsxFactory: args.jsxFactory,
           jsxFragment: args.jsxFragment,
         });
+
         if (warnings) {
-          logEsBuildMessages(filePath, context.body, warnings, true);
+          const relativePath = path.relative(process.cwd(), filePath);
+          for (const warning of warnings) {
+            logger.warn(`Warning while transforming ${relativePath}: ${warning.text}`);
+          }
         }
 
         return { body: js };
       } catch (e) {
-        if (e.errors) {
-          logEsBuildMessages(filePath, context.body, e.errors, true);
+        if (Array.isArray(e.errors)) {
+          const msg = e.errors[0] as Message;
+
+          if (msg.location) {
+            throw new PluginSyntaxError(
+              msg.text,
+              filePath,
+              context.body,
+              msg.location.line,
+              msg.location.column,
+            );
+          }
+
+          throw new Error(msg.text);
         }
 
-        context.status = 500;
-        return { body: '' };
+        throw e;
       }
     },
   };
