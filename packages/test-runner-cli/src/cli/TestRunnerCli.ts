@@ -198,10 +198,10 @@ export class TestRunnerCli {
 
     if (focusedTestFile) {
       this.runner.focusedTestFile = focusedTestFile;
+      this.switchMenu(MENUS.OVERVIEW);
       if (debug) {
         this.startDebugFocusedTestFile();
       }
-      this.switchMenu(MENUS.OVERVIEW);
     } else {
       this.terminal.clear();
       this.logSelectFilesMenu();
