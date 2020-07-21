@@ -19,9 +19,10 @@ export {
   TestRunnerCoreConfig,
   CoverageConfig,
   CoverageThresholdConfig,
-} from './runner/TestRunnerCoreConfig';
+} from './config/TestRunnerCoreConfig';
 export { TestCoverage } from './coverage/getTestCoverage';
 export { Server } from './server/Server';
+export { Logger, ErrorWithLocation } from './logger/Logger';
 export { TestSession, TestResultError, TestResult } from './test-session/TestSession';
 export { TestSessionManager } from './test-session/TestSessionManager';
 export { TestSessionStatus, SESSION_STATUS } from './test-session/TestSessionStatus';

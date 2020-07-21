@@ -4,6 +4,7 @@ import { readConfig as readFileConfig, ConfigLoaderError } from '@web/config-loa
 import deepmerge from 'deepmerge';
 import chalk from 'chalk';
 import path from 'path';
+import { TestRunnerLogger } from '../logger/TestRunnerLogger';
 
 const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   watch: false,
@@ -65,6 +66,10 @@ export async function readConfig<T extends TestRunnerCoreConfig & { config?: str
       ...fileConfig,
       ...cliArgsConfig,
     };
+
+    if (!config.logger) {
+      config.logger = new TestRunnerLogger();
+    }
 
     if (typeof config.rootDir === 'string') {
       config.rootDir = path.resolve(config.rootDir);

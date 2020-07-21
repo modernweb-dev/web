@@ -1,5 +1,5 @@
 import path from 'path';
-import { TestRunnerCoreConfig } from './TestRunnerCoreConfig';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { TestSession } from '../test-session/TestSession';
 import { PARAM_SESSION_ID, PARAM_DEBUG } from '../browser-launcher/constants';
 

@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 
-import { TestRunnerCoreConfig } from './TestRunnerCoreConfig';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { createTestSessions } from './createTestSessions';
 import { TestSession } from '../test-session/TestSession';
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';

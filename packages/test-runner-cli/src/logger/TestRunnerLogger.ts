@@ -1,9 +1,9 @@
-import { Logger, PluginSyntaxError } from '@web/dev-server-core';
+import { Logger, ErrorWithLocation } from '@web/test-runner-core';
 import { codeFrameColumns } from '@babel/code-frame';
 import path from 'path';
 
-export class TestServerLogger implements Logger {
-  constructor(private debugLogging: boolean) {}
+export class TestRunnerLogger implements Logger {
+  constructor(private debugLogging: boolean = false) {}
 
   log(...messages: unknown[]) {
     console.log(...messages);
@@ -23,7 +23,7 @@ export class TestServerLogger implements Logger {
     console.warn(...messages);
   }
 
-  logSyntaxError(error: PluginSyntaxError) {
+  logSyntaxError(error: ErrorWithLocation) {
     const { message, code, filePath, column, line } = error;
     const result = codeFrameColumns(code, { start: { line, column } }, { highlightCode: true });
     console.error(`Error while transforming ${path.relative(process.cwd(), filePath)}: ${message}`);

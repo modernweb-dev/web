@@ -1,5 +1,5 @@
 import { CoverageMapData } from 'istanbul-lib-coverage';
-import { TestRunnerCoreConfig } from '../runner/TestRunnerCoreConfig';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { TestSession } from '../test-session/TestSession';
 
 export interface Viewport {

@@ -1,4 +1,4 @@
-import { TestRunnerCoreConfig } from '../runner/TestRunnerCoreConfig.js';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
 import { TestSessionManager } from '../test-session/TestSessionManager.js';
 import { TestRunner } from '../runner/TestRunner.js';
 

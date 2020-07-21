@@ -8,7 +8,7 @@ import {
   Range,
 } from 'istanbul-lib-coverage';
 import { TestSession } from '../test-session/TestSession';
-import { CoverageConfig } from '../runner/TestRunnerCoreConfig';
+import { CoverageConfig } from '../config/TestRunnerCoreConfig';
 
 export const coverageTypes: (keyof CoverageSummaryData)[] = [
   'lines',
