@@ -1,11 +1,11 @@
 import { TestResultError, TestSession } from '@web/test-runner-core';
-import { TerminalEntry } from '../Terminal';
-import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers';
 import chalk from 'chalk';
 import * as diff from 'diff';
-import { getErrorLocation } from './utils/getErrorLocation';
-import { formatStackTrace } from './utils/formatStackTrace';
-import { SourceMapFunction } from './utils/createSourceMapFunction';
+import { TerminalEntry } from '../Terminal';
+import { getFailedOnBrowsers } from '../utils/getFailedOnBrowsers';
+import { getErrorLocation } from '../utils/getErrorLocation';
+import { formatStackTrace } from '../utils/formatStackTrace';
+import { SourceMapFunction } from '../utils/createSourceMapFunction';
 
 function renderDiff(actual: string, expected: string) {
   function cleanUp(line: string) {

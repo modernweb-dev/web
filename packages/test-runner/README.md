@@ -109,7 +109,7 @@ wtr test/**/*.test.js --node-resolve --playwright --browsers chromium firefox we
 | puppeteer         | boolean      | whether to run tests with @web/test-runner-puppeteer                                        |
 | playwright        | boolean      | whether to run tests with @web/test-runner-playwright                                       |
 | browsers          | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit |
-| config            | config       | where to read the config from                                                               |
+| config            | object       | where to read the config from                                                               |
 | concurrency       | number       | amount of test files to run concurrently                                                    |
 
 ## Configuration
@@ -133,20 +133,27 @@ module.exports = {
 
 </details>
 
+A configuration file accepts most of the command line args camel cased. Check the type definition for all options:
+
 <details>
   <summary>Full config type definition</summary>
 
 ```ts
 import { Plugin, Middleware } from '@web/dev-server';
 
-export interface CoverageThresholdConfig {
+interface TestFramework {
+  path: string;
+  config?: unknown;
+}
+
+interface CoverageThresholdConfig {
   statements: number;
   branches: number;
   functions: number;
   lines: number;
 }
 
-export interface CoverageConfig {
+interface CoverageConfig {
   include?: string[];
   exclude?: string[];
   threshold?: CoverageThresholdConfig;
@@ -154,33 +161,56 @@ export interface CoverageConfig {
   reportDir: string;
 }
 
-export interface TestRunnerConfig {
+interface TestRunnerConfig {
+  // globs of files to test
   files: string | string[];
+  // amount of test files to run in parallel
   concurrency?: number;
+  // run in watch mode, reloading when files change
   watch?: boolean;
+  // resolve bare imports imports
   nodeResolve?: boolean;
+  // preserve symlinks when resolve imports, instead of following
+  // symlinks to their original files
   preserveSymlinks?: boolean;
+  // the root directory to serve files from. this is useful in a monorepo
+  // when executing commands from a package
+  rootDir?: string;
 
-  testFramework?: string;
+  // the test framework to run tests in the browser
+  testFramework?: TestFramework;
+  // browsers to run tests in
   browsers?: BrowserLauncher | BrowserLauncher[];
+  // server which serves files and responds to browser requests
   server?: Server;
+  // reporters for posting results and progress to the terminal and/or file system
+  reporters?: Reporter[];
 
+  // middleware used by the server to modify requests/responses, for example to proxy
+  // requests or rewrite urls
   middleware?: Middleware[];
+  // plugins used by the server to serve or transform files
   plugins?: Plugin[];
 
+  // configuration for the server
   protocol?: string;
   hostname?: string;
   port?: number;
 
-  testRunnerHtml?: (config: TestRunnerConfig) => string;
+  // html page used to run tests
+  testRunnerHtml?: (testRunnerImport: string, config: TestRunnerCoreConfig) => string;
 
+  // run test coverage
   coverage?: boolean;
+  // configuration for test coverage
   coverageConfig?: CoverageConfig;
 
+  // how long a browser can take to start up before failing. defaults to 30000
   browserStartTimeout?: number;
+  // how long a test file can take to load. defaults to 10000
   sessionStartTimeout?: number;
+  // how long a test file can take to finish. defaults to 20000
   sessionFinishTimeout?: number;
-  staticLogging?: boolean;
 }
 ```
 
@@ -238,7 +268,7 @@ module.exports = {
 };
 ```
 
-Check out the full documentation for more infromation and examples:
+Check out the full documentation for more information and examples:
 
 - [Common code transformations](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core/docs/code-transformations.md)
 - [Server Middleware](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core/docs/server-middleware.md)
@@ -275,23 +305,57 @@ module.exports = {
 
 ## Customizing browser launch options
 
-You can customize the configuration to launch browsers by creating the browser launchers yourself instead of the CLI.
+You can customize the configuration to launch browsers by setting the browser launchers in the config.
+
+<details>
+  <summary>View example</summary>
+
+```js
+// import the browser launcher you want to use, chromeLauncher is the default
+const { chromeLauncher } = require('@web/test-runner');
+// const { playwrightLauncher } = require('@web/test-runner-playwright');
+// const { puppeteerLauncher } = require('@web/test-runner-puppeteer');
+
+module.exports = {
+  browsers: [chromeLauncher({ launchOptions: { args: ['--no-sandbox'] } })],
+};
+```
+
+</details>
+
+The browser launchers that are currently available:
+
+- [@web/test-runner-chrome](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-chrome)
+- [@web/test-runner-puppeteer](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer)
+- [@web/test-runner-playwright](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-playwright)
+- [@web/test-runner-selenium](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-selenium)
+- [@web/test-runner-browserstack](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browserstack)
+
+## Customizing reporters
+
+You can customize the test reporters using the `reporters` option.
 
 <details>
   <summary>View example</summary>
 
 ```js
 // import the browser launcher you want to use
-const { chromeLauncher } = require('@web/test-runner-chrome');
+const { defaultReporter } = require('@web/test-runner');
+const { myReporter } = require('my-reporter');
 
 module.exports = {
-  browsers: chromeLauncher({ launchOptions: { args: ['--no-sandbox'] } }),
+  reporters: [
+    // use the default reporter only for reporting test progress
+    defaultReporter({ reportTestResults: false, reportTestProgress: true }),
+    // use another reporter to report test results
+    myReporter(),
+  ],
 };
 ```
 
 </details>
 
-Check the docs for [@web/test-runner-chrome](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-chrome), [@web/test-runner-puppeteer](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer) and [@web/test-runner-playwright](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-playwright) for all options.
+We currently don't have any reporters other than the default. If you're interested in creating a reporter, let us know and we can help you get started.
 
 ## Advanced customization
 

@@ -4,16 +4,17 @@ import {
   TestRunner,
   TestCoverage,
   SESSION_STATUS,
+  Report,
+  ReportEntry,
 } from '@web/test-runner-core';
 import chalk from 'chalk';
 import path from 'path';
 import openBrowser from 'open';
-import { getTestProgressReport } from './messages/getTestProgress';
-import { Terminal, TerminalEntry } from './Terminal';
-import { getTestFileReport } from './messages/getTestFileReport';
-import { getWatchCommands } from './messages/getWatchCommands';
-import { getSelectFilesMenu } from './messages/getSelectFilesMenu';
-import { writeCoverageReport } from './messages/writeCoverageReport';
+
+import { writeCoverageReport } from './writeCoverageReport';
+import { getSelectFilesMenu } from './getSelectFilesMenu';
+import { getWatchCommands } from './getWatchCommands';
+import { Terminal } from '../Terminal';
 
 export type MenuType = 'overview' | 'focus' | 'debug';
 
@@ -29,45 +30,6 @@ const KEYCODES = {
   CTRL_C: '\u0003',
   CTRL_D: '\u0004',
 };
-
-// Prevent duplicate test file reports:
-// const sessionsForTestFile = Array.from(this.sessions.forTestFile(testFile));
-// const allFinished = sessionsForTestFile.every(s => s.status === SESSION_STATUS.FINISHED);
-// if (!allFinished) {
-//   return;
-// }
-
-// let reportedFiles = this.reportedFilesByTestRun.get(testRun);
-// if (!reportedFiles) {
-//   reportedFiles = new Set();
-//   this.reportedFilesByTestRun.set(testRun, reportedFiles);
-// }
-
-// Report test progress, decide if static or dynamic:
-// const logStatic = this.config.staticLogging || !this.terminal.isInteractive;
-// if (logStatic && !final) {
-//   return;
-// }
-
-// Render test progress stuff:
-
-// if (this.runner.focusedTestFile) {
-//   entries.push(
-//     `Focused on test file: ${chalk.cyanBright(
-//       path.relative(process.cwd(), this.runner.focusedTestFile),
-//     )}\n`,
-//   );
-// }
-
-// if (this.config.watch) {
-//   entries.push(...getWatchCommands(!!this.config.coverage, !!this.runner.focusedTestFile), '');
-// }
-
-// if (logStatic) {
-//   this.terminal.logStatic(entries);
-// } else {
-//   this.terminal.logDynamic(entries);
-// }
 
 export class TestRunnerCli {
   private terminal = new Terminal();
@@ -96,8 +58,20 @@ export class TestRunnerCli {
     if (this.config.watch) {
       this.terminal.clear();
     }
-    this.logTestResults();
-    this.logTestProgress();
+
+    for (const reporter of this.config.reporters) {
+      reporter.start?.({
+        config: this.config,
+        sessions: this.sessions,
+        testFiles: this.runner.testFiles,
+        browserNames: this.runner.browserNames,
+        startTime: this.runner.startTime,
+      });
+    }
+
+    this.reportTestResults();
+    this.reportTestProgress();
+
     if (this.config.watch) {
       this.terminal.observeDirectInput();
     }
@@ -153,8 +127,8 @@ export class TestRunnerCli {
         case KEYCODES.ESCAPE:
           if (this.activeMenu === MENUS.OVERVIEW && this.runner.focusedTestFile) {
             this.runner.focusedTestFile = undefined;
-            this.logTestResults(true);
-            this.logTestProgress();
+            this.reportTestResults(true);
+            this.reportTestProgress();
           }
           return;
         case KEYCODES.ENTER:
@@ -173,12 +147,16 @@ export class TestRunnerCli {
       }
 
       if (session.status === SESSION_STATUS.FINISHED) {
-        this.logTestResult(session.testFile);
-        this.logTestProgress();
+        this.reportTestResult(session.testFile);
+        this.reportTestProgress();
       }
     });
 
     this.runner.on('test-run-started', ({ testRun }) => {
+      for (const reporter of this.config.reporters) {
+        reporter.onTestRunStarted?.({ testRun });
+      }
+
       if (this.activeMenu !== MENUS.OVERVIEW) {
         return;
       }
@@ -187,11 +165,15 @@ export class TestRunnerCli {
         this.terminal.clear();
       }
 
-      this.logTestResults();
-      this.logTestProgress();
+      this.reportTestResults();
+      this.reportTestProgress();
     });
 
-    this.runner.on('test-run-finished', ({ testCoverage }) => {
+    this.runner.on('test-run-finished', ({ testRun, testCoverage }) => {
+      for (const reporter of this.config.reporters) {
+        reporter.onTestRunFinished?.({ testRun });
+      }
+
       if (this.activeMenu !== MENUS.OVERVIEW) {
         return;
       }
@@ -200,24 +182,12 @@ export class TestRunnerCli {
       if (testCoverage && !this.runner.focusedTestFile) {
         this.writeCoverageReport(testCoverage);
       }
-      this.logTestProgress();
+      this.reportTestProgress();
     });
 
     this.runner.on('finished', () => {
       this.reportEnd();
     });
-  }
-
-  private logTestResults(force = false) {
-    const { testFiles, focusedTestFile } = this.runner;
-
-    if (focusedTestFile) {
-      this.logTestResult(focusedTestFile, force);
-    } else {
-      for (const testFile of testFiles) {
-        this.logTestResult(testFile, force);
-      }
-    }
   }
 
   private focusTestFileNr(i: number) {
@@ -238,22 +208,106 @@ export class TestRunnerCli {
     }
   }
 
-  private async reportTestResult({ sessions, session, testRun }) {
-    const logPromise = this.getTestFileReport(testFile, force);
-    this.pendingLogs.push(logPromise);
-    logPromise
-      .catch(error => {
-        console.error(error);
-      })
-      .then(report => {
-        this.pendingLogs.splice(this.pendingLogs.indexOf(logPromise), 1);
-        // do the actual logging only if there is something to log, and if we're not
-        // in a new test run (for example a file changed in watch mode)
-        if (report && this.runner.testRun === forTestRun) {
-          this.terminal.logStatic(report);
-        }
+  private reportTestResults(forceReport = false) {
+    const { focusedTestFile } = this.runner;
+    const testFiles = focusedTestFile ? [focusedTestFile] : this.runner.testFiles;
+
+    for (const testFile of testFiles) {
+      this.reportTestResult(testFile, forceReport);
+    }
+  }
+
+  private async reportTestResult(testFile: string, forceReport = false) {
+    const testRun = this.runner.testRun;
+    const sessionsForTestFile = Array.from(this.sessions.forTestFile(testFile));
+    const allFinished = sessionsForTestFile.every(s => s.status === SESSION_STATUS.FINISHED);
+    if (!allFinished) {
+      // not all sessions for this file are finished
+      return;
+    }
+
+    let reportedFiles = this.reportedFilesByTestRun.get(testRun);
+    if (!reportedFiles) {
+      reportedFiles = new Set();
+      this.reportedFilesByTestRun.set(testRun, reportedFiles);
+    }
+
+    if (!forceReport && reportedFiles.has(testFile)) {
+      // this was file was already reported
+      return;
+    }
+    reportedFiles.add(testFile);
+
+    const reportsPromises = this.getTestResultReports(testFile, testRun);
+    for (const reportsPromise of reportsPromises) {
+      this.pendingLogs.push(reportsPromise);
+      reportsPromise
+        .catch(error => {
+          console.error(error);
+        })
+        .then(report => {
+          this.pendingLogs.splice(this.pendingLogs.indexOf(reportsPromise), 1);
+          // do the actual logging only if there is something to log, and if we're not
+          // in a new test run (for example a file changed in watch mode)
+          if (report && this.runner.testRun === testRun) {
+            this.terminal.logStatic(report);
+          }
+        });
+    }
+  }
+
+  private getTestResultReports(testFile: string, testRun: number) {
+    const reports: Promise<Report | undefined>[] = [];
+
+    for (const reporter of this.config.reporters) {
+      const sessionsForTestFile = Array.from(this.sessions.forTestFile(testFile));
+      const report = reporter.reportTestFileResult?.({
+        sessionsForTestFile,
+        testFile,
+        testRun,
       });
-    return logPromise;
+      reports.push(Promise.resolve(report));
+    }
+
+    return reports;
+  }
+
+  private reportTestProgress(final = false) {
+    const logStatic = this.config.staticLogging || !this.terminal.isInteractive;
+    if (logStatic && !final) {
+      return;
+    }
+
+    const reports: ReportEntry[] = [];
+    for (const reporter of this.config.reporters) {
+      const report = reporter.reportTestProgress?.({
+        testRun: this.runner.testRun,
+        focusedTestFile: this.runner.focusedTestFile,
+        testCoverage: this.testCoverage,
+      });
+
+      if (report) {
+        reports.push(...report);
+      }
+    }
+
+    if (this.config.watch) {
+      if (this.runner.focusedTestFile) {
+        reports.push(
+          `Focused on test file: ${chalk.cyanBright(
+            path.relative(process.cwd(), this.runner.focusedTestFile),
+          )}\n`,
+        );
+      }
+
+      reports.push(...getWatchCommands(!!this.config.coverage, !!this.runner.focusedTestFile), '');
+    }
+
+    if (logStatic) {
+      this.terminal.logStatic(reports);
+    } else {
+      this.terminal.logDynamic(reports);
+    }
   }
 
   private writeCoverageReport(testCoverage: TestCoverage) {
@@ -272,8 +326,8 @@ export class TestRunnerCli {
 
     switch (menu) {
       case MENUS.OVERVIEW:
-        this.logTestResults(true);
-        this.logTestProgress();
+        this.reportTestResults(true);
+        this.reportTestProgress();
         if (this.config.watch) {
           this.terminal.observeDirectInput();
         }
@@ -289,12 +343,12 @@ export class TestRunnerCli {
 
   private async startDebugFocusedTestFile() {
     this.openingDebugBrowser = true;
-    this.logTestProgress();
+    this.reportTestProgress();
     try {
       await this.runner.startDebugFocusedTestFile();
     } finally {
       this.openingDebugBrowser = false;
-      this.logTestProgress();
+      this.reportTestProgress();
     }
   }
 
@@ -325,7 +379,7 @@ export class TestRunnerCli {
   }
 
   private async reportEnd() {
-    this.logTestProgress(true);
+    this.reportTestProgress(true);
     await Promise.all(this.pendingLogs);
     this.terminal.stop();
     this.runner.stop();

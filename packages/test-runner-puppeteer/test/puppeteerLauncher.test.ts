@@ -19,6 +19,7 @@ it('runs tests with puppeteer', function (done) {
   const config: TestRunnerCoreConfig = {
     files: [],
     watch: false,
+    reporters: [],
     testFramework: { path: require.resolve('@web/test-runner-mocha/dist/autorun.js') },
     rootDir: path.join(process.cwd(), '..', '..'),
     protocol: 'http:',

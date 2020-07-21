@@ -1,6 +1,6 @@
 import { TestSession } from '@web/test-runner-core';
-import { TerminalEntry } from '../Terminal';
 import chalk from 'chalk';
+import { TerminalEntry } from '../Terminal';
 
 export function getBrowserLogs(sessions: TestSession[]) {
   const entries: TerminalEntry[] = [];

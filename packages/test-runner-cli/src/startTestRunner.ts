@@ -1,5 +1,5 @@
 import { TestRunner, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { TestRunnerCli } from './TestRunnerCli';
+import { TestRunnerCli } from './cli/TestRunnerCli';
 import { collectTestFiles } from './config/collectTestFiles';
 
 export async function startTestRunner(config: TestRunnerCoreConfig) {

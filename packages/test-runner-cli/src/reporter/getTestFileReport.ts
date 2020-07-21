@@ -6,7 +6,7 @@ import { getTestsErrors } from './getTestsErrors';
 import { getBrowserLogs } from './getBrowserLogs';
 import { getRequest404s } from './getRequest404s';
 import { getTestFileErrors } from './getTestFileErrors';
-import { SourceMapFunction } from './utils/createSourceMapFunction';
+import { SourceMapFunction } from '../utils/createSourceMapFunction';
 
 export async function getTestFileReport(
   testFile: string,
