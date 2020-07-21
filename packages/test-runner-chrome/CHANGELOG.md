@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.5.10
+
+### Patch Changes
+
+- 7db1da1: open debug in a larger browser window
+
 ## 0.5.9
 
 ### Patch Changes

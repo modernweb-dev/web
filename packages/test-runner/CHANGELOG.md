@@ -1,5 +1,21 @@
 # @web/test-runner
 
+## 0.6.39
+
+### Patch Changes
+
+- 4ced29a: fix race condition which cleared terminal on debug
+- 023cc3f: don't require selecting files when there is only one test file
+- a409489: remove multiple browsers total progress
+- 7db1da1: open debug in a larger browser window
+- Updated dependencies [4ced29a]
+- Updated dependencies [023cc3f]
+- Updated dependencies [a409489]
+- Updated dependencies [7db1da1]
+  - @web/test-runner-cli@0.4.17
+  - @web/test-runner-core@0.6.14
+  - @web/test-runner-chrome@0.5.10
+
 ## 0.6.38
 
 ### Patch Changes

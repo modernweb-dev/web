@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.14
+
+### Patch Changes
+
+- 023cc3f: don't require selecting files when there is only one test file
+
 ## 0.6.13
 
 ### Patch Changes
