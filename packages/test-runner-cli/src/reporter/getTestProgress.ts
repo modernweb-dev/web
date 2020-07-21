@@ -17,7 +17,6 @@ export interface TestProgressArgs {
   startTime: number;
   watch: boolean;
   focusedTestFile?: string;
-  openingDebugBrowser: boolean;
   coverage: boolean;
   coverageConfig?: CoverageConfig;
   testCoverage?: TestCoverage;
@@ -94,7 +93,6 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
     watch,
     startTime,
     focusedTestFile,
-    openingDebugBrowser,
     coverage,
     coverageConfig,
     testCoverage,
@@ -188,9 +186,7 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
   }
 
   if (testRun !== -1 && unfinishedSessions.length === 0) {
-    if (openingDebugBrowser) {
-      entries.push(chalk.bold(`Opening debug browser...`));
-    } else if (coverage && !testCoverage) {
+    if (coverage && !testCoverage) {
       entries.push(chalk.bold('Calculating test coverage...'));
     } else if (config.watch) {
       entries.push(chalk.bold(`Finished running tests, watching for file changes...`));

@@ -1,7 +1,7 @@
 import { CoverageThresholdConfig, TestCoverage, CoverageConfig } from '@web/test-runner-core';
 import path from 'path';
-import { TerminalEntry } from '../Terminal';
 import chalk from 'chalk';
+import { TerminalEntry } from '../Terminal';
 
 const coverageTypes: (keyof CoverageThresholdConfig)[] = [
   'lines',

@@ -1,10 +1,11 @@
 import { TestSession, TestResultError } from '@web/test-runner-core';
-import { TerminalEntry } from '../Terminal';
-import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers';
-import { formatStackTrace } from './utils/formatStackTrace';
 import chalk from 'chalk';
-import { replaceRelativeStackFilePath } from './utils/replaceRelativeStackFilePath';
-import { SourceMapFunction } from './utils/createSourceMapFunction';
+
+import { replaceRelativeStackFilePath } from '../utils/replaceRelativeStackFilePath';
+import { SourceMapFunction } from '../utils/createSourceMapFunction';
+import { getFailedOnBrowsers } from '../utils/getFailedOnBrowsers';
+import { formatStackTrace } from '../utils/formatStackTrace';
+import { TerminalEntry } from '../Terminal';
 
 function isSameError(a: TestResultError, b: TestResultError) {
   return a.message === b.message && a.stack === b.stack;

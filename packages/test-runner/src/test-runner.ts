@@ -5,6 +5,7 @@ import {
   readConfig,
   startTestRunner,
   validateCoreConfig,
+  defaultReporter,
 } from '@web/test-runner-cli';
 import { testRunnerServer, TestRunnerServerConfig } from '@web/test-runner-server';
 import { chromeLauncher } from '@web/test-runner-chrome';
@@ -89,6 +90,10 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
       path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
       ...(config.testFramework ?? {}),
     };
+
+    if (!config.reporters) {
+      config.reporters = [defaultReporter()];
+    }
 
     if (!config.server) {
       const serverConfig: TestRunnerServerConfig = {

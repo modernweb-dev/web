@@ -1,7 +1,18 @@
 import * as constants from './browser-launcher/constants';
 export { constants };
 export { BrowserLauncher, Viewport } from './browser-launcher/BrowserLauncher';
-export { ReporterConstructorArgs, IndentedReport, Report, Reporter } from './reporter/Reporter';
+export {
+  IndentedReportEntry,
+  ReportEntry,
+  Report,
+  Reporter,
+  ReportTestResultsArgs,
+  ReportTestProgressArgs,
+  ReporterArgs,
+  TestRunArgs,
+  TestRunStartedArgs,
+  TestRunFinishedArgs,
+} from './reporter/Reporter';
 export { TestRunner } from './runner/TestRunner';
 export { TestFramework } from './test-framework/TestFramework';
 export {

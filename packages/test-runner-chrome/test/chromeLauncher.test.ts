@@ -21,6 +21,7 @@ it('runs tests with chrome', function (done) {
     watch: false,
     testFramework: { path: require.resolve('@web/test-runner-mocha/dist/autorun.js') },
     rootDir: path.join(process.cwd(), '..', '..'),
+    reporters: [],
     protocol: 'http:',
     hostname: 'localhost',
     port,

@@ -31,6 +31,7 @@ it('runs tests with selenium', async function (done) {
     testFrameworkImport: '@web/test-runner-mocha/dist/autorun.js',
     rootDir: path.join(process.cwd(), '..', '..'),
     address: 'http://localhost',
+    reporters: [],
     port,
     concurrency: 4,
     browserStartTimeout: 120000,

@@ -1,5 +1,5 @@
-import { TerminalEntry } from '../Terminal';
 import chalk from 'chalk';
+import { TerminalEntry } from '../Terminal';
 
 export function getWatchCommands(coverage: boolean, focusedTest?: boolean): TerminalEntry[] {
   if (focusedTest) {

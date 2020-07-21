@@ -3,48 +3,49 @@ import { TestSessionManager } from '../test-session/TestSessionManager';
 import { TestRunnerCoreConfig } from '../runner/TestRunnerCoreConfig';
 import { TestCoverage } from '../coverage/getTestCoverage';
 
-export interface IndentedReport {
+export interface IndentedReportEntry {
   text: string;
   indent: number;
 }
 
-export type Report = (string | IndentedReport)[];
+export type ReportEntry = string | IndentedReportEntry;
 
-export interface ReporterConstructorArgs {
+export type Report = ReportEntry[] | undefined | void;
+
+export interface ReporterArgs {
   config: TestRunnerCoreConfig;
   sessions: TestSessionManager;
   testFiles: string[];
   browserNames: string[];
-  options?: unknown;
   startTime: number;
 }
 
-interface ReportTestFileResultsArgs {
+export interface ReportTestResultsArgs {
   sessionsForTestFile: TestSession[];
   testFile: string;
   testRun: number;
 }
 
-interface ReportTestProgressArgs {
+export interface ReportTestProgressArgs {
   testRun: number;
   focusedTestFile?: string;
   testCoverage?: TestCoverage;
 }
 
-interface TestRunArgs {
+export interface TestRunArgs {
   testRun: number;
 }
 
-interface OnFinishedArgs {
-  testCoverage?: TestCoverage;
-}
+export interface TestRunStartedArgs extends TestRunArgs {}
+export interface TestRunFinishedArgs extends TestRunArgs {}
 
 export interface ReporterConstructor {}
 
 export interface Reporter {
-  reportTestFileResult?(args: ReportTestFileResultsArgs): Report | void | undefined;
-  reportTestProgress?(args: ReportTestProgressArgs): Report | void | undefined;
-  onTestRunStarted?(args: TestRunArgs): void;
-  onTestRunFinished?(args: TestRunArgs): void;
-  onFinished?(args: OnFinishedArgs): void | undefined;
+  reportTestFileResult?(args: ReportTestResultsArgs): Report | Promise<Report>;
+  reportTestProgress?(args: ReportTestProgressArgs): Report;
+  onTestRunStarted?(args: TestRunStartedArgs): void;
+  onTestRunFinished?(args: TestRunFinishedArgs): void;
+  start?(args: ReporterArgs): void | undefined;
+  stop?(): void | undefined;
 }
