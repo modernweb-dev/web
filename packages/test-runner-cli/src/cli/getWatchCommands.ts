@@ -1,7 +1,11 @@
 import chalk from 'chalk';
 import { TerminalEntry } from '../Terminal';
 
-export function getWatchCommands(coverage: boolean, focusedTest?: boolean): TerminalEntry[] {
+export function getWatchCommands(
+  coverage: boolean,
+  testFiles: string[],
+  focusedTest?: boolean,
+): TerminalEntry[] {
   if (focusedTest) {
     return [
       `${chalk.gray('Press')} F ${chalk.gray('to focus another test file.')}`,
@@ -14,7 +18,9 @@ export function getWatchCommands(coverage: boolean, focusedTest?: boolean): Term
   }
 
   return [
-    `${chalk.gray('Press')} F ${chalk.gray('to focus on a test file.')}`,
+    testFiles.length > 1
+      ? `${chalk.gray('Press')} F ${chalk.gray('to focus on a test file.')}`
+      : '',
     `${chalk.gray('Press')} D ${chalk.gray('to debug in the browser.')}`,
     coverage ? `${chalk.gray('Press')} C ${chalk.gray('to view coverage details.')}` : '',
     `${chalk.gray('Press')} Q ${chalk.gray('to quit watch mode.')}`,
