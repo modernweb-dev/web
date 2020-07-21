@@ -6,6 +6,8 @@ import {
   DevServerCoreConfig,
   FSWatcher,
   PluginError,
+  PluginSyntaxError,
+  Context,
 } from '@web/dev-server-core';
 import { URL, pathToFileURL, fileURLToPath } from 'url';
 import { Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
@@ -22,6 +24,27 @@ const VIRTUAL_FILE_PREFIX = '/__web-dev-server__/rollup';
 function resolveFilePath(rootDir: string, path: string) {
   const fileUrl = new URL(`.${path}`, `${pathToFileURL(rootDir)}/`);
   return fileURLToPath(fileUrl);
+}
+
+/**
+ * Wraps rollup error in a custom error for web dev server.
+ */
+function wrapRollupError(filePath: string, context: Context, error: any) {
+  if (typeof error == null || typeof error !== 'object') {
+    return error;
+  }
+
+  if (typeof error?.loc?.line === 'number' && typeof error?.loc?.column === 'number') {
+    return new PluginSyntaxError(
+      // replace file path in error message since it will be reported be the dev server
+      error.message.replace(new RegExp(`(\\s*in\\s*)?(${filePath})`), ''),
+      filePath,
+      context.body,
+      error.loc.line as number,
+      error.loc.column as number,
+    );
+  }
+  return error;
 }
 
 export function rollupAdapter(
@@ -67,78 +90,85 @@ export function rollupAdapter(
       const requestedFile = context.path.endsWith('/') ? `${context.path}index.html` : context.path;
       const filePath = resolveFilePath(rootDir, requestedFile);
 
-      const rollupPluginContext = createRollupPluginContextAdapter(
-        rollupPluginContexts.pluginContext,
-        wdsPlugin,
-        config,
-        fileWatcher,
-        context,
-      );
-
-      let resolvableImport = source;
-      let importSuffix = '';
-      // we have to special case node-resolve because it doesn't support resolving
-      // with hash/params at the moment
-      if (rollupPlugin.name === 'node-resolve') {
-        const [withoutHash, hash] = source.split('#');
-        const [importPath, params] = withoutHash.split('?');
-        importSuffix = `${params ? `?${params}` : ''}${hash ? `#${hash}` : ''}`;
-        resolvableImport = importPath;
-      }
-
-      // if the import was already a fully resolved file path, it was probably injected by a plugin.
-      // in that case use that instead of resolving it through a plugin hook. this puts the resolved file
-      // path through the regular logic to turn it into a relative browser import
-      // otherwise call the resolveID hook on the plugin
-      const result = injectedFilePath
-        ? resolvableImport
-        : await rollupPlugin.resolveId?.call(rollupPluginContext, resolvableImport, filePath);
-
-      let resolvedImportPath: string | undefined = undefined;
-      if (typeof result === 'string') {
-        resolvedImportPath = result;
-      } else if (typeof result === 'object' && typeof result?.id === 'string') {
-        resolvedImportPath = result.id;
-      }
-
-      if (!resolvedImportPath) {
-        return undefined;
-      }
-
-      // if the resolved import includes a null byte (\0) there is some special logic
-      // these often are not valid file paths, so the browser cannot request them.
-      // we rewrite them to a special URL which we deconstruct later when we load the file
-      if (resolvedImportPath.includes('\0')) {
-        const filename = path.basename(
-          resolvedImportPath.replace(/\0*/g, '').split('?')[0].split('#')[0],
+      try {
+        const rollupPluginContext = createRollupPluginContextAdapter(
+          rollupPluginContexts.pluginContext,
+          wdsPlugin,
+          config,
+          fileWatcher,
+          context,
         );
-        const urlParam = encodeURIComponent(resolvedImportPath);
-        return `${VIRTUAL_FILE_PREFIX}/${filename}?${NULL_BYTE_PARAM}=${urlParam}`;
+
+        let resolvableImport = source;
+        let importSuffix = '';
+        // we have to special case node-resolve because it doesn't support resolving
+        // with hash/params at the moment
+        if (rollupPlugin.name === 'node-resolve') {
+          const [withoutHash, hash] = source.split('#');
+          const [importPath, params] = withoutHash.split('?');
+          importSuffix = `${params ? `?${params}` : ''}${hash ? `#${hash}` : ''}`;
+          resolvableImport = importPath;
+        }
+
+        // if the import was already a fully resolved file path, it was probably injected by a plugin.
+        // in that case use that instead of resolving it through a plugin hook. this puts the resolved file
+        // path through the regular logic to turn it into a relative browser import
+        // otherwise call the resolveID hook on the plugin
+        const result = injectedFilePath
+          ? resolvableImport
+          : await rollupPlugin.resolveId?.call(rollupPluginContext, resolvableImport, filePath);
+
+        let resolvedImportPath: string | undefined = undefined;
+        if (typeof result === 'string') {
+          resolvedImportPath = result;
+        } else if (typeof result === 'object' && typeof result?.id === 'string') {
+          resolvedImportPath = result.id;
+        }
+
+        if (!resolvedImportPath) {
+          return undefined;
+        }
+
+        // if the resolved import includes a null byte (\0) there is some special logic
+        // these often are not valid file paths, so the browser cannot request them.
+        // we rewrite them to a special URL which we deconstruct later when we load the file
+        if (resolvedImportPath.includes('\0')) {
+          const filename = path.basename(
+            resolvedImportPath
+              .replace(/\0*/g, '')
+              .split('?')[0]
+              .split('#')[0],
+          );
+          const urlParam = encodeURIComponent(resolvedImportPath);
+          return `${VIRTUAL_FILE_PREFIX}/${filename}?${NULL_BYTE_PARAM}=${urlParam}`;
+        }
+
+        // some plugins don't return a file path, so we just return it as is
+        if (!isAbsoluteFilePath(resolvedImportPath)) {
+          return `${resolvedImportPath}`;
+        }
+
+        if (!resolvedImportPath.startsWith(rootDir)) {
+          throw new PluginError(
+            red(`Resolved an import to ${yellow(resolvedImportPath)}`) +
+              red('. This path is not reachable from the browser because') +
+              red(` it is outside root directory ${yellow(rootDir)}`) +
+              red(
+                `. Configure the root directory using the ${yellow('--root-dir')} or ${yellow(
+                  'rootDir',
+                )} option.`,
+              ),
+          );
+        }
+
+        const resolveRelativeTo = path.extname(filePath) ? path.dirname(filePath) : filePath;
+        const relativeImportFilePath = path.relative(resolveRelativeTo, resolvedImportPath);
+        const importBrowserPath = `${toBrowserPath(relativeImportFilePath)}`;
+
+        return `./${importBrowserPath}${importSuffix}`;
+      } catch (error) {
+        throw wrapRollupError(filePath, context, error);
       }
-
-      // some plugins don't return a file path, so we just return it as is
-      if (!isAbsoluteFilePath(resolvedImportPath)) {
-        return `${resolvedImportPath}`;
-      }
-
-      if (!resolvedImportPath.startsWith(rootDir)) {
-        throw new PluginError(
-          red(`Resolved an import to ${yellow(resolvedImportPath)}`) +
-            red('. This path is not reachable from the browser because') +
-            red(` it is outside root directory ${yellow(rootDir)}`) +
-            red(
-              `. Configure the root directory using the ${yellow('--root-dir')} or ${yellow(
-                'rootDir',
-              )} option.`,
-            ),
-        );
-      }
-
-      const resolveRelativeTo = path.extname(filePath) ? path.dirname(filePath) : filePath;
-      const relativeImportFilePath = path.relative(resolveRelativeTo, resolvedImportPath);
-      const importBrowserPath = `${toBrowserPath(relativeImportFilePath)}`;
-
-      return `./${importBrowserPath}${importSuffix}`;
     },
 
     async serve(context) {
@@ -158,21 +188,25 @@ export function rollupAdapter(
         filePath = resolveFilePath(rootDir, context.path);
       }
 
-      const rollupPluginContext = createRollupPluginContextAdapter(
-        rollupPluginContexts.pluginContext,
-        wdsPlugin,
-        config,
-        fileWatcher,
-        context,
-      );
+      try {
+        const rollupPluginContext = createRollupPluginContextAdapter(
+          rollupPluginContexts.pluginContext,
+          wdsPlugin,
+          config,
+          fileWatcher,
+          context,
+        );
 
-      const result = await rollupPlugin.load?.call(rollupPluginContext, filePath);
+        const result = await rollupPlugin.load?.call(rollupPluginContext, filePath);
 
-      if (typeof result === 'string') {
-        return { body: result, type: 'js' };
-      }
-      if (typeof result?.code === 'string') {
-        return { body: result.code, type: 'js' };
+        if (typeof result === 'string') {
+          return { body: result, type: 'js' };
+        }
+        if (typeof result?.code === 'string') {
+          return { body: result.code, type: 'js' };
+        }
+      } catch (error) {
+        throw wrapRollupError(filePath, context, error);
       }
 
       return undefined;
@@ -185,35 +219,39 @@ export function rollupAdapter(
 
       if (context.response.is('js')) {
         const filePath = resolveFilePath(rootDir, context.path);
-        const rollupPluginContext = createRollupPluginContextAdapter(
-          rollupPluginContexts.transformPluginContext,
-          wdsPlugin,
-          config,
-          fileWatcher,
-          context,
-        );
+        try {
+          const rollupPluginContext = createRollupPluginContextAdapter(
+            rollupPluginContexts.transformPluginContext,
+            wdsPlugin,
+            config,
+            fileWatcher,
+            context,
+          );
 
-        const result = await rollupPlugin.transform?.call(
-          rollupPluginContext as TransformPluginContext,
-          context.body,
-          filePath,
-        );
+          const result = await rollupPlugin.transform?.call(
+            rollupPluginContext as TransformPluginContext,
+            context.body,
+            filePath,
+          );
 
-        let transformedCode: string | undefined = undefined;
-        if (typeof result === 'string') {
-          transformedCode = result;
+          let transformedCode: string | undefined = undefined;
+          if (typeof result === 'string') {
+            transformedCode = result;
+          }
+
+          if (typeof result === 'object' && typeof result?.code === 'string') {
+            transformedCode = result.code;
+          }
+
+          if (transformedCode) {
+            transformedFiles.add(context.path);
+            return transformedCode;
+          }
+
+          return;
+        } catch (error) {
+          throw wrapRollupError(filePath, context, error);
         }
-
-        if (typeof result === 'object' && typeof result?.code === 'string') {
-          transformedCode = result.code;
-        }
-
-        if (transformedCode) {
-          transformedFiles.add(context.path);
-          return transformedCode;
-        }
-
-        return;
       }
     },
   };
