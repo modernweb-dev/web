@@ -1,5 +1,5 @@
 import { createSessionUrl } from './createSessionUrl';
-import { TestRunnerCoreConfig } from './TestRunnerCoreConfig';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { TestSessionManager } from '../test-session/TestSessionManager';
 import { TestSession, TestResultError } from '../test-session/TestSession';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';

@@ -1,6 +1,6 @@
 import { TestSession } from '../test-session/TestSession';
 import { TestSessionManager } from '../test-session/TestSessionManager';
-import { TestRunnerCoreConfig } from '../runner/TestRunnerCoreConfig';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { TestCoverage } from '../coverage/getTestCoverage';
 
 export interface IndentedReportEntry {

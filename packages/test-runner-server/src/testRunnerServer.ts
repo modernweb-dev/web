@@ -4,7 +4,6 @@ import deepmerge from 'deepmerge';
 import chokidar from 'chokidar';
 
 import { watchFilesMiddleware } from './watchFilesMiddleware';
-import { TestServerLogger } from './TestServerLogger';
 import { serveTestRunnerHtmlPlugin } from './serveTestRunnerHtmlPlugin';
 import { cacheMiddleware } from './cacheMiddleware';
 import { testRunnerApiMiddleware } from './testRunnerApiMiddleware';
@@ -47,8 +46,7 @@ export function testRunnerServer(testRunnerServerConfig: TestRunnerServerConfig 
         },
       ]);
 
-      const logger = new TestServerLogger(!!testRunnerServerConfig.debug);
-      devServer = new DevServer(serverConfig, logger, fileWatcher);
+      devServer = new DevServer(serverConfig, config.logger, fileWatcher);
       await devServer.start();
     },
 

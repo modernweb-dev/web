@@ -99,8 +99,8 @@ export async function resolveModuleImports(
         'Syntax error',
         filePath,
         code,
-        error.idx - code.lastIndexOf('\n', error.idx - 1),
         code.slice(0, error.idx).split('\n').length,
+        error.idx - code.lastIndexOf('\n', error.idx - 1),
       );
     }
     throw error;
