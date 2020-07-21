@@ -112,7 +112,6 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
   const passedTests = new Set<string>();
   const failedTests = new Set<string>();
   const finishedFiles = new Set<string>();
-  const browserProgressEntries: string[] = [];
   let failed = false;
 
   const minWidth = browserNames.sort((a, b) => b.length - a.length)[0].length + 1;
@@ -144,7 +143,7 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
       }
     }
 
-    browserProgressEntries.push(
+    entries.push(
       getProgressReport(
         browser,
         minWidth,
@@ -154,23 +153,6 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
         failedTestsForBrowser,
       ),
     );
-  }
-
-  if (browserNames.length > 1) {
-    entries.push(
-      getProgressReport(
-        'Total',
-        minWidth,
-        finishedFiles.size,
-        testFiles.length,
-        passedTests.size,
-        failedTests.size,
-      ),
-    );
-    entries.push('');
-    entries.push(...browserProgressEntries.map(text => text));
-  } else {
-    entries.push(...browserProgressEntries);
   }
 
   entries.push('');
