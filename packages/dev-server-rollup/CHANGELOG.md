@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.1.4
+
+### Patch Changes
+
+- 1c915d0: handle inline scripts
+
 ## 0.1.3
 
 ### Patch Changes
