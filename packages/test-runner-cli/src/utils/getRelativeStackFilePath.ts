@@ -35,6 +35,7 @@ export async function getRelativeStackFilePath(
       startIndex: match.index!,
       replacedString: `${prefix}${pathWithLocation}${suffix}`,
       relativeFilePath,
+      location,
     };
   }
 

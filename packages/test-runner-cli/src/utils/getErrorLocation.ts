@@ -21,8 +21,9 @@ export async function getErrorLocation(
       stackLocationRegExp,
       sourceMapFunction,
     );
+
     if (result?.relativeFilePath) {
-      return result.relativeFilePath;
+      return `${result.relativeFilePath}${result.location}`;
     }
   }
 }
