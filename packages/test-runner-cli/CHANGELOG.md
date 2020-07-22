@@ -1,5 +1,12 @@
 # @web/test-runner-cli
 
+## 0.4.19
+
+### Patch Changes
+
+- 8d3f7df: fix handling of inline source maps
+- 92bba60: feat(test-runner-cli): show source location for diff errors
+
 ## 0.4.18
 
 ### Patch Changes
