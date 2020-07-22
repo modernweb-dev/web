@@ -1,5 +1,13 @@
 # @web/dev-server-rollup
 
+## 0.1.3
+
+### Patch Changes
+
+- f9dfcd3: improve rollup syntax error logging
+- Updated dependencies [8596276]
+  - @web/dev-server-core@0.1.5
+
 ## 0.1.2
 
 ### Patch Changes

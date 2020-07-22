@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.15
+
+### Patch Changes
+
+- 8596276: move logger to test runner cli
+
 ## 0.6.14
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @web/test-runner-server
 
+## 0.5.11
+
+### Patch Changes
+
+- 8596276: move logger to test runner cli
+- Updated dependencies [8596276]
+  - @web/dev-server-core@0.1.5
+  - @web/test-runner-core@0.6.15
+
 ## 0.5.10
 
 ### Patch Changes

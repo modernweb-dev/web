@@ -1,5 +1,13 @@
 # @web/dev-server-esbuild
 
+## 0.1.4
+
+### Patch Changes
+
+- 38a8505: improve esbuild syntax error logging
+- Updated dependencies [8596276]
+  - @web/dev-server-core@0.1.5
+
 ## 0.1.3
 
 ### Patch Changes

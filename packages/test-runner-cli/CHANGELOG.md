@@ -1,5 +1,14 @@
 # @web/test-runner-cli
 
+## 0.4.18
+
+### Patch Changes
+
+- c2b5d6c: dedupe syntax errors
+- 8596276: move logger to test runner cli
+- Updated dependencies [8596276]
+  - @web/test-runner-core@0.6.15
+
 ## 0.4.17
 
 ### Patch Changes
