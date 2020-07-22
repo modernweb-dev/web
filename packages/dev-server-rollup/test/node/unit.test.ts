@@ -235,7 +235,10 @@ describe('@web/dev-server-rollup', () => {
       name: 'my-plugin',
       transform(code, id) {
         if (id === path.join(__dirname, 'fixtures', 'basic', 'app.js')) {
-          return `import "${path.join(__dirname, 'fixtures', 'basic', 'foo.js')}";\n${code}`;
+          return `import "${path
+            .join(__dirname, 'fixtures', 'basic', 'foo.js')
+            .split('\\')
+            .join('/')}";\n${code}`;
         }
       },
     };

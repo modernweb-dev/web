@@ -18,9 +18,9 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "build": "rm -rf dist && rollup -c rollup.config.js",
+    "build": "rimraf dist && rollup -c rollup.config.js",
     "build:browser": "yarn build",
-    "build:watch": "rm -rf dist && rollup -c rollup.config.js --watch"
+    "build:watch": "rimraf dist && rollup -c rollup.config.js --watch"
   },
   "files": [
     "*.d.ts",
