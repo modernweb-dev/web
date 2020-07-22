@@ -68,6 +68,7 @@ export function createMiddleware(
   middlewares.push(
     koaStatic(config.rootDir, {
       hidden: true,
+      defer: true,
       setHeaders(res) {
         res.setHeader('cache-control', 'no-cache');
       },
