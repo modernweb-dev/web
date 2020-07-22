@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.1.6
+
+### Patch Changes
+
+- 8892f98: allow downstream middleware to serve files
+
 ## 0.1.5
 
 ### Patch Changes
