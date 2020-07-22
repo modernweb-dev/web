@@ -54,6 +54,14 @@ async function getSourceMap(
   );
 }
 
+function resolveRelativeTo(relativeTo: string, path: string) {
+  const dir = dirname(relativeTo);
+  if (path.startsWith(dir)) {
+    return path;
+  }
+  return join(dir, path);
+}
+
 export function createSourceMapFunction(
   protocol: string,
   host: string,
@@ -82,7 +90,7 @@ export function createSourceMapFunction(
       if (typeof line !== 'number' && typeof column !== 'number') {
         const sources = sourceMap.getProperty('sources') as string[] | undefined;
         if (sources && sources.length === 1) {
-          return { filePath: join(dirname(filePath), sources[0]) };
+          return { filePath: resolveRelativeTo(filePath, sources[0]) };
         }
         return null;
       }
@@ -117,7 +125,7 @@ export function createSourceMapFunction(
       const newFilePath = toFilePath(originalPosition.source!);
 
       return {
-        filePath: join(dirname(filePath), newFilePath),
+        filePath: resolveRelativeTo(filePath, newFilePath),
         line: originalPosition.line ?? undefined,
         column: originalPosition.column ?? undefined,
       };
