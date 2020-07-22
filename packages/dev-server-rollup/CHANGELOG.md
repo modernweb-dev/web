@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.1.5
+
+### Patch Changes
+
+- 6bc4381: handle windows paths in @web/dev-server-rolup
+
 ## 0.1.4
 
 ### Patch Changes

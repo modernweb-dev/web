@@ -1,5 +1,11 @@
 # @web/config-loader
 
+## 0.0.3
+
+### Patch Changes
+
+- 588a971: fix loading esm config on windows
+
 ## 0.0.2
 
 ### Patch Changes

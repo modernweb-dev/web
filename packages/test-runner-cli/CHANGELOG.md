@@ -1,5 +1,12 @@
 # @web/test-runner-cli
 
+## 0.4.20
+
+### Patch Changes
+
+- Updated dependencies [588a971]
+  - @web/config-loader@0.0.3
+
 ## 0.4.19
 
 ### Patch Changes

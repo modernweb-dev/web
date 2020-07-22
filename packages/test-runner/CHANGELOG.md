@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.6.42
+
+### Patch Changes
+
+- 6bc4381: handle windows paths in @web/dev-server-rolup
+- 588a971: fix loading esm config on windows
+- Updated dependencies [6bc4381]
+  - @web/dev-server-rollup@0.1.5
+  - @web/test-runner-cli@0.4.20
+
 ## 0.6.41
 
 ### Patch Changes
