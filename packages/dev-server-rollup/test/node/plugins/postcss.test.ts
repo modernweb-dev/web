@@ -5,7 +5,7 @@ import { resolve } from 'path';
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
 import { rollupAdapter } from '../../../src/rollupAdapter';
 
-describe('@rollup/plugin-alias', () => {
+describe('@rollup/plugin-postcss', () => {
   it('can run postcss on imported css files', async () => {
     const { server, host } = await createTestServer({
       rootDir: resolve(__dirname, '..', '..', '..', '..', '..'),

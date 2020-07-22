@@ -4,7 +4,7 @@ const postcss = require('rollup-plugin-postcss');
 const { rollupAdapter } = require('./dist/index');
 
 module.exports = {
-  rootDir: '../../..',
+  rootDir: '../..',
   plugins: [
     rollupAdapter(commonjs()),
     {

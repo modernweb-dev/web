@@ -30,7 +30,12 @@ describe('@rollup/plugin-inject', () => {
     try {
       const text = await fetchText(`${host}/foo.js`);
       expectIncludes(text, "import { html as html } from 'lit-html';");
-      expectIncludes(text, `import { SomeGlobal as SomeGlobal } from '${injectedModulePath}';`);
+      expectIncludes(
+        text,
+        `import { SomeGlobal as SomeGlobal } from '${injectedModulePath
+          .split(path.sep)
+          .join('/')}';`,
+      );
     } finally {
       server.stop();
     }

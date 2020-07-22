@@ -78,13 +78,12 @@ export function rollupAdapter(
     async resolveImport({ source, context }) {
       // if we just transformed this file and the import is an absolute file path
       // we need to rewrite it to a browser path
-      const injectedFilePath = transformedFiles.has(context.path) && source.startsWith(rootDir);
-
+      const injectedFilePath = path.normalize(source).startsWith(rootDir);
       if (!injectedFilePath && !rollupPlugin.resolveId) {
         return;
       }
 
-      if (whatwgUrl.parseURL(source) != null) {
+      if (!injectedFilePath && whatwgUrl.parseURL(source) != null) {
         // don't resolve valid urls
         return source;
       }
@@ -147,7 +146,7 @@ export function rollupAdapter(
           return `${resolvedImportPath}`;
         }
 
-        if (!resolvedImportPath.startsWith(rootDir)) {
+        if (!path.normalize(resolvedImportPath).startsWith(rootDir)) {
           throw new PluginError(
             red(`Resolved an import to ${yellow(resolvedImportPath)}`) +
               red('. This path is not reachable from the browser because') +
