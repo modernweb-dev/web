@@ -9,6 +9,8 @@ import {
   PluginSyntaxError,
   Context,
 } from '@web/dev-server-core';
+import { queryAll, predicates, getTextContent } from '@web/dev-server-core/dist/dom5';
+import { parse as parseHtml } from 'parse5';
 import { URL, pathToFileURL, fileURLToPath } from 'url';
 import { Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';
@@ -246,6 +248,57 @@ export function rollupAdapter(
           }
 
           return;
+        } catch (error) {
+          throw wrapRollupError(filePath, context, error);
+        }
+      }
+
+      if (context.response.is('html')) {
+        const documentAst = parseHtml(context.body);
+        const inlineModuleNodes = queryAll(
+          documentAst,
+          predicates.AND(
+            predicates.hasTagName('script'),
+            predicates.hasAttrValue('type', 'module'),
+            predicates.NOT(predicates.hasAttr('src')),
+          ),
+        );
+
+        const filePath = resolveFilePath(rootDir, context.path);
+        try {
+          for (const node of inlineModuleNodes) {
+            const code = getTextContent(node);
+
+            const rollupPluginContext = createRollupPluginContextAdapter(
+              rollupPluginContexts.transformPluginContext,
+              wdsPlugin,
+              config,
+              fileWatcher,
+              context,
+            );
+
+            const result = await rollupPlugin.transform?.call(
+              rollupPluginContext as TransformPluginContext,
+              code,
+              filePath,
+            );
+
+            let transformedCode: string | undefined = undefined;
+            if (typeof result === 'string') {
+              transformedCode = result;
+            }
+
+            if (typeof result === 'object' && typeof result?.code === 'string') {
+              transformedCode = result.code;
+            }
+
+            if (transformedCode) {
+              transformedFiles.add(context.path);
+              context.body = context.body.replace(code, transformedCode);
+            }
+          }
+
+          return context.body;
         } catch (error) {
           throw wrapRollupError(filePath, context, error);
         }

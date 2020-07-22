@@ -302,4 +302,52 @@ describe('@web/dev-server-rollup', () => {
       server.stop();
     }
   });
+
+  it('can handle inline scripts in html', async () => {
+    const plugin: RollupPlugin = {
+      name: 'my-plugin',
+      transform(code, id) {
+        if (id === path.join(__dirname, 'fixtures', 'basic', 'foo.html')) {
+          return { code: code.replace('foo', 'transformed') };
+        }
+      },
+    };
+
+    const { server, host } = await createTestServer({
+      plugins: [rollupAdapter(plugin)],
+    });
+
+    try {
+      const text = await fetchText(`${host}/foo.html`);
+      expect(text).to.equal(
+        `<html><head></head><body>\n    <script type="module">\n      console.log("transformed");\n    </script>\n  \n\n</body></html>`,
+      );
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('can handle multiple inline scripts in html', async () => {
+    const plugin: RollupPlugin = {
+      name: 'my-plugin',
+      transform(code, id) {
+        if (id === path.join(__dirname, 'fixtures', 'basic', 'multiple-inline.html')) {
+          return { code: code.replace('bar', 'transformed') };
+        }
+      },
+    };
+
+    const { server, host } = await createTestServer({
+      plugins: [rollupAdapter(plugin)],
+    });
+
+    try {
+      const text = await fetchText(`${host}/multiple-inline.html`);
+      expect(text).to.equal(
+        `<html><head></head><body>\n    <script type="module">\n      console.log("asd");\n    </script>\n    <script type="module">\n      console.log("transformed");\n    </script>\n  \n\n</body></html>`,
+      );
+    } finally {
+      server.stop();
+    }
+  });
 });
