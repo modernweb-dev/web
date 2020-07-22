@@ -36,7 +36,7 @@
     "esm",
     "es module"
   ],
-  "devDependencies": {
+  "dependencies": {
     "semver": "^7.3.2"
   }
 }

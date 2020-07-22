@@ -43,7 +43,6 @@
   "dependencies": {
     "@web/dev-server-core": "^0.1.5",
     "chalk": "^4.1.0",
-    "path-is-inside": "^1.0.2",
     "rollup": "^2.20.0",
     "whatwg-url": "^8.1.0"
   },
