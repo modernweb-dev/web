@@ -12,7 +12,7 @@ export function watchServedFilesMiddleware(fileWatcher: FSWatcher, rootDir: stri
   return async (ctx, next) => {
     await next();
 
-    if (ctx.response.status >= 200 && ctx.response.status < 300 && path.extname(ctx.path)) {
+    if (ctx.response.status !== 404 && path.extname(ctx.path)) {
       const filePath = getRequestFilePath(ctx, rootDir);
       fileWatcher.add(filePath);
     }
