@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.6.43
+
+### Patch Changes
+
+- 9712125: fix not watching files with syntax errors
+
 ## 0.6.42
 
 ### Patch Changes
