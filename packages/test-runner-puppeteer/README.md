@@ -16,12 +16,43 @@ You can find all possible launch options in the [official documentation](https:/
 const { puppeteerLauncher } = require('@web/test-runner-puppeteer');
 
 module.exports = {
-  browwsers: [
+  browsers: [
     puppeteerLauncher({
       launchOptions: {
         executablePath: '/path/to/executable',
         headless: false,
         args: ['--some-flag'],
+      },
+    }),
+  ],
+};
+```
+
+### Customizing page creation
+
+You can use a custom function to create the puppeteer `Page`. You can use this for example to set up injecting scripts for environment variables or to expose functions to the browser to control the page.
+
+```js
+const { puppeteerLauncher } = require('@web/test-runner-puppeteer');
+
+module.exports = {
+  browsers: [
+    puppeteerLauncher({
+      async createPage({ browser, config }) {
+        const page = await browser.newPage();
+
+        // expose websocket endpoint as an environment variable in the browser
+        page.evaluateOnNewDocument(wsEndpoint => {
+          window.__ENV__ = { wsEndpoint };
+        }, browser.wsEndpoint());
+
+        // expose a function in the browser, which calls a function on the
+        // puppeteer page in NodeJS
+        page.exposeFunction('puppeteerBringToFront', () => {
+          page.bringToFront();
+        });
+
+        return page;
       },
     }),
   ],
@@ -38,7 +69,7 @@ To run puppeteer with firefox, you can set the `product` option or set the `PUPP
 const { puppeteerLauncher } = require('@web/test-runner-puppeteer');
 
 module.exports = {
-  browwsers: [
+  browsers: [
     puppeteerLauncher({
       launchOptions: {
         product: 'firefox',

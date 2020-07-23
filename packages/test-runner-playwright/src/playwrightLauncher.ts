@@ -9,6 +9,7 @@ const validProductTypes: ProductType[] = ['chromium', 'firefox', 'webkit'];
 export interface PlaywrightLauncherConfig {
   product?: ProductType;
   launchOptions?: LaunchOptions;
+  createPage?: (args: { config: TestRunnerCoreConfig; browser: Browser }) => Promise<Page>;
 }
 
 async function getPageCoverage(config: TestRunnerCoreConfig, testFiles: string[], page: Page) {
@@ -19,6 +20,7 @@ async function getPageCoverage(config: TestRunnerCoreConfig, testFiles: string[]
 export function playwrightLauncher({
   product = 'chromium',
   launchOptions = {},
+  createPage,
 }: PlaywrightLauncherConfig = {}): BrowserLauncher {
   const activePages = new Map<string, Page>();
   const debugPages = new Map<string, Page>();
@@ -63,7 +65,7 @@ export function playwrightLauncher({
 
       let page: Page;
       if (inactivePages.length === 0) {
-        page = await browser.newPage();
+        page = await (createPage?.({ config, browser }) ?? browser.newPage());
       } else {
         page = inactivePages.pop()!;
       }
@@ -112,7 +114,9 @@ export function playwrightLauncher({
         await debugBrowser.close();
       }
       debugBrowser = await playwright[product].launch({ ...launchOptions, headless: false });
-      const page = await debugBrowser.newPage();
+      const page = await (createPage?.({ config, browser: debugBrowser }) ??
+        debugBrowser.newPage());
+
       debugPages.set(session.id, page);
       page.on('close', () => {
         debugPages.delete(session.id);
