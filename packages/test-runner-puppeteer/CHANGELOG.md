@@ -1,5 +1,13 @@
 # @web/test-runner-puppeteer
 
+## 0.5.5
+
+### Patch Changes
+
+- 7a22269: allow customize browser page creation
+- Updated dependencies [7a22269]
+  - @web/test-runner-chrome@0.5.11
+
 ## 0.5.4
 
 ### Patch Changes

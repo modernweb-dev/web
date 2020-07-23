@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.4.10
+
+### Patch Changes
+
+- 7a22269: allow customize browser page creation
+
 ## 0.4.9
 
 ### Patch Changes

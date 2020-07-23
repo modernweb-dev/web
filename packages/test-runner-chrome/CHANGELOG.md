@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.5.11
+
+### Patch Changes
+
+- 7a22269: allow customize browser page creation
+
 ## 0.5.10
 
 ### Patch Changes
