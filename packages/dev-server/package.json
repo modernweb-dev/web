@@ -1,0 +1,60 @@
+{
+  "name": "@web/dev-server",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Dev server for web applications",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/dev-server"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server",
+  "main": "dist/index.js",
+  "bin": {
+    "web-dev-server": "./dist/bin.js",
+    "wds": "./dist/bin.js"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "start": "yarn start:syntax",
+    "start:base-path": "node dist/dev-server.js --config demo/base-path/config.mjs --open",
+    "start:http2": "node dist/dev-server.js --config demo/http2/config.mjs --open demo/http2/",
+    "start:index-rewrite": "node dist/dev-server.js --config demo/index-rewrite/config.mjs --open",
+    "start:node-resolve": "node dist/dev-server.js --config demo/node-resolve/config.mjs --open",
+    "start:plugin-serve": "node dist/dev-server.js --config demo/plugin-serve/config.mjs --open",
+    "start:static": "node dist/dev-server.js --config demo/static/config.mjs --open demo/static/",
+    "start:syntax": "node dist/dev-server.js --config demo/syntax/config.mjs --open demo/syntax/",
+    "test": "mocha \"test/**/*.test.mjs\" --reporter dot",
+    "test:watch": "mocha \"test/**/*.test.mjs\" --watch --watch-files src,test --reporter dot"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "web",
+    "dev",
+    "server",
+    "default",
+    "implementation",
+    "cli"
+  ],
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@types/command-line-args": "^5.0.0",
+    "@web/dev-server-cli": "^0.0.0",
+    "@web/dev-server-rollup": "^0.2.3",
+    "chalk": "^4.1.0",
+    "command-line-args": "^5.1.1",
+    "deepmerge": "^4.2.2"
+  },
+  "devDependencies": {
+    "lit-html": "^1.2.1",
+    "puppeteer": "^5.2.1"
+  }
+}

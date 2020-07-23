@@ -1,0 +1,22 @@
+<html>
+  <body>
+    <img width="100" src="/demo/logo.png" />
+
+    <h1>Plugin serve demo</h1>
+
+    <div id="test"></div>
+
+    <script type="module">
+      console.log('hello world');
+
+      window.__tests = {
+        moduleLoaded: true,
+      };
+      document.getElementById('test').innerHTML = `<pre>${JSON.stringify(
+        window.__tests,
+        null,
+        2,
+      )}</pre>`;
+    </script>
+  </body>
+</html>

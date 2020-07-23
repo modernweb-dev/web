@@ -8,10 +8,10 @@ export {
   getHtmlPath,
   isInlineScriptRequest,
 } from './utils';
-export { Logger } from './logger/Logger';
 export { EventStreamManager } from './event-stream/EventStreamManager';
 export { FSWatcher } from 'chokidar';
 export { default as Koa, Context, Middleware } from 'koa';
 export { Server } from 'net';
+export { Logger, ErrorWithLocation } from './logger/Logger';
 export { PluginSyntaxError } from './logger/PluginSyntaxError';
 export { PluginError } from './logger/PluginError';

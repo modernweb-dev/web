@@ -98,6 +98,8 @@ describe('@web/dev-server-rollup', () => {
         debug: stub(),
         error: stub(),
         warn: stub(),
+        group: stub(),
+        groupEnd: stub(),
         logSyntaxError: stub(),
       };
       const { server, host } = await createTestServer(

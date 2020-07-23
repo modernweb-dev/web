@@ -1,9 +1,8 @@
-#!/usr/bin/env node
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import {
   readCliArgsConfig,
   readConfig,
-  startTestRunner,
+  startTestRunner as defaultStartTestRunner,
   validateCoreConfig,
   defaultReporter,
 } from '@web/test-runner-cli';
@@ -29,6 +28,11 @@ export interface TestRunnerCliArgsConfig extends Omit<TestRunnerConfig, 'browser
   puppeteer?: boolean;
   playwright?: boolean;
   browsers?: string[];
+}
+
+export interface StartTestRunnerOptions {
+  autoExitProcess?: boolean;
+  argv?: string[];
 }
 
 const cliOptions: (commandLineArgs.OptionDefinition & { description: string })[] = [
@@ -65,10 +69,12 @@ const cliOptions: (commandLineArgs.OptionDefinition & { description: string })[]
   },
 ];
 
-(async () => {
+export async function startTestRunner(options: StartTestRunnerOptions = {}) {
+  const { autoExitProcess = true, argv = process.argv } = options;
   try {
-    const cliArgs = readCliArgsConfig<TestRunnerCliArgsConfig>(cliOptions);
+    const cliArgs = readCliArgsConfig<TestRunnerCliArgsConfig>(cliOptions, argv);
     const cliArgsConfig: Partial<TestRunnerConfig> = {};
+
     for (const [key, value] of Object.entries(cliArgs)) {
       if (key !== 'browsers') {
         // cli args are read from a file, they are validated by cli-options and later on as well
@@ -121,9 +127,13 @@ const cliOptions: (commandLineArgs.OptionDefinition & { description: string })[]
     config.plugins!.push(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
 
     const validatedConfig = validateCoreConfig<TestRunnerConfig>(config);
-    startTestRunner(validatedConfig);
+    return defaultStartTestRunner(validatedConfig, { autoExitProcess });
   } catch (error) {
-    console.error(chalk.red(`\nFailed to start test runner: ${error.message}\n`));
-    process.exit(1);
+    if (autoExitProcess) {
+      console.error(chalk.red(`\nFailed to start test runner: ${error.message}\n`));
+      process.exit(1);
+    } else {
+      throw error;
+    }
   }
-})();
+}

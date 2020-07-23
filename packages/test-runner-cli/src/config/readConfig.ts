@@ -53,7 +53,7 @@ export function validateCoreConfig<T extends TestRunnerCoreConfig>(config: Parti
 }
 
 export async function readConfig<T extends TestRunnerCoreConfig & { config?: string }>(
-  cliArgsConfig: Partial<T>,
+  cliArgsConfig: Partial<T> = {},
 ): Promise<Partial<T>> {
   try {
     const fileConfig = await readFileConfig(

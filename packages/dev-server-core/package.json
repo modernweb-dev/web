@@ -62,7 +62,6 @@
     "@types/uuid": "^8.0.0",
     "abort-controller": "^3.0.0",
     "node-fetch": "3.0.0-beta.7",
-    "open": "^7.0.4",
     "portfinder": "^1.0.26",
     "uuid": "^8.2.0"
   },

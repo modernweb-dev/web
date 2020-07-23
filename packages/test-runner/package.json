@@ -15,28 +15,28 @@
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner",
   "main": "dist/index.js",
   "bin": {
-    "web-test-runner": "./dist/test-runner.js",
-    "wtr": "./dist/test-runner.js"
+    "web-test-runner": "./dist/bin.js",
+    "wtr": "./dist/bin.js"
   },
   "engines": {
     "node": ">=10.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\"",
-    "test:babel-coverage": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --config demo/babel-coverage.config.js",
-    "test:bare": "node dist/test-runner.js",
+    "test": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\"",
+    "test:babel-coverage": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/babel-coverage.config.js",
+    "test:bare": "node dist/bin.js",
     "test:ci": "yarn test",
-    "test:custom-html": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --config demo/customhtml.config.js",
-    "test:legacy": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --config legacy.config.js",
-    "test:logging": "node dist/test-runner.js \"demo/test/logging.test.js\"",
-    "test:many": "node dist/test-runner.js \"demo/test/many/**/*.test.js\"",
-    "test:mixed": "node dist/test-runner.js \"demo/**/*.test.js\"",
-    "test:mocha-options": "node dist/test-runner.js --config \"demo/test/mocha-options/config.js\"",
-    "test:playwright": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --playwright --browsers chromium firefox webkit",
-    "test:puppeteer-firefox": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --puppeteer --browsers firefox",
-    "test:source-maps": "node dist/test-runner.js \"demo/test/source-maps/**/*/*.test.js\"",
-    "test:watch": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --watch"
+    "test:custom-html": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/customhtml.config.js",
+    "test:legacy": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config legacy.config.js",
+    "test:logging": "node dist/bin.js \"demo/test/logging.test.js\"",
+    "test:many": "node dist/bin.js \"demo/test/many/**/*.test.js\"",
+    "test:mixed": "node dist/bin.js \"demo/**/*.test.js\"",
+    "test:mocha-options": "node dist/bin.js --config \"demo/test/mocha-options/config.js\"",
+    "test:playwright": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --playwright --browsers chromium firefox webkit",
+    "test:puppeteer-firefox": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --puppeteer --browsers firefox",
+    "test:source-maps": "node dist/bin.js \"demo/test/source-maps/**/*/*.test.js\"",
+    "test:watch": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --watch"
   },
   "files": [
     "*.d.ts",

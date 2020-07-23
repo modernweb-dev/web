@@ -19,8 +19,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "node ../test-runner/dist/test-runner.js test-browser/**/*.test.ts",
-    "test:watch": "node ../test-runner/dist/test-runner.js test-browser/**/*.test.ts --watch"
+    "test": "node ../test-runner/dist/bin.js test-browser/**/*.test.ts",
+    "test:watch": "node ../test-runner/dist/bin.js test-browser/**/*.test.ts --watch"
   },
   "files": [
     "*.d.ts",

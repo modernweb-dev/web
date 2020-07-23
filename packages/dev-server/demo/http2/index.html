@@ -1,0 +1,32 @@
+<html>
+  <head> </head>
+
+  <body>
+    <img width="100" src="/demo/logo.png" />
+
+    <h1>Static demo</h1>
+    <p>A demo using https.</p>
+    <div id="test"></div>
+
+    <script type="module" src="/demo/http2/module.js"></script>
+
+    <script type="module">
+      import '/demo/http2/module.js';
+
+      window.__tests = {
+        moduleLoaded: window.__moduleLoaded || false,
+      };
+      document.getElementById('test').innerHTML = `<pre>${JSON.stringify(
+        window.__tests,
+        null,
+        2,
+      )}</pre>`;
+    </script>
+
+    <script>
+      (async () => {
+        await fetch('/demo/http2/module.js');
+      })();
+    </script>
+  </body>
+</html>
