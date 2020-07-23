@@ -4,6 +4,7 @@ import cjsEntrypoint from './dist/index.js';
 const {
   chromeLauncher,
   defaultReporter,
+  startTestRunner,
   constants,
   TestRunner,
   TestSessionManager,
@@ -14,6 +15,7 @@ const {
 export {
   chromeLauncher,
   defaultReporter,
+  startTestRunner,
   constants,
   TestRunner,
   TestSessionManager,

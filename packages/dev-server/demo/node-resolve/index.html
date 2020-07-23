@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <base href="/packages/dev-server/demo/node-resolve/" />
+  </head>
+
+  <body>
+    <img width="100" src="../logo.png" />
+
+    <h1>Node resolve demo</h1>
+    <p>A demo which resolves bare module imports</p>
+
+    <div id="test"></div>
+
+    <script type="module">
+      // inline bare modules are resolved
+      import { render, html } from 'lit-html';
+
+      window.__inlineNodeResolve = !!render && !!html;
+    </script>
+
+    <script type="module">
+      import './module.js';
+      // can import without .js extension
+      import './no-extension';
+      // .mjs takes priority over .js
+      import './extension-priority';
+
+      window.__tests = {
+        inlineNodeResolve: window.__inlineNodeResolve || false,
+        nodeResolve: window.__nodeResolve || false,
+        noExtension: window.__noExtension || false,
+        extensionPriority: window.__extensionPriority || false,
+      };
+      document.getElementById('test').innerHTML = `<pre>${JSON.stringify(
+        window.__tests,
+        null,
+        2,
+      )}</pre>`;
+    </script>
+  </body>
+</html>

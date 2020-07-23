@@ -26,7 +26,7 @@
     "start": "rocket-start",
     "start:build": "es-dev-server --root-dir _site --compatibility none --open",
     "test": "yarn test:node && yarn test:browser && node scripts/workspaces-scripts-bin.mjs test:ci",
-    "test:browser": "node packages/test-runner/dist/test-runner.js \"packages/*/test-browser/**/*.test.{js,ts}\"",
+    "test:browser": "node packages/test-runner/dist/bin.js \"packages/*/test-browser/**/*.test.{js,ts}\"",
     "test:node": "mocha \"packages/*/test/!(fixtures|browser)/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --parallel --reporter dot --exit --retries 3",
     "update-dependency": "node scripts/update-dependency.js",
     "update-esm-entrypoints": "node scripts/update-esm-entrypoints.mjs && yarn format",

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const testRunnerBin = path.resolve('packages', 'test-runner', 'dist', 'test-runner.js');
+const testRunnerBin = path.resolve('packages', 'test-runner', 'dist', 'bin.js');
 const projectsDir = path.resolve('demo', 'projects');
 const projects = fs.readdirSync(projectsDir);
 

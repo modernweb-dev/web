@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <base href="/" />
+  </head>
+
+  <body>
+    <img width="100" src="./demo/logo.png" />
+
+    <h1>Demo app</h1>
+
+    <p>
+      <a href="foo/">Foo</a>
+    </p>
+
+    <p>
+      <a href="bar/">Bar</a>
+    </p>
+
+    <div id="test"></div>
+  </body>
+
+  <script type="module">
+    import './demo/index-rewrite/module-a.js';
+
+    window.__tests = {
+      moduleLoaded: window.__moduleALoaded && window.__moduleBLoaded,
+    };
+    document.getElementById('test').innerHTML = `<pre>${JSON.stringify(
+      window.__tests,
+      null,
+      2,
+    )}</pre>`;
+  </script>
+</html>

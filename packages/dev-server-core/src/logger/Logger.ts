@@ -12,5 +12,7 @@ export interface Logger {
   debug(...messages: unknown[]): void;
   error(...messages: unknown[]): void;
   warn(...messages: unknown[]): void;
+  group(): void;
+  groupEnd(): void;
   logSyntaxError(error: ErrorWithLocation): void;
 }

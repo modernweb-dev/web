@@ -15,20 +15,12 @@ const defaultConfig: Omit<DevServerCoreConfig, 'port' | 'rootDir'> = {
 };
 
 const mockLogger: Logger = {
-  log() {
-    //
-  },
+  ...console,
   debug() {
-    //
+    // no debug
   },
-  error() {
-    //
-  },
-  warn() {
-    //
-  },
-  logSyntaxError() {
-    //
+  logSyntaxError(error) {
+    console.error(error);
   },
 };
 

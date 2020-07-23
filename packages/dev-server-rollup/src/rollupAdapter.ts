@@ -148,11 +148,11 @@ export function rollupAdapter(
 
         if (!path.normalize(resolvedImportPath).startsWith(rootDir)) {
           throw new PluginError(
-            red(`Resolved an import to ${yellow(resolvedImportPath)}`) +
-              red('. This path is not reachable from the browser because') +
-              red(` it is outside root directory ${yellow(rootDir)}`) +
+            red(`Resolved an import to ${yellow(resolvedImportPath)}.\n`) +
+              red('This path is not reachable from the browser because') +
+              red(` it is outside root directory ${yellow(rootDir)}.`) +
               red(
-                `. Configure the root directory using the ${yellow('--root-dir')} or ${yellow(
+                ` Configure the root directory using the ${yellow('--root-dir')} or ${yellow(
                   'rootDir',
                 )} option.`,
               ),

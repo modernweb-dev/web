@@ -19,8 +19,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
+    "test": "mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
+    "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
   "files": [
     "*.d.ts",
@@ -43,6 +43,7 @@
     "@types/babel__code-frame": "^7.0.1",
     "@web/browser-logs": "^0.1.2",
     "@web/config-loader": "^0.1.1",
+    "@web/test-runner-chrome": "^0.6.4",
     "@web/test-runner-core": "^0.7.4",
     "camelcase": "^6.0.0",
     "chalk": "^4.1.0",

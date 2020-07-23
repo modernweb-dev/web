@@ -1,0 +1,87 @@
+<html>
+  <body>
+    <img width="100" src="/demo/logo.png" />
+
+    <h1>Syntax demo</h1>
+    <p>A demo which showcases different types of syntax being handled by es-dev-server</p>
+
+    <div id="test"></div>
+
+    <script type="module">
+      window.__tests = {
+        stage4: false,
+        inlineStage4: false,
+        importMeta: false,
+        staticImports: false,
+        dynamicImports: false,
+      };
+
+      async function stage4Features() {
+        try {
+          await import('./stage-4-features.js');
+          window.__tests.stage4 = window.__stage4 || false;
+        } catch {
+          return;
+        }
+      }
+
+      async function moduleFeatures() {
+        try {
+          await import('./module-features.js');
+          window.__tests.importMeta = window.__importMeta || false;
+          window.__tests.staticImports = window.__staticImports || false;
+          window.__tests.dynamicImports = (await window.__dynamicImports) || false;
+        } catch {
+          return;
+        }
+      }
+
+      (async () => {
+        await stage4Features();
+        await moduleFeatures();
+
+        document.getElementById('test').innerHTML = `<pre>${JSON.stringify(
+          window.__tests,
+          null,
+          2,
+        )}</pre>`;
+      })();
+    </script>
+
+    <script type="module">
+      import './empty-module.js';
+
+      const foo = { a: 1 };
+      const bar = { ...foo };
+      const objectSpread = bar.a === 1;
+
+      async function asyncFunction() {}
+      const asyncFunctions = asyncFunction() instanceof Promise;
+
+      const exponentation = 2 ** 4 === 16;
+
+      class Foo {
+        constructor() {
+          this.foo = 'bar';
+        }
+      }
+      const classes = new Foo().foo === 'bar';
+
+      const templateLiterals = `template ${'literal'}` === 'template literal';
+
+      const lorem = { ipsum: 'lorem ipsum' };
+      const optionalChaining = lorem?.ipsum === 'lorem ipsum' && lorem?.ipsum?.foo === undefined;
+      const buz = null;
+      const nullishCoalescing = (buz ?? 'nullish colaesced') === 'nullish colaesced';
+
+      window.__tests.inlineStage4 =
+        objectSpread &&
+        asyncFunctions &&
+        exponentation &&
+        classes &&
+        templateLiterals &&
+        optionalChaining &&
+        nullishCoalescing;
+    </script>
+  </body>
+</html>

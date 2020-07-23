@@ -5,6 +5,9 @@
   "files": [],
   "references": [
     {
+      "path": "./packages/config-loader/tsconfig.json"
+    },
+    {
       "path": "./packages/dev-server-core/tsconfig.json"
     },
     {
@@ -23,13 +26,13 @@
       "path": "./packages/test-runner-chrome/tsconfig.json"
     },
     {
-      "path": "./packages/config-loader/tsconfig.json"
-    },
-    {
-      "path": "./packages/test-runner-playwright/tsconfig.json"
+      "path": "./packages/dev-server-cli/tsconfig.json"
     },
     {
       "path": "./packages/dev-server-rollup/tsconfig.json"
+    },
+    {
+      "path": "./packages/test-runner-playwright/tsconfig.json"
     },
     {
       "path": "./packages/test-runner-cli/tsconfig.json"
@@ -48,6 +51,9 @@
     },
     {
       "path": "./packages/rollup-plugin-workbox/tsconfig.json"
+    },
+    {
+      "path": "./packages/dev-server/tsconfig.json"
     },
     {
       "path": "./packages/dev-server-esbuild/tsconfig.json"
