@@ -8,6 +8,7 @@ export interface ChromeLauncherConfig {
   executablePath?: string;
   puppeteer?: typeof puppeteerCore;
   launchOptions?: LaunchOptions;
+  createPage?: (args: { config: TestRunnerCoreConfig; browser: Browser }) => Promise<Page>;
 }
 
 async function getPageCoverage(config: TestRunnerCoreConfig, testFiles: string[], page: Page) {
@@ -36,6 +37,7 @@ export function chromeLauncher({
   executablePath: customExecutablePath,
   puppeteer,
   launchOptions = {},
+  createPage,
 }: Partial<ChromeLauncherConfig> = {}): BrowserLauncher & Record<string, unknown> {
   const executablePath = customExecutablePath ?? findExecutablePath();
   const activePages = new Map<string, Page>();
@@ -85,7 +87,7 @@ export function chromeLauncher({
 
       let page: Page;
       if (inactivePages.length === 0) {
-        page = await browser.newPage();
+        page = await (createPage?.({ config, browser }) ?? browser.newPage());
       } else {
         page = inactivePages.pop()!;
       }
@@ -135,7 +137,8 @@ export function chromeLauncher({
         : [...(launchOptions.args ?? []), '--window-size=4000,4000'];
       debugBrowser = await launchBrowser({ ...launchOptions, args, devtools: true });
 
-      const page = await debugBrowser.newPage();
+      const page = await (createPage?.({ config, browser: debugBrowser }) ??
+        debugBrowser.newPage());
       debugPages.set(session.id, page);
       page.on('close', () => {
         debugPages.delete(session.id);

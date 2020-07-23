@@ -16,7 +16,7 @@ You can find all possible launch options in the [official documentation](https:/
 const { playwrightLauncher } = require('@web/test-runner-playwright');
 
 module.exports = {
-  browwsers: [
+  browsers: [
     playwrightLauncher({
       // product can be chromium, webkit or firefox
       product: 'chromium',
@@ -38,10 +38,41 @@ For each browser you can add a separate browser launcher
 const { playwrightLauncher } = require('@web/test-runner-playwright');
 
 module.exports = {
-  browwsers: [
+  browsers: [
     playwrightLauncher({ product: 'chromium' }),
     playwrightLauncher({ product: 'firefox' }),
     playwrightLauncher({ product: 'webkit' }),
+  ],
+};
+```
+
+### Customizing page creation
+
+You can use a custom function to create the puppeteer `Page`. You can use this for example to set up injecting scripts for environment variables or to expose functions to the browser to control the page.
+
+```js
+const { playwrightLauncher } = require('@web/test-runner-playwright');
+
+module.exports = {
+  browsers: [
+    playwrightLauncher({
+      async createPage({ browser, config }) {
+        const page = await browser.newPage();
+
+        // expose global variabels in the browser
+        page.addInitScript(() => {
+          window.__GLOBALS__ = { globalA: 'a', globalB: 'b' };
+        });
+
+        // expose a function in the browser, which calls a function on the
+        // playwright page in NodeJS
+        page.exposeFunction('playwrightScreenshot', () => {
+          page.screenshot();
+        });
+
+        return page;
+      },
+    }),
   ],
 };
 ```
