@@ -66,21 +66,25 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
       }
     }
 
+    const config = await readConfig<TestRunnerConfig>(cliArgsConfig);
+    const { rootDir } = config;
+
     if (cliArgs.puppeteer) {
-      cliArgsConfig.browsers = puppeteerLauncher(cliArgs.browsers);
+      config.browsers = puppeteerLauncher(cliArgs.browsers);
     } else if (cliArgs.playwright) {
-      cliArgsConfig.browsers = playwrightLauncher(cliArgs.browsers);
+      config.browsers = playwrightLauncher(cliArgs.browsers);
     } else {
       if (cliArgs.browsers != null) {
         throw new Error(
           `The browsers option must be used along with the puppeteer or playwright option.`,
         );
       }
-      cliArgsConfig.browsers = chromeLauncher();
-    }
 
-    const config = await readConfig<TestRunnerConfig>(cliArgsConfig);
-    const { rootDir } = config;
+      // add default chrome launcher if the user did not configure their own browsers
+      if (!config.browsers) {
+        config.browsers = [chromeLauncher()];
+      }
+    }
 
     if (typeof rootDir !== 'string') {
       throw new Error('No rootDir specified.');
