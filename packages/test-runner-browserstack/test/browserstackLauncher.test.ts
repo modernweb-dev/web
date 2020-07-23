@@ -1,14 +1,31 @@
 import path from 'path';
 import { expect } from 'chai';
-import { TestRunnerConfig, TestRunner } from '@web/test-runner-core';
+import { TestRunnerCoreConfig, TestRunner, Logger } from '@web/test-runner-core';
 import { testRunnerServer } from '@web/test-runner-server';
 import portfinder from 'portfinder';
 
 import { browserstackLauncher } from '../src/browserstackLauncher';
 
 let runner: TestRunner;
+const logger: Logger = {
+  log(...args: any[]) {
+    console.log(...args);
+  },
+  debug() {
+    //
+  },
+  error(...args: any[]) {
+    console.log(...args);
+  },
+  warn(...args: any[]) {
+    console.log(...args);
+  },
+  logSyntaxError() {
+    //
+  },
+};
 
-it('runs tests with selenium', async function (done) {
+it('runs tests with browserstack', async function(done) {
   const port = await portfinder.getPortPromise({
     port: 9000 + Math.floor(Math.random() * 1000),
   });
@@ -20,19 +37,20 @@ it('runs tests with selenium', async function (done) {
 
     project: '@web/test-runner-browserstack',
     name: 'integration test',
-    build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${
-      process.env.GITHUB_RUN_NUMBER ?? ''
-    }`,
+    build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${process.env.GITHUB_RUN_NUMBER ??
+      ''}`,
   };
 
-  const config: TestRunnerConfig = {
+  const config: TestRunnerCoreConfig = {
     files: [],
     watch: false,
-    testFrameworkImport: '@web/test-runner-mocha/dist/autorun.js',
+    testFramework: { path: require.resolve('@web/test-runner-mocha/dist/autorun.js') },
     rootDir: path.join(process.cwd(), '..', '..'),
-    address: 'http://localhost',
-    reporters: [],
+    protocol: 'http:',
+    hostname: 'localhost',
     port,
+    logger,
+    reporters: [],
     concurrency: 4,
     browserStartTimeout: 120000,
     sessionStartTimeout: 120000,
@@ -66,16 +84,17 @@ it('runs tests with selenium', async function (done) {
     'test/fixtures/test-c.test.js',
   ]);
 
-  runner.on('quit', () => {
+  runner.on('stopped', () => {
     const sessions = Array.from(runner.sessions.all());
-    expect(sessions.length).to.equal(6, 'there should be 9 test sessions');
+    expect(sessions.length).to.equal(6, 'there should be 6 test sessions');
 
     for (const session of sessions) {
       if (!session.passed) {
-        if (session.error instanceof Error) {
-          done(session.error);
-        } else if (session.error) {
-          done(new Error(session.error.message));
+        const error = session.errors[0];
+        if (error instanceof Error) {
+          done(error);
+        } else if (error) {
+          done(new Error(error.message));
         } else {
           done(new Error('unknown error'));
         }
