@@ -25,7 +25,7 @@ const logger: Logger = {
   },
 };
 
-it('runs tests with browserstack', async function(done) {
+it('runs tests with browserstack', async function (done) {
   const port = await portfinder.getPortPromise({
     port: 9000 + Math.floor(Math.random() * 1000),
   });
@@ -37,8 +37,9 @@ it('runs tests with browserstack', async function(done) {
 
     project: '@web/test-runner-browserstack',
     name: 'integration test',
-    build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${process.env.GITHUB_RUN_NUMBER ??
-      ''}`,
+    build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${
+      process.env.GITHUB_RUN_NUMBER ?? ''
+    }`,
   };
 
   const config: TestRunnerCoreConfig = {
