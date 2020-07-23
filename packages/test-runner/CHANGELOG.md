@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.6.44
+
+### Patch Changes
+
+- 868f786: don't override user defined browser launchers
+
 ## 0.6.43
 
 ### Patch Changes
