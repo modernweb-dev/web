@@ -2,11 +2,19 @@ import path from 'path';
 import { expect } from 'chai';
 import { TestRunnerCoreConfig, TestRunner, Logger } from '@web/test-runner-core';
 import { testRunnerServer } from '@web/test-runner-server';
+import { legacyPlugin } from '@web/dev-server-legacy';
 import portfinder from 'portfinder';
 
 import { browserstackLauncher } from '../src/browserstackLauncher';
 
 let runner: TestRunner;
+let port: number;
+beforeEach(async () => {
+  port = await portfinder.getPortPromise({
+    port: 9000 + Math.floor(Math.random() * 1000),
+  });
+});
+
 const logger: Logger = {
   log(...args: any[]) {
     console.log(...args);
@@ -25,10 +33,7 @@ const logger: Logger = {
   },
 };
 
-it('runs tests with browserstack', async function (done) {
-  const port = await portfinder.getPortPromise({
-    port: 9000 + Math.floor(Math.random() * 1000),
-  });
+it('runs tests with browserstack', function (done) {
   this.timeout(1000 * 60 * 5);
 
   const sharedCapabilities = {
@@ -57,15 +62,24 @@ it('runs tests with browserstack', async function (done) {
     sessionStartTimeout: 120000,
     sessionFinishTimeout: 120000,
     browsers: [
-      browserstackLauncher({
-        capabilities: {
-          ...sharedCapabilities,
-          browserName: 'Safari',
-          browser_version: '11.1',
-          os: 'OS X',
-          os_version: 'High Sierra',
-        },
-      }),
+      // browserstackLauncher({
+      //   capabilities: {
+      //     ...sharedCapabilities,
+      //     browserName: 'Chrome',
+      //     browser_version: 'latest',
+      //     os: 'windows',
+      //     os_version: '10',
+      //   },
+      // }),
+      // browserstackLauncher({
+      //   capabilities: {
+      //     ...sharedCapabilities,
+      //     browserName: 'Safari',
+      //     browser_version: '11.1',
+      //     os: 'OS X',
+      //     os_version: 'High Sierra',
+      //   },
+      // }),
       browserstackLauncher({
         capabilities: {
           ...sharedCapabilities,
@@ -76,7 +90,9 @@ it('runs tests with browserstack', async function (done) {
         },
       }),
     ],
-    server: testRunnerServer(),
+    server: testRunnerServer({
+      plugins: [legacyPlugin()],
+    }),
   };
 
   runner = new TestRunner(config, [
@@ -85,9 +101,17 @@ it('runs tests with browserstack', async function (done) {
     'test/fixtures/test-c.test.js',
   ]);
 
+  runner.sessions.on('session-status-updated', session => {
+    console.log(session.browserName, session.id, session.status);
+  });
+
+  runner.on('finished', () => {
+    runner.stop();
+  });
+
   runner.on('stopped', () => {
     const sessions = Array.from(runner.sessions.all());
-    expect(sessions.length).to.equal(6, 'there should be 6 test sessions');
+    expect(sessions.length).to.equal(3, 'there should be 6 test sessions');
 
     for (const session of sessions) {
       if (!session.passed) {

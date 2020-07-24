@@ -34,7 +34,11 @@ export class DevServer {
   async start() {
     await promisify(this.server.listen).bind(this.server)({
       port: this.config.port,
-      host: this.config.hostname,
+      // in case of localhost the host should be undefined, otherwise some browsers connect
+      // connect to it via local network. for example safari on browserstack
+      host: ['localhost', '127.0.0.1'].includes(this.config.hostname)
+        ? undefined
+        : this.config.hostname,
     });
 
     for (const plugin of this.config.plugins) {

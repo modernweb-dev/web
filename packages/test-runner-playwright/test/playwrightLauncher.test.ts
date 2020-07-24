@@ -79,6 +79,10 @@ for (const product of products) {
 
     const runner = new TestRunner(config, testFiles);
 
+    runner.sessions.on('session-status-updated', session => {
+      console.log(session.browserName, session.id, session.status);
+    });
+
     runner.on('finished', () => {
       runner.stop();
     });
