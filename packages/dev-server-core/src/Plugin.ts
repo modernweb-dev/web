@@ -23,7 +23,7 @@ export interface ServerArgs {
   server: Server;
   fileWatcher: FSWatcher;
   logger: Logger;
-  eventStreams: EventStreamManager;
+  eventStreams?: EventStreamManager;
 }
 
 export interface Plugin {

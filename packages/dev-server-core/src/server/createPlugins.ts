@@ -10,7 +10,7 @@ export function createPlugins(config: DevServerCoreConfig) {
     plugins.push(resolveModuleImportsPlugin(config.plugins, config.rootDir));
   }
 
-  if (config.plugins.some(pl => pl.injectEventStream)) {
+  if (config.eventStream && config.plugins.some(pl => pl.injectEventStream)) {
     plugins.push(eventStreamPlugin());
   }
 

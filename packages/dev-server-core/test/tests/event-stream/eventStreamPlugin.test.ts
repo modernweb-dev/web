@@ -5,8 +5,9 @@ import { createTestServer } from '../helpers';
 import { eventStreamScript } from '../../../src/event-stream/eventStreamPlugin';
 
 describe('eventStreamPlugin', () => {
-  it('injects an event stream script if a plugin has inject set', async () => {
+  it('injects an event stream script if a plugin has inject set and event stream is enabled', async () => {
     const { server, host } = await createTestServer({
+      eventStream: true,
       plugins: [
         {
           name: 'test',
@@ -21,6 +22,28 @@ describe('eventStreamPlugin', () => {
 
       expect(response.status).to.equal(200);
       expect(body).to.include(eventStreamScript);
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('does not inject an event stream script if a plugin has inject set and event stream is disabled', async () => {
+    const { server, host } = await createTestServer({
+      eventStream: false,
+      plugins: [
+        {
+          name: 'test',
+          injectEventStream: true,
+        },
+      ],
+    });
+
+    try {
+      const response = await fetch(`${host}/index.html`);
+      const body = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(body).to.not.include(eventStreamScript);
     } finally {
       server.stop();
     }
