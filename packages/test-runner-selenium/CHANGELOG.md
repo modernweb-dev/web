@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.1.3
+
+### Patch Changes
+
+- 04a2cda: make test-runner-browserstack work with dev-server-core
+
 ## 0.1.2
 
 ### Patch Changes

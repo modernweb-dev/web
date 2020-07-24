@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.1.8
+
+### Patch Changes
+
+- 04a2cda: make test-runner-browserstack work with dev-server-core
+
 ## 0.1.7
 
 ### Patch Changes
