@@ -15,5 +15,5 @@ export interface DevServerCoreConfig {
   sslKey?: string;
   sslCert?: string;
 
-  injectMessageChannel?: boolean;
+  eventStream?: boolean;
 }
