@@ -70,6 +70,10 @@ it('runs tests with chrome', function (done) {
     'test/fixtures/test-o.test.js',
   ]);
 
+  runner.sessions.on('session-status-updated', session => {
+    console.log(session.browserName, session.id, session.status);
+  });
+
   runner.on('finished', () => {
     runner.stop();
   });

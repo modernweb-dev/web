@@ -35,6 +35,7 @@
     "launcher"
   ],
   "dependencies": {
+    "@web/dev-server-legacy": "^0.0.2",
     "@web/test-runner-selenium": "^0.1.1",
     "browserstack-local": "^1.4.5",
     "ip": "^1.1.5",

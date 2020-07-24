@@ -20,6 +20,7 @@ const localIp = ip.address();
 export class BrowserstackLauncher extends SeleniumLauncher {
   constructor(
     private capabilities: Capabilities,
+    private browserName: string,
     private localOptions?: Partial<browserstack.Options>,
   ) {
     super(
@@ -35,11 +36,12 @@ export class BrowserstackLauncher extends SeleniumLauncher {
       this.capabilities.get('browserstack.key')!,
       this.localOptions,
     );
-    return super.start();
+    await super.start();
+    return this.browserName;
   }
 
   startSession(session: TestSession, url: string) {
-    return super.startSession(session, url.replace('localhost', localIp));
+    return super.startSession(session, url.replace(/(localhost|127\.0\.0\.1)/, localIp));
   }
 
   async startDebugSession() {
@@ -67,11 +69,17 @@ export function browserstackLauncher(args: BrowserstackLauncherArgs): BrowserLau
     }
   }
 
+  const caps = args.capabilities;
+  const browserName =
+    `${caps.browser ?? caps.browserName ?? caps.device ?? 'unknown'}${
+      caps.browser_version ? ` ${caps.browser_version}` : ''
+    }` + ` (${caps.os} ${caps.os_version})`;
+
   const capabilitiesMap = new Map(Object.entries(args.capabilities));
   const capabilities = new Capabilities(capabilitiesMap);
   capabilities.set('timeout', 300);
   capabilities.set('browserstack.local', true);
   capabilities.set('browserstack.localIdentifier', localId);
 
-  return new BrowserstackLauncher(capabilities, args.localOptions);
+  return new BrowserstackLauncher(capabilities, browserName, args.localOptions);
 }

@@ -28,6 +28,29 @@ jobs:
 
       - name: Test
         run: yarn test
+  verify-browserstack:
+    name: Verify browserstack
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build
+        run: |
+          cd packages/test-runner-browserstack
+          yarn build
+
+      - name: Test
+        run: |
+          cd packages/test-runner-browserstack
+          yarn test
         env:
           BROWSER_STACK_ACCESS_KEY: ${{ secrets.BROWSER_STACK_ACCESS_KEY }}
           BROWSER_STACK_USERNAME: ${{ secrets.BROWSER_STACK_USERNAME }}

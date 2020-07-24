@@ -20,8 +20,8 @@
     "update:tsconfig": "ts-node scripts/update-package-tsconfig.ts"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.8.0",
-    "@rollup/plugin-node-resolve": "^8.1.0",
+    "@changesets/cli": "^2.9.2",
+    "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-typescript": "^5.0.2",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
