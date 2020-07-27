@@ -1,5 +1,5 @@
 import { LaunchOptions, Browser, Page } from 'playwright';
-import { PlaywrightLauncher, ProductType } from './PlaywrightLauncherClass';
+import { PlaywrightLauncher, ProductType } from './PlaywrightLauncher';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
 
 const validProductTypes: ProductType[] = ['chromium', 'firefox', 'webkit'];
