@@ -1,0 +1,44 @@
+{
+  "name": "@web/browser-logs",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Capture browser logs for logging in NodeJS",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/browser-logs"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/browser-logs",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node ../test-runner/dist/test-runner.js test/**/*.test.ts",
+    "test:ci": "yarn test",
+    "test:watch": "node ../test-runner/dist/test-runner.js test/**/*.test.ts --watch"
+  },
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "src"
+  ],
+  "keywords": [
+    "web",
+    "node",
+    "browser",
+    "logs",
+    "serialization",
+    "deserialization",
+    "serialize",
+    "deserialize"
+  ],
+  "devDependencies": {
+    "@bundled-es-modules/chai": "^4.2.2"
+  }
+}

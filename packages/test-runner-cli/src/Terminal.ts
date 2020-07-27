@@ -4,41 +4,13 @@ import cliCursor from 'cli-cursor';
 
 const CLEAR_COMMAND = process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[3J\x1B[H';
 
-export type TerminalEntry = string | IndentedTerminalEntry;
-
-export interface IndentedTerminalEntry {
-  text: string;
-  indent: number;
-}
-
 interface EventMap {
   input: string;
 }
 
-function buildLogString(entries: TerminalEntry[]) {
-  const strings: string[] = [];
-
-  for (const entry of entries) {
-    let stringsToAdd: string[];
-    let indent: number;
-
-    if (typeof entry === 'string') {
-      stringsToAdd = entry.split('\n');
-      indent = 0;
-    } else {
-      stringsToAdd = entry.text.split('\n');
-      indent = entry.indent;
-    }
-
-    strings.push(...stringsToAdd.map(str => `${' '.repeat(indent)}${str}`));
-  }
-
-  return strings.join('\n');
-}
-
 export class Terminal extends EventEmitter<EventMap> {
   private originalFunctions: Partial<Record<keyof Console, (...args: any[]) => any>> = {};
-  private previousDynamic: TerminalEntry[] = [];
+  private previousDynamic: string[] = [];
   private started = false;
   public isInteractive = process.stdout.isTTY;
 
@@ -52,13 +24,6 @@ export class Terminal extends EventEmitter<EventMap> {
 
         console[key] = new Proxy(console[key], {
           apply: (target, thisArg, argArray) => {
-            // TODO: Remove this when fixed in EDS
-            if (
-              argArray.some((arg: unknown) => typeof arg === 'string' && arg.startsWith('[BABEL]'))
-            ) {
-              return;
-            }
-
             // when a console function is called, clear dynamic logs
             logUpdate.clear();
 
@@ -116,27 +81,27 @@ export class Terminal extends EventEmitter<EventMap> {
     this.relogDynamic();
   }
 
-  logStatic(entriesOrEntry: TerminalEntry | TerminalEntry[]) {
+  logStatic(entriesOrEntry: string | string[]) {
     const entries = Array.isArray(entriesOrEntry) ? entriesOrEntry : [entriesOrEntry];
     if (entries.length === 0) {
       return;
     }
 
-    console.log(buildLogString(entries));
+    console.log(entries.join('\n'));
   }
 
   logPendingUserInput(string: string) {
     process.stdout.write(string);
   }
 
-  logDynamic(entriesOrEntry: TerminalEntry | TerminalEntry[]) {
+  logDynamic(entriesOrEntry: string | string[]) {
     const entries = Array.isArray(entriesOrEntry) ? entriesOrEntry : [entriesOrEntry];
     if (!this.started) {
       return;
     }
 
     this.previousDynamic = entries;
-    logUpdate(buildLogString(entries));
+    logUpdate(entries.join('\n'));
   }
 
   private relogDynamic() {

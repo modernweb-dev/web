@@ -27,10 +27,10 @@ console.log('dom element', div);
 
 const nestedDiv = document.createElement('div');
 nestedDiv.innerHTML = `
-  <style> 
+  <style>
     :host {
       color: blue;
-    } 
+    }
   </style>
 
   <div>

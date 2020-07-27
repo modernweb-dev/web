@@ -18,7 +18,10 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter progress",
+    "test:ci": "yarn test",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
   },
   "files": [
     "dist",
@@ -36,6 +39,7 @@
   "dependencies": {
     "@babel/code-frame": "^7.10.4",
     "@types/babel__code-frame": "^7.0.1",
+    "@web/browser-logs": "^0.0.0",
     "@web/config-loader": "^0.0.3",
     "@web/test-runner-core": "^0.6.15",
     "camelcase": "^6.0.0",

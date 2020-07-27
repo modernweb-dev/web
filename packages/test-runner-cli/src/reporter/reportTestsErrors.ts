@@ -1,7 +1,6 @@
-import { TestResultError, TestSession } from '@web/test-runner-core';
+import { TestResultError, TestSession, Logger } from '@web/test-runner-core';
 import chalk from 'chalk';
 import * as diff from 'diff';
-import { TerminalEntry } from '../Terminal';
 import { getFailedOnBrowsers } from '../utils/getFailedOnBrowsers';
 import { getErrorLocation } from '../utils/getErrorLocation';
 import { formatStackTrace } from '../utils/formatStackTrace';
@@ -43,18 +42,18 @@ export async function formatError(
   sourceMapFunction: SourceMapFunction,
 ): Promise<string> {
   const strings: string[] = [];
+  const errorLocation = await getErrorLocation(
+    err,
+    userAgent,
+    rootDir,
+    stackLocationRegExp,
+    sourceMapFunction,
+  );
+  if (errorLocation != null) {
+    strings.push(`${chalk.gray('at:')} ${chalk.white(errorLocation)}`);
+  }
 
   if (typeof err.expected === 'string' && typeof err.actual === 'string') {
-    const errorLocation = await getErrorLocation(
-      err,
-      userAgent,
-      rootDir,
-      stackLocationRegExp,
-      sourceMapFunction,
-    );
-    if (errorLocation != null) {
-      strings.push(`${chalk.gray('at:')} ${chalk.white(errorLocation)}`);
-    }
     strings.push(`${chalk.gray('error:')} ${chalk.red(err.message)}`);
     strings.push(renderDiff(err.actual, err.expected));
   } else if (err.stack) {
@@ -75,8 +74,8 @@ interface ErrorEntry {
   userAgent: string;
 }
 
-export async function getTestsErrors(
-  testFile: string,
+export async function reportTestsErrors(
+  logger: Logger,
   allBrowserNames: string[],
   favoriteBrowser: string,
   failedSessions: TestSession[],
@@ -84,7 +83,6 @@ export async function getTestsErrors(
   stackLocationRegExp: RegExp,
   sourceMapFunction: SourceMapFunction,
 ) {
-  const entries: TerminalEntry[] = [];
   const testErrorsPerBrowser = new Map<string, Map<string, ErrorEntry>>();
 
   for (const session of failedSessions) {
@@ -110,14 +108,17 @@ export async function getTestsErrors(
         errorsForBrowser.get(favoriteBrowser) ?? errorsForBrowser.get(failedBrowsers[0])!;
       const failedOn = getFailedOnBrowsers(allBrowserNames, failedBrowsers);
 
-      entries.push({ text: `❌ ${name}${failedOn}`, indent: 1 });
-      entries.push({
-        text: await formatError(error, userAgent, rootDir, stackLocationRegExp, sourceMapFunction),
-        indent: 6,
-      });
-      entries.push('');
+      logger.log(` ❌ ${name}${failedOn}`);
+      logger.group();
+      logger.group();
+      logger.group();
+      logger.log(
+        await formatError(error, userAgent, rootDir, stackLocationRegExp, sourceMapFunction),
+      );
+      logger.groupEnd();
+      logger.groupEnd();
+      logger.groupEnd();
+      logger.log('');
     }
   }
-
-  return entries;
 }

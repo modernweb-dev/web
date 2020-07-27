@@ -86,7 +86,6 @@ function addingMissingCoverageBranches(coverages: CoverageMapData[]) {
 }
 
 export function getTestCoverage(
-  browserCoverage: CoverageMapData[],
   sessions: Iterable<TestSession>,
   config?: CoverageConfig,
 ): TestCoverage {
@@ -94,7 +93,6 @@ export function getTestCoverage(
   let coverages = Array.from(sessions)
     .map(s => s.testCoverage)
     .filter(c => c) as CoverageMapData[];
-  coverages.push(...browserCoverage);
   // istanbul mutates the coverage objects, which pollutes coverage in watch mode
   // cloning prevents this. JSON stringify -> parse is faster than a fancy library
   // because we're only working with objects and arrays

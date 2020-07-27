@@ -1,13 +1,11 @@
-import { TestSession } from '@web/test-runner-core';
+import { TestSession, BrowserLauncher } from '@web/test-runner-core';
 import { Builder, WebDriver } from 'selenium-webdriver';
 
 export interface SeleniumLauncherArgs {
   driverBuilder: Builder;
 }
 
-export class SeleniumLauncher {
-  private activePages = new Map<string, string>();
-  private inactivePages: string[] = [];
+export class SeleniumLauncher implements BrowserLauncher {
   private sessionsQueue: { session: TestSession; url: string }[] = [];
   private driver: undefined | WebDriver;
   private debugDriver: undefined | WebDriver = undefined;
@@ -17,7 +15,6 @@ export class SeleniumLauncher {
 
   async start() {
     this.driver = await this.driverBuilder.build();
-
     const cap = await this.driver.getCapabilities();
     return [cap.getPlatform(), cap.getBrowserName(), cap.getBrowserVersion()]
       .filter(_ => _)
@@ -58,11 +55,13 @@ export class SeleniumLauncher {
     await this.driver.get(next.url);
   }
 
-  stopSession(session: TestSession) {
+  async stopSession(session: TestSession) {
     if (this.currentSession === session.id) {
       this.currentSession = undefined;
       this._runNextQueuedSession();
     }
+
+    return { browserLogs: [] };
   }
 
   async startDebugSession(session: TestSession, url: string) {

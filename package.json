@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": "concurrently \"yarn tsc\" \"yarn build:browser\"",
-    "build:browser": "concurrently \"yarn workspace @web/test-runner-browser-lib build\" \"yarn workspace @web/test-runner-mocha build\" \"yarn workspace @web/test-runner-helpers build\" -m 1",
+    "build:browser": "rimraf packages/*/dist && concurrently \"yarn workspace @web/test-runner-browser-lib build\" \"yarn workspace @web/test-runner-mocha build\" \"yarn workspace @web/test-runner-helpers build\" -m 1",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js . --fix",
     "format:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
@@ -12,10 +12,10 @@
     "lint:eslint": "eslint --ext .ts,.js .",
     "lint:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --check --ignore-path .eslintignore",
     "postinstall": "yarn build",
-    "reinstall-workspace": "rimraf packages/*/dist && rimraf packages/*/tsconfig.tsbuildinfo && rimraf demo/projects/*/node_modules && rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
+    "reinstall-workspace": "rimraf demo/projects/*/node_modules && rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
     "test": "node scripts/workspaces-scripts.mjs test:ci",
-    "tsc": "tsc --build packages/tsconfig.project.json",
-    "tsc:watch": "tsc --build packages/tsconfig.project.json --watch",
+    "tsc": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build packages/tsconfig.project.json",
+    "tsc:watch": "yarn tsc --watch",
     "update-dependency": "node scripts/update-dependency.js",
     "update:tsconfig": "ts-node scripts/update-package-tsconfig.ts"
   },

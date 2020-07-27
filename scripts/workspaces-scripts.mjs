@@ -41,8 +41,7 @@ const commands = packagesWithScript.map(pkgPath => ({
 }));
 
 concurrently(commands, { maxProcesses: 5 })
-  .then(() => {
-    console.log();
+  .then(results => {
     console.log(
       chalk.green(
         `Successfully executed command ${chalk.yellow(script)} for packages: ${chalk.yellow(
@@ -56,16 +55,13 @@ concurrently(commands, { maxProcesses: 5 })
     if (error instanceof Error) {
       console.error(error);
     } else if (Array.isArray(error)) {
-      const failedPackages = error
-        .map((code, i) => (code === 1 ? commands[i].name : null))
-        .filter(_ => _)
-        .join(', ');
-      console.log();
+      const count = error.filter(error => error !== 0).length;
+      console.log('');
       console.log(
         chalk.red(
-          `Failed to execute command ${chalk.yellow(script)} for packages: ${chalk.yellow(
-            failedPackages,
-          )}`,
+          `Failed to execute command ${chalk.yellow(
+            script,
+          )} for ${count} packages. But we don't know which ones, because concurrently doesn't say.`,
         ),
       );
       console.log();

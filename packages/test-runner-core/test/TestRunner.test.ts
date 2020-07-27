@@ -8,20 +8,12 @@ import { Logger } from '../src/logger/Logger';
 import { SESSION_STATUS } from '../src/test-session/TestSessionStatus';
 
 const logger: Logger = {
-  log(...args: any[]) {
-    console.log(...args);
-  },
+  ...console,
   debug() {
     //
   },
-  error(...args: any[]) {
-    console.log(...args);
-  },
-  warn(...args: any[]) {
-    console.log(...args);
-  },
-  logSyntaxError() {
-    //
+  logSyntaxError(error) {
+    console.log(error);
   },
 };
 
@@ -38,7 +30,7 @@ async function createTestRunner(
     stop: stub().returns(Promise.resolve()),
     startDebugSession: stub().returns(Promise.resolve()),
     startSession: stub().returns(Promise.resolve()),
-    stopSession: stub().returns(Promise.resolve()),
+    stopSession: stub().returns(Promise.resolve({})),
     setViewport: stub().returns(Promise.resolve()),
   };
 
@@ -95,7 +87,7 @@ it('closes test runner for a succesful test', async () => {
   await runner.start();
 
   const sessions = Array.from(runner.sessions.all());
-  runner.sessions.updateStatus({ ...sessions[0], passed: true }, SESSION_STATUS.FINISHED);
+  runner.sessions.updateStatus({ ...sessions[0], passed: true }, SESSION_STATUS.TEST_FINISHED);
 
   const passed = await stopped;
 
@@ -121,7 +113,7 @@ it('closes test runner for a failed test', async () => {
   await runner.start();
 
   const sessions = Array.from(runner.sessions.all());
-  runner.sessions.updateStatus({ ...sessions[0], passed: false }, SESSION_STATUS.FINISHED);
+  runner.sessions.updateStatus({ ...sessions[0], passed: false }, SESSION_STATUS.TEST_FINISHED);
   const passed = await stopped;
 
   expect(browser.stopSession.callCount).to.equal(1, 'browser session is stopped');

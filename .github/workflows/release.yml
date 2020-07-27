@@ -27,9 +27,6 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - name: Build
-        run: yarn build
-
       - name: Changeset version
         run: yarn changeset version
 

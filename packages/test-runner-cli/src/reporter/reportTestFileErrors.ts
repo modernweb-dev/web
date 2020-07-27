@@ -1,11 +1,10 @@
-import { TestSession, TestResultError } from '@web/test-runner-core';
+import { TestSession, TestResultError, Logger } from '@web/test-runner-core';
 import chalk from 'chalk';
 
 import { replaceRelativeStackFilePath } from '../utils/replaceRelativeStackFilePath';
 import { SourceMapFunction } from '../utils/createSourceMapFunction';
 import { getFailedOnBrowsers } from '../utils/getFailedOnBrowsers';
 import { formatStackTrace } from '../utils/formatStackTrace';
-import { TerminalEntry } from '../Terminal';
 
 function isSameError(a: TestResultError, b: TestResultError) {
   return a.message === b.message && a.stack === b.stack;
@@ -18,7 +17,8 @@ interface ErrorReport {
   userAgent: string;
 }
 
-export async function getTestFileErrors(
+export async function reportTestFileErrors(
+  logger: Logger,
   browserNames: string[],
   favoriteBrowser: string,
   sessionsForTestFile: TestSession[],
@@ -26,7 +26,6 @@ export async function getTestFileErrors(
   stackLocationRegExp: RegExp,
   sourceMapFunction: SourceMapFunction,
 ) {
-  const entries: TerminalEntry[] = [];
   const reports: ErrorReport[] = [];
 
   for (const session of sessionsForTestFile) {
@@ -61,37 +60,31 @@ export async function getTestFileErrors(
     if (formattedStacktrace) {
       const [first, ...rest] = formattedStacktrace.split('\n');
       const restStackString = rest.join('\n');
-
       // there was a stack trace, take the first line and decorate it with an icon and which browsers it failed on
-      entries.push({
-        text: `❌ ${first} ${getFailedOnBrowsers(browserNames, report.failedBrowsers)}`,
-        indent: 1,
-      });
+      logger.log(` ❌ ${first} ${getFailedOnBrowsers(browserNames, report.failedBrowsers)}`);
 
       // if there was more to the stack trace, print it
       if (restStackString) {
-        entries.push({ text: chalk.red(restStackString), indent: 4 });
+        logger.group();
+        logger.group();
+        logger.log(chalk.red(restStackString));
+        logger.groupEnd();
+        logger.groupEnd();
       }
     } else {
       // there was no stack trace, so just print the error message
-      entries.push({
-        text: `❌ ${
-          report.error.message
-            ? await replaceRelativeStackFilePath(
-                report.error.message,
-                report.userAgent,
-                rootDir,
-                stackLocationRegExp,
-                sourceMapFunction,
-              )
-            : 'Unknown error'
-        } ${getFailedOnBrowsers(browserNames, report.failedBrowsers)}`,
-        indent: 1,
-      });
+      const message = report.error.message
+        ? await replaceRelativeStackFilePath(
+            report.error.message,
+            report.userAgent,
+            rootDir,
+            stackLocationRegExp,
+            sourceMapFunction,
+          )
+        : 'Unknown error';
+      logger.log(` ❌ ${message} ${getFailedOnBrowsers(browserNames, report.failedBrowsers)}`);
     }
 
-    entries.push('');
+    logger.log('');
   }
-
-  return entries;
 }

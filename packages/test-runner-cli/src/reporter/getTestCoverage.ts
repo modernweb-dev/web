@@ -1,7 +1,6 @@
 import { CoverageThresholdConfig, TestCoverage, CoverageConfig } from '@web/test-runner-core';
 import path from 'path';
 import chalk from 'chalk';
-import { TerminalEntry } from '../Terminal';
 
 const coverageTypes: (keyof CoverageThresholdConfig)[] = [
   'lines',
@@ -15,16 +14,18 @@ export function getTestCoverage(
   watch: boolean,
   coverageConfig: CoverageConfig,
 ) {
-  const entries: TerminalEntry[] = [];
+  const entries: string[] = [];
 
   const coverageSum = coverageTypes.reduce((all, type) => all + testCoverage.summary[type].pct, 0);
   const avgCoverage = Math.round((coverageSum * 100) / 4) / 100;
 
-  entries.push(
-    `Test coverage: ${chalk.bold(
-      chalk[testCoverage.passed ? 'green' : 'red'](`${avgCoverage} %`),
-    )}`,
-  );
+  if (!Number.isNaN(avgCoverage)) {
+    entries.push(
+      `Test coverage: ${chalk.bold(
+        chalk[testCoverage.passed ? 'green' : 'red'](`${avgCoverage} %`),
+      )}`,
+    );
+  }
 
   if (!watch && coverageConfig.report) {
     entries.push(

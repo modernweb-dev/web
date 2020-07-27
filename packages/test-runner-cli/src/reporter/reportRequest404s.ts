@@ -1,9 +1,7 @@
-import { TestSession } from '@web/test-runner-core';
+import { TestSession, Logger } from '@web/test-runner-core';
 import chalk from 'chalk';
-import { TerminalEntry } from '../Terminal';
 
-export function getRequest404s(sessions: TestSession[]) {
-  const entries: TerminalEntry[] = [];
+export function reportRequest404s(logger: Logger, sessions: TestSession[]) {
   const common404s: string[] = [];
   const request404sPerBrowser = new Map<string, string[]>();
 
@@ -30,22 +28,28 @@ export function getRequest404s(sessions: TestSession[]) {
   }
 
   if (common404s.length > 0) {
-    entries.push({ text: '🚧 404 network requests:', indent: 1 });
+    logger.log(' 🚧 404 network requests:');
+    logger.group();
+    logger.group();
     for (const request404 of common404s) {
-      entries.push({ text: `${chalk.bold(chalk.gray('-'))} ${request404}`, indent: 4 });
+      logger.log(`${chalk.bold(chalk.gray('-'))} ${request404}`);
     }
+    logger.groupEnd();
+    logger.groupEnd();
   }
 
   for (const [browser, request404s] of request404sPerBrowser) {
-    entries.push({ text: `🚧 404 network requests on ${browser}:`, indent: 2 });
+    logger.log(` 🚧 404 network requests on ${browser}:`);
+    logger.group();
+    logger.group();
     for (const request404 of request404s) {
-      entries.push({ text: `${chalk.bold(chalk.gray('-'))} ${request404}`, indent: 4 });
+      logger.log(`${chalk.bold(chalk.gray('-'))} ${request404}`);
     }
+    logger.groupEnd();
+    logger.groupEnd();
   }
 
-  if (entries.length > 0) {
-    entries.push('');
+  if (common404s.length > 0 || request404sPerBrowser.size > 0) {
+    logger.log('');
   }
-
-  return entries;
 }

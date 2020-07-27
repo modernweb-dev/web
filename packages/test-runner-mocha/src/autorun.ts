@@ -1,8 +1,6 @@
 import {
   sessionFinished,
   getConfig,
-  captureConsoleOutput,
-  logUncaughtErrors,
   sessionStarted,
   TestResultError,
 } from '@web/test-runner-browser-lib';
@@ -12,8 +10,6 @@ import 'mocha/mocha.js';
 import styles from 'mocha/mocha.css';
 import { collectTestResults } from './collectTestResults';
 
-captureConsoleOutput();
-logUncaughtErrors();
 sessionStarted();
 
 (async () => {
@@ -34,7 +30,11 @@ sessionStarted();
   mocha.setup({ ui: 'bdd', allowUncaught: false, ...userOptions });
 
   await import(new URL(testFile, document.baseURI).href).catch(error => {
-    errors.push({ message: error.message, stack: error.stack });
+    console.error(error);
+    errors.push({
+      message:
+        'Could not import your test module. Check the browser logs or open the browser in debug mode for more information.',
+    });
   });
 
   mocha.run(failures => {

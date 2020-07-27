@@ -1,13 +1,10 @@
 import * as constants from './browser-launcher/constants';
 export { constants };
-export { BrowserLauncher, Viewport } from './browser-launcher/BrowserLauncher';
+export { BrowserLauncher, Viewport, SessionResult } from './browser-launcher/BrowserLauncher';
 export {
-  IndentedReportEntry,
-  ReportEntry,
-  Report,
   Reporter,
   ReportTestResultsArgs,
-  ReportTestProgressArgs,
+  GetTestProgressArgs,
   ReporterArgs,
   TestRunArgs,
   TestRunStartedArgs,

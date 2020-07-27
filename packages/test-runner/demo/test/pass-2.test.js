@@ -1,6 +1,6 @@
 import { expect } from './chai.js';
 import './shared-a.js';
-import './shared-b.js';
+// import './shared-b.js';
 
 it('test 1', () => {
   expect(true).to.be.true;

@@ -1,11 +1,10 @@
 import chalk from 'chalk';
-import { TerminalEntry } from '../Terminal';
 
 export function getWatchCommands(
   coverage: boolean,
   testFiles: string[],
   focusedTest?: boolean,
-): TerminalEntry[] {
+): string[] {
   if (focusedTest) {
     return [
       `${chalk.gray('Press')} F ${chalk.gray('to focus another test file.')}`,

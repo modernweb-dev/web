@@ -45,7 +45,7 @@ export class TestRunner extends EventEmitter<EventMap> {
 
     this.sessions.on('session-status-updated', session => {
       if (session.status === SESSION_STATUS.FINISHED) {
-        this.onSessionFinished(session);
+        this.onSessionFinished();
       }
     });
   }
@@ -150,23 +150,17 @@ export class TestRunner extends EventEmitter<EventMap> {
   }
 
   startDebugBrowser(testFile: string) {
-    const startPromises: Promise<void>[] = [];
-
     for (const session of this.sessions.forTestFile(testFile)) {
-      startPromises.push(
-        session.browserLauncher
-          .startDebugSession(session, createSessionUrl(this.config, session, true))
-          .catch(error => {
-            console.error(error);
-          }),
-      );
+      session.browserLauncher
+        .startDebugSession(session, createSessionUrl(this.config, session, true))
+        .catch(error => {
+          console.error(error);
+        });
     }
-    return Promise.all(startPromises);
   }
 
-  private async onSessionFinished(session: TestSession) {
+  private async onSessionFinished() {
     try {
-      session.browserLauncher.stopSession(session);
       this.scheduler.runScheduled(this.testRun);
 
       const finishedAll = Array.from(this.sessions.all()).every(
@@ -177,19 +171,7 @@ export class TestRunner extends EventEmitter<EventMap> {
         let passedCoverage = true;
         let testCoverage: TestCoverage | undefined = undefined;
         if (this.config.coverage) {
-          const rawBrowserCoverage: CoverageMapData[] = [];
-          for (const launcher of this.browserLaunchers) {
-            const coverage = await launcher.getTestCoverage?.();
-            if (coverage) {
-              rawBrowserCoverage.push(...coverage);
-            }
-          }
-
-          testCoverage = getTestCoverage(
-            rawBrowserCoverage,
-            this.sessions.all(),
-            this.config.coverageConfig,
-          );
+          testCoverage = getTestCoverage(this.sessions.all(), this.config.coverageConfig);
           passedCoverage = testCoverage.passed;
         }
 

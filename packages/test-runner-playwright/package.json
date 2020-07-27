@@ -13,7 +13,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-playwright",
-  "main": "dist/playwrightLauncher.js",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=10.0.0"
   },
@@ -36,6 +36,7 @@
     "launcher"
   ],
   "dependencies": {
+    "@web/browser-logs": "^0.0.0",
     "@web/test-runner-core": "^0.6.9",
     "@web/test-runner-coverage-v8": "^0.0.3",
     "playwright": "^1.2.1"

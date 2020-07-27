@@ -1,15 +1,13 @@
 import { TestResultError } from '@web/test-runner-core';
 import { replaceRelativeStackFilePath } from './replaceRelativeStackFilePath';
-import { constants } from '@web/test-runner-core';
 import { SourceMapFunction } from './createSourceMapFunction';
-const { PARAM_SESSION_ID } = constants;
+// const { PARAM_SESSION_ID } = constants;
 
-const REGEXP_TEST_FRAMEWORK_STACK = /.+__web-test-runner__\/.+/;
-export const REGEXP_WTR_SESSION_ID = new RegExp(`\\?${PARAM_SESSION_ID}=(\\d|[a-z]|-)*`);
+export const REGEXP_TEST_FRAMEWORK_STACK = /.+__web-test-runner__\/.+/;
 
 export async function formatStackTrace(
   error: TestResultError,
-  userAgent: string,
+  userAgent: string | undefined,
   rootDir: string,
   stackLocationRegExp: RegExp,
   sourceMapFunction: SourceMapFunction,
@@ -31,19 +29,20 @@ export async function formatStackTrace(
   let i = 0;
   for (const string of strings) {
     if (!REGEXP_TEST_FRAMEWORK_STACK.test(string)) {
-      const withoutSessionId = string.replace(REGEXP_WTR_SESSION_ID, '');
       // ensure there is an indentation of 2 spaces
-      const trimmedString = `${' '.repeat(i === 0 ? 0 : 2)}${withoutSessionId.trim()}`;
+      const trimmedString = `${' '.repeat(i === 0 ? 0 : 2)}${string.trim()}`;
 
       // replace browser url with relative file path
       formatPromises.push(
-        replaceRelativeStackFilePath(
-          trimmedString,
-          userAgent,
-          rootDir,
-          stackLocationRegExp,
-          sourceMapFunction,
-        ),
+        userAgent
+          ? replaceRelativeStackFilePath(
+              trimmedString,
+              userAgent,
+              rootDir,
+              stackLocationRegExp,
+              sourceMapFunction,
+            )
+          : trimmedString,
       );
     }
     i += 1;

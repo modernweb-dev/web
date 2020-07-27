@@ -161,6 +161,8 @@ interface CoverageConfig {
   reportDir: string;
 }
 
+type LogLevel = 'log' | 'warn' | 'error' | 'debug';
+
 interface TestRunnerConfig {
   // globs of files to test
   files: string | string[];
@@ -200,6 +202,10 @@ interface TestRunnerConfig {
   // html page used to run tests
   testRunnerHtml?: (testRunnerImport: string, config: TestRunnerCoreConfig) => string;
 
+  // whether to log browsers logs to the terminal, or which log levels to display
+  logBrowserLogs?: boolean | LogLevel[];
+  // whether to log uncaught errors to the terminal
+  logUncaughtErrors?: boolean;
   // run test coverage
   coverage?: boolean;
   // configuration for test coverage

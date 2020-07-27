@@ -25,7 +25,7 @@ export interface TestSession {
   passed?: boolean;
   errors: TestResultError[];
   tests: TestResult[];
-  logs: string[];
+  logs: any[][];
   request404s: string[];
   testCoverage?: CoverageMapData;
   userAgent?: string;

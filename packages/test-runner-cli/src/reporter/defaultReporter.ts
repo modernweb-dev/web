@@ -1,8 +1,10 @@
 import { Reporter, ReporterArgs } from '@web/test-runner-core';
 
 import { createSourceMapFunction, SourceMapFunction } from '../utils/createSourceMapFunction';
-import { getTestFileReport } from './getTestFileReport';
+import { reportTestFileResults } from './reportTestFileResults';
 import { getTestProgressReport } from './getTestProgress';
+import { BufferedLogger } from './BufferedLogger';
+import { createStackLocationRegExp } from '../utils/createStackLocationRegExp';
 
 export interface DefaultReporterArgs {
   reportTestResults?: boolean;
@@ -26,8 +28,10 @@ export function defaultReporter({
           const n = browserName.toLowerCase();
           return n.includes('chrome') || n.includes('chromium') || n.includes('firefox');
         }) ?? args.browserNames[0];
-      stackLocationRegExp = new RegExp(
-        `(\\(|@)(?:${args.config.protocol}:\\/\\/${args.config.hostname}:${args.config.port})*(.*\\.\\w{2,3}.*?)(?::(\\d+))?(?::(\\d+))?(\\)|$)`,
+      stackLocationRegExp = createStackLocationRegExp(
+        args.config.protocol,
+        args.config.hostname,
+        args.config.port,
       );
       sourceMapFunction = createSourceMapFunction(
         args.config.protocol,
@@ -47,12 +51,17 @@ export function defaultReporter({
       }
     },
 
-    async reportTestFileResult({ sessionsForTestFile, testFile }) {
+    async reportTestFileResults({ logger, sessionsForTestFile, testFile }) {
       if (!reportTestResults) {
         return undefined;
       }
 
-      return getTestFileReport(
+      if (!(logger instanceof BufferedLogger)) {
+        throw new Error('Expected a BufferedLogger instance.');
+      }
+
+      return reportTestFileResults(
+        logger,
         testFile,
         args.browserNames,
         favoriteBrowser,
@@ -63,9 +72,9 @@ export function defaultReporter({
       );
     },
 
-    reportTestProgress({ testRun, focusedTestFile, testCoverage }) {
+    getTestProgress({ testRun, focusedTestFile, testCoverage }) {
       if (!reportTestProgress) {
-        return undefined;
+        return [];
       }
 
       return getTestProgressReport(args.config, {

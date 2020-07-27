@@ -7,6 +7,11 @@ export interface Viewport {
   height: number;
 }
 
+export interface SessionResult {
+  testCoverage?: CoverageMapData;
+  browserLogs: any[][];
+}
+
 export interface BrowserLauncher {
   /**
    * One time startup for the browser launcher. Called when the test runner
@@ -37,13 +42,7 @@ export interface BrowserLauncher {
    * creating new ones.
    * @param session
    */
-  stopSession(session: TestSession): void;
-
-  /**
-   * Gets the test coverage for the test session if the browser launcher implementation
-   * supports it.
-   */
-  getTestCoverage?(): undefined | Promise<CoverageMapData[] | undefined>;
+  stopSession(session: TestSession): SessionResult | Promise<SessionResult>;
 
   /**
    * Starts a debug session. This should start a session like startSession, but
