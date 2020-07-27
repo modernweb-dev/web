@@ -1,5 +1,11 @@
 # @web/test-runner-browser-lib
 
+## 0.2.9
+
+### Patch Changes
+
+- 5fada4a: improve logging and error reporting
+
 ## 0.2.8
 
 ### Patch Changes

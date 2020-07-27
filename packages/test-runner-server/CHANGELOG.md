@@ -1,5 +1,13 @@
 # @web/test-runner-server
 
+## 0.5.12
+
+### Patch Changes
+
+- 5fada4a: improve logging and error reporting
+- Updated dependencies [5fada4a]
+  - @web/test-runner-core@0.6.16
+
 ## 0.5.11
 
 ### Patch Changes

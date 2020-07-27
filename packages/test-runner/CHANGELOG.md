@@ -1,5 +1,17 @@
 # @web/test-runner
 
+## 0.6.46
+
+### Patch Changes
+
+- 5fada4a: improve logging and error reporting
+- Updated dependencies [5fada4a]
+  - @web/test-runner-chrome@0.5.12
+  - @web/test-runner-cli@0.4.21
+  - @web/test-runner-core@0.6.16
+  - @web/test-runner-mocha@0.2.9
+  - @web/test-runner-server@0.5.12
+
 ## 0.6.45
 
 ### Patch Changes

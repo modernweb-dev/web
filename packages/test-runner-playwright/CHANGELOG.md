@@ -1,5 +1,14 @@
 # @web/test-runner-playwright
 
+## 0.4.11
+
+### Patch Changes
+
+- 5fada4a: improve logging and error reporting
+- Updated dependencies [5fada4a]
+  - @web/browser-logs@0.0.1
+  - @web/test-runner-core@0.6.16
+
 ## 0.4.10
 
 ### Patch Changes

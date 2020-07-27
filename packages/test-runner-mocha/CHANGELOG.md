@@ -1,5 +1,13 @@
 # @web/test-runner-mocha
 
+## 0.2.9
+
+### Patch Changes
+
+- 5fada4a: improve logging and error reporting
+- Updated dependencies [5fada4a]
+  - @web/test-runner-browser-lib@0.2.9
+
 ## 0.2.8
 
 ### Patch Changes

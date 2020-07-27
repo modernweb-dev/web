@@ -1,5 +1,14 @@
 # @web/test-runner-puppeteer
 
+## 0.5.6
+
+### Patch Changes
+
+- 5fada4a: improve logging and error reporting
+- Updated dependencies [5fada4a]
+  - @web/test-runner-chrome@0.5.12
+  - @web/test-runner-core@0.6.16
+
 ## 0.5.5
 
 ### Patch Changes

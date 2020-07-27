@@ -1,5 +1,14 @@
 # @web/test-runner-browserstack
 
+## 0.0.8
+
+### Patch Changes
+
+- 5fada4a: improve logging and error reporting
+- Updated dependencies [5fada4a]
+  - @web/dev-server-legacy@0.0.3
+  - @web/test-runner-selenium@0.1.4
+
 ## 0.0.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/dev-server-legacy
 
+## 0.0.3
+
+### Patch Changes
+
+- 5fada4a: improve logging and error reporting
+
 ## 0.0.2
 
 ### Patch Changes

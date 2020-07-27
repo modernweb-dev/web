@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.1.4
+
+### Patch Changes
+
+- 5fada4a: improve logging and error reporting
+
 ## 0.1.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @web/test-runner-chrome
 
+## 0.5.12
+
+### Patch Changes
+
+- 5fada4a: improve logging and error reporting
+- Updated dependencies [5fada4a]
+  - @web/browser-logs@0.0.1
+
 ## 0.5.11
 
 ### Patch Changes

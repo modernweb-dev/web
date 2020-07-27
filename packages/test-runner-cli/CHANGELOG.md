@@ -1,5 +1,14 @@
 # @web/test-runner-cli
 
+## 0.4.21
+
+### Patch Changes
+
+- 5fada4a: improve logging and error reporting
+- Updated dependencies [5fada4a]
+  - @web/browser-logs@0.0.1
+  - @web/test-runner-core@0.6.16
+
 ## 0.4.20
 
 ### Patch Changes

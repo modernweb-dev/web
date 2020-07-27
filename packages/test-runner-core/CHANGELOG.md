@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.16
+
+### Patch Changes
+
+- 5fada4a: improve logging and error reporting
+
 ## 0.6.15
 
 ### Patch Changes
