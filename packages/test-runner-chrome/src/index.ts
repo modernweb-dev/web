@@ -1,5 +1,5 @@
 import * as puppeteerCore from 'puppeteer-core';
-import { ChromeLauncher } from './ChromeLauncherClass';
+import { ChromeLauncher } from './ChromeLauncher';
 import { LaunchOptions, Browser, Page } from 'puppeteer-core';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
 
