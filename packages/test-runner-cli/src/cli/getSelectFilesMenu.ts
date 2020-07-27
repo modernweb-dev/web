@@ -1,6 +1,5 @@
 import chalk from 'chalk';
 import { relative } from 'path';
-import { TerminalEntry } from '../Terminal';
 
 export function getSelectFilesMenu(succeededFiles: string[], failedFiles: string[]) {
   const maxI = succeededFiles.length + failedFiles.length;
@@ -12,7 +11,7 @@ export function getSelectFilesMenu(succeededFiles: string[], failedFiles: string
     )}${chalk[failed ? 'red' : 'cyan'](relative(process.cwd(), file))}`;
   }
 
-  const entries: TerminalEntry[] = [
+  const entries: string[] = [
     'Test files:\n',
     ...succeededFiles.map((f, i) => formatTestFile(f, i, failedFiles.length + 1, false)),
     '',

@@ -22,6 +22,14 @@ Test frameworks run the actual tests in the browser. Web test runner relies on e
 
 - [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha)
 
+[Read more here](./docs/reporter.md) to learn more about setting up a custom test reporter.
+
+## Reporters
+
+Reporters report test results and/or progress. The CLI ships a default reporter. Implementations:
+
+- [@web/test-runner-cli](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-cli)
+
 [Read more here](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browser-lib) to learn more about using the browser library without a testing framework, or to implement your own testing framework.
 
 ## Servers

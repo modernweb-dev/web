@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const nodePackages = [
+  'browser-logs',
   'dev-server-core',
   'dev-server-esbuild',
   'dev-server-rollup',

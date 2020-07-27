@@ -23,9 +23,6 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      - name: Build
-        run: yarn build
-
       - name: Test
         run: yarn test
   verify-browserstack:
@@ -41,11 +38,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
-
-      - name: Build
-        run: |
-          cd packages/test-runner-browserstack
-          yarn build
 
       - name: Test
         run: |

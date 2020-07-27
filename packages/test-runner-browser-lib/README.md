@@ -16,17 +16,11 @@ This is a simple example implementation for JS tests:
 
 ```js
 import {
-  captureConsoleOutput,
-  logUncaughtErrors,
   getConfig,
   sessionStarted,
   sessionFinished,
   sessionError,
 } from '@web/test-runner-browser-lib';
-
-// optionally capture console and uncaught errors
-captureConsoleOutput();
-logUncaughtErrors();
 
 (async () => {
   // notify the test runner that we're alive
@@ -67,20 +61,11 @@ If you want to use this library directly in a HTML test, you can do something li
 <html>
   <body>
     <script type="module">
-      import {
-        captureConsoleOutput,
-        logUncaughtErrors,
-        sessionStarted,
-        sessionFinished,
-        sessionError,
-      } from '@web/test-runner-browser-lib';
-      // optionally capture console and uncaught errors
-      captureConsoleOutput();
-      logUncaughtErrors();
-      // notify the test runner that we're alive
-      sessionStarted();
-
+      import { sessionStarted, sessionFinished, sessionError } from '@web/test-runner-browser-lib';
       try {
+        // notify the test runner that we're alive
+        sessionStarted();
+
         // run the actual tests, this is what you will implement
         const testResults = await runTests();
 

@@ -6,7 +6,6 @@ import {
   CoverageConfig,
 } from '@web/test-runner-core';
 import chalk from 'chalk';
-import { TerminalEntry } from '../Terminal';
 import { getTestCoverage } from './getTestCoverage';
 
 export interface TestProgressArgs {
@@ -99,13 +98,14 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
   } = args;
   const testFiles = focusedTestFile ? [focusedTestFile] : allTestFiles;
 
-  const entries: TerminalEntry[] = [];
+  const entries: string[] = [];
   const unfinishedSessions = Array.from(
     sessions.forStatusAndTestFile(
       focusedTestFile,
       SESSION_STATUS.SCHEDULED,
       SESSION_STATUS.INITIALIZING,
-      SESSION_STATUS.STARTED,
+      SESSION_STATUS.TEST_STARTED,
+      SESSION_STATUS.TEST_FINISHED,
     ),
   );
 

@@ -19,23 +19,33 @@ export interface CoverageConfig {
   reportDir: string;
 }
 
+export type LogLevel = 'log' | 'warn' | 'error' | 'debug';
+
 export interface TestRunnerCoreConfig {
+  rootDir: string;
   files: string | string[];
-  testFramework?: TestFramework;
-  browsers: BrowserLauncher | BrowserLauncher[];
-  reporters: Reporter[];
-  server: Server;
-  logger: Logger;
+  concurrency?: number;
+
   protocol: string;
   hostname: string;
   port: number;
-  rootDir: string;
+
+  browsers: BrowserLauncher | BrowserLauncher[];
+  testFramework?: TestFramework;
+  logger: Logger;
+  reporters: Reporter[];
+  server: Server;
+
   testRunnerHtml?: (testRunnerImport: string, config: TestRunnerCoreConfig) => string;
   watch: boolean;
+
+  logBrowserLogs?: boolean | LogLevel[];
+  logUncaughtErrors?: boolean;
   coverage?: boolean;
   coverageConfig?: CoverageConfig;
-  concurrency?: number;
+
   browserStartTimeout?: number;
+
   sessionStartTimeout?: number;
   sessionFinishTimeout?: number;
   staticLogging?: boolean;

@@ -40,39 +40,51 @@ export function myReporter({ reportResults = true, reportProgress = false } = {}
      * when all browsers for a test file are finished, or when switching between
      * menus in watch mode.
      *
-     * This function should return the test report, which is an array of strings or
-     * objects indication report indentation.
+     * If your test results are calculated async, you should return a promise from
+     * this function and use the logger to log test results. The test runner will
+     * guard against race conditions when re-running tests in watch mode while reporting.
      *
+     * @param logger the logger to use for logging tests
      * @param testFile the test file to report for
      * @param sessionsForTestFile the sessions for this test file. each browser is a
      * different session
      */
-    async reportTestFileResult({ sessionsForTestFile, testFile }) {
+    async reportTestFileResults({ logger, sessionsForTestFile, testFile }) {
       if (!reportResults) {
         return;
       }
 
-      return [
-        'Hello world',
-        { indent: 2, text: 'This is an indented message' },
-        'Lorem ipsum',
-        { indent: 4, text: 'foo bar' },
-      ];
+      // test report generated async
+      const testReport = await generateTestReport(testFile, sessionsForTestFile);
+
+      logger.log(`Results for ${testFile}`);
+      logger.group();
+      logger.log(testReport);
+      logger.groupEnd();
     },
 
     /**
      * Called when test progress should be rendered to the terminal. This is called
      * any time there is a change in the test runner to display the latest status.
      *
-     * This function should return the test report, which is an array of strings or
-     * objects indication report indentation. Previous results from this function are
-     * overwritten each time it is called, they are rendered "dynamically" to the terminal
-     * so that the progress bar is live updating.
+     * This function should return the test report as a string. Previous results from this
+     * function are overwritten each time it is called, they are rendered "dynamically"
+     * to the terminal so that the progress bar is live updating.
      */
-    reportTestProgress({ testRun, focusedTestFile, testCoverage }) {
+    getTestProgress({
+      config,
+      sessions,
+      testFiles,
+      startTime,
+      testRun,
+      focusedTestFile,
+      testCoverage,
+    }) {
       if (!reportProgress) {
         return;
       }
+
+      return `Current progress: 21%`;
     },
   };
 }

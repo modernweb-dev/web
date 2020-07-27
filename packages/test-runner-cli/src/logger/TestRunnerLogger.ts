@@ -23,6 +23,14 @@ export class TestRunnerLogger implements Logger {
     console.warn(...messages);
   }
 
+  group() {
+    console.group();
+  }
+
+  groupEnd() {
+    console.groupEnd();
+  }
+
   logSyntaxError(error: ErrorWithLocation) {
     const { message, code, filePath, column, line } = error;
     let errors = this.loggedSyntaxErrors.get(filePath);

@@ -47,20 +47,12 @@ before(async function () {
 });
 
 const logger: Logger = {
-  log(...args: any[]) {
-    console.log(...args);
-  },
+  ...console,
   debug() {
     //
   },
-  error(...args: any[]) {
-    console.log(...args);
-  },
-  warn(...args: any[]) {
-    console.log(...args);
-  },
-  logSyntaxError() {
-    //
+  logSyntaxError(error) {
+    console.error(error);
   },
 };
 
@@ -115,6 +107,10 @@ it('runs tests with selenium', function (done) {
     'test/fixtures/test-n.test.js',
     'test/fixtures/test-o.test.js',
   ]);
+
+  runner.sessions.on('session-status-updated', session => {
+    console.log(session.browserName, session.id, session.status);
+  });
 
   runner.on('finished', () => {
     runner.stop();

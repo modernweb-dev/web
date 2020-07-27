@@ -4,8 +4,7 @@ import {
   TestRunner,
   TestCoverage,
   SESSION_STATUS,
-  Report,
-  ReportEntry,
+  Logger,
 } from '@web/test-runner-core';
 import { codeFrameColumns } from '@babel/code-frame';
 import path from 'path';
@@ -17,6 +16,7 @@ import { getSelectFilesMenu } from './getSelectFilesMenu';
 import { getWatchCommands } from './getWatchCommands';
 import { Terminal } from '../Terminal';
 import { TestRunnerLogger } from '../logger/TestRunnerLogger';
+import { BufferedLogger } from '../reporter/BufferedLogger';
 
 export type MenuType = 'overview' | 'focus' | 'debug';
 
@@ -40,11 +40,12 @@ export class TestRunnerCli {
   private activeMenu: MenuType = MENUS.OVERVIEW;
   private menuSucceededAndPendingFiles: string[] = [];
   private menuFailedFiles: string[] = [];
-  private openingDebugBrowser = false;
   private testCoverage?: TestCoverage;
-  private pendingLogs: Promise<any>[] = [];
+  private pendingReportPromises: Promise<any>[] = [];
+  private logger: Logger;
 
   constructor(private config: TestRunnerCoreConfig, private runner: TestRunner) {
+    this.logger = this.config.logger;
     this.sessions = runner.sessions;
 
     if (config.watch && !this.terminal.isInteractive) {
@@ -79,9 +80,7 @@ export class TestRunnerCli {
     }
 
     if (this.config.staticLogging || !this.terminal.isInteractive) {
-      this.terminal.logStatic(
-        chalk.bold(`Running ${this.runner.testFiles.length} test files...\n`),
-      );
+      this.logger.log(chalk.bold(`Running ${this.runner.testFiles.length} test files...\n`));
     }
   }
 
@@ -104,9 +103,9 @@ export class TestRunnerCli {
         case 'D':
           if (this.activeMenu === MENUS.OVERVIEW) {
             if (this.runner.focusedTestFile) {
-              this.startDebugBrowser(this.runner.focusedTestFile);
+              this.runner.startDebugBrowser(this.runner.focusedTestFile);
             } else if (this.runner.testFiles.length === 1) {
-              this.startDebugBrowser(this.runner.testFiles[0]);
+              this.runner.startDebugBrowser(this.runner.testFiles[0]);
             } else {
               this.switchMenu(MENUS.DEBUG_SELECT_FILE);
             }
@@ -205,7 +204,7 @@ export class TestRunnerCli {
       this.runner.focusedTestFile = focusedTestFile;
       this.switchMenu(MENUS.OVERVIEW);
       if (debug) {
-        this.startDebugBrowser(focusedTestFile);
+        this.runner.startDebugBrowser(focusedTestFile);
       }
     } else {
       this.terminal.clear();
@@ -243,38 +242,37 @@ export class TestRunnerCli {
     }
     reportedFiles.add(testFile);
 
-    const reportsPromises = this.getTestResultReports(testFile, testRun);
-    for (const reportsPromise of reportsPromises) {
-      this.pendingLogs.push(reportsPromise);
-      reportsPromise
-        .catch(error => {
-          console.error(error);
-        })
-        .then(report => {
-          this.pendingLogs.splice(this.pendingLogs.indexOf(reportsPromise), 1);
-          // do the actual logging only if there is something to log, and if we're not
-          // in a new test run (for example a file changed in watch mode)
-          if (report && this.runner.testRun === testRun) {
-            this.terminal.logStatic(report);
-          }
-        });
+    const bufferedLogger = new BufferedLogger(this.logger);
+    const reportsPromises = this.getTestResultReports(bufferedLogger, testFile, testRun);
+
+    this.pendingReportPromises.push(...reportsPromises);
+    await Promise.all(reportsPromises);
+    for (const prom of reportsPromises) {
+      this.pendingReportPromises.splice(this.pendingReportPromises.indexOf(prom), 1);
+    }
+
+    // all the logs from the reportered were buffered, if they finished before a new test run
+    // actually log them to the terminal here
+    if (this.runner.testRun === testRun) {
+      bufferedLogger.logBufferedMessages();
     }
   }
 
-  private getTestResultReports(testFile: string, testRun: number) {
-    const reports: Promise<Report | undefined>[] = [];
+  private getTestResultReports(logger: Logger, testFile: string, testRun: number) {
+    const reportPromises: Promise<void>[] = [];
 
     for (const reporter of this.config.reporters) {
       const sessionsForTestFile = Array.from(this.sessions.forTestFile(testFile));
-      const report = reporter.reportTestFileResult?.({
+      const maybeReportPromise = reporter.reportTestFileResults?.({
+        logger,
         sessionsForTestFile,
         testFile,
         testRun,
       });
-      reports.push(Promise.resolve(report));
+      reportPromises.push(Promise.resolve(maybeReportPromise).catch(err => console.error(err)));
     }
 
-    return reports;
+    return reportPromises;
   }
 
   private reportTestProgress(final = false) {
@@ -283,12 +281,16 @@ export class TestRunnerCli {
       return;
     }
 
-    const reports: ReportEntry[] = [];
+    const reports: string[] = [];
     for (const reporter of this.config.reporters) {
-      const report = reporter.reportTestProgress?.({
+      const report = reporter.getTestProgress?.({
+        config: this.config,
+        sessions: Array.from(this.sessions.all()),
+        startTime: this.runner.startTime,
         testRun: this.runner.testRun,
         focusedTestFile: this.runner.focusedTestFile,
         testCoverage: this.testCoverage,
+        testFiles: this.runner.testFiles,
       });
 
       if (report) {
@@ -329,7 +331,7 @@ export class TestRunnerCli {
       return;
     }
 
-    const report: ReportEntry[] = [];
+    const report: string[] = [];
     logger.clearLoggedSyntaxErrors();
 
     for (const [filePath, errors] of loggedSyntaxErrors.entries()) {
@@ -379,17 +381,6 @@ export class TestRunnerCli {
     }
   }
 
-  private async startDebugBrowser(testFile: string) {
-    this.openingDebugBrowser = true;
-    this.reportTestProgress();
-    try {
-      await this.runner.startDebugBrowser(testFile);
-    } finally {
-      this.openingDebugBrowser = false;
-      this.reportTestProgress();
-    }
-  }
-
   private logSelectFilesMenu() {
     this.menuSucceededAndPendingFiles = [];
     this.menuFailedFiles = [];
@@ -418,7 +409,7 @@ export class TestRunnerCli {
 
   private async reportEnd() {
     this.reportTestProgress(true);
-    await Promise.all(this.pendingLogs);
+    await Promise.all(this.pendingReportPromises);
     this.terminal.stop();
     this.runner.stop();
   }

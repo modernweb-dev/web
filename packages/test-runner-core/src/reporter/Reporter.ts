@@ -2,15 +2,7 @@ import { TestSession } from '../test-session/TestSession';
 import { TestSessionManager } from '../test-session/TestSessionManager';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { TestCoverage } from '../coverage/getTestCoverage';
-
-export interface IndentedReportEntry {
-  text: string;
-  indent: number;
-}
-
-export type ReportEntry = string | IndentedReportEntry;
-
-export type Report = ReportEntry[] | undefined | void;
+import { Logger } from '../logger/Logger';
 
 export interface ReporterArgs {
   config: TestRunnerCoreConfig;
@@ -21,15 +13,20 @@ export interface ReporterArgs {
 }
 
 export interface ReportTestResultsArgs {
+  logger: Logger;
   sessionsForTestFile: TestSession[];
   testFile: string;
   testRun: number;
 }
 
-export interface ReportTestProgressArgs {
+export interface GetTestProgressArgs {
+  config: TestRunnerCoreConfig;
+  sessions: TestSession[];
+  startTime: number;
   testRun: number;
   focusedTestFile?: string;
   testCoverage?: TestCoverage;
+  testFiles: string[];
 }
 
 export interface TestRunArgs {
@@ -42,8 +39,8 @@ export interface TestRunFinishedArgs extends TestRunArgs {}
 export interface ReporterConstructor {}
 
 export interface Reporter {
-  reportTestFileResult?(args: ReportTestResultsArgs): Report | Promise<Report>;
-  reportTestProgress?(args: ReportTestProgressArgs): Report;
+  reportTestFileResults?(args: ReportTestResultsArgs): void | Promise<void>;
+  getTestProgress?(args: GetTestProgressArgs): string | string[];
   onTestRunStarted?(args: TestRunStartedArgs): void;
   onTestRunFinished?(args: TestRunFinishedArgs): void;
   start?(args: ReporterArgs): void | undefined;

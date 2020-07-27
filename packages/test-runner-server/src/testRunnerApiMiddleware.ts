@@ -26,6 +26,7 @@ export function testRunnerApiMiddleware(
   return async (ctx, next) => {
     if (ctx.path.startsWith('/wtr/')) {
       const [, , sessionId, command] = ctx.path.split('/');
+      const debug = ctx.URL.searchParams.get('debug') === 'true';
       if (!sessionId) return next();
       if (!command) return next();
 
@@ -46,12 +47,13 @@ export function testRunnerApiMiddleware(
         return;
       }
 
-      // TODO: Handle race conditions for these requests
       if (command === 'session-started') {
         ctx.status = 200;
+        if (debug) return;
+
         sessions.update({
           ...session,
-          status: SESSION_STATUS.STARTED,
+          status: SESSION_STATUS.TEST_STARTED,
           userAgent: ctx.headers['user-agent'],
         });
         return;
@@ -59,10 +61,6 @@ export function testRunnerApiMiddleware(
 
       if (command === 'viewport') {
         try {
-          if (session.status !== SESSION_STATUS.STARTED) {
-            ctx.status = 400;
-            return;
-          }
           const viewport = ((await parse.json(ctx)) as any) as Viewport;
           await session.browserLauncher.setViewport(session, viewport);
           ctx.status = 200;
@@ -75,8 +73,10 @@ export function testRunnerApiMiddleware(
 
       if (command === 'session-finished') {
         ctx.status = 200;
+        if (debug) return;
+
         const result = (await parse.json(ctx)) as any;
-        sessions.updateStatus({ ...session, ...result }, SESSION_STATUS.FINISHED);
+        sessions.updateStatus({ ...session, ...result }, SESSION_STATUS.TEST_FINISHED);
         return;
       }
     }

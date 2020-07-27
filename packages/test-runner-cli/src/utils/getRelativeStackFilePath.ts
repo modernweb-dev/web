@@ -30,10 +30,13 @@ export async function getRelativeStackFilePath(
       final.column ? `:${final.column}` : ''
     }`;
     const pathWithLocation = `${relativeFilePath}${location}`;
+    // some browsers like firefox and webkit print an @ symbol in front of the filename
+    // this makes it unclickable from the terminal
+    const formattedPrefix = prefix.trim() === '@' ? ' @ ' : prefix;
 
     return {
       startIndex: match.index!,
-      replacedString: `${prefix}${pathWithLocation}${suffix}`,
+      replacedString: `${formattedPrefix}${pathWithLocation}${suffix}`,
       relativeFilePath,
       location,
     };

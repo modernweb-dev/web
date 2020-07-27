@@ -4,23 +4,15 @@ import { TestRunnerCoreConfig, TestRunner, Logger } from '@web/test-runner-core'
 import { testRunnerServer } from '@web/test-runner-server';
 import portfinder from 'portfinder';
 
-import { playwrightLauncher, ProductType } from '../src/playwrightLauncher';
+import { playwrightLauncher, ProductType } from '../src/index';
 
 const logger: Logger = {
-  log(...args: any[]) {
-    console.log(...args);
-  },
+  ...console,
   debug() {
     //
   },
-  error(...args: any[]) {
-    console.log(...args);
-  },
-  warn(...args: any[]) {
-    console.log(...args);
-  },
-  logSyntaxError() {
-    //
+  logSyntaxError(error) {
+    console.log(error);
   },
 };
 

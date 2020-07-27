@@ -15,6 +15,8 @@ const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   browserStartTimeout: 30000,
   sessionStartTimeout: 10000,
   sessionFinishTimeout: 20000,
+  logBrowserLogs: true,
+  logUncaughtErrors: true,
 };
 
 const defaultCoverageConfig: CoverageConfig = {

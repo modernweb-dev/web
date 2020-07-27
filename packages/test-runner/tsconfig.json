@@ -15,6 +15,9 @@
       "path": "../test-runner-core/tsconfig.json"
     },
     {
+      "path": "../browser-logs/tsconfig.json"
+    },
+    {
       "path": "../test-runner-coverage-v8/tsconfig.json"
     },
     {
@@ -28,6 +31,9 @@
     },
     {
       "path": "../test-runner-cli/tsconfig.json"
+    },
+    {
+      "path": "../dev-server-legacy/tsconfig.json"
     }
   ],
   "include": [

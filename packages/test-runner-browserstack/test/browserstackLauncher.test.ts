@@ -16,20 +16,12 @@ beforeEach(async () => {
 });
 
 const logger: Logger = {
-  log(...args: any[]) {
-    console.log(...args);
-  },
+  ...console,
   debug() {
     //
   },
-  error(...args: any[]) {
-    console.log(...args);
-  },
-  warn(...args: any[]) {
-    console.log(...args);
-  },
-  logSyntaxError() {
-    //
+  logSyntaxError(error) {
+    console.error(error);
   },
 };
 

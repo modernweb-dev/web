@@ -8,7 +8,10 @@ function createTestPage(testFrameworkImport: string) {
   <head></head>
   <body>
     <script type="module">
-      import "${testFrameworkImport}";
+      import('${testFrameworkImport}').catch((error) => {
+        console.error(error);
+        console.error('\x1B[31mThe test framework could not be loaded. Are your dependencies installed correctly? Is there a server plugin or middleware that interferes?\x1B[39m');
+      });
     </script>
   </body>
 </html>`;
