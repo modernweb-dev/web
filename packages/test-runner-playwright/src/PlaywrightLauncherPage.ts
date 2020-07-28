@@ -58,12 +58,7 @@ export class PlaywrightLauncherPage {
     const logsPromise = message.args().map(arg =>
       arg
         // serialize the log message in the browser to a string
-        .evaluateHandle(e =>
-          // TODO: https://github.com/modernweb-dev/web/issues/262
-          (window as any).__wtr_browser_logs__
-            ? (window as any).__wtr_browser_logs__.serialize(e)
-            : JSON.stringify(e),
-        )
+        .evaluateHandle(e => (window as any).__wtr_browser_logs__.serialize(e))
         // pass along the message from the browser to NodeJS as a string
         .then(handle => handle.jsonValue())
         // deserialize the string to an array of logs
