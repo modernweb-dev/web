@@ -5,7 +5,7 @@ export function createStackLocationRegExp(protocol: string, hostname: string, po
       // may optionally contain the server address, in which case it is stripped off
       `(?:${protocol}\\/\\/${hostname}:${port}\\/)*` +
       // must contain valid URL characters, and end with a file extension
-      '((?:[a-z]|[A-Z]|\\-|-|\\.|_|~|\\/|\\\\)*\\.\\w{2,6})' +
+      '((?:[a-z]|[A-Z]|[0-9]|\\-|-|\\.|_|~|\\/|\\\\)*\\.\\w{2,6})' +
       // may optionally contain query params or hashes, which are stripped off
       '(?:.*)' +
       // must contain line and column markers
