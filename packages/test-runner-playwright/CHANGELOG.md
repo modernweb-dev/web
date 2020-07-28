@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.4.12
+
+### Patch Changes
+
+- 911aa74: remove log serialization workaround
+
 ## 0.4.11
 
 ### Patch Changes
