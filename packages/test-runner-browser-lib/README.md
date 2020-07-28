@@ -19,7 +19,7 @@ import {
   getConfig,
   sessionStarted,
   sessionFinished,
-  sessionError,
+  sessionFailed,
 } from '@web/test-runner-browser-lib';
 
 (async () => {
@@ -47,7 +47,7 @@ import {
     });
   } catch (error) {
     // notify an error occurred
-    sessionError(error);
+    sessionFailed(error);
     return;
   }
 })();
@@ -61,7 +61,8 @@ If you want to use this library directly in a HTML test, you can do something li
 <html>
   <body>
     <script type="module">
-      import { sessionStarted, sessionFinished, sessionError } from '@web/test-runner-browser-lib';
+      import { sessionStarted, sessionFinished, sessionFailed } from '@web/test-runner-browser-lib';
+
       try {
         // notify the test runner that we're alive
         sessionStarted();
@@ -77,7 +78,7 @@ If you want to use this library directly in a HTML test, you can do something li
         });
       } catch (error) {
         // notify an error occurred
-        sessionError(error);
+        sessionFailed(error);
         return;
       }
     </script>

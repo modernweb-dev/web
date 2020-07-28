@@ -1,6 +1,6 @@
-import createConfig from '../../rollup.browser.config';
 import CleanCSS from 'clean-css';
 import deepmerge from 'deepmerge';
+import createConfig from '../../rollup.browser.config';
 
 const cssPlugin = {
   transform(code, id) {

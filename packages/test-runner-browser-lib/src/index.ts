@@ -39,12 +39,12 @@ export async function getConfig(): Promise<RuntimeConfig & { debug: boolean }> {
       debug,
     };
   } catch (err) {
-    await sessionError({ message: 'Failed to fetch session config', stack: err?.stack });
+    await sessionFailed({ message: 'Failed to fetch session config', stack: err?.stack });
     throw err;
   }
 }
 
-export function sessionError(error: TestResultError) {
+export function sessionFailed(error: TestResultError) {
   return sessionFinished({
     passed: false,
     errors: [error],
