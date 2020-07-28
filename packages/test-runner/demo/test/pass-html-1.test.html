@@ -1,13 +1,23 @@
 <html>
   <body>
     <script type="module">
-      import { runTests } from '../../../../node_modules/@web/test-runner-mocha/dist/standalone.js';
+      import { expect } from './chai.js';
+      import {
+        mocha,
+        sessionFinished,
+      } from '../../../../node_modules/@web/test-runner-mocha/dist/standalone.js';
+
+      mocha.setup({ ui: 'bdd' });
 
       describe('HTML tests', () => {
-        it('works', () => {});
+        it('works', () => {
+          expect('foo').to.equal('foo');
+        });
       });
 
-      runTests();
+      mocha.run(() => {
+        sessionFinished();
+      });
     </script>
   </body>
 </html>
