@@ -1,8 +1,10 @@
 /// <reference types="../../../types/rollup__plugin-babel" />
-import babel from '@rollup/plugin-babel';
+import rollupBabel from '@rollup/plugin-babel';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../../src/rollupAdapter';
+import { fromRollup } from '../../../src/index';
+
+const babel = fromRollup(rollupBabel);
 
 describe('@rollup/plugin-alias', () => {
   it('can resolve imports', async () => {
@@ -16,12 +18,10 @@ describe('@rollup/plugin-alias', () => {
             }
           },
         },
-        rollupAdapter(
-          babel({
-            babelHelpers: 'inline',
-            plugins: [require.resolve('@babel/plugin-transform-template-literals')],
-          }),
-        ),
+        babel({
+          babelHelpers: 'inline',
+          plugins: [require.resolve('@babel/plugin-transform-template-literals')],
+        }),
       ],
     });
 

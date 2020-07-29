@@ -1,19 +1,19 @@
-import alias from '@rollup/plugin-alias';
+import rollupAlias from '@rollup/plugin-alias';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../../src/rollupAdapter';
+import { fromRollup } from '../../../src/fromRollup';
+
+const alias = fromRollup(rollupAlias);
 
 describe('@rollup/plugin-alias', () => {
   it('can resolve imports', async () => {
     const { server, host } = await createTestServer({
       plugins: [
-        rollupAdapter(
-          alias({
-            entries: {
-              'module-a': './module-a-stub.js',
-            },
-          }),
-        ),
+        alias({
+          entries: {
+            'module-a': './module-a-stub.js',
+          },
+        }),
       ],
     });
 

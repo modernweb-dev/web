@@ -1,12 +1,15 @@
 /* eslint-disable */
-const commonjs = require('@rollup/plugin-commonjs');
-const postcss = require('rollup-plugin-postcss');
-const { rollupAdapter } = require('./dist/index');
+const rollupCommonjs = require('@rollup/plugin-commonjs');
+const rollupPostcss = require('rollup-plugin-postcss');
+const { fromRollup } = require('./dist/index');
+
+const commonjs = fromRollup(rollupCommonjs);
+const postcss = fromRollup(rollupPostcss);
 
 module.exports = {
   rootDir: '../..',
   plugins: [
-    rollupAdapter(commonjs()),
+    commonjs(),
     {
       name: 'serve-css',
       resolveMimeType(context) {
@@ -15,6 +18,6 @@ module.exports = {
         }
       },
     },
-    rollupAdapter(postcss({ modules: true })),
+    postcss({ modules: true }),
   ],
 };

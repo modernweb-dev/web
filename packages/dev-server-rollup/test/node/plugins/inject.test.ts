@@ -1,9 +1,10 @@
-import inject from '@rollup/plugin-inject';
+import rollupInject from '@rollup/plugin-inject';
 import path from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../../src/rollupAdapter';
+import { fromRollup } from '../../../src/index';
 
+const inject = fromRollup(rollupInject);
 const injectedModulePath = path.join(__dirname, 'injected-module.js');
 
 describe('@rollup/plugin-inject', () => {
@@ -18,12 +19,10 @@ describe('@rollup/plugin-inject', () => {
             }
           },
         },
-        rollupAdapter(
-          inject({
-            html: ['lit-html', 'html'],
-            SomeGlobal: [injectedModulePath, 'SomeGlobal'],
-          }),
-        ),
+        inject({
+          html: ['lit-html', 'html'],
+          SomeGlobal: [injectedModulePath, 'SomeGlobal'],
+        }),
       ],
     });
 

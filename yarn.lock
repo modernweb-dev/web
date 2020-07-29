@@ -8028,10 +8028,10 @@ type-is@^1.6.16:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-typescript@^3.9.5, typescript@^3.9.6, typescript@^3.9.7:
-  version "3.9.7"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
-  integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
+typescript@^4.0.0-beta:
+  version "4.0.0-dev.20200728"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.0-dev.20200728.tgz#31cf9dd9737eba2ba1f773f768502bf0866a4390"
+  integrity sha512-BskCVZmg4rQJKwYm5/XuuJD7xzTMWYUu6k/ku8a13zb1VdSlNWmQA2IQnYuEW4Y8Mgwc/fRL4OZGs0r/U3PT0A==
 
 typical@^4.0.0:
   version "4.0.0"

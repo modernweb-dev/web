@@ -1,7 +1,9 @@
-import replace from '@rollup/plugin-replace';
+import rollupReplace from '@rollup/plugin-replace';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../../src/rollupAdapter';
+import { fromRollup } from '../../../src/index';
+
+const replace = fromRollup(rollupReplace);
 
 describe('@rollup/plugin-replace', () => {
   it('can resolve imports', async () => {
@@ -13,7 +15,7 @@ describe('@rollup/plugin-replace', () => {
             return 'if (__buildEnv__ === "production") { console.log("foo"); }';
           },
         },
-        rollupAdapter(replace({ __buildEnv__: '"production"' })),
+        replace({ __buildEnv__: '"production"' }),
       ],
     });
 
