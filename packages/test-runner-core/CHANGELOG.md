@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.17
+
+### Patch Changes
+
+- 3757865: add more args to test reporter callbacks
+
 ## 0.6.16
 
 ### Patch Changes

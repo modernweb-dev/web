@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.6.48
+
+### Patch Changes
+
+- 3757865: add more args to test reporter callbacks
+- Updated dependencies [3757865]
+  - @web/test-runner-cli@0.4.23
+  - @web/test-runner-core@0.6.17
+
 ## 0.6.47
 
 ### Patch Changes
