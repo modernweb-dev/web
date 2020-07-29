@@ -1,9 +1,11 @@
 /// <reference types="../../../types/rollup-plugin-postcss" />
-import postcss from 'rollup-plugin-postcss';
+import rollupPostcss from 'rollup-plugin-postcss';
 import { resolve } from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../../src/rollupAdapter';
+import { fromRollup } from '../../../src/index';
+
+const postcss = fromRollup(rollupPostcss);
 
 describe('@rollup/plugin-postcss', () => {
   it('can run postcss on imported css files', async () => {
@@ -35,7 +37,7 @@ html {
             }
           },
         },
-        rollupAdapter(postcss({})),
+        postcss(),
       ],
     });
 

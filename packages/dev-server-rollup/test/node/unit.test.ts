@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 import path from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from './test-helpers';
-import { rollupAdapter } from '../../src/rollupAdapter';
+import { fromRollup } from '../../src/index';
 import { stub } from 'sinon';
 
 describe('@web/dev-server-rollup', () => {
@@ -17,7 +17,7 @@ describe('@web/dev-server-rollup', () => {
         },
       };
       const { server, host } = await createTestServer({
-        plugins: [rollupAdapter(plugin)],
+        plugins: [fromRollup(() => plugin)()],
       });
 
       try {
@@ -36,7 +36,7 @@ describe('@web/dev-server-rollup', () => {
         },
       };
       const { server, host } = await createTestServer({
-        plugins: [rollupAdapter(plugin)],
+        plugins: [fromRollup(() => plugin)()],
       });
 
       try {
@@ -55,7 +55,7 @@ describe('@web/dev-server-rollup', () => {
         },
       };
       const { server, host } = await createTestServer({
-        plugins: [rollupAdapter(plugin)],
+        plugins: [fromRollup(() => plugin)()],
       });
 
       try {
@@ -74,7 +74,7 @@ describe('@web/dev-server-rollup', () => {
         },
       };
       const { server, host } = await createTestServer({
-        plugins: [rollupAdapter(plugin)],
+        plugins: [fromRollup(() => plugin)()],
       });
 
       try {
@@ -102,7 +102,7 @@ describe('@web/dev-server-rollup', () => {
       };
       const { server, host } = await createTestServer(
         {
-          plugins: [rollupAdapter(plugin)],
+          plugins: [fromRollup(() => plugin)()],
         },
         mockLogger,
       );
@@ -130,7 +130,7 @@ describe('@web/dev-server-rollup', () => {
         },
       };
       const { server, host } = await createTestServer({
-        plugins: [rollupAdapter(plugin)],
+        plugins: [fromRollup(() => plugin)()],
       });
 
       try {
@@ -151,7 +151,7 @@ describe('@web/dev-server-rollup', () => {
         },
       };
       const { server, host } = await createTestServer({
-        plugins: [rollupAdapter(plugin)],
+        plugins: [fromRollup(() => plugin)()],
       });
 
       try {
@@ -174,7 +174,7 @@ describe('@web/dev-server-rollup', () => {
         },
       };
       const { server, host } = await createTestServer({
-        plugins: [rollupAdapter(plugin)],
+        plugins: [fromRollup(() => plugin)()],
       });
 
       try {
@@ -195,7 +195,7 @@ describe('@web/dev-server-rollup', () => {
         },
       };
       const { server, host } = await createTestServer({
-        plugins: [rollupAdapter(plugin)],
+        plugins: [fromRollup(() => plugin)()],
       });
 
       try {
@@ -219,7 +219,7 @@ describe('@web/dev-server-rollup', () => {
       },
     };
     const { server, host } = await createTestServer({
-      plugins: [rollupAdapter(plugin)],
+      plugins: [fromRollup(() => plugin)()],
     });
 
     try {
@@ -243,7 +243,7 @@ describe('@web/dev-server-rollup', () => {
       },
     };
     const { server, host } = await createTestServer({
-      plugins: [rollupAdapter(plugin)],
+      plugins: [fromRollup(() => plugin)()],
     });
 
     try {
@@ -269,7 +269,7 @@ describe('@web/dev-server-rollup', () => {
       },
     };
     const { server, host } = await createTestServer({
-      plugins: [rollupAdapter(plugin)],
+      plugins: [fromRollup(() => plugin)()],
     });
 
     try {
@@ -293,7 +293,7 @@ describe('@web/dev-server-rollup', () => {
       },
     };
     const { server, host } = await createTestServer({
-      plugins: [rollupAdapter(plugin)],
+      plugins: [fromRollup(() => plugin)()],
     });
 
     try {
@@ -317,7 +317,7 @@ describe('@web/dev-server-rollup', () => {
     };
 
     const { server, host } = await createTestServer({
-      plugins: [rollupAdapter(plugin)],
+      plugins: [fromRollup(() => plugin)()],
     });
 
     try {
@@ -341,7 +341,7 @@ describe('@web/dev-server-rollup', () => {
     };
 
     const { server, host } = await createTestServer({
-      plugins: [rollupAdapter(plugin)],
+      plugins: [fromRollup(() => plugin)()],
     });
 
     try {

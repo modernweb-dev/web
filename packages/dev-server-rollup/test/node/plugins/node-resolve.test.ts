@@ -1,12 +1,14 @@
-import nodeResolve from '@rollup/plugin-node-resolve';
+import rollupNodeResolve from '@rollup/plugin-node-resolve';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../../src/rollupAdapter';
+import { fromRollup } from '../../../src/index';
+
+const nodeResolve = fromRollup(rollupNodeResolve);
 
 describe('@rollup/plugin-node-resolve', () => {
   it('can resolve imports', async () => {
     const { server, host } = await createTestServer({
-      plugins: [rollupAdapter(nodeResolve())],
+      plugins: [nodeResolve()],
     });
 
     try {
@@ -19,7 +21,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
   it('can resolve imports in inline scripts', async () => {
     const { server, host } = await createTestServer({
-      plugins: [rollupAdapter(nodeResolve())],
+      plugins: [nodeResolve()],
     });
 
     try {

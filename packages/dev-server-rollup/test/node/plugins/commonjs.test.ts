@@ -1,7 +1,9 @@
-import commonjs from '@rollup/plugin-commonjs';
+import rollupCommonjs from '@rollup/plugin-commonjs';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../../src/rollupAdapter';
+import { fromRollup } from '../../../src/index';
+
+const commonjs = fromRollup(rollupCommonjs);
 
 describe('@rollup/plugin-commonjs', () => {
   it('can transform a commonjs module with a default export', async () => {
@@ -15,7 +17,7 @@ describe('@rollup/plugin-commonjs', () => {
             }
           },
         },
-        rollupAdapter(commonjs()),
+        commonjs(),
       ],
     });
 
@@ -39,7 +41,7 @@ describe('@rollup/plugin-commonjs', () => {
             }
           },
         },
-        rollupAdapter(commonjs()),
+        commonjs(),
       ],
     });
 
@@ -72,7 +74,7 @@ module.exports.lorem = lorem;`;
             }
           },
         },
-        rollupAdapter(commonjs()),
+        commonjs(),
       ],
     });
 
@@ -109,7 +111,7 @@ exports.default = _default;`;
             }
           },
         },
-        rollupAdapter(commonjs()),
+        commonjs(),
       ],
     });
 
@@ -150,7 +152,7 @@ exports.default = _default;`;
             }
           },
         },
-        rollupAdapter(commonjs()),
+        commonjs(),
       ],
     });
 

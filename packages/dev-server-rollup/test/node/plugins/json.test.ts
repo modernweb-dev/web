@@ -1,7 +1,9 @@
-import json from '@rollup/plugin-json';
+import rollupJson from '@rollup/plugin-json';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { rollupAdapter } from '../../../src/rollupAdapter';
+import { fromRollup } from '../../../src/index';
+
+const json = fromRollup(rollupJson);
 
 describe('@rollup/plugin-json', () => {
   it('can resolve imports', async () => {
@@ -15,7 +17,7 @@ describe('@rollup/plugin-json', () => {
             }
           },
         },
-        rollupAdapter(json()),
+        json(),
       ],
     });
 
