@@ -19,7 +19,6 @@
   },
   "scripts": {
     "build": "rimraf dist && rollup -c rollup.config.js",
-    "build:browser": "yarn build",
     "build:watch": "rimraf dist && rollup -c rollup.config.js --watch"
   },
   "files": [
