@@ -11,7 +11,6 @@ import {
 } from '@web/dev-server-core';
 import { queryAll, predicates, getTextContent } from '@web/dev-server-core/dist/dom5';
 import { parse as parseHtml } from 'parse5';
-import { URL, pathToFileURL, fileURLToPath } from 'url';
 import { Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';
 import { red, yellow } from 'chalk';
@@ -22,11 +21,6 @@ import { createRollupPluginContexts, RollupPluginContexts } from './createRollup
 
 const NULL_BYTE_PARAM = 'web-dev-server-rollup-null-byte';
 const VIRTUAL_FILE_PREFIX = '/__web-dev-server__/rollup';
-
-function resolveFilePath(rootDir: string, path: string) {
-  const fileUrl = new URL(`.${path}`, `${pathToFileURL(rootDir)}/`);
-  return fileURLToPath(fileUrl);
-}
 
 /**
  * Wraps rollup error in a custom error for web dev server.
@@ -83,13 +77,13 @@ export function rollupAdapter(
         return;
       }
 
-      if (!injectedFilePath && whatwgUrl.parseURL(source) != null) {
-        // don't resolve valid urls
+      if (!injectedFilePath && !path.isAbsolute(source) && whatwgUrl.parseURL(source) != null) {
+        // don't resolve relative and valid urls
         return source;
       }
 
       const requestedFile = context.path.endsWith('/') ? `${context.path}index.html` : context.path;
-      const filePath = resolveFilePath(rootDir, requestedFile);
+      const filePath = path.join(rootDir, requestedFile);
 
       try {
         const rollupPluginContext = createRollupPluginContextAdapter(
@@ -183,7 +177,7 @@ export function rollupAdapter(
         // the file path is stored in the search paramter
         filePath = context.URL.searchParams.get(NULL_BYTE_PARAM) as string;
       } else {
-        filePath = resolveFilePath(rootDir, context.path);
+        filePath = path.join(rootDir, context.path);
       }
 
       try {
@@ -216,7 +210,7 @@ export function rollupAdapter(
       }
 
       if (context.response.is('js')) {
-        const filePath = resolveFilePath(rootDir, context.path);
+        const filePath = path.join(rootDir, context.path);
         try {
           const rollupPluginContext = createRollupPluginContextAdapter(
             rollupPluginContexts.transformPluginContext,
@@ -263,7 +257,7 @@ export function rollupAdapter(
           ),
         );
 
-        const filePath = resolveFilePath(rootDir, context.path);
+        const filePath = path.join(rootDir, context.path);
         try {
           for (const node of inlineModuleNodes) {
             const code = getTextContent(node);

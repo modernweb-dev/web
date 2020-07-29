@@ -70,8 +70,7 @@ export function createRollupPluginContextAdapter<
           }
 
           if (resolvedId) {
-            const fileUrl = new URL(resolvedId, `${pathToFileURL(importer)}`);
-            return { id: fileURLToPath(fileUrl) };
+            return { id: path.join(path.dirname(importer), resolvedId) };
           }
         }
       }
