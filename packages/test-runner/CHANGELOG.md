@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.6.49
+
+### Patch Changes
+
+- 9484e97: replace rollupAdapter with fromRollup
+- Updated dependencies [556827f]
+- Updated dependencies [9484e97]
+- Updated dependencies [7741a51]
+  - @web/dev-server-rollup@0.1.6
+
 ## 0.6.48
 
 ### Patch Changes

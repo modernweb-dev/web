@@ -1,5 +1,13 @@
 # @web/dev-server-rollup
 
+## 0.1.6
+
+### Patch Changes
+
+- 556827f: add fromRollup function
+- 9484e97: replace rollupAdapter with fromRollup
+- 7741a51: don't skip absolute windows paths
+
 ## 0.1.5
 
 ### Patch Changes
