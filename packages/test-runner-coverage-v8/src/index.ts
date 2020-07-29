@@ -1,4 +1,4 @@
-import { extname, join } from 'path';
+import { extname, join, isAbsolute, sep, posix } from 'path';
 import { CoverageMapData } from 'istanbul-lib-coverage';
 import v8toIstanbulLib from 'v8-to-istanbul';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
@@ -8,11 +8,12 @@ import picoMatch from 'picomatch';
 import { toFilePath, fileExists } from './utils';
 
 type V8Coverage = Profiler.ScriptCoverage & { source?: string };
-
-export { V8Coverage };
-
 type Matcher = (test: string) => boolean;
+
 const cachedMatchers = new Map<string, Matcher>();
+
+// coverage base dir must be separated with "/"
+const coverageBaseDir = process.cwd().split(sep).join('/');
 
 function getMatcher(patterns?: string[]) {
   if (!patterns || patterns.length === 0) {
@@ -22,7 +23,12 @@ function getMatcher(patterns?: string[]) {
   const key = patterns.join('');
   let matcher = cachedMatchers.get(key);
   if (!matcher) {
-    matcher = picoMatch(patterns);
+    const resolvedPatterns = patterns.map(pattern =>
+      !isAbsolute(pattern) && !pattern.startsWith('*')
+        ? posix.join(coverageBaseDir, pattern)
+        : pattern,
+    );
+    matcher = picoMatch(resolvedPatterns);
     cachedMatchers.set(key, matcher);
   }
   return matcher;
@@ -62,3 +68,5 @@ export async function v8ToIstanbul(
 
   return istanbulCoverage;
 }
+
+export { V8Coverage };
