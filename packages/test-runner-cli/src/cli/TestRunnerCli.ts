@@ -174,7 +174,12 @@ export class TestRunnerCli {
 
     this.runner.on('test-run-finished', ({ testRun, testCoverage }) => {
       for (const reporter of this.config.reporters) {
-        reporter.onTestRunFinished?.({ testRun });
+        reporter.onTestRunFinished?.({
+          testRun,
+          sessions: Array.from(this.sessions.all()),
+          testCoverage,
+          focusedTestFile: this.runner.focusedTestFile,
+        });
       }
 
       if (this.activeMenu !== MENUS.OVERVIEW) {
@@ -284,13 +289,10 @@ export class TestRunnerCli {
     const reports: string[] = [];
     for (const reporter of this.config.reporters) {
       const report = reporter.getTestProgress?.({
-        config: this.config,
         sessions: Array.from(this.sessions.all()),
-        startTime: this.runner.startTime,
         testRun: this.runner.testRun,
         focusedTestFile: this.runner.focusedTestFile,
         testCoverage: this.testCoverage,
-        testFiles: this.runner.testFiles,
       });
 
       if (report) {
@@ -408,6 +410,13 @@ export class TestRunnerCli {
   }
 
   private async reportEnd() {
+    for (const reporter of this.config.reporters) {
+      await reporter.stop?.({
+        sessions: Array.from(this.sessions.all()),
+        testCoverage: this.testCoverage,
+        focusedTestFile: this.runner.focusedTestFile,
+      });
+    }
     this.reportTestProgress(true);
     await Promise.all(this.pendingReportPromises);
     this.terminal.stop();

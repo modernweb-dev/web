@@ -20,13 +20,10 @@ export interface ReportTestResultsArgs {
 }
 
 export interface GetTestProgressArgs {
-  config: TestRunnerCoreConfig;
   sessions: TestSession[];
-  startTime: number;
   testRun: number;
   focusedTestFile?: string;
   testCoverage?: TestCoverage;
-  testFiles: string[];
 }
 
 export interface TestRunArgs {
@@ -34,7 +31,17 @@ export interface TestRunArgs {
 }
 
 export interface TestRunStartedArgs extends TestRunArgs {}
-export interface TestRunFinishedArgs extends TestRunArgs {}
+export interface TestRunFinishedArgs extends TestRunArgs {
+  sessions: TestSession[];
+  testCoverage?: TestCoverage;
+  focusedTestFile?: string;
+}
+
+export interface StopArgs {
+  sessions: TestSession[];
+  testCoverage?: TestCoverage;
+  focusedTestFile?: string;
+}
 
 export interface ReporterConstructor {}
 
@@ -43,6 +50,6 @@ export interface Reporter {
   getTestProgress?(args: GetTestProgressArgs): string | string[];
   onTestRunStarted?(args: TestRunStartedArgs): void;
   onTestRunFinished?(args: TestRunFinishedArgs): void;
-  start?(args: ReporterArgs): void | undefined;
-  stop?(): void | undefined;
+  start?(args: ReporterArgs): void | Promise<void>;
+  stop?(args: StopArgs): void | Promise<void>;
 }
