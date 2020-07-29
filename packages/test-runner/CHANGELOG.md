@@ -1,5 +1,12 @@
 # @web/test-runner
 
+## 0.6.50
+
+### Patch Changes
+
+- ad11e36: resolve coverage include/exclude patterns
+  - @web/test-runner-chrome@0.5.13
+
 ## 0.6.49
 
 ### Patch Changes

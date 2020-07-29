@@ -1,5 +1,11 @@
 # @web/test-runner-coverage-v8
 
+## 0.0.4
+
+### Patch Changes
+
+- ad11e36: resolve coverage include/exclude patterns
+
 ## 0.0.3
 
 ### Patch Changes
