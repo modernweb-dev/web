@@ -1,5 +1,11 @@
 # @web/test-runner-browser-lib
 
+## 0.2.10
+
+### Patch Changes
+
+- 837d5bc: only minify for production
+
 ## 0.2.9
 
 ### Patch Changes

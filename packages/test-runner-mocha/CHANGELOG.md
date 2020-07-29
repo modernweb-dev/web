@@ -1,5 +1,13 @@
 # @web/test-runner-mocha
 
+## 0.2.10
+
+### Patch Changes
+
+- 837d5bc: only minify for production
+- Updated dependencies [837d5bc]
+  - @web/test-runner-browser-lib@0.2.10
+
 ## 0.2.9
 
 ### Patch Changes
