@@ -56,6 +56,16 @@ To run the tests of a package, it's recommended to `cd` into the package directo
 
 To see how your changes integrate with everything together you can use the `test-runner` package. There are different commands in this package which you can execute to trigger different scenarios in the test runner.
 
+## Adding new packages
+
+### JS
+
+For JS projects, you can just create a new package in the `packages` directory. You can copy the `package.json` from another project to get started.
+
+### TS
+
+For TS projects the configuration files are auto generated. You need to add an entry to the [config generator script](scripts/update-package-tsconfig.ts) to let it generate a config for you. After adding an entry, run `yarn update:tsconfig`.
+
 ## Create a Changeset
 
 If you made changes for which you want to trigger a release, you need to create a changeset.
