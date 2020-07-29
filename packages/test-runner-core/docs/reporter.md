@@ -15,9 +15,10 @@ export function myReporter({ reportResults = true, reportProgress = false } = {}
     start({ config, sessions, testFiles, browserNames, startTime }) {},
 
     /**
-     * Called once when the test runner stops.
+     * Called once when the test runner stops. This can be used to write a test
+     * report to disk for regular test runs.
      */
-    stop() {},
+    stop({ sessions, testCoverage, focusedTestFile }) {},
 
     /**
      * Called when a test run starts. Each file change in watch mode
@@ -29,11 +30,12 @@ export function myReporter({ reportResults = true, reportProgress = false } = {}
 
     /**
      * Called when a test run is finished. Each file change in watch mode
-     * triggers a test run.
+     * triggers a test run. This can be used to report the end of a test run,
+     * or to write a test report to disk in watch mode for each test run.
      *
      * @param testRun the test run
      */
-    onTestRunFinished({ testRun }) {},
+    onTestRunFinished({ testRun, sessions, testCoverage, focusedTestFile }) {},
 
     /**
      * Called when results for a test file can be reported. This is called
