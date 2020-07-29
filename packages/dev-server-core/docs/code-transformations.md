@@ -100,11 +100,13 @@ Another approach is to replace constants or patterns in your code. We don't reco
 You can use the [@rollup/plugin-replace](https://www.npmjs.com/package/@rollup/plugin-replace) for replacing environment variables in your code. Make sure to add an `include` pattern to avoid processing files unnecessarily.
 
 ```js
-const replace = require('@rollup/plugin-replace');
-const { rollupAdapter } = require('@web/dev-server-rollup');
+const rollupReplace = require('@rollup/plugin-replace');
+const { fromRollup } = require('@web/dev-server-rollup');
+
+const replace = fromRollup(rollupReplace);
 
 module.exports = {
-  plugins: [rollupAdapter(replace({ include: ['src/**/*.js'], __environment__: '"development"' }))],
+  plugins: [replace({ include: ['src/**/*.js'], __environment__: '"development"' })],
 };
 ```
 
@@ -151,11 +153,13 @@ Note that the dev server and test runner already includes `esbuild` for compilin
 <summary>View example</summary>
 
 ```js
-const babel = require('@rollup/plugin-babel');
-const { rollupAdapter } = require('@web/dev-server-rollup');
+const rollupBabel = require('@rollup/plugin-babel');
+const { fromRollup } = require('@web/dev-server-rollup');
+
+const babel = fromRollup(rollupBabel);
 
 module.exports = {
-  plugins: [rollupAdapter(babel({ include: ['src/**/*.js'], plugins: ['babel-plugin-foo'] }))],
+  plugins: [babel({ include: ['src/**/*.js'], plugins: ['babel-plugin-foo'] })],
 };
 ```
 
@@ -175,8 +179,10 @@ To import JSON files you can use [@rollup/plugin-json](https://www.npmjs.com/pac
 In addition to installing the rollup plugin, we need to tell the dev server to serve json files as js modules:
 
 ```js
-const json = require('@rollup/plugin-json');
-const { rollupAdapter } = require('@web/dev-server-rollup');
+const rollupJson = require('@rollup/plugin-json');
+const { fromRollup } = require('@web/dev-server-rollup');
+
+const json = fromRollup(rollupJson);
 
 module.exports = {
   plugins: [
@@ -188,7 +194,7 @@ module.exports = {
         }
       },
     },
-    rollupAdapter(json({})),
+    json({}),
   ],
 };
 ```
@@ -207,8 +213,10 @@ There are a lot of ways to import CSS. For this example, we have tested two roll
 
 ```js
 /* eslint-disable */
-const postcss = require('rollup-plugin-postcss');
-const { rollupAdapter } = require('@web/dev-server-rollup');
+const rollupPostcss = require('rollup-plugin-postcss');
+const { fromRollup } = require('@web/dev-server-rollup');
+
+const postcss = fromRollup(rollupPostcss);
 
 module.exports = {
   // in a monorepo you need to adjust the rootdir of the web server
@@ -225,7 +233,7 @@ module.exports = {
         }
       },
     },
-    rollupAdapter(postcss({ modules: true })),
+    postcss({ include: ['src/**/*.css'], modules: true }),
   ],
 };
 ```
@@ -239,8 +247,10 @@ If you're using `lit-element`, you can use [rollup-plugin-lit-css](https://www.n
 
 ```js
 /* eslint-disable */
-const litcss = require('rollup-plugin-lit-css');
-const { rollupAdapter } = require('@web/dev-server-rollup');
+const rollupLitcss = require('rollup-plugin-lit-css');
+const { fromRollup } = require('@web/dev-server-rollup');
+
+const litcss = fromRollup(rollupLitcss);
 
 module.exports = {
   plugins: [
@@ -254,7 +264,7 @@ module.exports = {
         }
       },
     },
-    rollupAdapter(litcss({})),
+    litcss({ include: ['src/**/*.css'] }),
   ],
 };
 ```
@@ -273,8 +283,10 @@ Make sure not to use the `limit` option, as this causes the plugin to emit files
 
 ```js
 /* eslint-disable */
-const url = require('rollup-plugin-url');
-const { rollupAdapter } = require('@web/dev-server-rollup');
+const rollupUrl = require('rollup-plugin-url');
+const { fromRollup } = require('@web/dev-server-rollup');
+
+const url = fromRollup(rollupUrl);
 
 module.exports = {
   plugins: [
@@ -288,7 +300,7 @@ module.exports = {
         }
       },
     },
-    rollupAdapter(url()),
+    url({ include: ['assets/**/*.png'] }),
   ],
 };
 ```

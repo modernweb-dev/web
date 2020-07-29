@@ -1,5 +1,5 @@
-import { rollupAdapter } from '@web/dev-server-rollup';
-import { nodeResolve, RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
+import { fromRollup } from '@web/dev-server-rollup';
+import rollupNodeResolve, { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
 import deepmerge from 'deepmerge';
 
 export function nodeResolvePlugin(
@@ -7,6 +7,7 @@ export function nodeResolvePlugin(
   preserveSymlinks?: boolean,
   userOptions?: RollupNodeResolveOptions,
 ) {
+  const nodeResolve = fromRollup(rollupNodeResolve, { preserveSymlinks });
   const userOptionsObject = typeof userOptions === 'object' ? userOptions : {};
   const options: RollupNodeResolveOptions = deepmerge(
     {
@@ -21,5 +22,5 @@ export function nodeResolvePlugin(
     userOptionsObject,
   );
 
-  return rollupAdapter(nodeResolve(options), { preserveSymlinks });
+  return nodeResolve(options);
 }

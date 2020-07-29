@@ -126,23 +126,19 @@ Transforming CommonJS to es modules is not straightforward, and often requires s
 
 #### CommonJS Plugin
 
-Ror the dev server and test runner you can use [@rollup/plugin-commonjs](https://www.npmjs.com/package/@rollup/plugin-commonjs):
+For our dev server and test runner you can use [@rollup/plugin-commonjs](https://www.npmjs.com/package/@rollup/plugin-commonjs):
 
 ```js
-const commonjs = require('@rollup/plugin-commonjs');
-const { rollupAdapter } = require('@web/dev-server-rollup');
+const rollupCommonjs = require('@rollup/plugin-commonjs');
+const { fromRollup } = require('@web/dev-server-rollup');
+
+const commonjs = fromRollup(rollupCommonjs);
 
 module.exports = {
   plugins: [
-    rollupAdapter(
-      commonjs({
-        include:
-          './node_modules/foo/**/*',
-          './node_modules/bar/**/*',
-          './node_modules/baz/**/*',
-        ],
-      }),
-    ),
+    commonjs({
+      include: ['./node_modules/foo/**/*', './node_modules/bar/**/*', './node_modules/baz/**/*'],
+    }),
   ],
 };
 ```

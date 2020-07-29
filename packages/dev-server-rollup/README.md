@@ -14,28 +14,32 @@ npm i --save-dev @web/dev-server-rollup
 
 ## Usage
 
-Import the rollup plugin and the `rollupAdapter` function in your configuration file. Then, wrap the rollup plugin with the adapter function:
+Import the rollup plugin and the `fromRollup` function in your configuration file. Then, wrap the rollup plugin with the adapter function:
 
 ```js
-const replace = require('@rollup/plugin-replace');
-const { rollupAdapter } = require('@web/dev-server-rollup');
+const rollupReplace = require('@rollup/plugin-replace');
+const { fromRollup } = require('@web/dev-server-rollup');
+
+const replace = fromRollup(rollupReplace);
 
 module.exports = {
-  plugins: [rollupAdapter(replace({ include: ['src/**/*.js'], __environment__: '"development"' }))],
+  plugins: [replace({ include: ['src/**/*.js'], __environment__: '"development"' })],
 };
 ```
 
 ## Performance
 
-Some rollup plugins do expensive operations. During development, this matters a lot more than during a production build. It's recommended to always scope the usage of plugins using the `include` and/or `exclude` options available in most rollup plugins.
+Some rollup plugins do expensive operations. During development, this matters a lot more than during a production build. You are therefore required to always set the `include` and/or `exclude` options on rollup plugins.
 
 ## non-standard file types
 
 The rollup build process assumes that any imported files are are meant to be compiled to JS, web dev server serves many different kinds of files to the browser. If you are transforming a non-standard filetype to JS, for example .json files, you need to instruct the server to handle it as a JS file:
 
 ```js
-const json = require('@rollup/plugin-json');
-const { rollupAdapter } = require('@web/dev-server-rollup');
+const rollupJson = require('@rollup/plugin-json');
+const { fromRollup } = require('@web/dev-server-rollup');
+
+const json = fromRollup(rollupJson);
 
 module.exports = {
   plugins: [
@@ -49,7 +53,7 @@ module.exports = {
       },
     },
 
-    rollupAdapter(json()),
+    json({ include: ['src/**/*.js'] }),
   ],
 };
 ```
