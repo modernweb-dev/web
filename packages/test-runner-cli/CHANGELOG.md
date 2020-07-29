@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.4.22
+
+### Patch Changes
+
+- 868d795: account for numbers in urls in stack traces
+
 ## 0.4.21
 
 ### Patch Changes

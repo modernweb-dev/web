@@ -1,5 +1,16 @@
 # @web/test-runner
 
+## 0.6.47
+
+### Patch Changes
+
+- 868d795: account for numbers in urls in stack traces
+- c64fbe6: improve testing with HTML
+- Updated dependencies [868d795]
+- Updated dependencies [c64fbe6]
+  - @web/test-runner-cli@0.4.22
+  - @web/test-runner-mocha@0.2.11
+
 ## 0.6.46
 
 ### Patch Changes

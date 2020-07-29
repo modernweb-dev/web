@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.2.11
+
+### Patch Changes
+
+- c64fbe6: improve testing with HTML
+
 ## 0.2.10
 
 ### Patch Changes

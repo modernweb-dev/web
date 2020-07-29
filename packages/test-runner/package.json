@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.6.46",
+  "version": "0.6.47",
   "publishConfig": {
     "access": "public"
   },
@@ -52,9 +52,9 @@
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@web/dev-server-rollup": "^0.1.5",
     "@web/test-runner-chrome": "^0.5.12",
-    "@web/test-runner-cli": "^0.4.21",
+    "@web/test-runner-cli": "^0.4.22",
     "@web/test-runner-core": "^0.6.16",
-    "@web/test-runner-mocha": "^0.2.9",
+    "@web/test-runner-mocha": "^0.2.11",
     "@web/test-runner-server": "^0.5.12",
     "command-line-args": "^5.1.1",
     "deepmerge": "^4.2.2"
