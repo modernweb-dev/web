@@ -26,6 +26,8 @@ jobs:
 
       - name: Install Dependencies
         run: yarn
+        env:
+          ROLLUP_PRODUCTION_BUILD: 'true'
 
       - name: Changeset version
         run: yarn changeset version
