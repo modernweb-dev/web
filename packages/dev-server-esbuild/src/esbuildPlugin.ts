@@ -1,9 +1,19 @@
 import { startService, Service, Loader, Message } from 'esbuild';
 import path from 'path';
-import { Plugin, PluginSyntaxError, Logger, DevServerCoreConfig } from '@web/dev-server-core';
+import fs from 'fs';
+import { promisify } from 'util';
+import {
+  Plugin,
+  PluginSyntaxError,
+  Logger,
+  DevServerCoreConfig,
+  getRequestFilePath,
+} from '@web/dev-server-core';
 import { URL, pathToFileURL, fileURLToPath } from 'url';
 import { getEsbuildLoader } from './getEsbuildLoader';
 import { getEsbuildTarget } from './getEsbuildTarget';
+
+const exitProcessEvents = ['exit', 'SIGINT'];
 
 export interface EsBuildPluginArgs {
   target?: string;
@@ -15,6 +25,15 @@ export interface EsBuildPluginArgs {
   jsxFragment?: string;
   loaders?: Record<string, Loader>;
   define?: { [key: string]: string };
+}
+
+async function fileExists(path: string) {
+  try {
+    await promisify(fs.access)(path);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
@@ -34,6 +53,10 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
   let logger: Logger;
   let service: Service;
 
+  function onProcessKilled() {
+    service?.stop();
+  }
+
   return {
     name: 'esbuild',
 
@@ -41,17 +64,46 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
       ({ config, logger } = args);
       service = await startService();
 
-      ['exit', 'SIGINT'].forEach(event => {
-        process.on(event, () => {
-          service?.stop();
-        });
-      });
+      for (const event of exitProcessEvents) {
+        process.on(event, onProcessKilled);
+      }
+    },
+
+    serverStop() {
+      service?.stop();
+
+      for (const event of exitProcessEvents) {
+        process.off(event, onProcessKilled);
+      }
     },
 
     resolveMimeType(context) {
       if (handledExtensions.some(ext => context.path.endsWith(ext))) {
         return 'js';
       }
+    },
+
+    async resolveImport({ source, context }) {
+      if (!((args.ts || args.tsx) && ['.tsx', '.ts'].some(ext => context.path.endsWith(ext)))) {
+        // only handle typescript files
+        return;
+      }
+
+      if (!source.endsWith('.js') || !source.startsWith('.')) {
+        // only handle relative imports
+        return;
+      }
+
+      // a TS file imported a .js file relatively, but they might intend to import a .ts file instead
+      // check if the .ts file exists, and rewrite it in that case
+      const filePath = getRequestFilePath(context, config.rootDir);
+      const fileDir = path.dirname(filePath);
+      const importAsTs = source.substring(0, source.length - 3) + '.ts';
+      const importedTsFilePath = path.join(fileDir, importAsTs);
+      if (!(await fileExists(importedTsFilePath))) {
+        return;
+      }
+      return importAsTs;
     },
 
     transformCacheKey(context) {

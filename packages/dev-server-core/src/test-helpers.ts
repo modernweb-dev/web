@@ -1,5 +1,6 @@
 import portfinder from 'portfinder';
 import { expect } from 'chai';
+import chalk from 'chalk';
 import fetch, { RequestInit } from 'node-fetch';
 
 import { DevServer } from './server/DevServer';
@@ -60,6 +61,14 @@ export async function fetchText(url: string, init?: RequestInit) {
 
 export function expectIncludes(text: string, expected: string) {
   if (!text.includes(expected)) {
-    throw new Error(`Expected "${expected}" in string: \n\n${text}`);
+    throw new Error(
+      chalk.red(`Expected "${chalk.yellow(expected)}" in string: \n\n${chalk.green(text)}`),
+    );
+  }
+}
+
+export function expectNotIncludes(text: string, expected: string) {
+  if (text.includes(expected)) {
+    throw new Error(`Did not expect "${expected}" in string: \n\n${text}`);
   }
 }
