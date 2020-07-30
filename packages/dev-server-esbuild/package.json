@@ -42,7 +42,7 @@
   ],
   "dependencies": {
     "@web/dev-server-core": "^0.1.5",
-    "esbuild": "^0.6.1",
+    "esbuild": "^0.6.10",
     "mdn-browser-compat-data": "^1.0.29",
     "ua-parser-js": "^0.7.21"
   },
@@ -50,6 +50,7 @@
     "@types/ua-parser-js": "^0.7.33",
     "es-dev-server": "^1.55.0",
     "lit-element": "^2.3.1",
+    "node-fetch": "^2.6.0",
     "preact": "^10.4.4"
   }
 }
