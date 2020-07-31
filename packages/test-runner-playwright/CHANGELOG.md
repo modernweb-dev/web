@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.4.15
+
+### Patch Changes
+
+- 4e3de03: fix a potential race condition when starting a new test
+
 ## 0.4.14
 
 ### Patch Changes

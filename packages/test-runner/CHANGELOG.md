@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.52
+
+### Patch Changes
+
+- 4e3de03: fix a potential race condition when starting a new test
+- Updated dependencies [4e3de03]
+  - @web/test-runner-chrome@0.5.15
+
 ## 0.6.51
 
 ### Patch Changes
