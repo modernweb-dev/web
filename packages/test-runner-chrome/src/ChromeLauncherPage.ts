@@ -77,7 +77,13 @@ export class ChromeLauncherPage {
     const logsPromise = message.args().map(arg =>
       arg
         // serialize the log message in the browser to a string
-        .evaluateHandle(e => (window as any).__wtr_browser_logs__.serialize(e))
+        // __wtr_browser_logs__ is injected by a script, but in some cases we're setting it isn't available
+        // for example for browser native warnings
+        .evaluateHandle(e =>
+          (window as any).__wtr_browser_logs__
+            ? (window as any).__wtr_browser_logs__.serialize(e)
+            : JSON.stringify(e),
+        )
         // pass along the message from the browser to NodeJS as a string
         .then(handle => handle.jsonValue())
         // deserialize the string to an array of logs
