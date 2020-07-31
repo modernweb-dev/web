@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.1.5
+
+### Patch Changes
+
+- 5a33916: support .js extensions in TS imports
+
 ## 0.1.4
 
 ### Patch Changes
