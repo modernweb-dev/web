@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.51
+
+### Patch Changes
+
+- 7c25ba4: guard against the logs script being unavailable
+- Updated dependencies [7c25ba4]
+  - @web/test-runner-chrome@0.5.14
+
 ## 0.6.50
 
 ### Patch Changes

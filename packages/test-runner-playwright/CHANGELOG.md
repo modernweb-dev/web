@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.4.14
+
+### Patch Changes
+
+- 7c25ba4: guard against the logs script being unavailable
+
 ## 0.4.13
 
 ### Patch Changes
