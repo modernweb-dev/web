@@ -130,9 +130,10 @@ export class ChromeLauncher implements BrowserLauncher {
     const page = this.activePages.get(session.id);
 
     if (page) {
+      const result = await page.stopSession();
       this.activePages.delete(session.id);
       this.inactivePages.push(page);
-      return page.stopSession();
+      return result;
     } else {
       throw new Error(`No page for session ${session.id}`);
     }
