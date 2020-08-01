@@ -1,5 +1,13 @@
 # @web/test-runner-browserstack
 
+## 0.0.9
+
+### Patch Changes
+
+- 736d101: improve scheduling logic and error handling
+- Updated dependencies [736d101]
+  - @web/test-runner-selenium@0.1.5
+
 ## 0.0.8
 
 ### Patch Changes

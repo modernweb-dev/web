@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.5.16
+
+### Patch Changes
+
+- 736d101: improve scheduling logic and error handling
+
 ## 0.5.15
 
 ### Patch Changes

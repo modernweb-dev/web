@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.18
+
+### Patch Changes
+
+- 736d101: improve scheduling logic and error handling
+
 ## 0.6.17
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.6.52",
+  "version": "0.6.53",
   "publishConfig": {
     "access": "public"
   },
@@ -51,9 +51,9 @@
   "dependencies": {
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@web/dev-server-rollup": "^0.1.6",
-    "@web/test-runner-chrome": "^0.5.15",
-    "@web/test-runner-cli": "^0.4.23",
-    "@web/test-runner-core": "^0.6.17",
+    "@web/test-runner-chrome": "^0.5.16",
+    "@web/test-runner-cli": "^0.4.24",
+    "@web/test-runner-core": "^0.6.18",
     "@web/test-runner-mocha": "^0.2.11",
     "@web/test-runner-server": "^0.5.12",
     "command-line-args": "^5.1.1",

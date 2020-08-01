@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.4.16
+
+### Patch Changes
+
+- 736d101: improve scheduling logic and error handling
+- Updated dependencies [736d101]
+  - @web/test-runner-core@0.6.18
+
 ## 0.4.15
 
 ### Patch Changes

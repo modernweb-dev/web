@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.1.5
+
+### Patch Changes
+
+- 736d101: improve scheduling logic and error handling
+
 ## 0.1.4
 
 ### Patch Changes

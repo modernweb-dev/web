@@ -1,5 +1,14 @@
 # @web/test-runner-puppeteer
 
+## 0.5.7
+
+### Patch Changes
+
+- 736d101: improve scheduling logic and error handling
+- Updated dependencies [736d101]
+  - @web/test-runner-chrome@0.5.16
+  - @web/test-runner-core@0.6.18
+
 ## 0.5.6
 
 ### Patch Changes
