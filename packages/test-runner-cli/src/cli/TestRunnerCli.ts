@@ -14,7 +14,7 @@ import openBrowser from 'open';
 import { writeCoverageReport } from './writeCoverageReport';
 import { getSelectFilesMenu } from './getSelectFilesMenu';
 import { getWatchCommands } from './getWatchCommands';
-import { Terminal } from '../Terminal';
+import { DynamicTerminal } from '../terminal/DynamicTerminal';
 import { TestRunnerLogger } from '../logger/TestRunnerLogger';
 import { BufferedLogger } from '../reporter/BufferedLogger';
 
@@ -34,7 +34,7 @@ const KEYCODES = {
 };
 
 export class TestRunnerCli {
-  private terminal = new Terminal();
+  private terminal = new DynamicTerminal();
   private reportedFilesByTestRun = new Map<number, Set<string>>();
   private sessions: TestSessionManager;
   private activeMenu: MenuType = MENUS.OVERVIEW;
