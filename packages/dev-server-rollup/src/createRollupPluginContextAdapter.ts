@@ -69,7 +69,13 @@ export function createRollupPluginContextAdapter<
           }
 
           if (resolvedId) {
-            return { id: path.join(path.dirname(importer), resolvedId) };
+            const importerDir = path.dirname(importer);
+
+            return {
+              id: resolvedId.startsWith(importerDir)
+                ? resolvedId
+                : path.join(importerDir, resolvedId),
+            };
           }
         }
       }
