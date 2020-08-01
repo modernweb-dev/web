@@ -1,6 +1,7 @@
 import { EventEmitter } from '@web/test-runner-core';
 import logUpdate from 'log-update';
 import cliCursor from 'cli-cursor';
+import { BufferedConsole } from './BufferedConsole';
 
 const CLEAR_COMMAND = process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[3J\x1B[H';
 
@@ -8,35 +9,19 @@ interface EventMap {
   input: string;
 }
 
-export class Terminal extends EventEmitter<EventMap> {
+export class DynamicTerminal extends EventEmitter<EventMap> {
   private originalFunctions: Partial<Record<keyof Console, (...args: any[]) => any>> = {};
   private previousDynamic: string[] = [];
   private started = false;
+  private bufferedConsole = new BufferedConsole();
+  private pendingConsoleFlush = false;
   public isInteractive = process.stdout.isTTY;
 
   start() {
     // start off with an empty line
     console.log('');
 
-    for (const key of Object.keys(console) as (keyof Console)[]) {
-      if (typeof console[key] === 'function') {
-        this.originalFunctions[key] = console[key];
-
-        console[key] = new Proxy(console[key], {
-          apply: (target, thisArg, argArray) => {
-            // when a console function is called, clear dynamic logs
-            logUpdate.clear();
-
-            // do regular console log
-            target.apply(thisArg, argArray);
-
-            // rerender dynamic logs
-            this.relogDynamic();
-          },
-        });
-      }
-    }
-
+    this.interceptConsoleOutput();
     process.stdin.resume();
     process.stdin.setEncoding('utf8');
     process.stdin.on('data', (input: string) => {
@@ -68,6 +53,7 @@ export class Terminal extends EventEmitter<EventMap> {
   }
 
   stop() {
+    this.flushConsoleOutput();
     logUpdate.done();
 
     for (const [key, fn] of Object.entries(this.originalFunctions)) {
@@ -102,6 +88,47 @@ export class Terminal extends EventEmitter<EventMap> {
 
     this.previousDynamic = entries;
     logUpdate(entries.join('\n'));
+  }
+
+  /**
+   * Intercepts console output, piping all output to a buffered console instead.
+   * Console messages are piped to the regular console at intervals. This is necessary
+   * because when logging regular console messages the progress bar needs to be removes
+   * and added back at the bottom. The time between this must be as minimal as possible.
+   * Regular console logging can take a noticeable amount of time to compute object highlighting
+   * and formatting. This causes the progress bar to flicker. Pre-computing the formatting
+   * prevents this.
+   */
+  private interceptConsoleOutput() {
+    for (const key of Object.keys(console) as (keyof Console)[]) {
+      if (typeof console[key] === 'function') {
+        this.originalFunctions[key] = console[key];
+
+        console[key] = new Proxy(console[key], {
+          apply: (target, thisArg, argArray) => {
+            this.bufferedConsole.console[key](...argArray);
+            if (this.pendingConsoleFlush) {
+              return;
+            }
+
+            this.pendingConsoleFlush = true;
+            setTimeout(() => {
+              this.flushConsoleOutput();
+            }, 0);
+          },
+        });
+      }
+    }
+  }
+
+  private flushConsoleOutput() {
+    // clear progress bar
+    logUpdate.clear();
+    // log static console messages
+    this.bufferedConsole.flush();
+    // put progress bar back
+    this.relogDynamic();
+    this.pendingConsoleFlush = false;
   }
 
   private relogDynamic() {
