@@ -38,8 +38,8 @@ it('runs tests with puppeteer', function (done) {
     port,
     concurrency: 10,
     browserStartTimeout: 30000,
-    sessionStartTimeout: 10000,
-    sessionFinishTimeout: 20000,
+    testsStartTimeout: 10000,
+    testsFinishTimeout: 20000,
     browsers: puppeteerLauncher(),
     server: testRunnerServer(),
   };

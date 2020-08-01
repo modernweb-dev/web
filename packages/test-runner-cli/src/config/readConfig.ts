@@ -13,8 +13,8 @@ const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   hostname: 'localhost',
   concurrency: 10,
   browserStartTimeout: 30000,
-  sessionStartTimeout: 10000,
-  sessionFinishTimeout: 20000,
+  testsStartTimeout: 10000,
+  testsFinishTimeout: 20000,
   logBrowserLogs: true,
   logUncaughtErrors: true,
 };

@@ -51,8 +51,8 @@ it('runs tests with browserstack', function (done) {
     reporters: [],
     concurrency: 4,
     browserStartTimeout: 120000,
-    sessionStartTimeout: 120000,
-    sessionFinishTimeout: 120000,
+    testsStartTimeout: 120000,
+    testsFinishTimeout: 120000,
     browsers: [
       // browserstackLauncher({
       //   capabilities: {

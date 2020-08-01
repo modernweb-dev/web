@@ -106,3 +106,35 @@ it('strips url params and hashes from the stack trace', () => {
   expect(column).to.equal('20');
   expect(suffix).to.equal(')');
 });
+
+it('works for node unix stack traces', () => {
+  const string =
+    'at ChromeLauncher.stopSession (/Users/me/code/web/packages/test-runner-chrome/dist/ChromeLauncher.js:108:25)';
+  const result = string.match(regexp);
+  if (!Array.isArray(result)) throw new Error('No match found');
+
+  const [, prefix, browserPath, line, column, suffix] = result;
+  expect(prefix).to.equal(' (');
+  expect(browserPath).to.equal(
+    '/Users/me/code/web/packages/test-runner-chrome/dist/ChromeLauncher.js',
+  );
+  expect(line).to.equal('108');
+  expect(column).to.equal('25');
+  expect(suffix).to.equal(')');
+});
+
+it('works for node windows stack traces', () => {
+  const string =
+    'at ChromeLauncher.stopSession (C:\\code\\web\\packages\\test-runner-chrome\\dist\\ChromeLauncher.js:108:25)';
+  const result = string.match(regexp);
+  if (!Array.isArray(result)) throw new Error('No match found');
+
+  const [, prefix, browserPath, line, column, suffix] = result;
+  expect(prefix).to.equal(' (');
+  expect(browserPath).to.equal(
+    'C:\\code\\web\\packages\\test-runner-chrome\\dist\\ChromeLauncher.js',
+  );
+  expect(line).to.equal('108');
+  expect(column).to.equal('25');
+  expect(suffix).to.equal(')');
+});

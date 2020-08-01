@@ -10,7 +10,6 @@ import { TestSessionManager } from '../test-session/TestSessionManager';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
 import { EventEmitter } from '../utils/EventEmitter';
 import { createSessionUrl } from './createSessionUrl';
-import { CoverageMapData } from 'istanbul-lib-coverage';
 
 interface EventMap {
   'test-run-started': { testRun: number; sessions: Iterable<TestSession> };
@@ -161,8 +160,6 @@ export class TestRunner extends EventEmitter<EventMap> {
 
   private async onSessionFinished() {
     try {
-      this.scheduler.runScheduled(this.testRun);
-
       const finishedAll = Array.from(this.sessions.all()).every(
         s => s.status === SESSION_STATUS.FINISHED,
       );

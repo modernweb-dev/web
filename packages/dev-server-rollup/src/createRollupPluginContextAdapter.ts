@@ -1,6 +1,5 @@
 import path from 'path';
 import { DevServerCoreConfig, FSWatcher, Plugin as WdsPlugin, Context } from '@web/dev-server-core';
-import { URL, pathToFileURL, fileURLToPath } from 'url';
 import { PluginContext, MinimalPluginContext, TransformPluginContext } from 'rollup';
 
 export function createRollupPluginContextAdapter<

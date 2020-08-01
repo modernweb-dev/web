@@ -65,6 +65,10 @@ export class PlaywrightLauncher implements BrowserLauncher {
     await page.runSession(url, !!this.config?.coverage);
   }
 
+  isActive(session: TestSession) {
+    return this.activePages.has(session.id);
+  }
+
   async startDebugSession(session: TestSession, url: string) {
     if (!this.debugBrowser) {
       this.debugBrowser = await playwright[this.product].launch({
@@ -94,9 +98,10 @@ export class PlaywrightLauncher implements BrowserLauncher {
     const page = this.activePages.get(session.id);
 
     if (page) {
+      const result = await page.stopSession();
       this.activePages.delete(session.id);
       this.inactivePages.push(page);
-      return page.stopSession();
+      return result;
     } else {
       throw new Error(`No page for session ${session.id}`);
     }

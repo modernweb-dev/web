@@ -40,6 +40,8 @@
   },
   "devDependencies": {
     "@types/istanbul-lib-coverage": "^2.0.2",
-    "@types/uuid": "^8.0.0"
+    "@types/uuid": "^8.0.0",
+    "sinon": "^9.0.2",
+    "sinon-chai": "^3.5.0"
   }
 }
