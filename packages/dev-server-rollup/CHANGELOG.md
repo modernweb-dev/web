@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.1.7
+
+### Patch Changes
+
+- fdbae14: only add root dir when necessary
+
 ## 0.1.6
 
 ### Patch Changes
