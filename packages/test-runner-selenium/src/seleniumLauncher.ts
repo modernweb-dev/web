@@ -41,6 +41,10 @@ export class SeleniumLauncher implements BrowserLauncher {
     }
   }
 
+  isActive(session: TestSession) {
+    return this.currentSession === session.id;
+  }
+
   async _runNextQueuedSession() {
     const next = this.sessionsQueue.shift();
     if (!next) {

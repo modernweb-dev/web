@@ -71,8 +71,8 @@ it('runs tests with selenium', function (done) {
     port,
     concurrency: 4,
     browserStartTimeout: 30000,
-    sessionStartTimeout: 10000,
-    sessionFinishTimeout: 20000,
+    testsStartTimeout: 10000,
+    testsFinishTimeout: 20000,
     browsers: [
       seleniumLauncher({
         driverBuilder: new Builder()

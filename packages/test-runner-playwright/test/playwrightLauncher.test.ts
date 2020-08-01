@@ -63,8 +63,8 @@ for (const product of products) {
       port,
       concurrency: 10,
       browserStartTimeout: 30000,
-      sessionStartTimeout: 10000,
-      sessionFinishTimeout: 20000,
+      testsStartTimeout: 10000,
+      testsFinishTimeout: 20000,
       browsers: playwrightLauncher({ product }),
       server: testRunnerServer(),
     };

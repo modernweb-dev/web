@@ -2,10 +2,10 @@ import { stub } from 'sinon';
 import { expect } from 'chai';
 import portfinder from 'portfinder';
 
-import { TestRunnerCoreConfig } from '../src/config/TestRunnerCoreConfig';
-import { TestRunner } from '../src/runner/TestRunner';
-import { Logger } from '../src/logger/Logger';
-import { SESSION_STATUS } from '../src/test-session/TestSessionStatus';
+import { TestRunnerCoreConfig } from '../../../src/config/TestRunnerCoreConfig';
+import { TestRunner } from '../../../src/runner/TestRunner';
+import { Logger } from '../../../src/logger/Logger';
+import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus';
 
 const logger: Logger = {
   ...console,
@@ -32,6 +32,7 @@ async function createTestRunner(
     startSession: stub().returns(Promise.resolve()),
     stopSession: stub().returns(Promise.resolve({})),
     setViewport: stub().returns(Promise.resolve()),
+    isActive: stub().returns(true),
   };
 
   const server = {

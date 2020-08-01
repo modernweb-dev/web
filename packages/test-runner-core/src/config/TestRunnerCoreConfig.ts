@@ -45,8 +45,7 @@ export interface TestRunnerCoreConfig {
   coverageConfig?: CoverageConfig;
 
   browserStartTimeout?: number;
-
-  sessionStartTimeout?: number;
-  sessionFinishTimeout?: number;
+  testsStartTimeout?: number;
+  testsFinishTimeout?: number;
   staticLogging?: boolean;
 }

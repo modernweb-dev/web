@@ -216,9 +216,9 @@ interface TestRunnerConfig {
   // how long a browser can take to start up before failing. defaults to 30000
   browserStartTimeout?: number;
   // how long a test file can take to load. defaults to 10000
-  sessionStartTimeout?: number;
+  testsStartTimeout?: number;
   // how long a test file can take to finish. defaults to 20000
-  sessionFinishTimeout?: number;
+  testsFinishTimeout?: number;
 }
 ```
 
