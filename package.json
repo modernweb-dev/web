@@ -21,7 +21,7 @@
     "start:build": "es-dev-server --root-dir _site --compatibility none --open",
     "test": "yarn test:node && yarn test:browser && node scripts/workspaces-scripts-bin.mjs test:ci",
     "test:browser": "node packages/test-runner/dist/test-runner.js \"packages/*/test-browser/**/*.test.{js,ts}\"",
-    "test:node": "mocha \"packages/*/test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --parallel --reporter dot --exit --retries 3",
+    "test:node": "mocha \"packages/*/test/!(fixtures)/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --parallel --reporter dot --exit --retries 3",
     "update-dependency": "node scripts/update-dependency.js",
     "update-esm-entrypoints": "node scripts/update-esm-entrypoints.mjs && yarn format",
     "update-package-configs": "node scripts/update-package-configs.mjs && yarn format"
@@ -37,6 +37,7 @@
     "@rollup/plugin-typescript": "^5.0.2",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^8.0.01",
+    "@types/node": "^14.6.0",
     "@types/sinon": "^9.0.4",
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",

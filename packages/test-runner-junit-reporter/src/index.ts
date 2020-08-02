@@ -1,0 +1,1 @@
+export { junitReporter } from './junitReporter';

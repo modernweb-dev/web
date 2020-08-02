@@ -39,7 +39,7 @@ export function collectTestResults(mocha: BrowserMocha) {
         name: test.title,
         passed: test.isPassed(),
         skipped: test.isPending(),
-        duration: test.duration,
+        ...(test.duration !== undefined && { duration: test.duration }),
         error: err
           ? {
               message: err.message,
