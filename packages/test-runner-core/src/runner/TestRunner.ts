@@ -143,7 +143,7 @@ export class TestRunner extends EventEmitter<EventMap> {
 
     for (const session of debugSessions) {
       session.browser
-        .startDebugSession(session.id, createSessionUrl(this.config, session, true))
+        .startDebugSession(session.id, createSessionUrl(this.config, session))
         .catch(error => {
           console.error(error);
         });

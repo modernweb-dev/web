@@ -101,13 +101,6 @@ export async function reportTestsErrors(
             userAgent: session.userAgent!,
           });
         }
-<<<<<<< HEAD
-=======
-        testErrorsForBrowser.set(session.browser.name, {
-          error: test.error!,
-          userAgent: session.userAgent!,
-        });
->>>>>>> feat: expose browser name from BrowserLauncher
       }
     }
   }

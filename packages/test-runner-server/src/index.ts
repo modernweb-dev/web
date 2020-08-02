@@ -1,2 +1,3 @@
-export { testRunnerServer } from './testRunnerServer';
-export { TestRunnerServerConfig } from './TestRunnerServerConfig';
+export { testRunnerServer } from './server/testRunnerServer';
+export { TestRunnerServerConfig } from './server/TestRunnerServerConfig';
+export { TestRunnerPlugin } from './server/TestRunnerPlugin';

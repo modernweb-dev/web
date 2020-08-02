@@ -1,6 +1,6 @@
 import path from 'path';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { PARAM_SESSION_ID, PARAM_DEBUG } from '../browser-launcher/constants';
+import { PARAM_SESSION_ID } from '../browser-launcher/constants';
 import { BasicTestSession } from '../test-session/BasicTestSession';
 
 const toBrowserPathRegExp = new RegExp(path.sep === '\\' ? '\\\\' : path.sep, 'g');
@@ -9,11 +9,7 @@ export function toBrowserPath(filePath: string) {
   return filePath.replace(toBrowserPathRegExp, '/');
 }
 
-export function createSessionUrl(
-  config: TestRunnerCoreConfig,
-  session: BasicTestSession,
-  debug: boolean,
-) {
+export function createSessionUrl(config: TestRunnerCoreConfig, session: BasicTestSession) {
   let browserPath: string;
 
   if (session.testFile.endsWith('.html')) {
@@ -23,7 +19,7 @@ export function createSessionUrl(
   } else {
     browserPath = '/';
   }
-  const params = `?${PARAM_SESSION_ID}=${session.id}${debug ? `&${PARAM_DEBUG}=true` : ''}`;
+  const params = `?${PARAM_SESSION_ID}=${session.id}`;
 
   return `${config.protocol}//${config.hostname}:${config.port}${browserPath}${params}`;
 }
