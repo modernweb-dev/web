@@ -7,6 +7,14 @@ const {
   validateCoreConfig,
   readCliArgsConfig,
   defaultReporter,
+  TestRunnerCli,
 } = cjsEntrypoint;
 
-export { startTestRunner, readConfig, validateCoreConfig, readCliArgsConfig, defaultReporter };
+export {
+  startTestRunner,
+  readConfig,
+  validateCoreConfig,
+  readCliArgsConfig,
+  defaultReporter,
+  TestRunnerCli,
+};

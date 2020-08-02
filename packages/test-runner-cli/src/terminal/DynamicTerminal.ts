@@ -24,11 +24,13 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
     this.interceptConsoleOutput();
     process.stdin.resume();
     process.stdin.setEncoding('utf8');
-    process.stdin.on('data', (input: string) => {
-      this.emit('input', input);
-    });
+    process.stdin.addListener('data', this.onStdInData);
     this.started = true;
   }
+
+  private onStdInData = (input: string) => {
+    this.emit('input', input);
+  };
 
   observeDirectInput() {
     if (!this.isInteractive) {
@@ -60,6 +62,8 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
       console[key as keyof Console] = fn;
     }
     this.started = false;
+    process.stdin.pause();
+    process.stdin.removeListener('data', this.onStdInData);
   }
 
   clear() {

@@ -191,7 +191,7 @@ export class TestScheduler {
     );
   }
 
-  private addTimeoutId(sessionId: string, id: NodeJS.Timeout) {
+  private addTimeoutId(sessionId: string, id: any) {
     let timeoutIds = this.timeoutIdsPerSession.get(sessionId);
     if (!timeoutIds) {
       timeoutIds = [];

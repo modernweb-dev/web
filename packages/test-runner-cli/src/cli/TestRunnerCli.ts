@@ -327,7 +327,7 @@ export class TestRunnerCli {
 
   private reportSyntaxErrors() {
     const logger = this.config.logger as TestRunnerLogger;
-    const { loggedSyntaxErrors } = logger;
+    const { loggedSyntaxErrors = new Map() } = logger;
     if (loggedSyntaxErrors.size === 0) {
       return;
     }

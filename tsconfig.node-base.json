@@ -61,6 +61,15 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
 
     /* Advanced Options */
-    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
+    "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES6",
+      "ES2017",
+      // Allows array.flatMap. import `array-flat-polyfill` to cover node10
+      "ES2019.array",
+      "ScriptHost"
+    ]
   }
 }
