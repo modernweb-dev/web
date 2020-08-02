@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.4.25
+
+### Patch Changes
+
+- ae09789: improve CLI performance
+
 ## 0.4.24
 
 ### Patch Changes
