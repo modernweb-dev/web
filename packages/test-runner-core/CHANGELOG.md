@@ -1,5 +1,12 @@
 # @web/test-runner-core
 
+## 0.6.19
+
+### Patch Changes
+
+- 432f090: expose browser name from BrowserLauncher
+- 5b36825: prevent debug sessions from interferring with regular test sessions
+
 ## 0.6.18
 
 ### Patch Changes

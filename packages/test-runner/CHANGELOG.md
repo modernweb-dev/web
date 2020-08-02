@@ -1,5 +1,17 @@
 # @web/test-runner
 
+## 0.6.55
+
+### Patch Changes
+
+- 5b36825: prevent debug sessions from interferring with regular test sessions
+- Updated dependencies [432f090]
+- Updated dependencies [5b36825]
+  - @web/test-runner-chrome@0.5.17
+  - @web/test-runner-cli@0.4.26
+  - @web/test-runner-core@0.6.19
+  - @web/test-runner-server@0.5.13
+
 ## 0.6.54
 
 ### Patch Changes

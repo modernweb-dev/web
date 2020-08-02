@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.5.17
+
+### Patch Changes
+
+- 432f090: expose browser name from BrowserLauncher
+
 ## 0.5.16
 
 ### Patch Changes

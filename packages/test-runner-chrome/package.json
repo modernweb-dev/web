@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-chrome",
-  "version": "0.5.16",
+  "version": "0.5.17",
   "publishConfig": {
     "access": "public"
   },
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@web/test-runner-mocha": "^0.2.9",
-    "@web/test-runner-server": "^0.5.12",
+    "@web/test-runner-server": "^0.5.13",
     "portfinder": "^1.0.26"
   }
 }

@@ -1,5 +1,15 @@
 # @web/test-runner-browserstack
 
+## 0.0.10
+
+### Patch Changes
+
+- 432f090: expose browser name from BrowserLauncher
+- 5b36825: prevent debug sessions from interferring with regular test sessions
+- Updated dependencies [432f090]
+- Updated dependencies [5b36825]
+  - @web/test-runner-selenium@0.1.6
+
 ## 0.0.9
 
 ### Patch Changes
