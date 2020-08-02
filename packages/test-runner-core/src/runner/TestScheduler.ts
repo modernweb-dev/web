@@ -88,7 +88,7 @@ export class TestScheduler {
 
     try {
       await updatedSession.browserLauncher.startSession(
-        updatedSession,
+        updatedSession.id,
         createSessionUrl(this.config, updatedSession, false),
       );
 
@@ -119,8 +119,8 @@ export class TestScheduler {
     const updatedSession = { ...session };
 
     try {
-      if (session.browserLauncher.isActive(session)) {
-        const { testCoverage, browserLogs } = await session.browserLauncher.stopSession(session);
+      if (session.browserLauncher.isActive(session.id)) {
+        const { testCoverage, browserLogs } = await session.browserLauncher.stopSession(session.id);
         updatedSession.testCoverage = testCoverage;
         updatedSession.logs = browserLogs;
       }

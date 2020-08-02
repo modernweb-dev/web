@@ -1,4 +1,4 @@
-import { BrowserLauncher, TestSession } from '@web/test-runner-core';
+import { BrowserLauncher } from '@web/test-runner-core';
 import { SeleniumLauncher } from '@web/test-runner-selenium';
 import webdriver, { Capabilities } from 'selenium-webdriver';
 import browserstack from 'browserstack-local';
@@ -40,8 +40,8 @@ export class BrowserstackLauncher extends SeleniumLauncher {
     return this.browserName;
   }
 
-  startSession(session: TestSession, url: string) {
-    return super.startSession(session, url.replace(/(localhost|127\.0\.0\.1)/, localIp));
+  startSession(sessionId: string, url: string) {
+    return super.startSession(sessionId, url.replace(/(localhost|127\.0\.0\.1)/, localIp));
   }
 
   async startDebugSession() {

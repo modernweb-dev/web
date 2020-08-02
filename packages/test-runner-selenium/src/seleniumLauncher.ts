@@ -1,4 +1,4 @@
-import { TestSession, BrowserLauncher } from '@web/test-runner-core';
+import { BrowserLauncher } from '@web/test-runner-core';
 import { Builder, WebDriver } from 'selenium-webdriver';
 
 export interface SeleniumLauncherArgs {
@@ -6,7 +6,7 @@ export interface SeleniumLauncherArgs {
 }
 
 export class SeleniumLauncher implements BrowserLauncher {
-  private sessionsQueue: { session: TestSession; url: string }[] = [];
+  private sessionsQueue: { sessionId: string; url: string }[] = [];
   private driver: undefined | WebDriver;
   private debugDriver: undefined | WebDriver = undefined;
   private currentSession: string | undefined;
@@ -33,16 +33,16 @@ export class SeleniumLauncher implements BrowserLauncher {
     }
   }
 
-  async startSession(session: TestSession, url: string) {
-    this.sessionsQueue.push({ session, url });
+  async startSession(sessionId: string, url: string) {
+    this.sessionsQueue.push({ sessionId, url });
 
     if (!this.currentSession) {
       return this._runNextQueuedSession();
     }
   }
 
-  isActive(session: TestSession) {
-    return this.currentSession === session.id;
+  isActive(sessionId: string) {
+    return this.currentSession === sessionId;
   }
 
   async _runNextQueuedSession() {
@@ -55,12 +55,12 @@ export class SeleniumLauncher implements BrowserLauncher {
       throw new Error('Browser is closed');
     }
 
-    this.currentSession = next.session.id;
+    this.currentSession = next.sessionId;
     await this.driver.get(next.url);
   }
 
-  async stopSession(session: TestSession) {
-    if (this.currentSession === session.id) {
+  async stopSession(sessionId: string) {
+    if (this.currentSession === sessionId) {
       this.currentSession = undefined;
       this._runNextQueuedSession();
     }
@@ -68,7 +68,7 @@ export class SeleniumLauncher implements BrowserLauncher {
     return { browserLogs: [] };
   }
 
-  async startDebugSession(session: TestSession, url: string) {
+  async startDebugSession(_: string, url: string) {
     if (this.debugDriver) {
       await this.debugDriver.quit();
     }

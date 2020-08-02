@@ -1,4 +1,4 @@
-import { constants, TestSessionManager, TestRunner } from '@web/test-runner-core';
+import { constants, TestSessionManager, TestRunner, TestSession } from '@web/test-runner-core';
 import { Middleware, Context } from '@web/dev-server-core';
 import { DepGraph } from 'dependency-graph';
 import debounce from 'debounce';
@@ -18,18 +18,24 @@ export interface DependencyGraphMiddlewareArgs {
 
 function onRerunSessions(runner: TestRunner, sessions: TestSessionManager, sessionIds?: string[]) {
   const sessionsToRerun = sessionIds
-    ? sessionIds.map(id => {
-        const session = sessions.get(id);
-        if (!session) {
-          throw new Error(`Could not find session ${id}`);
-        }
-        return session;
-      })
+    ? (sessionIds
+        .map(id => {
+          const session = sessions.get(id);
+          if (!session && !sessions.getDebug(id)) {
+            throw new Error(`Could not find session ${id}`);
+          }
+          return session;
+        })
+        .filter(s => s) as TestSession[])
     : sessions.all();
   runner.runTests(sessionsToRerun);
 }
 
 function onRequest404(sessions: TestSessionManager, sessionId: string, url: string) {
+  if (sessions.getDebug(sessionId)) {
+    return;
+  }
+
   const session = sessions.get(sessionId);
   if (!session) {
     throw new Error(`Could not find session ${sessionId}`);

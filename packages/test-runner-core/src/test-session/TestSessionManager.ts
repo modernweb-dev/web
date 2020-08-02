@@ -1,6 +1,7 @@
 import { TestSession } from './TestSession';
 import { TestSessionStatus } from './TestSessionStatus';
 import { EventEmitter } from '../utils/EventEmitter';
+import { DebugTestSession } from './DebugTestSession';
 
 interface EventMap {
   'session-status-updated': TestSession;
@@ -17,9 +18,18 @@ function* filtered<T>(it: Iterator<T>, filter: (value: T) => unknown) {
 
 export class TestSessionManager extends EventEmitter<EventMap> {
   private sessionsMap = new Map<string, TestSession>();
+  private debugSessions = new Map<string, DebugTestSession>();
 
-  add(session: TestSession) {
-    this.sessionsMap.set(session.id, session);
+  add(...sessions: TestSession[]) {
+    for (const session of sessions) {
+      this.sessionsMap.set(session.id, session);
+    }
+  }
+
+  addDebug(...sessions: DebugTestSession[]) {
+    for (const session of sessions) {
+      this.debugSessions.set(session.id, session);
+    }
   }
 
   updateStatus(session: TestSession, status: TestSessionStatus) {
@@ -78,5 +88,21 @@ export class TestSessionManager extends EventEmitter<EventMap> {
 
   failed() {
     return this.filtered(s => !s.passed);
+  }
+
+  getDebug(id: string) {
+    return this.debugSessions.get(id);
+  }
+
+  getAllDebug() {
+    return this.debugSessions.values();
+  }
+
+  setDebug(debugSession: DebugTestSession) {
+    this.debugSessions.set(debugSession.id, debugSession);
+  }
+
+  removeDebug(id: string) {
+    this.debugSessions.delete(id);
   }
 }

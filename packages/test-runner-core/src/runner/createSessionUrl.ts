@@ -1,7 +1,7 @@
 import path from 'path';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { TestSession } from '../test-session/TestSession';
 import { PARAM_SESSION_ID, PARAM_DEBUG } from '../browser-launcher/constants';
+import { BasicTestSession } from '../test-session/BasicTestSession';
 
 const toBrowserPathRegExp = new RegExp(path.sep === '\\' ? '\\\\' : path.sep, 'g');
 
@@ -11,7 +11,7 @@ export function toBrowserPath(filePath: string) {
 
 export function createSessionUrl(
   config: TestRunnerCoreConfig,
-  session: TestSession,
+  session: BasicTestSession,
   debug: boolean,
 ) {
   let browserPath: string;
