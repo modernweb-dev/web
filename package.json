@@ -13,6 +13,7 @@
     "lint:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --check --ignore-path .eslintignore",
     "postinstall": "yarn build",
     "reinstall-workspace": "rimraf demo/projects/*/node_modules && rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
+    "release": "yarn format && changeset publish",
     "test": "node scripts/workspaces-scripts.mjs test:ci",
     "tsc": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build packages/tsconfig.project.json",
     "tsc:watch": "yarn tsc --watch",
