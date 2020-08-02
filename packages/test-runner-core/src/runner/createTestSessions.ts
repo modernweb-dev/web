@@ -13,6 +13,7 @@ export function createTestSessions(
     for (const [browserLauncher, browserName] of browserNameForLauncher) {
       const session: TestSession = {
         id: uuid(),
+        debug: false,
         testRun: -1,
         browserName,
         browserLauncher,

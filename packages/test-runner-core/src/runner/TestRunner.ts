@@ -10,6 +10,7 @@ import { TestSessionManager } from '../test-session/TestSessionManager';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
 import { EventEmitter } from '../utils/EventEmitter';
 import { createSessionUrl } from './createSessionUrl';
+import { createDebugSessions } from './createDebugSessions';
 
 interface EventMap {
   'test-run-started': { testRun: number; sessions: Iterable<TestSession> };
@@ -34,6 +35,7 @@ export class TestRunner extends EventEmitter<EventMap> {
   private browserLaunchers: BrowserLauncher[];
   private scheduler: TestScheduler;
   private pendingSessions = new Set<TestSession>();
+  private browserNameForLauncher = new Map<BrowserLauncher, string>();
 
   constructor(config: TestRunnerCoreConfig, testFiles: string[]) {
     super();
@@ -58,20 +60,16 @@ export class TestRunner extends EventEmitter<EventMap> {
       this.started = true;
       this.startTime = Date.now();
 
-      const browserNameForLauncher = new Map<BrowserLauncher, string>();
       this.browserNames = [];
 
       for (const launcher of this.browserLaunchers) {
         const name = await launcher.start(this.config, this.testFiles);
         this.browserNames.push(name);
-        browserNameForLauncher.set(launcher, name);
+        this.browserNameForLauncher.set(launcher, name);
       }
 
-      const createdSessions = createTestSessions(browserNameForLauncher, this.testFiles);
-
-      for (const session of createdSessions) {
-        this.sessions.add(session);
-      }
+      const createdSessions = createTestSessions(this.browserNameForLauncher, this.testFiles);
+      this.sessions.add(...createdSessions);
 
       await this.config.server.start({
         config: this.config,
@@ -149,9 +147,12 @@ export class TestRunner extends EventEmitter<EventMap> {
   }
 
   startDebugBrowser(testFile: string) {
-    for (const session of this.sessions.forTestFile(testFile)) {
+    const debugSessions = createDebugSessions(this.browserNameForLauncher, testFile);
+    this.sessions.addDebug(...debugSessions);
+
+    for (const session of debugSessions) {
       session.browserLauncher
-        .startDebugSession(session, createSessionUrl(this.config, session, true))
+        .startDebugSession(session.id, createSessionUrl(this.config, session, true))
         .catch(error => {
           console.error(error);
         });

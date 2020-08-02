@@ -1,6 +1,5 @@
 import { CoverageMapData } from 'istanbul-lib-coverage';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { TestSession } from '../test-session/TestSession';
 
 export interface Viewport {
   width: number;
@@ -34,14 +33,14 @@ export interface BrowserLauncher {
    * handle opening browser pages in parallel should set up a queuing system.
    * @param session
    */
-  startSession(session: TestSession, url: string): Promise<void>;
+  startSession(sessionId: string, url: string): Promise<void>;
 
   /**
    * Returns whether this session is currently active. If it is active, stopSession
    * can be called.
    * @param session
    */
-  isActive(session: TestSession): boolean;
+  isActive(sessionId: string): boolean;
 
   /**
    * Stops a single test session. There is no mandatory action to be taken here.
@@ -49,7 +48,7 @@ export interface BrowserLauncher {
    * creating new ones.
    * @param session
    */
-  stopSession(session: TestSession): SessionResult | Promise<SessionResult>;
+  stopSession(sessionId: string): SessionResult | Promise<SessionResult>;
 
   /**
    * Starts a debug session. This should start a session like startSession, but
@@ -57,11 +56,11 @@ export interface BrowserLauncher {
    * it can throw an error.
    * @param session
    */
-  startDebugSession(session: TestSession, url: string): Promise<void>;
+  startDebugSession(sessionId: string, url: string): Promise<void>;
 
   /**
    * Sets the viewport. Not all browser implementations support this.
    * @param viewport
    */
-  setViewport(session: TestSession, viewport: Viewport): void | Promise<void>;
+  setViewport(sessionId: string, viewport: Viewport): void | Promise<void>;
 }

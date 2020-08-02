@@ -26,11 +26,10 @@ export function testRunnerApiMiddleware(
   return async (ctx, next) => {
     if (ctx.path.startsWith('/wtr/')) {
       const [, , sessionId, command] = ctx.path.split('/');
-      const debug = ctx.URL.searchParams.get('debug') === 'true';
       if (!sessionId) return next();
       if (!command) return next();
 
-      const session = sessions.get(sessionId);
+      const session = sessions.get(sessionId) || sessions.getDebug(sessionId);
       if (!session) {
         ctx.status = 400;
         ctx.body = `Session id ${sessionId} not found`;
@@ -49,7 +48,7 @@ export function testRunnerApiMiddleware(
 
       if (command === 'session-started') {
         ctx.status = 200;
-        if (debug) return;
+        if (session.debug) return;
 
         sessions.update({
           ...session,
@@ -62,7 +61,7 @@ export function testRunnerApiMiddleware(
       if (command === 'viewport') {
         try {
           const viewport = ((await parse.json(ctx)) as any) as Viewport;
-          await session.browserLauncher.setViewport(session, viewport);
+          await session.browserLauncher.setViewport(session.id, viewport);
           ctx.status = 200;
         } catch (error) {
           console.error(error);
@@ -73,7 +72,7 @@ export function testRunnerApiMiddleware(
 
       if (command === 'session-finished') {
         ctx.status = 200;
-        if (debug) return;
+        if (session.debug) return;
 
         const result = (await parse.json(ctx)) as any;
         sessions.updateStatus({ ...session, ...result }, SESSION_STATUS.TEST_FINISHED);

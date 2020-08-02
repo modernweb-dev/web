@@ -2,7 +2,6 @@ import playwright, { Browser, Page, LaunchOptions } from 'playwright';
 import {
   BrowserLauncher,
   TestRunnerCoreConfig,
-  TestSession,
   Viewport,
   CoverageMapData,
 } from '@web/test-runner-core';
@@ -23,7 +22,7 @@ export class PlaywrightLauncher implements BrowserLauncher {
   private activePages = new Map<string, PlaywrightLauncherPage>();
   private activeDebugPages = new Map<string, PlaywrightLauncherPage>();
   private inactivePages: PlaywrightLauncherPage[] = [];
-  private testCoveragePerSession = new WeakMap<TestSession, CoverageMapData>();
+  private testCoveragePerSession = new Map<string, CoverageMapData>();
 
   constructor(
     private product: ProductType,
@@ -48,7 +47,7 @@ export class PlaywrightLauncher implements BrowserLauncher {
     }
   }
 
-  async startSession(session: TestSession, url: string) {
+  async startSession(sessionId: string, url: string) {
     if (!this.browser?.isConnected()) {
       throw new Error('Browser is closed');
     }
@@ -60,16 +59,16 @@ export class PlaywrightLauncher implements BrowserLauncher {
       page = this.inactivePages.pop()!;
     }
 
-    this.activePages.set(session.id, page);
-    this.testCoveragePerSession.delete(session);
+    this.activePages.set(sessionId, page);
+    this.testCoveragePerSession.delete(sessionId);
     await page.runSession(url, !!this.config?.coverage);
   }
 
-  isActive(session: TestSession) {
-    return this.activePages.has(session.id);
+  isActive(sessionId: string) {
+    return this.activePages.has(sessionId);
   }
 
-  async startDebugSession(session: TestSession, url: string) {
+  async startDebugSession(sessionId: string, url: string) {
     if (!this.debugBrowser) {
       this.debugBrowser = await playwright[this.product].launch({
         ...this.launchOptions,
@@ -80,9 +79,9 @@ export class PlaywrightLauncher implements BrowserLauncher {
     }
 
     const page = await this.createNewPage(this.debugBrowser);
-    this.activeDebugPages.set(session.id, page);
+    this.activeDebugPages.set(sessionId, page);
     page.playwrightPage.on('close', () => {
-      this.activeDebugPages.delete(session.id);
+      this.activeDebugPages.delete(sessionId);
     });
     await page.runSession(url, false);
   }
@@ -94,24 +93,24 @@ export class PlaywrightLauncher implements BrowserLauncher {
     return new PlaywrightLauncherPage(this.config!, this.testFiles!, playwrightPage);
   }
 
-  async stopSession(session: TestSession) {
-    const page = this.activePages.get(session.id);
+  async stopSession(sessionId: string) {
+    const page = this.activePages.get(sessionId);
 
     if (page) {
       const result = await page.stopSession();
-      this.activePages.delete(session.id);
+      this.activePages.delete(sessionId);
       this.inactivePages.push(page);
       return result;
     } else {
-      throw new Error(`No page for session ${session.id}`);
+      throw new Error(`No page for session ${sessionId}`);
     }
   }
 
-  setViewport(session: TestSession, viewport: Viewport) {
-    const page = this.activePages.get(session.id);
-    const debugPage = this.activeDebugPages.get(session.id);
+  setViewport(sessionId: string, viewport: Viewport) {
+    const page = this.activePages.get(sessionId);
+    const debugPage = this.activeDebugPages.get(sessionId);
     if (!page && !debugPage) {
-      throw new Error(`Cannot set viewport for inactive session: ${session.id}`);
+      throw new Error(`Cannot set viewport for inactive session: ${sessionId}`);
     }
     return (page! || debugPage!).playwrightPage.setViewportSize(viewport);
   }
