@@ -23,7 +23,7 @@ describe('TestScheduler', () => {
     return ({
       ...session,
       testFile: `test-${session.id}.js`,
-      browserLauncher: {
+      browser: {
         startSession: stub().returns(timeout(1)),
         stopSession: stub().returns(timeout(1).then(() => ({ testCoverage: {}, browserLogs: [] }))),
         isActive: stub().returns(true),
@@ -74,14 +74,14 @@ describe('TestScheduler', () => {
 
     const finalSession1 = sessions.get(session1.id)!;
     expect(finalSession1.status).to.equal(SESSION_STATUS.INITIALIZING);
-    expect(finalSession1.browserLauncher.startSession).to.be.calledOnce;
+    expect(finalSession1.browser.startSession).to.be.calledOnce;
   });
 
   it('when a session goes to status test finished, the browser is stopped and results is stored', async () => {
     const [scheduler, sessions, session1] = createTestFixture('1');
     const testCoverage = { foo: 'bar' };
     const browserLogs = [1, 2, 3];
-    (session1.browserLauncher.stopSession as SinonStub).returns(
+    (session1.browser.stopSession as SinonStub).returns(
       timeout(1).then(() => ({ testCoverage, browserLogs })),
     );
     scheduler.schedule(1, [session1]);
@@ -172,7 +172,7 @@ describe('TestScheduler', () => {
 
   it('error while starting browser marks session as failed', async () => {
     const [scheduler, sessions, session1] = createTestFixture('1');
-    (session1.browserLauncher.startSession as SinonStub).callsFake(() =>
+    (session1.browser.startSession as SinonStub).callsFake(() =>
       Promise.reject(new Error('mock error')),
     );
     scheduler.schedule(1, [session1]);
@@ -189,7 +189,7 @@ describe('TestScheduler', () => {
   it('error while starting browser after a session changed state gets logged', async () => {
     const errorStub = stub(mockConfig.logger, 'error');
     const [scheduler, sessions, session1] = createTestFixture('1');
-    (session1.browserLauncher.startSession as SinonStub).returns(
+    (session1.browser.startSession as SinonStub).returns(
       timeout(5).then(() => {
         throw new Error('mock error');
       }),
@@ -213,7 +213,7 @@ describe('TestScheduler', () => {
 
   it('error while stopping browser marks session as failed', async () => {
     const [scheduler, sessions, session1] = createTestFixture('1');
-    (session1.browserLauncher.stopSession as SinonStub).callsFake(() =>
+    (session1.browser.stopSession as SinonStub).callsFake(() =>
       Promise.reject(new Error('mock error')),
     );
     scheduler.schedule(1, [session1]);
@@ -232,7 +232,7 @@ describe('TestScheduler', () => {
   it('timeout starting the browser marks the session as failed', async () => {
     mockConfig.browserStartTimeout = 2;
     const [scheduler, sessions, session1] = createTestFixture('1');
-    (session1.browserLauncher.startSession as SinonStub).returns(timeout(4));
+    (session1.browser.startSession as SinonStub).returns(timeout(4));
     scheduler.schedule(1, [session1]);
 
     await timeout(3);

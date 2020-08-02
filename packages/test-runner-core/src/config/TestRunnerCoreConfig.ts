@@ -30,7 +30,7 @@ export interface TestRunnerCoreConfig {
   hostname: string;
   port: number;
 
-  browsers: BrowserLauncher | BrowserLauncher[];
+  browsers: BrowserLauncher[];
   testFramework?: TestFramework;
   logger: Logger;
   reporters: Reporter[];

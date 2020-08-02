@@ -3,18 +3,17 @@ import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 import { DebugTestSession } from '../test-session/DebugTestSession';
 
 export function createDebugSessions(
-  browserNameForLauncher: Map<BrowserLauncher, string>,
+  browsers: BrowserLauncher[],
   testFile: string,
 ): DebugTestSession[] {
   const sessions = [];
 
-  for (const [browserLauncher, browserName] of browserNameForLauncher) {
+  for (const browser of browsers) {
     const session: DebugTestSession = {
       id: uuid(),
       testFile,
       debug: true,
-      browserName,
-      browserLauncher,
+      browser,
     };
 
     sessions.push(session);

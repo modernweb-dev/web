@@ -9,6 +9,10 @@ import {
 import { findExecutablePath } from './findExecutablePath';
 import { ChromeLauncherPage } from './ChromeLauncherPage';
 
+function capitalize(str: string) {
+  return `${str[0].toUpperCase()}${str.substring(1)}`;
+}
+
 const errorHelp =
   'This could be because of a mismatch between the version of puppeteer and Chrome or Chromium. ' +
   'Try updating either of them, or adjust the executablePath option to point to another browser installation. ' +
@@ -20,6 +24,7 @@ export type CreatePageFunction = (args: {
 }) => Promise<Page>;
 
 export class ChromeLauncher implements BrowserLauncher {
+  public name: string;
   private config?: TestRunnerCoreConfig;
   private testFiles?: string[];
   private browser?: Browser;
@@ -34,16 +39,24 @@ export class ChromeLauncher implements BrowserLauncher {
     private launchOptions: LaunchOptions,
     private customPuppeteer?: typeof puppeteerCore,
     private createPageFunction?: CreatePageFunction,
-  ) {}
+  ) {
+    if (!customPuppeteer) {
+      // without a custom puppeteer, we use the locally installed chrome
+      this.name = 'Chrome';
+    } else if (!this.launchOptions.product || this.launchOptions.product === 'chrome') {
+      // with puppeteer we use the a packaged chromium, puppeteer calls it chrome but we
+      // should call it chromium to avoid confusion
+      this.name = 'Chromium';
+    } else {
+      // otherwise take the product name directly
+      this.name = capitalize(this.launchOptions.product);
+    }
+  }
 
   async start(config: TestRunnerCoreConfig, testFiles: string[]) {
     this.config = config;
     this.testFiles = testFiles;
     this.browser = await this.launchBrowser();
-
-    return this.launchOptions.product
-      ? this.launchOptions.product[0].toUpperCase() + this.launchOptions.product.substring(1)
-      : 'Chrome';
   }
 
   launchBrowser(options: LaunchOptions = {}) {

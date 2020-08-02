@@ -20,7 +20,7 @@ const localIp = ip.address();
 export class BrowserstackLauncher extends SeleniumLauncher {
   constructor(
     private capabilities: Capabilities,
-    private browserName: string,
+    public name: string,
     private localOptions?: Partial<browserstack.Options>,
   ) {
     super(
@@ -37,7 +37,6 @@ export class BrowserstackLauncher extends SeleniumLauncher {
       this.localOptions,
     );
     await super.start();
-    return this.browserName;
   }
 
   startSession(sessionId: string, url: string) {

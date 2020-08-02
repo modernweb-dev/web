@@ -87,7 +87,7 @@ export class TestScheduler {
     this.addTimeoutId(updatedSession.id, timeoutId);
 
     try {
-      await updatedSession.browserLauncher.startSession(
+      await updatedSession.browser.startSession(
         updatedSession.id,
         createSessionUrl(this.config, updatedSession, false),
       );
@@ -119,8 +119,8 @@ export class TestScheduler {
     const updatedSession = { ...session };
 
     try {
-      if (session.browserLauncher.isActive(session.id)) {
-        const { testCoverage, browserLogs } = await session.browserLauncher.stopSession(session.id);
+      if (session.browser.isActive(session.id)) {
+        const { testCoverage, browserLogs } = await session.browser.stopSession(session.id);
         updatedSession.testCoverage = testCoverage;
         updatedSession.logs = browserLogs;
       }

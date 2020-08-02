@@ -40,9 +40,9 @@ export async function reportTestFileErrors(
         };
         reports.push(report);
       }
-      report.failedBrowsers.push(session.browserName);
+      report.failedBrowsers.push(session.browser.name);
 
-      if (session.browserName === favoriteBrowser) {
+      if (session.browser.name === favoriteBrowser) {
         report.error = error;
       }
     }

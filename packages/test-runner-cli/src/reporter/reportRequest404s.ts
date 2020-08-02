@@ -16,10 +16,10 @@ export function reportRequest404s(logger: Logger, sessions: TestSession[]) {
         if (all404s.every(r404s => r404s.includes(request404))) {
           common404s.push(request404);
         } else {
-          let request404sForBrowser = request404sPerBrowser.get(session.browserName);
+          let request404sForBrowser = request404sPerBrowser.get(session.browser.name);
           if (!request404sForBrowser) {
             request404sForBrowser = [];
-            request404sPerBrowser.set(session.browserName, request404sForBrowser);
+            request404sPerBrowser.set(session.browser.name, request404sForBrowser);
           }
           request404sForBrowser.push(request404);
         }

@@ -40,7 +40,7 @@ it('runs tests with chrome', function (done) {
     browserStartTimeout: 30000,
     testsStartTimeout: 10000,
     testsFinishTimeout: 20000,
-    browsers: chromeLauncher(),
+    browsers: [chromeLauncher()],
     server: testRunnerServer(),
   };
 
@@ -63,7 +63,7 @@ it('runs tests with chrome', function (done) {
   ]);
 
   runner.sessions.on('session-status-updated', session => {
-    console.log(session.browserName, session.id, session.status);
+    console.log(session.browser.name, session.id, session.status);
   });
 
   runner.on('finished', () => {

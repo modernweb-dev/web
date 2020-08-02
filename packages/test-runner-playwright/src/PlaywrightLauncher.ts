@@ -7,6 +7,10 @@ import {
 } from '@web/test-runner-core';
 import { PlaywrightLauncherPage } from './PlaywrightLauncherPage';
 
+function capitalize(str: string) {
+  return `${str[0].toUpperCase()}${str.substring(1)}`;
+}
+
 export type ProductType = 'chromium' | 'firefox' | 'webkit';
 
 export type CreatePageFunction = (args: {
@@ -15,6 +19,7 @@ export type CreatePageFunction = (args: {
 }) => Promise<Page>;
 
 export class PlaywrightLauncher implements BrowserLauncher {
+  public name: string;
   private config?: TestRunnerCoreConfig;
   private testFiles?: string[];
   private browser?: Browser;
@@ -28,13 +33,14 @@ export class PlaywrightLauncher implements BrowserLauncher {
     private product: ProductType,
     private launchOptions: LaunchOptions,
     private createPageFunction?: CreatePageFunction,
-  ) {}
+  ) {
+    this.name = capitalize(product);
+  }
 
   async start(config: TestRunnerCoreConfig, testFiles: string[]) {
     this.config = config;
     this.testFiles = testFiles;
     this.browser = await playwright[this.product].launch(this.launchOptions);
-    return `${this.product[0].toUpperCase()}${this.product.substring(1)}`;
   }
 
   async stop() {

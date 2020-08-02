@@ -61,7 +61,7 @@ export function testRunnerApiMiddleware(
       if (command === 'viewport') {
         try {
           const viewport = ((await parse.json(ctx)) as any) as Viewport;
-          await session.browserLauncher.setViewport(session.id, viewport);
+          await session.browser.setViewport(session.id, viewport);
           ctx.status = 200;
         } catch (error) {
           console.error(error);

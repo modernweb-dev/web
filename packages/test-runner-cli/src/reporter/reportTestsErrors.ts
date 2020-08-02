@@ -93,7 +93,7 @@ export async function reportTestsErrors(
           testErrorsForBrowser = new Map<string, ErrorEntry>();
           testErrorsPerBrowser.set(test.name, testErrorsForBrowser);
         }
-        testErrorsForBrowser.set(session.browserName, {
+        testErrorsForBrowser.set(session.browser.name, {
           error: test.error!,
           userAgent: session.userAgent!,
         });
