@@ -3,12 +3,12 @@ import { DevServerCoreConfig, DevServer, Plugin } from '@web/dev-server-core';
 import deepmerge from 'deepmerge';
 import chokidar from 'chokidar';
 
-import { watchFilesMiddleware } from './watchFilesMiddleware';
-import { serveTestRunnerHtmlPlugin } from './serveTestRunnerHtmlPlugin';
-import { cacheMiddleware } from './cacheMiddleware';
-import { testRunnerApiMiddleware } from './testRunnerApiMiddleware';
+import { watchFilesMiddleware } from '../middleware/watchFilesMiddleware';
+import { cacheMiddleware } from '../middleware/cacheMiddleware';
+import { testRunnerApiMiddleware } from '../middleware/testRunnerApiMiddleware';
+import { serveTestRunnerHtmlPlugin } from '../plugins/serveTestRunnerHtmlPlugin';
+import { serveTestFrameworkPlugin } from '../plugins/serveTestFrameworkPlugin';
 import { TestRunnerServerConfig } from './TestRunnerServerConfig';
-import { serveTestFrameworkPlugin } from './serveTestFrameworkPlugin';
 
 const CACHED_PATTERNS = [
   'node_modules/@web/test-runner-',
@@ -18,6 +18,7 @@ const CACHED_PATTERNS = [
 const isDefined = (_: unknown) => Boolean(_);
 
 export function testRunnerServer(testRunnerServerConfig: TestRunnerServerConfig = {}): Server {
+  const { plugins = [] } = testRunnerServerConfig;
   let devServer: DevServer;
 
   return {
@@ -35,7 +36,7 @@ export function testRunnerServer(testRunnerServerConfig: TestRunnerServerConfig 
           rootDir,
 
           middleware: [
-            testRunnerApiMiddleware(sessions, rootDir, config),
+            testRunnerApiMiddleware(sessions, rootDir, config, plugins),
             watchFilesMiddleware({ runner, sessions, rootDir, fileWatcher }),
             cacheMiddleware(CACHED_PATTERNS, config.watch),
             ...(testRunnerServerConfig.middleware || []),

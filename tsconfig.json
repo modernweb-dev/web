@@ -56,6 +56,9 @@
     },
     {
       "path": "./packages/test-runner-browserstack/tsconfig.json"
+    },
+    {
+      "path": "./packages/test-runner-commands/tsconfig.json"
     }
   ]
 }

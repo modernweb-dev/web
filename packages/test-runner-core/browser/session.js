@@ -7,11 +7,9 @@
 // we make sure we are using the original fetch instead of the mocked variant
 const fetch = window.fetch;
 const PARAM_SESSION_ID = 'wtr-session-id';
-const PARAM_DEBUG = 'wtr-debug';
 let finished = false;
 
 const sessionId = new URL(window.location.href).searchParams.get(PARAM_SESSION_ID);
-const debug = new URL(window.location.href).searchParams.get(PARAM_DEBUG) === 'true';
 if (typeof sessionId !== 'string') {
   throw new Error(`Could not find any session id query parameter.`);
 }
@@ -28,11 +26,8 @@ const logs = [];
 
 export async function getConfig() {
   try {
-    const response = await fetch(`/wtr/${sessionId}/config?debug=${debug}`);
-    return {
-      ...(await response.json()),
-      debug,
-    };
+    const response = await fetch(`/wtr/${sessionId}/config`);
+    return response.json();
   } catch (err) {
     await sessionFailed({
       message: 'Failed to fetch session config',
@@ -50,7 +45,7 @@ export function sessionFailed(error) {
 }
 
 export async function sessionStarted() {
-  await fetch(`/wtr/${sessionId}/session-started?debug=${debug}`, { method: 'POST' });
+  await fetch(`/wtr/${sessionId}/session-started`, { method: 'POST' });
 }
 
 export async function sessionFinished(result) {
@@ -65,5 +60,5 @@ export async function sessionFinished(result) {
     errors: [],
     ...result,
   };
-  await postJSON(`/wtr/${sessionId}/session-finished?debug=${debug}`, sessionResult);
+  await postJSON(`/wtr/${sessionId}/session-finished`, sessionResult);
 }

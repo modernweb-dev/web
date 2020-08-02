@@ -7,8 +7,9 @@ import {
 } from '@web/test-runner-core';
 import parse from 'co-body';
 import path from 'path';
+import { TestRunnerPlugin } from '../server/TestRunnerPlugin';
 
-import { toBrowserPath } from './utils';
+import { toBrowserPath } from '../server/utils';
 
 function createBrowserFilePath(rootDir: string, filePath: string, sessionId: string) {
   const fullFilePath = filePath.startsWith(process.cwd())
@@ -22,12 +23,13 @@ export function testRunnerApiMiddleware(
   sessions: TestSessionManager,
   rootDir: string,
   config: TestRunnerCoreConfig,
+  plugins: TestRunnerPlugin[],
 ): Middleware {
   return async (ctx, next) => {
     if (ctx.path.startsWith('/wtr/')) {
-      const [, , sessionId, command] = ctx.path.split('/');
+      const [, , sessionId, endpoint, ...restParameters] = ctx.path.split('/');
       if (!sessionId) return next();
-      if (!command) return next();
+      if (!endpoint) return next();
 
       const session = sessions.get(sessionId) || sessions.getDebug(sessionId);
       if (!session) {
@@ -37,16 +39,17 @@ export function testRunnerApiMiddleware(
         return;
       }
 
-      if (command === 'config') {
+      if (endpoint === 'config') {
         ctx.body = JSON.stringify({
           testFile: createBrowserFilePath(rootDir, session.testFile, sessionId),
           watch: !!config.watch,
+          debug: session.debug,
           testFrameworkConfig: config.testFramework?.config,
         });
         return;
       }
 
-      if (command === 'session-started') {
+      if (endpoint === 'session-started') {
         ctx.status = 200;
         if (session.debug) return;
 
@@ -58,7 +61,35 @@ export function testRunnerApiMiddleware(
         return;
       }
 
-      if (command === 'viewport') {
+      if (endpoint === 'session-finished') {
+        ctx.status = 200;
+        if (session.debug) return;
+
+        const result = (await parse.json(ctx)) as any;
+        sessions.updateStatus({ ...session, ...result }, SESSION_STATUS.TEST_FINISHED);
+        return;
+      }
+
+      if (endpoint === 'command') {
+        if (restParameters.length === 0) {
+          throw new Error('A command name must be provided.');
+        }
+        if (restParameters.length === 1) {
+          const [command] = restParameters;
+          const payload = (await parse.json(ctx)) as unknown;
+          for (const plugin of plugins) {
+            const result = plugin.executeCommand?.({ command, payload, session });
+
+            if (result) {
+              ctx.status = 200;
+              return;
+            }
+          }
+        }
+      }
+
+      // deprecated, backwards compatibility
+      if (endpoint === 'viewport') {
         try {
           const viewport = ((await parse.json(ctx)) as any) as Viewport;
           await session.browser.setViewport(session.id, viewport);
@@ -67,15 +98,6 @@ export function testRunnerApiMiddleware(
           console.error(error);
           ctx.status = 500;
         }
-        return;
-      }
-
-      if (command === 'session-finished') {
-        ctx.status = 200;
-        if (session.debug) return;
-
-        const result = (await parse.json(ctx)) as any;
-        sessions.updateStatus({ ...session, ...result }, SESSION_STATUS.TEST_FINISHED);
         return;
       }
     }

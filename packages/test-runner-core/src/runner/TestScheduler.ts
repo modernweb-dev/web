@@ -89,7 +89,7 @@ export class TestScheduler {
     try {
       await updatedSession.browser.startSession(
         updatedSession.id,
-        createSessionUrl(this.config, updatedSession, false),
+        createSessionUrl(this.config, updatedSession),
       );
 
       // when the browser started, wait for session to ping back on time
