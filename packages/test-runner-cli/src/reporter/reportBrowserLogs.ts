@@ -64,10 +64,10 @@ export async function reportBrowserLogs(
           commonLogs.push({ userAgent: session.userAgent, args });
           commonStringified.push(stringifiedArgs);
         } else {
-          let logsForBrowser = logsByBrowser.get(session.browserName);
+          let logsForBrowser = logsByBrowser.get(session.browser.name);
           if (!logsForBrowser) {
             logsForBrowser = [];
-            logsByBrowser.set(session.browserName, logsForBrowser);
+            logsByBrowser.set(session.browser.name, logsForBrowser);
           }
           logsForBrowser.push({ userAgent: session.userAgent, args });
         }

@@ -13,11 +13,15 @@ export interface SessionResult {
 
 export interface BrowserLauncher {
   /**
+   * A human friendly name to identify this browser. Doesn't need to be unique.
+   */
+  name: string;
+  /**
    * One time startup for the browser launcher. Called when the test runner
    * starts.
    * @param config The test runner config.
    */
-  start(config: TestRunnerCoreConfig, testFiles: string[]): Promise<string>;
+  start(config: TestRunnerCoreConfig, testFiles: string[]): void | Promise<void>;
 
   /**
    * One time teardown for the browser launcher. Called when the test runner

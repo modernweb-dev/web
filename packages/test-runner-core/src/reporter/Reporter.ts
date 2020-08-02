@@ -8,7 +8,6 @@ export interface ReporterArgs {
   config: TestRunnerCoreConfig;
   sessions: TestSessionManager;
   testFiles: string[];
-  browserNames: string[];
   startTime: number;
 }
 

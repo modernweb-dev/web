@@ -6,6 +6,7 @@ export interface SeleniumLauncherArgs {
 }
 
 export class SeleniumLauncher implements BrowserLauncher {
+  public name = 'Initializing...';
   private sessionsQueue: { sessionId: string; url: string }[] = [];
   private driver: undefined | WebDriver;
   private debugDriver: undefined | WebDriver = undefined;
@@ -16,7 +17,7 @@ export class SeleniumLauncher implements BrowserLauncher {
   async start() {
     this.driver = await this.driverBuilder.build();
     const cap = await this.driver.getCapabilities();
-    return [cap.getPlatform(), cap.getBrowserName(), cap.getBrowserVersion()]
+    this.name = [cap.getPlatform(), cap.getBrowserName(), cap.getBrowserVersion()]
       .filter(_ => _)
       .join(' ');
   }

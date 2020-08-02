@@ -26,7 +26,8 @@ async function createTestRunner(
   });
 
   const browser = {
-    start: stub().returns(Promise.resolve('myBrowser')),
+    name: 'myBrowser',
+    start: stub().returns(Promise.resolve()),
     stop: stub().returns(Promise.resolve()),
     startDebugSession: stub().returns(Promise.resolve()),
     startSession: stub().returns(Promise.resolve()),
@@ -47,7 +48,7 @@ async function createTestRunner(
     rootDir: process.cwd(),
     testFramework: { path: 'my-framework.js' },
     concurrency: 10,
-    browsers: browser,
+    browsers: [browser],
     watch: false,
     server,
     protocol: 'http:',

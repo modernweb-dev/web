@@ -73,12 +73,12 @@ export class TestSessionManager extends EventEmitter<EventMap> {
   }
 
   forBrowser(...browserNames: string[]) {
-    return this.filtered(s => browserNames.includes(s.browserName));
+    return this.filtered(s => browserNames.includes(s.browser.name));
   }
 
   forBrowserAndTestFile(testFile?: string, ...browserNames: string[]) {
     return this.filtered(
-      s => browserNames.includes(s.browserName) && (!testFile || s.testFile === testFile),
+      s => browserNames.includes(s.browser.name) && (!testFile || s.testFile === testFile),
     );
   }
 

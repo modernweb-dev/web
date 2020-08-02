@@ -65,14 +65,14 @@ for (const product of products) {
       browserStartTimeout: 30000,
       testsStartTimeout: 10000,
       testsFinishTimeout: 20000,
-      browsers: playwrightLauncher({ product }),
+      browsers: [playwrightLauncher({ product })],
       server: testRunnerServer(),
     };
 
     const runner = new TestRunner(config, testFiles);
 
     runner.sessions.on('session-status-updated', session => {
-      console.log(session.browserName, session.id, session.status);
+      console.log(session.browser.name, session.id, session.status);
     });
 
     runner.on('finished', () => {
@@ -85,7 +85,7 @@ for (const product of products) {
 
       for (const testFile of testFiles) {
         const session = sessions.find(
-          s => s.browserName.toLowerCase() === product && s.testFile === testFile,
+          s => s.browser.name.toLowerCase() === product && s.testFile === testFile,
         );
 
         if (!session) {

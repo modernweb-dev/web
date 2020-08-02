@@ -4,19 +4,18 @@ import { TestSession } from '../test-session/TestSession';
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 
 export function createTestSessions(
-  browserNameForLauncher: Map<BrowserLauncher, string>,
+  browsers: BrowserLauncher[],
   testFiles: string[],
 ): TestSession[] {
   const sessions = [];
 
   for (const testFile of testFiles) {
-    for (const [browserLauncher, browserName] of browserNameForLauncher) {
+    for (const browser of browsers) {
       const session: TestSession = {
         id: uuid(),
         debug: false,
         testRun: -1,
-        browserName,
-        browserLauncher,
+        browser,
         status: SESSION_STATUS.SCHEDULED,
         testFile,
         errors: [],
