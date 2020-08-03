@@ -19,7 +19,6 @@ export function createTestSessions(
         status: SESSION_STATUS.SCHEDULED,
         testFile,
         errors: [],
-        tests: [],
         logs: [],
         request404s: [],
       };

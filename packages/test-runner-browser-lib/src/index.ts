@@ -4,6 +4,7 @@ import {
   FrameworkTestSessionResult,
   BrowserTestSessionResult,
   TestResult,
+  TestSuiteResult,
 } from './types';
 
 // mocking libraries might overwrite window.fetch, by grabbing a reference here
@@ -48,7 +49,6 @@ export function sessionFailed(error: TestResultError) {
   return sessionFinished({
     passed: false,
     errors: [error],
-    tests: [],
   });
 }
 
@@ -78,4 +78,5 @@ export {
   FrameworkTestSessionResult,
   BrowserTestSessionResult,
   TestResult,
+  TestSuiteResult,
 };

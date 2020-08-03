@@ -13,12 +13,12 @@ sessionStarted();
 export function sessionFinished() {
   // setTimeout to wait for event loop to unwind and collect all logs
   setTimeout(() => {
-    const { testResults, hookErrors } = collectTestResults(mocha);
+    const { testResults, hookErrors, passed } = collectTestResults(mocha);
 
     browserLibOnSessionFinished({
-      passed: hookErrors.length === 0 && testResults.every(t => t.passed),
+      passed: hookErrors.length === 0 && passed,
       errors: hookErrors,
-      tests: testResults,
+      testResults,
     });
   });
 }

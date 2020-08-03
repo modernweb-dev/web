@@ -5,6 +5,6 @@ it('test 1', () => {
   expect(true).to.be.true;
 });
 
-it('this test is skipped', () => {
+it.skip('this test is skipped', () => {
   expect('foo').to.be.a('string');
 });

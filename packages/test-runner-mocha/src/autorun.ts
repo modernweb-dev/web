@@ -37,16 +37,16 @@ sessionStarted();
     });
   });
 
-  mocha.run(failures => {
+  mocha.run(() => {
     // setTimeout to wait for logs to come in
     setTimeout(() => {
-      const { testResults, hookErrors } = collectTestResults(mocha);
+      const { testResults, hookErrors, passed } = collectTestResults(mocha);
       errors.push(...hookErrors);
 
       sessionFinished({
-        passed: errors.length === 0 && failures === 0,
+        passed: errors.length === 0 && passed,
         errors,
-        tests: testResults,
+        testResults,
       });
     });
   });

@@ -5,6 +5,7 @@ import { getFailedOnBrowsers } from '../utils/getFailedOnBrowsers';
 import { getErrorLocation } from '../utils/getErrorLocation';
 import { formatStackTrace } from '../utils/formatStackTrace';
 import { SourceMapFunction } from '../utils/createSourceMapFunction';
+import { getFlattenedTestResults } from '../utils/getFlattenedTestResults';
 
 function renderDiff(actual: string, expected: string) {
   function cleanUp(line: string) {
@@ -86,17 +87,20 @@ export async function reportTestsErrors(
   const testErrorsPerBrowser = new Map<string, Map<string, ErrorEntry>>();
 
   for (const session of failedSessions) {
-    for (const test of session.tests) {
-      if (test.error) {
-        let testErrorsForBrowser = testErrorsPerBrowser.get(test.name);
-        if (!testErrorsForBrowser) {
-          testErrorsForBrowser = new Map<string, ErrorEntry>();
-          testErrorsPerBrowser.set(test.name, testErrorsForBrowser);
+    if (session.testResults) {
+      const flattenedTests = getFlattenedTestResults(session.testResults);
+      for (const test of flattenedTests) {
+        if (test.error) {
+          let testErrorsForBrowser = testErrorsPerBrowser.get(test.name);
+          if (!testErrorsForBrowser) {
+            testErrorsForBrowser = new Map<string, ErrorEntry>();
+            testErrorsPerBrowser.set(test.name, testErrorsForBrowser);
+          }
+          testErrorsForBrowser.set(session.browser.name, {
+            error: test.error!,
+            userAgent: session.userAgent!,
+          });
         }
-        testErrorsForBrowser.set(session.browser.name, {
-          error: test.error!,
-          userAgent: session.userAgent!,
-        });
       }
     }
   }
