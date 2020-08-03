@@ -9,9 +9,17 @@ export interface TestResultError {
   actual?: string;
 }
 
+export interface TestSuiteResult {
+  name: string;
+  suites: TestSuiteResult[];
+  tests: TestResult[];
+}
+
 export interface TestResult {
   name: string;
   passed: boolean;
+  skipped: boolean;
+  duration?: number;
   error?: TestResultError;
 }
 
@@ -21,7 +29,7 @@ export interface TestSession extends BasicTestSession {
   status: TestSessionStatus;
   passed?: boolean;
   errors: TestResultError[];
-  tests: TestResult[];
+  testResults?: TestSuiteResult;
   logs: any[][];
   request404s: string[];
   testCoverage?: CoverageMapData;

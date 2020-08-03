@@ -20,7 +20,12 @@ export {
 export { TestCoverage } from './coverage/getTestCoverage';
 export { Server } from './server/Server';
 export { Logger, ErrorWithLocation } from './logger/Logger';
-export { TestSession, TestResultError, TestResult } from './test-session/TestSession';
+export {
+  TestSession,
+  TestResultError,
+  TestResult,
+  TestSuiteResult,
+} from './test-session/TestSession';
 export { DebugTestSession } from './test-session/DebugTestSession';
 export { BasicTestSession } from './test-session/BasicTestSession';
 export { TestSessionManager } from './test-session/TestSessionManager';

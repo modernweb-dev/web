@@ -1,11 +1,11 @@
-import { TestResult, TestResultError } from '@web/test-runner-browser-lib';
+import { TestResult, TestSuiteResult, TestResultError } from '@web/test-runner-browser-lib';
 import { Hook } from 'mocha';
 
 export function collectTestResults(mocha: BrowserMocha) {
-  const testResults: TestResult[] = [];
   const hookErrors: TestResultError[] = [];
+  let passed = true;
 
-  function iterateHooks(hooks: Hook[]) {
+  function collectHooks(hooks: Hook[]) {
     for (const hook of hooks) {
       const hookError = (hook as any).err as Error | undefined;
       if (hook.state === 'failed' || hookError) {
@@ -23,43 +23,44 @@ export function collectTestResults(mocha: BrowserMocha) {
     }
   }
 
-  function iterateTests(prefix: string, tests: Mocha.Test[]) {
+  function getTestResults(tests: Mocha.Test[]) {
+    const testResults: TestResult[] = [];
     for (const test of tests) {
-      // add test if it isn't pending (skipped)
-      if (!test.isPending()) {
-        const name = `${prefix}${test.title}`;
-        const err = test.err as Error & { actual?: string; expected?: string };
-        testResults.push({
-          name,
-          passed: test.isPassed(),
-          error: err
-            ? {
-                message: err.message,
-                stack: err.stack,
-                expected: err.expected,
-                actual: err.actual,
-              }
-            : undefined,
-        });
+      if (!test.isPassed() && !test.isPending()) {
+        passed = false;
       }
+      const err = test.err as Error & { actual?: string; expected?: string };
+      testResults.push({
+        name: test.title,
+        passed: test.isPassed(),
+        skipped: test.isPending(),
+        duration: test.duration,
+        error: err
+          ? {
+              message: err.message,
+              stack: err.stack,
+              expected: err.expected,
+              actual: err.actual,
+            }
+          : undefined,
+      });
     }
+    return testResults;
   }
 
-  function iterateSuite(prefix: string, suite: Mocha.Suite) {
-    iterateHooks((suite as any)._beforeAll as Hook[]);
-    iterateHooks((suite as any)._afterAll as Hook[]);
-    iterateHooks((suite as any)._beforeEach as Hook[]);
-    iterateHooks((suite as any)._afterEach as Hook[]);
+  function getSuiteResults(suite: Mocha.Suite): TestSuiteResult {
+    collectHooks((suite as any)._beforeAll as Hook[]);
+    collectHooks((suite as any)._afterAll as Hook[]);
+    collectHooks((suite as any)._beforeEach as Hook[]);
+    collectHooks((suite as any)._afterEach as Hook[]);
 
-    iterateTests(prefix, suite.tests);
+    const suites = suite.suites.map(s => getSuiteResults(s));
+    const tests = getTestResults(suite.tests);
 
-    for (const childSuite of suite.suites) {
-      const newPrefix = `${prefix}${childSuite.title} > `;
-      iterateSuite(newPrefix, childSuite);
-    }
+    return { name: suite.title, suites, tests };
   }
 
-  iterateSuite('', mocha.suite);
+  const testResults = getSuiteResults(mocha.suite);
 
-  return { testResults, hookErrors };
+  return { testResults, hookErrors, passed };
 }

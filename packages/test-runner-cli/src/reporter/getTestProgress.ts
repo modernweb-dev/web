@@ -6,6 +6,7 @@ import {
   CoverageConfig,
 } from '@web/test-runner-core';
 import chalk from 'chalk';
+import { getPassedFailedSkippedCount } from '../utils/getPassedFailedSkippedCount';
 import { getTestCoverage } from './getTestCoverage';
 
 export interface TestProgressArgs {
@@ -71,11 +72,13 @@ function getProgressReport(
   finishedFiles: number,
   testFiles: number,
   passedTests: number,
+  skippedTests: number,
   failedTests: number,
 ) {
-  const testResults = `${chalk.green(`${passedTests} passed`)}, ${chalk.red(
-    `${failedTests} failed`,
-  )}`;
+  const testResults =
+    `${chalk.green(`${passedTests} passed`)}` +
+    `, ${chalk.red(`${failedTests} failed`)}` +
+    (skippedTests !== 0 ? `, ${chalk.gray(`${skippedTests} skipped`)}` : '');
   const progressBar = `${renderProgressBar(
     finishedFiles,
     testFiles,
@@ -109,9 +112,8 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
     ),
   );
 
-  const passedTests = new Set<string>();
-  const failedTests = new Set<string>();
   const finishedFiles = new Set<string>();
+  let failedTestCount = 0;
   let failed = false;
 
   const minWidth = browserNames.sort((a, b) => b.length - a.length)[0].length + 1;
@@ -119,6 +121,7 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
     const sessionsForBrowser = sessions.forBrowserAndTestFile(focusedTestFile, browser);
     let finishedFilesForBrowser = 0;
     let passedTestsForBrowser = 0;
+    let skippedTestsForBrowser = 0;
     let failedTestsForBrowser = 0;
 
     for (const session of sessionsForBrowser) {
@@ -127,18 +130,15 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
       }
 
       if (session.status === SESSION_STATUS.FINISHED) {
-        const { testFile, tests } = session;
+        const { testFile, testResults } = session;
         finishedFiles.add(testFile);
         finishedFilesForBrowser += 1;
-
-        for (const test of tests) {
-          if (test.passed) {
-            passedTests.add(`${testFile}${test.name}`);
-            passedTestsForBrowser += 1;
-          } else {
-            failedTests.add(`${testFile}${test.name}`);
-            failedTestsForBrowser += 1;
-          }
+        if (testResults) {
+          const parsed = getPassedFailedSkippedCount(testResults);
+          passedTestsForBrowser += parsed.passed;
+          skippedTestsForBrowser += parsed.skipped;
+          failedTestsForBrowser += parsed.failed;
+          failedTestCount += parsed.failed;
         }
       }
     }
@@ -150,6 +150,7 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
         finishedFilesForBrowser,
         testFiles.length,
         passedTestsForBrowser,
+        skippedTestsForBrowser,
         failedTestsForBrowser,
       ),
     );
@@ -185,11 +186,11 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
               ),
             ),
           );
-        } else if (failedTests.size > 0) {
+        } else if (failedTestCount > 0) {
           entries.push(
             chalk.bold(
               chalk.red(
-                `Finished running tests in ${duration}s with ${failedTests.size} failed tests.`,
+                `Finished running tests in ${duration}s with ${failedTestCount} failed tests.`,
               ),
             ),
           );

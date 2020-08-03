@@ -11,20 +11,27 @@ export interface TestResultError {
   actual?: string;
 }
 
+export interface TestSuiteResult {
+  name: string;
+  suites: TestSuiteResult[];
+  tests: TestResult[];
+}
+
 export interface TestResult {
   name: string;
   passed: boolean;
+  skipped: boolean;
+  duration?: number;
   error?: TestResultError;
 }
 
 export interface FrameworkTestSessionResult {
   passed: boolean;
   errors?: TestResultError[];
-  tests: TestResult[];
+  testResults?: TestSuiteResult;
 }
 
 export interface BrowserTestSessionResult extends FrameworkTestSessionResult {
   testCoverage?: unknown;
-  errors: TestResultError[];
   logs: string[];
 }
