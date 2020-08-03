@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.20
+
+### Patch Changes
+
+- c6fb524: expose test suite hierarchy, passed tests and duration
+
 ## 0.6.19
 
 ### Patch Changes

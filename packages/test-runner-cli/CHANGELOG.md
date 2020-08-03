@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.4.27
+
+### Patch Changes
+
+- c6fb524: expose test suite hierarchy, passed tests and duration
+- Updated dependencies [c6fb524]
+  - @web/test-runner-core@0.6.20
+
 ## 0.4.26
 
 ### Patch Changes

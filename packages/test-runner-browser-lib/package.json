@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-browser-lib",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "publishConfig": {
     "access": "public"
   },
@@ -21,9 +21,7 @@
     "build": "rimraf dist && rollup -c rollup.config.js",
     "build:watch": "rimraf dist && rollup -c rollup.config.js --watch"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "test",

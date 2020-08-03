@@ -1,5 +1,13 @@
 # @web/test-runner-mocha
 
+## 0.2.12
+
+### Patch Changes
+
+- c6fb524: expose test suite hierarchy, passed tests and duration
+- Updated dependencies [c6fb524]
+  - @web/test-runner-browser-lib@0.2.11
+
 ## 0.2.11
 
 ### Patch Changes

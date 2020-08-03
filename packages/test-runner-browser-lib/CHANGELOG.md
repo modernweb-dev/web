@@ -1,5 +1,11 @@
 # @web/test-runner-browser-lib
 
+## 0.2.11
+
+### Patch Changes
+
+- c6fb524: expose test suite hierarchy, passed tests and duration
+
 ## 0.2.10
 
 ### Patch Changes
