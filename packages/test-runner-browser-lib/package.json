@@ -18,10 +18,12 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "build": "rimraf dist && rollup -c rollup.config.js",
-    "build:watch": "rimraf dist && rollup -c rollup.config.js --watch"
+    "build": "tsc",
+    "build:production": "rimraf dist && rollup -c rollup.config.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "web",
     "test",

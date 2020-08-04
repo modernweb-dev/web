@@ -5,7 +5,7 @@ import {
   BrowserTestSessionResult,
   TestResult,
   TestSuiteResult,
-} from './types';
+} from './types.js';
 
 // mocking libraries might overwrite window.fetch, by grabbing a reference here
 // we make sure we are using the original fetch instead of the mocked variant

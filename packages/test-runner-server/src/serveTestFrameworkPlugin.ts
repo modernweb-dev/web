@@ -1,35 +1,47 @@
 import fs from 'fs';
-import { resolve } from 'path';
+import path from 'path';
+import { promisify } from 'util';
 import { Plugin } from '@web/dev-server-core';
 import { TestFramework } from '@web/test-runner-core';
 
-export const TEST_FRAMEWORK_PATH = '/__web-test-runner__/test-framework.js';
+const TEST_FRAMEWORK_IMPORT_ROOT = '/__web-test-runner__/test-framework/';
 const REGEXP_SOURCE_MAP = /\/\/# sourceMappingURL=.*/;
 
-function readTestFramework(testFramework: TestFramework) {
-  const codePath = resolve(testFramework.path);
+async function readFile(codePath: string) {
   if (!fs.existsSync(codePath)) {
     throw new Error(`Could not find a test framework at ${codePath}`);
   }
 
-  const code = fs.readFileSync(codePath, 'utf-8').replace(REGEXP_SOURCE_MAP, '');
-  return code;
+  return (await promisify(fs.readFile)(codePath, 'utf-8')).replace(REGEXP_SOURCE_MAP, '');
 }
 
-export function serveTestFrameworkPlugin(testFramework: TestFramework): Plugin {
-  const code = readTestFramework(testFramework);
+/**
+ * Serves test framework without requiring the files to be available within the root dir of the project.
+ */
+export function serveTestFrameworkPlugin(testFramework: TestFramework) {
+  const testFrameworkFilePath = path.resolve(testFramework.path);
+  const testeFrameworkBrowserPath = testFrameworkFilePath.split(path.sep).join('/');
+  const testFrameworkImport = path.posix.join(
+    TEST_FRAMEWORK_IMPORT_ROOT,
+    testeFrameworkBrowserPath,
+  );
 
-  return {
+  const testFrameworkPlugin: Plugin = {
     name: 'wtr-serve-test-framework',
 
-    serve(context) {
-      if (context.path === TEST_FRAMEWORK_PATH) {
-        return {
-          body: code,
-          type: 'js',
-          headers: { 'cache-control': 'public, max-age=31536000' },
-        };
+    async serve(context) {
+      if (context.path.startsWith(TEST_FRAMEWORK_IMPORT_ROOT)) {
+        const importPath = context.path.replace(TEST_FRAMEWORK_IMPORT_ROOT, '');
+        let filePath = importPath.split('/').join(path.sep);
+        // for posix the leading / will be stripped by path.join above
+        if (path.sep === '/') {
+          filePath = `/${filePath}`;
+        }
+        const body = await readFile(filePath);
+        return { body, type: 'js', headers: { 'cache-control': 'public, max-age=31536000' } };
       }
     },
   };
+
+  return { testFrameworkImport, testFrameworkPlugin };
 }

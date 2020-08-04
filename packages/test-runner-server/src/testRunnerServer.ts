@@ -23,6 +23,9 @@ export function testRunnerServer(testRunnerServerConfig: TestRunnerServerConfig 
   return {
     async start({ config, sessions, runner }) {
       const { testFramework, rootDir } = config;
+      const { testFrameworkImport, testFrameworkPlugin } = testFramework
+        ? serveTestFrameworkPlugin(testFramework)
+        : ({} as { testFrameworkImport?: string; testFrameworkPlugin?: Plugin });
 
       const fileWatcher = chokidar.watch([]);
       const serverConfig = deepmerge.all<DevServerCoreConfig>([
@@ -39,8 +42,8 @@ export function testRunnerServer(testRunnerServerConfig: TestRunnerServerConfig 
           ],
 
           plugins: [
-            serveTestRunnerHtmlPlugin(config),
-            testFramework && serveTestFrameworkPlugin(testFramework),
+            serveTestRunnerHtmlPlugin(config, testFrameworkImport),
+            testFrameworkPlugin,
             ...(testRunnerServerConfig.plugins || []),
           ].filter(isDefined) as Plugin[],
         },
