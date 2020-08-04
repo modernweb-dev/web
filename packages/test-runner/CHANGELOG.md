@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.6.57
+
+### Patch Changes
+
+- 1d975e3: improve repository build setup
+- Updated dependencies [1d975e3]
+  - @web/test-runner-mocha@0.2.13
+  - @web/test-runner-server@0.5.14
+
 ## 0.6.56
 
 ### Patch Changes

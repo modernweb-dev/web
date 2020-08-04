@@ -1,5 +1,13 @@
 # @web/test-runner-mocha
 
+## 0.2.13
+
+### Patch Changes
+
+- 1d975e3: improve repository build setup
+- Updated dependencies [1d975e3]
+  - @web/test-runner-browser-lib@0.2.12
+
 ## 0.2.12
 
 ### Patch Changes
