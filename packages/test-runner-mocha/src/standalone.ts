@@ -2,9 +2,9 @@ import {
   sessionStarted,
   sessionFinished as browserLibOnSessionFinished,
   sessionFailed,
-} from '@web/test-runner-browser-lib';
-import 'mocha/mocha.js';
-import { collectTestResults } from './collectTestResults';
+} from '../../test-runner-browser-lib/dist/index.js';
+import '../../../node_modules/mocha/mocha.js';
+import { collectTestResults } from './collectTestResults.js';
 
 const mocha = (window as any).mocha as BrowserMocha;
 

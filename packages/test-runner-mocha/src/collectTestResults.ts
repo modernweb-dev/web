@@ -1,4 +1,9 @@
-import { TestResult, TestSuiteResult, TestResultError } from '@web/test-runner-browser-lib';
+import {
+  TestResult,
+  TestSuiteResult,
+  TestResultError,
+} from '../../test-runner-browser-lib/dist/index.js';
+// type only import, has to be a bare import
 import { Hook } from 'mocha';
 
 export function collectTestResults(mocha: BrowserMocha) {

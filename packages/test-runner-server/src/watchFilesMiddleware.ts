@@ -4,7 +4,6 @@ import { DepGraph } from 'dependency-graph';
 import debounce from 'debounce';
 import path from 'path';
 import { FSWatcher } from 'chokidar';
-import { TEST_FRAMEWORK_PATH } from './serveTestFrameworkPlugin';
 
 const IGNORED_404s = ['favicon.ico'];
 const { PARAM_SESSION_ID } = constants;
@@ -14,6 +13,7 @@ export interface DependencyGraphMiddlewareArgs {
   sessions: TestSessionManager;
   rootDir: string;
   fileWatcher: FSWatcher;
+  testFrameworkImport?: string;
 }
 
 function onRerunSessions(runner: TestRunner, sessions: TestSessionManager, sessionIds?: string[]) {
@@ -56,6 +56,7 @@ export function watchFilesMiddleware({
   fileWatcher,
   sessions,
   runner,
+  testFrameworkImport,
 }: DependencyGraphMiddlewareArgs): Middleware {
   const fileGraph = new DepGraph({ circular: true });
   const urlGraph = new DepGraph({ circular: true });
@@ -130,8 +131,8 @@ export function watchFilesMiddleware({
   fileWatcher.addListener('change', onFileChanged);
   fileWatcher.addListener('unlink', onFileChanged);
 
-  function addDependencyMapping(ctx: Context) {
-    if (ctx.path === TEST_FRAMEWORK_PATH || ctx.path.endsWith('/')) {
+  function addDependencyMapping(ctx: Context, testFrameworkImport?: string) {
+    if ((testFrameworkImport && ctx.path === testFrameworkImport) || ctx.path.endsWith('/')) {
       // the test framework or test runner HTML don't need to be tracked
       // we specifcally don't want to track the test framework, because it
       // requests all test files which would mess up the dependancy graph
@@ -177,7 +178,7 @@ export function watchFilesMiddleware({
   }
 
   return async (ctx, next) => {
-    addDependencyMapping(ctx);
+    addDependencyMapping(ctx, testFrameworkImport);
 
     await next();
 

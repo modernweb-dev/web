@@ -3,8 +3,9 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "concurrently \"yarn tsc\" \"yarn build:browser\"",
-    "build:browser": "rimraf packages/*/dist && concurrently \"yarn workspace @web/test-runner-browser-lib build\" \"yarn workspace @web/test-runner-mocha build\" \"yarn workspace @web/test-runner-helpers build\" -m 1",
+    "build": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build",
+    "build:production": "concurrently \"yarn workspace @web/test-runner-browser-lib build:production\" \"yarn workspace @web/test-runner-mocha build:production\" \"yarn workspace @web/test-runner-helpers build:production\" -m 1",
+    "build:watch": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js . --fix",
     "format:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
@@ -15,16 +16,15 @@
     "reinstall-workspace": "rimraf demo/projects/*/node_modules && rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
     "release": "yarn format && changeset publish",
     "test": "node scripts/workspaces-scripts.mjs test:ci",
-    "tsc": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build packages/tsconfig.project.json",
-    "tsc:watch": "yarn tsc --watch",
     "update-dependency": "node scripts/update-dependency.js",
-    "update:tsconfig": "ts-node scripts/update-package-tsconfig.ts"
+    "update-package-configs": "ts-node scripts/update-package-configs.ts"
   },
   "devDependencies": {
     "@changesets/cli": "^2.9.2",
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-typescript": "^5.0.2",
     "@types/chai": "^4.2.11",
+    "@types/mkdirp": "^1.0.1",
     "@types/mocha": "^7.0.2",
     "@types/sinon": "^9.0.4",
     "@typescript-eslint/eslint-plugin": "^3.7.0",
@@ -35,6 +35,7 @@
     "eslint-config-prettier": "^6.11.0",
     "husky": "^1.0.0",
     "lint-staged": "^8.0.0",
+    "mkdirp": "^1.0.4",
     "mocha": "^7.2.0",
     "prettier": "^2.0.5",
     "prettier-plugin-package": "^1.0.0",

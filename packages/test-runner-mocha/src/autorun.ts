@@ -3,12 +3,10 @@ import {
   getConfig,
   sessionStarted,
   TestResultError,
-} from '@web/test-runner-browser-lib';
-import 'mocha/mocha.js';
-/* eslint-disable-next-line */
-// @ts-ignore
-import styles from 'mocha/mocha.css';
-import { collectTestResults } from './collectTestResults';
+} from '../../test-runner-browser-lib/dist/index.js';
+import '../../../node_modules/mocha/mocha.js';
+import { styles } from './styles.js';
+import { collectTestResults } from './collectTestResults.js';
 
 sessionStarted();
 

@@ -1,6 +1,5 @@
 import { Context } from '@web/dev-server-core';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { TEST_FRAMEWORK_PATH } from './serveTestFrameworkPlugin';
 
 function createTestPage(testFrameworkImport: string) {
   return `<!DOCTYPE html>
@@ -17,12 +16,15 @@ function createTestPage(testFrameworkImport: string) {
 </html>`;
 }
 
-export function serveTestRunnerHtmlPlugin(config: TestRunnerCoreConfig) {
+export function serveTestRunnerHtmlPlugin(
+  config: TestRunnerCoreConfig,
+  testFrameworkImport?: string,
+) {
   return {
     name: 'wtr-test-runner-html',
 
     serve(context: Context) {
-      if (!config.testFramework) {
+      if (!testFrameworkImport) {
         throw new Error('Cannot test javascript files without a testFramework configured.');
       }
 
@@ -30,8 +32,8 @@ export function serveTestRunnerHtmlPlugin(config: TestRunnerCoreConfig) {
         return {
           type: 'html',
           body: config.testRunnerHtml
-            ? config.testRunnerHtml(TEST_FRAMEWORK_PATH, config)
-            : createTestPage(TEST_FRAMEWORK_PATH),
+            ? config.testRunnerHtml(testFrameworkImport, config)
+            : createTestPage(testFrameworkImport),
         };
       }
     },

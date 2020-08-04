@@ -58,13 +58,7 @@ To see how your changes integrate with everything together you can use the `test
 
 ## Adding new packages
 
-### JS
-
-For JS projects, you can just create a new package in the `packages` directory. You can copy the `package.json` from another project to get started.
-
-### TS
-
-For TS projects the configuration files are auto generated. You need to add an entry to the [config generator script](scripts/update-package-tsconfig.ts) to let it generate a config for you. After adding an entry, run `yarn update:tsconfig`.
+For all projects the tsconfig/jsconfig configuration files are auto generated. You need to add an entry to the [./workspace-packages.ts](./workspace-packages.ts) to let it generate a config for you. After adding an entry, run `yarn update-package-configs` to generate the files for you.
 
 ## Create a Changeset
 
