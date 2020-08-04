@@ -1,5 +1,11 @@
 # @web/test-runner-server
 
+## 0.5.14
+
+### Patch Changes
+
+- 1d975e3: improve repository build setup
+
 ## 0.5.13
 
 ### Patch Changes

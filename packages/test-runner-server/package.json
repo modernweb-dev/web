@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-server",
-  "version": "0.5.13",
+  "version": "0.5.14",
   "publishConfig": {
     "access": "public"
   },
@@ -20,9 +20,7 @@
   "scripts": {
     "build": "tsc"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "test",

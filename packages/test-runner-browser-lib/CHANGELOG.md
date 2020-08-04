@@ -1,5 +1,11 @@
 # @web/test-runner-browser-lib
 
+## 0.2.12
+
+### Patch Changes
+
+- 1d975e3: improve repository build setup
+
 ## 0.2.11
 
 ### Patch Changes
