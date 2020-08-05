@@ -72,9 +72,8 @@ packageDirnameMap.forEach((packageDirname, packageName) => {
       rootDir: './src',
       composite: true,
       allowJs: true,
-      checkJs: true,
+      checkJs: pkg.type === 'js' ? true : undefined,
       emitDeclarationOnly: pkg.type === 'js' ? true : undefined,
-      noEmit: pkg.type === 'js' ? true : undefined,
     },
     references: internalDependencies.map(dep => {
       return { path: `../${packageDirnameMap.get(dep)}/tsconfig.json` };

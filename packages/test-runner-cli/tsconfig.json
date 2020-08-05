@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "module": "commonjs",
     "rootDir": "./src",
-    "composite": true
+    "composite": true,
+    "allowJs": true
   },
   "references": [
     {
@@ -19,6 +20,12 @@
       "path": "../test-runner-core/tsconfig.json"
     }
   ],
-  "include": ["src"],
-  "exclude": ["src/browser", "tests", "dist"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "src/browser",
+    "tests",
+    "dist"
+  ]
 }

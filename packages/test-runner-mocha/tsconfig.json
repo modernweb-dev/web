@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "module": "ESNext",
     "rootDir": "./src",
-    "composite": true
+    "composite": true,
+    "allowJs": true
   },
   "references": [
     {
