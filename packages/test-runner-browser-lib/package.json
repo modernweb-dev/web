@@ -21,7 +21,9 @@
     "build": "tsc",
     "build:production": "rimraf dist && rollup -c rollup.config.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "web",
     "test",
