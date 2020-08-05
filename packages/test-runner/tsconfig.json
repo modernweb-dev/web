@@ -17,9 +17,6 @@
       "path": "../test-runner-core/tsconfig.json"
     },
     {
-      "path": "../test-runner-browser-lib/tsconfig.json"
-    },
-    {
       "path": "../browser-logs/tsconfig.json"
     },
     {

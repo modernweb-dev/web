@@ -10,9 +10,6 @@
       "path": "./packages/test-runner-core/tsconfig.json"
     },
     {
-      "path": "./packages/test-runner-browser-lib/tsconfig.json"
-    },
-    {
       "path": "./packages/browser-logs/tsconfig.json"
     },
     {
