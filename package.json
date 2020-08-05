@@ -8,13 +8,13 @@
     "build:watch": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js . --fix",
-    "format:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
+    "format:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --ext .ts,.js .",
-    "lint:prettier": "prettier \"**/*.{ts,js,md}\" \"**/package.json\" --check --ignore-path .eslintignore",
+    "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,md}\" --check --ignore-path .eslintignore",
     "postinstall": "yarn build",
-    "reinstall-workspace": "rimraf demo/projects/*/node_modules && rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
-    "release": "yarn format && changeset publish",
+    "reinstall-workspace": "rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
+    "release": "changeset publish && yarn format",
     "test": "node scripts/workspaces-scripts.mjs test:ci",
     "update-dependency": "node scripts/update-dependency.js",
     "update-package-configs": "ts-node scripts/update-package-configs.ts"
@@ -83,7 +83,6 @@
     "trailingComma": "all"
   },
   "workspaces": [
-    "packages/*",
-    "demo/projects/*"
+    "packages/*"
   ]
 }

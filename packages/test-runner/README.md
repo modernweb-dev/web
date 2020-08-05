@@ -49,13 +49,7 @@ wtr test/**/*.test.js --node-resolve --coverage
 
 ## Example projects
 
-Check out these example projects for a full setup.
-
-- [lit-element](https://github.com/modernweb-dev/web/tree/master/demo/projects/lit-element)
-- [lit-element typescript](https://github.com/modernweb-dev/web/tree/master/demo/projects/lit-element-ts)
-- [preact htm](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-htm)
-- [preact jsx](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-jsx)
-- [preact tsx](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-tsx)
+Check out these [example projects](https://github.com/modernweb-dev/example-projects) for a full setup.
 
 ## Writing tests
 
