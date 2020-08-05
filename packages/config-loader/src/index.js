@@ -1,9 +1,15 @@
 const path = require('path');
-const { fileExists } = require('./src/utils');
-const ConfigLoaderError = require('./src/ConfigLoaderError.js');
-const importOrRequireConfig = require('./src/importOrRequireConfig');
+const { fileExists } = require('./utils');
+const ConfigLoaderError = require('./ConfigLoaderError.js');
+const importOrRequireConfig = require('./importOrRequireConfig');
+
 const EXTENSIONS = ['.mjs', '.cjs', '.js'];
 
+/**
+ * @param {string} name
+ * @param {string} [customPath]
+ * @param {string} [basedir]
+ */
 async function readConfig(name, customPath, basedir = process.cwd()) {
   const resolvedCustomPath = customPath ? path.resolve(basedir, customPath) : undefined;
   if (resolvedCustomPath && !(await fileExists(resolvedCustomPath))) {

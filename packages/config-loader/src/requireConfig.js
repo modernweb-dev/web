@@ -7,7 +7,10 @@ const ESM_ERRORS = [
   'SyntaxError: Cannot use import statement outside a module',
 ];
 
-module.exports = function requireConfig(path) {
+/**
+ * @param {string} path
+ */
+function requireConfig(path) {
   try {
     return require(path);
   } catch (e) {
@@ -20,4 +23,6 @@ module.exports = function requireConfig(path) {
     }
     throw e;
   }
-};
+}
+
+module.exports = requireConfig;

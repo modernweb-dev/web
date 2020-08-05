@@ -5,6 +5,7 @@ interface PackageConfiguration {
 }
 
 const packages: PackageConfiguration[] = [
+  { name: 'config-loader', type: 'js', environment: 'node' },
   { name: 'browser-logs', type: 'ts', environment: 'node' },
   { name: 'dev-server-core', type: 'ts', environment: 'node' },
   { name: 'dev-server-esbuild', type: 'ts', environment: 'node' },

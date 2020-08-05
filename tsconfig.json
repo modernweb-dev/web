@@ -25,6 +25,9 @@
       "path": "./packages/test-runner-server/tsconfig.json"
     },
     {
+      "path": "./packages/config-loader/tsconfig.json"
+    },
+    {
       "path": "./packages/dev-server-rollup/tsconfig.json"
     },
     {

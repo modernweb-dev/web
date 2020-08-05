@@ -1,5 +1,5 @@
 const semver = require('semver');
-const { pathToFileURL} = require('url')
+const { pathToFileURL } = require('url');
 const ConfigLoaderError = require('./ConfigLoaderError');
 
 const supportsEsm = semver.satisfies(process.version, '>=12.17.0');
@@ -12,7 +12,10 @@ const CJS_ERRORS = [
   'ReferenceError: exports is not defined',
 ];
 
-module.exports = async function importConfig(path) {
+/**
+ * @param {string} path
+ */
+async function importConfig(path) {
   if (!supportsEsm) {
     throw new ConfigLoaderError(
       'You are trying to load a config as es module but your version of node does not support it. ' +
@@ -22,7 +25,7 @@ module.exports = async function importConfig(path) {
   }
 
   try {
-    const config = await import(pathToFileURL(path));
+    const config = await import(pathToFileURL(path).href);
 
     if (typeof config.default !== 'object') {
       throw new ConfigLoaderError(
@@ -41,4 +44,6 @@ module.exports = async function importConfig(path) {
     }
     throw e;
   }
-};
+}
+
+module.exports = importConfig;

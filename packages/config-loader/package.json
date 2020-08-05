@@ -13,13 +13,13 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/config-loader",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "engines": {
     "node": ">=10.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.js --require ts-node/register --reporter progress",
+    "test": "mocha test/**/*.test.js --reporter progress",
     "test:ci": "yarn test",
     "test:watch": "mocha test/**/*.test.js --watch --watch-files .,src,test --reporter progress"
   },
@@ -38,5 +38,6 @@
   ],
   "dependencies": {
     "semver": "^7.3.2"
-  }
+  },
+  "types": "dist/index.d.ts"
 }
