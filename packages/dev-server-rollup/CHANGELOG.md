@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.1.8
+
+### Patch Changes
+
+- c7c7cc9: fix(dev-server-rollup): add missing parse5 dependency
+
 ## 0.1.7
 
 ### Patch Changes
