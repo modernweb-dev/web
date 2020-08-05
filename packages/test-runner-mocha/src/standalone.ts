@@ -2,7 +2,7 @@ import {
   sessionStarted,
   sessionFinished as browserLibOnSessionFinished,
   sessionFailed,
-} from '../../test-runner-browser-lib/dist/index.js';
+} from '../../test-runner-core/browser/session.js';
 import '../../../node_modules/mocha/mocha.js';
 import { collectTestResults } from './collectTestResults.js';
 

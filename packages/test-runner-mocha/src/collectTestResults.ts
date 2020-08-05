@@ -2,7 +2,7 @@ import {
   TestResult,
   TestSuiteResult,
   TestResultError,
-} from '../../test-runner-browser-lib/dist/index.js';
+} from '../../test-runner-core/browser/session.js';
 // type only import, has to be a bare import
 import { Hook } from 'mocha';
 

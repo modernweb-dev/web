@@ -9,11 +9,7 @@
     "composite": true,
     "allowJs": true
   },
-  "references": [
-    {
-      "path": "../test-runner-browser-lib/tsconfig.json"
-    }
-  ],
+  "references": [],
   "include": [
     "src"
   ],

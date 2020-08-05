@@ -1,7 +1,7 @@
 interface PackageConfiguration {
   name: string;
   type: 'ts' | 'js';
-  environment: 'node' | 'browser' | 'mixed';
+  environment: 'node' | 'browser';
 }
 
 const packages: PackageConfiguration[] = [
@@ -21,7 +21,6 @@ const packages: PackageConfiguration[] = [
   { name: 'test-runner-selenium', type: 'ts', environment: 'node' },
   { name: 'test-runner-browserstack', type: 'ts', environment: 'node' },
   { name: 'test-runner-coverage-v8', type: 'ts', environment: 'node' },
-  { name: 'test-runner-browser-lib', type: 'ts', environment: 'browser' },
   { name: 'test-runner-helpers', type: 'ts', environment: 'browser' },
   { name: 'test-runner-mocha', type: 'ts', environment: 'browser' },
 ];
