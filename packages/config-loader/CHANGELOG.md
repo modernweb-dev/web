@@ -1,5 +1,11 @@
 # @web/config-loader
 
+## 0.0.4
+
+### Patch Changes
+
+- 4112c2b: feat(config-loader): add jsdoc type checking
+
 ## 0.0.3
 
 ### Patch Changes

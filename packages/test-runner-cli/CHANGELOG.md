@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.4.28
+
+### Patch Changes
+
+- 4112c2b: feat(config-loader): add jsdoc type checking
+- Updated dependencies [4112c2b]
+  - @web/config-loader@0.0.4
+
 ## 0.4.27
 
 ### Patch Changes
