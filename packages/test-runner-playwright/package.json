@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-playwright",
-  "version": "0.4.17",
+  "version": "0.4.18",
   "publishConfig": {
     "access": "public"
   },
@@ -23,9 +23,7 @@
     "test:ci": "yarn test",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "test",
@@ -37,12 +35,12 @@
   ],
   "dependencies": {
     "@web/browser-logs": "^0.0.1",
-    "@web/test-runner-core": "^0.6.19",
+    "@web/test-runner-core": "^0.6.21",
     "@web/test-runner-coverage-v8": "^0.0.4",
     "playwright": "^1.2.1"
   },
   "devDependencies": {
-    "@web/test-runner-mocha": "^0.2.9",
+    "@web/test-runner-mocha": "^0.2.14",
     "@web/test-runner-server": "^0.5.13",
     "portfinder": "^1.0.26"
   }

@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.5.18
+
+### Patch Changes
+
+- cbdf3c7: chore: merge browser lib into test-runner-core
+
 ## 0.5.17
 
 ### Patch Changes
