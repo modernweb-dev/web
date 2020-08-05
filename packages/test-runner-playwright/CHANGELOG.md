@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.4.18
+
+### Patch Changes
+
+- cbdf3c7: chore: merge browser lib into test-runner-core
+- Updated dependencies [cbdf3c7]
+  - @web/test-runner-core@0.6.21
+
 ## 0.4.17
 
 ### Patch Changes

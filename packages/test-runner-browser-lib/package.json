@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-browser-lib",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "publishConfig": {
     "access": "public"
   },
@@ -18,9 +18,7 @@
     "node": ">=10.0.0"
   },
   "scripts": {},
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "test",

@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.6.60
+
+### Patch Changes
+
+- cbdf3c7: chore: merge browser lib into test-runner-core
+- Updated dependencies [cbdf3c7]
+  - @web/test-runner-chrome@0.5.18
+  - @web/test-runner-core@0.6.21
+  - @web/test-runner-mocha@0.2.14
+
 ## 0.6.59
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @web/test-runner-puppeteer
 
+## 0.5.9
+
+### Patch Changes
+
+- cbdf3c7: chore: merge browser lib into test-runner-core
+- Updated dependencies [cbdf3c7]
+  - @web/test-runner-chrome@0.5.18
+  - @web/test-runner-core@0.6.21
+
 ## 0.5.8
 
 ### Patch Changes
