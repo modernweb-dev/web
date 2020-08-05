@@ -25,7 +25,9 @@
     "test:node": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --reporter progress",
     "test:node:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter progress"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "web",
     "dev",

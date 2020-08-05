@@ -1,7 +1,7 @@
 const path = require('path');
 const { expect } = require('chai');
 const semver = require('semver');
-const { readConfig } = require('../index');
+const { readConfig } = require('../src/index');
 
 // some tests are specific for node < v12.17.0
 const supportsEsm = semver.satisfies(process.version, '>=12.17.0');

@@ -61,7 +61,7 @@ function resolveInternalDependencies(dependencies: string[]): string[] {
 packageDirnameMap.forEach((packageDirname, packageName) => {
   const pkg = packages.find(pkg => pkg.name === packageDirname)!;
   const pkgDir = path.join(packagesRoot, packageDirname);
-  const tsconfigPath = path.join(pkgDir, pkg.type === 'ts' ? 'tsconfig.json' : 'jsconfig.json');
+  const tsconfigPath = path.join(pkgDir, 'tsconfig.json');
 
   const internalDependencies = resolveInternalDependencies(internalDependencyMap.get(packageName)!);
   const tsconfigData = {
@@ -71,6 +71,10 @@ packageDirnameMap.forEach((packageDirname, packageName) => {
       module: pkg.environment === 'browser' ? 'ESNext' : 'commonjs',
       rootDir: './src',
       composite: true,
+      allowJs: true,
+      checkJs: true,
+      emitDeclarationOnly: pkg.type === 'js' ? true : undefined,
+      noEmit: pkg.type === 'js' ? true : undefined,
     },
     references: internalDependencies.map(dep => {
       return { path: `../${packageDirnameMap.get(dep)}/tsconfig.json` };

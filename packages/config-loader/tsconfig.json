@@ -6,19 +6,12 @@
     "outDir": "./dist",
     "module": "commonjs",
     "rootDir": "./src",
-    "composite": true
+    "composite": true,
+    "allowJs": true,
+    "emitDeclarationOnly": true,
+    "checkJs": true
   },
-  "references": [
-    {
-      "path": "../browser-logs/tsconfig.json"
-    },
-    {
-      "path": "../config-loader/tsconfig.json"
-    },
-    {
-      "path": "../test-runner-core/tsconfig.json"
-    }
-  ],
+  "references": [],
   "include": ["src"],
   "exclude": ["src/browser", "tests", "dist"]
 }

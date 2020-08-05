@@ -8,7 +8,7 @@ const { fileExists } = require('./utils');
  * @param {string} basedir
  * @returns {Promise<string>}
  */
-module.exports = async function getPackageType(basedir) {
+async function getPackageType(basedir) {
   let currentPath = basedir;
   try {
     while (await fileExists(currentPath)) {
@@ -26,4 +26,6 @@ module.exports = async function getPackageType(basedir) {
     // don't log any error
   }
   return 'commonjs';
-};
+}
+
+module.exports = getPackageType;
