@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-rollup",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "publishConfig": {
     "access": "public"
   },
@@ -25,9 +25,7 @@
     "test:node": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --reporter progress",
     "test:node:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter progress"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "dev",

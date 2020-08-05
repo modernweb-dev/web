@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.6.58
+
+### Patch Changes
+
+- c7c7cc9: fix(dev-server-rollup): add missing parse5 dependency
+- Updated dependencies [c7c7cc9]
+  - @web/dev-server-rollup@0.1.8
+
 ## 0.6.57
 
 ### Patch Changes
