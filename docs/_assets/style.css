@@ -1,0 +1,25 @@
+body[layout='home'] .markdown-body .call-to-action:nth-of-type(2) {
+  --primary-color: #222;
+  --primary-color-lighter: #333;
+  --primary-color-darker: #000;
+}
+
+rocket-navigation a {
+  font-family: 'Quicksand', sans-serif;
+}
+
+header a {
+  font-family: 'Quicksand', sans-serif;
+}
+
+@media screen and (min-width: 1024px) {
+  body[layout='home'].has-background .page-background {
+    top: -52px;
+    right: -360px;
+  }
+}
+
+/* TODO: should be in rocket? */
+#sidebar-nav .logo-link {
+  text-decoration: none;
+}

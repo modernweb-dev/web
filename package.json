@@ -5,6 +5,7 @@
   "scripts": {
     "build": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build",
     "build:production": "node scripts/workspaces-scripts.mjs build:production",
+    "build:site": "rocket-build",
     "build:watch": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js . --fix",
@@ -12,12 +13,18 @@
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --ext .ts,.js .",
     "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,md}\" --check --ignore-path .eslintignore",
-    "postinstall": "yarn build",
+    "postinstall": "yarn build && patch-package",
     "reinstall-workspace": "rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
     "release": "changeset publish && yarn format",
+    "start": "rocket-start",
     "test": "node scripts/workspaces-scripts.mjs test:ci",
     "update-dependency": "node scripts/update-dependency.js",
     "update-package-configs": "ts-node scripts/update-package-configs.ts"
+  },
+  "dependencies": {
+    "@d4kmor/cli": "^0.1.12",
+    "@d4kmor/launch": "^0.1.14",
+    "patch-package": "^6.2.2"
   },
   "devDependencies": {
     "@changesets/cli": "^2.9.2",

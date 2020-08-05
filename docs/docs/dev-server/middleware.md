@@ -1,4 +1,10 @@
-# Middleware
+---
+title: Dev Server Middleware
+eleventyNavigation:
+  key: Middleware
+  parent: Dev Server
+  order: 10
+---
 
 You can add your own middleware to the dev server using the `middleware` property. The middleware should be a standard koa middleware. [Read more about koa here.](https://koajs.com/)
 
