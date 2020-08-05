@@ -20,7 +20,9 @@
   "scripts": {
     "build": "tsc"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "web",
     "test",
