@@ -63,8 +63,6 @@ When you point the test runner to a JS file, it will hand the file to the config
 
 When you point the test runner at an HTML file you can take full control over the test environment. There is no automatic bootstrapping of a test framework, you need to make sure things are set up and results are communicated back to the test runner. [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha) can be used as a library for HTML tests, taking care of most of the heavy lifting.
 
-You can also use the low level [@web/test-runner-browser-lib](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browser-lib) for full control.
-
 ## Browsers
 
 By default, tests are run with the locally installed instance of Chrome, controlled via `puppeteer-core`.
