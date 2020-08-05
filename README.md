@@ -34,6 +34,7 @@ Plugins for transforming code in the dev server and test runner.
 
 - [@web/dev-server-rollup](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-rollup)
 - [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild)
+- [@web/dev-server-legacy](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-legacy)
 
 ### Browser launchers
 
