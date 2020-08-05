@@ -1,0 +1,29 @@
+{
+  "name": "Modern Web",
+  "short_name": "@web",
+  "theme_color": "#e63946",
+  "background_color": "#1d3557",
+  "display": "standalone",
+  "orientation": "portrait",
+  "Scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "./_assets/icons/android-chrome-192x192.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "./_assets/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "./_assets/icons/maskable-icon.jpg",
+      "sizes": "1024x1024",
+      "type": "image/jpg",
+      "purpose": "any maskable"
+    }
+  ],
+  "splash_pages": null
+}

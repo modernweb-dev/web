@@ -1,0 +1,11 @@
+html {
+  --primary-color: #3f93ce;
+  --primary-color-lighter: #449ad7;
+  --primary-color-darker: #1a5285;
+  --primary-color-accent: #cee5f6;
+
+  --contract-color-light: #fff;
+  --contract-color-dark: #1d3557;
+
+  --primary-text-color: #2c3e50;
+}

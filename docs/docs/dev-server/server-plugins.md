@@ -1,4 +1,10 @@
-# Server Plugins
+---
+title: Dev Server Plugins
+eleventyNavigation:
+  key: Plugins
+  parent: Dev Server
+  order: 10
+---
 
 Plugins are objects with lifecycle hooks called by the dev server as it serves files to the browser. They can be used to serve virtual files, transform files, or resolve module imports.
 

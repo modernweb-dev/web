@@ -1,4 +1,10 @@
-# Es modules
+---
+title: ECMAScript Modules
+eleventyNavigation:
+  key: ES Modules
+  parent: Standards-Based
+  order: 50
+---
 
 All modern browsers support standard es modules, using `import` and `export` statements:
 

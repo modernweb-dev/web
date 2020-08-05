@@ -6,14 +6,10 @@
 .DS_Store
 
 ## code coverage folders
-/packages/*/coverage
-/demo/projects/*/coverage
-/coverage/
+coverage/
 
 ## npm
-/node_modules/
-/packages/*/node_modules/
-/demo/projects/*/node_modules/
+node_modules/
 npm-debug.log
 yarn-error.log
 
@@ -28,5 +24,7 @@ packages/*/yarn.lock
 ## build output
 dist
 tsconfig.tsbuildinfo
+_site
+stats.html
 
 local.log

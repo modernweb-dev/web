@@ -1,4 +1,10 @@
-# Code transformations
+---
+title: Code transformations
+eleventyNavigation:
+  key: Code Transformations
+  parent: Dev Server
+  order: 100
+---
 
 In `@web/dev-server` and `@web/test-runner` you can add plugins to transform code. On this page, we will look at some common patterns.
 
