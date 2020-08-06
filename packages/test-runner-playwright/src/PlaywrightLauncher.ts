@@ -20,6 +20,7 @@ export type CreatePageFunction = (args: {
 
 export class PlaywrightLauncher implements BrowserLauncher {
   public name: string;
+  public type = 'playwright';
   private config?: TestRunnerCoreConfig;
   private testFiles?: string[];
   private browser?: Browser;
@@ -110,6 +111,18 @@ export class PlaywrightLauncher implements BrowserLauncher {
     } else {
       throw new Error(`No page for session ${sessionId}`);
     }
+  }
+
+  getPage(sessionId: string) {
+    const page =
+      this.activePages.get(sessionId)?.playwrightPage ??
+      this.activeDebugPages.get(sessionId)?.playwrightPage;
+
+    if (!page) {
+      throw new Error(`Could not find a page for session ${sessionId}`);
+    }
+
+    return page;
   }
 
   setViewport(sessionId: string, viewport: Viewport) {

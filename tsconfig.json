@@ -25,13 +25,19 @@
       "path": "./packages/config-loader/tsconfig.json"
     },
     {
-      "path": "./packages/dev-server-rollup/tsconfig.json"
-    },
-    {
       "path": "./packages/test-runner-chrome/tsconfig.json"
     },
     {
+      "path": "./packages/test-runner-playwright/tsconfig.json"
+    },
+    {
+      "path": "./packages/dev-server-rollup/tsconfig.json"
+    },
+    {
       "path": "./packages/test-runner-cli/tsconfig.json"
+    },
+    {
+      "path": "./packages/test-runner-commands/tsconfig.json"
     },
     {
       "path": "./packages/dev-server-legacy/tsconfig.json"
@@ -52,13 +58,7 @@
       "path": "./packages/test-runner-puppeteer/tsconfig.json"
     },
     {
-      "path": "./packages/test-runner-playwright/tsconfig.json"
-    },
-    {
       "path": "./packages/test-runner-browserstack/tsconfig.json"
-    },
-    {
-      "path": "./packages/test-runner-commands/tsconfig.json"
     }
   ]
 }

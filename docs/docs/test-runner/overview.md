@@ -238,9 +238,9 @@ module.exports = {
 
 </details>
 
-## Viewport
+## Viewport, Media and User Agent
 
-You can change the viewport during tests using the [@web/test-runner-helpers](./helpers.md) library.
+You can change the browser viewport, media type and user agent during tests using the [@web/test-runner-commands](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-commands) library.
 
 ## Authoring es modules
 

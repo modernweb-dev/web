@@ -61,6 +61,12 @@
       "eslint-config-prettier",
       "plugin:@typescript-eslint/recommended"
     ],
+    "env": {
+      "browser": true,
+      "node": true,
+      "mocha": true,
+      "es2020": true
+    },
     "rules": {
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/explicit-module-boundary-types": "off",

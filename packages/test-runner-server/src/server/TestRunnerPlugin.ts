@@ -1,7 +1,7 @@
 import { Plugin } from '@web/dev-server-core';
 import { BasicTestSession } from '@web/test-runner-core';
 
-export type ExecuteCommandResult = void | boolean | Promise<void> | Promise<boolean>;
+export type ExecuteCommandResult = void | unknown | Promise<void> | Promise<unknown>;
 
 export interface ExecuteCommandArgs {
   command: string;

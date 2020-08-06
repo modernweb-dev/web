@@ -25,6 +25,7 @@ export type CreatePageFunction = (args: {
 
 export class ChromeLauncher implements BrowserLauncher {
   public name: string;
+  public type = 'puppeteer';
   private config?: TestRunnerCoreConfig;
   private testFiles?: string[];
   private browser?: Browser;
@@ -153,6 +154,18 @@ export class ChromeLauncher implements BrowserLauncher {
     } else {
       throw new Error(`No page for session ${sessionId}`);
     }
+  }
+
+  getPage(sessionId: string) {
+    const page =
+      this.activePages.get(sessionId)?.puppeteerPage ??
+      this.activeDebugPages.get(sessionId)?.puppeteerPage;
+
+    if (!page) {
+      throw new Error(`Could not find a page for session ${sessionId}`);
+    }
+
+    return page;
   }
 
   setViewport(sessionId: string, viewport: Viewport) {

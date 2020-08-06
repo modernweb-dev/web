@@ -74,14 +74,22 @@ export function testRunnerApiMiddleware(
         if (restParameters.length === 0) {
           throw new Error('A command name must be provided.');
         }
+
         if (restParameters.length === 1) {
           const [command] = restParameters;
-          const payload = (await parse.json(ctx)) as unknown;
+          const { payload } = (await parse.json(ctx)) as { payload: unknown };
           for (const plugin of plugins) {
-            const result = plugin.executeCommand?.({ command, payload, session });
+            try {
+              const result = await plugin.executeCommand?.({ command, payload, session });
 
-            if (result) {
-              ctx.status = 200;
+              if (result != null) {
+                ctx.status = 200;
+                ctx.body = JSON.stringify(result);
+                return;
+              }
+            } catch (error) {
+              config.logger.error(error);
+              ctx.status = 500;
               return;
             }
           }

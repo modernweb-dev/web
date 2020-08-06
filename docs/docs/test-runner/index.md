@@ -51,8 +51,6 @@ Test frameworks run the actual tests in the browser. Web test runner relies on e
 
 - [@web/test-runner-mocha](./mocha.md)
 
-[Read more here](./browser-lib.md) to learn more about using the browser library without a testing framework, or to implement your own testing framework.
-
 ## Servers
 
 The server serves the test code and files and communicates with the browser, returning configuration and receiving test results. Implementations:
