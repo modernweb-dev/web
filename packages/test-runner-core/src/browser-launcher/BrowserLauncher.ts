@@ -17,6 +17,10 @@ export interface BrowserLauncher {
    */
   name: string;
   /**
+   * A unique identifier for the type of browser launcher.
+   */
+  type: string;
+  /**
    * One time startup for the browser launcher. Called when the test runner
    * starts.
    * @param config The test runner config.

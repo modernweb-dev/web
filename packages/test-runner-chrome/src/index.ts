@@ -9,6 +9,8 @@ export interface ChromeLauncherArgs {
   createPage?: (args: { config: TestRunnerCoreConfig; browser: Browser }) => Promise<Page>;
 }
 
+export { ChromeLauncher };
+
 export function chromeLauncher(args: ChromeLauncherArgs = {}) {
   return new ChromeLauncher(args.launchOptions ?? {}, args.puppeteer, args.createPage);
 }

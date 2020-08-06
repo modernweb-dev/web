@@ -7,6 +7,7 @@ export interface SeleniumLauncherArgs {
 
 export class SeleniumLauncher implements BrowserLauncher {
   public name = 'Initializing...';
+  public type = 'selenium';
   private sessionsQueue: { sessionId: string; url: string }[] = [];
   private driver: undefined | WebDriver;
   private debugDriver: undefined | WebDriver = undefined;

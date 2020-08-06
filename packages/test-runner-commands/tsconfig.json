@@ -9,7 +9,32 @@
     "composite": true,
     "allowJs": true
   },
-  "references": [],
+  "references": [
+    {
+      "path": "../test-runner-core/tsconfig.json"
+    },
+    {
+      "path": "../dev-server-core/tsconfig.json"
+    },
+    {
+      "path": "../browser-logs/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-coverage-v8/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-mocha/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-server/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-chrome/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-playwright/tsconfig.json"
+    }
+  ],
   "include": [
     "src"
   ],

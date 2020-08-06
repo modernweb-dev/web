@@ -12,6 +12,8 @@ export interface PlaywrightLauncherArgs {
   createPage?: (args: { config: TestRunnerCoreConfig; browser: Browser }) => Promise<Page>;
 }
 
+export { PlaywrightLauncher };
+
 export function playwrightLauncher(args: PlaywrightLauncherArgs = {}) {
   const product = args.product ?? 'chromium';
   if (!validProductTypes.includes(product)) {

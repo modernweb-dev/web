@@ -13,15 +13,15 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-commands",
-  "main": "dist/index.js",
+  "main": "browser/commands.js",
   "engines": {
     "node": ">=10.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter progress",
+    "test": "mocha test/**/*.test.ts --require ts-node/register",
     "test:ci": "yarn test",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "browser",
@@ -35,7 +35,12 @@
     "commands"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.6.21",
-    "@web/test-runner-server": "^0.5.14"
+    "@web/test-runner-core": "^0.6.21"
+  },
+  "devDependencies": {
+    "@web/test-runner-chrome": "^0.5.18",
+    "@web/test-runner-playwright": "^0.4.18",
+    "@web/test-runner-server": "^0.5.14",
+    "mocha": "^8.1.1"
   }
 }

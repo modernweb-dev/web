@@ -27,6 +27,7 @@ async function createTestRunner(
 
   const browser = {
     name: 'myBrowser',
+    type: 'myBrowser',
     start: stub().returns(Promise.resolve()),
     stop: stub().returns(Promise.resolve()),
     startDebugSession: stub().returns(Promise.resolve()),

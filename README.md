@@ -52,6 +52,12 @@ Frameworks to run tests in the browser.
 
 - [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha)
 
+### Testing helpers
+
+Helper libraries for writing tests.
+
+- [@web/test-runner-commands](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-commands)
+
 ### Other packages
 
 Other packages implementing the low level parts. You will likely not use these directly, unless you're implementing your own tooling.

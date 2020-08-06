@@ -9,6 +9,11 @@ import {
 } from '@web/test-runner-cli';
 import { testRunnerServer, TestRunnerServerConfig } from '@web/test-runner-server';
 import { chromeLauncher } from '@web/test-runner-chrome';
+import {
+  setViewportPlugin,
+  emulateMediaPlugin,
+  setUserAgentPlugin,
+} from '@web/test-runner-commands/dist';
 import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
 import commandLineArgs from 'command-line-args';
 import chalk from 'chalk';
@@ -112,6 +117,7 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
         );
       }
 
+      serverConfig.plugins!.push(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
       config.server = testRunnerServer(serverConfig);
     } else {
       if (config.nodeResolve) {

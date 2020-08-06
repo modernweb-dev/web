@@ -10,20 +10,37 @@ if (typeof sessionId !== 'string') {
   throw new Error(`Could not find any session id query parameter.`);
 }
 
-export function executeServerCommand(command, payload) {
-  return fetch(`/wtr/${sessionId}/command/${encodeURIComponent(command)}`, {
+export async function executeServerCommand(command, payload) {
+  const body = JSON.stringify({ payload });
+  const response = await fetch(`/wtr/${sessionId}/command/${encodeURIComponent(command)}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: payload != null ? JSON.stringify(payload) : {},
+    body,
+  }).catch(() => {
+    // swallow error, it is handled below
   });
+
+  if (response.status === 404) {
+    throw new Error(`Unknown command ${command}. Did you install a plugin to handle this command?`);
+  }
+
+  if (response.status !== 200) {
+    throw new Error(
+      `Error while executing command ${command}${payload ? ` with payload ${body}` : ''}`,
+    );
+  }
+
+  return response.json();
 }
 
 export function setViewport(viewport) {
-  if (!viewport) throw new Error('You must provide a viewport');
-  if (typeof viewport !== 'object') throw new Error('Viewport must be an object');
-  if (viewport.height == null) throw new Error('You must provide a viewport width');
-  if (viewport.width == null) throw new Error('You must provide a viewport width');
-  if (typeof viewport.height !== 'number') throw new Error('Viewport height must be a number');
-  if (typeof viewport.height !== 'number') throw new Error('Viewport width must be a number');
   return executeServerCommand('set-viewport', viewport);
+}
+
+export function emulateMedia(media) {
+  return executeServerCommand('emulate-media', media);
+}
+
+export function setUserAgent(options) {
+  return executeServerCommand('set-user-agent', options);
 }
