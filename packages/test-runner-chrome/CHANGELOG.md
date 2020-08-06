@@ -1,5 +1,12 @@
 # @web/test-runner-chrome
 
+## 0.5.19
+
+### Patch Changes
+
+- 02a3926: expose browser name from BrowserLauncher
+- 74cc129: implement commands API
+
 ## 0.5.18
 
 ### Patch Changes

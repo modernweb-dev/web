@@ -1,5 +1,12 @@
 # @web/test-runner-core
 
+## 0.6.22
+
+### Patch Changes
+
+- 02a3926: expose browser name from BrowserLauncher
+- 74cc129: implement commands API
+
 ## 0.6.21
 
 ### Patch Changes

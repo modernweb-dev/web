@@ -1,5 +1,12 @@
 # @web/test-runner-selenium
 
+## 0.1.7
+
+### Patch Changes
+
+- 02a3926: expose browser name from BrowserLauncher
+- 74cc129: implement commands API
+
 ## 0.1.6
 
 ### Patch Changes

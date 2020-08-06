@@ -1,5 +1,14 @@
 # @web/test-runner-browserstack
 
+## 0.0.11
+
+### Patch Changes
+
+- 02a3926: expose browser name from BrowserLauncher
+- Updated dependencies [02a3926]
+- Updated dependencies [74cc129]
+  - @web/test-runner-selenium@0.1.7
+
 ## 0.0.10
 
 ### Patch Changes

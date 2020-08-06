@@ -1,5 +1,15 @@
 # @web/test-runner-playwright
 
+## 0.4.19
+
+### Patch Changes
+
+- 02a3926: expose browser name from BrowserLauncher
+- 74cc129: implement commands API
+- Updated dependencies [02a3926]
+- Updated dependencies [74cc129]
+  - @web/test-runner-core@0.6.22
+
 ## 0.4.18
 
 ### Patch Changes

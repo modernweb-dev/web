@@ -1,5 +1,14 @@
 # @web/test-runner-cli
 
+## 0.4.29
+
+### Patch Changes
+
+- 02a3926: expose browser name from BrowserLauncher
+- Updated dependencies [02a3926]
+- Updated dependencies [74cc129]
+  - @web/test-runner-core@0.6.22
+
 ## 0.4.28
 
 ### Patch Changes

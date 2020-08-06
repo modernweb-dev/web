@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-chrome",
-  "version": "0.5.18",
+  "version": "0.5.19",
   "publishConfig": {
     "access": "public"
   },
@@ -23,9 +23,7 @@
     "test:ci": "yarn test",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "test",
@@ -43,8 +41,8 @@
     "puppeteer-core": "^5.0.0"
   },
   "devDependencies": {
-    "@web/test-runner-mocha": "^0.2.14",
-    "@web/test-runner-server": "^0.5.13",
+    "@web/test-runner-mocha": "^0.2.15",
+    "@web/test-runner-server": "^0.5.15",
     "portfinder": "^1.0.26"
   }
 }
