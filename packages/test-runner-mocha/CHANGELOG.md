@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.2.15
+
+### Patch Changes
+
+- 74cc129: implement commands API
+
 ## 0.2.14
 
 ### Patch Changes

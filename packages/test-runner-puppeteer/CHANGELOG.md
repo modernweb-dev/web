@@ -1,5 +1,16 @@
 # @web/test-runner-puppeteer
 
+## 0.5.10
+
+### Patch Changes
+
+- 02a3926: expose browser name from BrowserLauncher
+- 74cc129: implement commands API
+- Updated dependencies [02a3926]
+- Updated dependencies [74cc129]
+  - @web/test-runner-chrome@0.5.19
+  - @web/test-runner-core@0.6.22
+
 ## 0.5.9
 
 ### Patch Changes

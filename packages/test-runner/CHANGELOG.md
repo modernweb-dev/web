@@ -1,5 +1,19 @@
 # @web/test-runner
 
+## 0.6.61
+
+### Patch Changes
+
+- 74cc129: implement commands API
+- Updated dependencies [02a3926]
+- Updated dependencies [74cc129]
+  - @web/test-runner-chrome@0.5.19
+  - @web/test-runner-cli@0.4.29
+  - @web/test-runner-core@0.6.22
+  - @web/test-runner-server@0.5.15
+  - @web/test-runner-commands@0.0.1
+  - @web/test-runner-mocha@0.2.15
+
 ## 0.6.60
 
 ### Patch Changes
