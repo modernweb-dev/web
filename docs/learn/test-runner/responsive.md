@@ -139,6 +139,6 @@ describe('desktop', () => {
 
 ## Learn more
 
-All the code is available on [github](https://github.com/modernweb-dev/web/tree/master/demo/learn/test-runner-responsive).
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/learn/test-runner-responsive).
 
 See the [documentation of @web/test-runner](../../docs/test-runner/overview.md).

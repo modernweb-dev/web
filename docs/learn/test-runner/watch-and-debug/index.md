@@ -315,6 +315,6 @@ Finished running tests in 1s, all tests passed! 🎉
 
 ## Learn more
 
-All the code is available on [github](https://github.com/modernweb-dev/web/tree/master/demo/learn/watch-and-debug).
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/learn/test-runner-watch-and-debug).
 
 See the [documentation of @web/test-runner](../../docs/test-runner/overview.md).
