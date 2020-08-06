@@ -255,7 +255,107 @@ If you wanna know more like for example how to test css media queries see the [r
 
 ## Using Code Coverage
 
-...
+Once you have a decent set of tests you may want to look into what could still be improved.
+Code coverage can help to find which code segments have not yet been tested.
+Generally it's advised to have a code coverage at above 80% which you will most likely have if you practice Test Driven Development (TDD).
+
+## Getting the test coverage
+
+Coverage is part of the default feature set that comes with any launcher that works with chromium.
+
+The reason for that is that the chromium browser itself calculates the coverage for us.
+
+1. Add a script to your `package.json`
+   ```json
+   {
+     "scripts": {
+       "test": "web-test-runner \"test/**/*.test.js\" --node-resolve --coverage"
+     }
+   }
+   ```
+
+But before we can gather coverage we need to have some source code and tests.
+
+As good citizens we start with the tests first
+
+👉 `test/calc.test.js`
+
+```js
+import { expect } from '@open-wc/testing';
+import { calc } from '../src/calc.js';
+
+it('does plus for 2 numbers', () => {
+  expect(calc('plus', 1, 1)).to.equal(2);
+  expect(calc('plus', 3, 12)).to.equal(15);
+});
+```
+
+and then the actual implementation
+
+```js
+export function calc(type, a, b) {
+  if (type === 'plus') {
+    return a + b;
+  }
+}
+```
+
+And while we are at it we can also add `minus`, I'm sure that will come in handy that at some point as well.
+And if we provide a wrong type we should throw an error - better let the user know whats up.
+
+👉 `src/calc.js`
+
+```js
+export function calc(type, a, b) {
+  if (type === 'plus') {
+    return a + b;
+  }
+  if (type === 'minus') {
+    return a - b;
+  }
+  throw new Error(`Invalid type "${type}" only plus or minus is allowed.`);
+}
+```
+
+So let's run our test
+
+```
+$ yarn test
+$ web-test-runner "test/**/*.test.js" --node-resolve --coverage
+
+Chrome: |██████████████████████████████| 1/1 test files | 1 passed, 0 failed
+
+Test coverage: 69.45 %
+View full coverage report at coverage/lcov-report/index.html
+
+Finished running tests in 1s, all tests passed! 🎉
+```
+
+As you can see, our test passed but our `Test coverage` is a bit on the low side.
+
+## What to test
+
+We might have a test, but we don't test all variations that can happen within the function.
+
+In order to see what is missing we can look at the Coverage Report by `Command + Click`-ing on the link (coverage/lcov-report/index.html) in the console.
+
+There, it will show us that `calc.js` has a yellow coverage and if we click on it we can see the detailed code and what is missing.
+
+![Code Coverage with Minus and Throw missing](../../learn/test-runner/code-coverage/code-coverage-minus-throw-missing.png)
+
+As you can see, we didn't test `minus` or what happens if an error is thrown.
+
+Let's add some tests for the `minus` function.
+
+```js
+it('does minus for 2 numbers', () => {
+  expect(calc('minus', 3, 1)).to.equal(2);
+});
+```
+
+It gives use a test coverage of `86.11 %`.
+
+Adding a test for throwing an error will bring it to `100%`.
 
 See more instructions in the [code-coverage](https://modern-web.dev/learn/test-runner/code-coverage/) learn section.
 

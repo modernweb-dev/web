@@ -59,3 +59,8 @@ wtr test/**/*.test.js --node-resolve --puppeteer
 ## Using Browserstack
 
 For modern browsers we recommend using other browser launchers, as they are a lot faster. Browserstack can be used to target older browser versions.
+
+## Learn more
+
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/learn/test-runner-playwright).
+See the [documentation of @web/test-runner](../../docs/test-runner/overview.md).
