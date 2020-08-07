@@ -191,17 +191,11 @@ const { fromRollup } = require('@web/dev-server-rollup');
 const json = fromRollup(rollupJson);
 
 module.exports = {
-  plugins: [
-    {
-      name: 'json-mime-type',
-      resolveMimeType(context) {
-        if (context.path.endsWith('.json')) {
-          return 'js';
-        }
-      },
-    },
-    json({}),
-  ],
+  // tell the server to serve json files as js
+  mimeTypes: {
+    '**/*.json': 'js',
+  },
+  plugins: [json({})],
 };
 ```
 
@@ -228,19 +222,12 @@ module.exports = {
   // in a monorepo you need to adjust the rootdir of the web server
   // postcss injects a module which needs to be reachable from the browser
   // rootDir: '../..',
-  plugins: [
-    {
-      name: 'serve-css',
-      // you need to tell the web server you intend to serve .module.css files as
-      // javascript modules
-      resolveMimeType(context) {
-        if (context.path.endsWith('.module.css')) {
-          return 'js';
-        }
-      },
-    },
-    postcss({ include: ['src/**/*.css'], modules: true }),
-  ],
+
+  // tell the server to serve css files as js
+  mimeTypes: {
+    '**/*.css': 'js',
+  },
+  plugins: [postcss({ include: ['src/**/*.css'], modules: true })],
 };
 ```
 
@@ -259,19 +246,11 @@ const { fromRollup } = require('@web/dev-server-rollup');
 const litcss = fromRollup(rollupLitcss);
 
 module.exports = {
-  plugins: [
-    {
-      name: 'serve-css',
-      // you need to tell the web server you intend to serve .css files as
-      // javascript modules
-      resolveMimeType(context) {
-        if (context.path.endsWith('.css')) {
-          return 'js';
-        }
-      },
-    },
-    litcss({ include: ['src/**/*.css'] }),
-  ],
+  // tell the server to serve css files as js
+  mimeTypes: {
+    '**/*.css': 'js',
+  },
+  plugins: [litcss({ include: ['src/**/*.css'] })],
 };
 ```
 
@@ -295,19 +274,11 @@ const { fromRollup } = require('@web/dev-server-rollup');
 const url = fromRollup(rollupUrl);
 
 module.exports = {
-  plugins: [
-    {
-      name: 'serve-assets',
-      // you need to tell the web server which files you want to serve as JS module
-      // in this example we're taking everything in the /assts directory
-      resolveMimeType(context) {
-        if (context.path.startsWith('/assets/')) {
-          return 'js';
-        }
-      },
-    },
-    url({ include: ['assets/**/*.png'] }),
-  ],
+  // tell the server to serve your assets files as js
+  mimeTypes: {
+    './assets/**/*': 'js',
+  },
+  plugins: [url({ include: ['assets/**/*.png'] })],
 };
 ```
 

@@ -1,6 +1,6 @@
 export { DevServer } from './server/DevServer';
 export { Plugin } from './Plugin';
-export { DevServerCoreConfig } from './DevServerCoreConfig';
+export { DevServerCoreConfig, MimeTypeMappings } from './DevServerCoreConfig';
 export {
   getRequestBrowserPath,
   getRequestFilePath,

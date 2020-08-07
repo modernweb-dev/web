@@ -35,6 +35,9 @@ export function createServer(
   const app = new Koa();
 
   const plugins = createPlugins(cfg);
+  if (!cfg.plugins) {
+    cfg.plugins = [];
+  }
   cfg.plugins.push(...plugins);
 
   // special case the legacy plugin, if it is given make sure the resolve module imports plugin

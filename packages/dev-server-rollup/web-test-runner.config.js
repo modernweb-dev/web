@@ -8,16 +8,8 @@ const postcss = fromRollup(rollupPostcss);
 
 module.exports = {
   rootDir: '../..',
-  plugins: [
-    commonjs(),
-    {
-      name: 'serve-css',
-      resolveMimeType(context) {
-        if (context.path.endsWith('.css')) {
-          return 'js';
-        }
-      },
-    },
-    postcss({ modules: true }),
-  ],
+  mimeTypes: {
+    '**/*.css': 'js',
+  },
+  plugins: [commonjs(), postcss({ modules: true })],
 };

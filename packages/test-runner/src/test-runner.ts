@@ -106,6 +106,7 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
 
     if (!config.server) {
       const serverConfig: TestRunnerServerConfig = {
+        mimeTypes: config.mimeTypes,
         plugins: config.plugins ?? [],
         middleware: config.middleware ?? [],
       };

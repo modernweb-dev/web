@@ -1,6 +1,8 @@
 import { Middleware } from 'koa';
 import { Plugin } from './Plugin';
 
+export type MimeTypeMappings = Record<string, string>;
+
 export interface DevServerCoreConfig {
   port: number;
   rootDir: string;
@@ -8,8 +10,9 @@ export interface DevServerCoreConfig {
   basePath?: string;
   appIndex?: string;
 
-  middleware: Middleware[];
-  plugins: Plugin[];
+  mimeTypes?: MimeTypeMappings;
+  middleware?: Middleware[];
+  plugins?: Plugin[];
 
   http2?: boolean;
   sslKey?: string;

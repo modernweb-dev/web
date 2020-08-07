@@ -44,19 +44,13 @@ const json = require('@rollup/plugin-json');
 const { rollupAdapter } = require('@web/dev-server-rollup');
 
 module.exports = {
-  plugins: [
-    {
-      name: 'json-mime-type-plugin',
-
-      resolveMimeType(context) {
-        if (context.path.endsWith('.json')) {
-          return 'js';
-        }
-      },
-    },
-
-    rollupAdapter(json()),
-  ],
+  mimeTypes: {
+    // serve all json files as js
+    '**/*.json': 'js',
+    // serve .module.css files as js
+    '**/*.module.css': 'js',
+  },
+  plugins: [rollupAdapter(json())],
 };
 ```
 
