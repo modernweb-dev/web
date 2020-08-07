@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.6.23
+
+### Patch Changes
+
+- d77093b: allow code coverage instrumentation through JS
+
 ## 0.6.22
 
 ### Patch Changes

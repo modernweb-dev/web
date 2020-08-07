@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.1.8
+
+### Patch Changes
+
+- d77093b: allow code coverage instrumentation through JS
+
 ## 0.1.7
 
 ### Patch Changes
