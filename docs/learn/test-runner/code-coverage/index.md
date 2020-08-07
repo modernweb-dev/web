@@ -76,13 +76,13 @@ $ web-test-runner "test/**/*.test.js" --node-resolve --coverage
 
 Chrome: |██████████████████████████████| 1/1 test files | 1 passed, 0 failed
 
-Test coverage: 69.45 %
+Code coverage: 69.45 %
 View full coverage report at coverage/lcov-report/index.html
 
 Finished running tests in 1s, all tests passed! 🎉
 ```
 
-As you can see, our test passed but our `Test coverage` is a bit on the low side.
+As you can see, our test passed but our `Code coverage` is a bit on the low side.
 
 ## What to test
 
@@ -104,7 +104,7 @@ it('does minus for 2 numbers', () => {
 });
 ```
 
-It gives use a test coverage of `86.11 %`.
+It gives use a code coverage of `86.11 %`.
 
 Adding a test for throwing an error will bring it to `100%`.
 
@@ -153,7 +153,7 @@ $ web-test-runner "test/**/*.test.js" --node-resolve --coverage
 
 Chrome: |██████████████████████████████| 1/1 test files | 4 passed, 0 failed
 
-Test coverage: 100 %
+Code coverage: 100 %
 View full coverage report at coverage/lcov-report/index.html
 
 Finished running tests in 1s, all tests passed! 🎉
@@ -161,7 +161,7 @@ Finished running tests in 1s, all tests passed! 🎉
 
 uh nice `100%` - but it feels fishy? didn't we have a `finish later` somewhere?
 
-## How come we have 100% test coverage?
+## How come we have 100% code coverage?
 
 Lets first try to understand how code coverage works
 The way code coverage gets measured is by applying a form of instrumentation. In short, before our code is executed it gets changed (instrumented) and it behaves something like this:
@@ -184,7 +184,7 @@ if (this.value === 'cat') {
 
 Basically, your code gets littered with many many flags. Based on which flags get trigger a statistic gets created.
 
-So 100% test coverage only means that every line you have in your code was executed at least once after all your tests finished. It does not mean that you tested everything, or if your tests make the correct assertions.
+So 100% code coverage only means that every line you have in your code was executed at least once after all your tests finished. It does not mean that you tested everything, or if your tests make the correct assertions.
 
 What happened in our case?
 
@@ -208,7 +208,7 @@ test/calc.test.js:
 
 Chrome: |██████████████████████████████| 1/1 test files | 3 passed, 1 failed
 
-Test coverage: 100 %
+Code coverage: 100 %
 View full coverage report at coverage/lcov-report/index.html
 ```
 

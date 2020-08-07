@@ -32,7 +32,7 @@ web-test-runner test/**/*.test.js --node-resolve --watch
 wtr test/**/*.test.js --node-resolve --watch
 ```
 
-Run with test coverage (this is slower):
+Run with code coverage (this is slower):
 
 ```bash
 web-test-runner test/**/*.test.js --node-resolve --coverage
@@ -95,7 +95,7 @@ wtr test/**/*.test.js --node-resolve --playwright --browsers chromium firefox we
 | ----------------- | ------------ | ------------------------------------------------------------------------------------------- |
 | files             | string       | test files glob. this is the default option, so you do not need to specify it.              |
 | watch             | boolean      | runs in watch mode                                                                          |
-| coverage          | boolean      | whether to analyze test coverage                                                            |
+| coverage          | boolean      | whether to analyze code coverage                                                            |
 | node-resolve      | boolean      | resolve bare module imports                                                                 |
 | preserve-symlinks | boolean      | preserve symlinks when resolving imports                                                    |
 | puppeteer         | boolean      | whether to run tests with @web/test-runner-puppeteer                                        |
@@ -192,9 +192,9 @@ interface TestRunnerConfig {
   // html page used to run tests
   testRunnerHtml?: (testRunnerImport: string, config: TestRunnerCoreConfig) => string;
 
-  // run test coverage
+  // run code coverage
   coverage?: boolean;
-  // configuration for test coverage
+  // configuration for code coverage
   coverageConfig?: CoverageConfig;
 
   // how long a browser can take to start up before failing. defaults to 30000
@@ -208,15 +208,15 @@ interface TestRunnerConfig {
 
 </details>
 
-## Test coverage
+## Code coverage
 
-You can run tests with test coverage using the `--coverage` flag:
+You can run tests with code coverage using the `--coverage` flag:
 
 ```bash
 wtr test/**/*.test.js --coverage
 ```
 
-In the config you can define test coverage thresholds, the test run fails if you drop below this level. You can also configure where and if the detailed test report is written to disk.
+In the config you can define code coverage thresholds, the test run fails if you drop below this level. You can also configure where and if the detailed test report is written to disk.
 
 <details>
 <summary>View example</summary>
@@ -233,6 +233,38 @@ module.exports = {
       lines: 70,
     },
   },
+};
+```
+
+</details>
+
+The default code coverage only collects coverage on the chromium browser, which provides this functionality natively. To enable collecting coverage on other browsers, you can use [babel-plugin-istanbul](https://github.com/istanbuljs/babel-plugin-istanbul) to do the code instrumentation. This is slower and works differently because the instrumentation is done in javascript.
+
+If you choose to use the babel plugin, you can off native instrumentation by setting `nativeInstrumentation` to false. This avoids double work.
+
+<details>
+
+<summary>View example</summary>
+
+```js
+const { fromRollup } = require('@web/dev-server-rollup');
+const { babel: rollupBabel } = require('@rollup/plugin-babel');
+
+const babel = fromRollup(rollupBabel);
+
+module.exports = {
+  coverage: true,
+  coverageConfig: {
+    nativeInstrumentation: false,
+  },
+  plugins: [
+    babel({
+      // avoid running babel on code that doesn't need it
+      include: ['src/**/*.js'],
+      babelHelpers: 'bundled',
+      plugins: [require.resolve('babel-plugin-istanbul')],
+    }),
+  ],
 };
 ```
 

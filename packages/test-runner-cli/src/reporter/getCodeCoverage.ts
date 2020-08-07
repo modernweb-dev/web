@@ -9,7 +9,7 @@ const coverageTypes: (keyof CoverageThresholdConfig)[] = [
   'functions',
 ];
 
-export function getTestCoverage(
+export function getCodeCoverage(
   testCoverage: TestCoverage,
   watch: boolean,
   coverageConfig: CoverageConfig,
@@ -21,7 +21,7 @@ export function getTestCoverage(
 
   if (!Number.isNaN(avgCoverage)) {
     entries.push(
-      `Test coverage: ${chalk.bold(
+      `Code coverage: ${chalk.bold(
         chalk[testCoverage.passed ? 'green' : 'red'](`${avgCoverage} %`),
       )}`,
     );

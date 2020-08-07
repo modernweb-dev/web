@@ -1,11 +1,6 @@
 import * as puppeteerCore from 'puppeteer-core';
 import { Browser, Page, LaunchOptions, launch as puppeteerCoreLaunch } from 'puppeteer-core';
-import {
-  BrowserLauncher,
-  TestRunnerCoreConfig,
-  Viewport,
-  CoverageMapData,
-} from '@web/test-runner-core';
+import { BrowserLauncher, TestRunnerCoreConfig, Viewport } from '@web/test-runner-core';
 import { findExecutablePath } from './findExecutablePath';
 import { ChromeLauncherPage } from './ChromeLauncherPage';
 
@@ -34,7 +29,6 @@ export class ChromeLauncher implements BrowserLauncher {
   private activePages = new Map<string, ChromeLauncherPage>();
   private activeDebugPages = new Map<string, ChromeLauncherPage>();
   private inactivePages: ChromeLauncherPage[] = [];
-  private testCoveragePerSession = new Map<string, CoverageMapData>();
 
   constructor(
     private launchOptions: LaunchOptions,
@@ -109,7 +103,6 @@ export class ChromeLauncher implements BrowserLauncher {
     }
 
     this.activePages.set(sessionId, page);
-    this.testCoveragePerSession.delete(sessionId);
     await page.runSession(url, !!this.config?.coverage);
   }
 
