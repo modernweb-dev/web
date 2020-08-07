@@ -12,6 +12,11 @@ header a {
   font-family: 'Quicksand', sans-serif;
 }
 
+/* TODO: should be in rocket? */
+#sidebar-nav .logo-link {
+  text-decoration: none;
+}
+
 @media screen and (min-width: 1024px) {
   body[layout='home'].has-background .page-background {
     top: -52px;
@@ -19,7 +24,37 @@ header a {
   }
 }
 
-/* TODO: should be in rocket? */
-#sidebar-nav .logo-link {
-  text-decoration: none;
+body,
+#sidebar-nav {
+  background: var(--page-background);
+}
+
+footer {
+  background-color: var(--footer-background);
+}
+
+#newsletter {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.101562);
+  padding: 20px;
+  text-align: center;
+  margin-top: 20px;
+  background-color: var(--blog-ba) #fafafa;
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+}
+
+#newsletter h4 {
+  margin: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+    color: var(--primary-text-color);
+  }
+
+  body[layout='home'] {
+    --primary-color: #eee;
+    --primary-color-lighter: #ddd;
+    --primary-color-darker: #fefefe;
+  }
 }
