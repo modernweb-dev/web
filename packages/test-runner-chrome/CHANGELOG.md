@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.5.20
+
+### Patch Changes
+
+- d77093b: allow code coverage instrumentation through JS
+
 ## 0.5.19
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @web/test-runner-browserstack
 
+## 0.0.12
+
+### Patch Changes
+
+- d77093b: allow code coverage instrumentation through JS
+- Updated dependencies [d77093b]
+  - @web/test-runner-selenium@0.1.8
+
 ## 0.0.11
 
 ### Patch Changes

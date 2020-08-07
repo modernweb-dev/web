@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-browserstack",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "publishConfig": {
     "access": "public"
   },
@@ -22,9 +22,7 @@
     "test": "mocha test/**/*.test.ts --require ts-node/register --reporter progress",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter progress"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "test",
@@ -36,7 +34,7 @@
   ],
   "dependencies": {
     "@web/dev-server-legacy": "^0.0.3",
-    "@web/test-runner-selenium": "^0.1.7",
+    "@web/test-runner-selenium": "^0.1.8",
     "browserstack-local": "^1.4.5",
     "ip": "^1.1.5",
     "selenium-webdriver": "^4.0.0-alpha.7",

@@ -1,5 +1,14 @@
 # @web/test-runner-puppeteer
 
+## 0.5.11
+
+### Patch Changes
+
+- d77093b: allow code coverage instrumentation through JS
+- Updated dependencies [d77093b]
+  - @web/test-runner-chrome@0.5.20
+  - @web/test-runner-core@0.6.23
+
 ## 0.5.10
 
 ### Patch Changes
