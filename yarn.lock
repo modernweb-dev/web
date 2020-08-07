@@ -1065,35 +1065,15 @@
     human-id "^1.0.2"
     prettier "^1.18.2"
 
-"@d4kmor/cli@^0.1.11":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.1.11.tgz#02732ed0946c51e13151e49e2b01a7b9f8254fcb"
-  integrity sha512-n0DPv13K+4xIS+IdTof1c1AhpBHCxGn7b6O5iqnvm3AROqeL1h6iggxZgrqlOQkcWs4Ninq51Jg9PsXr/4dcFQ==
+"@d4kmor/cli@^0.1.13":
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.1.13.tgz#e29c237e0e6403bd25cdbc0eb9e1a1b684ef316a"
+  integrity sha512-/nhPQnTN2sXLbogYZ8PErMyT69h8LlVn9OE3DPbLInZO6HomwFnfW0foqy69PFUu4ISI/UkWowTnWDKTrtgKaA==
   dependencies:
     "@11ty/eleventy" "^0.11.0"
     "@d4kmor/eleventy-plugin-mdjs" "^0.1.1"
-    "@d4kmor/eleventy-rocket-nav" "^0.1.2"
-    "@d4kmor/navigation" "^0.1.0"
-    "@open-wc/building-rollup" "^1.6.0"
-    command-line-args "^5.1.1"
-    command-line-usage "^6.1.0"
-    deepmerge "^4.2.2"
-    es-dev-server "^1.57.0"
-    glob "^7.1.6"
-    rollup "^2.16.0"
-    rollup-plugin-clear "^2.0.7"
-    rollup-plugin-visualizer "^4.0.4"
-    rollup-plugin-workbox "^5.0.1"
-
-"@d4kmor/cli@^0.1.12":
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.1.12.tgz#bd442d159c8c4784abf52c957794c75a5aba332a"
-  integrity sha512-1OCdrg9jyFi6kY54kRSg8/5SO5v1UZcA9DMalC2Ms3SMFDDfV/Y2R1j2w9ym1IPtJfNcFbj+6IoLpVmL54f8Hg==
-  dependencies:
-    "@11ty/eleventy" "^0.11.0"
-    "@d4kmor/eleventy-plugin-mdjs" "^0.1.1"
-    "@d4kmor/eleventy-rocket-nav" "^0.1.2"
-    "@d4kmor/navigation" "^0.1.0"
+    "@d4kmor/eleventy-rocket-nav" "^0.1.3"
+    "@d4kmor/navigation" "^0.1.1"
     "@open-wc/building-rollup" "^1.6.0"
     command-line-args "^5.1.1"
     command-line-usage "^6.1.0"
@@ -1121,26 +1101,26 @@
     "@mdjs/core" "^0.3.2"
     unist-util-visit "^2.0.3"
 
-"@d4kmor/eleventy-rocket-nav@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-rocket-nav/-/eleventy-rocket-nav-0.1.2.tgz#e0d37bc7cd29e3c8eb1cfa1a5028dee98c8618d5"
-  integrity sha512-yWIE71TZQa9V7XGPJ5mNoA11uv0aIM1X3MkqYKICCClNaIyHuQuB4yfKs3woo+JkEvolAR9DeGsAFXO4rX4o5w==
+"@d4kmor/eleventy-rocket-nav@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-rocket-nav/-/eleventy-rocket-nav-0.1.3.tgz#680aacb724f52154f0725ec96a5e9d659593ae0e"
+  integrity sha512-Ne8A7lOLOpFaO6mpk2JI98E5ehkAZW0F4lA/6/BwJpezH8yp+IJOVulVLGDv/GQyQFF9qfEJefvqoYYga/5wiw==
   dependencies:
     dependency-graph "^0.8.1"
     sax-wasm "^1.4.5"
 
-"@d4kmor/launch@^0.1.14":
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.1.14.tgz#45bbd2ef6286549a37d235cf7d5fd4c50938bc46"
-  integrity sha512-oUul+s3oc6WjPKd4yzskZ+Wms2hvE37iQqvxDhsgL22JrdLJlCwddIfCKGgJMyneFDQbLrYd6Yx9d5MeK5Ml6g==
+"@d4kmor/launch@^0.1.15":
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.1.15.tgz#3cb671b1592a0962895b7fa72142c7ff17519161"
+  integrity sha512-7+LdZlHzJaZOuoKrtoPRdrH8xeKHGOp4LDWgms2wAocbwhcwo3z79oXHzB2++nFdpCNJp1t3fFOpEERRnrT8Cg==
   dependencies:
-    "@d4kmor/cli" "^0.1.11"
+    "@d4kmor/cli" "^0.1.13"
     "@d4kmor/drawer" "^0.1.0"
 
-"@d4kmor/navigation@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@d4kmor/navigation/-/navigation-0.1.0.tgz#f84a6b1da2b79aef77512d58b43a6435ad686cb4"
-  integrity sha512-4cLpwsPD6rklt6OecFu1sxBGuidTjmAdtLYc5D5zKpcBf3HaOMn3Gn+oS5Fc6z6colelNcNzWs1TmahcQbqnyA==
+"@d4kmor/navigation@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@d4kmor/navigation/-/navigation-0.1.1.tgz#c9d8ca5f9084484d100ee9eac70e43a4333d4a4b"
+  integrity sha512-SMflIRMkcYYSd82DjOnSyGKZiGCL7ueGukcYk20S4e/Gy97/asl3qHO9JoDWDPbv7jpO8Xt35y0TBzKNud1ymQ==
 
 "@hapi/address@2.x.x":
   version "2.1.4"

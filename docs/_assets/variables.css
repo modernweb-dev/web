@@ -1,11 +1,29 @@
 html {
-  --primary-color: #3f93ce;
+  --page-background: white;
+  --footer-background: rgba(0, 0, 0, 0.1);
+  --primary-color: #235f8a;
   --primary-color-lighter: #449ad7;
   --primary-color-darker: #1a5285;
   --primary-color-accent: #cee5f6;
-
   --contract-color-light: #fff;
   --contract-color-dark: #1d3557;
-
   --primary-text-color: #2c3e50;
+}
+
+/* TODO: markdown Vars */
+
+/* SEE: https://github.com/daKmoR/rocket/pull/18 */
+
+@media (prefers-color-scheme: dark) {
+  html {
+    --footer-background: rgba(255, 255, 255, 0.1);
+    --page-background: #212121;
+    --primary-text-color: #eee;
+    --primary-color: #3f93ce;
+    --primary-color-lighter: #449ad7;
+    --primary-color-darker: #1a5285;
+    --primary-color-accent: #cee5f6;
+    --contract-color-light: #fff;
+    --contract-color-dark: #1d3557;
+  }
 }
