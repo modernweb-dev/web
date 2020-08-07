@@ -1,5 +1,13 @@
 # @web/test-runner-server
 
+## 0.5.16
+
+### Patch Changes
+
+- 8fb820b: add an easy way to change served mime types
+- Updated dependencies [8fb820b]
+  - @web/dev-server-core@0.1.9
+
 ## 0.5.15
 
 ### Patch Changes

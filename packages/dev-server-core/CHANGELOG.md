@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.1.9
+
+### Patch Changes
+
+- 8fb820b: add an easy way to change served mime types
+
 ## 0.1.8
 
 ### Patch Changes
