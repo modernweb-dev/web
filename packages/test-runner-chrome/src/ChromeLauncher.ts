@@ -56,8 +56,18 @@ export class ChromeLauncher implements BrowserLauncher {
 
   launchBrowser(options: LaunchOptions = {}) {
     if (this.customPuppeteer) {
+      const mergedOptions = { ...this.launchOptions, ...options };
       // launch using a custom puppeteer instance
-      return this.customPuppeteer.launch({ ...this.launchOptions, ...options });
+      return this.customPuppeteer.launch(mergedOptions).catch(error => {
+        if (mergedOptions.product === 'firefox') {
+          console.warn(
+            '\nUsing puppeteer with firefox is experimental.\n' +
+              'Check the docs at https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer' +
+              ' to learn how to set it up.\n',
+          );
+        }
+        throw error;
+      });
     }
 
     // launch using puppeteer-core, connecting to an installed browser
@@ -120,7 +130,7 @@ export class ChromeLauncher implements BrowserLauncher {
     page.puppeteerPage.on('close', () => {
       this.activeDebugPages.delete(sessionId);
     });
-    await page.runSession(url, false);
+    await page.runSession(url, true);
   }
 
   async createNewPage(browser: Browser) {
@@ -133,7 +143,13 @@ export class ChromeLauncher implements BrowserLauncher {
       }
       throw error;
     });
-    return new ChromeLauncherPage(this.config!, this.testFiles!, await puppeteerPagePromise);
+
+    return new ChromeLauncherPage(
+      this.config!,
+      this.testFiles!,
+      this.launchOptions.product ?? 'chromium',
+      await puppeteerPagePromise,
+    );
   }
 
   async stopSession(sessionId: string) {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const puppeteerBrowsers = ['chrome'];
+const puppeteerBrowsers = ['chrome', 'firefox'];
 const playwrightBrowsers = ['chromium', 'firefox', 'webkit'];
 
 function loadLauncher(name: string) {
@@ -26,7 +26,7 @@ export function puppeteerLauncher(browsers: string[] = ['chrome']) {
   }
 
   const launcher = loadLauncher('puppeteer').puppeteerLauncher;
-  return browsers.map(product => launcher({ options: { product } }));
+  return browsers.map(product => launcher({ launchOptions: { product } }));
 }
 
 export function playwrightLauncher(browsers: string[] = ['chromium']) {
