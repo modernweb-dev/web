@@ -116,7 +116,7 @@ This is the minimal instruction on how to start using the test runner.
 
    Chrome: |██████████████████████████████| 1/1 test files | 1 passed, 0 failed
 
-   Test coverage: 100 %
+   Code coverage: 100 %
    View full coverage report at coverage/lcov-report/index.html
 
    Finished running tests in 0.9s, all tests passed! 🎉
@@ -259,7 +259,7 @@ Once you have a decent set of tests you may want to look into what could still b
 Code coverage can help to find which code segments have not yet been tested.
 Generally it's advised to have a code coverage at above 80% which you will most likely have if you practice Test Driven Development (TDD).
 
-## Getting the test coverage
+## Getting the code coverage
 
 Coverage is part of the default feature set that comes with any launcher that works with chromium.
 
@@ -325,13 +325,13 @@ $ web-test-runner "test/**/*.test.js" --node-resolve --coverage
 
 Chrome: |██████████████████████████████| 1/1 test files | 1 passed, 0 failed
 
-Test coverage: 69.45 %
+Code coverage: 69.45 %
 View full coverage report at coverage/lcov-report/index.html
 
 Finished running tests in 1s, all tests passed! 🎉
 ```
 
-As you can see, our test passed but our `Test coverage` is a bit on the low side.
+As you can see, our test passed but our `Code coverage` is a bit on the low side.
 
 ## What to test
 
@@ -353,7 +353,7 @@ it('does minus for 2 numbers', () => {
 });
 ```
 
-It gives use a test coverage of `86.11 %`.
+It gives use a code coverage of `86.11 %`.
 
 Adding a test for throwing an error will bring it to `100%`.
 

@@ -24,6 +24,7 @@
   "scripts": {
     "build": "tsc",
     "test": "node dist/test-runner.js demo/**/pass-*.test.{js,html}",
+    "test:babel-coverage": "node dist/test-runner.js demo/**/pass-*.test.{js,html} --config demo/babel-coverage.config.js",
     "test:bare": "node dist/test-runner.js",
     "test:ci": "yarn test",
     "test:custom-html": "node dist/test-runner.js demo/**/pass-*.test.{js,html} --config demo/customhtml.config.js",
@@ -36,7 +37,9 @@
     "test:source-maps": "node dist/test-runner.js demo/test/source-maps/**/*/*.test.js",
     "test:watch": "node dist/test-runner.js demo/**/pass-*.test.{js,html} --watch"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "web",
     "test",
@@ -60,6 +63,7 @@
   },
   "devDependencies": {
     "@web/dev-server-legacy": "^0.0.3",
-    "@web/test-runner-helpers": "^0.0.1"
+    "@web/test-runner-helpers": "^0.0.1",
+    "babel-plugin-istanbul": "^6.0.0"
   }
 }

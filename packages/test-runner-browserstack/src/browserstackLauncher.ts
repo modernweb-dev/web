@@ -1,4 +1,4 @@
-import { BrowserLauncher } from '@web/test-runner-core';
+import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { SeleniumLauncher } from '@web/test-runner-selenium';
 import webdriver, { Capabilities } from 'selenium-webdriver';
 import browserstack from 'browserstack-local';
@@ -30,13 +30,13 @@ export class BrowserstackLauncher extends SeleniumLauncher {
     );
   }
 
-  async start() {
+  async start(config: TestRunnerCoreConfig) {
     await registerBrowserstackLocal(
       this,
       this.capabilities.get('browserstack.key')!,
       this.localOptions,
     );
-    await super.start();
+    await super.start(config);
   }
 
   startSession(sessionId: string, url: string) {

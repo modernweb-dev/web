@@ -7,7 +7,7 @@ import {
 } from '@web/test-runner-core';
 import chalk from 'chalk';
 import { getPassedFailedSkippedCount } from '../utils/getPassedFailedSkippedCount';
-import { getTestCoverage } from './getTestCoverage';
+import { getCodeCoverage } from './getCodeCoverage';
 
 export interface TestProgressArgs {
   browserNames: string[];
@@ -163,14 +163,14 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
       if (!testCoverage.passed) {
         failed = true;
       }
-      const coverageReport = getTestCoverage(testCoverage, watch, coverageConfig);
+      const coverageReport = getCodeCoverage(testCoverage, watch, coverageConfig);
       entries.push(...coverageReport);
     }
   }
 
   if (testRun !== -1 && unfinishedSessions.length === 0) {
     if (coverage && !testCoverage) {
-      entries.push(chalk.bold('Calculating test coverage...'));
+      entries.push(chalk.bold('Calculating code coverage...'));
     } else if (config.watch) {
       entries.push(chalk.bold(`Finished running tests, watching for file changes...`));
     } else {

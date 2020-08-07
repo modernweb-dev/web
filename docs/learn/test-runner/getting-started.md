@@ -127,7 +127,7 @@ fair enough - we didn't create a test file yet.
 
    Chrome: |██████████████████████████████| 1/1 test files | 1 passed, 0 failed
 
-   Test coverage: 100 %
+   Code coverage: 100 %
    View full coverage report at coverage/lcov-report/index.html
 
    Finished running tests in 0.9s, all tests passed! 🎉

@@ -1,4 +1,4 @@
-import { BrowserLauncher } from '@web/test-runner-core';
+import { BrowserLauncher, CoverageMapData, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Builder, WebDriver } from 'selenium-webdriver';
 
 export interface SeleniumLauncherArgs {
@@ -12,10 +12,12 @@ export class SeleniumLauncher implements BrowserLauncher {
   private driver: undefined | WebDriver;
   private debugDriver: undefined | WebDriver = undefined;
   private currentSession: string | undefined;
+  private config: TestRunnerCoreConfig | undefined;
 
   constructor(private driverBuilder: Builder) {}
 
-  async start() {
+  async start(config: TestRunnerCoreConfig) {
+    this.config = config;
     this.driver = await this.driverBuilder.build();
     const cap = await this.driver.getCapabilities();
     this.name = [cap.getPlatform(), cap.getBrowserName(), cap.getBrowserVersion()]
@@ -67,7 +69,15 @@ export class SeleniumLauncher implements BrowserLauncher {
       this._runNextQueuedSession();
     }
 
-    return { browserLogs: [] };
+    let testCoverage: CoverageMapData | undefined = undefined;
+
+    if (this.config?.coverage) {
+      testCoverage = await this.driver?.executeScript<CoverageMapData>(function () {
+        return (window as any).__coverage__;
+      });
+    }
+
+    return { browserLogs: [], testCoverage };
   }
 
   async startDebugSession(_: string, url: string) {

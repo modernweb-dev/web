@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Test coverage using v8",
+  "description": "Code coverage using v8",
   "license": "MIT",
   "repository": {
     "type": "git",

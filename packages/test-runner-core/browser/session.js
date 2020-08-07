@@ -56,7 +56,6 @@ export async function sessionFinished(result) {
 
   const sessionResult = {
     logs,
-    testCoverage: window.__coverage__,
     errors: [],
     ...result,
   };

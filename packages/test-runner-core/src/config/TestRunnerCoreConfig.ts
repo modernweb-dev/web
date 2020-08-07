@@ -14,6 +14,7 @@ export interface CoverageThresholdConfig {
 export interface CoverageConfig {
   include?: string[];
   exclude?: string[];
+  nativeInstrumentation?: boolean;
   threshold?: CoverageThresholdConfig;
   report: boolean;
   reportDir: string;
