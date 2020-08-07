@@ -14,7 +14,7 @@ as we do.
 If you've already established yourself but want to see what a standards-based approach to web dev can
 offer, we think you'll be surprised how far the in-built web's capabilities have evolved.
 
-## The Standards-Based Approach
+## Standards-Based Development
 
 Over the last several years, web development has become almost synonymous with web _framework_ development.
 Indeed, the proliferation and popularity of front-end web frameworks has lead many in
