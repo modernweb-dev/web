@@ -12,15 +12,15 @@ Every web page is produced by a server and viewed by a browser.
 There are many different kinds of web servers and many different kinds of web browsers.
 The client doesn't know everything about the server, and the server cannot control everything about the browser;
 but the thing they both agree on is to communicate (at least initially) using
-<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP" target="_blank" rel="noopener noreferrer"><abbr title="HyperText Transfer Protocol">HTTP</abbr></a>.
+the [HyperText Transfer Protocol](https://developer.mozilla.org/en-US/docs/Web/HTTP), <dfn><abbr>HTTP</abbr></dfn>.
 
 ## URLs
 
-Every resource on the web, whether it's a web page, an image, a video, a CSS stylesheet, some JavaScript code, or anything else, is accesible via a <abbr>URL</abbr> or Uniform Resource Locator.
+Every resource on the web, whether it's a web page, an image, a video, a [CSS stylesheet](./css.md), some [JavaScript](./javascript.md), or anything else, is accesible via a Uniform Resource Locator, or <dfn><abbr>URL</abbr></dfn>.
 
 When your browser visits a web page, it is essentially asking the server responsible for that page
-for an HTML document, which may or may not link to other resources like images, [CSS stylesheets](./css.md) or
-[JavaScript](./javascript.md). Each of those resources is accessed using an HTTP "`GET`" request. The web server's primary job is to provide that HTML document and its sub-resources to the browser.
+for an HTML document, which may or may not link to other resources like images, CSS stylesheets or
+JavaScript. Each of those resources is accessed using an HTTP "`GET`" request. The web server's primary job is to provide that HTML document and its sub-resources to the browser.
 
 For example, when you visit this web page, your browser sent a `GET https://modern-web.dev/docs/learn/standards-based/servers-and-clients/` request
 
@@ -48,6 +48,23 @@ That way, when you type `modern-web.dev` into your
 web browser, what you're actually doing is sending a GET request to the IP address _for_ `modern-web.dev`.
 
 For more information of how the DNS works at a high level, check out the [computerphile video series on DNS](https://www.youtube.com/watch?v=uOfonONtIuk)
+
+### `localhost`
+
+While developing websites, common practise is to start a web server on your local development machine to test out the site, before deploying it to it's production server. Assigning a domain name to your current IP address would be tedious, especially considering that most residential ISPs assign dynamic IP addresses which change every few hours or days, and most office PCs are behind some kind of [NAT](https://www.wikiwand.com/en/Network_address_translation), which assigns them a private, local IP instead of their actual internet-facing IP address.
+
+DNS reserves the special domain name `localhost` to refer to the device that is making the request, in our case, whatever machine you happen to be working on at the time. Operating Systems assign that name to the [loopback](https://www.wikiwand.com/en/Localhost#/Loopback) address `127.0.0.1` in the `hosts` file.
+
+The following commands create a directory `test-server` inside the home directory, add a file there called `index.html` containing the text "Hello, World!", then launch a local web server on port 8000 that opens the default browser.
+
+Run these commands on a UNIX-like operating system (GNU/Linux, macOS, WSL) that has nodejs installed, and you'll see a page containing the text "Hello, World!"
+
+```bash
+mkdir ~/test-server
+cd ~/test-server
+echo "Hello, World!" > index.html
+npx es-dev-server -p 8000 --open .
+```
 
 ## Serving Web Content
 
@@ -89,21 +106,17 @@ This represents the default server root for Apache web server on linux.
 Now if you where to request `https://my-domain.com/main.html`, the server would send back the infamous "404 - File not found" error, since there's no `/main.html` file in the web root.
 Likewise, if you were to rename `index.html` to `main.html`, then `https://my-domain.com/help.html` would work but `https://my-domain.com/` would give a "404".
 
-## Links to outside of your server
+### Files Outside the Web Root
 
-Give the following folder structure on the server
-
-However especially when working with local web servers for development we can easily set the server root to `/var/www/about/` for example.
-We can do this by starting a server within the folder. Typically it looks something like this
+In the above examples, the server used the default web root `/var/www/html`, but we could just as easily have configured it to use `/var/www/html/about`, e.g. by changing into that directory and starting a server from the command line
 
 ```bash
 cd /var/www/about
 http-server
 ```
 
-This however means that every file outside of my server root is NOT accessible to it.
-
-For the server all the files it sees are
+If we did that, though, the server would not be able to read `help.html`.
+The only files it can serve are:
 
 ```
 .
@@ -111,17 +124,9 @@ For the server all the files it sees are
 └── index.html
 ```
 
-In this case `help.html` can not be accessed by anyone.
+It will be important to keep this in mind when structuring your projects. In a [buildless](#) workflow, the web server will need to have all of your dependencies, including `node_modules` in its web root. So if you decide to keep your JavaScript code in a subdirectory of the project root, like `/src`, you will need to keep `index.html` in the root directory and run your local development server from there.
 
-## Local development with localhost
-
-While developing on your local development machine it would be a lot of effort to have a domain name point to your current IP. Especially as most of us will only get a dynamic IP (which changes every few hours/days).
-
-To ease that pain there is a special domain called `localhost` which usually points to `127.0.0.1` which is a special IP that always point to your own machine.
-
-Therefore while developing it makes sense to start your web server locally and then open `http://localhost`.
-
-Each server has a specific name like `my-domain.com`.
+Just like how running `http-server` from `/about` made `help.html` inaccessible, running your local development server from `/src` would make `node_modules` inaccessible.
 
 ## Learn more
 

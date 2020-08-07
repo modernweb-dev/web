@@ -1,52 +1,48 @@
 ---
-title: HTML Browser Way
+title: HTML
 eleventyNavigation:
   key: HTML
   parent: Standards-Based
   order: 20
 ---
 
-```js script
-// TODO: find out why this is needed?
-import { html } from 'lit-html';
-```
+<dfn>HTML</dfn> stands for <q>HyperText Markup Language</q>, <q>HyperText</q> being text documents containing interactive links to other such documents, and <q>Markup</q> meaning a syntax for applying semantics (such as those links) to that document.
 
-Html shall be used to ship content to your users.
+As we saw in the [previous section](../servers-and-clients.md), HTML is the primary resource that servers send to browsers. Even if the web server is entirely dynamic, meaning it doesn't simply send the contents of `.html` files from its web root, it will still send a string of HTML for most requests. Every web page is, ultimately and essentially, an HTML document.
 
-Be sure you are familiar with HTML before continuing. If you are unsure check out MDN's [HTML basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics).
+## View Source
 
-## Take a look at your favorite website
+You can inspect every HTML page by context-clicking and selecting "View Page Source". This lets you see the complete HTML document for the page you are viewing.
 
-You can inspect every HTML page by right Clicking and selection "View Page Source".
-Sadly this will often only look like this
+When we were first exploring the web back in the 90s, "View Source" let us learn from others, and better understand how the web worked.
+
+If you view source on some contemporary JavaScript-heavy websites or apps, you'll typically see something like this:
 
 ```html
 <html>
   <body>
-    <script>
-      // lots of JavaScript code
-      // content "encoded" in JavaScript
-    </script>
+    <script src="bundle-807dj87x.js"></script>
+    <div id="app"></div>
   </body>
 </html>
 ```
 
-This will prevent any render optimizations browsers are so good at 😅
+Where the bundle provides a large payload of JavaScript that dynamically creates the rest of the page at run time.
 
-What we more want to see is the actual content in html
+This gives JavaScript developers tremendous flexibility, but can prevent many of the optimizations, accessibility features, and user experiences that browsers are so good at, not to mention making it harder to learn from the page-as-authored using "View Source"
+
+Websites should aim to deliver their content as <abbr>HTML</abbr> as much as possible
 
 ```html
 <html>
   <body>
     <h1>My page</h1>
-    <p>With some content in html</p>
+    <p>With some content in <abbr>HTML</abbr></p>
   </body>
 </html>
 ```
 
-No go out there and check all the pages and if you find actual shipped html then know this page is awesome 💪
-
-## Html Structure has meaning
+## Semantic HTML
 
 Even if only JavaScript gets send over the wire at some point it all becomes rendered into the html **document object model** (**DOM**).
 

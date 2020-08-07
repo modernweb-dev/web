@@ -3,7 +3,7 @@ title: ECMAScript Modules
 eleventyNavigation:
   key: ES Modules
   parent: Standards-Based
-  order: 50
+  order: 60
 ---
 
 All modern browsers support standard es modules, using `import` and `export` statements:
