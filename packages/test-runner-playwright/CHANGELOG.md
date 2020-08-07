@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.4.22
+
+### Patch Changes
+
+- c1e9884: fix checking for native instrumentation
+
 ## 0.4.21
 
 ### Patch Changes
