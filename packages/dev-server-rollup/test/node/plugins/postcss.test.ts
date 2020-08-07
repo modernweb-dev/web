@@ -11,6 +11,9 @@ describe('@rollup/plugin-postcss', () => {
   it('can run postcss on imported css files', async () => {
     const { server, host } = await createTestServer({
       rootDir: resolve(__dirname, '..', '..', '..', '..', '..'),
+      mimeTypes: {
+        '**/*.css': 'js',
+      },
       plugins: [
         {
           name: 'serve-css',
@@ -28,12 +31,6 @@ html {
 #bar {
   color: red;
 }`;
-            }
-          },
-
-          resolveMimeType(context) {
-            if (context.path.endsWith('.css')) {
-              return 'js';
             }
           },
         },

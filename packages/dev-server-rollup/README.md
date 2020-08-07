@@ -36,25 +36,17 @@ Some rollup plugins do expensive operations. During development, this matters a 
 The rollup build process assumes that any imported files are are meant to be compiled to JS, web dev server serves many different kinds of files to the browser. If you are transforming a non-standard filetype to JS, for example .json files, you need to instruct the server to handle it as a JS file:
 
 ```js
-const rollupJson = require('@rollup/plugin-json');
-const { fromRollup } = require('@web/dev-server-rollup');
-
-const json = fromRollup(rollupJson);
+const json = require('@rollup/plugin-json');
+const { rollupAdapter } = require('@web/dev-server-rollup');
 
 module.exports = {
-  plugins: [
-    {
-      name: 'json-mime-type-plugin',
-
-      resolveMimeType(context) {
-        if (context.path.endsWith('.json')) {
-          return 'js';
-        }
-      },
-    },
-
-    json({ include: ['src/**/*.js'] }),
-  ],
+  mimeTypes: {
+    // serve all json files as js
+    '**/*.json': 'js',
+    // serve .module.css files as js
+    '**/*.module.css': 'js',
+  },
+  plugins: [rollupAdapter(json())],
 };
 ```
 

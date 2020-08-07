@@ -41,7 +41,7 @@ export class DevServer {
         : this.config.hostname,
     });
 
-    for (const plugin of this.config.plugins) {
+    for (const plugin of this.config.plugins ?? []) {
       await plugin.serverStart?.({
         config: this.config,
         app: this.koaApp,
@@ -57,7 +57,7 @@ export class DevServer {
     return Promise.all([
       this.fileWatcher.close(),
       promisify(this.server.close).bind(this.server)(),
-      ...this.config.plugins.map(p => p.serverStop?.()),
+      ...(this.config.plugins ?? []).map(p => p.serverStop?.()),
     ]);
   }
 }

@@ -35,6 +35,7 @@ export function testRunnerServer(testRunnerServerConfig: TestRunnerServerConfig 
           hostname: config.hostname,
           rootDir,
 
+          mimeTypes: testRunnerServerConfig.mimeTypes,
           middleware: [
             testRunnerApiMiddleware(sessions, rootDir, config, plugins),
             watchFilesMiddleware({ runner, sessions, rootDir, fileWatcher }),

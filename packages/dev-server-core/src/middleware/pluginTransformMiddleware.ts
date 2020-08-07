@@ -17,7 +17,7 @@ export function pluginTransformMiddleware(
   fileWatcher: FSWatcher,
 ): Middleware {
   const cache = new PluginTransformCache(fileWatcher, config.rootDir);
-  const transformPlugins = config.plugins.filter(p => 'transform' in p);
+  const transformPlugins = (config.plugins ?? []).filter(p => 'transform' in p);
   if (transformPlugins.length === 0) {
     // nothing to transform
     return (ctx, next) => next();

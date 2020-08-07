@@ -61,8 +61,8 @@ export function createMiddleware(
   }
 
   middlewares.push(pluginTransformMiddleware(config, logger, fileWatcher));
-  middlewares.push(pluginMimeTypeMiddleware(config.plugins));
-  middlewares.push(pluginServeMiddleware(config.plugins));
+  middlewares.push(pluginMimeTypeMiddleware(config.plugins ?? []));
+  middlewares.push(pluginServeMiddleware(config.plugins ?? []));
 
   // serve static files
   middlewares.push(
