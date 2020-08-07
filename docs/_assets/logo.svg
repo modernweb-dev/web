@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg role="presentation" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 412 411" style="enable-background:new 0 0 412 411;" xml:space="preserve">
+	 <title>Tilted sphere with longitudinal stripes</title>
 <g fill="currentColor">
 		<path d="M103.23,383.171c85.821,49.549,191.294,4.382,247.946-93.743s43.032-212.051-42.789-261.599
 			c98.125,56.653,131.745,182.125,75.093,280.25S201.355,439.824,103.23,383.171z"/>
