@@ -34,10 +34,13 @@
     "test:mixed": "node dist/test-runner.js demo/**/*.test.js",
     "test:mocha-options": "node dist/test-runner.js --config demo/test/mocha-options/config.js",
     "test:playwright": "node dist/test-runner.js demo/**/*.test.js --playwright --browsers chromium firefox webkit",
+    "test:puppeteer-firefox": "node dist/test-runner.js demo/**/pass-*.test.{js,html} --puppeteer --browsers firefox",
     "test:source-maps": "node dist/test-runner.js demo/test/source-maps/**/*/*.test.js",
     "test:watch": "node dist/test-runner.js demo/**/pass-*.test.{js,html} --watch"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "web",
     "test",

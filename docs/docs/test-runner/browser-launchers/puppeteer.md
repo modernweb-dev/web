@@ -35,23 +35,20 @@ module.exports = {
 
 ### Testing Firefox
 
-Testing Firefox in Puppeteer is still experimental. Currently you cannot run puppeteer with both Chromium and Firefox in a repository. Check the [official docs](https://www.npmjs.com/package/puppeteer) to learn more about how to set install Firefox instead of Chromium.
+Testing Firefox with Puppeteer is still experimental. There is currenly no official way to install both chromium and firefox, but you can set this up for your repository by adding a postinstall step to your package scripts:
 
-To run puppeteer with firefox, you can set the `product` option or set the `PUPPETEER_PRODUCT` environment variable.
+`package.json`:
 
-```js
-const { puppeteerLauncher } = require('@web/test-runner-puppeteer');
+```json
+{
+  "scripts": {
+    "postinstall": "cd node_modules/puppeteer && PUPPETEER_PRODUCT=firefox node install.js"
+  }
+}
+```
 
-module.exports = {
-  browwsers: [
-    puppeteerLauncher({
-      launchOptions: {
-        product: 'firefox',
-        executablePath: '/path/to/executable',
-        headless: false,
-        args: ['--some-flag'],
-      },
-    }),
-  ],
-};
+Afterwards you can run your tests with an extra firefox flag:
+
+```bash
+wtr test/**/*.test.js --node-resolve --puppeteer --browsers firefox
 ```

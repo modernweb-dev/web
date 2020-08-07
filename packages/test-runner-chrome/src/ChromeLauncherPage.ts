@@ -5,12 +5,13 @@ import { browserScript, deserialize } from '@web/browser-logs';
 import { SessionResult } from '@web/test-runner-core';
 
 export class ChromeLauncherPage {
-  private nativeInstrumentationEnabled = false;
+  private nativeInstrumentationEnabledOnPage = false;
   private logs: Promise<any[]>[] = [];
 
   constructor(
     private config: TestRunnerCoreConfig,
     private testFiles: string[],
+    private product: string,
     public puppeteerPage: Page,
   ) {
     // inject serialization script
@@ -20,13 +21,15 @@ export class ChromeLauncherPage {
     }
   }
 
-  async runSession(url: string, coverage: boolean) {
+  async runSession(url: string, debug: boolean) {
     if (
-      coverage &&
-      !this.nativeInstrumentationEnabled &&
-      this.config.coverageConfig?.nativeInstrumentation !== false
+      !debug &&
+      this.config.coverage &&
+      this.config.coverageConfig?.nativeInstrumentation !== false &&
+      !this.nativeInstrumentationEnabledOnPage &&
+      this.product === 'chromium'
     ) {
-      this.nativeInstrumentationEnabled = true;
+      this.nativeInstrumentationEnabledOnPage = true;
       await this.puppeteerPage.coverage.startJSCoverage();
     }
 
@@ -62,7 +65,7 @@ export class ChromeLauncherPage {
       );
     }
 
-    if (!this.nativeInstrumentationEnabled) {
+    if (!this.nativeInstrumentationEnabledOnPage) {
       return undefined;
     }
 
@@ -87,7 +90,7 @@ export class ChromeLauncherPage {
       }));
 
     await this.puppeteerPage.coverage?.stopJSCoverage();
-    this.nativeInstrumentationEnabled = false;
+    this.nativeInstrumentationEnabledOnPage = false;
     return v8ToIstanbul(config, testFiles, v8Coverage);
   }
 
