@@ -7,7 +7,7 @@ import { testRunnerServer } from '@web/test-runner-server';
 import { emulateMediaPlugin } from '../../src/emulateMediaPlugin';
 
 describe.only('setViewportPlugin', function test() {
-  this.timeout(10000);
+  this.timeout(20000);
 
   it('can emulate media on puppeteer', async () => {
     await runTests(
