@@ -7,43 +7,43 @@ tags: javascript, tests, demos
 cover_image: https://raw.githubusercontent.com/open-wc/blog-posts/master/2020-04-introducing-mdjs-interactive-demos-everywhere/images/aaron-burden-TNlHf4m4gpI-unsplash.jpg
 ---
 
-We are incredible proud to announce our latest web improvements. We call it "Modern Web".
+We are incredibly proud to announce our latest web improvements. We call it "Modern Web".
 
 ## What is Modern Web?
 
-Modern Web will host all developer tools which are to general to be only on [Open Web Components](https://open-wc.org).
+Modern Web will host all developer tools which are too general to be only on [Open Web Components](https://open-wc.org).
 
-We are same Open Web Components developers but we split the general modern web development related topics away from the web components specifics.
+We are the same Open Web Components developers but we split the general modern web development related topics away from the web components specifics.
 
-You can find our new home at [modern-web.dev](https://modern-web.dev). All our tools are available on npm within the [@web](https://www.npmjs.com/org/web) npm namespace. Our code is open source and on [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web). For updates you can follow us on [Twitter](https://twitter.com/modern_web_dev).
+You can find our new home at [modern-web.dev](https://modern-web.dev). All our tools are available on npm within the [@web](https://www.npmjs.com/org/web) npm namespace. Our code is open source and on [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web). For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev).
 
-## What we stands for
+## What we stand for
 
 ### Low barrier to entry
 
-Tooling that works out of the box and seldomly requires configuration. Knowledge of HTML, CSS and JS should be all you need. We go back to the old days where we wrote html we understood. Include some scripts and link some css and you are ready to go. No longer do you need a degree in Webpack to deploy an application.
+Tooling that works out of the box and seldomly requires configuration. Knowledge of HTML, CSS, and JS should be all you need. We go back to the old days where we wrote html we understood. Include some scripts and link some CSS and you are ready to go. No longer do you need a degree in Webpack to deploy an application.
 
 ### Performance
 
 We care about performance and therefore we encourage to ship as little code to your users as possible.
 By utilizing what the modern browser offers out of the box to minimize user code.
-Combining this with tools that understand html/css/js we can produce small high performant websites.
+Combining this with tools that understand HTML/CSS/JS we can produce small high performant websites.
 
 ### Close to the browser
 
 Following the browser ensures that your knowledge and skill remain relevant over time. Frameworks may come and go, but the browser stays.
-This means that we value browser solutions over tooling that goes into the opposite direction.
+This means that we value browser solutions over tooling that goes in the opposite direction.
 
 ## Our vision of the future
 
 Modern Web is our starting point into a list of tools that will enable you to create websites as a mere mortal human.
-In the end we will offer a complete set of tools to enable building modern websites for and with the browser.
+In the end, we will offer a complete set of tools to enable building modern websites for and with the browser.
 
-Our tools are generally comprised of many individual parts/plugins/packages. Each of those packages tries to cover the smallest possible feature set but still solving an isolated problem domain. You may find these smaller packages useful but generally we advice to consume our opinionated and more user friendly packages.
+Our tools are generally comprised of many individual parts/plugins/packages. Each of those packages tries to cover the smallest possible feature set but still solving an isolated problem domain. You may find these smaller packages useful but generally, we advise you to consume our opinionated and more user-friendly packages.
 
-Each of our opinionated tools will come with a learning section that guides you step by step into using the specific tool. Furthermore there will be a comprehensive documentation for each of those tool and also for all the different parts/plugins/packages it's made of.
+Each of our opinionated tools will come with a learning section that guides you step by step into using the specific tool. Furthermore, there will be comprehensive documentation for each of those tools and also for all the different parts/plugins/packages it's made of.
 
-We start off our journey with a brand new `Web Test Runner` that actually uses the browser as we see that as the area with the biggest gap.
+We start our journey with a brand new `Web Test Runner` that uses the browser as we see that as the area with the biggest gap.
 
 ## Web Test Runner
 
@@ -60,11 +60,11 @@ The test runner for web applications.
 ### Why a new test runner?
 
 One of our core principals is to be close to the browser. Therefore our tests should run in a browser.
-You may ask why? and it might not be totally obvious but JavaScript in Node and in the Browser are two totally different eco systems and implementation.
-This leads to a diversion in what is supported. One of the most prominent examples is probably ES Modules. While supported in all evergreen browsers in early 2018 there are still some road bump for node in 2020.
+You may ask why? and it might not be totally obvious but JavaScript in Node and the Browser are two different ecosystems and implementation.
+This leads to a diversion in what is supported. One of the most prominent examples is probably ES Modules. While supported in all evergreen browsers in early 2018 there are still some road bumps for NodeJS in 2020.
 
 Giving this situation there will always be a difference in pace and possibilities in regards to node/JsDom and a real browser.
-On top of that there are quite often subtle variations in implementation for each browser.
+On top of that, there are quite often subtle variations in implementation for each browser.
 So it's good to know if it runs in the actual browser your users are going to use. And to be honest not a single user will use JsDom.
 
 ## Quick Start
@@ -131,7 +131,7 @@ Once you have the basics test running you can enjoy some of the more advanced fe
 The same tests are run in watch mode but you do get multiple additional features
 
 - Tests are rerun on file change (source or test)
-- You can focus a specific test file
+- You can focus on a specific test file
 - You can open a test file in the browser
 
 Automatic rerunning is probably well know but what does it mean to "focus a specific test file"?
@@ -173,7 +173,7 @@ We can install it via
 npm i -D @web/test-runner-playwright
 ```
 
-which will bring its on versions of chromium, firefox, and WebKit.
+which will bring its own versions of Chromium, Firefox, and WebKit.
 
 Once that is available we will activate via some flags in the command of the packages.json
 
@@ -201,7 +201,7 @@ See more instructions in the [using-launchers](https://modern-web.dev/learn/test
 
 ## Testing responsive views
 
-With the world going mobile first there needs to be a way of testing your mobile views.
+With the world going mobile-first there needs to be a way of testing your mobile views.
 Working with a real browser you can directly change the viewport.
 
 Let's assume we have some code that should only execute on mobile.
@@ -222,7 +222,7 @@ describe('isMobile', () => {
 ```
 
 It feels like something is missing in this test... 🤔
-Expecting something to be true in once case and false in another without any other function call feels wrong.
+Expecting something to be true in one case and false in another without any other function call feels wrong.
 Right we are missing a way to change the actual size of the window.
 
 For that we need to install the library:
@@ -231,7 +231,7 @@ For that we need to install the library:
 npm i -D @web/test-runner-helpers
 ```
 
-With that we get a `setViewport` method which we can put to good use.
+With that, we get a `setViewport` method which we can put to good use.
 
 ```js
 import { expect } from '@open-wc/testing';
@@ -251,19 +251,19 @@ describe('isMobile', () => {
 });
 ```
 
-If you wanna know more like for example how to test css media queries see the [responsive](https://modern-web.dev/learn/test-runner/responsive/) learn section.
+If you wanna know more like for example how to test CSS media queries see the [responsive](https://modern-web.dev/learn/test-runner/responsive/) learn section.
 
 ## Using Code Coverage
 
 Once you have a decent set of tests you may want to look into what could still be improved.
 Code coverage can help to find which code segments have not yet been tested.
-Generally it's advised to have a code coverage at above 80% which you will most likely have if you practice Test Driven Development (TDD).
+Generally, it's advised to have a code coverage at above 80% which you will most likely have if you practice Test Driven Development (TDD).
 
 ## Getting the code coverage
 
 Coverage is part of the default feature set that comes with any launcher that works with chromium.
 
-The reason for that is that the chromium browser itself calculates the coverage for us.
+The reason for that is that the chromium-browser itself calculates the coverage for us.
 
 1. Add a script to your `package.json`
    ```json
@@ -337,7 +337,7 @@ As you can see, our test passed but our `Code coverage` is a bit on the low side
 
 We might have a test, but we don't test all variations that can happen within the function.
 
-In order to see what is missing we can look at the Coverage Report by `Command + Click`-ing on the link (coverage/lcov-report/index.html) in the console.
+To see what is missing we can look at the Coverage Report by `Command + Click`-ing on the link (coverage/lcov-report/index.html) in the console.
 
 There, it will show us that `calc.js` has a yellow coverage and if we click on it we can see the detailed code and what is missing.
 
@@ -353,7 +353,7 @@ it('does minus for 2 numbers', () => {
 });
 ```
 
-It gives use a code coverage of `86.11 %`.
+It gives us a code coverage of `86.11 %`.
 
 Adding a test for throwing an error will bring it to `100%`.
 
@@ -375,7 +375,7 @@ See more instructions in the [writing-plugin](https://modern-web.dev/learn/test-
 
 There you have it - our first modern-web product enabling you to efficiently test and debug with a real browser.
 
-You can find us at [modern-web.dev](https://modern-web.dev). All our tools are available on npm within the [@web](https://www.npmjs.com/org/web) npm namespace. Our code is open source and on [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web). For updates you can follow us on [Twitter](https://twitter.com/modern_web_dev).
+You can find us at [modern-web.dev](https://modern-web.dev). All our tools are available on npm within the [@web](https://www.npmjs.com/org/web) npm namespace. Our code is open source and on [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web). For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev).
 
 ## What this means for Open Web Components
 
