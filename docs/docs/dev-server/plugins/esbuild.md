@@ -1,12 +1,12 @@
 ---
-title: Dev Server esbuild
+title: Esbuild
 eleventyNavigation:
-  key: esbuild
-  parent: Dev Server
-  order: 10
+  key: Esbuild
+  parent: Plugins
+  order: 2
 ---
 
-[esbuild](https://github.com/evanw/esbuild) plugin for [@web/test-runner-server](https://www.npmjs.com/package/@web/test-runner-server) and [es-dev-server](https://www.npmjs.com/package/es-dev-server).
+Plugin for using [esbuild](https://github.com/evanw/esbuild) in the dev server.
 
 esbuild is a blazing fast build tool, and can be used to transform TS and JSX to JS. It can also transform modern JS to older JS for older browsers.
 

@@ -1,0 +1,24 @@
+---
+title: Reporters
+eleventyNavigation:
+  key: Reporters
+  parent: Test Runner
+  order: 8
+---
+
+You can customize the test reporters using the `reporters` option.
+
+```js
+// import the browser launcher you want to use
+const { defaultReporter } = require('@web/test-runner');
+const { myReporter } = require('my-reporter');
+
+module.exports = {
+  reporters: [
+    // use the default reporter only for reporting test progress
+    defaultReporter({ reportTestResults: false, reportTestProgress: true }),
+    // use another reporter to report test results
+    myReporter(),
+  ],
+};
+```

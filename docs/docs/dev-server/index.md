@@ -2,8 +2,7 @@
 title: Development Web Server
 eleventyNavigation:
   key: Dev Server
-  order: 20
+  order: 2
 ---
 
-A server for local development - not yet usable standalone.
-You can however use it's parts with the [@web/test-runner](../test-runner/overview.md) already.
+A dev server for local development. We are still working on finalizing the dev server as a standalone package, but we are already using the core parts in the [Test Runner](../test-runner/index.md)

@@ -1,21 +1,17 @@
 ---
-title: Dev Server Plugins
+title: Writing plugins
 eleventyNavigation:
-  key: Plugins
-  parent: Dev Server
-  order: 10
+  key: Writing plugins
+  parent: Plugins
+  order: 5
 ---
-
-Plugins are objects with lifecycle hooks called by the dev server as it serves files to the browser. They can be used to serve virtual files, transform files, or resolve module imports.
-
-Plugins share a similar API to [rollup](https://github.com/rollup/rollup) plugins. In fact, you can reuse rollup plugins in the dev server. See the [code transformations](https://github.com/modernweb-dev/web/blob/master/packages/dev-server-core/docs/code-transformations.md) for examples.
-
-## Adding plugins
 
 A plugin is just an object that you add to the `plugins` array in your configuration file. You can add an object directly, or create one from a function somewhere:
 
 <details>
   <summary>Read more</summary>
+
+In your `web-dev-server.config.js` or `web-test-runner.config.js`:
 
 ```js
 const awesomePlugin = require('awesome-plugin');
@@ -216,7 +212,7 @@ The transform hook is called for each file and can be used to change a file's co
 
 This hook is useful for small modifications, such as injecting environment variables, or for compiling files to JS before serving them to the browser.
 
-In a web server the response body is not always a string, but it can be a binary buffer or stream. If you the dev server sees that the response is utf-8, it will convert the body to a string for you to make writing transform plugins easier. If you are transforming non-standard file types, you may also need to include a `resolveMimeType` hook. A good example of this is `.ts` files, which in Koa defaults to a streaming video.
+In a web server, the response body is not always a string, but it can be a binary buffer or stream. If the dev server sees that the response is utf-8, it will convert the body to a string for you to make writing transform plugins easier. If you are transforming non-standard file types, you may also need to include a `resolveMimeType` hook. A good example of this is `.ts` files, which in Koa defaults to a streaming video.
 
 <details>
   <summary>Read more</summary>
@@ -420,7 +416,7 @@ module.exports = {
           }),
         );
 
-        // boot up the other server, because it is awaited the dev server will also wait for it
+        // boot up the other server because it is awaited the dev server will also wait for it
         await startOtherServer({ port: 9001 });
       },
     },

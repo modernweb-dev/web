@@ -1,15 +1,14 @@
 ---
-title: Test Runner Browserstack
+title: Browserstack
 eleventyNavigation:
   key: Browserstack
-  parent: Browser Launchers
+  parent: Browsers
+  order: 5
 ---
 
-Browser launcher for Web Test Runner using Browserstack.
+Run tests remotely on [Browserstack](https://www.browserstack.com/).
 
-For modern browsers we recommend using other browser launchers, as they are a lot faster. Browserstack can be used to target older browser versions.
-
-See [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner) for a default implementation and CLI for the test runner.
+For modern browsers, we recommend using other browser launchers, as they are a lot faster. Browserstack is a good option for testing on older browser versions.
 
 ## Usage
 
