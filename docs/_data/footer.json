@@ -7,8 +7,8 @@
         "href": "/blog/"
       },
       {
-        "text": "Family",
-        "href": "/about/family/"
+        "text": "About",
+        "href": "/discover/about/"
       },
       {
         "text": "Help and Feedback",
@@ -29,7 +29,7 @@
       },
       {
         "text": "Slack",
-        "href": "/about/slack/"
+        "href": "/discover/slack/"
       }
     ]
   },
@@ -38,7 +38,7 @@
     "children": [
       {
         "text": "Sponsor",
-        "href": "/about/sponsor/"
+        "href": "/discover/sponsor/"
       },
       {
         "text": "Contribute",
