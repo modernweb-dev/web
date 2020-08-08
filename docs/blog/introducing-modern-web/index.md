@@ -19,20 +19,9 @@ You can find our new home at [modern-web.dev](https://modern-web.dev). All our t
 
 ## What we stand for
 
-### Low barrier to entry
+Modern browsers are a powerful platform for building websites and applications. We teach developers what's available out of the box, and provide extensions in the form of patterns and tooling.
 
-Tooling that works out of the box and seldomly requires configuration. Knowledge of HTML, CSS, and JS should be all you need. We go back to the old days where we wrote html we understood. Include some scripts and link some CSS and you are ready to go. No longer do you need a degree in Webpack to deploy an application.
-
-### Performance
-
-We care about performance and therefore we encourage to ship as little code to your users as possible.
-By utilizing what the modern browser offers out of the box to minimize user code.
-Combining this with tools that understand HTML/CSS/JS we can produce small high performant websites.
-
-### Close to the browser
-
-Following the browser ensures that your knowledge and skill remain relevant over time. Frameworks may come and go, but the browser stays.
-This means that we value browser solutions over tooling that goes in the opposite direction.
+By building on top of established standards we can create solutions that are lightweight, easy to learn and remain relevant for a longer time.
 
 ## Our vision of the future
 
