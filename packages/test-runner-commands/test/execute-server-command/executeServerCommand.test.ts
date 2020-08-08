@@ -4,7 +4,7 @@ import { chromeLauncher } from '@web/test-runner-chrome';
 import { testRunnerServer } from '@web/test-runner-server';
 
 describe('executeServerCommand', function test() {
-  this.timeout(10000);
+  this.timeout(20000);
 
   it('can execute commands', async () => {
     await runTests(

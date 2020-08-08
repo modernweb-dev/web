@@ -7,7 +7,7 @@ import { testRunnerServer } from '@web/test-runner-server';
 import { setViewportPlugin } from '../../src/setViewportPlugin';
 
 describe('setViewportPlugin', function test() {
-  this.timeout(10000);
+  this.timeout(20000);
 
   it('can set the viewport on puppeteer', async () => {
     await runTests(
