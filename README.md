@@ -2,18 +2,9 @@
 
 <h3 align="center">Developer tools for modern web development.</h3>
 
-### Low barrier to entry
+Modern browsers are a powerful platform for building websites and applications. Our goal is to teach developers what's available out of the box, and provide extensions in the form of patterns and tooling.
 
-We provide tooling that is easy to get into and requires as little prerequisite knowledge as possible. No longer do you need a degree in Webpack to deploy an application.
-
-### Performant
-
-Both from a speed and size perspective, we focus on tooling that helps create performant products and services.
-
-### Close to the platform
-
-Following platform will ensure that your knowledge and skills learnt, remain relevant over time. Frameworks may come and go, but the platform stays.
-This means that we value platform solutions over tooling that goes into the opposite direcction.
+By building on top of established standards we can create solutions that are lightweight, easy to learn and remain relevant for a longer time.
 
 ## open-wc
 

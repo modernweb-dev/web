@@ -1,7 +1,7 @@
 ---
 title: Modern Web
 layout: home.njk
-slogan: Developer tools for modern web development.
+slogan: Guides, tools and libraries for modern web development.
 callToActionItems:
   [
     {
@@ -68,16 +68,16 @@ reasonHeader: Why Modern Web?
 reasons:
   [
     {
-      header: Work with the browser,
-      text: 'In close union with the browser, you can achieve more, faster, with less bloat and fewer dependencies.',
+      header: Built on web standards,
+      text: "Work with and extend what's available in modern browsers, learning skills, and writing code that stays relevant.",
     },
     {
-      header: Future Proof,
-      text: The web never breaks - that's its promise. Learn to use what the web offers to improve your code.,
+      header: Lightweight,
+      text: 'Simple solutions that are lightweight and have a low barrier to entry. With extension points for power users.',
     },
     {
-      header: Less Tooling,
-      text: 'The code you write is the code your browser executes - which makes debugging a breeze.',
+      header: Low complexity,
+      text: 'Write code that is close to what actually runs in the browser, reducing abstractions and complexity.',
     },
   ]
 ---
