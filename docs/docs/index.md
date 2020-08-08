@@ -11,5 +11,5 @@ For a more guided learning experience please visit our [learn section](../learn/
 
 Documentation for the following packages is available:
 
-- [Test Runner](./test-runner/overview.md)
+- [Test Runner](./test-runner/overview/index.md)
 - [Dev Server](./dev-server/index.md)

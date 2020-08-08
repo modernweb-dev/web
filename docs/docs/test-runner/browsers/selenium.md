@@ -1,15 +1,14 @@
 ---
-title: Test Runner Selenium
+title: Selenium
 eleventyNavigation:
   key: Selenium
-  parent: Browser Launchers
+  parent: Browsers
+  order: 4
 ---
 
-Browser launcher for Web Test Runner using Selenium.
+Run tests using [selenium-webdriver](https://www.npmjs.com/package/selenium-webdriver).
 
-For testing on modern browsers we don't recommend using Selenium, as it does not support running tests in parallel and there are better options available.
-
-See [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner) for a default implementation and CLI for the test runner.
+For testing on modern browsers, we don't recommend using Selenium, as it does not support running tests in parallel and there are better options available.
 
 ## Usage
 

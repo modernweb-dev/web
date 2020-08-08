@@ -1,60 +1,34 @@
 ---
-title: Code transformations
+title: Examples
 eleventyNavigation:
-  key: Code Transformations
-  parent: Dev Server
-  order: 100
+  key: Examples
+  parent: Plugins
+  order: 1
 ---
 
-In `@web/dev-server` and `@web/test-runner` you can add plugins to transform code. On this page, we will look at some common patterns.
+Common examples using plugins.
 
-## Plugins
+Generally speaking, the two most important plugins are [esbuild](../esbuild.md) and [rollup](../rollup.md). Esbuild can be used for fast transformations, while rollup has a rich plugin ecosystem we can use.
 
-Generally speaking, the two most important plugins are [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild) and [@web/dev-server-rollup](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-rollup). Esbuild can be used for fast transformations, while rollup has a rich plugin ecosystem we can reuse here.
-
-Some of the examples require you to write your own plugin. The examples are straight forward, but you can check the [server plugins](https://github.com/modernweb-dev/web/blob/master/packages/dev-server-core/docs/server-plugins.md) docs for a more detailed explanation.
+Some of the examples require you to write your own plugin. The examples are straight forward, but you can check the [writing plugins section](../writing-plugins.md) for a more detailed explanation.
 
 ## Typescript
 
-### esbuild
-
-To use typescript we recommend using [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild) to transform TS to JS on the fly. It is the fastest approach, introducing only a few milliseconds overhead.
-
-<details>
-
-<summary>View example</summary>
-
-Note that `esbuild` doesn't do any type checking, you can run `tsc` as a separate step for linting your types only.
-
-See [this project](https://github.com/modernweb-dev/web/tree/master/demo/projects/lit-element-ts) for an example setup.
-
-```js
-const { esbuildPlugin } = require('@web/dev-server-esbuild');
-
-module.exports = {
-  plugins: [esbuildPlugin({ ts: true })],
-};
-```
-
-</details>
+To use typescript with the dev server, you have two main options.
 
 ### tsc
 
-You can use `tsc`, the official typescript compiler, to transform TS to JS as well. It is the most stable option as this is the official tool, but it is slower and you need to run it before running tests or dev server.
+You can use `tsc`, the official typescript compiler, to transform TS to JS. This is the most stable option as this is the official tool, but it is slower and you need to run it before running tests or dev server.
 
-<details>
+Check the [official typescript docs](https://www.typescriptlang.org/) to set up TSC, and then run the test runner on the generated JS files.
 
-<summary>View example</summary>
+### esbuild
 
-If you rely on the specific behavior of `tsc`, for example when using some of the advanced options in the `tsconfig`, this is a good option.
-
-See [this project](https://github.com/modernweb-dev/web/tree/master/demo/projects/lit-element-tsc) for an example setup.
-
-</details>
+The dev server can also transform TS on the fly using `esbuild.` It is the fastest approach, introducing only a few milliseconds overhead. Check the [esbuild plugin docs](../esbuild.md) to learn more about how to set it up.
 
 ## Other module formats
 
-The browser only supports standard es modules, using `import` and `export` statements. Check out [es modules docs](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core/docs/es-modules.md) to learn more about using es modules and supporting other module formats such as CommonJS and UMD.
+The browser only supports standard es modules, using `import` and `export` statements. Check out [es modules docs](../../../learn/standards-based/es-modules.md) to learn more about using es modules and supporting other module formats such as CommonJS and UMD.
 
 ## Environment variables
 
@@ -173,7 +147,7 @@ module.exports = {
 
 ## JSX and TSX
 
-You can use [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild) to handle JSX and TSX files. Check the demos for [JSX](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-jsx) and [TSX](https://github.com/modernweb-dev/web/tree/master/demo/projects/preact-tsx)
+You can use [esbuild](../esbuild.md) to handle transforming JSX and TSX on the fly.
 
 ## Importing JSON
 

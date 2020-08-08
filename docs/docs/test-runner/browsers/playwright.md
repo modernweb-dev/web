@@ -1,17 +1,26 @@
 ---
-title: Test Runner Playwright
+title: Playwright
 eleventyNavigation:
   key: Playwright
-  parent: Browser Launchers
+  parent: Browsers
+  order: 3
 ---
 
-Browser launcher for `@web/test-runner`. Runs the browser using [playwright](https://www.npmjs.com/package/playwright).
+Run tests using [Playwright](https://www.npmjs.com/package/playwright), using a bundled versions of Chromium, Firefox, and/or Webkit.
 
 ## Usage
 
-If you are using [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner), you can run playwright using the `--playwright` and `--browsers` flags.
+When using `@web/test-runner` regularly, you can use Playwright with the `--playwright` and `--browsers` flags:
 
-### Customizing launcher options
+```bash
+# add the package
+npm i -D @web/test-runner-playwright
+
+# add the flag
+wtr test/**/*.test.js --node-resolve --playwright --browsers chromium firefox webkit
+```
+
+## Customizing launcher options
 
 If you want to customize the playwright launcher options, you can add the browser launcher in the config.
 
@@ -35,9 +44,9 @@ module.exports = {
 };
 ```
 
-### Testing multiple browsers
+## Testing multiple browsers
 
-For each browser you can add a separate browser launcher
+For each browser, you can add a separate browser launcher
 
 ```js
 const { playwrightLauncher } = require('@web/test-runner-playwright');

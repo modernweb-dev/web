@@ -1,14 +1,14 @@
 ---
-title: Test Runner Commands
+title: Commands
 eleventyNavigation:
   key: Commands
   parent: Test Runner
-  order: -80
+  order: 6
 ---
 
-# Test Runner Commands
+Commands for executing code server-side during your tests in the browser. To control the browser page, access the file system, or execute NodeJS libraries.
 
-Run server-side commands for tests with [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner).
+Built-in commands can change the viewport, emulate media queries or set the user agent. You can create custom commands to implement your own functionalities.
 
 ## Usage
 
@@ -18,11 +18,11 @@ Install the library:
 npm i -D @web/test-runner-helpers
 ```
 
-### Built-in commands
+## Built-in commands
 
-We provide a set of built-in commands to use during testing.
+You can use the built-in commands directly in your tests.
 
-#### Viewport
+### Viewport
 
 The `setViewport` command allows changing the browser's viewport in a test. The function is async and should be awaited.
 
@@ -51,7 +51,7 @@ describe('my component', () => {
 
 </details>
 
-#### Emulate media
+### Emulate media
 
 The `emulateMedia` command allows changing browser media queries. The function is async and should be awaited.
 
@@ -88,7 +88,7 @@ it('can emulate reduced motion', async () => {
 
 </details>
 
-#### Set user agent
+### Set user agent
 
 The `setUserAgent` changes the browser's user agent. The function is async and should be awaited.
 
@@ -110,7 +110,7 @@ it('can set the user agent', async () => {
 
 </details>
 
-### Custom commands
+## Custom commands
 
 To create a custom command, you first need to add a test runner plugin which implements the `executeCommand` function.
 

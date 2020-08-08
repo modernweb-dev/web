@@ -18,6 +18,7 @@
     "reinstall-workspace": "rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
     "release": "changeset publish && yarn format",
     "start": "rocket-start",
+    "start:build":"es-dev-server --root-dir _site --compatibility none --open",
     "test": "node scripts/workspaces-scripts.mjs test:ci",
     "update-dependency": "node scripts/update-dependency.js",
     "update-package-configs": "ts-node scripts/update-package-configs.ts"
