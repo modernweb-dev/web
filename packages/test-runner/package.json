@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.6.64",
+  "version": "0.6.65",
   "publishConfig": {
     "access": "public"
   },
@@ -38,9 +38,7 @@
     "test:source-maps": "node dist/test-runner.js demo/test/source-maps/**/*/*.test.js",
     "test:watch": "node dist/test-runner.js demo/**/pass-*.test.{js,html} --watch"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "test",
@@ -53,7 +51,7 @@
   "dependencies": {
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@web/dev-server-rollup": "^0.1.9",
-    "@web/test-runner-chrome": "^0.5.20",
+    "@web/test-runner-chrome": "^0.5.21",
     "@web/test-runner-cli": "^0.4.30",
     "@web/test-runner-commands": "^0.0.1",
     "@web/test-runner-core": "^0.6.23",

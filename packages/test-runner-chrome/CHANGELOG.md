@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.5.21
+
+### Patch Changes
+
+- f924a9b: improve support for puppeteer firefox
+
 ## 0.5.20
 
 ### Patch Changes

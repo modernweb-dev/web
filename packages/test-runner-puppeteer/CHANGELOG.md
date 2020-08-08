@@ -1,5 +1,13 @@
 # @web/test-runner-puppeteer
 
+## 0.5.12
+
+### Patch Changes
+
+- f924a9b: improve support for puppeteer firefox
+- Updated dependencies [f924a9b]
+  - @web/test-runner-chrome@0.5.21
+
 ## 0.5.11
 
 ### Patch Changes
