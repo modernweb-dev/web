@@ -69,11 +69,11 @@ reasons:
   [
     {
       header: Work with the browser,
-      text: 'In close union with the browser you can archive more, faster, with less bloat and fewer dependencies.',
+      text: 'In close union with the browser, you can achieve more, faster, with less bloat and fewer dependencies.',
     },
     {
       header: Future Proof,
-      text: The web never breaks - that's it's promise. Learn to use what the web offers to improve your code.,
+      text: The web never breaks - that's its promise. Learn to use what the web offers to improve your code.,
     },
     {
       header: Less Tooling,
