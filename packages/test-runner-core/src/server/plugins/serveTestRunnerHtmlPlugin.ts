@@ -1,5 +1,5 @@
 import { Context } from '@web/dev-server-core';
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
+import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
 
 function createTestPage(testFrameworkImport: string) {
   return `<!DOCTYPE html>

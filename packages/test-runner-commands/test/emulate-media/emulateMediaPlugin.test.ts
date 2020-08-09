@@ -3,7 +3,6 @@ import { platform } from 'os';
 import { runTests } from '@web/test-runner-core/dist/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { playwrightLauncher } from '@web/test-runner-playwright';
-import { testRunnerServer } from '@web/test-runner-server';
 
 import { emulateMediaPlugin } from '../../src/emulateMediaPlugin';
 
@@ -14,9 +13,7 @@ describe('emulateMediaPlugin', function test() {
     await runTests(
       {
         browsers: [chromeLauncher()],
-        server: testRunnerServer({
-          plugins: [emulateMediaPlugin()],
-        }),
+        plugins: [emulateMediaPlugin()],
       },
       [path.join(__dirname, 'browser-test.js'), path.join(__dirname, 'puppeteer-only-test.js')],
     );
@@ -33,9 +30,7 @@ describe('emulateMediaPlugin', function test() {
             // TODO: make webkit work in the CI
             // playwrightLauncher({ product: 'webkit' }),
           ],
-          server: testRunnerServer({
-            plugins: [emulateMediaPlugin()],
-          }),
+          plugins: [emulateMediaPlugin()],
         },
         [path.join(__dirname, 'browser-test.js')],
       );

@@ -1,22 +1,31 @@
-import { constants, TestSessionManager, TestRunner, TestSession } from '@web/test-runner-core';
 import { Middleware, Context } from '@web/dev-server-core';
 import { DepGraph } from 'dependency-graph';
 import debounce from 'debounce';
 import path from 'path';
 import { FSWatcher } from 'chokidar';
 
+import { TestSessionManager } from '../../test-session/TestSessionManager';
+import { constants } from '../..';
+import { TestSession } from '../../test-session/TestSession';
+
 const IGNORED_404s = ['favicon.ico'];
 const { PARAM_SESSION_ID } = constants;
 
+export type RunSessions = (sessions: Iterable<TestSession>) => void;
+
 export interface DependencyGraphMiddlewareArgs {
-  runner: TestRunner;
   sessions: TestSessionManager;
   rootDir: string;
   fileWatcher: FSWatcher;
   testFrameworkImport?: string;
+  runSessions: RunSessions;
 }
 
-function onRerunSessions(runner: TestRunner, sessions: TestSessionManager, sessionIds?: string[]) {
+function onRerunSessions(
+  runSessions: RunSessions,
+  sessions: TestSessionManager,
+  sessionIds?: string[],
+) {
   const sessionsToRerun = sessionIds
     ? (sessionIds
         .map(id => {
@@ -28,7 +37,7 @@ function onRerunSessions(runner: TestRunner, sessions: TestSessionManager, sessi
         })
         .filter(s => s) as TestSession[])
     : sessions.all();
-  runner.runTests(sessionsToRerun);
+  runSessions(sessionsToRerun);
 }
 
 function onRequest404(sessions: TestSessionManager, sessionId: string, url: string) {
@@ -55,7 +64,7 @@ export function watchFilesMiddleware({
   rootDir,
   fileWatcher,
   sessions,
-  runner,
+  runSessions,
   testFrameworkImport,
 }: DependencyGraphMiddlewareArgs): Middleware {
   const fileGraph = new DepGraph({ circular: true });
@@ -112,10 +121,10 @@ export function watchFilesMiddleware({
 
     if (sessionsToRerun.size > 0) {
       // re run specified sessions
-      onRerunSessions(runner, sessions, Array.from(sessionsToRerun));
+      onRerunSessions(runSessions, sessions, Array.from(sessionsToRerun));
     } else {
       // re run alll sessions
-      onRerunSessions(runner, sessions);
+      onRerunSessions(runSessions, sessions);
     }
 
     pendingChangedFiles = new Set<string>();

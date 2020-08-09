@@ -1,15 +1,13 @@
 import { Middleware } from '@web/dev-server-core';
-import {
-  TestSessionManager,
-  TestRunnerCoreConfig,
-  SESSION_STATUS,
-  Viewport,
-} from '@web/test-runner-core';
 import parse from 'co-body';
 import path from 'path';
-import { TestRunnerPlugin } from '../server/TestRunnerPlugin';
+import { SESSION_STATUS } from '../../test-session/TestSessionStatus';
+import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
+import { TestSessionManager } from '../../test-session/TestSessionManager';
+import { TestRunnerPlugin } from '../TestRunnerPlugin';
 
-import { toBrowserPath } from '../server/utils';
+import { toBrowserPath } from '../utils';
+import { Viewport } from '../../browser-launcher/BrowserLauncher';
 
 function createBrowserFilePath(rootDir: string, filePath: string, sessionId: string) {
   const fullFilePath = filePath.startsWith(process.cwd())

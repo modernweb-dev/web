@@ -1,8 +1,9 @@
+import { Middleware } from '@web/dev-server-core';
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
 import { TestFramework } from '../test-framework/TestFramework.js';
 import { Reporter } from '../reporter/Reporter.js';
-import { Server } from '../server/Server.js';
 import { Logger } from '../logger/Logger.js';
+import { TestRunnerPlugin } from '../server/TestRunnerPlugin.js';
 
 export interface CoverageThresholdConfig {
   statements: number;
@@ -35,7 +36,6 @@ export interface TestRunnerCoreConfig {
   testFramework?: TestFramework;
   logger: Logger;
   reporters: Reporter[];
-  server: Server;
 
   testRunnerHtml?: (testRunnerImport: string, config: TestRunnerCoreConfig) => string;
   watch: boolean;
@@ -49,4 +49,9 @@ export interface TestRunnerCoreConfig {
   testsStartTimeout?: number;
   testsFinishTimeout?: number;
   staticLogging?: boolean;
+
+  debug?: boolean;
+  mimeTypes?: Record<string, string>;
+  plugins?: TestRunnerPlugin[];
+  middleware?: Middleware[];
 }

@@ -19,8 +19,8 @@
     "release": "changeset publish && yarn format",
     "start": "rocket-start",
     "start:build": "es-dev-server --root-dir _site --compatibility none --open",
-    "test": "node scripts/workspaces-scripts-bin.mjs test:ci",
-    "test:windows": "node scripts/runWindowsTests.mjs",
+    "test": "yarn test:node",
+    "test:node": "mocha packages/*/test/**/*.test.ts --require ts-node/register --reporter progress",
     "update-dependency": "node scripts/update-dependency.js",
     "update-package-configs": "ts-node scripts/update-package-configs.ts"
   },

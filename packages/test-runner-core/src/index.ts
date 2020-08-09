@@ -11,6 +11,7 @@ export {
   TestRunFinishedArgs,
 } from './reporter/Reporter';
 export { TestRunner } from './runner/TestRunner';
+export { TestRunnerPlugin } from './server/TestRunnerPlugin';
 export { TestFramework } from './test-framework/TestFramework';
 export {
   TestRunnerCoreConfig,
@@ -18,7 +19,6 @@ export {
   CoverageThresholdConfig,
 } from './config/TestRunnerCoreConfig';
 export { TestCoverage } from './coverage/getTestCoverage';
-export { Server } from './server/Server';
 export { Logger, ErrorWithLocation } from './logger/Logger';
 export {
   TestSession,

@@ -44,9 +44,9 @@ export async function runTests(config: Partial<TestRunnerCoreConfig>, testFiles:
 
     const runner = new TestRunner(finalConfig, testFiles);
 
-    runner.sessions.on('session-status-updated', session => {
-      console.log(session.browser.name, session.id, session.status);
-    });
+    // runner.sessions.on('session-status-updated', session => {
+    //   console.log(session.browser.name, session.id, session.status);
+    // });
 
     runner.on('finished', () => {
       runner.stop();
@@ -90,7 +90,7 @@ export async function runTests(config: Partial<TestRunnerCoreConfig>, testFiles:
       }
 
       if (passed) {
-        resolve();
+        resolve(runner);
       } else {
         reject(new Error('Test run did not pass'));
       }

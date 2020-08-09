@@ -1,4 +1,4 @@
-import { TestRunnerPlugin } from '@web/test-runner-server';
+import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
