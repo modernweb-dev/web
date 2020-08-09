@@ -27,6 +27,7 @@ export class TestRunnerServer {
     runSessions: RunSessions,
   ) {
     const { plugins = [], testFramework, rootDir } = config;
+
     const { testFrameworkImport, testFrameworkPlugin } = testFramework
       ? serveTestFrameworkPlugin(testFramework)
       : ({} as { testFrameworkImport?: string; testFrameworkPlugin?: Plugin });

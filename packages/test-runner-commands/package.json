@@ -20,7 +20,6 @@
   "scripts": {
     "build": "tsc",
     "test": "mocha test/**/*.test.ts --require ts-node/register",
-    "test:ci": "yarn test",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [

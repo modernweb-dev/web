@@ -1,4 +1,5 @@
 import { runTests } from '@web/test-runner-core/dist/test-helpers';
+import { resolve } from 'path';
 import { chromeLauncher } from '../src/index';
 
 it('runs tests with chrome', async function () {
@@ -10,13 +11,13 @@ it('runs tests with chrome', async function () {
       concurrency: 3,
     },
     [
-      'test/fixtures/test-a.test.js',
-      'test/fixtures/test-b.test.js',
-      'test/fixtures/test-c.test.js',
-      'test/fixtures/test-d.test.js',
-      'test/fixtures/test-e.test.js',
-      'test/fixtures/test-f.test.js',
-      'test/fixtures/test-g.test.js',
+      resolve(__dirname, 'fixtures', 'a.js'),
+      resolve(__dirname, 'fixtures', 'b.js'),
+      resolve(__dirname, 'fixtures', 'c.js'),
+      resolve(__dirname, 'fixtures', 'd.js'),
+      resolve(__dirname, 'fixtures', 'e.js'),
+      resolve(__dirname, 'fixtures', 'f.js'),
+      resolve(__dirname, 'fixtures', 'g.js'),
     ],
   );
 });

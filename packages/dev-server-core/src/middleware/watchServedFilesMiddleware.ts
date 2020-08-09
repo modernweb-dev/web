@@ -14,7 +14,10 @@ export function watchServedFilesMiddleware(fileWatcher: FSWatcher, rootDir: stri
 
     if (ctx.response.status !== 404 && path.extname(ctx.path)) {
       const filePath = getRequestFilePath(ctx, rootDir);
-      fileWatcher.add(filePath);
+
+      if (!filePath.endsWith('/')) {
+        fileWatcher.add(filePath);
+      }
     }
   };
 }

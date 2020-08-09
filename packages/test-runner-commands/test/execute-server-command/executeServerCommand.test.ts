@@ -26,7 +26,7 @@ describe('executeServerCommand', function test() {
               }
 
               if (command === 'command-d') {
-                throw new Error('error from command');
+                throw new Error('error expected to be thrown from command');
               }
             },
           },

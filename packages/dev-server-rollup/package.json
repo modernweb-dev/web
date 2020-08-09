@@ -18,14 +18,12 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "test": "yarn test:node && yarn test:browser",
-    "test:browser": "node ../test-runner/dist/test-runner.js test/browser/**/*.test.js --node-resolve",
-    "test:browser:watch": "node ../test-runner/dist/test-runner.js test/browser/**/*.test.js --node-resolve --watch",
-    "test:ci": "yarn test",
-    "test:node": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --reporter progress",
-    "test:node:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter progress"
+    "test": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --reporter dot",
+    "test:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "web",
     "dev",
@@ -40,6 +38,8 @@
   ],
   "dependencies": {
     "@web/dev-server-core": "^0.1.9",
+    "@web/test-runner-chrome": "^0.5.21",
+    "@web/test-runner-core": "^0.6.23",
     "chalk": "^4.1.0",
     "parse5": "^6.0.1",
     "rollup": "^2.20.0",

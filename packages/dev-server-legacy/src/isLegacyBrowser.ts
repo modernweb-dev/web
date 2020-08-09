@@ -90,11 +90,9 @@ function calculateIsLegacyBrowser(userAgent: string, logger: Logger) {
 export function isLegacyBrowser(ctx: Context, logger: Logger) {
   const userAgent = ctx.get('user-agent');
   let isLegacyBrowser = cache.get(userAgent);
-
   if (isLegacyBrowser == null) {
     isLegacyBrowser = calculateIsLegacyBrowser(userAgent, logger);
     cache.set(userAgent, isLegacyBrowser);
   }
-
   return isLegacyBrowser;
 }

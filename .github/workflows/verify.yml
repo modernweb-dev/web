@@ -75,7 +75,7 @@ jobs:
         run: yarn build
 
       - name: Test
-        run: yarn test:windows
+        run: yarn test
 
   verify-browserstack:
     name: Verify browserstack

@@ -23,9 +23,8 @@
     "start:event-stream": "node demo/event-stream/start-server.js",
     "start:http2": "node demo/http2/start-server.js",
     "start:import-asset": "node demo/import-asset/start-server.js",
-    "test": "mocha 'test/**/*.test.ts' --recursive --require ts-node/register --reporter progress",
-    "test:ci": "yarn test",
-    "test:watch": "mocha 'test/**/*.test.ts' --recursive --require ts-node/register --reporter progress --watch --watch-files src,test/tests"
+    "test": "mocha 'test/**/*.test.ts' --recursive --require ts-node/register --reporter dot",
+    "test:watch": "mocha 'test/**/*.test.ts' --recursive --require ts-node/register --reporter dot --watch --watch-files src,test/tests"
   },
   "files": [
     ".self-signed-dev-server-ssl.cert",
