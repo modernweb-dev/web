@@ -37,11 +37,6 @@ async function createTestRunner(
     isActive: stub().returns(true),
   };
 
-  const server = {
-    start: stub().returns(Promise.resolve()),
-    stop: stub().returns(Promise.resolve()),
-  };
-
   const config: TestRunnerCoreConfig = {
     files: [],
     reporters: [],
@@ -51,31 +46,30 @@ async function createTestRunner(
     concurrency: 10,
     browsers: [browser],
     watch: false,
-    server,
     protocol: 'http:',
     hostname: 'localhost',
     port,
     ...extraConfig,
   };
   const runner = new TestRunner(config, testFiles);
-  return { runner, browser, server };
+  return { runner, browser };
 }
 
 it('can run a single test file', async () => {
-  const { browser, server, runner } = await createTestRunner();
+  const { browser, runner } = await createTestRunner();
 
   await runner.start();
   expect(runner.started).to.equal(true, 'runner is started');
   expect(browser.start.callCount).to.equal(1, 'brower is started');
-  expect(server.start.callCount).to.equal(1, 'server is started');
   expect(browser.startSession.callCount).to.equal(1, 'browser session is started');
 
   const sessions = Array.from(runner.sessions.all());
   expect(sessions.length).to.equal(1, 'one session is created');
+  await runner.stop();
 });
 
 it('closes test runner for a succesful test', async () => {
-  const { browser, server, runner } = await createTestRunner();
+  const { browser, runner } = await createTestRunner();
   let resolveStopped: (passed: boolean) => void;
   const stopped = new Promise<boolean>(resolve => {
     resolveStopped = resolve;
@@ -96,12 +90,11 @@ it('closes test runner for a succesful test', async () => {
 
   expect(browser.stopSession.callCount).to.equal(1, 'browser session is stopped');
   expect(browser.stop.callCount).to.equal(1, 'browser is stopped');
-  expect(server.stop.callCount).to.equal(1, 'server is stopped');
   expect(passed).to.equal(true, 'test runner quits with true');
 });
 
 it('closes test runner for a failed test', async () => {
-  const { browser, server, runner } = await createTestRunner();
+  const { browser, runner } = await createTestRunner();
   let resolveStopped: (passed: boolean) => void;
   const stopped = new Promise<boolean>(resolve => {
     resolveStopped = resolve;
@@ -121,6 +114,5 @@ it('closes test runner for a failed test', async () => {
 
   expect(browser.stopSession.callCount).to.equal(1, 'browser session is stopped');
   expect(browser.stop.callCount).to.equal(1, 'browser is stopped');
-  expect(server.stop.callCount).to.equal(1, 'server is stopped');
   expect(passed).to.equal(false, 'test runner quits with false');
 });

@@ -36,9 +36,6 @@ export function validateCoreConfig<T extends TestRunnerCoreConfig>(config: Parti
   if (!config.browsers) {
     throw new Error('No browsers specified.');
   }
-  if (!config.server) {
-    throw new Error('No server specified.');
-  }
   if (typeof config.protocol !== 'string') {
     throw new Error('No protocol specified.');
   }

@@ -40,7 +40,6 @@
   "devDependencies": {
     "@web/test-runner-chrome": "^0.5.19",
     "@web/test-runner-playwright": "^0.4.19",
-    "@web/test-runner-server": "^0.5.15",
     "mocha": "^8.1.1"
   }
 }

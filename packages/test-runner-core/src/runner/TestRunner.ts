@@ -10,6 +10,7 @@ import { SESSION_STATUS } from '../test-session/TestSessionStatus';
 import { EventEmitter } from '../utils/EventEmitter';
 import { createSessionUrl } from './createSessionUrl';
 import { createDebugSessions } from './createDebugSessions';
+import { TestRunnerServer } from '../server/TestRunnerServer';
 
 interface EventMap {
   'test-run-started': { testRun: number; sessions: Iterable<TestSession> };
@@ -31,6 +32,7 @@ export class TestRunner extends EventEmitter<EventMap> {
   public focusedTestFile: string | undefined;
 
   private scheduler: TestScheduler;
+  private server: TestRunnerServer;
   private pendingSessions = new Set<TestSession>();
 
   constructor(config: TestRunnerCoreConfig, testFiles: string[]) {
@@ -38,6 +40,9 @@ export class TestRunner extends EventEmitter<EventMap> {
     this.config = config;
     this.testFiles = testFiles.map(f => resolve(f));
     this.scheduler = new TestScheduler(config, this.sessions);
+    this.server = new TestRunnerServer(this.config, this.sessions, sessions => {
+      this.runTests(sessions);
+    });
 
     this.sessions.on('session-status-updated', session => {
       if (session.status === SESSION_STATUS.FINISHED) {
@@ -62,12 +67,7 @@ export class TestRunner extends EventEmitter<EventMap> {
       const createdSessions = createTestSessions(this.config.browsers, this.testFiles);
       this.sessions.add(...createdSessions);
 
-      await this.config.server.start({
-        config: this.config,
-        sessions: this.sessions,
-        runner: this,
-        testFiles: this.testFiles,
-      });
+      await this.server.start();
 
       this.runTests(this.sessions.all());
     } catch (error) {
@@ -121,7 +121,7 @@ export class TestRunner extends EventEmitter<EventMap> {
 
     this.stopped = true;
     this.scheduler.stop();
-    this.config.server.stop().catch(error => {
+    this.server.stop().catch(error => {
       console.error(error);
     });
 

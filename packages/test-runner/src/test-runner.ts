@@ -7,7 +7,6 @@ import {
   validateCoreConfig,
   defaultReporter,
 } from '@web/test-runner-cli';
-import { testRunnerServer, TestRunnerServerConfig } from '@web/test-runner-server';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import {
   setViewportPlugin,
@@ -21,7 +20,7 @@ import chalk from 'chalk';
 import { puppeteerLauncher, playwrightLauncher } from './loadLauncher';
 import { nodeResolvePlugin } from './nodeResolvePlugin';
 
-export interface TestRunnerConfig extends TestRunnerCoreConfig, TestRunnerServerConfig {
+export interface TestRunnerConfig extends TestRunnerCoreConfig {
   nodeResolve?: boolean | RollupNodeResolveOptions;
   preserveSymlinks?: boolean;
 }
@@ -104,30 +103,16 @@ const cliOptions: commandLineArgs.OptionDefinition[] = [
       config.reporters = [defaultReporter()];
     }
 
-    if (!config.server) {
-      const serverConfig: TestRunnerServerConfig = {
-        mimeTypes: config.mimeTypes,
-        plugins: config.plugins ?? [],
-        middleware: config.middleware ?? [],
-      };
-
-      if (config.nodeResolve) {
-        const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
-        serverConfig.plugins!.push(
-          nodeResolvePlugin(rootDir, config.preserveSymlinks, userOptions),
-        );
-      }
-
-      serverConfig.plugins!.push(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
-      config.server = testRunnerServer(serverConfig);
-    } else {
-      if (config.nodeResolve) {
-        throw new Error('Cannot use the nodeResolve option when configuring a custom server.');
-      }
-      if (config.preserveSymlinks) {
-        throw new Error('Cannot use the preserveSymlinks option when configuring a custom server.');
-      }
+    if (config.plugins == null) {
+      config.plugins = [];
     }
+
+    if (config.nodeResolve) {
+      const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
+      config.plugins!.push(nodeResolvePlugin(rootDir, config.preserveSymlinks, userOptions));
+    }
+
+    config.plugins!.push(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
 
     const validatedConfig = validateCoreConfig<TestRunnerConfig>(config);
     startTestRunner(validatedConfig);
