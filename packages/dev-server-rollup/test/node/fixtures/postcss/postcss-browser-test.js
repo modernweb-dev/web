@@ -1,7 +1,7 @@
-import chai from 'chai/chai.js';
-import styles from '../src/my-styles.css';
+import '../../../../../../node_modules/chai/chai.js';
+import styles from './my-styles.css';
 
-const { expect } = chai;
+const { expect } = window.chai;
 
 describe('postcss', () => {
   it('can import css modules', () => {

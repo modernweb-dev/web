@@ -19,9 +19,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --reporter progress",
-    "test:ci": "yarn test",
-    "test:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter progress"
+    "test": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --reporter dot",
+    "test:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
   "files": [
     "dist"

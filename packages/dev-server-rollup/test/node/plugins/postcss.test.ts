@@ -1,5 +1,7 @@
 /// <reference types="../../../types/rollup-plugin-postcss" />
 import rollupPostcss from 'rollup-plugin-postcss';
+import { chromeLauncher } from '@web/test-runner-chrome';
+import { runTests } from '@web/test-runner-core/dist/test-helpers';
 import { resolve } from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
@@ -53,5 +55,18 @@ html {
     } finally {
       server.stop();
     }
+  });
+
+  it('passes the in-browser tests', async () => {
+    await runTests(
+      {
+        browsers: [chromeLauncher()],
+        mimeTypes: {
+          '**/*.css': 'js',
+        },
+        plugins: [fromRollup(rollupPostcss)({ modules: true })],
+      },
+      [resolve(__dirname, '..', 'fixtures', 'postcss', 'postcss-browser-test.js')],
+    );
   });
 });

@@ -1,4 +1,7 @@
 import rollupCommonjs from '@rollup/plugin-commonjs';
+import { runTests } from '@web/test-runner-core/dist/test-helpers';
+import { resolve } from 'path';
+import { chromeLauncher } from '@web/test-runner-chrome';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
 import { fromRollup } from '../../../src/index';
@@ -168,5 +171,21 @@ exports.default = _default;`;
     } finally {
       server.stop();
     }
+  });
+
+  it('passes the in-browser tests', async function () {
+    this.timeout(20000);
+
+    await runTests(
+      {
+        browsers: [chromeLauncher({ launchOptions: { devtools: false } })],
+        plugins: [
+          fromRollup(rollupCommonjs)({
+            include: '**/commonjs/modules/**/*',
+          }),
+        ],
+      },
+      [resolve(__dirname, '..', 'fixtures', 'commonjs', 'commonjs-browser-test.js')],
+    );
   });
 });

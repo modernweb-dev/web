@@ -19,9 +19,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "node ../test-runner/dist/test-runner.js test/**/*.test.ts",
-    "test:ci": "yarn test",
-    "test:watch": "node ../test-runner/dist/test-runner.js test/**/*.test.ts --watch"
+    "test": "node ../test-runner/dist/test-runner.js test-custom/**/*.test.ts",
+    "test:watch": "node ../test-runner/dist/test-runner.js test-custom/**/*.test.ts --watch"
   },
   "files": [
     "*.d.ts",
