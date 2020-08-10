@@ -1,6 +1,5 @@
 import { Middleware } from 'koa';
 import { FSWatcher } from 'chokidar';
-import path from 'path';
 import fs from 'fs';
 
 import { getRequestFilePath } from '../utils';
@@ -25,8 +24,6 @@ export function watchServedFilesMiddleware(fileWatcher: FSWatcher, rootDir: stri
       fs.stat(filePath, (err, stats) => {
         if (!err && !stats.isDirectory()) {
           fileWatcher.add(filePath);
-        } else {
-          console.log('not watching', filePath);
         }
       });
     }

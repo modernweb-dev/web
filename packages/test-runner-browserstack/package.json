@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test-remote/**/*.test.js --reporter dot --retries 3",
+    "test": "mocha test-remote/**/*.test.js --reporter dot",
     "test:watch": "mocha test-remote/**/*.test.js --watch --watch-files src,test --reporter dot"
   },
   "files": [

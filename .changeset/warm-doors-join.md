@@ -8,6 +8,9 @@
 '@web/test-runner-puppeteer': minor
 '@web/test-runner-selenium': minor
 '@web/test-runner-server': minor
+'@web/test-runner-browserstack': minor
 ---
 
-merge test runner server into core
+Merged test runner server into core, and made it no longer possible configure a different server.
+
+The test runner relies on the server for many things, merging it into core makes the code more maintainable. The server is composable, you can proxy requests to other servers and we can look into adding more composition APIs later.
