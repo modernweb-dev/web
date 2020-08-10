@@ -14,9 +14,6 @@
       "path": "../test-runner-core/tsconfig.json"
     },
     {
-      "path": "../dev-server-core/tsconfig.json"
-    },
-    {
       "path": "../browser-logs/tsconfig.json"
     },
     {
@@ -24,9 +21,6 @@
     },
     {
       "path": "../test-runner-mocha/tsconfig.json"
-    },
-    {
-      "path": "../test-runner-server/tsconfig.json"
     }
   ],
   "include": [

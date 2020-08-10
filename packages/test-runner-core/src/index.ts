@@ -1,6 +1,6 @@
 import * as constants from './browser-launcher/constants';
 export { constants };
-export { BrowserLauncher, Viewport, SessionResult } from './browser-launcher/BrowserLauncher';
+export { BrowserLauncher, SessionResult } from './browser-launcher/BrowserLauncher';
 export {
   Reporter,
   ReportTestResultsArgs,

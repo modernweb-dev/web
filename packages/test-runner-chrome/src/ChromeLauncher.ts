@@ -1,6 +1,6 @@
 import * as puppeteerCore from 'puppeteer-core';
 import { Browser, Page, LaunchOptions, launch as puppeteerCoreLaunch } from 'puppeteer-core';
-import { BrowserLauncher, TestRunnerCoreConfig, Viewport } from '@web/test-runner-core';
+import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { findExecutablePath } from './findExecutablePath';
 import { ChromeLauncherPage } from './ChromeLauncherPage';
 
@@ -175,14 +175,5 @@ export class ChromeLauncher implements BrowserLauncher {
     }
 
     return page;
-  }
-
-  setViewport(sessionId: string, viewport: Viewport) {
-    const page = this.activePages.get(sessionId);
-    const debugPage = this.activeDebugPages.get(sessionId);
-    if (!page && !debugPage) {
-      throw new Error(`Cannot set viewport for inactive session: ${sessionId}`);
-    }
-    return (page! || debugPage!).puppeteerPage.setViewport(viewport);
   }
 }
