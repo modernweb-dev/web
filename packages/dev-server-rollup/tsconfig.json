@@ -11,7 +11,22 @@
   },
   "references": [
     {
+      "path": "../test-runner-core/tsconfig.json"
+    },
+    {
+      "path": "../browser-logs/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-coverage-v8/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-mocha/tsconfig.json"
+    },
+    {
       "path": "../dev-server-core/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-chrome/tsconfig.json"
     }
   ],
   "include": [

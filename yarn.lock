@@ -2209,6 +2209,11 @@
   dependencies:
     eslint-visitor-keys "^1.1.0"
 
+"@web/test-runner-helpers@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-helpers/-/test-runner-helpers-0.0.1.tgz#af480210d4c301b3c5150d5d35e2a7dc32bff682"
+  integrity sha512-rU9USa8w9CnGydWk1aWLMNPPJFLr/wVgHib6dg52VKmoQGtBKellzMWyUrBbdhaUk6pwpLLjAcmzIBRa81eMgA==
+
 "@webcomponents/shadycss@^1.9.4":
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/@webcomponents/shadycss/-/shadycss-1.10.1.tgz#6f377b313c96a93a690f25206b32a20eada4b2a9"

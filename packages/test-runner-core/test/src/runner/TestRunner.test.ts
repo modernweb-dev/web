@@ -33,7 +33,6 @@ async function createTestRunner(
     startDebugSession: stub().returns(Promise.resolve()),
     startSession: stub().returns(Promise.resolve()),
     stopSession: stub().returns(Promise.resolve({})),
-    setViewport: stub().returns(Promise.resolve()),
     isActive: stub().returns(true),
   };
 

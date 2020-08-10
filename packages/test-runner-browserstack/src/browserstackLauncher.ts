@@ -51,10 +51,6 @@ export class BrowserstackLauncher extends SeleniumLauncher {
     await unregisterBrowserstackLocal(this);
     return super.stop();
   }
-
-  setViewport() {
-    throw new Error('Setting viewport is not supported in Browserstack Browser Launcher.');
-  }
 }
 
 export function browserstackLauncher(args: BrowserstackLauncherArgs): BrowserLauncher {

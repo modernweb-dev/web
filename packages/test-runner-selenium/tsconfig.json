@@ -9,7 +9,11 @@
     "composite": true,
     "allowJs": true
   },
-  "references": [],
+  "references": [
+    {
+      "path": "../test-runner-core/tsconfig.json"
+    }
+  ],
   "include": [
     "src"
   ],

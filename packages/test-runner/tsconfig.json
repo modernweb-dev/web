@@ -11,9 +11,6 @@
   },
   "references": [
     {
-      "path": "../dev-server-core/tsconfig.json"
-    },
-    {
       "path": "../test-runner-core/tsconfig.json"
     },
     {
@@ -26,13 +23,16 @@
       "path": "../test-runner-mocha/tsconfig.json"
     },
     {
-      "path": "../test-runner-server/tsconfig.json"
+      "path": "../dev-server-core/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-chrome/tsconfig.json"
     },
     {
       "path": "../config-loader/tsconfig.json"
     },
     {
-      "path": "../test-runner-chrome/tsconfig.json"
+      "path": "../test-runner-server/tsconfig.json"
     },
     {
       "path": "../test-runner-playwright/tsconfig.json"
@@ -48,9 +48,6 @@
     },
     {
       "path": "../dev-server-legacy/tsconfig.json"
-    },
-    {
-      "path": "../test-runner-helpers/tsconfig.json"
     }
   ],
   "include": [

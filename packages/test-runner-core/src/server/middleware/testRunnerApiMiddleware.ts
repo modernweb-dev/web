@@ -7,7 +7,6 @@ import { TestSessionManager } from '../../test-session/TestSessionManager';
 import { TestRunnerPlugin } from '../TestRunnerPlugin';
 
 import { toBrowserPath } from '../utils';
-import { Viewport } from '../../browser-launcher/BrowserLauncher';
 
 function createBrowserFilePath(rootDir: string, filePath: string, sessionId: string) {
   const fullFilePath = filePath.startsWith(process.cwd())
@@ -92,19 +91,6 @@ export function testRunnerApiMiddleware(
             }
           }
         }
-      }
-
-      // deprecated, backwards compatibility
-      if (endpoint === 'viewport') {
-        try {
-          const viewport = ((await parse.json(ctx)) as any) as Viewport;
-          await session.browser.setViewport(session.id, viewport);
-          ctx.status = 200;
-        } catch (error) {
-          console.error(error);
-          ctx.status = 500;
-        }
-        return;
       }
     }
 

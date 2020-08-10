@@ -22,7 +22,6 @@ const packages: PackageConfiguration[] = [
   { name: 'test-runner-browserstack', type: 'ts', environment: 'node' },
   { name: 'test-runner-coverage-v8', type: 'ts', environment: 'node' },
   { name: 'test-runner-commands', type: 'ts', environment: 'node' },
-  { name: 'test-runner-helpers', type: 'ts', environment: 'browser' },
   { name: 'test-runner-mocha', type: 'ts', environment: 'browser' },
 ];
 

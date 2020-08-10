@@ -1,10 +1,5 @@
 import playwright, { Browser, Page, LaunchOptions } from 'playwright';
-import {
-  BrowserLauncher,
-  TestRunnerCoreConfig,
-  Viewport,
-  CoverageMapData,
-} from '@web/test-runner-core';
+import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
 import { PlaywrightLauncherPage } from './PlaywrightLauncherPage';
 
 function capitalize(str: string) {
@@ -123,14 +118,5 @@ export class PlaywrightLauncher implements BrowserLauncher {
     }
 
     return page;
-  }
-
-  setViewport(sessionId: string, viewport: Viewport) {
-    const page = this.activePages.get(sessionId);
-    const debugPage = this.activeDebugPages.get(sessionId);
-    if (!page && !debugPage) {
-      throw new Error(`Cannot set viewport for inactive session: ${sessionId}`);
-    }
-    return (page! || debugPage!).playwrightPage.setViewportSize(viewport);
   }
 }
