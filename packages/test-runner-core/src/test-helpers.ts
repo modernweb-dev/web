@@ -4,6 +4,7 @@ import path from 'path';
 import { TestRunner, TestRunnerCoreConfig } from './index';
 import { Logger } from './logger/Logger';
 import { TestResult, TestSuiteResult } from './test-session/TestSession';
+import { SESSION_STATUS } from './test-session/TestSessionStatus';
 
 const logger: Logger = {
   ...console,
@@ -48,9 +49,18 @@ export async function runTests(config: Partial<TestRunnerCoreConfig>, testFiles:
     //   console.log(session.browser.name, session.id, session.status);
     // });
 
+    let finished = false;
     runner.on('finished', () => {
+      finished = true;
       runner.stop();
     });
+
+    setTimeout(() => {
+      finished = true;
+      if (!finished) {
+        runner.stop();
+      }
+    }, 20000);
 
     runner.on('stopped', passed => {
       const sessions = Array.from(runner.sessions.all());
@@ -87,6 +97,11 @@ export async function runTests(config: Partial<TestRunnerCoreConfig>, testFiles:
             iterateSuite(session.testResults);
           }
         }
+      }
+
+      if (!sessions.every(s => s.status === SESSION_STATUS.FINISHED)) {
+        reject(new Error('Tests did not finish'));
+        return;
       }
 
       if (passed) {
