@@ -1,6 +1,7 @@
 import { Middleware } from 'koa';
 import { FSWatcher } from 'chokidar';
 import path from 'path';
+import fs from 'fs';
 
 import { getRequestFilePath } from '../utils';
 
@@ -12,12 +13,22 @@ export function watchServedFilesMiddleware(fileWatcher: FSWatcher, rootDir: stri
   return async (ctx, next) => {
     await next();
 
-    if (ctx.response.status !== 404 && path.extname(ctx.path)) {
-      const filePath = getRequestFilePath(ctx, rootDir);
-
-      if (!filePath.endsWith('/')) {
-        fileWatcher.add(filePath);
+    if (ctx.response.status !== 404) {
+      let filePath = getRequestFilePath(ctx, rootDir);
+      // if the request ends with a / it might be an index.html, check if it exists
+      // and watch it
+      if (filePath.endsWith('/')) {
+        filePath += 'index.html';
       }
+
+      // watch file if it exists
+      fs.stat(filePath, (err, stats) => {
+        if (!err && !stats.isDirectory()) {
+          fileWatcher.add(filePath);
+        } else {
+          console.log('not watching', filePath);
+        }
+      });
     }
   };
 }
