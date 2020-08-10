@@ -8,7 +8,12 @@ module.exports = {
   name: 'Modern Web',
   shortDesc: 'Guides, tools and libraries for modern web development.',
   url: defaultValues.url,
-  githubUrl: 'https://github.com/modernweb-dev/web',
+  socialLinks: [
+    {
+      name: 'GitHub',
+      url: 'https://github.com/modernweb-dev/web',
+    },
+  ],
   helpUrl: 'https://github.com/modernweb-dev/web/issues',
   logoAlt: 'Tilted sphere with longitudinal stripes',
   iconColorMaskIcon: '#3f93ce',
