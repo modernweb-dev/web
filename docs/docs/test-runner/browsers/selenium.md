@@ -17,12 +17,12 @@ For testing on modern browsers, we don't recommend using Selenium, as it does no
 2. Add the selenium launcher to your test runner config, specifying the browser builder with the necessary options:
 
 ```js
-const { seleniumLauncher } = require('@web/test-runner-selenium');
-const { Builder } = require('selenium-webdriver');
+import { seleniumLauncher } from '@web/test-runner-selenium';
+import webdriver from 'selenium-webdriver';
 
 module.exports = {
   browsers: seleniumLauncher({
-    driverBuilder: new Builder()
+    driverBuilder: new webdriver.Builder()
       .forBrowser('chrome')
       .setChromeOptions(new ChromeOptions().headless())
       .usingServer('http://localhost:4444/wd/hub'),

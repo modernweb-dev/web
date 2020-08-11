@@ -14,9 +14,9 @@ A plugin is just an object that you add to the `plugins` array in your configura
 In your `web-dev-server.config.js` or `web-test-runner.config.js`:
 
 ```js
-const awesomePlugin = require('awesome-plugin');
+import awesomePlugin from 'awesome-plugin';
 
-module.exports = {
+export default {
   plugins: [
     // use a plugin
     awesomePlugin({ someOption: 'someProperty' }),
@@ -99,7 +99,7 @@ Serve an auto generated `index.html`:
 ```js
 const indexHTML = generateIndexHTML();
 
-module.exports = {
+export default {
   plugins: [
     {
       name: 'my-plugin',
@@ -118,7 +118,7 @@ Serve a virtual module:
 ```js
 const indexHTML = generateIndexHTML();
 
-module.exports = {
+export default {
   plugins: [
     {
       name: 'my-plugin',
@@ -135,7 +135,7 @@ module.exports = {
 The file extension is used to infer the mime type to respond with. If you are using a non-standard file extension you need to use the `type` property to set it explicitly:
 
 ```js
-module.exports = {
+export default {
   plugins: [
     {
       name: 'my-plugin',
@@ -163,7 +163,7 @@ The dev server guesses the MIME type based on the file extension. When serving v
 The returned MIME type can be a file extension, this will be used to set the corresponding default MIME type. For example `js` resolves to `application/javascript` and `css` to `text/css`.
 
 ```js
-module.exports = {
+export default {
   plugins: [
     {
       name: 'my-plugin',
@@ -190,7 +190,7 @@ module.exports = {
 You can use a mime type shorthand, such as `js` or `css`. Koa will resolve this to the full mimetype. It is also possible to set the full mime type directly:
 
 ```js
-module.exports = {
+export default {
   plugins: [
     {
       name: 'my-plugin',
@@ -220,7 +220,7 @@ In a web server, the response body is not always a string, but it can be a binar
 Rewrite the base path of your application for local development;
 
 ```js
-module.exports = {
+export default {
   plugins: [
     {
       name: 'my-plugin',
@@ -238,7 +238,7 @@ module.exports = {
 Inject a script to set global variables during local development:
 
 ```js
-module.exports = {
+export default {
   plugins: [
     {
       name: 'my-plugin',
@@ -259,9 +259,11 @@ module.exports = {
 Inject environment variables into a JS module:
 
 ```js
-const packageJson = require('./package.json');
+import fs from 'fs';
 
-module.exports = {
+const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
+
+export default {
   plugins: [
     {
       name: 'my-plugin',
@@ -278,9 +280,9 @@ module.exports = {
 Transform markdown to HTML:
 
 ```js
-const markdownToHTML = require('markdown-to-html-library');
+import { markdownToHTML } from 'markdown-to-html-library';
 
-module.exports = {
+export default {
   plugins: [
     {
       name: 'my-plugin',
@@ -308,7 +310,7 @@ module.exports = {
 Polyfill CSS modules in JS:
 
 ```js
-module.exports = {
+export default {
   plugins: [
     {
       name: 'my-plugin',
@@ -348,7 +350,7 @@ The dev server already resolves module imports when the `--node-resolve` flag is
 The hook receives the import string and should return the string to replace it with. This should be a browser-compatible path, not a file path.
 
 ```js
-module.exports = {
+export default {
   plugins: [
     {
       name: 'my-plugin',
@@ -394,7 +396,7 @@ function myFancyPlugin() {
   };
 }
 
-module.exports = {
+export default {
   plugins: [myFancyPlugin()],
 };
 ```
@@ -402,9 +404,9 @@ module.exports = {
 Boot up another server for proxying in serverStart:
 
 ```js
-const proxy = require('koa-proxies');
+import proxy from 'koa-proxies';
 
-module.exports = {
+export default {
   plugins: [
     {
       name: 'my-plugin',
@@ -443,7 +445,7 @@ function myFancyPlugin() {
   };
 }
 
-module.exports = {
+export default {
   plugins: [myFancyPlugin()],
 };
 ```

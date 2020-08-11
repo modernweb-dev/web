@@ -10,10 +10,10 @@ You can customize the test reporters using the `reporters` option.
 
 ```js
 // import the browser launcher you want to use
-const { defaultReporter } = require('@web/test-runner');
-const { myReporter } = require('my-reporter');
+import { defaultReporter } from '@web/test-runner';
+import { myReporter } from 'my-reporter';
 
-module.exports = {
+export default {
   reporters: [
     // use the default reporter only for reporting test progress
     defaultReporter({ reportTestResults: false, reportTestProgress: true }),

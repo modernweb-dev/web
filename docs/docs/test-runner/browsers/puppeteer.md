@@ -27,9 +27,9 @@ If you want to customize the puppeteer launcher options, you can add the browser
 You can find all possible launch options in the [official documentation](https://github.com/microsoft/puppeteer/blob/master/docs/api.md#browsertypelaunchoptions)
 
 ```js
-const { puppeteerLauncher } = require('@web/test-runner-puppeteer');
+import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 
-module.exports = {
+export default {
   browwsers: [
     puppeteerLauncher({
       launchOptions: {

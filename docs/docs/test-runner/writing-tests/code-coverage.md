@@ -43,12 +43,12 @@ If you choose to use the babel plugin, you can off native instrumentation by set
 <summary>View example</summary>
 
 ```js
-const { fromRollup } = require('@web/dev-server-rollup');
-const { babel: rollupBabel } = require('@rollup/plugin-babel');
+import { fromRollup } from '@web/dev-server-rollup';
+import rollupBabel from '@rollup/plugin-babel';
 
 const babel = fromRollup(rollupBabel);
 
-module.exports = {
+export default {
   coverage: true,
   coverageConfig: {
     nativeInstrumentation: false,
@@ -58,7 +58,7 @@ module.exports = {
       // avoid running babel on code that doesn't need it
       include: ['src/**/*.js'],
       babelHelpers: 'bundled',
-      plugins: [require.resolve('babel-plugin-istanbul')],
+      plugins: ['babel-plugin-istanbul'],
     }),
   ],
 };

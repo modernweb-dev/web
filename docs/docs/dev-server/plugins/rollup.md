@@ -23,12 +23,12 @@ npm i --save-dev @web/dev-server-rollup
 Import the rollup plugin and the `fromRollup` function in your configuration file. Then, wrap the rollup plugin with the adapter function:
 
 ```js
-const rollupReplace = require('@rollup/plugin-replace');
-const { fromRollup } = require('@web/dev-server-rollup');
+import rollupReplace from '@rollup/plugin-replace';
+import { fromRollup } from '@web/dev-server-rollup';
 
 const replace = fromRollup(rollupReplace);
 
-module.exports = {
+export default {
   plugins: [replace({ include: ['src/**/*.js'], __environment__: '"development"' })],
 };
 ```
@@ -42,10 +42,10 @@ Some rollup plugins do expensive operations. During development, this matters a 
 The rollup build process assumes that any imported files are meant to be compiled to JS, web dev server serves many different kinds of files to the browser. If you are transforming a non-standard filetype to JS, for example .json files, you need to instruct the server to handle it as a JS file:
 
 ```js
-const json = require('@rollup/plugin-json');
-const { rollupAdapter } = require('@web/dev-server-rollup');
+import json from '@rollup/plugin-json';
+import { rollupAdapter } from '@web/dev-server-rollup';
 
-module.exports = {
+export default {
   mimeTypes: {
     // serve all json files as js
     '**/*.json': 'js',
