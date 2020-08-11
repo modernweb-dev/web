@@ -172,5 +172,3 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
     },
   };
 }
-
-export default esbuildPlugin;

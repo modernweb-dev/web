@@ -4,11 +4,21 @@ import path from 'path';
 import { isLegacyBrowser } from './isLegacyBrowser';
 import { babelTransform } from './babelTransform';
 import { injectPolyfillsLoader } from './injectPolyfillsLoader';
-import { toBrowserPath } from '@web/dev-server-core/dist/utils';
 
 interface inlineScripts {
   lastModified: string;
   inlineScripts: GeneratedFile[];
+}
+
+const REGEXP_TO_BROWSER_PATH = new RegExp(path.sep === '\\' ? '\\\\' : path.sep, 'g');
+
+/**
+ * Turns a file path into a path suitable for browsers, with a / as seperator.
+ * @param {string} filePath
+ * @returns {string}
+ */
+function toBrowserPath(filePath: string) {
+  return filePath.replace(REGEXP_TO_BROWSER_PATH, '/');
 }
 
 export function legacyPlugin(): Plugin {

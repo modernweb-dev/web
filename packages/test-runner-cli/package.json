@@ -63,5 +63,11 @@
     "@types/globby": "^9.1.0",
     "@types/istanbul-lib-report": "^3.0.0",
     "@types/istanbul-reports": "^1.1.2"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
   }
 }

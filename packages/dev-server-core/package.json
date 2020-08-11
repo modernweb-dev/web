@@ -23,8 +23,7 @@
     "start:event-stream": "node demo/event-stream/start-server.js",
     "start:http2": "node demo/http2/start-server.js",
     "start:import-asset": "node demo/import-asset/start-server.js",
-    "test": "mocha 'test/**/*.test.ts' --recursive --require ts-node/register --reporter dot",
-    "test:watch": "mocha 'test/**/*.test.ts' --recursive --require ts-node/register --reporter dot --watch --watch-files src,test/tests"
+    "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot"
   },
   "files": [
     ".self-signed-dev-server-ssl.cert",
@@ -64,5 +63,18 @@
     "open": "^7.0.4",
     "portfinder": "^1.0.26",
     "uuid": "^8.2.0"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/dom5": {
+      "require": "./dist/dom5/index.js"
+    },
+    "./test-helpers": {
+      "import": "./test-helpers.mjs",
+      "require": "./dist/test-helpers.js"
+    }
   }
 }

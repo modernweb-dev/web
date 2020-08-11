@@ -1,4 +1,4 @@
-import { runTests } from '@web/test-runner-core/dist/test-helpers';
+import { runTests } from '@web/test-runner-core/test-helpers';
 import { resolve } from 'path';
 import { chromeLauncher } from '../src/index';
 

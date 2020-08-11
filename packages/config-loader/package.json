@@ -39,5 +39,11 @@
   "dependencies": {
     "semver": "^7.3.2"
   },
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.,js",
+      "require": "./src/index.js"
+    }
+  }
 }

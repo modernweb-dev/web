@@ -1,4 +1,4 @@
-import { setViewport } from '../../browser/commands.js';
+import { setViewport } from '../../browser/commands.mjs';
 import { expect } from '../chai.js';
 
 it('can resize to a small viewport', async () => {

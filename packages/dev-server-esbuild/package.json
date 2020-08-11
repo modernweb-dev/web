@@ -13,7 +13,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild",
-  "main": "dist/esbuildPlugin.js",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=10.0.0"
   },
@@ -51,5 +51,11 @@
     "lit-element": "^2.3.1",
     "node-fetch": "^2.6.0",
     "preact": "^10.4.4"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
   }
 }

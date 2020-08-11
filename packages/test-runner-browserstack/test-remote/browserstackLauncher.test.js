@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { runTests } = require('@web/test-runner-core/dist/test-helpers');
+const { runTests } = require('@web/test-runner-core/test-helpers');
 const { legacyPlugin } = require('@web/dev-server-legacy');
 const { resolve } = require('path');
 

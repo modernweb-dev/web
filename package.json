@@ -8,12 +8,12 @@
     "build:site": "rocket-build",
     "build:watch": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
     "format": "npm run format:eslint && npm run format:prettier",
-    "format:eslint": "eslint --ext .ts,.js . --fix",
-    "format:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
+    "format:eslint": "eslint --ext .ts,.js,.mjs,.cjs . --fix",
+    "format:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
     "install-puppeteer-firefox": "cd node_modules/puppeteer && PUPPETEER_PRODUCT=firefox node install.js",
     "lint": "npm run lint:eslint && npm run lint:prettier",
-    "lint:eslint": "eslint --ext .ts,.js .",
-    "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,md}\" --check --ignore-path .eslintignore",
+    "lint:eslint": "eslint --ext .ts,.js,.mjs,.cjs .",
+    "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
     "postinstall": "patch-package",
     "reinstall-workspace": "rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
     "release": "changeset publish && yarn format",
@@ -21,9 +21,10 @@
     "start:build": "es-dev-server --root-dir _site --compatibility none --open",
     "test": "yarn test:node && yarn test:browser && node scripts/workspaces-scripts-bin.mjs test:ci",
     "test:browser": "node packages/test-runner/dist/test-runner.js \"packages/*/test-browser/**/*.test.{js,ts}\"",
-    "test:node": "mocha \"packages/*/test/**/*.test.ts\" --require ts-node/register --parallel --reporter dot --exit --retries 3",
+    "test:node": "mocha \"packages/*/test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --parallel --reporter dot --exit --retries 3",
     "update-dependency": "node scripts/update-dependency.js",
-    "update-package-configs": "ts-node scripts/update-package-configs.ts"
+    "update-esm-entrypoints": "node scripts/update-esm-entrypoints.mjs && yarn format",
+    "update-package-configs": "node scripts/update-package-configs.mjs && yarn format"
   },
   "dependencies": {
     "@d4kmor/cli": "^0.1.13",
@@ -76,7 +77,8 @@
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-empty-interface": "off",
-      "@typescript-eslint/no-unused-vars": "error"
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-var-requires": "off"
     }
   },
   "husky": {

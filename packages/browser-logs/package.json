@@ -39,5 +39,11 @@
   ],
   "devDependencies": {
     "@bundled-es-modules/chai": "^4.2.2"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
   }
 }

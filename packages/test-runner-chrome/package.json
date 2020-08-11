@@ -44,5 +44,11 @@
   },
   "devDependencies": {
     "@web/test-runner-mocha": "^0.2.15"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
   }
 }
