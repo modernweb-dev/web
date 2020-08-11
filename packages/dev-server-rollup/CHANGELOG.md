@@ -1,5 +1,15 @@
 # @web/dev-server-rollup
 
+## 0.2.1
+
+### Patch Changes
+
+- aa65fd1: run build before publishing
+- Updated dependencies [aa65fd1]
+  - @web/dev-server-core@0.2.1
+  - @web/test-runner-chrome@0.6.1
+  - @web/test-runner-core@0.7.1
+
 ## 0.2.0
 
 ### Minor Changes

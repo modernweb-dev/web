@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.7.1
+
+### Patch Changes
+
+- aa65fd1: run build before publishing
+
 ## 0.7.0
 
 ### Minor Changes
