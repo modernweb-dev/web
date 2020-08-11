@@ -18,11 +18,19 @@ the [HyperText Transfer Protocol](https://developer.mozilla.org/en-US/docs/Web/H
 
 Every resource on the web, whether it's a web page, an image, a video, a [CSS stylesheet](./css.md), some [JavaScript](./javascript.md), or anything else, is accesible via a Uniform Resource Locator, or <dfn><abbr>URL</abbr></dfn>.
 
-When your browser visits a web page, it is essentially asking the server responsible for that page
-for an HTML document, which may or may not link to other resources like images, CSS stylesheets or
-JavaScript. Each of those resources is accessed using an HTTP "`GET`" request. The web server's primary job is to provide that HTML document and its sub-resources to the browser.
+A URL (specifically, a ["fully-qualified"](../html/#fully-qualified-urls) URL) contains three parts
 
-For example, when you visit this web page, your browser sent a `GET https://modern-web.dev/docs/learn/standards-based/servers-and-clients/` request
+1. A protocol, e.g. `https`
+2. An origin e.g. `developer.mozilla.org`
+3. An (optional) path , e.g. `/en-US/docs/Web/API/MutationObserver`
+
+The protocol tells the server how to respond, the origin (containing a domain name and zero, one, or more subdomains) identifies the server to request, and the path specifies the resource to access.
+
+When your browser visits a web page, it essentially asks the server responsible for that page
+for an HTML document, which may or may not link to other resources like images, CSS stylesheets or
+JavaScript. The browser accesses each of those resources using an [HTTP `GET` request](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET). The web server's primary job is to provide that HTML document and its sub-resources to the browser.
+
+For example, when you visited this web page, your browser sent a `GET https://modern-web.dev/docs/learn/standards-based/servers-and-clients/` request
 
 ## DNS
 
@@ -30,12 +38,12 @@ Before your `GET` request even reaches the server though, it travels through the
 
 Every web servers has an [IP address](https://developer.mozilla.org/en-US/docs/Glossary/IP_Address),
 a unique identifier typically composed of four numbers, each ranging from 0 to 255 e.g. `1.2.3.4`.
-Think of an IP address just like the street address of a business that only operates via mail.
-If you want to conduct business with them, the only way to do it is through their street address.
-Similarly, the only way to access a web server is via its IP address.
+Think of an IP address like the street address of a business that only operates via mail.
+If you want to conduct business with them, you must visit them at their street address.
+Similarly, you must know a web server's IP address if you want to access any of its resources.
 
-IP addresses are useful for computers, but difficult for people to remember and deal with,
-so the DNS was implemented to allows web server owners to register a human-readable domain name like
+IP addresses were useful for computers, but difficult for people to remember and deal with,
+so in 1983 Paul Mockapetris and the Internet Engineering Task force invented and implemented the DNS. That way, web server owners could register a human-readable domain name like
 `modern-web.dev` that points to their IP address. You can think of the DNS as a vast distributed
 table of domain names and their associated IP addresses.
 
