@@ -1,4 +1,4 @@
-import { setUserAgent } from '../../browser/commands.js';
+import { setUserAgent } from '../../browser/commands.mjs';
 import { expect } from '../chai.js';
 
 it('can set the user agent', async () => {

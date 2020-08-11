@@ -13,7 +13,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browserstack",
-  "main": "dist/browserstackLauncher.js",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=10.0.0"
   },
@@ -45,5 +45,11 @@
   "devDependencies": {
     "@types/ip": "^1.1.0",
     "portfinder": "^1.0.26"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
   }
 }

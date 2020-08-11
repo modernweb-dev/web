@@ -39,5 +39,11 @@
   "devDependencies": {
     "@types/istanbul-lib-coverage": "^2.0.3",
     "@types/picomatch": "^2.2.1"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
   }
 }

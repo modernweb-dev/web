@@ -1,0 +1,1 @@
+export { legacyPlugin } from './legacyPlugin';

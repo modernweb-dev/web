@@ -1,4 +1,4 @@
-import { executeServerCommand } from '../../browser/commands.js';
+import { executeServerCommand } from '../../browser/commands.mjs';
 import { expect } from '../chai.js';
 
 it('a known command does not throw', async () => {

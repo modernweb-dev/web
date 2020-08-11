@@ -12,7 +12,7 @@ import {
   setViewportPlugin,
   emulateMediaPlugin,
   setUserAgentPlugin,
-} from '@web/test-runner-commands/dist';
+} from '@web/test-runner-commands/plugins';
 import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
 import commandLineArgs from 'command-line-args';
 import chalk from 'chalk';

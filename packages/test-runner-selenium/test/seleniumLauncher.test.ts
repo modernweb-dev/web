@@ -1,4 +1,4 @@
-import { runTests } from '@web/test-runner-core/dist/test-helpers';
+import { runTests } from '@web/test-runner-core/test-helpers';
 import selenium from 'selenium-standalone';
 import { Builder } from 'selenium-webdriver';
 import { Options as ChromeOptions } from 'selenium-webdriver/chrome';

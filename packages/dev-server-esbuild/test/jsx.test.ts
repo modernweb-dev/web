@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import fetch from 'node-fetch';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expectIncludes } from '@web/dev-server-core/src/test-helpers';
+import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
 
 import { esbuildPlugin } from '../src/esbuildPlugin';
 

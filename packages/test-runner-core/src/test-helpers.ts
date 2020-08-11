@@ -66,10 +66,27 @@ export async function runTests(config: Partial<TestRunnerCoreConfig>, testFiles:
       const sessions = Array.from(runner.sessions.all());
 
       for (const session of sessions) {
+        if (
+          !session.passed ||
+          session.logs.some(l => l.length > 0) ||
+          session.request404s.length > 0
+        ) {
+          console.log('');
+          console.log(
+            'Failed test file:',
+            session.browser.name,
+            path.relative(process.cwd(), session.testFile),
+          );
+        }
+
         for (const log of session.logs) {
           if (log.length !== 0) {
             console.log('[Browser log]', ...log.map(l => (l.__WTR_BROWSER_ERROR__ ? l.stack : l)));
           }
+        }
+
+        for (const request404 of session.request404s) {
+          console.log('[Request 404]', request404);
         }
 
         if (!session.passed) {

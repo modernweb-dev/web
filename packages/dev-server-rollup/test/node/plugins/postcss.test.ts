@@ -1,7 +1,7 @@
 /// <reference types="../../../types/rollup-plugin-postcss" />
 import rollupPostcss from 'rollup-plugin-postcss';
 import { chromeLauncher } from '@web/test-runner-chrome';
-import { runTests } from '@web/test-runner-core/dist/test-helpers';
+import { runTests } from '@web/test-runner-core/test-helpers';
 import { resolve } from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';

@@ -65,5 +65,11 @@
     "@web/dev-server-legacy": "^0.0.3",
     "@web/test-runner-helpers": "^0.0.1",
     "babel-plugin-istanbul": "^6.0.0"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
   }
 }

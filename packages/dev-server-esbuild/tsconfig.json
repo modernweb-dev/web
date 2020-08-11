@@ -3,8 +3,8 @@
 {
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
-    "outDir": "./dist",
     "module": "commonjs",
+    "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
     "allowJs": true

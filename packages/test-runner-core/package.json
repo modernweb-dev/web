@@ -13,7 +13,8 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-core",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./index.mjs",
   "engines": {
     "node": ">=10.0.0"
   },
@@ -45,5 +46,18 @@
     "portfinder": "^1.0.28",
     "sinon": "^9.0.2",
     "sinon-chai": "^3.5.0"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./test-helpers": {
+      "import": "./test-helpers.mjs",
+      "require": "./dist/test-helpers.js"
+    },
+    "./browser/session.js": {
+      "import": "./browser/session.js"
+    }
   }
 }

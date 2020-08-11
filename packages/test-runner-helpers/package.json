@@ -32,5 +32,11 @@
     "library",
     "lib",
     "framework"
-  ]
+  ],
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  }
 }
