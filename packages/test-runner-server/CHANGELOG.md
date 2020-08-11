@@ -1,5 +1,23 @@
 # @web/test-runner-server
 
+## 0.6.0
+
+### Minor Changes
+
+- fdcf2e5: Merged test runner server into core, and made it no longer possible configure a different server.
+
+  The test runner relies on the server for many things, merging it into core makes the code more maintainable. The server is composable, you can proxy requests to other servers and we can look into adding more composition APIs later.
+
+### Patch Changes
+
+- Updated dependencies [96dd279]
+- Updated dependencies [cdddf68]
+- Updated dependencies [fdcf2e5]
+- Updated dependencies [62ff8b2]
+- Updated dependencies [9be1f95]
+  - @web/dev-server-core@0.2.0
+  - @web/test-runner-core@0.7.0
+
 ## 0.5.16
 
 ### Patch Changes

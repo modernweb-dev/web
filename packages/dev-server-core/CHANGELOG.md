@@ -1,5 +1,28 @@
 # @web/dev-server-core
 
+## 0.2.0
+
+### Minor Changes
+
+- 9be1f95: Added native node es module entrypoints. This is a breaking change. Before, native node es module imports would import a CJS module as a default import and require destructuring afterwards:
+
+  ```js
+  import playwrightModule from '@web/test-runner-playwright';
+
+  const { playwrightLauncher } = playwrightModule;
+  ```
+
+  Now, the exports are only available directly as a named export:
+
+  ```js
+  import { playwrightLauncher } from '@web/test-runner-playwright';
+  ```
+
+### Patch Changes
+
+- 96dd279: watch the HTML file for inline scripts
+- 62ff8b2: make tests work on windows
+
 ## 0.1.9
 
 ### Patch Changes

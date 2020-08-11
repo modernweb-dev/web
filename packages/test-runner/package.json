@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.6.65",
+  "version": "0.7.0",
   "publishConfig": {
     "access": "public"
   },
@@ -38,9 +38,7 @@
     "test:source-maps": "node dist/test-runner.js \"demo/test/source-maps/**/*/*.test.js\"",
     "test:watch": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --watch"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "test",
@@ -52,17 +50,17 @@
   ],
   "dependencies": {
     "@rollup/plugin-node-resolve": "^8.1.0",
-    "@web/dev-server-rollup": "^0.1.9",
-    "@web/test-runner-chrome": "^0.5.21",
-    "@web/test-runner-cli": "^0.4.30",
-    "@web/test-runner-commands": "^0.0.1",
-    "@web/test-runner-core": "^0.6.23",
-    "@web/test-runner-mocha": "^0.2.15",
+    "@web/dev-server-rollup": "^0.2.0",
+    "@web/test-runner-chrome": "^0.6.0",
+    "@web/test-runner-cli": "^0.5.0",
+    "@web/test-runner-commands": "^0.1.0",
+    "@web/test-runner-core": "^0.7.0",
+    "@web/test-runner-mocha": "^0.3.0",
     "command-line-args": "^5.1.1",
     "deepmerge": "^4.2.2"
   },
   "devDependencies": {
-    "@web/dev-server-legacy": "^0.0.3",
+    "@web/dev-server-legacy": "^0.1.0",
     "@web/test-runner-helpers": "^0.0.1",
     "babel-plugin-istanbul": "^6.0.0"
   },

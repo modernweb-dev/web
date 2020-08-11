@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-cli",
-  "version": "0.4.30",
+  "version": "0.5.0",
   "publishConfig": {
     "access": "public"
   },
@@ -38,9 +38,9 @@
   "dependencies": {
     "@babel/code-frame": "^7.10.4",
     "@types/babel__code-frame": "^7.0.1",
-    "@web/browser-logs": "^0.0.1",
-    "@web/config-loader": "^0.0.4",
-    "@web/test-runner-core": "^0.6.23",
+    "@web/browser-logs": "^0.1.0",
+    "@web/config-loader": "^0.1.0",
+    "@web/test-runner-core": "^0.7.0",
     "camelcase": "^6.0.0",
     "chalk": "^4.1.0",
     "cli-cursor": "^3.1.0",
