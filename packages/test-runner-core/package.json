@@ -24,8 +24,11 @@
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
   "files": [
-    "browser",
-    "dist"
+    "*.d.ts",
+    "*.js",
+    "*.mjs",
+    "dist",
+    "src"
   ],
   "keywords": [
     "web",

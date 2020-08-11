@@ -20,7 +20,13 @@
   "scripts": {
     "build": "tsc"
   },
-  "files": ["dist"],
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "*.mjs",
+    "dist",
+    "src"
+  ],
   "keywords": [
     "web",
     "test",
