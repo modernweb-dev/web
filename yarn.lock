@@ -1165,6 +1165,26 @@
     rollup-plugin-visualizer "^4.0.4"
     rollup-plugin-workbox "^5.0.1"
 
+"@d4kmor/cli@^0.1.15":
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.1.15.tgz#ddfd1c270a40e6dd0fa5316a3db71272696af0ae"
+  integrity sha512-oUZMNvv1Am40hzBSsz9RNdH7AlwKaqbJErcnZwj+gyO7bgUc6xya/VfWQaV6WuDFpvNq4jp7p6TVbXan4Sg58Q==
+  dependencies:
+    "@11ty/eleventy" "^0.11.0"
+    "@d4kmor/eleventy-plugin-mdjs" "^0.1.3"
+    "@d4kmor/eleventy-rocket-nav" "^0.1.3"
+    "@d4kmor/navigation" "^0.1.1"
+    "@open-wc/building-rollup" "^1.7.0"
+    command-line-args "^5.1.1"
+    command-line-usage "^6.1.0"
+    deepmerge "^4.2.2"
+    es-dev-server "^1.57.2"
+    glob "^7.1.6"
+    rollup "^2.16.0"
+    rollup-plugin-clear "^2.0.7"
+    rollup-plugin-visualizer "^4.0.4"
+    rollup-plugin-workbox "^5.0.1"
+
 "@d4kmor/drawer@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@d4kmor/drawer/-/drawer-0.1.0.tgz#2df63a7d6b18097eca45a240f76cccbf9cdbc439"
@@ -1177,6 +1197,15 @@
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-plugin-mdjs/-/eleventy-plugin-mdjs-0.1.2.tgz#cec6bf9e0c6ca11263ce3320dc32b1988da19991"
   integrity sha512-YOTL9NcF8u4txkhJsq6alskMCd3UuJaCmz4s+X5M06in2SHdcXjiT5ca9+8BZ8RrRJvk9AWUflINfuDN5CDpyA==
+  dependencies:
+    "@mdjs/core" "^0.3.2"
+    remark-footnotes "^1.0.0"
+    unist-util-visit "^2.0.3"
+
+"@d4kmor/eleventy-plugin-mdjs@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-plugin-mdjs/-/eleventy-plugin-mdjs-0.1.3.tgz#1e701dbdfeb452e1ab9361a6bd71826971a3e174"
+  integrity sha512-uQBiPMZ4KfVx09EarKzP7P+2e0AP9VmsLzgWeSEy8po+lv+lAM4H72JJwpTP0TYxod0XekBicabAtnHtjCfsVA==
   dependencies:
     "@mdjs/core" "^0.3.2"
     remark-footnotes "^1.0.0"
@@ -2209,11 +2238,6 @@
   integrity sha512-k5PiZdB4vklUpUX4NBncn5RBKty8G3ihTY+hqJsCdMuD0v4jofI5xuqwnVcWxfv6iTm2P/dfEa2wMUnsUY8ODw==
   dependencies:
     eslint-visitor-keys "^1.1.0"
-
-"@web/test-runner-helpers@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-helpers/-/test-runner-helpers-0.0.1.tgz#af480210d4c301b3c5150d5d35e2a7dc32bff682"
-  integrity sha512-rU9USa8w9CnGydWk1aWLMNPPJFLr/wVgHib6dg52VKmoQGtBKellzMWyUrBbdhaUk6pwpLLjAcmzIBRa81eMgA==
 
 "@webcomponents/shadycss@^1.9.4":
   version "1.10.1"
