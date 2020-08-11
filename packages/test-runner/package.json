@@ -38,7 +38,13 @@
     "test:source-maps": "node dist/test-runner.js \"demo/test/source-maps/**/*/*.test.js\"",
     "test:watch": "node dist/test-runner.js \"demo/test/pass-*.test.{js,html}\" --watch"
   },
-  "files": ["dist"],
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "*.mjs",
+    "dist",
+    "src"
+  ],
   "keywords": [
     "web",
     "test",

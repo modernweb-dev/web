@@ -26,11 +26,13 @@
     "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot"
   },
   "files": [
+    "*.d.ts",
+    "*.js",
+    "*.mjs",
     ".self-signed-dev-server-ssl.cert",
     ".self-signed-dev-server-ssl.key",
     "dist",
-    "test-helpers.d.ts",
-    "test-helpers.js"
+    "src"
   ],
   "keywords": [
     "web",

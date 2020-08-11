@@ -23,10 +23,10 @@
   },
   "files": [
     "*.d.ts",
-    "*.d.ts.map",
     "*.js",
-    "*.js.map",
-    "dist"
+    "*.mjs",
+    "dist",
+    "src"
   ],
   "keywords": [
     "web",
