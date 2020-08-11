@@ -46,7 +46,6 @@
   },
   "devDependencies": {
     "@web/test-runner-mocha": "^0.3.1",
-    "@web/test-runner-server": "^0.6.0",
     "portfinder": "^1.0.26"
   },
   "exports": {

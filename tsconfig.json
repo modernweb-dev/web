@@ -26,9 +26,6 @@
       "path": "./packages/config-loader/tsconfig.json"
     },
     {
-      "path": "./packages/test-runner-server/tsconfig.json"
-    },
-    {
       "path": "./packages/test-runner-playwright/tsconfig.json"
     },
     {

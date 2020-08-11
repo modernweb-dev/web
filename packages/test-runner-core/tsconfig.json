@@ -9,7 +9,11 @@
     "composite": true,
     "allowJs": true
   },
-  "references": [],
+  "references": [
+    {
+      "path": "../dev-server-core/tsconfig.json"
+    }
+  ],
   "include": [
     "src"
   ],
