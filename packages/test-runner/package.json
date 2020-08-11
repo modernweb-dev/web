@@ -67,7 +67,6 @@
   },
   "devDependencies": {
     "@web/dev-server-legacy": "^0.1.1",
-    "@web/test-runner-helpers": "^0.0.1",
     "babel-plugin-istanbul": "^6.0.0"
   },
   "exports": {

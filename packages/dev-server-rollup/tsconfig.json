@@ -11,6 +11,9 @@
   },
   "references": [
     {
+      "path": "../dev-server-core/tsconfig.json"
+    },
+    {
       "path": "../test-runner-core/tsconfig.json"
     },
     {
@@ -21,9 +24,6 @@
     },
     {
       "path": "../test-runner-mocha/tsconfig.json"
-    },
-    {
-      "path": "../dev-server-core/tsconfig.json"
     },
     {
       "path": "../test-runner-chrome/tsconfig.json"

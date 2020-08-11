@@ -8,7 +8,6 @@ const packages = [
   { name: 'test-runner', type: 'ts', environment: 'node' },
   { name: 'test-runner-core', type: 'ts', environment: 'node' },
   { name: 'test-runner-cli', type: 'ts', environment: 'node' },
-  { name: 'test-runner-server', type: 'ts', environment: 'node' },
   { name: 'test-runner-chrome', type: 'ts', environment: 'node' },
   { name: 'test-runner-puppeteer', type: 'ts', environment: 'node' },
   { name: 'test-runner-playwright', type: 'ts', environment: 'node' },

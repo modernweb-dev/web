@@ -86,13 +86,13 @@ Finally we check if our css media query from above actually is working.
 ```js
 it('mobile has a green background', async () => {
   await setViewport({ width: 360, height: 640 });
-  const el = await fixture(html`<div class="card"></div>`);
+  const el = await fixture(html` <div class="card"></div> `);
   expect(getComputedStyle(el).backgroundColor).to.equal('rgb(0, 255, 0)');
 });
 
 it('desktop has a red background', async () => {
   await setViewport({ width: 1200, height: 1000 });
-  const el = await fixture(html`<div class="card"></div>`);
+  const el = await fixture(html` <div class="card"></div> `);
   expect(getComputedStyle(el).backgroundColor).to.equal('rgb(255, 0, 0)');
 });
 ```
