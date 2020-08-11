@@ -1,5 +1,32 @@
 # @web/test-runner-core
 
+## 0.7.0
+
+### Minor Changes
+
+- cdddf68: Removed support for `@web/test-runner-helpers`. This is a breaking change, the functionality is now available in `@web/test-runner-commands`.
+- fdcf2e5: Merged test runner server into core, and made it no longer possible configure a different server.
+
+  The test runner relies on the server for many things, merging it into core makes the code more maintainable. The server is composable, you can proxy requests to other servers and we can look into adding more composition APIs later.
+
+- 9be1f95: Added native node es module entrypoints. This is a breaking change. Before, native node es module imports would import a CJS module as a default import and require destructuring afterwards:
+
+  ```js
+  import playwrightModule from '@web/test-runner-playwright';
+
+  const { playwrightLauncher } = playwrightModule;
+  ```
+
+  Now, the exports are only available directly as a named export:
+
+  ```js
+  import { playwrightLauncher } from '@web/test-runner-playwright';
+  ```
+
+### Patch Changes
+
+- 62ff8b2: make tests work on windows
+
 ## 0.6.23
 
 ### Patch Changes

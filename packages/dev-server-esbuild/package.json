@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-esbuild",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -24,9 +24,7 @@
     "test": "mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
     "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "dev",
@@ -40,7 +38,7 @@
     "transform"
   ],
   "dependencies": {
-    "@web/dev-server-core": "^0.1.5",
+    "@web/dev-server-core": "^0.2.0",
     "esbuild": "^0.6.10",
     "mdn-browser-compat-data": "^1.0.29",
     "ua-parser-js": "^0.7.21"

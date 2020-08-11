@@ -1,5 +1,25 @@
 # @web/test-runner-mocha
 
+## 0.3.0
+
+### Minor Changes
+
+- 9be1f95: Added native node es module entrypoints. This is a breaking change. Before, native node es module imports would import a CJS module as a default import and require destructuring afterwards:
+
+  ```js
+  import playwrightModule from '@web/test-runner-playwright';
+
+  const { playwrightLauncher } = playwrightModule;
+  ```
+
+  Now, the exports are only available directly as a named export:
+
+  ```js
+  import { playwrightLauncher } from '@web/test-runner-playwright';
+  ```
+
+- 3307aa8: update to mocha v8
+
 ## 0.2.15
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-selenium",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -22,9 +22,7 @@
     "test": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "test",
@@ -36,7 +34,7 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.6.23",
+    "@web/test-runner-core": "^0.7.0",
     "selenium-webdriver": "^4.0.0-alpha.7"
   },
   "devDependencies": {
