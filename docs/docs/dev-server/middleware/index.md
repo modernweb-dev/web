@@ -16,9 +16,9 @@ You can use middleware to modify responses to any request from the browser, for 
   <summary>Read more</summary>
 
 ```javascript
-const proxy = require('koa-proxies');
+import proxy from 'koa-proxies';
 
-module.exports = {
+export default {
   port: 9000,
   middlewares: [
     proxy('/api', {
@@ -40,7 +40,7 @@ You can rewrite certain file requests using a simple middleware. This can be use
 Serve `/index.html` from `/src/index.html`:
 
 ```javascript
-module.exports = {
+export default {
   middlewares: [
     function rewriteIndex(context, next) {
       if (context.url === '/' || context.url === '/index.html') {

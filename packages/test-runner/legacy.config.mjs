@@ -1,7 +1,6 @@
-/* eslint-disable */
-const { legacyPlugin } = require('@web/dev-server-legacy');
+import { legacyPlugin } from '@web/dev-server-legacy';
 
-module.exports = {
+export default {
   middleware: [
     (ctx, next) => {
       ctx.headers['user-agent'] = '<removed user agent>';

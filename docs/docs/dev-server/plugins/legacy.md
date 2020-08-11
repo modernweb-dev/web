@@ -17,9 +17,9 @@ npm i --save-dev @web/dev-server-legacy
 Add the plugin to your config:
 
 ```js
-const { legacyPlugin } = require('@web/dev-server-legacy');
+import { legacyPlugin } from '@web/dev-server-legacy';
 
-module.exports = {
+export default {
   plugins: [legacyPlugin()],
 };
 ```

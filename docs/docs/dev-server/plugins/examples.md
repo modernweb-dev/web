@@ -51,9 +51,12 @@ console.log(`The current version is: ${version}`);
 Add a plugin to serve the contents of this environment:
 
 ```js
-const packageJson = require('./package.json');
+import fs from 'fs';
+import path from 'path';
 
-module.exports = {
+const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
+
+export default {
   plugins: [
     {
       name: 'env-vars',
@@ -80,12 +83,12 @@ Another approach is to replace constants or patterns in your code. We don't reco
 You can use the [@rollup/plugin-replace](https://www.npmjs.com/package/@rollup/plugin-replace) for replacing environment variables in your code. Make sure to add an `include` pattern to avoid processing files unnecessarily.
 
 ```js
-const rollupReplace = require('@rollup/plugin-replace');
-const { fromRollup } = require('@web/dev-server-rollup');
+import rollupReplace from '@rollup/plugin-replace';
+import { fromRollup } from '@web/dev-server-rollup';
 
 const replace = fromRollup(rollupReplace);
 
-module.exports = {
+export default {
   plugins: [replace({ include: ['src/**/*.js'], __environment__: '"development"' })],
 };
 ```
@@ -100,7 +103,7 @@ Es modules are immutable, you cannot mock or stub them at runtime in the browser
 <summary>View example</summary>
 
 ```js
-module.exports = {
+export default {
   plugins: [
     {
       name: 'stub-package',
@@ -133,12 +136,12 @@ Note that the dev server and test runner already includes `esbuild` for compilin
 <summary>View example</summary>
 
 ```js
-const rollupBabel = require('@rollup/plugin-babel');
-const { fromRollup } = require('@web/dev-server-rollup');
+import rollupBabel from '@rollup/plugin-babel';
+import { fromRollup } from '@web/dev-server-rollup';
 
 const babel = fromRollup(rollupBabel);
 
-module.exports = {
+export default {
   plugins: [babel({ include: ['src/**/*.js'], plugins: ['babel-plugin-foo'] })],
 };
 ```
@@ -159,12 +162,12 @@ To import JSON files you can use [@rollup/plugin-json](https://www.npmjs.com/pac
 In addition to installing the rollup plugin, we need to tell the dev server to serve json files as js modules:
 
 ```js
-const rollupJson = require('@rollup/plugin-json');
-const { fromRollup } = require('@web/dev-server-rollup');
+import rollupJson from '@rollup/plugin-json';
+import { fromRollup } from '@web/dev-server-rollup';
 
 const json = fromRollup(rollupJson);
 
-module.exports = {
+export default {
   // tell the server to serve json files as js
   mimeTypes: {
     '**/*.json': 'js',
@@ -187,12 +190,12 @@ There are a lot of ways to import CSS. For this example, we have tested two roll
 
 ```js
 /* eslint-disable */
-const rollupPostcss = require('rollup-plugin-postcss');
-const { fromRollup } = require('@web/dev-server-rollup');
+import rollupPostcss from 'rollup-plugin-postcss';
+import { fromRollup } from '@web/dev-server-rollup';
 
 const postcss = fromRollup(rollupPostcss);
 
-module.exports = {
+export default {
   // in a monorepo you need to adjust the rootdir of the web server
   // postcss injects a module which needs to be reachable from the browser
   // rootDir: '../..',
@@ -214,12 +217,12 @@ If you're using `lit-element`, you can use [rollup-plugin-lit-css](https://www.n
 
 ```js
 /* eslint-disable */
-const rollupLitcss = require('rollup-plugin-lit-css');
-const { fromRollup } = require('@web/dev-server-rollup');
+import rollupLitcss from 'rollup-plugin-lit-css';
+import { fromRollup } from '@web/dev-server-rollup';
 
 const litcss = fromRollup(rollupLitcss);
 
-module.exports = {
+export default {
   // tell the server to serve css files as js
   mimeTypes: {
     '**/*.css': 'js',
@@ -242,12 +245,12 @@ Make sure not to use the `limit` option, as this causes the plugin to emit files
 
 ```js
 /* eslint-disable */
-const rollupUrl = require('rollup-plugin-url');
-const { fromRollup } = require('@web/dev-server-rollup');
+import rollupUrl from 'rollup-plugin-url';
+import { fromRollup } from '@web/dev-server-rollup';
 
 const url = fromRollup(rollupUrl);
 
-module.exports = {
+export default {
   // tell the server to serve your assets files as js
   mimeTypes: {
     './assets/**/*': 'js',

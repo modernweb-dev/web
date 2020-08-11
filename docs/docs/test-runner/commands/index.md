@@ -123,7 +123,7 @@ By returning a non-null or undefined value from this function, the test runner w
 <summary>View example</summary>
 
 ```js
-const fs = require('fs');
+import fs from 'fs';
 
 function myPlugin() {
   return {
@@ -141,7 +141,7 @@ function myPlugin() {
 }
 
 // your web-test-runner.config.js
-module.exports = {
+export default {
   plugins: [myPlugin()],
 };
 ```

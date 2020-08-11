@@ -13,7 +13,7 @@ For modern browsers, we recommend using other browser launchers, as they are a l
 ## Usage
 
 ```js
-const { browserstackLauncher } = require('@web/test-runner-browserstack');
+import { browserstackLauncher } from '@web/test-runner-browserstack';
 
 const sharedCapabilities = {
   // it's recommended to store user and key as environment variables
@@ -28,7 +28,7 @@ const sharedCapabilities = {
   build: `build ${process.env.GITHUB_RUN_NUMBER || 'unknown'}`,
 };
 
-module.exports = {
+export default {
   browsers: [
     browserstackLauncher({
       capabilities: {

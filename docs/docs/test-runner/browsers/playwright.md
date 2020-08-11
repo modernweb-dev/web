@@ -27,9 +27,9 @@ If you want to customize the playwright launcher options, you can add the browse
 You can find all possible launch options in the [official documentation](https://github.com/microsoft/playwright/blob/master/docs/api.md#browsertypelaunchoptions)
 
 ```js
-const { playwrightLauncher } = require('@web/test-runner-playwright');
+import { playwrightLauncher } from '@web/test-runner-playwright';
 
-module.exports = {
+export default {
   browwsers: [
     playwrightLauncher({
       // product can be chromium, webkit or firefox
@@ -49,9 +49,9 @@ module.exports = {
 For each browser, you can add a separate browser launcher
 
 ```js
-const { playwrightLauncher } = require('@web/test-runner-playwright');
+import { playwrightLauncher } from '@web/test-runner-playwright';
 
-module.exports = {
+export default {
   browwsers: [
     playwrightLauncher({ product: 'chromium' }),
     playwrightLauncher({ product: 'firefox' }),

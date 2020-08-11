@@ -21,9 +21,9 @@ npm i -D @web/dev-server-esbuild
 Create a configuration file:
 
 ```js
-const { esbuildPlugin } = require('@web/dev-server-esbuild');
+import { esbuildPlugin } from '@web/dev-server-esbuild';
 
-module.exports = {
+export default {
   plugins: [esbuildPlugin({ ts: true })],
 };
 ```

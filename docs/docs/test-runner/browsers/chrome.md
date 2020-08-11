@@ -23,9 +23,9 @@ For other projects you can install the browser launcher by running:
 And included in your config:
 
 ```js
-const { chromeLauncher } = require('@web/test-runner-chrome');
+import { chromeLauncher } from '@web/test-runner-chrome';
 
-module.exports = {
+export default {
   browsers: [chromeLauncher()],
 };
 ```
@@ -37,9 +37,9 @@ If you want to customize the puppeteer launcher options, you can add the browser
 You can find all possible launch options in the [official documentation](https://github.com/microsoft/puppeteer/blob/master/docs/api.md#browsertypelaunchoptions)
 
 ```js
-const { chromeLauncher } = require('@web/test-runner-chrome');
+import { chromeLauncher } from '@web/test-runner-chrome';
 
-module.exports = {
+export default {
   browsers: [
     chromeLauncher({
       launchOptions: {

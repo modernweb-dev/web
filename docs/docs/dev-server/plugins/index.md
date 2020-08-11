@@ -17,9 +17,9 @@ A plugin is just an object that you add to the `plugins` array in your configura
 In your `web-dev-server.config.js` or `web-test-runner.config.js`:
 
 ```js
-const awesomePlugin = require('awesome-plugin');
+import awesomePlugin from 'awesome-plugin';
 
-module.exports = {
+export default {
   plugins: [
     // use a plugin
     awesomePlugin({ someOption: 'someProperty' }),

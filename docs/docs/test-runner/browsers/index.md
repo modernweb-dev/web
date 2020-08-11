@@ -44,13 +44,13 @@ You configure which browser launchers to run from your config file. You can use 
 
 ```js
 // import the browser launcher you want to use, chromeLauncher is the default
-const { chromeLauncher } = require('@web/test-runner');
-// const { playwrightLauncher } = require('@web/test-runner-playwright');
-// const { puppeteerLauncher } = require('@web/test-runner-puppeteer');
-// const { seleniumLauncher } = require('@web/test-runner-selenium');
-// const { browserstackLauncher } = require('@web/test-runner-browserstack');
+import { chromeLauncher } from '@web/test-runner';
+// import { playwrightLauncher } from '@web/test-runner-playwright';
+// import { puppeteerLauncher } from '@web/test-runner-puppeteer';
+// import { seleniumLauncher } from '@web/test-runner-selenium';
+// import { browserstackLauncher } from '@web/test-runner-browserstack';
 
-module.exports = {
+export default {
   browsers: [chromeLauncher({ launchOptions: { args: ['--no-sandbox'] } })],
 };
 ```
