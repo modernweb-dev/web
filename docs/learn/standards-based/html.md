@@ -10,95 +10,82 @@ eleventyNavigation:
 
 As we saw in the [previous section](../servers-and-clients.md), HTML is the primary resource that servers send to browsers. Even if the web server is entirely dynamic, meaning it doesn't simply send the contents of `.html` files from its web root, it will still send a string of HTML for most requests. Every web page is, ultimately and essentially, an HTML document.
 
+The purpose of this document isn't to present a comprehensive tutorial, but to highlight some of the imporant basic aspects of HTML.
+
 ## View Source
 
 You can inspect every HTML page by context-clicking and selecting "View Page Source". This lets you see the complete HTML document for the page you are viewing.
 
 When we were first exploring the web back in the 90s, "View Source" let us learn from others, and better understand how the web worked.
 
-If you view source on some contemporary JavaScript-heavy websites or apps, you'll typically see something like this:
-
 ```html
 <html>
-  <body>
-    <script src="bundle-807dj87x.js"></script>
-    <div id="app"></div>
-  </body>
-</html>
-```
-
-Where the bundle provides a large payload of JavaScript that dynamically creates the rest of the page at run time.
-
-This gives JavaScript developers tremendous flexibility, but can prevent many of the optimizations, accessibility features, and user experiences that browsers are so good at, not to mention making it harder to learn from the page-as-authored using "View Source"
-
-Websites should aim to deliver their content as <abbr>HTML</abbr> as much as possible
-
-```html
-<html>
+  <head>
+    <title>My Page</title>
+  </head>
   <body>
     <h1>My page</h1>
-    <p>With some content in <abbr>HTML</abbr></p>
+    <p>This page's content was authored in <abbr>HTML</abbr>.</p>
+    <a href="/next.html">Next Page</a>
   </body>
 </html>
 ```
 
-## Semantic HTML
+## Hyperlinks
 
-Even if only JavaScript gets send over the wire at some point it all becomes rendered into the html **document object model** (**DOM**).
+The "HT" in <abbr>HTML</abbr>, "HyperText", refers to the way in which documents can link to other documents. This is the fundamental feature of <abbr>HTML</abbr> and the most important feature of the web.
 
-And this DOM often looks like this
+Hyperlinks ("links" for short) in <abbr>HTML</abbr> are represented by the [anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a). The `href` attribute contains the [URL](../servers-and-clients.md) which the hyperlink points to.
 
-```html
-<div class="css-698um9">
-  <div class="css-1tk5puc">
-    <div class="css-jbmajz">
-      <!-- ... -->
-    </div>
-  </div>
-</div>
-```
+There are three basic types of URLs which you can link to:
 
-In order to give structure to the content and meaning to the tree which is also very important for **Accessibility**(**A11y**) it is more beneficial to have use semantically html elements.
+1. [Fully-Qualified URLs](#fully-qualified-urls)
+2. [Absolute Paths](#absolute-paths)
+3. [Relative Paths](#relative-paths)
 
-```html
-<!-- TODO: add example -->
-```
+### Fully Qualified URLs
 
-## Links
+The most specific type of URL is the fully-qualified URL. They contain a protocol; zero, one, or more subdomains; a domain name; and an optional path. They refer specifically to a single, unique resource. Some examples:
 
-Linking between multiple html files has always been on of HTML core features.
-There are 3 fundamental ways to link
+- `https://www.google.com`
+- `https://modern-web.dev/docs/learn/standards-based/html/`
+- `ws://demos.kaazing.com/echo`
 
-### 1. Full links
-
-Links that start with `http` specify the full URL e.g. domain + path are considered absolute link.
+Links with fully qualified URLs can link a page on your server, to pages on another server. This is what puts the "world-wide" in "world-wide-web". All the links to [MDN](https://developer.mozilla.com) in this article are like that.
 
 ```html
 <a href="https://google.com/">if you click me I will open google</a>
 ```
 
-No matter in which page/html this link is places it will always open the same full url.
+Because the URL is fully-qualified,adding that `<a>` tag to any page anywhere on the web will have the same behavior[^1], namely opening google's home page.
 
-### 2. Absolute links
+[^1]: Assuming that the page doesn't use JavaScript or other techniques to surreptitiously change the destination of the link
 
-Links that start with `/` are treated as absolute and will link always to the domain.
+### Absolute URLs
 
-Given the following link on `my-domain.com`.
+Absolute URLs contain only a path, omitting the protocol and origin. They always begin with `/`. Like fully-qualified URLs, they always refer to the same path relative to the origin, for example:
 
 ```html
-<a href="/help.html">...</a>
+<a href="/index.html">Home Page</a>
 ```
 
-It will always link to `https://my-domain.com/help.html`. <br>
-A href `/about/` will always link to `https://my-domain.com/about/`.
+This link will have the same behaviour on all pages on `modern-web.dev`, namely returning to the Modern Web homepage. but if placed on `developer.mozilla.org`, will link to the MDN homepage, not Modern Web's.
 
-### 3. Relative Link
+Absolute links containing _only_ a `/` are special, they refer to the web root. In most cases, they are synonymous with `/index.html`.
 
-Link that start with `./` or directly with the path are considered relative link.
+### Relative URLs
 
-For relative links the location of the document influences the links destination.
+The least specific type of URL is a relative URL. Like absolute URLs, they omit the protocol and origin, but unlike absolute URLs, which contain a full path, relattive URLs contain a partial, or relative path. They start with `./`, `../`, or simply a path to a resource. for example:
 
-Given the following folder structure
+```html
+<a href="../">Go Up</a>
+<a href="./help.html">Go to Help Page</a>
+<a href="help.html">Also Go to Help Page</a>
+```
+
+Relative URLs are relative to the current document, so they may have different behaviour depending on which page on a website they are used.
+
+Given the following folder structure:
 
 ```
 .
@@ -112,13 +99,62 @@ Given the following folder structure
 And the following link tag
 
 ```html
-<a href="./index.html">...</a>
-<!-- or -->
 <a href="index.html">...</a>
 ```
 
 A link within `help.html` would link to `index.html`. <br>
 A link within `about/contact.html` would link to `about/index.html`.
+
+## Semantic HTML
+
+The "ML" in <abbr>HTML</abbr>, "Markup Language" means that HTML tags provide structure and context to the text of the document, they "mark the text up" with additional information that's useful to readers, assistive technology, and machines. Consider a list, for example. An author could create the visual effect of a list in HTML using only the <dfn>`<br/>`</dfn> (line break) tag and the <dfn>`&emsp`</dfn> (em-space [HTML entity](https://developer.mozilla.org/en-US/docs/Glossary/Entity)):
+
+```HTML
+A list:<br/>
+<br/>
+&emsp;1. First<br/>
+&emsp;2. Second<br/>
+&emsp;3. Third<br/>
+<br/>
+```
+
+But there are several problems with this. First, the HTML is hard to read and hard to maintain. There's nothing here, aside from the text "A list", to indicate that this should be a list. Second, the markup doesn't actually provide any new information. Assistive technology or computers like web crawlers won't be able to identify this as a list of items. Third, it will be difficult to design the style of the page with CSS.
+
+Much better to use what HTML provides, the <dfn>`<ol>`</ol> (ordered-list) tag.
+
+```HTML
+A list:
+<ol>
+  <li>First</li>
+  <li>Second</li>
+  <li>Third</li>
+</ol>
+```
+
+[HTML has many semantic tags built-in](https://developer.mozilla.org/en-US/docs/Web/HTML/Element), including tags which group parts of the page into logical units, tags for page headings, and tags for displaying various specific kinds of information. Some of the lesser-known tags include:
+
+- `<time>` for representing time values
+- `<kbd>` for representing a keyboard key or key combination
+- `<aside>` for representing content that is auxiliary to the main content
+- `<article>` for a composed section of content that represents a coherent unit
+
+### DIV Soup
+
+Sometimes, when you [inspect a web page](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools), you'll see something like this:
+
+```html
+<div class="css-698um9">
+  <div class="css-1tk5puc">
+    <div class="css-jbmajz">
+      <!-- ...etc -->
+    </div>
+  </div>
+</div>
+```
+
+This "DIV soup" is a sign that the developers did not use semantic HTML. Users of assistive technology may have difficulty using this web page, computers may have difficulty parsing it (i.e. it may not rank highly on search engines), and developers will have difficulty understanding the structure of the HTML and the purpose of its various elements.
+
+As much as possible, developers should strive to use the semantically correct HTML tags for their content.
 
 ## Learn more
 
