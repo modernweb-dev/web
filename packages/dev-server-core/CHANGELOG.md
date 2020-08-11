@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.1
+
+### Patch Changes
+
+- aa65fd1: run build before publishing
+
 ## 0.2.0
 
 ### Minor Changes

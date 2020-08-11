@@ -1,5 +1,14 @@
 # @web/test-runner-browserstack
 
+## 0.1.1
+
+### Patch Changes
+
+- aa65fd1: run build before publishing
+- Updated dependencies [aa65fd1]
+  - @web/dev-server-legacy@0.1.1
+  - @web/test-runner-selenium@0.2.1
+
 ## 0.1.0
 
 ### Minor Changes

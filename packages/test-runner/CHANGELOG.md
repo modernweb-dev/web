@@ -1,5 +1,18 @@
 # @web/test-runner
 
+## 0.7.1
+
+### Patch Changes
+
+- aa65fd1: run build before publishing
+- Updated dependencies [aa65fd1]
+  - @web/dev-server-rollup@0.2.1
+  - @web/test-runner-chrome@0.6.1
+  - @web/test-runner-cli@0.5.1
+  - @web/test-runner-commands@0.1.1
+  - @web/test-runner-core@0.7.1
+  - @web/test-runner-mocha@0.3.1
+
 ## 0.7.0
 
 ### Minor Changes

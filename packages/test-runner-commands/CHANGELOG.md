@@ -1,5 +1,13 @@
 # @web/test-runner-commands
 
+## 0.1.1
+
+### Patch Changes
+
+- aa65fd1: run build before publishing
+- Updated dependencies [aa65fd1]
+  - @web/test-runner-core@0.7.1
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @web/config-loader
 
+## 0.1.1
+
+### Patch Changes
+
+- aa65fd1: run build before publishing
+
 ## 0.1.0
 
 ### Minor Changes

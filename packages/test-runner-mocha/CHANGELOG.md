@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.3.1
+
+### Patch Changes
+
+- aa65fd1: run build before publishing
+
 ## 0.3.0
 
 ### Minor Changes

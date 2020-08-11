@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-commands",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "access": "public"
   },
@@ -37,11 +37,11 @@
     "commands"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.7.0"
+    "@web/test-runner-core": "^0.7.1"
   },
   "devDependencies": {
-    "@web/test-runner-chrome": "^0.6.0",
-    "@web/test-runner-playwright": "^0.5.0",
+    "@web/test-runner-chrome": "^0.6.1",
+    "@web/test-runner-playwright": "^0.5.1",
     "mocha": "^8.1.1"
   },
   "exports": {
