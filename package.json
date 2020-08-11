@@ -25,8 +25,8 @@
     "update-package-configs": "ts-node scripts/update-package-configs.ts"
   },
   "dependencies": {
-    "@d4kmor/cli": "^0.1.13",
-    "@d4kmor/launch": "^0.1.15",
+    "@d4kmor/cli": "^0.1.14",
+    "@d4kmor/launch": "^0.1.16",
     "patch-package": "^6.2.2"
   },
   "devDependencies": {
