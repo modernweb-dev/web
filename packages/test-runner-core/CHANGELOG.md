@@ -1,5 +1,13 @@
 # @web/test-runner-core
 
+## 0.7.2
+
+### Patch Changes
+
+- 5f26788: add packages from test-runner-server
+- Updated dependencies [5f26788]
+  - @web/test-runner-core@0.7.2
+
 ## 0.7.1
 
 ### Patch Changes
