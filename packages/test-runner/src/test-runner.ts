@@ -31,31 +31,37 @@ export interface TestRunnerCliArgsConfig extends Omit<TestRunnerConfig, 'browser
   browsers?: string[];
 }
 
-const cliOptions: commandLineArgs.OptionDefinition[] = [
+const cliOptions: (commandLineArgs.OptionDefinition & { description: string })[] = [
+  {
+    name: 'node-resolve',
+    type: Boolean,
+    description: 'Resolve bare module imports',
+  },
   {
     name: 'preserve-symlinks',
     type: Boolean,
+    description: "Don't follow symlinks when resolving imports",
   },
   {
     name: 'puppeteer',
     type: Boolean,
+    description: 'Run tests using puppeteer',
   },
   {
     name: 'playwright',
     type: Boolean,
+    description: 'Run tests using playwright',
   },
   {
     name: 'browsers',
     type: String,
     multiple: true,
-  },
-  {
-    name: 'node-resolve',
-    type: Boolean,
+    description: 'Browsers to run when choosing puppeteer or playwright',
   },
   {
     name: 'debug',
     type: Boolean,
+    description: 'Log debug messages',
   },
 ];
 
