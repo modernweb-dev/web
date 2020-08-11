@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.7.2
+
+### Patch Changes
+
+- b020eee: update dependencies
+
 ## 0.7.1
 
 ### Patch Changes
