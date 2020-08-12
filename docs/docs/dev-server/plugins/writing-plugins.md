@@ -116,8 +116,6 @@ export default {
 Serve a virtual module:
 
 ```js
-const indexHTML = generateIndexHTML();
-
 export default {
   plugins: [
     {
