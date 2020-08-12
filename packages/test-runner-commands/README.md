@@ -7,7 +7,7 @@ Run server-side commands for tests with [@web/test-runner](https://github.com/mo
 Install the library:
 
 ```bash
-npm i -D @web/test-runner-helpers
+npm i -D @web/test-runner-commands
 ```
 
 ### Built-in commands
