@@ -217,14 +217,14 @@ Right we are missing a way to change the actual size of the window.
 For that we need to install the library:
 
 ```bash
-npm i -D @web/test-runner-helpers
+npm i -D @web/test-runner-commands
 ```
 
 With that, we get a `setViewport` method which we can put to good use.
 
 ```js
 import { expect } from '@open-wc/testing';
-import { setViewport } from '@web/test-runner-helpers';
+import { setViewport } from '@web/test-runner-commands';
 import { isMobile } from '../src/isMobile';
 
 describe('isMobile', () => {
