@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.7.3
+
+### Patch Changes
+
+- 7e6e633: Added a --help command
+- Updated dependencies [7e6e633]
+- Updated dependencies [519e6e2]
+  - @web/test-runner-cli@0.5.2
+  - @web/test-runner-commands@0.1.2
+
 ## 0.7.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.1.2
+
+### Patch Changes
+
+- 519e6e2: made the plugins import work on node v10
+
 ## 0.1.1
 
 ### Patch Changes
