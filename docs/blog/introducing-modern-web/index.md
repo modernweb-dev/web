@@ -3,7 +3,7 @@ title: Introducing modern web - Developer tools for modern web development.
 published: false
 description: Write Interactive Demos Using Markdown and JavaScript
 date: 2020-08-10
-tags: javascript, tests, demos
+tags: [javascript, tests, demos]
 cover_image: https://raw.githubusercontent.com/open-wc/blog-posts/master/2020-04-introducing-mdjs-interactive-demos-everywhere/images/aaron-burden-TNlHf4m4gpI-unsplash.jpg
 ---
 
