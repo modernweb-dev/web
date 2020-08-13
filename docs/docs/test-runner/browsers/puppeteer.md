@@ -3,7 +3,7 @@ title: Puppeteer
 eleventyNavigation:
   key: Puppeteer
   parent: Browsers
-  order: 2
+  order: 30
 ---
 
 Run tests using [Puppeteer](https://www.npmjs.com/package/puppeteer), using a bundled version of Chromium or Firefox (experimental). Use the [Chrome launcher](./chrome.md) to run tests with a globally installed version of Chrome.

@@ -3,7 +3,7 @@ title: Code Coverage
 eleventyNavigation:
   key: Code Coverage
   parent: Writing tests
-  order: 1
+  order: 30
 ---
 
 You can run tests with code coverage using the `--coverage` flag:

@@ -3,7 +3,7 @@ title: Selenium
 eleventyNavigation:
   key: Selenium
   parent: Browsers
-  order: 4
+  order: 50
 ---
 
 Run tests using [selenium-webdriver](https://www.npmjs.com/package/selenium-webdriver).

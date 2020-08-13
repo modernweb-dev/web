@@ -3,7 +3,7 @@ title: Helper Libraries
 eleventyNavigation:
   key: Helper Libraries
   parent: Writing tests
-  order: 1
+  order: 20
 ---
 
 [@open-wc/testing](https://open-wc.org/testing/testing.html) is a general-purpose library, including assertions via chai, HTML test fixtures, a11y tests, and test helpers.

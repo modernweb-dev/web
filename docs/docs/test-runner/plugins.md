@@ -10,7 +10,7 @@ The test runner uses `@web/dev-server` to your test files to the browser. The de
 
 We recommend reading these pages:
 
-- [Plugins](../../dev-server/plugins/index.md) for a general overview
-- [esbuild](../../dev-server/plugins/esbuild.md) for TS, JSX and TSX
-- [rollup](../../dev-server/plugins/esbuild.md) for using rollup plugins
-- [Writing plugins](../../dev-server/plugins/writing-plugins.md)
+- [Plugins](../dev-server/plugins/index.md) for a general overview
+- [esbuild](../dev-server/plugins/esbuild.md) for TS, JSX and TSX
+- [rollup](../dev-server/plugins/esbuild.md) for using rollup plugins
+- [Writing plugins](../dev-server/plugins/writing-plugins.md)

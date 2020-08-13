@@ -3,7 +3,7 @@ title: Browserstack
 eleventyNavigation:
   key: Browserstack
   parent: Browsers
-  order: 5
+  order: 60
 ---
 
 Run tests remotely on [Browserstack](https://www.browserstack.com/).

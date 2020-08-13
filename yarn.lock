@@ -1145,30 +1145,10 @@
     human-id "^1.0.2"
     prettier "^1.18.2"
 
-"@d4kmor/cli@^0.1.14":
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.1.14.tgz#2e21a6e0084154e7cd88bcca270e7171c4eb2b72"
-  integrity sha512-8QaRY8Qk8rxdbZvwKD8sx9mimwVQ5XPL/X/dGC7fbpDqK4IIOnZ8OiJegqm/LO+ecaYSXI1hOI5tA1tiNJtmCQ==
-  dependencies:
-    "@11ty/eleventy" "^0.11.0"
-    "@d4kmor/eleventy-plugin-mdjs" "^0.1.2"
-    "@d4kmor/eleventy-rocket-nav" "^0.1.3"
-    "@d4kmor/navigation" "^0.1.1"
-    "@open-wc/building-rollup" "^1.7.0"
-    command-line-args "^5.1.1"
-    command-line-usage "^6.1.0"
-    deepmerge "^4.2.2"
-    es-dev-server "^1.57.2"
-    glob "^7.1.6"
-    rollup "^2.16.0"
-    rollup-plugin-clear "^2.0.7"
-    rollup-plugin-visualizer "^4.0.4"
-    rollup-plugin-workbox "^5.0.1"
-
-"@d4kmor/cli@^0.1.15":
-  version "0.1.15"
-  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.1.15.tgz#ddfd1c270a40e6dd0fa5316a3db71272696af0ae"
-  integrity sha512-oUZMNvv1Am40hzBSsz9RNdH7AlwKaqbJErcnZwj+gyO7bgUc6xya/VfWQaV6WuDFpvNq4jp7p6TVbXan4Sg58Q==
+"@d4kmor/cli@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.2.0.tgz#d948f32df582913d5dbfe316c3f564253bb5cf9b"
+  integrity sha512-EZ6BhNF/qo5Pj3pMZw1adw5uUnD+RYYS+z9rAcW9tmUKq9o/06EeeemqWimuzw2zQHlERO/0X5dGsjl1LN8EBA==
   dependencies:
     "@11ty/eleventy" "^0.11.0"
     "@d4kmor/eleventy-plugin-mdjs" "^0.1.3"
@@ -1193,15 +1173,6 @@
     "@lion/overlays" "0.16.6"
     lit-element "^2.3.1"
 
-"@d4kmor/eleventy-plugin-mdjs@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-plugin-mdjs/-/eleventy-plugin-mdjs-0.1.2.tgz#cec6bf9e0c6ca11263ce3320dc32b1988da19991"
-  integrity sha512-YOTL9NcF8u4txkhJsq6alskMCd3UuJaCmz4s+X5M06in2SHdcXjiT5ca9+8BZ8RrRJvk9AWUflINfuDN5CDpyA==
-  dependencies:
-    "@mdjs/core" "^0.3.2"
-    remark-footnotes "^1.0.0"
-    unist-util-visit "^2.0.3"
-
 "@d4kmor/eleventy-plugin-mdjs@^0.1.3":
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-plugin-mdjs/-/eleventy-plugin-mdjs-0.1.3.tgz#1e701dbdfeb452e1ab9361a6bd71826971a3e174"
@@ -1219,12 +1190,12 @@
     dependency-graph "^0.8.1"
     sax-wasm "^1.4.5"
 
-"@d4kmor/launch@^0.1.16":
-  version "0.1.16"
-  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.1.16.tgz#2a4857fe91c1e81e56683fe80168b39cce406924"
-  integrity sha512-BB4N/+hMc6//mKPo/wzZEURqu0xwvXzicHxEjt16sEbgSwR/A1Olu3bzD+v2JSgkXqbOoyMmJP2wU6kfdHPpvQ==
+"@d4kmor/launch@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.2.0.tgz#922516b1a4d232bd3662c1985269d6775e4931d5"
+  integrity sha512-R9+TyJnB8vA1/oFV2bIdTir6v5JQ76K/7e82xb5EAuGG9jwMjaWEQOfaUdClckIFymsb/bCstprdzGlLkrG8iw==
   dependencies:
-    "@d4kmor/cli" "^0.1.14"
+    "@d4kmor/cli" "^0.2.0"
     "@d4kmor/drawer" "^0.1.0"
 
 "@d4kmor/navigation@^0.1.1":

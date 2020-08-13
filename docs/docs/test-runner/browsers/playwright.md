@@ -3,7 +3,7 @@ title: Playwright
 eleventyNavigation:
   key: Playwright
   parent: Browsers
-  order: 3
+  order: 40
 ---
 
 Run tests using [Playwright](https://www.npmjs.com/package/playwright), using a bundled versions of Chromium, Firefox, and/or Webkit.
