@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.5.2
+
+### Patch Changes
+
+- 7e6e633: Added a --help command
+
 ## 0.5.1
 
 ### Patch Changes
