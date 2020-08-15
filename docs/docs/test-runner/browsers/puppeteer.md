@@ -20,6 +20,10 @@ npm i -D @web/test-runner-puppeteer
 wtr test/**/*.test.js --node-resolve --puppeteer
 ```
 
+## Troubleshooting
+
+Check the official <a href="https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md" target="_blank">troubleshooting page</a> for help with problems during installation.
+
 ## Customizing launcher options
 
 If you want to customize the puppeteer launcher options, you can add the browser launcher in the config.
