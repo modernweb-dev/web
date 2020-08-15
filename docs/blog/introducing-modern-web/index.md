@@ -1,62 +1,64 @@
 ---
-title: Introducing modern web - Developer tools for modern web development.
+title: Introducing: Modern Web.
 published: false
-description: Reexperience the joy when working with the standards based web. Starting off with a test runner which uses multiple browsers in parallel.
+description: Developer tools for modern web development
 date: 2020-08-10
 tags: [javascript, test, modern-web]
 cover_image: /blog/introducing-modern-web/introducing-modern-web-blog-header.jpg
 ---
 
-We are incredibly proud to announce our latest web improvements. We call it "Modern Web".
+We are excited to introduce our brand new project: Modern Web.
 
 ## What is Modern Web?
 
-Modern Web will host all developer tools which are too general to be only on [Open Web Components](https://open-wc.org).
+A few years ago we started the [Open Web Components](https://open-wc.org/) project. Our goal was to help people develop web component, and we created guides and tools to help people do this. While working on this project, we realized that a lot of the things we were making were not necessarily specific to web components.
 
-We are the same Open Web Components developers but we split the general modern web development related topics away from the web components specifics.
+To maintain focus within the open-wc project, and to share our work with the larger developer community, we decided to split up the project and create Modern Web. Open-wc will gain a renewed focus for web component specific topics, while in Modern Web we will work on generic tools and guides for web component.
 
-You can find our new home at [modern-web.dev](https://modern-web.dev). All our tools are available on npm within the [@web](https://www.npmjs.com/org/web) npm namespace. Our code is open source and on [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web). For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev).
+## The goal for Modern Web
 
-## What we stand for
+Modern browsers are a powerful platform for building websites and applications. We should work with what's available in the browser first before reaching for custom solutions.
 
-Modern browsers are a powerful platform for building websites and applications. We teach developers what's available out of the box, and provide extensions in the form of patterns and tooling.
+Because you're working with the browser rather than against it, code, skills, and knowledge remain relevant for a longer time. Development becomes faster and debugger easier because there are fewer layers of abstractions involved.
 
-By building on top of established standards we can create solutions that are lightweight, easy to learn and remain relevant for a longer time.
+At the same time, we are not ignorant of the fact that not all problems can be solved elegantly by the browser today. We support developers making informed decisions about introducing tools and customizations to their projects, in such a way that developers can upgrade later as browser support improves.
 
-## Our vision of the future
+## Our plans
 
-Modern Web is our starting point into a list of tools that will enable you to create websites as a mere mortal human.
-In the end, we will offer a complete set of tools to enable building modern websites for and with the browser.
+This announcement marks the official "release" of Modern Web. Our website is available at [modern-web.dev](https://modern-web.dev), and our available packages are publishing on NPM within the [@web](https://www.npmjs.com/org/web) namespace. Our code is open source and on [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web). For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev).
 
-Our tools are generally comprised of many individual parts/plugins/packages. Each of those packages tries to cover the smallest possible feature set but still solving an isolated problem domain. You may find these smaller packages useful but generally, we advise you to consume our opinionated and more user-friendly packages.
+### Guides
 
-Each of our opinionated tools will come with a learning section that guides you step by step into using the specific tool. Furthermore, there will be comprehensive documentation for each of those tools and also for all the different parts/plugins/packages it's made of.
+Our website launches with a [Learn section](https://modern-web.dev/learn/standards-based/) that teaches modern and not so modern browsers features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that often underused or misunderstood.
 
-We start our journey with a brand new `Web Test Runner` that uses the browser as we see that as the area with the biggest gap.
+### Dev server
 
-## Web Test Runner
+es-dev-server is the most popular package at open-wc. It is also the prime example of a tool that is not limited to web components alone. We've been working on its spiritual successor which we will call `@web/dev-server`.
 
-The test runner for web applications.
+The most important improvements are first-class supports for rollup plugins through [@web/dev-server-rollup](https://modern-web.dev/docs/dev-server/plugins/rollup/) as well as the ability to plug into esbuild loaders through [@web/dev-server-esbuild](https://modern-web.dev/docs/dev-server/plugins/esbuild/).
 
-👉&nbsp;&nbsp; Headless browsers with puppeteer, playwright, or selenium. <br>
+The dev server is not quite finished yet, but we've already built the basic parts to power our new test runner. We will finalize our work on the dev server very soon.
+
+### Test Runner
+
+We are very excited to announce today the official release candidate of [@web/test-runner](https://modern-web.dev/docs/test-runner/), a project we have been working on for the past months.
+
+There are already a lot of testing solutions out there today. Unfortunately, all of them either run tests in node js and mock browser APIs using something like JSDom or don't support native es modules out of the box. We think that making browser code compatible for testing in node is unnecessarily complex. Running tests in real browsers gives greater confidence in (cross-browser) compatibility and makes writing and debugging tests much simpler.
+
+By building on top of our dev server, and modern browser launchers like Puppeteer and Playwright, we created a new test runner which fills this gap in the ecosystem. We think it is already feature-complete enough to be picked up by any web project.
+
+Some highlights:
+
+👉&nbsp;&nbsp; Headless browsers with [Puppeteer](https://modern-web.dev/docs/test-runner/browsers/puppeteer/), [Playwright](https://modern-web.dev/docs/test-runner/browsers/playwright/), or [Selenium](https://modern-web.dev/docs/test-runner/browsers/selenium/). <br>
 🚧&nbsp;&nbsp; Reports logs, 404s, and errors from the browser. <br>
-📦&nbsp;&nbsp; Supports native es modules.<br>
-🔧&nbsp;&nbsp; Runs tests in parallel and isolation.<br>
+🔍&nbsp;&nbsp; Debug opens a real browser window with devtools.<br>
+🔧&nbsp;&nbsp; Exposes browser properties like viewport size and dark mode.<br>
+⏱&nbsp;&nbsp;Runs tests in parallel and isolation.<br>
 👀&nbsp;&nbsp; Interactive watch mode.<br>
-🏃&nbsp;&nbsp; Reruns only changed tests.<br>
+🏃&nbsp;&nbsp; Fast development by rerunning only changed tests.<br>
 🚀&nbsp;&nbsp; Powered by [esbuild](https://modern-web.dev/docs/dev-server/esbuild.md) and [rollup plugins](https://modern-web.dev/docs/dev-server/rollup.md)
 
-### Why a new test runner?
-
-One of our core principals is to be close to the browser. Therefore our tests should run in a browser.
-You may ask why? and it might not be totally obvious but JavaScript in Node and the Browser are two different ecosystems and implementation.
-This leads to a diversion in what is supported. One of the most prominent examples is probably ES Modules. While supported in all evergreen browsers in early 2018 there are still some road bumps for NodeJS in 2020.
-
-Giving this situation there will always be a difference in pace and possibilities in regards to node/JsDom and a real browser.
-On top of that, there are quite often subtle variations in implementation for each browser.
-So it's good to know if it runs in the actual browser your users are going to use. And to be honest not a single user will use JsDom.
-
-## Quick Start
+## Getting started with Web Test Runner
 
 This is the minimal instruction on how to start using the test runner.
 
@@ -123,7 +125,7 @@ The same tests are run in watch mode but you do get multiple additional features
 - You can focus on a specific test file
 - You can open a test file in the browser
 
-Automatic rerunning is probably well know but what does it mean to "focus a specific test file"?
+Automatic rerunning is probably well known but what does it mean to "focus a specific test file"?
 I'm glad you asked as it is one of the key features when working with many test files.
 Often when working you want to focus only on ONE specific test file and with web test runner you can do that right in the terminal.
 
@@ -138,7 +140,7 @@ Press Q to quit watch mode.
 Press Enter to re-run all tests.
 ```
 
-Now if you use F a menu will present itself with all the files you can focus
+Now if you use `F` a menu will present itself with all the files you can focus
 
 ```
 [1] test/calc.test.js
@@ -158,7 +160,7 @@ If we want to run tests in all evergreen browser then [Microsoft Playwright](htt
 
 We can install it via
 
-```bash
+```
 npm i -D @web/test-runner-playwright
 ```
 
@@ -191,7 +193,7 @@ See more instructions in the [using-launchers](https://modern-web.dev/learn/test
 ## Testing responsive views
 
 With the world going mobile-first there needs to be a way of testing your mobile views.
-Working with a real browser you can directly change the viewport.
+Working with a real browser means you can directly change the viewport.
 
 Let's assume we have some code that should only execute on mobile.
 It would be nice to have some sort of functionality to check for it.
@@ -211,12 +213,11 @@ describe('isMobile', () => {
 ```
 
 It feels like something is missing in this test... 🤔
-Expecting something to be true in one case and false in another without any other function call feels wrong.
-Right we are missing a way to change the actual size of the window.
+We need to have a way to run these two tests on different viewport sizes to verify if they work correctly.
 
-For that we need to install the library:
+For that we need to install a library:
 
-```bash
+```
 npm i -D @web/test-runner-commands
 ```
 
@@ -240,113 +241,7 @@ describe('isMobile', () => {
 });
 ```
 
-If you wanna know more like for example how to test CSS media queries see the [responsive](https://modern-web.dev/learn/test-runner/responsive/) learn section.
-
-## Using Code Coverage
-
-Once you have a decent set of tests you may want to look into what could still be improved.
-Code coverage can help to find which code segments have not yet been tested.
-Generally, it's advised to have a code coverage at above 80% which you will most likely have if you practice Test Driven Development (TDD).
-
-## Getting the code coverage
-
-Coverage is part of the default feature set that comes with any launcher that works with chromium.
-
-The reason for that is that the chromium-browser itself calculates the coverage for us.
-
-1. Add a script to your `package.json`
-   ```json
-   {
-     "scripts": {
-       "test": "web-test-runner \"test/**/*.test.js\" --node-resolve --coverage"
-     }
-   }
-   ```
-
-But before we can gather coverage we need to have some source code and tests.
-
-As good citizens we start with the tests first
-
-👉 `test/calc.test.js`
-
-```js
-import { expect } from '@open-wc/testing';
-import { calc } from '../src/calc.js';
-
-it('does plus for 2 numbers', () => {
-  expect(calc('plus', 1, 1)).to.equal(2);
-  expect(calc('plus', 3, 12)).to.equal(15);
-});
-```
-
-and then the actual implementation
-
-```js
-export function calc(type, a, b) {
-  if (type === 'plus') {
-    return a + b;
-  }
-}
-```
-
-And while we are at it we can also add `minus`, I'm sure that will come in handy that at some point as well.
-And if we provide a wrong type we should throw an error - better let the user know whats up.
-
-👉 `src/calc.js`
-
-```js
-export function calc(type, a, b) {
-  if (type === 'plus') {
-    return a + b;
-  }
-  if (type === 'minus') {
-    return a - b;
-  }
-  throw new Error(`Invalid type "${type}" only plus or minus is allowed.`);
-}
-```
-
-So let's run our test
-
-```
-$ yarn test
-$ web-test-runner "test/**/*.test.js" --node-resolve --coverage
-
-Chrome: |██████████████████████████████| 1/1 test files | 1 passed, 0 failed
-
-Code coverage: 69.45 %
-View full coverage report at coverage/lcov-report/index.html
-
-Finished running tests in 1s, all tests passed! 🎉
-```
-
-As you can see, our test passed but our `Code coverage` is a bit on the low side.
-
-## What to test
-
-We might have a test, but we don't test all variations that can happen within the function.
-
-To see what is missing we can look at the Coverage Report by `Command + Click`-ing on the link (coverage/lcov-report/index.html) in the console.
-
-There, it will show us that `calc.js` has a yellow coverage and if we click on it we can see the detailed code and what is missing.
-
-![Code Coverage with Minus and Throw missing](../../learn/test-runner/code-coverage/code-coverage-minus-throw-missing.png)
-
-As you can see, we didn't test `minus` or what happens if an error is thrown.
-
-Let's add some tests for the `minus` function.
-
-```js
-it('does minus for 2 numbers', () => {
-  expect(calc('minus', 3, 1)).to.equal(2);
-});
-```
-
-It gives us a code coverage of `86.11 %`.
-
-Adding a test for throwing an error will bring it to `100%`.
-
-See more instructions in the [code-coverage](https://modern-web.dev/learn/test-runner/code-coverage/) learn section.
+If you want to know more like for example how to test CSS media queries see the [responsive](https://modern-web.dev/learn/test-runner/responsive/) learn section. See the [commands documentation](https://modern-web.dev/docs/test-runner/commands/) to learn more about commands.
 
 ## Supporting TypesScript and JSX via esbuild
 
@@ -359,15 +254,5 @@ See more instructions in the [typescript-jsx-esbuild](https://modern-web.dev/lea
 ...
 
 See more instructions in the [writing-plugin](https://modern-web.dev/learn/test-runner/writing-plugin/) learn section.
-
-## Summary
-
-There you have it - our first modern-web product enabling you to efficiently test and debug with a real browser.
-
-You can find us at [modern-web.dev](https://modern-web.dev). All our tools are available on npm within the [@web](https://www.npmjs.com/org/web) npm namespace. Our code is open source and on [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web). For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev).
-
-## What this means for Open Web Components
-
-We see this as a win-win as `Open Web Components` can fully focusing on web components while `Modern Web` will provide us with everything needed for modern web development.
 
 <span>Photo by <a href="https://unsplash.com/@lemonvlad">Vladislav Klapin</a> on <a href="https://unsplash.com/s/photos/hello">Unsplash</a></span>
