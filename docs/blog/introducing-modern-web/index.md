@@ -1,10 +1,10 @@
 ---
 title: Introducing modern web - Developer tools for modern web development.
 published: false
-description: Write Interactive Demos Using Markdown and JavaScript
+description: Reexperience the joy when working with the standards based web. Starting off with a test runner which uses multiple browsers in parallel.
 date: 2020-08-10
-tags: [javascript, tests, demos]
-cover_image: https://raw.githubusercontent.com/open-wc/blog-posts/master/2020-04-introducing-mdjs-interactive-demos-everywhere/images/aaron-burden-TNlHf4m4gpI-unsplash.jpg
+tags: [javascript, test, modern-web]
+cover_image: /blog/introducing-modern-web/introducing-modern-web-blog-header.jpg
 ---
 
 We are incredibly proud to announce our latest web improvements. We call it "Modern Web".
@@ -369,3 +369,5 @@ You can find us at [modern-web.dev](https://modern-web.dev). All our tools are a
 ## What this means for Open Web Components
 
 We see this as a win-win as `Open Web Components` can fully focusing on web components while `Modern Web` will provide us with everything needed for modern web development.
+
+<span>Photo by <a href="https://unsplash.com/@lemonvlad">Vladislav Klapin</a> on <a href="https://unsplash.com/s/photos/hello">Unsplash</a></span>
