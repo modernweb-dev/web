@@ -21,7 +21,6 @@ Not every web page sends all of its HTML along in the initial `GET` request. If 
 
 Where the bundle script is a (sometimes large) payload of JavaScript that dynamically creates the rest of the page at run time. Single-page apps, or <abbr>SPA</abbr>s are a popular example of this type of web development.
 
-
 Client-rendered websites aren't neccessarily poorly-built websites. Client-side rendering gives JavaScript developers tremendous flexibility, which is why SPA is (justifiably) such a popular development model, after all. But if the developers aren't careful, they might miss out on many of the performance optimizations, accessibility features, and user experiences that browsers are so good at, while making it harder to learn from the page-as-authored using "View Source".
 For those reasons, websites should aim as much as possible to deliver their content as <abbr>HTML</abbr>.
 

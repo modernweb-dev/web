@@ -16,6 +16,7 @@ import { html } from 'lit-html';
 The purpose of this document isn't to provide a comprehensive tutorial of CSS, or even to cover the basics, but rather to highlight some modern CSS techniques and workflows made possible by web standards. Be sure you are familiar with CSS before continuing. If you are unsure check out MDN's [Learn to style HTML using CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS).
 
 ## CSS Custom Properties
+
 ### Using Variables in CSS
 
 In the late 2000s, CSS preprocessors like [LESS](https://lesscss.org) and [SASS](https://sass-lang.com) emerged, offering developers the ability to define variables in CSS just like they would in JavaScript. The advantages to style variables were clear for applications like
@@ -55,23 +56,23 @@ With this CSS in play, the following document would show two paragraphs, both `c
 
 ```html preview-story
 <style>
-html {
-  --my-background-color: green;
-  --my-font-size: 12px;
-}
+  html {
+    --my-background-color: green;
+    --my-font-size: 12px;
+  }
 
-article {
-  --my-font-size: 24px;
-  --p-padding-horizontal: 12px;
-}
+  article {
+    --my-font-size: 24px;
+    --p-padding-horizontal: 12px;
+  }
 
-p {
-  display: inline-block;
-  border-radius: 4px;
-  padding: 4px var(--p-padding-horizontal, 6px);
-  background-color: var(--my-background-color, cornflowerblue);
-  font-size: var(--my-font-size);
-}
+  p {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 4px var(--p-padding-horizontal, 6px);
+    background-color: var(--my-background-color, cornflowerblue);
+    font-size: var(--my-font-size);
+  }
 </style>
 
 <p>Hello</p>

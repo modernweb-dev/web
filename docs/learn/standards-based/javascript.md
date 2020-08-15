@@ -13,6 +13,7 @@ The purpose of this document isn't to be a comprehensive introduction to JavaScr
 ## Referencing Reusable Assets with `import.meta.url`
 
 When publishing reusable [modules](../es-modules), you may want to include assets like images and CSS. Consider the following structure:
+
 ```
 root
 ├── modules
@@ -24,20 +25,20 @@ root
 ```js
 const imgSrc = './asset.webp';
 const image = document.createElement('img');
-      image.src = imgSrc;
+image.src = imgSrc;
 document.body.appendChild(image);
 ```
 
 if `index.html` loaded `modules/module.js`, the image could not display, because the browser would request `/asset.webp` instead of `/modules/asset.webp`, as the author intended.
 
-As of this writing, the es-module standard does not yet have a way of [importing non-javascript assets](https://github.com/tc39/proposal-import-assertions). If you tried to load assets using relative URLs, they would load relative to the *document* rather than the *module* path.
+As of this writing, the es-module standard does not yet have a way of [importing non-javascript assets](https://github.com/tc39/proposal-import-assertions). If you tried to load assets using relative URLs, they would load relative to the _document_ rather than the _module_ path.
 
 However, you can still publish modules that load bundled resources at runtime by using [`import.meta`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import.meta), a special object provided by the runtime which contains information about the current module.
 
 ```js
 const imgSrc = new URL('./asset.webp', import.meta.url);
 const image = document.createElement('img');
-      image.src = imgSrc.href;
+image.src = imgSrc.href;
 document.body.appendChild(image);
 ```
 
@@ -69,10 +70,11 @@ Let's take for example Logging. Imagine you have 3 Pages
                                 +-----------+
 ```
 
-
 ```js
 // Assume AppElement is a base class for all elements of the app
-class Page extends AppElement {/*...*/}
+class Page extends AppElement {
+  /*...*/
+}
 
 class PageRed extends Page {
   static color = 'red';
@@ -114,7 +116,7 @@ class LoggedPageRed extends PageRed {
 }
 ```
 
-This works fine for the red page, but what if we needed implement logging for *both* the red and green pages, but *not* the blue page. There's nothing about the logging code which is specific to the red instance of `Page`. How could be generalize the logging behaviour so as to apply it to any kind of class?
+This works fine for the red page, but what if we needed implement logging for _both_ the red and green pages, but _not_ the blue page. There's nothing about the logging code which is specific to the red instance of `Page`. How could be generalize the logging behaviour so as to apply it to any kind of class?
 
 - We can't put the logic in `Page` as blue inherits from `Page`, and it shouldn't log
 - We can't reuse the logic from `LoggedPageRed` in some new `LoggedPageGreen` class, as we can not extend from multiple sources.
@@ -141,17 +143,19 @@ We need a way to define "A thing that logs" which is separate from "A thing that
 ```
 
 ### Class Mixins
+
 JS class mixins let us share behaviours using class syntax. At it's heart, class mixins are just function composition. JS classes are functions, and class mixins are higher order functions on classes.
 
 You define a class mixin like you would any other function.
 
 ```js
-const LoggingMixin = superclass => class extends superclass {
-  connectedCallback() {
-    super.connectedCallback?.();
-    console.log(this.constructor.color);
-  }
-}
+const LoggingMixin = superclass =>
+  class extends superclass {
+    connectedCallback() {
+      super.connectedCallback?.();
+      console.log(this.constructor.color);
+    }
+  };
 ```
 
 And you apply it like you would any other function
