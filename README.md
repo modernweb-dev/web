@@ -2,7 +2,7 @@
 
 <h3 align="center">Developer tools for modern web development.</h3>
 
-Modern browsers are a powerful platform for building websites and applications. Our goal is to teach developers what's available out of the box, and provide extensions in the form of patterns and tooling.
+Modern browsers are a powerful platform for building websites and applications. Our goal is to teach developers what's available in the browser out of the box, and provide extensions in the form of patterns and tooling.
 
 By building on top of established standards we can create solutions that are lightweight, easy to learn and remain relevant for a longer time.
 
