@@ -32,7 +32,7 @@ html {
     --markdown-link-color: #75b3f9;
     --markdown-divider-color: #e1e4e8;
     --markdown-blockquote-border-color: #dfe2e5;
-    --markdown-blockquote-color: #6a737d;
+    --markdown-blockquote-color: #90aac7;
     --markdown-kbd-background-color: #fafbfc;
     --markdown-kbd-border-color: #c6cbd1;
     --markdown-kbd-border-bottom-color: #959da5;
@@ -42,7 +42,7 @@ html {
     --markdown-table-border-color: #c6cbd1;
     --markdown-table-row-odd-background-color: #f6f8fa;
     --markdown-code-background-color: rgba(27, 31, 35, 0.05);
-    --markdown-pre-background-color: #2e3440;
+    --markdown-pre-background-color: rgb(49, 49, 49);
 
     /* syntax */
     --markdown-syntax-color: #f8f8f2;
