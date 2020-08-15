@@ -47,14 +47,6 @@ footer {
   margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  .markdown-body {
-    color: var(--primary-text-color);
-  }
-
-  body[layout='home'] {
-    --primary-color: #eee;
-    --primary-color-lighter: #ddd;
-    --primary-color-darker: #fefefe;
-  }
+html.dark .markdown-body {
+  color: var(--primary-text-color);
 }
