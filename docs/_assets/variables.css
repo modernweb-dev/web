@@ -78,26 +78,34 @@ html {
     --markdown-table-row-odd-background-color: #515151;
     --markdown-table-border-color: #8e8e8e;
 
-    --markdown-syntax-background-color: rgb(49, 49, 49);
-    --markdown-syntax-atrule-color: rgb(197, 134, 192);
-    --markdown-syntax-attr-name-color: rgb(197, 134, 192);
-    --markdown-syntax-boolean-color: rgb(220, 220, 170);
-    --markdown-syntax-class-name-color: rgb(156, 220, 254);
+    --markdown-syntax-background-color: rgb(27, 29, 35);
+    --markdown-syntax-atrule-color: rgb(198, 120, 221);
+    --markdown-syntax-attr-name-color: rgb(198, 120, 221);
+    --markdown-syntax-boolean-color: rgb(209, 154, 102);
+    --markdown-syntax-class-name-color: rgb(97, 175, 239);
     --markdown-syntax-constant-color: rgb(220, 220, 170);
     --markdown-syntax-entity-color: rgb(220, 220, 170);
-    --markdown-syntax-function-color: rgb(156, 220, 254);
+    --markdown-syntax-function-color: rgb(97, 175, 239);
     --markdown-syntax-inserted-color: rgb(220, 220, 170);
-    --markdown-syntax-keyword-color: rgb(197, 134, 192);
+    --markdown-syntax-keyword-color: rgb(198, 120, 221);
     --markdown-syntax-number-color: rgb(220, 220, 170);
     --markdown-syntax-operator-color: rgb(220, 220, 170);
     --markdown-syntax-property-color: rgb(220, 220, 170);
-    --markdown-syntax-punctuation-color: rgb(220, 220, 170);
-    --markdown-syntax-regex-color: rgb(206, 145, 120);
+    --markdown-syntax-punctuation-color: white;
+    --markdown-syntax-regex-color: rgb(209, 154, 102);
     --markdown-syntax-selector-color: rgb(86, 156, 214);
     --markdown-syntax-symbol-color: rgb(220, 220, 170);
     --markdown-syntax-tag-color: rgb(86, 156, 214);
     --markdown-syntax-url-color: rgb(220, 220, 170);
     --markdown-syntax-variable-color: rgb(220, 220, 170);
+  }
+
+  .string {
+    color: rgb(152, 195, 121);
+  }
+
+  .comment {
+    color: #7d7d7d;
   }
 
   .language-css {
