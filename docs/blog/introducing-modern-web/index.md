@@ -1,8 +1,9 @@
 ---
-title: Introducing: Modern Web.
+title: 'Introducing: Modern Web'
 published: false
-description: Developer tools for modern web development
-date: 2020-08-10
+canonical_url: https://modern-web.dev/blog/introducing-modern-web/
+description: Reexperience the joy when working with the standards based web. Starting off with a test runner which uses multiple browsers in parallel.
+date: 2020-08-25
 tags: [javascript, test, modern-web]
 cover_image: /blog/introducing-modern-web/introducing-modern-web-blog-header.jpg
 ---
@@ -13,7 +14,7 @@ We are excited to introduce our brand new project: Modern Web.
 
 A few years ago we started the [Open Web Components](https://open-wc.org/) project. Our goal was to help people develop web component, and we created guides and tools to help people do this. While working on this project, we realized that a lot of the things we were making were not necessarily specific to web components.
 
-To maintain focus within the open-wc project, and to share our work with the larger developer community, we decided to split up the project and create Modern Web. Open-wc will gain a renewed focus for web component specific topics, while in Modern Web we will work on generic tools and guides for web component.
+To maintain focus within the open-wc project, and to share our work with the larger developer community, we decided to split up the project and create Modern Web. Open Web Components will gain a renewed focus for web component specific topics, while in Modern Web we will work on generic tools and guides for web development.
 
 ## The goal for Modern Web
 
@@ -25,11 +26,11 @@ At the same time, we are not ignorant of the fact that not all problems can be s
 
 ## Our plans
 
-This announcement marks the official "release" of Modern Web. Our website is available at [modern-web.dev](https://modern-web.dev), and our available packages are publishing on NPM within the [@web](https://www.npmjs.com/org/web) namespace. Our code is open source and on [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web). For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev).
+This announcement marks the official "release" of Modern Web. Our website is available at [modern-web.dev](https://modern-web.dev), and our available packages are publishing on NPM within the [@web](https://www.npmjs.com/org/web) namespace. Our code is open source and on [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web). For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev) and if you like what you see please consider sponsoring the project on [Open Collective](https://opencollective.com/modern-web).
 
 ### Guides
 
-Our website launches with a [Learn section](https://modern-web.dev/learn/standards-based/) that teaches modern and not so modern browsers features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that often underused or misunderstood.
+Our website launches with a [Learn section](https://modern-web.dev/learn/standards-based/) that teaches modern and not so modern browsers features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that are often underused or misunderstood.
 
 ### Dev server
 
@@ -241,7 +242,28 @@ describe('isMobile', () => {
 });
 ```
 
-If you want to know more like for example how to test CSS media queries see the [responsive](https://modern-web.dev/learn/test-runner/responsive/) learn section. See the [commands documentation](https://modern-web.dev/docs/test-runner/commands/) to learn more about commands.
+If you want to know more like for example how to test CSS media queries see the [responsive](https://modern-web.dev/learn/test-runner/responsive/) learn section. See the [commands documentation](https://modern-web.dev/docs/test-runner/commands/) to learn more about additional features like emulating media, setting the user agent or writing your own commands.
+
+## Taking code coverage into account
+
+Once you have a decent set of tests you may want to look into what could still be improved.
+Code coverage can help to find which code segments have not yet been tested.
+
+Any web-test-runner launcher that works with chromium can provide code coverage.
+
+To enable it you add the `--coverage` flag.
+
+👉 `package.json`
+
+```json
+{
+  "scripts": {
+    "test": "web-test-runner \"test/**/*.test.js\" --node-resolve --coverage"
+  }
+}
+```
+
+See more instructions in the [code-coverage](https://modern-web.dev/learn/test-runner/code-coverage/) learn section.
 
 ## Supporting TypesScript and JSX via esbuild
 
@@ -251,8 +273,52 @@ See more instructions in the [typescript-jsx-esbuild](https://modern-web.dev/lea
 
 ## Enable your needs with custom plugins
 
-...
+Not every use case will be covered by existing plugins 😱 &nbsp;
+Therefore if you encounter a situation that requires some custom adjustments you can create a plugin yourself.
+
+If you are often using es modules directly in the browser then `ReferenceError: process is not defined` might sound familiar.
+Some packages use the global `process.env` variable to check for environment variable.
+This variable is available in node, but not in the browser.
+
+We can, however "fake it" but writing a custom plugin.
+
+Plugins can be added via the configuration file `web-test-runner.config.mjs` and they offer various hook into how code gets found, handled, and served.
+For our case the `transform` hook is useful.
+
+👉 `web-test-runner.config.mjs`
+
+```js
+export default {
+  files: 'test/**/*.test.js',
+  nodeResolve: true,
+  plugins: [
+    {
+      name: 'provide-process',
+      transform(context) {
+        if (context.path === '/') {
+          const transformedBody = context.body.replace(
+            '</head>',
+            '<script>window.process = { env: { NODE_ENV: "development" } }</script></head>',
+          );
+          return transformedBody;
+        }
+      },
+    },
+  ],
+};
+```
+
+This is only one example and plugins can do way more and if you want to go even more low level you can also write your own koa middleware.
 
 See more instructions in the [writing-plugin](https://modern-web.dev/learn/test-runner/writing-plugin/) learn section.
+
+## Thanks for reading
+
+We are incredible proud of our first Modern Web Tool 🤗 &nbsp; and we do hope you find it useful as well.
+If you find an issues or you are stuck [please let us know](https://github.com/modernweb-dev/web/issues/new).
+
+There is more to come so follow us on [Twitter](https://twitter.com/modern_web_dev) and if you like what you see please consider sponsoring the project on [Open Collective](https://opencollective.com/modern-web).
+
+---
 
 <span>Photo by <a href="https://unsplash.com/@lemonvlad">Vladislav Klapin</a> on <a href="https://unsplash.com/s/photos/hello">Unsplash</a></span>
