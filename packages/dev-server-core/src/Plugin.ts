@@ -38,5 +38,9 @@ export interface Plugin {
     source: string;
     context: Context;
   }): ResolveResult | Promise<ResolveResult>;
+  transformImport?(args: {
+    source: string;
+    context: Context;
+  }): ResolveResult | Promise<ResolveResult>;
   resolveMimeType?(context: Context): ResolveMimeTypeResult | Promise<ResolveMimeTypeResult>;
 }

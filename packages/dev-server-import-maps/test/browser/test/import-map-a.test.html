@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <script type="importmap">
+      {
+        "imports": {
+          "../src/postData.js": "./mocks/postData.js"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <script type="module">
+      import { runTests } from '@web/test-runner-mocha';
+      import { expect } from '@bundled-es-modules/chai';
+      import { sendMessage } from '../src/sendMessage.js';
+      import { postData, __importMeta } from '../src/postData.js';
+
+      runTests(() => {
+        describe('sendMessage()', () => {
+          beforeEach(() => {
+            postData.reset();
+          });
+
+          it('serves a mocked module', () => {
+            expect(new URL(__importMeta.url).pathname).to.equal(
+              '/packages/dev-server-import-maps/test/browser/test/mocks/postData.js',
+            );
+          });
+
+          it('calls postData with message a', async () => {
+            await sendMessage('a');
+            expect(postData.callCount).to.equal(1);
+            expect(postData.getCall(0).args).to.eql(['message', { message: 'a' }]);
+          });
+
+          it('calls postData with message b', async () => {
+            await sendMessage('b');
+            expect(postData.callCount).to.equal(1);
+            expect(postData.getCall(0).args).to.eql(['message', { message: 'b' }]);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

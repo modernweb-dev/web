@@ -1164,6 +1164,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@import-maps/resolve@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@import-maps/resolve/-/resolve-1.0.0.tgz#e8b7a2d29ed199c193f9e7aa5bf4ed8bc99fb32b"
+  integrity sha512-bDWbkeWlxyKXY2BFWzelNzp1matgrCVyuUnQig/iPGYzUdnTJV6rEuyo6ncrfifRHtcRvxswBBBzhUdKLkQGzA==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -9231,17 +9236,6 @@ rollup-plugin-visualizer@^4.0.4:
     pupa "^2.0.0"
     source-map "^0.7.3"
     yargs "^15.0.0"
-
-rollup-plugin-workbox@^5.0.1:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-workbox/-/rollup-plugin-workbox-5.1.0.tgz#a2eeabcd37ca96cd977076ce4ba4755083ad6aee"
-  integrity sha512-y280evR5qawZ1l9gOYfUvD3v+pKMYcGCKK5Ns+6XqlxZJc44rzLI1hAp+suwfIifXk2JxlWzWwImbx6ipyi9UA==
-  dependencies:
-    "@rollup/plugin-node-resolve" "^8.4.0"
-    "@rollup/plugin-replace" "^2.3.3"
-    pretty-bytes "^5.3.0"
-    rollup-plugin-terser "^6.1.0"
-    workbox-build "^5.0.0"
 
 rollup-pluginutils@^2.8.1, rollup-pluginutils@^2.8.2:
   version "2.8.2"

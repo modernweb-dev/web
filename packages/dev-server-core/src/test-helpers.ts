@@ -6,6 +6,7 @@ import fetch, { RequestInit } from 'node-fetch';
 import { DevServer } from './server/DevServer';
 import { DevServerCoreConfig } from './DevServerCoreConfig';
 import { Logger } from './logger/Logger';
+import { Plugin } from './Plugin';
 
 const defaultConfig: Omit<DevServerCoreConfig, 'port' | 'rootDir'> = {
   hostname: 'localhost',
@@ -30,6 +31,17 @@ const mockLogger: Logger = {
     //
   },
 };
+
+export function virtualFilesPlugin(servedFiles: Record<string, string>): Plugin {
+  return {
+    name: 'test-helpers-virtual-files',
+    serve(context) {
+      if (context.path in servedFiles) {
+        return servedFiles[context.path];
+      }
+    },
+  };
+}
 
 export async function createTestServer(
   config: Partial<DevServerCoreConfig>,

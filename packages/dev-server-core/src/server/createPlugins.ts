@@ -1,6 +1,6 @@
 import { DevServerCoreConfig } from '../DevServerCoreConfig';
 import { Plugin } from '../Plugin';
-import { resolveModuleImportsPlugin } from '../plugins/resolveModuleImportsPlugin';
+import { transformModuleImportsPlugin } from '../plugins/transformModuleImportsPlugin';
 import { eventStreamPlugin } from '../event-stream/eventStreamPlugin';
 import { mimeTypesPlugin } from '../plugins/mimeTypesPlugin';
 
@@ -11,8 +11,8 @@ export function createPlugins(config: DevServerCoreConfig) {
     plugins.push(mimeTypesPlugin(config.mimeTypes));
   }
 
-  if (config.plugins?.some(pl => 'resolveImport' in pl)) {
-    plugins.push(resolveModuleImportsPlugin(config.plugins, config.rootDir));
+  if (config.plugins?.some(pl => 'resolveImport' in pl || 'transformImport' in pl)) {
+    plugins.push(transformModuleImportsPlugin(config.plugins, config.rootDir));
   }
 
   if (config.eventStream && config.plugins?.some(pl => pl.injectEventStream)) {

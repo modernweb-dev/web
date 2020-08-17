@@ -5,6 +5,7 @@ export {
   getRequestBrowserPath,
   getRequestFilePath,
   getResponseBody,
+  getHtmlPath,
   isInlineScriptRequest,
 } from './utils';
 export { Logger } from './logger/Logger';

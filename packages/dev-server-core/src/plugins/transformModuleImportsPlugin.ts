@@ -85,7 +85,7 @@ async function maybeResolveImport(
   return resolvedImportFilePath;
 }
 
-export async function resolveModuleImports(
+export async function transformImports(
   code: string,
   filePath: string,
   resolveImport: ResolveImport,
@@ -145,7 +145,7 @@ export async function resolveModuleImports(
   return resolvedSource;
 }
 
-async function resolveWithPluginHooks(
+async function transformModuleImportsWithPlugins(
   context: Context,
   jsCode: string,
   rootDir: string,
@@ -166,26 +166,41 @@ async function resolveWithPluginHooks(
     }
   }
 
-  return resolveModuleImports(jsCode, filePath, resolveImport);
+  async function transformImport(source: string) {
+    let resolvedImport = (await resolveImport(source)) ?? source;
+    for (const plugin of resolvePlugins) {
+      const resolved = await plugin.transformImport?.({ source: resolvedImport, context });
+      if (typeof resolved === 'string') {
+        resolvedImport = resolved;
+      }
+
+      if (typeof resolved === 'object' && typeof resolved.id === 'string') {
+        resolvedImport = resolved.id;
+      }
+    }
+    return resolvedImport;
+  }
+
+  return transformImports(jsCode, filePath, transformImport);
 }
 
-export function resolveModuleImportsPlugin(plugins: Plugin[], rootDir: string): Plugin {
-  const resolvePlugins = plugins.filter(pl => !!pl.resolveImport);
+export function transformModuleImportsPlugin(plugins: Plugin[], rootDir: string): Plugin {
+  const importPlugins = plugins.filter(pl => !!pl.resolveImport || !!pl.transformImport);
 
   return {
     name: 'resolve-module-imports',
     async transform(context) {
-      if (resolvePlugins.length === 0) {
+      if (importPlugins.length === 0) {
         return;
       }
 
       // resolve served js code
       if (context.response.is('js')) {
-        const bodyWithResolvedImports = await resolveWithPluginHooks(
+        const bodyWithResolvedImports = await transformModuleImportsWithPlugins(
           context,
           context.body,
           rootDir,
-          resolvePlugins,
+          importPlugins,
         );
         return { body: bodyWithResolvedImports };
       }
@@ -204,7 +219,12 @@ export function resolveModuleImportsPlugin(plugins: Plugin[], rootDir: string): 
 
         for (const node of inlineModuleNodes) {
           const code = getTextContent(node);
-          const resolvedCode = await resolveWithPluginHooks(context, code, rootDir, resolvePlugins);
+          const resolvedCode = await transformModuleImportsWithPlugins(
+            context,
+            code,
+            rootDir,
+            importPlugins,
+          );
           setTextContent(node, resolvedCode);
         }
 

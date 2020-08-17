@@ -1,0 +1,19 @@
+<html>
+  <body>
+    <script type="module">
+      import { runTests } from '@web/test-runner-mocha';
+      import { expect } from '@bundled-es-modules/chai';
+      import { postData, __importMeta } from '../src/postData.js';
+
+      runTests(() => {
+        describe('sendMessage()', () => {
+          it('serves a mocked module', () => {
+            expect(new URL(__importMeta.url).pathname).to.equal(
+              '/packages/dev-server-import-maps/test/browser/src/postData.js',
+            );
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

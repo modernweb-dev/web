@@ -170,7 +170,7 @@ export function removeFakeRootElements(ast: Node) {
   injectedNodes.reverse().forEach(removeNodeSaveChildren);
 }
 
-export function append(parent: Node, newNode: Node) {
+export function append(parent: any, newNode: any) {
   const index = (parent.childNodes && parent.childNodes.length) || 0;
   insertNode(parent, index, newNode);
 }
