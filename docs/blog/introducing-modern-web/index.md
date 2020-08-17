@@ -242,7 +242,7 @@ describe('isMobile', () => {
 });
 ```
 
-If you want to know more like for example how to test CSS media queries see the [responsive](../../learn/test-runner/responsive/) learn section. See the [commands documentation]../..(/docs/test-runner/commands/) to learn more about additional features like emulating media, setting the user agent or writing your own commands.
+If you want to know more like for example how to test CSS media queries see the [responsive](../../learn/test-runner/responsive/) learn section. See the [commands documentation](../../docs/test-runner/commands/) to learn more about additional features like emulating media, setting the user agent or writing your own commands.
 
 ## Taking code coverage into account
 
