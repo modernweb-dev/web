@@ -41,6 +41,9 @@
       "path": "./packages/dev-server-legacy/tsconfig.json"
     },
     {
+      "path": "./packages/test-runner/tsconfig.json"
+    },
+    {
       "path": "./packages/test-runner-selenium/tsconfig.json"
     },
     {
@@ -50,7 +53,7 @@
       "path": "./packages/dev-server-esbuild/tsconfig.json"
     },
     {
-      "path": "./packages/test-runner/tsconfig.json"
+      "path": "./packages/dev-server-import-maps/tsconfig.json"
     },
     {
       "path": "./packages/test-runner-puppeteer/tsconfig.json"

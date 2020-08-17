@@ -1,7 +1,20 @@
 import LRUCache from 'lru-cache';
 import { FSWatcher } from 'chokidar';
 import { Context } from 'koa';
+import fs from 'fs';
+import { promisify } from 'util';
 import { getResponseBody, getRequestFilePath, RequestCancelledError } from '../utils';
+
+const fsAccess = promisify(fs.access);
+
+async function fileExists(filePath: string) {
+  try {
+    await fsAccess(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 interface CacheEntry {
   body: string;
@@ -49,6 +62,11 @@ export class PluginTransformCache {
     try {
       const body = await getResponseBody(context);
       const filePath = getRequestFilePath(context, this.rootDir);
+
+      if (!(await fileExists(filePath))) {
+        // only cache files on the file system
+        return;
+      }
 
       if (typeof body === 'string') {
         let cacheKeysForFilePath = this.cacheKeysPerFilePath.get(filePath);

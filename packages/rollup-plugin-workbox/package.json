@@ -9,10 +9,6 @@
     "directory": "packages/rollup-plugin-workbox"
   },
   "author": "modern-web",
-  "contributors": [
-    "Pascal Schilp <pascalschilp@gmail.com>",
-    "Benny Powers <web@bennypowers.com>"
-  ],
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/rollup-plugin-workbox",
   "bugs": {
     "url": "https://github.com/modernweb-dev/web/issues"
@@ -37,5 +33,9 @@
   },
   "devDependencies": {
     "@types/workbox-build": "^5.0.0"
-  }
+  },
+  "contributors": [
+    "Pascal Schilp <pascalschilp@gmail.com>",
+    "Benny Powers <web@bennypowers.com>"
+  ]
 }

@@ -3,7 +3,7 @@ title: Writing plugins
 eleventyNavigation:
   key: Writing plugins
   parent: Plugins
-  order: 5
+  order: 6
 ---
 
 A plugin is just an object that you add to the `plugins` array in your configuration file. You can add an object directly, or create one from a function somewhere:
@@ -64,7 +64,7 @@ export interface ServerArgs {
   server: Server;
   fileWatcher: FSWatcher;
   logger: Logger;
-  eventStreams: EventStreamManager;
+  eventStreams?: EventStreamManager;
 }
 
 export interface Plugin {
@@ -76,6 +76,10 @@ export interface Plugin {
   transform?(context: Context): TransformResult | Promise<TransformResult>;
   transformCacheKey?(context: Context): string | undefined | Promise<string> | Promise<undefined>;
   resolveImport?(args: {
+    source: string;
+    context: Context;
+  }): ResolveResult | Promise<ResolveResult>;
+  transformImport?(args: {
     source: string;
     context: Context;
   }): ResolveResult | Promise<ResolveResult>;
@@ -338,7 +342,7 @@ export default {
 
 ### Hook: resolveImport
 
-The `resolveImport` hook is called for each module import. It can be used to resolve module imports before they reach the browser.
+The `resolveImport` hook is called for each module import. It can be used to resolve module imports before it reaches the browser. When a one plugin returns a resolved, further resolve hooks are not called.
 
 <details>
   <summary>Read more</summary>
@@ -355,6 +359,30 @@ export default {
       async resolveImport({ source, context }) {
         const resolvedImport = fancyResolveLibrary(source);
         return resolvedImport;
+      },
+    },
+  ],
+};
+```
+
+</details>
+
+### Hook: transformImport
+
+The `transformImport` hook is called for each module import. It can be used to transform module imports before they reach the browser. The difference from `resolveImport` is that this hook is always called for all plugins.
+
+<details>
+  <summary>Read more</summary>
+
+The hook receives the import string and should return the string to replace it with. This should be a browser-compatible path, not a file path.
+
+```js
+export default {
+  plugins: [
+    {
+      name: 'my-plugin',
+      async transformImport({ source, context }) {
+        return `${source}?foo=bar;
       },
     },
   ],

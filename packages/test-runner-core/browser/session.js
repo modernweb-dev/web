@@ -7,6 +7,7 @@
 // we make sure we are using the original fetch instead of the mocked variant
 const fetch = window.fetch;
 const PARAM_SESSION_ID = 'wtr-session-id';
+const PARAM_IMPORT_MAP = 'wds-import-map';
 let finished = false;
 
 const sessionId = new URL(window.location.href).searchParams.get(PARAM_SESSION_ID);
@@ -27,7 +28,21 @@ const logs = [];
 export async function getConfig() {
   try {
     const response = await fetch(`/wtr/${sessionId}/config`);
-    return response.json();
+    const config = await response.json();
+    const url = new URL(import.meta.url);
+
+    // pass on import map parameter to test files, this special cases a specific plugin
+    // which is not ideal
+    const importMapId = url.searchParams.get(PARAM_IMPORT_MAP);
+    if (importMapId == null) {
+      return config;
+    }
+
+    const separator = config.testFile.includes('?') ? '&' : '?';
+    return {
+      ...config,
+      testFile: `${config.testFile}${separator}${PARAM_IMPORT_MAP}=${importMapId}`,
+    };
   } catch (err) {
     await sessionFailed({
       message: 'Failed to fetch session config',
@@ -38,7 +53,6 @@ export async function getConfig() {
 }
 
 export function sessionFailed(error) {
-  console.log('sessionFailed', error);
   return sessionFinished({
     passed: false,
     errors: [

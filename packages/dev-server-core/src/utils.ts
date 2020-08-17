@@ -24,6 +24,10 @@ export function toFilePath(browserPath: string) {
   return browserPath.replace(REGEXP_TO_FILE_PATH, path.sep);
 }
 
+export function getHtmlPath(path: string) {
+  return path.endsWith('/') ? `${path}index.html` : path;
+}
+
 export class RequestCancelledError extends Error {}
 
 /**

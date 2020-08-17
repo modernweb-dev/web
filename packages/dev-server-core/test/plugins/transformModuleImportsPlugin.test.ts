@@ -1,15 +1,15 @@
 import { expect } from 'chai';
 import fetch from 'node-fetch';
 
-import { resolveModuleImports } from '../../src/plugins/resolveModuleImportsPlugin';
+import { transformImports } from '../../src/plugins/transformModuleImportsPlugin';
 import { createTestServer } from '../helpers';
 
 const defaultFilePath = '/root/my-file.js';
 const defaultResolveImport = (src: string) => `RESOLVED__${src}`;
 
-describe('resolveModuleImports()', () => {
+describe('transformImports()', () => {
   it('resolves regular imports', async () => {
-    const result = await resolveModuleImports(
+    const result = await transformImports(
       [
         'import "my-module";',
         'import foo from "my-module";',
@@ -31,7 +31,7 @@ describe('resolveModuleImports()', () => {
   });
 
   it('resolves basic exports', async () => {
-    const result = await resolveModuleImports(
+    const result = await transformImports(
       [
         //
         "export * from 'my-module';",
@@ -49,7 +49,7 @@ describe('resolveModuleImports()', () => {
   });
 
   it('resolves imports to a file with bare import', async () => {
-    const result = await resolveModuleImports(
+    const result = await transformImports(
       "import 'my-module/bar/index.js'",
       defaultFilePath,
       defaultResolveImport,
@@ -59,7 +59,7 @@ describe('resolveModuleImports()', () => {
   });
 
   it('resolves dynamic imports', async () => {
-    const result = await resolveModuleImports(
+    const result = await transformImports(
       [
         'function lazyLoad() { return import("my-module-2"); }',
         'import("my-module");',
@@ -77,7 +77,7 @@ describe('resolveModuleImports()', () => {
   });
 
   it('does not touch import.meta.url', async () => {
-    const result = await resolveModuleImports(
+    const result = await transformImports(
       [
         //
         'console.log(import.meta.url);',
@@ -94,7 +94,7 @@ describe('resolveModuleImports()', () => {
   });
 
   it('does not touch comments', async () => {
-    const result = await resolveModuleImports(
+    const result = await transformImports(
       [
         //
         "import 'my-module';",
@@ -111,7 +111,7 @@ describe('resolveModuleImports()', () => {
   });
 
   it('does not resolve imports in regular code', async () => {
-    const result = await resolveModuleImports(
+    const result = await transformImports(
       [
         //
         'function myimport() { }',
@@ -132,7 +132,7 @@ describe('resolveModuleImports()', () => {
   });
 
   it('resolves the package of dynamic imports with string concatenation', async () => {
-    const result = await resolveModuleImports(
+    const result = await transformImports(
       [
         //
         'import(`@namespace/my-module-3/dynamic-files/${file}.js`);',
@@ -155,7 +155,7 @@ describe('resolveModuleImports()', () => {
   });
 
   it('does not change import with string concatenation cannot be resolved', async () => {
-    await resolveModuleImports(
+    await transformImports(
       [
         'const file = "a";',
         'import(`@namespace/non-existing/dynamic-files/${file}.js`);',
@@ -169,7 +169,7 @@ describe('resolveModuleImports()', () => {
   });
 
   it('does not change import with string concatenation cannot be resolved', async () => {
-    await resolveModuleImports(
+    await transformImports(
       [
         'const file = "a";',
         'import(`@namespace/non-existing/dynamic-files/${file}.js`);',
@@ -186,7 +186,7 @@ describe('resolveModuleImports()', () => {
     let thrown = false;
 
     try {
-      await resolveModuleImports('\n\nconst file = "a', defaultFilePath, defaultResolveImport);
+      await transformImports('\n\nconst file = "a', defaultFilePath, defaultResolveImport);
     } catch (error) {
       thrown = true;
       expect(error.message).to.equal('Syntax error');
@@ -199,7 +199,7 @@ describe('resolveModuleImports()', () => {
   });
 });
 
-describe('resolveModuleImportsPlugin', () => {
+describe('resolveImport', () => {
   it('lets plugins resolve imports using the resolveImport hook', async () => {
     const { server, host } = await createTestServer({
       plugins: [
@@ -299,6 +299,130 @@ describe('resolveModuleImportsPlugin', () => {
       expect(responseB.status).to.equal(200);
       expect(responseTextA).to.include("import { message } from 'RESOLVED__A__my-module';");
       expect(responseTextB).to.include("import { message } from 'RESOLVED__B__my-module';");
+    } finally {
+      server.stop();
+    }
+  });
+});
+
+describe('transformImport', () => {
+  it('can transform imports', async () => {
+    const { server, host } = await createTestServer({
+      plugins: [
+        {
+          name: 'test',
+          transformImport({ source }) {
+            return `${source}?transformed-1`;
+          },
+        },
+      ],
+    });
+
+    try {
+      const response = await fetch(`${host}/src/app.js`);
+      const responseText = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(responseText).to.include("import { message } from 'my-module?transformed-1';");
+      expect(responseText).to.include('./src/local-module.js?transformed-1');
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('multiple plugins can transform an import', async () => {
+    const { server, host } = await createTestServer({
+      plugins: [
+        {
+          name: 'test-1',
+          transformImport({ source }) {
+            return `${source}?transformed-1`;
+          },
+        },
+        {
+          name: 'test-2',
+          transformImport({ source }) {
+            return `${source}&transformed-2`;
+          },
+        },
+      ],
+    });
+
+    try {
+      const response = await fetch(`${host}/src/app.js`);
+      const responseText = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(responseText).to.include(
+        "import { message } from 'my-module?transformed-1&transformed-2';",
+      );
+      expect(responseText).to.include('./src/local-module.js?transformed-1&transformed-2');
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('returning undefined does not overwrite result', async () => {
+    const { server, host } = await createTestServer({
+      plugins: [
+        {
+          name: 'test-1',
+          transformImport({ source }) {
+            return `${source}?transformed-1`;
+          },
+        },
+        {
+          name: 'test-2',
+          transformImport() {
+            return undefined;
+          },
+        },
+        {
+          name: 'test-3',
+          transformImport({ source }) {
+            return `${source}&transformed-2`;
+          },
+        },
+      ],
+    });
+
+    try {
+      const response = await fetch(`${host}/src/app.js`);
+      const responseText = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(responseText).to.include(
+        "import { message } from 'my-module?transformed-1&transformed-2';",
+      );
+      expect(responseText).to.include('./src/local-module.js?transformed-1&transformed-2');
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('transform comes after resolving imports', async () => {
+    const receivedImports: string[] = [];
+    const { server, host } = await createTestServer({
+      plugins: [
+        {
+          name: 'test-1',
+          resolveImport({ source }) {
+            return `RESOLVED__${source}`;
+          },
+        },
+        {
+          name: 'test-2',
+          transformImport({ source }) {
+            receivedImports.push(source);
+          },
+        },
+      ],
+    });
+
+    try {
+      await fetch(`${host}/src/app.js`);
+
+      expect(receivedImports).to.eql(['RESOLVED__my-module', 'RESOLVED__./src/local-module.js']);
     } finally {
       server.stop();
     }
