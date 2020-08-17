@@ -39,9 +39,9 @@ Hyperlinks ("links" for short) in <abbr>HTML</abbr> are represented by the [anch
 
 There are three basic types of URLs which you can link to:
 
-1. [Fully-Qualified URLs](#fully-qualified-urls)
-2. [Absolute Paths](#absolute-paths)
-3. [Relative Paths](#relative-paths)
+1. [Fully-Qualified URLs](./#fully-qualified-urls)
+2. [Absolute Urls](./#absolute-urls)
+3. [Relative Urls](./#relative-urls)
 
 ### Fully Qualified URLs
 
@@ -51,7 +51,7 @@ The most specific type of URL is the fully-qualified URL. They contain a protoco
 - `https://modern-web.dev/docs/learn/standards-based/html/`
 - `ws://demos.kaazing.com/echo`
 
-Links with fully qualified URLs can link a page on your server, to pages on another server. This is what puts the "world-wide" in "world-wide-web". All the links to [MDN](https://developer.mozilla.com) in this article are like that.
+Links with fully qualified URLs can link a page on your server, to pages on another server. This is what puts the "world-wide" in "world-wide-web". All the links to [MDN](https://developer.mozilla.org) in this article are like that.
 
 ```html
 <a href="https://google.com/">if you click me I will open google</a>

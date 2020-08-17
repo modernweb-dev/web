@@ -45,7 +45,7 @@ import bar from './bar';
 
 This doesn't work in the browser because it doesn't have direct access to the file system to resolve the paths.
 
-Both [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner) and [@web/dev-server](https://github.com/modernweb-dev/web/tree/master/packages/dev-server) support the `--node-resolve` flag to resolve these kinds of imports server-side before serving them to the browser.
+Both [@web/test-runner](../../docs/test-runner/overview.md) and [@web/dev-server](../../docs/dev-server/overview.md) support the `--node-resolve` flag to resolve these kinds of imports server-side before serving them to the browser.
 
 ## CommonJS modules
 

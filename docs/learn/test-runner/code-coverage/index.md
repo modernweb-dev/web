@@ -108,8 +108,6 @@ It gives use a code coverage of `86.11 %`.
 
 Adding a test for throwing an error will bring it to `100%`.
 
-See more instructions in the [code-coverage](https://modern-web.dev/learn/test-runner/code-coverage/) learn section.
-
 ## Adding more features
 
 Let's add the possibility to `multiply`.

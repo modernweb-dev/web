@@ -6,7 +6,7 @@ eleventyNavigation:
 ---
 
 So you want to learn how to develop the modern web?
-We've gathered a selected group of practises and tutorials to help guide you on your course.
+We've gathered a selected group of practices and tutorials to help guide you on your course.
 Welcome! 👋
 
 If you're just beginning you journey into web development, we hope you'll come to enjoy it as much

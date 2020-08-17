@@ -34,7 +34,7 @@ export default {
 
 If you want to customize the puppeteer launcher options, you can add the browser launcher in the config.
 
-You can find all possible launch options in the [official documentation](https://github.com/microsoft/puppeteer/blob/master/docs/api.md#browsertypelaunchoptions)
+You can find all possible launch options in the [official documentation](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteerlaunchoptions)
 
 ```js
 import { chromeLauncher } from '@web/test-runner-chrome';
