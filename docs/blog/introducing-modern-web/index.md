@@ -30,19 +30,19 @@ This announcement marks the official "release" of Modern Web. Our website is ava
 
 ### Guides
 
-Our website launches with a [Learn section](https://modern-web.dev/learn/standards-based/) that teaches modern and not so modern browsers features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that are often underused or misunderstood.
+Our website launches with a [Learn section](../../learn/standards-based/) that teaches modern and not so modern browsers features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that are often underused or misunderstood.
 
 ### Dev server
 
 es-dev-server is the most popular package at open-wc. It is also the prime example of a tool that is not limited to web components alone. We've been working on its spiritual successor which we will call `@web/dev-server`.
 
-The most important improvements are first-class supports for rollup plugins through [@web/dev-server-rollup](https://modern-web.dev/docs/dev-server/plugins/rollup/) as well as the ability to plug into esbuild loaders through [@web/dev-server-esbuild](https://modern-web.dev/docs/dev-server/plugins/esbuild/).
+The most important improvements are first-class supports for rollup plugins through [@web/dev-server-rollup](../../docs/dev-server/plugins/rollup.md) as well as the ability to plug into esbuild loaders through [@web/dev-server-esbuild](../../docs/dev-server/plugins/esbuild.md).
 
 The dev server is not quite finished yet, but we've already built the basic parts to power our new test runner. We will finalize our work on the dev server very soon.
 
 ### Test Runner
 
-We are very excited to announce today the official release candidate of [@web/test-runner](https://modern-web.dev/docs/test-runner/), a project we have been working on for the past months.
+We are very excited to announce today the official release candidate of [@web/test-runner](../../docs/test-runner/overview.md), a project we have been working on for the past months.
 
 There are already a lot of testing solutions out there today. Unfortunately, all of them either run tests in node js and mock browser APIs using something like JSDom or don't support native es modules out of the box. We think that making browser code compatible for testing in node is unnecessarily complex. Running tests in real browsers gives greater confidence in (cross-browser) compatibility and makes writing and debugging tests much simpler.
 
@@ -50,14 +50,14 @@ By building on top of our dev server, and modern browser launchers like Puppetee
 
 Some highlights:
 
-👉&nbsp;&nbsp; Headless browsers with [Puppeteer](https://modern-web.dev/docs/test-runner/browsers/puppeteer/), [Playwright](https://modern-web.dev/docs/test-runner/browsers/playwright/), or [Selenium](https://modern-web.dev/docs/test-runner/browsers/selenium/). <br>
+👉&nbsp;&nbsp; Headless browsers with [Puppeteer](../../docs/test-runner/browsers/puppeteer.md), [Playwright](../../docs/test-runner/browsers/playwright.md), or [Selenium](../../docs/test-runner/browsers/selenium.md). <br>
 🚧&nbsp;&nbsp; Reports logs, 404s, and errors from the browser. <br>
 🔍&nbsp;&nbsp; Debug opens a real browser window with devtools.<br>
 🔧&nbsp;&nbsp; Exposes browser properties like viewport size and dark mode.<br>
 ⏱&nbsp;&nbsp;Runs tests in parallel and isolation.<br>
 👀&nbsp;&nbsp; Interactive watch mode.<br>
 🏃&nbsp;&nbsp; Fast development by rerunning only changed tests.<br>
-🚀&nbsp;&nbsp; Powered by [esbuild](https://modern-web.dev/docs/dev-server/esbuild.md) and [rollup plugins](https://modern-web.dev/docs/dev-server/rollup.md)
+🚀&nbsp;&nbsp; Powered by [esbuild](../../docs/dev-server/plugins/esbuild.md) and [rollup plugins](../../docs/dev-server/plugins/rollup.md)
 
 ## Getting started with Web Test Runner
 
@@ -114,7 +114,7 @@ This is the minimal instruction on how to start using the test runner.
    Finished running tests in 0.9s, all tests passed! 🎉
    ```
 
-See more instructions in the [getting-started](https://modern-web.dev/learn/test-runner/getting-started/) learn section.
+See more instructions in the [getting-started](../../learn/test-runner/getting-started/) learn section.
 
 ## Watch and debug
 
@@ -153,7 +153,7 @@ Number of the file to focus: 2
 
 Once a test file is focused you can also open it directly in the browser.
 
-See more instructions in the [watch-and-debug](https://modern-web.dev/learn/test-runner/watch-and-debug/) learn section.
+See more instructions in the [watch-and-debug](../../learn/test-runner/watch-and-debug/) learn section.
 
 ## Test in multiple browsers using playwright
 
@@ -189,7 +189,7 @@ Finished running tests in 3.4s, all tests passed! 🎉
 We execute 2 test files in 3 different real browsers.
 If everything is green you can't get any more confident about your code. So ship it.
 
-See more instructions in the [using-launchers](https://modern-web.dev/learn/test-runner/using-launchers/) learn section.
+See more instructions in the [using-launchers](../../learn/test-runner/using-launchers/) learn section.
 
 ## Testing responsive views
 
@@ -242,7 +242,7 @@ describe('isMobile', () => {
 });
 ```
 
-If you want to know more like for example how to test CSS media queries see the [responsive](https://modern-web.dev/learn/test-runner/responsive/) learn section. See the [commands documentation](https://modern-web.dev/docs/test-runner/commands/) to learn more about additional features like emulating media, setting the user agent or writing your own commands.
+If you want to know more like for example how to test CSS media queries see the [responsive](../../learn/test-runner/responsive/) learn section. See the [commands documentation]../..(/docs/test-runner/commands/) to learn more about additional features like emulating media, setting the user agent or writing your own commands.
 
 ## Taking code coverage into account
 
@@ -263,13 +263,13 @@ To enable it you add the `--coverage` flag.
 }
 ```
 
-See more instructions in the [code-coverage](https://modern-web.dev/learn/test-runner/code-coverage/) learn section.
+See more instructions in the [code-coverage](../../learn/test-runner/code-coverage/) learn section.
 
 ## Supporting TypesScript and JSX via esbuild
 
 ...
 
-See more instructions in the [typescript-jsx-esbuild](https://modern-web.dev/learn/test-runner/typescript-jsx-esbuild/) learn section.
+See more instructions in the [typescript-jsx-esbuild](../../learn/test-runner/typescript-jsx-esbuild/) learn section.
 
 ## Enable your needs with custom plugins
 
@@ -310,12 +310,12 @@ export default {
 
 This is only one example and plugins can do way more and if you want to go even more low level you can also write your own koa middleware.
 
-See more instructions in the [writing-plugin](https://modern-web.dev/learn/test-runner/writing-plugin/) learn section.
+See more instructions in the [writing-plugin](../../learn/test-runner/writing-plugin/) learn section.
 
 ## Thanks for reading
 
-We are incredible proud of our first Modern Web Tool 🤗 &nbsp; and we do hope you find it useful as well.
-If you find an issues or you are stuck [please let us know](https://github.com/modernweb-dev/web/issues/new).
+We are incredibly proud of our first Modern Web Tool 🤗 &nbsp; and we do hope you find it useful as well.
+If you find an issues or if you are stuck [please let us know](https://github.com/modernweb-dev/web/issues/new).
 
 There is more to come so follow us on [Twitter](https://twitter.com/modern_web_dev) and if you like what you see please consider sponsoring the project on [Open Collective](https://opencollective.com/modern-web).
 

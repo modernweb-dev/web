@@ -137,6 +137,6 @@ fair enough - we didn't create a test file yet.
 
 ## Learn more
 
-All the code is available on [github](https://github.com/modernweb-dev/web/tree/master/demo/learn/test-runner-getting-started).
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/learn/test-runner-getting-started).
 
 See the [documentation of @web/test-runner](../../docs/test-runner/overview.md).
