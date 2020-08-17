@@ -27,8 +27,8 @@
     "update-package-configs": "node scripts/update-package-configs.mjs && yarn format"
   },
   "dependencies": {
-    "@d4kmor/cli": "^0.2.0",
-    "@d4kmor/launch": "^0.2.4",
+    "@d4kmor/cli": "^0.2.1",
+    "@d4kmor/launch": "^0.2.5",
     "patch-package": "^6.2.2"
   },
   "devDependencies": {
