@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@d4kmor/cli": "^0.2.2",
-    "@d4kmor/launch": "^0.2.6",
+    "@d4kmor/launch": "^0.2.7",
     "patch-package": "^6.2.2"
   },
   "devDependencies": {
