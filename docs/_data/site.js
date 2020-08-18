@@ -6,8 +6,7 @@ const defaultValues = getRocketValues();
 module.exports = {
   ...defaultValues,
   name: 'Modern Web',
-  shortDesc: 'Guides, tools and libraries for modern web development.',
-  url: defaultValues.url,
+  description: 'Guides, tools and libraries for modern web development.',
   socialLinks: [
     {
       name: 'GitHub',
