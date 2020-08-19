@@ -12,9 +12,7 @@ The plugins are implemented as two function in the rollup-plugin-workbox module,
 
 ### `generateSW`
 
-
-
-Import the `generateSW` plugin from `rollup-plugin-workbox`, and add it to your `plugins` array in your `rollup.config.js`. The plugin takes a workbox config object, and an optional render function as the second argument. 
+Import the `generateSW` plugin from `rollup-plugin-workbox`, and add it to your `plugins` array in your `rollup.config.js`. The plugin takes a workbox config object, and an optional render function as the second argument.
 
 You can find a detailed list of supported properties for the workbox config object [here](https://developers.google.com/web/tools/workbox/modules/workbox-build#generatesw_mode).
 
@@ -77,10 +75,9 @@ module.exports {
 
 ### `injectManifest`
 
-Import the `injectManifest` plugin from `rollup-plugin-workbox`, and add it to your `plugins` array in your `rollup.config.js`. The plugin takes a workbox config object, and an optional render function as the second argument. 
+Import the `injectManifest` plugin from `rollup-plugin-workbox`, and add it to your `plugins` array in your `rollup.config.js`. The plugin takes a workbox config object, and an optional render function as the second argument.
 
 You can find a detailed list of supported properties for the workbox config object [here](https://developers.google.com/web/tools/workbox/modules/workbox-build#injectmanifest_mode).
-
 
 ```js
 const { injectManifest } = require('@web/rollup-plugin-workbox');
@@ -144,7 +141,7 @@ module.exports {
 
 The `generateSW` mode of Workbox supports a `mode` property, that when set to `'production'` will bundle your generated service worker, and get rid of any `process.env.NODE_ENV` variables that are internally used in the Workbox libraries.
 
-Unfortunately this got [wrongfully documented](https://github.com/GoogleChrome/workbox/issues/2427) for `injectManifest`, and this means that `injectManifest` does not actually support the `mode` property. There is a feature request on the [Workbox repo](https://github.com/GoogleChrome/workbox/issues/2588) to support this feature for `injectManifest` as well. 
+Unfortunately this got [wrongfully documented](https://github.com/GoogleChrome/workbox/issues/2427) for `injectManifest`, and this means that `injectManifest` does not actually support the `mode` property. There is a feature request on the [Workbox repo](https://github.com/GoogleChrome/workbox/issues/2588) to support this feature for `injectManifest` as well.
 
 Until this gets fixed in `workbox-build`, `rollup-plugin-workbox` **does** support the `mode` property in the Workbox configuration for `injectManifest`, and when set to `'production'` will output a production optimized service worker for you.
 

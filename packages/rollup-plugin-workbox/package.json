@@ -2,27 +2,27 @@
   "name": "@web/rollup-plugin-workbox",
   "version": "5.1.0",
   "description": "Rollup plugin that builds a service worker with workbox as part of your rollup build",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "tsc",
-    "demo": "rollup -c demo/rollup.config.js"
-  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/modernweb-dev/web.git",
     "directory": "packages/rollup-plugin-workbox"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/rollup-plugin-workbox",
+  "bugs": {
+    "url": "https://github.com/modernweb-dev/web/issues"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "demo": "rollup -c demo/rollup.config.js"
   },
   "keywords": [
     "rollup",
     "service-worker",
     "workbox"
   ],
-  "author": "modern-web",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/modernweb-dev/web/issues"
-  },
-  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/rollup-plugin-workbox",
   "dependencies": {
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-replace": "^2.3.3",

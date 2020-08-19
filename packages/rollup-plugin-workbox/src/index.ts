@@ -1,4 +1,9 @@
-import { generateSW as _generateSw, injectManifest as _injectManifest, GenerateSWConfig, InjectManifestConfig } from 'workbox-build';
+import {
+  generateSW as _generateSw,
+  injectManifest as _injectManifest,
+  GenerateSWConfig,
+  InjectManifestConfig,
+} from 'workbox-build';
 import * as prettyBytes from 'pretty-bytes';
 import * as rollup from 'rollup';
 import replace from '@rollup/plugin-replace';
@@ -7,7 +12,7 @@ import resolve from '@rollup/plugin-node-resolve';
 
 const name = 'workbox';
 
-const report = ({ swDest, count, size }: {swDest: string, count: number, size: number}) => {
+const report = ({ swDest, count, size }: { swDest: string; count: number; size: number }) => {
   const prettySize = prettyBytes.default(size);
 
   console.log(`\nThe service worker file was written to ${swDest}`);
@@ -20,15 +25,20 @@ export function generateSW(generateSWConfig: GenerateSWConfig, render = report) 
   if (!swDest) throw new Error('No service worker destination specified');
   if (!globDirectory) throw new Error('No globDirectory specified');
 
-  const doRender = ({ count, size }: { count: number; filePaths: string[]; size: number; warnings: string[]; }) =>
-    render({ swDest, count, size });
+  const doRender = ({
+    count,
+    size,
+  }: {
+    count: number;
+    filePaths: string[];
+    size: number;
+    warnings: string[];
+  }) => render({ swDest, count, size });
 
   return {
     name,
     writeBundle() {
-      return _generateSw(generateSWConfig)
-        .then(doRender)
-        .catch(console.error);
+      return _generateSw(generateSWConfig).then(doRender).catch(console.error);
     },
   };
 }
@@ -40,16 +50,22 @@ export function injectManifest(injectManifestConfig: InjectManifestConfig, rende
   if (!swDest) throw new Error('No service worker destination specified');
   if (!globDirectory) throw new Error('No globDirectory specified');
 
-
-  const doRender = ({ count, size }: { count: number; filePaths: string[]; size: number; warnings: string[]; }) =>
-    render({ swDest, count, size });
+  const doRender = ({
+    count,
+    size,
+  }: {
+    count: number;
+    filePaths: string[];
+    size: number;
+    warnings: string[];
+  }) => render({ swDest, count, size });
 
   return {
     name,
     writeBundle() {
       return _injectManifest(injectManifestConfig)
         .then(doRender)
-        .then(async () => mode === 'production' && await processBundle({ swDest }))
+        .then(async () => mode === 'production' && (await processBundle({ swDest })))
         .catch(console.error);
     },
   };
@@ -61,7 +77,7 @@ export function injectManifest(injectManifestConfig: InjectManifestConfig, rende
  * Feature is tracked here: https://github.com/GoogleChrome/workbox/issues/2588
  * Once Workbox's `injectManifest` supports this out of the box, we should remove this.
  */
-const processBundle = async ({ swDest }: {swDest: string}) => {
+const processBundle = async ({ swDest }: { swDest: string }) => {
   const bundle = await rollup.rollup({
     input: swDest,
     plugins: [
@@ -75,4 +91,3 @@ const processBundle = async ({ swDest }: {swDest: string}) => {
     format: 'iife',
   });
 };
-
