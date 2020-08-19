@@ -43,6 +43,7 @@
     "@typescript-eslint/parser": "^3.7.0",
     "chai": "^4.2.0",
     "concurrently": "^5.2.0",
+    "deepmerge": "^4.2.2",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^1.0.0",

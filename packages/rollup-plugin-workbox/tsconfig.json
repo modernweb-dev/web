@@ -8,11 +8,14 @@
     "rootDir": "./src",
     "composite": true,
     "allowJs": true,
-    "lib": ["webworker"],
+    "lib": [
+      "webworker"
+    ],
     "types": [
       "workbox-build"
-    ],
+    ]
   },
+  "references": [],
   "include": [
     "src"
   ],

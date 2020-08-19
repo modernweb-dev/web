@@ -15,6 +15,27 @@
     },
     {
       "path": "../test-runner-core/tsconfig.json"
+    },
+    {
+      "path": "../browser-logs/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-coverage-v8/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-mocha/tsconfig.json"
+    },
+    {
+      "path": "../config-loader/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-chrome/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-cli/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-playwright/tsconfig.json"
     }
   ],
   "include": [
