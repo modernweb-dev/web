@@ -10,7 +10,7 @@ Plugin for using the dev server or test runner on legacy browsers, for example o
 
 ## Usage
 
-```bash
+```
 npm i --save-dev @web/dev-server-legacy
 ```
 

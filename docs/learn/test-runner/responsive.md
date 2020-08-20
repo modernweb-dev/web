@@ -34,7 +34,7 @@ Right we are missing a way to change the actual size of the window.
 
 For that we need to install the library:
 
-```bash
+```
 npm i -D @web/test-runner-commands
 ```
 

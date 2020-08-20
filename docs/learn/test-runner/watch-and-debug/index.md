@@ -6,8 +6,8 @@ eleventyNavigation:
   order: 20
 ---
 
-Once you have your first tests running you probably want to add more in order to cover all your use cases.
-While working with tests it is quite a productivity boost if your tests keep continuously while you work on the code/tests.
+During development, it can be annoying to re-run all your tests manually every time there is a change.
+Watch mode helps by watching the file system, re-running the tests that have changes, and reporting the updated results.
 
 ## Triggering watch mode
 
@@ -30,13 +30,13 @@ The same tests are run in watch mode but you do get multiple additional features
 
 - Tests are rerun on file change (source or test)
 - You can focus a specific test file
-- You can open a test file in the browser
+- You can open a test file in the browser for debugging
 
 ### Preparation
 
-In order to see the benefit we start of with the code from [Getting Started](../getting-started.md) and add an additional feature.
+To see the benefit we start off with the code from [Getting Started](../getting-started.md) and add a new feature to our code.
 
-We want to be able to pass in a string like `1 + 2 + 3` to get it's sum.
+We want to be able to pass in a string like `1 + 2 + 3` to get its sum.
 
 👉 `test/calc.js`
 
@@ -60,7 +60,7 @@ export function calc(inputString) {
 }
 ```
 
-We wanna reuse the our `sum` but we need to enhance it to allow for 3 numbers. Let's add a failing test for it.
+We want to reuse our `sum` function, but we need to enhance it to allow for 3 numbers. Let's add a failing test for it.
 
 👉 `test/sum.js`
 
@@ -73,9 +73,9 @@ it('sums up 3 numbers', () => {
 
 ## Focus
 
-When we run watch mode now we will see 2 failing tests.
+When we run our tests in watch mode now, we will see 2 failing tests.
 
-```bash
+```
 test/calc.test.js:
 
  ❌ calculates sums
@@ -102,7 +102,7 @@ Press Q to quit watch mode.
 Press Enter to re-run all tests.
 ```
 
-Ok let's get started on making it work.
+Ok, let's get started on making it work.
 We can add a console log to see the parameters.
 
 👉 `src/sum.js`
@@ -140,10 +140,9 @@ test/sum.test.js:
 Chrome: |██████████████████████████████| 2/2 test files | 0 passed, 3 failed
 ```
 
-This however adds a lot of noise as we now get many logs.
-On average humans are quite bad at multi tasking so when working on code it makes sense to focus solely on one problem at a time.
-We don't wanna work on `sum` and `calc` at the same time.
-Therefore we hit `F` to open the Focus Menu then we choose `2` and hit `Enter`.
+This adds a lot of noise since we get the logs from all our test files. For larger projects with a lot of tests, this really adds up.
+We don't want to work on `sum` and `calc` at the same time, it's better if we can focus on fixing one test file at a time.
+To do that, we can hit `F` to open the Focus Menu. Then we can choose which file we want to focus on. We choose `2` and hit `Enter`.
 
 ```
 [1] test/calc.test.js
@@ -152,7 +151,7 @@ Therefore we hit `F` to open the Focus Menu then we choose `2` and hit `Enter`.
 Number of the file to focus: 2
 ```
 
-We are back in the test output mode but only the focused test file remains.
+We are back in the test output mode but only the focused test file is shown.
 
 ```
 test/sum.test.js:
@@ -172,8 +171,8 @@ test/sum.test.js:
 Chrome: |██████████████████████████████| 1/1 test files | 0 passed, 2 failed
 ```
 
-So that's better. Still one test too much to really be able to focus on one test.
-In order to make it work we can set `.only` on a test
+So that's better, but we're still seeing two tests. That's because focus works only with individual files.
+To focus on a test with a file we can add `.only` to our test:
 
 👉 `test/sum.test.js`
 
@@ -186,7 +185,7 @@ it.only('sums up 2 numbers', () => {
 
 _If you wish to ignore a test you can put `.skip` on it_
 
-Now we are talking
+Now we're talking!
 
 ```
 test/sum.test.js:
@@ -201,19 +200,19 @@ test/sum.test.js:
 Chrome: |██████████████████████████████| 1/1 test files | 0 passed, 1 failed
 ```
 
-👆 even though we have 2 `sum` calls in our test we only have one console log? The reasons for that is that as soon as one expect fails the execution for that test stops. So `sum(3, 12)` never gets executed.
+👆 even though we have 2 `sum` calls in our test we only have one console log? The reason for that is that as soon as one `expect` fails the execution for that test stops. So `sum(3, 12)` never gets executed.
 
 With the ability to log outputs of specific individual executions of `sum` we could surely make the code work.
-We will however move on to debugging in the browser to highlight alternative approaches.
+But to highlight alternative approaches, we will be looking into debugging in the browser as well.
 
-PS: even though some people might say using console log is not debugging don't be afraid to use it often is good enough and usually faster then firing up an actual debugger.
+PS: Even though some people might say using `console.log` is not debugging don't be afraid to use it often. It is good enough and usually faster than firing up an actual debugger.
 
-PPS: Console log quick tip: You can use `console.log({ foo })` to quickly log (multiple) variables with a name. (beats writing `console.log('foo', foo)`)
+PPS: Logging quick tip: You can use `console.log({ foo })` to quickly log (multiple) variables with a name. (beats writing `console.log('foo', foo)`)
 
 ## Debug
 
-When working on code it can be beneficial to be able to stop executing within the browser itself.
-This will give you access to all the awesome build in browser dev tools.
+When working on code it can be useful to be able to stop the code execution in the browser itself.
+This will give you access to all the awesome built-in browser dev tools.
 
 How we can do that?
 
@@ -222,7 +221,7 @@ Once you have that all you need to do is hit `D`.
 
 It opens the browser with the focused test file.
 
-Now in order to "hold" the actual execution we can add a `debugger` statement into our code.
+Now to "pause" the actual code execution, we can add a `debugger` statement into our code.
 
 👉 `src/sum.js`
 
@@ -243,7 +242,7 @@ Now we are in control of our execution and we can inspect variables or start ste
 
 ## Finish implementation
 
-Weather you used logs or debugger at some point tests will start to turn green 💪
+Whether you used logs or debugger at some point tests will start to turn green 💪
 
 We fixed the `sum` function like this
 
@@ -259,7 +258,7 @@ export function sum(...numbers) {
 }
 ```
 
-👆 yes `reduce` could have been used here but a simple loop is easier to read and explain (and we are in the learn section after all)
+👆 yes `reduce` could have been used here but a simple loop is easier to read and explain (and we are in the learn section after all).
 
 Now that our test is green we remove the `.only` to run all tests in our focused file.
 
@@ -305,7 +304,7 @@ export function calc(inputString) {
 
 And we are done 👍
 
-If we now run it once we get.
+When we do a regular test run, we get:
 
 ```
 Chrome: |██████████████████████████████| 2/2 test files | 3 passed, 0 failed

@@ -14,7 +14,7 @@ Since the dev server doesn't run an actual rollup build, only rollup plugins tha
 
 ## Installation
 
-```bash
+```
 npm i --save-dev @web/dev-server-rollup
 ```
 

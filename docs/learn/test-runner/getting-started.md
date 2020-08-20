@@ -29,7 +29,7 @@ Now that we know what we want we need to place this file somewhere and run a too
 
 1. Install the test runner
 
-   ```bash
+   ```
    npm i -D @web/test-runner @open-wc/testing
    ```
 
@@ -44,13 +44,13 @@ Now that we know what we want we need to place this file somewhere and run a too
 
 With that we can now execute
 
-```bash
+```
 npm run test
 ```
 
 which results in the following output
 
-```bash
+```
 $ web-test-runner "test/**/*.test.js" --coverage --node-resolve
 Could not find any files with pattern(s): test/**/*.test.js
 ```
@@ -75,7 +75,7 @@ fair enough - we didn't create a test file yet.
 
 2. Run it
 
-   ```bash
+   ```
    $ npm run test
    $ web-test-runner test/**/*.test.js --coverage --node-resolve
 
@@ -89,7 +89,7 @@ fair enough - we didn't create a test file yet.
    Chrome: |██████████████████████████████| 1/1 test files | 0 passed, 0 failed
    ```
 
-   => expected
+   => this is what we expected
 
 3. Create the src file `src/sum.js`
 
@@ -99,7 +99,7 @@ fair enough - we didn't create a test file yet.
 
    We will make sure to test if it fails correctly.
 
-   ```bash
+   ```
    $ npm run test
    $ web-test-runner test/**/*.test.js --coverage --node-resolve
 
@@ -122,7 +122,7 @@ fair enough - we didn't create a test file yet.
    }
    ```
 
-   ```bash
+   ```
    $ web-test-runner test/**/*.test.js --coverage --node-resolve
 
    Chrome: |██████████████████████████████| 1/1 test files | 1 passed, 0 failed
@@ -133,7 +133,7 @@ fair enough - we didn't create a test file yet.
    Finished running tests in 0.9s, all tests passed! 🎉
    ```
 
-   Oh YEAH 💪
+   Mission accomplished 💪
 
 ## Learn more
 

@@ -8,16 +8,17 @@ eleventyNavigation:
 
 You can run tests with code coverage using the `--coverage` flag:
 
-```bash
+```
 wtr test/**/*.test.js --coverage
 ```
 
 In the config you can define code coverage thresholds, the test run fails if you drop below this level. You can also configure where and if the detailed test report is written to disk.
 
-<details>
-<summary>View example</summary>
+**Example config:**
 
 ```js
+// web-test-runner.config.mjs
+
 module.exports = {
   coverageConfig: {
     report: true,
@@ -32,17 +33,19 @@ module.exports = {
 };
 ```
 
-</details>
+## Coverage browser support
 
-The default code coverage only collects coverage on the Chromium browser, which provides this functionality natively. To enable collecting coverage on other browsers, you can use [babel-plugin-istanbul](https://github.com/istanbuljs/babel-plugin-istanbul) to do the code instrumentation. This is slower and works differently because the instrumentation is done in javascript.
+The default coverage of the test runner uses the ability of Chromium to do native code coverage instrumentation. This gives us the best speed. When testing multiple browsers this should still be fine, you don't need to get code coverage from all browsers. One browser is usually enough.
 
-If you choose to use the babel plugin, you can off native instrumentation by setting `nativeInstrumentation` to false. This avoids double instrumentation.
+If you need to collect coverage from all browsers, or if you're not testing for Chromium at all, you can use [babel-plugin-istanbul](https://github.com/istanbuljs/babel-plugin-istanbul) to do the code instrumentation. You can use the rollup babel plugin to set this up. This approach is slower and works differently because the instrumentation is done in javascript.
 
-<details>
+If you choose to use the babel plugin, you can turn off native instrumentation by setting `nativeInstrumentation` to false. This avoids double instrumentation.
 
-<summary>View example</summary>
+**Example config:**
 
 ```js
+// web-test-runner.config.mjs
+
 import { fromRollup } from '@web/dev-server-rollup';
 import rollupBabel from '@rollup/plugin-babel';
 
@@ -63,5 +66,3 @@ export default {
   ],
 };
 ```
-
-</details>

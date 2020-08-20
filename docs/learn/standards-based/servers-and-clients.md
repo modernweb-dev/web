@@ -67,7 +67,7 @@ The following commands create a directory `test-server` inside the home director
 
 Run these commands on a UNIX-like operating system (GNU/Linux, macOS, WSL) that has nodejs installed, and you'll see a page containing the text "Hello, World!"
 
-```bash
+```
 mkdir ~/test-server
 cd ~/test-server
 echo "Hello, World!" > index.html
@@ -118,7 +118,7 @@ Likewise, if you were to rename `index.html` to `main.html`, then `https://my-do
 
 In the above examples, the server used the default web root `/var/www/html`, but we could just as easily have configured it to use `/var/www/html/about`, e.g. by changing into that directory and starting a server from the command line
 
-```bash
+```
 cd /var/www/about
 http-server
 ```
