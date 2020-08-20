@@ -65,29 +65,33 @@ packageDirnameMap.forEach((packageDirname, packageName) => {
   let tsConfigOverride = {};
   const tsConfigOverridePath = path.join(pkgDir, 'tsconfig.override.json');
 
-  if(fs.existsSync(tsConfigOverridePath)) {
+  if (fs.existsSync(tsConfigOverridePath)) {
     tsConfigOverride = JSON.parse(fs.readFileSync(tsConfigOverridePath));
   }
   const overwriteMerge = (destinationArray, sourceArray) => sourceArray;
 
   const internalDependencies = resolveInternalDependencies(internalDependencyMap.get(packageName));
-  const tsconfigData = merge({
-    extends: `../../tsconfig.${pkg.environment === 'browser' ? 'browser' : 'node'}-base.json`,
-    compilerOptions: {
-      module: pkg.environment === 'browser' ? 'ESNext' : 'commonjs',
-      outDir: './dist',
-      rootDir: './src',
-      composite: true,
-      allowJs: true,
-      checkJs: pkg.type === 'js' ? true : undefined,
-      emitDeclarationOnly: pkg.type === 'js' ? true : undefined,
+  const tsconfigData = merge(
+    {
+      extends: `../../tsconfig.${pkg.environment === 'browser' ? 'browser' : 'node'}-base.json`,
+      compilerOptions: {
+        module: pkg.environment === 'browser' ? 'ESNext' : 'commonjs',
+        outDir: './dist',
+        rootDir: './src',
+        composite: true,
+        allowJs: true,
+        checkJs: pkg.type === 'js' ? true : undefined,
+        emitDeclarationOnly: pkg.type === 'js' ? true : undefined,
+      },
+      references: internalDependencies.map(dep => {
+        return { path: `../${packageDirnameMap.get(dep)}/tsconfig.json` };
+      }),
+      include: ['src'],
+      exclude: ['src/browser', 'tests', 'dist'],
     },
-    references: internalDependencies.map(dep => {
-      return { path: `../${packageDirnameMap.get(dep)}/tsconfig.json` };
-    }),
-    include: ['src'],
-    exclude: ['src/browser', 'tests', 'dist'],
-  }, tsConfigOverride, { arrayMerge: overwriteMerge });
+    tsConfigOverride,
+    { arrayMerge: overwriteMerge },
+  );
   fs.writeFileSync(tsconfigPath, TSCONFIG_COMMENT + JSON.stringify(tsconfigData, null, '  '));
 });
 

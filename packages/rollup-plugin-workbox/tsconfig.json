@@ -22,4 +22,5 @@
   "exclude": [
     "dist"
   ],
+  "skipLibCheck": true,
 }
