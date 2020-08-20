@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.3.3
+
+### Patch Changes
+
+- dfef174: adds a custom reporter for HTML tests, avoiding errors when debugging
+
 ## 0.3.2
 
 ### Patch Changes
