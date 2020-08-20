@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.7.4
+
+### Patch Changes
+
+- a137493: improve HTML tests setup
+- Updated dependencies [a137493]
+  - @web/test-runner-mocha@0.3.2
+
 ## 0.7.3
 
 ### Patch Changes
