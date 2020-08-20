@@ -5,10 +5,8 @@
       import { runTests } from '../../../test-runner-mocha/dist/standalone.js';
 
       runTests(() => {
-        describe('HTML tests', () => {
-          it('works', () => {
-            expect('foo').to.equal('foo');
-          });
+        it('works', () => {
+          expect('foo').to.equal('foo');
         });
       });
     </script>
