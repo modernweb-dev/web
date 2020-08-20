@@ -14,7 +14,7 @@ Built-in commands can change the viewport, emulate media queries or set the user
 
 Install the library:
 
-```bash
+```
 npm i -D @web/test-runner-commands
 ```
 

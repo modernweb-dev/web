@@ -25,7 +25,7 @@ The test runner can be configured using CLI flags, or with a configuration file.
 
 Examples:
 
-```bash
+```
 web-test-runner test/**/*.test.js --node-resolve
 web-test-runner test/**/*.test.js --node-resolve --watch
 web-test-runner test/**/*.test.js --node-resolve --coverage
@@ -34,7 +34,7 @@ web-test-runner test/**/*.test.js --node-resolve --playwright --browsers chromiu
 
 You can also use the shorthand `wtr` command:
 
-```bash
+```
 wtr test/**/*.test.js --node-resolve
 ```
 

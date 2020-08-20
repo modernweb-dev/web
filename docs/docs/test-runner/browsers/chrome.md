@@ -16,7 +16,7 @@ When using `@web/test-runner` regularly, the chrome launcher is installed and us
 
 For other projects you can install the browser launcher by running:
 
-```bash
+```
 @web/test-runner-chrome
 ```
 

@@ -2,7 +2,7 @@
 title: 'Introducing: Modern Web'
 published: false
 canonical_url: https://modern-web.dev/blog/introducing-modern-web/
-description: Reexperience the joy when working with the standards based web. Starting off with a test runner which uses multiple browsers in parallel.
+description: Reexperience the joy of working with the standards based web. Starting off with a test runner which uses multiple browsers in parallel.
 date: 2020-08-25
 tags: [javascript, test, modern-web]
 cover_image: /blog/introducing-modern-web/introducing-modern-web-blog-header.jpg
@@ -65,7 +65,7 @@ This is the minimal instruction on how to start using the test runner.
 
 1. Install the test runner
 
-   ```bash
+   ```
    npm i -D @web/test-runner @open-wc/testing
    ```
 
@@ -102,7 +102,7 @@ This is the minimal instruction on how to start using the test runner.
 
 5. Run it
 
-   ```bash
+   ```
    $ npm run test
    $ web-test-runner test/**/*.test.js --coverage --node-resolve
 

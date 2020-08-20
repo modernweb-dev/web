@@ -23,7 +23,7 @@ Test runner for web applications.
 
 Install the test runner:
 
-```bash
+```
 npm i -D @web/test-runner
 ```
 
@@ -31,21 +31,21 @@ npm i -D @web/test-runner
 
 Do a single test run:
 
-```bash
+```
 web-test-runner test/**/*.test.js --node-resolve
 wtr test/**/*.test.js --node-resolve
 ```
 
 Run in watch mode, reloading on file changes:
 
-```bash
+```
 web-test-runner test/**/*.test.js --node-resolve --watch
 wtr test/**/*.test.js --node-resolve --watch
 ```
 
 Run with code coverage profiling (this is slower):
 
-```bash
+```
 web-test-runner test/**/*.test.js --node-resolve --coverage
 wtr test/**/*.test.js --node-resolve --coverage
 ```

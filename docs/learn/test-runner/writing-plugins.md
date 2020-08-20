@@ -18,7 +18,7 @@ We decided to use a popular package called [popper.js](https://popper.js.org/).
 
 To get started we install it from npm
 
-```bash
+```
 npm i @popperjs/core
 ```
 
@@ -49,7 +49,7 @@ it('can use popper', async () => {
 
 When we execute it we hover get an error 🤔
 
-```bash
+```
 $ npm run test
 
 > web-test-runner "test/**/*.test.js" --node-resolve
@@ -129,7 +129,7 @@ export default {
 
 If we run our tests now we get a long list of `hello world` and the path to the file.
 
-```bash
+```
 hello world
 /
 hello world

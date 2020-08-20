@@ -12,7 +12,7 @@ Run tests using [Playwright](https://www.npmjs.com/package/playwright), using a 
 
 When using `@web/test-runner` regularly, you can use Playwright with the `--playwright` and `--browsers` flags:
 
-```bash
+```
 # add the package
 npm i -D @web/test-runner-playwright
 

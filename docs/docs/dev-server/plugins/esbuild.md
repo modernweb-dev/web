@@ -14,7 +14,7 @@ esbuild is a blazing fast build tool, and can be used to transform TS and JSX to
 
 Install the package:
 
-```bash
+```
 npm i -D @web/dev-server-esbuild
 ```
 

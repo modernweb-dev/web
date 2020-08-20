@@ -13,7 +13,7 @@ For convenience you can configure a few other browser launchers using CLI flags
 
 You can run tests with puppeteer, which will download its a local instance of Chromium instead of relying on a globally installed version of Chrome.
 
-```bash
+```
 # add the package
 npm i -D @web/test-runner-puppeteer
 
@@ -27,7 +27,7 @@ Puppeteer has experimental support for firefox. It requires an extra installatio
 
 You can run tests with playwright, which like puppeteer downloads it's own browsers. Playwright allows testing on chromium, firefox, and WebKit.
 
-```bash
+```
 # add the package
 npm i -D @web/test-runner-playwright
 

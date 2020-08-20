@@ -12,9 +12,7 @@ Generally it's advised to have a code coverage at above 80% which you will most 
 
 ## Getting the code coverage
 
-Any web-test-runner launcher that works with chromium can provide code coverage.
-
-The reason for that is that the chromium browser itself calculates the coverage for us.
+To see the code coverage of our tests, all we need to do use run the test runner with the `--coverage` flag. It's a bit slower than the regular test run, so we don't enable it by default.
 
 1. Add a script to your `package.json`
    ```json
@@ -165,7 +163,7 @@ Lets first try to understand how code coverage works
 The way code coverage gets measured is by applying a form of instrumentation. In short, before our code is executed it gets changed (instrumented) and it behaves something like this:
 
 ```js
-Note: This is a super simplified version for illustration purposes.
+// Note: This is a super simplified version for illustration purposes.
 if (this.value === 'cat') {
   console.log('We like cats too :)');
 }
@@ -186,7 +184,7 @@ So 100% code coverage only means that every line you have in your code was execu
 
 What happened in our case?
 
-We called the `calc` with `multiply` but we forgot to put an assertion. So the correct code branch was executed but that it returned nothing we didn't cache.
+We called the `calc` with `multiply` but we forgot to put an assertion. So the correct code branch was executed but that it returned nothing we didn't test.
 
 So we can correct our test
 
@@ -213,6 +211,12 @@ View full coverage report at coverage/lcov-report/index.html
 We now have a failing test but still 100% code coverage.
 
 You should, therefore, see code coverage as a tool that only gives you guidance and help on spotting missing tests, rather than a hard guarantee of code quality.
+
+## Coverage browser support
+
+The default coverage of the test runner uses the ability of Chromium to do native code coverage instrumentation. This gives us the best speed. When testing multiple browsers this should still be fine, you don't need to get code coverage from all browsers. One browser is usually enough.
+
+If you need to collect coverage from all browsers, or if you're not testing for Chromium at all, you can look into alternative ways of instrumenting your code. Check the [coverage docs](../../../docs/test-runner/writing-tests/code-coverage.md) to learn more about that.
 
 ## Learn more
 

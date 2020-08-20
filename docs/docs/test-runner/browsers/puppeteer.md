@@ -12,7 +12,7 @@ Run tests using [Puppeteer](https://www.npmjs.com/package/puppeteer), using a bu
 
 When using `@web/test-runner` regularly, you can use puppeteer with the `--puppeteer` and `--browsers` flags:
 
-```bash
+```
 # add the package
 npm i -D @web/test-runner-puppeteer
 
@@ -62,6 +62,6 @@ Testing Firefox with Puppeteer is still experimental. There is currently no offi
 
 Afterward, you can run your tests with an extra firefox flag:
 
-```bash
+```
 wtr test/**/*.test.js --node-resolve --puppeteer --browsers firefox
 ```
