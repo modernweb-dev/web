@@ -19,7 +19,7 @@ To maintain focus within the open-wc project, and to share our work with the lar
 
 ## The goal for Modern Web
 
-Modern browsers are a powerful platform for building websites and applications. We should work with what's available in the browser first before reaching for custom solutions.
+Modern browsers are a powerful platform for building websites and applications. Our goal is to work with what's available in the browser first before reaching for custom solutions.
 
 When you're working _with_ the browser rather than against it, code, skills, and knowledge remain relevant for a longer time. Development becomes faster and debugger easier because there are fewer layers of abstractions involved.
 

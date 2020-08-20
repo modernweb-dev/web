@@ -2,7 +2,7 @@
 title: HTML
 eleventyNavigation:
   key: HTML
-  parent: Standards-Based
+  parent: Web Development
   order: 20
 ---
 

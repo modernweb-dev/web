@@ -2,7 +2,7 @@
 title: CSS
 eleventyNavigation:
   key: CSS
-  parent: Standards-Based
+  parent: Web Development
   order: 30
 ---
 
