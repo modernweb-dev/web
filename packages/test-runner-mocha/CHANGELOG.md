@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.3.2
+
+### Patch Changes
+
+- a137493: improve HTML tests setup
+
 ## 0.3.1
 
 ### Patch Changes

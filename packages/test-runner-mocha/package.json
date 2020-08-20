@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-mocha",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "publishConfig": {
     "access": "public"
   },
@@ -23,9 +23,7 @@
     "test": "mocha test/**/*.test.js --reporter dot",
     "test:watch": "mocha test/**/*.test.js --watch --watch-files src,test --reporter dot"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "test",
