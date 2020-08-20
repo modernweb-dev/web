@@ -3,5 +3,6 @@
     "lib": ["webworker"],
     "types": ["workbox-build"]
   },
-  "exclude": ["dist"]
+  "exclude": ["dist"],
+  "skipLibCheck": true
 }

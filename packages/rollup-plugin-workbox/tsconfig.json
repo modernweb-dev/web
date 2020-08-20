@@ -21,5 +21,6 @@
   ],
   "exclude": [
     "dist"
-  ]
+  ],
+  "skipLibCheck": true
 }
