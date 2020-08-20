@@ -6,6 +6,7 @@ description: Reexperience the joy when working with the standards based web. Sta
 date: 2020-08-25
 tags: [javascript, test, modern-web]
 cover_image: /blog/introducing-modern-web/introducing-modern-web-blog-header.jpg
+socialMediaImage: /blog/introducing-modern-web/introducing-modern-web-blog-social-media-image.jpg
 ---
 
 We are excited to finally introduce our brand new project: Modern Web.
