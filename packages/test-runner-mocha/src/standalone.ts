@@ -8,6 +8,8 @@ import '../../../node_modules/mocha/mocha.js';
 import { collectTestResults } from './collectTestResults.js';
 
 const mocha = (window as any).mocha as BrowserMocha;
+const BaseReporter = (mocha as any).Mocha.reporters.Base;
+class QuietReporter extends BaseReporter {}
 
 sessionStarted();
 
@@ -16,7 +18,12 @@ export async function runTests(testFn: () => unknown | Promise<unknown>) {
 
   // setup mocha
   const userOptions = typeof testFrameworkConfig === 'object' ? testFrameworkConfig : {};
-  mocha.setup({ ui: 'bdd', allowUncaught: false, ...userOptions });
+  mocha.setup({
+    ui: 'bdd',
+    allowUncaught: false,
+    reporter: QuietReporter as any,
+    ...userOptions,
+  });
 
   // setup the tests
   try {
