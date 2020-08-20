@@ -1,5 +1,3 @@
-/// <reference lib="webworker" />
-
 import {
   generateSW as _generateSw,
   injectManifest as _injectManifest,

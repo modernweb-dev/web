@@ -4,5 +4,4 @@
     "types": ["workbox-build"]
   },
   "exclude": ["dist"],
-  "skipLibCheck": true
 }
