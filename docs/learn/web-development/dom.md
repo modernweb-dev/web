@@ -2,7 +2,7 @@
 title: The DOM
 eleventyNavigation:
   key: DOM
-  parent: Standards-Based
+  parent: Web Development
   order: 50
 ---
 

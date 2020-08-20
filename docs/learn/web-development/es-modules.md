@@ -2,11 +2,11 @@
 title: ECMAScript Modules
 eleventyNavigation:
   key: ES Modules
-  parent: Standards-Based
+  parent: Web Development
   order: 60
 ---
 
-All modern browsers support standard es modules, using `import` and `export` statements:
+All modern browsers support standard es modules. These are javascript files using `import` and `export` statements:
 
 ```js
 import foo from './foo.js';
@@ -16,15 +16,50 @@ export function doBar() {
 }
 ```
 
-You can load them from an HTML page using a module script:
+In contrast to classic scripts, variables declared inside modules are scoped to the file itself. This makes them especially useful for writing modular code, explicitly declaring the API surface using exports.
+
+## Loading modules
+
+### Module scripts
+
+You can load javascript modules using scripts with `type="module"`. You can reference the module file using `src`, or write the module directly inline.
 
 ```html
 <html>
   <body>
     <script type="module" src="./app.js"></script>
+    <script type="module">
+      import './app.js';
+
+      console.log('hello world from my module');
+    </script>
   </body>
 </html>
 ```
+
+### Static imports
+
+A module can import other modules using static imports. These imports are executed eagerly, the browser will download the statically imported modules before running the code in your module.
+
+```js
+import { foo } from './foo.js';
+```
+
+### Dynamic imports
+
+You can also import other modules using dynamic `import()` function. This import is executed lazily, the browser will download the file only when the function is executed.
+
+```js
+function loadComponent() {
+  return import('./components/my-component.js');
+}
+```
+
+## File extensions
+
+You will often see es modules using the `.mjs` file extension. For node js the `.mjs` file extension is an indication to execute the file as an es module. Node js will treat a file as an es module if it has a `.mjs` file extension, or if it has `.js` file extension and the `package.json` has `type="module"` set.
+
+For the browser, the file extension doesn't matter, it only looks at the content-type header that was sent by the server. Web servers infer the content-type from the file extension, and not all web servers support the `.mjs` file extension.
 
 ## Import paths
 
@@ -49,7 +84,7 @@ Both [@web/test-runner](../../docs/test-runner/overview.md) and [@web/dev-server
 
 ## CommonJS modules
 
-CommonJS is the module system of NodeJS and predates the standard es module system. You can recognize them by the use of `require` and `module.exports`:
+CommonJS is the original module system of node and predates standard es modules. You can recognize this type of module by the use of `require` and `module.exports`:
 
 ```js
 const foo = require('./foo');
@@ -59,7 +94,7 @@ module.exports.doBar = function doBar() {
 };
 ```
 
-This doesn't work in the browser, as it doesn't know what to do with CommonJS modules. A lot of code is still written as CommonJS modules. If you want to use a library written in CommonJS, there are a couple of options to look into.
+This doesn't work in the browser, as it doesn't know what to do with CommonJS modules. While node now supports es modules natively, a lot of code is still written as CommonJS modules. If you want to use a library written in CommonJS, there are a couple of options to look into.
 
 ### Look for an es module distribution
 

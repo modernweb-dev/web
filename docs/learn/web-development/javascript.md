@@ -2,7 +2,7 @@
 title: JavaScript
 eleventyNavigation:
   key: JavaScript
-  parent: Standards-Based
+  parent: Web Development
   order: 40
 ---
 

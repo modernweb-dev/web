@@ -2,7 +2,7 @@
 title: Servers and Clients
 eleventyNavigation:
   key: Servers and Clients
-  parent: Standards-Based
+  parent: Web Development
   order: 10
 ---
 
