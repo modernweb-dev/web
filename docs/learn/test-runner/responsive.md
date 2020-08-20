@@ -131,7 +131,7 @@ Next, we can write our tests to change the viewport and check if our media queri
 </html>
 ```
 
-To run HTML tests, we just need to include it in the files we pass on to the test runner in our `package.json` scripts:
+To run HTML tests, we need to include it in the files we pass on to the test runner in our `package.json` scripts:
 
 ```json
 {
