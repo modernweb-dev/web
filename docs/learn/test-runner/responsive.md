@@ -6,8 +6,7 @@ eleventyNavigation:
   order: 40
 ---
 
-With the world going mobile first there needs to be a way of testing your mobile views.
-Working with a real browser you can directly change the viewport.
+With the world going mobile first, it is more important than ever to test your code against different viewport.
 
 ## Testing for mobile
 
@@ -60,53 +59,87 @@ describe('isMobile', () => {
 
 ## Testing media queries
 
-Imagine we have a card that should have a `green` background on mobile and a `red` background on desktop.
+For demonstration purposes we will write this example using an HTML test. Tests written as HTML are loaded by the test runner directly, a great way to set up some static HTML and CSS for our test.
 
-The css is fairly straight forward:
+Create a test file called `my-card.test.html` and set up the basic structure:
 
-```css
-.card {
-  background: rgb(0, 255, 0);
-}
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .card {
+        background: rgb(0, 255, 0);
+      }
 
-@media screen and (min-width: 1024px) {
-  .card {
-    background: rgb(255, 0, 0);
+      @media screen and (min-width: 1024px) {
+        .card {
+          background: rgb(255, 0, 0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card"></div>
+  </body>
+</html>
+```
+
+Next, we can write our tests to change the viewport and check if our media queries are working correctly:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .card {
+        background: rgb(0, 255, 0);
+      }
+
+      @media screen and (min-width: 1024px) {
+        .card {
+          background: rgb(255, 0, 0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card"></div>
+
+    <script type="module">
+      import { runTests } from '@web/test-runner-mocha';
+      import { expect } from '@open-wc/testing';
+      import { setViewport } from '@web/test-runner-commands';
+
+      runTests(() => {
+        it('mobile has a green background', async () => {
+          await setViewport({ width: 360, height: 640 });
+          const el = document.querySelector('.card');
+          const color = getComputedStyle(el).backgroundColor;
+          expect(color).to.equal('rgb(0, 255, 0)');
+        });
+
+        it('desktop has a red background', async () => {
+          await setViewport({ width: 1200, height: 1000 });
+          const el = document.querySelector('.card');
+          const color = getComputedStyle(el).backgroundColor;
+          expect(color).to.equal('rgb(255, 0, 0)');
+        });
+      });
+    </script>
+  </body>
+</html>
+```
+
+To run HTML tests, we just need to include it in the files we pass on to the test runner in our `package.json` scripts:
+
+```json
+{
+  "scripts": {
+    "test": "web-test-runner \"test/**/*.test.{html,js}\" --node-resolve",
+    "test:watch": "web-test-runner \"test/**/*.test.{html,js}\" --node-resolve --watch"
   }
 }
-```
-
-So how can we test that?
-
-First we set the viewport size.
-Then we create a html fixture which means the nodes will be created and added to the dom (and automatically cleaned up after the test).
-
-Finally we check if our css media query from above actually is working.
-
-```js
-it('mobile has a green background', async () => {
-  await setViewport({ width: 360, height: 640 });
-  const el = await fixture(html` <div class="card"></div> `);
-  expect(getComputedStyle(el).backgroundColor).to.equal('rgb(0, 255, 0)');
-});
-
-it('desktop has a red background', async () => {
-  await setViewport({ width: 1200, height: 1000 });
-  const el = await fixture(html` <div class="card"></div> `);
-  expect(getComputedStyle(el).backgroundColor).to.equal('rgb(255, 0, 0)');
-});
-```
-
-_In this tests we combine js and css so we will need to put the css into the test site_
-
-```js
-before(() => {
-  // add css files to page for the test
-  const link = document.createElement('link');
-  link.href = new URL('../src/styles.css', import.meta.url);
-  link.rel = 'stylesheet';
-  document.head.appendChild(link);
-});
 ```
 
 ## Nested suites
