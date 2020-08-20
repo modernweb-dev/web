@@ -2,18 +2,14 @@
   <body>
     <script type="module">
       import { expect } from './chai.js';
-      import { mocha, sessionFinished } from '../../../test-runner-mocha/dist/standalone.js';
+      import { runTests } from '../../../test-runner-mocha/dist/standalone.js';
 
-      mocha.setup({ ui: 'bdd' });
-
-      describe('HTML tests', () => {
-        it('works', () => {
-          expect('foo').to.equal('foo');
+      runTests(() => {
+        describe('HTML tests', () => {
+          it('works', () => {
+            expect('foo').to.equal('foo');
+          });
         });
-      });
-
-      mocha.run(() => {
-        sessionFinished();
       });
     </script>
   </body>

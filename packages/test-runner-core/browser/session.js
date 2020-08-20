@@ -38,9 +38,18 @@ export async function getConfig() {
 }
 
 export function sessionFailed(error) {
+  console.log('sessionFailed', error);
   return sessionFinished({
     passed: false,
-    errors: [error],
+    errors: [
+      // copy references because an Error instance cannot be turned into JSON
+      {
+        message: error.message,
+        stack: error.stack,
+        expected: error.expected,
+        actual: error.actual,
+      },
+    ],
   });
 }
 

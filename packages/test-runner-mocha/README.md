@@ -28,87 +28,31 @@ describe('my test', () => {
 
 ## Writing HTML tests
 
-If you're writing tests as HTML, you can import this library to run tests with mocha.
+HTML files are loaded in the browser as is, and are not processed by a test framework. This way you have full control over the test environment. Depending on which test framework you're using, the way you run your tests can be a little different.
 
-### Inline tests
-
-You can write tests inline in the HTML page
-
-<details>
-<summary>View example</summary>
+With mocha, you need to define your tests inside the `runTests` function:
 
 ```html
 <html>
   <body>
     <script type="module">
-      import { mocha, sessionFinished, sessionFailed } from '@web/test-runner-mocha';
+      import { runTests } from '@web/test-runner-mocha';
 
-      try {
-        // setup mocha
-        mocha.setup({ ui: 'bdd' });
-
-        // write your actual tests
+      runTests(async () => {
+        // write your tests inline
         describe('HTML tests', () => {
           it('works', () => {
             expect('foo').to.equal('foo');
           });
         });
 
-        // run the tests, and notify the test runner after finishing
-        mocha.run(() => {
-          sessionFinished();
-        });
-      } catch (error) {
-        console.error(error);
-        // notify the test runner about errors
-        sessionFailed(error);
-      }
+        // or import your test file
+        await import('./my-test.js');
+      });
     </script>
   </body>
 </html>
 ```
-
-</details>
-
-### Loading test files
-
-You can also use dynamic imports to load tests written in JS from the HTML page.
-
-<details>
-<summary>View example</summary>
-
-```html
-<html>
-  <body>
-    <script type="module">
-      import { mocha, sessionFinished } from '@web/test-runner-mocha';
-
-      async function run() {
-        try {
-          // setup mocha
-          mocha.setup({ ui: 'bdd' });
-
-          // import your tests
-          await import('./my-test.js');
-
-          // run the tests, and notify the test runner after finishing
-          mocha.run(() => {
-            sessionFinished();
-          });
-        } catch (error) {
-          console.error(error);
-          // notify the test runner about errors
-          sessionFailed(error);
-        }
-      }
-
-      run();
-    </script>
-  </body>
-</html>
-```
-
-</details>
 
 ### Loading polyfills or libraries
 
