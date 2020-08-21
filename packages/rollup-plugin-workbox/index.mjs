@@ -3,4 +3,4 @@ import cjsEntrypoint from './dist/index.js';
 
 const { generateSW, injectManifest } = cjsEntrypoint;
 
-export { generateSW, injectManifest }
+export { generateSW, injectManifest };
