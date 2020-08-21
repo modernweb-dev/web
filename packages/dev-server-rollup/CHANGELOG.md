@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.2.2
+
+### Patch Changes
+
+- e0ee85f: make sure absolute paths are always returned as-is
+
 ## 0.2.1
 
 ### Patch Changes
