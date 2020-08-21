@@ -1,5 +1,5 @@
 ---
-'rollup-plugin-workbox': feat
+'rollup-plugin-workbox': minor
 ---
 
 Convert code base to TypeScript
