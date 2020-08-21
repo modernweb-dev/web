@@ -1,5 +1,5 @@
 ---
-'rollup-plugin-workbox': patch
+'rollup-plugin-workbox': feat
 ---
 
 Publish to unscoped
