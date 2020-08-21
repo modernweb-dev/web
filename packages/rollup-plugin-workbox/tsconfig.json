@@ -3,7 +3,7 @@
 {
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es2015",
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
@@ -20,7 +20,7 @@
     "src"
   ],
   "exclude": [
-    "dist"
-  ],
-  "skipLibCheck": true,
+    "dist",
+    "demo"
+  ]
 }

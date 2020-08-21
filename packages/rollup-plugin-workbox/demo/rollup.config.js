@@ -1,4 +1,4 @@
-import { generateSW, injectManifest } from '../index.mjs';
+import { generateSW, injectManifest } from '../dist/index.js';
 
 export default {
   input: 'demo/main.js',
@@ -16,15 +16,12 @@ export default {
       console.log(`\nCustom render! ${swDest}`);
       console.log(`Custom render! The service worker will precache ${count} URLs, totaling ${size}.\n`);
     }),
-
-
     injectManifest({
-      swSrc: 'demo/sw.js',
-      swDest: 'demo/dist/sw.js',
+      swSrc: 'demo/injectManifestSwSrc.js',
+      swDest: 'demo/dist/injectManifest_sw.js',
       globDirectory: 'demo/dist/',
-      mode: 'production', // 👈
+      globIgnores: ['generateSW_sw.js'],
+      mode: 'production',
     }),
-
-
   ],
 };
