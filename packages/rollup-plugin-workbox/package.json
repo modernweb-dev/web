@@ -1,6 +1,6 @@
 {
-  "name": "@web/rollup-plugin-workbox",
-  "version": "1.0.0",
+  "name": "rollup-plugin-workbox",
+  "version": "5.1.0",
   "description": "Rollup plugin that builds a service worker with workbox as part of your rollup build",
   "license": "MIT",
   "repository": {
@@ -9,6 +9,10 @@
     "directory": "packages/rollup-plugin-workbox"
   },
   "author": "modern-web",
+  "contributors": [
+    "Pascal Schilp <pascalschilp@gmail.com>",
+    "Benny Powers <web@bennypowers.com>"
+  ],
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/rollup-plugin-workbox",
   "bugs": {
     "url": "https://github.com/modernweb-dev/web/issues"
