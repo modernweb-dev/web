@@ -15,6 +15,14 @@ It would be nice to have some sort of functionality to check for it.
 
 How about a function `isMobile()` and it returns true/false.
 
+👉 `src/isMobile.js`
+
+```js
+export function isMobile() {
+  return !!window.matchMedia('(max-width: 1024px)').matches;
+}
+```
+
 ```js
 describe('isMobile', () => {
   it('returns true if width < 1024px', async () => {
