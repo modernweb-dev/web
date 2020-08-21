@@ -1,5 +1,5 @@
 ---
-'rollup-plugin-workbox': patch
+'rollup-plugin-workbox': minor
 ---
 
-Publish to unscoped
+Convert code base to TypeScript
