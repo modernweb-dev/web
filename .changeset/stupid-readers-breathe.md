@@ -2,4 +2,4 @@
 'rollup-plugin-workbox': feat
 ---
 
-Publish to unscoped
+Convert code base to TypeScript
