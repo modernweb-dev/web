@@ -38,7 +38,7 @@ To see the benefit we start off with the code from [Getting Started](../getting-
 
 We want to be able to pass in a string like `1 + 2 + 3` to get its sum.
 
-👉 `test/calc.js`
+👉 `test/calc.test.js`
 
 ```js
 import { expect } from '@open-wc/testing';
@@ -62,7 +62,7 @@ export function calc(inputString) {
 
 We want to reuse our `sum` function, but we need to enhance it to allow for 3 numbers. Let's add a failing test for it.
 
-👉 `test/sum.js`
+👉 `test/sum.test.js`
 
 ```js
 it('sums up 3 numbers', () => {
@@ -76,6 +76,8 @@ it('sums up 3 numbers', () => {
 When we run our tests in watch mode now, we will see 2 failing tests.
 
 ```
+$ npm run test:watch
+
 test/calc.test.js:
 
  ❌ calculates sums
@@ -117,7 +119,7 @@ export function sum(...parameters) {
 test/calc.test.js:
 
  🚧 Browser logs:
-    > [[1 ,  1 ,  1]]
+    > [ [ '1 ', ' 1 ', ' 1' ] ]
 
  ❌ calculates sums
       AssertionError: expected undefined to equal 3
@@ -316,4 +318,4 @@ Finished running tests in 1s, all tests passed! 🎉
 
 All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/learn/test-runner-watch-and-debug).
 
-See the [documentation of @web/test-runner](../../docs/test-runner/overview.md).
+See the [documentation of @web/test-runner](../../../docs/test-runner/overview.md).

@@ -51,7 +51,7 @@ npm run test
 which results in the following output
 
 ```
-$ web-test-runner "test/**/*.test.js" --coverage --node-resolve
+$ web-test-runner "test/**/*.test.js" --node-resolve
 Could not find any files with pattern(s): test/**/*.test.js
 ```
 
@@ -77,7 +77,7 @@ fair enough - we didn't create a test file yet.
 
    ```
    $ npm run test
-   $ web-test-runner test/**/*.test.js --coverage --node-resolve
+   $ web-test-runner test/**/*.test.js --node-resolve
 
    test/sum.test.js:
 
@@ -101,7 +101,7 @@ fair enough - we didn't create a test file yet.
 
    ```
    $ npm run test
-   $ web-test-runner test/**/*.test.js --coverage --node-resolve
+   $ web-test-runner test/**/*.test.js --node-resolve
 
    test/sum.test.js:
 
@@ -123,12 +123,9 @@ fair enough - we didn't create a test file yet.
    ```
 
    ```
-   $ web-test-runner test/**/*.test.js --coverage --node-resolve
+   $ web-test-runner test/**/*.test.js --node-resolve
 
    Chrome: |██████████████████████████████| 1/1 test files | 1 passed, 0 failed
-
-   Code coverage: 100 %
-   View full coverage report at coverage/lcov-report/index.html
 
    Finished running tests in 0.9s, all tests passed! 🎉
    ```
