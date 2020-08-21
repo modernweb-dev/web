@@ -1,4 +1,4 @@
-import { generateSW, injectManifest } from '../dist/index.js';
+import { generateSW, injectManifest } from '../index.mjs';
 
 export default {
   input: 'demo/main.js',
