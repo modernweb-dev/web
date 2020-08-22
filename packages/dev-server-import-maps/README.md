@@ -39,8 +39,8 @@ import { partition } from '/node_modules/lodash-es/lodash.js';
 
 Install the package:
 
-```bash
-npm i -D @web/dev-server-esbuild
+```
+npm i -D @web/dev-server-import-maps
 ```
 
 Add the plugin to your `web-dev-server-config.mjs` or `web-test-runner.config.js`:
