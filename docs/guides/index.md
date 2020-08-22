@@ -1,7 +1,7 @@
 ---
 title: Learning Modern Web
 eleventyNavigation:
-  key: Learn
+  key: Guides
   order: 10
 ---
 
@@ -26,7 +26,7 @@ In other words, we think your goal should be to become a _web_ developer first, 
 a _framework_ developer.
 
 [MDN](https://developer.mozilla.org) is an excellent resource for learning web APIs and practices.
-We recommend [MDN's Getting started with the web](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web) as the foundation of any web development curriculum.
+We recommend [MDN's Getting started with the web](https://developer.mozilla.org/en-US/docs/guides/Getting_started_with_the_web) as the foundation of any web development curriculum.
 
 To that, we'd like to add some choice notes from our collective decades in the industry.
 

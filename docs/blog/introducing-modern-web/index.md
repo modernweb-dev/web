@@ -31,7 +31,7 @@ This announcement marks the official release of Modern Web. Our website is live 
 
 ### Guides
 
-On our all new [website](https://modern-web.dev), we've included a ["Guide"](../../learn/web-development/getting-started.md) section that teaches modern and not so modern browsers features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that are often underused or misunderstood.
+On our all new [website](https://modern-web.dev), we've included a ["Guide"](../../guides/web-development/getting-started.md) section that teaches modern and not so modern browsers features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that are often underused or misunderstood.
 
 ### Web Dev Server
 
@@ -115,7 +115,7 @@ This is the minimal instruction on how to start using the web test runner.
    Finished running tests in 0.9s, all tests passed! 🎉
    ```
 
-You can find more detailed instructions in the [Getting Started Guide](../../learn/test-runner/getting-started.md).
+You can find more detailed instructions in the [Getting Started Guide](../../guides/test-runner/getting-started.md).
 
 ## Watch and debug
 
@@ -154,7 +154,7 @@ Number of the file to focus: 2
 
 Once a test file is focused you can also open it directly in the browser.
 
-You can find more detailed instructions in the [Watch and Debug Guide](../../learn/test-runner/watch-and-debug/index.md).
+You can find more detailed instructions in the [Watch and Debug Guide](../../guides/test-runner/watch-and-debug/index.md).
 
 ## Test in multiple browsers using playwright
 
@@ -188,7 +188,7 @@ Finished running tests in 3.4s, all tests passed! 🎉
 As you can see, we've executed 2 test files in 3 different real browsers.
 If all your tests are green you can't get any more confident about your code. So let's ship it!
 
-See more instructions in the [Browsers Guide](../../learn/test-runner/browsers.md).
+See more instructions in the [Browsers Guide](../../guides/test-runner/browsers.md).
 
 ## Testing responsive views
 
@@ -240,7 +240,7 @@ describe('isMobile', () => {
 });
 ```
 
-If you want to know more, like for example how to test CSS media queries see the [Responsive Guide](../../learn/test-runner/responsive.md). See the [commands documentation](../../docs/test-runner/commands.md) to learn more about additional features like emulating media, setting the user agent or writing your own commands.
+If you want to know more, like for example how to test CSS media queries see the [Responsive Guide](../../guides/test-runner/responsive.md). See the [commands documentation](../../docs/test-runner/commands.md) to learn more about additional features like emulating media, setting the user agent or writing your own commands.
 
 ## Taking code coverage into account
 
@@ -261,7 +261,7 @@ To enable it you add the `--coverage` flag.
 }
 ```
 
-See more instructions in the [Code Coverage Guide](../../learn/test-runner/code-coverage/index.md).
+See more instructions in the [Code Coverage Guide](../../guides/test-runner/code-coverage/index.md).
 
 ## Using TypesScript
 
@@ -324,7 +324,7 @@ npm run build
 npm run test
 ```
 
-See more instructions in the [Using TypeScript Guide](../../learn/test-runner/using-typescript.md).
+See more instructions in the [Using TypeScript Guide](../../guides/test-runner/using-typescript.md).
 
 ## Enable your needs with custom plugins
 
@@ -363,7 +363,7 @@ export default {
 
 This is only one example and plugins can do way more and if you want to go even more low level you can also write your own koa middleware.
 
-See more instructions in the [Writing Plugin Guide](../../learn/test-runner/writing-plugin.md).
+See more instructions in the [Writing Plugin Guide](../../guides/test-runner/writing-plugin.md).
 
 ## Thanks for reading
 

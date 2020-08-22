@@ -30,7 +30,7 @@ When your browser visits a web page, it essentially asks the server responsible 
 for an HTML document, which may or may not link to other resources like images, CSS stylesheets or
 JavaScript. The browser accesses each of those resources using an [HTTP `GET` request](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET). The web server's primary job is to provide that HTML document and its sub-resources to the browser.
 
-For example, when you visited this web page, your browser sent a `GET https://modern-web.dev/docs/learn/standards-based/servers-and-clients/` request
+For example, when you visited this web page, your browser sent a `GET https://modern-web.dev/docs/guides/standards-based/servers-and-clients/` request
 
 ## DNS
 

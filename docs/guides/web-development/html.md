@@ -48,7 +48,7 @@ There are three basic types of URLs which you can link to:
 The most specific type of URL is the fully-qualified URL. They contain a protocol; zero, one, or more subdomains; a domain name; and an optional path. They refer specifically to a single, unique resource. Some examples:
 
 - `https://www.google.com`
-- `https://modern-web.dev/docs/learn/standards-based/html/`
+- `https://modern-web.dev/docs/guides/standards-based/html/`
 - `ws://demos.kaazing.com/echo`
 
 Links with fully qualified URLs can link a page on your server, to pages on another server. This is what puts the "world-wide" in "world-wide-web". All the links to [MDN](https://developer.mozilla.org) in this article are like that.
@@ -140,7 +140,7 @@ A list:
 
 ### DIV Soup
 
-Sometimes, when you [inspect a web page](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools), you'll see something like this:
+Sometimes, when you [inspect a web page](https://developer.mozilla.org/en-US/docs/guides/Common_questions/What_are_browser_developer_tools), you'll see something like this:
 
 ```html
 <div class="css-698um9">
@@ -158,4 +158,4 @@ As much as possible, developers should strive to use the semantically correct HT
 
 ## Learn more
 
-If you wanna know more check out MDN's [HTML basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics).
+If you wanna know more check out MDN's [HTML basics](https://developer.mozilla.org/en-US/docs/guides/Getting_started_with_the_web/HTML_basics).

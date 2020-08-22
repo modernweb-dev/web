@@ -28,7 +28,7 @@ The dev server can also transform TS on the fly using `esbuild.` It is the faste
 
 ## Other module formats
 
-The browser only supports standard es modules, using `import` and `export` statements. Check out [es modules docs](../../../learn/standards-based/es-modules.md) to learn more about using es modules and supporting other module formats such as CommonJS and UMD.
+The browser only supports standard es modules, using `import` and `export` statements. Check out [es modules docs](../../../guides/standards-based/es-modules.md) to learn more about using es modules and supporting other module formats such as CommonJS and UMD.
 
 ## Environment variables
 

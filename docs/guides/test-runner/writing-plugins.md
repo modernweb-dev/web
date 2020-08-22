@@ -318,5 +318,5 @@ _Note: Plugins are an abstraction over koa middlewares - if you need more contro
 We can now write our own plugins to transform existing files or server virtual files.
 Plugins offer even more functionalities so be sure to check out the docs.
 
-All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/learn/test-runner-writing-plugins).
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner-writing-plugins).
 See the [documentation of @web/test-runner](../../docs/test-runner/overview.md).

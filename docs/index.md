@@ -20,7 +20,7 @@ callToActionItems:
         c-0.066-16.06,8.09-30.553,21.817-38.767c17.018-10.183,36.458-15.534,56.355-15.534c0.7,0,1.4,0.007,2.1,0.019
         c59.982,1.137,108.411,50.9,107.956,110.931C390.145,192.986,390.127,193.908,390.098,194.825z"/>
         </svg>',
-      href: '/learn/',
+      href: '/guides/',
     },
     { text: 'Browse Docs
         <?xml version="1.0" encoding="iso-8859-1"?><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"	 viewBox="0 0 502 502" style="enable-background:new 0 0 502 502;" xml:space="preserve">

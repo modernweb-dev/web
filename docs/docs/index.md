@@ -7,7 +7,7 @@ eleventyNavigation:
 
 Our documentation is hand crafted and optimized to serve as a dictionary to look up details once the need arises.
 
-For a more guided learning experience please visit our [Guides](../learn/index.md).
+For a more guided learning experience please visit our [Guides](../guides/index.md).
 
 Documentation for the following packages is available:
 

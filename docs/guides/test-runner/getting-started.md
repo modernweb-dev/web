@@ -82,9 +82,9 @@ fair enough - we didn't create a test file yet.
    test/sum.test.js:
 
    🚧 404 network requests:
-       - demo/learn/test-runner-getting-started/src/sum.js
+       - demo/guides/test-runner-getting-started/src/sum.js
 
-   ❌ TypeError: Failed to fetch dynamically imported module: http://localhost:9685/demo/learn/test-runner-getting-started/test/sum.test.js
+   ❌ TypeError: Failed to fetch dynamically imported module: http://localhost:9685/demo/guides/test-runner-getting-started/test/sum.test.js
 
    Chrome: |██████████████████████████████| 1/1 test files | 0 passed, 0 failed
    ```
@@ -134,6 +134,6 @@ fair enough - we didn't create a test file yet.
 
 ## Learn more
 
-All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/learn/test-runner-getting-started).
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner-getting-started).
 
 See the [documentation of @web/test-runner](../../docs/test-runner/overview.md).
