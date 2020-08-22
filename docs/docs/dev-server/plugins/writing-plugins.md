@@ -91,7 +91,7 @@ export interface Plugin {
 
 ## Plugins hooks
 
-### Hook: serve
+## Hook: serve
 
 The serve hook can be used to serve virtual files from the server. The first plugin to respond with a body is used. It can return a Promise.
 
@@ -153,7 +153,7 @@ export default {
 
 </details>
 
-### Hook: resolveMimeType
+## Hook: resolveMimeType
 
 Browsers don't use file extensions to know how to interpret files. Instead, they use [media or MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) which is set using the `content-type` header.
 
@@ -208,7 +208,7 @@ export default {
 
 </details>
 
-### Hook: transform
+## Hook: transform
 
 The transform hook is called for each file and can be used to change a file's content before it is served to the browser. Multiple plugins can transform a single file. It can return a Promise.
 
@@ -340,7 +340,7 @@ export default {
 
 </details>
 
-### Hook: resolveImport
+## Hook: resolveImport
 
 The `resolveImport` hook is called for each module import. It can be used to resolve module imports before it reaches the browser. When a one plugin returns a resolved, further resolve hooks are not called.
 
@@ -367,7 +367,7 @@ export default {
 
 </details>
 
-### Hook: transformImport
+## Hook: transformImport
 
 The `transformImport` hook is called for each module import. It can be used to transform module imports before they reach the browser. The difference from `resolveImport` is that this hook is always called for all plugins.
 
@@ -391,7 +391,7 @@ export default {
 
 </details>
 
-### Hook: serverStart
+## Hook: serverStart
 
 The `serverStart` hook is called when the server starts. It is the ideal location to boot up other servers you will proxy to. It receives the server config, which you can use if plugins need access to general information such as the `rootDir` or `appIndex`. It also receives the HTTP server, Koa app, and `chokidar` file watcher instance. These can be used for more advanced plugins. This hook can be async, and it awaited before actually booting the server and opening the browser.
 
@@ -454,7 +454,7 @@ export default {
 
 </details>
 
-### Hook: serverStop
+## Hook: serverStop
 
 The `serverStop` hook is called when the server stops. You can use this to do cleanup work, such as closing connections
 
@@ -480,7 +480,7 @@ Boot up another server for proxying in serverStart:
 
 </details>
 
-### Koa Context
+## Koa Context
 
 The plugin hooks simply receive the Koa `Context` object. This contains information about the server's request and response. Check the [Koa documentation](https://koajs.com/) to learn more about this.
 

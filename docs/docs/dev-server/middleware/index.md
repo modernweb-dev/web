@@ -10,7 +10,7 @@ You can add your own middleware to the dev server using the `middleware` propert
 
 You can use middleware to modify responses to any request from the browser, for example, to rewrite a URL or proxy to another server. For serving or manipulating files it's recommended to use plugins.
 
-### Proxying requests
+## Proxying requests
 
 <details>
   <summary>Read more</summary>
@@ -30,7 +30,7 @@ export default {
 
 </details>
 
-### Rewriting request urls
+## Rewriting request urls
 
 You can rewrite certain file requests using a simple middleware. This can be useful for example to serve your `index.html` from a different file location or to alias a module.
 

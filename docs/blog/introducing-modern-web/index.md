@@ -13,9 +13,9 @@ We are excited to finally introduce our brand new project: Modern Web.
 
 ## What is Modern Web?
 
-A few years ago we started the [Open Web Components](https://open-wc.org/) project. Our goal was to help people develop web components, and we created guides and tools to help people do this. While working on this project, we realized that a lot of the things we were making were not necessarily specific to web components.
+A few years ago we started the \*[Open Web Components](https://open-wc.org/) project. Our goal was to help people develop web components, and we created guides and tools to help people do this. While working on this project, we realized that a lot of the things we were making were not necessarily specific to web components.
 
-To maintain focus within the open-wc project, and to share our work with the larger developer community, we decided to split up the project and create Modern Web. Open Web Components will gain a renewed focus for web component specific topics, while in Modern Web we will work on generic tools and guides for web development.
+To maintain focus within the Open Web Components project, and to share our work with the larger developer community, we decided to split up the project and create Modern Web. Open Web Components will gain a renewed focus for web component specific topics, while in Modern Web we will work on generic tools and guides for web development.
 
 ## The goal for Modern Web
 
@@ -31,23 +31,23 @@ This announcement marks the official release of Modern Web. Our website is live 
 
 ### Guides
 
-On our all new [website](https://modern-web.dev), we've included a ["Learn"](../../learn/standards-based/) section that teaches modern and not so modern browsers features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that are often underused or misunderstood.
+On our all new [website](https://modern-web.dev), we've included a ["Guide"](../../learn/web-development/getting-started.md) section that teaches modern and not so modern browsers features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that are often underused or misunderstood.
 
-### Dev server
+### Web Dev Server
 
-`es-dev-server` is the most popular package at open-wc. It is also the prime example of a tool that is not limited to web components alone. We've been working on its spiritual successor which we will call `@web/dev-server`.
+`es-dev-server` is the most popular package at Open Web Components. It is also the prime example of a tool that is not limited to web components alone. We've been working on its spiritual successor which we will call `web dev server` and we will publish it as the `@web/dev-server` package.
 
 The most important improvements are first-class support for rollup plugins through [@web/dev-server-rollup](../../docs/dev-server/plugins/rollup.md) as well as the ability to plug into `esbuild` loaders through [@web/dev-server-esbuild](../../docs/dev-server/plugins/esbuild.md).
 
-Our new dev server is not quite finished _yet_, but we've already built the basic parts to power our new test runner. We will finalize our work on the dev server very soon.
+Our web dev server is not quite finished _yet_, but we've already built the basic parts to power our web test runner. We are working hard on finalizing the open tasks on web dev server so stay tuned for further updates.
 
-### Test Runner
+### Web Test Runner
 
-We are very excited to announce today the official release candidate of [@web/test-runner](../../docs/test-runner/overview.md), a project we have been working on for the past months.
+We are very excited to announce today the official release candidate of [web test runner](../../docs/test-runner/overview.md), a project we have been working on for the past months.
 
-There are already a lot of testing solutions out there today. Unfortunately, all of them either run tests in Node.js and mock browser APIs using something like JSDom or don't support native es modules out of the box. We think that making browser code compatible for testing in node is unnecessarily complex. Running tests in real browsers gives greater confidence in (cross-browser) compatibility and makes writing and debugging tests much simpler.
+There are already a lot of testing solutions out there today. Unfortunately, all of them either run tests in Node.js and mock browser APIs using something like JSDom or don't support native es modules out of the box. We think that making browser code compatible for testing in node is unnecessarily complex. Running tests in real browsers gives greater confidence in (cross-browser) compatibility and makes writing and debugging tests more approachable.
 
-By building on top of our dev server, and modern browser launchers like Puppeteer and Playwright, we created a new test runner which fills this gap in the ecosystem. We think it is already feature-complete enough to be picked up by any web project.
+By building on top of our web dev server, and modern browser launchers like Puppeteer and Playwright, we created a new test runner which fills this gap in the ecosystem. We think it is already feature-complete enough to be picked up by any web project.
 
 Some highlights:
 
@@ -62,7 +62,7 @@ Some highlights:
 
 ## Getting started with Web Test Runner
 
-This is the minimal instruction on how to start using the test runner.
+This is the minimal instruction on how to start using the web test runner.
 
 1. Install the necessary packages
 
@@ -115,7 +115,7 @@ This is the minimal instruction on how to start using the test runner.
    Finished running tests in 0.9s, all tests passed! 🎉
    ```
 
-You can find more detailed instructions in the [getting-started](../../learn/test-runner/getting-started/) learn section.
+You can find more detailed instructions in the [Getting Started Guide](../../learn/test-runner/getting-started.md).
 
 ## Watch and debug
 
@@ -154,7 +154,7 @@ Number of the file to focus: 2
 
 Once a test file is focused you can also open it directly in the browser.
 
-You can find more detailed instructions in the [watch-and-debug](../../learn/test-runner/watch-and-debug/) learn section.
+You can find more detailed instructions in the [Watch and Debug Guide](../../learn/test-runner/watch-and-debug/index.md).
 
 ## Test in multiple browsers using playwright
 
@@ -188,7 +188,7 @@ Finished running tests in 3.4s, all tests passed! 🎉
 As you can see, we've executed 2 test files in 3 different real browsers.
 If all your tests are green you can't get any more confident about your code. So let's ship it!
 
-See more instructions in the [using-launchers](../../learn/test-runner/using-launchers/) learn section.
+See more instructions in the [Browsers Guide](../../learn/test-runner/browsers.md).
 
 ## Testing responsive views
 
@@ -240,7 +240,7 @@ describe('isMobile', () => {
 });
 ```
 
-If you want to know more, like for example how to test CSS media queries see the [responsive](../../learn/test-runner/responsive/) learn section. See the [commands documentation](../../docs/test-runner/commands/) to learn more about additional features like emulating media, setting the user agent or writing your own commands.
+If you want to know more, like for example how to test CSS media queries see the [Responsive Guide](../../learn/test-runner/responsive.md). See the [commands documentation](../../docs/test-runner/commands.md) to learn more about additional features like emulating media, setting the user agent or writing your own commands.
 
 ## Taking code coverage into account
 
@@ -261,13 +261,70 @@ To enable it you add the `--coverage` flag.
 }
 ```
 
-See more instructions in the [code-coverage](../../learn/test-runner/code-coverage/) learn section.
+See more instructions in the [Code Coverage Guide](../../learn/test-runner/code-coverage/index.md).
 
-## Supporting TypesScript and JSX via esbuild
+## Using TypesScript
 
-...
+> Browsers don't support Typescript syntax. Your code will need to be transformed before it is served to the browser, adding extra complexity and compilation time. While typescript can be a powerful addition to your project, we generally don't recommend it for beginners.
 
-See more instructions in the [typescript-jsx-esbuild](../../learn/test-runner/typescript-jsx-esbuild/) learn section.
+First, we need to install the required dependencies:
+
+```
+npm i -D @web/test-runner @esm-bundle/chai @types/mocha typescript
+```
+
+Add the `src/sum.ts` file:
+
+```ts
+export function sum(...numbers: number[]) {
+  let sum = 0;
+  for (const number of numbers) {
+    sum += number;
+  }
+  return sum;
+}
+```
+
+Add the `test/sum.test.ts` file:
+
+```ts
+import { expect } from '@esm-bundle/chai';
+import { sum } from '../src/sum.js';
+
+it('sums up 2 numbers', () => {
+  expect(sum(1, 1)).to.equal(2);
+  expect(sum(3, 12)).to.equal(15);
+});
+
+it('sums up 3 numbers', () => {
+  expect(sum(1, 1, 1)).to.equal(3);
+  expect(sum(3, 12, 5)).to.equal(20);
+});
+```
+
+> Notice that we're using the `.js` extension in our import. With native es modules, file extensions are required so we recommend using them even in Typescript files.
+
+The easiest way to use Typescript with the test runner is to use `tsc`, the official typescript compiler.
+
+To do this, we first need to add some scripts to our `package.json`:
+
+```json
+{
+  "scripts": {
+    "test": "web-test-runner \"test/**/*.test.js\" --node-resolve",
+    "build": "tsc"
+  }
+}
+```
+
+To execute you run
+
+```
+npm run build
+npm run test
+```
+
+See more instructions in the [Using TypeScript Guide](../../learn/test-runner/using-typescript.md).
 
 ## Enable your needs with custom plugins
 
@@ -306,7 +363,7 @@ export default {
 
 This is only one example and plugins can do way more and if you want to go even more low level you can also write your own koa middleware.
 
-See more instructions in the [writing-plugin](../../learn/test-runner/writing-plugin/) learn section.
+See more instructions in the [Writing Plugin Guide](../../learn/test-runner/writing-plugin.md).
 
 ## Thanks for reading
 

@@ -14,7 +14,7 @@ as we do.
 If you've already established yourself but want to see what a standards-based approach to web dev can
 offer, we think you'll be surprised how far the in-built web's capabilities have evolved.
 
-## Standards-Based Development
+## Web Development
 
 Over the last several years, web development has become almost synonymous with web _framework_ development.
 Indeed, the proliferation and popularity of front-end web frameworks has lead many in
@@ -37,12 +37,17 @@ To that, we'd like to add some choice notes from our collective decades in the i
 - [ES Modules](./standards-based/es-modules.md)
 - [Components](./standards-based/components.md)
 
-## Test Runner
+## Web Test Runner
 
 Testing your code is very important to have the confidence to release often.
 Green tests should mean that the change is good to go 👍
 
 How can you get to this state as well?
 
-- [Getting started](./test-runner/getting-started.md)
+- [Getting Started](./test-runner/getting-started.md)
 - [Watch and debug](./test-runner/watch-and-debug.md)
+- [Browsers](./test-runner/browsers.md)
+- [Responsive](./test-runner/responsive.md)
+- [Code Coverage](./test-runner/code-coverage.md)
+- [Using TypeScript](./test-runner/using-typescript.md)
+- [Writing Plugins](./test-runner/writing-plugins.md)
