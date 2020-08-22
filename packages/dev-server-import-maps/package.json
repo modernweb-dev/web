@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-import-maps",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "publishConfig": {
     "access": "public"
   },
@@ -51,7 +51,7 @@
     "picomatch": "^2.2.2"
   },
   "devDependencies": {
-    "@web/test-runner": "^0.7.5"
+    "@web/test-runner": "^0.7.6"
   },
   "exports": {
     ".": {

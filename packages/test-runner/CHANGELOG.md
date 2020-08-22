@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.7.6
+
+### Patch Changes
+
+- 74bbffe: implemented import maps plugin
+- Updated dependencies [74bbffe]
+  - @web/test-runner-core@0.7.3
+
 ## 0.7.5
 
 ### Patch Changes
