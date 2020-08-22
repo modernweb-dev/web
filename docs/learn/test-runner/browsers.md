@@ -64,7 +64,7 @@ If all your tests are green you can't get any more confident about your code. So
 
 ## Using Browserstack
 
-For modern browsers we recommend using other browser launchers, as they are a lot faster. Browserstack can be used to target older browser versions. Check the [docs](../../docs/browsers/browserstack.md) to learn how to set it up.
+For modern browsers we recommend using other browser launchers, as they are a lot faster. Browserstack can be used to target older browser versions. Check the [docs](../../docs/test-runner/browsers/browserstack.md) to learn how to set it up.
 
 ## Learn more
 
