@@ -19,8 +19,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "node ../test-runner/dist/test-runner.js test-custom/**/*.test.ts",
-    "test:watch": "node ../test-runner/dist/test-runner.js test-custom/**/*.test.ts --watch"
+    "test": "node ../test-runner/dist/test-runner.js test-browser/**/*.test.ts",
+    "test:watch": "node ../test-runner/dist/test-runner.js test-browser/**/*.test.ts --watch"
   },
   "files": [
     "*.d.ts",
@@ -39,13 +39,13 @@
     "serialize",
     "deserialize"
   ],
-  "devDependencies": {
-    "@bundled-es-modules/chai": "^4.2.2"
-  },
   "exports": {
     ".": {
       "import": "./index.mjs",
       "require": "./dist/index.js"
     }
+  },
+  "devDependencies": {
+    "@esm-bundle/chai": "^4.1.5"
   }
 }

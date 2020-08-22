@@ -13,7 +13,7 @@ export default {
             'chai/': '/node_modules/chai/',
             sinon: '/node_modules/sinon/pkg/sinon-esm.js',
             '@web/test-runner-mocha': '/packages/test-runner-mocha/dist/standalone.js',
-            '@bundled-es-modules/chai': '/node_modules/@bundled-es-modules/chai/index.js',
+            '@esm-bundle/chai': '/node_modules/@esm-bundle/chai/index.js',
           },
         },
       },

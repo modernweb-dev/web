@@ -27,23 +27,35 @@ Then we create a test file in accordance with popper documentation
 👉 `test/tooltip.test.js`
 
 ```js
-import { expect, fixture, html } from '@open-wc/testing';
 import { createPopper } from '@popperjs/core';
 
 it('can use popper', async () => {
-  const wrapper = await fixture(html`
+  const fixture = document.createElement('div');
+  fixture.innerHTML = `
     <div>
+      <style>
+        #tooltip {
+          background-color: #333;
+          color: white;
+          padding: 5px 10px;
+          border-radius: 4px;
+          font-size: 13px;
+        }
+      </style>
+
       <button id="button" aria-describedby="tooltip">I'm a button</button>
       <div id="tooltip" role="tooltip">I'm a tooltip</div>
     </div>
-  `);
+  `;
+  document.body.appendChild(fixture);
 
-  const button = wrapper.querySelector('#button');
-  const tooltip = wrapper.querySelector('#tooltip');
+  const button = fixture.querySelector('#button');
+  const tooltip = fixture.querySelector('#tooltip');
 
   createPopper(button, tooltip, {
     placement: 'right',
   });
+  fixture.remove();
 });
 ```
 
@@ -140,8 +152,6 @@ hello world
 /node_modules/@popperjs/core/lib/dom-utils/getDocumentElement.js
 hello world
 /node_modules/@popperjs/core/lib/dom-utils/getComputedStyle.js
-hello world
-/node_modules/@open-wc/testing-helpers/src/fixture-no-side-effect.js
 hello world
 /node_modules/@popperjs/core/lib/utils/getOppositePlacement.js
 ```

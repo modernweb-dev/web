@@ -888,11 +888,6 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@bundled-es-modules/chai@^4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@bundled-es-modules/chai/-/chai-4.2.2.tgz#88dffebd7cd1e87397738107c3c54b9b4ea56e5e"
-  integrity sha512-iGmVYw2/zJCoqyKTtWEYCtFmMyi8WmACQKtky0lpNyEKWX0YIOpKWGD7saMXL+tPpllss0otilxV0SLwyi3Ytg==
-
 "@changesets/apply-release-plan@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@changesets/apply-release-plan/-/apply-release-plan-4.0.0.tgz#e78efb56a4e459a8dab814ba43045f2ace0f27c9"
@@ -1131,6 +1126,13 @@
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@d4kmor/navigation/-/navigation-0.1.3.tgz#61c48008818fe30a88078ac4d16cbe2f37d0010e"
   integrity sha512-ek7+oqCwlD+gKdWgHYMNOwBCirNagKrgMFINiVTPzw4AG7VCX0LL7CVNT7uW2tyuSGFolPI4BItr+4qKEXzd2w==
+
+"@esm-bundle/chai@^4.1.5":
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/@esm-bundle/chai/-/chai-4.1.5.tgz#4d709d93af5364a8e06f40cec0200d223409931e"
+  integrity sha512-gAsVEoNufupcbM1Yli7ufbj7jja2qJrzLHhO8vqhiiM1r4NKOl/8ewtjtJMmhgCBG0ET2lnFhXWEFm9LjwZRbQ==
+  dependencies:
+    "@types/chai" "^4.2.12"
 
 "@hapi/address@2.x.x":
   version "2.1.4"
@@ -1656,7 +1658,7 @@
   resolved "https://registry.yarnpkg.com/@types/caniuse-api/-/caniuse-api-3.0.0.tgz#af31cc52062be0ab24583be072fd49b634dcc2fe"
   integrity sha512-wT1VfnScjAftZsvLYaefu/UuwYJdYBwD2JDL2OQd01plGmuAoir5V6HnVHgrfh7zEwcasoiyO2wQ+W58sNh2sw==
 
-"@types/chai@*", "@types/chai@^4.2.11":
+"@types/chai@*", "@types/chai@^4.2.11", "@types/chai@^4.2.12":
   version "4.2.12"
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.2.12.tgz#6160ae454cd89dae05adc3bb97997f488b608201"
   integrity sha512-aN5IAC8QNtSUdQzxu7lGBgYAOuU1tmRU4c9dIq5OKGf/SBVjXo+ffM2wEjudAWbgpOhy60nLoAGH1xm8fpCKFQ==

@@ -41,7 +41,7 @@ We want to be able to pass in a string like `1 + 2 + 3` to get its sum.
 👉 `test/calc.test.js`
 
 ```js
-import { expect } from '@open-wc/testing';
+import { expect } from '@esm-bundle/chai';
 import { calc } from '../src/calc.js';
 
 it('calculates sums', () => {

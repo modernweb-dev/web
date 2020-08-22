@@ -64,10 +64,10 @@ Some highlights:
 
 This is the minimal instruction on how to start using the test runner.
 
-1. Install the test runner
+1. Install the necessary packages
 
    ```
-   npm i -D @web/test-runner @open-wc/testing
+   npm i -D @web/test-runner @esm-bundle/chai
    ```
 
 2. Add a script to your `package.json`
@@ -84,7 +84,7 @@ This is the minimal instruction on how to start using the test runner.
 3. Create a test file `test/sum.test.js`.
 
    ```js
-   import { expect } from '@open-wc/testing';
+   import { expect } from '@esm-bundle/chai';
    import { sum } from '../src/sum.js';
 
    it('sums up 2 numbers', () => {
@@ -223,7 +223,7 @@ npm i -D @web/test-runner-commands
 With that, we get a `setViewport` method which we can use.
 
 ```js
-import { expect } from '@open-wc/testing';
+import { expect } from '@esm-bundle/chai';
 import { setViewport } from '@web/test-runner-commands';
 import { isMobile } from '../src/isMobile';
 

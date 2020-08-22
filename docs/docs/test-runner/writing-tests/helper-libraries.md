@@ -6,17 +6,31 @@ eleventyNavigation:
   order: 30
 ---
 
-[@open-wc/testing](https://open-wc.org/testing/testing.html) is a general-purpose library, including assertions via chai, HTML test fixtures, a11y tests, and test helpers.
+Not all helper libraries ship es modules which are usable in the browser. On this page we collect libraries which are available as es modules. If need to use a library with another module format, you can follow the instructions at the bottom of the [es modules page](../../../learn/web-development/es-modules.md)
 
-It is an opinionated implementation that brings together multiple libraries. You could also use the individual libraries together:
+## General libraries
 
-- [@bundled-es-modules/chai](https://www.npmjs.com/package/@bundled-es-modules/chai)
-- [@open-wc/testing-helpers](https://www.npmjs.com/package/@open-wc/testing-helpers)
-- [@open-wc/chai-dom-equals](https://www.npmjs.com/package/@open-wc/chai-dom-equals)
-- [chai-a11y-axe](https://www.npmjs.com/package/chai-a11y-axe)
+[@open-wc/testing](https://open-wc.org/testing/testing.html) is a general-purpose library, including assertions via chai, HTML test fixtures, a11y tests, and test helpers. It is an opinionated implementation that brings together multiple libraries.
 
-For stubbing and mocking, we recommend [sinon](https://www.npmjs.com/package/sinon) which ships an es module variant out of the box:
+## Assertions
+
+[chai](https://www.npmjs.com/package/chai) is a popular assertion library. It doesn't ship an es module, but you can use [@esm-bundle/chai](https://www.npmjs.com/package/@esm-bundle/chai) for that.
 
 ```js
-import { stub, useFakeTimers } from 'sinon';
+import { expect } from '@esm-bundle/chai';
+
+expect(undefined).to.not.be.a('function');
 ```
+
+## Chai plugins
+
+- [@open-wc/chai-dom-equals](https://www.npmjs.com/package/@open-wc/chai-dom-equals) for diffing HTML
+- [chai-a11y-axe](https://www.npmjs.com/package/chai-a11y-axe) for testing accessibility
+
+## Testing helpers
+
+[@open-wc/testing-helpers](https://www.npmjs.com/package/@open-wc/testing-helpers) contains useful helper functions for setting up snippets of HTML test fixtures, and testing async behavior
+
+## Mocking
+
+For stubbing and mocking, we recommend [sinon](https://www.npmjs.com/package/sinon). Check the [mocking page](./mocking.md) for more.

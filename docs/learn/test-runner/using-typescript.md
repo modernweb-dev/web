@@ -17,7 +17,7 @@ To get started with Typescript we recommend getting familiar with it first using
 First, we need to install the required dependencies:
 
 ```
-npm i -D @web/test-runner @open-wc/testing typescript
+npm i -D @web/test-runner @esm-bundle/chai @types/mocha typescript
 ```
 
 Next, we need to run initialize typescript for our project:
@@ -61,7 +61,7 @@ export function sum(...numbers: number[]) {
 Add the `test/sum.test.ts` file:
 
 ```ts
-import { expect } from '@open-wc/testing';
+import { expect } from '@esm-bundle/chai';
 import { sum } from '../src/sum.js';
 
 it('sums up 2 numbers', () => {
