@@ -44,7 +44,7 @@ Web test runner looks for a configuration file in the current working directory 
 
 The file extension can be `.js`, `.cjs` or `.mjs`. A `.js` file will be loaded as an es module or common js module based on your version of node, and the package type of your project.
 
-We recommend writing the configuration using [node js es module](https://nodejs.org/api/esm.html) syntax, and using the `.mjs` just to make sure your config is always loaded correctly. All the examples in our documentation use es module syntax, but the config can be written as common js as well.
+We recommend writing the configuration using [node js es module](https://nodejs.org/api/esm.html) syntax, and using the `.mjs` file extension to make sure your config is always loaded correctly. All the examples in our documentation use es module syntax, but the config can be written as common js as well.
 
 <details>
 <summary>View examples</summary>

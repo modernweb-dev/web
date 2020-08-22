@@ -156,7 +156,7 @@ Now what happens if we have many tests that all require a certain viewport?
 Always writing `await setViewport({ width: 1200, height: 1000 });` seems kinda repetitive.
 
 For these cases mocha offers nested describes and `beforeEach`.
-This special function `beforeEach` will be called before each of the tests in its `describe`.
+If there is a function `beforeEach` will be called before each of the tests in its `describe`.
 
 In this case it would be called three times and each test can be sure to be executed with the correct viewport no matter what other test do while they are running.
 

@@ -144,7 +144,7 @@ We need a way to define "A thing that logs" which is separate from "A thing that
 
 ### Class Mixins
 
-JS class mixins let us share behaviours using class syntax. At it's heart, class mixins are just function composition. JS classes are functions, and class mixins are higher order functions on classes.
+JS class mixins let us share behaviours using class syntax. At it's heart, class mixins are function composition. JS classes are functions, and class mixins are higher order functions on classes.
 
 You define a class mixin like you would any other function.
 

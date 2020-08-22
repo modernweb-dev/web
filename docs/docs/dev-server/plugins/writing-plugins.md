@@ -6,7 +6,7 @@ eleventyNavigation:
   order: 6
 ---
 
-A plugin is just an object that you add to the `plugins` array in your configuration file. You can add an object directly, or create one from a function somewhere:
+A plugin is an object that you add to the `plugins` array in your configuration file. You can add an object directly, or create one from a function somewhere:
 
 <details>
   <summary>Read more</summary>
@@ -482,8 +482,8 @@ Boot up another server for proxying in serverStart:
 
 ## Koa Context
 
-The plugin hooks simply receive the Koa `Context` object. This contains information about the server's request and response. Check the [Koa documentation](https://koajs.com/) to learn more about this.
+The plugin hooks receive the raw Koa `Context` object. This contains information about the server's request and response. Check the [Koa documentation](https://koajs.com/) to learn more about this.
 
-To transform specific kinds of files we don't recommend relying on file extensions. Other plugins may be using non-standard file extensions. Instead, you should use the server's MIME type or content-type header. You can easily check this using the `context.response.is()` function. This is used a lot in the examples above.
+To transform specific kinds of files we don't recommend relying on file extensions. Other plugins may be using non-standard file extensions. Instead, you should use the server's MIME type or content-type header. You can check by using the `context.response.is()` function. This is used a lot in the examples above.
 
 Because files can be requested with query parameters and hashes, we recommend using `context.path` for reading the path segment of the URL only. If you do need to access search parameters, we recommend using `context.URL.searchParams.get('my-parameter')`.

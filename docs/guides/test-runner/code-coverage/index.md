@@ -109,7 +109,7 @@ Adding a test for throwing an error will bring it to `100%`.
 ## Adding more features
 
 Let's add the possibility to `multiply`.
-While implementing `Lea` said it's time for a meeting so we just put `return; // finish later` for now.
+While implementing `Lea` said it's time for a meeting so we put `return; // finish later` for now.
 
 👉 `src/calc.js`
 
@@ -178,7 +178,7 @@ if (this.value === 'cat') {
 }
 ```
 
-Basically, your code gets littered with many many flags. Based on which flags get trigger a statistic gets created.
+In short, your code gets littered with many many flags. Based on which flags get trigger a statistic gets created.
 
 So 100% code coverage only means that every line you have in your code was executed at least once after all your tests finished. It does not mean that you tested everything, or if your tests make the correct assertions.
 

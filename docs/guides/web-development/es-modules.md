@@ -71,7 +71,7 @@ For example:
 import foo from '../node_modules/foo/index.js';
 ```
 
-In NodeJS there is special logic to resolve modules imports so that you can use bare module imports or imports without file extensions:
+In NodeJS there is logic to resolve modules imports so that you can use bare module imports or imports without file extensions:
 
 ```js
 import foo from 'foo';
@@ -120,7 +120,7 @@ Popular collections of forks are [@esm-bundle](https://github.com/esm-bundle/) a
 
 UMD modules are "universal modules", meaning they support multiple module formats in a single file. It's quite an old standard, and it doesn't support standard es modules, so it's not quite "universal" anymore. However, many libraries ship a UMD version where the library and it's dependencies are bundled into a single file. It's been the way to ship code for the browser for a long time.
 
-You can actually import these libraries using a module import, but instead of exporting something, the UMD module will register itself to the window. You can set up a simple proxy file to reexport this variable from the window.
+You can actually import these libraries using a module import, but instead of exporting something, the UMD module will register itself to the window. You can set up a proxy file to reexport this variable from the window.
 
 A good example of this is the chai library:
 

@@ -131,7 +131,7 @@ Most of you will probably be familiar with automatic rerunning of tests, but wha
 
 Focus mode is actually one of the key features when working with many test files. While developing your code, you'll often want to _focus_ on one test file only. With web test runner, you can do this straight from your terminal, to improve your workflow.
 
-Simply start the test runner in watch mode and you will see a menu at the bottom:
+Start the test runner in watch mode and you will see a menu at the bottom:
 
 ```
 Finished running tests, watching for file changes...

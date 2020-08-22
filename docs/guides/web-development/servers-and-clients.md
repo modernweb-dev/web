@@ -86,7 +86,7 @@ So when the request for `GET https://my-domain.dev/` comes in, the web server pa
 
 So this particular request is asking for the entire web root directory since the path part of the URL didn't include any specific file in the request. How does the web server know how to respond? Most web servers when given a request for a directory will look for a special file in that directory named `index.html` and serve that. It's as if the user actually typed `https://my-domain.dev/index.html` into their browser.
 
-The simplest kinds of web servers simply retrieve the file located at the path specified in the URL, relative to the web root. The web root is just the directory which that web server is configured to look in for files. For example, the [Apache](https://httpd.apache.org/) web server running on Ubuntu Linux 14.04 looks in `/var/www/html/` by default, whereas the nginx server by some default configurations looks in `/usr/share/nginx/html/`.
+The simplest kinds of web servers retrieve the file located at the path specified in the URL, relative to the web root. The web root is the directory which that web server is configured to look in for files. For example, the [Apache](https://httpd.apache.org/) web server running on Ubuntu Linux 14.04 looks in `/var/www/html/` by default, whereas the nginx server by some default configurations looks in `/usr/share/nginx/html/`.
 
 Just like on your computer, you can have as many pages and folders as you want in the web root
 
@@ -116,7 +116,7 @@ Likewise, if you were to rename `index.html` to `main.html`, then `https://my-do
 
 ### Files Outside the Web Root
 
-In the above examples, the server used the default web root `/var/www/html`, but we could just as easily have configured it to use `/var/www/html/about`, e.g. by changing into that directory and starting a server from the command line
+In the above examples, the server used the default web root `/var/www/html`, but we could also have configured it to use `/var/www/html/about`, e.g. by changing into that directory and starting a server from the command line
 
 ```
 cd /var/www/about

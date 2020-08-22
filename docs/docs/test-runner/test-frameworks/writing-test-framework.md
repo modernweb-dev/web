@@ -5,7 +5,7 @@ eleventyNavigation:
   parent: Test Frameworks
 ---
 
-Writing a test framework is straightforward, you can wrap an existing framework or create a simple one specific for your project.
+You can write your own test framework for web test runner by wrap an existing testing framework or create a specific once for your project.
 
 This is a minimal example:
 

@@ -11,7 +11,7 @@ Plugins are objects with lifecycle hooks called by the dev server or test runner
 
 Plugins share a similar API to [rollup](https://github.com/rollup/rollup) plugins. In fact, you can reuse rollup plugins in the dev server. See the [Rollup section](./rollup.md) for that, and the [examples section](./examples.md) for practical use cases.
 
-A plugin is just an object that you add to the `plugins` array in your configuration file. You can add an object directly, or create one from a function somewhere:
+A plugin is an object that you add to the `plugins` array in your configuration file. You can add an object directly, or create one from a function somewhere:
 
 In your `web-dev-server.config.js` or `web-test-runner.config.js`:
 
