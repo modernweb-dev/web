@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build",
     "build:production": "node scripts/workspaces-scripts-bin.mjs build:production",
-    "build:site": "yarn install && rocket-build",
+    "build:site": "yarn build && yarn install && rocket-build",
     "build:watch": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js,.mjs,.cjs . --fix",
@@ -29,8 +29,7 @@
   "dependencies": {
     "@d4kmor/cli": "^0.2.4",
     "@d4kmor/launch": "^0.2.8",
-    "patch-package": "^6.2.2",
-    "rollup-plugin-workbox": "^5.2.1"
+    "patch-package": "^6.2.2"
   },
   "devDependencies": {
     "@changesets/cli": "^2.9.2",
