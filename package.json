@@ -29,7 +29,8 @@
   "dependencies": {
     "@d4kmor/cli": "^0.2.4",
     "@d4kmor/launch": "^0.2.8",
-    "patch-package": "^6.2.2"
+    "patch-package": "^6.2.2",
+    "rollup-plugin-workbox": "^5.2.1"
   },
   "devDependencies": {
     "@changesets/cli": "^2.9.2",
@@ -54,7 +55,6 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.20.0",
     "rollup-plugin-terser": "^6.1.0",
-    "rollup-plugin-workbox": "^5.2.1",
     "sinon": "^9.0.2",
     "ts-node": "^8.10.2",
     "typescript": "^4.0.0-beta"
