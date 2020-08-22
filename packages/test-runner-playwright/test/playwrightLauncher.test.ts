@@ -11,8 +11,7 @@ it('runs tests with playwright', async function () {
       browsers: [
         playwrightLauncher({ product: 'chromium' }),
         playwrightLauncher({ product: 'firefox' }),
-        // webkit does not work in our CI
-        // playwrightLauncher({ product: 'webkit' }),
+        playwrightLauncher({ product: 'webkit' }),
       ],
       concurrency: 3,
     },
