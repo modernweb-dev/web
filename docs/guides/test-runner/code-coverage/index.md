@@ -90,7 +90,7 @@ In order to see what is missing we can look at the Coverage Report by `Command +
 
 There, it will show us that `calc.js` has a yellow coverage and if we click on it we can see the detailed code and what is missing.
 
-![Code Coverage with Minus and Throw missing](../../learn/test-runner/code-coverage/code-coverage-minus-throw-missing.png)
+![Code Coverage with Minus and Throw missing](../../guides/test-runner/code-coverage/code-coverage-minus-throw-missing.png)
 
 As you can see, we didn't test `minus` or what happens if an error is thrown.
 
@@ -220,5 +220,5 @@ If you need to collect coverage from all browsers, or if you're not testing for 
 
 ## Learn more
 
-All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/learn/test-runner-coverage).
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner-coverage).
 See the [documentation of @web/test-runner](../../docs/test-runner/overview.md).
