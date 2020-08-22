@@ -1,4 +1,4 @@
-import { expect } from '@bundled-es-modules/chai';
+import { expect } from '@esm-bundle/chai';
 import { serialize } from '../src/serialize.js';
 import { deserialize } from '../src/deserialize.js';
 

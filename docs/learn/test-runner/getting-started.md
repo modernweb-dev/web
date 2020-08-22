@@ -27,10 +27,10 @@ Now that we know what we want we need to place this file somewhere and run a too
 
 ## Setup tools
 
-1. Install the test runner
+1. Install the necessary packages
 
    ```
-   npm i -D @web/test-runner @open-wc/testing
+   npm i -D @web/test-runner @esm-bundle/chai
    ```
 
 2. Add a script to your `package.json`
@@ -62,7 +62,7 @@ fair enough - we didn't create a test file yet.
 1. Take the spec/test from above and create a test file `test/sum.test.js`.
 
    ```js
-   import { expect } from '@open-wc/testing';
+   import { expect } from '@esm-bundle/chai';
    import { sum } from '../src/sum.js';
 
    it('sums up 2 numbers', () => {

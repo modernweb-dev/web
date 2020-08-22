@@ -12,7 +12,7 @@ Javascript files are loaded by the test framework that is configured. The defaul
 For example:
 
 ```js
-import { expect } from '@bundled-es-modules/chai';
+import { expect } from '@esm-bundle/chai';
 import { myFunction } from '../src/myFunction.js';
 
 describe('myFunction', () => {
