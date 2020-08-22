@@ -1,7 +1,8 @@
 ---
 title: Web Test Runner
 eleventyNavigation:
-  key: Overview
+  key: Test Runner > Overview
+  title: Overview
   parent: Test Runner
   order: 1
 ---
@@ -17,17 +18,15 @@ Test runner for web applications.
 🏃&nbsp;&nbsp; Fast development by rerunning only changed tests.<br>
 🚀&nbsp;&nbsp; Powered by [esbuild](/docs/dev-server/plugins/esbuild.md) and [rollup plugins](/docs/dev-server/plugins/rollup.md)
 
-## Getting started
+## Installation
 
-### Installation
-
-Install the test runner:
+Install the web test runner:
 
 ```
 npm i -D @web/test-runner
 ```
 
-### Basic commands
+## Basic commands
 
 Do a single test run:
 
@@ -50,10 +49,10 @@ web-test-runner test/**/*.test.js --node-resolve --coverage
 wtr test/**/*.test.js --node-resolve --coverage
 ```
 
-### Guide
+## Guide
 
 Check out this [step by step guide](../../../learn/test-runner/getting-started.md) to get started.
 
-### Example projects
+## Example projects
 
 Check out the <a href="https://github.com/modernweb-dev/example-projects" target="_blank" rel="noopener noreferrer">example projects</a> for a fully integrated setup.

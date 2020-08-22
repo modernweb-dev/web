@@ -51,4 +51,7 @@ footer {
   .markdown-body {
     color: var(--primary-text-color);
   }
+  .sidebar-tags .tag {
+    background: var(--footer-background);
+  }
 }

@@ -44,7 +44,7 @@ We need to make sure that `module` is set to `ESNext`, `target` to `es2017`, and
 
 ## Add the test code
 
-In this example, we will use the same test from one of the beginner sections, and convert it to Typescript.
+In this example, we will use the same test from one of the [Getting Started Guide](./getting-started.md), and convert it to Typescript.
 
 Add the `src/sum.ts` file:
 

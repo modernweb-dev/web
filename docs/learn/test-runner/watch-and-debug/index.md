@@ -260,7 +260,7 @@ export function sum(...numbers) {
 }
 ```
 
-👆 yes `reduce` could have been used here but a simple loop is easier to read and explain (and we are in the learn section after all).
+👆 yes `reduce` could have been used here but a simple loop is easier to read and explain (and we are in the guides section after all).
 
 Now that our test is green we remove the `.only` to run all tests in our focused file.
 
