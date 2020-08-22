@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build",
     "build:production": "node scripts/workspaces-scripts-bin.mjs build:production",
-    "build:site": "rocket-build",
+    "build:site": "yarn install && rocket-build",
     "build:watch": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js,.mjs,.cjs . --fix",
