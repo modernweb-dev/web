@@ -13,7 +13,7 @@
     "install-puppeteer-firefox": "cd node_modules/puppeteer && PUPPETEER_PRODUCT=firefox node install.js",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --ext .ts,.js,.mjs,.cjs .",
-    "lint:md": "remark .",
+    "lint:md": "remark ./docs",
     "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
     "postinstall": "patch-package",
     "reinstall-workspace": "rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",

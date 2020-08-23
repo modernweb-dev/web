@@ -51,7 +51,7 @@ wtr test/**/*.test.js --node-resolve --coverage
 
 ## Guide
 
-Check out this [step by step guide](../../../guides/test-runner/getting-started.md) to get started.
+Check out this [step by step guide](../../guides/test-runner/getting-started.md) to get started.
 
 ## Example projects
 

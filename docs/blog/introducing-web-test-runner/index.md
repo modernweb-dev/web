@@ -329,7 +329,7 @@ export default {
 
 This is only one example and plugins can do way more and if you want to go even more low level you can also write your own koa middleware.
 
-See more instructions in the [Writing Plugin Guide](../../guides/test-runner/writing-plugin.md).
+See more instructions in the [Writing Plugin Guide](../../guides/test-runner/writing-plugins.md).
 
 ## Thanks for reading
 
