@@ -21,9 +21,9 @@ To maintain focus within the Open Web Components project, and to share our work 
 
 Modern browsers are a powerful platform for building websites and applications. Our goal is to work with what's available in the browser first before reaching for custom solutions.
 
-When you're working _with_ the browser rather than against it, code, skills, and knowledge remain relevant for a longer time. Development becomes faster and debugger easier because there are fewer layers of abstractions involved.
+When you're working _with_ the browser rather than against it, code, skills, and knowledge remain relevant for a longer time. Development becomes faster and debugging easier because there are fewer layers of abstractions involved.
 
-At the same time, we are not ignorant of the fact that not all problems can be solved elegantly by the browser today. We support developers making informed decisions about introducing tools and customizations to their projects, in such a way that developers can upgrade later as browser support improves.
+At the same time, we are aware of the fact that not all problems can be solved elegantly by the browser today. We support developers making informed decisions about introducing tools and customizations to their projects, in such a way that developers can upgrade later as browser support improves.
 
 ## Our plans
 
@@ -119,9 +119,9 @@ You can find more detailed instructions in the [Getting Started Guide](../../gui
 
 ## Watch and debug
 
-Once you have the basic test running you can enjoy some of the more advanced features, like for example `watch` mode.
+Once you have the basic test running you can enjoy some of the more advanced features, such as `watch` mode.
 
-With `watch` mode, the same tests will be run but you get some additional features that help with development and debugging, such as:
+With `watch` mode, the same tests will be run but you get some additional features that help with development and debugging:
 
 - Tests are rerun on file change (source or test)
 - You can focus on a specific test file
@@ -263,7 +263,7 @@ To enable it you add the `--coverage` flag.
 
 See more instructions in the [Code Coverage Guide](../../guides/test-runner/code-coverage/index.md).
 
-## Using TypesScript
+## Using TypeScript
 
 > Browsers don't support Typescript syntax. Your code will need to be transformed before it is served to the browser, adding extra complexity and compilation time. While typescript can be a powerful addition to your project, we generally don't recommend it for beginners.
 
@@ -335,7 +335,7 @@ Some packages use the global `process.env` variable to check for environment var
 
 We can, however fake it by writing a custom plugin.
 
-Plugins can be added via the configuration file `web-test-runner.config.mjs` and offer various hook into how code gets found, handled, and served.
+Plugins can be added via the configuration file `web-test-runner.config.mjs` and offer various hooks into how code gets found, handled, and served.
 For our use case the `transform` hook is useful.
 
 `web-test-runner.config.mjs`
