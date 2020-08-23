@@ -1,5 +1,6 @@
 ---
 title: Learning Modern Web
+pageTitle: Learning Modern Web
 eleventyNavigation:
   key: Guides
   order: 10

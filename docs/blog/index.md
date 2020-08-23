@@ -1,5 +1,6 @@
 ---
 title: Modern Web Blog
+pageTitle: Modern Web Blog
 layout: blog-overview.njk
 eleventyNavigation:
   key: Blog

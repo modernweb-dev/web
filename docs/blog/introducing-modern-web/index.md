@@ -1,6 +1,7 @@
 ---
 title: 'Introducing: Modern Web'
-published: false
+pageTitle: 'Introducing: Modern Web'
+published: true
 canonical_url: https://modern-web.dev/blog/introducing-modern-web/
 description: 'Introducing Modern Web and how it will enable efficient development using html, css, js with the browser while having as little abstraction as possible.'
 date: 2020-08-25
