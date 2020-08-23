@@ -51,7 +51,6 @@ export class ChromeLauncher implements BrowserLauncher {
   async start(config: TestRunnerCoreConfig, testFiles: string[]) {
     this.config = config;
     this.testFiles = testFiles;
-    this.browser = await this.launchBrowser();
   }
 
   launchBrowser(options: LaunchOptions = {}) {
@@ -101,13 +100,11 @@ export class ChromeLauncher implements BrowserLauncher {
   }
 
   async startSession(sessionId: string, url: string) {
-    if (!this.browser?.isConnected()) {
-      throw new Error('Browser is closed');
-    }
+    const browser = await this.getOrStartBrowser();
 
     let page: ChromeLauncherPage;
     if (this.inactivePages.length === 0) {
-      page = await this.createNewPage(this.browser);
+      page = await this.createNewPage(browser);
     } else {
       page = this.inactivePages.pop()!;
     }
@@ -154,15 +151,24 @@ export class ChromeLauncher implements BrowserLauncher {
 
   async stopSession(sessionId: string) {
     const page = this.activePages.get(sessionId);
-
-    if (page) {
-      const result = await page.stopSession();
-      this.activePages.delete(sessionId);
-      this.inactivePages.push(page);
-      return result;
-    } else {
+    if (!page) {
       throw new Error(`No page for session ${sessionId}`);
     }
+    if (page.puppeteerPage.isClosed()) {
+      throw new Error(`Session ${sessionId} is already stopped`);
+    }
+
+    const result = await page.stopSession();
+    this.activePages.delete(sessionId);
+    this.inactivePages.push(page);
+    return result;
+  }
+
+  private async getOrStartBrowser(): Promise<Browser> {
+    if (!this.browser || this.browser?.isConnected()) {
+      this.browser = await this.launchBrowser();
+    }
+    return this.browser;
   }
 
   getPage(sessionId: string) {
