@@ -8,7 +8,7 @@ eleventyNavigation:
 
 <dfn>HTML</dfn> stands for <q>HyperText Markup Language</q>, <q>HyperText</q> being text documents containing interactive links to other such documents, and <q>Markup</q> meaning a syntax for applying semantics (such as those links) to that document.
 
-As we saw in the [previous section](../servers-and-clients.md), HTML is the primary resource that servers send to browsers. Even if the web server is entirely dynamic, meaning it doesn't send the contents of `.html` files from its web root, it will still send a string of HTML for most requests. Every web page is, ultimately and essentially, an HTML document.
+As we saw in the [previous section](./servers-and-clients.md), HTML is the primary resource that servers send to browsers. Even if the web server is entirely dynamic, meaning it doesn't send the contents of `.html` files from its web root, it will still send a string of HTML for most requests. Every web page is, ultimately and essentially, an HTML document.
 
 The purpose of this document isn't to present a comprehensive tutorial, but to highlight some of the imporant basic aspects of HTML.
 
@@ -35,13 +35,13 @@ When we were first exploring the web back in the 90s, "View Source" let us learn
 
 The "HT" in <abbr>HTML</abbr>, "HyperText", refers to the way in which documents can link to other documents. This is the fundamental feature of <abbr>HTML</abbr> and the most important feature of the web.
 
-Hyperlinks ("links" for short) in <abbr>HTML</abbr> are represented by the [anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a). The `href` attribute contains the [URL](../servers-and-clients.md) which the hyperlink points to.
+Hyperlinks ("links" for short) in <abbr>HTML</abbr> are represented by the [anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a). The `href` attribute contains the [URL](./servers-and-clients.md) which the hyperlink points to.
 
 There are three basic types of URLs which you can link to:
 
-1. [Fully-Qualified URLs](./#fully-qualified-urls)
-2. [Absolute Urls](./#absolute-urls)
-3. [Relative Urls](./#relative-urls)
+1. [Fully-Qualified URLs](#fully-qualified-urls)
+2. [Absolute Urls](#absolute-urls)
+3. [Relative Urls](#relative-urls)
 
 ### Fully Qualified URLs
 

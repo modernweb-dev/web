@@ -18,7 +18,7 @@ the [HyperText Transfer Protocol](https://developer.mozilla.org/en-US/docs/Web/H
 
 Every resource on the web, whether it's a web page, an image, a video, a [CSS stylesheet](./css.md), some [JavaScript](./javascript.md), or anything else, is accesible via a Uniform Resource Locator, or <dfn><abbr>URL</abbr></dfn>.
 
-A URL (specifically, a ["fully-qualified"](../html/#fully-qualified-urls) URL) contains three parts
+A URL (specifically, a ["fully-qualified"](./html.md#fully-qualified-urls) URL) contains three parts
 
 1. A protocol, e.g. `https`
 2. An origin e.g. `developer.mozilla.org`

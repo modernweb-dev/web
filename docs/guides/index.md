@@ -30,12 +30,12 @@ We recommend [MDN's Getting started with the web](https://developer.mozilla.org/
 
 To that, we'd like to add some choice notes from our collective decades in the industry.
 
-- [Servers and Clients](./standards-based/servers-and-clients.md)
-- [HTML](./standards-based/html.md)
-- [CSS](./standards-based/css.md)
-- [JavaScript](./standards-based/javascript.md)
-- [ES Modules](./standards-based/es-modules.md)
-- [Components](./standards-based/components.md)
+- [Servers and Clients](./web-development/servers-and-clients.md)
+- [HTML](./web-development/html.md)
+- [CSS](./web-development/css.md)
+- [JavaScript](./web-development/javascript.md)
+- [ES Modules](./web-development/es-modules.md)
+- [Components](./web-development/components.md)
 
 ## Web Test Runner
 
@@ -45,9 +45,9 @@ Green tests should mean that the change is good to go 👍
 How can you get to this state as well?
 
 - [Getting Started](./test-runner/getting-started.md)
-- [Watch and debug](./test-runner/watch-and-debug.md)
+- [Watch and debug](./test-runner/watch-and-debug/index.md)
 - [Browsers](./test-runner/browsers.md)
 - [Responsive](./test-runner/responsive.md)
-- [Code Coverage](./test-runner/code-coverage.md)
+- [Code Coverage](./test-runner/code-coverage/index.md)
 - [Using TypeScript](./test-runner/using-typescript.md)
 - [Writing Plugins](./test-runner/writing-plugins.md)

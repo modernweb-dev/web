@@ -99,7 +99,7 @@ In this step we can do all kind of optimizations.
 
 Non the less we wanna make clear that this building is completely optional during development. You write/generate html in any way you want and once you
 
-**Why another building system?** This is not really a building system it's a suite of plugin for rollup[https://rollupjs.org/] to enable processing of html and to support conditional build for older browsers. This is needed as most current build systems only work with js files.
+**Why another building system?** This is not really a building system it's a suite of plugin for [rollup](https://rollupjs.org/) to enable processing of html and to support conditional build for older browsers. This is needed as most current build systems only work with js files.
 
 ### Key goals of web building
 

@@ -21,7 +21,7 @@ npm i -D @web/test-runner-puppeteer
 wtr test/**/*.test.js --node-resolve --puppeteer
 ```
 
-Puppeteer has experimental support for firefox. It requires an extra installation step, check [@web/test-runner-puppeteer](./browser-launchers/puppeteer.md) how to set it up.
+Puppeteer has experimental support for firefox. It requires an extra installation step, check [@web/test-runner-puppeteer](./puppeteer.md) how to set it up.
 
 ## Playwright
 
