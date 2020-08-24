@@ -61,7 +61,7 @@ Furthermore, the web dev server is our fundament for most of our other tools the
 
 - Support `bare modules` in JavaScript via node resolve
 - Serve files as is without any processing on modern browsers
-- Elaborate Plugin System (create your own)
+- Elaborate Plugin System (create your own!)
 - Enable SPA by routing all content to a specified page
 - Improved Developer Experience (for example live reload)
 - Core Plugins
@@ -95,12 +95,11 @@ If you wanna get started now take a look at our Web Test Runner [Getting Started
 
 ## Web Building
 
-Building your application is and will be a requirement a key feature if you want to get the best performance.
-In this step, we can do all kinds of optimizations.
+Building your application is and will be a requirement and a key feature if you want to bring the best performance for your users. In the build stage of your development cycle, we can apply all kinds of optimizations to your code.
 
-Non the less we wanna make clear that this building is completely optional during development. You write/generate html in any way you want and once you
+However, we'd like to make clear that a build step is completely optional during development. You write/generate html in any way you want and once you
 
-**Why another building system?** This is not really a building system it's a suite of plugin for [rollup](https://rollupjs.org/) to enable processing of html and to support conditional build for older browsers. This is needed as most current build systems only work with js files.
+**Why another building system?** Don't worry, we're not inroducing an entirely new build system, it's more of a set of plugins for [rollup](https://rollupjs.org/) to enable processing of html and to support conditional builds for older browsers.
 
 ### Key goals of web building
 
@@ -111,12 +110,15 @@ Non the less we wanna make clear that this building is completely optional durin
 - Can build two versions (for modern and legacy browsers)
 - Can configure and include only needed polyfills
 
-Our web building is not quite finished _yet_, but we will build on top of all experience we already have in this area. If you need something now you can take a look at [Open Web Components Building Rollup](https://open-wc.org/building/building-rollup.html).
+Our web building section is not quite finished _yet_, but we will build on top of the experience we already have in this area from open-wc. If you need something now you can take a look at [Open Web Components Building Rollup](https://open-wc.org/building/building-rollup.html).
+
+## Progressive Web Apps
+
+When we talk of Modern Web apps, we also talk of _Progressive_ Web Apps (PWA), and this means we'll also have a focus on the PWA space. Not only do we ship [rollup-plugin-workbox](https://www.npmjs.com/search?q=rollup-plugin-workbox) to help you generate your service worker at build time, in the future we will also have a set of zero dependency pwa-helpers as web components, as well as extensive codelabs to help you get started building your modern, progressive web apps.
 
 ## Web Documentation (rocket)
 
-Writing documentation is a daunting task and often requires different expertise than the core development of web features like components, libraries, and tools. We want to enable everyone to create a small high performant and high quality (documentation) site for their project.
-In order to archive this, we will combine all our tools with to g so developers can focus on the actual content.
+Writing documentation is a daunting task and often requires different expertise than the core development of web features like components, libraries, and tools. We want to enable everyone to create a small in filesize, high performant, and high quality (documentation) site for their project. In order to achieve this, we put together some of our tools so developers can focus on the actual content.
 
 As this is a goal that is somewhat different from our core mission we will realize this as a sister project code name "rocket".
 
@@ -125,9 +127,9 @@ As this is a goal that is somewhat different from our core mission we will reali
 ### Key goals of rocket
 
 - Use markdown as your source
-- Source markdown is readable/useable on github/gitlab/...
+- Source markdown is readable/useable on github/gitlab/etc
 - Encourage separation between Guides/Docs
-- Discourage usage of potentially "rude" language
+- Encourage usage of inclusive language
 - Make sure there are no broken links
 - Allow for interactive demos (of ui elements)
 - Do as much work as possible during building
@@ -138,16 +140,14 @@ As this is a goal that is somewhat different from our core mission we will reali
 - Enable site to be a full Progressive Web App (PWA) with offline capabilities
 - Based on [11ty](https://www.11ty.dev/), [web dev server](../../docs/dev-server/overview.md), web building
 
-Rocket is still far from being finished. Although you can see it on our [website](https://modern-web.dev) in action it is missing a lot of features and is currently relatively hardcoded to support our use case. We will continue evolving it and at some point (hopefully sooner than later) we will introduce to everyone.
+Rocket is still a ways off from being finished. Although you can already take a look at it on our [website](https://modern-web.dev). We're still missing some features, but we'll continue evolving it and at some point (hopefully sooner than later) create a separate announcement post for it. So keep an eye out for it!
 
 ## Web Components (open-wc)
 
-Modern web focuses on generic web development and will not have specific guides on web components development or specific web components tools.
+Modern Web focuses on generic web development and will not have specific guides on web component development or specific web component tools.
 We will however not avoid them as they are the webs native component system after all.
 
-Many of you may know us via Open Web Components so we want to ensure you that it's not going anymore. Modern Web is not a replacement but something complementary.
-
-**Why another components system?** It's a trick question as we can say with 100% certainty that this is not a custom component system/framework but it's documentation and helpers around the browsers built-in component system. It's functionally you don't need to ship yourself. Feel free to use it.
+Many of you may know us via Open Web Components so we want to ensure you that it's not going anywhere. Modern Web is not a replacement but something complementary.
 
 **Mission Statement Open Web Components**
 
