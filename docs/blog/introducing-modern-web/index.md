@@ -20,19 +20,19 @@ To maintain focus within the Open Web Components project, and to share our work 
 
 ## The goal for Modern Web
 
+> Our goal is to provide developers with the tools they need to build for the modern web. We believe in less abstractions and working closely with the browser.
+
 Modern browsers are a powerful platform for building websites and applications. Our goal is to work with what's available in the browser first before reaching for custom solutions.
 
 When you're working _with_ the browser rather than against it, code, skills, and knowledge remain relevant for a longer time. Development becomes faster and debugging easier because there are fewer layers of abstractions involved.
 
 At the same time, we are aware of the fact that not all problems can be solved elegantly by the browser today. We support developers making informed decisions about introducing tools and customizations to their projects, in such a way that developers can upgrade later as browser support improves.
 
-Which leads us to our **Mission Statement**:
-
-> Our goal is to enable efficient development using html, css, js with the browser while having as little abstraction as possible.
-
-To clarify it's not about using ONLY the browser - that is "impossible/impractical" - it is about the tools you need to work efficiently with the browser while having as little abstraction as possible. It's not about teaching the big 3 (html, css, js) as that is already done for example on [MDN Web Docs](https://developer.mozilla.org/en-US/). It's about after you know the big 3 - we then highlight some things commonly forgotten/misunderstood and introduce you to our tools which enable you to only rely on the big 3.
-
 This announcement marks the official release of Modern Web. Our website is live at [modern-web.dev](https://modern-web.dev), and our packages are available on NPM with the [@web](https://www.npmjs.com/org/web) namespace. Our code is open-source and publicly available at [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web). For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev), and if you like what you see please consider sponsoring the project on [Open Collective](https://opencollective.com/modern-web).
+
+In this posts we will walk you through some of the project we have been working on for the past couple of years.
+
+> Pascal help!
 
 ## Guides
 
@@ -64,11 +64,10 @@ Furthermore, the web dev server is our fundament for most of our other tools the
 - Elaborate Plugin System (create your own!)
 - Enable SPA by routing all content to a specified page
 - Improved Developer Experience (for example live reload)
-- Core Plugins
-  - Plugin to auto transpile for older browsers (to allow debugging and testing)
-  - Plugin to support [Import maps](https://github.com/WICG/import-maps)
-  - Plugin to support interoperability with [rollup plugins](https://rollupjs.org/guide/en/#plugin-development)
-  - Plugin to enable [esbuild](https://github.com/evanw/esbuild)
+- auto transpile for older browsers (to allow debugging and testing)
+- support [Import maps](https://github.com/WICG/import-maps)
+- support interoperability with [rollup plugins](https://rollupjs.org/guide/en/#plugin-development)
+- enable [esbuild](https://github.com/evanw/esbuild)
 
 Our web dev server is not quite finished _yet_, but we've already built the basic parts to power our web test runner. We are working hard on finalizing the open tasks on web dev server so stay tuned for further updates.
 
@@ -82,26 +81,26 @@ By building on top of our web dev server, and modern browser launchers like Pupp
 
 ### Key goals of web test runner
 
-- 👉&nbsp;&nbsp; Headless browsers with [Puppeteer](../../docs/test-runner/browsers/puppeteer.md), [Playwright](../../docs/test-runner/browsers/playwright.md), or [Selenium](../../docs/test-runner/browsers/selenium.md). <br>
-- 🚧&nbsp;&nbsp; Reports logs, 404s, and errors from the browser. <br>
-- 🔍&nbsp;&nbsp; Debug opens a real browser window with devtools.<br>
-- 🔧&nbsp;&nbsp; Exposes browser properties like viewport size and dark mode.<br>
-- ⏱&nbsp;&nbsp;Runs tests in parallel and isolation.<br>
-- 👀&nbsp;&nbsp; Interactive watch mode.<br>
-- 🏃&nbsp;&nbsp; Fast development by rerunning only changed tests.<br>
-- 🚀&nbsp;&nbsp; Powered by [esbuild](../../docs/dev-server/plugins/esbuild.md) and [rollup plugins](../../docs/dev-server/plugins/rollup.md)
+- Headless browsers with [Puppeteer](../../docs/test-runner/browsers/puppeteer.md), [Playwright](../../docs/test-runner/browsers/playwright.md), or [Selenium](../../docs/test-runner/browsers/selenium.md). <br>
+- Reports logs, 404s, and errors from the browser.
+- Debug opens a real browser window with devtools.
+- Mock ES modules
+- Exposes browser properties like viewport size and dark mode.
+- Runs tests in parallel and isolation.
+- Interactive watch mode.
+- Fast development by rerunning only changed tests.
+- Powered by [esbuild](../../docs/dev-server/plugins/esbuild.md) and [rollup plugins](../../docs/dev-server/plugins/rollup.md)
 
 If you wanna get started now take a look at our Web Test Runner [Getting Started Guide](../../guides/test-runner/getting-started.md).
 
-## Web Building
+## Building for Production
 
 Building your application is and will be a requirement and a key feature if you want to bring the best performance for your users. In the build stage of your development cycle, we can apply all kinds of optimizations to your code.
 
-However, we'd like to make clear that a build step is completely optional during development. You write/generate html in any way you want and once you
+This will enable the missing pieces for allowing a build solution for our recommended workflows.
+You write/generate html in any way you want and once you ready to go to production you can use these plugins.
 
-**Why another building system?** Don't worry, we're not inroducing an entirely new build system, it's more of a set of plugins for [rollup](https://rollupjs.org/) to enable processing of html and to support conditional builds for older browsers.
-
-### Key goals of web building
+### Key goals of Building for Production
 
 - Work with html/css/js files
 - Supports inline script modules
@@ -110,11 +109,31 @@ However, we'd like to make clear that a build step is completely optional during
 - Can build two versions (for modern and legacy browsers)
 - Can configure and include only needed polyfills
 
-Our web building section is not quite finished _yet_, but we will build on top of the experience we already have in this area from open-wc. If you need something now you can take a look at [Open Web Components Building Rollup](https://open-wc.org/building/building-rollup.html).
+We will build on top of the experience we already have in this area from open-wc. If you need something now you can take a look at [Open Web Components Building Rollup](https://open-wc.org/building/building-rollup.html).
 
 ## Progressive Web Apps
 
-When we talk of Modern Web apps, we also talk of _Progressive_ Web Apps (PWA), and this means we'll also have a focus on the PWA space. Not only do we ship [rollup-plugin-workbox](https://www.npmjs.com/search?q=rollup-plugin-workbox) to help you generate your service worker at build time, in the future we will also have a set of zero dependency pwa-helpers as web components, as well as extensive codelabs to help you get started building your modern, progressive web apps.
+When we talk of Modern Web apps, we also talk of _Progressive_ Web Apps (PWA), to enable you install your PWA on your phone or use it while being offline.
+
+We think PWAs are important but they are tough to get started and integrate it into your development process.
+Therefore we would like to provide technical guides and tools to enable.
+
+Not only do we ship to help you generate your service worker at build time, in the future we will also have a set of zero dependency pwa-helpers as web components, as well as extensive codelabs to help you get started building your modern, progressive web apps.
+
+> Pascal help!
+
+### Key goals Progressive Web Apps
+
+- Integrate into the build
+- We will provide missing tools like [rollup-plugin-workbox](https://www.npmjs.com/search?q=rollup-plugin-workbox)
+-
+
+## Modern Web Family
+
+Modern web will consist of multiple projects that all follow a similar mission.
+Relationship between modern web and rocket and modern web
+
+> Pascal help!
 
 ## Web Documentation (rocket)
 
@@ -130,7 +149,6 @@ As this is a goal that is somewhat different from our core mission we will reali
 - Source markdown is readable/useable on github/gitlab/etc
 - Encourage separation between Guides/Docs
 - Encourage usage of inclusive language
-- Make sure there are no broken links
 - Allow for interactive demos (of ui elements)
 - Do as much work as possible during building
 - Ship with as little js as possible
