@@ -20,21 +20,25 @@ To maintain focus within the Open Web Components project, and to share our work 
 
 ## The goal for Modern Web
 
-> Our goal is to provide developers with the tools they need to build for the modern web. We believe in less abstractions and working closely with the browser.
+> Our goal is to provide developers with the guides and tools they need to build for the modern web. We aim to work closely with the browser, and avoid complex abstractions.
 
-Modern browsers are a powerful platform for building websites and applications. Our goal is to work with what's available in the browser first before reaching for custom solutions.
+Modern browsers are a powerful platform for building websites and applications. We try to work with what's available in the browser first before reaching for custom solutions.
 
-When you're working _with_ the browser rather than against it, code, skills, and knowledge remain relevant for a longer time. Development becomes faster and debugging easier because there are fewer layers of abstractions involved.
+When you're working _with_ the browser rather than against it, code, skills, and knowledge remain relevant for a longer time. Development becomes faster and debugging is easier because there are fewer layers of abstractions involved.
 
 At the same time, we are aware of the fact that not all problems can be solved elegantly by the browser today. We support developers making informed decisions about introducing tools and customizations to their projects, in such a way that developers can upgrade later as browser support improves.
 
-This announcement marks the official release of Modern Web. Our website is live at [modern-web.dev](https://modern-web.dev), and our packages are available on NPM with the [@web](https://www.npmjs.com/org/web) namespace. Our code is open-source and publicly available at [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web). For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev), and if you like what you see please consider sponsoring the project on [Open Collective](https://opencollective.com/modern-web).
+## Our plan for the future
 
-In this posts we will walk you through some of the project we have been working on for the past couple of years.
+This announcement marks the official release of Modern Web. Our website is live at [modern-web.dev](https://modern-web.dev), and our packages are available on NPM under the [@web](https://www.npmjs.com/org/web) namespace. Our code is open-source and publicly available at [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web).
 
-> Pascal help!
+For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev), and if you like what you see please consider sponsoring the project on [Open Collective](https://opencollective.com/modern-web).
+
+We have been working on a lot of different projects in the last couple of years. In this post we will walk you through some of our projects and how are are planning to fit them into the Modern Web project.
 
 ## Guides
+
+TODO: Update this with the new buildless approach
 
 On our all-new [website](https://modern-web.dev), we've included a ["Guide"](../../guides/web-development/getting-started.md) section that teaches modern and not so modern browsers features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that are often underused or misunderstood.
 
@@ -49,17 +53,39 @@ This includes for example:
 This section is an ongoing progress and would love your feedback and improvements.
 Feel free to hit "Edit this page on GitHub!" or [open issues](https://github.com/modernweb-dev/web/issues/new) for questions.
 
+## Web Test Runner
+
+We are very excited to announce [web test runner](../../docs/test-runner/overview.md), one of the major projects we have been working on for the past months.
+
+There are already a lot of testing solutions out there today. Unfortunately, all of them either run tests in Node.js and mock browser APIs using something like JSDom or don't support native es modules out of the box.
+
+We think that making browser code compatible for testing in node is unnecessarily complex. Running tests in real browsers give greater confidence in (cross-browser) compatibility and makes writing and debugging tests more approachable.
+
+### Key features
+
+- Headless testing using [Puppeteer](../../docs/test-runner/browsers/puppeteer.md), [Playwright](../../docs/test-runner/browsers/playwright.md), or [Selenium](../../docs/test-runner/browsers/selenium.md). <br>
+- Reports logs, 404s, and errors from the browser.
+- Debug opens a real browser window with devtools.
+- Mock ES modules via [Import Maps](../../docs/test-runner/writing-tests/mocking.md)
+- Exposes browser properties like viewport size and dark mode.
+- Runs tests in parallel and isolation.
+- Interactive watch mode.
+- Fast development by rerunning only changed tests.
+- Powered by [esbuild](../../docs/dev-server/plugins/esbuild.md) and [rollup plugins](../../docs/dev-server/plugins/rollup.md)
+
+If you want get started now take a look at our Web Test Runner [Getting Started Guide](../../guides/test-runner/getting-started.md).
+
 ## Web Dev Server
 
-`es-dev-server` is the most popular package at Open Web Components. It is also the prime example of a tool that is not limited to web components alone. We've been working on its spiritual successor which we will call `web dev server` and we will publish it as the `@web/dev-server` package.
+`es-dev-server` is the most popular package at Open Web Components, but it is not specific to web components alone. That's why are working on its spiritual successor in the modern web project. We will call it web dev server, and it will be published `@web/dev-server` package.
 
-**Why another dev server?** To answer we need to understand that in a perfect world there probably would be no need for it.
-However, in our current world, we have issues to deal with and most of them are in regards to some browsers or systems not supporting a certain feature.
-Furthermore, the web dev server is our fundament for most of our other tools therefore additional capabilities like customization and advanced configurations are a requirement. None of the existing servers could support our key goals.
+If you're doing buildless development, you can use any web server for development. Our dev server helps out by providing developer productivity features and supporting compatibility features for older browsers.
 
-### Key goals of web dev server
+### Key features of the dev server
 
-- Support `bare modules` in JavaScript via node resolve
+TODO: Work on this list (or remove it)
+
+- Resolve bare module imports
 - Serve files as is without any processing on modern browsers
 - Elaborate Plugin System (create your own!)
 - Enable SPA by routing all content to a specified page
@@ -70,28 +96,6 @@ Furthermore, the web dev server is our fundament for most of our other tools the
 - enable [esbuild](https://github.com/evanw/esbuild)
 
 Our web dev server is not quite finished _yet_, but we've already built the basic parts to power our web test runner. We are working hard on finalizing the open tasks on web dev server so stay tuned for further updates.
-
-## Web Test Runner
-
-We are very excited to announce today the official release candidate of [web test runner](../../docs/test-runner/overview.md), a project we have been working on for the past months.
-
-**Why another test runner?** There are already a lot of testing solutions out there today. Unfortunately, all of them either run tests in Node.js and mock browser APIs using something like JSDom or don't support native es modules out of the box. We think that making browser code compatible for testing in node is unnecessarily complex. Running tests in real browsers give greater confidence in (cross-browser) compatibility and make writing and debugging tests more approachable.
-
-By building on top of our web dev server, and modern browser launchers like Puppeteer and Playwright, we created a new test runner which fills this gap in the ecosystem. We think it is already feature-complete enough to be picked up by any web project.
-
-### Key goals of web test runner
-
-- Headless browsers with [Puppeteer](../../docs/test-runner/browsers/puppeteer.md), [Playwright](../../docs/test-runner/browsers/playwright.md), or [Selenium](../../docs/test-runner/browsers/selenium.md). <br>
-- Reports logs, 404s, and errors from the browser.
-- Debug opens a real browser window with devtools.
-- Mock ES modules
-- Exposes browser properties like viewport size and dark mode.
-- Runs tests in parallel and isolation.
-- Interactive watch mode.
-- Fast development by rerunning only changed tests.
-- Powered by [esbuild](../../docs/dev-server/plugins/esbuild.md) and [rollup plugins](../../docs/dev-server/plugins/rollup.md)
-
-If you wanna get started now take a look at our Web Test Runner [Getting Started Guide](../../guides/test-runner/getting-started.md).
 
 ## Building for Production
 
