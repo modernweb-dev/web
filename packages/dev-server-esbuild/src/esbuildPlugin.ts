@@ -10,7 +10,6 @@ import {
   getRequestFilePath,
 } from '@web/dev-server-core';
 import { URL, pathToFileURL, fileURLToPath } from 'url';
-import { getEsbuildLoader } from './getEsbuildLoader';
 import { getEsbuildTarget } from './getEsbuildTarget';
 
 const exitProcessEvents = ['exit', 'SIGINT'];
@@ -18,8 +17,9 @@ const exitProcessEvents = ['exit', 'SIGINT'];
 export interface EsBuildPluginArgs {
   target?: string;
   js?: boolean;
-  jsx?: boolean;
   ts?: boolean;
+  json?: boolean;
+  jsx?: boolean;
   tsx?: boolean;
   jsxFactory?: string;
   jsxFragment?: string;
@@ -38,15 +38,34 @@ async function fileExists(path: string) {
 
 export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
   const esBuildTarget = args.target ?? 'auto';
-  const handledExtensions = args.loaders ? Object.keys(args.loaders).map(e => `.${e}`) : [];
+  const loaders: Record<string, Loader> = {};
+  for (const [key, value] of Object.entries(args.loaders ?? {})) {
+    loaders[key.startsWith('.') ? key : `.${key}`] = value;
+  }
   if (args.ts) {
-    handledExtensions.push('.ts');
+    loaders['.ts'] = 'ts';
   }
   if (args.jsx) {
-    handledExtensions.push('.jsx');
+    loaders['.jsx'] = 'jsx';
   }
   if (args.tsx) {
-    handledExtensions.push('.tsx');
+    loaders['.tsx'] = 'tsx';
+  }
+  if (args.json) {
+    loaders['.json'] = 'json';
+  }
+  if (args.js) {
+    loaders['.json'] = 'json';
+  }
+  if (typeof args.target === 'string') {
+    loaders['.js'] = 'js';
+  }
+  const handledExtensions = Object.keys(loaders);
+  const tsFileExtensions: string[] = [];
+  for (const [extension, loader] of Object.entries(loaders)) {
+    if (loader === 'ts' || loader === 'tsx') {
+      tsFileExtensions.push(extension);
+    }
   }
 
   let config: DevServerCoreConfig;
@@ -78,13 +97,15 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
     },
 
     resolveMimeType(context) {
-      if (handledExtensions.some(ext => context.path.endsWith(ext))) {
+      const fileExtension = path.posix.extname(context.path);
+      if (handledExtensions.includes(fileExtension)) {
         return 'js';
       }
     },
 
     async resolveImport({ source, context }) {
-      if (!((args.ts || args.tsx) && ['.tsx', '.ts'].some(ext => context.path.endsWith(ext)))) {
+      const fileExtension = path.posix.extname(context.path);
+      if (!tsFileExtensions.includes(fileExtension)) {
         // only handle typescript files
         return;
       }
@@ -107,14 +128,15 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
     },
 
     transformCacheKey(context) {
+      const fileExtension = path.posix.extname(context.path);
+      const loader = loaders[fileExtension];
       // the transformed files are cached per esbuild transform target
-      return getEsbuildLoader(context, args)
-        ? getEsbuildTarget(esBuildTarget, context.headers['user-agent'])
-        : undefined;
+      return loader ? getEsbuildTarget(esBuildTarget, context.headers['user-agent']) : undefined;
     },
 
     async transform(context) {
-      const loader = getEsbuildLoader(context, args);
+      const fileExtension = path.posix.extname(context.path);
+      const loader = loaders[fileExtension];
       if (!loader) {
         // we are not handling this file
         return;
