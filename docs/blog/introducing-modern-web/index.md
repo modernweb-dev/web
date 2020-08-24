@@ -140,7 +140,7 @@ As this is a goal that is somewhat different from our core mission we will reali
 - Enable site to be a full Progressive Web App (PWA) with offline capabilities
 - Based on [11ty](https://www.11ty.dev/), [web dev server](../../docs/dev-server/overview.md), web building
 
-Rocket is still a ways off from being finished. Although you can already take a look at it on our [website](https://modern-web.dev). We're still missing some features, but we'll continue evolving it and at some point (hopefully sooner than later) and create a separate announcement post for it. So keep an eye out for it!
+Rocket is still a ways off from being finished. Although you can already take a look at it on our [website](https://modern-web.dev). We're still missing some features, but we'll continue evolving it and at some point (hopefully sooner than later) create a separate announcement post for it. So keep an eye out for it!
 
 ## Web Components (open-wc)
 
