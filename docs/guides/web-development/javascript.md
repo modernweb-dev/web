@@ -12,7 +12,7 @@ The purpose of this document isn't to be a comprehensive introduction to JavaScr
 
 ## Referencing Reusable Assets with `import.meta.url`
 
-When publishing reusable [modules](../es-modules), you may want to include assets like images and CSS. Consider the following structure:
+When publishing reusable [modules](./es-modules.md), you may want to include assets like images and CSS. Consider the following structure:
 
 ```
 root
