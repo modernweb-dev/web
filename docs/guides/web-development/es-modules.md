@@ -2,7 +2,7 @@
 title: ECMAScript Modules
 eleventyNavigation:
   key: ES Modules
-  parent: Web Development
+  parent: Going Buildless
   order: 60
 ---
 

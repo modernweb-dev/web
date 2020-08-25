@@ -2,7 +2,7 @@
 title: JavaScript
 eleventyNavigation:
   key: JavaScript
-  parent: Web Development
+  # parent: Going Buildless
   order: 40
 ---
 

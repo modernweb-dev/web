@@ -2,7 +2,7 @@
 title: CSS
 eleventyNavigation:
   key: CSS
-  parent: Web Development
+  parent: Going Buildless
   order: 30
 ---
 
