@@ -2,7 +2,7 @@
 title: Servers and Clients
 eleventyNavigation:
   key: Servers and Clients
-  parent: Web Development
+  parent: Going Buildless
   order: 10
 ---
 

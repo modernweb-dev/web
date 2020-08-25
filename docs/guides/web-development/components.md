@@ -2,7 +2,7 @@
 title: Components
 eleventyNavigation:
   key: Components
-  parent: Web Development
+  # parent: Going Buildless
   order: 70
 ---
 

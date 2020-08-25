@@ -2,7 +2,7 @@
 title: The DOM
 eleventyNavigation:
   key: DOM
-  parent: Web Development
+  # parent: Going Buildless
   order: 50
 ---
 

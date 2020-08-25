@@ -1,7 +1,7 @@
 ---
-title: Web Development
+title: Going Buildless
 layout: with-index.njk
 eleventyNavigation:
-  key: Web Development
+  key: Going Buildless
   order: 10
 ---

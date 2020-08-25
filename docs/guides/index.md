@@ -6,42 +6,25 @@ eleventyNavigation:
   order: 10
 ---
 
-So you want to learn how to develop the modern web?
-We've gathered a selected group of practices and tutorials to help guide you on your course.
-Welcome! 👋
+## Going Buildless
 
-If you're just beginning you journey into web development, we hope you'll come to enjoy it as much
-as we do.
-If you've already established yourself but want to see what a standards-based approach to web dev can
-offer, we think you'll be surprised how far the in-built web's capabilities have evolved.
+At Modern Web, it is our goal to help developers discover buildless workflows, by working closely with the browser rather than lots of complex tooling and abstractions. In this section, we've gathered several tips, tricks, and alternatives to help you discover the browsers native capabilities, and to go buildless.
 
-## Web Development
+Over the last several years, web development has become almost synonymous with web _framework_ development. Indeed, the proliferation and popularity of front-end web frameworks has lead many in the industry know more about their framework of choice than they do about the underlying platform.
 
-Over the last several years, web development has become almost synonymous with web _framework_ development.
-Indeed, the proliferation and popularity of front-end web frameworks has lead many in
-the industry know more about their framework of choice than they do about the underlying platform.
+We feel the best way to become a well-rounded and highly-capable web developer is to focus first on learning what the web platform has to offer with as few frameworks and tools added on top as possible.
 
-We feel the best way to become a well-rounded and highly-capable web developer is to focus first on
-learning what the web platform has to offer with as few frameworks and tools added on top as possible.
-In other words, we think your goal should be to become a _web_ developer first, and only incidentally
-a _framework_ developer.
+[MDN](https://developer.mozilla.org) is an excellent resource for learning web APIs and practices. We recommend [MDN's Getting started with the web](https://developer.mozilla.org/en-US/docs/guides/Getting_started_with_the_web) as the foundation of any web development curriculum.
 
-[MDN](https://developer.mozilla.org) is an excellent resource for learning web APIs and practices.
-We recommend [MDN's Getting started with the web](https://developer.mozilla.org/en-US/docs/guides/Getting_started_with_the_web) as the foundation of any web development curriculum.
-
-To that, we'd like to add some choice notes from our collective decades in the industry.
+In this section we'd like to show you some buildless approaches and workflows, that might allow you to replace some of your tooling with built-in browser functionalities.
 
 - [Servers and Clients](./web-development/servers-and-clients.md)
-- [HTML](./web-development/html.md)
 - [CSS](./web-development/css.md)
-- [JavaScript](./web-development/javascript.md)
 - [ES Modules](./web-development/es-modules.md)
-- [Components](./web-development/components.md)
 
 ## Web Test Runner
 
-Testing your code is very important to have the confidence to release often.
-Green tests should mean that the change is good to go 👍
+Testing your code is very important to have the confidence to release often. When all your tests are passing, that means you're good to go!
 
 How can you get to this state as well?
 

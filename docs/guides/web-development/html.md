@@ -2,7 +2,7 @@
 title: HTML
 eleventyNavigation:
   key: HTML
-  parent: Web Development
+  # parent: Going Buildless
   order: 20
 ---
 
