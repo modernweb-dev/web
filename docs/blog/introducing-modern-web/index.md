@@ -34,13 +34,15 @@ To clarify it's not about using ONLY the browser - that is "impossible/impractic
 
 This announcement marks the official release of Modern Web. Our website is live at [modern-web.dev](https://modern-web.dev), and our packages are available on NPM with the [@web](https://www.npmjs.com/org/web) namespace. Our code is open-source and publicly available at [github.com/modernweb-dev/web](https://github.com/modernweb-dev/web). For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev), and if you like what you see please consider sponsoring the project on [Open Collective](https://opencollective.com/modern-web).
 
+Here is a preview of what you can expect from Modern Web in the coming months.
+
 ## Guides
 
-On our all-new [website](https://modern-web.dev), we've included a ["Guide"](../../guides/web-development/getting-started.md) section that teaches modern and not so modern browsers features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that are often underused or misunderstood.
+On our all-new [website](https://modern-web.dev), we've included a ["Guide"](../../guides/web-development/getting-started.md) section that teaches modern and not so modern browser features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that are often underused or misunderstood.
 
 This includes for example:
 
-- How web servers communicate with browsers (and it's limitations)
+- How web servers communicate with browsers (and its limitations)
 - Define the different types of links and show that semantic html makes sense
 - Practical explanation about CSS Variables
 - Importing relative resources or providing share functionality in JavaScript
@@ -95,11 +97,11 @@ If you wanna get started now take a look at our Web Test Runner [Getting Started
 
 ## Web Building
 
-Building your application is and will be a requirement and a key feature if you want to bring the best performance for your users. In the build stage of your development cycle, we can apply all kinds of optimizations to your code.
+A build step will always be a requirement and a key feature if you want to bring the best performance for your users. In the build stage of your development cycle, we can apply all kinds of optimizations to your code.
 
-However, we'd like to make clear that a build step is completely optional during development. You write/generate html in any way you want and once you
+However, we'd like to make clear that a build step is completely optional during development. You write/generate html in any way you want and once you've built the basics you can optimize your website for production. A build step can be used to improve performance, run tests, or accommodate older browsers.
 
-**Why another building system?** Don't worry, we're not inroducing an entirely new build system, it's more of a set of plugins for [rollup](https://rollupjs.org/) to enable processing of html and to support conditional builds for older browsers.
+**Why another build system?** Don't worry, we're not inroducing an entirely new build system, it's more of a set of plugins for [rollup](https://rollupjs.org/) to enable processing of html and to support conditional builds for older browsers.
 
 ### Key goals of web building
 
@@ -118,9 +120,9 @@ When we talk of Modern Web apps, we also talk of _Progressive_ Web Apps (PWA), a
 
 ## Web Documentation (rocket)
 
-Writing documentation is a daunting task and often requires different expertise than the core development of web features like components, libraries, and tools. We want to enable everyone to create a small in filesize, high performant, and high quality (documentation) site for their project. In order to achieve this, we put together some of our tools so developers can focus on the actual content.
+Writing documentation is a daunting task and often requires different expertise than the core development of web features like components, libraries, and tools. We want to enable everyone to create a small-in-filesize, high performant, and high quality (documentation) site for their project. In order to achieve this, we put together some of our tools so developers can focus on the actual content.
 
-As this is a goal that is somewhat different from our core mission we will realize this as a sister project code name "rocket".
+As this is a goal that is somewhat different from our core mission we will realize this as a sister project with the code name "rocket".
 
 **Why another documentation system?** All existing (documentation) tools we checked either ship with a huge framework or require substantial knowledge/work to set it up from scratch.
 
@@ -145,7 +147,7 @@ Rocket is still a ways off from being finished. Although you can already take a 
 ## Web Components (open-wc)
 
 Modern Web focuses on generic web development and will not have specific guides on web component development or specific web component tools.
-We will however not avoid them as they are the webs native component system after all.
+We will however not avoid them as they are the web's native component system after all.
 
 Many of you may know us via Open Web Components so we want to ensure you that it's not going anywhere. Modern Web is not a replacement but something complementary.
 
@@ -160,7 +162,7 @@ If you are interested in web components we recommend you check out [Open Web Com
 
 ## Thanks for reading
 
-We are incredibly proud of our first Modern Web Tool, and we hope you find it useful as well. If you find an issue or if you are stuck [please let us know](https://github.com/modernweb-dev/web/issues/new).
+We are incredibly proud of the work we've done, and we hope you find it useful as well. If you find an issue or if you are stuck [please let us know](https://github.com/modernweb-dev/web/issues/new).
 
 There is much, much more to come so follow us on [Twitter](https://twitter.com/modern_web_dev) and if you like what you see please consider sponsoring the project on [Open Collective](https://opencollective.com/modern-web).
 
