@@ -117,27 +117,11 @@ We will build on top of the experience we already have in this area from open-wc
 
 ## Progressive Web Apps
 
-When we talk of Modern Web apps, we also talk of _Progressive_ Web Apps (PWA), to enable you install your PWA on your phone or use it while being offline.
+When we talk of Modern Web apps, we also talk of _Progressive_ Web Apps (PWA). PWAs are a great way to provide an engaging and user-friendly experience for your user, by allowing your app to work offline, and being able to install your web app on the user's homescreen, among many other benefits.
 
-We think PWAs are important but they are tough to get started and integrate it into your development process.
-Therefore we would like to provide technical guides and tools to enable.
+Unfortunately, service workers are close to rocket science, and implementing PWA features isn't always as straightforward as it could be. Thats why we'll provide technical guides and tools to make your life as a developer easier.
 
-Not only do we ship to help you generate your service worker at build time, in the future we will also have a set of zero dependency pwa-helpers as web components, as well as extensive codelabs to help you get started building your modern, progressive web apps.
-
-> Pascal help!
-
-### Key goals Progressive Web Apps
-
-- Integrate into the build
-- We will provide missing tools like [rollup-plugin-workbox](https://www.npmjs.com/search?q=rollup-plugin-workbox)
--
-
-## Modern Web Family
-
-Modern web will consist of multiple projects that all follow a similar mission.
-Relationship between modern web and rocket and modern web
-
-> Pascal help!
+Not only do we ship [rollup-plugin-workbox](https://www.npmjs.com/search?q=rollup-plugin-workbox) to help you generate your service worker at build time, in the future we will also have a set of zero dependency pwa-helpers as web components and vanilla javascript functions, as well as extensive codelabs to help you get started building your modern, progressive web apps.
 
 ## Web Documentation (rocket)
 
@@ -179,6 +163,12 @@ Open Web Components will be transformed and will regain its focus on Web Compone
 Furthermore, we will adopt Modern Web best practices regarding documentation by using rocket once it's a little more mature.
 
 If you are interested in web components we recommend you check out [Open Web Components](https://open-wc.org).
+
+## Modern Web Family
+
+Welp, that was a lot of information for a first announcement post — we realize, but many of these projects have been years in the making, and are finally finding their right home. As we mentioned before, Modern Web is all about making the life of developers easier, reducing complexity of tools, and staying close to the browser. 
+
+While we have now spread out over multiple repos like Open WC, Modern Web, and Rocket, we'd like to assure you that all of these projects fall under the same Modern Web Family, and aim to help make your life as developers easier.
 
 ## Thanks for reading
 
