@@ -57,11 +57,11 @@ Feel free to hit "Edit this page on GitHub!" or [open issues](https://github.com
 
 We are very excited to announce [web test runner](../../docs/test-runner/overview.md), one of the major projects we have been working on for the past months.
 
-There are already a lot of testing solutions out there today. Unfortunately, all of them either run tests in Node.js and mock browser APIs using something like JSDom or don't support native es modules out of the box.
+There are already a lot of testing solutions out there today. Unfortunately, all of them either run tests in Node.js and mock browser APIs using something like JSDom or they don't support native es modules out of the box.
 
 We think that making browser code compatible for testing in node is unnecessarily complex. Running tests in real browsers give greater confidence in (cross-browser) compatibility and makes writing and debugging tests more approachable.
 
-### Key features
+### Highlights
 
 - Headless testing using [Puppeteer](../../docs/test-runner/browsers/puppeteer.md), [Playwright](../../docs/test-runner/browsers/playwright.md), or [Selenium](../../docs/test-runner/browsers/selenium.md). <br>
 - Reports logs, 404s, and errors from the browser.
@@ -81,21 +81,21 @@ If you want get started now take a look at our Web Test Runner [Getting Started 
 
 If you're doing buildless development, you can use any web server for development. Our dev server helps out by providing developer productivity features and supporting compatibility features for older browsers.
 
-### Key features of the dev server
+### Highlights
 
-TODO: Work on this list (or remove it)
+- Acts like a real web server, without any flags it serves code untransformed to the browser
+- Efficient caching of unchanged files between reloads
+- Resolve bare module imports using `--node-resolve`
+- Auto reload on file changes with `--watch`
+- Compatibility with older browsers using `--esbuild-target`
+- Extensive [plugin system](../../docs/dev-server/plugins/overview.md)
+- Integration with [esbuild](../../docs/dev-server/plugins/esbuild.md) for fast transformation of JS, TS and JSX.
+- Reuse most [rollup plugins](../../docs/dev-server/plugins/rollup.md) in the dev server
+- Plugin for polyfilling [Import maps](../../docs/dev-server/plugins/import-maps.md) during development
 
-- Resolve bare module imports
-- Serve files as is without any processing on modern browsers
-- Elaborate Plugin System (create your own!)
-- Enable SPA by routing all content to a specified page
-- Improved Developer Experience (for example live reload)
-- auto transpile for older browsers (to allow debugging and testing)
-- support [Import maps](https://github.com/WICG/import-maps)
-- support interoperability with [rollup plugins](https://rollupjs.org/guide/en/#plugin-development)
-- enable [esbuild](https://github.com/evanw/esbuild)
+Our web dev server is not quite finished _yet_, but we've already built the basic parts to power our web test runner. This means that many of the listed features and plugins apply to our test runner as well.
 
-Our web dev server is not quite finished _yet_, but we've already built the basic parts to power our web test runner. We are working hard on finalizing the open tasks on web dev server so stay tuned for further updates.
+We are working hard on finalizing the open tasks on web dev server so stay tuned for further updates.
 
 ## Building for Production
 
