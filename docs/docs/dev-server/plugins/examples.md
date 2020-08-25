@@ -3,7 +3,7 @@ title: Examples
 eleventyNavigation:
   key: Examples
   parent: Plugins
-  order: 1
+  order: 2
 ---
 
 Common examples using plugins.
