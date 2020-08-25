@@ -24,6 +24,7 @@ export class PlaywrightLauncher implements BrowserLauncher {
   private activeDebugPages = new Map<string, PlaywrightLauncherPage>();
   private inactivePages: PlaywrightLauncherPage[] = [];
   private testCoveragePerSession = new Map<string, CoverageMapData>();
+  private __launchBrowserPromise?: Promise<Browser>;
 
   constructor(
     private product: ProductType,
@@ -108,8 +109,14 @@ export class PlaywrightLauncher implements BrowserLauncher {
   }
 
   private async getOrStartBrowser(): Promise<Browser> {
+    if (this.__launchBrowserPromise) {
+      return this.__launchBrowserPromise;
+    }
+
     if (!this.browser || !this.browser?.isConnected()) {
-      this.browser = await playwright[this.product].launch(this.launchOptions);
+      this.__launchBrowserPromise = playwright[this.product].launch(this.launchOptions);
+      this.browser = await this.__launchBrowserPromise;
+      this.__launchBrowserPromise = undefined;
     }
     return this.browser;
   }

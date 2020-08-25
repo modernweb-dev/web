@@ -29,6 +29,7 @@ export class ChromeLauncher implements BrowserLauncher {
   private activePages = new Map<string, ChromeLauncherPage>();
   private activeDebugPages = new Map<string, ChromeLauncherPage>();
   private inactivePages: ChromeLauncherPage[] = [];
+  private __launchBrowserPromise?: Promise<Browser>;
 
   constructor(
     private launchOptions: LaunchOptions,
@@ -165,8 +166,14 @@ export class ChromeLauncher implements BrowserLauncher {
   }
 
   private async getOrStartBrowser(): Promise<Browser> {
+    if (this.__launchBrowserPromise) {
+      return this.__launchBrowserPromise;
+    }
+
     if (!this.browser || !this.browser?.isConnected()) {
-      this.browser = await this.launchBrowser();
+      this.__launchBrowserPromise = this.launchBrowser();
+      this.browser = await this.__launchBrowserPromise;
+      this.__launchBrowserPromise = undefined;
     }
     return this.browser;
   }
