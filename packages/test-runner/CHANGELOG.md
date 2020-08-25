@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.7.8
+
+### Patch Changes
+
+- 22c85b5: fix handle race condition when starting browser
+- da80c1d: fixed collecting test coverage on chrome/puppeteer
+- Updated dependencies [22c85b5]
+- Updated dependencies [da80c1d]
+  - @web/test-runner-chrome@0.6.3
+
 ## 0.7.7
 
 ### Patch Changes
