@@ -108,7 +108,7 @@ export class PlaywrightLauncher implements BrowserLauncher {
   }
 
   private async getOrStartBrowser(): Promise<Browser> {
-    if (!this.browser || this.browser?.isConnected()) {
+    if (!this.browser || !this.browser?.isConnected()) {
       this.browser = await playwright[this.product].launch(this.launchOptions);
     }
     return this.browser;

@@ -165,7 +165,7 @@ export class ChromeLauncher implements BrowserLauncher {
   }
 
   private async getOrStartBrowser(): Promise<Browser> {
-    if (!this.browser || this.browser?.isConnected()) {
+    if (!this.browser || !this.browser?.isConnected()) {
       this.browser = await this.launchBrowser();
     }
     return this.browser;
