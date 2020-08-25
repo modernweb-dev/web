@@ -20,7 +20,7 @@ To maintain focus within the Open Web Components project, and to share our work 
 
 ## The goal for Modern Web
 
-> Our goal is to provide developers with the guides and tools they need to build for the modern web. We aim to work closely with the browser, and avoid complex abstractions.
+> Our goal is to provide developers with the guides and tools they need to build for the modern web. We aim to work closely with the browser and avoid complex abstractions.
 
 Modern browsers are a powerful platform for building websites and applications. We try to work with what's available in the browser first before reaching for custom solutions.
 
@@ -34,24 +34,13 @@ This announcement marks the official release of Modern Web. Our website is live 
 
 For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev), and if you like what you see please consider sponsoring the project on [Open Collective](https://opencollective.com/modern-web).
 
-We have been working on a lot of different projects in the last couple of years. In this post we will walk you through some of our projects and how are are planning to fit them into the Modern Web project.
+We have been working on a lot of different projects in the last couple of years. In this post, we will walk you through some of our projects and how are planning to fit them into the Modern Web project.
 
 ## Guides
 
-TODO: Update this with the new buildless approach
+On our all-new [website](https://modern-web.dev), we've included a ["Guide"](../../guides/web-development/getting-started.md). Here we feature step by step guides to work with our tools, and we document common issues developers run into when doing buildless development.
 
-On our all-new [website](https://modern-web.dev), we've included a ["Guide"](../../guides/web-development/getting-started.md) section that teaches modern and not so modern browsers features that help with development. We don't aim to duplicate content already available on other websites, we primarily cover features and concepts that are often underused or misunderstood.
-
-This includes for example:
-
-- How web servers communicate with browsers (and it's limitations)
-- Define the different types of links and show that semantic html makes sense
-- Practical explanation about CSS Variables
-- Importing relative resources or providing share functionality in JavaScript
-- Practical explanation about the JavaScript module loading system
-
-This section is an ongoing progress and would love your feedback and improvements.
-Feel free to hit "Edit this page on GitHub!" or [open issues](https://github.com/modernweb-dev/web/issues/new) for questions.
+This section is an ongoing progress, we're looking to add more over time and would love your feedback and improvements. Feel free to hit "Edit this page on GitHub!", [open issues](https://github.com/modernweb-dev/web/issues/new) or [join the discussions](https://github.com/modernweb-dev/web/discussions).
 
 ## Web Test Runner
 
@@ -59,7 +48,7 @@ We are very excited to announce [web test runner](../../docs/test-runner/overvie
 
 There are already a lot of testing solutions out there today. Unfortunately, all of them either run tests in Node.js and mock browser APIs using something like JSDom or they don't support native es modules out of the box.
 
-We think that making browser code compatible for testing in node is unnecessarily complex. Running tests in real browsers give greater confidence in (cross-browser) compatibility and makes writing and debugging tests more approachable.
+We think that making browser code compatible for testing in node is unnecessarily complex. Running tests in real browsers give greater confidence in (cross-browser) compatibility and make writing and debugging tests more approachable.
 
 ### Highlights
 
@@ -107,11 +96,11 @@ We plan to expand on this plugin further, adding support for optimizing assets s
 
 ## Progressive web apps
 
-When we talk about modern web apps, we also talk about _progressive_ web apps (PWA). PWAs are a great way to provide an engaging and user-friendly experience for your user, by allowing your app to work offline, and being able to install your web app on the user's homescreen, among many other benefits.
+When we talk about modern web apps, we also talk about _progressive_ web apps (PWA). PWAs are a great way to provide an engaging and user-friendly experience for your user, by allowing your app to work offline, and being able to install your web app on the user's home screen, among many other benefits.
 
-Unfortunately, service workers are close to rocket science, and implementing PWA features isn't always as straightforward as it could be. Thats why we'll provide technical guides and tools to make your life as a developer easier.
+Unfortunately, service workers are close to rocket science, and implementing PWA features isn't always as straightforward as it could be. That's why we'll provide technical guides and tools to make your life as a developer easier.
 
-Not only do we ship [rollup-plugin-workbox](https://www.npmjs.com/search?q=rollup-plugin-workbox) to help you generate your service worker at build time, in the future we will also have a set of zero dependency pwa-helpers as web components and vanilla javascript functions, as well as extensive codelabs to help you get started building your modern, progressive web apps.
+Not only do we ship [rollup-plugin-workbox](https://www.npmjs.com/search?q=rollup-plugin-workbox) to help you generate your service worker at build time, in the future we will also have a set of zero dependency pwa-helpers as web components and vanilla javascript functions. As well as codelabs to help you get started building your modern, progressive web apps.
 
 ## Documentation (rocket)
 
@@ -127,25 +116,9 @@ By combining existing tools in this way, we think we've made something very powe
 
 It's still in it's early stages, but we're already using a prototype for our own [website](https://modern-web.dev). We're still missing some features, we'll continue evolving it announcement it separately when it's finished. So keep an eye out for it!
 
-## Web Components (open-wc)
-
-Modern Web focuses on generic web development and will not have specific guides on web component development or specific web component tools.
-We will however not avoid them as they are the webs native component system after all.
-
-Many of you may know us via Open Web Components so we want to ensure you that it's not going anywhere. Modern Web is not a replacement but something complementary.
-
-**Mission Statement Open Web Components**
-
-> The goal of Open Web Components is to empower everyone with a powerful and battle-tested setup for sharing open-source web components. We try to achieve this by giving a set of recommendations and defaults on how to facilitate your web component project. Our recommendations include: developing, linting, testing, tooling, demoing, publishing, and automating.
-
-Open Web Components will be transformed and will regain its focus on Web Components when we move most generic tools into Modern Web.
-Furthermore, we will adopt Modern Web best practices regarding documentation by using rocket once it's a little more mature.
-
-If you are interested in web components we recommend you check out [Open Web Components](https://open-wc.org).
-
 ## Modern Web Family
 
-Welp, that was a lot of information for a first announcement post — we realize, but many of these projects have been years in the making, and are finally finding their right home. As we mentioned before, Modern Web is all about making the life of developers easier, reducing complexity of tools, and staying close to the browser.
+Welp, that was a lot of information for a first announcement post — we realize, but many of these projects have been years in the making, and are finally finding their right home. As we mentioned before, Modern Web is all about making the life of developers easier, reducing the complexity of tools, and staying close to the browser.
 
 While we have now spread out over multiple repos like Open WC, Modern Web, and Rocket, we'd like to assure you that all of these projects fall under the same Modern Web Family, and aim to help make your life as developers easier.
 
