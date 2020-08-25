@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.5.3
+
+### Patch Changes
+
+- 60de9b5: improve handling of undefined and null in browser logs
+- Updated dependencies [60de9b5]
+  - @web/browser-logs@0.1.2
+
 ## 0.5.2
 
 ### Patch Changes

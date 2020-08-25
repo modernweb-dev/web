@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.5.2
+
+### Patch Changes
+
+- e71eae9: restart browser on timeout
+- Updated dependencies [60de9b5]
+  - @web/browser-logs@0.1.2
+
 ## 0.5.1
 
 ### Patch Changes
