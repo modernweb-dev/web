@@ -3,7 +3,7 @@ title: 'Introducing: Modern Web'
 pageTitle: 'Introducing: Modern Web'
 published: true
 canonical_url: https://modern-web.dev/blog/introducing-modern-web/
-description: 'Introducing Modern Web and how it will enable efficient development using html, css, js with the browser while having as little abstraction as possible.'
+description: 'Our goal is to provide developers with the guides and tools they need to build for the modern web. We aim to work closely with the browser, and avoid complex abstractions'
 date: 2020-08-25
 tags: [javascript, open-source]
 cover_image: /blog/introducing-modern-web/introducing-modern-web-blog-header.jpg
@@ -97,7 +97,7 @@ Our web dev server is not quite finished _yet_, but we've already built the basi
 
 We are working hard on finalizing the open tasks on web dev server so stay tuned for further updates.
 
-## Building for Production
+## Building for production
 
 Building your application is and will be a requirement and a key feature if you want to bring the best performance for your users. In the build stage of your development cycle, we can apply all kinds of optimizations to your code.
 
@@ -115,17 +115,17 @@ You write/generate html in any way you want and once you ready to go to producti
 
 We will build on top of the experience we already have in this area from open-wc. If you need something now you can take a look at [Open Web Components Building Rollup](https://open-wc.org/building/building-rollup.html).
 
-## Progressive Web Apps
+## Progressive web apps
 
-When we talk of Modern Web apps, we also talk of _Progressive_ Web Apps (PWA). PWAs are a great way to provide an engaging and user-friendly experience for your user, by allowing your app to work offline, and being able to install your web app on the user's homescreen, among many other benefits.
+When we talk about modern web apps, we also talk about _progressive_ web apps (PWA). PWAs are a great way to provide an engaging and user-friendly experience for your user, by allowing your app to work offline, and being able to install your web app on the user's homescreen, among many other benefits.
 
 Unfortunately, service workers are close to rocket science, and implementing PWA features isn't always as straightforward as it could be. Thats why we'll provide technical guides and tools to make your life as a developer easier.
 
 Not only do we ship [rollup-plugin-workbox](https://www.npmjs.com/search?q=rollup-plugin-workbox) to help you generate your service worker at build time, in the future we will also have a set of zero dependency pwa-helpers as web components and vanilla javascript functions, as well as extensive codelabs to help you get started building your modern, progressive web apps.
 
-## Web Documentation (rocket)
+## Documentation (rocket)
 
-Writing documentation is a daunting task and often requires different expertise than the core development of web features like components, libraries, and tools. We want to enable everyone to create a small in filesize, high performant, and high quality (documentation) site for their project. In order to achieve this, we put together some of our tools so developers can focus on the actual content.
+Writing documentation is a daunting task and often requires different expertise than the developing components, libraries, and tools. We want to enable everyone to create a small in filesize, high performant, and high quality (documentation) site for their project. In order to achieve this, we put together some of our tools so developers can focus on the actual content.
 
 As this is a goal that is somewhat different from our core mission we will realize this as a sister project code name "rocket".
 
@@ -166,7 +166,7 @@ If you are interested in web components we recommend you check out [Open Web Com
 
 ## Modern Web Family
 
-Welp, that was a lot of information for a first announcement post — we realize, but many of these projects have been years in the making, and are finally finding their right home. As we mentioned before, Modern Web is all about making the life of developers easier, reducing complexity of tools, and staying close to the browser. 
+Welp, that was a lot of information for a first announcement post — we realize, but many of these projects have been years in the making, and are finally finding their right home. As we mentioned before, Modern Web is all about making the life of developers easier, reducing complexity of tools, and staying close to the browser.
 
 While we have now spread out over multiple repos like Open WC, Modern Web, and Rocket, we'd like to assure you that all of these projects fall under the same Modern Web Family, and aim to help make your life as developers easier.
 
