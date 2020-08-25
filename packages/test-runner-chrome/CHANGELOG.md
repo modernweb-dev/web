@@ -1,5 +1,13 @@
 # @web/test-runner-chrome
 
+## 0.6.2
+
+### Patch Changes
+
+- 4d29bb4: restart browser after timeout
+- Updated dependencies [60de9b5]
+  - @web/browser-logs@0.1.2
+
 ## 0.6.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.1.2
+
+### Patch Changes
+
+- 60de9b5: improve handling of undefined and null in browser logs
+
 ## 0.1.1
 
 ### Patch Changes
