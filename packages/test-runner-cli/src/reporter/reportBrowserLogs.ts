@@ -14,6 +14,10 @@ function transformLogArgs(
   sourceMapFunction: SourceMapFunction,
 ) {
   return logArgs.map(log => {
+    if (log == null) {
+      return log;
+    }
+
     if (log[MARKER_BROWSER_ERROR]) {
       const error = log as BrowserError;
       if (!error.stack) {

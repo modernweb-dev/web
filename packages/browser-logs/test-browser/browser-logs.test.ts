@@ -248,3 +248,41 @@ it('handles errors', () => {
   expect(deserialized.message).to.equal(error.message);
   expect(deserialized.stack).to.equal(error.stack);
 });
+
+it('handles null', () => {
+  const serialized = serialize(null);
+  const deserialized = deserialize(serialized);
+  expect(deserialized).to.equal(null);
+});
+
+it('handles undefined', () => {
+  const serialized = serialize(undefined);
+  const deserialized = deserialize(serialized);
+  expect(deserialized).to.equal(undefined);
+});
+
+it('handles undefined in an object', () => {
+  const serialized = serialize({ x: undefined });
+  const deserialized = deserialize(serialized);
+  expect(deserialized).to.eql({ x: undefined });
+});
+
+it('handles undefined in an array', () => {
+  const serialized = serialize([1, undefined, '2', undefined]);
+  const deserialized = deserialize(serialized);
+  expect(deserialized).to.eql([1, undefined, '2', undefined]);
+});
+
+it('handles multiple undefined values', () => {
+  const serialized = serialize({
+    a: { a1: undefined, a2: undefined, a3: { x: undefined } },
+    b: undefined,
+    c: { q: [1, undefined] },
+  });
+  const deserialized = deserialize(serialized);
+  expect(deserialized).to.eql({
+    a: { a1: undefined, a2: undefined, a3: { x: undefined } },
+    b: undefined,
+    c: { q: [1, undefined] },
+  });
+});

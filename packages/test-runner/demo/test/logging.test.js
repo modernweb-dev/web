@@ -63,3 +63,8 @@ console.log(foo);
 const url = new URL(window.location);
 console.log(url);
 console.log(url.searchParams);
+
+console.log(undefined);
+console.log(null);
+console.log({ x: undefined });
+console.log([undefined, null]);

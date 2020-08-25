@@ -74,6 +74,10 @@ function createReplacer() {
       objectStack.shift();
     }
 
+    if (value === undefined) {
+      return { [KEY_WTR_TYPE]: 'undefined' };
+    }
+
     if (value == null) {
       return value;
     }
