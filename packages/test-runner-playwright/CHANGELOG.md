@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.5.3
+
+### Patch Changes
+
+- 22c85b5: fix handle race condition when starting browser
+
 ## 0.5.2
 
 ### Patch Changes
