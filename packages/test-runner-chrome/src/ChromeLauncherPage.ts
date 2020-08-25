@@ -21,10 +21,9 @@ export class ChromeLauncherPage {
     }
   }
 
-  async runSession(url: string, debug: boolean) {
+  async runSession(url: string, coverage: boolean) {
     if (
-      !debug &&
-      this.config.coverage &&
+      coverage &&
       this.config.coverageConfig?.nativeInstrumentation !== false &&
       !this.nativeInstrumentationEnabledOnPage &&
       this.product === 'chromium'
@@ -43,7 +42,6 @@ export class ChromeLauncherPage {
       this.collectTestCoverage(this.config, this.testFiles),
       Promise.all(this.logs),
     ]);
-
     return { testCoverage, browserLogs };
   }
 
