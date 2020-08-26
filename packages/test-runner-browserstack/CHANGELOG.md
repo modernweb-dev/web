@@ -1,5 +1,14 @@
 # @web/test-runner-browserstack
 
+## 0.1.2
+
+### Patch Changes
+
+- ce2a2e6: align dependencies
+- Updated dependencies [ce2a2e6]
+  - @web/dev-server-legacy@0.1.2
+  - @web/test-runner-selenium@0.2.2
+
 ## 0.1.1
 
 ### Patch Changes

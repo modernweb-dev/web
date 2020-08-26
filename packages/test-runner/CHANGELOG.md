@@ -1,5 +1,16 @@
 # @web/test-runner
 
+## 0.7.10
+
+### Patch Changes
+
+- ce2a2e6: align dependencies
+- Updated dependencies [ce2a2e6]
+  - @web/dev-server-rollup@0.2.3
+  - @web/test-runner-chrome@0.6.4
+  - @web/test-runner-cli@0.5.4
+  - @web/test-runner-commands@0.1.3
+
 ## 0.7.9
 
 ### Patch Changes

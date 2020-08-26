@@ -1,5 +1,13 @@
 # @web/test-runner-chrome
 
+## 0.6.4
+
+### Patch Changes
+
+- ce2a2e6: align dependencies
+- Updated dependencies [ce2a2e6]
+  - @web/test-runner-coverage-v8@0.1.2
+
 ## 0.6.3
 
 ### Patch Changes
