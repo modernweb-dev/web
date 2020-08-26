@@ -68,7 +68,11 @@ function createReplacer() {
   // maintain a stack of seen objects to handle circular references
   var objectStack: any[] = [];
 
-  return function replacer(this: any, _: string, value: unknown) {
+  return function replacer(this: any, key: string, value: unknown) {
+    if (this[KEY_WTR_TYPE]) {
+      return value;
+    }
+
     // move up the stack if we just stepped out of an object
     while (objectStack.length && this !== objectStack[0]) {
       objectStack.shift();
