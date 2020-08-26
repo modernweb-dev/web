@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.3.4
+
+### Patch Changes
+
+- fe753a8: update to the latest core
+
 ## 0.3.3
 
 ### Patch Changes
