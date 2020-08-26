@@ -38,7 +38,7 @@ We have been working on a lot of different projects in the last couple of years.
 
 ## Guides
 
-On our all-new [website](https://modern-web.dev), we have a dedicated [Guides](../../guides/index.md) section. It is dedicated in helping you to get confident in our modern web way of working. It feature step by step guides to work with our tools, and we documented common issues developers run into when doing buildless development.
+On our all-new [website](https://modern-web.dev), we have a dedicated [Guides](../../guides/index.md) section. It is meant to help you to get confident building for the modern web. It features step by step guides to work with our tools, and we document common issues developers run into when doing buildless development.
 
 This section is an ongoing progress, we're looking to add more over time and would love your feedback and improvements. Feel free to hit "Edit this page on GitHub!", [open issues](https://github.com/modernweb-dev/web/issues/new) or [join the discussions](https://github.com/modernweb-dev/web/discussions).
 
@@ -124,7 +124,7 @@ While we have now spread out over multiple repos like Open WC, Modern Web, and R
 
 ## Thanks for reading
 
-We are incredibly proud of what we archived so far and the direction we are heading and we invite you to join us on our path forward.
+We are incredibly proud of what we have achieved so far and the direction we are heading and we invite you to join us on our path forward.
 
 There is much, much more to come so follow us on [Twitter](https://twitter.com/modern_web_dev) and if you like what you see please consider sponsoring the project on [Open Collective](https://opencollective.com/modern-web).
 
