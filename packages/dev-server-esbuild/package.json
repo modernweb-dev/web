@@ -44,7 +44,7 @@
     "transform"
   ],
   "dependencies": {
-    "@web/dev-server-core": "^0.2.1",
+    "@web/dev-server-core": "^0.2.2",
     "esbuild": "^0.6.10",
     "mdn-browser-compat-data": "^1.0.29",
     "ua-parser-js": "^0.7.21"

@@ -40,7 +40,7 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.7.1",
+    "@web/test-runner-core": "^0.7.4",
     "selenium-webdriver": "^4.0.0-alpha.7"
   },
   "devDependencies": {

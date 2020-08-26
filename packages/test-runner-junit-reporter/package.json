@@ -40,7 +40,7 @@
   "dependencies": {
     "@web/test-runner-chrome": "^0.6.1",
     "@web/test-runner-cli": "^0.5.2",
-    "@web/test-runner-core": "^0.7.2",
+    "@web/test-runner-core": "^0.7.4",
     "array-flat-polyfill": "^1.0.1",
     "xml": "^1.0.1"
   },
