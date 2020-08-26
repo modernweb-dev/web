@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-rollup",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "publishConfig": {
     "access": "public"
   },
@@ -42,7 +42,7 @@
   ],
   "dependencies": {
     "@web/dev-server-core": "^0.2.2",
-    "@web/test-runner-chrome": "^0.6.1",
+    "@web/test-runner-chrome": "^0.6.4",
     "@web/test-runner-core": "^0.7.4",
     "chalk": "^4.1.0",
     "parse5": "^6.0.1",

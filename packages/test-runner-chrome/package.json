@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-chrome",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "publishConfig": {
     "access": "public"
   },
@@ -42,7 +42,7 @@
     "@types/puppeteer-core": "^2.0.0",
     "@web/browser-logs": "^0.1.2",
     "@web/test-runner-core": "^0.7.4",
-    "@web/test-runner-coverage-v8": "^0.1.1",
+    "@web/test-runner-coverage-v8": "^0.1.2",
     "chrome-launcher": "^0.13.3",
     "puppeteer-core": "^5.0.0"
   },

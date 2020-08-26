@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.2.2
+
+### Patch Changes
+
+- ce2a2e6: align dependencies
+
 ## 0.2.1
 
 ### Patch Changes

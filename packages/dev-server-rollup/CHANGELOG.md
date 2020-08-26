@@ -1,5 +1,13 @@
 # @web/dev-server-rollup
 
+## 0.2.3
+
+### Patch Changes
+
+- ce2a2e6: align dependencies
+- Updated dependencies [ce2a2e6]
+  - @web/test-runner-chrome@0.6.4
+
 ## 0.2.2
 
 ### Patch Changes

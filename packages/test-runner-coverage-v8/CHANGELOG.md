@@ -1,5 +1,11 @@
 # @web/test-runner-coverage-v8
 
+## 0.1.2
+
+### Patch Changes
+
+- ce2a2e6: align dependencies
+
 ## 0.1.1
 
 ### Patch Changes

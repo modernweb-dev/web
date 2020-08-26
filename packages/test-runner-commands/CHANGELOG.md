@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.1.3
+
+### Patch Changes
+
+- ce2a2e6: align dependencies
+
 ## 0.1.2
 
 ### Patch Changes
