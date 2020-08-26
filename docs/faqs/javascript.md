@@ -2,47 +2,11 @@
 title: JavaScript
 eleventyNavigation:
   key: JavaScript
-  # parent: Going Buildless
-  order: 40
 ---
 
 JavaScript is a scripting language for the web. It was invented in 1993 by Brendan Eich at Mozilla (the makers of the Firefox browser). The language standard is maintained by [ECMA International](http://www.ecma-international.org/), a technology standards organization, so you'll sometimes see the terms "JavaScript" (a trademark of Oracle Corporation) or <abbr>JS</abbr> and "ECMAScript" or <abbr>ES</abbr> used interchangeably. You can use JavaScript to dynamically manipulate the HTML document.
 
 The purpose of this document isn't to be a comprehensive introduction to JavaScript, rather, to introduce some programming patterns using modern JavaScript features that we've found to be useful when writing standards-based web applications. Check out [MDN's JavaScript documentation](https://developer.mozilla.org/en-US/docs/guides/JavaScript) for a refresher before continuing.
-
-## Referencing Reusable Assets with `import.meta.url`
-
-When publishing reusable [modules](./es-modules.md), you may want to include assets like images and CSS. Consider the following structure:
-
-```
-root
-├── modules
-│   ├── module.js
-│   └── asset.webp
-└── index.html
-```
-
-```js
-const imgSrc = './asset.webp';
-const image = document.createElement('img');
-image.src = imgSrc;
-document.body.appendChild(image);
-```
-
-if `index.html` loaded `modules/module.js`, the image could not display, because the browser would request `/asset.webp` instead of `/modules/asset.webp`, as the author intended.
-
-As of this writing, the es-module standard does not yet have a way of [importing non-javascript assets](https://github.com/tc39/proposal-import-assertions). If you tried to load assets using relative URLs, they would load relative to the _document_ rather than the _module_ path.
-
-However, you can still publish modules that load bundled resources at runtime by using [`import.meta`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import.meta), a special object provided by the runtime which contains information about the current module.
-
-```js
-const imgSrc = new URL('./asset.webp', import.meta.url);
-const image = document.createElement('img');
-image.src = imgSrc.href;
-document.body.appendChild(image);
-```
-
-This works by using the optional `base` parameter to the `URL` constructor, which in this case functions similarly to nodejs `path.resolve`.
 
 ## Composing Classes with JavaScript Mixins
 
