@@ -106,7 +106,7 @@ Not only do we ship [rollup-plugin-workbox](https://www.npmjs.com/search?q=rollu
 
 In the past years, we've used different frameworks and tools to build our websites. Recently we've become big fans of [11ty](https://www.11ty.dev/). It's simple to use, works with markdown, and generates _just_ plain HTML. There is no runtime javascript involved with displaying page content, making it super fast.
 
-To add interactivity to our page we started using web components, and applied rollup with our [HTML](https://www.npmjs.com/package/@open-wc/rollup-plugin-html) and [workbox](https://www.npmjs.com/search?q=rollup-plugin-workbox) plugin.
+To add interactivity to our page we started using web components and applied rollup with our plugins for [HTML](https://www.npmjs.com/package/@open-wc/rollup-plugin-html) and [workbox](https://www.npmjs.com/search?q=rollup-plugin-workbox).
 
 This way our javascript is optimized and common code is shared between pages. Workbox adds a service worker, making our website available offline and precaches pages resulting is super fast navigation.
 
