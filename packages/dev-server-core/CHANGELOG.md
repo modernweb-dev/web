@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.2
+
+### Patch Changes
+
+- bc1741d: expose getHtmlPath function
+
 ## 0.2.1
 
 ### Patch Changes

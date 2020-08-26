@@ -1,5 +1,13 @@
 # @web/test-runner-core
 
+## 0.7.4
+
+### Patch Changes
+
+- bc1741d: expose getHtmlPath function
+- Updated dependencies [bc1741d]
+  - @web/dev-server-core@0.2.2
+
 ## 0.7.3
 
 ### Patch Changes
