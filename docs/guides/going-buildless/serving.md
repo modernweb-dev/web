@@ -1,7 +1,7 @@
 ---
-title: Servers and Clients
+title: Serving
 eleventyNavigation:
-  key: Servers and Clients
+  key: Serving
   parent: Going Buildless
   order: 10
 ---
@@ -13,66 +13,6 @@ There are many different kinds of web servers and many different kinds of web br
 The client doesn't know everything about the server, and the server cannot control everything about the browser;
 but the thing they both agree on is to communicate (at least initially) using
 the [HyperText Transfer Protocol](https://developer.mozilla.org/en-US/docs/Web/HTTP), <dfn><abbr>HTTP</abbr></dfn>.
-
-## URLs
-
-Every resource on the web, whether it's a web page, an image, a video, a [CSS stylesheet](./css.md), some [JavaScript](./javascript.md), or anything else, is accesible via a Uniform Resource Locator, or <dfn><abbr>URL</abbr></dfn>.
-
-A URL (specifically, a ["fully-qualified"](./html.md#fully-qualified-urls) URL) contains three parts
-
-1. A protocol, e.g. `https`
-2. An origin e.g. `developer.mozilla.org`
-3. An (optional) path , e.g. `/en-US/docs/Web/API/MutationObserver`
-
-The protocol tells the server how to respond, the origin (containing a domain name and zero, one, or more subdomains) identifies the server to request, and the path specifies the resource to access.
-
-When your browser visits a web page, it essentially asks the server responsible for that page
-for an HTML document, which may or may not link to other resources like images, CSS stylesheets or
-JavaScript. The browser accesses each of those resources using an [HTTP `GET` request](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET). The web server's primary job is to provide that HTML document and its sub-resources to the browser.
-
-For example, when you visited this web page, your browser sent a `GET https://modern-web.dev/docs/guides/standards-based/servers-and-clients/` request
-
-## DNS
-
-Before your `GET` request even reaches the server though, it travels through the **Domain Name System**, or <abbr>DNS</abbr>.
-
-Every web servers has an [IP address](https://developer.mozilla.org/en-US/docs/Glossary/IP_Address),
-a unique identifier typically composed of four numbers, each ranging from 0 to 255 e.g. `1.2.3.4`.
-Think of an IP address like the street address of a business that only operates via mail.
-If you want to conduct business with them, you must visit them at their street address.
-Similarly, you must know a web server's IP address if you want to access any of its resources.
-
-IP addresses were useful for computers, but difficult for people to remember and deal with,
-so in 1983 Paul Mockapetris and the Internet Engineering Task force invented and implemented the DNS. That way, web server owners could register a human-readable domain name like
-`modern-web.dev` that points to their IP address. You can think of the DNS as a vast distributed
-table of domain names and their associated IP addresses.
-
-| Name           | IP      |
-| -------------- | ------- |
-| google.com     | 1.2.3.4 |
-| modern-web.dev | 1.3.4.5 |
-
-That way, when you type `modern-web.dev` into your
-web browser, what you're actually doing is sending a GET request to the IP address _for_ `modern-web.dev`.
-
-For more information of how the DNS works at a high level, check out the [computerphile video series on DNS](https://www.youtube.com/watch?v=uOfonONtIuk)
-
-### `localhost`
-
-While developing websites, common practise is to start a web server on your local development machine to test out the site, before deploying it to it's production server. Assigning a domain name to your current IP address would be tedious, especially considering that most residential ISPs assign dynamic IP addresses which change every few hours or days, and most office PCs are behind some kind of [NAT](https://www.wikiwand.com/en/Network_address_translation), which assigns them a private, local IP instead of their actual internet-facing IP address.
-
-DNS reserves the special domain name `localhost` to refer to the device that is making the request, in our case, whatever machine you happen to be working on at the time. Operating Systems assign that name to the [loopback](https://www.wikiwand.com/en/Localhost#/Loopback) address `127.0.0.1` in the `hosts` file.
-
-The following commands create a directory `test-server` inside the home directory, add a file there called `index.html` containing the text "Hello, World!", then launch a local web server on port 8000 that opens the default browser.
-
-Run these commands on a UNIX-like operating system (GNU/Linux, macOS, WSL) that has nodejs installed, and you'll see a page containing the text "Hello, World!"
-
-```
-mkdir ~/test-server
-cd ~/test-server
-echo "Hello, World!" > index.html
-npx es-dev-server -p 8000 --open .
-```
 
 ## Serving Web Content
 
@@ -136,6 +76,80 @@ It will be important to keep this in mind when structuring your projects. In a [
 
 Just like how running `http-server` from `/about` made `help.html` inaccessible, running your local development server from `/src` would make `node_modules` inaccessible.
 
+## Link Urls
+
+The "HT" in <abbr>HTML</abbr>, "HyperText", refers to the way in which documents can link to other documents. This is the fundamental feature of <abbr>HTML</abbr> and the most important feature of the web.
+
+Hyperlinks ("links" for short) in <abbr>HTML</abbr> are represented by the [anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a). The `href` attribute contains the [URL](./servers-and-clients.md) which the hyperlink points to.
+
+There are three basic types of URLs which you can link to:
+
+1. [Fully-Qualified URLs](#fully-qualified-urls)
+2. [Absolute Urls](#absolute-urls)
+3. [Relative Urls](#relative-urls)
+
+### Fully Qualified URLs
+
+The most specific type of URL is the fully-qualified URL. They contain a protocol; zero, one, or more subdomains; a domain name; and an optional path. They refer specifically to a single, unique resource. Some examples:
+
+- `https://www.google.com`
+- `https://modern-web.dev/docs/guides/standards-based/html/`
+- `ws://demos.kaazing.com/echo`
+
+Links with fully qualified URLs can link a page on your server, to pages on another server. This is what puts the "world-wide" in "world-wide-web". All the links to [MDN](https://developer.mozilla.org) in this article are like that.
+
+```html
+<a href="https://google.com/">if you click me I will open google</a>
+```
+
+Because the URL is fully-qualified,adding that `<a>` tag to any page anywhere on the web will have the same behavior[^1], namely opening google's home page.
+
+[^1]: Assuming that the page doesn't use JavaScript or other techniques to surreptitiously change the destination of the link
+
+### Absolute URLs
+
+Absolute URLs contain only a path, omitting the protocol and origin. They always begin with `/`. Like fully-qualified URLs, they always refer to the same path relative to the origin, for example:
+
+```html
+<a href="/index.html">Home Page</a>
+```
+
+This link will have the same behaviour on all pages on `modern-web.dev`, namely returning to the Modern Web homepage. but if placed on `developer.mozilla.org`, will link to the MDN homepage, not Modern Web's.
+
+Absolute links containing _only_ a `/` are special, they refer to the web root. In most cases, they are synonymous with `/index.html`.
+
+### Relative URLs
+
+The least specific type of URL is a relative URL. Like absolute URLs, they omit the protocol and origin, but unlike absolute URLs, which contain a full path, relattive URLs contain a partial, or relative path. They start with `./`, `../`, or a path to a resource. for example:
+
+```html
+<a href="../">Go Up</a>
+<a href="./help.html">Go to Help Page</a>
+<a href="help.html">Also Go to Help Page</a>
+```
+
+Relative URLs are relative to the current document, so they may have different behaviour depending on which page on a website they are used.
+
+Given the following folder structure:
+
+```
+.
+├── about
+│   ├── index.html
+│   └── contact.html
+├── help.html
+└── index.html
+```
+
+And the following link tag
+
+```html
+<a href="index.html">...</a>
+```
+
+A link within `help.html` would link to `index.html`. <br>
+A link within `about/contact.html` would link to `about/index.html`.
+
 ## Learn more
 
-!TODO: Link for more details???
+If you wanna know more check out MDN's [HTML basics](https://developer.mozilla.org/en-US/docs/guides/Getting_started_with_the_web/HTML_basics).

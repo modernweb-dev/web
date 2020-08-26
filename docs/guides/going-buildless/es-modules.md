@@ -82,6 +82,40 @@ This doesn't work in the browser because it doesn't have direct access to the fi
 
 Both [@web/test-runner](../../docs/test-runner/overview.md) and [@web/dev-server](../../docs/dev-server/overview.md) support the `--node-resolve` flag to resolve these kinds of imports server-side before serving them to the browser.
 
+## Referencing Reusable Assets with `import.meta.url`
+
+When publishing reusable [modules](./es-modules.md), you may want to include assets like images and CSS. Consider the following structure:
+
+```
+root
+├── modules
+│   ├── module.js
+│   └── asset.webp
+└── index.html
+```
+
+```js
+const imgSrc = './asset.webp';
+const image = document.createElement('img');
+image.src = imgSrc;
+document.body.appendChild(image);
+```
+
+if `index.html` loaded `modules/module.js`, the image could not display, because the browser would request `/asset.webp` instead of `/modules/asset.webp`, as the author intended.
+
+As of this writing, the es-module standard does not yet have a way of [importing non-javascript assets](https://github.com/tc39/proposal-import-assertions). If you tried to load assets using relative URLs, they would load relative to the _document_ rather than the _module_ path.
+
+However, you can still publish modules that load bundled resources at runtime by using [`import.meta`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import.meta), a special object provided by the runtime which contains information about the current module.
+
+```js
+const imgSrc = new URL('./asset.webp', import.meta.url);
+const image = document.createElement('img');
+image.src = imgSrc.href;
+document.body.appendChild(image);
+```
+
+This works by using the optional `base` parameter to the `URL` constructor, which in this case functions similarly to nodejs `path.resolve`.
+
 ## CommonJS modules
 
 CommonJS is the original module system of node and predates standard es modules. You can recognize this type of module by the use of `require` and `module.exports`:
