@@ -240,6 +240,16 @@ it('handles circular references in arrays', () => {
   expect(deserialized).to.eql({ circulars: ['[Circular]', 'bar', '[Circular]'] });
 });
 
+it('handles generated circular references', () => {
+  const Foo = () => null;
+  const obj = { f: Foo, x: null };
+  obj.x = obj;
+  const serialized = serialize(obj);
+  const deserialized = deserialize(serialized);
+  expect(deserialized.f).to.be.a('function');
+  expect(deserialized.x).to.equal('[Circular]');
+});
+
 it('handles errors', () => {
   const error = new Error('foo');
   const serialized = serialize(error);
