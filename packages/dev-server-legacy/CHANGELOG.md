@@ -1,5 +1,11 @@
 # @web/dev-server-legacy
 
+## 0.1.3
+
+### Patch Changes
+
+- abf42a3: fixed incorrect source filename when transforming inline scripts with babel
+
 ## 0.1.2
 
 ### Patch Changes
