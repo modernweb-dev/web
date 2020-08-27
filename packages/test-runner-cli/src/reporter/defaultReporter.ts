@@ -1,4 +1,4 @@
-import { Reporter, ReporterArgs } from '@web/test-runner-core';
+import { Logger, Reporter, ReporterArgs } from '@web/test-runner-core';
 
 import { createSourceMapFunction, SourceMapFunction } from '../utils/createSourceMapFunction';
 import { reportTestFileResults } from './reportTestFileResults';
@@ -9,6 +9,13 @@ import { createStackLocationRegExp } from '../utils/createStackLocationRegExp';
 export interface DefaultReporterArgs {
   reportTestResults?: boolean;
   reportTestProgress?: boolean;
+}
+
+function isBufferedLogger(logger: Logger): logger is BufferedLogger {
+  return (
+    typeof (logger as any).logBufferedMessages === 'function' &&
+    Array.isArray((logger as any).buffer)
+  );
 }
 
 export function defaultReporter({
@@ -58,7 +65,7 @@ export function defaultReporter({
         return undefined;
       }
 
-      if (!(logger instanceof BufferedLogger)) {
+      if (!isBufferedLogger(logger)) {
         throw new Error('Expected a BufferedLogger instance.');
       }
 
