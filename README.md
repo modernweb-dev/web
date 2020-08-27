@@ -1,61 +1,72 @@
-<p align="center"><img src="./assets/logo.png" width="60%"/></p>
+<p align="center">
+  <img
+    width="60%"
+    src="./assets/logo.png"
+    alt="Modern Web"
+  />
+</p>
 
-<h3 align="center">Developer tools for modern web development.</h3>
+<p align="center">
+  <a href="https://github.com/modernweb-dev/actions"
+    ><img
+      src="https://img.shields.io/github/workflow/status/modernweb-dev/web/Release/master?label=workflow&style=flat-square"
+      alt="GitHub Actions workflow status"
+  /></a>
+  <a href="https://twitter.com/modern_web_dev"
+    ><img
+      src="https://img.shields.io/badge/twitter-@modern_web_dev-1DA1F3?style=flat-square"
+      alt="Follow @modern_web_dev on Twitter"
+  /></a>
+</p>
 
-Modern browsers are a powerful platform for building websites and applications. Our goal is to teach developers what's available in the browser out of the box, and provide extensions in the form of patterns and tooling.
+<p align="center">
+  <a href="https://modern-web.dev">Website</a>
+  ·
+  <a href="https://modern-web.dev/guides/">Guides</a>
+  ·
+  <a href="https://modern-web.dev/docs/">Documentation</a>
+</p>
 
-By building on top of established standards we can create solutions that are lightweight, easy to learn and remain relevant for a longer time.
+<h1></h1>
 
-## open-wc
+**Guides, tools and libraries for modern web development!**
 
-Modern Web is a branch off from and started by the same team behind [open-wc](https://github.com/open-wc/open-wc/). For more information, [see this issue](https://github.com/open-wc/open-wc/issues/1681) at the open-wc repository.
+- **Built on web standards:** Work with and extend what's available in modern browsers, learning skills, and writing code that stays relevant.
+- **Lightweight:** Simple solutions that are lightweight and have a low barrier to entry. With extension points for power users.
+- **Low complexity:** Write code that is close to what actually runs in the browser, reducing abstractions and complexity.
 
-## Test runner and dev server
+<p align="center">
+  <a href="https://modern-web.dev/guides/"><strong>Explore the Modern Web Guides&nbsp;&nbsp;▶</strong></a>
+</p>
 
-### Main packages
+## The goal for Modern Web
 
-The main packages are the "opinionated" implementations of the test runner and dev server. Implementing a CLI and a good set default.
+> Our goal is to provide developers with the guides and tools they need to build for the modern web. We aim to work closely with the browser and avoid complex abstractions.
 
-- [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner).
-- `@web/dev-server` (coming soon!)
+Modern browsers are **a powerful platform** for building websites and applications. We try to work with what's available in the browser first before reaching for custom solutions.
 
-### Code transformation
+When you're **working with the browser** rather than against it, code, skills, and knowledge remain relevant for a longer time. Development becomes faster and debugging is easier because there are fewer layers of abstractions involved.
 
-Plugins for transforming code in the dev server and test runner.
+At the same time, we are aware of the fact that not all problems can be solved elegantly by the browser today. We **support developers** making informed decisions about introducing tools and customizations to their projects, in such a way that developers can upgrade later as browser support improves.
 
-- [@web/dev-server-rollup](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-rollup)
-- [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild)
-- [@web/dev-server-legacy](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-legacy)
+If you wanna know more see our [Announcement Blog Post](https://modern-web.dev/blog/introducing-modern-web/).
 
-### Browser launchers
+## Our Products
 
-Different implementations for controlling the browser to run tests in.
+- [Web Test Runner](https://modern-web.dev/docs/test-runner/overview/)
 
-- [@web/test-runner-chrome](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-chrome)
-- [@web/test-runner-puppeteer](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer)
-- [@web/test-runner-playwright](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-playwright)
-- [@web/test-runner-selenium](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-selenium)
-- [@web/test-runner-browserstack](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browserstack)
+There is much, much more to come so follow us on [Twitter](https://twitter.com/modern_web_dev).
 
-### Test frameworks
+## 🤝 Contributing
 
-Frameworks to run tests in the browser.
+We are always looking for contributors of all skill levels! If you're looking to ease your way into the project, try out a [good first issue](https://github.com/modernweb-dev/web/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
-- [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha)
+If you are interested in helping contribute to Modern Web, please take a look at our [Contributing Guide](https://github.com/modernweb-dev/web/blob/master/CONTRIBUTING.md). Also, feel free to drop into [slack](https://modern-web.dev/discover/slack/) and say hi. 👋
 
-### Testing helpers
+### Financial Contributors
 
-Helper libraries for writing tests.
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/modern-web/contribute)]
 
-- [@web/test-runner-commands](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-commands)
-
-### Other packages
-
-Other packages implementing the low level parts. You will likely not use these directly, unless you're implementing your own tooling.
-
-- [@web/test-runner-core](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-core)
-- [@web/test-runner-cli](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-cli)
-- [@web/test-runner-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server)
-- [@web/test-runner-coverage-v8](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-coverage-v8)
+---
 
 [![Testing Powered By SauceLabs](https://opensource.saucelabs.com/images/opensauce/powered-by-saucelabs-badge-white.png?sanitize=true 'Testing Powered By SauceLabs')](https://saucelabs.com)
