@@ -15,7 +15,7 @@ You can run tests with puppeteer, which will download its a local instance of Ch
 
 ```
 # add the package
-npm i -D @web/test-runner-puppeteer
+npm i --save-dev @web/test-runner-puppeteer
 
 # add the flag
 wtr test/**/*.test.js --node-resolve --puppeteer
@@ -29,7 +29,7 @@ You can run tests with playwright, which like puppeteer downloads it's own brows
 
 ```
 # add the package
-npm i -D @web/test-runner-playwright
+npm i --save-dev @web/test-runner-playwright
 
 # add the flag
 wtr test/**/*.test.js --node-resolve --playwright --browsers chromium firefox webkit

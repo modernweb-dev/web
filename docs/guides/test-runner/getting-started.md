@@ -30,7 +30,7 @@ Now that we know what we want we need to place this file somewhere and run a too
 1. Install the necessary packages
 
    ```
-   npm i -D @web/test-runner @esm-bundle/chai
+   npm i --save-dev @web/test-runner @esm-bundle/chai
    ```
 
 2. Add a script to your `package.json`

@@ -1,41 +1,5 @@
 # Web Test Runner Core
 
-Core package for Web Test Runner. Manages running the tests. Has a modular architecture, delegating most of the work to the separate parts and implementations.
+Core package for Web Test Runner. Manages running the tests. Has a modular architecture, delegating most of the work to the separate parts and implementations. You will likely not use this package directly.
 
-See [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner) for a default implementation and CLI for the test runner.
-
-## Browser launchers
-
-Browser launchers boot up and control a browser instance. Implementations:
-
-- [@web/test-runner-chrome](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-chrome)
-- [@web/test-runner-puppeteer](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer)
-- [@web/test-runner-playwright](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-playwright)
-- [@web/test-runner-selenium](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-selenium)
-- [@web/test-runner-browserstack](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browserstack)
-
-[Read more here](./docs/browser-launcher.md) to learn about creating your own browser launcher.
-
-## Test frameworks
-
-Test frameworks run the actual tests in the browser. Web test runner relies on existing test frameworks. Implementations:
-
-- [@web/test-runner-mocha](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha)
-
-[Read more here](./docs/reporter.md) to learn more about setting up a custom test reporter.
-
-## Reporters
-
-Reporters report test results and/or progress. The CLI ships a default reporter. Implementations:
-
-- [@web/test-runner-cli](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-cli)
-
-[Read more here](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browser-lib) to learn more about using the browser library without a testing framework, or to implement your own testing framework.
-
-## Servers
-
-The server serves the test code and files and communicates with the browser, returning configuration and receiving test results. Implementations:
-
-- [@web/test-runner-server](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-server)
-
-[Read more here](./docs/dev-server.md) to learn about creating your own test runner server.
+See [our website](https://modern-web.dev/docs/test-runner/overview/) for full documentation.

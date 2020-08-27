@@ -6,7 +6,7 @@ eleventyNavigation:
   order: 60
 ---
 
-Run tests remotely on [Browserstack](https://www.browserstack.com/).
+Browser launchers for web test runner to run tests remotely on [Browserstack](https://www.browserstack.com/).
 
 For modern browsers, we recommend using other browser launchers, as they are a lot faster. Browserstack is a good option for testing on older browser versions.
 

@@ -14,7 +14,7 @@ When using `@web/test-runner` regularly, you can use Playwright with the `--play
 
 ```
 # add the package
-npm i -D @web/test-runner-playwright
+npm i --save-dev @web/test-runner-playwright
 
 # add the flag
 wtr test/**/*.test.js --node-resolve --playwright --browsers chromium firefox webkit

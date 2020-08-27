@@ -17,7 +17,7 @@ To get started with Typescript we recommend getting familiar with it first using
 First, we need to install the required dependencies:
 
 ```
-npm i -D @web/test-runner @esm-bundle/chai @types/mocha typescript
+npm i --save-dev @web/test-runner @esm-bundle/chai @types/mocha typescript
 ```
 
 Next, we need to run initialize typescript for our project:

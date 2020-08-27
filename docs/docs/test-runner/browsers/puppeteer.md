@@ -14,7 +14,7 @@ When using `@web/test-runner` regularly, you can use puppeteer with the `--puppe
 
 ```
 # add the package
-npm i -D @web/test-runner-puppeteer
+npm i --save-dev @web/test-runner-puppeteer
 
 # add the flag
 wtr test/**/*.test.js --node-resolve --puppeteer

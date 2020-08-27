@@ -1,7 +1,5 @@
 # Web Test Runner CLI
 
-CLI for use Web Test Runner. Reads command line args, configuration files, reports test results and displays an interactive terminal.
+CLI for use Web Test Runner. Reads command line args, configuration files, reports test results and displays an interactive terminal. You will like not use this package directly.
 
-Documentation for this package is not yet finished.
-
-See [@web/test-runner](https://github.com/modernweb-dev/web/tree/master/packages/test-runner) for a default implementation and CLI for the test runner.
+See [our website](https://modern-web.dev/docs/test-runner/overview/) for full documentation.
