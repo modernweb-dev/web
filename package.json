@@ -2,11 +2,16 @@
   "name": "@web/root",
   "private": true,
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git"
+  },
   "scripts": {
     "build": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build",
     "build:production": "node scripts/workspaces-scripts-bin.mjs build:production",
     "build:site": "yarn build && yarn install && rocket-build",
     "build:watch": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
+    "dev-to-git": "dev-to-git",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js,.mjs,.cjs . --fix",
     "format:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
@@ -29,7 +34,7 @@
   },
   "dependencies": {
     "@d4kmor/cli": "^0.2.4",
-    "@d4kmor/launch": "^0.2.11",
+    "@d4kmor/launch": "^0.2.12",
     "patch-package": "^6.2.2"
   },
   "devDependencies": {
@@ -45,6 +50,7 @@
     "chai": "^4.2.0",
     "concurrently": "^5.2.0",
     "deepmerge": "^4.2.2",
+    "dev-to-git": "^1.4.1",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^1.0.0",
