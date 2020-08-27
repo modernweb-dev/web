@@ -17,6 +17,6 @@ We feel the best way to become a well-rounded and highly-capable web developer i
 
 In this section we'd like to show you some buildless approaches and workflows, that might allow you to replace some of your tooling with built-in browser functionalities.
 
-- [Serving](./going-buildless/serving.md)
-- [CSS](./going-buildless/css.md)
-- [ES Modules](./going-buildless/es-modules.md)
+- [Serving](./serving.md)
+- [CSS](./css.md)
+- [ES Modules](./es-modules.md)
