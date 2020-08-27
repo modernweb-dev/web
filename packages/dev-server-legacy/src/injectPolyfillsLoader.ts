@@ -1,4 +1,4 @@
-import { Context } from '@web/dev-server-core';
+import { Context, getHtmlPath } from '@web/dev-server-core';
 import { getAttribute, getTextContent, remove } from '@web/dev-server-core/dist/dom5';
 import { parse, serialize, Document as DocumentAst, Node as NodeAst } from 'parse5';
 import {
@@ -40,6 +40,7 @@ function findScripts(indexUrl: string, documentAst: DocumentAst) {
 }
 
 export interface ReturnValue {
+  htmlPath: string;
   indexHTML: string;
   inlineScripts: GeneratedFile[];
   polyfills: GeneratedFile[];
@@ -51,8 +52,9 @@ export interface ReturnValue {
  * at the right time
  */
 export async function injectPolyfillsLoader(context: Context): Promise<ReturnValue> {
+  const htmlPath = getHtmlPath(context.path);
   const documentAst = parse(context.body);
-  const { files, inlineScripts, scriptNodes } = findScripts(context.path, documentAst);
+  const { files, inlineScripts, scriptNodes } = findScripts(htmlPath, documentAst);
 
   const polyfillsLoaderConfig = {
     modern: {
@@ -81,6 +83,7 @@ export async function injectPolyfillsLoader(context: Context): Promise<ReturnVal
   const result = originalInjectPolyfillsLoader(serialize(documentAst), polyfillsLoaderConfig);
 
   return {
+    htmlPath,
     indexHTML: result.htmlString,
     inlineScripts,
     polyfills: result.polyfillFiles,

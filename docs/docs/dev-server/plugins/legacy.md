@@ -20,9 +20,14 @@ Add the plugin to your config:
 import { legacyPlugin } from '@web/dev-server-legacy';
 
 export default {
-  plugins: [legacyPlugin()],
+  plugins: [
+    // make sure this plugin is always last
+    legacyPlugin(),
+  ],
 };
 ```
+
+> Make sure the legacy plugin is always the last one to transform your code. Otherwise it will compile away modules before other tools can process them.
 
 ## How it works
 

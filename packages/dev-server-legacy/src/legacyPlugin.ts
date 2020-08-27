@@ -109,7 +109,7 @@ export function legacyPlugin(): Plugin {
         const result = await injectPolyfillsLoader(context);
         context.body = result.indexHTML;
 
-        inlineScripts.set(context.path, {
+        inlineScripts.set(result.htmlPath, {
           ...result,
           inlineScripts: result.inlineScripts,
           lastModified: context.response.headers['last-modified'],
