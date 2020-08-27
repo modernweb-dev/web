@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.7.11
+
+### Patch Changes
+
+- 2ff6570: avoid using instanceOf check when checking for BufferedLogger
+- Updated dependencies [2ff6570]
+  - @web/test-runner-cli@0.5.5
+
 ## 0.7.10
 
 ### Patch Changes
