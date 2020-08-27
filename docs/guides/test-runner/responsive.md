@@ -42,7 +42,7 @@ Right we are missing a way to change the actual size of the window.
 For that we need to install the library:
 
 ```
-npm i -D @web/test-runner-commands
+npm i --save-dev @web/test-runner-commands
 ```
 
 With that we get a `setViewport` method which we can put to good use.

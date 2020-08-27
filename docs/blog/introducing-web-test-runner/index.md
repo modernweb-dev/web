@@ -33,7 +33,7 @@ This is the minimal instruction on how to start using the web test runner.
 1. Install the necessary packages
 
    ```
-   npm i -D @web/test-runner @esm-bundle/chai
+   npm i --save-dev @web/test-runner @esm-bundle/chai
    ```
 
 2. Add a script to your `package.json`
@@ -129,7 +129,7 @@ You can find more detailed instructions in the [Watch and Debug Guide](../../gui
 If you want to make use of this, you can do so by following these instructions:
 
 ```
-npm i -D @web/test-runner-playwright
+npm i --save-dev @web/test-runner-playwright
 ```
 
 This will locally install the required versions of Chromium, Firefox, and WebKit. Once installation is done, we can specify which browsers we want to actually make use of in our `package.json` script:
@@ -183,7 +183,7 @@ We need to have a way to run these two tests on different viewport sizes to veri
 For that we can to install a library:
 
 ```
-npm i -D @web/test-runner-commands
+npm i --save-dev @web/test-runner-commands
 ```
 
 With that, we get a `setViewport` method which we can use.
@@ -236,7 +236,7 @@ See more instructions in the [Code Coverage Guide](../../guides/test-runner/code
 First, we need to install the required dependencies:
 
 ```
-npm i -D @web/test-runner @esm-bundle/chai @types/mocha typescript
+npm i --save-dev @web/test-runner @esm-bundle/chai @types/mocha typescript
 ```
 
 Add the `src/sum.ts` file:

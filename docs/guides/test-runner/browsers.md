@@ -17,7 +17,7 @@ You can run tests with puppeteer, which will download a local instance of Chromi
 First, install the package:
 
 ```
-npm i -D @web/test-runner-puppeteer
+npm i --save-dev @web/test-runner-puppeteer
 ```
 
 Then, add the `--puppeteer` in your `package.json`:
@@ -37,7 +37,7 @@ Then, add the `--puppeteer` in your `package.json`:
 If you want to make use of this, you can do so by following these instructions:
 
 ```
-npm i -D @web/test-runner-playwright
+npm i --save-dev @web/test-runner-playwright
 ```
 
 This will locally install the required versions of Chromium, Firefox, and WebKit. Once installation is done, we can specify which browsers we want to actually make use of in our `package.json` script:

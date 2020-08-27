@@ -8,7 +8,7 @@ eleventyNavigation:
 
 Plugin for resolving imports using [Import maps](https://github.com/WICG/import-maps).
 
-Import Maps can be used to resolve imports in your code as an alternative to the `--node-resolve` flag, or it can be used to mock es modules.
+Import Maps can be used to resolve imports in your code as an alternative to the `--node-resolve` flag, or to mock modules.
 
 ## Import Maps
 
@@ -48,7 +48,7 @@ import { partition } from '/node_modules/lodash-es/lodash.js';
 Install the package:
 
 ```
-npm i -D @web/dev-server-import-maps
+npm i --save-dev @web/dev-server-import-maps
 ```
 
 Add the plugin to your `web-dev-server-config.mjs` or `web-test-runner.config.js`:

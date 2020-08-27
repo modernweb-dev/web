@@ -1,23 +1,5 @@
 # Dev Server Legacy
 
-> This package is still experimental
+Plugin for using the dev server or test runner on legacy browsers, for example on Internet Explorer 11 which does not support modules.
 
-Use the dev server or test runner on legacy browsers, for example Internet Explorer 11 which does not support modules.
-
-## Usage
-
-```bash
-npm i --save-dev @web/dev-server-legacy
-```
-
-Add the plugin to your config:
-
-```js
-const { legacyPlugin } = require('@web/dev-server-legacy');
-
-module.exports = {
-  plugins: [legacyPlugin()],
-};
-```
-
-The plugin will automatically detect user agents which don't support modules. For those browsers it injects polyfills, transforms to es5 and SystemJS.
+See [our website](https://modern-web.dev/docs/dev-server/plugins/legacy/) for full documentation.

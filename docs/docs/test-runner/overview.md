@@ -24,7 +24,7 @@ Test runner for web applications.
 Install the web test runner:
 
 ```
-npm i -D @web/test-runner
+npm i --save-dev @web/test-runner
 ```
 
 ## Basic commands

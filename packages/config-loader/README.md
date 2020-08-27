@@ -7,13 +7,13 @@ Follows node's logic for deciding how to load a file. `.mjs` files are loaded as
 ## Usage
 
 ```bash
-npm i -D @web/config-loader
+npm i --save-dev @web/config-loader
 ```
 
-### CommonJS:
-
 ```js
-const { readConfig, ConfigLoaderError } = require('@web/config-loader');
+import { readConfig, ConfigLoaderError } from '@web/config-loader';
+// Or as a commonjs module
+// const { readConfig, ConfigLoaderError } = require('@web/config-loader');
 
 (async () => {
   try {
@@ -33,15 +33,6 @@ const { readConfig, ConfigLoaderError } = require('@web/config-loader');
     return;
   }
 })();
-```
-
-### Es module:
-
-```js
-import ConfigLoader from '@web/config-loader';
-const { readConfig, ConfigLoaderError } = ConfigLoader;
-
-// samve as above
 ```
 
 ### Custom config file

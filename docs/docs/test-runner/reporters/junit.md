@@ -6,8 +6,6 @@ eleventyNavigation:
   order: 1
 ---
 
-> The JUnit reporter is still in Beta.
-
 JUnit XML reporter for web test runner
 
 ## Configuration

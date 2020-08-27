@@ -6,19 +6,19 @@ eleventyNavigation:
   order: 3
 ---
 
-Use rollup plugins in web dev server and web test runner.
+Adapter for using rollup plugins in web dev server and web test runner.
 
 Web dev server plugins and rollup plugins share a very similar API, making it possible to reuse rollup plugins inside web dev server with an adapter.
 
 Since the dev server doesn't run an actual rollup build, only rollup plugins that do single file transformations can be reused.
 
-## Installation
+## Usage
+
+Install the package:
 
 ```
 npm i --save-dev @web/dev-server-rollup
 ```
-
-## Usage
 
 Import the rollup plugin and the `fromRollup` function in your configuration file. Then, wrap the rollup plugin with the adapter function:
 
