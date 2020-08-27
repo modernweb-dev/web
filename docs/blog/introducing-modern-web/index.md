@@ -1,7 +1,7 @@
 ---
 title: 'Introducing: Modern Web'
 pageTitle: 'Introducing: Modern Web'
-published: false
+published: true
 canonical_url: https://modern-web.dev/blog/introducing-modern-web/
 description: 'Our goal is to provide developers with the guides and tools they need to build for the modern web. We aim to work closely with the browser, and avoid complex abstractions'
 tags: [javascript, opensource, modernweb]
