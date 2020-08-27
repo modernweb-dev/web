@@ -1,11 +1,3 @@
----
-title: Test Runner Mocha
-eleventyNavigation:
-  key: Mocha
-  parent: Test Runner
-  order: 100
----
-
 # Test Runner Mocha
 
 Test framework implementation of [Mocha](https://mochajs.org/) for web test runner.
