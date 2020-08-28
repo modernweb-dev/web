@@ -152,4 +152,4 @@ A link within `about/contact.html` would link to `about/index.html`.
 
 ## Learn more
 
-If you wanna know more check out MDN's [HTML basics](https://developer.mozilla.org/en-US/docs/guides/Getting_started_with_the_web/HTML_basics).
+If you wanna know more check out MDN's [HTML basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics).
