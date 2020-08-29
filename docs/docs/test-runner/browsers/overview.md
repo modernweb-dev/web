@@ -1,5 +1,5 @@
 ---
-title: Chrome
+title: Browser Launchers
 eleventyNavigation:
   key: Browsers > Overview
   title: Overview

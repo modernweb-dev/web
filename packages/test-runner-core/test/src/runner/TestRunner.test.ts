@@ -67,7 +67,7 @@ it('can run a single test file', async () => {
   await runner.stop();
 });
 
-it('closes test runner for a succesful test', async () => {
+it('closes test runner for a successful test', async () => {
   const { browser, runner } = await createTestRunner();
   let resolveStopped: (passed: boolean) => void;
   const stopped = new Promise<boolean>(resolve => {
