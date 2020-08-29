@@ -1,6 +1,7 @@
 const packages = [
   { name: 'config-loader', type: 'js', environment: 'node' },
   { name: 'browser-logs', type: 'ts', environment: 'node' },
+  { name: 'rollup-plugin-copy', type: 'js', environment: 'node' },
   { name: 'rollup-plugin-workbox', type: 'ts', environment: 'node' },
   { name: 'dev-server-core', type: 'ts', environment: 'node' },
   { name: 'dev-server-esbuild', type: 'ts', environment: 'node' },

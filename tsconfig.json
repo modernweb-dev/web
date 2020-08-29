@@ -47,6 +47,9 @@
       "path": "./packages/test-runner-selenium/tsconfig.json"
     },
     {
+      "path": "./packages/rollup-plugin-copy/tsconfig.json"
+    },
+    {
       "path": "./packages/rollup-plugin-workbox/tsconfig.json"
     },
     {

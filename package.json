@@ -68,7 +68,7 @@
     "rollup-plugin-terser": "^6.1.0",
     "sinon": "^9.0.2",
     "ts-node": "^8.10.2",
-    "typescript": "^4.0.0-beta"
+    "typescript": "^4.0.0"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
