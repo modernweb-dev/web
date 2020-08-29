@@ -3,7 +3,7 @@ title: JUnit
 eleventyNavigation:
   key: JUnit
   parent: Reporters
-  order: 1
+  order: 20
 ---
 
 JUnit XML reporter for web test runner

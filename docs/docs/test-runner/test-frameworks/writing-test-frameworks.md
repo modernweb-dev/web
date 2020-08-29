@@ -1,7 +1,7 @@
 ---
-title: Writing a test framework
+title: Writing Test Frameworks
 eleventyNavigation:
-  key: Writing Test Framework
+  key: Writing Test Frameworks
   parent: Test Frameworks
 ---
 
