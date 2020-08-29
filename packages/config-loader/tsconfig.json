@@ -4,7 +4,7 @@
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
     "module": "commonjs",
-    "outDir": "./dist",
+    "outDir": "./src",
     "rootDir": "./src",
     "composite": true,
     "allowJs": true,
