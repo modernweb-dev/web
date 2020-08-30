@@ -3,10 +3,11 @@ import { DevServer } from '@web/dev-server-core';
 import { DevServerLogger } from './logger/DevServerLogger';
 import { DevServerCliConfig } from './config/DevServerCliConfig';
 import { openBrowser } from './openBrowser';
-import { logStartMessage as logStartMessageFunction } from './logStartMessage';
+import { loggerPlugin } from './logger/loggerPlugin';
 
 export interface StartDevServerOptions {
   autoExitProcess?: boolean;
+  clearTerminalOnChange?: boolean;
   logStartMessage?: boolean;
 }
 
@@ -14,7 +15,15 @@ export async function startDevServer(
   config: DevServerCliConfig,
   options: StartDevServerOptions = {},
 ) {
-  const { autoExitProcess = true, logStartMessage = true } = options;
+  const { autoExitProcess = true, clearTerminalOnChange = false, logStartMessage = true } = options;
+  config.plugins = config.plugins ?? [];
+  config.plugins.push(
+    loggerPlugin({
+      clearTerminalOnChange,
+      logStartMessage,
+    }),
+  );
+
   const logger = new DevServerLogger();
   const server = new DevServer(config, logger);
 
@@ -34,10 +43,6 @@ export async function startDevServer(
       console.error(error);
       stop();
     });
-  }
-
-  if (logStartMessage) {
-    logStartMessageFunction(config, logger);
   }
 
   await server.start();
