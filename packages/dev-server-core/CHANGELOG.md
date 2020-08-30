@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.5
+
+### Patch Changes
+
+- 69717a2: improved logic which stops the server
+
 ## 0.2.4
 
 ### Patch Changes
