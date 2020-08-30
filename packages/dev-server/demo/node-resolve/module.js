@@ -5,18 +5,11 @@ class MyElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
-    render(
-      html`
-        <p>Web component instantiated ✓</p>
-      `,
-      document.getElementById('web-component'),
-    );
+    render(html` <p>Web component instantiated ✓</p> `, document.getElementById('web-component'));
   }
 
   render() {
-    return html`
-      <p>Element Shadow DOM content ✓</p>
-    `;
+    return html` <p>Element Shadow DOM content ✓</p> `;
   }
 }
 

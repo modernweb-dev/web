@@ -37,10 +37,16 @@ export interface Plugin {
   resolveImport?(args: {
     source: string;
     context: Context;
+    code?: string;
+    column?: number;
+    line?: number;
   }): ResolveResult | Promise<ResolveResult>;
   transformImport?(args: {
     source: string;
     context: Context;
+    code?: string;
+    column?: number;
+    line?: number;
   }): ResolveResult | Promise<ResolveResult>;
   resolveMimeType?(context: Context): ResolveMimeTypeResult | Promise<ResolveMimeTypeResult>;
 }

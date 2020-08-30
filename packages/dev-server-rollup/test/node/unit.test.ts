@@ -112,9 +112,7 @@ describe('@web/dev-server-rollup', () => {
       try {
         const response = await fetch(`${host}/app.js`);
         expect(response.status).to.equal(500);
-        expect(mockLogger.error.calledOnce).to.be.true;
-        expect(mockLogger.error.getCall(0).args[0]).to.include('Resolved an import to');
-        expect(mockLogger.error.getCall(0).args[0]).to.include(resolvedId);
+        expect(mockLogger.logSyntaxError.calledOnce).to.be.true;
       } finally {
         server.stop();
       }
