@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.7.13
+
+### Patch Changes
+
+- 05f826e: add missing get-stream package
+
 ## 0.7.12
 
 ### Patch Changes
