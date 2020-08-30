@@ -39,7 +39,7 @@ const cliOptions: (commandLineArgs.OptionDefinition & { description: string })[]
   {
     name: 'node-resolve',
     type: Boolean,
-    description: 'Resolve bare module imports',
+    description: 'Resolve bare module imports using node resolution',
   },
   {
     name: 'preserve-symlinks',
