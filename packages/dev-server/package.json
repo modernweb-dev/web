@@ -23,17 +23,19 @@
   },
   "scripts": {
     "start": "yarn start:syntax",
-    "start:base-path": "node dist/dev-server.js --config demo/base-path/config.mjs --open",
-    "start:http2": "node dist/dev-server.js --config demo/http2/config.mjs --open demo/http2/",
-    "start:index-rewrite": "node dist/dev-server.js --config demo/index-rewrite/config.mjs --open",
-    "start:node-resolve": "node dist/dev-server.js --config demo/node-resolve/config.mjs --open",
-    "start:plugin-serve": "node dist/dev-server.js --config demo/plugin-serve/config.mjs --open",
-    "start:static": "node dist/dev-server.js --config demo/static/config.mjs --open demo/static/",
-    "start:syntax": "node dist/dev-server.js --config demo/syntax/config.mjs --open demo/syntax/",
+    "start:base-path": "node dist/bin.js --config demo/base-path/config.mjs --open",
+    "start:http2": "node dist/bin.js --config demo/http2/config.mjs --open demo/http2/",
+    "start:index-rewrite": "node dist/bin.js --config demo/index-rewrite/config.mjs --open",
+    "start:node-resolve": "node dist/bin.js --config demo/node-resolve/config.mjs --open",
+    "start:plugin-serve": "node dist/bin.js --config demo/plugin-serve/config.mjs --open",
+    "start:static": "node dist/bin.js --config demo/static/config.mjs --open demo/static/",
+    "start:syntax": "node dist/bin.js --config demo/syntax/config.mjs --open demo/syntax/",
     "test": "mocha \"test/**/*.test.mjs\" --reporter dot",
     "test:watch": "mocha \"test/**/*.test.mjs\" --watch --watch-files src,test --reporter dot"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "web",
     "dev",
@@ -46,9 +48,11 @@
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@types/command-line-args": "^5.0.0",
     "@web/dev-server-cli": "^0.0.1",
+    "@web/dev-server-core": "^0.2.4",
     "@web/dev-server-rollup": "^0.2.3",
     "chalk": "^4.1.0",
     "command-line-args": "^5.1.1",
+    "debounce": "^1.2.0",
     "deepmerge": "^4.2.2"
   },
   "devDependencies": {
