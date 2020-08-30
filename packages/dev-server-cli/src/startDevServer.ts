@@ -27,21 +27,16 @@ export async function startDevServer(
   const logger = new DevServerLogger();
   const server = new DevServer(config, logger);
 
-  function stop() {
-    server.stop();
-  }
-
-  if (autoExitProcess) {
-    (['exit', 'SIGINT'] as NodeJS.Signals[]).forEach(event => {
-      process.on(event, stop);
-    });
-  }
-
   if (autoExitProcess) {
     process.on('uncaughtException', error => {
       /* eslint-disable-next-line no-console */
       console.error(error);
       stop();
+    });
+
+    process.on('SIGINT', async () => {
+      await server.stop();
+      process.exit(0);
     });
   }
 
