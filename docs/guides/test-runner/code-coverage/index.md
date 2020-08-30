@@ -212,6 +212,10 @@ We now have a failing test but still 100% code coverage.
 
 You should, therefore, see code coverage as a tool that only gives you guidance and help on spotting missing tests, rather than a hard guarantee of code quality.
 
+## Ignoring uncovered lines
+
+In more complex applications, it is likely that you will find yourself creating difficult, if not impossible, to test branches of functionality. While this can absolutely be a pointer to logic that is worth breaking down into more approachable parts, there will be cases where this is not feasible. If so, you may chose to ignore a line of code by using the `/* c8 ignore next */` custom comment. Using this, or more advanced forms of [ignoring uncovered lines](../../../docs/test-runner/writing-tests/code-coverage.md#ignoring-uncovered-lines) while computing code coverage can go a long way in preparing your project for long term maintanence.
+
 ## Coverage browser support
 
 The default coverage of the test runner uses the ability of Chromium to do native code coverage instrumentation. This gives us the best speed. When testing multiple browsers this should still be fine, you don't need to get code coverage from all browsers. One browser is usually enough.
