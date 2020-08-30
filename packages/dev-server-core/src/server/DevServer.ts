@@ -12,6 +12,7 @@ export class DevServer {
   public koaApp: Koa;
   public server: Server;
   public eventStreams = new EventStreamManager();
+  private started = false;
 
   constructor(
     public config: DevServerCoreConfig,
@@ -32,6 +33,7 @@ export class DevServer {
   }
 
   async start() {
+    this.started = true;
     await promisify(this.server.listen).bind(this.server)({
       port: this.config.port,
       // in case of localhost the host should be undefined, otherwise some browsers connect
@@ -53,10 +55,22 @@ export class DevServer {
     }
   }
 
-  stop() {
+  async stop() {
+    if (!this.started) {
+      return;
+    }
+    this.started = false;
+
     return Promise.all([
       this.fileWatcher.close(),
-      promisify(this.server.close).bind(this.server)(),
+      new Promise(resolve => {
+        this.server.close(err => {
+          if (err) {
+            console.error(err);
+          }
+          resolve();
+        });
+      }),
       ...(this.config.plugins ?? []).map(p => p.serverStop?.()),
     ]);
   }
