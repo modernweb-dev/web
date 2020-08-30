@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.5.6
+
+### Patch Changes
+
+- 0cc6a82: add test options to startTestRunner
+
 ## 0.5.5
 
 ### Patch Changes

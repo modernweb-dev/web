@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.7.12
+
+### Patch Changes
+
+- 0cc6a82: expose a startTestRunner function
+- Updated dependencies [0cc6a82]
+  - @web/test-runner-cli@0.5.6
+
 ## 0.7.11
 
 ### Patch Changes
