@@ -33,6 +33,40 @@ module.exports = {
 };
 ```
 
+## Ignoring uncovered lines
+
+Web Test Runner uses [`v8-to-istanbul`](https://github.com/istanbuljs/v8-to-istanbul) to covert V8 based code coverage to a form that can be reported by Istanbul. `v8-to-istanbul` allows for ignoring uncovered lines when calculating code coverage through the use of the following custom comment:
+
+```js
+/* c8 ignore next [line count] */
+```
+
+This is somewhat different than other tools where you might have specifically targetted `if` / `else` branches of logic with an ignore statement. Particularly, V8 does not create phantom `else` statements when calculating coverage, so it is likely that you will be able to use less of these statements than in the past.
+
+In this way, you can skip the rest of a line:
+
+```js
+const text = (falsyOrStringVariableWithTrimmableWhiteSpace || /* c8 ignore next */ '').trim();
+```
+
+You can skip the entire next line:
+
+```js
+/* c8 ignore next */
+if (!requiredVariable) return;
+```
+
+Or, you could skip multiple ensuing lines:
+
+```js
+if (normalCase) {
+  // do normal things
+  /* c8 ignore next 3 */
+} else if (specialCase) {
+  // do special things
+}
+```
+
 ## Coverage browser support
 
 The default coverage of the test runner uses the ability of Chromium to do native code coverage instrumentation. This gives us the best speed. When testing multiple browsers this should still be fine, you don't need to get code coverage from all browsers. One browser is usually enough.

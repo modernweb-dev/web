@@ -107,6 +107,10 @@
       "eslint --fix",
       "prettier --write --ignore-path .eslintignore",
       "git add"
+    ],
+    "*.md": [
+      "prettier --write --ignore-path .eslintignore",
+      "git add"
     ]
   },
   "prettier": {
