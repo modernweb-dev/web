@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.3
+
+### Patch Changes
+
+- 0cc6a82: expose ErrorWithLocation class
+
 ## 0.2.2
 
 ### Patch Changes

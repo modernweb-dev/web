@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-cli",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "publishConfig": {
     "access": "public"
   },
@@ -22,9 +22,7 @@
     "test": "mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
     "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "dev",
@@ -36,7 +34,7 @@
     "@babel/code-frame": "^7.10.4",
     "@types/command-line-args": "^5.0.0",
     "@web/config-loader": "^0.1.1",
-    "@web/dev-server-core": "^0.2.2",
+    "@web/dev-server-core": "^0.2.3",
     "camelcase": "^6.0.0",
     "chalk": "^4.1.0",
     "command-line-args": "^5.1.1",
