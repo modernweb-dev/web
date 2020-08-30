@@ -9,7 +9,12 @@ import { Plugin } from '../Plugin';
 import { PluginSyntaxError } from '../logger/PluginSyntaxError';
 import { toFilePath } from '../utils';
 
-export type ResolveImport = (source: string) => string | undefined | Promise<string | undefined>;
+export type ResolveImport = (
+  source: string,
+  code: string,
+  line: number,
+  column: number,
+) => string | undefined | Promise<string | undefined>;
 
 interface ParsedImport {
   s: number;
@@ -31,6 +36,9 @@ const CONCAT_NO_PACKAGE_ERROR =
 async function resolveConcatenatedImport(
   importSpecifier: string,
   resolveImport: ResolveImport,
+  code: string,
+  line: number,
+  column: number,
 ): Promise<string> {
   let pathToResolve = importSpecifier;
   let pathToAppend = '';
@@ -55,7 +63,7 @@ async function resolveConcatenatedImport(
   // TODO: instead of package, we could resolve the bare import and take the first one or two segments
   // this will make it less hardcoded to node resolution
   const packagePath = `${pathToResolve}/package.json`;
-  const resolvedPackage = await resolveImport(packagePath);
+  const resolvedPackage = await resolveImport(packagePath, code, line, column);
   if (!resolvedPackage) {
     throw new Error(`Could not resolve conatenated dynamic import, could not find ${packagePath}`);
   }
@@ -68,6 +76,9 @@ async function maybeResolveImport(
   importSpecifier: string,
   concatenatedString: boolean,
   resolveImport: ResolveImport,
+  code: string,
+  line: number,
+  column: number,
 ) {
   let resolvedImportFilePath;
 
@@ -75,12 +86,14 @@ async function maybeResolveImport(
     // if this dynamic import is a concatenated string, try our best to resolve. Otherwise leave it untouched and resolve it at runtime.
     try {
       resolvedImportFilePath =
-        (await resolveConcatenatedImport(importSpecifier, resolveImport)) ?? importSpecifier;
+        (await resolveConcatenatedImport(importSpecifier, resolveImport, code, line, column)) ??
+        importSpecifier;
     } catch (error) {
       return importSpecifier;
     }
   } else {
-    resolvedImportFilePath = (await resolveImport(importSpecifier)) ?? importSpecifier;
+    resolvedImportFilePath =
+      (await resolveImport(importSpecifier, code, line, column)) ?? importSpecifier;
   }
   return resolvedImportFilePath;
 }
@@ -114,8 +127,20 @@ export async function transformImports(
 
     if (dynamicImportIndex === -1) {
       // static import
+
       const importSpecifier = code.substring(start, end);
-      const resolvedImport = await maybeResolveImport(importSpecifier, false, resolveImport);
+      const lines = code.slice(0, end).split('\n');
+      const line = lines.length;
+      const column = lines[lines.length - 1].indexOf(importSpecifier);
+
+      const resolvedImport = await maybeResolveImport(
+        importSpecifier,
+        false,
+        resolveImport,
+        code,
+        line,
+        column,
+      );
 
       resolvedSource += `${code.substring(lastIndex, start)}${resolvedImport}`;
       lastIndex = end;
@@ -129,8 +154,20 @@ export async function transformImports(
       const isStringLiteral = [`\``, "'", '"'].includes(stringSymbol);
       const concatenatedString =
         stringSymbol === `\`` || importSpecifier.includes("'") || importSpecifier.includes('"');
+
+      const lines = code.slice(0, dynamicStart).split('\n');
+      const line = lines.length;
+      const column = lines[lines.length - 1].indexOf('import(') || 0;
+
       const resolvedImport = isStringLiteral
-        ? await maybeResolveImport(importSpecifier, concatenatedString, resolveImport)
+        ? await maybeResolveImport(
+            importSpecifier,
+            concatenatedString,
+            resolveImport,
+            code,
+            line,
+            column,
+          )
         : importSpecifier;
 
       resolvedSource += `${code.substring(lastIndex, dynamicStart)}${resolvedImport}`;
@@ -153,9 +190,9 @@ async function transformModuleImportsWithPlugins(
 ) {
   const filePath = path.join(rootDir, toFilePath(context.path));
 
-  async function resolveImport(source: string) {
+  async function resolveImport(source: string, code: string, column: number, line: number) {
     for (const plugin of resolvePlugins) {
-      const resolved = await plugin.resolveImport?.({ source, context });
+      const resolved = await plugin.resolveImport?.({ source, context, code, column, line });
       if (typeof resolved === 'string') {
         return resolved;
       }
@@ -166,10 +203,15 @@ async function transformModuleImportsWithPlugins(
     }
   }
 
-  async function transformImport(source: string) {
-    let resolvedImport = (await resolveImport(source)) ?? source;
+  async function transformImport(source: string, code: string, column: number, line: number) {
+    let resolvedImport = (await resolveImport(source, code, column, line)) ?? source;
     for (const plugin of resolvePlugins) {
-      const resolved = await plugin.transformImport?.({ source: resolvedImport, context });
+      const resolved = await plugin.transformImport?.({
+        source: resolvedImport,
+        context,
+        column,
+        line,
+      });
       if (typeof resolved === 'string') {
         resolvedImport = resolved;
       }

@@ -19,7 +19,7 @@ import {
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 import { Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';
-import { red, yellow } from 'chalk';
+import { red, cyanBright } from 'chalk';
 
 import { toBrowserPath, isAbsoluteFilePath } from './utils';
 import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter';
@@ -75,7 +75,7 @@ export function rollupAdapter(
       );
     },
 
-    async resolveImport({ source, context }) {
+    async resolveImport({ source, context, code, column, line }) {
       // if we just transformed this file and the import is an absolute file path
       // we need to rewrite it to a browser path
       const injectedFilePath = path.normalize(source).startsWith(rootDir);
@@ -147,16 +147,18 @@ export function rollupAdapter(
         }
 
         if (!path.normalize(resolvedImportPath).startsWith(rootDir)) {
-          throw new PluginError(
-            red(`Resolved an import to ${yellow(resolvedImportPath)}.\n`) +
-              red('This path is not reachable from the browser because') +
-              red(` it is outside root directory ${yellow(rootDir)}.`) +
-              red(
-                ` Configure the root directory using the ${yellow('--root-dir')} or ${yellow(
-                  'rootDir',
-                )} option.`,
-              ),
-          );
+          const errorMessage =
+            red(`\n\nResolved ${cyanBright(source)} to ${cyanBright(resolvedImportPath)}.\n\n`) +
+            red('This path is not reachable from the browser because') +
+            red(` it is outside root directory ${cyanBright(rootDir)}\n\n`) +
+            red(`Configure the root directory using the ${cyanBright('--root-dir')}`) +
+            red(` flag or ${cyanBright('rootDir')} option.\n`);
+
+          if (typeof code === 'string' && typeof column === 'number' && typeof line === 'number') {
+            throw new PluginSyntaxError(errorMessage, filePath, code, column, line);
+          } else {
+            throw new PluginError(errorMessage);
+          }
         }
 
         const resolveRelativeTo = path.extname(filePath) ? path.dirname(filePath) : filePath;
