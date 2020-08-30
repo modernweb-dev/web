@@ -1,12 +1,12 @@
-import { DevServerCliConfig } from './config/DevServerCliConfig';
-import { DevServerLogger } from './logger/DevServerLogger';
+import { DevServerCliConfig } from '../config/DevServerCliConfig';
+import { Logger } from '@web/dev-server-core';
 import ip from 'ip';
 import chalk from 'chalk';
 
 const createAddress = (config: DevServerCliConfig, host: string, path: string) =>
   `http${config.http2 ? 's' : ''}://${host}:${config.port}${path}`;
 
-function logNetworkAddress(config: DevServerCliConfig, logger: DevServerLogger, openPath: string) {
+function logNetworkAddress(config: DevServerCliConfig, logger: Logger, openPath: string) {
   try {
     const address = ip.address();
     if (typeof address === 'string') {
@@ -19,7 +19,7 @@ function logNetworkAddress(config: DevServerCliConfig, logger: DevServerLogger, 
   }
 }
 
-export function logStartMessage(config: DevServerCliConfig, logger: DevServerLogger) {
+export function logStartMessage(config: DevServerCliConfig, logger: Logger) {
   const prettyHost = config.hostname ?? 'localhost';
   let openPath = typeof config.open === 'string' ? config.open : '/';
   if (!openPath.startsWith('/')) {

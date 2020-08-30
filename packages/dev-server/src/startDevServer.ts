@@ -87,7 +87,11 @@ export async function startDevServer(options: StartDevServerOptions = {}) {
     }
 
     const validatedConfig = validateCoreConfig<DevServerConfig>(config);
-    return originalStartDevServer(validatedConfig, { autoExitProcess, logStartMessage });
+    return originalStartDevServer(validatedConfig, {
+      autoExitProcess,
+      logStartMessage,
+      clearTerminalOnChange: config.watch,
+    });
   } catch (error) {
     console.error(chalk.red(`\nFailed to start dev server: ${error.message}\n`));
     process.exit(1);
