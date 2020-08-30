@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.4
+
+### Patch Changes
+
+- 05f826e: add missing get-stream package
+
 ## 0.2.3
 
 ### Patch Changes
