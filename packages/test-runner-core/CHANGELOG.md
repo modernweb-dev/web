@@ -1,5 +1,13 @@
 # @web/test-runner-core
 
+## 0.7.5
+
+### Patch Changes
+
+- cd1213e: improved logging of resolving outside root dir
+- Updated dependencies [cd1213e]
+  - @web/dev-server-core@0.2.6
+
 ## 0.7.4
 
 ### Patch Changes
