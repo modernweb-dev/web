@@ -72,6 +72,9 @@
     },
     {
       "path": "./packages/test-runner-junit-reporter/tsconfig.json"
+    },
+    {
+      "path": "./packages/test-runner-saucelabs/tsconfig.json"
     }
   ]
 }
