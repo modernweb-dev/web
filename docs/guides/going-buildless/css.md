@@ -88,7 +88,7 @@ The style rules which are ultimately applied to an element depend on all the rul
 
 While the cascade is fundamental to CSS, and is certainly useful, it can at times make it more difficult to control the styles applied to a portion of a document. This is particularly important when designing reusable components, which should maintain their style no matter where they're used.
 
-While a number of toolchains and techniques for achieving style encapsulation, like [BEM](http://getbem.com/introduction/) and [Styled Components](https://github.com/styled-components/styled-components), the web platform itself provides a native mechanism for isolating styles, called [Shadom DOM](https://www.w3.org/TR/shadow-dom/).
+While a number of toolchains and techniques for achieving style encapsulation, like [BEM](http://getbem.com/introduction/) and [Styled Components](https://github.com/styled-components/styled-components), the web platform itself provides a native mechanism for isolating styles, called [Shadow DOM](https://www.w3.org/TR/shadow-dom/).
 
 Isolating a portion of a document within a shadow root allows designers to write the CSS for that component without worrying about how their CSS will affect the rest of the document. Shadow DOM removes the need for complex CSS toolchains or naming conventions. Designers can use simple type, id, or class selectors, in that order.
 
