@@ -1,18 +1,18 @@
 {
-  "name": "@web/test-runner-browserstack",
-  "version": "0.1.2",
+  "name": "@web/test-runner-saucelabs",
+  "version": "0.0.0",
   "publishConfig": {
     "access": "public"
   },
-  "description": "Browserstack launcher for Web Test Runner",
+  "description": "Saucelabs launcher for Web Test Runner",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/modernweb-dev/web.git",
-    "directory": "packages/test-runner-browserstack"
+    "directory": "packages/test-runner-saucelabs"
   },
   "author": "modern-web",
-  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-browserstack",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-saucelabs",
   "main": "dist/index.js",
   "engines": {
     "node": ">=10.0.0"
@@ -34,16 +34,16 @@
     "test",
     "runner",
     "testrunner",
-    "browserstack",
+    "saucelabs",
     "browser",
     "launcher"
   ],
   "dependencies": {
     "@web/test-runner-selenium": "^0.2.2",
-    "browserstack-local": "^1.4.5",
     "ip": "^1.1.5",
+    "saucelabs": "^4.4.4",
     "selenium-webdriver": "^4.0.0-alpha.7",
-    "uuid": "^8.1.0"
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@types/ip": "^1.1.0",

@@ -12,11 +12,21 @@ For modern browsers, we recommend using other browser launchers, as they are a l
 
 ## Usage
 
+Install the package:
+
+```
+npm i --save-dev @web/test-runner-browserstack
+```
+
+Add the browser launcher to your `web-test-runner.confg.mjs`:
+
 ```js
 import { browserstackLauncher } from '@web/test-runner-browserstack';
 
+// options shared between all browsers
 const sharedCapabilities = {
-  // it's recommended to store user and key as environment variables
+  // your username and key for browserstack, you can get this from your browserstack account
+  // it's recommended to store these as environment variables
   'browserstack.user': process.env.BROWSER_STACK_USERNAME,
   'browserstack.key': process.env.BROWSER_STACK_ACCESS_KEY,
 
@@ -30,6 +40,8 @@ const sharedCapabilities = {
 
 export default {
   browsers: [
+    // create a browser launcher per browser you want to test
+    // you can get the browser capabilities from the browserstack website
     browserstackLauncher({
       capabilities: {
         ...sharedCapabilities,
@@ -38,6 +50,7 @@ export default {
         os_version: '10',
       },
     }),
+
     browserstackLauncher({
       capabilities: {
         ...sharedCapabilities,
@@ -47,6 +60,7 @@ export default {
         os_version: 'High Sierra',
       },
     }),
+
     browserstackLauncher({
       capabilities: {
         ...sharedCapabilities,
@@ -59,3 +73,11 @@ export default {
   ],
 };
 ```
+
+## Configuration
+
+The Browserstack launcher takes two properties, `capabilities` and `localOptions`.
+
+`capabilities` are the selenium capabilities used to configure the browser to launch in Browserstack. You can generate most of these on the Saucelabs. It must contain a `browserstack.user` and `browserstack.key` property to authenticate with Browserstack, as well as `name`, `build` and `project` to identify the test run.
+
+`localOptions` are options to configure the [browserstack-local](https://www.npmjs.com/package/browserstack-local) proxy. For most use cases, you don't need to configure this property.
