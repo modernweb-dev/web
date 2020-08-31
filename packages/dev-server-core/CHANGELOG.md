@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.6
+
+### Patch Changes
+
+- cd1213e: improved logging of resolving outside root dir
+
 ## 0.2.5
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @web/dev-server-rollup
 
+## 0.2.4
+
+### Patch Changes
+
+- cd1213e: improved logging of resolving outside root dir
+- Updated dependencies [cd1213e]
+  - @web/dev-server-core@0.2.6
+  - @web/test-runner-core@0.7.5
+
 ## 0.2.3
 
 ### Patch Changes
