@@ -1,7 +1,7 @@
 ---
-title: Saucelabs
+title: Sauce Labs
 eleventyNavigation:
-  key: Saucelabs
+  key: Sauce Labs
   parent: Browsers
   order: 70
 ---
@@ -23,14 +23,14 @@ Add the browser launcher to your `web-test-runner.confg.mjs`. To set up a local 
 ```js
 import { createSauceLabsLauncher } from '@web/test-runner-saucelabs';
 
-// configure the local saucelabs proxy, use the returned function to define the
+// configure the local Sauce Labs proxy, use the returned function to define the
 // browsers to test
 const sauceLabsLauncher = createSauceLabsLauncher({
-  // your username and key for saucelabs, you can get this from your saucelabs account
+  // your username and key for Sauce Labs, you can get this from your Sauce Labs account
   // it's recommended to store these as environment variables
   user: process.env.SAUCE_USERNAME,
   key: process.env.SAUCE_ACCESS_KEY,
-  // the saucelabs datacenter to run your tests on, defaults to US
+  // the Sauce Labs datacenter to run your tests on, defaults to 'us-west-1'
   // region: 'eu-central-1',
 });
 
@@ -49,7 +49,7 @@ const sharedCapabilities = {
 export default {
   browsers: [
     // create a browser launcher per browser you want to test
-    // you can get the browser capabilities from the saucelabs website
+    // you can get the browser capabilities from the Sauce Labs website
     saucelabsLauncher({
       capabilities: {
         ...sharedCapabilities,
@@ -105,9 +105,9 @@ const sauceLabsLauncher = createSauceLabsLauncher(sauceLabsOptions, sauceConnect
 
 ### Webdriver Capabilities
 
-`capabilities` are the webdriver capabilities used to configure the browser to launch in Saucelabs. You can generate most of these on the Saucelabs website.
+`capabilities` are the webdriver capabilities used to configure the browser to launch in Sauce Labs. You can generate most of these on the Sauce Labs website.
 
-All the Saucelabs specific options go into a `sauce:options` property. This must contain the `name` and `build` properties to identify the test runs.
+All the Sauce Labs specific options go into a `sauce:options` property. This must contain the `name` and `build` properties to identify the test runs.
 
 ```js
 export default {
