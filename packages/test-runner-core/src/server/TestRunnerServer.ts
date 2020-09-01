@@ -1,5 +1,4 @@
-import { DevServerCoreConfig, DevServer, Plugin } from '@web/dev-server-core';
-import deepmerge from 'deepmerge';
+import { DevServer, Plugin } from '@web/dev-server-core';
 import chokidar from 'chokidar';
 
 import { RunSessions, watchFilesMiddleware } from './middleware/watchFilesMiddleware';
@@ -31,27 +30,25 @@ export class TestRunnerServer {
     const { testFrameworkImport, testFrameworkPlugin } = testFramework
       ? serveTestFrameworkPlugin(testFramework)
       : ({} as { testFrameworkImport?: string; testFrameworkPlugin?: Plugin });
-    const serverConfig = deepmerge.all<DevServerCoreConfig>([
-      {
-        port: config.port,
-        hostname: config.hostname,
-        rootDir,
+    const serverConfig = {
+      port: config.port,
+      hostname: config.hostname,
+      rootDir,
 
-        mimeTypes: config.mimeTypes,
-        middleware: [
-          testRunnerApiMiddleware(sessions, rootDir, config, plugins),
-          watchFilesMiddleware({ runSessions, sessions, rootDir, fileWatcher: this.fileWatcher }),
-          cacheMiddleware(CACHED_PATTERNS, config.watch),
-          ...(config.middleware || []),
-        ],
+      mimeTypes: config.mimeTypes,
+      middleware: [
+        testRunnerApiMiddleware(sessions, rootDir, config, plugins),
+        watchFilesMiddleware({ runSessions, sessions, rootDir, fileWatcher: this.fileWatcher }),
+        cacheMiddleware(CACHED_PATTERNS, config.watch),
+        ...(config.middleware || []),
+      ],
 
-        plugins: [
-          serveTestRunnerHtmlPlugin(config, testFrameworkImport),
-          testFrameworkPlugin,
-          ...(config.plugins || []),
-        ].filter(isDefined) as Plugin[],
-      },
-    ]);
+      plugins: [
+        serveTestRunnerHtmlPlugin(config, testFrameworkImport),
+        testFrameworkPlugin,
+        ...(config.plugins || []),
+      ].filter(isDefined) as Plugin[],
+    };
 
     this.devServer = new DevServer(serverConfig, config.logger, this.fileWatcher);
   }
