@@ -256,11 +256,10 @@ export function rollupAdapter(
 
       if (context.response.is('html')) {
         const documentAst = parseHtml(context.body);
-        const inlineModuleNodes = queryAll(
+        const inlineScripts = queryAll(
           documentAst,
           predicates.AND(
             predicates.hasTagName('script'),
-            predicates.hasAttrValue('type', 'module'),
             predicates.NOT(predicates.hasAttr('src')),
           ),
         );
@@ -268,7 +267,7 @@ export function rollupAdapter(
         const filePath = getRequestFilePath(context, rootDir);
         let transformed = false;
         try {
-          for (const node of inlineModuleNodes) {
+          for (const node of inlineScripts) {
             const code = getTextContent(node);
 
             const rollupPluginContext = createRollupPluginContextAdapter(
