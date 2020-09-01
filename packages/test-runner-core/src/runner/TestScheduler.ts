@@ -3,6 +3,7 @@ import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { TestSessionManager } from '../test-session/TestSessionManager';
 import { TestSession, TestResultError } from '../test-session/TestSession';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
+import { withTimeout } from '../utils/async';
 
 export class TestScheduler {
   private timeoutIdsPerSession = new Map<string, NodeJS.Timeout[]>();
@@ -87,9 +88,13 @@ export class TestScheduler {
     this.addTimeoutId(updatedSession.id, timeoutId);
 
     try {
-      await updatedSession.browser.startSession(
-        updatedSession.id,
-        createSessionUrl(this.config, updatedSession),
+      await withTimeout(
+        updatedSession.browser.startSession(
+          updatedSession.id,
+          createSessionUrl(this.config, updatedSession),
+        ),
+        'Timeout starting the browser page.',
+        this.config.testsStartTimeout!,
       );
 
       // when the browser started, wait for session to ping back on time
@@ -120,7 +125,11 @@ export class TestScheduler {
 
     try {
       if (session.browser.isActive(session.id)) {
-        const { testCoverage, browserLogs } = await session.browser.stopSession(session.id);
+        const { testCoverage, browserLogs } = await withTimeout(
+          session.browser.stopSession(session.id),
+          'Timed out stopping the browser page',
+          this.config.testsFinishTimeout!,
+        );
         updatedSession.testCoverage = testCoverage;
         updatedSession.logs = browserLogs;
       }

@@ -51,7 +51,7 @@ export interface BrowserLauncher {
    * creating new ones.
    * @param session
    */
-  stopSession(sessionId: string): SessionResult | Promise<SessionResult>;
+  stopSession(sessionId: string): Promise<SessionResult>;
 
   /**
    * Starts a debug session. This should start a session like startSession, but
