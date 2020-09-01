@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/esbuildPlugin';
+import { esbuildPlugin } from '../src/index';
 
 const modernJs = `
 class MyClass {
@@ -292,6 +292,48 @@ describe('esbuildPlugin target', function () {
       expect(response.headers.get('content-type')).to.equal(
         'application/javascript; charset=utf-8',
       );
+
+      expectIncludes(text, syntax.classes);
+      for (const e of transformedSyntax.classFields) {
+        expectIncludes(text, e);
+      }
+      expectIncludes(text, transformedSyntax.optionalChaining);
+      expectIncludes(text, transformedSyntax.optionalCatch);
+      expectIncludes(text, transformedSyntax.objectSpread);
+      for (const e of transformedSyntax.asyncFunctions) {
+        expectIncludes(text, e);
+      }
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('can transform inline scripts', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        {
+          name: 'test',
+          serve(context) {
+            if (context.path === '/index.html') {
+              return `<html>
+  <body>
+    <script type="module">${modernJs}</script>
+  </body>
+</html>`;
+            }
+          },
+        },
+        esbuildPlugin({ js: true, target: 'es2016' }),
+      ],
+    });
+
+    try {
+      const response = await fetch(`${host}/index.html`);
+      const text = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(response.headers.get('content-type')).to.equal('text/html; charset=utf-8');
 
       expectIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {

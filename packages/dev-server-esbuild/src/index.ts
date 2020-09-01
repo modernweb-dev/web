@@ -1,1 +1,1 @@
-export { esbuildPlugin } from './esbuildPlugin.js';
+export { esbuildPlugin } from './esbuildPluginFactory';

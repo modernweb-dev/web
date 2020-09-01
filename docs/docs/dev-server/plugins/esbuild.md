@@ -8,9 +8,9 @@ eleventyNavigation:
 
 # Dev Server esbuild
 
-Plugin for using [esbuild](https://github.com/evanw/esbuild) in web dev server and web test runner.
+Plugin for using [esbuild](https://github.com/evanw/esbuild) in web dev server and web test runner. [esbuild](https://github.com/evanw/esbuild) is a blazing fast build tool.
 
-[esbuild](https://github.com/evanw/esbuild) is a blazing fast build tool, and can be used for example to transform TS and JSX to JS. It can also transform modern JS to older JS for older browsers.
+It can be used for fast single-file transforms, for example to transform TS, JSX, TSX and JSON to JS, or to transform modern JS to an older version of JS for older browsers.
 
 ## Usage
 
@@ -26,7 +26,7 @@ Add the plugin in your configuration file:
 import { esbuildPlugin } from '@web/dev-server-esbuild';
 
 export default {
-  plugins: [esbuildPlugin({ ts: true })],
+  plugins: [esbuildPlugin({ ts: true, target: 'auto' })],
 };
 ```
 
@@ -35,8 +35,7 @@ export default {
 We expose the following options for esbuild:
 
 ```ts
-type Target = 'auto' | 'esnext' | 'es2015' | 'es2016' | 'es2017' | 'es2018' | 'es2019' | 'es2020';
-// see esbuild documentation for what all these loaders do
+// see esbuild documentation for more information on loaders
 type Loader =
   | 'js'
   | 'jsx'
@@ -50,7 +49,7 @@ type Loader =
   | 'binary';
 
 interface EsbuildPluginArgs {
-  target?: Target;
+  target?: string | string[];
   ts?: boolean;
   json?: boolean;
   jsx?: boolean;
@@ -64,17 +63,31 @@ interface EsbuildPluginArgs {
 
 ## Target
 
-The target option defines what version of javascript to compile down to. This is primarily to supporting older browsers.
+The target option defines what version of javascript to compile down to. This is primarily to support older browsers.
 
-The default target is `auto`. If this is configured we look at the browser's user agent. If you're on the latest version of a browser that adopts modern javascript syntax at a reasonable pace, we skip any compilation work.
+### Auto target
 
-The current set of browsers are Chrome, Firefox and Edge. Otherwise we compile to `es2017`. Because esbuild is so fast, this is not noticeable in most projects.
+We recommended setting target to `auto`, this is the default when you turn on a loader but needs to be enabled explicitly for JS transforms.
 
-You can override this behavior by setting the `target` option yourself. If it is set to `esnext`, compilation is skipped entirely.
+When target is `auto`, we look at the browser's user agent. If you're on the latest version of a browser that adopts modern javascript syntax at a reasonable pace, we skip any compilation work.
+
+The current set of browsers are Chrome, Firefox and Edge. Otherwise we transform the code to a compatible version of javascript specific to that browser. This transformation is very fast.
+
+### Always auto
+
+The `auto-always` option looks at the user agent, but doesn't skip the latest versions of modern browsers. It will always compile to a compatible target for that browser. Use this when you're using features not yet supported in the latest version of one of the modern browsers.
+
+### Browser and language target
+
+The target option can be set to one or more browser or language targetversions, for example `chrome80` or `es2020`. The property can be an array, so you can set multiple browser targets. While the auto target options are specific to this plugin, the browser and language target come directly from esbuild. [Check the docs](https://github.com/evanw/esbuild) for more information.
+
+### No target
+
+If `target` is set to `esnext`, transformation is skipped entirely.
 
 ## Loaders
 
-Loaders transform different kinds of files to JS. The `loaders` option takes a mapping from file extension to loader name:
+Loaders transform different kinds of file formats to JS. The `loaders` option takes a mapping from file extension to loader name:
 
 ```js
 import { esbuildPlugin } from '@web/dev-server-esbuild';
@@ -155,10 +168,7 @@ esbuildPlugin({ tsx: true, jsxFactory: 'h', jsxFragment: 'Fragment' });
 Transform all JS to older versions of JS:
 
 ```js
-// auto detect based on user agent
 esbuildPlugin({ target: 'auto' });
-// hardcoded
-esbuildPlugin({ target: 'es2017' });
 ```
 
 Transform TS, but don't transform any syntax:

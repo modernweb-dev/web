@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/esbuildPlugin';
+import { esbuildPlugin } from '../src/index';
 
 describe('esbuildPlugin TS', function () {
   this.timeout(5000);
