@@ -1,5 +1,14 @@
 # @web/dev-server-rollup
 
+## 0.2.5
+
+### Patch Changes
+
+- e83ac30: also transform inline non-module scripts
+- Updated dependencies [ee8c8d1]
+- Updated dependencies [e3e6b22]
+  - @web/test-runner-core@0.7.6
+
 ## 0.2.4
 
 ### Patch Changes
