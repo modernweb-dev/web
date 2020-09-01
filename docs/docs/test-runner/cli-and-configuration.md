@@ -42,7 +42,7 @@ wtr test/**/*.test.js --node-resolve --esbuild-target auto
 
 ## esbuild target
 
-The `--esbuild-target` flag uses the [@web/test-runner-esbuild plugin](https://modern-web.dev/docs/dev-server/plugins/esbuild/) to compile JS to a compatible language version. Depending on what language features you are using and the browsers you are testing on, you may not need this flag.
+The `--esbuild-target` flag uses the [@web/dev-server-esbuild plugin](https://modern-web.dev/docs/dev-server/plugins/esbuild/) to compile JS to a compatible language version. Depending on what language features you are using and the browsers you are testing on, you may not need this flag.
 
 If you need this flag, we recommend setting this to `auto`. This will compile based on user-agent, and skip work on modern browsers. [Check the docs](https://modern-web.dev/docs/dev-server/plugins/esbuild/) for all other possible options.
 

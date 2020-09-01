@@ -4,7 +4,7 @@ layout: with-index.njk
 eleventyNavigation:
   key: Plugins
   parent: Dev Server
-  order: 2
+  order: 3
 ---
 
 Plugins are objects with lifecycle hooks called by the dev server or test runner as it serves files to the browser. They can be used to serve virtual files, transform files, or resolve module imports.
