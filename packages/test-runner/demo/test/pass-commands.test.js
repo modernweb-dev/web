@@ -31,6 +31,4 @@ it('can emulate color scheme', async () => {
   expect(matchMedia('(prefers-color-scheme: dark)').matches).to.be.true;
   await emulateMedia({ colorScheme: 'light' });
   expect(matchMedia('(prefers-color-scheme: light)').matches).to.be.true;
-  await emulateMedia({ colorScheme: 'no-preference' });
-  expect(matchMedia('(prefers-color-scheme: no-preference)').matches).to.be.true;
 });
