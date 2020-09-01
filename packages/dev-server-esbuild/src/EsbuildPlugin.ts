@@ -7,7 +7,6 @@ import {
   getRequestFilePath,
 } from '@web/dev-server-core';
 import { startService, Service, Loader, Message } from 'esbuild';
-import { URL, pathToFileURL, fileURLToPath } from 'url';
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs';

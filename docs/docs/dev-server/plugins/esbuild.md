@@ -6,8 +6,6 @@ eleventyNavigation:
   order: 2
 ---
 
-# Dev Server esbuild
-
 Plugin for using [esbuild](https://github.com/evanw/esbuild) in web dev server and web test runner. [esbuild](https://github.com/evanw/esbuild) is a blazing fast build tool.
 
 It can be used for fast single-file transforms, for example to transform TS, JSX, TSX and JSON to JS, or to transform modern JS to an older version of JS for older browsers.

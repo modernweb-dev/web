@@ -5,10 +5,13 @@ const playwrightBrowsers = ['chromium', 'firefox', 'webkit'];
 function loadLauncher(name: string) {
   const pkg = `@web/test-runner-${name}`;
   try {
-    return require(pkg);
+    const path = require.resolve(pkg, { paths: [__dirname, process.cwd()] });
+    return require(path);
   } catch (error) {
     if (error.code === 'MODULE_NOT_FOUND') {
-      throw new Error(`Add ${pkg} as a dependency to use the --${name} flag.`);
+      throw new Error(
+        `You need to add ${pkg} as a dependency of your project to use the --${name} flag.`,
+      );
     } else {
       throw error;
     }

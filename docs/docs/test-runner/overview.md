@@ -50,6 +50,13 @@ web-test-runner test/**/*.test.js --node-resolve --coverage
 wtr test/**/*.test.js --node-resolve --coverage
 ```
 
+Transform JS to a compatible syntax based on user agent:
+
+```
+web-test-runner test/**/*.test.js --node-resolve --esbuild-target auto
+wtr test/**/*.test.js --node-resolve --esbuild-target auto
+```
+
 ## Guide
 
 Check out this [step by step guide](../../guides/test-runner/getting-started.md) to get started.
