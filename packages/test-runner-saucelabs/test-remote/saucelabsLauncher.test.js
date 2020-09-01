@@ -52,6 +52,7 @@ it('runs tests on saucelabs', async function () {
         }),
       ],
       plugins: [legacyPlugin()],
+      browserStartTimeout: 100000,
       concurrency: 1,
     },
     [

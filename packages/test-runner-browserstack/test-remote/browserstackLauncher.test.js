@@ -17,7 +17,7 @@ const sharedCapabilities = {
 };
 
 it('runs tests on browserstack', async function () {
-  this.timeout(50000);
+  this.timeout(100000);
 
   await runTests(
     {
@@ -51,7 +51,8 @@ it('runs tests on browserstack', async function () {
         }),
       ],
       plugins: [legacyPlugin()],
-      concurrency: 3,
+      browserStartTimeout: 100000,
+      concurrency: 1,
     },
     [
       resolve(__dirname, 'fixtures', 'a.js'),
