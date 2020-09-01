@@ -50,11 +50,13 @@ export function testRunnerApiMiddleware(
         ctx.status = 200;
         if (session.debug) return;
 
-        sessions.update({
-          ...session,
-          status: SESSION_STATUS.TEST_STARTED,
-          userAgent: ctx.headers['user-agent'],
-        });
+        sessions.updateStatus(
+          {
+            ...session,
+            userAgent: ctx.headers['user-agent'],
+          },
+          SESSION_STATUS.TEST_STARTED,
+        );
         return;
       }
 
