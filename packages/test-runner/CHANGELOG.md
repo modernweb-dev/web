@@ -1,5 +1,17 @@
 # @web/test-runner
 
+## 0.7.15
+
+### Patch Changes
+
+- ee8c8d1: improved handling of timeouts starting or stopping a page
+- 6694af7: added esbuild-target flag
+- Updated dependencies [ee8c8d1]
+- Updated dependencies [e3e6b22]
+- Updated dependencies [e83ac30]
+  - @web/test-runner-core@0.7.6
+  - @web/dev-server-rollup@0.2.5
+
 ## 0.7.14
 
 ### Patch Changes

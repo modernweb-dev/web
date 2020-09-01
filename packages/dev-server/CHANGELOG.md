@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.0.4
+
+### Patch Changes
+
+- 6694af7: added esbuild-target flag
+- Updated dependencies [e83ac30]
+  - @web/dev-server-rollup@0.2.5
+
 ## 0.0.3
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @web/dev-server-esbuild
 
+## 0.2.3
+
+### Patch Changes
+
+- dc2d689: added esbuild auto and auto-always flags
+- bb53e68: add support for JSON loader
+
 ## 0.2.2
 
 ### Patch Changes

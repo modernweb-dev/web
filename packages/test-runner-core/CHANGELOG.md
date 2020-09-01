@@ -1,5 +1,12 @@
 # @web/test-runner-core
 
+## 0.7.6
+
+### Patch Changes
+
+- ee8c8d1: improved handling of timeouts starting or stopping a page
+- e3e6b22: removed usage of deepmerge
+
 ## 0.7.5
 
 ### Patch Changes
