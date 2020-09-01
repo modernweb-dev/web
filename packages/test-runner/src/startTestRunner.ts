@@ -18,10 +18,12 @@ import chalk from 'chalk';
 
 import { puppeteerLauncher, playwrightLauncher } from './loadLauncher';
 import { nodeResolvePlugin } from './nodeResolvePlugin';
+import { esbuildPlugin } from './esbuildPlugin';
 
 export interface TestRunnerConfig extends TestRunnerCoreConfig {
   nodeResolve?: boolean | RollupNodeResolveOptions;
   preserveSymlinks?: boolean;
+  esbuildTarget?: string | string[];
 }
 
 export interface TestRunnerCliArgsConfig extends Omit<TestRunnerConfig, 'browsers'> {
@@ -61,6 +63,13 @@ const cliOptions: (commandLineArgs.OptionDefinition & { description: string })[]
     type: String,
     multiple: true,
     description: 'Browsers to run when choosing puppeteer or playwright',
+  },
+  {
+    name: 'esbuild-target',
+    type: String,
+    multiple: true,
+    description:
+      'JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user agent. Check the docs for more options.',
   },
   {
     name: 'debug',
@@ -117,6 +126,10 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
 
     if (config.plugins == null) {
       config.plugins = [];
+    }
+
+    if (config.esbuildTarget) {
+      config.plugins.push(esbuildPlugin(config.esbuildTarget));
     }
 
     if (config.nodeResolve) {

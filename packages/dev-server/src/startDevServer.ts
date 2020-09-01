@@ -5,17 +5,19 @@ import {
   validateCoreConfig,
 } from '@web/dev-server-cli';
 import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
+import { DevServerCliConfig } from '@web/dev-server-cli/dist/config/DevServerCliConfig';
 import commandLineArgs from 'command-line-args';
 import chalk from 'chalk';
 
 import { nodeResolvePlugin } from './nodeResolvePlugin';
-import { DevServerCliConfig } from '@web/dev-server-cli/dist/config/DevServerCliConfig';
 import { watchPlugin } from './watchPlugin';
+import { esbuildPlugin } from './esbuildPlugin';
 
 export interface DevServerConfig extends DevServerCliConfig {
   nodeResolve?: boolean | RollupNodeResolveOptions;
   watch?: boolean;
   preserveSymlinks?: boolean;
+  esbuildTarget?: string | string[];
 }
 
 export interface DevServerCliArgsConfig extends DevServerConfig {
@@ -44,6 +46,13 @@ const cliOptions: (commandLineArgs.OptionDefinition & { description: string })[]
     alias: 'w',
     description: 'Reload the browser when files are changed.',
     type: Boolean,
+  },
+  {
+    name: 'esbuild-target',
+    type: String,
+    multiple: true,
+    description:
+      'JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user agent. Check the docs for more options.',
   },
   {
     name: 'debug',
@@ -75,6 +84,10 @@ export async function startDevServer(options: StartDevServerOptions = {}) {
 
     if (!Array.isArray(config.plugins)) {
       config.plugins = [];
+    }
+
+    if (config.esbuildTarget) {
+      config.plugins.push(esbuildPlugin(config.esbuildTarget));
     }
 
     if (config.nodeResolve) {

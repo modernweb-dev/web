@@ -10,18 +10,19 @@ The test runner can be configured using CLI flags, or with a configuration file.
 
 ## CLI flags
 
-| name              | type         | description                                                                                 |
-| ----------------- | ------------ | ------------------------------------------------------------------------------------------- |
-| files             | string       | test files glob. this is the default option, so you do not need to specify it.              |
-| watch             | boolean      | runs in watch mode                                                                          |
-| coverage          | boolean      | whether to analyze code coverage                                                            |
-| node-resolve      | boolean      | resolve bare module imports                                                                 |
-| preserve-symlinks | boolean      | preserve symlinks when resolving imports                                                    |
-| puppeteer         | boolean      | whether to run tests with @web/test-runner-puppeteer                                        |
-| playwright        | boolean      | whether to run tests with @web/test-runner-playwright                                       |
-| browsers          | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit |
-| config            | object       | where to read the config from                                                               |
-| concurrency       | number       | amount of test files to run concurrently                                                    |
+| name              | type         | description                                                                                                           |
+| ----------------- | ------------ | --------------------------------------------------------------------------------------------------------------------- |
+| files             | string       | test files glob. this is the default option, so you do not need to specify it.                                        |
+| watch             | boolean      | runs in watch mode                                                                                                    |
+| coverage          | boolean      | whether to analyze code coverage                                                                                      |
+| node-resolve      | boolean      | resolve bare module imports                                                                                           |
+| esbuild-target    | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent. |
+| preserve-symlinks | boolean      | preserve symlinks when resolving imports                                                                              |
+| puppeteer         | boolean      | whether to run tests with @web/test-runner-puppeteer                                                                  |
+| playwright        | boolean      | whether to run tests with @web/test-runner-playwright                                                                 |
+| browsers          | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit                           |
+| config            | object       | where to read the config from                                                                                         |
+| concurrency       | number       | amount of test files to run concurrently                                                                              |
 
 Examples:
 
@@ -30,13 +31,20 @@ web-test-runner test/**/*.test.js --node-resolve
 web-test-runner test/**/*.test.js --node-resolve --watch
 web-test-runner test/**/*.test.js --node-resolve --coverage
 web-test-runner test/**/*.test.js --node-resolve --playwright --browsers chromium firefox webkit
+web-test-runner test/**/*.test.js --node-resolve --esbuild-target auto
 ```
 
 You can also use the shorthand `wtr` command:
 
 ```
-wtr test/**/*.test.js --node-resolve
+wtr test/**/*.test.js --node-resolve --esbuild-target auto
 ```
+
+## esbuild target
+
+The `--esbuild-target` flag uses the [@web/test-runner-esbuild plugin](https://modern-web.dev/docs/dev-server/plugins/esbuild/) to compile JS to a compatible language version. Depending on what language features you are using and the browsers you are testing on, you may not need this flag.
+
+If you need this flag, we recommend setting this to `auto`. This will compile based on user-agent, and skip work on modern browsers. [Check the docs](https://modern-web.dev/docs/dev-server/plugins/esbuild/) for all other possible options.
 
 ## Configuration file
 
@@ -44,12 +52,9 @@ Web test runner looks for a configuration file in the current working directory 
 
 The file extension can be `.js`, `.cjs` or `.mjs`. A `.js` file will be loaded as an es module or common js module based on your version of node, and the package type of your project.
 
-We recommend writing the configuration using [node js es module](https://nodejs.org/api/esm.html) syntax, and using the `.mjs` file extension to make sure your config is always loaded correctly. All the examples in our documentation use es module syntax, but the config can be written as common js as well.
+We recommend writing the configuration using [node js es module](https://nodejs.org/api/esm.html) syntax and using the `.mjs` file extension to make sure your config is always loaded correctly. All the examples in our documentation use es module syntax.
 
-<details>
-<summary>View examples</summary>
-
-A config written as es module:
+A config written as es module `web-test-runner.config.mjs`:
 
 ```js
 export default {
@@ -61,7 +66,7 @@ export default {
 };
 ```
 
-A config written as a commonjs module:
+A config written as commonjs `web-test-runner.config.js`:
 
 ```js
 module.exports = {
@@ -73,12 +78,7 @@ module.exports = {
 };
 ```
 
-</details>
-
-A configuration file accepts most of the command line args camel cased, with some extra options. Check the type definition for all options:
-
-<details>
-  <summary>Full config type definition</summary>
+A configuration file accepts most of the command line args camel-cased, with some extra options. These are the full type definitions:
 
 ```ts
 import { Plugin, Middleware } from '@web/dev-server';
@@ -112,8 +112,12 @@ interface TestRunnerConfig {
   concurrency?: number;
   // run in watch mode, reloading when files change
   watch?: boolean;
-  // resolve bare imports imports
-  nodeResolve?: boolean;
+  // resolve bare module imports
+  nodeResolve?: boolean | RollupNodeResolveOptions;
+  // preserve symlinks when resolving bare module imports
+  preserveSymlinks?: boolean;
+  // JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user agent.
+  esbuildTarget?: string | string[];
   // preserve symlinks when resolve imports, instead of following
   // symlinks to their original files
   preserveSymlinks?: boolean;
@@ -160,16 +164,11 @@ interface TestRunnerConfig {
 }
 ```
 
-</details>
-
 ## Customizing test runner HTML
 
-When running javascript tests, the test runner runs the test in a standard minimal HTML page. You can provide a custom HTML container to run the tests in with the `testRunnerHtml` function. This function receives the module import for the test runner and the test runner config.
+When running Javascript tests, the test runner runs the test in a standard minimal HTML page. You can provide a custom HTML container to run the tests in with the `testRunnerHtml` function. This function receives the module import for the test runner and the test runner config.
 
 You can use this to set up the testing environment, for example, to set global variables or load test bootstrap code.
-
-<details>
-  <summary>View example</summary>
 
 ```js
 module.exports = {
@@ -188,5 +187,3 @@ module.exports = {
   `,
 };
 ```
-
-</details>
