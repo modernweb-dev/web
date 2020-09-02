@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.2.4
+
+### Patch Changes
+
+- be76d89: exposed strict option for esbuild
+
 ## 0.2.3
 
 ### Patch Changes
