@@ -2,6 +2,7 @@ import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
 import { expect } from 'chai';
 import { stub } from 'sinon';
+import path from 'path';
 
 import { importMapsPlugin } from '../src/importMapsPlugin';
 import { IMPORT_MAP_PARAM } from '../src/utils';
@@ -354,9 +355,9 @@ describe('resolving imports', () => {
     const text = await fetchText(`${host}/index.html`);
     expectIncludes(text, '<script type="importmap">{</script>');
     expect(logger.warn.callCount).to.equal(1);
-    expect(logger.warn.getCall(0).args).to.eql([
-      'Failed to parse import map in "test/index.html": Unexpected end of JSON input',
-    ]);
+    const warning = logger.warn.getCall(0).args[0];
+    expectIncludes(warning, 'Failed to parse import map in "');
+    expectIncludes(warning, `test${path.sep}index.html": Unexpected end of JSON input`);
     server.stop();
   });
 });

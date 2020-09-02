@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Chrome_puppeteer_/test/fixtures/nested/nested.test.js" id="0" tests="1" skipped="0" errors="0" failures="0" time="0.001">
+  <testsuite name="Chrome_puppeteer_/test/fixtures/nested/nested-test.js" id="0" tests="1" skipped="0" errors="0" failures="0" time="0.001">
     <properties>
-      <property name="test.fileName" value="<<cwd>>/packages/test-runner-junit-reporter/test/fixtures/nested/nested.test.js"/>
+      <property name="test.fileName" value="<<cwd>>/packages/test-runner-junit-reporter/test/fixtures/nested/nested-test.js"/>
       <property name="browser.name" value="Chrome"/>
       <property name="browser.launcher" value="puppeteer"/>
       <property name="browser.userAgent" value="<<useragent>>"/>

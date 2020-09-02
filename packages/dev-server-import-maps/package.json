@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsc",
     "test": "mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot && yarn test:ci",
-    "test:browser": "node ../test-runner/dist/index.js test/browser/**/*.test.{js,html} --config test/browser/web-test-runner.config.mjs",
+    "test:browser": "node ../test-runner/dist/bin.js test-browser/test/**/*.test.{js,html} --config test-browser/web-test-runner.config.mjs",
     "test:ci": "yarn test:browser",
     "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
