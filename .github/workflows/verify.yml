@@ -17,6 +17,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - uses: microsoft/playwright-github-action@v1
+
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -55,6 +57,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+
+      - uses: microsoft/playwright-github-action@v1
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path

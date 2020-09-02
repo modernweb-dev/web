@@ -18,4 +18,8 @@ Puppeteer has a [dedicated page](https://github.com/puppeteer/puppeteer/blob/mai
 
 ## Playwright
 
-If you want to use `@web/test-runner-playwright` in a CI environment you need to ensure the necessary native libraries are installed. Check the [official documentation](https://playwright.dev/#version=master&path=docs%2Fci.md&q=) for more information.
+If you want to use `@web/test-runner-playwright` in a CI environment you need to ensure the necessary native libraries are installed.
+
+For the modern web repositories, we run our tests using Github Actions with the [Github Actions plugin](https://github.com/microsoft/playwright-github-action).
+
+Check the [official documentation](https://playwright.dev/#version=master&path=docs%2Fci.md&q=) for more information on different CI environments.
