@@ -1,2 +1,6 @@
-// empty config so that integration test can assume a config is present
-export default {};
+import { fileURLToPath } from 'url';
+import { resolve } from 'path';
+
+export default {
+  rootDir: resolve(fileURLToPath(import.meta.url), '..', '..', '..'),
+}

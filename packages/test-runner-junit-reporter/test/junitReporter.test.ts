@@ -79,7 +79,7 @@ async function launchTestRunner(cwd: string): Promise<{ actual: string; expected
   });
 }
 
-describe('junitReporter', function () {
+describe.skip('junitReporter', function () {
   this.timeout(10000);
 
   async function cleanUpFixtures() {

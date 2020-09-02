@@ -11,7 +11,7 @@ describe('startTestRunner', () => {
     const testRunner = await startTestRunner(
       {
         ...config,
-        files: [resolve(__dirname, 'fixtures', 'a.js')],
+        files: [resolve(__dirname, 'fixtures', 'a.js').replace(/\\/g, '/')],
         testFramework: {
           path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
         },

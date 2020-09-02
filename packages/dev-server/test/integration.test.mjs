@@ -1,5 +1,10 @@
 import puppeteer from 'puppeteer';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 import { startDevServer } from '../index.mjs';
+
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const testCases = [
   {
@@ -46,7 +51,7 @@ describe('integration tests', () => {
         server = await startDevServer({
           autoExitProcess: false,
           logStartMessage: false,
-          argv: ['--config', `demo/${testCase.name}/config.mjs`],
+          argv: ['--config', path.join(dirname, `../demo/${testCase.name}/config.mjs`)],
         });
       });
 
@@ -55,8 +60,8 @@ describe('integration tests', () => {
       });
 
       it('passes the in-browser tests', async function it() {
-        const openPath = server.config.appIndex ?? `demo/${testCase.name}/`;
-        const browserPath = `http://${server.config.hostname}:${server.config.port}/${openPath}`;
+        const openPath = server.config.appIndex || `/demo/${testCase.name}/`;
+        const browserPath = `http://${server.config.hostname}:${server.config.port}${openPath}`;
         const page = await browser.newPage();
         await page.goto(browserPath, {
           waitUntil: 'networkidle2',

@@ -21,5 +21,6 @@ function createServeHtmlPlugin() {
 }
 
 export default {
+  rootDir: resolve(fileURLToPath(import.meta.url), '..', '..', '..'),
   plugins: [createServeHtmlPlugin()],
 };

@@ -4,6 +4,7 @@ import { Builder } from 'selenium-webdriver';
 import { Options as ChromeOptions } from 'selenium-webdriver/chrome';
 import { Options as FirefoxOptions } from 'selenium-webdriver/firefox';
 import { resolve } from 'path';
+import os from 'os';
 
 import { seleniumLauncher } from '../src/seleniumLauncher';
 
@@ -36,7 +37,8 @@ before(async function () {
   seleniumServer = await startSeleniumServer();
 });
 
-it('runs tests with playwright', async function () {
+// selenium doesn't work on windows in the CI
+(os.platform() === 'win32' ? it.skip : it)('runs tests with selenium', async function () {
   this.timeout(50000);
 
   await runTests(
