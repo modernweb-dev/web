@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.7.16
+
+### Patch Changes
+
+- b1306c9: fixed race condition caching headers
+- Updated dependencies [b1306c9]
+  - @web/test-runner-core@0.7.7
+
 ## 0.7.15
 
 ### Patch Changes
