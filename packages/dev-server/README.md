@@ -1,11 +1,4 @@
----
-title: Web Dev Server
-eleventyNavigation:
-  key: Dev Server > Overview
-  title: Overview
-  parent: Dev Server
-  order: 1
----
+# Web Dev Server
 
 Dev Server for web applications, ideal for buildless es module workflows. Optionally supports simple code transformations.
 
@@ -19,9 +12,11 @@ Dev Server for web applications, ideal for buildless es module workflows. Option
 
 > Web Dev server is the successor of [es-dev-server](https://www.npmjs.com/package/es-dev-server)
 
+See [our website](https://modern-web.dev/docs/dev-server/overview/) for full documentation.
+
 ## Installation
 
-Install the web dev server:
+Install the dev server:
 
 ```
 npm i --save-dev @web/dev-server
@@ -29,7 +24,7 @@ npm i --save-dev @web/dev-server
 
 ## Basic commands
 
-Start the server:
+Start the dev server:
 
 ```
 web-dev-server --node-resolve --open
@@ -60,3 +55,7 @@ wds --node-resolve --open --esbuild-target auto
 ## Example projects
 
 Check out the <a href="https://github.com/modernweb-dev/example-projects" target="_blank" rel="noopener noreferrer">example projects</a> for a fully integrated setup.
+
+## Documentation
+
+See [our website](https://modern-web.dev/docs/dev-server/overview/) for full documentation.
