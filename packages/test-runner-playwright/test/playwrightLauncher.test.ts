@@ -3,7 +3,7 @@ import { resolve } from 'path';
 
 import { playwrightLauncher } from '../src/index';
 
-it.skip('runs tests with playwright', async function () {
+it('runs tests with playwright', async function () {
   this.timeout(50000);
 
   await runTests(
