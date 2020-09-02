@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publishConfig": {
     "access": "public"
   },
@@ -33,9 +33,7 @@
     "test": "mocha \"test/**/*.test.mjs\" --reporter dot",
     "test:watch": "mocha \"test/**/*.test.mjs\" --watch --watch-files src,test --reporter dot"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "dev",
@@ -48,7 +46,7 @@
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@types/command-line-args": "^5.0.0",
     "@web/dev-server-cli": "^0.0.2",
-    "@web/dev-server-core": "^0.2.6",
+    "@web/dev-server-core": "^0.2.7",
     "@web/dev-server-rollup": "^0.2.5",
     "chalk": "^4.1.0",
     "command-line-args": "^5.1.1",

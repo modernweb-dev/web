@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.7
+
+### Patch Changes
+
+- b1306c9: fixed race condition caching headers
+
 ## 0.2.6
 
 ### Patch Changes
