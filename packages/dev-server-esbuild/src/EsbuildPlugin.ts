@@ -6,7 +6,7 @@ import {
   DevServerCoreConfig,
   getRequestFilePath,
 } from '@web/dev-server-core';
-import { startService, Service, Loader, Message } from 'esbuild';
+import { startService, Service, Loader, Message, Strict } from 'esbuild';
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs';
@@ -38,6 +38,7 @@ export interface EsbuildConfig {
   tsFileExtensions: string[];
   jsxFactory?: string;
   jsxFragment?: string;
+  strict?: boolean | Strict[];
   define?: { [key: string]: string };
 }
 
@@ -180,8 +181,14 @@ export class EsbuildPlugin implements Plugin {
         sourcemap: 'inline',
         loader,
         target,
-        // use strict class fields when not compiling TS
-        strict: ['ts', 'tsx'].includes(loader) ? [] : ['class-fields'],
+        strict:
+          // use user defined strict config, otherwise default to strict class fields
+          // unless we are transforming TS which does not use strict class fields
+          this.esbuildConfig.strict
+            ? this.esbuildConfig.strict
+            : ['ts', 'tsx'].includes(loader)
+            ? []
+            : ['class-fields'],
         jsxFactory: this.esbuildConfig.jsxFactory,
         jsxFragment: this.esbuildConfig.jsxFragment,
       });

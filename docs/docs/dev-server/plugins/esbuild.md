@@ -30,10 +30,9 @@ export default {
 
 ## Configuration
 
-We expose the following options for esbuild:
+We expose the following options for esbuild. Most of them are a mirror of the esbuild API, check the esbuild docs to learn more about them.
 
 ```ts
-// see esbuild documentation for more information on loaders
 type Loader =
   | 'js'
   | 'jsx'
@@ -55,6 +54,7 @@ interface EsbuildPluginArgs {
   jsxFactory?: string;
   jsxFragment?: string;
   loaders?: Record<string, Loader>;
+  strict?: boolean | Strict[];
   define?: { [key: string]: string };
 }
 ```
