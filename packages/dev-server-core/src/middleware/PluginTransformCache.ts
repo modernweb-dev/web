@@ -1,9 +1,8 @@
 import LRUCache from 'lru-cache';
 import { FSWatcher } from 'chokidar';
-import { Context } from 'koa';
 import fs from 'fs';
 import { promisify } from 'util';
-import { getResponseBody, getRequestFilePath, RequestCancelledError } from '../utils';
+import { RequestCancelledError } from '../utils';
 
 const fsAccess = promisify(fs.access);
 
@@ -58,11 +57,8 @@ export class PluginTransformCache {
     return this.lruCache.get(cacheKey);
   }
 
-  async set(context: Context, cacheKey: string) {
+  async set(filePath: string, body: string, headers: Record<string, string>, cacheKey: string) {
     try {
-      const body = await getResponseBody(context);
-      const filePath = getRequestFilePath(context, this.rootDir);
-
       if (!(await fileExists(filePath))) {
         // only cache files on the file system
         return;
@@ -76,11 +72,7 @@ export class PluginTransformCache {
         }
         cacheKeysForFilePath.add(cacheKey);
 
-        this.lruCache.set(cacheKey, {
-          body,
-          headers: context.response.headers,
-          filePath,
-        });
+        this.lruCache.set(cacheKey, { body, headers, filePath });
       }
     } catch (error) {
       if (error instanceof RequestCancelledError) {

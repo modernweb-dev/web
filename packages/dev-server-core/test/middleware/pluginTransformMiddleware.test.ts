@@ -171,6 +171,39 @@ describe('plugin-transform middleware', () => {
     }
   });
 
+  it('caches response headers', async () => {
+    const { host, server } = await createTestServer({
+      plugins: [
+        {
+          name: 'test',
+
+          transform(ctx) {
+            if (ctx.path === '/src/foo.js') {
+              return { body: 'console.log("foo")', headers: { 'x-foo': 'bar' } };
+            }
+          },
+        },
+      ],
+    });
+
+    try {
+      const responseOne = await fetch(`${host}/src/foo.js`);
+      const textOne = await responseOne.text();
+      const headersOne = responseOne.headers.raw();
+
+      const responseTwo = await fetch(`${host}/src/foo.js`);
+      const textTwo = await responseTwo.text();
+      const headersTwo = responseTwo.headers.raw();
+
+      expect(textOne).equal('console.log("foo")');
+      expect(textTwo).equal('console.log("foo")');
+      expect(headersOne['x-foo']).eql(['bar']);
+      expect(headersOne).eql(headersTwo);
+    } finally {
+      server.stop();
+    }
+  });
+
   it('allows users to turn off caching of response body', async () => {
     const { host, server } = await createTestServer({
       plugins: [

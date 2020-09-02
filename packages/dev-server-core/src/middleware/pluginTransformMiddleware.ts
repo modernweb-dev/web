@@ -3,7 +3,7 @@ import { Middleware } from 'koa';
 
 import { DevServerCoreConfig } from '../DevServerCoreConfig';
 import { PluginTransformCache } from './PluginTransformCache';
-import { getResponseBody, RequestCancelledError } from '../utils';
+import { getRequestFilePath, getResponseBody, RequestCancelledError } from '../utils';
 import { Logger } from '../logger/Logger';
 
 /**
@@ -49,14 +49,16 @@ export function pluginTransformMiddleware(
       // ensure response body is turned into a string or buffer
       await getResponseBody(context);
 
-      let transformCache = true;
+      let disableCache = false;
+      let transformedCode = false;
       for (const plugin of transformPlugins) {
         const result = await plugin.transform?.(context);
 
         if (typeof result === 'object') {
-          transformCache = result.transformCache === false ? false : transformCache;
+          disableCache = result.transformCache === false ? true : disableCache;
           if (result.body != null) {
             context.body = result.body;
+            transformedCode = true;
           }
 
           if (result.headers) {
@@ -66,12 +68,14 @@ export function pluginTransformMiddleware(
           }
         } else if (typeof result === 'string') {
           context.body = result;
+          transformedCode = true;
         }
       }
 
-      if (transformCache) {
+      if (transformedCode && !disableCache) {
         logger.debug(`Added cache key "${cacheKey}" to plugin transform cache`);
-        cache.set(context, cacheKey);
+        const filePath = getRequestFilePath(context, config.rootDir);
+        cache.set(filePath, context.body, context.response.headers, cacheKey);
       }
     } catch (error) {
       if (error instanceof RequestCancelledError) {
