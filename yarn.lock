@@ -2263,6 +2263,17 @@
   dependencies:
     eslint-visitor-keys "^1.1.0"
 
+"@web/dev-server-esbuild@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@web/dev-server-esbuild/-/dev-server-esbuild-0.2.4.tgz#6af53fd7f30d288e73287e4c98153fac894bfa0d"
+  integrity sha512-r1vrPMdGZOssuqwL6jFKhmDmQzuivoS4Cj3ft2vo53LyQtCi2yn2Kc6i13/U8dQEo1LcUIxInGD4lGF8g3YVOg==
+  dependencies:
+    "@web/dev-server-core" "^0.2.2"
+    esbuild "^0.6.28"
+    mdn-browser-compat-data "^1.0.29"
+    parse5 "^6.0.1"
+    ua-parser-js "^0.7.21"
+
 "@webcomponents/shadycss@^1.9.4":
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/@webcomponents/shadycss/-/shadycss-1.10.1.tgz#6f377b313c96a93a690f25206b32a20eada4b2a9"
