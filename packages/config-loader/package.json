@@ -44,7 +44,7 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./index.,js",
+      "import": "./index.mjs",
       "require": "./src/index.js"
     }
   }
