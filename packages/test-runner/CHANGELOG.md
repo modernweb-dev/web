@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.7.17
+
+### Patch Changes
+
+- 43cd03b: increased browser start timeout
+- Updated dependencies [43cd03b]
+  - @web/test-runner-cli@0.5.7
+  - @web/test-runner-core@0.7.8
+
 ## 0.7.16
 
 ### Patch Changes
