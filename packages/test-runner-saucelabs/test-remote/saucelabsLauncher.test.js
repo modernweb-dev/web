@@ -13,15 +13,14 @@ const sauceLabsLauncher = createSauceLabsLauncher({
 
 const sharedCapabilities = {
   'sauce:options': {
-    build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${
-      process.env.GITHUB_RUN_NUMBER ?? ''
-    }`,
+    build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${process.env.GITHUB_RUN_NUMBER ??
+      ''}`,
     name: 'integration test',
   },
 };
 
-it('runs tests on saucelabs', async function () {
-  this.timeout(100000);
+it('runs tests on saucelabs', async function() {
+  this.timeout(1000 * 60 * 5);
 
   const runner = await runTests(
     {
@@ -32,6 +31,12 @@ it('runs tests on saucelabs', async function () {
         //   browserVersion: 'latest',
         //   platformName: 'Windows 10',
         // }),
+        sauceLabsLauncher({
+          ...sharedCapabilities,
+          browserName: 'safari',
+          browserVersion: '13.1',
+          platformName: 'macOS 10.15',
+        }),
         // sauceLabsLauncher({
         //   ...sharedCapabilities,
         //   browserName: 'firefox',
@@ -44,16 +49,18 @@ it('runs tests on saucelabs', async function () {
         //   browserVersion: '12.0',
         //   platformName: 'macOS 10.14',
         // }),
-        sauceLabsLauncher({
-          ...sharedCapabilities,
-          browserName: 'internet explorer',
-          browserVersion: '11.0',
-          platformName: 'Windows 7',
-        }),
+        // sauceLabsLauncher({
+        //   ...sharedCapabilities,
+        //   browserName: 'internet explorer',
+        //   browserVersion: '11.0',
+        //   platformName: 'Windows 7',
+        // }),
       ],
       plugins: [legacyPlugin()],
-      browserStartTimeout: 100000,
-      concurrency: 1,
+      browserStartTimeout: 1000 * 60 * 1,
+      testsStartTimeout: 1000 * 60 * 1,
+      testsFinishTimeout: 1000 * 60 * 1,
+      concurrency: 2,
     },
     [
       resolve(__dirname, 'fixtures', 'a.js'),
@@ -61,6 +68,11 @@ it('runs tests on saucelabs', async function () {
       resolve(__dirname, 'fixtures', 'c.js'),
       resolve(__dirname, 'fixtures', 'd.js'),
       resolve(__dirname, 'fixtures', 'e.js'),
+      resolve(__dirname, 'fixtures', 'f.js'),
+      resolve(__dirname, 'fixtures', 'g.js'),
+      resolve(__dirname, 'fixtures', 'h.js'),
+      resolve(__dirname, 'fixtures', 'i.js'),
+      resolve(__dirname, 'fixtures', 'j.js'),
       resolve(__dirname, 'fixtures', 'stage-4-features.js'),
       resolve(__dirname, 'fixtures', 'module-features.js'),
     ],

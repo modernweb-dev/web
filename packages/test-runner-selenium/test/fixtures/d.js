@@ -1,6 +1,12 @@
 /* eslint-disable */
-it('test a', () => {});
+it('test a', async () => {
+  await new Promise(resolve => setTimeout(resolve, 100));
+});
 
-it('test b', () => {});
+it('test b', async () => {
+  await new Promise(resolve => setTimeout(resolve, 100));
+});
 
-it('test c', () => {});
+it('test c', async () => {
+  await new Promise(resolve => setTimeout(resolve, 100));
+});

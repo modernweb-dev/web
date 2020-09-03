@@ -1,5 +1,6 @@
-import { BrowserLauncher, CoverageMapData, TestRunnerCoreConfig } from '@web/test-runner-core';
+import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Builder, WebDriver } from 'selenium-webdriver';
+import { WindowManager } from './WindowManager';
 
 export interface SeleniumLauncherArgs {
   driverBuilder: Builder;
@@ -8,21 +9,19 @@ export interface SeleniumLauncherArgs {
 export class SeleniumLauncher implements BrowserLauncher {
   public name = 'Initializing...';
   public type = 'selenium';
-  private sessionsQueue: { sessionId: string; url: string }[] = [];
   private driver: undefined | WebDriver;
   private debugDriver: undefined | WebDriver = undefined;
-  private currentSession: string | undefined;
-  private config: TestRunnerCoreConfig | undefined;
+  private windowManager?: WindowManager;
 
   constructor(private driverBuilder: Builder) {}
 
   async start(config: TestRunnerCoreConfig) {
-    this.config = config;
     this.driver = await this.driverBuilder.build();
     const cap = await this.driver.getCapabilities();
     this.name = [cap.getPlatform(), cap.getBrowserName(), cap.getBrowserVersion()]
       .filter(_ => _)
       .join(' ');
+    this.windowManager = new WindowManager(this.driver, config);
   }
 
   async stop() {
@@ -32,52 +31,22 @@ export class SeleniumLauncher implements BrowserLauncher {
 
       this.driver = undefined;
       this.debugDriver = undefined;
+      this.windowManager = undefined;
     } catch {
       //
     }
   }
 
-  async startSession(sessionId: string, url: string) {
-    this.sessionsQueue.push({ sessionId, url });
-
-    if (!this.currentSession) {
-      return this._runNextQueuedSession();
-    }
+  async startSession(id: string, url: string) {
+    return this.windowManager!.queueStartSession(id, url);
   }
 
-  isActive(sessionId: string) {
-    return this.currentSession === sessionId;
+  isActive(id: string) {
+    return this.windowManager!.isActive(id);
   }
 
-  async _runNextQueuedSession() {
-    const next = this.sessionsQueue.shift();
-    if (!next) {
-      return;
-    }
-
-    if (!this.driver) {
-      throw new Error('Browser is closed');
-    }
-
-    this.currentSession = next.sessionId;
-    await this.driver.get(next.url);
-  }
-
-  async stopSession(sessionId: string) {
-    if (this.currentSession === sessionId) {
-      this.currentSession = undefined;
-      this._runNextQueuedSession();
-    }
-
-    let testCoverage: CoverageMapData | undefined = undefined;
-
-    if (this.config?.coverage) {
-      testCoverage = await this.driver?.executeScript<CoverageMapData>(function () {
-        return (window as any).__coverage__;
-      });
-    }
-
-    return { browserLogs: [], testCoverage };
+  async stopSession(id: string) {
+    return this.windowManager!.queueStopSession(id);
   }
 
   async startDebugSession(_: string, url: string) {

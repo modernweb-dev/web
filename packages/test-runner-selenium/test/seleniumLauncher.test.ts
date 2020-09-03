@@ -67,6 +67,11 @@ before(async function () {
       resolve(__dirname, 'fixtures', 'e.js'),
       resolve(__dirname, 'fixtures', 'f.js'),
       resolve(__dirname, 'fixtures', 'g.js'),
+      resolve(__dirname, 'fixtures', 'h.js'),
+      resolve(__dirname, 'fixtures', 'i.js'),
+      resolve(__dirname, 'fixtures', 'j.js'),
+      resolve(__dirname, 'fixtures', 'module-features.js'),
+      resolve(__dirname, 'fixtures', 'stage-4-features.js'),
     ],
   );
 });

@@ -39,6 +39,7 @@
     "launcher"
   ],
   "dependencies": {
+    "@web/dev-server-esbuild": "^0.2.4",
     "@web/test-runner-selenium": "^0.2.2",
     "ip": "^1.1.5",
     "saucelabs": "^4.4.4",
