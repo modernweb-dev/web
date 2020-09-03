@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.7.8
+
+### Patch Changes
+
+- 43cd03b: increased browser start timeout
+
 ## 0.7.7
 
 ### Patch Changes
