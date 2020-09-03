@@ -1,5 +1,11 @@
 # @web/config-loader
 
+## 0.1.2
+
+### Patch Changes
+
+- 132c43c: export map entry for import needs to be valid
+
 ## 0.1.1
 
 ### Patch Changes
