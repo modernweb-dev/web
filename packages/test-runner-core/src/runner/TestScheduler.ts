@@ -94,7 +94,7 @@ export class TestScheduler {
           createSessionUrl(this.config, updatedSession),
         ),
         'Timeout starting the browser page.',
-        this.config.testsStartTimeout!,
+        this.config.browserStartTimeout!,
       );
 
       // when the browser started, wait for session to ping back on time
