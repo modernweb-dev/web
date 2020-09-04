@@ -1,5 +1,7 @@
 import { TestRunnerCoreConfig, CoverageMapData, SessionResult } from '@web/test-runner-core';
-import { WebDriver, Key, By } from 'selenium-webdriver';
+import { WebDriver } from 'selenium-webdriver';
+
+import { withTimeout } from './utils';
 
 interface QueuedStartSession {
   id: string;
@@ -29,6 +31,12 @@ export class WindowManager {
   constructor(driver: WebDriver, config: TestRunnerCoreConfig) {
     this.driver = driver;
     this.config = config;
+  }
+
+  async initialize() {
+    // the browser always starts with an empty window, we should mark this as available for testing
+    const handles = await this.driver.getAllWindowHandles();
+    this.inactiveWindows.push(...handles);
   }
 
   isActive(id: string) {
@@ -73,6 +81,22 @@ export class WindowManager {
     this.locked = false;
   }
 
+  private async waitForNewWindow(previousWindows: string[]) {
+    let newWindows: string[];
+
+    do {
+      newWindows = await this.driver.getAllWindowHandles();
+    } while (newWindows.length === previousWindows.length);
+
+    const newWindow = newWindows.find(w => !previousWindows.includes(w));
+    if (!newWindow) {
+      throw new Error(
+        'Something went wrong opening a new browser. Did not find a new unique window handle',
+      );
+    }
+    return newWindow;
+  }
+
   /**
    * Focuses the browser to a window available for running a test.
    *
@@ -84,13 +108,13 @@ export class WindowManager {
     if (this.inactiveWindows.length > 0) {
       windowHandle = this.inactiveWindows.pop()!;
     } else {
-      const handlesCountBefore = (await this.driver.getAllWindowHandles()).length;
+      const previousWindows = await this.driver.getAllWindowHandles();
       await this.driver.executeScript('window.open("about:blank")');
-      const handles = await this.driver.getAllWindowHandles();
-      if (handlesCountBefore + 1 !== handles.length) {
-        throw new Error('Something went wrong while opening a new browser window');
-      }
-      windowHandle = handles[handles.length - 1];
+      windowHandle = await withTimeout(
+        this.waitForNewWindow(previousWindows),
+        'Something went wrong opening a new browser window. New window never appeared',
+        10000,
+      );
     }
     await this.driver.switchTo().window(windowHandle);
     return windowHandle;

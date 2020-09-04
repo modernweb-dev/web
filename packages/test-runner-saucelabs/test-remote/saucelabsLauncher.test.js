@@ -13,13 +13,14 @@ const sauceLabsLauncher = createSauceLabsLauncher({
 
 const sharedCapabilities = {
   'sauce:options': {
-    build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${process.env.GITHUB_RUN_NUMBER ??
-      ''}`,
+    build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${
+      process.env.GITHUB_RUN_NUMBER ?? ''
+    }`,
     name: 'integration test',
   },
 };
 
-it('runs tests on saucelabs', async function() {
+it('runs tests on saucelabs', async function () {
   this.timeout(1000 * 60 * 5);
 
   const runner = await runTests(
@@ -31,12 +32,12 @@ it('runs tests on saucelabs', async function() {
         //   browserVersion: 'latest',
         //   platformName: 'Windows 10',
         // }),
-        sauceLabsLauncher({
-          ...sharedCapabilities,
-          browserName: 'safari',
-          browserVersion: '13.1',
-          platformName: 'macOS 10.15',
-        }),
+        // sauceLabsLauncher({
+        //   ...sharedCapabilities,
+        //   browserName: 'safari',
+        //   browserVersion: '13.1',
+        //   platformName: 'macOS 10.15',
+        // }),
         // sauceLabsLauncher({
         //   ...sharedCapabilities,
         //   browserName: 'firefox',
@@ -49,18 +50,18 @@ it('runs tests on saucelabs', async function() {
         //   browserVersion: '12.0',
         //   platformName: 'macOS 10.14',
         // }),
-        // sauceLabsLauncher({
-        //   ...sharedCapabilities,
-        //   browserName: 'internet explorer',
-        //   browserVersion: '11.0',
-        //   platformName: 'Windows 7',
-        // }),
+        sauceLabsLauncher({
+          ...sharedCapabilities,
+          browserName: 'internet explorer',
+          browserVersion: '11.0',
+          platformName: 'Windows 7',
+        }),
       ],
+      concurrency: 5,
       plugins: [legacyPlugin()],
       browserStartTimeout: 1000 * 60 * 1,
       testsStartTimeout: 1000 * 60 * 1,
       testsFinishTimeout: 1000 * 60 * 1,
-      concurrency: 2,
     },
     [
       resolve(__dirname, 'fixtures', 'a.js'),

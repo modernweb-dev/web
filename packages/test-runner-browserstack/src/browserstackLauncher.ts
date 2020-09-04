@@ -76,5 +76,10 @@ export function browserstackLauncher(args: BrowserstackLauncherArgs): BrowserLau
   capabilities.set('browserstack.local', true);
   capabilities.set('browserstack.localIdentifier', localId);
 
+  // we need to allow popups since we open new windows
+  capabilities.set('browserstack.ie.enablePopups', true);
+  capabilities.set('browserstack.edge.enablePopups', true);
+  capabilities.set('browserstack.safari.enablePopups', true);
+
   return new BrowserstackLauncher(capabilities, browserName, args.localOptions);
 }

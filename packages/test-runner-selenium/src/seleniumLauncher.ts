@@ -16,12 +16,15 @@ export class SeleniumLauncher implements BrowserLauncher {
   constructor(private driverBuilder: Builder) {}
 
   async start(config: TestRunnerCoreConfig) {
+    const cap = this.driverBuilder.getCapabilities();
+    cap.setPageLoadStrategy('none');
+    this.driverBuilder.withCapabilities(cap);
     this.driver = await this.driverBuilder.build();
-    const cap = await this.driver.getCapabilities();
     this.name = [cap.getPlatform(), cap.getBrowserName(), cap.getBrowserVersion()]
       .filter(_ => _)
       .join(' ');
     this.windowManager = new WindowManager(this.driver, config);
+    await this.windowManager.initialize();
   }
 
   async stop() {

@@ -11,11 +11,12 @@ const sharedCapabilities = {
 
   project: '@web/test-runner-browserstack',
   name: 'integration test',
-  build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${process.env.GITHUB_RUN_NUMBER ??
-    ''}`,
+  build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${
+    process.env.GITHUB_RUN_NUMBER ?? ''
+  }`,
 };
 
-it('runs tests on browserstack', async function() {
+it('runs tests on browserstack', async function () {
   this.timeout(1000 * 60 * 5);
 
   await runTests(
@@ -49,11 +50,11 @@ it('runs tests on browserstack', async function() {
           },
         }),
       ],
+      concurrency: 5,
       plugins: [legacyPlugin()],
       browserStartTimeout: 1000 * 60 * 1,
       testsStartTimeout: 1000 * 60 * 1,
       testsFinishTimeout: 1000 * 60 * 1,
-      concurrency: 3,
     },
     [
       resolve(__dirname, 'fixtures', 'a.js'),
