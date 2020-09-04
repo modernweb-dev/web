@@ -1,9 +1,8 @@
 import { DevServer } from '@web/dev-server-core';
 
-import { DevServerLogger } from './logger/DevServerLogger';
 import { DevServerCliConfig } from './config/DevServerCliConfig';
 import { openBrowser } from './openBrowser';
-import { loggerPlugin } from './logger/loggerPlugin';
+import { createLogger } from './logger/createLogger';
 
 export interface StartDevServerOptions {
   autoExitProcess?: boolean;
@@ -16,15 +15,15 @@ export async function startDevServer(
   options: StartDevServerOptions = {},
 ) {
   const { autoExitProcess = true, clearTerminalOnChange = false, logStartMessage = true } = options;
+  const { logger, loggerPlugin } = createLogger({
+    // TODO: read debug
+    debugLogging: false,
+    clearTerminalOnChange,
+    logStartMessage,
+  });
   config.plugins = config.plugins ?? [];
-  config.plugins.push(
-    loggerPlugin({
-      clearTerminalOnChange,
-      logStartMessage,
-    }),
-  );
+  config.plugins.push(loggerPlugin);
 
-  const logger = new DevServerLogger();
   const server = new DevServer(config, logger);
 
   if (autoExitProcess) {

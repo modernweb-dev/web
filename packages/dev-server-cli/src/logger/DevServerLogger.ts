@@ -4,7 +4,13 @@ import path from 'path';
 import chalk from 'chalk';
 
 export class DevServerLogger implements Logger {
-  constructor(private debugLogging: boolean = false) {}
+  private debugLogging: boolean;
+  private onSyntaxError: (msg: string) => void;
+
+  constructor(debugLogging: boolean, onSyntaxError: (msg: string) => void) {
+    this.debugLogging = debugLogging;
+    this.onSyntaxError = onSyntaxError;
+  }
 
   log(...messages: unknown[]) {
     console.log(...messages);
@@ -34,12 +40,22 @@ export class DevServerLogger implements Logger {
 
   logSyntaxError(error: PluginSyntaxError) {
     const { message, code, filePath, column, line } = error;
-    const result = codeFrameColumns(code, { start: { line, column } }, { highlightCode: true });
+    const highlightedResult = codeFrameColumns(
+      code,
+      { start: { line, column } },
+      { highlightCode: true },
+    );
+    const result = codeFrameColumns(code, { start: { line, column } }, { highlightCode: false });
+
     const relativePath = path.relative(process.cwd(), filePath);
     console.error(
-      chalk.red(`Error while transforming ${chalk.cyanBright(relativePath)}: ${message}`),
+      chalk.red(`Error while transforming ${chalk.cyanBright(relativePath)}: ${message}\n`),
     );
-    console.error(result);
+    console.error(highlightedResult);
     console.error('');
+
+    this.onSyntaxError(
+      `Error while transforming ${relativePath}: ${message}` + `\n\n${result}\n\n`,
+    );
   }
 }
