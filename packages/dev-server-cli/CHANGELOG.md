@@ -1,5 +1,11 @@
 # @web/dev-server-cli
 
+## 0.0.3
+
+### Patch Changes
+
+- 40e8bf2: log syntax errors to the browser
+
 ## 0.0.2
 
 ### Patch Changes

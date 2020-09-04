@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.0.6
+
+### Patch Changes
+
+- 40e8bf2: log syntax errors to the browser
+- Updated dependencies [40e8bf2]
+  - @web/dev-server-cli@0.0.3
+
 ## 0.0.5
 
 ### Patch Changes
