@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.2.3
+
+### Patch Changes
+
+- dbbb6db: run tests in parallel
+
 ## 0.2.2
 
 ### Patch Changes

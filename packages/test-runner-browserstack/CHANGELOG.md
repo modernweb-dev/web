@@ -1,5 +1,13 @@
 # @web/test-runner-browserstack
 
+## 0.1.3
+
+### Patch Changes
+
+- dbbb6db: run tests in parallel
+- Updated dependencies [dbbb6db]
+  - @web/test-runner-selenium@0.2.3
+
 ## 0.1.2
 
 ### Patch Changes
