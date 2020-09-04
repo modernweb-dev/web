@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.2.6
+
+### Patch Changes
+
+- f22bd2f: add error messages
+
 ## 0.2.5
 
 ### Patch Changes
