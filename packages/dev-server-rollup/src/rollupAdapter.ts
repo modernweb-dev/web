@@ -53,6 +53,10 @@ export function rollupAdapter(
   rollupPlugin: RollupPlugin,
   rollupInputOptions: Partial<InputOptions> = {},
 ): WdsPlugin {
+  if (typeof rollupPlugin !== 'object') {
+    throw new Error('rollupAdapter should be called with a rollup plugin object.');
+  }
+
   const transformedFiles = new Set();
   let rollupPluginContexts: RollupPluginContexts;
   let fileWatcher: FSWatcher;

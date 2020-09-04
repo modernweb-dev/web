@@ -8,6 +8,10 @@ export function fromRollup<T extends FnArgs>(
   rollupPluginFn: RollupPluginFn<T>,
   rollupInputOptions: Partial<InputOptions> = {},
 ) {
+  if (typeof rollupPluginFn !== 'function') {
+    throw new Error('fromRollup should be called with a rollup plugin function.');
+  }
+
   // return a function wrapper which intercepts creation of the rollup plugin
   return function wrappedRollupPluginFn(...args: T) {
     // call the original plugin function
