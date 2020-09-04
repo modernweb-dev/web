@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.5.5
+
+### Patch Changes
+
+- 41d895f: capture native browser errors
+
 ## 0.5.4
 
 ### Patch Changes
