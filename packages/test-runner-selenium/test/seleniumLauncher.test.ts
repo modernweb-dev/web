@@ -57,7 +57,7 @@ before(async function () {
             .usingServer('http://localhost:4444/wd/hub'),
         }),
       ],
-      concurrency: 3,
+      concurrency: 5,
     },
     [
       resolve(__dirname, 'fixtures', 'a.js'),

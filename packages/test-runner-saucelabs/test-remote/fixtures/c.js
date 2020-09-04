@@ -1,5 +1,5 @@
 /* eslint-disable */
-it('test a', async function() {
+it('test a', async function () {
   this.timeout(5000);
   await new Promise(resolve => setTimeout(resolve, 1000));
 });
