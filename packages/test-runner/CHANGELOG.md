@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.7.18
+
+### Patch Changes
+
+- 41d895f: capture native browser errors
+- Updated dependencies [41d895f]
+  - @web/test-runner-chrome@0.6.5
+
 ## 0.7.17
 
 ### Patch Changes

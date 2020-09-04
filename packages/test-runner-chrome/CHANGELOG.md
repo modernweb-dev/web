@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.6.5
+
+### Patch Changes
+
+- 41d895f: capture native browser errors
+
 ## 0.6.4
 
 ### Patch Changes
