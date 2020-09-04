@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.7.19
+
+### Patch Changes
+
+- 4de5259: also report syntax errors when not using the node-resolve flag
+
 ## 0.7.18
 
 ### Patch Changes
