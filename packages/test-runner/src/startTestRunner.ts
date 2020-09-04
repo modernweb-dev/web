@@ -137,7 +137,16 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
       config.plugins!.push(nodeResolvePlugin(rootDir, config.preserveSymlinks, userOptions));
     }
 
-    config.plugins!.push(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
+    // plugin with a noop transformImport hook, this will cause the dev server to analyze modules and
+    // catch syntax errors. this way we still report syntax errors when the user has no flags enabled
+    config.plugins.push({
+      name: 'syntax-checker',
+      transformImport() {
+        return undefined;
+      },
+    });
+
+    config.plugins.push(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
 
     const validatedConfig = validateCoreConfig<TestRunnerConfig>(config);
     return defaultStartTestRunner(validatedConfig, { autoExitProcess });
