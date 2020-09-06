@@ -1,5 +1,13 @@
 # @web/test-runner-commands
 
+## 0.1.5
+
+### Patch Changes
+
+- abf811f: improved error message when session id is missing
+- Updated dependencies [431ec8f]
+  - @web/test-runner-core@0.7.9
+
 ## 0.1.4
 
 ### Patch Changes

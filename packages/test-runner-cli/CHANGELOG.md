@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.5.8
+
+### Patch Changes
+
+- 431ec8f: added support for manually debugging in a browser
+- Updated dependencies [431ec8f]
+  - @web/test-runner-core@0.7.9
+
 ## 0.5.7
 
 ### Patch Changes
