@@ -6,11 +6,15 @@ const fetch = window.fetch;
 const PARAM_SESSION_ID = 'wtr-session-id';
 
 const sessionId = new URL(window.location.href).searchParams.get(PARAM_SESSION_ID);
-if (typeof sessionId !== 'string') {
-  throw new Error(`Could not find any session id query parameter.`);
-}
 
 export async function executeServerCommand(command, payload) {
+  if (typeof sessionId !== 'string') {
+    throw new Error(
+      'Unable to execute server commands in a browser not controlled by the test runner. ' +
+        'Use the debug option from the watch menu to debug in a controlled browser.',
+    );
+  }
+
   const body = JSON.stringify({ payload });
   const response = await fetch(`/wtr/${sessionId}/command/${encodeURIComponent(command)}`, {
     method: 'POST',
