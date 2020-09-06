@@ -40,7 +40,7 @@ export class TestRunner extends EventEmitter<EventMap> {
     this.config = config;
     this.testFiles = testFiles.map(f => resolve(f));
     this.scheduler = new TestScheduler(config, this.sessions);
-    this.server = new TestRunnerServer(this.config, this.sessions, sessions => {
+    this.server = new TestRunnerServer(this.config, this.sessions, this.testFiles, sessions => {
       this.runTests(sessions);
     });
 

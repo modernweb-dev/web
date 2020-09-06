@@ -23,6 +23,7 @@ export class TestRunnerServer {
   constructor(
     config: TestRunnerCoreConfig,
     sessions: TestSessionManager,
+    testFiles: string[],
     runSessions: RunSessions,
   ) {
     const { plugins = [], testFramework, rootDir } = config;
@@ -44,7 +45,7 @@ export class TestRunnerServer {
       ],
 
       plugins: [
-        serveTestRunnerHtmlPlugin(config, testFrameworkImport),
+        serveTestRunnerHtmlPlugin(config, testFiles, testFrameworkImport),
         testFrameworkPlugin,
         ...(config.plugins || []),
       ].filter(isDefined) as Plugin[],

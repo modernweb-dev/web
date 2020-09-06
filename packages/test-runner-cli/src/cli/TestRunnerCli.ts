@@ -17,13 +17,15 @@ import { getWatchCommands } from './getWatchCommands';
 import { DynamicTerminal } from '../terminal/DynamicTerminal';
 import { TestRunnerLogger } from '../logger/TestRunnerLogger';
 import { BufferedLogger } from '../reporter/BufferedLogger';
+import { getManualDebugMenu } from './getManualDebugMenu';
 
-export type MenuType = 'overview' | 'focus' | 'debug';
+export type MenuType = 'overview' | 'focus' | 'debug' | 'manual-debug';
 
 export const MENUS = {
   OVERVIEW: 'overview' as MenuType,
   FOCUS_SELECT_FILE: 'focus' as MenuType,
   DEBUG_SELECT_FILE: 'debug' as MenuType,
+  MANUAL_DEBUG: 'manual-debug' as MenuType,
 };
 
 const KEYCODES = {
@@ -34,6 +36,8 @@ const KEYCODES = {
 };
 
 export class TestRunnerCli {
+  private config: TestRunnerCoreConfig;
+  private runner: TestRunner;
   private terminal = new DynamicTerminal();
   private reportedFilesByTestRun = new Map<number, Set<string>>();
   private sessions: TestSessionManager;
@@ -43,10 +47,14 @@ export class TestRunnerCli {
   private testCoverage?: TestCoverage;
   private pendingReportPromises: Promise<any>[] = [];
   private logger: Logger;
+  private localAddress: string;
 
-  constructor(private config: TestRunnerCoreConfig, private runner: TestRunner) {
+  constructor(config: TestRunnerCoreConfig, runner: TestRunner) {
+    this.config = config;
+    this.runner = runner;
     this.logger = this.config.logger;
     this.sessions = runner.sessions;
+    this.localAddress = `${this.config.protocol}//${this.config.hostname}:${this.config.port}/`;
 
     if (config.watch && !this.terminal.isInteractive) {
       this.runner.stop(new Error('Cannot run watch mode in a non-interactive (TTY) terminal.'));
@@ -108,6 +116,8 @@ export class TestRunnerCli {
             } else {
               this.switchMenu(MENUS.DEBUG_SELECT_FILE);
             }
+          } else if (this.activeMenu === MENUS.MANUAL_DEBUG) {
+            openBrowser(this.localAddress);
           }
           return;
         case 'F':
@@ -116,7 +126,7 @@ export class TestRunnerCli {
           }
           return;
         case 'C':
-          if (this.config.coverage) {
+          if (this.activeMenu === MENUS.OVERVIEW && this.config.coverage) {
             openBrowser(
               `file://${path.resolve(
                 this.config.coverageConfig!.reportDir,
@@ -126,11 +136,16 @@ export class TestRunnerCli {
             );
           }
           return;
+        case 'M':
+          this.switchMenu(MENUS.MANUAL_DEBUG);
+          return;
         case KEYCODES.ESCAPE:
           if (this.activeMenu === MENUS.OVERVIEW && this.runner.focusedTestFile) {
             this.runner.focusedTestFile = undefined;
             this.reportTestResults(true);
             this.reportTestProgress();
+          } else if (this.activeMenu === MENUS.MANUAL_DEBUG) {
+            this.switchMenu(MENUS.OVERVIEW);
           }
           return;
         case KEYCODES.ENTER:
@@ -377,6 +392,9 @@ export class TestRunnerCli {
       case MENUS.DEBUG_SELECT_FILE:
         this.logSelectFilesMenu();
         break;
+      case MENUS.MANUAL_DEBUG:
+        this.logManualDebugMenu();
+        break;
       default:
         break;
     }
@@ -406,6 +424,10 @@ export class TestRunnerCli {
       `Number of the file to ${this.activeMenu === MENUS.FOCUS_SELECT_FILE ? 'focus' : 'debug'}: `,
     );
     this.terminal.observeConfirmedInput();
+  }
+
+  logManualDebugMenu() {
+    this.terminal.logDynamic(getManualDebugMenu(this.config));
   }
 
   private async reportEnd() {

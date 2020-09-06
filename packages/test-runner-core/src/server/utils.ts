@@ -10,3 +10,11 @@ export function toBrowserPath(filePath: string) {
 export function toFilePath(browserPath: string) {
   return browserPath.replace(toFilePathRegeExp, path.sep);
 }
+
+export function createBrowserTestFilePath(rootDir: string, filePath: string) {
+  const fullFilePath = filePath.startsWith(process.cwd())
+    ? filePath
+    : path.join(process.cwd(), filePath);
+  const relativeToRootDir = path.relative(rootDir, fullFilePath);
+  return encodeURI(toBrowserPath(relativeToRootDir));
+}

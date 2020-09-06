@@ -7,12 +7,14 @@
 // we make sure we are using the original fetch instead of the mocked variant
 const fetch = window.fetch;
 const PARAM_SESSION_ID = 'wtr-session-id';
+const PARAM_TEST_FILE = 'wtr-test-file';
 const PARAM_IMPORT_MAP = 'wds-import-map';
 let finished = false;
 
+const testFile = new URL(window.location.href).searchParams.get(PARAM_TEST_FILE);
 const sessionId = new URL(window.location.href).searchParams.get(PARAM_SESSION_ID);
-if (typeof sessionId !== 'string') {
-  throw new Error(`Could not find any session id query parameter.`);
+if (typeof sessionId !== 'string' && typeof testFile !== 'string') {
+  throw new Error(`Could not find any session id or test filequery parameter.`);
 }
 
 function postJSON(url, body) {
@@ -25,10 +27,20 @@ function postJSON(url, body) {
 
 const logs = [];
 
+async function getSessionConfig() {
+  const response = await fetch(`/wtr/${sessionId}/config`);
+  return response.json();
+}
+
+async function getTestFileConfig() {
+  const response = await fetch(`/wtr/test-config`);
+  const config = await response.json();
+  return { ...config, testFile };
+}
+
 export async function getConfig() {
   try {
-    const response = await fetch(`/wtr/${sessionId}/config`);
-    const config = await response.json();
+    const config = await (sessionId ? getSessionConfig() : getTestFileConfig());
     const url = new URL(import.meta.url);
 
     // pass on import map parameter to test files, this special cases a specific plugin
@@ -45,7 +57,7 @@ export async function getConfig() {
     };
   } catch (err) {
     await sessionFailed({
-      message: 'Failed to fetch session config',
+      message: 'Failed to fetch test config',
       stack: err ? err.stack : undefined,
     });
     throw err;
@@ -68,10 +80,20 @@ export function sessionFailed(error) {
 }
 
 export async function sessionStarted() {
+  if (!sessionId) {
+    // don't send anything if we're debugging manually
+    return;
+  }
+
   await fetch(`/wtr/${sessionId}/session-started`, { method: 'POST' });
 }
 
 export async function sessionFinished(result) {
+  if (!sessionId) {
+    // don't send anything if we're debugging manually
+    return;
+  }
+
   if (finished) {
     return;
   }
