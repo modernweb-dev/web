@@ -6,7 +6,7 @@ const CLEAR_COMMAND = process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J
 
 export interface LoggerArgs {
   debugLogging: boolean;
-  clearTerminalOnChange: boolean;
+  clearTerminalOnReload: boolean;
   logStartMessage: boolean;
 }
 
@@ -27,20 +27,21 @@ export function createLogger(args: LoggerArgs): { logger: DevServerLogger; logge
           };
         }
 
-        if (args.logStartMessage) {
-          process.stdout.write(CLEAR_COMMAND);
+        function logStartup() {
+          if (args.clearTerminalOnReload) {
+            process.stdout.write(CLEAR_COMMAND);
+          }
           logStartMessage(config, logger);
         }
 
-        function onChange() {
-          if (args.clearTerminalOnChange) {
-            process.stdout.write(CLEAR_COMMAND);
-            logStartMessage(config, logger);
-          }
+        if (args.logStartMessage) {
+          logStartup();
         }
 
-        fileWatcher.addListener('change', onChange);
-        fileWatcher.addListener('unlink', onChange);
+        if (args.clearTerminalOnReload) {
+          fileWatcher.addListener('change', logStartup);
+          fileWatcher.addListener('unlink', logStartup);
+        }
       },
     },
   };

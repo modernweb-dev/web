@@ -1,112 +1,103 @@
-import {
-  readCliArgsConfig,
-  readConfig,
-  startDevServer as originalStartDevServer,
-  validateCoreConfig,
-} from '@web/dev-server-cli';
-import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
-import { DevServerCliConfig } from '@web/dev-server-cli/dist/config/DevServerCliConfig';
-import commandLineArgs from 'command-line-args';
-import chalk from 'chalk';
+import { DevServer } from '@web/dev-server-core';
+import { DevServerConfig } from './config/DevServerConfig';
+import { mergeConfigs } from './config/mergeConfigs';
+import { parseConfig } from './config/parseConfig';
+import { readCliArgs } from './config/readCliArgs';
+import { readFileConfig } from './config/readFileConfig';
+import { DevServerStartError } from './DevServerStartError';
+import { createLogger } from './logger/createLogger';
+import { openBrowser } from './openBrowser';
 
-import { nodeResolvePlugin } from './nodeResolvePlugin';
-import { watchPlugin } from './watchPlugin';
-import { esbuildPlugin } from './esbuildPlugin';
-
-export interface DevServerConfig extends DevServerCliConfig {
-  nodeResolve?: boolean | RollupNodeResolveOptions;
-  watch?: boolean;
-  preserveSymlinks?: boolean;
-  esbuildTarget?: string | string[];
-}
-
-export interface DevServerCliArgsConfig extends DevServerConfig {
-  // CLI-only options go here
-}
-
-export interface StartDevServerOptions {
+export interface StartDevServerParams {
+  /**
+   * Optional config to merge with the user-defined config.
+   */
+  config?: Partial<DevServerConfig>;
+  /**
+   * Whether to read CLI args. Default true.
+   */
+  readCliArgs?: boolean;
+  /**
+   * Whether to read a user config from the file system. Default true.
+   */
+  readFileConfig?: boolean;
+  /**
+   * Name of the configuration to read. Defaults to web-dev-server.config.{mjs,cjs,js}
+   */
+  configName?: string;
+  /**
+   * Whether to automatically exit the process when the server is stopped, killed or an error is thrown.
+   */
   autoExitProcess?: boolean;
+  /**
+   * Whether to log a message when the server is started.
+   */
   logStartMessage?: boolean;
+  /**
+   * Array to read the CLI args from. Defaults to process.argv.
+   */
   argv?: string[];
 }
 
-const cliOptions: (commandLineArgs.OptionDefinition & { description: string })[] = [
-  {
-    name: 'preserve-symlinks',
-    description: "Don't follow symlinks when resolving module imports.",
-    type: Boolean,
-  },
-  {
-    name: 'node-resolve',
-    description: 'Resolve bare module imports using node resolution',
-    type: Boolean,
-  },
-  {
-    name: 'watch',
-    alias: 'w',
-    description: 'Reload the browser when files are changed.',
-    type: Boolean,
-  },
-  {
-    name: 'esbuild-target',
-    type: String,
-    multiple: true,
-    description:
-      'JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user agent. Check the docs for more options.',
-  },
-  {
-    name: 'debug',
-    description: 'Log debug messages.',
-    type: Boolean,
-  },
-];
-
-export async function startDevServer(options: StartDevServerOptions = {}) {
-  const { autoExitProcess = true, argv = process.argv, logStartMessage = true } = options;
+/**
+ * Starts the dev server.
+ */
+export async function startDevServer(options: StartDevServerParams = {}) {
+  const {
+    config: extraConfig,
+    readCliArgs: readCliArgsFlag = true,
+    readFileConfig: readFileConfigFlag = true,
+    configName,
+    autoExitProcess = true,
+    logStartMessage = true,
+    argv = process.argv,
+  } = options;
 
   try {
-    const cliArgs = readCliArgsConfig<DevServerCliArgsConfig>(cliOptions, argv);
-    const cliArgsConfig: Partial<DevServerConfig> = {};
-    for (const [key, value] of Object.entries(cliArgs)) {
-      // cli args are read from a file, they are validated by cli-options and later on as well
-      (cliArgsConfig as any)[key] = value;
-    }
+    const cliArgs = readCliArgsFlag ? readCliArgs({ argv }) : {};
+    const rawConfig = readFileConfigFlag
+      ? await readFileConfig({ configName, configPath: cliArgs.config })
+      : {};
+    const mergedConfig = mergeConfigs(extraConfig, rawConfig);
+    const config = await parseConfig(mergedConfig, cliArgs);
 
-    const config = await readConfig<DevServerConfig>({
-      eventStream: true,
-      ...cliArgsConfig,
+    const { logger, loggerPlugin } = createLogger({
+      // TODO: read debug
+      debugLogging: false,
+      clearTerminalOnReload: !!config.clearTerminalOnReload,
+      logStartMessage: !!logStartMessage,
     });
-    const { rootDir } = config;
+    config.plugins = config.plugins ?? [];
+    config.plugins.push(loggerPlugin);
 
-    if (typeof rootDir !== 'string') {
-      throw new Error('No rootDir specified.');
+    const server = new DevServer(config, logger);
+
+    if (autoExitProcess) {
+      process.on('uncaughtException', error => {
+        /* eslint-disable-next-line no-console */
+        console.error(error);
+        stop();
+      });
+
+      process.on('SIGINT', async () => {
+        await server.stop();
+        process.exit(0);
+      });
     }
 
-    if (!Array.isArray(config.plugins)) {
-      config.plugins = [];
+    await server.start();
+
+    if (config.open != null) {
+      await openBrowser(config);
     }
 
-    if (config.esbuildTarget) {
-      config.plugins.push(esbuildPlugin(config.esbuildTarget));
-    }
-
-    if (config.nodeResolve) {
-      const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
-      config.plugins.push(nodeResolvePlugin(rootDir, config.preserveSymlinks, userOptions));
-    }
-
-    if (config.watch) {
-      config.plugins.push(watchPlugin());
-    }
-
-    const validatedConfig = validateCoreConfig<DevServerConfig>(config);
-    return originalStartDevServer(validatedConfig, {
-      autoExitProcess,
-      logStartMessage,
-      clearTerminalOnChange: config.watch,
-    });
+    return server;
   } catch (error) {
-    console.error(chalk.red(`\nFailed to start dev server: ${error.message}\n`));
+    if (error instanceof DevServerStartError) {
+      console.error(error.message);
+    } else {
+      console.error(error);
+    }
     process.exit(1);
   }
 }

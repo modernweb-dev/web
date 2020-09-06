@@ -5,9 +5,6 @@
   "files": [],
   "references": [
     {
-      "path": "./packages/config-loader/tsconfig.json"
-    },
-    {
       "path": "./packages/dev-server-core/tsconfig.json"
     },
     {
@@ -26,7 +23,7 @@
       "path": "./packages/test-runner-chrome/tsconfig.json"
     },
     {
-      "path": "./packages/dev-server-cli/tsconfig.json"
+      "path": "./packages/config-loader/tsconfig.json"
     },
     {
       "path": "./packages/dev-server-rollup/tsconfig.json"

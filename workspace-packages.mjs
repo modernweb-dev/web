@@ -4,7 +4,6 @@ const packages = [
   { name: 'rollup-plugin-copy', type: 'js', environment: 'node' },
   { name: 'rollup-plugin-workbox', type: 'ts', environment: 'node' },
   { name: 'dev-server', type: 'ts', environment: 'node' },
-  { name: 'dev-server-cli', type: 'ts', environment: 'node' },
   { name: 'dev-server-core', type: 'ts', environment: 'node' },
   { name: 'dev-server-esbuild', type: 'ts', environment: 'node' },
   { name: 'dev-server-rollup', type: 'ts', environment: 'node' },
