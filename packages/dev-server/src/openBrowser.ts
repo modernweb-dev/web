@@ -1,6 +1,6 @@
 import openBrowserWindow from 'open';
 import path from 'path';
-import { DevServerCliConfig } from './config/DevServerCliConfig';
+import { DevServerConfig } from './config/DevServerConfig';
 
 function isValidURL(str: string) {
   try {
@@ -10,7 +10,7 @@ function isValidURL(str: string) {
   }
 }
 
-export async function openBrowser(config: DevServerCliConfig) {
+export async function openBrowser(config: DevServerConfig) {
   let openPath: string;
   if (typeof config.open === 'string') {
     // user-provided open path

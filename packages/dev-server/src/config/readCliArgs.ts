@@ -1,8 +1,25 @@
 import commandLineArgs from 'command-line-args';
 import commandLineUsage, { OptionDefinition } from 'command-line-usage';
 import camelCase from 'camelcase';
+import { DevServerConfig } from './DevServerConfig';
 
-const defaultOptions: (OptionDefinition & { description: string })[] = [
+export interface DevServerCliArgs
+  extends Partial<
+    Pick<
+      DevServerConfig,
+      | 'rootDir'
+      | 'open'
+      | 'appIndex'
+      | 'preserveSymlinks'
+      | 'nodeResolve'
+      | 'watch'
+      | 'esbuildTarget'
+    >
+  > {
+  config?: string;
+}
+
+const options: (OptionDefinition & { description: string })[] = [
   {
     name: 'config',
     alias: 'c',
@@ -30,18 +47,42 @@ const defaultOptions: (OptionDefinition & { description: string })[] = [
       "The app's index.html file. When set, serves the index.html for non-file requests. Use this to enable SPA routing.",
   },
   {
+    name: 'preserve-symlinks',
+    description: "Don't follow symlinks when resolving module imports.",
+    type: Boolean,
+  },
+  {
+    name: 'node-resolve',
+    description: 'Resolve bare module imports using node resolution',
+    type: Boolean,
+  },
+  {
+    name: 'watch',
+    alias: 'w',
+    description: 'Reload the browser when files are changed.',
+    type: Boolean,
+  },
+  {
+    name: 'esbuild-target',
+    type: String,
+    multiple: true,
+    description:
+      'JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user agent. Check the docs for more options.',
+  },
+  {
     name: 'help',
     type: Boolean,
     description: 'Print help commands',
   },
 ];
 
-export function readCliArgsConfig<T>(
-  extraOptions: OptionDefinition[] = [],
-  argv = process.argv,
-): Partial<T> {
-  const options = [...defaultOptions, ...extraOptions];
-  const cliArgs = commandLineArgs(options, { argv });
+export interface ReadCliArgsParams {
+  argv?: string[];
+}
+
+export function readCliArgs({ argv = process.argv }: ReadCliArgsParams = {}): DevServerCliArgs {
+  const cliArgs = commandLineArgs(options, { argv, partial: true });
+
   // when the open flag is used without arguments, it defaults to null. treat this as "true"
   if ('open' in cliArgs && typeof cliArgs.open !== 'string') {
     cliArgs.open = true;
@@ -65,10 +106,10 @@ export function readCliArgsConfig<T>(
     process.exit();
   }
 
-  const cliArgsConfig: Partial<T> = {};
+  const cliArgsConfig: DevServerCliArgs = {};
 
   for (const [key, value] of Object.entries(cliArgs)) {
-    cliArgsConfig[camelCase(key) as keyof T] = value;
+    cliArgsConfig[camelCase(key) as keyof DevServerCliArgs] = value;
   }
 
   return cliArgsConfig;
