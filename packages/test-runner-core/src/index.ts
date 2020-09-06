@@ -1,4 +1,4 @@
-import * as constants from './browser-launcher/constants';
+import * as constants from './utils/constants';
 export { constants };
 export { BrowserLauncher, SessionResult } from './browser-launcher/BrowserLauncher';
 export {

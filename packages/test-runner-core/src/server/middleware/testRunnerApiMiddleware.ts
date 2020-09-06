@@ -1,20 +1,12 @@
 import { Middleware } from '@web/dev-server-core';
 import parse from 'co-body';
-import path from 'path';
 import { SESSION_STATUS } from '../../test-session/TestSessionStatus';
 import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
 import { TestSessionManager } from '../../test-session/TestSessionManager';
 import { TestRunnerPlugin } from '../TestRunnerPlugin';
 
-import { toBrowserPath } from '../utils';
-
-function createBrowserFilePath(rootDir: string, filePath: string, sessionId: string) {
-  const fullFilePath = filePath.startsWith(process.cwd())
-    ? filePath
-    : path.join(process.cwd(), filePath);
-  const relativeToRootDir = path.relative(rootDir, fullFilePath);
-  return `${toBrowserPath(relativeToRootDir)}?wtr-session-id=${sessionId}`;
-}
+import { createBrowserTestFilePath } from '../utils';
+import { PARAM_SESSION_ID } from '../../utils/constants';
 
 export function testRunnerApiMiddleware(
   sessions: TestSessionManager,
@@ -24,6 +16,17 @@ export function testRunnerApiMiddleware(
 ): Middleware {
   return async (ctx, next) => {
     if (ctx.path.startsWith('/wtr/')) {
+      // config for testing by test file
+      if (ctx.path === '/wtr/test-config') {
+        ctx.status = 200;
+        ctx.body = JSON.stringify({
+          watch: !!config.watch,
+          debug: true,
+          testFrameworkConfig: config.testFramework?.config,
+        });
+        return;
+      }
+
       const [, , sessionId, endpoint, ...restParameters] = ctx.path.split('/');
       if (!sessionId) return next();
       if (!endpoint) return next();
@@ -36,9 +39,13 @@ export function testRunnerApiMiddleware(
         return;
       }
 
+      // config for test session
       if (endpoint === 'config') {
         ctx.body = JSON.stringify({
-          testFile: createBrowserFilePath(rootDir, session.testFile, sessionId),
+          testFile: `${createBrowserTestFilePath(
+            rootDir,
+            session.testFile,
+          )}?${PARAM_SESSION_ID}=${sessionId}`,
           watch: !!config.watch,
           debug: session.debug,
           testFrameworkConfig: config.testFramework?.config,

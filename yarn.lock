@@ -2284,6 +2284,23 @@
   dependencies:
     eslint-visitor-keys "^1.1.0"
 
+"@web/dev-server-cli@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@web/dev-server-cli/-/dev-server-cli-0.0.3.tgz#65d36b92e1cf0be71098756b17957741691afab3"
+  integrity sha512-mcyWkU1R7eb6kswRQOIGNfvEH8mnkORQDGYAIR290A7FagRrto8ibZVFUe+leG4d7OIw0FGCbU4IlRrGKJgSxw==
+  dependencies:
+    "@babel/code-frame" "^7.10.4"
+    "@types/command-line-args" "^5.0.0"
+    "@web/config-loader" "^0.1.1"
+    "@web/dev-server-core" "^0.2.5"
+    camelcase "^6.0.0"
+    chalk "^4.1.0"
+    command-line-args "^5.1.1"
+    command-line-usage "^6.1.0"
+    ip "^1.1.5"
+    open "^7.1.0"
+    portfinder "^1.0.27"
+
 "@webcomponents/shadycss@^1.9.4":
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/@webcomponents/shadycss/-/shadycss-1.10.1.tgz#6f377b313c96a93a690f25206b32a20eada4b2a9"
