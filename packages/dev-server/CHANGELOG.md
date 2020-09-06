@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.0.7
+
+### Patch Changes
+
+- fb68716: made the server composable by other tools
+
 ## 0.0.6
 
 ### Patch Changes
