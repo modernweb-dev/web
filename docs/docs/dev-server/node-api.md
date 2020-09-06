@@ -13,7 +13,7 @@ The Dev Server has a node API to start the server programmatically.
 The `startDevServer` function will start the dev server with all the default options, identical to using the `web-dev-server` or `wds` command. It returns a dev server instance.
 
 ```js
-import { startDevServer } from './startDevServer';
+import { startDevServer } from '@web/dev-server';
 
 async function main() {
   const server = await startDevServer();
@@ -62,7 +62,7 @@ interface StartDevServerParams {
 For example you can start the server with a pre-defined config without reading anything from disk or CLI arguments.
 
 ```js
-import { startDevServer } from './startDevServer';
+import { startDevServer } from '@web/dev-server';
 
 async function main() {
   const server = await startDevServer({
