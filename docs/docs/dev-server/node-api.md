@@ -2,7 +2,6 @@
 title: Node API
 eleventyNavigation:
   key: Node API
-  title: Overview
   parent: Dev Server
   order: 5
 ---
