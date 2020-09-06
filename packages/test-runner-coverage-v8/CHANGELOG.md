@@ -1,5 +1,11 @@
 # @web/test-runner-coverage-v8
 
+## 0.1.3
+
+### Patch Changes
+
+- 611bb0f: updated to v8-to-istanbul v5
+
 ## 0.1.2
 
 ### Patch Changes
