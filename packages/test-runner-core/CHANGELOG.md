@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.7.9
+
+### Patch Changes
+
+- 431ec8f: added support for manually debugging in a browser
+
 ## 0.7.8
 
 ### Patch Changes
