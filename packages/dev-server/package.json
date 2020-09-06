@@ -58,5 +58,11 @@
   "devDependencies": {
     "lit-html": "^1.2.1",
     "puppeteer": "^5.2.1"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
   }
 }

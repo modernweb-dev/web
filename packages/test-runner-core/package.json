@@ -65,8 +65,6 @@
       "import": "./test-helpers.mjs",
       "require": "./dist/test-helpers.js"
     },
-    "./browser/session.js": {
-      "import": "./browser/session.js"
-    }
+    "./browser/session.js": "./browser/session.js"
   }
 }

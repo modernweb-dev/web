@@ -45,11 +45,9 @@
     "mocha": "^8.1.1"
   },
   "exports": {
-    ".": {
-      "import": "./browser/commands.mjs"
-    },
+    ".": "./browser/commands.mjs",
     "./plugins": {
-      "import": "./index.mjs",
+      "import": "./plugins.mjs",
       "require": "./dist/index.js"
     }
   }
