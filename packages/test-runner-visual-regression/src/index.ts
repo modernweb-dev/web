@@ -1,0 +1,1 @@
+export { visualRegressionPlugin } from './visualRegressionPlugin';

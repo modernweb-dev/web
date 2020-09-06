@@ -50,6 +50,9 @@
       "path": "./packages/test-runner-selenium/tsconfig.json"
     },
     {
+      "path": "./packages/dev-server-esbuild/tsconfig.json"
+    },
+    {
       "path": "./packages/rollup-plugin-copy/tsconfig.json"
     },
     {
@@ -57,9 +60,6 @@
     },
     {
       "path": "./packages/dev-server/tsconfig.json"
-    },
-    {
-      "path": "./packages/dev-server-esbuild/tsconfig.json"
     },
     {
       "path": "./packages/dev-server-import-maps/tsconfig.json"
@@ -75,6 +75,9 @@
     },
     {
       "path": "./packages/test-runner-saucelabs/tsconfig.json"
+    },
+    {
+      "path": "./packages/test-runner-visual-regression/tsconfig.json"
     }
   ]
 }
