@@ -47,5 +47,11 @@
   },
   "devDependencies": {
     "node-fetch": "3.0.0-beta.7"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
   }
 }

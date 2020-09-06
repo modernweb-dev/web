@@ -58,7 +58,11 @@ To see how your changes integrate with everything together you can use the `test
 
 ## Adding new packages
 
-For all projects the tsconfig/jsconfig configuration files are auto generated. You need to add an entry to the [./workspace-packages.ts](./workspace-packages.ts) to let it generate a config for you. After adding an entry, run `yarn update-package-configs` to generate the files for you.
+For all projects the tsconfig/jsconfig configuration files are auto generated. You need to add an entry to the [./workspace-packages.mjs](./workspace-packages.mjs) to let it generate a config for you.
+
+After adding an entry, run `yarn generate-ts-configs` to generate the files for you.
+
+When you are finished writing your module, you can run `yarn generate-mjs-dts-entrypoints` to auto generate `.mjs` wrapper files for node js packages, and `.d.ts` files when using multiple entrypoints.
 
 ## Create a Changeset
 
