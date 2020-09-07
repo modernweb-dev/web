@@ -125,13 +125,14 @@ export class TestScheduler {
 
     try {
       if (session.browser.isActive(session.id)) {
-        const { testCoverage, browserLogs } = await withTimeout(
+        const { testCoverage, browserLogs, errors } = await withTimeout(
           session.browser.stopSession(session.id),
           'Timed out stopping the browser page',
           this.config.testsFinishTimeout!,
         );
+        updatedSession.errors = [...(updatedSession.errors ?? []), ...(errors ?? [])];
         updatedSession.testCoverage = testCoverage;
-        updatedSession.logs = browserLogs;
+        updatedSession.logs = browserLogs ?? [];
       }
     } catch (error) {
       sessionErrors.push(error);

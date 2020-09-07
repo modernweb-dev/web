@@ -1,9 +1,11 @@
 import { CoverageMapData } from 'istanbul-lib-coverage';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
+import { TestResultError } from '../test-session/TestSession';
 
 export interface SessionResult {
   testCoverage?: CoverageMapData;
-  browserLogs: any[][];
+  errors?: TestResultError[];
+  browserLogs?: any[][];
 }
 
 export interface BrowserLauncher {

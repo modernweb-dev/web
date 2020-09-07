@@ -1,4 +1,10 @@
-import { TestRunnerCoreConfig, CoverageMapData, SessionResult } from '@web/test-runner-core';
+import {
+  TestRunnerCoreConfig,
+  CoverageMapData,
+  SessionResult,
+  getBrowserPageNavigationError,
+  TestResultError,
+} from '@web/test-runner-core';
 import { WebDriver } from 'selenium-webdriver';
 
 import { withTimeout } from './utils';
@@ -24,7 +30,8 @@ export class WindowManager {
   private config: TestRunnerCoreConfig;
   private startQueue: QueuedStartSession[] = [];
   private stopQueue: QueuedStopSession[] = [];
-  private windowsPerSession = new Map<string, string>();
+  private windowPerSession = new Map<string, string>();
+  private urlPerSession = new Map<string, string>();
   private inactiveWindows: string[] = [];
   private locked = false;
 
@@ -40,7 +47,7 @@ export class WindowManager {
   }
 
   isActive(id: string) {
-    return this.windowsPerSession.has(id);
+    return this.windowPerSession.has(id);
   }
 
   queueStartSession(id: string, url: string): Promise<void> {
@@ -121,16 +128,17 @@ export class WindowManager {
   }
 
   private async startSession({ id, url, resolve }: QueuedStartSession) {
+    this.urlPerSession.set(id, url);
     const windowHandle = await this.switchToAvailableWindow();
-    this.windowsPerSession.set(id, windowHandle);
+    this.windowPerSession.set(id, windowHandle);
     await this.driver.get(url);
     this.runNextQueued();
     resolve();
   }
 
   private async stopSession({ id, resolve }: QueuedStopSession) {
-    const windowHandle = this.windowsPerSession.get(id);
-    this.windowsPerSession.delete(id);
+    const windowHandle = this.windowPerSession.get(id);
+    this.windowPerSession.delete(id);
     if (!windowHandle) {
       throw new Error(
         `Something went wrong while running tests, there is no window handle for session ${id}`,
@@ -139,15 +147,31 @@ export class WindowManager {
     await this.driver.switchTo().window(windowHandle);
 
     let testCoverage: CoverageMapData | undefined = undefined;
+    const errors: TestResultError[] = [];
 
-    if (this.config.coverage) {
-      testCoverage = await this.driver?.executeScript<CoverageMapData>(function () {
-        return (window as any).__coverage__;
-      });
+    const testUrl = this.urlPerSession.get(id) as string;
+    const actualUrl = await this.driver.getCurrentUrl();
+    if (testUrl !== actualUrl) {
+      // the page was navigated, resulting in broken tests
+      const testUrlObject = new URL(testUrl);
+      // we can't track page reload in senelium, we can only check if the user navigated to another page
+      // we fake the navigation array, in puppeteer or playwright we would build an actual history
+      const navigations = [testUrlObject, new URL(actualUrl)];
+      const error = getBrowserPageNavigationError(testUrlObject, navigations);
+      if (error) {
+        errors.push(error);
+      }
+    } else {
+      // no page navigation errors, retreive the code coverage
+      if (this.config.coverage) {
+        testCoverage = await this.driver?.executeScript<CoverageMapData>(function () {
+          return (window as any).__coverage__;
+        });
+      }
     }
 
     this.inactiveWindows.push(windowHandle);
     this.runNextQueued();
-    resolve({ browserLogs: [], testCoverage });
+    resolve({ browserLogs: [], testCoverage, errors });
   }
 }
