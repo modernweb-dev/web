@@ -31,7 +31,7 @@
     "test:legacy": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config legacy.config.js",
     "test:logging": "node dist/bin.js \"demo/test/logging.test.js\"",
     "test:many": "node dist/bin.js \"demo/test/many/**/*.test.js\"",
-    "test:mixed": "node dist/bin.js \"demo/**/*.test.js\"",
+    "test:mixed": "node dist/bin.js \"demo/test/*.test.js\"",
     "test:mocha-options": "node dist/bin.js --config \"demo/test/mocha-options/config.js\"",
     "test:playwright": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --playwright --browsers chromium firefox webkit",
     "test:puppeteer-firefox": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --puppeteer --browsers firefox",

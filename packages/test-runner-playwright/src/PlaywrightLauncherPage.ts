@@ -1,5 +1,5 @@
 import { Page, ConsoleMessage } from 'playwright';
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
+import { getBrowserPageNavigationError, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { V8Coverage, v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { browserScript, deserialize } from '@web/browser-logs';
 import { SessionResult } from '@web/test-runner-core';
@@ -22,8 +22,10 @@ function filterBrowserLogs(browserLogs: any[][]) {
 }
 
 export class PlaywrightLauncherPage {
-  private coverageEnabled = false;
+  private nativeInstrumentationEnabledOnPage = false;
   private logs: Promise<any[]>[] = [];
+  private testURL?: URL;
+  private navigations: URL[] = [];
 
   constructor(
     private config: TestRunnerCoreConfig,
@@ -32,19 +34,32 @@ export class PlaywrightLauncherPage {
   ) {
     // inject serialization script
     playwrightPage.addInitScript(browserScript);
+
+    // track browser navigations
+    playwrightPage.on('request', e => {
+      if (e.isNavigationRequest()) {
+        this.navigations.push(new URL(e.url()));
+      }
+    });
+
     if (config.logBrowserLogs !== false) {
       playwrightPage.on('console', this.onConsoleMessage);
     }
   }
 
   async runSession(url: string, coverage: boolean) {
+    this.testURL = new URL(url);
+    this.navigations = [];
+
     if (
       coverage &&
-      !this.coverageEnabled &&
       this.playwrightPage.coverage &&
       this.config.coverageConfig?.nativeInstrumentation !== false
     ) {
-      this.coverageEnabled = true;
+      if (this.nativeInstrumentationEnabledOnPage) {
+        await this.playwrightPage.coverage.stopJSCoverage();
+      }
+      this.nativeInstrumentationEnabledOnPage = true;
       await this.playwrightPage.coverage.startJSCoverage();
     }
 
@@ -54,7 +69,15 @@ export class PlaywrightLauncherPage {
   }
 
   async stopSession(): Promise<SessionResult> {
-    const testCoveragePromise = this.coverageEnabled
+    // check if the page was navigated, resulting in broken tests
+    if (this.testURL) {
+      const navigationError = getBrowserPageNavigationError(this.testURL, this.navigations);
+      if (navigationError) {
+        return { errors: [navigationError] };
+      }
+    }
+
+    const testCoveragePromise = this.nativeInstrumentationEnabledOnPage
       ? this.collectTestCoverage(this.config, this.testFiles)
       : undefined;
 
@@ -87,7 +110,7 @@ export class PlaywrightLauncherPage {
 
     // get native coverage from playwright
     const coverage = ((await this.playwrightPage.coverage?.stopJSCoverage()) ?? []) as V8Coverage[];
-    this.coverageEnabled = false;
+    this.nativeInstrumentationEnabledOnPage = false;
     return v8ToIstanbul(config, testFiles, coverage);
   }
 

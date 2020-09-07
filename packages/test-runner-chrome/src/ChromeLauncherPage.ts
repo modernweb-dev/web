@@ -1,5 +1,5 @@
 import { Page, ConsoleMessage } from 'puppeteer-core';
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
+import { TestRunnerCoreConfig, getBrowserPageNavigationError } from '@web/test-runner-core';
 import { V8Coverage, v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { browserScript, deserialize } from '@web/browser-logs';
 import { SessionResult } from '@web/test-runner-core';
@@ -22,29 +22,53 @@ function filterBrowserLogs(browserLogs: any[][]) {
 }
 
 export class ChromeLauncherPage {
+  private config: TestRunnerCoreConfig;
+  private testFiles: string[];
+  private product: string;
+  public puppeteerPage: Page;
   private nativeInstrumentationEnabledOnPage = false;
   private logs: Promise<any[]>[] = [];
+  private testURL?: URL;
+  private navigations: URL[] = [];
 
   constructor(
-    private config: TestRunnerCoreConfig,
-    private testFiles: string[],
-    private product: string,
-    public puppeteerPage: Page,
+    config: TestRunnerCoreConfig,
+    testFiles: string[],
+    product: string,
+    puppeteerPage: Page,
   ) {
+    this.config = config;
+    this.testFiles = testFiles;
+    this.product = product;
+    this.puppeteerPage = puppeteerPage;
+
     // inject serialization script
     puppeteerPage.evaluateOnNewDocument(browserScript);
+
+    // track browser navigations
+    puppeteerPage.on('request', e => {
+      if (e.isNavigationRequest()) {
+        this.navigations.push(new URL(e.url()));
+      }
+    });
+
     if (config.logBrowserLogs !== false) {
       puppeteerPage.on('console', this.onConsoleMessage);
     }
   }
 
   async runSession(url: string, coverage: boolean) {
+    this.testURL = new URL(url);
+    this.navigations = [];
+
     if (
       coverage &&
       this.config.coverageConfig?.nativeInstrumentation !== false &&
-      !this.nativeInstrumentationEnabledOnPage &&
       this.product === 'chromium'
     ) {
+      if (this.nativeInstrumentationEnabledOnPage) {
+        await this.puppeteerPage.coverage.stopJSCoverage();
+      }
       this.nativeInstrumentationEnabledOnPage = true;
       await this.puppeteerPage.coverage.startJSCoverage();
     }
@@ -55,6 +79,14 @@ export class ChromeLauncherPage {
   }
 
   async stopSession(): Promise<SessionResult> {
+    // check if the page was navigated, resulting in broken tests
+    if (this.testURL) {
+      const navigationError = getBrowserPageNavigationError(this.testURL, this.navigations);
+      if (navigationError) {
+        return { errors: [navigationError] };
+      }
+    }
+
     const [testCoverage, browserLogs] = await Promise.all([
       this.collectTestCoverage(this.config, this.testFiles),
       Promise.all(this.logs),
