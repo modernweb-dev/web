@@ -1,5 +1,10 @@
 import { Page, ConsoleMessage } from 'puppeteer-core';
-import { TestRunnerCoreConfig, getBrowserPageNavigationError } from '@web/test-runner-core';
+import {
+  TestRunnerCoreConfig,
+  getBrowserPageNavigationError,
+  TestResultError,
+  CoverageMapData,
+} from '@web/test-runner-core';
 import { V8Coverage, v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { browserScript, deserialize } from '@web/browser-logs';
 import { SessionResult } from '@web/test-runner-core';
@@ -79,21 +84,27 @@ export class ChromeLauncherPage {
   }
 
   async stopSession(): Promise<SessionResult> {
+    const errors: TestResultError[] = [];
+    let testCoverage: CoverageMapData | undefined;
+    let browserLogs: any[][] = [];
+
     // check if the page was navigated, resulting in broken tests
-    if (this.testURL) {
-      const navigationError = getBrowserPageNavigationError(this.testURL, this.navigations);
-      if (navigationError) {
-        return { errors: [navigationError] };
-      }
+    const navigationError = getBrowserPageNavigationError(this.testURL!, this.navigations);
+    if (navigationError) {
+      errors.push(navigationError);
+    } else {
+      [testCoverage, browserLogs] = await Promise.all([
+        this.collectTestCoverage(this.config, this.testFiles),
+        Promise.all(this.logs),
+      ]);
+      browserLogs = filterBrowserLogs(browserLogs);
     }
 
-    const [testCoverage, browserLogs] = await Promise.all([
-      this.collectTestCoverage(this.config, this.testFiles),
-      Promise.all(this.logs),
-    ]);
-    const filteredLogs = filterBrowserLogs(browserLogs);
+    // navigate to an empty page to kill any running code on the page, stopping timers and
+    // breaking a potential endless reload loop
+    await this.puppeteerPage.goto('data:,');
 
-    return { testCoverage, browserLogs: filteredLogs };
+    return { testCoverage, browserLogs, errors };
   }
 
   private async collectTestCoverage(config: TestRunnerCoreConfig, testFiles: string[]) {

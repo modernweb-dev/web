@@ -170,6 +170,9 @@ export class WindowManager {
       }
     }
 
+    // navigate to an empty page to kill any running code on the page, stopping timers and
+    // breaking a potential endless reload loop
+    await this.driver.get('data:,');
     this.inactiveWindows.push(windowHandle);
     this.runNextQueued();
     resolve({ browserLogs: [], testCoverage, errors });
