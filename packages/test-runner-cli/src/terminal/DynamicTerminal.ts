@@ -15,7 +15,8 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
   private started = false;
   private bufferedConsole = new BufferedConsole();
   private pendingConsoleFlush = false;
-  public isInteractive = process.stdout.isTTY;
+  // public isInteractive = process.stdout.isTTY;
+  public isInteractive = false;
 
   start() {
     // start off with an empty line

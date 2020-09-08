@@ -48,6 +48,7 @@ export class TestRunnerCli {
   private pendingReportPromises: Promise<any>[] = [];
   private logger: Logger;
   private localAddress: string;
+  private lastStaticLog = -1;
 
   constructor(config: TestRunnerCoreConfig, runner: TestRunner) {
     this.config = config;
@@ -297,7 +298,12 @@ export class TestRunnerCli {
   private reportTestProgress(final = false) {
     const logStatic = this.config.staticLogging || !this.terminal.isInteractive;
     if (logStatic && !final) {
-      return;
+      // print a static progress log only once every 1000ms
+      const now = Date.now();
+      if (this.lastStaticLog !== -1 && now - this.lastStaticLog < 5000) {
+        return;
+      }
+      this.lastStaticLog = now;
     }
 
     const reports: string[] = [];
