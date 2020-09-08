@@ -1,5 +1,14 @@
 # @web/test-runner-chrome
 
+## 0.6.6
+
+### Patch Changes
+
+- be3c9ed: track and log page reloads
+- 2802df6: handle cases where reloading the page creates an infinite loop
+- Updated dependencies [be3c9ed]
+  - @web/test-runner-core@0.7.10
+
 ## 0.6.5
 
 ### Patch Changes

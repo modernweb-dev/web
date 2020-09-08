@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.7.10
+
+### Patch Changes
+
+- be3c9ed: track and log page reloads
+
 ## 0.7.9
 
 ### Patch Changes
