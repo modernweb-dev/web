@@ -76,7 +76,6 @@ export async function startDevServer(options: StartDevServerParams = {}) {
       process.on('uncaughtException', error => {
         /* eslint-disable-next-line no-console */
         console.error(error);
-        stop();
       });
 
       process.on('SIGINT', async () => {
