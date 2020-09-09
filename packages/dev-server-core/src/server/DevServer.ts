@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import { Server } from 'net';
+import { Server, Socket } from 'net';
 import chokidar from 'chokidar';
 import { promisify } from 'util';
 
@@ -13,6 +13,7 @@ export class DevServer {
   public server: Server;
   public eventStreams = new EventStreamManager();
   private started = false;
+  private connections = new Set<Socket>();
 
   constructor(
     public config: DevServerCoreConfig,
@@ -30,6 +31,13 @@ export class DevServer {
     );
     this.koaApp = createResult.app;
     this.server = createResult.server;
+
+    this.server.on('connection', connection => {
+      this.connections.add(connection);
+      connection.on('close', () => {
+        this.connections.delete(connection);
+      });
+    });
   }
 
   async start() {
@@ -55,6 +63,22 @@ export class DevServer {
     }
   }
 
+  private closeServer() {
+    // close all open connections
+    for (const connection of this.connections) {
+      connection.destroy();
+    }
+
+    return new Promise(resolve => {
+      this.server.close(err => {
+        if (err) {
+          console.error(err);
+        }
+        resolve();
+      });
+    });
+  }
+
   async stop() {
     if (!this.started) {
       return;
@@ -63,15 +87,8 @@ export class DevServer {
 
     return Promise.all([
       this.fileWatcher.close(),
-      new Promise(resolve => {
-        this.server.close(err => {
-          if (err) {
-            console.error(err);
-          }
-          resolve();
-        });
-      }),
       ...(this.config.plugins ?? []).map(p => p.serverStop?.()),
+      this.closeServer(),
     ]);
   }
 }
