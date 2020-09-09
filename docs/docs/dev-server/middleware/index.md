@@ -20,7 +20,7 @@ import proxy from 'koa-proxies';
 
 export default {
   port: 9000,
-  middlewares: [
+  middleware: [
     proxy('/api', {
       target: 'http://localhost:9001',
     }),
@@ -41,7 +41,7 @@ Serve `/index.html` from `/src/index.html`:
 
 ```javascript
 export default {
-  middlewares: [
+  middleware: [
     function rewriteIndex(context, next) {
       if (context.url === '/' || context.url === '/index.html') {
         context.url = '/src/index.html';
