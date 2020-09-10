@@ -4,6 +4,7 @@
 /packages/test-runner-mocha/*.d.ts
 /packages/config-loader/
 /packages/*/test/**/fixtures
+/packages/*/test/**/snapshots
 /packages/dev-server-rollup/test/browser/**/*
 node_modules
 dist
