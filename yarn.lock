@@ -2210,6 +2210,13 @@
   resolved "https://registry.yarnpkg.com/@types/workbox-routing/-/workbox-routing-4.3.0.tgz#617e00b18806630cffff550b3d2ab09866f89411"
   integrity sha512-op5P/f6n+9g5X4a+sYONp9EALnNxpoU3oXuB/BjeQv9d+k0bNE4LYSF06K6tXYL4PeCIZVJOi4yMCUCOi2NaqQ==
 
+"@types/ws@^7.2.6":
+  version "7.2.6"
+  resolved "https://registry.yarnpkg.com/@types/ws/-/ws-7.2.6.tgz#516cbfb818310f87b43940460e065eb912a4178d"
+  integrity sha512-Q07IrQUSNpr+cXU4E4LtkSIBPie5GLZyyMC1QtQYRLWz701+XcoVygGUZgvLqElq1nU4ICldMYPnexlBsg3dqQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/xml@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@types/xml/-/xml-1.0.5.tgz#5f647b6719cdbcfd026d7e73f295035e49cae0bd"
@@ -13522,7 +13529,7 @@ ws@^6.1.0:
   dependencies:
     async-limiter "~1.0.0"
 
-ws@^7.2.3:
+ws@^7.2.3, ws@^7.3.1:
   version "7.3.1"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.3.1.tgz#d0547bf67f7ce4f12a72dfe31262c68d7dc551c8"
   integrity sha512-D3RuNkynyHmEJIpD2qrgVkc9DQ23OrN/moAwZX4L8DfvszsJxpjQuUq3LMx6HoYji9fbIOBY18XWBsAux1ZZUA==

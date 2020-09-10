@@ -11,8 +11,6 @@ import { pluginMimeTypeMiddleware } from '../middleware/pluginMimeTypeMiddleware
 import { pluginServeMiddleware } from '../middleware/pluginServeMiddleware';
 import { pluginTransformMiddleware } from '../middleware/pluginTransformMiddleware';
 import { Logger } from '../logger/Logger';
-import { EventStreamManager } from '../event-stream/EventStreamManager';
-import { eventStreamMiddleware } from '../event-stream/eventStreamMiddleware';
 import { watchServedFilesMiddleware } from '../middleware/watchServedFilesMiddleware';
 
 /**
@@ -21,7 +19,6 @@ import { watchServedFilesMiddleware } from '../middleware/watchServedFilesMiddle
  */
 export function createMiddleware(
   config: DevServerCoreConfig,
-  eventStream: EventStreamManager,
   logger: Logger,
   fileWatcher: FSWatcher,
 ) {
@@ -45,9 +42,6 @@ export function createMiddleware(
 
   // watch files that are served
   middlewares.push(watchServedFilesMiddleware(fileWatcher, config.rootDir));
-
-  // set up event stream for pushing events to the browser
-  middlewares.push(eventStreamMiddleware(eventStream));
 
   // serves 304 responses if resource hasn't changed
   middlewares.push(etagCacheMiddleware());

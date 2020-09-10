@@ -51,5 +51,9 @@ export interface DevServerCoreConfig {
    */
   sslCert?: string;
 
-  eventStream?: boolean;
+  /**
+   * Whether to inject a script to set up a web socket connection into pages served
+   * by the dev server. Defaults to true.
+   */
+  injectWebSocket?: boolean;
 }

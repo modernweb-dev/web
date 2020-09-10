@@ -2,16 +2,16 @@ import fetch from 'node-fetch';
 import { expect } from 'chai';
 
 import { createTestServer } from '../helpers';
-import { eventStreamScript } from '../../src/event-stream/eventStreamPlugin';
+import { webSocketScript } from '../../src/web-sockets/webSocketsPlugin';
 
-describe('eventStreamPlugin', () => {
+describe('webSocketsPlugin', () => {
   it('injects an event stream script if a plugin has inject set and event stream is enabled', async () => {
     const { server, host } = await createTestServer({
-      eventStream: true,
+      injectWebSocket: true,
       plugins: [
         {
           name: 'test',
-          injectEventStream: true,
+          injectWebSocket: true,
         },
       ],
     });
@@ -21,7 +21,7 @@ describe('eventStreamPlugin', () => {
       const body = await response.text();
 
       expect(response.status).to.equal(200);
-      expect(body).to.include(eventStreamScript);
+      expect(body).to.include(webSocketScript);
     } finally {
       server.stop();
     }
@@ -29,11 +29,11 @@ describe('eventStreamPlugin', () => {
 
   it('does not inject an event stream script if a plugin has inject set and event stream is disabled', async () => {
     const { server, host } = await createTestServer({
-      eventStream: false,
+      injectWebSocket: false,
       plugins: [
         {
           name: 'test',
-          injectEventStream: true,
+          injectWebSocket: true,
         },
       ],
     });
@@ -43,7 +43,7 @@ describe('eventStreamPlugin', () => {
       const body = await response.text();
 
       expect(response.status).to.equal(200);
-      expect(body).to.not.include(eventStreamScript);
+      expect(body).to.not.include(webSocketScript);
     } finally {
       server.stop();
     }
@@ -56,7 +56,7 @@ describe('eventStreamPlugin', () => {
       const body = await response.text();
 
       expect(response.status).to.equal(200);
-      expect(body).to.not.include(eventStreamScript);
+      expect(body).to.not.include(webSocketScript);
     } finally {
       server.stop();
     }
@@ -67,7 +67,7 @@ describe('eventStreamPlugin', () => {
       plugins: [
         {
           name: 'test',
-          injectEventStream: true,
+          injectWebSocket: true,
         },
       ],
     });
@@ -80,8 +80,8 @@ describe('eventStreamPlugin', () => {
 
       expect(responseA.status).to.equal(200);
       expect(responseB.status).to.equal(200);
-      expect(bodyA).to.not.include(eventStreamScript);
-      expect(bodyB).to.not.include(eventStreamScript);
+      expect(bodyA).to.not.include(webSocketScript);
+      expect(bodyB).to.not.include(webSocketScript);
     } finally {
       server.stop();
     }

@@ -12,7 +12,7 @@ import { DevServerStartError } from '../DevServerStartError';
 const defaultConfig: Partial<DevServerConfig> = {
   rootDir: process.cwd(),
   hostname: 'localhost',
-  eventStream: true,
+  injectWebSocket: true,
   clearTerminalOnReload: true,
   middleware: [],
   plugins: [],

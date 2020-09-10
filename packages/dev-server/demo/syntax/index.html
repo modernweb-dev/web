@@ -20,7 +20,8 @@
         try {
           await import('./stage-4-features.js');
           window.__tests.stage4 = window.__stage4 || false;
-        } catch {
+        } catch (e) {
+          console.log(e);
           return;
         }
       }
@@ -31,7 +32,8 @@
           window.__tests.importMeta = window.__importMeta || false;
           window.__tests.staticImports = window.__staticImports || false;
           window.__tests.dynamicImports = (await window.__dynamicImports) || false;
-        } catch {
+        } catch (e) {
+          console.log(e);
           return;
         }
       }

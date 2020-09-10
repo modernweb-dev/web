@@ -1,7 +1,7 @@
 import { DevServerCoreConfig } from '../DevServerCoreConfig';
 import { Plugin } from '../Plugin';
 import { transformModuleImportsPlugin } from '../plugins/transformModuleImportsPlugin';
-import { eventStreamPlugin } from '../event-stream/eventStreamPlugin';
+import { webSocketsPlugin } from '../web-sockets/webSocketsPlugin';
 import { mimeTypesPlugin } from '../plugins/mimeTypesPlugin';
 
 export function createPlugins(config: DevServerCoreConfig) {
@@ -15,8 +15,8 @@ export function createPlugins(config: DevServerCoreConfig) {
     plugins.push(transformModuleImportsPlugin(config.plugins, config.rootDir));
   }
 
-  if (config.eventStream && config.plugins?.some(pl => pl.injectEventStream)) {
-    plugins.push(eventStreamPlugin());
+  if (config.injectWebSocket && config.plugins?.some(pl => pl.injectWebSocket)) {
+    plugins.push(webSocketsPlugin());
   }
 
   return plugins;

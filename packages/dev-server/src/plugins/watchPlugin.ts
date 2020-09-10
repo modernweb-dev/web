@@ -5,15 +5,15 @@ export function watchPlugin(): Plugin {
   return {
     name: 'watch',
 
-    injectEventStream: true,
+    injectWebSocket: true,
 
-    serverStart({ fileWatcher, eventStreams }) {
-      if (!eventStreams) {
-        throw new Error('Cannot use watch mode when event streams are disabled.');
+    serverStart({ fileWatcher, webSockets }) {
+      if (!webSockets) {
+        throw new Error('Cannot use watch mode when web sockets are disabled.');
       }
 
       function onFileChanged() {
-        eventStreams!.sendRunEvent('data:text/javascript,window.location.reload()');
+        webSockets!.sendImport('data:text/javascript,window.location.reload()');
       }
 
       const onChange = debounce(onFileChanged, 100);
