@@ -4,7 +4,7 @@ import { Server } from 'net';
 
 import { DevServerCoreConfig } from './DevServerCoreConfig';
 import { Logger } from './logger/Logger';
-import { EventStreamManager } from './event-stream/EventStreamManager';
+import { WebSocketsManager } from './web-sockets/WebSocketsManager';
 
 export type ServeResult =
   | void
@@ -23,12 +23,12 @@ export interface ServerArgs {
   server: Server;
   fileWatcher: FSWatcher;
   logger: Logger;
-  eventStreams?: EventStreamManager;
+  webSockets?: WebSocketsManager;
 }
 
 export interface Plugin {
   name: string;
-  injectEventStream?: boolean;
+  injectWebSocket?: boolean;
   serverStart?(args: ServerArgs): void | Promise<void>;
   serverStop?(): void | Promise<void>;
   serve?(context: Context): ServeResult | Promise<ServeResult>;

@@ -26,7 +26,6 @@ export function logStartMessage(config: DevServerConfig, logger: Logger) {
     openPath = `/${openPath}`;
   }
 
-  logger.log('');
   logger.log(chalk.bold('Web Dev Server started...'));
   logger.log('');
 

@@ -3,15 +3,15 @@ import { Server, Socket } from 'net';
 import chokidar from 'chokidar';
 import { promisify } from 'util';
 
-import { EventStreamManager } from '../event-stream/EventStreamManager';
 import { DevServerCoreConfig } from '../DevServerCoreConfig';
 import { createServer } from './createServer';
 import { Logger } from '../logger/Logger';
+import { WebSocketsManager } from '../web-sockets/WebSocketsManager';
 
 export class DevServer {
   public koaApp: Koa;
   public server: Server;
-  public eventStreams = new EventStreamManager();
+  public webSockets;
   private started = false;
   private connections = new Set<Socket>();
 
@@ -23,14 +23,10 @@ export class DevServer {
     if (!config) throw new Error('Missing config.');
     if (!logger) throw new Error('Missing logger.');
 
-    const createResult = createServer(
-      this.config,
-      this.eventStreams,
-      this.logger,
-      this.fileWatcher,
-    );
+    const createResult = createServer(this.config, this.logger, this.fileWatcher);
     this.koaApp = createResult.app;
     this.server = createResult.server;
+    this.webSockets = new WebSocketsManager(this.server);
 
     this.server.on('connection', connection => {
       this.connections.add(connection);
@@ -57,7 +53,7 @@ export class DevServer {
         app: this.koaApp,
         server: this.server,
         logger: this.logger,
-        eventStreams: this.eventStreams,
+        webSockets: this.webSockets,
         fileWatcher: this.fileWatcher,
       });
     }

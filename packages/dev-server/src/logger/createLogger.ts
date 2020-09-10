@@ -20,10 +20,10 @@ export function createLogger(args: LoggerArgs): { logger: DevServerLogger; logge
     loggerPlugin: {
       name: 'logger',
 
-      serverStart({ config, logger, fileWatcher, eventStreams }) {
-        if (eventStreams) {
+      serverStart({ config, logger, fileWatcher, webSockets }) {
+        if (webSockets) {
           onSyntaxError = function onSyntaxError(msg) {
-            eventStreams.sendMessageEvent(msg);
+            webSockets.sendConsoleLog(msg);
           };
         }
 

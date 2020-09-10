@@ -6,7 +6,6 @@ import http2Server from 'http2';
 import fs from 'fs';
 import net, { Server, Socket, ListenOptions } from 'net';
 
-import { EventStreamManager } from '../event-stream/EventStreamManager';
 import { DevServerCoreConfig } from '../DevServerCoreConfig';
 import { createMiddleware } from './createMiddleware';
 import { Logger } from '../logger/Logger';
@@ -26,12 +25,7 @@ function httpsRedirect(req: IncomingMessage, res: ServerResponse) {
  * Creates a koa server with middlewares, but does not start it. Returns the koa app and
  * http server instances.
  */
-export function createServer(
-  cfg: DevServerCoreConfig,
-  eventStreams: EventStreamManager,
-  logger: Logger,
-  fileWatcher: FSWatcher,
-) {
+export function createServer(cfg: DevServerCoreConfig, logger: Logger, fileWatcher: FSWatcher) {
   const app = new Koa();
 
   const plugins = createPlugins(cfg);
@@ -52,7 +46,7 @@ export function createServer(
     cfg.plugins.splice(indexOfResolve, 1, cfg.plugins[indexOfResolve], legacy);
   }
 
-  const middleware = createMiddleware(cfg, eventStreams, logger, fileWatcher);
+  const middleware = createMiddleware(cfg, logger, fileWatcher);
   for (const m of middleware) {
     app.use(m);
   }
@@ -75,7 +69,7 @@ export function createServer(
     };
 
     const httpsRedirectServer = httpServer.createServer(httpsRedirect);
-    const appServer = http2Server.createSecureServer(options, app.callback());
+    server = http2Server.createSecureServer(options, app.callback());
     let appServerPort: number;
     let httpsRedirectServerPort: number;
 
@@ -93,14 +87,14 @@ export function createServer(
       });
     };
 
-    server = net.createServer(httpRedirectProxy);
+    const wrapperServer = net.createServer(httpRedirectProxy);
 
-    server.addListener('close', () => {
+    wrapperServer.addListener('close', () => {
       httpsRedirectServer.close();
-      appServer.close();
+      server.close();
     });
 
-    server.addListener('listening', () => {
+    wrapperServer.addListener('listening', () => {
       const info = server.address();
       if (!info || typeof info === 'string') {
         return;
@@ -109,13 +103,13 @@ export function createServer(
       appServerPort = port + 1;
       httpsRedirectServerPort = port + 2;
 
-      appServer.listen({ address, port: appServerPort });
+      server.listen({ address, port: appServerPort });
       httpsRedirectServer.listen({ address, port: httpsRedirectServerPort });
     });
 
-    const serverListen = server.listen.bind(server);
-    (server as any).listen = (config: ListenOptions, callback: () => void) => {
-      appServer.addListener('listening', callback);
+    const serverListen = wrapperServer.listen.bind(wrapperServer);
+    (wrapperServer as any).listen = (config: ListenOptions, callback: () => void) => {
+      server.addListener('listening', callback);
       serverListen(config);
       return server;
     };
