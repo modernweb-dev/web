@@ -23,7 +23,7 @@ To maintain focus within the Open Web Components project, and to share our work 
 
 Modern browsers are a powerful platform for building websites and applications. We try to work with what's available in the browser first before reaching for custom solutions.
 
-When you're working _with_ the browser rather than against it, code, skills, and knowledge remain relevant for a longer time. Development becomes faster and debugging is easier because there are fewer layers of abstractions involved.
+When you're working _with_ the browser rather than against it, code, skills, and knowledge remain relevant for a longer time. Development becomes faster and debugging is easier because there are fewer layers of abstraction involved.
 
 At the same time, we are aware of the fact that not all problems can be solved elegantly by the browser today. We support developers making informed decisions about introducing tools and customizations to their projects, in such a way that developers can upgrade later as browser support improves.
 
@@ -33,7 +33,7 @@ This announcement marks the official release of Modern Web. Our website is live 
 
 For updates, you can follow us on [Twitter](https://twitter.com/modern_web_dev), and if you like what you see please consider sponsoring the project on [Open Collective](https://opencollective.com/modern-web).
 
-We have been working on a lot of different projects in the last couple of years. In this post, we will walk you through some of our projects and how are planning to fit them into the Modern Web project.
+We have been working on a lot of different projects in the last couple of years. In this post, we will walk you through some of our projects and how we are planning to fit them into the Modern Web project.
 
 ## Guides
 
@@ -47,7 +47,7 @@ We are very excited to announce [web test runner](../../docs/test-runner/overvie
 
 There are already a lot of testing solutions out there today. Unfortunately, all of them either run tests in Node.js and mock browser APIs using something like JSDom, or they don't support native es modules out of the box.
 
-We think that making browser code compatible for testing in node is unnecessarily complex. Running tests in real browsers give greater confidence in (cross-browser) compatibility and make writing and debugging tests more approachable.
+We think that making browser code compatible for testing in node is unnecessarily complex. Running tests in real browsers give greater confidence in (cross-browser) compatibility and makes writing and debugging tests more approachable.
 
 That's why we created web test runner.
 
@@ -58,12 +58,12 @@ Some of the highlights of our test runner:
 - Headless testing using [Puppeteer](../../docs/test-runner/browsers/puppeteer.md), [Playwright](../../docs/test-runner/browsers/playwright.md), or [Selenium](../../docs/test-runner/browsers/selenium.md). <br>
 - Reports logs, 404s, and errors from the browser.
 - Debug opens a real browser window with devtools.
-- Mock ES modules via [Import Maps](../../docs/test-runner/writing-tests/mocking.md)
+- Mock ES modules via [Import Maps](../../docs/test-runner/writing-tests/mocking.md).
 - Exposes browser properties like viewport size and dark mode.
 - Runs tests in parallel and isolation.
 - Interactive watch mode.
 - Fast development by rerunning only changed tests.
-- Powered by [esbuild](../../docs/dev-server/plugins/esbuild.md) and [rollup plugins](../../docs/dev-server/plugins/rollup.md)
+- Powered by [esbuild](../../docs/dev-server/plugins/esbuild.md) and [rollup plugins](../../docs/dev-server/plugins/rollup.md).
 
 ### Getting started
 
@@ -73,21 +73,21 @@ If you want get started now take a look at our Web Test Runner [Getting Started 
 
 ## Web Dev Server
 
-`es-dev-server` is the most popular package at Open Web Components, but it is not specific to web components alone. That's why are working on its spiritual successor in the modern web project. We will call it web dev server, and it will be published as `@web/dev-server`.
+`es-dev-server` is the most popular package at Open Web Components, but it is not specific to web components alone. That's why we're working on its spiritual successor in the modern web project. We will call it web dev server, and it will be published as `@web/dev-server`.
 
 If you're doing buildless development, you can use any web server for development. Our dev server helps out by providing developer productivity features and making your code compatible with older browsers.
 
 ### Highlights
 
-- Acts like a real web server, without any flags it serves code untransformed to the browser
-- Efficient caching of unchanged files between reloads
-- Resolve bare module imports using `--node-resolve`
-- Auto reload on file changes with `--watch`
-- Compatibility with older browsers using `--esbuild-target`
-- Extensive [plugin system](../../docs/dev-server/plugins/overview.md)
+- Acts like a real web server, without any flags it serves code untransformed to the browser.
+- Efficient caching of unchanged files between reloads.
+- Resolve bare module imports using `--node-resolve`.
+- Auto reload on file changes with `--watch`.
+- Compatibility with older browsers using `--esbuild-target`.
+- Extensive [plugin system](../../docs/dev-server/plugins/overview.md).
 - Integration with [esbuild](../../docs/dev-server/plugins/esbuild.md) for fast transformation of JS, TS and JSX.
-- Reuse most [rollup plugins](../../docs/dev-server/plugins/rollup.md) in the dev server
-- Plugin for polyfilling [Import maps](../../docs/dev-server/plugins/import-maps.md) during development
+- Reuse most [rollup plugins](../../docs/dev-server/plugins/rollup.md) in the dev server.
+- Plugin for polyfilling [Import maps](../../docs/dev-server/plugins/import-maps.md) during development.
 
 Our web dev server is not quite finished _yet_, but we've already built the basic parts to power our web test runner. This means that many of the listed features and plugins apply to our test runner as well.
 
@@ -97,7 +97,7 @@ We are working hard on finalizing the open tasks on web dev server so stay tuned
 
 While we try to avoid complex builds during development, they are still a requirement for production optimizations. Here too things can get pretty complex. Through plugins and guides, we will make it easier to integrate production builds with buildless development workflows.
 
-A good example here is [@open-wc/rollup-plugin-html](https://www.npmjs.com/package/@open-wc/rollup-plugin-html) which we will move into the `@web` namespace. This plugin enables running rollup on an existing HTML page. Rollup will bundle and optimize any modules scripts found in the HTML. It works with single pages, but also with multiple pages, code splitting and sharing common code between pages.
+A good example here is [@open-wc/rollup-plugin-html](https://www.npmjs.com/package/@open-wc/rollup-plugin-html) which we will move into the `@web` namespace. This plugin enables running rollup on an existing HTML page. Rollup will bundle and optimize any modules scripts found in the HTML. It works with single pages, but also with multiple pages, code-splitting and sharing common code between pages.
 
 We plan to expand on this plugin further, adding support for optimizing assets such as images and CSS.
 
@@ -107,7 +107,7 @@ When we talk about modern web apps, we also talk about _progressive_ web apps (P
 
 Unfortunately, service workers are close to rocket science, and implementing PWA features isn't always as straightforward as it could be. That's why we'll provide technical guides and tools to make your life as a developer easier.
 
-Not only do we ship [rollup-plugin-workbox](https://www.npmjs.com/search?q=rollup-plugin-workbox) to help you generate your service worker at build time, in the future, we will also have a set of zero dependency pwa-helpers as web components and vanilla javascript functions. As well as codelabs to help you get started building your modern, progressive web apps.
+Not only do we ship [rollup-plugin-workbox](https://www.npmjs.com/search?q=rollup-plugin-workbox) to help you generate your service worker at build time, in the future, we will also have a set of zero dependency pwa-helpers as web components and vanilla javascript functions, as well as codelabs to help you get started building your modern, progressive web apps.
 
 ## Documentation (rocket)
 
@@ -121,7 +121,7 @@ For a great content authoring experience, we integrated 11ty with our dev server
 
 By combining existing tools in this way, we think we've made something very powerful that will be useful for other people as well. That's why we started a child project in the modern web family, which we codenamed Rocket.
 
-It's still in its early stages, but we're already using a prototype for our own [website](https://modern-web.dev). We're still missing some features, but we'll continue to evolve it and an announcement will follow as soon as it's finished. So keep an eye out for it!
+It's still in its early stages, but we're already using a prototype for our own [website](https://modern-web.dev). We're still missing some features, but we'll continue to evolve it, and an announcement will follow as soon as it's finished. So keep an eye out for it!
 
 ## Modern Web Family
 
