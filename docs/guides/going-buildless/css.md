@@ -21,7 +21,7 @@ The purpose of this document isn't to provide a comprehensive tutorial of CSS, o
 
 In the late 2000s, CSS preprocessors like [LESS](http://lesscss.org) and [SASS](https://sass-lang.com) emerged, offering developers the ability to define variables in CSS just like they would in JavaScript. The advantages to style variables were clear for applications like
 
-- Themeing
+- Theming
 - Animations
 - Maintainability
 
