@@ -3,7 +3,7 @@ title: Node API
 eleventyNavigation:
   key: Node API
   parent: Dev Server
-  order: 5
+  order: 6
 ---
 
 The Dev Server has a node API to start the server programmatically.
