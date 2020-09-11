@@ -1,5 +1,15 @@
 # @web/dev-server
 
+## 0.0.8
+
+### Patch Changes
+
+- 5ba52dd: properly close server on exit
+- 8199b68: use web sockets for browser - server communication
+- Updated dependencies [5ba52dd]
+- Updated dependencies [8199b68]
+  - @web/dev-server-core@0.2.8
+
 ## 0.0.7
 
 ### Patch Changes

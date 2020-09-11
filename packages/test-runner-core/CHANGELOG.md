@@ -1,5 +1,14 @@
 # @web/test-runner-core
 
+## 0.7.11
+
+### Patch Changes
+
+- 5ba52dd: properly close server on exit
+- Updated dependencies [5ba52dd]
+- Updated dependencies [8199b68]
+  - @web/dev-server-core@0.2.8
+
 ## 0.7.10
 
 ### Patch Changes
