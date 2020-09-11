@@ -50,21 +50,21 @@ export default {
   browsers: [
     // create a browser launcher per browser you want to test
     // you can get the browser capabilities from the Sauce Labs website
-    saucelabsLauncher({
+    sauceLabsLauncher({
       ...sharedCapabilities,
       browserName: 'chrome',
       browserVersion: 'latest',
       platformName: 'Windows 10',
     }),
 
-    saucelabsLauncher({
+    sauceLabsLauncher({
       ...sharedCapabilities,
       browserName: 'safari',
       browserVersion: '11.1',
       platformName: 'macOS 10.13',
     }),
 
-    saucelabsLauncher({
+    sauceLabsLauncher({
       ...sharedCapabilities,
       browserName: 'internet explorer',
       browserVersion: '11.0',
@@ -106,7 +106,7 @@ All the Sauce Labs specific options go into a `sauce:options` property. This mus
 ```js
 export default {
   browsers: [
-    saucelabsLauncher({
+    sauceLabsLauncher({
       'sauce:options': {
         name: 'my test name',
         build: `my project ${process.env.GITHUB_REF ?? 'local'} build ${
