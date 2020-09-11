@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.7.22
+
+### Patch Changes
+
+- 5ba52dd: properly close server on exit
+- Updated dependencies [985a784]
+- Updated dependencies [5ba52dd]
+  - @web/test-runner-cli@0.5.9
+  - @web/test-runner-core@0.7.11
+
 ## 0.7.21
 
 ### Patch Changes

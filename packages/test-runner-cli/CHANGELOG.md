@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.5.9
+
+### Patch Changes
+
+- 985a784: periodically print progress in a CI environment
+- Updated dependencies [5ba52dd]
+  - @web/test-runner-core@0.7.11
+
 ## 0.5.8
 
 ### Patch Changes

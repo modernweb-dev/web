@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "publishConfig": {
     "access": "public"
   },
@@ -33,9 +33,7 @@
     "test": "mocha \"test/**/*.test.mjs\" --reporter dot",
     "test:watch": "mocha \"test/**/*.test.mjs\" --watch --watch-files src,test --reporter dot"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "dev",
@@ -50,7 +48,7 @@
     "@types/command-line-args": "^5.0.0",
     "@web/config-loader": "^0.1.1",
     "@web/dev-server-cli": "^0.0.3",
-    "@web/dev-server-core": "^0.2.7",
+    "@web/dev-server-core": "^0.2.8",
     "@web/dev-server-rollup": "^0.2.5",
     "camelcase": "^6.0.0",
     "chalk": "^4.1.0",
