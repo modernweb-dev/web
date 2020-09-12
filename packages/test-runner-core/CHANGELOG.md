@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.7.13
+
+### Patch Changes
+
+- ab97aa8: publish browser folder
+
 ## 0.7.12
 
 ### Patch Changes

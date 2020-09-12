@@ -1,5 +1,14 @@
 # @web/test-runner-visual-regression
 
+## 0.1.6
+
+### Patch Changes
+
+- ab97aa8: publish browser folder
+- Updated dependencies [ab97aa8]
+  - @web/test-runner-core@0.7.13
+  - @web/test-runner-commands@0.1.6
+
 ## 0.1.5
 
 ### Patch Changes
