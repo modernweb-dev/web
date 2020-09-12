@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.5.10
+
+### Patch Changes
+
+- 123c0c0: don't serve compressed files
+- Updated dependencies [123c0c0]
+  - @web/test-runner-core@0.7.12
+
 ## 0.5.9
 
 ### Patch Changes
