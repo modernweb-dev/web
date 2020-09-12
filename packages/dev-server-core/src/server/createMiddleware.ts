@@ -63,6 +63,8 @@ export function createMiddleware(
     koaStatic(config.rootDir, {
       hidden: true,
       defer: true,
+      brotli: false,
+      gzip: false,
       setHeaders(res) {
         res.setHeader('cache-control', 'no-cache');
       },
