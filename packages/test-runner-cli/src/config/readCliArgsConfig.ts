@@ -52,7 +52,7 @@ export function readCliArgsConfig<T>(
   argv = process.argv,
 ): Partial<T> {
   const options = [...defaultOptions, ...extraOptions];
-  const cliArgs = commandLineArgs(options, { argv });
+  const cliArgs = commandLineArgs(options, { argv, partial: true });
 
   if ('help' in cliArgs) {
     /* eslint-disable-next-line no-console */
