@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.2.7
+
+### Patch Changes
+
+- b4c2fea: moved test runner dependencies to dev dependencies
+
 ## 0.2.6
 
 ### Patch Changes
