@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.9
+
+### Patch Changes
+
+- 123c0c0: don't serve compressed files
+
 ## 0.2.8
 
 ### Patch Changes
