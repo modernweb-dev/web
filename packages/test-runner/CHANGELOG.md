@@ -1,5 +1,17 @@
 # @web/test-runner
 
+## 0.7.24
+
+### Patch Changes
+
+- 28007f1: allow unknown cli args
+- 28007f1: allow custom command line args
+- 89612d3: removed debug variable
+- Updated dependencies [28007f1]
+- Updated dependencies [28007f1]
+- Updated dependencies [89612d3]
+  - @web/test-runner-cli@0.5.11
+
 ## 0.7.23
 
 ### Patch Changes
