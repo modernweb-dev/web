@@ -53,7 +53,7 @@ const transformedSyntax = {
   objectSpread: 'const spread = __assign(__assign({}, foo), bar);',
   asyncFunctions: [
     'var __async = (__this, __arguments, generator) => {',
-    'return __async(this, [], function* () {',
+    'return __async(this, null, function* () {',
     'yield foo;',
     'yield bar;',
   ],

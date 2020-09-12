@@ -64,7 +64,7 @@ describe('isLatestModernBrowser', () => {
 
   it('returns true for latest Edge -1', async () => {
     const latest = getLatestStableMajor(browsers.edge.releases)!;
-    expect(isLatestModernBrowser({ name: 'Chrome', version: String(latest - 1) })).to.be.true;
+    expect(isLatestModernBrowser({ name: 'Edge', version: String(latest - 1) })).to.be.true;
   });
 
   it('returns false for latest Edge -2', async () => {
