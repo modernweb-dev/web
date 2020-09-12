@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.3.5
+
+### Patch Changes
+
+- b1ff412: mocha should be a dev dependency
+
 ## 0.3.4
 
 ### Patch Changes
