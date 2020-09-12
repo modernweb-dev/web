@@ -2,6 +2,9 @@ import CleanCSS from 'clean-css';
 import deepmerge from 'deepmerge';
 import createConfig from '../../rollup.browser.config';
 
+const REGEXP_DTS_MOCHA = /'..\/..\/..\/node_modules\/mocha\/mocha.js'/g;
+const REGEXP_DTS_CORE = /'..\/..\/test-runner-core\/browser\/session.js'/g;
+
 const cssPlugin = {
   transform(code, id) {
     if (id.endsWith('.css')) {
@@ -11,11 +14,23 @@ const cssPlugin = {
   },
 };
 
+const rewriteDtsPlugin = {
+  generateBundle(options, bundle) {
+    for (const [name, file] of Object.entries(bundle)) {
+      if (name.endsWith('.d.ts')) {
+        file.source = file.source
+          .replace(REGEXP_DTS_MOCHA, "'mocha/mocha.js'")
+          .replace(REGEXP_DTS_CORE, "'@web/test-runner-core'");
+      }
+    }
+  },
+};
+
 export default [
   deepmerge(createConfig('src/autorun.ts'), {
-    plugins: [cssPlugin],
+    plugins: [cssPlugin, rewriteDtsPlugin],
   }),
   deepmerge(createConfig('src/standalone.ts'), {
-    plugins: [cssPlugin],
+    plugins: [cssPlugin, rewriteDtsPlugin],
   }),
 ];
