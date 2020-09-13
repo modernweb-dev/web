@@ -8,12 +8,10 @@ describe('setUserAgentPlugin', function test() {
   this.timeout(20000);
 
   it('can set the user agent on puppeteer', async () => {
-    await runTests(
-      {
-        browsers: [chromeLauncher()],
-        plugins: [setUserAgentPlugin()],
-      },
-      [path.join(__dirname, 'browser-test.js')],
-    );
+    await runTests({
+      files: [path.join(__dirname, 'browser-test.js')],
+      browsers: [chromeLauncher()],
+      plugins: [setUserAgentPlugin()],
+    });
   });
 });

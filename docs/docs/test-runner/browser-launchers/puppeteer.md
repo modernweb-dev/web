@@ -28,7 +28,7 @@ You can find all possible launch options in the [official documentation](https:/
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 
 export default {
-  browwsers: [
+  browsers: [
     puppeteerLauncher({
       launchOptions: {
         executablePath: '/path/to/executable',

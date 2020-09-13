@@ -10,30 +10,30 @@ describe('emulateMediaPlugin', function test() {
   this.timeout(20000);
 
   it('can emulate media on puppeteer', async () => {
-    await runTests(
-      {
-        browsers: [chromeLauncher()],
-        plugins: [emulateMediaPlugin()],
-      },
-      [path.join(__dirname, 'browser-test.js'), path.join(__dirname, 'puppeteer-only-test.js')],
-    );
+    await runTests({
+      files: [
+        path.join(__dirname, 'browser-test.js'),
+        path.join(__dirname, 'puppeteer-only-test.js'),
+      ],
+
+      browsers: [chromeLauncher()],
+      plugins: [emulateMediaPlugin()],
+    });
   });
 
   // playwright doesn't work on windows VM right now
   if (platform() !== 'win32') {
     it('can emulate media on playwright', async () => {
-      await runTests(
-        {
-          browsers: [
-            playwrightLauncher({ product: 'chromium' }),
-            playwrightLauncher({ product: 'firefox' }),
-            // TODO: make webkit work in the CI
-            // playwrightLauncher({ product: 'webkit' }),
-          ],
-          plugins: [emulateMediaPlugin()],
-        },
-        [path.join(__dirname, 'browser-test.js')],
-      );
+      await runTests({
+        files: [path.join(__dirname, 'browser-test.js')],
+        browsers: [
+          playwrightLauncher({ product: 'chromium' }),
+          playwrightLauncher({ product: 'firefox' }),
+          // TODO: make webkit work in the CI
+          // playwrightLauncher({ product: 'webkit' }),
+        ],
+        plugins: [emulateMediaPlugin()],
+      });
     });
   }
 });

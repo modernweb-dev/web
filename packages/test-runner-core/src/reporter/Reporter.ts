@@ -7,6 +7,7 @@ import { Logger } from '../logger/Logger';
 export interface ReporterArgs {
   config: TestRunnerCoreConfig;
   sessions: TestSessionManager;
+  browserNames: string[];
   testFiles: string[];
   startTime: number;
 }

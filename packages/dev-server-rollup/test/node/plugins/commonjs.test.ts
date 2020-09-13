@@ -176,16 +176,14 @@ exports.default = _default;`;
   it('passes the in-browser tests', async function () {
     this.timeout(20000);
 
-    await runTests(
-      {
-        browsers: [chromeLauncher({ launchOptions: { devtools: false } })],
-        plugins: [
-          fromRollup(rollupCommonjs)({
-            include: '**/commonjs/modules/**/*',
-          }),
-        ],
-      },
-      [resolve(__dirname, '..', 'fixtures', 'commonjs', 'commonjs-browser-test.js')],
-    );
+    await runTests({
+      files: [resolve(__dirname, '..', 'fixtures', 'commonjs', 'commonjs-browser-test.js')],
+      browsers: [chromeLauncher({ launchOptions: { devtools: false } })],
+      plugins: [
+        fromRollup(rollupCommonjs)({
+          include: '**/commonjs/modules/**/*',
+        }),
+      ],
+    });
   });
 });

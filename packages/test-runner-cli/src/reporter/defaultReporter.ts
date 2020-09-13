@@ -24,19 +24,17 @@ export function defaultReporter({
 }: DefaultReporterArgs = {}): Reporter {
   let args: ReporterArgs;
   let favoriteBrowser: string;
-  let browserNames: string[];
   let stackLocationRegExp: RegExp;
   let sourceMapFunction: SourceMapFunction;
 
   return {
     start(_args) {
       args = _args;
-      browserNames = args.config.browsers.map(b => b.name);
       favoriteBrowser =
-        browserNames.find(name => {
+        args.browserNames.find(name => {
           const n = name.toLowerCase();
           return n.includes('chrome') || n.includes('chromium') || n.includes('firefox');
-        }) ?? browserNames[0];
+        }) ?? args.browserNames[0];
       stackLocationRegExp = createStackLocationRegExp(
         args.config.protocol,
         args.config.hostname,
@@ -72,7 +70,7 @@ export function defaultReporter({
       return reportTestFileResults(
         logger,
         testFile,
-        browserNames,
+        args.browserNames,
         favoriteBrowser,
         args.config.rootDir,
         stackLocationRegExp,
@@ -87,7 +85,7 @@ export function defaultReporter({
       }
 
       return getTestProgressReport(args.config, {
-        browserNames,
+        browserNames: args.browserNames,
         testRun,
         testFiles: args.testFiles,
         sessions: args.sessions,

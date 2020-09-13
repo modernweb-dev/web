@@ -1,7 +1,5 @@
-import { resolve } from 'path';
-
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { createTestSessions } from './createTestSessions';
+import { createTestSessions } from './createSessionGroups';
 import { TestSession } from '../test-session/TestSession';
 import { getTestCoverage, TestCoverage } from '../coverage/getTestCoverage';
 import { TestScheduler } from './TestScheduler';
@@ -11,6 +9,8 @@ import { EventEmitter } from '../utils/EventEmitter';
 import { createSessionUrl } from './createSessionUrl';
 import { createDebugSessions } from './createDebugSessions';
 import { TestRunnerServer } from '../server/TestRunnerServer';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
+import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig';
 
 interface EventMap {
   'test-run-started': { testRun: number; sessions: Iterable<TestSession> };
@@ -21,8 +21,9 @@ interface EventMap {
 
 export class TestRunner extends EventEmitter<EventMap> {
   public config: TestRunnerCoreConfig;
-  public sessions = new TestSessionManager();
+  public sessions: TestSessionManager;
   public testFiles: string[];
+  public browserNames: string[];
   public startTime = -1;
   public testRun = -1;
   public started = false;
@@ -34,16 +35,23 @@ export class TestRunner extends EventEmitter<EventMap> {
   private scheduler: TestScheduler;
   private server: TestRunnerServer;
   private pendingSessions = new Set<TestSession>();
+  private browsers: BrowserLauncher[];
 
-  constructor(config: TestRunnerCoreConfig, testFiles: string[]) {
+  constructor(config: TestRunnerCoreConfig, groupConfigs: TestRunnerGroupConfig[] = []) {
     super();
+    const { sessionGroups, testFiles, testSessions, browsers } = createTestSessions(
+      config,
+      groupConfigs,
+    );
     this.config = config;
-    this.testFiles = testFiles.map(f => resolve(f));
+    this.testFiles = testFiles;
+    this.browsers = browsers;
+    this.browserNames = Array.from(new Set(this.browsers.map(b => b.name)));
+    this.sessions = new TestSessionManager(sessionGroups, testSessions);
     this.scheduler = new TestScheduler(config, this.sessions);
     this.server = new TestRunnerServer(this.config, this.sessions, this.testFiles, sessions => {
       this.runTests(sessions);
     });
-
     this.sessions.on('session-status-updated', session => {
       if (session.status === SESSION_STATUS.FINISHED) {
         this.onSessionFinished();
@@ -60,12 +68,9 @@ export class TestRunner extends EventEmitter<EventMap> {
       this.started = true;
       this.startTime = Date.now();
 
-      for (const browser of this.config.browsers) {
+      for (const browser of this.browsers) {
         await browser.start(this.config, this.testFiles);
       }
-
-      const createdSessions = createTestSessions(this.config.browsers, this.testFiles);
-      this.sessions.add(...createdSessions);
 
       await this.server.start();
 
@@ -126,7 +131,7 @@ export class TestRunner extends EventEmitter<EventMap> {
     });
 
     const stopActions = [];
-    for (const browser of this.config.browsers) {
+    for (const browser of this.browsers) {
       stopActions.push(
         browser.stop().catch(error => {
           console.error(error);
@@ -138,7 +143,8 @@ export class TestRunner extends EventEmitter<EventMap> {
   }
 
   startDebugBrowser(testFile: string) {
-    const debugSessions = createDebugSessions(this.config.browsers, testFile);
+    const sessions = this.sessions.forTestFile(testFile);
+    const debugSessions = createDebugSessions(Array.from(sessions));
     this.sessions.addDebug(...debugSessions);
 
     for (const session of debugSessions) {

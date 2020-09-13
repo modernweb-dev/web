@@ -8,10 +8,11 @@ it('can run tests with autorun', async function () {
 
   const results = await runTests(
     {
+      files: [resolve(__dirname, 'fixtures', 'autorun.js')],
       browsers: [chromeLauncher()],
       concurrency: 10,
     },
-    [resolve(__dirname, 'fixtures', 'autorun.js')],
+    [],
     { allowFailure: true, reportErrors: false },
   );
 

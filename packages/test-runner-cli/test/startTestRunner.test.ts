@@ -19,6 +19,7 @@ describe('startTestRunner', () => {
         browsers: [chromeLauncher()],
         concurrency: 3,
       } as TestRunnerCoreConfig,
+      [],
       { autoExitProcess: false },
     );
 

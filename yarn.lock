@@ -2305,6 +2305,28 @@
     open "^7.1.0"
     portfinder "^1.0.27"
 
+"@web/dev-server@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@web/dev-server/-/dev-server-0.0.10.tgz#06bfc313293c97dde8fd0bb4610e27fdadf97374"
+  integrity sha512-wCEGbGv7gCjsgamemRXaS/ba8+fj0XlqKjXs8Cbm2He2j/uMTyNEEYEg9TmGah87cEJZqvpcvsqB7CAItBwqww==
+  dependencies:
+    "@babel/code-frame" "^7.10.4"
+    "@rollup/plugin-node-resolve" "^8.4.0"
+    "@types/command-line-args" "^5.0.0"
+    "@web/config-loader" "^0.1.1"
+    "@web/dev-server-cli" "^0.0.3"
+    "@web/dev-server-core" "^0.2.9"
+    "@web/dev-server-rollup" "^0.2.5"
+    camelcase "^6.0.0"
+    chalk "^4.1.0"
+    command-line-args "^5.1.1"
+    command-line-usage "^6.1.0"
+    debounce "^1.2.0"
+    deepmerge "^4.2.2"
+    ip "^1.1.5"
+    open "^7.1.0"
+    portfinder "^1.0.27"
+
 "@webcomponents/shadycss@^1.9.4":
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/@webcomponents/shadycss/-/shadycss-1.10.1.tgz#6f377b313c96a93a690f25206b32a20eada4b2a9"
