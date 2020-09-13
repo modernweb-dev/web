@@ -19,6 +19,7 @@ export {
   CoverageConfig,
   CoverageThresholdConfig,
 } from './config/TestRunnerCoreConfig';
+export { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig';
 export { TestCoverage } from './coverage/getTestCoverage';
 export { Logger, ErrorWithLocation } from './logger/Logger';
 export {

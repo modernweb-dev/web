@@ -90,7 +90,6 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
   const {
     browserNames,
     testRun,
-    testFiles: allTestFiles,
     sessions,
     watch,
     startTime,
@@ -99,8 +98,6 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
     coverageConfig,
     testCoverage,
   } = args;
-  const testFiles = focusedTestFile ? [focusedTestFile] : allTestFiles;
-
   const entries: string[] = [];
   const unfinishedSessions = Array.from(
     sessions.forStatusAndTestFile(
@@ -117,8 +114,12 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
   let failed = false;
 
   const minWidth = browserNames.sort((a, b) => b.length - a.length)[0].length + 1;
-  for (const browser of browserNames) {
-    const sessionsForBrowser = sessions.forBrowserAndTestFile(focusedTestFile, browser);
+  for (const browserName of browserNames) {
+    const allSessionsForBrowser = Array.from(sessions.forBrowserName(browserName));
+    const sessionsForBrowser = focusedTestFile
+      ? allSessionsForBrowser.filter(s => s.testFile === focusedTestFile)
+      : allSessionsForBrowser;
+    const totalTestFiles = new Set(sessionsForBrowser.map(s => s.testFile)).size;
     let finishedFilesForBrowser = 0;
     let passedTestsForBrowser = 0;
     let skippedTestsForBrowser = 0;
@@ -145,10 +146,10 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
 
     entries.push(
       getProgressReport(
-        browser,
+        browserName,
         minWidth,
         finishedFilesForBrowser,
-        testFiles.length,
+        totalTestFiles,
         passedTestsForBrowser,
         skippedTestsForBrowser,
         failedTestsForBrowser,

@@ -5,6 +5,8 @@ import { TestSession, TestResultError } from '../test-session/TestSession';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
 import { withTimeout } from '../utils/async';
 
+const TIMEOUT_MSG = 'Timeout starting the browser page.';
+
 export class TestScheduler {
   private timeoutIdsPerSession = new Map<string, NodeJS.Timeout[]>();
 
@@ -61,7 +63,7 @@ export class TestScheduler {
         SESSION_STATUS.TEST_FINISHED,
       ),
     ).length;
-    const count = this.config.concurrency! - runningCount;
+    const count = this.config.concurrency - runningCount;
     if (count === 0) {
       return;
     }
@@ -93,8 +95,8 @@ export class TestScheduler {
           updatedSession.id,
           createSessionUrl(this.config, updatedSession),
         ),
-        'Timeout starting the browser page.',
-        this.config.browserStartTimeout!,
+        TIMEOUT_MSG,
+        this.config.browserStartTimeout,
       );
 
       // when the browser started, wait for session to ping back on time
@@ -103,7 +105,9 @@ export class TestScheduler {
       if (this.isStale(updatedSession)) {
         // something else has changed the test session, such as a the browser timeout
         // or a re-run in watch mode. in that was we just log the error
-        this.config.logger.error(error);
+        if (error.message !== TIMEOUT_MSG) {
+          this.config.logger.error(error);
+        }
       } else {
         this.setSessionFailed(updatedSession, { message: error.message, stack: error.stack });
       }
@@ -128,7 +132,7 @@ export class TestScheduler {
         const { testCoverage, errors } = await withTimeout(
           session.browser.stopSession(session.id),
           'Timed out stopping the browser page',
-          this.config.testsFinishTimeout!,
+          this.config.testsFinishTimeout,
         );
         updatedSession.errors = [...(updatedSession.errors ?? []), ...(errors ?? [])];
         updatedSession.testCoverage = testCoverage;
@@ -161,7 +165,7 @@ export class TestScheduler {
         });
         return;
       }
-    }, this.config.testsStartTimeout!);
+    }, this.config.testsStartTimeout);
 
     this.addTimeoutId(sessionId, timeoutId);
   }
@@ -181,7 +185,7 @@ export class TestScheduler {
             'Check the browser logs or open the browser in debug mode for more information.',
         });
       }
-    }, this.config.testsFinishTimeout!);
+    }, this.config.testsFinishTimeout);
 
     this.addTimeoutId(sessionId, timeoutId);
   }

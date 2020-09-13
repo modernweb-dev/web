@@ -8,10 +8,11 @@ it('can run tests with standalone', async function () {
 
   const results = await runTests(
     {
+      files: [resolve(__dirname, 'fixtures', 'standalone.html')],
       browsers: [chromeLauncher()],
       concurrency: 10,
     },
-    [resolve(__dirname, 'fixtures', 'standalone.html')],
+    [],
     { allowFailure: true, reportErrors: false },
   );
 
@@ -47,10 +48,11 @@ it('captures errors during setup', async function () {
 
   const results = await runTests(
     {
+      files: [resolve(__dirname, 'fixtures', 'standalone-setup-fail.html')],
       browsers: [chromeLauncher()],
       concurrency: 10,
     },
-    [resolve(__dirname, 'fixtures', 'standalone-setup-fail.html')],
+    [],
     { allowFailure: true, reportErrors: false },
   );
 

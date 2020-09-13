@@ -29,6 +29,8 @@
     "test:ci": "yarn test",
     "test:custom-html": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/customhtml.config.js",
     "test:filter-logs": "node dist/bin.js --config demo/filter-logs.config.mjs",
+    "test:groups-config": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/groups.config.mjs",
+    "test:groups-pattern": "node dist/bin.js --groups \"demo/test/groups/**/*.config.mjs\"",
     "test:legacy": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config legacy.config.js",
     "test:logging": "node dist/bin.js \"demo/test/logging.test.js\"",
     "test:many": "node dist/bin.js \"demo/test/many/**/*.test.js\"",
@@ -59,6 +61,7 @@
   ],
   "dependencies": {
     "@rollup/plugin-node-resolve": "^8.1.0",
+    "@web/config-loader": "^0.1.2",
     "@web/dev-server-rollup": "^0.2.9",
     "@web/test-runner-chrome": "^0.6.7",
     "@web/test-runner-cli": "^0.5.13",
@@ -66,7 +69,8 @@
     "@web/test-runner-core": "^0.7.17",
     "@web/test-runner-mocha": "^0.3.3",
     "command-line-args": "^5.1.1",
-    "deepmerge": "^4.2.2"
+    "deepmerge": "^4.2.2",
+    "globby": "^11.0.1"
   },
   "devDependencies": {
     "@web/dev-server-legacy": "^0.1.2",

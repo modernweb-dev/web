@@ -24,7 +24,7 @@ export interface CoverageConfig {
 export interface TestRunnerCoreConfig {
   rootDir: string;
   files: string | string[];
-  concurrency?: number;
+  concurrency: number;
 
   protocol: string;
   hostname: string;
@@ -43,9 +43,9 @@ export interface TestRunnerCoreConfig {
   coverage?: boolean;
   coverageConfig?: CoverageConfig;
 
-  browserStartTimeout?: number;
-  testsStartTimeout?: number;
-  testsFinishTimeout?: number;
+  browserStartTimeout: number;
+  testsStartTimeout: number;
+  testsFinishTimeout: number;
   staticLogging?: boolean;
 
   debug?: boolean;

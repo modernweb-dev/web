@@ -35,13 +35,12 @@ describe('TestScheduler', () => {
   function createTestFixture(
     ...ids: string[]
   ): [TestScheduler, TestSessionManager, ...TestSession[]] {
-    const sessionManager = new TestSessionManager();
     const sessions: TestSession[] = [];
     for (const id of ids) {
       const session = createSession({ id });
       sessions.push(session);
-      sessionManager.add(session);
     }
+    const sessionManager = new TestSessionManager([], sessions);
     const scheduler = new TestScheduler(mockConfig, sessionManager);
     return [scheduler, sessionManager, ...sessions];
   }

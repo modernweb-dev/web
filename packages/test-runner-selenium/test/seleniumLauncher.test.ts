@@ -41,25 +41,8 @@ before(async function () {
 (os.platform() === 'win32' ? it.skip : it)('runs tests with selenium', async function () {
   this.timeout(50000);
 
-  await runTests(
-    {
-      browsers: [
-        seleniumLauncher({
-          driverBuilder: new Builder()
-            .forBrowser('chrome')
-            .setChromeOptions(new ChromeOptions().headless())
-            .usingServer('http://localhost:4444/wd/hub'),
-        }),
-        seleniumLauncher({
-          driverBuilder: new Builder()
-            .forBrowser('firefox')
-            .setFirefoxOptions(new FirefoxOptions().headless())
-            .usingServer('http://localhost:4444/wd/hub'),
-        }),
-      ],
-      concurrency: 5,
-    },
-    [
+  await runTests({
+    files: [
       resolve(__dirname, 'fixtures', 'a.js'),
       resolve(__dirname, 'fixtures', 'b.js'),
       resolve(__dirname, 'fixtures', 'c.js'),
@@ -73,7 +56,22 @@ before(async function () {
       resolve(__dirname, 'fixtures', 'module-features.js'),
       resolve(__dirname, 'fixtures', 'stage-4-features.js'),
     ],
-  );
+    browsers: [
+      seleniumLauncher({
+        driverBuilder: new Builder()
+          .forBrowser('chrome')
+          .setChromeOptions(new ChromeOptions().headless())
+          .usingServer('http://localhost:4444/wd/hub'),
+      }),
+      seleniumLauncher({
+        driverBuilder: new Builder()
+          .forBrowser('firefox')
+          .setFirefoxOptions(new FirefoxOptions().headless())
+          .usingServer('http://localhost:4444/wd/hub'),
+      }),
+    ],
+    concurrency: 5,
+  });
 });
 
 after(() => {

@@ -58,15 +58,13 @@ html {
   });
 
   it('passes the in-browser tests', async () => {
-    await runTests(
-      {
-        browsers: [chromeLauncher()],
-        mimeTypes: {
-          '**/*.css': 'js',
-        },
-        plugins: [fromRollup(rollupPostcss)({ modules: true })],
+    await runTests({
+      files: [resolve(__dirname, '..', 'fixtures', 'postcss', 'postcss-browser-test.js')],
+      browsers: [chromeLauncher()],
+      mimeTypes: {
+        '**/*.css': 'js',
       },
-      [resolve(__dirname, '..', 'fixtures', 'postcss', 'postcss-browser-test.js')],
-    );
+      plugins: [fromRollup(rollupPostcss)({ modules: true })],
+    });
   });
 });

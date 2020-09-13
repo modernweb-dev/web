@@ -59,7 +59,7 @@ async function launchTestRunner(cwd: string): Promise<{ actual: string; expected
   const reporters = [junitReporter({ outputPath })];
   const config: TestRunnerCoreConfig = { ...createConfig(), rootDir, port, files, reporters };
 
-  const runner = new TestRunner(config, files);
+  const runner = new TestRunner(config);
   const cli = new TestRunnerCli(config, runner);
 
   await runner.start();

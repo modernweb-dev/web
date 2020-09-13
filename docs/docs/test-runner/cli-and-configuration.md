@@ -16,6 +16,8 @@ The test runner can be configured using CLI flags, or with a configuration file.
 | playwright        | boolean      | whether to run tests with @web/test-runner-playwright                                                                 |
 | browsers          | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit                           |
 | config            | object       | where to read the config from                                                                                         |
+| groups            | string       | pattern of where to read test group config files from                                                                 |
+| group             | string       | runs tests only for the test group with this name                                                                     |
 | concurrency       | number       | amount of test files to run concurrently                                                                              |
 
 Examples:
@@ -99,9 +101,22 @@ interface CoverageConfig {
 
 type MimeTypeMappings = Record<string, string>;
 
+interface TestRunnerGroupConfig {
+  // the name of the test group, this is used for reporting and to run only
+  // a specific group using the --group flag
+  name: string;
+  // globs of files to test in this group, if unset it will be inherited from the main config
+  files?: string | string[];
+  // browsers to test in this group, if unset it will be inherited from the main config
+  browsers?: BrowserLauncher[];
+}
+
 interface TestRunnerConfig {
   // globs of files to test
   files: string | string[];
+  // test group configs, can be an array of configs or a string or string array of glob patterns
+  // which specify where to find the configs
+  groups?: string | string[] | TestRunnerGroupConfig[];
   // amount of test files to run in parallel
   concurrency?: number;
   // run in watch mode, reloading when files change
@@ -161,26 +176,91 @@ interface TestRunnerConfig {
 }
 ```
 
-## Customizing test runner HTML
+## Test groups
 
-When running Javascript tests, the test runner runs the test in a standard minimal HTML page. You can provide a custom HTML container to run the tests in with the `testRunnerHtml` function. This function receives the module import for the test runner and the test runner config.
+### In the main config
 
-You can use this to set up the testing environment, for example, to set global variables or load test bootstrap code.
+It's possible to create groups of tests with different configurations. A group can be created directly in the main config:
 
 ```js
-module.exports = {
-  testRunnerHtml: (testRunnerImport, config) => `
-    <html>
-      <body>
-        <script type="module">
-          window.someGlobal = 'foo';
-        </script>
+export default {
+  files: 'test/**/*.test.js',
+  groups: [
+    {
+      name: 'package-a',
+      files: 'packages/a/test/**/*.test.js',
+    },
+    {
+      name: 'package-a',
+      files: 'packages/b/test/**/*.test.js',
+    },
+  ],
+};
+```
 
-        <script type="module">
-          import '${testRunnerImport}';
-        </script>
-      </body>
-    </html>
-  `,
+A group will inherit all options from the parent config unless they are overwritten. Not all options can be overwritten, see the config types which options are available.
+
+When running tests regularly, the tests from regular config and the groups will be run. You can run only the tests of a test group by using the `--group` flag. For example `web-test-runner --group package-a`.
+
+### Using separate file
+
+Test groups can also be created in separate files using a glob pattern:
+
+Using the CLI:
+
+`wtr --groups "test/**/*.config.mjs"`
+
+Using a config:
+
+```js
+export default {
+  groups: 'test/**/*.config.mjs',
+};
+```
+
+This test group config should have a default export with the configuration for that group.
+
+## Examples
+
+### Run only some tests on a specific browser
+
+```js
+import { playwrightLauncher } from '@web/test-runner-playwright';
+
+export default {
+  groups: [
+    {
+      name: 'chromium-webkit',
+      files: 'test/all/**/*.test.js',
+      browsers: [
+        playwrightLauncher({ product: 'chromium' }),
+        playwrightLauncher({ product: 'webkit' }),
+      ],
+    },
+    {
+      name: 'firefox-only',
+      files: 'test/firefox-only/**/*.test.js',
+      browsers: [playwrightLauncher({ product: 'firefox' })],
+    },
+  ],
+};
+```
+
+### Group per package
+
+Group tests by package, so that you can easily run tests only for a single package using the `--group` flag.
+
+```js
+import fs from 'fs';
+
+const packages = fs
+  .readdirSync('packages')
+  .filter(dir => fs.statSync(`packages/${dir}`).isDirectory());
+
+export default {
+  groups: packages.map(pkg => ({
+    name: pkg,
+    files: `packages/${pkg}/test/**/*.test.js`,
+  })),
 };
 ```

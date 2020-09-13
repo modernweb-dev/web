@@ -1,4 +1,4 @@
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
+import { TestRunnerCoreConfig, TestRunnerGroupConfig } from '@web/test-runner-core';
 import {
   readCliArgsConfig,
   readConfig,
@@ -13,20 +13,31 @@ import {
   setUserAgentPlugin,
 } from '@web/test-runner-commands/plugins';
 import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
+import { TestRunnerStartError } from './TestRunnerStartError';
 import commandLineArgs from 'command-line-args';
 import chalk from 'chalk';
 
 import { puppeteerLauncher, playwrightLauncher } from './loadLauncher';
+import { collectGroupConfigs } from './collectGroupConfigs';
 import { nodeResolvePlugin } from './nodeResolvePlugin';
 import { esbuildPlugin } from './esbuildPlugin';
 
-export interface TestRunnerConfig extends TestRunnerCoreConfig {
+export interface TestRunnerConfig extends Partial<TestRunnerCoreConfig> {
+  groups?: string | string[] | TestRunnerGroupConfig[];
+  nodeResolve?: boolean | RollupNodeResolveOptions;
+  preserveSymlinks?: boolean;
+  esbuildTarget?: string | string[];
+}
+
+export interface FullTestRunnerConfig extends TestRunnerCoreConfig {
+  groups?: string | string[] | TestRunnerGroupConfig[];
   nodeResolve?: boolean | RollupNodeResolveOptions;
   preserveSymlinks?: boolean;
   esbuildTarget?: string | string[];
 }
 
 export interface TestRunnerCliArgsConfig extends Omit<TestRunnerConfig, 'browsers'> {
+  group?: string;
   puppeteer?: boolean;
   playwright?: boolean;
   browsers?: string[];
@@ -38,6 +49,17 @@ export interface StartTestRunnerOptions {
 }
 
 const cliOptions: (commandLineArgs.OptionDefinition & { description: string })[] = [
+  {
+    name: 'groups',
+    type: String,
+    description: 'Pattern of group config files.',
+  },
+  {
+    name: 'group',
+    type: String,
+    description:
+      'Name of the group to run tests for. When this is set, the other groups are ignored.',
+  },
   {
     name: 'node-resolve',
     type: Boolean,
@@ -91,8 +113,30 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
       }
     }
 
-    const config = await readConfig<TestRunnerConfig>(cliArgsConfig);
+    const config = await readConfig<FullTestRunnerConfig>(cliArgsConfig);
     const { rootDir } = config;
+    let groupConfigs: TestRunnerGroupConfig[] = [];
+
+    if (config.groups) {
+      const configPatterns: string[] = [];
+      for (const entry of typeof config.groups === 'string' ? [config.groups] : config.groups) {
+        if (typeof entry === 'object') {
+          groupConfigs.push(entry);
+        } else {
+          configPatterns.push(entry);
+        }
+      }
+      // group entries which are strings are globs which point to group conigs
+      groupConfigs.push(...(await collectGroupConfigs(configPatterns)));
+    }
+
+    if (cliArgs.group != null) {
+      const groupConfig = groupConfigs.find(c => c.name === cliArgs.group);
+      if (!groupConfig) {
+        throw new TestRunnerStartError(`Could not find any group named ${cliArgs.group}`);
+      }
+      groupConfigs = [groupConfig];
+    }
 
     if (cliArgs.puppeteer) {
       config.browsers = puppeteerLauncher(cliArgs.browsers);
@@ -100,7 +144,7 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
       config.browsers = playwrightLauncher(cliArgs.browsers);
     } else {
       if (cliArgs.browsers != null) {
-        throw new Error(
+        throw new TestRunnerStartError(
           `The browsers option must be used along with the puppeteer or playwright option.`,
         );
       }
@@ -112,7 +156,7 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
     }
 
     if (typeof rootDir !== 'string') {
-      throw new Error('No rootDir specified.');
+      throw new TestRunnerStartError('No rootDir specified.');
     }
 
     config.testFramework = {
@@ -148,11 +192,15 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
 
     config.plugins.push(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
 
-    const validatedConfig = validateCoreConfig<TestRunnerConfig>(config);
-    return defaultStartTestRunner(validatedConfig, { autoExitProcess });
+    const validatedConfig = validateCoreConfig<FullTestRunnerConfig>(config);
+    return defaultStartTestRunner(validatedConfig, groupConfigs, { autoExitProcess });
   } catch (error) {
-    if (autoExitProcess) {
+    if (error instanceof TestRunnerStartError) {
       console.error(chalk.red(`\nFailed to start test runner: ${error.message}\n`));
+    } else {
+      console.error(error);
+    }
+    if (autoExitProcess) {
       process.exit(1);
     } else {
       throw error;

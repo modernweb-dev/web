@@ -24,7 +24,7 @@ You can find all possible launch options in the [official documentation](https:/
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
 export default {
-  browwsers: [
+  browsers: [
     playwrightLauncher({
       // product can be chromium, webkit or firefox
       product: 'chromium',
@@ -46,7 +46,7 @@ For each browser, you can add a separate browser launcher
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
 export default {
-  browwsers: [
+  browsers: [
     playwrightLauncher({ product: 'chromium' }),
     playwrightLauncher({ product: 'firefox' }),
     playwrightLauncher({ product: 'webkit' }),

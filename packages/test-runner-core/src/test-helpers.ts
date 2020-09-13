@@ -5,6 +5,7 @@ import { TestRunner, TestRunnerCoreConfig } from './index';
 import { Logger } from './logger/Logger';
 import { TestResult, TestSuiteResult } from './test-session/TestSession';
 import { SESSION_STATUS } from './test-session/TestSessionStatus';
+import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig';
 
 const logger: Logger = {
   ...console,
@@ -35,7 +36,7 @@ const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
 
 export async function runTests(
   config: Partial<TestRunnerCoreConfig>,
-  testFiles: string[],
+  groupConfigs?: TestRunnerGroupConfig[],
   {
     allowFailure = false,
     reportErrors = true,
@@ -49,7 +50,7 @@ export async function runTests(
       ...config,
     } as TestRunnerCoreConfig;
 
-    const runner = new TestRunner(finalConfig, testFiles);
+    const runner = new TestRunner(finalConfig, groupConfigs);
 
     // runner.sessions.on('session-status-updated', session => {
     //   console.log(session.browser.name, session.id, session.status);
