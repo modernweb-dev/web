@@ -56,13 +56,14 @@ With this CSS in play, the following document would show two paragraphs, both `c
 
 ```html preview-story
 <style>
-  html {
+  :host {
     --my-background-color: green;
     --my-font-size: 12px;
   }
 
-  article {
+  article p {
     --my-font-size: 24px;
+    --my-background-color: cornflowerblue;
     --p-padding-horizontal: 12px;
   }
 
@@ -70,7 +71,7 @@ With this CSS in play, the following document would show two paragraphs, both `c
     display: inline-block;
     border-radius: 4px;
     padding: 4px var(--p-padding-horizontal, 6px);
-    background-color: var(--my-background-color, cornflowerblue);
+    background-color: var(--my-background-color);
     font-size: var(--my-font-size);
   }
 </style>
