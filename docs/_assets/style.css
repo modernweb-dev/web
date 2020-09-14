@@ -4,12 +4,12 @@ body[layout='home'] .markdown-body .call-to-action:nth-of-type(2) {
   --primary-color-darker: #000;
 }
 
-rocket-navigation a {
-  font-family: 'Quicksand', sans-serif;
+rocket-navigation {
+  font-family: 'Montserrat', sans-serif;
 }
 
-header a {
-  font-family: 'Quicksand', sans-serif;
+header {
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* TODO: should be in rocket? */
@@ -19,7 +19,7 @@ header a {
 
 @media screen and (min-width: 1024px) {
   body[layout='home'].has-background .page-background {
-    top: -52px;
+    top: -111px;
     right: -360px;
   }
 }

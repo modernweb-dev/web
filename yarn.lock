@@ -1070,62 +1070,63 @@
     human-id "^1.0.2"
     prettier "^1.18.2"
 
-"@d4kmor/cli@^0.2.5":
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.2.5.tgz#04d2d6ed0b2baf47ed6d69502f8de172d8e73d83"
-  integrity sha512-uoh5xF5GyYXIwM7LyuvRQQdqas2bTFpEr6fmS9uSaJU7DutiXCxumwSd0uB4cskWGjhdXvpfBvXF2qSBpmeNwQ==
+"@d4kmor/cli@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.3.2.tgz#5736b6824655bad06a0b5eda214af4d12b1cd400"
+  integrity sha512-SQlm9yPW6mV/6jLEyE6dQyd58K2NeBZMa7nAUS9gNC0Ge/6kuAEB2avNj1eBvEP/U3hbm3RUsF35nTsa68W4Hw==
   dependencies:
     "@11ty/eleventy" "^0.11.0"
-    "@d4kmor/eleventy-plugin-mdjs" "^0.1.3"
-    "@d4kmor/eleventy-rocket-nav" "^0.1.3"
+    "@d4kmor/eleventy-plugin-mdjs-unified" "^0.2.0"
+    "@d4kmor/eleventy-rocket-nav" "^0.2.0"
     "@open-wc/building-rollup" "^1.8.0"
+    "@web/config-loader" "^0.1.2"
+    "@web/dev-server" "^0.0.10"
+    "@web/rollup-plugin-copy" "^0.1.1"
     command-line-args "^5.1.1"
     command-line-usage "^6.1.0"
     deepmerge "^4.2.2"
-    es-dev-server "^1.57.2"
     glob "^7.1.6"
     rollup "^2.16.0"
     rollup-plugin-clear "^2.0.7"
     rollup-plugin-visualizer "^4.0.4"
     rollup-plugin-workbox "^5.0.1"
 
-"@d4kmor/drawer@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@d4kmor/drawer/-/drawer-0.1.0.tgz#2df63a7d6b18097eca45a240f76cccbf9cdbc439"
-  integrity sha512-IWq4XDuRe3xw1+EstvEmaCzPYKutIoMoZn3UWF7yE2pSPwBhmY4GDe/AUjT5JlPQqhmgTuCagFE7pv3RcSCdzg==
+"@d4kmor/drawer@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@d4kmor/drawer/-/drawer-0.2.0.tgz#e8bcb28a6c188e6f76ea6f9f37b2a760602c8f02"
+  integrity sha512-Pb8fXaLGApUnRbxyfM4egwOGiRBtsU3pM8dDeYCIs62LTryBB6IzMj5Tup+O+LvU6J3ZXTKeDxQ9azrjyU+qsg==
   dependencies:
     "@lion/overlays" "0.16.6"
     lit-element "^2.3.1"
 
-"@d4kmor/eleventy-plugin-mdjs@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-plugin-mdjs/-/eleventy-plugin-mdjs-0.1.3.tgz#1e701dbdfeb452e1ab9361a6bd71826971a3e174"
-  integrity sha512-uQBiPMZ4KfVx09EarKzP7P+2e0AP9VmsLzgWeSEy8po+lv+lAM4H72JJwpTP0TYxod0XekBicabAtnHtjCfsVA==
+"@d4kmor/eleventy-plugin-mdjs-unified@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-plugin-mdjs-unified/-/eleventy-plugin-mdjs-unified-0.2.0.tgz#6e7817ac9f70b224189c049c2a21fe0f9901aa4a"
+  integrity sha512-tyMGxtQbNF6CVXI2UT3KgUHqVppfSkh75nHjZjOfTwPqPys9gALf4SifNnyksOQ5jheBOV0R93Bsn3AfyKrnkg==
   dependencies:
-    "@mdjs/core" "^0.3.2"
-    remark-footnotes "^1.0.0"
+    "@mdjs/core" "^0.4.0"
     unist-util-visit "^2.0.3"
 
-"@d4kmor/eleventy-rocket-nav@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-rocket-nav/-/eleventy-rocket-nav-0.1.3.tgz#680aacb724f52154f0725ec96a5e9d659593ae0e"
-  integrity sha512-Ne8A7lOLOpFaO6mpk2JI98E5ehkAZW0F4lA/6/BwJpezH8yp+IJOVulVLGDv/GQyQFF9qfEJefvqoYYga/5wiw==
+"@d4kmor/eleventy-rocket-nav@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-rocket-nav/-/eleventy-rocket-nav-0.2.0.tgz#5b61475809f6c5a938019b43adfae3682604b4e8"
+  integrity sha512-kjRlCYi7KXhTarVL+57jhn0MnMeVbQGYX2ud/Jyg6w+jEqldrElYzRXETaQ3CDQSa5jyYBUXQPxf0SqTE2B0eg==
   dependencies:
     dependency-graph "^0.8.1"
     sax-wasm "^1.4.5"
 
-"@d4kmor/launch@^0.2.14":
-  version "0.2.14"
-  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.2.14.tgz#957d03c69c6e20b3194b04461bf9b0ef40ccab9f"
-  integrity sha512-qooNa9LP3+LsuXKywJ/lSs3HEZccGcb+vcGFmVCt9VRz0qwyR5I3ZdVjrZtCHh8zndoL6JZOBl5+FYri6HO+gg==
+"@d4kmor/launch@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.3.0.tgz#fb566e96a0661d3c7c98a1ac8c0f8daa49255d77"
+  integrity sha512-Bdw1qZ0U4F0BMSlnMgwkBYRvm/5kC5xKlM3W9/OUYDLnL18KidacF925bA5erQPQo4hrD/evQcIGgxCtyJtIww==
   dependencies:
-    "@d4kmor/drawer" "^0.1.0"
-    "@d4kmor/navigation" "^0.1.3"
+    "@d4kmor/drawer" "^0.2.0"
+    "@d4kmor/navigation" "^0.2.0"
 
-"@d4kmor/navigation@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@d4kmor/navigation/-/navigation-0.1.3.tgz#61c48008818fe30a88078ac4d16cbe2f37d0010e"
-  integrity sha512-ek7+oqCwlD+gKdWgHYMNOwBCirNagKrgMFINiVTPzw4AG7VCX0LL7CVNT7uW2tyuSGFolPI4BItr+4qKEXzd2w==
+"@d4kmor/navigation@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@d4kmor/navigation/-/navigation-0.2.0.tgz#04b412cdb056370dd560d615b4f538eda3916868"
+  integrity sha512-wX96eMy7jZ222kPxhsSCuIk3ZYnJDk3q96qkv75UyvKFhIIHOOrznuIDJB7BVzEwKW+f6PyvN473VtHNFAiPSw==
 
 "@eslint/eslintrc@^0.1.3":
   version "0.1.3"
@@ -1250,10 +1251,10 @@
     globby "^11.0.0"
     read-yaml-file "^1.1.0"
 
-"@mdjs/core@^0.3.2":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@mdjs/core/-/core-0.3.3.tgz#66533e2e1af714cd066ec81b5578d0e75f89b3ec"
-  integrity sha512-4HVwRaBDZ1usYT7QbpI9kAJcubLv39ndyxRFh7C9OzOxgKBSPZMOJl6pk5iW9vh73HEeebZyyNO7uNwxIv9tzQ==
+"@mdjs/core@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@mdjs/core/-/core-0.4.0.tgz#c0710aa8687d2f892307562162fe7e32b0418d10"
+  integrity sha512-LlLuc4uyRlCzjwMcMo8KUnqfKDtW/zU4HJNBDbWMz1ifAe5EmjRQbbo5RWs7vNahxZsiyqagSx765eaq8piTfg==
   dependencies:
     "@mdjs/mdjs-preview" "^0.2.0"
     "@mdjs/mdjs-story" "^0.0.1"
@@ -4836,7 +4837,7 @@ es-array-method-boxes-properly@^1.0.0:
   resolved "https://registry.yarnpkg.com/es-array-method-boxes-properly/-/es-array-method-boxes-properly-1.0.0.tgz#873f3e84418de4ee19c5be752990b2e44718d09e"
   integrity sha512-wd6JXUmyHmt8T5a2xreUwKcGPq6f1f+WwIJkijUqiGcJz1qqnZgP6XIK+QyIWU5lT7imeNxUll48bziG+TSYcA==
 
-es-dev-server@^1.55.0, es-dev-server@^1.57.2:
+es-dev-server@^1.55.0:
   version "1.57.4"
   resolved "https://registry.yarnpkg.com/es-dev-server/-/es-dev-server-1.57.4.tgz#9d6398828c12aa80bd59807edd896d54f77e2419"
   integrity sha512-GNstq4VeNmkon9W4dABCC3e3540cWVmhsnO4d8axBSgk0D4HQH/t2NqM4o9Qvq4/z9NMAqW1CazmvuFdl8oqKg==
@@ -10283,11 +10284,6 @@ remark-cli@^8.0.1:
     markdown-extensions "^1.1.0"
     remark "^12.0.0"
     unified-args "^8.0.0"
-
-remark-footnotes@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/remark-footnotes/-/remark-footnotes-1.0.0.tgz#9c7a97f9a89397858a50033373020b1ea2aad011"
-  integrity sha512-X9Ncj4cj3/CIvLI2Z9IobHtVi8FVdUrdJkCNaL9kdX8ohfsi18DXHsCVd/A7ssARBdccdDb5ODnt62WuEWaM/g==
 
 remark-frontmatter@^1.1.0:
   version "1.3.3"
