@@ -79,9 +79,7 @@ async function launchTestRunner(cwd: string): Promise<{ actual: string; expected
   });
 }
 
-describe.skip('junitReporter', function () {
-  this.timeout(10000);
-
+describe('junitReporter', function () {
   async function cleanUpFixtures() {
     for (const file of await globby('fixtures/**/test-results.xml', {
       absolute: true,
