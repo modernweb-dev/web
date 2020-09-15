@@ -51,6 +51,11 @@ jobs:
     name: Verify windows
     runs-on: windows-latest
     steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
       - uses: actions/checkout@v2
 
       - name: Setup Node 12.x
