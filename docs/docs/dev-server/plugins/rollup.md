@@ -83,3 +83,23 @@ The following rollup plugins have been tested to work correctly:
 The following rollup plugins don't work correctly at the moment:
 
 - [@rollup/plugin-typescript](https://github.com/rollup/plugins/tree/master/packages/typescript). For compiling typescript we recommend [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild)
+
+## Bundling
+
+We export an experimental plugin for on the fly bundling with rollup. This is useful when you rely on some specific rollup logic, or when running tests remotely and the performance benefits outweigh the bundling times. Debugging a bundled application is harder.
+
+To use the plugin, add `rollupBundlePlugin` to your config and set your test files as input.
+
+```js
+import { rollupBundlePlugin } from '@web/dev-server-rollup';
+
+export default {
+  plugins: [
+    rollupBundlePlugin({
+      rollupConfig: {
+        input: ['test/foo.test.js', 'test/bar.test.js'],
+      },
+    }),
+  ],
+};
+```
