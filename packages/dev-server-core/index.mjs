@@ -3,12 +3,12 @@ import cjsEntrypoint from './dist/index.js';
 
 const {
   DevServer,
+  WebSocketsManager,
   getRequestBrowserPath,
   getRequestFilePath,
   getResponseBody,
   getHtmlPath,
   isInlineScriptRequest,
-  EventStreamManager,
   FSWatcher,
   Koa,
   Server,
@@ -18,12 +18,12 @@ const {
 
 export {
   DevServer,
+  WebSocketsManager,
   getRequestBrowserPath,
   getRequestFilePath,
   getResponseBody,
   getHtmlPath,
   isInlineScriptRequest,
-  EventStreamManager,
   FSWatcher,
   Koa,
   Server,
