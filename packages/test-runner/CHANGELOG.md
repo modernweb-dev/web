@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.7.27
+
+### Patch Changes
+
+- 6949d03: fix serving generated rollup chunks
+- Updated dependencies [6949d03]
+  - @web/dev-server-rollup@0.2.9
+
 ## 0.7.26
 
 ### Patch Changes

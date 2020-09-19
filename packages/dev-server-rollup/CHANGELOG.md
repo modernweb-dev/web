@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.2.9
+
+### Patch Changes
+
+- 6949d03: fix serving generated rollup chunks
+
 ## 0.2.8
 
 ### Patch Changes
