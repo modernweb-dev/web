@@ -30,6 +30,7 @@ export class SauceLabsLauncher extends SeleniumLauncher {
   }
 
   async stop() {
+    console.log('browser launcher stop()');
     await this.manager.deregisterLauncher(this);
     return super.stop();
   }
