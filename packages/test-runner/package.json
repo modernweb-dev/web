@@ -33,9 +33,9 @@
     "test:many": "node dist/bin.js \"demo/test/many/**/*.test.js\"",
     "test:mixed": "node dist/bin.js \"demo/test/*.test.js\"",
     "test:mocha-options": "node dist/bin.js --config \"demo/test/mocha-options/config.js\"",
+    "test:parent-dir": "node dist/bin.js --config demo/parent-dir.mjs",
     "test:playwright": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --playwright --browsers chromium firefox webkit",
     "test:puppeteer-firefox": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --puppeteer --browsers firefox",
-    "test:source-maps": "node dist/bin.js \"demo/test/source-maps/**/*/*.test.js\"",
     "test:watch": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --watch"
   },
   "files": [
