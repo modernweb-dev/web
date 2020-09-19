@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.2.8
+
+### Patch Changes
+
+- 3d6004b: added rollup bundle plugin
+
 ## 0.2.7
 
 ### Patch Changes

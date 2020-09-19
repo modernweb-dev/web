@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.2.5
+
+### Patch Changes
+
+- 994f6e4: improved the way browser names are generated
+
 ## 0.2.4
 
 ### Patch Changes

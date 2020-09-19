@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.7.26
+
+### Patch Changes
+
+- 3d6004b: added rollup bundle plugin
+- Updated dependencies [3d6004b]
+  - @web/dev-server-rollup@0.2.8
+
 ## 0.7.25
 
 ### Patch Changes
