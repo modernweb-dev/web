@@ -11,7 +11,12 @@ async function bundleEntrypoints(rollupConfig: RollupOptions) {
   if (Array.isArray(rollupConfig.output)) {
     throw new Error('Multiple outputs not supported.');
   }
-  return bundle.generate(rollupConfig.output ?? {});
+
+  return bundle.generate({
+    ...rollupConfig.output,
+    chunkFileNames: '__rollup-generated__[name].js',
+    assetFileNames: '__rollup-generated__[name][extname]',
+  });
 }
 
 export function rollupBundlePlugin(pluginOptions: RollupPluginOptions): Plugin {
@@ -57,6 +62,8 @@ export function rollupBundlePlugin(pluginOptions: RollupPluginOptions): Plugin {
       const content = servedFiles.get(context.path);
       if (content) {
         return content;
+      } else if (context.path.includes('__rollup-generated__')) {
+        return servedFiles.get(`/${path.basename(context.path)}`);
       }
     },
   };
