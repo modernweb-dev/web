@@ -12,9 +12,7 @@ export function toFilePath(browserPath: string) {
 }
 
 export function createBrowserTestFilePath(rootDir: string, filePath: string) {
-  const fullFilePath = filePath.startsWith(process.cwd())
-    ? filePath
-    : path.join(process.cwd(), filePath);
+  const fullFilePath = path.resolve(filePath);
   const relativeToRootDir = path.relative(rootDir, fullFilePath);
   return encodeURI(toBrowserPath(relativeToRootDir));
 }
