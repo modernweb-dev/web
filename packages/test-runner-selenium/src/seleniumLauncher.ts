@@ -1,5 +1,6 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Builder, WebDriver } from 'selenium-webdriver';
+import { getBrowserName } from './utils';
 import { WindowManager } from './WindowManager';
 
 export interface SeleniumLauncherArgs {
@@ -20,9 +21,7 @@ export class SeleniumLauncher implements BrowserLauncher {
     cap.setPageLoadStrategy('none');
     this.driverBuilder.withCapabilities(cap);
     this.driver = await this.driverBuilder.build();
-    this.name = [cap.getPlatform(), cap.getBrowserName(), cap.getBrowserVersion()]
-      .filter(_ => _)
-      .join(' ');
+    this.name = getBrowserName(cap);
     this.windowManager = new WindowManager(this.driver, config);
     await this.windowManager.initialize();
   }
