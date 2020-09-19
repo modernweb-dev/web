@@ -6,6 +6,7 @@ import SaucelabsAPI, {
 } from 'saucelabs';
 
 export class SauceLabsLauncherManager {
+  private api: SaucelabsAPI;
   private launchers = new Set<BrowserLauncher>();
   private connectionPromise?: Promise<SauceConnectInstance>;
   private connection?: SauceConnectInstance;
@@ -15,10 +16,15 @@ export class SauceLabsLauncherManager {
   constructor(options: SauceLabsOptions, connectOptions?: SauceConnectOptions) {
     this.options = options;
     this.connectOptions = connectOptions;
+    this.api = new SaucelabsAPI(this.options);
 
     process.on('SIGINT', this.closeConnection);
     process.on('SIGTERM', this.closeConnection);
     process.on('beforeExit', this.closeConnection);
+  }
+
+  get webdriverEndpoint() {
+    return `${this.api.webdriverEndpoint}wd/hub`;
   }
 
   async registerLauncher(launcher: BrowserLauncher) {
@@ -29,8 +35,7 @@ export class SauceLabsLauncherManager {
       return;
     }
 
-    const api = new SaucelabsAPI(this.options);
-    this.connectionPromise = api.startSauceConnect(this.connectOptions ?? {});
+    this.connectionPromise = this.api.startSauceConnect(this.connectOptions ?? {});
     this.connection = await this.connectionPromise;
   }
 

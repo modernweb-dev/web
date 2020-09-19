@@ -61,9 +61,11 @@ export function createSauceLabsLauncher(
     const capabilitiesMap = new Map(Object.entries(finalCapabilities));
     const seleniumCapabilities = new Capabilities(capabilitiesMap);
 
-    const region = finalSauceLabsOptions.region!.startsWith('eu') ? 'eu-central-1' : 'us-west-1';
-    const sauceLabsUrl = `https://ondemand.${region}.saucelabs.com/wd/hub`;
-
-    return new SauceLabsLauncher(manager, browserIdentifier, sauceLabsUrl, seleniumCapabilities);
+    return new SauceLabsLauncher(
+      manager,
+      browserIdentifier,
+      manager.webdriverEndpoint,
+      seleniumCapabilities,
+    );
   };
 }
