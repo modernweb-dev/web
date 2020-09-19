@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.7.14
+
+### Patch Changes
+
+- 3c72bdd: fixed serving test files outside cwd
+
 ## 0.7.13
 
 ### Patch Changes
