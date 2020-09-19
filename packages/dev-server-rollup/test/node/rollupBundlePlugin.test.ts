@@ -47,21 +47,21 @@ describe('rollupBundlePlugin', () => {
 
     try {
       const textA1 = await fetchText(`${host}/a1.js`);
-      expectIncludes(textA1, "import { b as bc, d } from './d.js';");
+      expectIncludes(textA1, "import { b as bc, d } from './__rollup-generated__d.js';");
       expectIncludes(textA1, 'var a1 = `a ${bc} ${d}`;');
       expectIncludes(textA1, 'export default a1;');
 
       const textA2 = await fetchText(`${host}/a2.js`);
-      expectIncludes(textA2, "import { b as bc, d } from './d.js';");
+      expectIncludes(textA2, "import { b as bc, d } from './__rollup-generated__d.js';");
       expectIncludes(textA2, 'var a2 = `a ${bc} ${d}`;');
       expectIncludes(textA2, 'export default a2;');
 
       const textA3 = await fetchText(`${host}/a3.js`);
-      expectIncludes(textA3, "import { b as bc, d } from './d.js';");
+      expectIncludes(textA3, "import { b as bc, d } from './__rollup-generated__d.js';");
       expectIncludes(textA3, 'var a3 = `a ${bc} ${d}`;');
       expectIncludes(textA3, 'export default a3;');
 
-      const textD = await fetchText(`${host}/d.js`);
+      const textD = await fetchText(`${host}/__rollup-generated__d.js`);
       expectIncludes(textD, "var c = 'c';");
       expectIncludes(textD, 'var bc = `b ${c}`;');
       expectIncludes(textD, "var d = 'd';");
@@ -105,7 +105,7 @@ describe('rollupBundlePlugin', () => {
                 buildStart() {
                   this.emitFile({
                     type: 'asset',
-                    fileName: 'foo.json',
+                    name: 'foo.json',
                     source: '{ "foo": "bar" }',
                   });
                 },
@@ -117,7 +117,7 @@ describe('rollupBundlePlugin', () => {
     });
 
     try {
-      const text = await fetchText(`${host}/foo.json`);
+      const text = await fetchText(`${host}/__rollup-generated__foo.json`);
       expectIncludes(text, '{ "foo": "bar" }');
     } finally {
       server.stop();
