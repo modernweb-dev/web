@@ -8,7 +8,7 @@ const { createSauceLabsLauncher } = require('../dist/index');
 const sauceLabsLauncher = createSauceLabsLauncher({
   user: process.env.SAUCE_USERNAME,
   key: process.env.SAUCE_ACCESS_KEY,
-  region: 'eu-central-1',
+  region: 'eu',
 });
 
 const sharedCapabilities = {
