@@ -3,6 +3,7 @@ const packages = [
   { name: 'browser-logs', type: 'ts', environment: 'node' },
   { name: 'rollup-plugin-copy', type: 'js', environment: 'node' },
   { name: 'rollup-plugin-workbox', type: 'ts', environment: 'node' },
+  { name: 'rollup-plugin-import-meta-assets', type: 'js', environment: 'node' },
   { name: 'dev-server', type: 'ts', environment: 'node' },
   { name: 'dev-server-core', type: 'ts', environment: 'node' },
   { name: 'dev-server-esbuild', type: 'ts', environment: 'node' },
