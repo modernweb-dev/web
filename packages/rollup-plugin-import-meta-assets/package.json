@@ -23,7 +23,11 @@
     "test:update-snapshots": "mocha test/**/*.test.js test/*.test.js --update-snapshots",
     "test:watch": "npm run test:node -- --watch"
   },
-  "files": ["dist"],
+  "files": [
+    "*.js",
+    "*.mjs",
+    "src"
+  ],
   "keywords": [
     "rollup",
     "plugin",
