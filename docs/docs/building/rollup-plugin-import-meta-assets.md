@@ -6,8 +6,6 @@ eleventyNavigation:
   order: 2
 ---
 
-# Rollup Plugin import-meta-assets
-
 Rollup plugin that detects assets references relative to modules using patterns such as `new URL('./assets/my-img.png', import.meta.url)`.
 
 The referenced assets are added to the rollup pipeline, allowing them to be transformed and hash the filenames.
