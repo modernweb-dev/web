@@ -105,7 +105,7 @@ export default {
     importMetaAssets({
       transform: (assetBuffer, assetPath) => {
         return assetPath.endsWith('.svg')
-          ? svgo.optimize(assetBuffer.toString()).then(({ data }) => data);
+          ? svgo.optimize(assetBuffer.toString()).then(({ data }) => data)
           : assetBuffer;
       },
     }),
