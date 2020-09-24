@@ -1,10 +1,4 @@
----
-title: Rollup Plugin Copy
-eleventyNavigation:
-  key: Rollup Plugin Copy
-  parent: Building
-  order: 1
----
+# Building >> Rollup Plugin Copy ||20
 
 A Rollup plugin which copies asset files while retaining the relative folder structure.
 

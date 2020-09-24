@@ -1,10 +1,4 @@
----
-title: Hooks
-eleventyNavigation:
-  key: Hooks
-  parent: Writing Plugins
-  order: 2
----
+# Dev Server >> Writing Plugins >> Hooks ||3
 
 ## Hook: serve
 

@@ -1,10 +1,4 @@
----
-title: Commands
-eleventyNavigation:
-  key: Commands
-  parent: Test Runner
-  order: 6
----
+# Test Runner >> Commands ||6
 
 Commands for executing code server-side during your tests in the browser. To control the browser page, access the file system, or execute NodeJS libraries.
 

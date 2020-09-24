@@ -1,11 +1,8 @@
 ---
-title: Test frameworks
 layout: with-index.njk
-eleventyNavigation:
-  key: Test Frameworks
-  parent: Test Runner
-  order: 4
 ---
+
+# Test Runner >> Test Frameworks ||4
 
 Test frameworks load and run your tests in the browser, and provide the framework needed to define your tests.
 

@@ -1,10 +1,4 @@
----
-title: Node API
-eleventyNavigation:
-  key: Node API
-  parent: Dev Server
-  order: 6
----
+# Dev Server >> Node API ||6
 
 The Dev Server has a node API to start the server programmatically.
 

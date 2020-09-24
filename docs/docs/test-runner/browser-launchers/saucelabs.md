@@ -1,10 +1,4 @@
----
-title: Sauce Labs
-eleventyNavigation:
-  key: Sauce Labs
-  parent: Browsers
-  order: 70
----
+# Test Runner >> Browser Launchers >> Sauce Labs ||70
 
 Browser launchers for web test runner to run tests remotely on [Sauce Labs](https://saucelabs.com/).
 

@@ -1,10 +1,4 @@
----
-title: Taking code coverage into account
-eleventyNavigation:
-  key: Code Coverage
-  parent: Test Runner
-  order: 50
----
+# Test Runner >> Code Coverage ||50
 
 Once you have a decent set of tests you may want to look into what could still be improved.
 Code coverage can help to find which code segments have not yet been tested.

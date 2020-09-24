@@ -1,10 +1,4 @@
----
-title: Web Sockets
-eleventyNavigation:
-  key: Web Sockets
-  parent: Writing Plugins
-  order: 3
----
+# Dev Server >> Writing Plugins >> Web Sockets ||4
 
 The dev server has a web socket API for communicating with the browser. To use web sockets, your plugin must set the `injectWebSocket` option to `true`. If one plugin has this option set, a web socket script will be injected into the pages server by the dev server.
 

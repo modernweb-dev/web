@@ -1,8 +1,5 @@
 ---
-title: Development Web Server
 layout: with-index.njk
-eleventyNavigation:
-  key: Writing Plugins
-  parent: Dev Server
-  order: 4
 ---
+
+# Dev Server >> Writing Plugins ||4

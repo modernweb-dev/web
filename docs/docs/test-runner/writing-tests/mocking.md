@@ -1,11 +1,4 @@
----
-title: Mocking
-eleventyNavigation:
-  key: Writing tests > Mocking
-  title: Mocking
-  parent: Writing tests
-  order: 50
----
+# Test Runner >> Writing Tests >> Mocking ||50
 
 ## Mocking functions
 

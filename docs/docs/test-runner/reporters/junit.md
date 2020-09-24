@@ -1,10 +1,4 @@
----
-title: JUnit
-eleventyNavigation:
-  key: JUnit
-  parent: Reporters
-  order: 20
----
+# Test Runner >> Reporters >> JUnit ||20
 
 JUnit XML reporter for web test runner
 

@@ -1,11 +1,6 @@
----
-title: Writing Test Frameworks
-eleventyNavigation:
-  key: Writing Test Frameworks
-  parent: Test Frameworks
----
+# Test Runner >> Test Frameworks >> Write Your Own ||20
 
-You can write your own test framework for web test runner by wrap an existing testing framework or create a specific once for your project.
+You can Write Your Own test framework for web test runner by wrap an existing testing framework or create a specific once for your project.
 
 This is a minimal example:
 

@@ -1,10 +1,4 @@
----
-title: Getting started with the test runner
-eleventyNavigation:
-  key: Getting Started
-  parent: Test Runner
-  order: 10
----
+# Test Runner >> Getting Started ||10
 
 Testing your code is very important to have the confidence to release often.
 Green tests should mean that the change is good to go 👍
