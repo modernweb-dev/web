@@ -1,10 +1,4 @@
----
-title: Rollup
-eleventyNavigation:
-  key: Rollup
-  parent: Plugins
-  order: 3
----
+# Dev Server >> Plugins >> Rollup ||4
 
 Adapter for using rollup plugins in web dev server and web test runner.
 

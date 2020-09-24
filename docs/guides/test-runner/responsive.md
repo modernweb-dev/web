@@ -1,10 +1,4 @@
----
-title: Testing responsive sites
-eleventyNavigation:
-  key: Responsive
-  parent: Test Runner
-  order: 40
----
+# Test Runner >> Responsive Sites ||40
 
 With the world going mobile first, it is more important than ever to test your code against different viewport.
 

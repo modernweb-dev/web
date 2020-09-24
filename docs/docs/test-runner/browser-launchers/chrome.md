@@ -1,10 +1,4 @@
----
-title: Chrome
-eleventyNavigation:
-  key: Chrome
-  parent: Browsers
-  order: 20
----
+# Test Runner >> Browser Launchers >> Chrome ||20
 
 Runs tests with a locally installed instance of Chrome and controls it using [puppeteer-core](https://www.npmjs.com/package/puppeteer-core). This avoids the post-install step of `puppeteer` or `playwright`, speeding up the installation of projects.
 

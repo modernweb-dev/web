@@ -1,11 +1,4 @@
----
-title: Getting Started
-eleventyNavigation:
-  key: Going Buildless > Getting Started
-  title: Getting Started
-  parent: Going Buildless
-  order: 5
----
+# Going Buildless >> Getting Started ||5
 
 At Modern Web, it is our goal to help developers discover buildless workflows, by working closely with the browser rather than lots of complex tooling and abstractions. In this section, we've gathered several tips, tricks, and alternatives to help you discover the browsers native capabilities, and to go buildless.
 

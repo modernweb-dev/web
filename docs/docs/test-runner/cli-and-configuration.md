@@ -1,10 +1,4 @@
----
-title: CLI and Configuration
-eleventyNavigation:
-  key: CLI and Configuration
-  parent: Test Runner
-  order: 2
----
+# Test Runner >> CLI and Configuration ||2
 
 The test runner can be configured using CLI flags, or with a configuration file.
 

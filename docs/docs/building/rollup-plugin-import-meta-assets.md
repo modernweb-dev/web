@@ -1,10 +1,4 @@
----
-title: Rollup Plugin import-meta-assets
-eleventyNavigation:
-  key: Rollup Plugin import-meta-assets
-  parent: Building
-  order: 2
----
+# Building >> Rollup Plugin Import Meta Assets ||30
 
 Rollup plugin that detects assets references relative to modules using patterns such as `new URL('./assets/my-img.png', import.meta.url)`.
 
@@ -92,7 +86,9 @@ In this example, we use it to optimize SVG images with [svgo](https://github.com
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 const svgo = new SVGO({
   // See https://github.com/svg/svgo#what-it-can-do
-  plugins: [ /* plugins here */],
+  plugins: [
+    /* plugins here */
+  ],
 });
 
 export default {

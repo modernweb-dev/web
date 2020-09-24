@@ -1,7 +1,7 @@
 ---
 title: Web Test Runner
 eleventyNavigation:
-  key: Test Runner > Overview
+  key: Test Runner >> Overview
   title: Overview
   parent: Test Runner
   order: 1

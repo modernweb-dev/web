@@ -1,10 +1,4 @@
----
-title: Using Typescript
-eleventyNavigation:
-  key: Using Typescript
-  parent: Test Runner
-  order: 60
----
+# Test Runner >> Using Typescript ||60
 
 [Typescript](https://www.typescriptlang.org/) is a superset of Javascript, adding type safety to your code.
 

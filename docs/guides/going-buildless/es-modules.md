@@ -1,10 +1,4 @@
----
-title: ECMAScript Modules
-eleventyNavigation:
-  key: ES Modules
-  parent: Going Buildless
-  order: 60
----
+# Going Buildless >> ES Modules ||60
 
 All modern browsers support standard es modules. These are javascript files using `import` and `export` statements:
 

@@ -1,11 +1,4 @@
----
-title: CLI and Configuration
-eleventyNavigation:
-  key: Dev Server > CLI and Configuration
-  title: CLI and Configuration
-  parent: Dev Server
-  order: 2
----
+# Dev Server >> CLI and Configuration ||2
 
 The dev server can be configured using CLI flags, or with a configuration file.
 

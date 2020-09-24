@@ -1,10 +1,4 @@
----
-title: Testing in a CI
-eleventyNavigation:
-  key: Testing in a CI
-  parent: Test Runner
-  order: 9
----
+# Test Runner >> Testing in a CI ||9
 
 It's possible to use the test runner in a CI, but because it runs tests on a real browser you need to ensure the CI environments can support it.
 

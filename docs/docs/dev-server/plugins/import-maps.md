@@ -1,10 +1,4 @@
----
-title: Import Maps
-eleventyNavigation:
-  key: Import Maps
-  parent: Plugins
-  order: 4
----
+# Dev Server >> Plugins >> Import Maps ||5
 
 Plugin for resolving imports using [Import maps](https://github.com/WICG/import-maps).
 

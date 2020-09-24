@@ -1070,14 +1070,15 @@
     human-id "^1.0.2"
     prettier "^1.18.2"
 
-"@d4kmor/cli@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.3.2.tgz#5736b6824655bad06a0b5eda214af4d12b1cd400"
-  integrity sha512-SQlm9yPW6mV/6jLEyE6dQyd58K2NeBZMa7nAUS9gNC0Ge/6kuAEB2avNj1eBvEP/U3hbm3RUsF35nTsa68W4Hw==
+"@d4kmor/cli@^0.4.3":
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.4.3.tgz#cdb161e7ece7c0d724a37184528c058bc244b392"
+  integrity sha512-i1UbrLALQvMlOBMVBwlB8y6rPxwkdYJztXB1fQgAO5e9JAD3rrbvah9qTisakqG7QYJa3Du6QGuBdbUjPB3pAw==
   dependencies:
     "@11ty/eleventy" "^0.11.0"
-    "@d4kmor/eleventy-plugin-mdjs-unified" "^0.2.0"
-    "@d4kmor/eleventy-rocket-nav" "^0.2.0"
+    "@d4kmor/core" "^0.1.1"
+    "@d4kmor/eleventy-plugin-mdjs-unified" "^0.3.0"
+    "@d4kmor/eleventy-rocket-nav" "^0.2.1"
     "@open-wc/building-rollup" "^1.8.0"
     "@web/config-loader" "^0.1.2"
     "@web/dev-server" "^0.0.10"
@@ -1091,6 +1092,11 @@
     rollup-plugin-visualizer "^4.0.4"
     rollup-plugin-workbox "^5.0.1"
 
+"@d4kmor/core@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@d4kmor/core/-/core-0.1.1.tgz#b98fb1a55e0c88c5c8a817f5a017ce8770fd7c22"
+  integrity sha512-iL5mb8atadYDmdcftNk+HiHbpD11uA99wJ2DkbMag+BjBundFocXukRuRQY3xKfuQlCjTiBDK4cZulmzNVJepA==
+
 "@d4kmor/drawer@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@d4kmor/drawer/-/drawer-0.2.0.tgz#e8bcb28a6c188e6f76ea6f9f37b2a760602c8f02"
@@ -1099,26 +1105,26 @@
     "@lion/overlays" "0.16.6"
     lit-element "^2.3.1"
 
-"@d4kmor/eleventy-plugin-mdjs-unified@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-plugin-mdjs-unified/-/eleventy-plugin-mdjs-unified-0.2.0.tgz#6e7817ac9f70b224189c049c2a21fe0f9901aa4a"
-  integrity sha512-tyMGxtQbNF6CVXI2UT3KgUHqVppfSkh75nHjZjOfTwPqPys9gALf4SifNnyksOQ5jheBOV0R93Bsn3AfyKrnkg==
+"@d4kmor/eleventy-plugin-mdjs-unified@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-plugin-mdjs-unified/-/eleventy-plugin-mdjs-unified-0.3.0.tgz#4c8fe98cacdacae7466899e4f9a7fcdf372f75a6"
+  integrity sha512-hkHGYPS3k/2MC4lOLa8LLHKNEzUvPn521sPntG1r11p3wtbNm4JS7LBMYS8JCi/XGhvmYufqFW2ttX2ZQv/fEQ==
   dependencies:
     "@mdjs/core" "^0.4.0"
     unist-util-visit "^2.0.3"
 
-"@d4kmor/eleventy-rocket-nav@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-rocket-nav/-/eleventy-rocket-nav-0.2.0.tgz#5b61475809f6c5a938019b43adfae3682604b4e8"
-  integrity sha512-kjRlCYi7KXhTarVL+57jhn0MnMeVbQGYX2ud/Jyg6w+jEqldrElYzRXETaQ3CDQSa5jyYBUXQPxf0SqTE2B0eg==
+"@d4kmor/eleventy-rocket-nav@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@d4kmor/eleventy-rocket-nav/-/eleventy-rocket-nav-0.2.1.tgz#d8f0d0ac94660744293cd542269be120b9c46009"
+  integrity sha512-keYTmrpUlmuT2CFegyYAzURHQ55vc4ky2GSMB7bvSQNZ5w5qDbH9AVXerHbOadxkRwsrY/OXrcBsRuKfdUG0DA==
   dependencies:
     dependency-graph "^0.8.1"
     sax-wasm "^1.4.5"
 
-"@d4kmor/launch@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.3.0.tgz#fb566e96a0661d3c7c98a1ac8c0f8daa49255d77"
-  integrity sha512-Bdw1qZ0U4F0BMSlnMgwkBYRvm/5kC5xKlM3W9/OUYDLnL18KidacF925bA5erQPQo4hrD/evQcIGgxCtyJtIww==
+"@d4kmor/launch@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.4.0.tgz#c5b226e874cdd46c5fe47470726fcb0467e64db0"
+  integrity sha512-QFNyFOQ60ihRok7YeYv0xLZqd+pXLfQEaZK7RvPxMTG9+VS5ogSh8BoOufDNXEePW27DgA79aOE5pDTAt0xA2g==
   dependencies:
     "@d4kmor/drawer" "^0.2.0"
     "@d4kmor/navigation" "^0.2.0"
@@ -5086,6 +5092,11 @@ estree-walker@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-1.0.1.tgz#31bc5d612c96b704106b477e6dd5d8aa138cb700"
   integrity sha512-1fMXF3YP4pZZVozF8j/ZLfvnR8NSIljt56UhbZ5PeeDmmGHpgpdwQt7ITlGvYaQukCvuBRMLEiKiYC+oeIg4cg==
+
+estree-walker@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-2.0.1.tgz#f8e030fb21cefa183b44b7ad516b747434e7a3e0"
+  integrity sha512-tF0hv+Yi2Ot1cwj9eYHtxC0jB9bmjacjQs6ZBTj82H8JwUywFuc+7E83NWfNMwHXZc11mjfFcVXPe9gEP4B8dg==
 
 esutils@^2.0.2:
   version "2.0.3"

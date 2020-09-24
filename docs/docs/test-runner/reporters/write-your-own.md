@@ -1,10 +1,4 @@
----
-title: Writing Reporters
-eleventyNavigation:
-  key: Writing Reporters
-  parent: Reporters
-  order: 30
----
+# Test Runner >> Reporters >> Write Your Own ||30
 
 A reporter reports test results and/or test progress. It is an object with several hooks which are called during the lifecycle of of the test runner. The actual logging to the terminal is managed by the test run to ensure interaction with the dynamic progress bar and watch menu are managed properly.
 
