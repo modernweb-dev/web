@@ -11,6 +11,9 @@
   },
   "references": [
     {
+      "path": "../browser-logs/tsconfig.json"
+    },
+    {
       "path": "../dev-server-core/tsconfig.json"
     },
     {

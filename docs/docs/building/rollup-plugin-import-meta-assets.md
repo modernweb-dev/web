@@ -92,7 +92,9 @@ In this example, we use it to optimize SVG images with [svgo](https://github.com
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 const svgo = new SVGO({
   // See https://github.com/svg/svgo#what-it-can-do
-  plugins: [ /* plugins here */],
+  plugins: [
+    /* plugins here */
+  ],
 });
 
 export default {

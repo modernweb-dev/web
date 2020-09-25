@@ -29,8 +29,7 @@ const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   browserStartTimeout: 30000,
   testsStartTimeout: 10000,
   testsFinishTimeout: 20000,
-  logBrowserLogs: true,
-  logUncaughtErrors: true,
+  browserLogs: true,
   logger,
 };
 
@@ -74,11 +73,7 @@ export async function runTests(
 
       if (reportErrors) {
         for (const session of sessions) {
-          if (
-            !session.passed ||
-            session.logs.some(l => l.length > 0) ||
-            session.request404s.length > 0
-          ) {
+          if (!session.passed || session.request404s.length > 0) {
             console.log('');
             console.log(
               'Failed test file:',

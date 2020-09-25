@@ -40,6 +40,7 @@
   ],
   "dependencies": {
     "@babel/code-frame": "^7.10.4",
+    "@web/browser-logs": "^0.1.3",
     "@web/dev-server-core": "^0.2.9",
     "co-body": "^6.0.0",
     "debounce": "^1.2.0",

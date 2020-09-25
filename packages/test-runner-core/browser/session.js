@@ -25,8 +25,6 @@ function postJSON(url, body) {
   });
 }
 
-const logs = [];
-
 async function getSessionConfig() {
   const response = await fetch(`/wtr/${sessionId}/config`);
   return response.json();
@@ -100,7 +98,8 @@ export async function sessionFinished(result) {
   finished = true;
 
   const sessionResult = {
-    logs,
+    // some browser launchers set browser logs here
+    logs: window.__wtr_browser_logs__ ? window.__wtr_browser_logs__.logs : [],
     errors: [],
     ...result,
   };
