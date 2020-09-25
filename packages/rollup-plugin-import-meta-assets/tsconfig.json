@@ -7,19 +7,11 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
-    "allowJs": true
+    "allowJs": true,
+    "checkJs": true,
+    "emitDeclarationOnly": true
   },
-  "references": [
-    {
-      "path": "../browser-logs/tsconfig.json"
-    },
-    {
-      "path": "../dev-server-core/tsconfig.json"
-    },
-    {
-      "path": "../test-runner-core/tsconfig.json"
-    }
-  ],
+  "references": [],
   "include": [
     "src"
   ],

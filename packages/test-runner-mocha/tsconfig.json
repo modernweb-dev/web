@@ -10,6 +10,12 @@
     "allowJs": true
   },
   "references": [],
-  "include": ["src"],
-  "exclude": ["src/browser", "tests", "dist"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "src/browser",
+    "tests",
+    "dist"
+  ]
 }

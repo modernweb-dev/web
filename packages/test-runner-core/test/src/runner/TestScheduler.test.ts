@@ -25,7 +25,7 @@ describe('TestScheduler', () => {
       testFile: `test-${session.id}.js`,
       browser: {
         startSession: stub().returns(timeout(1)),
-        stopSession: stub().returns(timeout(1).then(() => ({ testCoverage: {}, browserLogs: [] }))),
+        stopSession: stub().returns(timeout(1).then(() => ({ testCoverage: {} }))),
         isActive: stub().returns(true),
       } as Partial<BrowserLauncher>,
       status: SESSION_STATUS.SCHEDULED,
@@ -80,10 +80,7 @@ describe('TestScheduler', () => {
   it('when a session goes to status test finished, the browser is stopped and results is stored', async () => {
     const [scheduler, sessions, session1] = createTestFixture('1');
     const testCoverage = { foo: 'bar' };
-    const browserLogs = [1, 2, 3];
-    (session1.browser.stopSession as SinonStub).returns(
-      timeout(1).then(() => ({ testCoverage, browserLogs })),
-    );
+    (session1.browser.stopSession as SinonStub).returns(timeout(1).then(() => ({ testCoverage })));
     scheduler.schedule(1, [session1]);
 
     await timeout(2);
@@ -94,7 +91,6 @@ describe('TestScheduler', () => {
     expect(finalSession1.status).to.equal(SESSION_STATUS.FINISHED);
     expect(finalSession1.passed).to.equal(true);
     expect(finalSession1.testCoverage).to.equal(testCoverage);
-    expect(finalSession1.logs).to.equal(browserLogs);
   });
 
   it('batches test execution', async () => {

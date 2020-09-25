@@ -21,8 +21,6 @@ export interface CoverageConfig {
   reportDir: string;
 }
 
-export type LogLevel = 'log' | 'warn' | 'error' | 'debug';
-
 export interface TestRunnerCoreConfig {
   rootDir: string;
   files: string | string[];
@@ -40,8 +38,8 @@ export interface TestRunnerCoreConfig {
   testRunnerHtml?: (testRunnerImport: string, config: TestRunnerCoreConfig) => string;
   watch: boolean;
 
-  logBrowserLogs?: boolean | LogLevel[];
-  logUncaughtErrors?: boolean;
+  browserLogs?: boolean;
+  filterBrowserLogs?: (log: { type: string; args: any[] }) => boolean;
   coverage?: boolean;
   coverageConfig?: CoverageConfig;
 

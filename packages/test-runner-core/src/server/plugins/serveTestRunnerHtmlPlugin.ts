@@ -3,11 +3,12 @@ import { Context } from '@web/dev-server-core';
 import { PARAM_SESSION_ID, PARAM_TEST_FILE } from '../../utils/constants';
 import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
 import { createBrowserTestFilePath } from '../utils';
+import { trackBrowserLogs } from './trackBrowserLogs';
 
-function createTestPage(testFrameworkImport: string) {
+function createTestPage(browserLogs: boolean, testFrameworkImport: string) {
   return `<!DOCTYPE html>
 <html>
-  <head></head>
+  <head>${browserLogs ? trackBrowserLogs : ''}</head>
   <body>
     <script type="module">
       import('${testFrameworkImport}').catch((error) => {
@@ -73,7 +74,7 @@ export function serveTestRunnerHtmlPlugin(
             type: 'html',
             body: config.testRunnerHtml
               ? config.testRunnerHtml(testFrameworkImport, config)
-              : createTestPage(testFrameworkImport),
+              : createTestPage(!!config.browserLogs, testFrameworkImport),
           };
         } else {
           return {

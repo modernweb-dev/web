@@ -1,3 +1,8 @@
+console.log('console.log');
+console.warn('console.warn');
+console.debug('console.debug');
+console.error('console.error');
+
 console.log('Log', 'multiple', 'strings');
 console.log('simple object', { a: '1', b: '2' });
 console.log('nested', {
@@ -68,3 +73,10 @@ console.log(undefined);
 console.log(null);
 console.log({ x: undefined });
 console.log([undefined, null]);
+
+describe('x', () => {
+  it('y', async () => {
+    await new Promise(r => setTimeout(r, 500));
+    console.log('lazy logs');
+  });
+});

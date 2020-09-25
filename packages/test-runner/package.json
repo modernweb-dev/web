@@ -28,6 +28,7 @@
     "test:bare": "node dist/bin.js",
     "test:ci": "yarn test",
     "test:custom-html": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/customhtml.config.js",
+    "test:filter-logs": "node dist/bin.js --config demo/filter-logs.config.mjs",
     "test:legacy": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config legacy.config.js",
     "test:logging": "node dist/bin.js \"demo/test/logging.test.js\"",
     "test:many": "node dist/bin.js \"demo/test/many/**/*.test.js\"",
@@ -37,6 +38,7 @@
     "test:playwright": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --playwright --browsers chromium firefox webkit",
     "test:puppeteer-firefox": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --puppeteer --browsers firefox",
     "test:rollup-bundle": "node dist/bin.js --config demo/rollup-bundle.mjs",
+    "test:selenium": "node dist/bin.js --config demo/selenium.config.js",
     "test:watch": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --watch"
   },
   "files": [

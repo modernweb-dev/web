@@ -147,9 +147,12 @@ interface TestRunnerConfig {
   hostname?: string;
   port?: number;
 
-  // html page used to run tests
-  testRunnerHtml?: (testRunnerImport: string, config: TestRunnerCoreConfig) => string;
-
+  // whether to track browser logs and print them in the node terminal
+  // defaults to true
+  browserLogs?: boolean;
+  // function filter browser logs, receives the log type such as 'info', 'warn' or 'error'
+  // and the arguments passed to the console log function return true to include and false to exclude
+  filterBrowserLogs?: (log: { type: string; args: any[] }) => boolean;
   // run code coverage
   coverage?: boolean;
   // configuration for code coverage

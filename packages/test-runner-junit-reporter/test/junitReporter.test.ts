@@ -35,8 +35,7 @@ function createConfig(): Omit<TestRunnerCoreConfig, 'rootDir' | 'port' | 'files'
     browserStartTimeout: 30000,
     testsStartTimeout: 10000,
     testsFinishTimeout: 20000,
-    logBrowserLogs: true,
-    logUncaughtErrors: true,
+    browserLogs: true,
     watch: false,
     logger: {
       ...console,

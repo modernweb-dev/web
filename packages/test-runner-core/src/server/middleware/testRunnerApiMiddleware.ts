@@ -1,4 +1,5 @@
 import { Middleware } from '@web/dev-server-core';
+import { deserialize } from '@web/browser-logs';
 import parse from 'co-body';
 import { SESSION_STATUS } from '../../test-session/TestSessionStatus';
 import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
@@ -72,6 +73,12 @@ export function testRunnerApiMiddleware(
         if (session.debug) return;
 
         const result = (await parse.json(ctx)) as any;
+        if (result.logs) {
+          result.logs = result.logs
+            .map((log: any) => ({ type: log.type, args: log.args.map((a: any) => deserialize(a)) }))
+            .filter((log: any) => (config.filterBrowserLogs ? config.filterBrowserLogs(log) : true))
+            .map((log: any) => log.args);
+        }
         sessions.updateStatus({ ...session, ...result }, SESSION_STATUS.TEST_FINISHED);
         return;
       }

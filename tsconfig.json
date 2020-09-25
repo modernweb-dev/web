@@ -5,13 +5,13 @@
   "files": [],
   "references": [
     {
+      "path": "./packages/browser-logs/tsconfig.json"
+    },
+    {
       "path": "./packages/dev-server-core/tsconfig.json"
     },
     {
       "path": "./packages/test-runner-core/tsconfig.json"
-    },
-    {
-      "path": "./packages/browser-logs/tsconfig.json"
     },
     {
       "path": "./packages/test-runner-coverage-v8/tsconfig.json"
@@ -54,6 +54,9 @@
     },
     {
       "path": "./packages/rollup-plugin-workbox/tsconfig.json"
+    },
+    {
+      "path": "./packages/rollup-plugin-import-meta-assets/tsconfig.json"
     },
     {
       "path": "./packages/dev-server/tsconfig.json"

@@ -26,12 +26,12 @@ it('runs tests on saucelabs', async function () {
   const runner = await runTests(
     {
       browsers: [
-        // sauceLabsLauncher({
-        //   ...sharedCapabilities,
-        //   browserName: 'chrome',
-        //   browserVersion: 'latest',
-        //   platformName: 'Windows 10',
-        // }),
+        sauceLabsLauncher({
+          ...sharedCapabilities,
+          browserName: 'chrome',
+          browserVersion: 'latest',
+          platformName: 'Windows 10',
+        }),
         // sauceLabsLauncher({
         //   ...sharedCapabilities,
         //   browserName: 'safari',
@@ -50,12 +50,12 @@ it('runs tests on saucelabs', async function () {
         //   browserVersion: '12.0',
         //   platformName: 'macOS 10.14',
         // }),
-        sauceLabsLauncher({
-          ...sharedCapabilities,
-          browserName: 'internet explorer',
-          browserVersion: '11.0',
-          platformName: 'Windows 7',
-        }),
+        // sauceLabsLauncher({
+        //   ...sharedCapabilities,
+        //   browserName: 'internet explorer',
+        //   browserVersion: '11.0',
+        //   platformName: 'Windows 7',
+        // }),
       ],
       concurrency: 5,
       plugins: [legacyPlugin()],
