@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.3.6
+
+### Patch Changes
+
+- dbde3ba: track browser logs on all browser launchers
+
 ## 0.3.5
 
 ### Patch Changes

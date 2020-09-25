@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.5.12
+
+### Patch Changes
+
+- ece4ffe: track browser logs on all browser launchers
+
 ## 0.5.11
 
 ### Patch Changes
