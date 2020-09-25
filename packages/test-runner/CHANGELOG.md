@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.7.29
+
+### Patch Changes
+
+- 13001e2: bump versions
+
 ## 0.7.28
 
 ### Patch Changes
