@@ -1,5 +1,14 @@
 # @web/test-runner-chrome
 
+## 0.6.7
+
+### Patch Changes
+
+- cde5d29: add browser logging for all browser launchers
+- Updated dependencies [cde5d29]
+- Updated dependencies [cde5d29]
+  - @web/test-runner-core@0.7.15
+
 ## 0.6.6
 
 ### Patch Changes
