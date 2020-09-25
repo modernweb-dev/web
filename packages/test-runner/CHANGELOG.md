@@ -1,5 +1,16 @@
 # @web/test-runner
 
+## 0.7.28
+
+### Patch Changes
+
+- cde5d29: add browser logging for all browser launchers
+- cde5d29: add filterBrowserLogs option
+- Updated dependencies [cde5d29]
+- Updated dependencies [cde5d29]
+  - @web/test-runner-chrome@0.6.7
+  - @web/test-runner-core@0.7.15
+
 ## 0.7.27
 
 ### Patch Changes
