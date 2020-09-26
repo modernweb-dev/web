@@ -8,6 +8,7 @@ const {
   TestSessionManager,
   SESSION_STATUS,
   EventEmitter,
+  isTestFilePath,
 } = cjsEntrypoint;
 
 export {
@@ -17,4 +18,5 @@ export {
   TestSessionManager,
   SESSION_STATUS,
   EventEmitter,
+  isTestFilePath,
 };

@@ -2,7 +2,7 @@ import { Context } from '@web/dev-server-core';
 
 import { PARAM_SESSION_ID, PARAM_TEST_FILE } from '../../utils/constants';
 import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
-import { createBrowserTestFilePath } from '../utils';
+import { createTestFileImportPath } from '../utils';
 import { trackBrowserLogs } from './trackBrowserLogs';
 
 function createTestPage(browserLogs: boolean, testFrameworkImport: string) {
@@ -20,12 +20,20 @@ function createTestPage(browserLogs: boolean, testFrameworkImport: string) {
 </html>`;
 }
 
-function getManualListenItem(rootDir: string, testFile: string) {
-  const browserPath = createBrowserTestFilePath(rootDir, testFile);
-  return `<li><a href="/?${PARAM_TEST_FILE}=${browserPath}">${browserPath}</a></li>`;
+async function getManualListItem(config: TestRunnerCoreConfig, context: Context, testFile: string) {
+  const testImportPath = await createTestFileImportPath(config, context, testFile);
+  return `<li><a href="/?${PARAM_TEST_FILE}=${testImportPath}">${testImportPath}</a></li>`;
 }
 
-function createManualDebugPage(rootDir: string, testFiles: string[]) {
+async function createManualDebugPage(
+  config: TestRunnerCoreConfig,
+  context: Context,
+  testFiles: string[],
+) {
+  const listItems = await Promise.all(
+    testFiles.map(file => getManualListItem(config, context, file)).join('\n'),
+  );
+
   return `<!DOCTYPE html>
 <html>
   <head>
@@ -47,7 +55,7 @@ function createManualDebugPage(rootDir: string, testFiles: string[]) {
 
     <h2>Test files</h2>
     <ul>
-      ${testFiles.map(file => getManualListenItem(rootDir, file)).join('\n')}
+      ${listItems.join('\n')}
     </ul>
   </body>
 </html>
@@ -79,7 +87,7 @@ export function serveTestRunnerHtmlPlugin(
         } else {
           return {
             type: 'html',
-            body: createManualDebugPage(config.rootDir, testFiles),
+            body: createManualDebugPage(config, context, testFiles),
           };
         }
       }
