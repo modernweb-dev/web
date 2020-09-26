@@ -6,8 +6,7 @@ import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
 import { TestSessionManager } from '../../test-session/TestSessionManager';
 import { TestRunnerPlugin } from '../TestRunnerPlugin';
 
-import { createBrowserTestFilePath } from '../utils';
-import { PARAM_SESSION_ID } from '../../utils/constants';
+import { createTestFileImportPath } from '../utils';
 
 export function testRunnerApiMiddleware(
   sessions: TestSessionManager,
@@ -42,11 +41,10 @@ export function testRunnerApiMiddleware(
 
       // config for test session
       if (endpoint === 'config') {
+        const testFile = await createTestFileImportPath(config, ctx, session.testFile, sessionId);
+
         ctx.body = JSON.stringify({
-          testFile: `${createBrowserTestFilePath(
-            rootDir,
-            session.testFile,
-          )}?${PARAM_SESSION_ID}=${sessionId}`,
+          testFile,
           watch: !!config.watch,
           debug: session.debug,
           testFrameworkConfig: config.testFramework?.config,
