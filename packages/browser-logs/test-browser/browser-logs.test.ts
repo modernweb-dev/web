@@ -296,3 +296,9 @@ it('handles multiple undefined values', () => {
     c: { q: [1, undefined] },
   });
 });
+
+it('handles Promises', () => {
+  const serialized = serialize(new Promise((res,rej)=>{}))
+  const deserialized = deserialize(serialized);
+  expect(deserialized).to.eql('Promise { }');
+});
