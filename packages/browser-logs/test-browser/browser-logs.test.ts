@@ -298,7 +298,7 @@ it('handles multiple undefined values', () => {
 });
 
 it('handles Promises', () => {
-  const serialized = serialize(new Promise((res,rej)=>{}))
+  const serialized = serialize(new Promise((resolve)=>resolve(1)))
   const deserialized = deserialize(serialized);
   expect(deserialized).to.eql('Promise { }');
 });
