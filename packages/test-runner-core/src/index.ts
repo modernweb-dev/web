@@ -32,4 +32,5 @@ export { BasicTestSession } from './test-session/BasicTestSession';
 export { TestSessionManager } from './test-session/TestSessionManager';
 export { TestSessionStatus, SESSION_STATUS } from './test-session/TestSessionStatus';
 export { EventEmitter } from './utils/EventEmitter';
+export { isTestFilePath } from './utils/isTestFilePath';
 export { CoverageMapData } from 'istanbul-lib-coverage';

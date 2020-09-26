@@ -5,11 +5,15 @@ const { resolve } = require('path');
 
 const { createSauceLabsLauncher } = require('../dist/index');
 
-const sauceLabsLauncher = createSauceLabsLauncher({
-  user: process.env.SAUCE_USERNAME,
-  key: process.env.SAUCE_ACCESS_KEY,
-  region: 'eu',
-});
+const sauceLabsLauncher = createSauceLabsLauncher(
+  {
+    user: process.env.SAUCE_USERNAME,
+    key: process.env.SAUCE_ACCESS_KEY,
+    region: 'eu',
+  },
+  undefined,
+  true,
+);
 
 const sharedCapabilities = {
   'sauce:options': {
