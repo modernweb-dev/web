@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-selenium",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "publishConfig": {
     "access": "public"
   },
@@ -40,7 +40,7 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.7.10",
+    "@web/test-runner-core": "^0.7.17",
     "selenium-webdriver": "^4.0.0-alpha.7"
   },
   "devDependencies": {
