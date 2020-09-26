@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.5.13
+
+### Patch Changes
+
+- 534e92c: added the ability to transform test file imports
+- Updated dependencies [534e92c]
+  - @web/test-runner-core@0.7.16
+
 ## 0.5.12
 
 ### Patch Changes
