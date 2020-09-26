@@ -1,10 +1,12 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Builder, WebDriver } from 'selenium-webdriver';
 import { getBrowserName } from './utils';
+import { IFrameManager } from './IFrameManager';
 import { WindowManager } from './WindowManager';
 
 export interface SeleniumLauncherArgs {
   driverBuilder: Builder;
+  experimentalIframeMode?: boolean;
 }
 
 export class SeleniumLauncher implements BrowserLauncher {
@@ -12,17 +14,24 @@ export class SeleniumLauncher implements BrowserLauncher {
   public type = 'selenium';
   private driver: undefined | WebDriver;
   private debugDriver: undefined | WebDriver = undefined;
-  private windowManager?: WindowManager;
+  private windowManager?: IFrameManager | WindowManager;
+  private experimentalIframeMode: boolean;
 
-  constructor(private driverBuilder: Builder) {}
+  constructor(private driverBuilder: Builder, experimentalIframeMode?: boolean) {
+    this.experimentalIframeMode = !!experimentalIframeMode;
+  }
 
   async start(config: TestRunnerCoreConfig) {
     const cap = this.driverBuilder.getCapabilities();
-    cap.setPageLoadStrategy('none');
+    if (!this.experimentalIframeMode) {
+      cap.setPageLoadStrategy('none');
+    }
     this.driverBuilder.withCapabilities(cap);
     this.driver = await this.driverBuilder.build();
     this.name = getBrowserName(cap);
-    this.windowManager = new WindowManager(this.driver, config);
+    this.windowManager = this.experimentalIframeMode
+      ? new IFrameManager(this.driver, config)
+      : new WindowManager(this.driver, config);
     await this.windowManager.initialize();
   }
 
@@ -69,5 +78,5 @@ export function seleniumLauncher(args: SeleniumLauncherArgs) {
     throw new Error(`driverBuild must be a Builder`);
   }
 
-  return new SeleniumLauncher(args.driverBuilder);
+  return new SeleniumLauncher(args.driverBuilder, args.experimentalIframeMode);
 }

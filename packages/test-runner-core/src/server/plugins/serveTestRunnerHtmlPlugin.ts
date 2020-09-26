@@ -84,6 +84,8 @@ export function serveTestRunnerHtmlPlugin(
               ? config.testRunnerHtml(testFrameworkImport, config)
               : createTestPage(!!config.browserLogs, testFrameworkImport),
           };
+        } else if (searchParams.has('experimental-iframe-mode')) {
+          return '<html><head></head><body></body></html>';
         } else {
           return {
             type: 'html',
