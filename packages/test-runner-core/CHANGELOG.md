@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.7.16
+
+### Patch Changes
+
+- 534e92c: added the ability to transform test file imports
+
 ## 0.7.15
 
 ### Patch Changes
