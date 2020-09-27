@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.7.18
+
+### Patch Changes
+
+- 34efaad: added support for config groups
+
 ## 0.7.17
 
 ### Patch Changes

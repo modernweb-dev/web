@@ -1,5 +1,13 @@
 # @web/test-runner-cli
 
+## 0.5.14
+
+### Patch Changes
+
+- 34efaad: added support for config groups
+- Updated dependencies [34efaad]
+  - @web/test-runner-core@0.7.18
+
 ## 0.5.13
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.7.31",
+  "version": "0.7.32",
   "publishConfig": {
     "access": "public"
   },
@@ -64,9 +64,9 @@
     "@web/config-loader": "^0.1.2",
     "@web/dev-server-rollup": "^0.2.9",
     "@web/test-runner-chrome": "^0.6.7",
-    "@web/test-runner-cli": "^0.5.13",
+    "@web/test-runner-cli": "^0.5.14",
     "@web/test-runner-commands": "^0.1.5",
-    "@web/test-runner-core": "^0.7.17",
+    "@web/test-runner-core": "^0.7.18",
     "@web/test-runner-mocha": "^0.3.3",
     "command-line-args": "^5.1.1",
     "deepmerge": "^4.2.2",
