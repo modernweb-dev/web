@@ -12,7 +12,7 @@ const sauceLabsLauncher = createSauceLabsLauncher(
     region: 'eu',
   },
   undefined,
-  true,
+  false,
 );
 
 const sharedCapabilities = {
