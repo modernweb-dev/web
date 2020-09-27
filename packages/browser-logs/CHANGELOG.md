@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.1.4
+
+### Patch Changes
+
+- bbb0b78: Added serializing and deserializing for Promises
+
 ## 0.1.3
 
 ### Patch Changes
