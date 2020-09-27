@@ -4,12 +4,12 @@ import fs from 'fs';
 import { promisify } from 'util';
 import { RequestCancelledError } from '../utils';
 
-const fsAccess = promisify(fs.access);
+const fsStat = promisify(fs.stat);
 
 async function fileExists(filePath: string) {
   try {
-    await fsAccess(filePath);
-    return true;
+    const stat = await fsStat(filePath);
+    return stat.isFile();
   } catch {
     return false;
   }

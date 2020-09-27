@@ -1,10 +1,4 @@
----
-title: Serving
-eleventyNavigation:
-  key: Serving
-  parent: Going Buildless
-  order: 10
----
+# Going Buildless >> Serving ||10
 
 The fundamental relationship at the heart of the web is the relationship between the server and the client or browser (we'll use "browser" and "client" interchangeably for the rest of this article).
 

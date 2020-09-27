@@ -1,10 +1,4 @@
----
-title: Esbuild
-eleventyNavigation:
-  key: Esbuild
-  parent: Plugins
-  order: 2
----
+# Dev Server >> Plugins >> Esbuild ||3
 
 Plugin for using [esbuild](https://github.com/evanw/esbuild) in web dev server and web test runner. [esbuild](https://github.com/evanw/esbuild) is a blazing fast build tool.
 

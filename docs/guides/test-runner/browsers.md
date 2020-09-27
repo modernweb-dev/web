@@ -1,10 +1,4 @@
----
-title: Browsers
-eleventyNavigation:
-  key: Browsers
-  parent: Test Runner
-  order: 30
----
+# Test Runner >> Browsers ||30
 
 Browser launchers are responsible for opening and controlling the actual browser.
 

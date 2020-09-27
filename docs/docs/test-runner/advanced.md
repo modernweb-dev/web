@@ -1,10 +1,4 @@
----
-title: Advanced
-eleventyNavigation:
-  key: Advanced
-  parent: Test Runner
-  order: 10
----
+# Test Runner >> Advanced ||10
 
 The test runner has a modular architecture, with the `@web/test-runner` package implemented an opinionated set of defaults.
 

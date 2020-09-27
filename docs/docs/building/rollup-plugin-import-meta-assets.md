@@ -1,10 +1,4 @@
----
-title: Rollup Plugin import-meta-assets
-eleventyNavigation:
-  key: Rollup Plugin import-meta-assets
-  parent: Building
-  order: 2
----
+# Building >> Rollup Plugin Import Meta Assets ||30
 
 Rollup plugin that detects assets references relative to modules using patterns such as `new URL('./assets/my-img.png', import.meta.url)`.
 

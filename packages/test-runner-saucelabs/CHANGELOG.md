@@ -1,5 +1,13 @@
 # @web/test-runner-saucelabs
 
+## 0.0.5
+
+### Patch Changes
+
+- 4ac0b3a: added experimental iframes mode to test improve speed when testing with selenium
+- Updated dependencies [4ac0b3a]
+  - @web/test-runner-selenium@0.2.6
+
 ## 0.0.4
 
 ### Patch Changes

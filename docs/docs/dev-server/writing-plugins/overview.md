@@ -1,15 +1,12 @@
----
-title: Overview
-eleventyNavigation:
-  key: Writing Plugins Overview
-  title: Overview
-  parent: Writing Plugins
-  order: 1
----
+# Dev Server >> Writing Plugins >> Overview ||1
+
+Plugins are objects with lifecycle hooks called by the dev server or test runner as it serves files to the browser. They can be used to serve virtual files, transform files, or resolve module imports.
+
+Plugins share a similar API to [rollup](https://github.com/rollup/rollup) plugins. In fact, you can reuse rollup plugins in the dev server. See the [Rollup section](../plugins/rollup.md) for that, and the [examples section](./examples.md) for practical use cases.
 
 A plugin is an object that you add to the `plugins` array in your configuration file. You can add an object directly, or create one from a function somewhere:
 
-In your `web-dev-server.config.js` or `web-test-runner.config.js`:
+In your `web-dev-server.config.mjs` or `web-test-runner.config.mjs`:
 
 ```js
 import awesomePlugin from 'awesome-plugin';

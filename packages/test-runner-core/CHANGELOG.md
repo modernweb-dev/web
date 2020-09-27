@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.7.17
+
+### Patch Changes
+
+- 4ac0b3a: added experimental iframes mode to test improve speed when testing with selenium
+
 ## 0.7.16
 
 ### Patch Changes

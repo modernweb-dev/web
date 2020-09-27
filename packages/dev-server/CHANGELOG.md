@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.0.11
+
+### Patch Changes
+
+- 3a2dc12: fixed caching of index.html using directory path
+- Updated dependencies [3a2dc12]
+  - @web/dev-server-core@0.2.10
+
 ## 0.0.10
 
 ### Patch Changes

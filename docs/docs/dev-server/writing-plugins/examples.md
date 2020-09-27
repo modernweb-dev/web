@@ -1,16 +1,10 @@
----
-title: Examples
-eleventyNavigation:
-  key: Examples
-  parent: Plugins
-  order: 2
----
+# Dev Server >> Writing Plugins >> Examples ||2
 
 Common examples using plugins.
 
 Generally speaking, the two most important plugins are [esbuild](./esbuild.md) and [rollup](./rollup.md). Esbuild can be used for fast transformations, while rollup has a rich plugin ecosystem we can use.
 
-Some of the examples require you to write your own plugin. The examples are straight forward, but you can check the [writing plugins section](./writing-plugins.md) for a more detailed explanation.
+Some of the examples require you to Write Your Own plugin. The examples are straight forward, but you can check the [writing plugins section](./writing-plugins.md) for a more detailed explanation.
 
 ## Typescript
 

@@ -1,10 +1,4 @@
----
-title: Browserstack
-eleventyNavigation:
-  key: Browserstack
-  parent: Browsers
-  order: 60
----
+# Test Runner >> Browser Launchers >> Browserstack ||60
 
 Browser launchers for web test runner to run tests remotely on [Browserstack](https://www.browserstack.com/).
 

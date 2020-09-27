@@ -1,8 +1,5 @@
 ---
-title: Reporters
 layout: with-index.njk
-eleventyNavigation:
-  key: Reporters
-  parent: Test Runner
-  order: 8
 ---
+
+# Test Runner >> Reporters ||8

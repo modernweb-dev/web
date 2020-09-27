@@ -1,10 +1,4 @@
----
-title: Code Coverage
-eleventyNavigation:
-  key: Code Coverage
-  parent: Writing tests
-  order: 40
----
+# Test Runner >> Writing Tests >> Code Coverage ||40
 
 You can run tests with code coverage using the `--coverage` flag:
 

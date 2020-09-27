@@ -74,7 +74,10 @@ export function pluginTransformMiddleware(
 
       if (transformedCode && !disableCache) {
         logger.debug(`Added cache key "${cacheKey}" to plugin transform cache`);
-        const filePath = getRequestFilePath(context, config.rootDir);
+        let filePath = getRequestFilePath(context, config.rootDir);
+        if (filePath.endsWith('/') && context.response.is('html')) {
+          filePath = `${filePath}index.html`;
+        }
         cache.set(filePath, context.body, context.response.headers, cacheKey);
       }
     } catch (error) {

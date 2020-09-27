@@ -1,10 +1,4 @@
----
-title: Enable your needs with custom plugins
-eleventyNavigation:
-  key: Writing Plugins
-  parent: Test Runner
-  order: 70
----
+# Test Runner >> Writing Plugins ||70
 
 Not every use case will be covered by existing plugins 😱 &nbsp;
 Therefore if you encounter a situation that requires some custom adjustments you can create a plugin yourself.
