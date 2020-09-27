@@ -51,6 +51,9 @@ function createReviver() {
         case 'Error': {
           return { [MARKER_BROWSER_ERROR]: true, message: value.message, stack: value.stack };
         }
+        case 'Promise':
+          // Create a fake new Promise. Just to show that its a Promise.
+          return `Promise { }`;
         default:
           throw new Error(`Unknown serialized type: ${value[KEY_WTR_TYPE]}`);
       }

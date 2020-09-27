@@ -82,6 +82,10 @@ function createReplacer() {
       return { [KEY_WTR_TYPE]: 'undefined' };
     }
 
+    if (value instanceof Promise) {
+      return { [KEY_WTR_TYPE]: 'Promise' };
+    }
+
     if (value == null) {
       return value;
     }
