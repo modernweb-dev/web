@@ -63,6 +63,17 @@ const options: (OptionDefinition & { description: string })[] = [
     type: Boolean,
   },
   {
+    name: 'port',
+    alias: 'p',
+    description: 'Port to bind the server to.',
+    type: Number,
+  },
+  {
+    name: 'hostname',
+    alias: 'h',
+    description: 'Hostname to bind the server to.',
+  },
+  {
     name: 'esbuild-target',
     type: String,
     multiple: true,
