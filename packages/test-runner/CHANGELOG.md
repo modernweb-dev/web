@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.7.34
+
+### Patch Changes
+
+- c723271: add port CLI flag
+- Updated dependencies [c723271]
+  - @web/test-runner-cli@0.5.16
+
 ## 0.7.33
 
 ### Patch Changes
