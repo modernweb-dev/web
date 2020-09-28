@@ -70,7 +70,8 @@ before(async function () {
           .usingServer('http://localhost:4444/wd/hub'),
       }),
     ],
-    concurrency: 5,
+    concurrentBrowsers: 2,
+    concurrency: 6,
   });
 });
 

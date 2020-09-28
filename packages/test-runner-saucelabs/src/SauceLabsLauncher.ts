@@ -28,9 +28,9 @@ export class SauceLabsLauncher extends SeleniumLauncher {
     throw new Error('Starting a debug session is not supported in browserstack');
   }
 
-  async start(config: TestRunnerCoreConfig) {
+  async initialize(config: TestRunnerCoreConfig) {
     await this.manager.registerLauncher(this);
-    return super.start(config);
+    return super.initialize(config);
   }
 
   async stop() {

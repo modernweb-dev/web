@@ -167,8 +167,8 @@ export class TestRunnerCli {
 
       if (session.status === SESSION_STATUS.FINISHED) {
         this.reportTestResult(session.testFile);
-        this.reportTestProgress();
       }
+      this.reportTestProgress();
     });
 
     this.runner.on('test-run-started', ({ testRun }) => {

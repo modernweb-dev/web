@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { runTests } = require('@web/test-runner-core/test-helpers');
 const { legacyPlugin } = require('@web/dev-server-legacy');
+const { esbuildPlugin } = require('@web/dev-server-esbuild');
 const { resolve } = require('path');
 
 const { createSauceLabsLauncher } = require('../dist/index');
@@ -12,7 +13,7 @@ const sauceLabsLauncher = createSauceLabsLauncher(
     region: 'eu',
   },
   undefined,
-  false,
+  true,
 );
 
 const sharedCapabilities = {
@@ -43,30 +44,24 @@ it('runs tests on saucelabs', async function () {
       resolve(__dirname, 'fixtures', 'module-features.js'),
     ],
     browsers: [
-      // sauceLabsLauncher({
-      //   ...sharedCapabilities,
-      //   browserName: 'chrome',
-      //   browserVersion: 'latest',
-      //   platformName: 'Windows 10',
-      // }),
+      sauceLabsLauncher({
+        ...sharedCapabilities,
+        browserName: 'chrome',
+        browserVersion: 'latest',
+        platformName: 'Windows 10',
+      }),
       // sauceLabsLauncher({
       //   ...sharedCapabilities,
       //   browserName: 'safari',
-      //   browserVersion: '13.1',
+      //   browserVersion: 'latest',
       //   platformName: 'macOS 10.15',
       // }),
-      // sauceLabsLauncher({
-      //   ...sharedCapabilities,
-      //   browserName: 'firefox',
-      //   browserVersion: '80.0',
-      //   platformName: 'Windows 10',
-      // }),
-      // sauceLabsLauncher({
-      //   ...sharedCapabilities,
-      //   browserName: 'safari',
-      //   browserVersion: '12.0',
-      //   platformName: 'macOS 10.14',
-      // }),
+      sauceLabsLauncher({
+        ...sharedCapabilities,
+        browserName: 'firefox',
+        browserVersion: 'latest',
+        platformName: 'Windows 10',
+      }),
       sauceLabsLauncher({
         ...sharedCapabilities,
         browserName: 'internet explorer',
@@ -74,11 +69,12 @@ it('runs tests on saucelabs', async function () {
         platformName: 'Windows 7',
       }),
     ],
-    concurrency: 5,
-    plugins: [legacyPlugin()],
-    browserStartTimeout: 1000 * 60 * 1,
-    testsStartTimeout: 1000 * 60 * 1,
-    testsFinishTimeout: 1000 * 60 * 1,
+    concurrentBrowsers: 2,
+    concurrency: 6,
+    plugins: [esbuildPlugin({ target: 'auto' }), legacyPlugin()],
+    browserStartTimeout: 1000 * 60 * 2,
+    testsStartTimeout: 1000 * 60 * 2,
+    testsFinishTimeout: 1000 * 60 * 2,
   });
 
   runner.sessions.all();

@@ -3,6 +3,7 @@ import { TestSessionStatus } from './TestSessionStatus';
 import { EventEmitter } from '../utils/EventEmitter';
 import { DebugTestSession } from './DebugTestSession';
 import { TestSessionGroup } from './TestSessionGroup';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 
 interface EventMap {
   'session-status-updated': TestSession;
@@ -80,8 +81,8 @@ export class TestSessionManager extends EventEmitter<EventMap> {
     return this.filtered(s => testFiles.includes(s.testFile));
   }
 
-  forBrowser(...browserNames: string[]) {
-    return this.filtered(s => browserNames.includes(s.browser.name));
+  forBrowser(browser: BrowserLauncher) {
+    return this.filtered(s => s.browser === browser);
   }
 
   forGroup(groupName: string) {

@@ -8,6 +8,7 @@ import {
 import chalk from 'chalk';
 import { getPassedFailedSkippedCount } from '../utils/getPassedFailedSkippedCount';
 import { getCodeCoverage } from './getCodeCoverage';
+import { renderProgressBar } from './renderProgressBar';
 
 export interface TestProgressArgs {
   browserNames: string[];
@@ -22,54 +23,11 @@ export interface TestProgressArgs {
   testCoverage?: TestCoverage;
 }
 
-const fullProgress = '█';
-function getPartialProgress(percent: number) {
-  if (percent <= 1 / 8) {
-    return '▏';
-  } else if (percent <= 1 / 4) {
-    return '▎';
-  } else if (percent <= 3 / 8) {
-    return '▍';
-  } else if (percent <= 1 / 2) {
-    return '▌';
-  } else if (percent <= 5 / 8) {
-    return '▋';
-  } else if (percent <= 3 / 4) {
-    return '▊';
-  } else if (percent <= 7 / 8) {
-    return '▉';
-  } else {
-    return fullProgress;
-  }
-}
-
-function renderProgressBar(finished: number, total: number) {
-  const length = 30;
-  const blockWidth = 100 / length / 100;
-  const percentFinished = finished / total;
-
-  let progressBar = '|';
-  let remaining = percentFinished;
-  for (let i = 0; i < length; i += 1) {
-    if (remaining === 0) {
-      progressBar += ' ';
-    } else if (remaining >= blockWidth) {
-      progressBar += fullProgress;
-      remaining -= blockWidth;
-    } else {
-      progressBar += getPartialProgress(remaining * 10);
-      remaining = 0;
-    }
-  }
-  progressBar += '|';
-
-  return progressBar;
-}
-
 function getProgressReport(
   name: string,
   minWidth: number,
   finishedFiles: number,
+  activeFiles: number,
   testFiles: number,
   passedTests: number,
   skippedTests: number,
@@ -81,8 +39,10 @@ function getProgressReport(
     (skippedTests !== 0 ? `, ${chalk.gray(`${skippedTests} skipped`)}` : '');
   const progressBar = `${renderProgressBar(
     finishedFiles,
+    activeFiles,
     testFiles,
   )} ${finishedFiles}/${testFiles} test files`;
+
   return `${`${name}:`.padEnd(minWidth)} ${progressBar} | ${testResults}`;
 }
 
@@ -113,14 +73,16 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
   let failedTestCount = 0;
   let failed = false;
 
-  const minWidth = browserNames.sort((a, b) => b.length - a.length)[0].length + 1;
+  const minWidth = [...browserNames].sort((a, b) => b.length - a.length)[0].length + 1;
   for (const browserName of browserNames) {
+    // when started or not initiliazing we render a progress bar
     const allSessionsForBrowser = Array.from(sessions.forBrowserName(browserName));
     const sessionsForBrowser = focusedTestFile
       ? allSessionsForBrowser.filter(s => s.testFile === focusedTestFile)
       : allSessionsForBrowser;
     const totalTestFiles = new Set(sessionsForBrowser.map(s => s.testFile)).size;
     let finishedFilesForBrowser = 0;
+    let activeFilesForBrowser = 0;
     let passedTestsForBrowser = 0;
     let skippedTestsForBrowser = 0;
     let failedTestsForBrowser = 0;
@@ -128,6 +90,10 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
     for (const session of sessionsForBrowser) {
       if (!session.passed) {
         failed = true;
+      }
+
+      if (![SESSION_STATUS.SCHEDULED, SESSION_STATUS.FINISHED].includes(session.status)) {
+        activeFilesForBrowser += 1;
       }
 
       if (session.status === SESSION_STATUS.FINISHED) {
@@ -149,6 +115,7 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
         browserName,
         minWidth,
         finishedFilesForBrowser,
+        activeFilesForBrowser,
         totalTestFiles,
         passedTestsForBrowser,
         skippedTestsForBrowser,

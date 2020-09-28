@@ -26,6 +26,7 @@ const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   protocol: 'http:',
   hostname: 'localhost',
   reporters: [],
+  concurrentBrowsers: 2,
   concurrency: 10,
   browserStartTimeout: 30000,
   testsStartTimeout: 10000,

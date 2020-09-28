@@ -12,27 +12,25 @@ export interface SeleniumLauncherArgs {
 export class SeleniumLauncher implements BrowserLauncher {
   public name = 'Initializing...';
   public type = 'selenium';
-  private driver: undefined | WebDriver;
+  private config?: TestRunnerCoreConfig;
+  private driver?: WebDriver;
   private debugDriver: undefined | WebDriver = undefined;
   private windowManager?: IFrameManager | WindowManager;
+  private __windowManagerPromise?: Promise<IFrameManager | WindowManager>;
   private experimentalIframeMode: boolean;
 
   constructor(private driverBuilder: Builder, experimentalIframeMode?: boolean) {
     this.experimentalIframeMode = !!experimentalIframeMode;
   }
 
-  async start(config: TestRunnerCoreConfig) {
+  async initialize(config: TestRunnerCoreConfig) {
+    this.config = config;
     const cap = this.driverBuilder.getCapabilities();
     if (!this.experimentalIframeMode) {
       cap.setPageLoadStrategy('none');
     }
     this.driverBuilder.withCapabilities(cap);
-    this.driver = await this.driverBuilder.build();
     this.name = getBrowserName(cap);
-    this.windowManager = this.experimentalIframeMode
-      ? new IFrameManager(this.driver, config)
-      : new WindowManager(this.driver, config);
-    await this.windowManager.initialize();
   }
 
   async stop() {
@@ -49,11 +47,12 @@ export class SeleniumLauncher implements BrowserLauncher {
   }
 
   async startSession(id: string, url: string) {
+    await this.ensureWindowManagerInitialized();
     return this.windowManager!.queueStartSession(id, url);
   }
 
   isActive(id: string) {
-    return this.windowManager!.isActive(id);
+    return !!this.windowManager?.isActive(id);
   }
 
   async stopSession(id: string) {
@@ -66,6 +65,32 @@ export class SeleniumLauncher implements BrowserLauncher {
     }
     this.debugDriver = await this.driverBuilder.build();
     await this.debugDriver.navigate().to(url);
+  }
+
+  private async ensureWindowManagerInitialized(): Promise<void> {
+    if (this.windowManager) {
+      return;
+    }
+
+    if (this.__windowManagerPromise) {
+      await this.__windowManagerPromise;
+      return;
+    }
+
+    this.__windowManagerPromise = this.createWindowManager();
+    await this.__windowManagerPromise;
+    this.__windowManagerPromise = undefined;
+  }
+
+  private async createWindowManager() {
+    if (!this.config) throw new Error('Not initialized');
+
+    this.driver = await this.driverBuilder.build();
+    this.windowManager = this.experimentalIframeMode
+      ? new IFrameManager(this.driver, this.config)
+      : new WindowManager(this.driver, this.config);
+    await this.windowManager.initialize();
+    return this.windowManager;
   }
 }
 

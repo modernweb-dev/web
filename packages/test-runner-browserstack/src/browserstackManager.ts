@@ -21,6 +21,7 @@ export async function registerBrowserstackLocal(
   if (!connection) {
     connection = new browserstack.Local();
 
+    console.log('[Browserstack] Setting up Browserstack Local proxy...\n');
     await promisify(connection.start).bind(connection)({
       key: password,
       force: true,

@@ -28,6 +28,7 @@ export class IFrameManager {
   private windowCount = 0;
   private locked = false;
   private navigated = false;
+  public initialized = false;
 
   constructor(driver: WebDriver, config: TestRunnerCoreConfig) {
     this.driver = driver;
@@ -35,7 +36,7 @@ export class IFrameManager {
   }
 
   async initialize() {
-    //
+    this.initialized = true;
   }
 
   isActive(id: string) {
