@@ -47,6 +47,11 @@ const defaultOptions: OptionDefinition[] = [
     description: 'Disables rendering a progress bar dynamically to the terminal.',
   },
   {
+    name: 'port',
+    type: Number,
+    description: 'Port to bind the server on.',
+  },
+  {
     name: 'help',
     type: Boolean,
     description: 'Print help commands',
