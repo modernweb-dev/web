@@ -26,6 +26,7 @@
     "reinstall-workspace": "rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
     "release": "changeset publish && yarn format",
     "review-content": "alex 'docs/**/*.md'",
+    "search": "rocket search",
     "start": "rocket start",
     "start:build": "node packages/dev-server/dist/bin.js --root-dir _site --open",
     "test": "yarn test:node && yarn test:browser && node scripts/workspaces-scripts-bin.mjs test:ci",
@@ -34,8 +35,9 @@
     "update-dependency": "node scripts/update-dependency.js"
   },
   "dependencies": {
-    "@d4kmor/cli": "^0.4.3",
+    "@d4kmor/cli": "^0.5.0",
     "@d4kmor/launch": "^0.4.0",
+    "@d4kmor/search": "^0.1.0",
     "patch-package": "^6.2.2"
   },
   "devDependencies": {
