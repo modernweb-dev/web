@@ -68,8 +68,7 @@ export async function parseConfig(
 
   // generate a default random port
   if (typeof finalConfig.port !== 'number') {
-    const port = 9000 + Math.floor(Math.random() * 1000);
-    finalConfig.port = await getPortPromise({ port });
+    finalConfig.port = await getPortPromise({ port: 8000 });
   }
 
   // map flags to plugin
