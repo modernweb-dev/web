@@ -7,6 +7,7 @@ const { seleniumLauncher } = require('@web/test-runner-selenium');
 module.exports = {
   rootDir: '../../../',
   files: ['demo/test/pass-*.test.js'],
+  // files: ['demo/test/pass-1.test.js'],
   preserveSymlinks: true,
   nodeResolve: true,
 

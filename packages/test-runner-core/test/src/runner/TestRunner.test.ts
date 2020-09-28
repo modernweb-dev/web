@@ -13,7 +13,6 @@ function createBrowserStub() {
   return {
     name: 'myBrowser',
     type: 'myBrowser',
-    start: stub().returns(Promise.resolve()),
     stop: stub().returns(Promise.resolve()),
     startDebugSession: stub().returns(Promise.resolve()),
     startSession: stub().returns(Promise.resolve()),
@@ -48,6 +47,7 @@ async function createTestRunner(
     logger,
     rootDir: process.cwd(),
     testFramework: { path: 'my-framework.js' },
+    concurrentBrowsers: 2,
     concurrency: 10,
     browsers: [browser],
     watch: false,
@@ -68,7 +68,6 @@ it('can run a single test file', async () => {
 
   await runner.start();
   expect(runner.started).to.equal(true, 'runner is started');
-  expect(browser.start.callCount).to.equal(1, 'brower is started');
   expect(browser.startSession.callCount).to.equal(1, 'browser session is started');
 
   const sessions = Array.from(runner.sessions.all());

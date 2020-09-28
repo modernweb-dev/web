@@ -34,7 +34,7 @@ export class PlaywrightLauncher implements BrowserLauncher {
     this.name = capitalize(product);
   }
 
-  async start(config: TestRunnerCoreConfig, testFiles: string[]) {
+  async initialize(config: TestRunnerCoreConfig, testFiles: string[]) {
     this.config = config;
     this.testFiles = testFiles;
   }
@@ -61,6 +61,7 @@ export class PlaywrightLauncher implements BrowserLauncher {
 
     this.activePages.set(sessionId, page);
     this.testCoveragePerSession.delete(sessionId);
+
     await page.runSession(url, !!this.config?.coverage);
   }
 

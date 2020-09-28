@@ -16,6 +16,7 @@ it('runs tests with chrome', async function () {
       resolve(__dirname, 'fixtures', 'g.js'),
     ],
     browsers: [chromeLauncher()],
+    concurrentBrowsers: 2,
     concurrency: 3,
   });
 });

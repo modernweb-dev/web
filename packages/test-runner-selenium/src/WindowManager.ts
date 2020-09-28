@@ -34,6 +34,7 @@ export class WindowManager {
   private urlPerSession = new Map<string, string>();
   private inactiveWindows: string[] = [];
   private locked = false;
+  public initialized = false;
 
   constructor(driver: WebDriver, config: TestRunnerCoreConfig) {
     this.driver = driver;
@@ -44,6 +45,7 @@ export class WindowManager {
     // the browser always starts with an empty window, we should mark this as available for testing
     const handles = await this.driver.getAllWindowHandles();
     this.inactiveWindows.push(...handles);
+    this.initialized = true;
   }
 
   isActive(id: string) {

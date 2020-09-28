@@ -47,8 +47,13 @@ export class TestRunner extends EventEmitter<EventMap> {
     this.testFiles = testFiles;
     this.browsers = browsers;
     this.browserNames = Array.from(new Set(this.browsers.map(b => b.name)));
+    this.browserNames.sort(
+      (a, b) =>
+        this.browsers.findIndex(br => br.name === a) - this.browsers.findIndex(br => br.name === b),
+    );
+
     this.sessions = new TestSessionManager(sessionGroups, testSessions);
-    this.scheduler = new TestScheduler(config, this.sessions);
+    this.scheduler = new TestScheduler(config, this.sessions, browsers);
     this.server = new TestRunnerServer(this.config, this.sessions, this.testFiles, sessions => {
       this.runTests(sessions);
     });
@@ -69,8 +74,12 @@ export class TestRunner extends EventEmitter<EventMap> {
       this.startTime = Date.now();
 
       for (const browser of this.browsers) {
-        await browser.start(this.config, this.testFiles);
+        if (browser.initialize) {
+          await browser.initialize(this.config, this.testFiles);
+        }
       }
+      // the browser names can be updated after initialize
+      this.browserNames = Array.from(new Set(this.browsers.map(b => b.name)));
 
       await this.server.start();
 
@@ -130,15 +139,21 @@ export class TestRunner extends EventEmitter<EventMap> {
       console.error(error);
     });
 
-    const stopActions = [];
-    for (const browser of this.browsers) {
-      stopActions.push(
-        browser.stop().catch(error => {
-          console.error(error);
-        }),
-      );
+    if (this.config.watch) {
+      // we only need to stop the browsers in watch mode, in non-watch
+      // mode the scheduler has already stopped them
+      const stopActions = [];
+      for (const browser of this.browsers) {
+        if (browser.stop) {
+          stopActions.push(
+            browser.stop().catch(error => {
+              console.error(error);
+            }),
+          );
+        }
+      }
+      await Promise.all(stopActions);
     }
-    await Promise.all(stopActions);
     this.emit('stopped', this.passed);
   }
 

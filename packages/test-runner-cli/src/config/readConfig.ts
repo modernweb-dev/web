@@ -4,6 +4,7 @@ import { readConfig as readFileConfig, ConfigLoaderError } from '@web/config-loa
 import deepmerge from 'deepmerge';
 import chalk from 'chalk';
 import path from 'path';
+import { cpus } from 'os';
 import { TestRunnerLogger } from '../logger/TestRunnerLogger';
 
 const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
@@ -11,7 +12,8 @@ const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   rootDir: process.cwd(),
   protocol: 'http:',
   hostname: 'localhost',
-  concurrency: 10,
+  concurrentBrowsers: 2,
+  concurrency: cpus().length / 2,
   browserStartTimeout: 30000,
   testsStartTimeout: 10000,
   testsFinishTimeout: 20000,

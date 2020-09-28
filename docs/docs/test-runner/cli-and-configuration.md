@@ -4,21 +4,22 @@ The test runner can be configured using CLI flags, or with a configuration file.
 
 ## CLI flags
 
-| name              | type         | description                                                                                                           |
-| ----------------- | ------------ | --------------------------------------------------------------------------------------------------------------------- |
-| files             | string       | test files glob. this is the default option, so you do not need to specify it.                                        |
-| watch             | boolean      | runs in watch mode                                                                                                    |
-| coverage          | boolean      | whether to analyze code coverage                                                                                      |
-| node-resolve      | boolean      | resolve bare module imports                                                                                           |
-| esbuild-target    | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent. |
-| preserve-symlinks | boolean      | preserve symlinks when resolving imports                                                                              |
-| puppeteer         | boolean      | whether to run tests with @web/test-runner-puppeteer                                                                  |
-| playwright        | boolean      | whether to run tests with @web/test-runner-playwright                                                                 |
-| browsers          | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit                           |
-| config            | object       | where to read the config from                                                                                         |
-| groups            | string       | pattern of where to read test group config files from                                                                 |
-| group             | string       | runs tests only for the test group with this name                                                                     |
-| concurrency       | number       | amount of test files to run concurrently                                                                              |
+| name                | type         | description                                                                                                           |
+| ------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------- |
+| files               | string       | test files glob. this is the default option, so you do not need to specify it.                                        |
+| watch               | boolean      | runs in watch mode                                                                                                    |
+| coverage            | boolean      | whether to analyze code coverage                                                                                      |
+| node-resolve        | boolean      | resolve bare module imports                                                                                           |
+| esbuild-target      | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent. |
+| preserve-symlinks   | boolean      | preserve symlinks when resolving imports                                                                              |
+| puppeteer           | boolean      | whether to run tests with @web/test-runner-puppeteer                                                                  |
+| playwright          | boolean      | whether to run tests with @web/test-runner-playwright                                                                 |
+| browsers            | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit                           |
+| config              | object       | where to read the config from                                                                                         |
+| groups              | string       | pattern of where to read test group config files from                                                                 |
+| group               | string       | runs tests only for the test group with this name                                                                     |
+| concurrent-browsers | number       | amount of browsers to run concurrently. defaults to 2                                                                 |
+| concurrency         | number       | amount of test files to run concurrently. default to CPU cores divided by 2                                           |
 
 Examples:
 
@@ -117,6 +118,8 @@ interface TestRunnerConfig {
   // test group configs, can be an array of configs or a string or string array of glob patterns
   // which specify where to find the configs
   groups?: string | string[] | TestRunnerGroupConfig[];
+  // amount of browsers to run in parallel
+  concurrentBrowsers?: number;
   // amount of test files to run in parallel
   concurrency?: number;
   // run in watch mode, reloading when files change

@@ -40,6 +40,7 @@
     "test:playwright": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --playwright --browsers chromium firefox webkit",
     "test:puppeteer-firefox": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --puppeteer --browsers firefox",
     "test:rollup-bundle": "node dist/bin.js --config demo/rollup-bundle.mjs",
+    "test:saucelabs": "node dist/bin.js --config demo/saucelabs.config.mjs",
     "test:selenium": "node dist/bin.js --config demo/selenium.config.js",
     "test:watch": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --watch"
   },
@@ -68,6 +69,7 @@
     "@web/test-runner-commands": "^0.1.5",
     "@web/test-runner-core": "^0.7.18",
     "@web/test-runner-mocha": "^0.3.3",
+    "@web/test-runner-saucelabs": "^0.0.5",
     "command-line-args": "^5.1.1",
     "deepmerge": "^4.2.2",
     "globby": "^11.0.1"

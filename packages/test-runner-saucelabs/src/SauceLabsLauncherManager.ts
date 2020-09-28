@@ -35,6 +35,7 @@ export class SauceLabsLauncherManager {
       return;
     }
 
+    console.log('[Saucelabs] Setting up Sauce Connect proxy...\n');
     this.connectionPromise = this.api.startSauceConnect(this.connectOptions ?? {});
     this.connection = await this.connectionPromise;
   }

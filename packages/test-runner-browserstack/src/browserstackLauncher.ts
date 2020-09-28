@@ -30,13 +30,13 @@ export class BrowserstackLauncher extends SeleniumLauncher {
     );
   }
 
-  async start(config: TestRunnerCoreConfig) {
+  async initialize(config: TestRunnerCoreConfig) {
     await registerBrowserstackLocal(
       this,
       this.capabilities.get('browserstack.key')!,
       this.localOptions,
     );
-    await super.start(config);
+    await super.initialize(config);
   }
 
   startSession(sessionId: string, url: string) {

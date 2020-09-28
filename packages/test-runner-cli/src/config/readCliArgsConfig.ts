@@ -26,9 +26,15 @@ const defaultOptions: OptionDefinition[] = [
     description: 'Check for code coverage. Slows down testing.',
   },
   {
+    name: 'concurrent-browsers',
+    type: Number,
+    description: 'Amount of browsers to run concurrently. Defaults to 2.',
+  },
+  {
     name: 'concurrency',
     type: Number,
-    description: 'Amount of tests to run concurrently. Defaults to 10.',
+    description:
+      'Amount of test files to run concurrently. Defaults to total CPU cores divided by 2.',
   },
   {
     name: 'config',

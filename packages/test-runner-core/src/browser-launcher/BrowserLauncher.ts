@@ -17,18 +17,19 @@ export interface BrowserLauncher {
    * A unique identifier for the type of browser launcher.
    */
   type: string;
-  /**
-   * One time startup for the browser launcher. Called when the test runner
-   * starts.
-   * @param config The test runner config.
-   */
-  start(config: TestRunnerCoreConfig, testFiles: string[]): void | Promise<void>;
 
   /**
-   * One time teardown for the browser launcher. Called when the test runner
-   * stops.
+   * One time startup for the browser launcher. Called when the test runner
+   * starts. Use this for async initialization work.
+   * @param config
    */
-  stop(): Promise<void>;
+  initialize?(config: TestRunnerCoreConfig, testFiles: string[]): void | Promise<void>;
+
+  /**
+   * Called after running tests when not in watch mode. Called when the test runner
+   * shuts down when in watch mode.
+   */
+  stop?(): Promise<void>;
 
   /**
    * Start a single test sessions in a single browser page or tab. This should

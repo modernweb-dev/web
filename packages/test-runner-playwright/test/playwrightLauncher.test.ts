@@ -21,6 +21,7 @@ it('runs tests with playwright', async function () {
       playwrightLauncher({ product: 'firefox' }),
       playwrightLauncher({ product: 'webkit' }),
     ],
-    concurrency: 3,
+    concurrentBrowsers: 2,
+    concurrency: 6,
   });
 });

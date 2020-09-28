@@ -49,7 +49,7 @@ export class ChromeLauncher implements BrowserLauncher {
     }
   }
 
-  async start(config: TestRunnerCoreConfig, testFiles: string[]) {
+  async initialize(config: TestRunnerCoreConfig, testFiles: string[]) {
     this.config = config;
     this.testFiles = testFiles;
   }
