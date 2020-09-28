@@ -1,5 +1,12 @@
 # @web/dev-server
 
+## 0.0.12
+
+### Patch Changes
+
+- b939ea0: use a deterministic starting point when finding an available port
+- 5ffc1a6: add port CLI flag
+
 ## 0.0.11
 
 ### Patch Changes
