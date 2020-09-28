@@ -1,5 +1,13 @@
 # @web/test-runner-core
 
+## 0.7.19
+
+### Patch Changes
+
+- 88cc7ac: Reworked concurrent scheduling logic
+
+  When running tests in multiple browsers, the browsers are no longer all started in parallel. Instead a new `concurrentBrowsers` property controls how many browsers are run concurrently. This helps improve speed and stability.
+
 ## 0.7.18
 
 ### Patch Changes
