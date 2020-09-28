@@ -1,3 +1,5 @@
+import { RocketSearch } from '@d4kmor/search';
+
 function addOcticonToHeadlines(plugins) {
   return plugins.map(pluginObj => {
     if (pluginObj.name === 'htmlHeading') {
@@ -38,9 +40,13 @@ function addOcticonToHeadlines(plugins) {
   });
 }
 
-module.exports = {
+export default {
   dir: {
     data: '_data',
   },
   setupUnifiedPlugins: [addOcticonToHeadlines],
+  setupPlugins: plugins => {
+    plugins.push(new RocketSearch());
+    return plugins;
+  },
 };
