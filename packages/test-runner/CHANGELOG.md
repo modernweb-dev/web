@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.7.35
+
+### Patch Changes
+
+- f5d6086: improve iframe mode speed
+- Updated dependencies [f5d6086]
+  - @web/test-runner-saucelabs@0.0.7
+
 ## 0.7.34
 
 ### Patch Changes

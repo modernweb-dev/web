@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.2.8
+
+### Patch Changes
+
+- f5d6086: improve iframe mode speed
+
 ## 0.2.7
 
 ### Patch Changes
