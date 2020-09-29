@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.7.34",
+  "version": "0.7.35",
   "publishConfig": {
     "access": "public"
   },
@@ -69,7 +69,7 @@
     "@web/test-runner-commands": "^0.1.5",
     "@web/test-runner-core": "^0.7.19",
     "@web/test-runner-mocha": "^0.3.3",
-    "@web/test-runner-saucelabs": "^0.0.6",
+    "@web/test-runner-saucelabs": "^0.0.7",
     "command-line-args": "^5.1.1",
     "deepmerge": "^4.2.2",
     "globby": "^11.0.1"
