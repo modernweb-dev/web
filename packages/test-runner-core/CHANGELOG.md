@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.7.20
+
+### Patch Changes
+
+- d15ffee: serve iframe page with HTML content-type
+
 ## 0.7.19
 
 ### Patch Changes
