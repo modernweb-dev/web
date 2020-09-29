@@ -104,7 +104,10 @@ export function serveTestRunnerHtmlPlugin(
               : createTestPage(!!config.browserLogs, testFrameworkImport),
           };
         } else if (searchParams.get('mode') === 'iframe') {
-          return iframeModePage;
+          return {
+            type: 'html',
+            body: iframeModePage,
+          };
         } else {
           return {
             type: 'html',
