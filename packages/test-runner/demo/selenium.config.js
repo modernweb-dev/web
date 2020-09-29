@@ -6,8 +6,7 @@ const { seleniumLauncher } = require('@web/test-runner-selenium');
 
 module.exports = {
   rootDir: '../../../',
-  files: ['demo/test/pass-*.test.js'],
-  // files: ['demo/test/pass-1.test.js'],
+  files: 'demo/test/pass-!(commands)*.test.js',
   preserveSymlinks: true,
   nodeResolve: true,
 
@@ -20,11 +19,12 @@ module.exports = {
         .usingServer('http://localhost:4444/wd/hub'),
     }),
 
-    // seleniumLauncher({
-    //   driverBuilder: new Builder()
-    //     .forBrowser('firefox')
-    //     // .setFirefoxOptions(new FirefoxOptions().headless())
-    //     .usingServer('http://localhost:4444/wd/hub'),
-    // }),
+    seleniumLauncher({
+      // experimentalIframeMode: true,
+      driverBuilder: new Builder()
+        .forBrowser('firefox')
+        .setFirefoxOptions(new FirefoxOptions().headless())
+        .usingServer('http://localhost:4444/wd/hub'),
+    }),
   ],
 };

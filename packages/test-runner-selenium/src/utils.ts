@@ -32,14 +32,14 @@ function getPlatform(c: Capabilities) {
   );
 }
 
-function getBrowser(c: Capabilities) {
+export function getBrowserName(c: Capabilities): string {
   return c.getBrowserName() || c.get('browserName') || c.get('browser_name');
 }
 
-function getBrowserVersion(c: Capabilities) {
+function getBrowserVersion(c: Capabilities): string {
   return c.getBrowserVersion() || c.get('browserVersion') || c.get('browser_version');
 }
 
-export function getBrowserName(c: Capabilities) {
-  return [getPlatform(c), getBrowser(c), getBrowserVersion(c)].filter(_ => _).join(' ');
+export function getBrowserLabel(c: Capabilities): string {
+  return [getPlatform(c), getBrowserName(c), getBrowserVersion(c)].filter(_ => _).join(' ');
 }
