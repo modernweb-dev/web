@@ -1,6 +1,6 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Builder, WebDriver } from 'selenium-webdriver';
-import { getBrowserName } from './utils';
+import { getBrowserLabel, getBrowserName } from './utils';
 import { IFrameManager } from './IFrameManager';
 import { WindowManager } from './WindowManager';
 
@@ -18,6 +18,7 @@ export class SeleniumLauncher implements BrowserLauncher {
   private windowManager?: IFrameManager | WindowManager;
   private __windowManagerPromise?: Promise<IFrameManager | WindowManager>;
   private experimentalIframeMode: boolean;
+  private isIE = false;
 
   constructor(private driverBuilder: Builder, experimentalIframeMode?: boolean) {
     this.experimentalIframeMode = !!experimentalIframeMode;
@@ -30,7 +31,12 @@ export class SeleniumLauncher implements BrowserLauncher {
       cap.setPageLoadStrategy('none');
     }
     this.driverBuilder.withCapabilities(cap);
-    this.name = getBrowserName(cap);
+    this.name = getBrowserLabel(cap);
+    const browserName = getBrowserName(cap).toLowerCase().replace(/_/g, ' ');
+    this.isIE =
+      (browserName.includes('internet') && browserName.includes('explorer')) ||
+      browserName === 'ie' ||
+      browserName === 'ie11';
   }
 
   async stop() {
@@ -87,8 +93,9 @@ export class SeleniumLauncher implements BrowserLauncher {
 
     this.driver = await this.driverBuilder.build();
     this.windowManager = this.experimentalIframeMode
-      ? new IFrameManager(this.driver, this.config)
+      ? new IFrameManager(this.config, this.driver, this.isIE)
       : new WindowManager(this.driver, this.config);
+
     await this.windowManager.initialize();
     return this.windowManager;
   }

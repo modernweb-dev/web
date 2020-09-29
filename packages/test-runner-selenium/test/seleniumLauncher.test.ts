@@ -71,7 +71,7 @@ before(async function () {
       }),
     ],
     concurrentBrowsers: 2,
-    concurrency: 6,
+    concurrency: 4,
   });
 });
 

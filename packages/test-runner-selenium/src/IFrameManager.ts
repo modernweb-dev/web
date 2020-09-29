@@ -1,168 +1,155 @@
-import { TestRunnerCoreConfig, SessionResult } from '@web/test-runner-core';
+import {
+  CoverageMapData,
+  TestResultError,
+  getBrowserPageNavigationError,
+  TestRunnerCoreConfig,
+} from '@web/test-runner-core';
 import { WebDriver } from 'selenium-webdriver';
 
-interface QueuedStartSession {
-  id: string;
+interface BrowserResult {
+  testCoverage?: CoverageMapData;
   url: string;
-  resolve: () => void;
 }
 
-interface QueuedStopSession {
-  id: string;
-  resolve: (result: SessionResult) => void;
+function validateBrowserResult(result: any): result is BrowserResult {
+  if (typeof result !== 'object') throw new Error('Browser did not return an object');
+  if (typeof result.url !== 'string') throw new Error('Browser did not return a url');
+  if (result.testCoverage != null && typeof result.testCoverage !== 'object')
+    throw new Error('Browser returned non-object testCoverage');
+
+  return true;
 }
 
 /**
- * Selenium can only do work on a single focused window at a time. This manager queues
- * tasks for starting or stopping a test session, allowing only one job of starting or
- * stopping a session at a time.
+ * Manages tests to be excuted in iframes on a page.
  */
 export class IFrameManager {
-  private driver: WebDriver;
   private config: TestRunnerCoreConfig;
-  private startQueue: QueuedStartSession[] = [];
-  private stopQueue: QueuedStopSession[] = [];
-  private windowPerSession = new Map<string, string>();
+  private driver: WebDriver;
+  private framePerSession = new Map<string, string>();
   private urlPerSession = new Map<string, string>();
-  private inactiveWindows: string[] = [];
-  private windowCount = 0;
-  private locked = false;
-  private navigated = false;
-  public initialized = false;
+  private inactiveFrames: string[] = [];
+  private frameCount = 0;
+  private initialized = false;
+  private initializePromise?: Promise<void>;
+  private locked?: Promise<unknown>;
+  private isIE: boolean;
 
-  constructor(driver: WebDriver, config: TestRunnerCoreConfig) {
-    this.driver = driver;
+  constructor(config: TestRunnerCoreConfig, driver: WebDriver, isIE: boolean) {
     this.config = config;
+    this.driver = driver;
+    this.isIE = isIE;
   }
 
-  async initialize() {
-    this.initialized = true;
+  initialize() {
+    // noop
+  }
+
+  private async _initialize(url: string) {
+    const pageUrl = `${new URL(url).origin}/?mode=iframe`;
+    await this.driver.navigate().to(pageUrl);
   }
 
   isActive(id: string) {
-    return this.windowPerSession.has(id);
+    return this.framePerSession.has(id);
   }
 
-  queueStartSession(id: string, url: string): Promise<void> {
-    return new Promise(resolve => {
-      if (!this.locked) {
-        this.locked = true;
-        this.startSession({ id, url, resolve });
-      } else {
-        this.startQueue.push({ id, url, resolve });
-      }
-    });
-  }
-
-  queueStopSession(id: string): Promise<SessionResult> {
-    return new Promise(resolve => {
-      if (!this.locked) {
-        this.locked = true;
-        this.stopSession({ id, resolve });
-      } else {
-        this.stopQueue.push({ id, resolve });
-      }
-    });
-  }
-
-  private runNextQueued() {
-    if (this.stopQueue.length > 0) {
-      const next = this.stopQueue.shift()!;
-      this.stopSession(next);
-      return;
+  private async scheduleCommand<T>(fn: () => Promise<T>) {
+    if (!this.isIE) {
+      return fn();
     }
 
-    if (this.startQueue.length > 0) {
-      const next = this.startQueue.shift()!;
-      this.startSession(next);
-      return;
+    while (this.locked) {
+      await this.locked;
     }
 
-    this.locked = false;
+    const fnPromise = fn();
+    this.locked = fnPromise;
+    const result = await fnPromise;
+    this.locked = undefined;
+    return result;
   }
 
-  /**
-   * Focuses the browser to a window available for running a test.
-   *
-   * If there are inactive browser windows, we use those. Otherwise we
-   * create a new one.
-   */
-  private async switchToAvailableWindow() {
-    let windowHandle: string;
-    if (this.inactiveWindows.length > 0) {
-      windowHandle = this.inactiveWindows.pop()!;
+  async queueStartSession(id: string, url: string) {
+    if (!this.initializePromise && !this.initialized) {
+      this.initializePromise = this._initialize(url);
+    }
+
+    if (this.initializePromise) {
+      await this.initializePromise;
+      this.initializePromise = undefined;
+      this.initialized = true;
+    }
+
+    this.scheduleCommand(() => this.startSession(id, url));
+  }
+
+  private async startSession(id: string, url: string) {
+    this.urlPerSession.set(id, url);
+
+    let frameId: string;
+    if (this.inactiveFrames.length > 0) {
+      frameId = this.inactiveFrames.pop()!;
+      await this.driver.executeScript(`
+        var iframe = document.getElementById("${frameId}");
+        iframe.src = "${url}";
+      `);
     } else {
-      this.windowCount += 1;
-      windowHandle = `wtr-test-frame-${this.windowCount}`;
+      this.frameCount += 1;
+      frameId = `wtr-test-frame-${this.frameCount}`;
       await this.driver.executeScript(`
         var iframe = document.createElement("iframe");
-        iframe.id = "${windowHandle}";
+        iframe.id = "${frameId}";
+        iframe.src = "${url}";
         document.body.appendChild(iframe);
       `);
     }
-    return windowHandle;
+
+    this.framePerSession.set(id, frameId);
   }
 
-  private async startSession({ id, url, resolve }: QueuedStartSession) {
-    if (!this.navigated) {
-      this.navigated = true;
-      const pageUrl = `${new URL(url).origin}/?experimental-iframe-mode=true`;
-      await this.driver.get(pageUrl);
-    }
-    this.urlPerSession.set(id, url);
-    const windowHandle = await this.switchToAvailableWindow();
-    this.windowPerSession.set(id, windowHandle);
-    await this.driver.executeScript(`
-      var iframe = document.getElementById("${windowHandle}");
-      iframe.src = "${url}";
-    `);
-    this.runNextQueued();
-    resolve();
+  async queueStopSession(id: string) {
+    return this.scheduleCommand(() => this.stopSession(id));
   }
 
-  private async stopSession({ id, resolve }: QueuedStopSession) {
-    const windowHandle = this.windowPerSession.get(id);
-    this.windowPerSession.delete(id);
-    if (!windowHandle) {
+  async stopSession(id: string) {
+    const frameId = this.framePerSession.get(id);
+    this.framePerSession.delete(id);
+    if (!frameId) {
       throw new Error(
         `Something went wrong while running tests, there is no window handle for session ${id}`,
       );
     }
-    // TODO
-    // await this.driver.switchTo().window(windowHandle);
 
-    // let testCoverage: CoverageMapData | undefined = undefined;
-    // const errors: TestResultError[] = [];
+    const errors: TestResultError[] = [];
+    const testUrl = this.urlPerSession.get(id) as string;
 
-    // const testUrl = this.urlPerSession.get(id) as string;
-    // const actualUrl = await this.driver.getCurrentUrl();
-    // if (testUrl !== actualUrl) {
-    //   // the page was navigated, resulting in broken tests
-    //   const testUrlObject = new URL(testUrl);
-    //   // we can't track page reload in senelium, we can only check if the user navigated to another page
-    //   // we fake the navigation array, in puppeteer or playwright we would build an actual history
-    //   const navigations = [testUrlObject, new URL(actualUrl)];
-    //   const error = getBrowserPageNavigationError(testUrlObject, navigations);
-    //   if (error) {
-    //     errors.push(error);
-    //   }
-    // } else {
-    //   // no page navigation errors, retreive the code coverage
-    //   if (this.config.coverage) {
-    //     testCoverage = await this.driver?.executeScript<CoverageMapData>(function () {
-    //       return (window as any).__coverage__;
-    //     });
-    //   }
-    // }
+    // retreive test results from iframe
+    const returnValue = await this.driver.executeScript(`
+      var iframe = document.getElementById("${frameId}");
+      var w = iframe.contentWindow;
+      iframe.src = "data:,";
+      return { testCoverage: w.__coverage__, url: w.location.href };
+    `);
 
-    // navigate to an empty page to kill any running code on the page, stopping timers and
-    // breaking a potential endless reload loop
-    // TODO
-    // await this.driver.get('data:,');
-    this.inactiveWindows.push(windowHandle);
-    this.runNextQueued();
-    // TODO
-    // resolve({ browserLogs: [], testCoverage, errors });
-    resolve({ browserLogs: [], testCoverage: undefined, errors: [] });
+    if (!validateBrowserResult(returnValue)) {
+      throw new Error();
+    }
+
+    const { url: actualUrl, testCoverage } = returnValue;
+    if (testUrl !== actualUrl) {
+      // the page was navigated, resulting in broken tests
+      const testUrlObject = new URL(testUrl);
+      // we can't track page reload in selenium, we can only check if the user navigated to another page
+      // we fake the navigation array, in puppeteer or playwright we would build an actual history
+      const navigations = [testUrlObject, new URL(actualUrl)];
+      const error = getBrowserPageNavigationError(testUrlObject, navigations);
+      if (error) {
+        errors.push(error);
+      }
+    }
+
+    this.inactiveFrames.push(frameId);
+    return { testCoverage: this.config.coverage ? testCoverage : undefined, errors: [] };
   }
 }

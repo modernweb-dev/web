@@ -5,6 +5,25 @@ import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
 import { createTestFileImportPath } from '../utils';
 import { trackBrowserLogs } from './trackBrowserLogs';
 
+const iframeModePage = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      iframe {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
+  <body></body>
+</html>
+`;
+
 function createTestPage(browserLogs: boolean, testFrameworkImport: string) {
   return `<!DOCTYPE html>
 <html>
@@ -84,8 +103,8 @@ export function serveTestRunnerHtmlPlugin(
               ? config.testRunnerHtml(testFrameworkImport, config)
               : createTestPage(!!config.browserLogs, testFrameworkImport),
           };
-        } else if (searchParams.has('experimental-iframe-mode')) {
-          return '<html><head></head><body></body></html>';
+        } else if (searchParams.get('mode') === 'iframe') {
+          return iframeModePage;
         } else {
           return {
             type: 'html',

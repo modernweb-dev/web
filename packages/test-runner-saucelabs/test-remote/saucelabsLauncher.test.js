@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { runTests } = require('@web/test-runner-core/test-helpers');
 const { legacyPlugin } = require('@web/dev-server-legacy');
-const { esbuildPlugin } = require('@web/dev-server-esbuild');
 const { resolve } = require('path');
 
 const { createSauceLabsLauncher } = require('../dist/index');
@@ -56,12 +55,12 @@ it('runs tests on saucelabs', async function () {
       //   browserVersion: 'latest',
       //   platformName: 'macOS 10.15',
       // }),
-      sauceLabsLauncher({
-        ...sharedCapabilities,
-        browserName: 'firefox',
-        browserVersion: 'latest',
-        platformName: 'Windows 10',
-      }),
+      // sauceLabsLauncher({
+      //   ...sharedCapabilities,
+      //   browserName: 'firefox',
+      //   browserVersion: 'latest',
+      //   platformName: 'Windows 10',
+      // }),
       sauceLabsLauncher({
         ...sharedCapabilities,
         browserName: 'internet explorer',
@@ -71,7 +70,7 @@ it('runs tests on saucelabs', async function () {
     ],
     concurrentBrowsers: 2,
     concurrency: 6,
-    plugins: [esbuildPlugin({ target: 'auto' }), legacyPlugin()],
+    plugins: [legacyPlugin()],
     browserStartTimeout: 1000 * 60 * 2,
     testsStartTimeout: 1000 * 60 * 2,
     testsFinishTimeout: 1000 * 60 * 2,

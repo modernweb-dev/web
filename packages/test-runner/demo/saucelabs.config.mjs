@@ -8,7 +8,7 @@ const sauceLabsLauncher = createSauceLabsLauncher(
     region: 'eu',
   },
   undefined,
-  false,
+  true,
 );
 
 const sharedCapabilities = {
@@ -25,7 +25,6 @@ export default {
   rootDir: '../..',
   nodeResolve: true,
   plugins: [legacyPlugin()],
-  concurrency: 5,
   browsers: [
     sauceLabsLauncher({
       ...sharedCapabilities,
@@ -33,30 +32,30 @@ export default {
       browserVersion: 'latest',
       platformName: 'Windows 10',
     }),
-    sauceLabsLauncher({
-      ...sharedCapabilities,
-      browserName: 'chrome',
-      browserVersion: 'latest-1',
-      platformName: 'Windows 10',
-    }),
-    sauceLabsLauncher({
-      ...sharedCapabilities,
-      browserName: 'chrome',
-      browserVersion: 'latest-2',
-      platformName: 'Windows 10',
-    }),
     // sauceLabsLauncher({
     //   ...sharedCapabilities,
-    //   browserName: 'safari',
-    //   browserVersion: 'latest',
-    //   platformName: 'macOS 10.15',
+    //   browserName: 'chrome',
+    //   browserVersion: 'latest-1',
+    //   platformName: 'Windows 10',
     // }),
-    sauceLabsLauncher({
-      ...sharedCapabilities,
-      browserName: 'firefox',
-      browserVersion: 'latest',
-      platformName: 'Windows 10',
-    }),
+    // sauceLabsLauncher({
+    //   ...sharedCapabilities,
+    //   browserName: 'chrome',
+    //   browserVersion: 'latest-2',
+    //   platformName: 'Windows 10',
+    // }),
+    // // sauceLabsLauncher({
+    // //   ...sharedCapabilities,
+    // //   browserName: 'safari',
+    // //   browserVersion: 'latest',
+    // //   platformName: 'macOS 10.15',
+    // // }),
+    // sauceLabsLauncher({
+    //   ...sharedCapabilities,
+    //   browserName: 'firefox',
+    //   browserVersion: 'latest',
+    //   platformName: 'Windows 10',
+    // }),
     sauceLabsLauncher({
       ...sharedCapabilities,
       browserName: 'internet explorer',
