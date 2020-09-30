@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-legacy",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "publishConfig": {
     "access": "public"
   },
