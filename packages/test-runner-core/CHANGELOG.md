@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.7.21
+
+### Patch Changes
+
+- c8abc29: fix generating manual debug page
+
 ## 0.7.20
 
 ### Patch Changes
