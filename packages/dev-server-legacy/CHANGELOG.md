@@ -1,5 +1,11 @@
 # @web/dev-server-legacy
 
+## 0.1.4
+
+### Patch Changes
+
+- 71348e2: make polyfills configurable
+
 ## 0.1.3
 
 ### Patch Changes
