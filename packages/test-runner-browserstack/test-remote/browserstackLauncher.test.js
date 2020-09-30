@@ -35,24 +35,24 @@ it('runs tests on browserstack', async function () {
       resolve(__dirname, 'fixtures', 'stage-4-features.js'),
     ],
     browsers: [
-      // browserstackLauncher({
-      //   capabilities: {
-      //     ...sharedCapabilities,
-      //     browserName: 'Chrome',
-      //     browser_version: 'latest',
-      //     os: 'windows',
-      //     os_version: '10',
-      //   },
-      // }),
-      // browserstackLauncher({
-      //   capabilities: {
-      //     ...sharedCapabilities,
-      //     browserName: 'Safari',
-      //     browser_version: '11.1',
-      //     os: 'OS X',
-      //     os_version: 'High Sierra',
-      //   },
-      // }),
+      browserstackLauncher({
+        capabilities: {
+          ...sharedCapabilities,
+          browserName: 'Chrome',
+          browser_version: 'latest',
+          os: 'windows',
+          os_version: '10',
+        },
+      }),
+      browserstackLauncher({
+        capabilities: {
+          ...sharedCapabilities,
+          browserName: 'Firefox',
+          browser_version: 'latest',
+          os: 'windows',
+          os_version: '10',
+        },
+      }),
       browserstackLauncher({
         capabilities: {
           ...sharedCapabilities,

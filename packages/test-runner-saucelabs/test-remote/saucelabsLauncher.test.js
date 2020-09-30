@@ -5,15 +5,11 @@ const { resolve } = require('path');
 
 const { createSauceLabsLauncher } = require('../dist/index');
 
-const sauceLabsLauncher = createSauceLabsLauncher(
-  {
-    user: process.env.SAUCE_USERNAME,
-    key: process.env.SAUCE_ACCESS_KEY,
-    region: 'eu',
-  },
-  undefined,
-  true,
-);
+const sauceLabsLauncher = createSauceLabsLauncher({
+  user: process.env.SAUCE_USERNAME,
+  key: process.env.SAUCE_ACCESS_KEY,
+  region: 'eu',
+});
 
 const sharedCapabilities = {
   'sauce:options': {
@@ -49,17 +45,17 @@ it('runs tests on saucelabs', async function () {
         browserVersion: 'latest',
         platformName: 'Windows 10',
       }),
+      sauceLabsLauncher({
+        ...sharedCapabilities,
+        browserName: 'firefox',
+        browserVersion: 'latest',
+        platformName: 'Windows 10',
+      }),
       // sauceLabsLauncher({
       //   ...sharedCapabilities,
       //   browserName: 'safari',
       //   browserVersion: 'latest',
       //   platformName: 'macOS 10.15',
-      // }),
-      // sauceLabsLauncher({
-      //   ...sharedCapabilities,
-      //   browserName: 'firefox',
-      //   browserVersion: 'latest',
-      //   platformName: 'Windows 10',
       // }),
       sauceLabsLauncher({
         ...sharedCapabilities,

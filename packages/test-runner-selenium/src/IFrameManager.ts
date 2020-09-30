@@ -41,10 +41,6 @@ export class IFrameManager {
     this.isIE = isIE;
   }
 
-  initialize() {
-    // noop
-  }
-
   private async _initialize(url: string) {
     const pageUrl = `${new URL(url).origin}/?mode=iframe`;
     await this.driver.navigate().to(pageUrl);
@@ -128,8 +124,10 @@ export class IFrameManager {
     const returnValue = await this.driver.executeScript(`
       var iframe = document.getElementById("${frameId}");
       var w = iframe.contentWindow;
+      var returnValue = { testCoverage: w.__coverage__, url: w.location.href };
+      // set src after retreiving values to avoid the iframe from navigating away
       iframe.src = "data:,";
-      return { testCoverage: w.__coverage__, url: w.location.href };
+      return returnValue;
     `);
 
     if (!validateBrowserResult(returnValue)) {

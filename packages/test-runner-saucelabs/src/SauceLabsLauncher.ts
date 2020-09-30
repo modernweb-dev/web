@@ -12,12 +12,8 @@ export class SauceLabsLauncher extends SeleniumLauncher {
     public name: string,
     sauceLabsUrl: string,
     capabilities: Capabilities,
-    experimentalIframeMode?: boolean,
   ) {
-    super(
-      new webdriver.Builder().usingServer(sauceLabsUrl).withCapabilities(capabilities),
-      experimentalIframeMode,
-    );
+    super(new webdriver.Builder().usingServer(sauceLabsUrl).withCapabilities(capabilities));
   }
 
   startSession(sessionId: string, url: string) {
