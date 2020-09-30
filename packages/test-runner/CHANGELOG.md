@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.7.38
+
+### Patch Changes
+
+- c8abc29: fix generating manual debug page
+- Updated dependencies [c8abc29]
+  - @web/test-runner-core@0.7.21
+
 ## 0.7.37
 
 ### Patch Changes
