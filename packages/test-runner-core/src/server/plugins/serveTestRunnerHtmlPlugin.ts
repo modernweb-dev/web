@@ -49,9 +49,9 @@ async function createManualDebugPage(
   context: Context,
   testFiles: string[],
 ) {
-  const listItems = await Promise.all(
-    testFiles.map(file => getManualListItem(config, context, file)).join('\n'),
-  );
+  const listItems = (
+    await Promise.all(testFiles.map(file => getManualListItem(config, context, file)))
+  ).join('\n');
 
   return `<!DOCTYPE html>
 <html>
@@ -74,7 +74,7 @@ async function createManualDebugPage(
 
     <h2>Test files</h2>
     <ul>
-      ${listItems.join('\n')}
+      ${listItems}
     </ul>
   </body>
 </html>
@@ -89,7 +89,7 @@ export function serveTestRunnerHtmlPlugin(
   return {
     name: 'wtr-test-runner-html',
 
-    serve(context: Context) {
+    async serve(context: Context) {
       if (!testFrameworkImport) {
         throw new Error('Cannot test javascript files without a testFramework configured.');
       }
@@ -111,7 +111,7 @@ export function serveTestRunnerHtmlPlugin(
         } else {
           return {
             type: 'html',
-            body: createManualDebugPage(config, context, testFiles),
+            body: await createManualDebugPage(config, context, testFiles),
           };
         }
       }
