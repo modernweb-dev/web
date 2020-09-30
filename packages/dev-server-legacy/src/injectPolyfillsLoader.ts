@@ -3,6 +3,7 @@ import { getAttribute, getTextContent, remove } from '@web/dev-server-core/dist/
 import { parse, serialize, Document as DocumentAst, Node as NodeAst } from 'parse5';
 import {
   injectPolyfillsLoader as originalInjectPolyfillsLoader,
+  PolyfillsConfig,
   fileTypes,
   getScriptFileType,
   GeneratedFile,
@@ -51,7 +52,10 @@ export interface ReturnValue {
  * with the appropriate polyfills, shims and a script loader so that they can be loaded
  * at the right time
  */
-export async function injectPolyfillsLoader(context: Context): Promise<ReturnValue> {
+export async function injectPolyfillsLoader(
+  context: Context,
+  polyfills?: boolean | PolyfillsConfig,
+): Promise<ReturnValue> {
   const htmlPath = getHtmlPath(context.path);
   const documentAst = parse(context.body);
   const { files, inlineScripts, scriptNodes } = findScripts(htmlPath, documentAst);
@@ -63,13 +67,17 @@ export async function injectPolyfillsLoader(context: Context): Promise<ReturnVal
         type: f.type === fileTypes.MODULE ? fileTypes.SYSTEMJS : f.type,
       })),
     },
-    polyfills: {
-      coreJs: true,
-      regeneratorRuntime: 'always' as const,
-      fetch: true,
-      abortController: true,
-      webcomponents: true,
-    },
+    polyfills:
+      polyfills === false
+        ? { regeneratorRuntime: 'always' as const }
+        : {
+            coreJs: true,
+            regeneratorRuntime: 'always' as const,
+            fetch: true,
+            abortController: true,
+            webcomponents: true,
+            ...(polyfills === true ? {} : polyfills),
+          },
     preload: false,
   };
 
