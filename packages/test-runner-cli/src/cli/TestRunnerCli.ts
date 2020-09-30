@@ -299,9 +299,9 @@ export class TestRunnerCli {
   private reportTestProgress(final = false) {
     const logStatic = this.config.staticLogging || !this.terminal.isInteractive;
     if (logStatic && !final) {
-      // print a static progress log only once every 1000ms
+      // print a static progress log only once every 10000ms
       const now = Date.now();
-      if (this.lastStaticLog !== -1 && now - this.lastStaticLog < 5000) {
+      if (this.lastStaticLog !== -1 && now - this.lastStaticLog < 10000) {
         return;
       }
       this.lastStaticLog = now;

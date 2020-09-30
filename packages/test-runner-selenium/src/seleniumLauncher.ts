@@ -2,11 +2,9 @@ import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Builder, WebDriver } from 'selenium-webdriver';
 import { getBrowserLabel, getBrowserName } from './utils';
 import { IFrameManager } from './IFrameManager';
-import { WindowManager } from './WindowManager';
 
 export interface SeleniumLauncherArgs {
   driverBuilder: Builder;
-  experimentalIframeMode?: boolean;
 }
 
 export class SeleniumLauncher implements BrowserLauncher {
@@ -15,21 +13,16 @@ export class SeleniumLauncher implements BrowserLauncher {
   private config?: TestRunnerCoreConfig;
   private driver?: WebDriver;
   private debugDriver: undefined | WebDriver = undefined;
-  private windowManager?: IFrameManager | WindowManager;
-  private __windowManagerPromise?: Promise<IFrameManager | WindowManager>;
-  private experimentalIframeMode: boolean;
+  private iframeManager?: IFrameManager;
+  private __iframeManagerPromise?: Promise<IFrameManager>;
   private isIE = false;
 
-  constructor(private driverBuilder: Builder, experimentalIframeMode?: boolean) {
-    this.experimentalIframeMode = !!experimentalIframeMode;
-  }
+  constructor(private driverBuilder: Builder) {}
 
   async initialize(config: TestRunnerCoreConfig) {
     this.config = config;
     const cap = this.driverBuilder.getCapabilities();
-    if (!this.experimentalIframeMode) {
-      cap.setPageLoadStrategy('none');
-    }
+
     this.driverBuilder.withCapabilities(cap);
     this.name = getBrowserLabel(cap);
     const browserName = getBrowserName(cap).toLowerCase().replace(/_/g, ' ');
@@ -46,23 +39,23 @@ export class SeleniumLauncher implements BrowserLauncher {
 
       this.driver = undefined;
       this.debugDriver = undefined;
-      this.windowManager = undefined;
+      this.iframeManager = undefined;
     } catch {
       //
     }
   }
 
   async startSession(id: string, url: string) {
-    await this.ensureWindowManagerInitialized();
-    return this.windowManager!.queueStartSession(id, url);
+    await this.ensureIframeManagerInitialized();
+    return this.iframeManager!.queueStartSession(id, url);
   }
 
   isActive(id: string) {
-    return !!this.windowManager?.isActive(id);
+    return !!this.iframeManager?.isActive(id);
   }
 
   async stopSession(id: string) {
-    return this.windowManager!.queueStopSession(id);
+    return this.iframeManager!.queueStopSession(id);
   }
 
   async startDebugSession(_: string, url: string) {
@@ -73,31 +66,28 @@ export class SeleniumLauncher implements BrowserLauncher {
     await this.debugDriver.navigate().to(url);
   }
 
-  private async ensureWindowManagerInitialized(): Promise<void> {
-    if (this.windowManager) {
+  private async ensureIframeManagerInitialized(): Promise<void> {
+    if (this.iframeManager) {
       return;
     }
 
-    if (this.__windowManagerPromise) {
-      await this.__windowManagerPromise;
+    if (this.__iframeManagerPromise) {
+      await this.__iframeManagerPromise;
       return;
     }
 
-    this.__windowManagerPromise = this.createWindowManager();
-    await this.__windowManagerPromise;
-    this.__windowManagerPromise = undefined;
+    this.__iframeManagerPromise = this.createiframeManager();
+    await this.__iframeManagerPromise;
+    this.__iframeManagerPromise = undefined;
   }
 
-  private async createWindowManager() {
+  private async createiframeManager() {
     if (!this.config) throw new Error('Not initialized');
 
     this.driver = await this.driverBuilder.build();
-    this.windowManager = this.experimentalIframeMode
-      ? new IFrameManager(this.config, this.driver, this.isIE)
-      : new WindowManager(this.driver, this.config);
+    this.iframeManager = new IFrameManager(this.config, this.driver, this.isIE);
 
-    await this.windowManager.initialize();
-    return this.windowManager;
+    return this.iframeManager;
   }
 }
 
@@ -110,5 +100,5 @@ export function seleniumLauncher(args: SeleniumLauncherArgs) {
     throw new Error(`driverBuild must be a Builder`);
   }
 
-  return new SeleniumLauncher(args.driverBuilder, args.experimentalIframeMode);
+  return new SeleniumLauncher(args.driverBuilder);
 }

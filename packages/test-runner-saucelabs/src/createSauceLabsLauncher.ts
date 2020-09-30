@@ -9,7 +9,6 @@ import { SauceLabsLauncherManager } from './SauceLabsLauncherManager';
 export function createSauceLabsLauncher(
   saucelabsOptions: SauceLabsOptions,
   sauceConnectOptions?: SauceConnectOptions,
-  experimentalIframeMode?: boolean,
 ) {
   if (saucelabsOptions == null) {
     throw new Error('Options are required to set user and key.');
@@ -67,7 +66,6 @@ export function createSauceLabsLauncher(
       browserIdentifier,
       manager.webdriverEndpoint,
       seleniumCapabilities,
-      experimentalIframeMode,
     );
   };
 }
