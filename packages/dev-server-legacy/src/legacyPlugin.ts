@@ -1,5 +1,5 @@
 import { Plugin, Logger, getRequestFilePath, isInlineScriptRequest } from '@web/dev-server-core';
-import { GeneratedFile } from 'polyfills-loader';
+import { GeneratedFile, PolyfillsConfig } from 'polyfills-loader';
 import path from 'path';
 import { isLegacyBrowser } from './isLegacyBrowser';
 import { babelTransform } from './babelTransform';
@@ -21,7 +21,11 @@ function toBrowserPath(filePath: string) {
   return filePath.replace(REGEXP_TO_BROWSER_PATH, '/');
 }
 
-export function legacyPlugin(): Plugin {
+export interface LegacyPluginOptions {
+  polyfills?: PolyfillsConfig;
+}
+
+export function legacyPlugin(options: LegacyPluginOptions = {}): Plugin {
   // index html data, keyed by url
   const inlineScripts = new Map<string, inlineScripts>();
   // polyfills, keyed by request path
@@ -106,7 +110,7 @@ export function legacyPlugin(): Plugin {
       }
 
       if (context.response.is('html')) {
-        const result = await injectPolyfillsLoader(context);
+        const result = await injectPolyfillsLoader(context, options.polyfills);
         context.body = result.indexHTML;
 
         inlineScripts.set(result.htmlPath, {
