@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-saucelabs",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "publishConfig": {
     "access": "public"
   },
@@ -40,7 +40,7 @@
   ],
   "dependencies": {
     "@web/dev-server-esbuild": "^0.2.4",
-    "@web/test-runner-selenium": "^0.2.8",
+    "@web/test-runner-selenium": "^0.2.9",
     "ip": "^1.1.5",
     "saucelabs": "^4.5.0",
     "selenium-webdriver": "^4.0.0-alpha.7",

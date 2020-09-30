@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.7.37
+
+### Patch Changes
+
+- 38d8f03: turn on selenium iframe mode by default
+- Updated dependencies [38d8f03]
+- Updated dependencies [38d8f03]
+  - @web/test-runner-cli@0.5.17
+  - @web/test-runner-saucelabs@0.0.8
+
 ## 0.7.36
 
 ### Patch Changes
