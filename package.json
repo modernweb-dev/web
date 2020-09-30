@@ -22,7 +22,6 @@
     "lint:eslint": "eslint --ext .ts,.js,.mjs,.cjs .",
     "lint:md": "remark ./docs",
     "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
-    "postinstall": "patch-package",
     "reinstall-workspace": "rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
     "release": "changeset publish && yarn format",
     "review-content": "alex 'docs/**/*.md'",
@@ -35,10 +34,9 @@
     "update-dependency": "node scripts/update-dependency.js"
   },
   "dependencies": {
-    "@d4kmor/cli": "^0.5.0",
-    "@d4kmor/launch": "^0.4.0",
-    "@d4kmor/search": "^0.1.0",
-    "patch-package": "^6.2.2"
+    "@d4kmor/cli": "^0.5.1",
+    "@d4kmor/launch": "^0.4.1",
+    "@d4kmor/search": "^0.1.0"
   },
   "devDependencies": {
     "@changesets/cli": "^2.9.2",
