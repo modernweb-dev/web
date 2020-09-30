@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-browserstack",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "publishConfig": {
     "access": "public"
   },
@@ -39,7 +39,7 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-selenium": "^0.2.7",
+    "@web/test-runner-selenium": "^0.2.9",
     "browserstack-local": "^1.4.5",
     "ip": "^1.1.5",
     "selenium-webdriver": "^4.0.0-alpha.7",

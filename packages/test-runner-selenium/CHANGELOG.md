@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.2.9
+
+### Patch Changes
+
+- 38d8f03: turn on selenium iframe mode by default
+
 ## 0.2.8
 
 ### Patch Changes

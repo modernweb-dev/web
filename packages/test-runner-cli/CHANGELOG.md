@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.5.17
+
+### Patch Changes
+
+- 38d8f03: increase progress logging interval
+
 ## 0.5.16
 
 ### Patch Changes

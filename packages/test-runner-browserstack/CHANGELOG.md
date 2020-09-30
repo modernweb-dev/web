@@ -1,5 +1,13 @@
 # @web/test-runner-browserstack
 
+## 0.1.5
+
+### Patch Changes
+
+- 38d8f03: turn on selenium iframe mode by default
+- Updated dependencies [38d8f03]
+  - @web/test-runner-selenium@0.2.9
+
 ## 0.1.4
 
 ### Patch Changes
