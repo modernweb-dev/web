@@ -41,7 +41,7 @@ const sharedCapabilities = {
 };
 
 export default {
-  // how many browsers to run concurrently in browserstack. increasing this significantly
+  // how many browsers to run concurrently in Sauce Labs. increasing this significantly
   // reduces testing time, but your subscription might limit concurrent connections
   concurrentBrowsers: 2,
   // amount of test files to execute concurrently in a browser. the default value is based
