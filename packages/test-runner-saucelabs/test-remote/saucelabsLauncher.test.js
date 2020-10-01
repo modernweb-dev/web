@@ -45,12 +45,6 @@ it('runs tests on saucelabs', async function () {
         browserVersion: 'latest',
         platformName: 'Windows 10',
       }),
-      sauceLabsLauncher({
-        ...sharedCapabilities,
-        browserName: 'firefox',
-        browserVersion: 'latest',
-        platformName: 'Windows 10',
-      }),
       // sauceLabsLauncher({
       //   ...sharedCapabilities,
       //   browserName: 'safari',

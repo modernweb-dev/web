@@ -134,7 +134,7 @@ export class TestRunner extends EventEmitter<EventMap> {
     }
 
     this.stopped = true;
-    this.scheduler.stop();
+    await this.scheduler.stop();
     this.server.stop().catch(error => {
       console.error(error);
     });

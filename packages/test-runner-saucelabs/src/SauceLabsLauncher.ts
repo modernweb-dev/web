@@ -29,8 +29,9 @@ export class SauceLabsLauncher extends SeleniumLauncher {
     return super.initialize(config);
   }
 
-  async stop() {
-    await super.stop();
-    await this.manager.deregisterLauncher(this);
+  stop() {
+    const stopPromise = super.stop();
+    this.manager.deregisterLauncher(this);
+    return stopPromise;
   }
 }

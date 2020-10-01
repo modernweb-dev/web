@@ -56,12 +56,12 @@ export default {
     //   browserVersion: 'latest',
     //   platformName: 'Windows 10',
     // }),
-    sauceLabsLauncher({
-      ...sharedCapabilities,
-      browserName: 'internet explorer',
-      browserVersion: '11.0',
-      platformName: 'Windows 7',
-    }),
+    // sauceLabsLauncher({
+    //   ...sharedCapabilities,
+    //   browserName: 'internet explorer',
+    //   browserVersion: '11.0',
+    //   platformName: 'Windows 7',
+    // }),
   ],
   browserStartTimeout: 1000 * 60 * 1,
   testsStartTimeout: 1000 * 60 * 1,

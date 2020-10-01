@@ -21,6 +21,7 @@ export class SauceLabsLauncherManager {
     process.on('SIGINT', this.closeConnection);
     process.on('SIGTERM', this.closeConnection);
     process.on('beforeExit', this.closeConnection);
+    process.on('exit', this.closeConnection);
   }
 
   get webdriverEndpoint() {
@@ -35,7 +36,7 @@ export class SauceLabsLauncherManager {
       return;
     }
 
-    console.log('[Saucelabs] Setting up Sauce Connect proxy...\n');
+    console.log('[Saucelabs] Setting up Sauce Connect proxy...');
     this.connectionPromise = this.api.startSauceConnect(this.connectOptions ?? {});
     this.connection = await this.connectionPromise;
   }

@@ -47,9 +47,10 @@ export class BrowserstackLauncher extends SeleniumLauncher {
     throw new Error('Starting a debug session is not supported in browserstack');
   }
 
-  async stop() {
-    await unregisterBrowserstackLocal(this);
-    return super.stop();
+  stop() {
+    const stopPromise = super.stop();
+    unregisterBrowserstackLocal(this);
+    return stopPromise;
   }
 }
 
