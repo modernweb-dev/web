@@ -1,5 +1,11 @@
 # @web/test-runner-browserstack
 
+## 0.1.6
+
+### Patch Changes
+
+- bd27fff: improve browser and proxy close logic
+
 ## 0.1.5
 
 ### Patch Changes

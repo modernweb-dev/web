@@ -1,5 +1,11 @@
 # @web/test-runner-saucelabs
 
+## 0.0.9
+
+### Patch Changes
+
+- bd27fff: improve browser and proxy close logic
+
 ## 0.0.8
 
 ### Patch Changes

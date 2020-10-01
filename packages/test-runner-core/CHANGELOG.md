@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.7.22
+
+### Patch Changes
+
+- bd27fff: improve browser and proxy close logic
+
 ## 0.7.21
 
 ### Patch Changes

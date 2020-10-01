@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.7.39
+
+### Patch Changes
+
+- bd27fff: improve browser and proxy close logic
+- Updated dependencies [bd27fff]
+  - @web/test-runner-core@0.7.22
+  - @web/test-runner-saucelabs@0.0.9
+
 ## 0.7.38
 
 ### Patch Changes
