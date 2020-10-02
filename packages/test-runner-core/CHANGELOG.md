@@ -1,5 +1,12 @@
 # @web/test-runner-core
 
+## 0.7.23
+
+### Patch Changes
+
+- 72ffcde: improve error message when no browsers are configured
+- fcc2e28: added manual testing and open browser options
+
 ## 0.7.22
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @web/test-runner
 
+## 0.7.40
+
+### Patch Changes
+
+- 72ffcde: improve error message when no browsers are configured
+- fcc2e28: added manual testing and open browser options
+- Updated dependencies [72ffcde]
+- Updated dependencies [fcc2e28]
+  - @web/test-runner-core@0.7.23
+  - @web/test-runner-cli@0.5.18
+
 ## 0.7.39
 
 ### Patch Changes

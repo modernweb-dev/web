@@ -1,5 +1,14 @@
 # @web/test-runner-cli
 
+## 0.5.18
+
+### Patch Changes
+
+- fcc2e28: added manual testing and open browser options
+- Updated dependencies [72ffcde]
+- Updated dependencies [fcc2e28]
+  - @web/test-runner-core@0.7.23
+
 ## 0.5.17
 
 ### Patch Changes
