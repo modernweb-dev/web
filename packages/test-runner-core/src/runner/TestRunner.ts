@@ -39,15 +39,23 @@ export class TestRunner extends EventEmitter<EventMap> {
 
   constructor(config: TestRunnerCoreConfig, groupConfigs: TestRunnerGroupConfig[] = []) {
     super();
+    if (!config.manual && (!config.browsers || config.browsers.length === 0)) {
+      throw new Error('No browsers are configured to run tests');
+    }
+
+    if (config.manual && config.watch) {
+      throw new Error('Cannot combine the manual and watch options.');
+    }
+
+    if (config.open && !config.manual) {
+      throw new Error('The open option requires the manual option to be set.');
+    }
+
     const { sessionGroups, testFiles, testSessions, browsers } = createTestSessions(
       config,
       groupConfigs,
     );
     this.config = config;
-
-    if (this.config.manual && this.config.watch) {
-      throw new Error('Cannot combine the manual and watch options.');
-    }
 
     this.testFiles = testFiles;
     this.browsers = browsers;
