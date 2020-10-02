@@ -139,8 +139,18 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
     }
 
     if (cliArgs.puppeteer) {
+      if (config.browsers && config.browsers.length > 0) {
+        throw new TestRunnerStartError(
+          'The --puppeteer flag cannot be used when defining browsers manually in your config.',
+        );
+      }
       config.browsers = puppeteerLauncher(cliArgs.browsers);
     } else if (cliArgs.playwright) {
+      if (config.browsers && config.browsers.length > 0) {
+        throw new TestRunnerStartError(
+          'The --playwright flag cannot be used when defining browsers manually in your config.',
+        );
+      }
       config.browsers = playwrightLauncher(cliArgs.browsers);
     } else {
       if (cliArgs.browsers != null) {
