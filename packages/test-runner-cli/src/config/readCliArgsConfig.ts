@@ -47,6 +47,17 @@ const defaultOptions: OptionDefinition[] = [
     description: 'Disables rendering a progress bar dynamically to the terminal.',
   },
   {
+    name: 'manual',
+    type: Boolean,
+    description:
+      'Starts test runner in manual testing mode. Ignores browsers option and prints manual testing URL.',
+  },
+  {
+    name: 'open',
+    type: Boolean,
+    description: 'Opens browser for manual testing. Requires the manual option to be set.',
+  },
+  {
     name: 'port',
     type: Number,
     description: 'Port to bind the server on.',

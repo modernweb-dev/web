@@ -19,9 +19,10 @@ import { TestRunnerLogger } from '../logger/TestRunnerLogger';
 import { BufferedLogger } from '../reporter/BufferedLogger';
 import { getManualDebugMenu } from './getManualDebugMenu';
 
-export type MenuType = 'overview' | 'focus' | 'debug' | 'manual-debug';
+export type MenuType = 'none' | 'overview' | 'focus' | 'debug' | 'manual-debug';
 
 export const MENUS = {
+  NONE: 'none' as MenuType,
   OVERVIEW: 'overview' as MenuType,
   FOCUS_SELECT_FILE: 'focus' as MenuType,
   DEBUG_SELECT_FILE: 'debug' as MenuType,
@@ -41,7 +42,7 @@ export class TestRunnerCli {
   private terminal = new DynamicTerminal();
   private reportedFilesByTestRun = new Map<number, Set<string>>();
   private sessions: TestSessionManager;
-  private activeMenu: MenuType = MENUS.OVERVIEW;
+  private activeMenu: MenuType = MENUS.NONE;
   private menuSucceededAndPendingFiles: string[] = [];
   private menuFailedFiles: string[] = [];
   private testCoverage?: TestCoverage;
@@ -67,9 +68,6 @@ export class TestRunnerCli {
     this.setupRunnerEvents();
 
     this.terminal.start();
-    if (this.config.watch) {
-      this.terminal.clear();
-    }
 
     for (const reporter of this.config.reporters) {
       reporter.start?.({
@@ -81,15 +79,18 @@ export class TestRunnerCli {
       });
     }
 
-    this.reportTestResults();
-    this.reportTestProgress();
+    this.switchMenu(this.config.manual ? MENUS.MANUAL_DEBUG : MENUS.OVERVIEW);
 
-    if (this.config.watch) {
+    if (this.config.watch || (this.config.manual && this.terminal.isInteractive)) {
       this.terminal.observeDirectInput();
     }
 
     if (this.config.staticLogging || !this.terminal.isInteractive) {
       this.logger.log(chalk.bold(`Running ${this.runner.testFiles.length} test files...\n`));
+    }
+
+    if (this.config.open) {
+      openBrowser(this.localAddress);
     }
   }
 
@@ -107,7 +108,12 @@ export class TestRunnerCli {
         case KEYCODES.CTRL_C:
         case KEYCODES.CTRL_D:
         case 'Q':
-          this.runner.stop();
+          if (
+            this.activeMenu === MENUS.OVERVIEW ||
+            (this.config.manual && this.activeMenu === MENUS.MANUAL_DEBUG)
+          ) {
+            this.runner.stop();
+          }
           return;
         case 'D':
           if (this.activeMenu === MENUS.OVERVIEW) {
@@ -297,6 +303,10 @@ export class TestRunnerCli {
   }
 
   private reportTestProgress(final = false) {
+    if (this.config.manual) {
+      return;
+    }
+
     const logStatic = this.config.staticLogging || !this.terminal.isInteractive;
     if (logStatic && !final) {
       // print a static progress log only once every 10000ms

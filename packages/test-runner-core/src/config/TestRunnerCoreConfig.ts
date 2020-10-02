@@ -49,6 +49,11 @@ export interface TestRunnerCoreConfig {
   testsFinishTimeout: number;
   staticLogging?: boolean;
 
+  /** Ignores browsers option and prints manual testing URL. */
+  manual?: boolean;
+  /** Opens browser for manual testing. Requires the manual option to be set. */
+  open?: boolean;
+
   debug?: boolean;
   mimeTypes?: Record<string, string>;
   plugins?: TestRunnerPlugin[];

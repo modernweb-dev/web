@@ -44,6 +44,11 @@ export class TestRunner extends EventEmitter<EventMap> {
       groupConfigs,
     );
     this.config = config;
+
+    if (this.config.manual && this.config.watch) {
+      throw new Error('Cannot combine the manual and watch options.');
+    }
+
     this.testFiles = testFiles;
     this.browsers = browsers;
     this.browserNames = Array.from(new Set(this.browsers.map(b => b.name)));
@@ -73,17 +78,19 @@ export class TestRunner extends EventEmitter<EventMap> {
       this.started = true;
       this.startTime = Date.now();
 
-      for (const browser of this.browsers) {
-        if (browser.initialize) {
-          await browser.initialize(this.config, this.testFiles);
-        }
-      }
-      // the browser names can be updated after initialize
-      this.browserNames = Array.from(new Set(this.browsers.map(b => b.name)));
-
       await this.server.start();
 
-      this.runTests(this.sessions.all());
+      if (!this.config.manual) {
+        for (const browser of this.browsers) {
+          if (browser.initialize) {
+            await browser.initialize(this.config, this.testFiles);
+          }
+        }
+
+        // the browser names can be updated after initialize
+        this.browserNames = Array.from(new Set(this.browsers.map(b => b.name)));
+        this.runTests(this.sessions.all());
+      }
     } catch (error) {
       this.stop(error);
     }
