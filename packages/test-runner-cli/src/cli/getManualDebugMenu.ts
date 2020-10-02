@@ -16,6 +16,6 @@ export function getManualDebugMenu(config: TestRunnerCoreConfig): string[] {
     `Network address: ${chalk.cyanBright(networkAddress)}`,
     ' ',
     `${chalk.gray('Press')} D ${chalk.gray('to open the browser.')}`,
-    `${chalk.gray('Press')} ESC ${chalk.gray('to exit manual debug.')}`,
+    `${chalk.gray('Press')} ${config.manual ? 'Q' : 'ESC'} ${chalk.gray('to exit manual debug.')}`,
   ].filter(_ => !!_);
 }
