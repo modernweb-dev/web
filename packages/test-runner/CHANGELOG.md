@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.7.41
+
+### Patch Changes
+
+- ae056f5: throw when combining browsers config and flags
+
 ## 0.7.40
 
 ### Patch Changes
