@@ -3,9 +3,8 @@
 /** @typedef {import('../dist/index').TestResult} TestResult */
 /** @typedef {import('../dist/index').TestSuiteResult} TestSuiteResult */
 
-// mocking libraries might overwrite window.fetch, by grabbing a reference here
-// we make sure we are using the original fetch instead of the mocked variant
-const fetch = window.fetch;
+import { webSocket, sendMessage } from '/__web-dev-server__web-socket.js';
+
 const PARAM_SESSION_ID = 'wtr-session-id';
 const PARAM_TEST_FILE = 'wtr-test-file';
 const PARAM_IMPORT_MAP = 'wds-import-map';
@@ -17,28 +16,29 @@ if (typeof sessionId !== 'string' && typeof testFile !== 'string') {
   throw new Error(`Could not find any session id or test filequery parameter.`);
 }
 
-function postJSON(url, body) {
-  return fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-}
+let resolveConfig;
+const configPromise = new Promise(resolve => {
+  resolveConfig = resolve;
+});
 
-async function getSessionConfig() {
-  const response = await fetch(`/wtr/${sessionId}/config`);
-  return response.json();
-}
-
-async function getTestFileConfig() {
-  const response = await fetch(`/wtr/test-config`);
-  const config = await response.json();
-  return { ...config, testFile };
-}
+webSocket.addEventListener('message', e => {
+  try {
+    const message = JSON.parse(e.data);
+    if (message.type === 'wtr-config') {
+      if (typeof message.config !== 'object') {
+        throw new Error('Missing config property in websocket wtr-config message.');
+      }
+      resolveConfig(message.config);
+    }
+  } catch (error) {
+    console.error('[Web Test Runner] Error while handling websocket message.');
+    console.error(error);
+  }
+});
 
 export async function getConfig() {
   try {
-    const config = await (sessionId ? getSessionConfig() : getTestFileConfig());
+    const config = await configPromise;
     const url = new URL(import.meta.url);
 
     // pass on import map parameter to test files, this special cases a specific plugin
@@ -83,7 +83,7 @@ export async function sessionStarted() {
     return;
   }
 
-  await fetch(`/wtr/${sessionId}/session-started`, { method: 'POST' });
+  await sendMessage({ type: 'wtr-session-started', sessionId, testFile });
 }
 
 export async function sessionFinished(result) {
@@ -97,11 +97,12 @@ export async function sessionFinished(result) {
   }
   finished = true;
 
-  const sessionResult = {
+  const fullResult = {
     // some browser launchers set browser logs here
     logs: window.__wtr_browser_logs__ ? window.__wtr_browser_logs__.logs : [],
     errors: [],
     ...result,
   };
-  await postJSON(`/wtr/${sessionId}/session-finished`, sessionResult);
+
+  await sendMessage({ type: 'wtr-session-finished', sessionId, testFile, result: fullResult });
 }

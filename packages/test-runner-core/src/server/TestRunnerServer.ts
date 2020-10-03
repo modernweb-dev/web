@@ -8,6 +8,7 @@ import { serveTestRunnerHtmlPlugin } from './plugins/serveTestRunnerHtmlPlugin';
 import { serveTestFrameworkPlugin } from './plugins/serveTestFrameworkPlugin';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { TestSessionManager } from '../test-session/TestSessionManager';
+import { testRunnerApiPlugin } from './plugins/testRunnerApiPlugin';
 
 const CACHED_PATTERNS = [
   'node_modules/@web/test-runner-',
@@ -35,6 +36,7 @@ export class TestRunnerServer {
       port: config.port,
       hostname: config.hostname,
       rootDir,
+      injectWebSocket: true,
 
       mimeTypes: config.mimeTypes,
       middleware: [
@@ -45,6 +47,7 @@ export class TestRunnerServer {
       ],
 
       plugins: [
+        testRunnerApiPlugin(config, plugins, sessions),
         serveTestRunnerHtmlPlugin(config, testFiles, testFrameworkImport),
         testFrameworkPlugin,
         ...(config.plugins || []),
