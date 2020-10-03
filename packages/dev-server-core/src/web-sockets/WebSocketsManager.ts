@@ -4,8 +4,10 @@ import { EventEmitter } from './EventEmitter';
 
 export const NAME_WEB_SOCKET_IMPORT = '/__web-dev-server__web-socket.js';
 
+type WebSocketData = { type: string } & Record<string, unknown>;
+
 export interface Events {
-  message: { webSocket: WebSocket; data: WebSocket.Data };
+  message: { webSocket: WebSocket; data: WebSocketData };
 }
 
 /**
@@ -27,8 +29,17 @@ export class WebSocketsManager extends EventEmitter<Events> {
         this.openSockets.delete(webSocket);
       });
 
-      webSocket.on('message', data => {
-        this.emit('message', { webSocket, data });
+      webSocket.on('message', rawData => {
+        try {
+          const data = JSON.parse(rawData.toString());
+          if (!data.type) {
+            throw new Error('Missing property "type".');
+          }
+          this.emit('message', { webSocket, data });
+        } catch (error) {
+          console.error('Failed to parse websocket event received from the browser: ', rawData);
+          console.error(error);
+        }
       });
     });
 

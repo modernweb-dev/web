@@ -1,8 +1,6 @@
 /* eslint-env browser, es2020 */
+import { sendMessageWaitForResponse } from '/__web-dev-server__web-socket.js';
 
-// mocking libraries might overwrite window.fetch, by grabbing a reference here
-// we make sure we are using the original fetch instead of the mocked variant
-const fetch = window.fetch;
 const PARAM_SESSION_ID = 'wtr-session-id';
 
 const sessionId = new URL(window.location.href).searchParams.get(PARAM_SESSION_ID);
@@ -15,26 +13,28 @@ export async function executeServerCommand(command, payload) {
     );
   }
 
-  const body = JSON.stringify({ payload });
-  const response = await fetch(`/wtr/${sessionId}/command/${encodeURIComponent(command)}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body,
-  }).catch(() => {
-    // swallow error, it is handled below
-  });
+  try {
+    const response = await sendMessageWaitForResponse({
+      type: 'wtr-command',
+      sessionId,
+      command,
+      payload,
+    });
 
-  if (response.status === 404) {
-    throw new Error(`Unknown command ${command}. Did you install a plugin to handle this command?`);
-  }
+    if (!response.executed) {
+      throw new Error(
+        `Unknown command ${command}. Did you install a plugin to handle this command?`,
+      );
+    }
 
-  if (response.status !== 200) {
+    return response.result;
+  } catch (error) {
     throw new Error(
-      `Error while executing command ${command}${payload ? ` with payload ${body}` : ''}`,
+      `Error while executing command ${command}${payload ? ` with payload ${payload}` : ''}: ${
+        error.message
+      }`,
     );
   }
-
-  return response.json();
 }
 
 export function setViewport(viewport) {
