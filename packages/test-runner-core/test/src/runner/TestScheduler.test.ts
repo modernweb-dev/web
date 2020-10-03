@@ -36,6 +36,7 @@ describe('TestScheduler', () => {
       startSession: stub().returns(timeout(1)),
       stopSession: stub().returns(timeout(1).then(() => ({ testCoverage: {} }))),
       isActive: stub().returns(true),
+      getBrowserUrl: stub().returns(''),
     };
   }
 

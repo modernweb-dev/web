@@ -49,6 +49,12 @@ export interface BrowserLauncher {
   isActive(sessionId: string): boolean;
 
   /**
+   * Returns the current browser URL for the test session. This is used for example to
+   * detect browser navigations.
+   */
+  getBrowserUrl(sessionId: string): string | Promise<string>;
+
+  /**
    * Stops a single test session. There is no mandatory action to be taken here.
    * Implementations can use this for example to recycle inactive tabs instead of
    * creating new ones.

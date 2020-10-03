@@ -1,7 +1,6 @@
 import * as constants from './utils/constants';
 export { constants };
 export { BrowserLauncher, SessionResult } from './browser-launcher/BrowserLauncher';
-export { getBrowserPageNavigationError } from './browser-launcher/getBrowserPageNavigationError';
 export {
   Reporter,
   ReportTestResultsArgs,

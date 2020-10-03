@@ -3,15 +3,15 @@ import chokidar from 'chokidar';
 
 import { RunSessions, watchFilesMiddleware } from './middleware/watchFilesMiddleware';
 import { cacheMiddleware } from './middleware/cacheMiddleware';
-import { testRunnerApiMiddleware } from './middleware/testRunnerApiMiddleware';
 import { serveTestRunnerHtmlPlugin } from './plugins/serveTestRunnerHtmlPlugin';
 import { serveTestFrameworkPlugin } from './plugins/serveTestFrameworkPlugin';
+import { testRunnerApiPlugin } from './plugins/testRunnerApiPlugin';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { TestSessionManager } from '../test-session/TestSessionManager';
-import { testRunnerApiPlugin } from './plugins/testRunnerApiPlugin';
 
 const CACHED_PATTERNS = [
   'node_modules/@web/test-runner-',
+  'node_modules/@esm-bundle/chai',
   'node_modules/mocha/',
   'node_modules/chai/',
 ];
@@ -40,7 +40,6 @@ export class TestRunnerServer {
 
       mimeTypes: config.mimeTypes,
       middleware: [
-        testRunnerApiMiddleware(sessions, rootDir, config, plugins),
         watchFilesMiddleware({ runSessions, sessions, rootDir, fileWatcher: this.fileWatcher }),
         cacheMiddleware(CACHED_PATTERNS, config.watch),
         ...(config.middleware || []),

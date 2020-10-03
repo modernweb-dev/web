@@ -1,177 +1,269 @@
+import { Context, ServerStartParams, WebSocket } from '@web/dev-server-core';
 import { deserialize } from '@web/browser-logs';
+
 import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
 import { TestSessionManager } from '../../test-session/TestSessionManager';
 import { PARAM_SESSION_ID } from '../../utils/constants';
 import { TestRunnerPlugin } from '../TestRunnerPlugin';
 import { createTestFileImportPath } from '../utils';
 import { SESSION_STATUS } from '../../test-session/TestSessionStatus';
+import { TestSession } from '../../test-session/TestSession';
 
 interface SessionMessage extends Record<string, unknown> {
   sessionId: string;
   testFile: string;
 }
 
-export function testRunnerApiPlugin(
-  config: TestRunnerCoreConfig,
-  plugins: TestRunnerPlugin[],
-  sessions: TestSessionManager,
-): TestRunnerPlugin {
-  const testFileUrls = new Map<string, string>();
+class TestRunnerApiPlugin implements TestRunnerPlugin {
+  public name = 'test-runner-api';
+  public injectWebSocket = true;
 
-  function getSession(sessionId: string) {
-    const session = sessions.get(sessionId) || sessions.getDebug(sessionId);
+  private config: TestRunnerCoreConfig;
+  private plugins: TestRunnerPlugin[];
+  private sessions: TestSessionManager;
+  /** key: session id, value: test file import url */
+  private testFileUrls = new Map<string, string>();
+  /** key: session id, value: browser url */
+  private testSessionUrls = new Map<string, string>();
+
+  constructor(
+    config: TestRunnerCoreConfig,
+    plugins: TestRunnerPlugin[],
+    sessions: TestSessionManager,
+  ) {
+    this.config = config;
+    this.plugins = plugins;
+    this.sessions = sessions;
+  }
+
+  getSession(sessionId: string) {
+    const session = this.sessions.get(sessionId) || this.sessions.getDebug(sessionId);
     if (!session) {
       throw new Error(`Session id ${sessionId} not found`);
     }
     return session;
   }
 
-  function parseSessionMessage(data: Record<string, unknown>) {
+  parseSessionMessage(data: Record<string, unknown>) {
     if (typeof data.sessionId === 'string') {
-      return { message: (data as any) as SessionMessage, session: getSession(data.sessionId) };
+      return { message: (data as any) as SessionMessage, session: this.getSession(data.sessionId) };
     }
     throw new Error('Missing sessionId in browser websocket message.');
   }
 
-  return {
-    name: 'test-plugin',
-
-    injectWebSocket: true,
-
-    async transform(context) {
-      if (context.response.is('html')) {
-        const sessionId = context.URL.searchParams.get(PARAM_SESSION_ID);
-        if (!sessionId) {
-          return;
-        }
-
-        try {
-          const session = getSession(sessionId);
-          if (!session.debug) {
-            // store the session user agent, used for source maps
-            sessions.update({
-              ...session,
-              userAgent: context.headers['user-agent'],
-            });
-          }
-
-          const testFileUrl = await createTestFileImportPath(
-            config,
-            context,
-            session.testFile,
-            sessionId,
-          );
-          testFileUrls.set(sessionId, testFileUrl);
-        } catch (error) {
-          config.logger.error('Error while creating test file import path');
-          config.logger.error(error);
-          context.status = 500;
-        }
+  async transform(context: Context) {
+    if (context.response.is('html')) {
+      const sessionId = context.URL.searchParams.get(PARAM_SESSION_ID);
+      if (!sessionId) {
+        return;
       }
-    },
 
-    serverStart({ webSockets }) {
-      webSockets!.on('message', async ({ webSocket, data }) => {
-        if (data.type === 'wtr-session-started') {
-          let runtimeConfig: Record<string, unknown>;
+      try {
+        const session = this.getSession(sessionId);
+        if (!session.debug) {
+          // store the session user agent, used for source maps
+          this.sessions.update({
+            ...session,
+            userAgent: context.headers['user-agent'],
+          });
+        }
 
-          if (data.testFile) {
-            // config for manually debugging a test file
-            runtimeConfig = {
-              testFile: data.testFile as string,
-              watch: !!config.watch,
-              debug: true,
-              testFrameworkConfig: config.testFramework?.config,
-            };
-          } else {
-            const { session } = parseSessionMessage(data);
-            if (!session.debug) {
-              // mark the session as started
-              sessions.updateStatus(session, SESSION_STATUS.TEST_STARTED);
-            }
+        const testFileUrl = await createTestFileImportPath(
+          this.config,
+          context,
+          session.testFile,
+          sessionId,
+        );
+        this.testFileUrls.set(sessionId, testFileUrl);
+        this.testSessionUrls.set(
+          sessionId,
+          `${this.config.protocol}//${this.config.hostname}:${this.config.port}${context.url}`,
+        );
+      } catch (error) {
+        this.config.logger.error('Error while creating test file import path');
+        this.config.logger.error(error);
+        context.status = 500;
+      }
+    }
+  }
 
-            const testFile = testFileUrls.get(session.id);
+  serverStart({ webSockets }: ServerStartParams) {
+    webSockets!.on('message', async ({ webSocket, data }) => {
+      if (data.type === 'wtr-session-started') {
+        this._onSessionStarted(webSocket, data);
+        return;
+      }
 
-            if (!testFile) {
-              throw new Error(`Missing test file url for session ${session.id}`);
-            }
+      if (data.type === 'wtr-session-finished') {
+        this._onSessionFinished(data);
+        return;
+      }
 
-            // config for regular test session
-            runtimeConfig = {
-              testFile,
-              watch: !!config.watch,
-              debug: session.debug,
-              testFrameworkConfig: config.testFramework?.config,
-            };
-          }
+      if (data.type === 'wtr-command') {
+        this._onCommand(webSocket, data);
+        return;
+      }
+    });
+  }
 
-          // send config to the broser to kick off testing
-          webSocket.send(JSON.stringify({ type: 'wtr-config', config: runtimeConfig }));
+  private _onSessionStarted(webSocket: WebSocket, data: Record<string, unknown>) {
+    let runtimeConfig: Record<string, unknown>;
+
+    if (data.testFile) {
+      // this is a manual debug session
+      runtimeConfig = {
+        testFile: data.testFile as string,
+        watch: !!this.config.watch,
+        debug: true,
+        testFrameworkConfig: this.config.testFramework?.config,
+      };
+    } else {
+      // this is a regular test session
+      const { session } = this.parseSessionMessage(data);
+
+      if (!session.debug) {
+        if (session.status !== SESSION_STATUS.INITIALIZING) {
+          this._onMultiInitialized(session);
           return;
         }
 
-        if (data.type === 'wtr-session-finished') {
-          const { session, message } = parseSessionMessage(data);
-          if (session.debug) return;
+        // mark the session as started
+        this.sessions.updateStatus(session, SESSION_STATUS.TEST_STARTED);
+        this._waitForDisconnect(webSocket, session.id);
+      }
 
-          if (typeof message.result !== 'object') {
-            throw new Error('Missing result in session-finished message.');
-          }
+      const testFile = this.testFileUrls.get(session.id);
+      if (!testFile) {
+        throw new Error(`Missing test file url for session ${session.id}`);
+      }
 
-          const result = message.result as any;
-          if (result.logs) {
-            result.logs = result.logs
-              .map((log: any) => ({
-                type: log.type,
-                args: log.args.map((a: any) => deserialize(a)),
-              }))
-              .filter((log: any) =>
-                config.filterBrowserLogs ? config.filterBrowserLogs(log) : true,
-              )
-              .map((log: any) => log.args);
-          }
-          sessions.updateStatus({ ...session, ...result }, SESSION_STATUS.TEST_FINISHED);
-          return;
-        }
+      runtimeConfig = {
+        testFile,
+        watch: !!this.config.watch,
+        debug: session.debug,
+        testFrameworkConfig: this.config.testFramework?.config,
+      };
+    }
 
-        if (data.type === 'wtr-command') {
-          const { session, message } = parseSessionMessage(data);
-          const { id, command, payload } = message;
+    // send config to the broser to kick off testing
+    webSocket.send(JSON.stringify({ type: 'wtr-config', config: runtimeConfig }));
+  }
 
-          if (typeof id !== 'number') {
-            throw new Error('Missing message id.');
-          }
-          if (typeof command !== 'string') {
-            throw new Error('A command name must be provided.');
-          }
+  private _onSessionFinished(data: Record<string, unknown>) {
+    const { session, message } = this.parseSessionMessage(data);
+    if (session.debug) return;
+    if (typeof message.result !== 'object') {
+      throw new Error('Missing result in session-finished message.');
+    }
+    const result = message.result as any;
+    if (result.logs) {
+      result.logs = result.logs
+        .map((log: any) => ({
+          type: log.type,
+          args: log.args.map((a: any) => deserialize(a)),
+        }))
+        .filter((log: any) =>
+          this.config.filterBrowserLogs ? this.config.filterBrowserLogs(log) : true,
+        )
+        .map((log: any) => log.args);
+    }
 
-          for (const plugin of plugins) {
-            try {
-              const result = await plugin.executeCommand?.({ command, payload, session });
-              if (result != null) {
-                webSocket.send(
-                  JSON.stringify({
-                    type: 'message-response',
-                    id,
-                    response: { executed: true, result },
-                  }),
-                );
-                return;
-              }
-            } catch (error) {
-              config.logger.error(error);
-              webSocket.send(
-                JSON.stringify({ type: 'message-response', id, error: error.message }),
-              );
-              return;
-            }
-          }
+    this.sessions.updateStatus({ ...session, ...result }, SESSION_STATUS.TEST_FINISHED);
+  }
 
+  private async _onCommand(webSocket: WebSocket, data: Record<string, unknown>) {
+    const { session, message } = this.parseSessionMessage(data);
+    const { id, command, payload } = message;
+
+    if (typeof id !== 'number') throw new Error('Missing message id.');
+    if (typeof command !== 'string') throw new Error('A command name must be provided.');
+
+    for (const plugin of this.plugins) {
+      try {
+        const result = await plugin.executeCommand?.({ command, payload, session });
+        if (result != null) {
           webSocket.send(
-            JSON.stringify({ type: 'message-response', id, response: { executed: false } }),
+            JSON.stringify({
+              type: 'message-response',
+              id,
+              response: { executed: true, result },
+            }),
           );
+          return;
         }
-      });
-    },
-  };
+      } catch (error) {
+        this.config.logger.error(error);
+        webSocket.send(JSON.stringify({ type: 'message-response', id, error: error.message }));
+        return;
+      }
+    }
+
+    // no command was matched
+    webSocket.send(JSON.stringify({ type: 'message-response', id, response: { executed: false } }));
+  }
+
+  /**
+   * Waits for web socket to become disconnected, and checks after disconnect if it was expected
+   * or if some error occurred.
+   */
+  private _waitForDisconnect(webSocket: WebSocket, sessionId: string) {
+    webSocket.on('close', async () => {
+      const session = this.sessions.get(sessionId);
+      if (session?.status !== SESSION_STATUS.TEST_STARTED) {
+        // websocket closed after finishing the tests, this is expected
+        return;
+      }
+
+      // the websocket disconnected while the tests were still running, this can happen for many reasons.
+      // we wait 500ms (magic number) to let other handlers come up with a more specific error message
+      await new Promise(r => setTimeout(r, 500));
+      const updatedSession = this.sessions.get(sessionId);
+      if (updatedSession?.status !== SESSION_STATUS.TEST_STARTED) {
+        // something else handled the disconnect
+        return;
+      }
+
+      const startUrl = this.testSessionUrls.get(updatedSession.id);
+      const currentUrl = await updatedSession.browser.getBrowserUrl(updatedSession.id);
+
+      if (startUrl !== currentUrl) {
+        this._setSessionFailed(
+          updatedSession,
+          `Tests were interrupted because the page navigated to ${currentUrl}. ` +
+            'This can happen when clicking a link, submitting a form or interacting with window.location.',
+        );
+      } else {
+        this._setSessionFailed(
+          updatedSession,
+          'Tests were interrupted because the browser disconnected.',
+        );
+      }
+    });
+  }
+
+  private _onMultiInitialized(session: TestSession) {
+    this._setSessionFailed(
+      session,
+      'Tests were interrupted because the page was reloaded. ' +
+        'This can happen when clicking a link, submitting a form or interacting with window.location.',
+    );
+  }
+
+  private _setSessionFailed(session: TestSession, message: string) {
+    this.sessions.updateStatus(
+      {
+        ...session,
+        errors: [...(session.errors ?? []), { message }],
+      },
+      SESSION_STATUS.TEST_FINISHED,
+    );
+  }
+}
+
+export function testRunnerApiPlugin(
+  config: TestRunnerCoreConfig,
+  plugins: TestRunnerPlugin[],
+  sessions: TestSessionManager,
+) {
+  return new TestRunnerApiPlugin(config, plugins, sessions);
 }
