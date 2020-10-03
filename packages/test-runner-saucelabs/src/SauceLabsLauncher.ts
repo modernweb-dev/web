@@ -4,7 +4,7 @@ import webdriver, { Capabilities } from 'selenium-webdriver';
 import ip from 'ip';
 import { SauceLabsLauncherManager } from './SauceLabsLauncherManager';
 
-const localIp = ip.address();
+const networkAddress = ip.address();
 
 export class SauceLabsLauncher extends SeleniumLauncher {
   constructor(
@@ -17,7 +17,7 @@ export class SauceLabsLauncher extends SeleniumLauncher {
   }
 
   startSession(sessionId: string, url: string) {
-    return super.startSession(sessionId, url.replace(/(localhost|127\.0\.0\.1)/, localIp));
+    return super.startSession(sessionId, url.replace(/(localhost|127\.0\.0\.1)/, networkAddress));
   }
 
   async startDebugSession() {

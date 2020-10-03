@@ -19,7 +19,5 @@ it('runs tests with puppeteer', async function () {
     browsers: [puppeteerLauncher()],
     // firefox doesn't work in our CI
     // browsers: [puppeteerLauncher({ launchOptions: { product: 'firefox' } })],
-    concurrentBrowsers: 2,
-    concurrency: 6,
   });
 });

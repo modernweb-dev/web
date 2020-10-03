@@ -66,8 +66,8 @@ it('runs tests on browserstack', async function () {
     concurrentBrowsers: 2,
     concurrency: 6,
     plugins: [legacyPlugin()],
-    browserStartTimeout: 1000 * 60 * 1,
-    testsStartTimeout: 1000 * 60 * 1,
-    testsFinishTimeout: 1000 * 60 * 1,
+    browserStartTimeout: 1000 * 60 * 2,
+    testsStartTimeout: 1000 * 60 * 2,
+    testsFinishTimeout: 1000 * 60 * 2,
   });
 });

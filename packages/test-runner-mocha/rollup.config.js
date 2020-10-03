@@ -26,11 +26,21 @@ const rewriteDtsPlugin = {
   },
 };
 
+const rewriteWebSocketImportPlugin = {
+  renderChunk(code) {
+    // undo rollup rewrite of import path
+    return code.replace(
+      /['"].*\/__web-dev-server__web-socket\.js['"]/,
+      '"/__web-dev-server__web-socket.js"',
+    );
+  },
+};
+
 export default [
   deepmerge(createConfig('src/autorun.ts'), {
-    plugins: [cssPlugin, rewriteDtsPlugin],
+    plugins: [cssPlugin, rewriteDtsPlugin, rewriteWebSocketImportPlugin],
   }),
   deepmerge(createConfig('src/standalone.ts'), {
-    plugins: [cssPlugin, rewriteDtsPlugin],
+    plugins: [cssPlugin, rewriteDtsPlugin, rewriteWebSocketImportPlugin],
   }),
 ];

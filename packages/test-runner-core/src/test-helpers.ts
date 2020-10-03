@@ -17,6 +17,9 @@ const logger: Logger = {
   },
 };
 
+const secondMs = 1000;
+const minuteMs = secondMs * 60;
+
 const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   watch: false,
   rootDir: path.join(__dirname, '..', '..', '..'),
@@ -28,9 +31,9 @@ const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   reporters: [],
   concurrentBrowsers: 2,
   concurrency: 10,
-  browserStartTimeout: 30000,
-  testsStartTimeout: 10000,
-  testsFinishTimeout: 20000,
+  browserStartTimeout: minuteMs / 2,
+  testsStartTimeout: secondMs * 20,
+  testsFinishTimeout: minuteMs * 2,
   browserLogs: true,
   logger,
 };
@@ -133,8 +136,6 @@ export async function runTests(
       if (allowFailure || passed) {
         resolve(runner);
       } else {
-        console.error('Failed tests:');
-        console.error(sessions.filter(s => !s.passed));
         reject(new Error('Test run did not pass'));
       }
     });

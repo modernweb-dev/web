@@ -42,7 +42,7 @@
     "@types/puppeteer": "^3.0.1",
     "@web/test-runner-chrome": "^0.6.8",
     "@web/test-runner-core": "^0.7.19",
-    "puppeteer": "^5.1.0"
+    "puppeteer": "^5.3.1"
   },
   "devDependencies": {
     "@web/test-runner-mocha": "^0.3.1"
