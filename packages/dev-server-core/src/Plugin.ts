@@ -17,7 +17,7 @@ export type TransformResult =
 export type ResolveResult = void | string | { id?: string };
 export type ResolveMimeTypeResult = void | string | { type?: string };
 
-export interface ServerArgs {
+export interface ServerStartParams {
   config: DevServerCoreConfig;
   app: Koa;
   server: Server;
@@ -29,7 +29,7 @@ export interface ServerArgs {
 export interface Plugin {
   name: string;
   injectWebSocket?: boolean;
-  serverStart?(args: ServerArgs): void | Promise<void>;
+  serverStart?(args: ServerStartParams): void | Promise<void>;
   serverStop?(): void | Promise<void>;
   serve?(context: Context): ServeResult | Promise<ServeResult>;
   transform?(context: Context): TransformResult | Promise<TransformResult>;

@@ -126,12 +126,12 @@ describe('WebSocketManager', () => {
       const waitForMessage = waitFor(resolve => {
         server.webSockets.on('message', ({ webSocket, data }) => {
           expect(webSocket).to.be.an.instanceOf(WebSocket);
-          expect(data).to.equal('foo');
+          expect(data).to.eql({ type: 'foo' });
           resolve();
         });
       }, 'expected message event fired from manager');
 
-      ws.send('foo');
+      ws.send(JSON.stringify({ type: 'foo' }));
       await waitForMessage;
     } finally {
       server.stop();
