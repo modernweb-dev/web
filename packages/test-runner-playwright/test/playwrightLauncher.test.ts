@@ -1,5 +1,6 @@
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { resolve } from 'path';
+import os from 'os';
 
 import { playwrightLauncher } from '../src/index';
 
@@ -19,9 +20,7 @@ it('runs tests with playwright', async function () {
     browsers: [
       playwrightLauncher({ product: 'chromium' }),
       playwrightLauncher({ product: 'firefox' }),
-      playwrightLauncher({ product: 'webkit' }),
+      ...(os.platform() === 'win32' ? [] : [playwrightLauncher({ product: 'webkit' })]),
     ],
-    concurrentBrowsers: 2,
-    concurrency: 6,
   });
 });
