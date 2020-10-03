@@ -3,7 +3,7 @@ import { Server } from 'net';
 import { FSWatcher } from 'chokidar';
 import { expect } from 'chai';
 import fetch from 'node-fetch';
-import { ServerArgs } from '../../src/Plugin';
+import { ServerStartParams } from '../../src/Plugin';
 import { DevServer } from '../../src/server/DevServer';
 import { createTestServer } from '../helpers';
 
@@ -107,7 +107,7 @@ it('can add extra middleware', async () => {
 });
 
 it('calls serverStart on plugin hook on start', async () => {
-  let startArgs: ServerArgs;
+  let startArgs: ServerStartParams;
   const { server } = await createTestServer({
     plugins: [
       {
