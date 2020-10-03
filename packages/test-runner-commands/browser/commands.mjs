@@ -30,9 +30,9 @@ export async function executeServerCommand(command, payload) {
     return response.result;
   } catch (error) {
     throw new Error(
-      `Error while executing command ${command}${payload ? ` with payload ${payload}` : ''}: ${
-        error.message
-      }`,
+      `Error while executing command ${command}${
+        payload ? ` with payload ${JSON.stringify(payload)}` : ''
+      }: ${error.message}`,
     );
   }
 }

@@ -7,6 +7,9 @@ import path from 'path';
 import { cpus } from 'os';
 import { TestRunnerLogger } from '../logger/TestRunnerLogger';
 
+const secondMs = 1000;
+const minuteMs = secondMs * 60;
+
 const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   watch: false,
   rootDir: process.cwd(),
@@ -14,9 +17,9 @@ const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   hostname: 'localhost',
   concurrentBrowsers: 2,
   concurrency: cpus().length / 2,
-  browserStartTimeout: 30000,
-  testsStartTimeout: 10000,
-  testsFinishTimeout: 20000,
+  browserStartTimeout: minuteMs / 2,
+  testsStartTimeout: secondMs * 20,
+  testsFinishTimeout: minuteMs * 2,
   browserLogs: true,
 };
 

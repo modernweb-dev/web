@@ -29,7 +29,7 @@ it('a server error causes the command to fail', async () => {
     await executeServerCommand('command-d', { foo: 'bar' });
   } catch (error) {
     expect(error.message).to.equal(
-      'Error while executing command command-d with payload {"payload":{"foo":"bar"}}',
+      'Error while executing command command-d with payload {"foo":"bar"}: error expected to be thrown from command',
     );
     thrown = true;
   }
@@ -42,7 +42,7 @@ it('an unknown command causes the command to fail', async () => {
     await executeServerCommand('command-x');
   } catch (error) {
     expect(error.message).to.equal(
-      'Unknown command command-x. Did you install a plugin to handle this command?',
+      'Error while executing command command-x: Unknown command command-x. Did you install a plugin to handle this command?',
     );
     thrown = true;
   }

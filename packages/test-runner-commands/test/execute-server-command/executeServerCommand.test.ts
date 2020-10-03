@@ -1,13 +1,33 @@
 import path from 'path';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
+import { Logger } from '@web/dev-server-core';
 
 describe('executeServerCommand', function test() {
   this.timeout(20000);
 
   it('can execute commands', async () => {
+    const logger: Logger = {
+      ...console,
+      debug() {
+        //
+      },
+      error(...args) {
+        if (
+          typeof args[0] === 'object' &&
+          typeof (args[0] as any).message === 'string' &&
+          (args[0] as any).message.includes('error expected to be thrown from command')
+        ) {
+          return;
+        }
+        console.error(...args);
+      },
+      logSyntaxError: console.error,
+    };
+
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],
+      logger,
       browsers: [chromeLauncher()],
       plugins: [
         {

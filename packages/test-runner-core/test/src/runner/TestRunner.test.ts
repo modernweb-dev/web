@@ -14,6 +14,7 @@ function createBrowserStub() {
     name: 'myBrowser',
     type: 'myBrowser',
     stop: stub().returns(Promise.resolve()),
+    getBrowserUrl: stub().returns(''),
     startDebugSession: stub().returns(Promise.resolve()),
     startSession: stub().returns(Promise.resolve()),
     stopSession: stub().returns(Promise.resolve({})),

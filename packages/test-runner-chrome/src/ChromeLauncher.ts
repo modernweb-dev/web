@@ -118,6 +118,10 @@ export class ChromeLauncher implements BrowserLauncher {
     return this.activePages.has(sessionId);
   }
 
+  getBrowserUrl(sessionId: string) {
+    return this.getPage(sessionId).url();
+  }
+
   async startDebugSession(sessionId: string, url: string) {
     if (!this.debugBrowser) {
       this.debugBrowser = await this.launchBrowser({ devtools: true });

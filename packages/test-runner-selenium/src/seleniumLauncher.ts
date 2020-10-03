@@ -54,6 +54,13 @@ export class SeleniumLauncher implements BrowserLauncher {
     return !!this.iframeManager?.isActive(id);
   }
 
+  getBrowserUrl(sessionId: string) {
+    if (!this.iframeManager) {
+      throw new Error('Not initialized');
+    }
+    return this.iframeManager.getBrowserUrl(sessionId);
+  }
+
   async stopSession(id: string) {
     return this.iframeManager!.queueStopSession(id);
   }
