@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.0.13
+
+### Patch Changes
+
+- db0cf85: Allow user to set open to false, which should result in the browser not opening. Do a falsy check, instead of null && undefined.
+
 ## 0.0.12
 
 ### Patch Changes
