@@ -43,7 +43,7 @@ export class IFrameManager {
     return this.framePerSession.has(id);
   }
 
-  async getBrowserUrl(sessionId: string): Promise<string> {
+  async getBrowserUrl(sessionId: string): Promise<string | undefined> {
     const frameId = this.framePerSession.get(sessionId);
     if (!frameId) {
       throw new Error(
@@ -51,16 +51,15 @@ export class IFrameManager {
       );
     }
 
-    const returnValue = await this.driver.executeScript(`
-      var iframe = document.getElementById("${frameId}");
-      return iframe.contentWindow.location.href;
-    `);
+    const returnValue = (await this.driver.executeScript(`
+      try {
+        var iframe = document.getElementById("${frameId}");
+        return iframe.contentWindow.location.href;
+      } catch (_) {
+        return undefined;
+      }
+    `)) as string | undefined;
 
-    if (typeof returnValue !== 'string') {
-      throw new Error(
-        `Something went wrong while running tests, could not retreive browser URL for test ${sessionId}`,
-      );
-    }
     return returnValue;
   }
 
@@ -132,11 +131,16 @@ export class IFrameManager {
     // retreive test results from iframe
     const returnValue = await this.driver.executeScript(`
       var iframe = document.getElementById("${frameId}");
-      var w = iframe.contentWindow;
-      var returnValue = { testCoverage: w.__coverage__ };
+      var testCoverage;
+      try {
+        testCoverage = iframe.contentWindow.__coverage__;
+      } catch (error) {
+        // iframe can throw a cross-origin error if the test navigated
+      }
+
       // set src after retreiving values to avoid the iframe from navigating away
       iframe.src = "data:,";
-      return returnValue;
+      return { testCoverage: testCoverage };
     `);
 
     if (!validateBrowserResult(returnValue)) {

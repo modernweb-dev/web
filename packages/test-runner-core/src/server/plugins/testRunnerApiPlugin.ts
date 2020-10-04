@@ -215,8 +215,8 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
       }
 
       // the websocket disconnected while the tests were still running, this can happen for many reasons.
-      // we wait 500ms (magic number) to let other handlers come up with a more specific error message
-      await new Promise(r => setTimeout(r, 500));
+      // we wait 2000ms (magic number) to let other handlers come up with a more specific error message
+      await new Promise(r => setTimeout(r, 2000));
       const updatedSession = this.sessions.get(sessionId);
       if (updatedSession?.status !== SESSION_STATUS.TEST_STARTED) {
         // something else handled the disconnect
@@ -226,10 +226,12 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
       const startUrl = this.testSessionUrls.get(updatedSession.id);
       const currentUrl = await updatedSession.browser.getBrowserUrl(updatedSession.id);
 
-      if (startUrl !== currentUrl) {
+      if (!currentUrl || startUrl !== currentUrl) {
         this._setSessionFailed(
           updatedSession,
-          `Tests were interrupted because the page navigated to ${currentUrl}. ` +
+          `Tests were interrupted because the page navigated to ${
+            currentUrl ? currentUrl : 'another origin'
+          }. ` +
             'This can happen when clicking a link, submitting a form or interacting with window.location.',
         );
       } else {

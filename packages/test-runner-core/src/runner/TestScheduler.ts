@@ -7,8 +7,6 @@ import { withTimeout } from '../utils/async';
 import { TestSessionTimeoutHandler } from './TestSessionTimeoutHandler';
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 
-const TIMEOUT_MSG = 'Timeout starting the browser page.';
-
 export class TestScheduler {
   private config: TestRunnerCoreConfig;
   private sessions: TestSessionManager;
@@ -16,6 +14,7 @@ export class TestScheduler {
   private browsers: BrowserLauncher[];
   private finishedBrowsers = new Set<BrowserLauncher>();
   private stopPromises = new Set<Promise<unknown>>();
+  private browserStartTimeoutMsg: string;
 
   constructor(
     config: TestRunnerCoreConfig,
@@ -26,6 +25,9 @@ export class TestScheduler {
     this.sessions = sessions;
     this.browsers = browsers;
     this.timeoutHandler = new TestSessionTimeoutHandler(this.config, this.sessions, this);
+    this.browserStartTimeoutMsg =
+      `The browser was unable to create and start a test page after ${this.config.browserStartTimeout}ms. ` +
+      'You can increase this timeout with the browserStartTimeout option.';
 
     sessions.on('session-status-updated', async session => {
       if (session.status === SESSION_STATUS.TEST_STARTED) {
@@ -108,7 +110,7 @@ export class TestScheduler {
     const timeoutId = setTimeout(() => {
       if (!browserStarted && !this.timeoutHandler.isStale(updatedSession)) {
         this.setSessionFailed(this.sessions.get(updatedSession.id)!, {
-          message: `The browser was unable to open the test page after ${this.config.browserStartTimeout}ms.`,
+          message: this.browserStartTimeoutMsg,
         });
       }
     }, this.config.browserStartTimeout!);
@@ -120,7 +122,7 @@ export class TestScheduler {
           updatedSession.id,
           createSessionUrl(this.config, updatedSession),
         ),
-        TIMEOUT_MSG,
+        this.browserStartTimeoutMsg,
         this.config.browserStartTimeout,
       );
 
@@ -130,7 +132,7 @@ export class TestScheduler {
       if (this.timeoutHandler.isStale(updatedSession)) {
         // something else has changed the test session, such as a the browser timeout
         // or a re-run in watch mode. in that was we just log the error
-        if (error.message !== TIMEOUT_MSG) {
+        if (error.message !== this.browserStartTimeoutMsg) {
           this.config.logger.error(error);
         }
       } else {

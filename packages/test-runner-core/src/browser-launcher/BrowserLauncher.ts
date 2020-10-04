@@ -52,7 +52,7 @@ export interface BrowserLauncher {
    * Returns the current browser URL for the test session. This is used for example to
    * detect browser navigations.
    */
-  getBrowserUrl(sessionId: string): string | Promise<string>;
+  getBrowserUrl(sessionId: string): string | undefined | Promise<string | undefined>;
 
   /**
    * Stops a single test session. There is no mandatory action to be taken here.

@@ -1,26 +1,51 @@
-import { runTests } from '@web/test-runner-core/test-helpers';
-import { resolve } from 'path';
 import os from 'os';
-
+import { runIntegrationTests } from '../../../integration/test-runner';
 import { playwrightLauncher } from '../src/index';
 
-it('runs tests with playwright', async function () {
-  this.timeout(50000);
+describe('test-runner-playwright chromium', function testRunnerPlaywright() {
+  this.timeout(100000);
 
-  await runTests({
-    files: [
-      resolve(__dirname, 'fixtures', 'a.js'),
-      resolve(__dirname, 'fixtures', 'b.js'),
-      resolve(__dirname, 'fixtures', 'c.js'),
-      resolve(__dirname, 'fixtures', 'd.js'),
-      resolve(__dirname, 'fixtures', 'e.js'),
-      resolve(__dirname, 'fixtures', 'f.js'),
-      resolve(__dirname, 'fixtures', 'g.js'),
-    ],
-    browsers: [
-      playwrightLauncher({ product: 'chromium' }),
-      playwrightLauncher({ product: 'firefox' }),
-      ...(os.platform() === 'win32' ? [] : [playwrightLauncher({ product: 'webkit' })]),
-    ],
-  });
+  runIntegrationTests(() => ({
+    browsers: [playwrightLauncher({ product: 'chromium' })],
+  }));
 });
+
+// we don't run all tests in the windows CI
+if (os.platform() !== 'win32') {
+  describe('test-runner-playwright webkit', function testRunnerPlaywright() {
+    this.timeout(100000);
+
+    runIntegrationTests(() => ({
+      browsers: [playwrightLauncher({ product: 'webkit' })],
+    }));
+  });
+
+  describe('test-runner-playwright firefox', function testRunnerPlaywright() {
+    this.timeout(100000);
+
+    runIntegrationTests(
+      () => ({
+        browsers: [playwrightLauncher({ product: 'firefox' })],
+      }),
+      {
+        // firefox doesn't like parallel in the CI
+        parallel: false,
+      },
+    );
+  });
+
+  describe('test-runner-playwright all', function testRunnerPlaywright() {
+    this.timeout(100000);
+
+    runIntegrationTests(
+      () => ({
+        browsers: [
+          playwrightLauncher({ product: 'chromium' }),
+          playwrightLauncher({ product: 'firefox' }),
+          ...(os.platform() !== 'win32' ? [playwrightLauncher({ product: 'webkit' })] : []),
+        ],
+      }),
+      { parallel: false, testFailure: false, locationChanged: false },
+    );
+  });
+}

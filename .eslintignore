@@ -6,6 +6,7 @@
 /packages/*/test/**/fixtures
 /packages/*/test/**/snapshots
 /packages/dev-server-rollup/test/browser/**/*
+/integration/test-runner/tests/*/browser-tests
 node_modules
 dist
 demo
