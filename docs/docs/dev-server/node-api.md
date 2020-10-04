@@ -91,7 +91,7 @@ const myConfig = commandLineArgs(myServerDefinitions, { partial: true });
 
 This will allow you to do:
 
-```sh
+```
 my-dev-server --port 8080 --foo="bar"
 ```
 
