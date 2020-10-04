@@ -19,4 +19,10 @@ describe('listFiles', () => {
     expect(files[2]).to.match(/fixture(\/|\\)sub(\/|\\)sub-a\.svg$/);
     expect(files[3]).to.match(/fixture(\/|\\)sub(\/|\\)sub-b\.mark\.svg$/);
   });
+
+  it('will copy files inside dot folders', async () => {
+    const files = await listFiles('**/*.svg', path.resolve(__dirname, './fixtureDot/'));
+    expect(files.length).to.equal(1);
+    expect(files[0]).to.match(/fixtureDot(\/|\\)\.folder(\/|\\)inside-dot-folder\.svg$/);
+  });
 });
