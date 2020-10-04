@@ -1,4 +1,4 @@
-import { Plugin, WebSocketsManager } from '@web/dev-server-core';
+import type { Plugin, WebSocketsManager, Logger } from '@web/dev-server-core';
 import type { ServerArgs } from '@web/dev-server-core/dist/Plugin';
 import WebSocket from 'ws';
 import type { Context } from 'koa';
@@ -27,8 +27,9 @@ export class HmrPlugin implements Plugin {
 
   protected _dependencyTree: Map<string, HmrModule> = new Map();
   protected _webSockets?: WebSocketsManager;
+  protected _logger?: Logger;
 
-  async serverStart({ webSockets, fileWatcher }: ServerArgs) {
+  async serverStart({ webSockets, fileWatcher, logger }: ServerArgs) {
     if (!fileWatcher) {
       throw new Error('Cannot use HMR when watch mode is disabled.');
     }
@@ -38,32 +39,38 @@ export class HmrPlugin implements Plugin {
     }
 
     this._webSockets = webSockets;
+    this._logger = logger;
 
     webSockets.on('message', ({ webSocket, data }) => this._onMessage(webSocket, data));
     fileWatcher.on('change', path => this._onFileChanged(path));
     fileWatcher.on('unlink', path => this._onFileChanged(path));
+
+    this._logger?.debug('[hmr] Listening for HMR messages');
   }
 
-  async serve({ context }: { context: Context }) {
+  async serve(context: Context) {
     // We are serving a new file or it has changed, so clear all the
     // dependencies we previously tracked (if any).
     this._clearDependencies(context.path);
+    this._logger?.debug(`[hmr] Cleared dependency tree cache of ${context.path}`);
   }
 
-  async transformImport({ source, context }: { source: string, context: Context }) {
+  async transformImport({ source, context }: { source: string; context: Context }) {
     const mod = this._getOrCreateModule(context.path);
     const dependencyMod = this._getOrCreateModule(source);
 
     mod.dependencies.add(source);
     dependencyMod.dependents.add(context.path);
+    this._logger?.debug(`[hmr] Added dependency from ${context.path} -> ${source}`);
   }
 
-  async transform({ context }: { context: Context }) {
+  async transform(context: Context) {
     // If the module references import.meta.hot it can be assumed it
     // supports hot reloading
     const hmrEnabled = context.body.includes('import.meta.hot') === true;
     const mod = this._getOrCreateModule(context.path);
     mod.hmrEnabled = hmrEnabled;
+    this._logger?.debug(`[hmr] Setting hmrEnabled=${hmrEnabled} for ${context.path}`);
   }
 
   protected _clearDependencies(path: string): void {
@@ -109,7 +116,7 @@ export class HmrPlugin implements Plugin {
 
     // We're not aware of this module so can't handle it
     if (!mod) {
-      this._broadcast({type: 'reload' });
+      this._broadcast({ type: 'reload' });
       return;
     }
 
@@ -132,7 +139,7 @@ export class HmrPlugin implements Plugin {
     }
 
     // Nothing left to try
-    this._broadcast({type: 'reload' });
+    this._broadcast({ type: 'reload' });
   }
 
   protected _broadcast(message: HmrMessage): void {
@@ -140,6 +147,7 @@ export class HmrPlugin implements Plugin {
       return;
     }
 
+    this._logger?.debug(`[hmr] emitting ${message.type} message`);
     this._webSockets.send(JSON.stringify(message), 'esm-hmr');
   }
 

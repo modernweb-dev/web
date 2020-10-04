@@ -71,6 +71,9 @@
       "path": "./packages/dev-server/tsconfig.json"
     },
     {
+      "path": "./packages/dev-server-hmr/tsconfig.json"
+    },
+    {
       "path": "./packages/dev-server-import-maps/tsconfig.json"
     },
     {
