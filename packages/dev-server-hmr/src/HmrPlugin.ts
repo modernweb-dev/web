@@ -1,6 +1,7 @@
 import { Plugin, WebSocketsManager } from '@web/dev-server-core';
 import type { ServerArgs } from '@web/dev-server-core/dist/Plugin';
 import WebSocket from 'ws';
+import type { Context } from 'koa';
 
 export interface HmrReloadMessage {
   type: 'reload';
@@ -43,41 +44,39 @@ export class HmrPlugin implements Plugin {
     fileWatcher.on('unlink', path => this._onFileChanged(path));
   }
 
-  async transformImport({ source, code }: { source: string, code?: string }) {
+  async transformImport({ source, code, context }: { source: string, code?: string, context: Context }) {
     // If the module references import.meta.hot it can be assumed it
     // supports hot reloading
     const hmrEnabled = code?.includes('import.meta.hot') === true;
+    const mod = this._getOrCreateModule(context.path);
+    const dependencyMod = this._getOrCreateModule(source);
+    dependencyMod.hmrEnabled = hmrEnabled;
 
-    // The imports of this module
-    const imports: string[] = []; // TODO (43081j): get these from somewhere
-
-    // Ensure we have a module defined for this import
-    this._setModule(source, imports, hmrEnabled);
+    mod.dependencies.add(source);
+    dependencyMod.dependents.add(context.path);
   }
 
-  protected _setModule(path: string, dependencies: string[], hmrEnabled: boolean): void {
-    const mod = this._getOrCreateModule(path);
-    const oldDependencies = new Set(mod.dependencies);
-    mod.hmrEnabled = hmrEnabled;
+  async transform({ context }: { context: Context }) {
+    // TODO (43081j): won't work for now since transformImport runs first
+    // i _think_
+    this._clearDependencies(context.path);
+  }
 
-    // We want to ensure the dependency tree is up to date
-    for (const dep of dependencies) {
-      mod.dependencies.add(dep);
-      oldDependencies.delete(dep);
+  protected _clearDependencies(path: string): void {
+    const mod = this._getModule(path);
 
-      const depMod = this._getOrCreateModule(dep);
-      depMod.dependents.add(path);
+    if (!mod) {
+      return;
     }
 
-    // Remove any old dependencies and clean up the tree
-    for (const dep of oldDependencies) {
-      mod.dependencies.delete(dep);
-
+    for (const dep of mod.dependencies) {
       const depMod = this._getModule(dep);
       if (depMod) {
         depMod.dependents.delete(path);
       }
     }
+
+    mod.dependencies = new Set();
   }
 
   serverStop() {
