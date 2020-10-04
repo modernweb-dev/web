@@ -86,7 +86,7 @@ export async function startDevServer(options: StartDevServerParams = {}) {
 
     await server.start();
 
-    if (config.open != null) {
+    if (config.open != null && config.open !== false) {
       await openBrowser(config);
     }
 
