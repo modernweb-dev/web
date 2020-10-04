@@ -1,5 +1,11 @@
 # @web/rollup-plugin-copy
 
+## 0.1.2
+
+### Patch Changes
+
+- bde5be4: Also copy hidden "dot" files and folders
+
 ## 0.1.1
 
 ### Patch Changes
