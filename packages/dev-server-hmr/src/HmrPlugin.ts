@@ -44,8 +44,14 @@ export class HmrPlugin implements Plugin {
   }
 
   async transformImport({ source, code }: { source: string, code?: string }) {
+    // If the module references import.meta.hot it can be assumed it
+    // supports hot reloading
     const hmrEnabled = code?.includes('import.meta.hot') === true;
+
+    // The imports of this module
     const imports: string[] = []; // TODO (43081j): get these from somewhere
+
+    // Ensure we have a module defined for this import
     this._setModule(source, imports, hmrEnabled);
   }
 
@@ -54,6 +60,7 @@ export class HmrPlugin implements Plugin {
     const oldDependencies = new Set(mod.dependencies);
     mod.hmrEnabled = hmrEnabled;
 
+    // We want to ensure the dependency tree is up to date
     for (const dep of dependencies) {
       mod.dependencies.add(dep);
       oldDependencies.delete(dep);
@@ -62,6 +69,7 @@ export class HmrPlugin implements Plugin {
       depMod.dependents.add(path);
     }
 
+    // Remove any old dependencies and clean up the tree
     for (const dep of oldDependencies) {
       mod.dependencies.delete(dep);
 
@@ -77,11 +85,13 @@ export class HmrPlugin implements Plugin {
   }
 
   protected _onFileChanged(path: string): void {
+    // If we know what this module is, we can try trigger a HMR update
     if (this._hasModule(path)) {
       this._triggerUpdate(path);
       return;
     }
 
+    // Otherwise we reload the page
     this._broadcast({ type: 'reload' });
   }
 
@@ -100,15 +110,17 @@ export class HmrPlugin implements Plugin {
       return;
     }
 
+    // The module supports HMR so lets tell it to update
     if (mod.hmrEnabled) {
       this._broadcast({ type: 'update', url: path });
     }
 
-    // The module has already been dealt with
+    // The module has already been dealt with already
     if (mod.hmrAccepted) {
       return;
     }
 
+    // Trigger an update for every module that depends on this one
     if (mod.dependents.size > 0) {
       for (const dep of mod.dependents) {
         this._triggerUpdate(dep, visited);
@@ -148,6 +160,7 @@ export class HmrPlugin implements Plugin {
   }
 
   protected _getOrCreateModule(path: string): HmrModule {
+    // TODO (43081j): some kind of normalisation of the paths?
     const mod = this._getModule(path);
 
     return mod ?? this._createModule(path);
