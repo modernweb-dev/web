@@ -44,22 +44,26 @@ export class HmrPlugin implements Plugin {
     fileWatcher.on('unlink', path => this._onFileChanged(path));
   }
 
-  async transformImport({ source, code, context }: { source: string, code?: string, context: Context }) {
-    // If the module references import.meta.hot it can be assumed it
-    // supports hot reloading
-    const hmrEnabled = code?.includes('import.meta.hot') === true;
+  async serve({ context }: { context: Context }) {
+    // We are serving a new file or it has changed, so clear all the
+    // dependencies we previously tracked (if any).
+    this._clearDependencies(context.path);
+  }
+
+  async transformImport({ source, context }: { source: string, context: Context }) {
     const mod = this._getOrCreateModule(context.path);
     const dependencyMod = this._getOrCreateModule(source);
-    dependencyMod.hmrEnabled = hmrEnabled;
 
     mod.dependencies.add(source);
     dependencyMod.dependents.add(context.path);
   }
 
   async transform({ context }: { context: Context }) {
-    // TODO (43081j): won't work for now since transformImport runs first
-    // i _think_
-    this._clearDependencies(context.path);
+    // If the module references import.meta.hot it can be assumed it
+    // supports hot reloading
+    const hmrEnabled = context.body.includes('import.meta.hot') === true;
+    const mod = this._getOrCreateModule(context.path);
+    mod.hmrEnabled = hmrEnabled;
   }
 
   protected _clearDependencies(path: string): void {
