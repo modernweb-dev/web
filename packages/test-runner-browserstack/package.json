@@ -19,8 +19,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test-remote/**/*.test.js --reporter dot",
-    "test:watch": "mocha test-remote/**/*.test.js --watch --watch-files src,test --reporter dot"
+    "test": "mocha test-remote/**/*.test.ts --require ts-node/register",
+    "test:watch": "mocha test-remote/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",

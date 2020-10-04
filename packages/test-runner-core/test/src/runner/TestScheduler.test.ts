@@ -250,7 +250,7 @@ describe('TestScheduler', () => {
       expect(finalSession1.passed).to.equal(false);
       expect(finalSession1.errors.length).to.equal(1);
       expect(finalSession1.errors[0].message).to.equal(
-        'The browser was unable to open the test page after 2ms.',
+        'The browser was unable to create and start a test page after 2ms. You can increase this timeout with the browserStartTimeout option.',
       );
     });
 
@@ -266,7 +266,7 @@ describe('TestScheduler', () => {
       expect(finalSession1.passed).to.equal(false);
       expect(finalSession1.errors.length).to.equal(1);
       expect(finalSession1.errors[0].message).to.equal(
-        'Browser tests did not start after 2ms. Check the browser logs or open the browser in debug mode for more information.',
+        'Browser tests did not start after 2ms You can increase this timeout with the testsStartTimeout option. Check the browser logs or open the browser in debug mode for more information.',
       );
     });
 
@@ -284,7 +284,7 @@ describe('TestScheduler', () => {
       expect(finalSession1.passed).to.equal(false);
       expect(finalSession1.errors.length).to.equal(1);
       expect(finalSession1.errors[0].message).to.equal(
-        'Browser tests did not finish within 2ms. Check the browser logs or open the browser in debug mode for more information.',
+        'Browser tests did not finish within 2ms. You can increase this timeout with the testsFinishTimeout option. Check the browser logs or open the browser in debug mode for more information.',
       );
     });
   });

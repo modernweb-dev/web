@@ -3,7 +3,7 @@ import { getPortPromise } from 'portfinder';
 import path from 'path';
 import { TestRunner, TestRunnerCoreConfig } from './index';
 import { Logger } from './logger/Logger';
-import { TestResult, TestSuiteResult } from './test-session/TestSession';
+import { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession';
 import { SESSION_STATUS } from './test-session/TestSessionStatus';
 import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig';
 
@@ -45,7 +45,7 @@ export async function runTests(
     allowFailure = false,
     reportErrors = true,
   }: { allowFailure?: boolean; reportErrors?: boolean } = {},
-): Promise<TestRunner> {
+): Promise<{ runner: TestRunner; sessions: TestSession[] }> {
   return new Promise(async (resolve, reject) => {
     const port = await getPortPromise({ port: 9000 + Math.floor(Math.random() * 1000) });
     const finalConfig = {
@@ -134,7 +134,7 @@ export async function runTests(
       }
 
       if (allowFailure || passed) {
-        resolve(runner);
+        resolve({ runner, sessions });
       } else {
         reject(new Error('Test run did not pass'));
       }

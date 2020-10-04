@@ -31,7 +31,8 @@ export class TestSessionTimeoutHandler {
       if (session.status === SESSION_STATUS.INITIALIZING) {
         this.setSessionFailed(session, {
           message:
-            `Browser tests did not start after ${this.config.testsStartTimeout}ms. ` +
+            `Browser tests did not start after ${this.config.testsStartTimeout}ms ` +
+            'You can increase this timeout with the testsStartTimeout option. ' +
             'Check the browser logs or open the browser in debug mode for more information.',
         });
         return;
@@ -53,6 +54,7 @@ export class TestSessionTimeoutHandler {
         this.setSessionFailed(session, {
           message:
             `Browser tests did not finish within ${this.config.testsFinishTimeout}ms. ` +
+            'You can increase this timeout with the testsFinishTimeout option. ' +
             'Check the browser logs or open the browser in debug mode for more information.',
         });
       }

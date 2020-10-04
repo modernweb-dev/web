@@ -35,7 +35,7 @@ describe('visualRegressionPlugin', function test() {
   });
 
   it.skip('can run a failed test', async () => {
-    const runner = await runTests(
+    const { sessions } = await runTests(
       {
         files: [path.join(__dirname, 'diff-fail-test.js')],
         browsers: [
@@ -61,7 +61,6 @@ describe('visualRegressionPlugin', function test() {
       { allowFailure: true, reportErrors: false },
     );
 
-    const sessions = Array.from(runner.sessions.all());
     expect(sessions.length).to.equal(3);
 
     for (const session of sessions) {
