@@ -14,6 +14,8 @@ export interface HmrUpdateMessage {
 export type HmrMessage = HmrReloadMessage | HmrUpdateMessage;
 
 export interface HmrModule {
+  dependencies: Set<string>;
+  dependents: Set<string>;
   hmrAccepted: boolean;
   hmrEnabled: boolean;
 }
@@ -41,6 +43,35 @@ export class HmrPlugin implements Plugin {
     fileWatcher.on('unlink', path => this._onFileChanged(path));
   }
 
+  async transformImport({ source, code }: { source: string, code?: string }) {
+    const hmrEnabled = code?.includes('import.meta.hot') === true;
+    const imports: string[] = []; // TODO (43081j): get these from somewhere
+    this._setModule(source, imports, hmrEnabled);
+  }
+
+  protected _setModule(path: string, dependencies: string[], hmrEnabled: boolean): void {
+    const mod = this._getOrCreateModule(path);
+    const oldDependencies = new Set(mod.dependencies);
+    mod.hmrEnabled = hmrEnabled;
+
+    for (const dep of dependencies) {
+      mod.dependencies.add(dep);
+      oldDependencies.delete(dep);
+
+      const depMod = this._getOrCreateModule(dep);
+      depMod.dependents.add(path);
+    }
+
+    for (const dep of oldDependencies) {
+      mod.dependencies.delete(dep);
+
+      const depMod = this._getModule(dep);
+      if (depMod) {
+        depMod.dependents.delete(path);
+      }
+    }
+  }
+
   serverStop() {
     this._webSockets = undefined;
   }
@@ -54,22 +85,39 @@ export class HmrPlugin implements Plugin {
     this._broadcast({ type: 'reload' });
   }
 
-  protected _triggerUpdate(path: string): void {
-    const mod = this._getModule(path);
-
-    if (mod?.hmrEnabled) {
-      this._broadcast({ type: 'update', url: path });
-    }
-
-    if (mod?.hmrAccepted) {
+  protected _triggerUpdate(path: string, visited: Set<string> = new Set()): void {
+    // We already visited this module
+    if (visited.has(path)) {
       return;
     }
 
-    // TODO (43081j): traverse the dependency tree and _triggerUpdate
-    // each one...
-    //
-    // if there are no dependencies, do a reload? since the module didn't
-    // accept
+    const mod = this._getModule(path);
+    visited.add(path);
+
+    // We're not aware of this module so can't handle it
+    if (!mod) {
+      this._broadcast({type: 'reload' });
+      return;
+    }
+
+    if (mod.hmrEnabled) {
+      this._broadcast({ type: 'update', url: path });
+    }
+
+    // The module has already been dealt with
+    if (mod.hmrAccepted) {
+      return;
+    }
+
+    if (mod.dependents.size > 0) {
+      for (const dep of mod.dependents) {
+        this._triggerUpdate(dep, visited);
+      }
+      return;
+    }
+
+    // Nothing left to try
+    this._broadcast({type: 'reload' });
   }
 
   protected _broadcast(message: HmrMessage): void {
@@ -115,6 +163,8 @@ export class HmrPlugin implements Plugin {
     const mod: HmrModule = {
       hmrAccepted: false,
       hmrEnabled: false,
+      dependencies: new Set(),
+      dependents: new Set(),
     };
     this._dependencyTree.set(path, mod);
     return mod;
