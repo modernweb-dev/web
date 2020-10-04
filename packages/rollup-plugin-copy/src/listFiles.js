@@ -12,7 +12,7 @@ const path = require('path');
  */
 function listFiles(fromGlob, rootDir) {
   return new Promise(resolve => {
-    glob(fromGlob, { cwd: rootDir }, (er, files) => {
+    glob(fromGlob, { cwd: rootDir, dot: true }, (er, files) => {
       // remember, each filepath returned is relative to rootDir
       resolve(
         files
