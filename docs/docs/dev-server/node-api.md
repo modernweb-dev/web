@@ -73,6 +73,45 @@ async function main() {
 main();
 ```
 
+## Combine with your own CLI definitions
+
+If you extend the dev-server and want to use `command-line-args` to add your own CLI definitions, it is recommended to use the [`partial` option](https://github.com/75lb/command-line-args/wiki/Partial-parsing).
+
+```js
+const myDefinitions = [
+  {
+    name: 'foo',
+    type: String,
+    description: 'Bar',
+  },
+];
+
+const myConfig = commandLineArgs(myServerDefinitions, { partial: true });
+```
+
+This will allow you to do:
+
+```sh
+my-dev-server --port 8080 --foo="bar"
+```
+
+Which combines a command line arg from `@web/dev-server` with your own. Partial will make sure it does not error on the unknown `port` argument, instead it pushes this argument to `_unknown`.
+You can then pass the `_unknown` options to the `startDevServer` in the `argv` property.
+
+```js
+import { startDevServer } from '@web/dev-server';
+
+const myConfig = commandLineArgs(myServerDefinitions, { partial: true });
+
+async function main() {
+  const server = await startDevServer({
+    argv: myConfig._unknown,
+  });
+}
+
+main();
+```
+
 ## Advanced
 
 If you need more control than what `startDevServer` gives you, you can also use the individual pieces that make up the dev server directly.
