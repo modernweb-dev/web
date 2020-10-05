@@ -9,6 +9,9 @@
 '@web/test-runner-browserstack': minor
 '@web/test-runner-puppeteer': minor
 '@web/test-runner-saucelabs': minor
+'@web/test-runner-coverage-v8': minor
+'@web/test-runner-junit-reporter': minor
+'@web/test-runner-visual-regression': minor
 ---
 
 replaced HTTP with websocket for server-browser communication
