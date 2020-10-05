@@ -1,5 +1,12 @@
 # @web/test-runner
 
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependencies [80d5814]
+  - @web/test-runner-mocha@0.4.0
+
 ## 0.8.0
 
 ### Minor Changes

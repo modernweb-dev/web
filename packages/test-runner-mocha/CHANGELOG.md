@@ -1,5 +1,16 @@
 # @web/test-runner-mocha
 
+## 0.4.0
+
+### Minor Changes
+
+- 80d5814: release new version of test-runner-mocha
+
+### Patch Changes
+
+- Updated dependencies [80d5814]
+  - @web/test-runner-mocha@0.4.0
+
 ## 0.3.7
 
 ### Patch Changes
