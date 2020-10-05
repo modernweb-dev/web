@@ -3,7 +3,6 @@ import cjsEntrypoint from './dist/index.js';
 
 const {
   constants,
-  getBrowserPageNavigationError,
   TestRunner,
   TestSessionManager,
   SESSION_STATUS,
@@ -11,12 +10,4 @@ const {
   isTestFilePath,
 } = cjsEntrypoint;
 
-export {
-  constants,
-  getBrowserPageNavigationError,
-  TestRunner,
-  TestSessionManager,
-  SESSION_STATUS,
-  EventEmitter,
-  isTestFilePath,
-};
+export { constants, TestRunner, TestSessionManager, SESSION_STATUS, EventEmitter, isTestFilePath };

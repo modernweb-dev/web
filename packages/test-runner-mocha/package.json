@@ -23,7 +23,9 @@
     "test": "mocha test/**/*.test.js",
     "test:watch": "mocha test/**/*.test.js --watch --watch-files src,test"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "web",
     "test",
@@ -34,7 +36,7 @@
   ],
   "dependencies": {
     "@types/mocha": "^8.0.1",
-    "@web/test-runner-mocha": "^0.4.0"
+    "@web/test-runner-core": "^0.8.0"
   },
   "devDependencies": {
     "clean-css": "^4.2.3",
