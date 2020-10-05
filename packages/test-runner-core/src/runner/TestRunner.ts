@@ -39,9 +39,6 @@ export class TestRunner extends EventEmitter<EventMap> {
 
   constructor(config: TestRunnerCoreConfig, groupConfigs: TestRunnerGroupConfig[] = []) {
     super();
-    if (!config.manual && (!config.browsers || config.browsers.length === 0)) {
-      throw new Error('No browsers are configured to run tests');
-    }
 
     if (config.manual && config.watch) {
       throw new Error('Cannot combine the manual and watch options.');
@@ -55,6 +52,11 @@ export class TestRunner extends EventEmitter<EventMap> {
       config,
       groupConfigs,
     );
+
+    if (testSessions.length === 0) {
+      throw new Error('Could not find any tests or browsers to run.');
+    }
+
     this.config = config;
 
     this.testFiles = testFiles;

@@ -22,7 +22,7 @@ export function createTestSessions(
 ) {
   const groups: GroupConfigWithoutOptionals[] = [];
 
-  if (config.files) {
+  if (config.files && config.browsers && config.browsers.length > 0) {
     groups.push({
       name: 'default',
       files: config.files,
