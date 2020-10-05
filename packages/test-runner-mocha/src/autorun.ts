@@ -10,6 +10,10 @@ import { collectTestResults } from './collectTestResults.js';
 
 sessionStarted();
 
+// avoid using document.baseURI for IE11 support
+const base = document.querySelector('base');
+const baseURI = (base || window.location).href;
+
 (async () => {
   const errors: TestResultError[] = [];
 
@@ -27,7 +31,7 @@ sessionStarted();
   const userOptions = typeof testFrameworkConfig === 'object' ? testFrameworkConfig : {};
   mocha.setup({ ui: 'bdd', allowUncaught: false, ...userOptions });
 
-  await import(new URL(testFile, document.baseURI).href).catch(error => {
+  await import(new URL(testFile, baseURI).href).catch(error => {
     console.error(error);
     errors.push({
       message:
