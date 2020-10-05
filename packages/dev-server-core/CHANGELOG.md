@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.11
+
+### Patch Changes
+
+- 2291ca1: export websocket types
+
 ## 0.2.10
 
 ### Patch Changes
