@@ -91,9 +91,9 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
               );
             } catch (error) {
               if (warnOnError) {
-                this.warn(error, node.object.arguments[0].start);
+                this.warn(error, node.arguments[0].start);
               } else {
-                this.error(error, node.object.arguments[0].start);
+                this.error(error, node.arguments[0].start);
               }
             }
           }
