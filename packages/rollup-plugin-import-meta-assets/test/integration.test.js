@@ -2,8 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const rollup = require('rollup');
 const { expect } = require('chai');
+const { createSandbox } = require('sinon');
 
 const { importMetaAssets } = require('../src/rollup-plugin-import-meta-assets.js');
+
+const sandbox = createSandbox();
 
 const outputConfig = {
   format: 'es',
@@ -29,6 +32,14 @@ function expectAsset(output, snapshotUrl, assetName, distName) {
 }
 
 describe('rollup-plugin-import-meta-assets', () => {
+  beforeEach(() => {
+    sandbox.stub(console, 'warn');
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   it("simple bundle with different new URL('', import.meta.url)", async () => {
     const config = {
       input: { 'simple-bundle': require.resolve('./fixtures/simple-entrypoint.js') },
@@ -180,5 +191,41 @@ describe('rollup-plugin-import-meta-assets', () => {
     expectChunk(output, 'snapshots/four-bundle.js', 'four-bundle.js', [
       expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-b40404a7.svg'),
     ]);
+  });
+
+  it('bad URL example', async () => {
+    const config = {
+      input: { 'bad-url-bundle': require.resolve('./fixtures/bad-url-entrypoint.js') },
+      plugins: [importMetaAssets()],
+    };
+
+    let error;
+
+    try {
+      const bundle = await rollup.rollup(config);
+      await bundle.generate(outputConfig);
+    } catch (e) {
+      error = e;
+    }
+
+    expect(error.message).to.match(/no such file or directory/);
+  });
+
+  it('bad URL example with warnOnError: true', async () => {
+    const config = {
+      input: { 'bad-url-bundle': require.resolve('./fixtures/bad-url-entrypoint.js') },
+      plugins: [importMetaAssets({ warnOnError: true })],
+    };
+
+    const bundle = await rollup.rollup(config);
+    await bundle.generate(outputConfig);
+
+    expect(console.warn.callCount).to.equal(2);
+    expect(console.warn.getCall(0).args[0]).to.match(
+      /ENOENT: no such file or directory, open '.*[/\\]absolute-path\.svg'/,
+    );
+    expect(console.warn.getCall(1).args[0]).to.match(
+      /ENOENT: no such file or directory, open '.*[/\\]missing-relative-path\.svg'/,
+    );
   });
 });
