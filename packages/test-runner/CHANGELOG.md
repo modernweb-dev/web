@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.7.42
+
+### Patch Changes
+
+- f2d0bb2: avoid using document.baseURI in IE11
+- Updated dependencies [f2d0bb2]
+  - @web/test-runner-mocha@0.3.7
+
 ## 0.7.41
 
 ### Patch Changes
