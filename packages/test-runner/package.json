@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.7.42",
+  "version": "0.8.0",
   "publishConfig": {
     "access": "public"
   },
@@ -64,12 +64,12 @@
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@web/config-loader": "^0.1.2",
     "@web/dev-server-rollup": "^0.2.9",
-    "@web/test-runner-chrome": "^0.6.8",
-    "@web/test-runner-cli": "^0.5.18",
-    "@web/test-runner-commands": "^0.1.5",
-    "@web/test-runner-core": "^0.7.23",
+    "@web/test-runner-chrome": "^0.7.0",
+    "@web/test-runner-cli": "^0.6.0",
+    "@web/test-runner-commands": "^0.2.0",
+    "@web/test-runner-core": "^0.8.0",
     "@web/test-runner-mocha": "^0.3.7",
-    "@web/test-runner-saucelabs": "^0.0.9",
+    "@web/test-runner-saucelabs": "^0.1.0",
     "command-line-args": "^5.1.1",
     "deepmerge": "^4.2.2",
     "globby": "^11.0.1"
