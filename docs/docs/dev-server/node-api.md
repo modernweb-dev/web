@@ -16,6 +16,27 @@ async function main() {
 main();
 ```
 
+### Stopping the server
+
+The dev server instance that the `startDevServer()` call above returns can be terminated by the asynchronous `stop()` method available on the instance.
+
+```js
+import { startDevServer } from '@web/dev-server';
+
+async function main() {
+  const server = await startDevServer();
+
+  // Use the active server.
+
+  // Clean up.
+  await server.stop();
+}
+
+main();
+```
+
+This will collectively halt the file watcher passed into the server, any plugins you've configured, as well as all open connections to the server you are stopping.
+
 ### Configuration
 
 This function takes a number of extra parameters:
