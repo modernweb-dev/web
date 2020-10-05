@@ -9,7 +9,17 @@
     "composite": true,
     "allowJs": true
   },
-  "references": [],
+  "references": [
+    {
+      "path": "../browser-logs/tsconfig.json"
+    },
+    {
+      "path": "../dev-server-core/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-core/tsconfig.json"
+    }
+  ],
   "include": [
     "src"
   ],

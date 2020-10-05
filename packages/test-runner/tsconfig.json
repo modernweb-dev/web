@@ -35,6 +35,15 @@
       "path": "../test-runner-playwright/tsconfig.json"
     },
     {
+      "path": "../dev-server-esbuild/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-selenium/tsconfig.json"
+    },
+    {
+      "path": "../dev-server-legacy/tsconfig.json"
+    },
+    {
       "path": "../dev-server-rollup/tsconfig.json"
     },
     {
@@ -44,7 +53,7 @@
       "path": "../test-runner-commands/tsconfig.json"
     },
     {
-      "path": "../dev-server-legacy/tsconfig.json"
+      "path": "../test-runner-saucelabs/tsconfig.json"
     }
   ],
   "include": [
