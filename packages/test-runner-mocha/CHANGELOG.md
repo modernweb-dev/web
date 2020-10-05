@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.3.7
+
+### Patch Changes
+
+- f2d0bb2: avoid using document.baseURI in IE11
+
 ## 0.3.6
 
 ### Patch Changes
