@@ -23,7 +23,9 @@ export class TestScheduler {
   ) {
     this.config = config;
     this.sessions = sessions;
-    this.browsers = browsers;
+    this.browsers = [...browsers].sort(
+      (a, b) => (a.__experimentalWindowFocus__ ? 1 : 0) - (b.__experimentalWindowFocus__ ? 1 : 0),
+    );
     this.timeoutHandler = new TestSessionTimeoutHandler(this.config, this.sessions, this);
     this.browserStartTimeoutMsg =
       `The browser was unable to create and start a test page after ${this.config.browserStartTimeout}ms. ` +
@@ -77,6 +79,10 @@ export class TestScheduler {
     let runningBrowsers = 0;
 
     for (const browser of this.browsers) {
+      if (runningBrowsers >= 1 && browser.__experimentalWindowFocus__) {
+        return;
+      }
+
       if (runningBrowsers >= this.config.concurrentBrowsers) {
         // do not boot up more than the allowed concurrent browsers
         return;
@@ -88,7 +94,8 @@ export class TestScheduler {
         runningBrowsers += 1;
 
         const runningCount = this.getRunningSessions(browser).length;
-        const runBudget = Math.max(0, this.config.concurrency - runningCount);
+        const maxBudget = browser.__experimentalWindowFocus__ ? 1 : this.config.concurrency;
+        const runBudget = Math.max(0, maxBudget - runningCount);
         if (runBudget !== 0) {
           // we have budget to schedule new sessions for this browser
           const allScheduled = this.getScheduledSessions(browser);
