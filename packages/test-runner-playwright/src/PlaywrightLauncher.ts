@@ -25,13 +25,16 @@ export class PlaywrightLauncher implements BrowserLauncher {
   private inactivePages: PlaywrightLauncherPage[] = [];
   private testCoveragePerSession = new Map<string, CoverageMapData>();
   private __launchBrowserPromise?: Promise<Browser>;
+  public __experimentalWindowFocus__: boolean;
 
   constructor(
     private product: ProductType,
     private launchOptions: LaunchOptions,
     private createPageFunction?: CreatePageFunction,
+    __experimentalWindowFocus__?: boolean,
   ) {
     this.name = capitalize(product);
+    this.__experimentalWindowFocus__ = !!__experimentalWindowFocus__;
   }
 
   async initialize(config: TestRunnerCoreConfig, testFiles: string[]) {

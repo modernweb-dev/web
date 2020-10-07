@@ -10,6 +10,7 @@ export interface PlaywrightLauncherArgs {
   product?: ProductType;
   launchOptions?: LaunchOptions;
   createPage?: (args: { config: TestRunnerCoreConfig; browser: Browser }) => Promise<Page>;
+  __experimentalWindowFocus__?: boolean;
 }
 
 export { PlaywrightLauncher };
@@ -22,5 +23,10 @@ export function playwrightLauncher(args: PlaywrightLauncherArgs = {}) {
     );
   }
 
-  return new PlaywrightLauncher(product, args.launchOptions ?? {}, args.createPage);
+  return new PlaywrightLauncher(
+    product,
+    args.launchOptions ?? {},
+    args.createPage,
+    !!args.__experimentalWindowFocus__,
+  );
 }

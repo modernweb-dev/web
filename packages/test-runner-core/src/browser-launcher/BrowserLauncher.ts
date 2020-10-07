@@ -18,6 +18,8 @@ export interface BrowserLauncher {
    */
   type: string;
 
+  __experimentalWindowFocus__?: boolean;
+
   /**
    * One time startup for the browser launcher. Called when the test runner
    * starts. Use this for async initialization work.
