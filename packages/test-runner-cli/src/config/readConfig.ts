@@ -31,15 +31,6 @@ const defaultCoverageConfig: CoverageConfig = {
 };
 
 export function validateCoreConfig<T extends TestRunnerCoreConfig>(config: Partial<T>): T {
-  if (
-    !(typeof config.files === 'string' || Array.isArray(config.files)) ||
-    config.files.length === 0
-  ) {
-    throw new Error('No test files configured.');
-  }
-  if (!config.browsers) {
-    throw new Error('No browsers specified.');
-  }
   if (typeof config.protocol !== 'string') {
     throw new Error('No protocol specified.');
   }
