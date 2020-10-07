@@ -1,5 +1,14 @@
 # @web/test-runner-cli
 
+## 0.6.1
+
+### Patch Changes
+
+- 7ec6e94: don't require files option when using groups
+- 438176c: Allow specifying default test group
+- Updated dependencies [175b124]
+  - @web/test-runner-core@0.8.1
+
 ## 0.6.0
 
 ### Minor Changes

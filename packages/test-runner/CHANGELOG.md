@@ -1,5 +1,18 @@
 # @web/test-runner
 
+## 0.8.2
+
+### Patch Changes
+
+- 175b124: fixed reporting multiple test files for a browser
+- 7ec6e94: don't require files option when using groups
+- 438176c: Allow specifying default test group
+- Updated dependencies [175b124]
+- Updated dependencies [7ec6e94]
+- Updated dependencies [438176c]
+  - @web/test-runner-core@0.8.1
+  - @web/test-runner-cli@0.6.1
+
 ## 0.8.1
 
 ### Patch Changes

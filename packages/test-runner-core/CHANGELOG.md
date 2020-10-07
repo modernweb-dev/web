@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.8.1
+
+### Patch Changes
+
+- 175b124: fixed reporting multiple test files for a browser
+
 ## 0.8.0
 
 ### Minor Changes
