@@ -210,6 +210,12 @@ A group will inherit all options from the parent config unless they are overwrit
 
 When running tests regularly, the tests from regular config and the groups will be run. You can run only the tests of a test group by using the `--group` flag. For example `web-test-runner --group package-a`.
 
+### Default group
+
+When the `files` option is specified on the top level config, a default test group is created `default`. You can run only this group with the `--group default` flag.
+
+Leave the top level `files` option empty to avoid creating a default group.
+
 ### Using separate file
 
 Test groups can also be created in separate files using a glob pattern:
