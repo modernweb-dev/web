@@ -130,12 +130,31 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
       groupConfigs.push(...(await collectGroupConfigs(configPatterns)));
     }
 
+    if (groupConfigs.find(g => g.name === 'default')) {
+      throw new Error(
+        'Cannot create a group named "default". This named is reserved by the test runner.',
+      );
+    }
+
     if (cliArgs.group != null) {
-      const groupConfig = groupConfigs.find(c => c.name === cliArgs.group);
-      if (!groupConfig) {
-        throw new TestRunnerStartError(`Could not find any group named ${cliArgs.group}`);
+      if (cliArgs.group === 'default') {
+        // default group is an alias for the root config
+        groupConfigs = [];
+      } else {
+        const groupConfig = groupConfigs.find(c => c.name === cliArgs.group);
+        if (!groupConfig) {
+          throw new TestRunnerStartError(`Could not find any group named ${cliArgs.group}`);
+        }
+
+        // when focusing a group, ensure that the "default" group isn't run
+        // we can improve this by relying only on groups inside the test runner itself
+        if (groupConfig.files == null) {
+          groupConfig.files = config.files;
+        }
+        config.files = undefined;
+
+        groupConfigs = [groupConfig];
       }
-      groupConfigs = [groupConfig];
     }
 
     if (cliArgs.puppeteer) {
