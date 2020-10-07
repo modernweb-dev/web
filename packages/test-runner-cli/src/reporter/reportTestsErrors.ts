@@ -55,15 +55,18 @@ export async function formatError(
   }
 
   if (typeof err.expected === 'string' && typeof err.actual === 'string') {
-    strings.push(`${chalk.gray('error:')} ${chalk.red(err.message)}`);
-    strings.push(renderDiff(err.actual, err.expected));
-  } else if (err.stack) {
+    strings.push(`${renderDiff(err.actual, err.expected)} \n`);
+  }
+
+  if (err.stack) {
     strings.push(
       `${chalk.red(
         await formatStackTrace(err, userAgent, rootDir, stackLocationRegExp, sourceMapFunction),
       )}`,
     );
-  } else {
+  }
+
+  if (!err.expected && !err.stack) {
     strings.push(chalk.red(err.message ?? 'Unknown error'));
   }
 
