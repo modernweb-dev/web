@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.8.3
+
+### Patch Changes
+
+- 0b5cc82: always print stack traces in errors
+- Updated dependencies [0b5cc82]
+  - @web/test-runner-cli@0.6.2
+
 ## 0.8.2
 
 ### Patch Changes
