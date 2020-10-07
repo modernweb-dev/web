@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.6.2
+
+### Patch Changes
+
+- 0b5cc82: always print stack traces in errors
+
 ## 0.6.1
 
 ### Patch Changes
