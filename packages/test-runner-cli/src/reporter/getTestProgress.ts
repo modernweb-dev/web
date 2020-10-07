@@ -80,7 +80,7 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
     const sessionsForBrowser = focusedTestFile
       ? allSessionsForBrowser.filter(s => s.testFile === focusedTestFile)
       : allSessionsForBrowser;
-    const totalTestFiles = new Set(sessionsForBrowser.map(s => s.testFile)).size;
+    const totalTestFiles = sessionsForBrowser.length;
     let finishedFilesForBrowser = 0;
     let activeFilesForBrowser = 0;
     let passedTestsForBrowser = 0;
