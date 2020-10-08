@@ -1,10 +1,7 @@
 /* eslint-disable */
-const { getRocketValues } = require('@d4kmor/cli');
 
 module.exports = async function () {
-  const defaultValues = await getRocketValues();
   return {
-    ...defaultValues,
     name: 'Modern Web',
     description: 'Guides, tools and libraries for modern web development.',
     socialLinks: [
