@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.6.1
+
+### Patch Changes
+
+- 859008b: added experimental mode to test workflows where tests on firefox require the browser window to be focused
+- Updated dependencies [859008b]
+  - @web/test-runner-core@0.8.2
+
 ## 0.6.0
 
 ### Minor Changes

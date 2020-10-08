@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.8.4
+
+### Patch Changes
+
+- 859008b: added experimental mode to test workflows where tests on firefox require the browser window to be focused
+- Updated dependencies [859008b]
+  - @web/test-runner-core@0.8.2
+
 ## 0.8.3
 
 ### Patch Changes
