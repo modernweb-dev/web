@@ -18,7 +18,7 @@ header {
 }
 
 @media screen and (min-width: 1024px) {
-  body[layout='home'].has-background .page-background {
+  body[layout='home'][home-layout='background'] .page-background {
     top: -111px;
     right: -360px;
   }

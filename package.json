@@ -34,9 +34,9 @@
     "update-dependency": "node scripts/update-dependency.js"
   },
   "dependencies": {
-    "@d4kmor/cli": "^0.5.1",
-    "@d4kmor/launch": "^0.4.1",
-    "@d4kmor/search": "^0.1.0"
+    "@d4kmor/cli": "^0.5.4",
+    "@d4kmor/launch": "^0.4.6",
+    "@d4kmor/search": "^0.1.2"
   },
   "devDependencies": {
     "@changesets/cli": "^2.9.2",
