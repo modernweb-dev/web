@@ -94,7 +94,14 @@ export class TestScheduler {
         runningBrowsers += 1;
 
         const runningCount = this.getRunningSessions(browser).length;
-        const maxBudget = browser.__experimentalWindowFocus__ ? 1 : this.config.concurrency;
+        let maxBudget;
+
+        if (browser.__experimentalWindowFocus__) {
+          maxBudget = 1;
+        } else {
+          maxBudget = browser.concurrency ?? this.config.concurrency;
+        }
+
         const runBudget = Math.max(0, maxBudget - runningCount);
         if (runBudget !== 0) {
           // we have budget to schedule new sessions for this browser

@@ -53,3 +53,15 @@ export default {
   ],
 };
 ```
+
+## Concurrency
+
+You can override the concurrency of this specific browser launcher
+
+```js
+import { playwrightLauncher } from '@web/test-runner-playwright';
+
+export default {
+  browsers: [playwrightLauncher({ product: 'firefox', concurrency: 1 })],
+};
+```

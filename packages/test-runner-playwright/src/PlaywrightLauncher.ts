@@ -16,6 +16,10 @@ export type CreatePageFunction = (args: {
 export class PlaywrightLauncher implements BrowserLauncher {
   public name: string;
   public type = 'playwright';
+  public concurrency?: number;
+  private product: ProductType;
+  private launchOptions: LaunchOptions;
+  private createPageFunction?: CreatePageFunction;
   private config?: TestRunnerCoreConfig;
   private testFiles?: string[];
   private browser?: Browser;
@@ -28,11 +32,16 @@ export class PlaywrightLauncher implements BrowserLauncher {
   public __experimentalWindowFocus__: boolean;
 
   constructor(
-    private product: ProductType,
-    private launchOptions: LaunchOptions,
-    private createPageFunction?: CreatePageFunction,
+    product: ProductType,
+    launchOptions: LaunchOptions,
+    createPageFunction?: CreatePageFunction,
     __experimentalWindowFocus__?: boolean,
+    concurrency?: number,
   ) {
+    this.product = product;
+    this.launchOptions = launchOptions;
+    this.createPageFunction = createPageFunction;
+    this.concurrency = concurrency;
     this.name = capitalize(product);
     this.__experimentalWindowFocus__ = !!__experimentalWindowFocus__;
   }
