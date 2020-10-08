@@ -1,9 +1,10 @@
-import { Context } from '@web/dev-server-core';
+import { Context, getRequestFilePath } from '@web/dev-server-core';
 
 import { PARAM_SESSION_ID, PARAM_TEST_FILE } from '../../utils/constants';
 import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
 import { createTestFileImportPath } from '../utils';
 import { trackBrowserLogs } from './trackBrowserLogs';
+import { TestSessionManager } from '../../test-session/TestSessionManager';
 
 const iframeModePage = `
 <!DOCTYPE html>
@@ -23,21 +24,6 @@ const iframeModePage = `
   <body></body>
 </html>
 `;
-
-function createTestPage(browserLogs: boolean, testFrameworkImport: string) {
-  return `<!DOCTYPE html>
-<html>
-  <head>${browserLogs ? trackBrowserLogs : ''}</head>
-  <body>
-    <script type="module">
-      import('${testFrameworkImport}').catch((error) => {
-        console.error(error);
-        console.error('\x1B[31mThe test framework could not be loaded. Are your dependencies installed correctly? Is there a server plugin or middleware that interferes?\x1B[39m');
-      });
-    </script>
-  </body>
-</html>`;
-}
 
 async function getManualListItem(config: TestRunnerCoreConfig, context: Context, testFile: string) {
   const testImportPath = await createTestFileImportPath(config, context, testFile);
@@ -81,9 +67,38 @@ async function createManualDebugPage(
 `;
 }
 
+function getInjectIndex(html: string) {
+  const headIndex = html.indexOf('<head>');
+  if (headIndex !== -1) return '<head>'.length + headIndex;
+
+  const bodyIndex = html.indexOf('<body>');
+  if (bodyIndex !== -1) return '<body>'.length + bodyIndex;
+
+  return 0;
+}
+
+function injectRuntime(
+  html: string,
+  config: Record<string, unknown>,
+  browserLogs: boolean,
+  preloadedModule?: string,
+) {
+  const preloadLink = preloadedModule
+    ? `<link rel="preload" as="script" crossorigin="anonymous" href="${preloadedModule}">`
+    : '';
+  const configScript = `<script type="module">window.__WTR_CONFIG__ = ${JSON.stringify(
+    config,
+  )}</script>`;
+  const injectedHtml = `${preloadLink}${browserLogs ? `${trackBrowserLogs}` : ''}${configScript}`;
+  const injectLocation = getInjectIndex(html);
+
+  return `${html.substring(0, injectLocation)}${injectedHtml}${html.substring(injectLocation)}`;
+}
+
 export function serveTestRunnerHtmlPlugin(
   config: TestRunnerCoreConfig,
   testFiles: string[],
+  sessions: TestSessionManager,
   testFrameworkImport?: string,
 ) {
   return {
@@ -101,19 +116,80 @@ export function serveTestRunnerHtmlPlugin(
             type: 'html',
             body: config.testRunnerHtml
               ? config.testRunnerHtml(testFrameworkImport, config)
-              : createTestPage(!!config.browserLogs, testFrameworkImport),
+              : `<!DOCTYPE html><html><head></head><body><script type="module" src="${testFrameworkImport}"></script></body></html>`,
           };
-        } else if (searchParams.get('mode') === 'iframe') {
+        }
+
+        if (searchParams.get('mode') === 'iframe') {
           return {
             type: 'html',
             body: iframeModePage,
           };
-        } else {
-          return {
-            type: 'html',
-            body: await createManualDebugPage(config, context, testFiles),
-          };
         }
+
+        return {
+          type: 'html',
+          body: await createManualDebugPage(config, context, testFiles),
+        };
+      }
+    },
+
+    async transform(context: Context) {
+      if (!context.response.is('html')) {
+        return;
+      }
+      const isTestRunnerHtml = context.path === '/';
+      if (!isTestRunnerHtml && !testFiles.includes(getRequestFilePath(context, config.rootDir))) {
+        return;
+      }
+
+      const { searchParams } = context.URL;
+      const sessionId = searchParams.get(PARAM_SESSION_ID);
+      if (sessionId) {
+        const session = sessions.get(sessionId) ?? sessions.getDebug(sessionId);
+        if (!session) {
+          throw new Error(`Could not find session ${sessionId}`);
+        }
+
+        const testFile = await createTestFileImportPath(
+          config,
+          context,
+          session.testFile,
+          sessionId,
+        );
+
+        const runtimeConfig = {
+          testFile,
+          watch: !!config.watch,
+          debug: session.debug,
+          testFrameworkConfig: config.testFramework?.config,
+        };
+
+        context.body = injectRuntime(
+          context.body,
+          runtimeConfig,
+          !!config.browserLogs,
+          isTestRunnerHtml ? testFile : undefined,
+        );
+        return;
+      }
+
+      const testFile = searchParams.get(PARAM_TEST_FILE);
+      if (testFile) {
+        const runtimeConfig = {
+          testFile,
+          watch: !!config.watch,
+          debug: true,
+          testFrameworkConfig: config.testFramework?.config,
+        };
+
+        context.body = injectRuntime(
+          context.body,
+          runtimeConfig,
+          !!config.browserLogs,
+          isTestRunnerHtml ? testFile : undefined,
+        )!;
+        return;
       }
     },
   };

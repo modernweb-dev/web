@@ -12,15 +12,11 @@ export function runBasicTest(
     let allSessions: TestSession[];
 
     before(async () => {
-      const result = await runTests(
-        {
-          ...config,
-          files: [...(config.files ?? []), resolve(__dirname, 'browser-tests', '*.test.js')],
-          plugins: [...(config.plugins ?? []), legacyPlugin()],
-        },
-        undefined,
-        { allowFailure: true, reportErrors: false },
-      );
+      const result = await runTests({
+        ...config,
+        files: [...(config.files ?? []), resolve(__dirname, 'browser-tests', '*.test.js')],
+        plugins: [...(config.plugins ?? []), legacyPlugin()],
+      });
       allSessions = result.sessions;
 
       expect(allSessions.every(s => s.passed)).to.equal(true, 'All sessions should have passed');

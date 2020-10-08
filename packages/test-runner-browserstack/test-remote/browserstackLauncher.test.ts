@@ -25,6 +25,11 @@ describe('test-runner-browserstack', function () {
 
   runIntegrationTests(
     () => ({
+      testFramework: {
+        config: {
+          reporter: 'html',
+        },
+      } as any,
       browserStartTimeout: 1000 * 60 * 2,
       testsStartTimeout: 1000 * 60 * 2,
       testsFinishTimeout: 1000 * 60 * 2,

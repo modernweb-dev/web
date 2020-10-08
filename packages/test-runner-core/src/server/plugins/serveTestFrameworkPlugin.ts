@@ -9,7 +9,10 @@ const REGEXP_SOURCE_MAP = /\/\/# sourceMappingURL=.*/;
 
 async function readFile(codePath: string) {
   if (!fs.existsSync(codePath)) {
-    throw new Error(`Could not find a test framework at ${codePath}`);
+    throw new Error(
+      `The test framework at ${codePath} could not be loaded. ` +
+        'Are your dependencies installed correctly? Is there a server plugin or middleware that interferes?',
+    );
   }
 
   return (await promisify(fs.readFile)(codePath, 'utf-8')).replace(REGEXP_SOURCE_MAP, '');
