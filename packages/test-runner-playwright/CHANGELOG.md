@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.6.2
+
+### Patch Changes
+
+- c256a08: allow configuring concurrency per browser launcher
+- Updated dependencies [c256a08]
+  - @web/test-runner-core@0.8.3
+
 ## 0.6.1
 
 ### Patch Changes
