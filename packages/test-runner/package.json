@@ -29,6 +29,7 @@
     "test:ci": "yarn test",
     "test:custom-html": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/customhtml.config.js",
     "test:filter-logs": "node dist/bin.js --config demo/filter-logs.config.mjs",
+    "test:focus": "node dist/bin.js --config demo/focus.config.mjs",
     "test:groups-config": "node dist/bin.js --config demo/groups.config.mjs",
     "test:groups-pattern": "node dist/bin.js --groups \"demo/test/groups/**/*.config.mjs\"",
     "test:legacy": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/legacy.config.mjs",

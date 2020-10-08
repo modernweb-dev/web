@@ -45,3 +45,15 @@ export default {
   ],
 };
 ```
+
+## Concurrency
+
+You can override the concurrency of this specific browser launcher
+
+```js
+import { chromeLauncher } from '@web/test-runner-chrome';
+
+export default {
+  browsers: [chromeLauncher({ concurrency: 1 })],
+};
+```

@@ -18,6 +18,12 @@ export interface BrowserLauncher {
    */
   type: string;
 
+  /**
+   * Optional concurrency for this browser launcher only. Overwrites a globally
+   * configured concurrency option.
+   */
+  concurrency?: number;
+
   __experimentalWindowFocus__?: boolean;
 
   /**

@@ -11,6 +11,7 @@ export interface PlaywrightLauncherArgs {
   launchOptions?: LaunchOptions;
   createPage?: (args: { config: TestRunnerCoreConfig; browser: Browser }) => Promise<Page>;
   __experimentalWindowFocus__?: boolean;
+  concurrency?: number;
 }
 
 export { PlaywrightLauncher };
@@ -28,5 +29,6 @@ export function playwrightLauncher(args: PlaywrightLauncherArgs = {}) {
     args.launchOptions ?? {},
     args.createPage,
     !!args.__experimentalWindowFocus__,
+    args.concurrency,
   );
 }

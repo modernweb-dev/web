@@ -21,6 +21,10 @@ export type CreatePageFunction = (args: {
 export class ChromeLauncher implements BrowserLauncher {
   public name: string;
   public type = 'puppeteer';
+  public concurrency?: number;
+  private launchOptions: LaunchOptions;
+  private customPuppeteer?: typeof puppeteerCore;
+  private createPageFunction?: CreatePageFunction;
   private config?: TestRunnerCoreConfig;
   private testFiles?: string[];
   private browser?: Browser;
@@ -32,10 +36,15 @@ export class ChromeLauncher implements BrowserLauncher {
   private __launchBrowserPromise?: Promise<Browser>;
 
   constructor(
-    private launchOptions: LaunchOptions,
-    private customPuppeteer?: typeof puppeteerCore,
-    private createPageFunction?: CreatePageFunction,
+    launchOptions: LaunchOptions,
+    customPuppeteer?: typeof puppeteerCore,
+    createPageFunction?: CreatePageFunction,
+    concurrency?: number,
   ) {
+    this.launchOptions = launchOptions;
+    this.customPuppeteer = customPuppeteer;
+    this.createPageFunction = createPageFunction;
+    this.concurrency = concurrency;
     if (!customPuppeteer) {
       // without a custom puppeteer, we use the locally installed chrome
       this.name = 'Chrome';

@@ -40,6 +40,22 @@ export default {
 };
 ```
 
+## Concurrency
+
+You can override the concurrency of this specific browser launcher
+
+```js
+import { puppeteerLauncher } from '@web/test-runner-puppeteer';
+
+export default {
+  browsers: [
+    puppeteerLauncher({
+      concurrency: 1,
+    }),
+  ],
+};
+```
+
 ## Testing Firefox
 
 Testing Firefox with Puppeteer is still experimental. There is currently no official way to install both chromium and firefox, but you can set this up for your repository by adding a post-install step to your package scripts:

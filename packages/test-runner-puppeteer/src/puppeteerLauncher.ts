@@ -8,15 +8,18 @@ export interface PuppeteerLauncherConfig {
     config: TestRunnerCoreConfig;
     browser: puppeteer.Browser;
   }) => Promise<puppeteer.Page>;
+  concurrency?: number;
 }
 
 export function puppeteerLauncher({
   launchOptions,
   createPage,
+  concurrency,
 }: PuppeteerLauncherConfig = {}): BrowserLauncher {
   return chromeLauncher({
     launchOptions,
     puppeteer: (puppeteer as any).default as typeof puppeteer,
     createPage,
+    concurrency,
   });
 }
