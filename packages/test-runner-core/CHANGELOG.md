@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.8.3
+
+### Patch Changes
+
+- c256a08: allow configuring concurrency per browser launcher
+
 ## 0.8.2
 
 ### Patch Changes

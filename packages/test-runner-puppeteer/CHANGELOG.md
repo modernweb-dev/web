@@ -1,5 +1,14 @@
 # @web/test-runner-puppeteer
 
+## 0.7.1
+
+### Patch Changes
+
+- c256a08: allow configuring concurrency per browser launcher
+- Updated dependencies [c256a08]
+  - @web/test-runner-chrome@0.7.1
+  - @web/test-runner-core@0.8.3
+
 ## 0.7.0
 
 ### Minor Changes

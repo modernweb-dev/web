@@ -1,5 +1,14 @@
 # @web/test-runner-cli
 
+## 0.6.3
+
+### Patch Changes
+
+- c256a08: allow configuring concurrency per browser launcher
+- Updated dependencies [c256a08]
+  - @web/test-runner-chrome@0.7.1
+  - @web/test-runner-core@0.8.3
+
 ## 0.6.2
 
 ### Patch Changes
