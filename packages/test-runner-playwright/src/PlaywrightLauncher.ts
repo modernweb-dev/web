@@ -106,7 +106,7 @@ export class PlaywrightLauncher implements BrowserLauncher {
   async createNewPage(browser: Browser) {
     const playwrightPage = await (this.createPageFunction
       ? this.createPageFunction({ config: this.config!, browser })
-      : browser.newPage());
+      : browser.contexts()[0]!.newPage());
     return new PlaywrightLauncherPage(this.config!, this.testFiles!, playwrightPage);
   }
 
@@ -131,7 +131,11 @@ export class PlaywrightLauncher implements BrowserLauncher {
     }
 
     if (!this.browser || !this.browser?.isConnected()) {
-      this.__launchBrowserPromise = playwright[this.product].launch(this.launchOptions);
+      this.__launchBrowserPromise = (async () => {
+        const browser = await playwright[this.product].launch(this.launchOptions);
+        await browser.newContext();
+        return browser;
+      })();
       this.browser = await this.__launchBrowserPromise;
       this.__launchBrowserPromise = undefined;
     }
