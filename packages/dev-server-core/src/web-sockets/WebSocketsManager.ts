@@ -16,7 +16,7 @@ export interface Events {
  */
 export class WebSocketsManager extends EventEmitter<Events> {
   public webSocketImport = NAME_WEB_SOCKET_IMPORT;
-  private webSocketServer: WebSocket.Server;
+  public webSocketServer: WebSocket.Server;
   private openSockets = new Set<WebSocket>();
 
   constructor(server: Server) {
@@ -51,7 +51,7 @@ export class WebSocketsManager extends EventEmitter<Events> {
   }
 
   /**
-   * Imports the given path, executing the module as well as a default export if it executes a function.
+   * Imports the given path, executing the module as well as a default export if it exports a function.
    *
    * This is a built-in web socket message and will be handled automatically.
    *

@@ -133,6 +133,25 @@ async function main() {
 main();
 ```
 
+## Websockets Server
+
+The WebSocketsManager is exposed in case you need more fine-grained control. It contains three helpers:
+
+- `sendImport`: imports the given path, executing the module as well as a default export if it exports a function
+- `sendConsoleLog`: logs a message to the browser console of all connected web sockets.
+- `send`: sends messages to all connected web sockets.
+
+If you want to use the WebSockets server directly to handle messages yourself, use the `webSocketServer` property.
+
+```js
+const { server, webSockets } = await startDevServer();
+
+const wss = webSockets.webSocketServer;
+wss.on('connection', ws => {
+  ws.on('message', message => handleWsMessage(message, ws));
+});
+```
+
 ## Advanced
 
 If you need more control than what `startDevServer` gives you, you can also use the individual pieces that make up the dev server directly.
