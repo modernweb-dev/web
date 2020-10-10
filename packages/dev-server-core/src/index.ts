@@ -8,7 +8,7 @@ export { WebSocket };
 export { DevServer } from './server/DevServer';
 export { Plugin, ServerStartParams } from './Plugin';
 export { DevServerCoreConfig, MimeTypeMappings } from './DevServerCoreConfig';
-export { WebSocketsManager } from './web-sockets/WebSocketsManager';
+export { WebSocketsManager, WebSocketData } from './web-sockets/WebSocketsManager';
 export {
   getRequestBrowserPath,
   getRequestFilePath,
