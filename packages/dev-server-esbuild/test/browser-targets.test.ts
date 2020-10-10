@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { browsers } from 'mdn-browser-compat-data';
+import { browsers } from '@mdn/browser-compat-data';
 import { isLatestModernBrowser, getLatestStableMajor } from '../src/browser-targets';
 
 describe('isLatestModernBrowser', () => {

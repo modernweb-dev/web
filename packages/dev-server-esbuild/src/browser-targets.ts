@@ -1,4 +1,4 @@
-import { browsers } from 'mdn-browser-compat-data';
+import { browsers } from '@mdn/browser-compat-data';
 
 type Release = { status: string };
 export type Browser = { name: string; version: string };
