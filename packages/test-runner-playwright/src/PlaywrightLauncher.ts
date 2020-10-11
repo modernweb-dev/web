@@ -93,6 +93,7 @@ export class PlaywrightLauncher implements BrowserLauncher {
         devtools: this.product === 'chromium',
         headless: false,
       });
+      await this.debugBrowser.newContext();
     }
 
     const page = await this.createNewPage(this.debugBrowser);
