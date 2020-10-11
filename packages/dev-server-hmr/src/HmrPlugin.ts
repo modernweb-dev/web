@@ -90,6 +90,10 @@ export class HmrPlugin implements Plugin {
 
   /** @inheritDoc */
   async transform(context: Context) {
+    if (context.response.is('html')) {
+      return appendHtmlToDocument(context, hmrClientImport);
+    }
+
     // If the module references import.meta.hot it can be assumed it
     // supports hot reloading
     const hmrEnabled = context.body.includes('import.meta.hot') === true;
@@ -97,8 +101,12 @@ export class HmrPlugin implements Plugin {
     mod.hmrEnabled = hmrEnabled;
     this._logger?.debug(`[hmr] Setting hmrEnabled=${hmrEnabled} for ${context.path}`);
 
-    if (context.response.is('html')) {
-      return appendHtmlToDocument(context, hmrClientImport);
+    if (hmrEnabled && context.response.is('application/javascript')) {
+      return `
+        import {create as __WDS_HMR__} from '${NAME_HMR_CLIENT_IMPORT}';
+        import.meta.hot = __WDS_HMR__(import.meta.url);
+        ${context.body}
+      `;
     }
   }
 
