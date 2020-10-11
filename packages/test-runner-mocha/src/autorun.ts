@@ -5,8 +5,8 @@ import {
   TestResultError,
 } from '../../test-runner-core/browser/session.js';
 import '../../../node_modules/mocha/mocha.js';
-import { styles } from './styles.js';
 import { collectTestResults } from './collectTestResults.js';
+import { setupMocha } from './mochaSetup.js';
 
 sessionStarted();
 
@@ -18,18 +18,7 @@ const baseURI = (base || window.location).href;
   const errors: TestResultError[] = [];
 
   const { testFile, debug, testFrameworkConfig } = await getConfig();
-  const div = document.createElement('div');
-  div.id = 'mocha';
-  document.body.appendChild(div);
-
-  if (debug) {
-    const styleElement = document.createElement('style');
-    styleElement.textContent = styles;
-    document.head.appendChild(styleElement);
-  }
-
-  const userOptions = typeof testFrameworkConfig === 'object' ? testFrameworkConfig : {};
-  mocha.setup({ ui: 'bdd', allowUncaught: false, ...userOptions });
+  setupMocha(debug, testFrameworkConfig);
 
   await import(new URL(testFile, baseURI).href).catch(error => {
     console.error(error);
