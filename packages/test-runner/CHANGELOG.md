@@ -1,5 +1,28 @@
 # @web/test-runner
 
+## 0.9.0
+
+### Minor Changes
+
+- b397a4c: Disabled the in-browser reporter during regular test runs, improving performance.
+
+  Defaulted to the spec reporter instead of the HTML reporter in the browser when debugging. This avoids manipulating the testing environment by default.
+
+  You can opt back into the old behavior by setting the mocha config:
+
+  ```js
+  export default {
+    testFramework: {
+      config: { reporter: 'html' },
+    },
+  };
+  ```
+
+### Patch Changes
+
+- Updated dependencies [b397a4c]
+  - @web/test-runner-mocha@0.5.0
+
 ## 0.8.5
 
 ### Patch Changes

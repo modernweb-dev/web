@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.6.3
+
+### Patch Changes
+
+- 735658a: share the same browser context across pages
+
 ## 0.6.2
 
 ### Patch Changes
