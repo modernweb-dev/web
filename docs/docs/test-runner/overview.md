@@ -17,7 +17,7 @@ Test runner for web applications.
 ⏱&nbsp;&nbsp;Runs tests in parallel and isolation.<br>
 👀&nbsp;&nbsp; Interactive watch mode.<br>
 🏃&nbsp;&nbsp; Fast development by rerunning only changed tests.<br>
-🚀&nbsp;&nbsp; Powered by [esbuild](/docs/dev-server/plugins/esbuild.md) and [rollup plugins](/docs/dev-server/plugins/rollup.md)
+🚀&nbsp;&nbsp; Powered by [esbuild](../dev-server/plugins/esbuild.md) and [rollup plugins](../dev-server/plugins/rollup.md)
 
 ## Installation
 
