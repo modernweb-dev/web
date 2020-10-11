@@ -21,10 +21,10 @@ const acceptTrigger = Symbol('trigger.accept');
 const disposeHandlers = Symbol('handlers.dispose');
 const acceptHandlers = Symbol('handlers.accept');
 const moduleState = Symbol('moduleState');
-const hmrState = {
-  NONE: 0,
-  DECLINED: 1,
-  ACCEPTED: 2
+const HmrState = {
+  None: 0,
+  Declined: 1,
+  Accepted: 2
 };
 
 export class HotModule {
@@ -33,13 +33,13 @@ export class HotModule {
     this.data = {};
     this[disposeHandlers] = new Set();
     this[acceptHandlers] = new Set();
-    this[moduleState] = hmrState.NONE;
+    this[moduleState] = HmrState.None;
   }
 
   accept(deps, callback) {
-    if (this[moduleState] !== hmrState.ACCEPTED) {
+    if (this[moduleState] !== HmrState.Accepted) {
       sendMessage({ type: 'hotAccept', id: this.id });
-      this[moduleState] = hmrState.ACCEPTED;
+      this[moduleState] = HmrState.Accepted;
     }
 
     if (!callback) {
@@ -58,7 +58,7 @@ export class HotModule {
   }
 
   decline() {
-    this[moduleState] = hmrState.DECLINED;
+    this[moduleState] = HmrState.Declined;
   }
 
   invalidate() {
@@ -77,7 +77,7 @@ export class HotModule {
   }
 
   async [acceptTrigger]() {
-    if (this[moduleState] === hmrState.DECLINED) {
+    if (this[moduleState] === HmrState.Declined) {
       return;
     }
 
