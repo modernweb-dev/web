@@ -1,5 +1,3 @@
-import { parse as parseHtml } from 'parse5';
-import { query, predicates } from '../dom5';
 import { Plugin } from '../Plugin';
 import { NAME_WEB_SOCKET_IMPORT } from './WebSocketsManager';
 import { appendHtmlToDocument } from '../utils';
