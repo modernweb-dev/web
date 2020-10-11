@@ -3,6 +3,7 @@ import { appendHtmlToDocument } from '@web/dev-server-core';
 import WebSocket from 'ws';
 import type { Context } from 'koa';
 import {hmrClientScript} from './hmrClientScript';
+import {posix as pathUtil} from 'path';
 
 export interface HmrReloadMessage {
   type: 'reload';
@@ -80,12 +81,13 @@ export class HmrPlugin implements Plugin {
 
   /** @inheritDoc */
   async transformImport({ source, context }: { source: string; context: Context }) {
+    const importPath = pathUtil.join(context.path, source);
     const mod = this._getOrCreateModule(context.path);
-    const dependencyMod = this._getOrCreateModule(source);
+    const dependencyMod = this._getOrCreateModule(importPath);
 
-    mod.dependencies.add(source);
+    mod.dependencies.add(importPath);
     dependencyMod.dependents.add(context.path);
-    this._logger?.debug(`[hmr] Added dependency from ${context.path} -> ${source}`);
+    this._logger?.debug(`[hmr] Added dependency from ${context.path} -> ${importPath}`);
   }
 
   /** @inheritDoc */
