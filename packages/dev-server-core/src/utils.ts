@@ -3,9 +3,30 @@ import isStream from 'is-stream';
 import getStream from 'get-stream';
 import { isBinaryFile } from 'isbinaryfile';
 import path from 'path';
+import { parse as parseHtml } from 'parse5';
+import { query, predicates } from './dom5';
 
 const REGEXP_TO_BROWSER_PATH = new RegExp(path.sep === '\\' ? '\\\\' : path.sep, 'g');
 const REGEXP_TO_FILE_PATH = new RegExp('/', 'g');
+
+/**
+ * Appends a HTML fragment to the document of a given context and returns
+ * the transformed document.
+ */
+export function appendHtmlToDocument(context: Context, script: string): string|undefined {
+  const documentAst = parseHtml(context.body, { sourceCodeLocationInfo: true });
+  const htmlNode = query(documentAst, predicates.hasTagName('html'));
+  const bodyNode = query(documentAst, predicates.hasTagName('body'));
+  if (!htmlNode?.sourceCodeLocation || !bodyNode?.sourceCodeLocation) {
+    // if html or body tag does not have a source code location it was generated
+    return;
+  }
+
+  const { startOffset } = bodyNode.sourceCodeLocation.endTag;
+  const start = context.body.substring(0, startOffset);
+  const end = context.body.substring(startOffset);
+  return `${start}\n\n${script}\n\n${end}`;
+}
 
 /**
  * Turns a file path into a path suitable for browsers, with a / as seperator.

@@ -1,6 +1,8 @@
 import type { Plugin, WebSocketsManager, Logger, WebSocketData, ServerStartParams } from '@web/dev-server-core';
+import { appendHtmlToDocument } from '@web/dev-server-core';
 import WebSocket from 'ws';
 import type { Context } from 'koa';
+import {hmrClientScript} from './hmrClientScript';
 
 export interface HmrReloadMessage {
   type: 'reload';
@@ -26,6 +28,11 @@ export interface HmrModule {
   hmrAccepted: boolean;
   hmrEnabled: boolean;
 }
+
+export const NAME_HMR_CLIENT_IMPORT = '/__web-dev-server__hmr.js';
+
+export const hmrClientImport = `<!-- injected by web-dev-server -->
+<script type="module" src="${NAME_HMR_CLIENT_IMPORT}"></script>`;
 
 /**
  * Dev server plugin to provide hot module reloading
@@ -60,6 +67,11 @@ export class HmrPlugin implements Plugin {
 
   /** @inheritDoc */
   async serve(context: Context) {
+    // Someone is requesting the injected client script
+    if (context.path === NAME_HMR_CLIENT_IMPORT) {
+      return hmrClientScript;
+    }
+
     // We are serving a new file or it has changed, so clear all the
     // dependencies we previously tracked (if any).
     this._clearDependencies(context.path);
@@ -84,6 +96,10 @@ export class HmrPlugin implements Plugin {
     const mod = this._getOrCreateModule(context.path);
     mod.hmrEnabled = hmrEnabled;
     this._logger?.debug(`[hmr] Setting hmrEnabled=${hmrEnabled} for ${context.path}`);
+
+    if (context.response.is('html')) {
+      return appendHtmlToDocument(context, hmrClientImport);
+    }
   }
 
   /**
