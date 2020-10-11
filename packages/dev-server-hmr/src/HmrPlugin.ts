@@ -1,9 +1,15 @@
-import type { Plugin, WebSocketsManager, Logger, WebSocketData, ServerStartParams } from '@web/dev-server-core';
+import type {
+  Plugin,
+  WebSocketsManager,
+  Logger,
+  WebSocketData,
+  ServerStartParams,
+} from '@web/dev-server-core';
 import { appendHtmlToDocument } from '@web/dev-server-core';
 import WebSocket from 'ws';
 import type { Context } from 'koa';
-import {hmrClientScript} from './hmrClientScript';
-import {posix as pathUtil} from 'path';
+import { hmrClientScript } from './hmrClientScript';
+import { posix as pathUtil } from 'path';
 
 export interface HmrReloadMessage {
   type: 'reload';

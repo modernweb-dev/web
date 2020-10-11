@@ -13,7 +13,7 @@ const REGEXP_TO_FILE_PATH = new RegExp('/', 'g');
  * Appends a HTML fragment to the document of a given context and returns
  * the transformed document.
  */
-export function appendHtmlToDocument(context: Context, script: string): string|undefined {
+export function appendHtmlToDocument(context: Context, script: string): string | undefined {
   const documentAst = parseHtml(context.body, { sourceCodeLocationInfo: true });
   const htmlNode = query(documentAst, predicates.hasTagName('html'));
   const bodyNode = query(documentAst, predicates.hasTagName('body'));
