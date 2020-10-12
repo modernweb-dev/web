@@ -24,6 +24,12 @@ function copy({ patterns = [], rootDir = process.cwd() }) {
   const resolvedRootDir = path.resolve(rootDir);
   return {
     name: '@web/rollup-plugin-copy',
+    async buildStart() {
+      const files = await patternsToFiles(patterns, rootDir);
+      for (const filePath of files) {
+        this.addWatchFile(filePath);
+      }
+    },
     async generateBundle() {
       const files = await patternsToFiles(patterns, rootDir);
       for (const filePath of files) {
