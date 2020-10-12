@@ -1,4 +1,4 @@
-# Building >> Rollup Plugin Copy ||20
+# Building >> Rollup Plugin Copy ||40
 
 A Rollup plugin which copies asset files while retaining the relative folder structure.
 
