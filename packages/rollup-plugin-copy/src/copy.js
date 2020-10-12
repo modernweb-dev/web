@@ -22,11 +22,18 @@ const { patternsToFiles } = require('./patternsToFiles.js');
  */
 function copy({ patterns = [], rootDir = process.cwd() }) {
   const resolvedRootDir = path.resolve(rootDir);
+  /** @type {string[]} */
+  let filesToCopy = [];
   return {
     name: '@web/rollup-plugin-copy',
+    async buildStart() {
+      filesToCopy = await patternsToFiles(patterns, rootDir);
+      for (const filePath of filesToCopy) {
+        this.addWatchFile(filePath);
+      }
+    },
     async generateBundle() {
-      const files = await patternsToFiles(patterns, rootDir);
-      for (const filePath of files) {
+      for (const filePath of filesToCopy) {
         const fileName = path.relative(resolvedRootDir, filePath);
         this.emitFile({
           type: 'asset',
