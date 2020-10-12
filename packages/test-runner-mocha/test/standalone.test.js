@@ -54,6 +54,10 @@ it('captures errors during setup', async function () {
     [],
     { allowFailure: true, reportErrors: false },
   );
+  console.dir(
+    sessions.map(s => ({ ...s, group: undefined, browser: undefined })),
+    { depth: 20 },
+  );
 
   expect(sessions.length).to.equal(1);
   expect(sessions[0].passed).to.equal(false);

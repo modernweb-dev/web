@@ -126,4 +126,46 @@ describe('legacyPlugin()', function () {
     expectIncludes(text, 'function _classCallCheck(instance');
     server.stop();
   });
+
+  it(`includes url parameters in inline script key`, async () => {
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        {
+          name: 'test',
+          serve(context) {
+            if (context.url === '/?foo=1') {
+              return {
+                body: '<html><body><script type="module">console.log("1");</script></body></html>',
+                type: 'html',
+              };
+            }
+            if (context.url === '/?foo=2') {
+              return {
+                body: '<html><body><script type="module">console.log("2");</script></body></html>',
+                type: 'html',
+              };
+            }
+          },
+        },
+        legacyPlugin(),
+      ],
+    });
+
+    await fetchText(`${host}?foo=1`, {
+      headers: { 'user-agent': legacyUserAgents['IE 11'] },
+    });
+    await fetchText(`${host}/?foo=2`, {
+      headers: { 'user-agent': legacyUserAgents['IE 11'] },
+    });
+    const text1 = await fetchText(`${host}/inline-script-0.js?source=%2F%3Ffoo%3D1`, {
+      headers: { 'user-agent': legacyUserAgents['IE 11'] },
+    });
+    const text2 = await fetchText(`${host}/inline-script-0.js?source=%2F%3Ffoo%3D2`, {
+      headers: { 'user-agent': legacyUserAgents['IE 11'] },
+    });
+    expectIncludes(text1, 'console.log("1");');
+    expectIncludes(text2, 'console.log("2");');
+    server.stop();
+  });
 });

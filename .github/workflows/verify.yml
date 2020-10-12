@@ -3,49 +3,49 @@ name: Verify changes
 on: pull_request
 
 jobs:
-  verify-linux:
-    name: Verify linux
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x]
-    steps:
-      - uses: actions/checkout@v2
+  # verify-linux:
+  #   name: Verify linux
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       node-version: [12.x, 14.x]
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+  #     - name: Setup Node ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
 
-      - uses: microsoft/playwright-github-action@v1
+  #     - uses: microsoft/playwright-github-action@v1
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+  #     - name: Get yarn cache directory path
+  #       id: yarn-cache-dir-path
+  #       run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+  #     - uses: actions/cache@v2
+  #       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+  #       with:
+  #         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-yarn-
 
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+  #     - name: Install dependencies
+  #       run: yarn --frozen-lockfile
 
-      - name: Build packages
-        run: yarn build
+  #     - name: Build packages
+  #       run: yarn build
 
-      # build for production in CI to make sure tests can run with production build
-      - name: Build for production
-        run: yarn build:production
+  #     # build for production in CI to make sure tests can run with production build
+  #     - name: Build for production
+  #       run: yarn build:production
 
-      - name: Lint
-        run: yarn lint
+  #     - name: Lint
+  #       run: yarn lint
 
-      - name: Test
-        run: yarn test
+  #     - name: Test
+  #       run: yarn test
 
   verify-windows:
     name: Verify windows
@@ -86,76 +86,76 @@ jobs:
       - name: Test
         run: yarn test
 
-  verify-browserstack:
-    name: Verify Browserstack
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+  # verify-browserstack:
+  #   name: Verify Browserstack
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      - name: Setup Node 14
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
+  #     - name: Setup Node 14
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 14.x
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+  #     - name: Get yarn cache directory path
+  #       id: yarn-cache-dir-path
+  #       run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+  #     - uses: actions/cache@v2
+  #       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+  #       with:
+  #         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-yarn-
 
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+  #     - name: Install dependencies
+  #       run: yarn --frozen-lockfile
 
-      - name: Build packages
-        run: yarn build
+  #     - name: Build packages
+  #       run: yarn build
 
-      - name: Test
-        run: |
-          cd packages/test-runner-browserstack
-          yarn test
-        env:
-          BROWSER_STACK_ACCESS_KEY: ${{ secrets.BROWSER_STACK_ACCESS_KEY }}
-          BROWSER_STACK_USERNAME: ${{ secrets.BROWSER_STACK_USERNAME }}
+  #     - name: Test
+  #       run: |
+  #         cd packages/test-runner-browserstack
+  #         yarn test
+  #       env:
+  #         BROWSER_STACK_ACCESS_KEY: ${{ secrets.BROWSER_STACK_ACCESS_KEY }}
+  #         BROWSER_STACK_USERNAME: ${{ secrets.BROWSER_STACK_USERNAME }}
 
-  verify-saucelabs:
-    name: Verify Sauce Labs
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+  # verify-saucelabs:
+  #   name: Verify Sauce Labs
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      - name: Setup Node 14
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
+  #     - name: Setup Node 14
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 14.x
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+  #     - name: Get yarn cache directory path
+  #       id: yarn-cache-dir-path
+  #       run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+  #     - uses: actions/cache@v2
+  #       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+  #       with:
+  #         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-yarn-
 
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+  #     - name: Install dependencies
+  #       run: yarn --frozen-lockfile
 
-      - name: Build packages
-        run: yarn build
+  #     - name: Build packages
+  #       run: yarn build
 
-      - name: Test
-        run: |
-          cd packages/test-runner-saucelabs
-          yarn test
-        env:
-          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+  #     - name: Test
+  #       run: |
+  #         cd packages/test-runner-saucelabs
+  #         yarn test
+  #       env:
+  #         SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+  #         SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
