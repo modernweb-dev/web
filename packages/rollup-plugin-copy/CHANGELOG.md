@@ -1,5 +1,11 @@
 # @web/rollup-plugin-copy
 
+## 0.2.0
+
+### Minor Changes
+
+- b06a71b: adds copied files to watch list
+
 ## 0.1.2
 
 ### Patch Changes

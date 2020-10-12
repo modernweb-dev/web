@@ -1,5 +1,13 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 1.0.3
+
+### Patch Changes
+
+- 279f756: ---
+
+  fix warn() code when error was caught
+
 ## 1.0.2
 
 ### Patch Changes
