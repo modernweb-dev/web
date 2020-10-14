@@ -47,7 +47,7 @@ export class TestRunnerServer {
 
       plugins: [
         testRunnerApiPlugin(config, plugins, sessions),
-        serveTestRunnerHtmlPlugin(config, testFiles, testFrameworkImport),
+        serveTestRunnerHtmlPlugin(config, testFiles, sessions, testFrameworkImport),
         testFrameworkPlugin,
         ...(config.plugins || []),
       ].filter(isDefined) as Plugin[],

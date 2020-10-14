@@ -52,6 +52,10 @@ export async function runTests(
       port,
       ...defaultBaseConfig,
       ...config,
+      testFramework: {
+        ...defaultBaseConfig.testFramework,
+        ...config.testFramework,
+      },
     } as TestRunnerCoreConfig;
 
     const runner = new TestRunner(finalConfig, groupConfigs);

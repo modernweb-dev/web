@@ -3,7 +3,7 @@
 /** @typedef {import('../dist/index').TestResult} TestResult */
 /** @typedef {import('../dist/index').TestSuiteResult} TestSuiteResult */
 
-import { webSocket, sendMessage } from '/__web-dev-server__web-socket.js';
+import { sendMessage } from '/__web-dev-server__web-socket.js';
 
 const PARAM_SESSION_ID = 'wtr-session-id';
 const PARAM_TEST_FILE = 'wtr-test-file';
@@ -16,29 +16,17 @@ if (typeof sessionId !== 'string' && typeof testFile !== 'string') {
   throw new Error(`Could not find any session id or test filequery parameter.`);
 }
 
-let resolveConfig;
-const configPromise = new Promise(resolve => {
-  resolveConfig = resolve;
-});
+if (!window.__WTR_CONFIG__) {
+  const message =
+    'Could not find any config defined by the test runner. Are your dependencies up to date?';
+  sessionFailed({ message });
+  throw new Error(message);
+}
 
-webSocket.addEventListener('message', e => {
-  try {
-    const message = JSON.parse(e.data);
-    if (message.type === 'wtr-config') {
-      if (typeof message.config !== 'object') {
-        throw new Error('Missing config property in websocket wtr-config message.');
-      }
-      resolveConfig(message.config);
-    }
-  } catch (error) {
-    console.error('[Web Test Runner] Error while handling websocket message.');
-    console.error(error);
-  }
-});
-
+// TODO: make this sync
 export async function getConfig() {
   try {
-    const config = await configPromise;
+    const config = window.__WTR_CONFIG__;
     const url = new URL(import.meta.url);
 
     // pass on import map parameter to test files, this special cases a specific plugin

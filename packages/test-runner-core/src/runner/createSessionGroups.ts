@@ -68,7 +68,10 @@ export function createTestSessions(
     }
 
     for (const file of testFilesForGroup) {
-      testFiles.add(file);
+      // Normalize file path because glob returns windows paths with forward slashes:
+      // C:/foo/bar -> C:\foo\bar
+      const normalizedFile = path.normalize(file);
+      testFiles.add(normalizedFile);
     }
 
     const sessionGroup: TestSessionGroup = {
