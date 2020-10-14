@@ -1,5 +1,6 @@
-// window.location.href = '/foo/';
-window.location.href = 'https://www.example.org/';
+setTimeout(() => {
+  window.location.href = 'https://www.example.org/';
+}, 100);
 
 it('x', async function test() {
   this.timeout(20000);
