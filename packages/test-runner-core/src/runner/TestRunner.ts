@@ -23,6 +23,7 @@ export class TestRunner extends EventEmitter<EventMap> {
   public config: TestRunnerCoreConfig;
   public sessions: TestSessionManager;
   public testFiles: string[];
+  public browsers: BrowserLauncher[];
   public browserNames: string[];
   public startTime = -1;
   public testRun = -1;
@@ -35,7 +36,6 @@ export class TestRunner extends EventEmitter<EventMap> {
   private scheduler: TestScheduler;
   private server: TestRunnerServer;
   private pendingSessions = new Set<TestSession>();
-  private browsers: BrowserLauncher[];
 
   constructor(config: TestRunnerCoreConfig, groupConfigs: TestRunnerGroupConfig[] = []) {
     super();

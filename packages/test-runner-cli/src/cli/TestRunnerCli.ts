@@ -75,6 +75,7 @@ export class TestRunnerCli {
         sessions: this.sessions,
         testFiles: this.runner.testFiles,
         startTime: this.runner.startTime,
+        browsers: this.runner.browsers,
         browserNames: this.runner.browserNames,
       });
     }

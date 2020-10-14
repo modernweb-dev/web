@@ -85,6 +85,7 @@ export function defaultReporter({
       }
 
       return getTestProgressReport(args.config, {
+        browsers: args.browsers,
         browserNames: args.browserNames,
         testRun,
         testFiles: args.testFiles,

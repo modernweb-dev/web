@@ -3,10 +3,12 @@ import { TestSessionManager } from '../test-session/TestSessionManager';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { TestCoverage } from '../coverage/getTestCoverage';
 import { Logger } from '../logger/Logger';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 
 export interface ReporterArgs {
   config: TestRunnerCoreConfig;
   sessions: TestSessionManager;
+  browsers: BrowserLauncher[];
   browserNames: string[];
   testFiles: string[];
   startTime: number;
