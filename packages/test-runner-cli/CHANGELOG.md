@@ -1,5 +1,16 @@
 # @web/test-runner-cli
 
+## 0.6.4
+
+### Patch Changes
+
+- 416c0d2: Update dependencies
+- aadf0fe: Speed up test loading by inling test config and preloading test files.
+- Updated dependencies [416c0d2]
+- Updated dependencies [aadf0fe]
+  - @web/test-runner-chrome@0.7.2
+  - @web/test-runner-core@0.8.4
+
 ## 0.6.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @web/test-runner-selenium
 
+## 0.3.1
+
+### Patch Changes
+
+- 416c0d2: Update dependencies
+- Updated dependencies [aadf0fe]
+  - @web/test-runner-core@0.8.4
+
 ## 0.3.0
 
 ### Minor Changes

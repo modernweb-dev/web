@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-puppeteer",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "publishConfig": {
     "access": "public"
   },
@@ -40,12 +40,12 @@
   ],
   "dependencies": {
     "@types/puppeteer": "^3.0.1",
-    "@web/test-runner-chrome": "^0.7.1",
-    "@web/test-runner-core": "^0.8.3",
+    "@web/test-runner-chrome": "^0.7.2",
+    "@web/test-runner-core": "^0.8.4",
     "puppeteer": "^5.3.1"
   },
   "devDependencies": {
-    "@web/test-runner-mocha": "^0.5.0"
+    "@web/test-runner-mocha": "^0.5.1"
   },
   "exports": {
     ".": {

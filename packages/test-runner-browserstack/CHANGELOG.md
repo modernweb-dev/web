@@ -1,5 +1,13 @@
 # @web/test-runner-browserstack
 
+## 0.2.1
+
+### Patch Changes
+
+- 416c0d2: Update dependencies
+- Updated dependencies [416c0d2]
+  - @web/test-runner-selenium@0.3.1
+
 ## 0.2.0
 
 ### Minor Changes
