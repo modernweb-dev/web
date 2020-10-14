@@ -110,6 +110,12 @@ interface TestRunnerGroupConfig {
   files?: string | string[];
   // browsers to test in this group, if unset it will be inherited from the main config
   browsers?: BrowserLauncher[];
+  // HTML used for running HTML tests for this group
+  testRunnerHtml?: (
+    testRunnerImport: string,
+    config: TestRunnerCoreConfig,
+    group: TestRunnerGroupConfig,
+  ) => string;
 }
 
 interface TestRunnerConfig {
@@ -139,6 +145,8 @@ interface TestRunnerConfig {
 
   // the test framework to run tests in the browser
   testFramework?: TestFramework;
+  // HTML used for running HTML tests
+  testRunnerHtml?: (testRunnerImport: string, config: TestRunnerCoreConfig) => string;
   // browsers to run tests in
   browsers?: BrowserLauncher | BrowserLauncher[];
   // server which serves files and responds to browser requests
@@ -184,6 +192,24 @@ interface TestRunnerConfig {
 }
 ```
 
+## Test runner HTML
+
+The `testRunnerHtml` option allows configuring the HTML environment to run your tests in. It receives the import path of the test framework, this should be imported or loaded as a module script to load the test code.
+
+For example to expose the global `process` variable:
+
+```js
+export default {
+  testRunnerHtml: testFramework =>
+    `<html>
+      <body>
+        <script>window.process = { env: { NODE_ENV: "development" } }</script>
+        <script type="module" src="${testFramework}"></script>
+      </body>
+    </html>`,
+};
+```
+
 ## Test groups
 
 ### In the main config
@@ -212,9 +238,9 @@ When running tests regularly, the tests from regular config and the groups will 
 
 ### Default group
 
-When the `files` option is specified on the top level config, a default test group is created `default`. You can run only this group with the `--group default` flag.
+When the `files` option is specified on the top-level config, a default test group is created `default`. You can run only this group with the `--group default` flag.
 
-Leave the top level `files` option empty to avoid creating a default group.
+Leave the top-level `files` option empty to avoid creating a default group.
 
 ### Using separate file
 
@@ -255,6 +281,43 @@ export default {
       name: 'firefox-only',
       files: 'test/firefox-only/**/*.test.js',
       browsers: [playwrightLauncher({ product: 'firefox' })],
+    },
+  ],
+};
+```
+
+### Customize HTML environment per test group
+
+```js
+import { playwrightLauncher } from '@web/test-runner-playwright';
+
+export default {
+  files: 'test/**/*.test.js',
+  browsers: [
+    playwrightLauncher({ product: 'chromium' }),
+    playwrightLauncher({ product: 'webkit' }),
+    playwrightLauncher({ product: 'firefox' }),
+  ],
+  groups: [
+    {
+      name: 'polyfills-a',
+      testRunnerHtml: testFramework =>
+        `<html>
+          <body>
+            <script src="./polyfills-a.js"></script>
+            <script type="module" src="${testFramework}"></script>
+          </body>
+        </html>`,
+    },
+    {
+      name: 'polyfills-b',
+      testRunnerHtml: testFramework =>
+        `<html>
+          <body>
+            <script src="./polyfills-b.js"></script>
+            <script type="module" src="${testFramework}"></script>
+          </body>
+        </html>`,
     },
   ],
 };

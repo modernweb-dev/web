@@ -4,7 +4,17 @@ import { chromeLauncher } from '../src/index';
 describe('test-runner-chrome', function testRunnerChrome() {
   this.timeout(20000);
 
-  runIntegrationTests(() => ({
-    browsers: [chromeLauncher()],
-  }));
+  function createConfig() {
+    return {
+      browsers: [chromeLauncher()],
+    };
+  }
+
+  runIntegrationTests(createConfig, {
+    basic: true,
+    groups: true,
+    parallel: true,
+    testFailure: true,
+    locationChanged: true,
+  });
 });
