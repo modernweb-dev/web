@@ -23,8 +23,8 @@ const sharedCapabilities = {
 describe('test-runner-browserstack', function () {
   this.timeout(200000);
 
-  runIntegrationTests(
-    () => ({
+  function createConfig() {
+    return {
       browserStartTimeout: 1000 * 60 * 2,
       testsStartTimeout: 1000 * 60 * 2,
       testsFinishTimeout: 1000 * 60 * 2,
@@ -57,7 +57,14 @@ describe('test-runner-browserstack', function () {
           },
         }),
       ],
-    }),
-    { testFailure: false, parallel: false, locationChanged: false },
-  );
+    };
+  }
+
+  runIntegrationTests(createConfig, {
+    basic: true,
+    groups: false,
+    parallel: false,
+    testFailure: false,
+    locationChanged: false,
+  });
 });

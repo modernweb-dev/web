@@ -5,6 +5,7 @@ import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
 import { createTestFileImportPath } from '../utils';
 import { trackBrowserLogs } from './trackBrowserLogs';
 import { TestSessionManager } from '../../test-session/TestSessionManager';
+import { TestRunnerGroupConfig } from '../../config/TestRunnerGroupConfig';
 
 const iframeModePage = `
 <!DOCTYPE html>
@@ -95,6 +96,26 @@ function injectRuntime(
   return `${html.substring(0, injectLocation)}${injectedHtml}${html.substring(injectLocation)}`;
 }
 
+function createTestRunnerHtml(
+  testFrameworkImport: string,
+  config: TestRunnerCoreConfig,
+  groupConfig?: TestRunnerGroupConfig,
+) {
+  let body: string;
+  if (groupConfig?.testRunnerHtml) {
+    // there is a group in scope, regular test or debug
+    body = groupConfig.testRunnerHtml(testFrameworkImport, config, groupConfig);
+  } else if (config.testRunnerHtml) {
+    // there is no group in scope, ex. when manually debugging
+    body = config.testRunnerHtml(testFrameworkImport, config);
+  } else {
+    // no user defined test runner HTML
+    body = `<!DOCTYPE html><html><head></head><body><script type="module" src="${testFrameworkImport}"></script></body></html>`;
+  }
+
+  return { body, type: 'html' };
+}
+
 export function serveTestRunnerHtmlPlugin(
   config: TestRunnerCoreConfig,
   testFiles: string[],
@@ -111,13 +132,17 @@ export function serveTestRunnerHtmlPlugin(
 
       if (context.path === '/') {
         const { searchParams } = context.URL;
-        if (searchParams.has(PARAM_SESSION_ID) || searchParams.has(PARAM_TEST_FILE)) {
-          return {
-            type: 'html',
-            body: config.testRunnerHtml
-              ? config.testRunnerHtml(testFrameworkImport, config)
-              : `<!DOCTYPE html><html><head></head><body><script type="module" src="${testFrameworkImport}"></script></body></html>`,
-          };
+        if (searchParams.has(PARAM_TEST_FILE)) {
+          return createTestRunnerHtml(testFrameworkImport, config);
+        }
+
+        const sessionId = searchParams.get(PARAM_SESSION_ID);
+        if (sessionId) {
+          const session = sessions.get(sessionId) ?? sessions.getDebug(sessionId);
+          if (!session) {
+            throw new Error(`Could not find session ${sessionId}`);
+          }
+          return createTestRunnerHtml(testFrameworkImport, config, session.group);
         }
 
         if (searchParams.get('mode') === 'iframe') {

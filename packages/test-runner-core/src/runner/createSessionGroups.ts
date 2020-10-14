@@ -35,6 +35,7 @@ export function createTestSessions(
     const mergedGroupConfig: GroupConfigWithoutOptionals = {
       name: groupConfig.name,
       configFilePath: groupConfig.configFilePath,
+      testRunnerHtml: config.testRunnerHtml,
       browsers: config.browsers,
       files: config.files,
     };
@@ -49,6 +50,10 @@ export function createTestSessions(
 
     if (groupConfig.files != null) {
       mergedGroupConfig.files = groupConfig.files;
+    }
+
+    if (groupConfig.testRunnerHtml != null) {
+      mergedGroupConfig.testRunnerHtml = groupConfig.testRunnerHtml;
     }
 
     groups.push(mergedGroupConfig);
@@ -78,6 +83,7 @@ export function createTestSessions(
       name: group.name,
       browsers: group.browsers,
       testFiles: testFilesForGroup,
+      testRunnerHtml: group.testRunnerHtml,
       sessionIds: [],
     };
 
