@@ -1,5 +1,14 @@
 # @web/test-runner-cli
 
+## 0.6.5
+
+### Patch Changes
+
+- cd8928b: separate reporting per browser launcher
+- Updated dependencies [4edf123]
+- Updated dependencies [cd8928b]
+  - @web/test-runner-core@0.8.5
+
 ## 0.6.4
 
 ### Patch Changes

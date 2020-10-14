@@ -1,5 +1,12 @@
 # @web/test-runner-core
 
+## 0.8.5
+
+### Patch Changes
+
+- 4edf123: added option to configure test runner HTML per group
+- cd8928b: separate reporting per browser launcher
+
 ## 0.8.4
 
 ### Patch Changes
