@@ -1,5 +1,16 @@
 # @web/test-runner
 
+## 0.9.2
+
+### Patch Changes
+
+- 4edf123: added option to configure test runner HTML per group
+- cd8928b: separate reporting per browser launcher
+- Updated dependencies [4edf123]
+- Updated dependencies [cd8928b]
+  - @web/test-runner-core@0.8.5
+  - @web/test-runner-cli@0.6.5
+
 ## 0.9.1
 
 ### Patch Changes
