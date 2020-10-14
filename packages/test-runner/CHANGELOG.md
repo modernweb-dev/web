@@ -1,5 +1,19 @@
 # @web/test-runner
 
+## 0.9.1
+
+### Patch Changes
+
+- aadf0fe: Speed up test loading by inling test config and preloading test files.
+- Updated dependencies [416c0d2]
+- Updated dependencies [aadf0fe]
+  - @web/test-runner-chrome@0.7.2
+  - @web/test-runner-cli@0.6.4
+  - @web/test-runner-commands@0.2.1
+  - @web/test-runner-saucelabs@0.1.1
+  - @web/test-runner-core@0.8.4
+  - @web/test-runner-mocha@0.5.1
+
 ## 0.9.0
 
 ### Minor Changes

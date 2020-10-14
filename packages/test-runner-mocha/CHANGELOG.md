@@ -1,5 +1,13 @@
 # @web/test-runner-mocha
 
+## 0.5.1
+
+### Patch Changes
+
+- aadf0fe: Speed up test loading by inling test config and preloading test files.
+- Updated dependencies [aadf0fe]
+  - @web/test-runner-core@0.8.4
+
 ## 0.5.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @web/dev-server-legacy
 
+## 0.1.5
+
+### Patch Changes
+
+- 7901081: Include URL parameters in inline scripts cache
+
 ## 0.1.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-mocha",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "publishConfig": {
     "access": "public"
   },
@@ -23,9 +23,7 @@
     "test": "mocha test/**/*.test.js",
     "test:watch": "mocha test/**/*.test.js --watch --watch-files src,test"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [
     "web",
     "test",
@@ -36,7 +34,7 @@
   ],
   "dependencies": {
     "@types/mocha": "^8.0.1",
-    "@web/test-runner-core": "^0.8.0"
+    "@web/test-runner-core": "^0.8.4"
   },
   "devDependencies": {
     "clean-css": "^4.2.3",

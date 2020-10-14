@@ -1,5 +1,13 @@
 # @web/test-runner-saucelabs
 
+## 0.1.1
+
+### Patch Changes
+
+- 416c0d2: Update dependencies
+- Updated dependencies [416c0d2]
+  - @web/test-runner-selenium@0.3.1
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.8.4
+
+### Patch Changes
+
+- aadf0fe: Speed up test loading by inling test config and preloading test files.
+
 ## 0.8.3
 
 ### Patch Changes

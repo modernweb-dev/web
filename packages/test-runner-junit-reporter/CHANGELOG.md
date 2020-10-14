@@ -1,5 +1,16 @@
 # @web/test-runner-junit-reporter
 
+## 0.2.1
+
+### Patch Changes
+
+- 416c0d2: Update dependencies
+- Updated dependencies [416c0d2]
+- Updated dependencies [aadf0fe]
+  - @web/test-runner-chrome@0.7.2
+  - @web/test-runner-cli@0.6.4
+  - @web/test-runner-core@0.8.4
+
 ## 0.2.0
 
 ### Minor Changes
