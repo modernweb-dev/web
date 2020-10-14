@@ -5,7 +5,6 @@ import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
 import { TestSessionManager } from '../../test-session/TestSessionManager';
 import { PARAM_SESSION_ID } from '../../utils/constants';
 import { TestRunnerPlugin } from '../TestRunnerPlugin';
-import { createTestFileImportPath } from '../utils';
 import { SESSION_STATUS } from '../../test-session/TestSessionStatus';
 import { TestSession } from '../../test-session/TestSession';
 
@@ -68,13 +67,6 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
           });
         }
 
-        const testFileUrl = await createTestFileImportPath(
-          this.config,
-          context,
-          session.testFile,
-          sessionId,
-        );
-        this.testFileUrls.set(sessionId, testFileUrl);
         this.testSessionUrls.set(
           sessionId,
           `${this.config.protocol}//${this.config.hostname}:${this.config.port}${context.url}`,
@@ -107,46 +99,19 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
   }
 
   private _onSessionStarted(webSocket: WebSocket, data: Record<string, unknown>) {
-    let runtimeConfig: Record<string, unknown>;
-
-    if (data.testFile) {
-      // this is a manual debug session
-      runtimeConfig = {
-        testFile: data.testFile as string,
-        watch: !!this.config.watch,
-        debug: true,
-        testFrameworkConfig: this.config.testFramework?.config,
-      };
-    } else {
+    if (!data.testFile) {
       // this is a regular test session
       const { session } = this.parseSessionMessage(data);
-
       if (!session.debug) {
         if (session.status !== SESSION_STATUS.INITIALIZING) {
           this._onMultiInitialized(session);
           return;
         }
-
         // mark the session as started
         this.sessions.updateStatus(session, SESSION_STATUS.TEST_STARTED);
         this._waitForDisconnect(webSocket, session.id);
       }
-
-      const testFile = this.testFileUrls.get(session.id);
-      if (!testFile) {
-        throw new Error(`Missing test file url for session ${session.id}`);
-      }
-
-      runtimeConfig = {
-        testFile,
-        watch: !!this.config.watch,
-        debug: session.debug,
-        testFrameworkConfig: this.config.testFramework?.config,
-      };
     }
-
-    // send config to the broser to kick off testing
-    webSocket.send(JSON.stringify({ type: 'wtr-config', config: runtimeConfig }));
   }
 
   private _onSessionFinished(data: Record<string, unknown>) {
