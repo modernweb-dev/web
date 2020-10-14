@@ -1,4 +1,6 @@
-window.location.replace('/new-page/');
+setTimeout(() => {
+  window.location.replace('/new-page/');
+}, 100);
 
 it('x', async function test() {
   this.timeout(20000);
