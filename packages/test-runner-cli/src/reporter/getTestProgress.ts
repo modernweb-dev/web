@@ -4,6 +4,7 @@ import {
   SESSION_STATUS,
   TestCoverage,
   CoverageConfig,
+  BrowserLauncher,
 } from '@web/test-runner-core';
 import chalk from 'chalk';
 import { getPassedFailedSkippedCount } from '../utils/getPassedFailedSkippedCount';
@@ -11,6 +12,7 @@ import { getCodeCoverage } from './getCodeCoverage';
 import { renderProgressBar } from './renderProgressBar';
 
 export interface TestProgressArgs {
+  browsers: BrowserLauncher[];
   browserNames: string[];
   testFiles: string[];
   testRun: number;
@@ -48,6 +50,7 @@ function getProgressReport(
 
 export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestProgressArgs) {
   const {
+    browsers,
     browserNames,
     testRun,
     sessions,
@@ -74,9 +77,9 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
   let failed = false;
 
   const minWidth = [...browserNames].sort((a, b) => b.length - a.length)[0].length + 1;
-  for (const browserName of browserNames) {
+  for (const browser of browsers) {
     // when started or not initiliazing we render a progress bar
-    const allSessionsForBrowser = Array.from(sessions.forBrowserName(browserName));
+    const allSessionsForBrowser = Array.from(sessions.forBrowser(browser));
     const sessionsForBrowser = focusedTestFile
       ? allSessionsForBrowser.filter(s => s.testFile === focusedTestFile)
       : allSessionsForBrowser;
@@ -112,7 +115,7 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
 
     entries.push(
       getProgressReport(
-        browserName,
+        browser.name,
         minWidth,
         finishedFilesForBrowser,
         activeFilesForBrowser,

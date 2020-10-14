@@ -6,7 +6,12 @@ export default /** @type {import('@web/test-runner').TestRunnerConfig} */ ({
 
   groups: [
     {
-      name: 'chromium',
+      name: 'chromium-a',
+      files: 'demo/test/pass-*.test.js',
+      browsers: [playwrightLauncher({ product: 'chromium' })],
+    },
+    {
+      name: 'chromium-b',
       files: 'demo/test/pass-*.test.js',
       browsers: [playwrightLauncher({ product: 'chromium' })],
     },
