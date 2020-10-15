@@ -2370,6 +2370,13 @@
     open "^7.1.0"
     portfinder "^1.0.27"
 
+"@web/rollup-plugin-copy@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@web/rollup-plugin-copy/-/rollup-plugin-copy-0.1.2.tgz#b8a3c1d5385bda0e94a1eb37cb375455cabfc3a1"
+  integrity sha512-n41NvYQfXLS0dU7d9gHXmEIoctE+aY2bN6ZzlXi72tNsnGXY+zjAD/0Xye4O7eC5l5NOja1MTB4giwq+kGhc9g==
+  dependencies:
+    glob "^7.0.0"
+
 "@webcomponents/shadycss@^1.9.4":
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/@webcomponents/shadycss/-/shadycss-1.10.1.tgz#6f377b313c96a93a690f25206b32a20eada4b2a9"
@@ -4891,10 +4898,10 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-esbuild@^0.6.28:
-  version "0.6.34"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.6.34.tgz#76565a60e006f45d5f273b6e59e61ed0816551f5"
-  integrity sha512-InRdL/Q96pUucPqovJzvuLhquZr6jOn81FDVwFjCKz1rYKIm9OdOC+7Fs4vr6x48vKBl5LzKgtjU39BUpO636A==
+esbuild@^0.7.15:
+  version "0.7.15"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.7.15.tgz#b50fe68fa12f41f42afab1c49a2b4524de5b6431"
+  integrity sha512-tgvd7miwyQVAzlDIcrs9vwoVEL33NmDRggTwKSkcdTj25BOfSWoIUuFXG4vvHRQTkJDk2uHJSi7bhBdPmMzodA==
 
 escalade@^3.0.2:
   version "3.0.2"
