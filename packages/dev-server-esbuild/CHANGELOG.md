@@ -1,5 +1,12 @@
 # @web/dev-server-esbuild
 
+## 0.2.5
+
+### Patch Changes
+
+- 8111c2f: upgrade mdn-browser-compat-data to @mdn/browser-compat-data
+- 201ffbd: updated esbuild dependency
+
 ## 0.2.4
 
 ### Patch Changes
