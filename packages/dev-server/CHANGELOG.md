@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.0.14
+
+### Patch Changes
+
+- 201ffbd: updated esbuild dependency
+
 ## 0.0.13
 
 ### Patch Changes
