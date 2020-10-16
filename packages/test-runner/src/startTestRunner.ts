@@ -201,25 +201,25 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
       config.plugins = [];
     }
 
-    if (config.esbuildTarget) {
-      config.plugins.push(esbuildPlugin(config.esbuildTarget));
-    }
-
-    if (config.nodeResolve) {
-      const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
-      config.plugins!.push(nodeResolvePlugin(rootDir, config.preserveSymlinks, userOptions));
-    }
-
     // plugin with a noop transformImport hook, this will cause the dev server to analyze modules and
     // catch syntax errors. this way we still report syntax errors when the user has no flags enabled
-    config.plugins.push({
+    config.plugins.unshift({
       name: 'syntax-checker',
       transformImport() {
         return undefined;
       },
     });
 
-    config.plugins.push(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
+    if (config.nodeResolve) {
+      const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
+      config.plugins!.unshift(nodeResolvePlugin(rootDir, config.preserveSymlinks, userOptions));
+    }
+
+    if (config.esbuildTarget) {
+      config.plugins.unshift(esbuildPlugin(config.esbuildTarget));
+    }
+
+    config.plugins.unshift(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
 
     const validatedConfig = validateCoreConfig<FullTestRunnerConfig>(config);
     return defaultStartTestRunner(validatedConfig, groupConfigs, { autoExitProcess });
