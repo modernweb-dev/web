@@ -1,6 +1,6 @@
 import { transformAsync, TransformOptions } from '@babel/core';
 
-export const config: TransformOptions = {
+export const es5Config: TransformOptions = {
   caller: {
     name: '@web/dev-server-legacy',
     supportsStaticESM: true,
@@ -28,6 +28,14 @@ export const config: TransformOptions = {
     require.resolve('@babel/plugin-syntax-import-meta'),
     require.resolve('@babel/plugin-syntax-class-properties'),
     require.resolve('@babel/plugin-syntax-numeric-separator'),
+    require.resolve('@babel/plugin-syntax-dynamic-import'),
+  ],
+};
+
+export const systemJsConfig: TransformOptions = {
+  ...es5Config,
+  plugins: [
+    ...(es5Config.plugins ?? []),
     require.resolve('@babel/plugin-proposal-dynamic-import'),
     require.resolve('@babel/plugin-transform-modules-systemjs'),
     // systemjs adds template literals, we do systemjs after (potential)
@@ -36,7 +44,7 @@ export const config: TransformOptions = {
   ],
 };
 
-export async function babelTransform(filename: string, source: string) {
+export async function babelTransform(filename: string, source: string, config: TransformOptions) {
   const largeFile = source.length > 100000;
   const result = await transformAsync(source, {
     filename,
