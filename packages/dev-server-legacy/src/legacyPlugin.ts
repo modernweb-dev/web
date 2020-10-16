@@ -2,8 +2,9 @@ import { Plugin, Logger, getRequestFilePath, isInlineScriptRequest } from '@web/
 import { GeneratedFile, PolyfillsConfig } from 'polyfills-loader';
 import path from 'path';
 import { isLegacyBrowser } from './isLegacyBrowser';
-import { babelTransform } from './babelTransform';
+import { babelTransform, es5Config, systemJsConfig } from './babelTransform';
 import { injectPolyfillsLoader } from './injectPolyfillsLoader';
+import { PARAM_TRANSFORM_SYSTEMJS } from './constants';
 
 interface inlineScripts {
   lastModified: string;
@@ -103,8 +104,12 @@ export function legacyPlugin(options: LegacyPluginOptions = {}): Plugin {
         if (context.path.includes('/polyfills/')) {
           return;
         }
+        const config =
+          context.URL.searchParams.get(PARAM_TRANSFORM_SYSTEMJS) === 'true'
+            ? systemJsConfig
+            : es5Config;
         const filePath = getRequestFilePath(context, rootDir);
-        const transformed = await babelTransform(filePath, context.body);
+        const transformed = await babelTransform(filePath, context.body, config);
         context.body = transformed;
         return;
       }
@@ -128,6 +133,15 @@ export function legacyPlugin(options: LegacyPluginOptions = {}): Plugin {
           polyfills.set(`${root}${toBrowserPath(p.path)}`, p.content);
         });
       }
+    },
+
+    transformImport({ source, context }) {
+      if (!isLegacyBrowser(context, logger)) {
+        return;
+      }
+
+      const prefix = source.includes('?') ? '&' : '?';
+      return `${source}${prefix}${PARAM_TRANSFORM_SYSTEMJS}=true`;
     },
   };
 }

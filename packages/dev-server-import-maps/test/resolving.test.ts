@@ -318,7 +318,7 @@ describe('resolving imports', () => {
     });
 
     const text = await fetchText(`${host}/index.html`);
-    expectIncludes(text, '<html><head></head><body><script src="./app.js"></script></body></html>');
+    expectIncludes(text, '<html><body><script src="./app.js"></script></body></html>');
 
     server.stop();
   });

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
+import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 
 import { legacyPlugin } from '../src/legacyPlugin';
 import { modernUserAgents, legacyUserAgents } from './userAgents';
@@ -16,7 +16,7 @@ async function doImport() {
 
 console.log(window?.foo?.bar);`;
 
-describe('legacyPlugin()', function () {
+describe('legacyPlugin - transform js', function () {
   this.timeout(10000);
 
   for (const [name, userAgent] of Object.entries(modernUserAgents)) {
@@ -64,11 +64,42 @@ describe('legacyPlugin()', function () {
       const text = await fetchText(`${host}/app.js`, {
         headers: { 'user-agent': userAgent },
       });
-      expectIncludes(text, 'System.register(');
+      expectNotIncludes(text, 'System.register(');
+      expectIncludes(text, "import('./xyz.js?systemjs=true');");
       expectIncludes(text, 'function asyncGeneratorStep');
       expectIncludes(text, 'function _classCallCheck(instance');
       expectIncludes(text, '_asyncToGenerator');
-      expectIncludes(text, "_context.import('./xyz.js');");
+      expectIncludes(
+        text,
+        'console.log((_window = window) === null || _window === void 0 ? void 0 : (_window$foo = _window.foo) === null || _window$foo === void 0 ? void 0 : _window$foo.bar);',
+      );
+      server.stop();
+    });
+
+    it(`transforms to SystemJS when systemjs paramater is given ${name}`, async () => {
+      const { server, host } = await createTestServer({
+        rootDir: __dirname,
+        plugins: [
+          {
+            name: 'test',
+            serve(context) {
+              if (context.path === '/app.js') {
+                return modernCode;
+              }
+            },
+          },
+          legacyPlugin(),
+        ],
+      });
+
+      const text = await fetchText(`${host}/app.js?systemjs=true`, {
+        headers: { 'user-agent': userAgent },
+      });
+      expectIncludes(text, 'System.register(');
+      expectIncludes(text, "_context.import('./xyz.js?systemjs=true');");
+      expectIncludes(text, 'function asyncGeneratorStep');
+      expectIncludes(text, 'function _classCallCheck(instance');
+      expectIncludes(text, '_asyncToGenerator');
       expectIncludes(
         text,
         'console.log((_window = window) === null || _window === void 0 ? void 0 : (_window$foo = _window.foo) === null || _window$foo === void 0 ? void 0 : _window$foo.bar);',

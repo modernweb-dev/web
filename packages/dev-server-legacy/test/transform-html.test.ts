@@ -8,7 +8,8 @@ import { modernUserAgents, legacyUserAgents } from './userAgents';
 const htmlBody = `
 <html>
 <body>
-  <script type="module" src="./foo.js"></scrip>
+  <script type="module" src="./foo.js"></script>
+  <script src="./bar.js"></script>
 </body>
 </html>`;
 
@@ -20,10 +21,11 @@ const inlineScriptHtmlBody = `
 
     }
   </script>
+  <script>console.log("x");</script>
 </body>
 </html>`;
 
-describe('legacyPlugin()', function () {
+describe('legacyPlugin - transform html', function () {
   this.timeout(10000);
 
   it(`does not do any work on a modern browser`, async () => {
@@ -45,6 +47,7 @@ describe('legacyPlugin()', function () {
     const text = await fetchText(`${host}/index.html`, {
       headers: { 'user-agent': modernUserAgents['Chrome 78'] },
     });
+
     expect(text.trim()).to.equal(htmlBody.trim());
     server.stop();
   });
@@ -71,8 +74,31 @@ describe('legacyPlugin()', function () {
     expectIncludes(text, 'function polyfillsLoader() {');
     expectIncludes(text, "loadScript('./polyfills/regenerator-runtime.");
     expectIncludes(text, "loadScript('./polyfills/fetch.");
-    expectIncludes(text, "System.import('./foo.js');");
     expectIncludes(text, "loadScript('./polyfills/systemjs.");
+    server.stop();
+  });
+
+  it(`injects systemjs param to inline modules`, async () => {
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        {
+          name: 'test',
+          serve(context) {
+            if (context.path === '/index.html') {
+              return htmlBody;
+            }
+          },
+        },
+        legacyPlugin(),
+      ],
+    });
+
+    const text = await fetchText(`${host}/index.html`, {
+      headers: { 'user-agent': legacyUserAgents['IE 11'] },
+    });
+    expectIncludes(text, "loadScript('./bar.js');");
+    expectIncludes(text, "System.import('./foo.js?systemjs=true');");
     server.stop();
   });
 
@@ -95,7 +121,11 @@ describe('legacyPlugin()', function () {
     const text = await fetchText(`${host}/index.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text, "System.import('./inline-script-0.js?source=%2Findex.html');");
+    expectIncludes(text, "loadScript('./inline-script-0.js?source=%2Findex.html');");
+    expectIncludes(
+      text,
+      "System.import('./inline-script-1.js?source=%2Findex.html&systemjs=true');",
+    );
     server.stop();
   });
 
@@ -118,12 +148,11 @@ describe('legacyPlugin()', function () {
     await fetchText(`${host}/index.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    const text = await fetchText(`${host}/inline-script-0.js?source=%2Findex.html`, {
+    const text = await fetchText(`${host}/inline-script-1.js?source=%2Findex.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text, 'System.register');
-    expectIncludes(text, 'var InlineClass;');
-    expectIncludes(text, 'function _classCallCheck(instance');
+    expectIncludes(text, 'var InlineClass =');
+    expectIncludes(text, '_classCallCheck(this, InlineClass);');
     server.stop();
   });
 

@@ -1,23 +1,23 @@
 import { DevServerCoreConfig } from '../DevServerCoreConfig';
-import { Plugin } from '../Plugin';
 import { transformModuleImportsPlugin } from '../plugins/transformModuleImportsPlugin';
 import { webSocketsPlugin } from '../web-sockets/webSocketsPlugin';
 import { mimeTypesPlugin } from '../plugins/mimeTypesPlugin';
 
-export function createPlugins(config: DevServerCoreConfig) {
-  const plugins: Plugin[] = [];
+export function addPlugins(config: DevServerCoreConfig) {
+  if (!config.plugins) {
+    config.plugins = [];
+  }
 
   if (config.mimeTypes && Object.keys(config.mimeTypes).length > 0) {
-    plugins.push(mimeTypesPlugin(config.mimeTypes));
+    config.plugins.unshift(mimeTypesPlugin(config.mimeTypes));
   }
 
   if (config.injectWebSocket && config.plugins?.some(pl => pl.injectWebSocket)) {
-    plugins.push(webSocketsPlugin());
+    config.plugins.unshift(webSocketsPlugin());
   }
 
   if (config.plugins?.some(pl => 'resolveImport' in pl || 'transformImport' in pl)) {
-    plugins.push(transformModuleImportsPlugin(config.plugins, config.rootDir));
+    // transform module imports must happen after all other plugins did their regular transforms
+    config.plugins.push(transformModuleImportsPlugin(config.plugins, config.rootDir));
   }
-
-  return plugins;
 }

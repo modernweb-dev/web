@@ -9,6 +9,7 @@ import {
   GeneratedFile,
   File,
 } from 'polyfills-loader';
+import { PARAM_TRANSFORM_SYSTEMJS } from './constants';
 import { findJsScripts } from './findJsScripts';
 
 function findScripts(indexUrl: string, documentAst: DocumentAst) {
@@ -22,13 +23,17 @@ function findScripts(indexUrl: string, documentAst: DocumentAst) {
     let src = getAttribute(scriptNode, 'src');
 
     if (!src) {
-      src = `inline-script-${i}.js?source=${encodeURIComponent(indexUrl)}`;
+      const suffix = type === 'module' ? `&${PARAM_TRANSFORM_SYSTEMJS}=true` : '';
+      src = `inline-script-${i}.js?source=${encodeURIComponent(indexUrl)}${suffix}`;
       inlineScripts.push({
         path: src,
         type,
         content: getTextContent(scriptNode),
       });
       inlineScriptNodes.push(scriptNode);
+    } else if (type === 'module') {
+      const separator = src.includes('?') ? '&' : '?';
+      src = `${src}${separator}${PARAM_TRANSFORM_SYSTEMJS}=true`;
     }
 
     files.push({
