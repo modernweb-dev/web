@@ -123,3 +123,18 @@ interface DevServerConfig {
   sslCert?: string;
 }
 ```
+
+### Node resolve options
+
+The `--node-resolve` flag uses [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve) to resolve module imports.
+
+You can pass extra configuration using the `nodeResolve` option in the config:
+
+```js
+export default {
+  nodeResolve: {
+    exportConditions: ['development'],
+    dedupe: true,
+  },
+};
+```

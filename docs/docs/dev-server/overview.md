@@ -7,7 +7,7 @@ eleventyNavigation:
   order: 1
 ---
 
-Dev Server for web applications, ideal for buildless es module workflows. Optionally supports simple code transformations.
+Web dev server helps developing for the web, using native browser features like es modules. It is ideal for buildless workflows, and has a plugin architecture for light code transformations.
 
 - Efficient browser caching for fast reloads
 - Transform code on older browsers for compatibility

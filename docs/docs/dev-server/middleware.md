@@ -48,3 +48,7 @@ export default {
 ```
 
 </details>
+
+## Reusing express middleware
+
+It's possible to reuse middleware written in express using an adapter such as [express-to-koa](https://www.npmjs.com/package/express-to-koa).
