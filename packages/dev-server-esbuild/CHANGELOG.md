@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.2.6
+
+### Patch Changes
+
+- 46a01fb: filter unsupported sourcemap warnings
+
 ## 0.2.5
 
 ### Patch Changes
