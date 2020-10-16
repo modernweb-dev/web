@@ -21,6 +21,7 @@ import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 import { getEsbuildTarget } from './getEsbuildTarget';
 
 const exitProcessEvents = ['exit', 'SIGINT'];
+const filteredWarnings = ['Unsupported source map comment'];
 
 async function fileExists(path: string) {
   try {
@@ -197,9 +198,11 @@ export class EsbuildPlugin implements Plugin {
         const relativePath = path.relative(process.cwd(), filePath);
 
         for (const warning of warnings) {
-          this.logger!.warn(
-            `[@web/test-runner-esbuild] Warning while transforming ${relativePath}: ${warning.text}`,
-          );
+          if (!filteredWarnings.some(w => warning.text.includes(w))) {
+            this.logger!.warn(
+              `[@web/test-runner-esbuild] Warning while transforming ${relativePath}: ${warning.text}`,
+            );
+          }
         }
       }
 
