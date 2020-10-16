@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.13
+
+### Patch Changes
+
+- e8ebfcc: ensure user plugins are run after builtin plugins
+
 ## 0.2.12
 
 ### Patch Changes
