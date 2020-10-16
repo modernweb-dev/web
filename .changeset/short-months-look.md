@@ -2,4 +2,4 @@
 '@web/test-runner': patch
 ---
 
-ensure user plugins are run after builtin plugins
+run user plugins after builtin plugins
