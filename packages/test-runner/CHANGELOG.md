@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.9.3
+
+### Patch Changes
+
+- 304558e: fix(test-runner): deduplicated browsers when reporting
+- Updated dependencies [304558e]
+  - @web/test-runner-cli@0.6.6
+  - @web/test-runner-core@0.8.6
+
 ## 0.9.2
 
 ### Patch Changes
