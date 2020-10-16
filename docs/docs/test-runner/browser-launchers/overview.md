@@ -30,7 +30,9 @@ wtr test/**/*.test.js --node-resolve --playwright --browsers chromium firefox we
 
 ## Configuring browser launchers
 
-You configure which browser launchers to run from your config file. You can use this for confusing browser launchers other than the ones available in the CLI, and to configure advanced options.
+You configure which browser launchers to run from your config file. You can use this for configuring browser launchers other than the ones available in the CLI, and to configure advanced options.
+
+Note that when configuring browser launchers in the config, you should no longer use the `--puppeteer` or `--playwright` flags.
 
 ```js
 // import the browser launcher you want to use, chromeLauncher is the default
