@@ -62,7 +62,7 @@ export function createTestSessions(
   const sessionGroups: TestSessionGroup[] = [];
   const testSessions: TestSession[] = [];
   const testFiles = new Set<string>();
-  const browsers: BrowserLauncher[] = [];
+  const browsers = new Set<BrowserLauncher>();
 
   for (const group of groups) {
     const baseDir = group.configFilePath ? path.dirname(group.configFilePath) : process.cwd();
@@ -87,7 +87,9 @@ export function createTestSessions(
       sessionIds: [],
     };
 
-    browsers.push(...group.browsers);
+    for (const browser of group.browsers) {
+      browsers.add(browser);
+    }
 
     for (const testFile of testFilesForGroup) {
       for (const browser of group.browsers) {
@@ -110,5 +112,10 @@ export function createTestSessions(
     }
   }
 
-  return { sessionGroups, testSessions, testFiles: Array.from(testFiles), browsers };
+  return {
+    sessionGroups,
+    testSessions,
+    testFiles: Array.from(testFiles),
+    browsers: Array.from(browsers),
+  };
 }
