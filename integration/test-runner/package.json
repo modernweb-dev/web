@@ -20,7 +20,7 @@
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
   "dependencies": {
-    "@web/dev-server-legacy": "^0.1.5",
+    "@web/dev-server-legacy": "^0.1.6",
     "@web/test-runner-core": "^0.8.6"
   },
   "devDependencies": {

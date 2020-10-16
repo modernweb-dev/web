@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.9.4
+
+### Patch Changes
+
+- 49fba90: run user plugins after builtin plugins
+
 ## 0.9.3
 
 ### Patch Changes
