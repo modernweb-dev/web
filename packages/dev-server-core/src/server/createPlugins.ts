@@ -11,12 +11,12 @@ export function createPlugins(config: DevServerCoreConfig) {
     plugins.push(mimeTypesPlugin(config.mimeTypes));
   }
 
-  if (config.plugins?.some(pl => 'resolveImport' in pl || 'transformImport' in pl)) {
-    plugins.push(transformModuleImportsPlugin(config.plugins, config.rootDir));
-  }
-
   if (config.injectWebSocket && config.plugins?.some(pl => pl.injectWebSocket)) {
     plugins.push(webSocketsPlugin());
+  }
+
+  if (config.plugins?.some(pl => 'resolveImport' in pl || 'transformImport' in pl)) {
+    plugins.push(transformModuleImportsPlugin(config.plugins, config.rootDir));
   }
 
   return plugins;

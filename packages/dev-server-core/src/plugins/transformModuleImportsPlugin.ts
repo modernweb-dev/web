@@ -127,7 +127,6 @@ export async function transformImports(
 
     if (dynamicImportIndex === -1) {
       // static import
-
       const importSpecifier = code.substring(start, end);
       const lines = code.slice(0, end).split('\n');
       const line = lines.length;
@@ -258,6 +257,7 @@ export function transformModuleImportsPlugin(plugins: Plugin[], rootDir: string)
             predicates.NOT(predicates.hasAttr('src')),
           ),
         );
+        let transformed = false;
 
         for (const node of inlineModuleNodes) {
           const code = getTextContent(node);
@@ -267,10 +267,15 @@ export function transformModuleImportsPlugin(plugins: Plugin[], rootDir: string)
             rootDir,
             importPlugins,
           );
-          setTextContent(node, resolvedCode);
+          if (code !== resolvedCode) {
+            setTextContent(node, resolvedCode);
+            transformed = true;
+          }
         }
 
-        return { body: serializeHtml(documentAst) };
+        if (transformed) {
+          return { body: serializeHtml(documentAst) };
+        }
       }
     },
   };

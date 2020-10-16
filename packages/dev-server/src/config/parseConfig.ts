@@ -71,20 +71,20 @@ export async function parseConfig(
     finalConfig.port = await getPortPromise({ port: 8000 });
   }
 
-  // map flags to plugin
-  if (finalConfig?.esbuildTarget) {
-    finalConfig.plugins!.push(esbuildPlugin(finalConfig.esbuildTarget));
-  }
-
   if (finalConfig.nodeResolve) {
     const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
-    finalConfig.plugins!.push(
+    finalConfig.plugins!.unshift(
       nodeResolvePlugin(finalConfig.rootDir!, config.preserveSymlinks, userOptions),
     );
   }
 
+  // map flags to plugin
+  if (finalConfig?.esbuildTarget) {
+    finalConfig.plugins!.unshift(esbuildPlugin(finalConfig.esbuildTarget));
+  }
+
   if (finalConfig.watch) {
-    finalConfig.plugins!.push(watchPlugin());
+    finalConfig.plugins!.unshift(watchPlugin());
   }
 
   return finalConfig;
