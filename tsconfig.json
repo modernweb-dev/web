@@ -53,6 +53,9 @@
       "path": "./packages/test-runner/tsconfig.json"
     },
     {
+      "path": "./packages/parse5-utils/tsconfig.json"
+    },
+    {
       "path": "./packages/rollup-plugin-copy/tsconfig.json"
     },
     {
