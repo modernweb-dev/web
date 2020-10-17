@@ -38,9 +38,6 @@ export interface HmrModule {
 
 export const NAME_HMR_CLIENT_IMPORT = '/__web-dev-server__hmr.js';
 
-export const hmrClientImport = `<!-- injected by web-dev-server -->
-<script type="module" src="${NAME_HMR_CLIENT_IMPORT}"></script>`;
-
 /**
  * Dev server plugin to provide hot module reloading
  */
@@ -98,10 +95,6 @@ export class HmrPlugin implements Plugin {
 
   /** @inheritDoc */
   async transform(context: Context) {
-    if (context.response.is('html')) {
-      return appendHtmlToDocument(context, hmrClientImport);
-    }
-
     // If the module references import.meta.hot it can be assumed it
     // supports hot reloading
     const hmrEnabled = context.body.includes('import.meta.hot') === true;
