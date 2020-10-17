@@ -2,6 +2,7 @@ const packages = [
   { name: 'config-loader', type: 'js', environment: 'node' },
   { name: 'parse5-utils', type: 'js', environment: 'node' },
   { name: 'browser-logs', type: 'ts', environment: 'node' },
+  { name: 'rollup-plugin-html', type: 'ts', environment: 'node' },
   { name: 'rollup-plugin-copy', type: 'js', environment: 'node' },
   { name: 'rollup-plugin-workbox', type: 'ts', environment: 'node' },
   { name: 'rollup-plugin-import-meta-assets', type: 'js', environment: 'node' },

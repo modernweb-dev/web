@@ -1,5 +1,6 @@
 const { expect } = require('chai');
 const { parse, serialize } = require('parse5');
+const { getAttribute, getTextContent, findElement } = require('../src/index');
 const utils = require('../src/index');
 
 describe('parse5-utils', () => {
@@ -19,6 +20,33 @@ describe('parse5-utils', () => {
       utils.appendChild(doc, el);
       expect(serialize(doc)).to.equal(
         '<html><head></head><body></body></html><my-element foo="bar" x=""></my-element>',
+      );
+    });
+  });
+
+  describe('createScript', () => {
+    it('create a script', () => {
+      const doc = parse('');
+      const el = utils.createScript();
+      utils.appendChild(doc, el);
+      expect(serialize(doc)).to.equal('<html><head></head><body></body></html><script></script>');
+    });
+
+    it('create a script with attributes', () => {
+      const doc = parse('');
+      const el = utils.createScript({ type: 'module' });
+      utils.appendChild(doc, el);
+      expect(serialize(doc)).to.equal(
+        '<html><head></head><body></body></html><script type="module"></script>',
+      );
+    });
+
+    it('create a script with text content', () => {
+      const doc = parse('');
+      const el = utils.createScript({ type: 'module' }, 'console.log("x");');
+      utils.appendChild(doc, el);
+      expect(serialize(doc)).to.equal(
+        '<html><head></head><body></body></html><script type="module">console.log("x");</script>',
       );
     });
   });
@@ -104,6 +132,46 @@ describe('parse5-utils', () => {
       expect(serialize(doc)).to.eql(
         '<html><head></head><body></body></html><my-element foo="bar"></my-element>',
       );
+    });
+  });
+
+  describe('getTextContent()', () => {
+    it('returns the node text', () => {
+      const doc = parse('<html><body><div id="myDiv">Hello world</div></body></html>');
+      const myDiv = utils.findElement(doc, e => getAttribute(e, 'id') === 'myDiv');
+      if (!myDiv) throw new Error();
+      expect(getTextContent(myDiv)).to.equal('Hello world');
+    });
+
+    it('returns multiple nodes text', () => {
+      const doc = parse(
+        '<html><body><div id="myDiv">Top level<div>Before<div>A</div><div>B</div>After</div></div></body></html>',
+      );
+      const myDiv = utils.findElement(doc, e => getAttribute(e, 'id') === 'myDiv');
+      if (!myDiv) throw new Error();
+      expect(getTextContent(myDiv)).to.equal('Top levelBeforeABAfter');
+    });
+  });
+
+  describe('setTextContent()', () => {
+    it('sets the text of an element', () => {
+      const doc = parse('<html><body></body></html>');
+      const el = utils.createElement('script');
+      utils.setTextContent(el, 'foo bar');
+      utils.appendChild(doc, el);
+      expect(serialize(doc)).to.equal(
+        '<html><head></head><body></body></html><script>foo bar</script>',
+      );
+    });
+  });
+
+  describe('remove()', () => {
+    it('removes element from the AST', () => {
+      const doc = parse('<html><body><div id="myDiv"></div></body></html>');
+      const div = findElement(doc, e => utils.getAttribute(e, 'id') === 'myDiv');
+      if (!div) throw new Error('element not found');
+      utils.remove(div);
+      expect(serialize(doc)).to.equal('<html><head></head><body></body></html>');
     });
   });
 

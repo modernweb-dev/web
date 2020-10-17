@@ -2,12 +2,10 @@
 
 A Rollup plugin which copies asset files while retaining the relative folder structure.
 
-## Install
-
-Using npm:
+## Installation
 
 ```
-npm install @web/rollup-plugin-copy --save-dev
+npm install --save-dev @web/rollup-plugin-copy
 ```
 
 ## Usage
