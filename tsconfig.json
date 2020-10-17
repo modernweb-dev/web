@@ -5,6 +5,9 @@
   "files": [],
   "references": [
     {
+      "path": "./packages/parse5-utils/tsconfig.json"
+    },
+    {
       "path": "./packages/browser-logs/tsconfig.json"
     },
     {
@@ -53,7 +56,7 @@
       "path": "./packages/test-runner/tsconfig.json"
     },
     {
-      "path": "./packages/parse5-utils/tsconfig.json"
+      "path": "./packages/rollup-plugin-html/tsconfig.json"
     },
     {
       "path": "./packages/rollup-plugin-copy/tsconfig.json"

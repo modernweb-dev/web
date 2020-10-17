@@ -1,14 +1,18 @@
 /** @typedef {import('parse5').TreeAdapter} TreeAdapter */
 /** @typedef {import('parse5').Element} Element */
-/** @typedef {import('parse5').DefaultTreeElement} DefaultTreeElement */
 /** @typedef {import('parse5').Attribute} Attribute */
 /** @typedef {import('parse5').Node} Node */
 /** @typedef {import('parse5').ParentNode} ParentNode */
 /** @typedef {import('parse5').ChildNode} ChildNode */
+/** @typedef {import('parse5').DefaultTreeElement} DefaultTreeElement */
+/** @typedef {import('parse5').DefaultTreeNode} DefaultTreeNode */
+/** @typedef {import('parse5').DefaultTreeChildNode} DefaultTreeChildNode */
+/** @typedef {import('parse5').DefaultTreeCommentNode} DefaultTreeCommentNode */
+/** @typedef {import('parse5').DefaultTreeTextNode} DefaultTreeTextNode */
 
 const parse5 = require('parse5');
 // the tree adapter is not in the parse5 types
-//@ts-expect-error
+//@ts-ignore
 const adapter = /** @type {TreeAdapter} */ (require('parse5/lib/tree-adapters/default'));
 
 const DEFAULT_NAMESPACE = 'http://www.w3.org/1999/xhtml';
@@ -24,6 +28,19 @@ const REGEXP_IS_HTML_DOCUMENT = /^\s*<(!doctype|html|head|body)\b/i;
 function createElement(tagName, attrs = {}, namespaceURI = DEFAULT_NAMESPACE) {
   const attrsArray = Object.entries(attrs).map(([name, value]) => ({ name, value }));
   return adapter.createElement(tagName, namespaceURI, attrsArray);
+}
+
+/**
+ * Creates a script element.
+ * @param {Record<string,string>} [attrs]
+ * @param {string} [code]
+ */
+function createScript(attrs = {}, code = undefined) {
+  const element = createElement('script', attrs);
+  if (code) {
+    setTextContent(element, code);
+  }
+  return element;
 }
 
 /**
@@ -110,20 +127,70 @@ function removeAttribute(node, name) {
 }
 
 /**
+ * @param {Node} node
+ * @returns {string}
+ */
+function getTextContent(node) {
+  if (adapter.isCommentNode(node)) {
+    return /** @type {DefaultTreeCommentNode} */ (node).data || '';
+  }
+  if (adapter.isTextNode(node)) {
+    return /** @type {DefaultTreeTextNode} */ (node).value || '';
+  }
+  const subtree = findNodes(node, n => adapter.isTextNode(n));
+  return subtree.map(getTextContent).join('');
+}
+
+/**
+ * @param {Element} node
+ * @param {string} value
+ */
+function setTextContent(node, value) {
+  if (adapter.isCommentNode(node)) {
+    /** @type {DefaultTreeCommentNode} */ (node).data = value;
+  } else if (adapter.isTextNode(node)) {
+    /** @type {DefaultTreeTextNode} */ (node).value = value;
+  } else {
+    const textNode = {
+      nodeName: '#text',
+      value: value,
+      parentNode: node,
+      attrs: [],
+      __location: undefined,
+    };
+    /** @type {DefaultTreeElement} */ (node).childNodes = [textNode];
+  }
+}
+
+/**
+ * Removes element from the AST.
+ * @param {ChildNode} node
+ */
+function remove(node) {
+  const n = /** @type {DefaultTreeChildNode} */ (node);
+  const parent = n.parentNode;
+  if (parent && parent.childNodes) {
+    const idx = parent.childNodes.indexOf(n);
+    parent.childNodes.splice(idx, 1);
+  }
+  /** @type {any} */ (n).parentNode = undefined;
+}
+
+/**
  * Looks for a child node which passes the given test
  * @param {Node[] | Node} nodes
- * @param {(node: DefaultTreeElement) => boolean} test
- * @returns {DefaultTreeElement | null}
+ * @param {(node: DefaultTreeNode) => boolean} test
+ * @returns {DefaultTreeNode | null}
  */
-function findElement(nodes, test) {
+function findNode(nodes, test) {
   const n = Array.isArray(nodes) ? nodes.slice() : [nodes];
 
   while (n.length > 0) {
-    const node = /** @type {DefaultTreeElement} */ (n.shift());
+    const node = /** @type {DefaultTreeNode} */ (n.shift());
     if (!node) {
       continue;
     }
-    if (adapter.isElementNode(node) && test(node)) {
+    if (test(node)) {
       return node;
     }
     const children = adapter.getChildNodes(node);
@@ -135,22 +202,22 @@ function findElement(nodes, test) {
 }
 
 /**
- * Looks for all child element which passes the given test
+ * Looks for all child nodes which passes the given test
  * @param {Node | Node[]} nodes
- * @param {(node: Node) => boolean} test
- * @returns {DefaultTreeElement[]}
+ * @param {(node: DefaultTreeNode) => boolean} test
+ * @returns {DefaultTreeNode[]}
  */
-function findElements(nodes, test) {
+function findNodes(nodes, test) {
   const n = Array.isArray(nodes) ? nodes.slice() : [nodes];
-  /** @type {DefaultTreeElement[]} */
+  /** @type {DefaultTreeNode[]} */
   const found = [];
 
   while (n.length) {
-    const node = /** @type {DefaultTreeElement} */ (n.shift());
+    const node = /** @type {DefaultTreeNode} */ (n.shift());
     if (!node) {
       continue;
     }
-    if (adapter.isElementNode(node) && test(node)) {
+    if (test(node)) {
       found.push(node);
     }
     const children = adapter.getChildNodes(node);
@@ -159,6 +226,32 @@ function findElements(nodes, test) {
     }
   }
   return found;
+}
+
+/**
+ * Looks for a child element which passes the given test
+ * @param {Node[] | Node} nodes
+ * @param {(node: DefaultTreeElement) => boolean} test
+ * @returns {DefaultTreeElement | null}
+ */
+function findElement(nodes, test) {
+  return /** @type {DefaultTreeElement | null} */ (findNode(
+    nodes,
+    n => adapter.isElementNode(n) && test(/** @type {DefaultTreeElement} */ (n)),
+  ));
+}
+
+/**
+ * Looks for all child elements which passes the given test
+ * @param {Node | Node[]} nodes
+ * @param {(node: Node) => boolean} test
+ * @returns {DefaultTreeElement[]}
+ */
+function findElements(nodes, test) {
+  return /** @type {DefaultTreeElement[] } */ (findNodes(
+    nodes,
+    n => adapter.isElementNode(n) && test(/** @type {DefaultTreeElement} */ (n)),
+  ));
 }
 
 /**
@@ -239,12 +332,18 @@ module.exports = {
   ...adapter,
   isHtmlFragment,
   createElement,
+  createScript,
   hasAttribute,
   getAttribute,
   getAttributes,
   setAttribute,
   setAttributes,
   removeAttribute,
+  getTextContent,
+  setTextContent,
+  remove,
+  findNode,
+  findNodes,
   findElement,
   findElements,
   prependToDocument,

@@ -38,6 +38,9 @@
     "@types/parse5": "^5.0.3",
     "parse5": "^6.0.1"
   },
+  "devDependencies": {
+    "@types/html-minifier-terser": "^5.1.1"
+  },
   "exports": {
     ".": {
       "import": "./index.mjs",
