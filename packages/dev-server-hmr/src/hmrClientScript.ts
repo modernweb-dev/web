@@ -1,19 +1,9 @@
-export const hmrClientScript = `
-export const webSocket = ('WebSocket' in window) ?
-  new WebSocket(\`ws\${location.protocol === 'https:' ? 's': ''}://\${location.host}\`, 'esm-hmr') : null;
+import type {
+  WebSocketsManager,
+} from '@web/dev-server-core';
 
-const pendingMessages = new Set();
-const sendMessage = (message) => {
-  if (!webSocket) {
-    return;
-  }
-
-  if (webSocket.readyState !== webSocket.OPEN) {
-    pendingMessages.add(message);
-  } else {
-    webSocket.send(JSON.stringify(message));
-  }
-};
+export const hmrClientScript = (socketManager: WebSocketsManager) => `
+import {webSocket, sendMessage} from '${socketManager.webSocketImport}';
 
 const modules = new Map();
 const disposeTrigger = Symbol('trigger.dispose');
@@ -38,7 +28,7 @@ export class HotModule {
 
   accept(deps, callback) {
     if (this[moduleState] !== HmrState.Accepted) {
-      sendMessage({ type: 'hotAccept', id: this.id });
+      sendMessage({ type: 'hmr:accept', id: this.id });
       this[moduleState] = HmrState.Accepted;
     }
 
@@ -114,28 +104,20 @@ export function create(url) {
   return instance;
 }
 
-if (webSocket) {
-  webSocket.addEventListener('open', () => {
-    for (const message of pendingMessages) {
-      sendMessage(message);
-    }
-    pendingMessages.clear();
-  });
-  webSocket.addEventListener('message', (e) => {
-    try {
-      const message = JSON.parse(e.data);
-      if (message.type === 'reload') {
-        window.location.reload();
-      } else if (message.type === 'update') {
-        const module = modules.get(message.url);
-        if (module) {
-          module[acceptTrigger]();
-        }
+webSocket.addEventListener('message', (e) => {
+  try {
+    const message = JSON.parse(e.data);
+    if (message.type === 'hmr:reload') {
+      window.location.reload();
+    } else if (message.type === 'hmr:update') {
+      const module = modules.get(message.url);
+      if (module) {
+        module[acceptTrigger]();
       }
-    } catch (error) {
-      console.error('[hmr] Error while handling websocket message.');
-      console.error(error);
     }
-  });
-}
+  } catch (error) {
+    console.error('[hmr] Error while handling websocket message.');
+    console.error(error);
+  }
+});
 `;

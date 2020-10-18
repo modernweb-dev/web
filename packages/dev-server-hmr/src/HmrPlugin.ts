@@ -12,16 +12,16 @@ import { hmrClientScript } from './hmrClientScript';
 import { posix as pathUtil } from 'path';
 
 export interface HmrReloadMessage {
-  type: 'reload';
+  type: 'hmr:reload';
 }
 
 export interface HmrUpdateMessage {
-  type: 'update';
+  type: 'hmr:update';
   url: string;
 }
 
 export interface HmrAcceptMessage extends WebSocketData {
-  type: 'hotAccept';
+  type: 'hmr:accept';
   id: string;
 }
 
@@ -73,7 +73,10 @@ export class HmrPlugin implements Plugin {
   async serve(context: Context) {
     // Someone is requesting the injected client script
     if (context.path === NAME_HMR_CLIENT_IMPORT) {
-      return hmrClientScript;
+      if (!this._webSockets) {
+        return;
+      }
+      return hmrClientScript(this._webSockets);
     }
 
     // We are serving a new file or it has changed, so clear all the
@@ -149,7 +152,7 @@ export class HmrPlugin implements Plugin {
     }
 
     // Otherwise we reload the page
-    this._broadcast({ type: 'reload' });
+    this._broadcast({ type: 'hmr:reload' });
   }
 
   /**
@@ -170,13 +173,13 @@ export class HmrPlugin implements Plugin {
 
     // We're not aware of this module so can't handle it
     if (!mod) {
-      this._broadcast({ type: 'reload' });
+      this._broadcast({ type: 'hmr:reload' });
       return;
     }
 
     // The module supports HMR so lets tell it to update
     if (mod.hmrEnabled) {
-      this._broadcast({ type: 'update', url: path });
+      this._broadcast({ type: 'hmr:update', url: path });
     }
 
     // The module has already been dealt with already
@@ -193,7 +196,7 @@ export class HmrPlugin implements Plugin {
     }
 
     // Nothing left to try
-    this._broadcast({ type: 'reload' });
+    this._broadcast({ type: 'hmr:reload' });
   }
 
   /**
@@ -206,7 +209,7 @@ export class HmrPlugin implements Plugin {
     }
 
     this._logger?.debug(`[hmr] emitting ${message.type} message`);
-    this._webSockets.send(JSON.stringify(message), 'esm-hmr');
+    this._webSockets.send(JSON.stringify(message));
   }
 
   /**
@@ -223,14 +226,14 @@ export class HmrPlugin implements Plugin {
    * @param message Message received
    */
   protected _onMessage(socket: WebSocket, data: WebSocketData): void {
+    const message = data as HmrClientMessage;
+
     // Only handle HMR requests
-    if (socket.protocol !== 'esm-hmr') {
+    if (!message.type.startsWith('hmr:')) {
       return;
     }
 
-    const message = data as HmrClientMessage;
-
-    if (message.type === 'hotAccept') {
+    if (message.type === 'hmr:accept') {
       const mod = this._getOrCreateModule(message.id);
       mod.hmrAccepted = true;
       mod.hmrEnabled = true;
