@@ -76,15 +76,11 @@ export class WebSocketsManager extends EventEmitter<Events> {
   /**
    * Sends messages to all connected web sockets.
    *
-   * @param message Message to send
-   * @param protocol Send only to sockets with the specified protocol
+   * @param message
    */
-  send(message: string, protocol?: string) {
+  send(message: string) {
     for (const socket of this.openSockets) {
-      if (
-        socket.readyState === socket.OPEN &&
-        (protocol === undefined || protocol === socket.protocol)
-      ) {
+      if (socket.readyState === socket.OPEN) {
         socket.send(message);
       }
     }
