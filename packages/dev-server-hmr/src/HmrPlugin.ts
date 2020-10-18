@@ -102,7 +102,7 @@ export class HmrPlugin implements Plugin {
     mod.hmrEnabled = hmrEnabled;
     this._logger?.debug(`[hmr] Setting hmrEnabled=${hmrEnabled} for ${context.path}`);
 
-    if (hmrEnabled && context.response.is('application/javascript')) {
+    if (hmrEnabled && context.response.is('js')) {
       return `
         import {create as __WDS_HMR__} from '${NAME_HMR_CLIENT_IMPORT}';
         import.meta.hot = __WDS_HMR__(import.meta.url);
