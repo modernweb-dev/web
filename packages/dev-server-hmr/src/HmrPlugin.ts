@@ -5,7 +5,6 @@ import type {
   WebSocketData,
   ServerStartParams,
 } from '@web/dev-server-core';
-import { appendHtmlToDocument } from '@web/dev-server-core';
 import WebSocket from 'ws';
 import type { Context } from 'koa';
 import { hmrClientScript } from './hmrClientScript';
