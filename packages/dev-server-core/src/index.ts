@@ -15,7 +15,6 @@ export {
   getResponseBody,
   getHtmlPath,
   isInlineScriptRequest,
-  appendHtmlToDocument,
 } from './utils';
 export { Logger, ErrorWithLocation } from './logger/Logger';
 export { PluginSyntaxError } from './logger/PluginSyntaxError';
