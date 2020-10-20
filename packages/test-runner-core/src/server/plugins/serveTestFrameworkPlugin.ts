@@ -24,9 +24,8 @@ async function readFile(codePath: string) {
 export function serveTestFrameworkPlugin(testFramework: TestFramework) {
   const testFrameworkFilePath = path.resolve(testFramework.path);
   const testeFrameworkBrowserPath = testFrameworkFilePath.split(path.sep).join('/');
-  const testFrameworkImport = path.posix.join(
-    TEST_FRAMEWORK_IMPORT_ROOT,
-    testeFrameworkBrowserPath,
+  const testFrameworkImport = encodeURI(
+    path.posix.join(TEST_FRAMEWORK_IMPORT_ROOT, testeFrameworkBrowserPath),
   );
 
   const testFrameworkPlugin: Plugin = {
@@ -34,7 +33,7 @@ export function serveTestFrameworkPlugin(testFramework: TestFramework) {
 
     async serve(context) {
       if (context.path.startsWith(TEST_FRAMEWORK_IMPORT_ROOT)) {
-        const importPath = context.path.replace(TEST_FRAMEWORK_IMPORT_ROOT, '');
+        const importPath = decodeURI(context.path.replace(TEST_FRAMEWORK_IMPORT_ROOT, ''));
         let filePath = importPath.split('/').join(path.sep);
         // for posix the leading / will be stripped by path.join above
         if (path.sep === '/') {
