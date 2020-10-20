@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.8.7
+
+### Patch Changes
+
+- 145a8e6: correctly encode/decode test framework url
+
 ## 0.8.6
 
 ### Patch Changes
