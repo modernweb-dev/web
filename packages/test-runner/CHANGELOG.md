@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.9.5
+
+### Patch Changes
+
+- 145a8e6: correctly encode/decode test framework url
+- Updated dependencies [145a8e6]
+  - @web/test-runner-core@0.8.7
+  - @web/test-runner-cli@0.6.7
+
 ## 0.9.4
 
 ### Patch Changes
