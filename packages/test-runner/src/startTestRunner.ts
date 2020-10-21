@@ -1,4 +1,8 @@
-import { TestRunnerCoreConfig, TestRunnerGroupConfig } from '@web/test-runner-core';
+import {
+  TestRunnerCoreConfig,
+  TestRunnerGroupConfig,
+  BrowserLauncher,
+} from '@web/test-runner-core';
 import {
   readCliArgsConfig,
   readConfig,
@@ -42,6 +46,13 @@ export interface TestRunnerCliArgsConfig extends Omit<TestRunnerConfig, 'browser
   playwright?: boolean;
   browsers?: string[];
 }
+
+// Merging CLI args with "Full" config and renaming the conflicts
+export type FullConfig = Omit<FullTestRunnerConfig, 'browsers'> &
+  Omit<TestRunnerConfig, 'browsers'> & {
+    browserNames: string[];
+    browsers: BrowserLauncher[];
+  };
 
 export interface StartTestRunnerOptions {
   autoExitProcess?: boolean;
@@ -114,115 +125,7 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
     }
 
     const config = await readConfig<FullTestRunnerConfig>(cliArgsConfig);
-    const { rootDir } = config;
-    let groupConfigs: TestRunnerGroupConfig[] = [];
-
-    if (config.groups) {
-      const configPatterns: string[] = [];
-      for (const entry of typeof config.groups === 'string' ? [config.groups] : config.groups) {
-        if (typeof entry === 'object') {
-          groupConfigs.push(entry);
-        } else {
-          configPatterns.push(entry);
-        }
-      }
-      // group entries which are strings are globs which point to group conigs
-      groupConfigs.push(...(await collectGroupConfigs(configPatterns)));
-    }
-
-    if (groupConfigs.find(g => g.name === 'default')) {
-      throw new Error(
-        'Cannot create a group named "default". This named is reserved by the test runner.',
-      );
-    }
-
-    if (cliArgs.group != null) {
-      if (cliArgs.group === 'default') {
-        // default group is an alias for the root config
-        groupConfigs = [];
-      } else {
-        const groupConfig = groupConfigs.find(c => c.name === cliArgs.group);
-        if (!groupConfig) {
-          throw new TestRunnerStartError(`Could not find any group named ${cliArgs.group}`);
-        }
-
-        // when focusing a group, ensure that the "default" group isn't run
-        // we can improve this by relying only on groups inside the test runner itself
-        if (groupConfig.files == null) {
-          groupConfig.files = config.files;
-        }
-        config.files = undefined;
-
-        groupConfigs = [groupConfig];
-      }
-    }
-
-    if (cliArgs.puppeteer) {
-      if (config.browsers && config.browsers.length > 0) {
-        throw new TestRunnerStartError(
-          'The --puppeteer flag cannot be used when defining browsers manually in your config.',
-        );
-      }
-      config.browsers = puppeteerLauncher(cliArgs.browsers);
-    } else if (cliArgs.playwright) {
-      if (config.browsers && config.browsers.length > 0) {
-        throw new TestRunnerStartError(
-          'The --playwright flag cannot be used when defining browsers manually in your config.',
-        );
-      }
-      config.browsers = playwrightLauncher(cliArgs.browsers);
-    } else {
-      if (cliArgs.browsers != null) {
-        throw new TestRunnerStartError(
-          `The browsers option must be used along with the puppeteer or playwright option.`,
-        );
-      }
-
-      // add default chrome launcher if the user did not configure their own browsers
-      if (!config.browsers) {
-        config.browsers = [chromeLauncher()];
-      }
-    }
-
-    if (typeof rootDir !== 'string') {
-      throw new TestRunnerStartError('No rootDir specified.');
-    }
-
-    config.testFramework = {
-      path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
-      ...(config.testFramework ?? {}),
-    };
-
-    if (!config.reporters) {
-      config.reporters = [defaultReporter()];
-    }
-
-    if (config.plugins == null) {
-      config.plugins = [];
-    }
-
-    // plugin with a noop transformImport hook, this will cause the dev server to analyze modules and
-    // catch syntax errors. this way we still report syntax errors when the user has no flags enabled
-    config.plugins.unshift({
-      name: 'syntax-checker',
-      transformImport() {
-        return undefined;
-      },
-    });
-
-    if (config.nodeResolve) {
-      const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
-      config.plugins!.unshift(nodeResolvePlugin(rootDir, config.preserveSymlinks, userOptions));
-    }
-
-    if (config.esbuildTarget) {
-      config.plugins.unshift(esbuildPlugin(config.esbuildTarget));
-    }
-
-    config.plugins.unshift(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
-
-    const validatedConfig = validateCoreConfig<FullTestRunnerConfig>(config);
-    return defaultStartTestRunner(validatedConfig, groupConfigs, { autoExitProcess });
+    return startTestRunnerWithOptions(config, cliArgs, autoExitProcess);
   } catch (error) {
     if (error instanceof TestRunnerStartError) {
       console.error(chalk.red(`\nFailed to start test runner: ${error.message}\n`));
@@ -235,4 +138,120 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
       throw error;
     }
   }
+}
+
+export async function startTestRunnerWithOptions(
+  config: Partial<FullTestRunnerConfig>,
+  cliArgs: Partial<TestRunnerCliArgsConfig> = {},
+  autoExitProcess: boolean,
+) {
+  const { rootDir } = config;
+  let groupConfigs: TestRunnerGroupConfig[] = [];
+
+  if (config.groups) {
+    const configPatterns: string[] = [];
+    for (const entry of typeof config.groups === 'string' ? [config.groups] : config.groups) {
+      if (typeof entry === 'object') {
+        groupConfigs.push(entry);
+      } else {
+        configPatterns.push(entry);
+      }
+    }
+    // group entries which are strings are globs which point to group conigs
+    groupConfigs.push(...(await collectGroupConfigs(configPatterns)));
+  }
+
+  if (groupConfigs.find(g => g.name === 'default')) {
+    throw new Error(
+      'Cannot create a group named "default". This named is reserved by the test runner.',
+    );
+  }
+
+  if (cliArgs.group != null) {
+    if (cliArgs.group === 'default') {
+      // default group is an alias for the root config
+      groupConfigs = [];
+    } else {
+      const groupConfig = groupConfigs.find(c => c.name === cliArgs.group);
+      if (!groupConfig) {
+        throw new TestRunnerStartError(`Could not find any group named ${cliArgs.group}`);
+      }
+
+      // when focusing a group, ensure that the "default" group isn't run
+      // we can improve this by relying only on groups inside the test runner itself
+      if (groupConfig.files == null) {
+        groupConfig.files = config.files;
+      }
+      config.files = undefined;
+
+      groupConfigs = [groupConfig];
+    }
+  }
+
+  if (cliArgs.puppeteer) {
+    if (config.browsers && config.browsers.length > 0) {
+      throw new TestRunnerStartError(
+        'The --puppeteer flag cannot be used when defining browsers manually in your config.',
+      );
+    }
+    config.browsers = puppeteerLauncher(cliArgs.browsers);
+  } else if (cliArgs.playwright) {
+    if (config.browsers && config.browsers.length > 0) {
+      throw new TestRunnerStartError(
+        'The --playwright flag cannot be used when defining browsers manually in your config.',
+      );
+    }
+    config.browsers = playwrightLauncher(cliArgs.browsers);
+  } else {
+    if (cliArgs.browsers != null) {
+      throw new TestRunnerStartError(
+        `The browsers option must be used along with the puppeteer or playwright option.`,
+      );
+    }
+
+    // add default chrome launcher if the user did not configure their own browsers
+    if (!config.browsers) {
+      config.browsers = [chromeLauncher()];
+    }
+  }
+
+  if (typeof rootDir !== 'string') {
+    throw new TestRunnerStartError('No rootDir specified.');
+  }
+
+  config.testFramework = {
+    path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
+    ...(config.testFramework ?? {}),
+  };
+
+  if (!config.reporters) {
+    config.reporters = [defaultReporter()];
+  }
+
+  if (config.plugins == null) {
+    config.plugins = [];
+  }
+
+  // plugin with a noop transformImport hook, this will cause the dev server to analyze modules and
+  // catch syntax errors. this way we still report syntax errors when the user has no flags enabled
+  config.plugins.unshift({
+    name: 'syntax-checker',
+    transformImport() {
+      return undefined;
+    },
+  });
+
+  if (config.nodeResolve) {
+    const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
+    config.plugins!.unshift(nodeResolvePlugin(rootDir, config.preserveSymlinks, userOptions));
+  }
+
+  if (config.esbuildTarget) {
+    config.plugins.unshift(esbuildPlugin(config.esbuildTarget));
+  }
+
+  config.plugins.unshift(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
+
+  const validatedConfig = validateCoreConfig<FullTestRunnerConfig>(config);
+  return defaultStartTestRunner(validatedConfig, groupConfigs, { autoExitProcess });
 }
