@@ -48,10 +48,10 @@ export interface TestRunnerCliArgsConfig extends Omit<TestRunnerConfig, 'browser
 }
 
 // Merging CLI args with "Full" config and renaming the conflicts
-export type FullConfig = Omit<FullTestRunnerConfig, 'browsers'> &
-  Omit<TestRunnerConfig, 'browsers'> & {
-    browserNames: string[];
-    browsers: BrowserLauncher[];
+export type TestRunnerOptions = Omit<Partial<FullTestRunnerConfig>, 'browsers'> &
+  Omit<Partial<TestRunnerCliArgsConfig>, 'browsers'> & {
+    browserNames?: string[];
+    browsers?: BrowserLauncher[];
   };
 
 export interface StartTestRunnerOptions {
@@ -125,7 +125,9 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
     }
 
     const config = await readConfig<FullTestRunnerConfig>(cliArgsConfig);
-    return startTestRunnerWithOptions(config, cliArgs, autoExitProcess);
+    const browserNames: string[] | undefined = cliArgs.browsers ? [...cliArgs.browsers] : undefined;
+    const cli = { ...cliArgs, browsers: undefined };
+    return startTestRunnerWithOptions({ ...config, ...cli, browserNames }, autoExitProcess);
   } catch (error) {
     if (error instanceof TestRunnerStartError) {
       console.error(chalk.red(`\nFailed to start test runner: ${error.message}\n`));
@@ -141,8 +143,7 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
 }
 
 export async function startTestRunnerWithOptions(
-  config: Partial<FullTestRunnerConfig>,
-  cliArgs: Partial<TestRunnerCliArgsConfig> = {},
+  config: TestRunnerOptions,
   autoExitProcess: boolean,
 ) {
   const { rootDir } = config;
@@ -167,14 +168,14 @@ export async function startTestRunnerWithOptions(
     );
   }
 
-  if (cliArgs.group != null) {
-    if (cliArgs.group === 'default') {
+  if (config.group != null) {
+    if (config.group === 'default') {
       // default group is an alias for the root config
       groupConfigs = [];
     } else {
-      const groupConfig = groupConfigs.find(c => c.name === cliArgs.group);
+      const groupConfig = groupConfigs.find(c => c.name === config.group);
       if (!groupConfig) {
-        throw new TestRunnerStartError(`Could not find any group named ${cliArgs.group}`);
+        throw new TestRunnerStartError(`Could not find any group named ${config.group}`);
       }
 
       // when focusing a group, ensure that the "default" group isn't run
@@ -188,22 +189,22 @@ export async function startTestRunnerWithOptions(
     }
   }
 
-  if (cliArgs.puppeteer) {
+  if (config.puppeteer) {
     if (config.browsers && config.browsers.length > 0) {
       throw new TestRunnerStartError(
         'The --puppeteer flag cannot be used when defining browsers manually in your config.',
       );
     }
-    config.browsers = puppeteerLauncher(cliArgs.browsers);
-  } else if (cliArgs.playwright) {
+    config.browsers = puppeteerLauncher(config.browserNames);
+  } else if (config.playwright) {
     if (config.browsers && config.browsers.length > 0) {
       throw new TestRunnerStartError(
         'The --playwright flag cannot be used when defining browsers manually in your config.',
       );
     }
-    config.browsers = playwrightLauncher(cliArgs.browsers);
+    config.browsers = playwrightLauncher(config.browserNames);
   } else {
-    if (cliArgs.browsers != null) {
+    if (config.browserNames != null) {
       throw new TestRunnerStartError(
         `The browsers option must be used along with the puppeteer or playwright option.`,
       );
