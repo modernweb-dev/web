@@ -63,6 +63,7 @@ describe('transformImports()', () => {
       [
         'function lazyLoad() { return import("my-module-2"); }',
         'import("my-module");',
+        'import(\n\t"my-module"\n);',
         'import("./local-module.js");',
       ].join('\n'),
       defaultFilePath,
@@ -72,6 +73,7 @@ describe('transformImports()', () => {
     expect(result.split('\n')).to.eql([
       'function lazyLoad() { return import("RESOLVED__my-module-2"); }',
       'import("RESOLVED__my-module");',
+      'import(\n\t"RESOLVED__my-module"\n);',
       'import("RESOLVED__./local-module.js");',
     ]);
   });
