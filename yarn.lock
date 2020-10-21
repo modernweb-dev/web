@@ -1070,13 +1070,13 @@
     human-id "^1.0.2"
     prettier "^1.18.2"
 
-"@d4kmor/cli@^0.5.4":
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.5.4.tgz#5a5cc6129b21812a661245e16790e6771689030b"
-  integrity sha512-Zbw5H1dQjtJUg1F1YMfilNH+8wbpJKwYfUbHNPNFofrwXfbM540C7Mz3YzerLnnlBvxYOtxEPLVYsiHqivVGsw==
+"@d4kmor/cli@^0.5.5":
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.5.5.tgz#6758dba51cdc3924ba7fa05d1fb8a506999eac6c"
+  integrity sha512-EmJRuqBRlNZpADdxhaN5zixfVzVWdAB7PxKbCXC+UOjBiz/B0nBhZnKkfiI6wpSvYigU3h/YJT5PLZ8BvX3t6w==
   dependencies:
     "@11ty/eleventy" "^0.11.0"
-    "@d4kmor/core" "^0.1.1"
+    "@d4kmor/core" "^0.1.2"
     "@d4kmor/eleventy-plugin-mdjs-unified" "^0.3.1"
     "@d4kmor/eleventy-rocket-nav" "^0.2.1"
     "@open-wc/building-rollup" "^1.9.2"
@@ -1089,10 +1089,10 @@
     rollup "^2.16.0"
     rollup-plugin-workbox "^5.0.1"
 
-"@d4kmor/core@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@d4kmor/core/-/core-0.1.1.tgz#b98fb1a55e0c88c5c8a817f5a017ce8770fd7c22"
-  integrity sha512-iL5mb8atadYDmdcftNk+HiHbpD11uA99wJ2DkbMag+BjBundFocXukRuRQY3xKfuQlCjTiBDK4cZulmzNVJepA==
+"@d4kmor/core@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@d4kmor/core/-/core-0.1.2.tgz#b19ba5d248f50d55e742d1817b8ca91f9638779c"
+  integrity sha512-EVOy3IYxNrWPjorMp3VkJJJyV4dT1F8iotGwSHP2uLsys6+ufJCq5bmV7vmg+KNxnSno//rQtgQYQRfDOpf2pg==
 
 "@d4kmor/drawer@^0.2.1":
   version "0.2.1"
@@ -1119,10 +1119,10 @@
     dependency-graph "^0.8.1"
     sax-wasm "^1.4.5"
 
-"@d4kmor/launch@^0.4.6":
-  version "0.4.6"
-  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.4.6.tgz#2ba74bd19858d20a0088114e72adc8711726249f"
-  integrity sha512-tN6EziafSBOH3CwL8BcHoTvCb5XFTQCtNrdZdp2uexJ5gr0dvcwQ/oX7OO/2FMB8S6tw++nB6Tl5rc7OMTULEA==
+"@d4kmor/launch@^0.4.10":
+  version "0.4.10"
+  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.4.10.tgz#4f15cfcd45cd400638d4ebec0a9c59513629aaed"
+  integrity sha512-vk7d0x2VQYgGaIn+PNUBHvYawT48dgP4oCb6E4bL9lyfWTyUOgEv5hWpNyWs53m7/Of+FdD5K5SR9LPBizCS4g==
   dependencies:
     "@d4kmor/drawer" "^0.2.1"
     "@d4kmor/navigation" "^0.2.0"
