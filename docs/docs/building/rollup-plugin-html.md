@@ -20,10 +20,7 @@ import html from '@web/rollup-plugin-html';
 export default {
   input: 'index.html',
   output: { dir: 'dist' },
-  plugins: [
-    // add HTML plugin
-    html(),
-  ],
+  plugins: [html()],
 };
 ```
 
@@ -37,14 +34,22 @@ import html from '@web/rollup-plugin-html';
 export default {
   input: 'pages/*.html',
   output: { dir: 'dist' },
-  plugins: [
-    // add HTML plugin
-    html(),
-  ],
+  plugins: [html()],
 };
 ```
 
-If your pages cannot be matched with a single glob, or if they need to be bundled with different configs, you create multiple instances of the HTML plugin and set the input in the plugin config.
+If your pages cannot be matched with a single glob you can set the input directly on HTML plugin.
+
+```js
+import html from '@web/rollup-plugin-html';
+
+export default {
+  output: { dir: 'dist' },
+  plugins: [html({ input: ['index.html', 'static/page.html'] })],
+};
+```
+
+If each input should be bundled with a different config, you can create multiple instances of the HTML plugin.
 
 ```js
 import html from '@web/rollup-plugin-html';
@@ -55,6 +60,45 @@ export default {
     // add multiple HTML plugins
     html({ input: 'index.html' }),
     html({ input: 'static/page.html' }),
+  ],
+};
+```
+
+### HTML as string
+
+If your HTML file does not exist on disk, you can provide it as a string as well.
+
+```js
+import html from '@web/rollup-plugin-html';
+
+export default {
+  output: { dir: 'dist' },
+  plugins: [
+    html({
+      input: {
+        html: '<html><body><script type="module" src="./app.js"></script></body></html>',
+        // defaults to index.html
+        name: 'foo.html',
+      },
+    }),
+  ],
+};
+```
+
+This can also be set as an array:
+
+```js
+import html from '@web/rollup-plugin-html';
+
+export default {
+  output: { dir: 'dist' },
+  plugins: [
+    html({
+      input: [
+        { html: '<html><body><script type="module" src="./app.js"></script></body></html>' },
+        { html: '<html><body><script type="module" src="./foo.js"></script></body></html>' },
+      ],
+    }),
   ],
 };
 ```
