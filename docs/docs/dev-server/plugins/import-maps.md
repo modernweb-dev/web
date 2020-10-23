@@ -122,7 +122,7 @@ export default {
   plugins: [
     importMapsPlugin({
       inject: {
-        incude: '/pages/*.html',
+        include: '/pages/*.html',
         importMap: {
           imports: { foo: './bar.js' },
         },
