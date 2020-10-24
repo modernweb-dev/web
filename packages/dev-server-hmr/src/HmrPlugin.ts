@@ -86,7 +86,12 @@ export class HmrPlugin implements Plugin {
 
   /** @inheritDoc */
   async transformImport({ source, context }: { source: string; context: Context }) {
-    const importPath = pathUtil.join(context.path, source);
+    const importPath = pathUtil.resolve(context.path, source);
+
+    if (importPath === NAME_HMR_CLIENT_IMPORT) {
+      return;
+    }
+
     const mod = this._getOrCreateModule(context.path);
     const dependencyMod = this._getOrCreateModule(importPath);
 
