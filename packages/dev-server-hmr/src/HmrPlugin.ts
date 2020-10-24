@@ -35,7 +35,7 @@ export interface HmrModule {
   hmrEnabled: boolean;
 }
 
-export const NAME_HMR_CLIENT_IMPORT = '/__web-dev-server__hmr.js';
+export const NAME_HMR_CLIENT_IMPORT = '/__web-dev-server__/hmr.js';
 
 /**
  * Dev server plugin to provide hot module reloading
