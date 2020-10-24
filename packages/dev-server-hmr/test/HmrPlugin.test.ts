@@ -1,10 +1,8 @@
 import { expect } from 'chai';
-import { FSWatcher } from 'chokidar';
 import { Context } from 'koa';
 import fetch from 'node-fetch';
 import * as sinon from 'sinon';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
-import type {WebSocketsManager} from '@web/dev-server-core';
 import { hmrPlugin } from '../src/index';
 import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin';
 
