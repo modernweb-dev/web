@@ -149,14 +149,7 @@ export class HmrPlugin implements Plugin {
    * @param path Module path which has changed
    */
   protected _onFileChanged(path: string): void {
-    // If we know what this module is, we can try trigger a HMR update
-    if (this._hasModule(path)) {
-      this._triggerUpdate(path);
-      return;
-    }
-
-    // Otherwise we reload the page
-    this._broadcast({ type: 'hmr:reload' });
+    this._triggerUpdate(path);
   }
 
   /**
@@ -174,6 +167,11 @@ export class HmrPlugin implements Plugin {
 
     const mod = this._getModule(path);
     visited.add(path);
+
+    // We have never encountered this module, so can't do anything.
+    if (!mod) {
+      return;
+    }
 
     // We're not aware of this module so can't handle it
     if (!mod) {
