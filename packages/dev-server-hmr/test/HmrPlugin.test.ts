@@ -12,7 +12,7 @@ const mockFile = (path: string, source: string) => ({
     if (context.path === path) {
       return source;
     }
-  }
+  },
 });
 
 describe('HmrPlugin', () => {
@@ -24,10 +24,13 @@ describe('HmrPlugin', () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
-        mockFile('/foo.js', `
+        mockFile(
+          '/foo.js',
+          `
           import.meta.hot.accept(() => {});
-        `),
-        hmrPlugin()
+        `,
+        ),
+        hmrPlugin(),
       ],
     });
     const { fileWatcher, webSockets } = server;
@@ -36,10 +39,12 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/foo.js`);
       fileWatcher.emit('change', '/foo.js');
 
-      expect(stub.firstCall.args[0]).to.equal(JSON.stringify({
-        type: 'hmr:update',
-        url: '/foo.js'
-      }));
+      expect(stub.firstCall.args[0]).to.equal(
+        JSON.stringify({
+          type: 'hmr:update',
+          url: '/foo.js',
+        }),
+      );
     } finally {
       await server.stop();
     }
@@ -49,10 +54,13 @@ describe('HmrPlugin', () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
-        mockFile('/foo.js', `
+        mockFile(
+          '/foo.js',
+          `
           export const foo = 5;
-        `),
-        hmrPlugin()
+        `,
+        ),
+        hmrPlugin(),
       ],
     });
     const { fileWatcher, webSockets } = server;
@@ -61,9 +69,11 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/foo.js`);
       fileWatcher.emit('change', '/foo.js');
 
-      expect(stub.firstCall.args[0]).to.equal(JSON.stringify({
-        type: 'hmr:reload'
-      }));
+      expect(stub.firstCall.args[0]).to.equal(
+        JSON.stringify({
+          type: 'hmr:reload',
+        }),
+      );
     } finally {
       await server.stop();
     }
@@ -72,9 +82,7 @@ describe('HmrPlugin', () => {
   it('serves a hmr client', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
-      plugins: [
-        hmrPlugin()
-      ],
+      plugins: [hmrPlugin()],
     });
 
     try {
@@ -90,10 +98,13 @@ describe('HmrPlugin', () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
-        mockFile('/foo.js', `
+        mockFile(
+          '/foo.js',
+          `
           import.meta.hot.accept(() => {});
-        `),
-        hmrPlugin()
+        `,
+        ),
+        hmrPlugin(),
       ],
     });
 
@@ -110,10 +121,7 @@ describe('HmrPlugin', () => {
   it('does not transform non-hmr js files', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
-      plugins: [
-        mockFile('/foo.js', `export const foo = 5;`),
-        hmrPlugin()
-      ],
+      plugins: [mockFile('/foo.js', `export const foo = 5;`), hmrPlugin()],
     });
 
     try {

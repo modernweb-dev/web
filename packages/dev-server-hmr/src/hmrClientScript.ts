@@ -1,6 +1,4 @@
-import type {
-  WebSocketsManager,
-} from '@web/dev-server-core';
+import type { WebSocketsManager } from '@web/dev-server-core';
 
 export const hmrClientScript = (socketManager: WebSocketsManager) => `
 import {webSocket, sendMessage} from '${socketManager.webSocketImport}';
