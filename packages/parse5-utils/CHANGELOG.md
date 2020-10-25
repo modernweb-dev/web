@@ -1,5 +1,11 @@
 # @web/parse5-utils
 
+## 1.1.1
+
+### Patch Changes
+
+- 68b8211: export using direct assignment
+
 ## 1.1.0
 
 ### Minor Changes
