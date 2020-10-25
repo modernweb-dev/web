@@ -1,5 +1,6 @@
 import { getTextContent } from '@web/parse5-utils';
 import { expect } from 'chai';
+import { parse, serialize } from 'parse5';
 
 import { injectBundles, createLoadScript } from '../../../src/output/injectBundles';
 
@@ -36,17 +37,19 @@ describe('createLoadScript()', () => {
 
 describe('injectBundles()', () => {
   it('can inject a single bundle', () => {
-    const html = [
-      //
-      '<html>',
-      '<head></head>',
-      '<body>',
-      '<h1>Hello world</h1>',
-      '</body>',
-      '</html>',
-    ].join('');
+    const document = parse(
+      [
+        //
+        '<html>',
+        '<head></head>',
+        '<body>',
+        '<h1>Hello world</h1>',
+        '</body>',
+        '</html>',
+      ].join(''),
+    );
 
-    const output = injectBundles(html, [
+    injectBundles(document, [
       {
         options: { format: 'es' },
         entrypoints: [
@@ -69,21 +72,23 @@ describe('injectBundles()', () => {
       '</html>',
     ].join('');
 
-    expect(output).to.eql(expected);
+    expect(serialize(document)).to.eql(expected);
   });
 
   it('can inject multiple bundles', () => {
-    const html = [
-      //
-      '<html>',
-      '<head></head>',
-      '<body>',
-      '<h1>Hello world</h1>',
-      '</body>',
-      '</html>',
-    ].join('');
+    const document = parse(
+      [
+        //
+        '<html>',
+        '<head></head>',
+        '<body>',
+        '<h1>Hello world</h1>',
+        '</body>',
+        '</html>',
+      ].join(''),
+    );
 
-    const output = injectBundles(html, [
+    injectBundles(document, [
       // @ts-ignore
       {
         options: { format: 'es' },
@@ -119,6 +124,6 @@ describe('injectBundles()', () => {
       '</html>',
     ].join('');
 
-    expect(output).to.eql(expected);
+    expect(serialize(document)).to.eql(expected);
   });
 });

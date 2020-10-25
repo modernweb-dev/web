@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import path from 'path';
 
-import { getInputHTMLData } from '../../../src/input/getInputHTMLData';
-import { InputHTMLData } from '../../../src/input/InputHTMLData';
+import { getInputData } from '../../../src/input/getInputData';
+import { InputData } from '../../../src/input/InputData';
 
 const rootDir = path.join(__dirname, '..', '..', 'fixtures', 'basic');
 
@@ -10,7 +10,7 @@ function cleanupHtml(str: string) {
   return str.replace(/(\r\n|\n|\r| )/gm, '');
 }
 
-function cleanupResult(result: InputHTMLData[]) {
+function cleanupResult(result: InputData[]) {
   return result.map(item => ({
     ...item,
     inlineModules: Array.from(item.inlineModules.entries()),
@@ -18,48 +18,51 @@ function cleanupResult(result: InputHTMLData[]) {
   }));
 }
 
-describe('getInputHTMLData()', () => {
+describe('getInputData()', () => {
   it('supports setting input as string', () => {
-    const result = getInputHTMLData({ input: 'index.html', rootDir });
+    const result = getInputData({ input: 'index.html', rootDir });
     expect(cleanupResult(result)).to.eql([
       {
         filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [path.join(rootDir, 'app.js')],
+        assets: [],
         name: 'index.html',
       },
     ]);
   });
 
   it('supports setting input as object', () => {
-    const result = getInputHTMLData({ input: { path: 'index.html' }, rootDir });
+    const result = getInputData({ input: { path: 'index.html' }, rootDir });
     expect(cleanupResult(result)).to.eql([
       {
         filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [path.join(rootDir, 'app.js')],
+        assets: [],
         name: 'index.html',
       },
     ]);
   });
 
   it('supports changing file name', () => {
-    const result = getInputHTMLData({ input: { path: 'index.html', name: 'foo.html' }, rootDir });
+    const result = getInputData({ input: { path: 'index.html', name: 'foo.html' }, rootDir });
     expect(cleanupResult(result)).to.eql([
       {
         filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [path.join(rootDir, 'app.js')],
+        assets: [],
         name: 'foo.html',
       },
     ]);
   });
 
   it('supports setting multiple inputs', () => {
-    const result = getInputHTMLData({
+    const result = getInputData({
       input: [{ path: 'index.html' }, { path: 'not-index.html' }],
       rootDir,
     });
@@ -69,6 +72,7 @@ describe('getInputHTMLData()', () => {
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [path.join(rootDir, 'app.js')],
+        assets: [],
         name: 'index.html',
       },
       {
@@ -76,58 +80,63 @@ describe('getInputHTMLData()', () => {
         html: '<html><head></head><body><p>not-index.html</p></body></html>',
         inlineModules: [],
         moduleImports: [],
+        assets: [],
         name: 'not-index.html',
       },
     ]);
   });
 
   it('resolves modules relative to HTML file', () => {
-    const result = getInputHTMLData({ input: 'src/index.html', rootDir });
+    const result = getInputData({ input: 'src/index.html', rootDir });
     expect(cleanupResult(result)).to.eql([
       {
         filePath: path.join(rootDir, 'src/index.html').split(path.sep).join('/'),
         html: '<html><head></head><body><p>Foo</p></body></html>',
         inlineModules: [],
         moduleImports: [path.join(rootDir, 'src', 'foo.js')],
+        assets: [],
         name: 'index.html',
       },
     ]);
   });
 
   it('supports setting input as rollup input string', () => {
-    const result = getInputHTMLData({ rootDir }, 'index.html');
+    const result = getInputData({ rootDir }, 'index.html');
     expect(cleanupResult(result)).to.eql([
       {
         filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [path.join(rootDir, 'app.js')],
+        assets: [],
         name: 'index.html',
       },
     ]);
   });
 
   it('supports setting input as rollup input array', () => {
-    const result = getInputHTMLData({ rootDir }, ['index.html']);
+    const result = getInputData({ rootDir }, ['index.html']);
     expect(cleanupResult(result)).to.eql([
       {
         filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [path.join(rootDir, 'app.js')],
+        assets: [],
         name: 'index.html',
       },
     ]);
   });
 
   it('supports setting input as rollup input array', () => {
-    const result = getInputHTMLData({ rootDir }, ['index.html', 'not-index.html']);
+    const result = getInputData({ rootDir }, ['index.html', 'not-index.html']);
     expect(cleanupResult(result)).to.eql([
       {
         filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [path.join(rootDir, 'app.js')],
+        assets: [],
         name: 'index.html',
       },
       {
@@ -135,13 +144,14 @@ describe('getInputHTMLData()', () => {
         html: '<html><head></head><body><p>not-index.html</p></body></html>',
         inlineModules: [],
         moduleImports: [],
+        assets: [],
         name: 'not-index.html',
       },
     ]);
   });
 
   it('supports setting input as rollup input object', () => {
-    const result = getInputHTMLData(
+    const result = getInputData(
       { rootDir },
       { 'a.html': 'index.html', 'b.html': 'not-index.html' },
     );
@@ -151,6 +161,7 @@ describe('getInputHTMLData()', () => {
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [path.join(rootDir, 'app.js')],
+        assets: [],
         name: 'a.html',
       },
       {
@@ -158,19 +169,21 @@ describe('getInputHTMLData()', () => {
         html: '<html><head></head><body><p>not-index.html</p></body></html>',
         inlineModules: [],
         moduleImports: [],
+        assets: [],
         name: 'b.html',
       },
     ]);
   });
 
   it('plugin input takes presedence over rollup input', () => {
-    const result = getInputHTMLData({ input: 'index.html', rootDir }, 'not-index.html');
+    const result = getInputData({ input: 'index.html', rootDir }, 'not-index.html');
     expect(cleanupResult(result)).to.eql([
       {
         filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [path.join(rootDir, 'app.js')],
+        assets: [],
         name: 'index.html',
       },
     ]);
@@ -185,13 +198,14 @@ describe('getInputHTMLData()', () => {
         </body>
       </html>
     `;
-    const result = getInputHTMLData({ input: { html }, rootDir });
+    const result = getInputData({ input: { html }, rootDir });
     expect(cleanupResult(result)).to.eql([
       {
         filePath: undefined,
         html: '<html><head></head><body><p>HTMLasstring</p></body></html>',
         inlineModules: [],
         moduleImports: [path.join(rootDir, 'app.js')],
+        assets: [],
         name: 'index.html',
       },
     ]);
@@ -213,7 +227,7 @@ describe('getInputHTMLData()', () => {
       </body>
     </html>
   `;
-    const result = getInputHTMLData({
+    const result = getInputData({
       input: [
         { html: html1, name: '1.html' },
         { html: html2, name: '2.html' },
@@ -226,6 +240,7 @@ describe('getInputHTMLData()', () => {
         html: '<html><head></head><body><p>HTML1</p></body></html>',
         inlineModules: [],
         moduleImports: [path.join(rootDir, 'app.js')],
+        assets: [],
         name: '1.html',
       },
       {
@@ -233,13 +248,14 @@ describe('getInputHTMLData()', () => {
         html: '<html><head></head><body><p>HTML2</p></body></html>',
         inlineModules: [],
         moduleImports: [],
+        assets: [],
         name: '2.html',
       },
     ]);
   });
 
   it('supports setting input to a glob', () => {
-    const result = getInputHTMLData({ input: 'pages/**/*.html', rootDir });
+    const result = getInputData({ input: 'pages/**/*.html', rootDir });
     expect(cleanupResult(result)).to.eql([
       {
         filePath: path.join(rootDir, 'pages', 'page-a.html').split(path.sep).join('/'),
@@ -249,6 +265,7 @@ describe('getInputHTMLData()', () => {
           path.join(rootDir, 'pages', 'page-a.js'),
           path.join(rootDir, 'pages', 'shared.js'),
         ],
+        assets: [],
         name: 'page-a.html',
       },
       {
@@ -259,6 +276,7 @@ describe('getInputHTMLData()', () => {
           path.join(rootDir, 'pages', 'page-b.js'),
           path.join(rootDir, 'pages', 'shared.js'),
         ],
+        assets: [],
         name: 'page-b.html',
       },
       {
@@ -269,13 +287,14 @@ describe('getInputHTMLData()', () => {
           path.join(rootDir, 'pages', 'page-c.js'),
           path.join(rootDir, 'pages', 'shared.js'),
         ],
+        assets: [],
         name: 'page-c.html',
       },
     ]);
   });
 
   it('supports not flattening output directories', () => {
-    const result = getInputHTMLData({ input: 'pages/**/*.html', flattenOutput: false, rootDir });
+    const result = getInputData({ input: 'pages/**/*.html', flattenOutput: false, rootDir });
     expect(cleanupResult(result)).to.eql([
       {
         filePath: path.join(rootDir, 'pages', 'page-a.html').split(path.sep).join('/'),
@@ -285,6 +304,7 @@ describe('getInputHTMLData()', () => {
           path.join(rootDir, 'pages', 'page-a.js'),
           path.join(rootDir, 'pages', 'shared.js'),
         ],
+        assets: [],
         name: `pages${path.sep}page-a.html`,
       },
       {
@@ -295,6 +315,7 @@ describe('getInputHTMLData()', () => {
           path.join(rootDir, 'pages', 'page-b.js'),
           path.join(rootDir, 'pages', 'shared.js'),
         ],
+        assets: [],
         name: `pages${path.sep}page-b.html`,
       },
       {
@@ -305,7 +326,7 @@ describe('getInputHTMLData()', () => {
           path.join(rootDir, 'pages', 'page-c.js'),
           path.join(rootDir, 'pages', 'shared.js'),
         ],
-
+        assets: [],
         name: `pages${path.sep}page-c.html`,
       },
     ]);
@@ -319,19 +340,20 @@ describe('getInputHTMLData()', () => {
         </body>
       </html>
     `;
-    const result = getInputHTMLData({ input: { html }, rootDir });
+    const result = getInputData({ input: { html }, rootDir });
     expect(cleanupResult(result)).to.eql([
       {
         filePath: undefined,
         html: '<html><head></head><body><p>pureHTML</p></body></html>',
         inlineModules: [],
         moduleImports: [],
+        assets: [],
         name: 'index.html',
       },
     ]);
   });
 
   it('throws when no files or html is given', () => {
-    expect(() => getInputHTMLData({ rootDir })).to.throw();
+    expect(() => getInputData({ rootDir })).to.throw();
   });
 });

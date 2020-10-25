@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { getOutputHTML } from '../../../src/output/getOutputHTML';
+import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML';
 import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions';
 
 describe('getOutputHTML()', () => {
@@ -12,13 +12,15 @@ describe('getOutputHTML()', () => {
     },
   };
 
-  const defaultOptions = {
+  const defaultOptions: GetOutputHTMLParams = {
     pluginOptions: {},
+    assetPaths: new Map(),
     entrypointBundles: defaultEntrypointBundles,
     input: {
       html: '<h1>Input HTML</h1>',
       name: 'index.html',
       moduleImports: [],
+      assets: [],
       inlineModules: new Map(),
     },
   };
@@ -65,7 +67,7 @@ describe('getOutputHTML()', () => {
       ...defaultOptions,
       pluginOptions: {
         ...defaultOptions.pluginOptions,
-        transform: html => html.replace('Input HTML', 'Transformed Input HTML'),
+        transformHtml: html => html.replace('Input HTML', 'Transformed Input HTML'),
       },
     });
 
@@ -82,7 +84,7 @@ describe('getOutputHTML()', () => {
       ...defaultOptions,
       pluginOptions: {
         ...defaultOptions.pluginOptions,
-        transform: [
+        transformHtml: [
           html => html.replace('Input HTML', 'Transformed Input HTML'),
           html => html.replace(/h1/g, 'h2'),
         ],
@@ -97,28 +99,14 @@ describe('getOutputHTML()', () => {
     );
   });
 
-  it('can set transform functions provided by other plugins', async () => {
-    const output = await getOutputHTML({
-      ...defaultOptions,
-      externalTransformFns: [html => html.replace('Input HTML', 'Transformed Input HTML')],
-    });
-
-    expect(output).to.equal(
-      '<html><head></head><body><h1>Transformed Input HTML</h1>' +
-        '<script type="module" src="/app.js"></script>' +
-        '<script type="module" src="/module.js"></script>' +
-        '</body></html>',
-    );
-  });
-
   it('can combine external and regular transform functions', async () => {
     const output = await getOutputHTML({
       ...defaultOptions,
       pluginOptions: {
         ...defaultOptions.pluginOptions,
-        transform: html => html.replace('Input HTML', 'Transformed Input HTML'),
+        transformHtml: html => html.replace('Input HTML', 'Transformed Input HTML'),
       },
-      externalTransformFns: [html => html.replace(/h1/g, 'h2')],
+      externalTransformHtmlFns: [html => html.replace(/h1/g, 'h2')],
     });
 
     expect(output).to.equal(

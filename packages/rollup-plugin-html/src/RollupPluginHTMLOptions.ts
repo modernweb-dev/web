@@ -1,17 +1,29 @@
 import { OutputChunk, OutputOptions, OutputBundle } from 'rollup';
 
 export interface InputHTMLOptions {
+  /** The html source code. If set, overwrites path. */
   html?: string;
-  path?: string;
+  /** Name of the HTML files when using the html option. */
   name?: string;
+  /** Path to the HTML file, or glob to multiple HTML files. */
+  path?: string;
 }
 
 export interface RollupPluginHTMLOptions {
+  /** HTML file(s) to use as input. If not set, uses rollup input option. */
   input?: string | InputHTMLOptions | (string | InputHTMLOptions)[];
+  /** Whether to preserve or flatten the directory structure of the HTML file. */
   flattenOutput?: boolean;
+  /** Directory to resolve absolute paths relative to, and to use as base for non-flatted filename output. */
   rootDir?: string;
+  /** Path to load modules and assets from at runtime. */
   publicPath?: string;
-  transform?: TransformFunction | TransformFunction[];
+  /** Transform asset source before output. */
+  transformAsset?: TransformAssetFunction | TransformAssetFunction[];
+  /** Transform HTML file before output. */
+  transformHtml?: TransformHtmlFunction | TransformHtmlFunction[];
+  /** Whether to extract and bundle assets referenced in HTML. Defaults to true. */
+  extractAssets?: boolean;
 }
 
 export interface GeneratedBundle {
@@ -31,9 +43,7 @@ export interface EntrypointBundle extends GeneratedBundle {
   }[];
 }
 
-export interface InjectArgs {
-  // if one of the input options was set, this references the HTML set as input
-  html?: string;
+export interface TransformHtmlArgs {
   // the rollup bundle to be injected on the page. if there are multiple
   // rollup output options, this will reference the first bundle
   //
@@ -44,14 +54,15 @@ export interface InjectArgs {
   // the rollup bundles to be injected on the page. if there is only one
   // build output options, this will be an array with one option
   bundles: Record<string, EntrypointBundle>;
-}
-
-export interface TransformArgs {
-  // see InjectArgs
-  bundle: EntrypointBundle;
-  // see InjectArgs
-  bundles: Record<string, EntrypointBundle>;
   htmlFileName: string;
 }
 
-export type TransformFunction = (html: string, args: TransformArgs) => string | Promise<string>;
+export type TransformHtmlFunction = (
+  html: string,
+  args: TransformHtmlArgs,
+) => string | Promise<string>;
+
+export type TransformAssetFunction = (
+  content: Buffer,
+  filePath: string,
+) => string | Buffer | Promise<string | Buffer>;

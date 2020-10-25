@@ -10,7 +10,7 @@ function getChunk(output: Output, name: string) {
 }
 
 function getAsset(output: Output, name: string) {
-  return output.find(o => o.fileName === name && o.type === 'asset') as OutputAsset & {
+  return output.find(o => o.name === name && o.type === 'asset') as OutputAsset & {
     source: string;
   };
 }
@@ -24,9 +24,7 @@ function stripNewlines(str: string) {
   return str.replace(/(\r\n|\n|\r)/gm, '');
 }
 
-function resolveImport(filePath: string) {
-  return `./${path.relative(process.cwd(), require.resolve(filePath)).split(path.sep).join('/')}`;
-}
+const rootDir = path.join(__dirname, 'fixtures', 'rollup-plugin-html');
 
 describe('rollup-plugin-html', () => {
   it('can build with an input path as input', async () => {
@@ -34,6 +32,7 @@ describe('rollup-plugin-html', () => {
       plugins: [
         rollupPluginHTML({
           input: require.resolve('./fixtures/rollup-plugin-html/index.html'),
+          rootDir,
         }),
       ],
     };
@@ -55,7 +54,7 @@ describe('rollup-plugin-html', () => {
   it('can build with html file as rollup input', async () => {
     const config = {
       input: require.resolve('./fixtures/rollup-plugin-html/index.html'),
-      plugins: [rollupPluginHTML()],
+      plugins: [rollupPluginHTML({ rootDir })],
     };
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
@@ -75,7 +74,7 @@ describe('rollup-plugin-html', () => {
   it('can build with pure html file as rollup input', async () => {
     const config = {
       input: require.resolve('./fixtures/rollup-plugin-html/pure-index.html'),
-      plugins: [rollupPluginHTML()],
+      plugins: [rollupPluginHTML({ rootDir })],
     };
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
@@ -92,6 +91,7 @@ describe('rollup-plugin-html', () => {
             require.resolve('./fixtures/rollup-plugin-html/pure-index.html'),
             require.resolve('./fixtures/rollup-plugin-html/pure-index2.html'),
           ],
+          rootDir,
         }),
       ],
     };
@@ -111,12 +111,9 @@ describe('rollup-plugin-html', () => {
         rollupPluginHTML({
           input: {
             name: 'index.html',
-            html:
-              '<h1>Hello world</h1>' +
-              `<script type="module" src="${resolveImport(
-                './fixtures/rollup-plugin-html/entrypoint-a.js',
-              )}"></script>`,
+            html: '<h1>Hello world</h1><script type="module" src="./entrypoint-a.js"></script>',
           },
+          rootDir,
         }),
       ],
     };
@@ -130,17 +127,36 @@ describe('rollup-plugin-html', () => {
     );
   });
 
-  it('can build with inline modules', async () => {
+  it('resolves paths relative to virtual html filename', async () => {
     const config = {
       plugins: [
         rollupPluginHTML({
           input: {
+            name: 'pages/index.html',
+            html: '<h1>Hello world</h1><script type="module" src="../entrypoint-a.js"></script>',
+          },
+          rootDir,
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+    expect(output.length).to.equal(2);
+    expect(stripNewlines(getAsset(output, 'pages/index.html').source)).to.equal(
+      '<html><head></head><body><h1>Hello world</h1>' +
+        '<script type="module" src="../entrypoint-a.js"></script></body></html>',
+    );
+  });
+
+  it('can build with inline modules', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          rootDir,
+          input: {
             name: 'index.html',
-            html:
-              '<h1>Hello world</h1>' +
-              `<script type="module">import "${resolveImport(
-                './fixtures/rollup-plugin-html/entrypoint-a.js',
-              )}";</script>`,
+            html: '<h1>Hello world</h1><script type="module">import "./entrypoint-a.js";</script>',
           },
         }),
       ],
@@ -149,7 +165,7 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
     expect(output.length).to.equal(2);
-    const hash = 'a42119de22d8eabf84df1fa2216d9327';
+    const hash = 'bf016076950b58c1217681e496e92301';
     const { code: appCode } = getChunk(output, `inline-module-${hash}.js`);
     expect(appCode).to.include("console.log('entrypoint-a.js');");
     expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
@@ -164,6 +180,7 @@ describe('rollup-plugin-html', () => {
       plugins: [
         rollupPluginHTML({
           input: require.resolve('./fixtures/rollup-plugin-html/foo/foo.html'),
+          rootDir,
         }),
       ],
     };
@@ -179,14 +196,11 @@ describe('rollup-plugin-html', () => {
       input: require.resolve('./fixtures/rollup-plugin-html/entrypoint-a.js'),
       plugins: [
         rollupPluginHTML({
+          rootDir,
           input: {
-            html:
-              '<h1>Hello world</h1>' +
-              `<script type="module" src="${resolveImport(
-                './fixtures/rollup-plugin-html/entrypoint-a.js',
-              )}"></script>`,
+            html: '<h1>Hello world</h1><script type="module" src="./entrypoint-a.js"></script>',
           },
-          transform(html) {
+          transformHtml(html) {
             return html.replace('Hello world', 'Goodbye world');
           },
         }),
@@ -206,12 +220,9 @@ describe('rollup-plugin-html', () => {
       input: require.resolve('./fixtures/rollup-plugin-html/entrypoint-a.js'),
       plugins: [
         rollupPluginHTML({
+          rootDir,
           input: {
-            html:
-              '<h1>Hello world</h1>' +
-              `<script type="module" src="${resolveImport(
-                './fixtures/rollup-plugin-html/entrypoint-a.js',
-              )}"></script>`,
+            html: '<h1>Hello world</h1><script type="module" src="./entrypoint-a.js"></script>',
           },
           publicPath: '/static/',
         }),
@@ -231,13 +242,10 @@ describe('rollup-plugin-html', () => {
       input: require.resolve('./fixtures/rollup-plugin-html/entrypoint-a.js'),
       plugins: [
         rollupPluginHTML({
+          rootDir,
           input: {
             name: 'pages/index.html',
-            html:
-              '<h1>Hello world</h1>' +
-              `<script type="module" src="${resolveImport(
-                './fixtures/rollup-plugin-html/entrypoint-a.js',
-              )}"></script>`,
+            html: '<h1>Hello world</h1><script type="module" src="../entrypoint-a.js"></script>',
           },
           publicPath: '/static/',
         }),
@@ -254,12 +262,9 @@ describe('rollup-plugin-html', () => {
 
   it('can build with multiple build outputs', async () => {
     const plugin = rollupPluginHTML({
+      rootDir,
       input: {
-        html:
-          '<h1>Hello world</h1>' +
-          `<script type="module" src="${resolveImport(
-            './fixtures/rollup-plugin-html/entrypoint-a.js',
-          )}"></script>`,
+        html: '<h1>Hello world</h1><script type="module" src="./entrypoint-a.js"></script>',
       },
       publicPath: '/static/',
     });
@@ -300,15 +305,13 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          rootDir,
           input: {
-            html:
-              '<h1>Hello world</h1>' +
-              `<script type="module" src="${resolveImport(
-                './fixtures/rollup-plugin-html/entrypoint-a.js',
-              )}"></script>`,
+            html: '<h1>Hello world</h1><script type="module" src="./entrypoint-a.js"></script>',
           },
         }),
         rollupPluginHTML({
+          rootDir,
           input: {
             name: 'foo.html',
             html: '<html><body><h1>foo.html</h1></body></html>',
@@ -333,24 +336,19 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          rootDir,
           input: [
             {
               name: 'page-a.html',
-              html: `<h1>Page A</h1><script type="module" src="${resolveImport(
-                './fixtures/rollup-plugin-html/entrypoint-a.js',
-              )}"></script>`,
+              html: `<h1>Page A</h1><script type="module" src="./entrypoint-a.js"></script>`,
             },
             {
               name: 'page-b.html',
-              html: `<h1>Page B</h1><script type="module" src="${resolveImport(
-                './fixtures/rollup-plugin-html/entrypoint-b.js',
-              )}"></script>`,
+              html: `<h1>Page B</h1><script type="module" src="./entrypoint-b.js"></script>`,
             },
             {
               name: 'page-c.html',
-              html: `<h1>Page C</h1><script type="module" src="${resolveImport(
-                './fixtures/rollup-plugin-html/entrypoint-c.js',
-              )}"></script>`,
+              html: `<h1>Page C</h1><script type="module" src="./entrypoint-c.js"></script>`,
             },
           ],
         }),
@@ -377,8 +375,8 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          rootDir,
           input: 'pages/**/*.html',
-          rootDir: path.resolve(__dirname, 'fixtures', 'rollup-plugin-html'),
         }),
       ],
     };
@@ -407,6 +405,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          rootDir,
           input: [
             {
               name: 'foo/index.html',
@@ -445,6 +444,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          rootDir,
           input: [
             {
               name: 'a.html',
@@ -481,12 +481,10 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          rootDir,
           input: {
             html:
-              '<h1>Hello world</h1>' +
-              `<script type="module" src="${resolveImport(
-                './fixtures/rollup-plugin-html/entrypoint-a.js',
-              )}"></script>`,
+              '<h1>Hello world</h1>' + `<script type="module" src="./entrypoint-a.js"></script>`,
           },
         }),
       ],
@@ -513,13 +511,10 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          rootDir,
           input: {
             name: 'pages/index.html',
-            html:
-              '<h1>Hello world</h1>' +
-              `<script type="module" src="${resolveImport(
-                './fixtures/rollup-plugin-html/entrypoint-a.js',
-              )}"></script>`,
+            html: '<h1>Hello world</h1><script type="module" src="../entrypoint-a.js"></script>',
           },
         }),
       ],
@@ -529,6 +524,26 @@ describe('rollup-plugin-html', () => {
     expect(output.length).to.equal(2);
     expect(getAsset(output, 'pages/index.html').source).to.equal(
       '<html><head></head><body><h1>Hello world</h1><script type="module" src="../entrypoint-a.js"></script></body></html>',
+    );
+  });
+
+  it('can change HTML root directory', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          rootDir: path.join(__dirname, 'fixtures'),
+          input: {
+            name: 'rollup-plugin-html/pages/index.html',
+            html: '<h1>Hello world</h1><script type="module" src="../entrypoint-a.js"></script>',
+          },
+        }),
+      ],
+    };
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+    expect(output.length).to.equal(2);
+    expect(getAsset(output, 'rollup-plugin-html/pages/index.html').source).to.equal(
+      '<html><head></head><body><h1>Hello world</h1><script type="module" src="../../entrypoint-a.js"></script></body></html>',
     );
   });
 
@@ -561,6 +576,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          rootDir,
           input: require.resolve('./fixtures/rollup-plugin-html/index.html'),
         }),
         {
@@ -592,6 +608,191 @@ describe('rollup-plugin-html', () => {
         '<script type="module" src="./entrypoint-a.js"></script>' +
         '<script type="module" src="./entrypoint-b.js"></script>' +
         '<!-- injected --></body></html>',
+    );
+  });
+
+  it('includes referenced assets in the bundle', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: {
+            html: `<html>
+<head>
+<link rel="apple-touch-icon" sizes="180x180" href="./image-a.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="./image-b.png" />
+<link rel="manifest" href="./webmanifest.json" />
+<link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
+<link rel="stylesheet" href="./styles.css" />
+<link rel="stylesheet" href="./foo/x.css" />
+<link rel="stylesheet" href="./foo/bar/y.css" />
+</head>
+<body>
+<img src="./image-c.png" />
+<div>
+<img src="./image-b.svg" />
+</div>
+</body>
+</html>`,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+    expect(output.length).to.equal(9);
+    const expectedAssets = [
+      'image-c.png',
+      'webmanifest.json',
+      'image-a.svg',
+      'styles.css',
+      'x.css',
+      'y.css',
+      'image-b.svg',
+    ];
+
+    for (const name of expectedAssets) {
+      const asset = getAsset(output, name);
+      expect(asset).to.exist;
+      expect(asset.source).to.exist;
+    }
+
+    expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
+      '<html>' +
+        '<head>' +
+        '<link rel="apple-touch-icon" sizes="180x180" href="assets/image-a-9c3a45f9.png">' +
+        '<link rel="icon" type="image/png" sizes="32x32" href="assets/image-a-9c3a45f9.png">' +
+        '<link rel="manifest" href="assets/webmanifest-571713ae.json">' +
+        '<link rel="mask-icon" href="assets/image-a-41ed6f6a.svg" color="#3f93ce">' +
+        '<link rel="stylesheet" href="assets/styles-ed723e17.css">' +
+        '<link rel="stylesheet" href="assets/x-58ef5070.css">' +
+        '<link rel="stylesheet" href="assets/y-4f2d398e.css">' +
+        '</head>' +
+        '<body>' +
+        '<img src="assets/image-a-9c3a45f9.png">' +
+        '<div>' +
+        '<img src="assets/image-b-ee32b49e.svg">' +
+        '</div>' +
+        '</body>' +
+        '</html>',
+    );
+  });
+
+  it('deduplicates common assets', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: {
+            html: `<html>
+<body>
+<link rel="stylesheet" href="./image-a.png">
+<img src="./image-a.png">
+<img src="./image-a.png">
+</body>
+</html>`,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
+      '<html><head></head><body>' +
+        '<link rel="stylesheet" href="assets/image-a-9c3a45f9.png">' +
+        '<img src="assets/image-a-9c3a45f9.png">' +
+        '<img src="assets/image-a-9c3a45f9.png">' +
+        '</body></html>',
+    );
+  });
+
+  it('deduplicates common assets across HTML files', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: [
+            {
+              name: 'page-a.html',
+              html: `<html>
+  <body>
+  <img src="./image-a.png">
+  </body>
+  </html>`,
+            },
+            {
+              name: 'page-b.html',
+              html: `<html>
+  <body>
+  <link rel="stylesheet" href="./image-a.png">
+  </body>
+  </html>`,
+            },
+            {
+              name: 'page-c.html',
+              html: `<html>
+  <body>
+  <link rel="stylesheet" href="./image-a.png">
+  <img src="./image-a.png">
+  </body>
+  </html>`,
+            },
+          ],
+          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(stripNewlines(getAsset(output, 'page-a.html').source)).to.equal(
+      '<html><head></head><body>' +
+        '  <img src="assets/image-a-9c3a45f9.png">' +
+        '    </body></html>',
+    );
+
+    expect(stripNewlines(getAsset(output, 'page-b.html').source)).to.equal(
+      '<html><head></head><body>' +
+        '  <link rel="stylesheet" href="assets/image-a-9c3a45f9.png">' +
+        '    </body></html>',
+    );
+
+    expect(stripNewlines(getAsset(output, 'page-c.html').source)).to.equal(
+      '<html><head></head><body>' +
+        '  <link rel="stylesheet" href="assets/image-a-9c3a45f9.png">' +
+        '  <img src="assets/image-a-9c3a45f9.png">' +
+        '    </body></html>',
+    );
+  });
+
+  it('can turn off extracting assets', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          extractAssets: false,
+          input: {
+            html: `<html>
+<body>
+<img src="./image-c.png" />
+<link rel="stylesheet" href="./styles.css" />
+<img src="./image-b.svg" />
+</body>
+</html>`,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(output.length).to.equal(2);
+    expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
+      '<html><head></head><body><img src="./image-c.png"><link rel="stylesheet" href="./styles.css"><img src="./image-b.svg"></body></html>',
     );
   });
 });

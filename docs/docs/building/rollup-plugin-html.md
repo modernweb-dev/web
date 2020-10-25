@@ -1,6 +1,6 @@
 # Building >> Rollup Plugin HTML || 20
 
-Plugin for bundling HTML files. Bundles module scripts in HTML files and injects the hashed filenames.
+Plugin for bundling HTML files. Bundles module scripts and linked assets in HTML files and injects the hashed filenames.
 
 ## Installation
 
@@ -103,6 +103,28 @@ export default {
 };
 ```
 
+### Bundling assets
+
+The HTML plugin will bundle assets referenced from `img` and `link` elements in your HTML. The assets are emitted as rollup assets, and the paths are updated to the rollup output paths.
+
+By default rollup will hash the asset filenames, enabling long term caching. You can customize the filename pattern using the [assetFileNames option](https://rollupjs.org/guide/en/#outputassetfilenames) in your rollup config.
+
+To turn off bundling assets completely, set the `extractAssets` option to false:
+
+```js
+import html from '@web/rollup-plugin-html';
+
+export default {
+  input: 'index.html',
+  output: { dir: 'dist' },
+  plugins: [
+    html({
+      extractAssets: false,
+    }),
+  ],
+};
+```
+
 ### Handling absolute paths
 
 If your HTML file contains any absolute paths they will be resolved against the current working directory. You can set a different root directory in the config. Input paths will be resolved relative to this root directory as well.
@@ -149,9 +171,9 @@ export default {
 };
 ```
 
-### Transforming HTML files
+### Transforming HTML files and assets
 
-You can add transform functions to modify the HTML page in the build, for example to inject scripts.
+You can add transform functions to modify the HTML page and assets in the build, for example to inject scripts or minification.
 
 ```js
 import html from '@web/rollup-plugin-html';
@@ -161,10 +183,27 @@ export default {
   output: { dir: 'dist' },
   plugins: [
     // add HTML plugin
-    html({ transform: [html => html.replace('<body>', '<body><script>...</script>')] }),
+    html({
+      transformHtml: [html => html.replace('<body>', '<body><script>...</script>')],
+      transformAsset: [(content, filePath) => {
+        if (filePath.endsWith('.svg')) {
+          // content is a buffer, you can turn it a string for utf-8 assets
+          const svgContent = content.toString('utf-8');
+          return /* transform the SVG */;
+        }
+
+        if (filePath.endsWith('.png')) {
+          return /* transform the PNG */;
+        }
+      },
+    }),
   ],
 };
 ```
+
+### Minification
+
+The HTML plugin does not do any minification by default. You can use a transform function to use a minifier for your HTML or assets.
 
 ## Type definitions
 
@@ -172,17 +211,29 @@ export default {
 import { OutputChunk, OutputOptions, OutputBundle } from 'rollup';
 
 export interface InputHTMLOptions {
+  /** The html source code. If set, overwrites path. */
   html?: string;
-  path?: string;
+  /** Name of the HTML files when using the html option. */
   name?: string;
+  /** Path to the HTML file, or glob to multiple HTML files. */
+  path?: string;
 }
 
 export interface RollupPluginHTMLOptions {
+  /** HTML file(s) to use as input. If not set, uses rollup input option. */
   input?: string | InputHTMLOptions | (string | InputHTMLOptions)[];
+  /** Whether to preserve or flatten the directory structure of the HTML file. */
   flattenOutput?: boolean;
+  /** Directory to resolve absolute paths relative to, and to use as base for non-flatted filename output. */
   rootDir?: string;
+  /** Path to load modules and assets from at runtime. */
   publicPath?: string;
-  transform?: TransformFunction | TransformFunction[];
+  /** Transform asset source before output. */
+  transformAsset?: TransformAssetFunction | TransformAssetFunction[];
+  /** Transform HTML file before output. */
+  transformHtml?: TransformHtmlFunction | TransformHtmlFunction[];
+  /** Whether to extract and bundle assets referenced in HTML. Defaults to true. */
+  extractAssets?: boolean;
 }
 
 export interface GeneratedBundle {
@@ -202,9 +253,7 @@ export interface EntrypointBundle extends GeneratedBundle {
   }[];
 }
 
-export interface InjectArgs {
-  // if one of the input options was set, this references the HTML set as input
-  html?: string;
+export interface TransformHtmlArgs {
   // the rollup bundle to be injected on the page. if there are multiple
   // rollup output options, this will reference the first bundle
   //
@@ -215,15 +264,16 @@ export interface InjectArgs {
   // the rollup bundles to be injected on the page. if there is only one
   // build output options, this will be an array with one option
   bundles: Record<string, EntrypointBundle>;
-}
-
-export interface TransformArgs {
-  // see InjectArgs
-  bundle: EntrypointBundle;
-  // see InjectArgs
-  bundles: Record<string, EntrypointBundle>;
   htmlFileName: string;
 }
 
-export type TransformFunction = (html: string, args: TransformArgs) => string | Promise<string>;
+export type TransformHtmlFunction = (
+  html: string,
+  args: TransformHtmlArgs,
+) => string | Promise<string>;
+
+export type TransformAssetFunction = (
+  filePath: string,
+  content: Buffer,
+) => string | Buffer | Promise<string | Buffer>;
 ```

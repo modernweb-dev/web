@@ -1,34 +1,36 @@
 import { Plugin } from 'rollup';
+
 import { addRollupInput } from './input/addRollupInput';
-import { getInputHTMLData } from './input/getInputHTMLData';
-import { InputHTMLData } from './input/InputHTMLData';
+import { getInputData } from './input/getInputData';
+import { InputData } from './input/InputData';
 import { createHTMLOutput } from './output/createHTMLOutput';
 
 import {
   GeneratedBundle,
   RollupPluginHTMLOptions,
-  TransformFunction,
+  TransformHtmlFunction,
 } from './RollupPluginHTMLOptions';
 import { createError, NOOP_IMPORT } from './utils';
+import { emitAssets } from './output/emitAssets';
 
 export interface RollupPluginHtml extends Plugin {
   api: {
-    getInputs(): InputHTMLData[];
-    addHtmlTransformer(transformFunction: TransformFunction): void;
+    getInputs(): InputData[];
+    addHtmlTransformer(transformHtmlFunction: TransformHtmlFunction): void;
     addOutput(name: string): Plugin;
   };
 }
 
 export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): RollupPluginHtml {
   const multiOutputNames: string[] = [];
-  let inputs: InputHTMLData[] = [];
+  let inputs: InputData[] = [];
   let generatedBundles: GeneratedBundle[] = [];
-  let externalTransformFns: TransformFunction[] = [];
+  let externalTransformHtmlFns: TransformHtmlFunction[] = [];
 
   function reset() {
     inputs = [];
     generatedBundles = [];
-    externalTransformFns = [];
+    externalTransformHtmlFns = [];
   }
 
   return {
@@ -37,7 +39,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
     options(inputOptions) {
       reset();
 
-      inputs = getInputHTMLData(pluginOptions, inputOptions.input);
+      inputs = getInputData(pluginOptions, inputOptions.input);
       const moduleImports: string[] = [];
 
       for (const input of inputs) {
@@ -61,7 +63,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
 
     /** Watch input files when running in watch mode */
     buildStart() {
-      // watch files
+      // watch filesf
       for (const input of inputs) {
         if (input.filePath) {
           this.addWatchFile(input.filePath);
@@ -111,11 +113,13 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
       }
       generatedBundles.push({ name: 'default', options, bundle });
 
+      const assetPaths = await emitAssets.call(this, inputs, pluginOptions);
       const outputs = await createHTMLOutput({
         outputDir: options.dir,
         inputs,
+        assetPaths,
         generatedBundles,
-        externalTransformFns,
+        externalTransformHtmlFns,
         pluginOptions,
       });
 
@@ -129,8 +133,8 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
         return inputs;
       },
 
-      addHtmlTransformer(transformFunction: TransformFunction) {
-        externalTransformFns.push(transformFunction);
+      addHtmlTransformer(transformHtmlFunction: TransformHtmlFunction) {
+        externalTransformHtmlFns.push(transformHtmlFunction);
       },
 
       addOutput(name: string) {
@@ -159,11 +163,13 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
                 );
               }
 
+              const assetPaths = await emitAssets.call(this, inputs, pluginOptions);
               const outputs = await createHTMLOutput({
                 outputDir: options.dir,
                 inputs,
+                assetPaths,
                 generatedBundles,
-                externalTransformFns,
+                externalTransformHtmlFns,
                 pluginOptions,
               });
 

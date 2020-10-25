@@ -7,10 +7,7 @@ import {
   RollupPluginHTMLOptions,
 } from '../RollupPluginHTMLOptions';
 import { createError, NOOP_IMPORT } from '../utils';
-
-function toBrowserPath(filePath: string) {
-  return filePath.split(path.sep).join('/');
-}
+import { toBrowserPath } from './utils';
 
 export interface CreateImportPathParams {
   publicPath?: string;

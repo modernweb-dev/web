@@ -1,5 +1,5 @@
+import { Document } from 'parse5';
 import { createScript, findElement, getTagName, appendChild } from '@web/parse5-utils';
-import { parse, serialize } from 'parse5';
 
 import { EntrypointBundle } from '../RollupPluginHTMLOptions';
 import { createError } from '../utils';
@@ -17,11 +17,10 @@ export function createLoadScript(src: string, format: string) {
 }
 
 export function injectBundles(
-  htmlString: string,
+  document: Document,
   entrypointBundles: Record<string, EntrypointBundle>,
 ) {
-  const documentAst = parse(htmlString);
-  const body = findElement(documentAst, e => getTagName(e) === 'body');
+  const body = findElement(document, e => getTagName(e) === 'body');
   if (!body) {
     throw new Error('Missing body in HTML document.');
   }
@@ -33,6 +32,4 @@ export function injectBundles(
       appendChild(body, createLoadScript(entrypoint.importPath, options.format));
     }
   }
-
-  return serialize(documentAst);
 }

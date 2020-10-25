@@ -1,20 +1,26 @@
 import path from 'path';
+import { parse, serialize } from 'parse5';
 import { expect } from 'chai';
 
-import { extractModules } from '../../../src/input/extractModules';
+import { extractModules } from '../../../../src/input/extract/extractModules';
 
 const { sep } = path;
 
 describe('extractModules()', () => {
   it('extracts all modules from a html document', () => {
-    const { moduleImports, inlineModules, htmlWithoutModules } = extractModules(
+    const document = parse(
       '<div>before</div>' +
         '<script type="module" src="./foo.js"></script>' +
         '<script type="module" src="/bar.js"></script>' +
         '<div>after</div>',
-      '/',
-      '/',
     );
+
+    const { moduleImports, inlineModules } = extractModules({
+      document,
+      htmlDir: '/',
+      rootDir: '/',
+    });
+    const htmlWithoutModules = serialize(document);
 
     expect(inlineModules.size).to.equal(0);
     expect(moduleImports).to.eql([`${sep}foo.js`, `${sep}bar.js`]);
@@ -24,14 +30,19 @@ describe('extractModules()', () => {
   });
 
   it('resolves imports relative to the root dir', () => {
-    const { moduleImports, inlineModules, htmlWithoutModules } = extractModules(
+    const document = parse(
       '<div>before</div>' +
         '<script type="module" src="./foo.js"></script>' +
         '<script type="module" src="/bar.js"></script>' +
         '<div>after</div>',
-      '/',
-      '/base/',
     );
+
+    const { moduleImports, inlineModules } = extractModules({
+      document,
+      htmlDir: '/',
+      rootDir: '/base/',
+    });
+    const htmlWithoutModules = serialize(document);
 
     expect(inlineModules.size).to.equal(0);
     expect(moduleImports).to.eql([`${sep}foo.js`, `${sep}base${sep}bar.js`]);
@@ -41,14 +52,19 @@ describe('extractModules()', () => {
   });
 
   it('resolves relative imports relative to the relative import base', () => {
-    const { moduleImports, inlineModules, htmlWithoutModules } = extractModules(
+    const document = parse(
       '<div>before</div>' +
         '<script type="module" src="./foo.js"></script>' +
         '<script type="module" src="/bar.js"></script>' +
         '<div>after</div>',
-      '/base-1/base-2/',
-      '/base-1/',
     );
+
+    const { moduleImports, inlineModules } = extractModules({
+      document,
+      htmlDir: '/base-1/base-2/',
+      rootDir: '/base-1/',
+    });
+    const htmlWithoutModules = serialize(document);
 
     expect(inlineModules.size).to.equal(0);
     expect(moduleImports).to.eql([
@@ -61,14 +77,19 @@ describe('extractModules()', () => {
   });
 
   it('extracts all inline modules from a html document', () => {
-    const { moduleImports, inlineModules, htmlWithoutModules } = extractModules(
+    const document = parse(
       '<div>before</div>' +
         '<script type="module">/* my module 1 */</script>' +
         '<script type="module">/* my module 2 */</script>' +
         '<div>after</div>',
-      '/',
-      '/',
     );
+
+    const { moduleImports, inlineModules } = extractModules({
+      document,
+      htmlDir: '/',
+      rootDir: '/',
+    });
+    const htmlWithoutModules = serialize(document);
 
     expect([...inlineModules.entries()]).to.eql([
       ['/inline-module-a4e60958bc83128660775c2820e18b97.js', '/* my module 1 */'],
@@ -81,14 +102,19 @@ describe('extractModules()', () => {
   });
 
   it('prefixes inline module with index.html directory', () => {
-    const { moduleImports, inlineModules, htmlWithoutModules } = extractModules(
+    const document = parse(
       '<div>before</div>' +
         '<script type="module">/* my module 1 */</script>' +
         '<script type="module">/* my module 2 */</script>' +
         '<div>after</div>',
-      '/foo/bar/',
-      '/',
     );
+
+    const { moduleImports, inlineModules } = extractModules({
+      document,
+      htmlDir: '/foo/bar/',
+      rootDir: '/',
+    });
+    const htmlWithoutModules = serialize(document);
 
     expect([...inlineModules.entries()]).to.eql([
       ['/foo/bar/inline-module-a4e60958bc83128660775c2820e18b97.js', '/* my module 1 */'],

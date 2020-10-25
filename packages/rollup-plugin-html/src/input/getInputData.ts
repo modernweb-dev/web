@@ -4,9 +4,9 @@ import glob from 'glob';
 
 import { createError } from '../utils';
 import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions';
-import { InputHTMLData } from './InputHTMLData';
+import { InputData } from './InputData';
 import { normalizeInputOptions } from './normalizeInputOptions';
-import { extractModules } from './extractModules';
+import { extractModulesAndAssets } from './extract/extractModulesAndAssets';
 import { InputOption } from 'rollup';
 
 function resolveGlob(fromGlob: string, rootDir: string) {
@@ -25,35 +25,41 @@ function getName(filePath: string, rootDir: string, flattenOutput = true) {
   return path.relative(rootDir, filePath);
 }
 
-function createInputHTMLData(
-  name: string,
-  html: string,
-  htmlRootDir: string,
-  filePath?: string,
-): InputHTMLData {
-  const modulesBase = filePath ? path.dirname(filePath) : htmlRootDir;
-  const result = extractModules(html, modulesBase);
+export interface CreateInputDataParams {
+  name: string;
+  html: string;
+  rootDir: string;
+  filePath?: string;
+  extractAssets: boolean;
+}
+
+function createInputData(params: CreateInputDataParams): InputData {
+  const { name, html, rootDir, filePath, extractAssets } = params;
+  const htmlFilePath = filePath ? filePath : path.resolve(rootDir, name);
+  const result = extractModulesAndAssets({ html, htmlFilePath, rootDir, extractAssets });
 
   return {
     html: result.htmlWithoutModules,
     name,
     inlineModules: result.inlineModules,
     moduleImports: [...result.moduleImports, ...result.inlineModules.keys()],
+    assets: result.assets,
     filePath,
   };
 }
 
-export function getInputHTMLData(
+export function getInputData(
   pluginOptions: RollupPluginHTMLOptions,
   rollupInput?: InputOption,
-): InputHTMLData[] {
-  const { rootDir = process.cwd(), flattenOutput } = pluginOptions;
+): InputData[] {
+  const { rootDir = process.cwd(), flattenOutput, extractAssets = true } = pluginOptions;
   const allInputs = normalizeInputOptions(pluginOptions, rollupInput);
 
-  const result: InputHTMLData[] = [];
+  const result: InputData[] = [];
   for (const input of allInputs) {
     if (typeof input.html === 'string') {
-      const data = createInputHTMLData(input.name ?? 'index.html', input.html, rootDir);
+      const name = input.name ?? 'index.html';
+      const data = createInputData({ name, html: input.html, rootDir, extractAssets });
       result.push(data);
     } else if (typeof input.path === 'string') {
       const filePaths = resolveGlob(input.path, rootDir);
@@ -64,12 +70,9 @@ export function getInputHTMLData(
       }
 
       for (const filePath of filePaths) {
-        const data = createInputHTMLData(
-          input.name ?? getName(filePath, rootDir, flattenOutput),
-          fs.readFileSync(filePath, 'utf-8'),
-          rootDir,
-          filePath,
-        );
+        const name = input.name ?? getName(filePath, rootDir, flattenOutput);
+        const html = fs.readFileSync(filePath, 'utf-8');
+        const data = createInputData({ name, html, rootDir, filePath, extractAssets });
         result.push(data);
       }
     } else {
