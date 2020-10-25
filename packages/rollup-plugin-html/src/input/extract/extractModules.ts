@@ -1,15 +1,22 @@
+import { findElements, getAttribute, getTagName, getTextContent, remove } from '@web/parse5-utils';
+import { Document } from 'parse5';
 import path from 'path';
-import { parse, serialize } from 'parse5';
-import { findElements, getTagName, getAttribute, getTextContent, remove } from '@web/parse5-utils';
 import crypto from 'crypto';
+import { resolveAssetFilePath } from '../../assets/utils';
+
+export interface ExtractModulesParams {
+  document: Document;
+  htmlDir: string;
+  rootDir: string;
+}
 
 function createContentHash(content: string) {
   return crypto.createHash('md4').update(content).digest('hex');
 }
 
-export function extractModules(html: string, modulesBase: string, projectRootDir = process.cwd()) {
-  const documentAst = parse(html);
-  const scriptNodes = findElements(documentAst, e => getTagName(e) === 'script');
+export function extractModules(params: ExtractModulesParams) {
+  const { document, htmlDir, rootDir } = params;
+  const scriptNodes = findElements(document, e => getTagName(e) === 'script');
 
   const moduleImports: string[] = [];
   const inlineModules = new Map<string, string>();
@@ -22,24 +29,16 @@ export function extractModules(html: string, modulesBase: string, projectRootDir
       const code = getTextContent(scriptNode);
       // inline modules should be relative to the HTML file to resolve relative imports
       // we make it unique with a content hash, so that duplicate modules are deduplicated
-      const importPath = path.posix.join(
-        modulesBase,
-        `/inline-module-${createContentHash(code)}.js`,
-      );
+      const importPath = path.posix.join(htmlDir, `/inline-module-${createContentHash(code)}.js`);
       inlineModules.set(importPath, code);
     } else {
       // external script <script type="module" src="./foo.js"></script>
-      const importPath = path.join(
-        src.startsWith('/') ? projectRootDir : modulesBase,
-        src.split('/').join(path.sep),
-      );
+      const importPath = resolveAssetFilePath(src, htmlDir, rootDir);
       moduleImports.push(importPath);
     }
 
     remove(scriptNode);
   }
 
-  const updatedHtmlString = serialize(documentAst);
-
-  return { moduleImports, inlineModules, htmlWithoutModules: updatedHtmlString };
+  return { moduleImports, inlineModules };
 }
