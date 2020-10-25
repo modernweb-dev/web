@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 1.1.0
+
+### Minor Changes
+
+- 50ba2d6: watch referenced assets
+
 ## 1.0.2
 
 ### Patch Changes
