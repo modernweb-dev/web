@@ -328,24 +328,52 @@ function appendToDocument(document, appendedHtml) {
   return `${start}${appendedHtml}${end}`;
 }
 
-module.exports = {
-  ...adapter,
-  isHtmlFragment,
-  createElement,
-  createScript,
-  hasAttribute,
-  getAttribute,
-  getAttributes,
-  setAttribute,
-  setAttributes,
-  removeAttribute,
-  getTextContent,
-  setTextContent,
-  remove,
-  findNode,
-  findNodes,
-  findElement,
-  findElements,
-  prependToDocument,
-  appendToDocument,
-};
+module.exports.createDocument = adapter.createDocument;
+module.exports.createDocumentFragment = adapter.createDocumentFragment;
+module.exports.createElement = createElement;
+module.exports.createScript = createScript;
+module.exports.createCommentNode = adapter.createCommentNode;
+module.exports.appendChild = adapter.appendChild;
+module.exports.insertBefore = adapter.insertBefore;
+module.exports.setTemplateContent = adapter.setTemplateContent;
+module.exports.getTemplateContent = adapter.getTemplateContent;
+module.exports.setDocumentType = adapter.setDocumentType;
+module.exports.setDocumentMode = adapter.setDocumentMode;
+module.exports.getDocumentMode = adapter.getDocumentMode;
+module.exports.detachNode = adapter.detachNode;
+module.exports.insertText = adapter.insertText;
+module.exports.insertTextBefore = adapter.insertTextBefore;
+module.exports.adoptAttributes = adapter.adoptAttributes;
+module.exports.getFirstChild = adapter.getFirstChild;
+module.exports.getChildNodes = adapter.getChildNodes;
+module.exports.getParentNode = adapter.getParentNode;
+module.exports.getAttrList = adapter.getAttrList;
+module.exports.getTagName = adapter.getTagName;
+module.exports.getNamespaceURI = adapter.getNamespaceURI;
+module.exports.getTextNodeContent = adapter.getTextNodeContent;
+module.exports.getCommentNodeContent = adapter.getCommentNodeContent;
+module.exports.getDocumentTypeNodeName = adapter.getDocumentTypeNodeName;
+module.exports.getDocumentTypeNodePublicId = adapter.getDocumentTypeNodePublicId;
+module.exports.getDocumentTypeNodeSystemId = adapter.getDocumentTypeNodeSystemId;
+module.exports.isTextNode = adapter.isTextNode;
+module.exports.isCommentNode = adapter.isCommentNode;
+module.exports.isDocumentTypeNode = adapter.isDocumentTypeNode;
+module.exports.isElementNode = adapter.isElementNode;
+module.exports.setNodeSourceCodeLocation = adapter.setNodeSourceCodeLocation;
+module.exports.getNodeSourceCodeLocation = adapter.getNodeSourceCodeLocation;
+module.exports.isHtmlFragment = isHtmlFragment;
+module.exports.hasAttribute = hasAttribute;
+module.exports.getAttribute = getAttribute;
+module.exports.getAttributes = getAttributes;
+module.exports.setAttribute = setAttribute;
+module.exports.setAttributes = setAttributes;
+module.exports.removeAttribute = removeAttribute;
+module.exports.setTextContent = setTextContent;
+module.exports.getTextContent = getTextContent;
+module.exports.remove = remove;
+module.exports.findNode = findNode;
+module.exports.findNodes = findNodes;
+module.exports.findElement = findElement;
+module.exports.findElements = findElements;
+module.exports.prependToDocument = prependToDocument;
+module.exports.appendToDocument = appendToDocument;

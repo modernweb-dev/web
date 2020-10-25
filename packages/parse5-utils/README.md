@@ -98,6 +98,8 @@ const htmlWithInjectedScript = appendToDocument(
 - getAttributes
 - setAttribute
 - setAttributes
+- setTextContent
+- getTextContent
 - removeAttribute
 - remove
 - findNode
