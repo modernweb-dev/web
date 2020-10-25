@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 1.0.2
+
+### Patch Changes
+
+- d130352: bundle referenced HTML assets
+
 ## 1.0.1
 
 ### Patch Changes
