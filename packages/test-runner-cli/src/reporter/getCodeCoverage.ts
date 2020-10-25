@@ -27,6 +27,16 @@ export function getCodeCoverage(
     );
   }
 
+  if (!testCoverage.passed && coverageConfig.threshold) {
+    coverageTypes.forEach((type) => {
+      if (testCoverage.summary[type].pct < coverageConfig.threshold![type]) {
+        entries.push(`Coverage for ${type} failed with ${chalk.bold(
+          chalk.red(`${testCoverage.summary[type].pct} %`))} compared to configured ${chalk.bold(`${coverageConfig.threshold![type]} %`)
+          }`);
+      }
+    });
+  }
+
   if (!watch && coverageConfig.report) {
     entries.push(
       `View full coverage report at ${chalk.underline(
