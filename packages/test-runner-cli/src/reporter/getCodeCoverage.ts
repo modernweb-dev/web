@@ -28,11 +28,13 @@ export function getCodeCoverage(
   }
 
   if (!testCoverage.passed && coverageConfig.threshold) {
-    coverageTypes.forEach((type) => {
+    coverageTypes.forEach(type => {
       if (testCoverage.summary[type].pct < coverageConfig.threshold![type]) {
-        entries.push(`Coverage for ${chalk.bold(type)} failed with ${chalk.bold(
-          chalk.red(`${testCoverage.summary[type].pct} %`))} compared to configured ${chalk.bold(`${coverageConfig.threshold![type]} %`)
-          }`);
+        entries.push(
+          `Coverage for ${chalk.bold(type)} failed with ${chalk.bold(
+            chalk.red(`${testCoverage.summary[type].pct} %`),
+          )} compared to configured ${chalk.bold(`${coverageConfig.threshold![type]} %`)}`,
+        );
       }
     });
   }
