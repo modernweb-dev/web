@@ -4,7 +4,7 @@
     src="./assets/logo.png"
     alt="Modern Web"
   />
-</p>
+</p>.
 
 <p align="center">
   <a href="https://github.com/modernweb-dev/actions"
