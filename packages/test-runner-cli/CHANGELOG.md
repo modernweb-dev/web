@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.6.8
+
+### Patch Changes
+
+- e21a4cf: add coverage failure per type when below threshold
+
 ## 0.6.7
 
 ### Patch Changes
