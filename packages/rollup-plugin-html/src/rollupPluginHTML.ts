@@ -68,6 +68,10 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
         if (input.filePath) {
           this.addWatchFile(input.filePath);
         }
+
+        for (const asset of input.assets) {
+          this.addWatchFile(asset.filePath);
+        }
       }
     },
 
