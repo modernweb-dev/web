@@ -1,4 +1,7 @@
-# Dev Server >> Plugins >> Hot Module Replacement
+# Dev Server >> Plugins >> Hot Module Replacement ||7
+
+> **Warning:** this plugin is still experimental and may change until it
+> reaches a stable release.
 
 Plugin for introducing HMR (hot module replacement) support.
 
@@ -69,6 +72,14 @@ for this is to account for if the plugin has not been loaded.
 
 In production it is highly recommended you remove any of these HMR related
 blocks of code as they will effectively be dead code.
+
+## Use with libraries/frameworks
+
+This plugin exists primarily to serve as a base to other
+framework/ecosystem-specific implementations of HMR.
+
+It can be consumed directly as-is, but in future should usually be
+used via another higher level plugin layered on top of this.
 
 ## API
 
