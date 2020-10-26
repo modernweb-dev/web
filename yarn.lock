@@ -1070,10 +1070,10 @@
     human-id "^1.0.2"
     prettier "^1.18.2"
 
-"@d4kmor/cli@^0.5.5":
-  version "0.5.5"
-  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.5.5.tgz#6758dba51cdc3924ba7fa05d1fb8a506999eac6c"
-  integrity sha512-EmJRuqBRlNZpADdxhaN5zixfVzVWdAB7PxKbCXC+UOjBiz/B0nBhZnKkfiI6wpSvYigU3h/YJT5PLZ8BvX3t6w==
+"@d4kmor/cli@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@d4kmor/cli/-/cli-0.5.6.tgz#0807a05dc879a1ada011958d52d0fef647ebebfa"
+  integrity sha512-ODRujSmPKShfGMTiHK55U/esuhIPdBPCx5sfOer0h7I3vNe5IESfnlLVy/pn+EdPAmIaEuUr4pKzzuc15v7YFg==
   dependencies:
     "@11ty/eleventy" "^0.11.0"
     "@d4kmor/core" "^0.1.2"
@@ -2374,14 +2374,6 @@
     ip "^1.1.5"
     open "^7.1.0"
     portfinder "^1.0.27"
-
-"@web/parse5-utils@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@web/parse5-utils/-/parse5-utils-1.0.0.tgz#a90f9f33c68d9bd177c67ef16ce2b01b2bec7d80"
-  integrity sha512-0ki2YGMrNGx7VjJD030Z2mb91n7N8bhbWsmWX6u+RNO//l7JVKOv64SU/m5T0v1omd0PTdl4L8FHtrVtQ6ruJw==
-  dependencies:
-    "@types/parse5" "^5.0.3"
-    parse5 "^6.0.1"
 
 "@web/rollup-plugin-copy@^0.1.2":
   version "0.1.2"
