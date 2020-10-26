@@ -17,7 +17,7 @@ npm i --save-dev @web/test-runner @esm-bundle/chai @types/mocha typescript
 Next, we need to run initialize typescript for our project:
 
 ```
-npx typescript --init
+npx tsc --init
 ```
 
 This will create a `tsconfig.json` for your project in the current working directory.
