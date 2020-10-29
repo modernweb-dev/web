@@ -45,15 +45,14 @@ export async function v8ToIstanbul(
 
   for (const entry of coverage) {
     const path = new URL(entry.url).pathname;
-    if (!!extname(path) && !path.startsWith('/__web-test-runner__/')) {
+    if (
+      !!extname(path) &&
+      !path.startsWith('/__web-test-runner__') &&
+      !path.startsWith('/__web-dev-server')
+    ) {
       const filePath = join(config.rootDir, toFilePath(path));
 
-      if (
-        (await fileExists(filePath)) &&
-        !testFiles.includes(filePath) &&
-        included(filePath) &&
-        !excluded(filePath)
-      ) {
+      if (!testFiles.includes(filePath) && included(filePath) && !excluded(filePath)) {
         const converter = v8toIstanbulLib(
           filePath,
           0,
