@@ -24,7 +24,7 @@ const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
 };
 
 const defaultCoverageConfig: CoverageConfig = {
-  exclude: ['**/node_modules/**/*'],
+  exclude: ['**/node_modules/**/*', '**/web_modules/**/*'],
   threshold: { statements: 0, functions: 0, branches: 0, lines: 0 },
   report: true,
   reportDir: 'coverage',

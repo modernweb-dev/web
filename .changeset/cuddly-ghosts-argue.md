@@ -3,4 +3,4 @@
 '@web/test-runner-coverage-v8': patch
 ---
 
-don't require files to on disk for coverage
+don't require files to exist on disk for coverage
