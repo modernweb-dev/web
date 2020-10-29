@@ -44,6 +44,7 @@
     "test:rollup-bundle": "node dist/bin.js --config demo/rollup-bundle.mjs",
     "test:saucelabs": "node dist/bin.js --config demo/saucelabs.config.mjs",
     "test:selenium": "node dist/bin.js --config demo/selenium.config.js",
+    "test:virtual-files": "node dist/bin.js --config demo/virtual-files.config.mjs --coverage",
     "test:watch": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --watch"
   },
   "files": [
