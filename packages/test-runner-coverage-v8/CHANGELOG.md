@@ -1,5 +1,11 @@
 # @web/test-runner-coverage-v8
 
+## 0.2.2
+
+### Patch Changes
+
+- 382affc: don't require files to exist on disk for coverage
+
 ## 0.2.1
 
 ### Patch Changes

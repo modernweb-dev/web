@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.9.7
+
+### Patch Changes
+
+- 382affc: don't require files to exist on disk for coverage
+- Updated dependencies [a70da8d]
+  - @web/test-runner-cli@0.6.9
+
 ## 0.9.6
 
 ### Patch Changes

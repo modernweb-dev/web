@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.6.9
+
+### Patch Changes
+
+- a70da8d: exclude web_modules from coverage
+
 ## 0.6.8
 
 ### Patch Changes
