@@ -5,7 +5,7 @@ import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Profiler } from 'inspector';
 import picoMatch from 'picomatch';
 
-import { toFilePath, fileExists } from './utils';
+import { toFilePath } from './utils';
 
 type V8Coverage = Profiler.ScriptCoverage & { source?: string };
 type Matcher = (test: string) => boolean;
