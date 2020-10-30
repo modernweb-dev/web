@@ -6,7 +6,7 @@ The test runner can be configured using CLI flags, or with a configuration file.
 
 | name                | type         | description                                                                                                           |
 | ------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------- |
-| files               | string       | test files glob. this is the default option, so you do not need to specify it.                                        |
+| files               | string array | test files glob. this is the default option, so you do not need to specify it.                                        |
 | watch               | boolean      | runs in watch mode                                                                                                    |
 | coverage            | boolean      | whether to analyze code coverage                                                                                      |
 | node-resolve        | boolean      | resolve bare module imports                                                                                           |
