@@ -64,11 +64,11 @@ export async function startDevServer(options: StartDevServerParams = {}) {
     const { logger, loggerPlugin } = createLogger({
       // TODO: read debug
       debugLogging: false,
-      clearTerminalOnReload: !!config.clearTerminalOnReload,
+      clearTerminalOnReload: !!config.watch && !!config.clearTerminalOnReload,
       logStartMessage: !!logStartMessage,
     });
     config.plugins = config.plugins ?? [];
-    config.plugins.push(loggerPlugin);
+    config.plugins.unshift(loggerPlugin);
 
     const server = new DevServer(config, logger);
 

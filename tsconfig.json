@@ -74,6 +74,9 @@
       "path": "./packages/dev-server-import-maps/tsconfig.json"
     },
     {
+      "path": "./packages/dev-server-storybook/tsconfig.json"
+    },
+    {
       "path": "./packages/test-runner-puppeteer/tsconfig.json"
     },
     {
