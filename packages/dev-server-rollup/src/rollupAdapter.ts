@@ -49,9 +49,14 @@ function wrapRollupError(filePath: string, context: Context, error: any) {
   return error;
 }
 
+export interface RollupAdapterOptions {
+  throwOnUnresolvedImport?: boolean;
+}
+
 export function rollupAdapter(
   rollupPlugin: RollupPlugin,
   rollupInputOptions: Partial<InputOptions> = {},
+  adapterOptions: RollupAdapterOptions = {},
 ): WdsPlugin {
   if (typeof rollupPlugin !== 'object') {
     throw new Error('rollupAdapter should be called with a rollup plugin object.');
@@ -131,6 +136,18 @@ export function rollupAdapter(
         }
 
         if (!resolvedImportPath) {
+          if (adapterOptions.throwOnUnresolvedImport) {
+            const errorMessage = red(`Could not resolve import ${cyanBright(`"${source}"`)}.`);
+            if (
+              typeof code === 'string' &&
+              typeof column === 'number' &&
+              typeof line === 'number'
+            ) {
+              throw new PluginSyntaxError(errorMessage, filePath, code, column, line);
+            } else {
+              throw new PluginError(errorMessage);
+            }
+          }
           return undefined;
         }
 

@@ -22,5 +22,9 @@ export function nodeResolvePlugin(
     userOptionsObject,
   );
 
-  return rollupAdapter(nodeResolve(options), { preserveSymlinks });
+  return rollupAdapter(
+    nodeResolve(options),
+    { preserveSymlinks },
+    { throwOnUnresolvedImport: true },
+  );
 }
