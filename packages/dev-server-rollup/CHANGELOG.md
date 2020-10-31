@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.2.10
+
+### Patch Changes
+
+- e2b93b6: Add error when a bare import cannot be resolved
+
 ## 0.2.9
 
 ### Patch Changes

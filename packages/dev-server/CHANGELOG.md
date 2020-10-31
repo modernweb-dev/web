@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.0.16
+
+### Patch Changes
+
+- e2b93b6: Add error when a bare import cannot be resolved
+- Updated dependencies [e2b93b6]
+  - @web/dev-server-rollup@0.2.10
+
 ## 0.0.15
 
 ### Patch Changes
