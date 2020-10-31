@@ -64,6 +64,7 @@ export async function parseConfig(
   // ensure rootDir is always resolved
   if (typeof finalConfig.rootDir === 'string') {
     finalConfig.rootDir = path.resolve(finalConfig.rootDir);
+    console.log('resolved', finalConfig.rootDir);
   }
 
   // generate a default random port

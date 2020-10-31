@@ -2375,12 +2375,39 @@
     open "^7.1.0"
     portfinder "^1.0.27"
 
+"@web/dev-server@^0.0.15":
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/@web/dev-server/-/dev-server-0.0.15.tgz#2a27bac3f72681bff332bb46357c2a3f8a39a096"
+  integrity sha512-58YY9aHfc2f6CZbjI5NDG+jCGIyb3Da74vbaLSklmFuawJZrQ5ntjnFiMvP0L4Z5IW6WV+W+FPyOS58GTda3Zw==
+  dependencies:
+    "@babel/code-frame" "^7.10.4"
+    "@rollup/plugin-node-resolve" "^8.4.0"
+    "@types/command-line-args" "^5.0.0"
+    "@web/config-loader" "^0.1.1"
+    "@web/dev-server-cli" "^0.0.3"
+    "@web/dev-server-core" "^0.2.13"
+    "@web/dev-server-rollup" "^0.2.5"
+    camelcase "^6.0.0"
+    chalk "^4.1.0"
+    command-line-args "^5.1.1"
+    command-line-usage "^6.1.0"
+    debounce "^1.2.0"
+    deepmerge "^4.2.2"
+    ip "^1.1.5"
+    open "^7.1.0"
+    portfinder "^1.0.27"
+
 "@web/rollup-plugin-copy@^0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@web/rollup-plugin-copy/-/rollup-plugin-copy-0.1.2.tgz#b8a3c1d5385bda0e94a1eb37cb375455cabfc3a1"
   integrity sha512-n41NvYQfXLS0dU7d9gHXmEIoctE+aY2bN6ZzlXi72tNsnGXY+zjAD/0Xye4O7eC5l5NOja1MTB4giwq+kGhc9g==
   dependencies:
     glob "^7.0.0"
+
+"@web/storybook-prebuilt@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@web/storybook-prebuilt/-/storybook-prebuilt-0.0.5.tgz#e43bf8413d70e53b61b42aa49179142b1f4b2377"
+  integrity sha512-x0SwQO8gWFoI302FYzSDoygqkGQsxHqttIC6IMqaewBNuFOLl03Sd28NJ8fAw7Ffq/x6riDiO2kIq3nwn1vhVg==
 
 "@webcomponents/shadycss@^1.9.4":
   version "1.10.1"
@@ -6100,6 +6127,11 @@ hsla-regex@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/hsla-regex/-/hsla-regex-1.0.0.tgz#c1ce7a3168c8c6614033a4b5f7877f3b225f9c38"
   integrity sha1-wc56MWjIxmFAM6S194d/OyJfnDg=
+
+htm@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/htm/-/htm-3.0.4.tgz#c90c891645d2d792bdb9f8c867964b18e3503718"
+  integrity sha512-VRdvxX3tmrXuT/Ovt59NMp/ORMFi4bceFMDjos1PV4E0mV+5votuID8R60egR9A4U8nLt238R/snlJGz3UYiTQ==
 
 html-comment-regex@^1.1.0:
   version "1.1.2"

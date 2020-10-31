@@ -12,6 +12,7 @@ const packages = [
   { name: 'dev-server-rollup', type: 'ts', environment: 'node' },
   { name: 'dev-server-legacy', type: 'ts', environment: 'node' },
   { name: 'dev-server-import-maps', type: 'ts', environment: 'node' },
+  { name: 'dev-server-storybook', type: 'ts', environment: 'node' },
   { name: 'test-runner', type: 'ts', environment: 'node' },
   { name: 'test-runner-core', type: 'ts', environment: 'node' },
   { name: 'test-runner-cli', type: 'ts', environment: 'node' },
