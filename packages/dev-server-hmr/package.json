@@ -18,8 +18,8 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start:demo": "web-dev-server --config demo/server.config.js",
     "build": "tsc",
+    "start:demo": "web-dev-server --config demo/server.config.js",
     "test": "mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
     "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
   },

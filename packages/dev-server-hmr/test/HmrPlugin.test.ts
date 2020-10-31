@@ -5,6 +5,7 @@ import * as sinon from 'sinon';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { hmrPlugin } from '../src/index';
 import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin';
+import { posix as pathUtil } from 'path';
 
 const mockFile = (path: string, source: string) => ({
   name: `test-file:${path}`,
@@ -37,7 +38,7 @@ describe('HmrPlugin', () => {
     const stub = sinon.stub(webSockets, 'send');
     try {
       await fetch(`${host}/foo.js`);
-      fileWatcher.emit('change', '/foo.js');
+      fileWatcher.emit('change', pathUtil.join(__dirname, '/foo.js'));
 
       expect(stub.firstCall.args[0]).to.equal(
         JSON.stringify({
@@ -67,7 +68,7 @@ describe('HmrPlugin', () => {
     const stub = sinon.stub(webSockets, 'send');
     try {
       await fetch(`${host}/foo.js`);
-      fileWatcher.emit('change', '/foo.js');
+      fileWatcher.emit('change', pathUtil.join(__dirname, '/foo.js'));
 
       expect(stub.firstCall.args[0]).to.equal(
         JSON.stringify({

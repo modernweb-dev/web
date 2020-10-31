@@ -44,6 +44,7 @@
   ],
   "dependencies": {
     "@types/ws": "^7.2.6",
+    "@web/parse5-utils": "^1.0.0",
     "chokidar": "^3.4.0",
     "clone": "^2.1.2",
     "es-module-lexer": "^0.3.24",
@@ -57,8 +58,7 @@
     "mime-types": "^2.1.27",
     "parse5": "^6.0.0",
     "picomatch": "^2.2.2",
-    "ws": "^7.3.1",
-    "@web/parse5-utils": "^1.0.0"
+    "ws": "^7.3.1"
   },
   "devDependencies": {
     "@types/clone": "^0.1.30",
