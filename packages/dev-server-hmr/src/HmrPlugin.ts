@@ -90,7 +90,7 @@ export class HmrPlugin implements Plugin {
   /** @inheritDoc */
   async transformImport({ source, context }: { source: string; context: Context }) {
     // Can't possibly handle computed dynamic imports
-    if (source.includes('${')) {
+    if (!/^"[^"]*"|'[^']*'|`[^`]*`/.test(source)) {
       return;
     }
 
