@@ -86,9 +86,15 @@ export class HmrPlugin implements Plugin {
 
   /** @inheritDoc */
   async transformImport({ source, context }: { source: string; context: Context }) {
+    // Can't possibly handle computed dynamic imports
+    if (source.includes('${')) {
+      return;
+    }
+
     const importPath = pathUtil.resolve(context.path, source);
 
-    if (importPath === NAME_HMR_CLIENT_IMPORT) {
+    // Don't want to handle the hmr plugin itself
+    if (context.path === NAME_HMR_CLIENT_IMPORT || source === NAME_HMR_CLIENT_IMPORT) {
       return;
     }
 
@@ -102,6 +108,11 @@ export class HmrPlugin implements Plugin {
 
   /** @inheritDoc */
   async transform(context: Context) {
+    // Don't want to handle the hmr plugin itself
+    if (context.path === NAME_HMR_CLIENT_IMPORT) {
+      return;
+    }
+
     // If the module references import.meta.hot it can be assumed it
     // supports hot reloading
     const hmrEnabled = context.body.includes('import.meta.hot') === true;
