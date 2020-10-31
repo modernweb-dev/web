@@ -4,6 +4,7 @@ import type {
   Logger,
   WebSocketData,
   ServerStartParams,
+  DevServerCoreConfig,
 } from '@web/dev-server-core';
 import WebSocket from 'ws';
 import type { Context } from 'koa';
@@ -47,9 +48,10 @@ export class HmrPlugin implements Plugin {
   protected _dependencyTree: Map<string, HmrModule> = new Map();
   protected _webSockets?: WebSocketsManager;
   protected _logger?: Logger;
+  protected _config?: DevServerCoreConfig;
 
   /** @inheritDoc */
-  async serverStart({ webSockets, fileWatcher, logger }: ServerStartParams) {
+  async serverStart({ webSockets, fileWatcher, logger, config }: ServerStartParams) {
     if (!fileWatcher) {
       throw new Error('Cannot use HMR when watch mode is disabled.');
     }
@@ -58,6 +60,7 @@ export class HmrPlugin implements Plugin {
       throw new Error('Cannot use HMR when web sockets are disabled.');
     }
 
+    this._config = config;
     this._webSockets = webSockets;
     this._logger = logger;
 
@@ -159,8 +162,14 @@ export class HmrPlugin implements Plugin {
    * Fired when a file has changed.
    * @param path Module path which has changed
    */
-  protected _onFileChanged(path: string): void {
-    this._triggerUpdate(path);
+  protected _onFileChanged(filePath: string): void {
+    if (!this._config?.rootDir) {
+      return;
+    }
+
+    const relativePath = pathUtil.relative(this._config.rootDir, filePath);
+    const browserPath = relativePath.split(pathUtil.sep).join('/');
+    this._triggerUpdate(`/${browserPath}`);
   }
 
   /**

@@ -25,10 +25,12 @@ export class HotModule {
   }
 
   accept(deps, callback) {
-    if (this[moduleState] !== HmrState.Accepted) {
-      sendMessage({ type: 'hmr:accept', id: this.id });
-      this[moduleState] = HmrState.Accepted;
+    if (this[moduleState] === HmrState.Accepted) {
+      return;
     }
+
+    sendMessage({ type: 'hmr:accept', id: this.id });
+    this[moduleState] = HmrState.Accepted;
 
     if (!callback) {
       callback = deps;
@@ -93,6 +95,7 @@ export function create(url) {
 
   if (existing) {
     existing[disposeTrigger]();
+    return existing;
   }
 
   const instance = new HotModule(path);
