@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.0.17
+
+### Patch Changes
+
+- 835d16f: add koa types dependency
+- Updated dependencies [835d16f]
+  - @web/dev-server-core@0.2.14
+
 ## 0.0.16
 
 ### Patch Changes
