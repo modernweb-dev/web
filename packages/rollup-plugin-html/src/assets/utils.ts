@@ -7,13 +7,27 @@ import { serialize } from 'v8';
 const linkRels = ['stylesheet', 'icon', 'manifest', 'apple-touch-icon', 'mask-icon'];
 
 function isAsset(node: Node) {
+  let path = '';
   switch (getTagName(node)) {
     case 'img':
-      return !!getAttribute(node, 'src');
+      path = getAttribute(node, 'src') ?? '';
+      break;
     case 'link':
-      return linkRels.includes(getAttribute(node, 'rel') ?? '');
+      if (linkRels.includes(getAttribute(node, 'rel') ?? '')) {
+        path = getAttribute(node, 'href') ?? '';
+      }
+      break;
     default:
       return false;
+  }
+  if (!path) {
+    return false;
+  }
+  try {
+    new URL(path);
+    return false;
+  } catch (e) {
+    return true;
   }
 }
 

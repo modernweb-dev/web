@@ -182,4 +182,22 @@ describe('extractAssets', () => {
     expect(assets[0].content.toString('utf-8').replace(/\s/g, '')).to.equal(':root{color:x;}');
     expect(assets[1].content.toString('utf-8').replace(/\s/g, '')).to.equal(':root{color:blue;}');
   });
+
+  it('does not count remote URLs as assets', () => {
+    const document = parse(`
+      <html>
+        <body>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/">
+        </body>
+      </html>
+    `);
+    const assets = extractAssets({
+      document,
+      htmlFilePath: path.join(rootDir, 'foo', 'index.html'),
+      htmlDir: path.join(rootDir, 'foo'),
+      rootDir,
+    });
+
+    expect(assets.length).to.equal(0);
+  });
 });
