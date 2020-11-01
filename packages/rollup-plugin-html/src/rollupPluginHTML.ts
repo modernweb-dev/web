@@ -1,4 +1,5 @@
 import { Plugin } from 'rollup';
+import path from 'path';
 
 import { addRollupInput } from './input/addRollupInput';
 import { getInputData } from './input/getInputData';
@@ -119,7 +120,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
 
       const assetPaths = await emitAssets.call(this, inputs, pluginOptions);
       const outputs = await createHTMLOutput({
-        outputDir: options.dir,
+        outputDir: path.resolve(options.dir),
         inputs,
         assetPaths,
         generatedBundles,
@@ -169,7 +170,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
 
               const assetPaths = await emitAssets.call(this, inputs, pluginOptions);
               const outputs = await createHTMLOutput({
-                outputDir: options.dir,
+                outputDir: path.resolve(options.dir),
                 inputs,
                 assetPaths,
                 generatedBundles,

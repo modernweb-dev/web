@@ -28,18 +28,24 @@ describe('injectedUpdatedAssetPaths()', () => {
       filePath: '/root/index.html',
     };
     const assetPaths = new Map<string, string>();
-    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'dist/styles-xxx.css');
-    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'dist/image-a-xxx.png');
-    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'dist/image-b-xxx.png');
+    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
+    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
+    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
-    injectedUpdatedAssetPaths(document, input, '/root/', assetPaths);
+    injectedUpdatedAssetPaths({
+      document,
+      input,
+      outputDir: '/root/dist/',
+      rootDir: '/root/',
+      assetPaths,
+    });
 
     const expected = [
       '<html>',
-      '<head><link rel="stylesheet" href="dist/styles-xxx.css"></head>',
+      '<head><link rel="stylesheet" href="styles-xxx.css"></head>',
       '<body>',
-      '<img src="dist/image-a-xxx.png">',
-      '<img src="dist/image-b-xxx.png">',
+      '<img src="image-a-xxx.png">',
+      '<img src="image-b-xxx.png">',
       '</body>',
       '</html>',
     ].join('');
@@ -68,17 +74,23 @@ describe('injectedUpdatedAssetPaths()', () => {
       assets: [],
     };
     const assetPaths = new Map<string, string>();
-    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'dist/styles-xxx.css');
-    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'dist/image-a-xxx.png');
-    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'dist/image-b-xxx.png');
+    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
+    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
+    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
-    injectedUpdatedAssetPaths(document, input, '/root/', assetPaths);
+    injectedUpdatedAssetPaths({
+      document,
+      input,
+      outputDir: '/root/dist/',
+      rootDir: '/root/',
+      assetPaths,
+    });
     const expected = [
       '<html>',
-      '<head><link rel="stylesheet" href="dist/styles-xxx.css"></head>',
+      '<head><link rel="stylesheet" href="styles-xxx.css"></head>',
       '<body>',
-      '<img src="dist/image-a-xxx.png">',
-      '<img src="dist/image-b-xxx.png">',
+      '<img src="image-a-xxx.png">',
+      '<img src="image-b-xxx.png">',
       '</body>',
       '</html>',
     ].join('');
@@ -101,25 +113,31 @@ describe('injectedUpdatedAssetPaths()', () => {
 
     const input: InputData = {
       html: '',
-      name: 'index.html',
+      name: 'foo/index.html',
       moduleImports: [],
       inlineModules: new Map(),
       assets: [],
       filePath: '/root/foo/index.html',
     };
     const assetPaths = new Map<string, string>();
-    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'dist/styles-xxx.css');
-    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'dist/image-a-xxx.png');
-    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'dist/image-b-xxx.png');
+    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
+    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
+    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
-    injectedUpdatedAssetPaths(document, input, '/root/', assetPaths);
+    injectedUpdatedAssetPaths({
+      document,
+      input,
+      outputDir: '/root/dist/',
+      rootDir: '/root/',
+      assetPaths,
+    });
 
     const expected = [
       '<html>',
-      '<head><link rel="stylesheet" href="dist/styles-xxx.css"></head>',
+      '<head><link rel="stylesheet" href="../styles-xxx.css"></head>',
       '<body>',
-      '<img src="dist/image-a-xxx.png">',
-      '<img src="dist/image-b-xxx.png">',
+      '<img src="../image-a-xxx.png">',
+      '<img src="../image-b-xxx.png">',
       '</body>',
       '</html>',
     ].join('');
@@ -148,18 +166,24 @@ describe('injectedUpdatedAssetPaths()', () => {
       assets: [],
     };
     const assetPaths = new Map<string, string>();
-    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'dist/styles-xxx.css');
-    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'dist/image-a-xxx.png');
-    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'dist/image-b-xxx.png');
+    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
+    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
+    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
-    injectedUpdatedAssetPaths(document, input, '/root/', assetPaths);
+    injectedUpdatedAssetPaths({
+      document,
+      input,
+      outputDir: '/root/dist/',
+      rootDir: '/root/',
+      assetPaths,
+    });
 
     const expected = [
       '<html>',
-      '<head><link rel="stylesheet" href="dist/styles-xxx.css"></head>',
+      '<head><link rel="stylesheet" href="../styles-xxx.css"></head>',
       '<body>',
-      '<img src="dist/image-a-xxx.png">',
-      '<img src="dist/image-b-xxx.png">',
+      '<img src="../image-a-xxx.png">',
+      '<img src="../image-b-xxx.png">',
       '</body>',
       '</html>',
     ].join('');
@@ -189,18 +213,25 @@ describe('injectedUpdatedAssetPaths()', () => {
       filePath: '/root/index.html',
     };
     const assetPaths = new Map<string, string>();
-    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'dist/styles-xxx.css');
-    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'dist/image-a-xxx.png');
-    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'dist/image-b-xxx.png');
+    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
+    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
+    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
-    injectedUpdatedAssetPaths(document, input, '/root/', assetPaths, './public/');
+    injectedUpdatedAssetPaths({
+      document,
+      input,
+      outputDir: '/root/dist/',
+      rootDir: '/root/',
+      assetPaths,
+      publicPath: './public/',
+    });
 
     const expected = [
       '<html>',
-      '<head><link rel="stylesheet" href="public/dist/styles-xxx.css"></head>',
+      '<head><link rel="stylesheet" href="public/styles-xxx.css"></head>',
       '<body>',
-      '<img src="public/dist/image-a-xxx.png">',
-      '<img src="public/dist/image-b-xxx.png">',
+      '<img src="public/image-a-xxx.png">',
+      '<img src="public/image-b-xxx.png">',
       '</body>',
       '</html>',
     ].join('');

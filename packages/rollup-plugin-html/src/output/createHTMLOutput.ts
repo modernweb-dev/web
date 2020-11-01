@@ -44,6 +44,7 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     pluginOptions,
     entrypointBundles,
     input,
+    outputDir,
     assetPaths,
     externalTransformHtmlFns,
   });
