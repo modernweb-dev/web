@@ -14,6 +14,7 @@ describe('getOutputHTML()', () => {
 
   const defaultOptions: GetOutputHTMLParams = {
     pluginOptions: {},
+    outputDir: '/',
     assetPaths: new Map(),
     entrypointBundles: defaultEntrypointBundles,
     input: {
@@ -25,7 +26,7 @@ describe('getOutputHTML()', () => {
     },
   };
 
-  it('injects output int the input HTML', async () => {
+  it('injects output into the input HTML', async () => {
     const output = await getOutputHTML(defaultOptions);
     expect(output).to.equal(
       '<html><head></head><body><h1>Input HTML</h1>' +
