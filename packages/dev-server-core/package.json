@@ -43,6 +43,7 @@
     "core"
   ],
   "dependencies": {
+    "@types/koa": "^2.11.6",
     "@types/ws": "^7.2.6",
     "chokidar": "^3.4.0",
     "clone": "^2.1.2",
