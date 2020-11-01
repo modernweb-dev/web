@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-storybook",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publishConfig": {
     "access": "public"
   },
@@ -42,12 +42,12 @@
     "esm"
   ],
   "dependencies": {
-    "@web/dev-server-core": "^0.2.13",
+    "@web/dev-server-core": "^0.2.14",
     "@web/storybook-prebuilt": "^0.0.5",
     "globby": "^11.0.1"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.0.15",
+    "@web/dev-server": "^0.0.17",
     "htm": "^3.0.4"
   },
   "exports": {
