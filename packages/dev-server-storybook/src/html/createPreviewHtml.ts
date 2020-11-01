@@ -121,7 +121,7 @@ export function createPreviewHtml(
         pluginConfig.type
       }.js';
       ${previewImport}
-      ${storyImports.map((s, i) => `import * as stories${i} from '${s}';`)}
+      ${storyImports.map((s, i) => `import * as stories${i} from '${s}';`).join('')}
       configure(() => [${storyImports.map((s, i) => `stories${i}`)}], {}, false);
     </script>
   </body>
