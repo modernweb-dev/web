@@ -194,33 +194,17 @@ describe('extractAssets', () => {
     expect(assets[1].content.toString('utf-8').replace(/\s/g, '')).to.equal(':root{color:blue;}');
   });
 
-<<<<<<< HEAD
-  it('does not count remote URLs as assets', () => {
-    const document = parse(`
-      <html>
-        <body>
-          <link rel="stylesheet" href="https://fonts.googleapis.com/">
-=======
   it('can reference the same asset with a hashed and non-hashed node', () => {
     const document = parse(`
       <html>
         <body>
           <link rel="stylesheet" href="image-a.png">
           <link rel="icon" href="image-a.png">
->>>>>>> feat(rollup-plugin-html): don't hash social media and browser assets
         </body>
       </html>
     `);
     const assets = extractAssets({
       document,
-<<<<<<< HEAD
-      htmlFilePath: path.join(rootDir, 'foo', 'index.html'),
-      htmlDir: path.join(rootDir, 'foo'),
-      rootDir,
-    });
-
-    expect(assets.length).to.equal(0);
-=======
       htmlFilePath: path.join(rootDir, 'index.html'),
       htmlDir: rootDir,
       rootDir,
@@ -240,6 +224,23 @@ describe('extractAssets', () => {
         hashed: false,
       },
     ]);
->>>>>>> feat(rollup-plugin-html): don't hash social media and browser assets
+  });
+
+  it('does not count remote URLs as assets', () => {
+    const document = parse(`
+      <html>
+        <body>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/">
+        </body>
+      </html>
+    `);
+    const assets = extractAssets({
+      document,
+      htmlFilePath: path.join(rootDir, 'foo', 'index.html'),
+      htmlDir: path.join(rootDir, 'foo'),
+      rootDir,
+    });
+
+    expect(assets.length).to.equal(0);
   });
 });
