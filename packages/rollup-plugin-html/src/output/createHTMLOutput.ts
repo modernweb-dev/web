@@ -8,11 +8,12 @@ import {
 } from '../RollupPluginHTMLOptions';
 import { EmittedFile } from 'rollup';
 import { InputData } from '../input/InputData';
+import { EmittedAssets } from './emitAssets';
 
 export interface CreateHTMLAssetParams {
   outputDir: string;
   input: InputData;
-  assetPaths: Map<string, string>;
+  emittedAssets: EmittedAssets;
   generatedBundles: GeneratedBundle[];
   externalTransformHtmlFns: TransformHtmlFunction[];
   pluginOptions: RollupPluginHTMLOptions;
@@ -22,7 +23,7 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
   const {
     outputDir,
     input,
-    assetPaths,
+    emittedAssets,
     generatedBundles,
     externalTransformHtmlFns,
     pluginOptions,
@@ -45,7 +46,7 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     entrypointBundles,
     input,
     outputDir,
-    assetPaths,
+    emittedAssets,
     externalTransformHtmlFns,
   });
 
@@ -55,7 +56,7 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
 export interface CreateHTMLAssetsParams {
   outputDir: string;
   inputs: InputData[];
-  assetPaths: Map<string, string>;
+  emittedAssets: EmittedAssets;
   generatedBundles: GeneratedBundle[];
   externalTransformHtmlFns: TransformHtmlFunction[];
   pluginOptions: RollupPluginHTMLOptions;

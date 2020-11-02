@@ -2,7 +2,7 @@ import { Document, serialize } from 'parse5';
 import fs from 'fs';
 import path from 'path';
 import { InputAsset } from '../InputData';
-import { findAssets, getSourcePath, resolveAssetFilePath } from '../../assets/utils';
+import { findAssets, getSourcePath, isHashedAsset, resolveAssetFilePath } from '../../assets/utils';
 
 export interface ExtractAssetsParams {
   document: Document;
@@ -18,7 +18,8 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
   for (const node of assetNodes) {
     const sourcePath = getSourcePath(node);
     const filePath = resolveAssetFilePath(sourcePath, params.htmlDir, params.rootDir);
-    const alreadyHandled = allAssets.find(a => a.filePath === filePath);
+    const hashed = isHashedAsset(node);
+    const alreadyHandled = allAssets.find(a => a.filePath === filePath && a.hashed === hashed);
     if (!alreadyHandled) {
       try {
         fs.accessSync(filePath);
@@ -31,7 +32,7 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
       }
 
       const content = fs.readFileSync(filePath);
-      allAssets.push({ filePath, content });
+      allAssets.push({ filePath, hashed, content });
     }
   }
 

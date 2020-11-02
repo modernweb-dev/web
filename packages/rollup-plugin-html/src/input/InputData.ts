@@ -1,5 +1,6 @@
 export interface InputAsset {
   filePath: string;
+  hashed: boolean;
   content: Buffer;
 }
 

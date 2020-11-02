@@ -641,7 +641,7 @@ describe('rollup-plugin-html', () => {
 
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
-    expect(output.length).to.equal(9);
+    expect(output.length).to.equal(11);
     const expectedAssets = [
       'image-c.png',
       'webmanifest.json',
@@ -658,24 +658,75 @@ describe('rollup-plugin-html', () => {
       expect(asset.source).to.exist;
     }
 
+    const outputHtml = getAsset(output, 'index.html').source;
+    expect(outputHtml).to.include(
+      '<link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png">',
+    );
+    expect(outputHtml).to.include(
+      '<link rel="icon" type="image/png" sizes="32x32" href="assets/image-b.png">',
+    );
+    expect(outputHtml).to.include('<link rel="manifest" href="assets/webmanifest.json">');
+    expect(outputHtml).to.include(
+      '<link rel="mask-icon" href="assets/image-a.svg" color="#3f93ce">',
+    );
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/styles-ed723e17.css">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/x-58ef5070.css">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/y-4f2d398e.css">');
+    expect(outputHtml).to.include('<img src="assets/image-c-23edadf6.png">');
+    expect(outputHtml).to.include('<img src="assets/image-b-ee32b49e.svg">');
+  });
+
+  it('deduplicates static assets with similar names', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: {
+            html: `<html>
+<head>
+<link rel="icon" type="image/png" sizes="32x32" href="./foo.svg" />
+<link rel="mask-icon" href="./x/foo.svg" color="#3f93ce" />
+</head>
+</html>`,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
     expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
-      '<html>' +
-        '<head>' +
-        '<link rel="apple-touch-icon" sizes="180x180" href="assets/image-a-9c3a45f9.png">' +
-        '<link rel="icon" type="image/png" sizes="32x32" href="assets/image-a-9c3a45f9.png">' +
-        '<link rel="manifest" href="assets/webmanifest-571713ae.json">' +
-        '<link rel="mask-icon" href="assets/image-a-41ed6f6a.svg" color="#3f93ce">' +
-        '<link rel="stylesheet" href="assets/styles-ed723e17.css">' +
-        '<link rel="stylesheet" href="assets/x-58ef5070.css">' +
-        '<link rel="stylesheet" href="assets/y-4f2d398e.css">' +
-        '</head>' +
-        '<body>' +
-        '<img src="assets/image-a-9c3a45f9.png">' +
-        '<div>' +
-        '<img src="assets/image-b-ee32b49e.svg">' +
-        '</div>' +
-        '</body>' +
-        '</html>',
+      '<html><head>' +
+        '<link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg">' +
+        '<link rel="mask-icon" href="assets/foo1.svg" color="#3f93ce">' +
+        '</head><body></body></html>',
+    );
+  });
+
+  it('static and hashed asset nodes can reference the same files', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: {
+            html: `<html>
+<head>
+<link rel="icon" type="image/png" sizes="32x32" href="./foo.svg">
+<img src="./foo.svg">
+</head>
+</html>`,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
+      '<html><head><link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg"></head>' +
+        '<body><img src="assets/foo-81034cb4.svg"></body></html>',
     );
   });
 

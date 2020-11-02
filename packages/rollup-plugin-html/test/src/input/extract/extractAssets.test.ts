@@ -37,30 +37,37 @@ describe('extractAssets', () => {
       {
         content: undefined,
         filePath: path.join(rootDir, 'image-a.png'),
+        hashed: false,
       },
       {
         content: undefined,
         filePath: path.join(rootDir, 'image-b.png'),
+        hashed: false,
       },
       {
         content: undefined,
         filePath: path.join(rootDir, 'webmanifest.json'),
+        hashed: false,
       },
       {
         content: undefined,
         filePath: path.join(rootDir, 'image-a.svg'),
+        hashed: false,
       },
       {
         content: undefined,
         filePath: path.join(rootDir, 'styles.css'),
+        hashed: true,
       },
       {
         content: undefined,
         filePath: path.join(rootDir, 'image-c.png'),
+        hashed: true,
       },
       {
         content: undefined,
         filePath: path.join(rootDir, 'image-b.svg'),
+        hashed: true,
       },
     ]);
   });
@@ -96,20 +103,24 @@ describe('extractAssets', () => {
       {
         content: '{"message":"helloworld"}',
         filePath: path.join(rootDir, 'webmanifest.json'),
+        hashed: false,
       },
       {
         content:
           '<svgxmlns="http://www.w3.org/2000/svg"><pathd="M436124H12c-6.6270-12-5.373-12-12V80c0-6.627"></path></svg>',
         filePath: path.join(rootDir, 'image-a.svg'),
+        hashed: false,
       },
       {
         content: ':root{color:blue;}',
         filePath: path.join(rootDir, 'styles.css'),
+        hashed: true,
       },
       {
         content:
           '<svgxmlns="http://www.w3.org/2000/svg"><pathd="M7.7753.275a.75.750001.061.06l1.25-1.25a2"></path></svg>',
         filePath: path.join(rootDir, 'image-b.svg'),
+        hashed: true,
       },
     ]);
   });
@@ -183,21 +194,52 @@ describe('extractAssets', () => {
     expect(assets[1].content.toString('utf-8').replace(/\s/g, '')).to.equal(':root{color:blue;}');
   });
 
+<<<<<<< HEAD
   it('does not count remote URLs as assets', () => {
     const document = parse(`
       <html>
         <body>
           <link rel="stylesheet" href="https://fonts.googleapis.com/">
+=======
+  it('can reference the same asset with a hashed and non-hashed node', () => {
+    const document = parse(`
+      <html>
+        <body>
+          <link rel="stylesheet" href="image-a.png">
+          <link rel="icon" href="image-a.png">
+>>>>>>> feat(rollup-plugin-html): don't hash social media and browser assets
         </body>
       </html>
     `);
     const assets = extractAssets({
       document,
+<<<<<<< HEAD
       htmlFilePath: path.join(rootDir, 'foo', 'index.html'),
       htmlDir: path.join(rootDir, 'foo'),
       rootDir,
     });
 
     expect(assets.length).to.equal(0);
+=======
+      htmlFilePath: path.join(rootDir, 'index.html'),
+      htmlDir: rootDir,
+      rootDir,
+    });
+
+    expect(assets.length).to.equal(2);
+    const assetsWithoutcontent = assets.map(a => ({ ...a, content: undefined }));
+    expect(assetsWithoutcontent).to.eql([
+      {
+        content: undefined,
+        filePath: path.join(rootDir, 'image-a.png'),
+        hashed: true,
+      },
+      {
+        content: undefined,
+        filePath: path.join(rootDir, 'image-a.png'),
+        hashed: false,
+      },
+    ]);
+>>>>>>> feat(rollup-plugin-html): don't hash social media and browser assets
   });
 });

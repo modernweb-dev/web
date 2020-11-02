@@ -15,7 +15,7 @@ describe('getOutputHTML()', () => {
   const defaultOptions: GetOutputHTMLParams = {
     pluginOptions: {},
     outputDir: '/',
-    assetPaths: new Map(),
+    emittedAssets: { static: new Map(), hashed: new Map() },
     entrypointBundles: defaultEntrypointBundles,
     input: {
       html: '<h1>Input HTML</h1>',

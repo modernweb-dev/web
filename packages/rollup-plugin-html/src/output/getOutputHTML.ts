@@ -7,11 +7,12 @@ import {
 } from '../RollupPluginHTMLOptions';
 import { parse, serialize } from 'parse5';
 import { injectedUpdatedAssetPaths } from './injectedUpdatedAssetPaths';
+import { EmittedAssets } from './emitAssets';
 
 export interface GetOutputHTMLParams {
   input: InputData;
   outputDir: string;
-  assetPaths: Map<string, string>;
+  emittedAssets: EmittedAssets;
   pluginOptions: RollupPluginHTMLOptions;
   entrypointBundles: Record<string, EntrypointBundle>;
   externalTransformHtmlFns?: TransformHtmlFunction[];
@@ -24,7 +25,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
     externalTransformHtmlFns,
     input,
     outputDir,
-    assetPaths,
+    emittedAssets,
   } = params;
   const { default: defaultBundle, ...multiBundles } = entrypointBundles;
   const rootDir = pluginOptions.rootDir ?? process.cwd();
@@ -32,7 +33,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
   // inject rollup output into HTML
   const document = parse(input.html);
   if (pluginOptions.extractAssets !== false) {
-    injectedUpdatedAssetPaths({ document, input, outputDir, rootDir, assetPaths });
+    injectedUpdatedAssetPaths({ document, input, outputDir, rootDir, emittedAssets });
   }
   injectBundles(document, entrypointBundles);
 

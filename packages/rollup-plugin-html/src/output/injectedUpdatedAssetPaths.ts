@@ -6,10 +6,12 @@ import {
   findAssets,
   getSourceAttribute,
   getSourcePath,
+  isHashedAsset,
   resolveAssetFilePath,
 } from '../assets/utils';
 import { InputData } from '../input/InputData';
 import { createError } from '../utils';
+import { EmittedAssets } from './emitAssets';
 import { toBrowserPath } from './utils';
 
 export interface InjectUpdatedAssetPathsArgs {
@@ -17,12 +19,12 @@ export interface InjectUpdatedAssetPathsArgs {
   input: InputData;
   outputDir: string;
   rootDir: string;
-  assetPaths: Map<string, string>;
+  emittedAssets: EmittedAssets;
   publicPath?: string;
 }
 
 export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
-  const { document, input, outputDir, rootDir, assetPaths, publicPath = './' } = args;
+  const { document, input, outputDir, rootDir, emittedAssets, publicPath = './' } = args;
   const assetNodes = findAssets(document);
 
   for (const node of assetNodes) {
@@ -30,6 +32,7 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
     const htmlFilePath = input.filePath ? input.filePath : path.join(rootDir, input.name);
     const htmlDir = path.dirname(htmlFilePath);
     const filePath = resolveAssetFilePath(sourcePath, htmlDir, rootDir);
+    const assetPaths = isHashedAsset(node) ? emittedAssets.hashed : emittedAssets.static;
     const relativeOutputPath = assetPaths.get(filePath);
 
     if (!relativeOutputPath) {
