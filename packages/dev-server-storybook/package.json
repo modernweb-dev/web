@@ -42,12 +42,12 @@
     "esm"
   ],
   "dependencies": {
-    "@web/dev-server-core": "^0.2.14",
+    "@web/dev-server-core": "^0.2.15",
     "@web/storybook-prebuilt": "^0.0.5",
     "globby": "^11.0.1"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.0.17",
+    "@web/dev-server": "^0.0.18",
     "htm": "^3.0.4"
   },
   "exports": {
