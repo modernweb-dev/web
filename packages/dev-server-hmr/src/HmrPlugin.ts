@@ -87,6 +87,12 @@ export class HmrPlugin implements Plugin {
     this._logger?.debug(`[hmr] Cleared dependency tree cache of ${context.path}`);
   }
 
+  resolveImport({ source }: { source: string }) {
+    if (source === '/__web-dev-server__/hmr.js') {
+      return source;
+    }
+  }
+
   /** @inheritDoc */
   async transformImport({ source, context }: { source: string; context: Context }) {
     // Can't possibly handle computed dynamic imports
