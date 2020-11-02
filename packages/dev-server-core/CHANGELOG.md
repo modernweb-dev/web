@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.15
+
+### Patch Changes
+
+- a03749e: mark websocket module as resolved import
+
 ## 0.2.14
 
 ### Patch Changes
