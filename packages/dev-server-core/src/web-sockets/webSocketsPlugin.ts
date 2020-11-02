@@ -1,7 +1,6 @@
-import { parse as parseHtml } from 'parse5';
-import { query, predicates } from '../dom5';
 import { Plugin } from '../Plugin';
 import { NAME_WEB_SOCKET_IMPORT } from './WebSocketsManager';
+import { appendToDocument } from '@web/parse5-utils';
 
 export const webSocketScript = `<!-- injected by web-dev-server -->
 <script type="module" src="${NAME_WEB_SOCKET_IMPORT}"></script>`;
@@ -90,18 +89,7 @@ if (webSocket) {
 
     async transform(context) {
       if (context.response.is('html')) {
-        const documentAst = parseHtml(context.body, { sourceCodeLocationInfo: true });
-        const htmlNode = query(documentAst, predicates.hasTagName('html'));
-        const bodyNode = query(documentAst, predicates.hasTagName('body'));
-        if (!htmlNode?.sourceCodeLocation || !bodyNode?.sourceCodeLocation) {
-          // if html or body tag does not have a source code location it was generated
-          return;
-        }
-
-        const { startOffset } = bodyNode.sourceCodeLocation.endTag;
-        const start = context.body.substring(0, startOffset);
-        const end = context.body.substring(startOffset);
-        return `${start}\n\n${webSocketScript}\n\n${end}`;
+        return appendToDocument(context.body, webSocketScript);
       }
     },
   };
