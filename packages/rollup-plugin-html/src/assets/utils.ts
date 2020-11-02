@@ -4,7 +4,8 @@ import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
 import { createError } from '../utils';
 import { serialize } from 'v8';
 
-const linkRels = ['stylesheet', 'icon', 'manifest', 'apple-touch-icon', 'mask-icon'];
+const hashedLinkRels = ['stylesheet'];
+const linkRels = [...hashedLinkRels, 'icon', 'manifest', 'apple-touch-icon', 'mask-icon'];
 
 function isAsset(node: Node) {
   let path = '';
@@ -28,6 +29,17 @@ function isAsset(node: Node) {
     return false;
   } catch (e) {
     return true;
+  }
+}
+
+export function isHashedAsset(node: Node) {
+  switch (getTagName(node)) {
+    case 'img':
+      return true;
+    case 'link':
+      return hashedLinkRels.includes(getAttribute(node, 'rel')!);
+    default:
+      return false;
   }
 }
 

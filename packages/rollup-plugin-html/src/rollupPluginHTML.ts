@@ -118,11 +118,11 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
       }
       generatedBundles.push({ name: 'default', options, bundle });
 
-      const assetPaths = await emitAssets.call(this, inputs, pluginOptions);
+      const emittedAssets = await emitAssets.call(this, inputs, pluginOptions);
       const outputs = await createHTMLOutput({
         outputDir: path.resolve(options.dir),
         inputs,
-        assetPaths,
+        emittedAssets,
         generatedBundles,
         externalTransformHtmlFns,
         pluginOptions,
@@ -168,11 +168,11 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
                 );
               }
 
-              const assetPaths = await emitAssets.call(this, inputs, pluginOptions);
+              const emittedAssets = await emitAssets.call(this, inputs, pluginOptions);
               const outputs = await createHTMLOutput({
                 outputDir: path.resolve(options.dir),
                 inputs,
-                assetPaths,
+                emittedAssets,
                 generatedBundles,
                 externalTransformHtmlFns,
                 pluginOptions,

@@ -27,17 +27,17 @@ describe('injectedUpdatedAssetPaths()', () => {
       assets: [],
       filePath: '/root/index.html',
     };
-    const assetPaths = new Map<string, string>();
-    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
-    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
-    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
+    const hashed = new Map<string, string>();
+    hashed.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
+    hashed.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
+    hashed.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
     injectedUpdatedAssetPaths({
       document,
       input,
       outputDir: '/root/dist/',
       rootDir: '/root/',
-      assetPaths,
+      emittedAssets: { static: new Map(), hashed },
     });
 
     const expected = [
@@ -73,17 +73,17 @@ describe('injectedUpdatedAssetPaths()', () => {
       inlineModules: new Map(),
       assets: [],
     };
-    const assetPaths = new Map<string, string>();
-    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
-    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
-    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
+    const hashed = new Map<string, string>();
+    hashed.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
+    hashed.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
+    hashed.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
     injectedUpdatedAssetPaths({
       document,
       input,
       outputDir: '/root/dist/',
       rootDir: '/root/',
-      assetPaths,
+      emittedAssets: { static: new Map(), hashed },
     });
     const expected = [
       '<html>',
@@ -119,17 +119,17 @@ describe('injectedUpdatedAssetPaths()', () => {
       assets: [],
       filePath: '/root/foo/index.html',
     };
-    const assetPaths = new Map<string, string>();
-    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
-    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
-    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
+    const hashed = new Map<string, string>();
+    hashed.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
+    hashed.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
+    hashed.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
     injectedUpdatedAssetPaths({
       document,
       input,
       outputDir: '/root/dist/',
       rootDir: '/root/',
-      assetPaths,
+      emittedAssets: { static: new Map(), hashed },
     });
 
     const expected = [
@@ -165,17 +165,17 @@ describe('injectedUpdatedAssetPaths()', () => {
       inlineModules: new Map(),
       assets: [],
     };
-    const assetPaths = new Map<string, string>();
-    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
-    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
-    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
+    const hashed = new Map<string, string>();
+    hashed.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
+    hashed.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
+    hashed.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
     injectedUpdatedAssetPaths({
       document,
       input,
       outputDir: '/root/dist/',
       rootDir: '/root/',
-      assetPaths,
+      emittedAssets: { static: new Map(), hashed },
     });
 
     const expected = [
@@ -212,17 +212,17 @@ describe('injectedUpdatedAssetPaths()', () => {
       assets: [],
       filePath: '/root/index.html',
     };
-    const assetPaths = new Map<string, string>();
-    assetPaths.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
-    assetPaths.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
-    assetPaths.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
+    const hashed = new Map<string, string>();
+    hashed.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
+    hashed.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
+    hashed.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
     injectedUpdatedAssetPaths({
       document,
       input,
       outputDir: '/root/dist/',
       rootDir: '/root/',
-      assetPaths,
+      emittedAssets: { static: new Map(), hashed },
       publicPath: './public/',
     });
 
