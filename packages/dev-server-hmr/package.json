@@ -19,7 +19,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "start:demo": "web-dev-server --config demo/server.config.js",
+    "start:lit-html": "wds --config demo/lit-html/server.config.mjs",
+    "start:vanilla": "wds --config demo/vanilla/server.config.mjs",
     "test": "mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
     "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
@@ -33,7 +34,9 @@
   "dependencies": {
     "@web/dev-server-core": "^0.2.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "lit-html": "^1.3.0"
+  },
   "exports": {
     ".": {
       "import": "./index.mjs",
