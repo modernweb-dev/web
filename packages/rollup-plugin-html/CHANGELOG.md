@@ -1,5 +1,13 @@
 # @web/rollup-plugin-html
 
+## 1.1.1
+
+### Patch Changes
+
+- d804089: don't hash social media and browser assets
+- 717c415: Prevent remote URLs from counting as assets
+- 9e18d84: write asset paths relative to HTML file
+
 ## 1.1.0
 
 ### Minor Changes
