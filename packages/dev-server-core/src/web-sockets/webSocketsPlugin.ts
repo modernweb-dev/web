@@ -9,6 +9,12 @@ export function webSocketsPlugin(): Plugin {
   return {
     name: 'web-sockets',
 
+    resolveImport({ source }) {
+      if (source === NAME_WEB_SOCKET_IMPORT) {
+        return NAME_WEB_SOCKET_IMPORT;
+      }
+    },
+
     serve(context) {
       if (context.path === NAME_WEB_SOCKET_IMPORT) {
         return `export const webSocket = ('WebSocket' in window) ? new WebSocket(\`ws\${location.protocol === 'https:' ? 's': ''}://\${location.host}\`) : null;
