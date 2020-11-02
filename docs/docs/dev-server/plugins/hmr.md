@@ -68,6 +68,10 @@ The plugin will detect that your module uses the HMR API and will make the
 Do note that in our example we wrapped this in an `if` statement. The reason
 for this is to account for if the plugin has not been loaded.
 
+## esm-hmr spec
+
+This plugin implements the [esm-hmr spec](https://github.com/snowpackjs/esm-hmr).
+
 ## Note about production
 
 In production it is highly recommended you remove any of these HMR related
