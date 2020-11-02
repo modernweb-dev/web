@@ -2375,28 +2375,6 @@
     open "^7.1.0"
     portfinder "^1.0.27"
 
-"@web/dev-server@^0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@web/dev-server/-/dev-server-0.0.15.tgz#2a27bac3f72681bff332bb46357c2a3f8a39a096"
-  integrity sha512-58YY9aHfc2f6CZbjI5NDG+jCGIyb3Da74vbaLSklmFuawJZrQ5ntjnFiMvP0L4Z5IW6WV+W+FPyOS58GTda3Zw==
-  dependencies:
-    "@babel/code-frame" "^7.10.4"
-    "@rollup/plugin-node-resolve" "^8.4.0"
-    "@types/command-line-args" "^5.0.0"
-    "@web/config-loader" "^0.1.1"
-    "@web/dev-server-cli" "^0.0.3"
-    "@web/dev-server-core" "^0.2.13"
-    "@web/dev-server-rollup" "^0.2.5"
-    camelcase "^6.0.0"
-    chalk "^4.1.0"
-    command-line-args "^5.1.1"
-    command-line-usage "^6.1.0"
-    debounce "^1.2.0"
-    deepmerge "^4.2.2"
-    ip "^1.1.5"
-    open "^7.1.0"
-    portfinder "^1.0.27"
-
 "@web/rollup-plugin-copy@^0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@web/rollup-plugin-copy/-/rollup-plugin-copy-0.1.2.tgz#b8a3c1d5385bda0e94a1eb37cb375455cabfc3a1"
