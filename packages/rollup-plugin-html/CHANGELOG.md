@@ -1,5 +1,16 @@
 # @web/rollup-plugin-html
 
+## 1.2.0
+
+### Minor Changes
+
+- 23fadf2: allow disabling default inject behavior
+
+### Patch Changes
+
+- Updated dependencies [a7c9af6]
+  - @web/parse5-utils@1.1.2
+
 ## 1.1.1
 
 ### Patch Changes
