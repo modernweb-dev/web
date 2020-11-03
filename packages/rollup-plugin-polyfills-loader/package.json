@@ -41,5 +41,11 @@
   "devDependencies": {
     "@web/rollup-plugin-html": "^1.0.0",
     "rollup": "^2.33.1"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
   }
 }

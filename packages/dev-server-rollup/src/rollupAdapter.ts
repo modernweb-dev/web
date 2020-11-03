@@ -126,7 +126,7 @@ export function rollupAdapter(
         // otherwise call the resolveID hook on the plugin
         const result = injectedFilePath
           ? resolvableImport
-          : await rollupPlugin.resolveId?.call(rollupPluginContext, resolvableImport, filePath);
+          : await rollupPlugin.resolveId?.call(rollupPluginContext, resolvableImport, filePath, {});
 
         let resolvedImportPath: string | undefined = undefined;
         if (typeof result === 'string') {

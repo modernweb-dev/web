@@ -9,7 +9,11 @@
     "composite": true,
     "allowJs": true
   },
-  "references": [],
+  "references": [
+    {
+      "path": "../parse5-utils/tsconfig.json"
+    }
+  ],
   "include": [
     "src"
   ],

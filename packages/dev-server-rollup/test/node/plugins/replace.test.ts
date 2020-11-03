@@ -3,7 +3,7 @@ import rollupReplace from '@rollup/plugin-replace';
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
 import { fromRollup } from '../../../src/index';
 
-const replace = fromRollup(rollupReplace);
+const replace = fromRollup(rollupReplace as any);
 
 describe('@rollup/plugin-replace', () => {
   it('can resolve imports', async () => {
