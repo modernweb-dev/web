@@ -1,4 +1,4 @@
-# Building >> Polyfills loader ||60
+# Polyfills loader
 
 The polyfills loader makes it easy to manage loading polyfills and/or serving different versions of your application based on browser support. It generates a script that loads the necessary polyfills and the appropriate version of the application through on runtime feature detection.
 
@@ -35,7 +35,7 @@ By loading polyfills conditionally, you make sure you only load what's necessary
 
 Serving different versions of your application means you don't need to serve the lowest common denominator to all of your users. This is often achieved used `<script type="module">` and `<script nomodule>`. The polyfills loader uses a variation of this, where the feature detection happens in javascript because we need to ensure polyfills are loaded before any of your application code is run.
 
-### Preloading
+## Preloading
 
 Browser optimize loading webpages by scanning ahead for script tags and fetching them right away. Because the polyfills loader moves the loading of scripts into javascript, we lose out on this optimization. For the polyfills, this is intentional, because we don't want to load them all the time and since they will be cached this optimization does not do much anyway.
 
@@ -83,9 +83,9 @@ const config = {
 };
 ```
 
-## Configuration options
+### Configuration options
 
-### modern
+#### modern
 
 The files to load on modern browsers. Loaded if no legacy entry points match for the current browser, or if none are configured. Each file specifies how it should be loaded.
 
@@ -106,7 +106,7 @@ const config = {
 
 </details>
 
-### legacy
+#### legacy
 
 Sets of files to load on legacy browsers, and the runtime feature detection to execute to determine whether it should be loaded.
 
@@ -138,7 +138,7 @@ const config = {
 
 </details>
 
-## polyfills
+#### polyfills
 
 The polyfills config controls which polyills are injected onto the page. These are the possible polyfills:
 
@@ -171,7 +171,7 @@ const config = {
 
 </details>
 
-### Shady css custom style
+#### Shady css custom style
 
 In order to define css variables outside of a web component in IE11, you need to wrap the `<style>` tag inside of a `<shady-css-scoped>` tag. This tag is provided by the shady-css-scoped-element package, and will be included if you use both the webcomponents and shadyCssCustomStyle polyfills.
 
@@ -203,7 +203,7 @@ const config = {
 
 </details>
 
-### hashing
+#### hashing
 
 With the `hash` option, polyfill filenames can be hashed based on their content, this allows them to be cached indefinitely.
 
@@ -223,7 +223,7 @@ const config = {
 
 </details>
 
-### custom polyfills
+#### custom polyfills
 
 If you need a polyfill that isn't available in the default list, you can add a custom polyfill. These consist of at least a unique name, a path where to find the polyfill and a bit of javascript executed at runtime to test whether the polyfill should be loaded.
 
@@ -264,7 +264,7 @@ const config = {
 
 </details>
 
-### exclude
+#### exclude
 
 The polyfills loader delays loading any scripts until polyfills are loaded. This can create problems when you rely on specific loading behavior. You can exclude certain scripts with the `exclude` option.
 
@@ -321,7 +321,7 @@ const config = {
 The `createPolyfillsLoader` function takes configuration and returns the javascript code for the polyfills loader. It also returns information about the generated polyfill files, these will need to be made available at runtime so that they can be imported by the loader code.
 
 ```js
-const { createPolyfillsLoader } = require('@web/polyfills-loader');
+const { createPolyfillsLoader } = require('polyfills-loader');
 
 const result = createPolyfillsLoader({
   // see configuration above
@@ -336,7 +336,7 @@ console.log(result.polyfillFiles);
 The `injectPolyfillsLoader` function injects a polyfills loader into an existing HTML page. It also injects polyfills for any import maps it finds.
 
 ```js
-const { injectPolyfillsLoader } = require('@web/polyfills-loader');
+const { injectPolyfillsLoader } = require('polyfills-loader');
 
 const html = `
 <html>
