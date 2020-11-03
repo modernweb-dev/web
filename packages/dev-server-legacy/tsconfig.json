@@ -11,6 +11,9 @@
   },
   "references": [
     {
+      "path": "../parse5-utils/tsconfig.json"
+    },
+    {
       "path": "../dev-server-core/tsconfig.json"
     }
   ],

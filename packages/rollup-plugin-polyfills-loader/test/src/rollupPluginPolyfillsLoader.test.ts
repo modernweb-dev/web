@@ -6,8 +6,6 @@ import path from 'path';
 import html from '@web/rollup-plugin-html';
 import polyfillsLoader from '../../src/index';
 
-console.log({ rollup });
-
 type Output = (OutputChunk | OutputAsset)[];
 
 const relativeUrl = `./${path.relative(process.cwd(), path.join(__dirname, '..'))}`;

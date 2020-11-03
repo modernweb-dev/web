@@ -81,7 +81,7 @@ const processBundle = async ({ swDest }: { swDest: string }) => {
   const bundle = await rollup.rollup({
     input: swDest,
     plugins: [
-      replace({ 'process.env.NODE_ENV': '"production"' }),
+      replace({ 'process.env.NODE_ENV': '"production"' }) as rollup.Plugin,
       resolve(),
       terser({ output: { comments: false } }),
     ],
