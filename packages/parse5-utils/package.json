@@ -13,7 +13,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/parse5-utils",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "engines": {
     "node": ">=10.0.0"
   },
