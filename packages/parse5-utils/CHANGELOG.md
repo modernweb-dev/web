@@ -1,5 +1,11 @@
 # @web/parse5-utils
 
+## 1.1.2
+
+### Patch Changes
+
+- a7c9af6: fix entrypoint for node v10
+
 ## 1.1.1
 
 ### Patch Changes

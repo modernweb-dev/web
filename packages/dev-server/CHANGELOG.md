@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.0.19
+
+### Patch Changes
+
+- d8c1e1e: remove logging
+
 ## 0.0.18
 
 ### Patch Changes
