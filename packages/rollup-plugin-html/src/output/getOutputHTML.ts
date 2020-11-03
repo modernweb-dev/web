@@ -16,6 +16,7 @@ export interface GetOutputHTMLParams {
   pluginOptions: RollupPluginHTMLOptions;
   entrypointBundles: Record<string, EntrypointBundle>;
   externalTransformHtmlFns?: TransformHtmlFunction[];
+  defaultInjectDisabled: boolean;
 }
 
 export async function getOutputHTML(params: GetOutputHTMLParams) {
@@ -26,6 +27,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
     input,
     outputDir,
     emittedAssets,
+    defaultInjectDisabled,
   } = params;
   const { default: defaultBundle, ...multiBundles } = entrypointBundles;
   const rootDir = pluginOptions.rootDir ?? process.cwd();
@@ -35,7 +37,9 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
   if (pluginOptions.extractAssets !== false) {
     injectedUpdatedAssetPaths({ document, input, outputDir, rootDir, emittedAssets });
   }
-  injectBundles(document, entrypointBundles);
+  if (!defaultInjectDisabled) {
+    injectBundles(document, entrypointBundles);
+  }
 
   let outputHtml = serialize(document);
 

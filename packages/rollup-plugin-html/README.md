@@ -1,4 +1,4 @@
-# Rollup Plugin Copy
+# Rollup Plugin HTML
 
 Plugin for bundling HTML files. Bundles module scripts and linked assets in HTML files and injects the hashed filenames.
 
