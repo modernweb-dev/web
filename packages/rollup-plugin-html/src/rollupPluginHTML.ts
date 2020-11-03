@@ -18,6 +18,7 @@ export interface RollupPluginHtml extends Plugin {
   api: {
     getInputs(): InputData[];
     addHtmlTransformer(transformHtmlFunction: TransformHtmlFunction): void;
+    disableDefaultInject(): void;
     addOutput(name: string): Plugin;
   };
 }
@@ -27,6 +28,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
   let inputs: InputData[] = [];
   let generatedBundles: GeneratedBundle[] = [];
   let externalTransformHtmlFns: TransformHtmlFunction[] = [];
+  let defaultInjectDisabled = false;
 
   function reset() {
     inputs = [];
@@ -126,6 +128,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
         generatedBundles,
         externalTransformHtmlFns,
         pluginOptions,
+        defaultInjectDisabled,
       });
 
       for (const output of outputs) {
@@ -140,6 +143,10 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
 
       addHtmlTransformer(transformHtmlFunction: TransformHtmlFunction) {
         externalTransformHtmlFns.push(transformHtmlFunction);
+      },
+
+      disableDefaultInject() {
+        defaultInjectDisabled = true;
       },
 
       addOutput(name: string) {
@@ -176,6 +183,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
                 generatedBundles,
                 externalTransformHtmlFns,
                 pluginOptions,
+                defaultInjectDisabled,
               });
 
               for (const output of outputs) {

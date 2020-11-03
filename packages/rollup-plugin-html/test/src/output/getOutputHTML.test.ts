@@ -24,6 +24,7 @@ describe('getOutputHTML()', () => {
       assets: [],
       inlineModules: new Map(),
     },
+    defaultInjectDisabled: false,
   };
 
   it('injects output into the input HTML', async () => {
@@ -116,5 +117,14 @@ describe('getOutputHTML()', () => {
         '<script type="module" src="/module.js"></script>' +
         '</body></html>',
     );
+  });
+
+  it('can disable default injection', async () => {
+    const output = await getOutputHTML({
+      ...defaultOptions,
+      defaultInjectDisabled: true,
+    });
+
+    expect(output).to.equal('<html><head></head><body><h1>Input HTML</h1></body></html>');
   });
 });
