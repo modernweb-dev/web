@@ -1,0 +1,25 @@
+{
+  // start with default Renovate settings
+  "extends": [
+    "config:base"
+  ],
+
+  // rules for specific subsets of packages
+  "packageRules": [
+    // for everything except major updates
+    {
+      "updateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance"],
+
+      // automatically merge, as long as tests pass
+      "automerge": true
+    }
+  ],
+
+  // Replace the range with a newer one if the new version falls outside it, e.g. `^1.0.0` -> `^2.0.0`
+  "rangeStrategy": "bump",
+
+  // update lock files (default schedule is once a week)
+  "lockFileMaintenance": {
+    "enabled": true
+  }
+}
