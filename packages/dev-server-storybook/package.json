@@ -18,6 +18,8 @@
     "node": ">=10.0.0"
   },
   "scripts": {
+    "build:wc": "node dist/build/cli.js -c demo/wc/.storybook",
+    "start:build": "wds --root-dir storybook-static --open",
     "start:preact": "wds --config demo/preact/web-dev-server.config.mjs",
     "start:wc": "wds --config demo/wc/web-dev-server.config.mjs",
     "test": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --reporter dot",
@@ -44,7 +46,8 @@
   "dependencies": {
     "@web/dev-server-core": "^0.2.15",
     "@web/storybook-prebuilt": "^0.0.5",
-    "globby": "^11.0.1"
+    "globby": "^11.0.1",
+    "rollup": "^2.33.1"
   },
   "devDependencies": {
     "@web/dev-server": "^0.0.19",
