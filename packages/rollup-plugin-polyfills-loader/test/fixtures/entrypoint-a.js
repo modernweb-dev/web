@@ -1,1 +1,1 @@
-console.log('entrypoint-a.js');
+import './shared.js';

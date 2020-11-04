@@ -80,6 +80,57 @@ describe('rollup-plugin-polyfills-loader', function describe() {
     });
   });
 
+  it('can inject a polyfills loader with multiple entrypoints', async () => {
+    const inputOptions: RollupOptions = {
+      plugins: [
+        html({
+          input: {
+            html: `
+            <script type="module" src="${relativeUrl}/fixtures/entrypoint-a.js"></script>
+            <script type="module" src="${relativeUrl}/fixtures/entrypoint-b.js"></script>`,
+          },
+        }),
+        polyfillsLoader({
+          polyfills: { hash: false, fetch: true },
+        }),
+      ],
+    };
+
+    await testSnapshot({
+      name: 'multiple-entrypoints',
+      fileName: 'index.html',
+      inputOptions,
+      outputOptions: defaultOutputOptions,
+    });
+  });
+
+  it('injects the correct preload for systemjs output', async () => {
+    const inputOptions: RollupOptions = {
+      plugins: [
+        html({
+          input: {
+            html: `
+            <script type="module" src="${relativeUrl}/fixtures/entrypoint-a.js"></script>
+            <script type="module" src="${relativeUrl}/fixtures/entrypoint-b.js"></script>`,
+          },
+        }),
+        polyfillsLoader(),
+      ],
+    };
+
+    await testSnapshot({
+      name: 'systemjs',
+      fileName: 'index.html',
+      inputOptions,
+      outputOptions: [
+        {
+          format: 'system',
+          dir: 'dist',
+        },
+      ],
+    });
+  });
+
   it('can set polyfills to load', async () => {
     const inputOptions = {
       plugins: [
@@ -191,12 +242,14 @@ describe('rollup-plugin-polyfills-loader', function describe() {
     });
   });
 
-  it('a regular module script is added when no polyfills need to be loaded', async () => {
-    const inputOptions = {
+  it('injects preload when there are no polyfills to inject', async () => {
+    const inputOptions: RollupOptions = {
       plugins: [
         html({
           input: {
-            html: `<script type="module" src="${relativeUrl}/fixtures/entrypoint-a.js"></script>`,
+            html: `
+            <script type="module" src="${relativeUrl}/fixtures/entrypoint-a.js"></script>
+            <script type="module" src="${relativeUrl}/fixtures/entrypoint-b.js"></script>`,
           },
         }),
         polyfillsLoader(),

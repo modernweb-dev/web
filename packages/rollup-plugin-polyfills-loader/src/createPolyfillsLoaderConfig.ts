@@ -5,7 +5,7 @@ import { ModuleFormat } from 'rollup';
 import { RollupPluginPolyfillsLoaderConfig } from './types';
 import { createError } from './utils';
 
-function formatToFileType(format: ModuleFormat) {
+export function formatToFileType(format: ModuleFormat) {
   switch (format) {
     case 'es':
     case 'esm':
@@ -46,12 +46,11 @@ export function createPolyfillsLoaderConfig(
 
   // @web/rollup-plugin-html outputs `bundle` when there is a single output,
   // otherwise it outputs `bundles`
-
   if (bundle) {
     if (modernOutput || legacyOutput) {
       throw createError(
-        'Options modernOutput or legacyOutput was set, but @open-wc/rollup-plugin-html' +
-          ` did not output multiple builds. Make sure you use html.addOutput('my-output') for each rollup output.`,
+        'Options modernOutput or legacyOutput was set, but @web/rollup-plugin-html' +
+          ` did not output multiple builds. Make sure you use html.api.addOutput('my-output') for each rollup output.`,
       );
     }
 
