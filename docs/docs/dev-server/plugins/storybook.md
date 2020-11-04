@@ -33,7 +33,7 @@ Add the plugin and set the project type. See below for supported project types.
 import { storybookPlugin } from '@web/dev-server-storybook';
 
 export default {
-  plugins: [storybookPlugin({ type: 'webcomponents' })],
+  plugins: [storybookPlugin({ type: 'web-components' })],
 };
 ```
 
@@ -78,7 +78,7 @@ ButtonB.args = {
 
 ### Project types
 
-We currently supported `preact` and `webcomponents` project types. This corresponds to the Storybook "Framework".
+We currently supported `preact` and `web-components` project types. This corresponds to the Storybook "Framework".
 
 Other project types could be supported, let us know if you are interested in this.
 
@@ -94,7 +94,7 @@ You can customize the storybook directory when instantiating the plugin:
 import { storybookPlugin } from '@web/dev-server-storybook';
 
 export default {
-  plugins: [storybookPlugin({ type: 'webcomponents', configDir: 'custom-directory' })],
+  plugins: [storybookPlugin({ type: 'web-components', configDir: 'custom-directory' })],
 };
 ```
 
