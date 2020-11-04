@@ -1,11 +1,11 @@
 import { RollupPluginHtml } from '@web/rollup-plugin-html';
 import { Plugin } from 'rollup';
-import { GeneratedFile, injectPolyfillsLoader, File } from '@web/polyfills-loader';
+import { GeneratedFile, injectPolyfillsLoader, File, fileTypes } from '@web/polyfills-loader';
 import path from 'path';
 
 import { RollupPluginPolyfillsLoaderConfig } from './types';
 import { createError, shouldInjectLoader } from './utils';
-import { createPolyfillsLoaderConfig } from './createPolyfillsLoaderConfig';
+import { createPolyfillsLoaderConfig, formatToFileType } from './createPolyfillsLoaderConfig';
 
 export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig = {}): Plugin {
   let generatedFiles: GeneratedFile[] | undefined;
@@ -64,10 +64,13 @@ export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig
         }
         preloaded = [...new Set(preloaded)];
 
+        const type =
+          pluginOptions.modernOutput?.type ?? formatToFileType(bundle?.options.format ?? 'esm');
+        const crossorigin = type === fileTypes.MODULE ? ' crossorigin="anonymous"' : '';
         return htmlString.replace(
           '</head>',
           `\n${preloaded
-            .map(i => `<link rel="preload" href="${i}" as="script" crossorigin="anonymous">\n`)
+            .map(i => `<link rel="preload" href="${i}" as="script"${crossorigin}>\n`)
             .join('')}</head>`,
         );
       });

@@ -1,5 +1,8 @@
 <html><head>
-<link rel="preload" href="./entrypoint-a.js" as="script">
+            
+<link rel="preload" href="./entrypoint-a.js" as="script" crossorigin="anonymous">
+<link rel="preload" href="shared-ed942ddb.js" as="script" crossorigin="anonymous">
+<link rel="preload" href="./entrypoint-b.js" as="script" crossorigin="anonymous">
 </head><body><script>(function () {
   function loadScript(src, type) {
     return new Promise(function (resolve) {
@@ -32,20 +35,14 @@
     polyfills.push(loadScript('./polyfills/fetch.js'));
   }
 
-  if (!('attachShadow' in Element.prototype) || !('getRootNode' in Element.prototype) || window.ShadyDOM && window.ShadyDOM.force) {
-    polyfills.push(loadScript('./polyfills/webcomponents.js'));
-  }
-
-  if (!('noModule' in HTMLScriptElement.prototype) && 'getRootNode' in Element.prototype) {
-    polyfills.push(loadScript('./polyfills/custom-elements-es5-adapter.js'));
-  }
-
   function loadFiles() {
-    if (!('noModule' in HTMLScriptElement.prototype)) {
-      loadScript('./entrypoint-a.js');
-    } else {
-      loadScript('./entrypoint-a.js');
-    }
+    [function () {
+      return loadScript('./entrypoint-a.js', 'module');
+    }, function () {
+      return loadScript('./entrypoint-b.js', 'module');
+    }].reduce(function (a, c) {
+      return a.then(c);
+    }, Promise.resolve());
   }
 
   if (polyfills.length) {
