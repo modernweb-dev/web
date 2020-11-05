@@ -1,4 +1,4 @@
-import { MainJs } from '../readStorybookConfig';
+import { MainJs } from '../config/readStorybookConfig';
 
 export function createManagerHtml(mainJs: MainJs) {
   return `<!DOCTYPE html>

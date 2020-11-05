@@ -1,1 +1,1 @@
-export { storybookPlugin } from './storybookPlugin';
+export { storybookPlugin } from './serve/storybookPlugin';

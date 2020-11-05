@@ -1,7 +1,7 @@
 import globby from 'globby';
 import path from 'path';
 
-import { createBrowserImport, createError } from './utils';
+import { createBrowserImport, createError } from '../utils';
 
 export async function findStories(rootDir: string, mainJsPath: string, storiesPatterns: string[]) {
   const mainJsDir = path.dirname(mainJsPath);
@@ -10,5 +10,10 @@ export async function findStories(rootDir: string, mainJsPath: string, storiesPa
   if (storyFilePaths.length === 0) {
     throw createError(`Could not find any stories with pattern ${storiesPatterns}`);
   }
-  return storyFilePaths.map(storyFilePath => createBrowserImport(rootDir, storyFilePath));
+
+  const storyImports = storyFilePaths.map(storyFilePath =>
+    createBrowserImport(rootDir, storyFilePath),
+  );
+
+  return { storyFilePaths, storyImports };
 }

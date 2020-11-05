@@ -6,6 +6,8 @@ import html from '@web/rollup-plugin-html';
 import polyfillsLoader from '@web/rollup-plugin-polyfills-loader';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import { terser } from 'rollup-plugin-terser';
+import { mdxPlugin } from './mdxPlugin';
+import { injectExportsOrderPlugin } from './injectExportsOrderPlugin';
 
 const prebuiltDir = require
   .resolve('@web/storybook-prebuilt/package.json')
@@ -24,12 +26,13 @@ interface CreateRollupConfigParams {
   outputDir: string;
   indexFilename: string;
   indexHtmlString: string;
+  storyFilePaths?: string[];
 }
 
 export function createRollupConfig(params: CreateRollupConfigParams): RollupOptions {
-  const { outputDir, indexFilename, indexHtmlString } = params;
+  const { outputDir, indexFilename, indexHtmlString, storyFilePaths } = params;
 
-  return {
+  const options: RollupOptions = {
     preserveEntrySignatures: false,
     onwarn,
     output: {
@@ -118,4 +121,12 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
       terser({ output: { comments: false } }),
     ],
   };
+
+  if (storyFilePaths && storyFilePaths.length > 0) {
+    // plugins we need to inject only in the preview
+    options.plugins!.unshift(injectExportsOrderPlugin(storyFilePaths));
+    options.plugins!.unshift(mdxPlugin());
+  }
+
+  return options;
 }
