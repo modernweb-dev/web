@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 
 import { StorybookPluginConfig } from './StorybookPluginConfig';
-import { createError } from './utils';
+import { createError } from '../utils';
 
 const defaultConfigDir = path.join(process.cwd(), '.storybook');
 

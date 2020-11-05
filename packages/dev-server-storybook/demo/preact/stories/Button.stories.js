@@ -4,7 +4,7 @@ export default {
   title: 'Example/Button',
   argTypes: {
     backgroundColor: { control: 'color' },
-    // onClick: { action: 'onClick' },
+    onClick: { action: 'onClick' },
   },
 };
 

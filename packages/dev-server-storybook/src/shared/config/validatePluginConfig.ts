@@ -1,5 +1,5 @@
-import { StorybookPluginConfig } from './StorybookPluginConfig';
-import { createError } from './utils';
+import { StorybookPluginConfig } from '../config/StorybookPluginConfig';
+import { createError } from '../utils';
 
 const types = ['preact', 'web-components'];
 

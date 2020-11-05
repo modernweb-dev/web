@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import commandLineArgs from 'command-line-args';
 import path from 'path';
-import { buildRollup } from './buildRollup';
+import { build } from './build';
 
 async function main() {
   const args = commandLineArgs([
@@ -28,7 +28,7 @@ async function main() {
   const configDir = path.resolve(args['config-dir']);
   const outputDir = path.resolve(args['output-dir']);
 
-  await buildRollup({ type: args.type, configDir, outputDir });
+  await build({ type: args.type, configDir, outputDir });
 }
 
 main();

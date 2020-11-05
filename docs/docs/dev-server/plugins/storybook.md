@@ -6,7 +6,7 @@ Plugin for using Storybook with Web Dev Server using es modules.
 
 ## How it works
 
-This plugin uses an [opinionated build](https://github.com/modernweb-dev/storybook-prebuilt) of Storybook, making it possible to use it with native es modules.
+This plugin uses an [opinionated build](https://github.com/modernweb-dev/storybook-prebuilt) of Storybook, making it possible to use it with native es modules and buildless workflows.
 
 This build installs a default set of addons:
 
@@ -100,4 +100,35 @@ export default {
 
 ## Production build
 
-Building the storybook for production is currently not supported. We plan to add this later.
+You can run a build on your storybook demo before shipping it to production. Regular storybook uses webpack, which might require considerable configuration to make it work for the buildless storybook. To keep the build simple we are using Rollup.
+
+### Running a build
+
+To run a production build, execute the `build-storybook` command. This takes a few parameters:
+
+| name       | type   | description                                                            |
+| ---------- | ------ | ---------------------------------------------------------------------- |
+| config-dir | string | Directory to read storybook config from. defaults to `.storybook`      |
+| output-dir | string | Directory to write the build output to. defaults to `storybook-static` |
+| type       | string | Project type. Defaults to `web-components`                             |
+
+### Customizing the build
+
+You can customize the rollup config from your `main.js` config:
+
+```js
+const pluginA = require('rollup-plugin-a');
+const pluginB = require('rollup-plugin-b');
+
+module.exports = {
+  rollupConfig(config) {
+    // add a new plugin to the build
+    config.plugins.push(pluginA());
+
+    // use unshift to make sure it runs before other plugins
+    config.plugins.unshift(pluginB());
+
+    return config;
+  },
+};
+```
