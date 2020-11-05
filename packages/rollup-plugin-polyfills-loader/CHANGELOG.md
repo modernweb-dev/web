@@ -1,6 +1,13 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 1.0.1
+
+### Patch Changes
+
+- da360bc: correctly preload non-module entrypoints
+
 ## 1.0.0
+
 ### Major Changes
 
 - 8a48245: Initial implementation

@@ -1,5 +1,11 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 1.0.4
+
+### Patch Changes
+
+- 5bb5dd0: fix type reference
+
 ## 1.0.3
 
 ### Patch Changes
