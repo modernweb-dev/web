@@ -1,5 +1,15 @@
 # @web/dev-server-storybook
 
+## 0.1.0
+
+### Minor Changes
+
+- 3d9bb3d: add support for MDX
+
+### Patch Changes
+
+- 1a211af: add build command
+
 ## 0.0.2
 
 ### Patch Changes
