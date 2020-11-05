@@ -74,6 +74,26 @@ ButtonB.args = {
 };
 ```
 
+Follow the regular storybook docs to learn how to create stories.
+
+## Docs
+
+This plugin supports docs written using the storybook MDX format. To import doc blocks, import them from the prebuilt:
+
+Regular storybook:
+
+```js
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+```
+
+Storybook prebuilt:
+
+```js
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+```
+
+Follow the regular storybook docs to learn how to create docs.
+
 ## Configuration
 
 ### Project types
