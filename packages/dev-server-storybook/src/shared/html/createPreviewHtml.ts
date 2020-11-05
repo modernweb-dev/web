@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { StorybookConfig } from '../config/StorybookConfig';
 
 import { StorybookPluginConfig } from '../config/StorybookPluginConfig';
 import { createBrowserImport } from '../utils';
@@ -12,12 +13,12 @@ function createPreviewImport(rootDir: string, previewJsPath: string) {
 }
 
 export function createPreviewHtml(
-  rootDir: string,
   pluginConfig: StorybookPluginConfig,
-  previewJsPath: string,
+  storybookConfig: StorybookConfig,
+  rootDir: string,
   storyImports: string[],
 ) {
-  const previewImport = createPreviewImport(rootDir, previewJsPath);
+  const previewImport = createPreviewImport(rootDir, storybookConfig.previewJsPath);
 
   return `<!DOCTYPE html>
 <html>
@@ -104,9 +105,11 @@ export function createPreviewHtml(
         console.warn('unable to connect to top frame for connecting dev tools');
       }
     </script>
+    ${storybookConfig.previewHead ?? ''}
   </head>
 
   <body>
+    ${storybookConfig.previewBody ?? ''}
     <div id="root"></div>
     <div id="docs-root"></div>
 

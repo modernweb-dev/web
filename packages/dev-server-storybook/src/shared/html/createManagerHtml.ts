@@ -1,6 +1,6 @@
-import { MainJs } from '../config/readStorybookConfig';
+import { StorybookConfig } from '../config/StorybookConfig';
 
-export function createManagerHtml(mainJs: MainJs) {
+export function createManagerHtml(config: StorybookConfig) {
   return `<!DOCTYPE html>
 <html>
   <head>
@@ -25,6 +25,7 @@ export function createManagerHtml(mainJs: MainJs) {
         display: none !important;
       }
     </style>
+    ${config.managerHead ?? ''}
   </head>
 
   <body>
@@ -32,7 +33,7 @@ export function createManagerHtml(mainJs: MainJs) {
     <div id="docs-root"></div>
     <script type="module">
       import '@web/storybook-prebuilt/manager.js';
-      ${mainJs.addons ? mainJs.addons.map(a => `import '${a}';`).join('') : ''}
+      ${config.mainJs.addons ? config.mainJs.addons.map(a => `import '${a}';`).join('') : ''}
     </script>
   </body>
 </html>`;

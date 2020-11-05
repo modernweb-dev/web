@@ -3,26 +3,27 @@ import { validatePluginConfig } from '../shared/config/validatePluginConfig';
 
 import { createRollupConfig } from './rollup/createRollupConfig';
 import { buildAndWrite } from './rollup/buildAndWrite';
-import { MainJs } from '../shared/config/readStorybookConfig';
 import { createManagerHtml } from '../shared/html/createManagerHtml';
 import { createPreviewHtml } from '../shared/html/createPreviewHtml';
 import { findStories } from '../shared/stories/findStories';
 import { StorybookPluginConfig } from '../shared/config/StorybookPluginConfig';
-import { RollupMainJs } from './RollupMainJs';
+import { StorybookConfig } from '../shared/config/StorybookConfig';
 
 interface BuildPreviewParams {
+  storybookConfig: StorybookConfig;
   pluginConfig: StorybookPluginConfig;
   outputDir: string;
   rootDir: string;
-  mainJs: RollupMainJs;
-  mainJsPath: string;
-  previewJsPath: string;
 }
 
 async function buildPreview(params: BuildPreviewParams) {
-  const { pluginConfig, outputDir, rootDir, mainJs, mainJsPath, previewJsPath } = params;
-  const { storyImports, storyFilePaths } = await findStories(rootDir, mainJsPath, mainJs.stories);
-  const previewHtml = createPreviewHtml(rootDir, pluginConfig, previewJsPath, storyImports);
+  const { storybookConfig, pluginConfig, outputDir, rootDir } = params;
+  const { storyImports, storyFilePaths } = await findStories(
+    rootDir,
+    storybookConfig.mainJsPath,
+    storybookConfig.mainJs.stories,
+  );
+  const previewHtml = createPreviewHtml(pluginConfig, storybookConfig, rootDir, storyImports);
 
   let config = createRollupConfig({
     outputDir,
@@ -31,21 +32,20 @@ async function buildPreview(params: BuildPreviewParams) {
     storyFilePaths,
   });
 
-  console.log('main.js', mainJs);
-  if (mainJs.rollupConfig) {
-    config = (await mainJs.rollupConfig(config)) ?? config;
+  if (storybookConfig.mainJs.rollupConfig) {
+    config = (await storybookConfig.mainJs.rollupConfig(config)) ?? config;
   }
 
   await buildAndWrite(config);
 }
 
 interface BuildmanagerParams {
+  storybookConfig: StorybookConfig;
   outputDir: string;
-  mainJs: MainJs;
 }
 
 async function buildManager(params: BuildmanagerParams) {
-  const managerHtml = createManagerHtml(params.mainJs);
+  const managerHtml = createManagerHtml(params.storybookConfig);
   const config = createRollupConfig({
     outputDir: params.outputDir,
     indexFilename: 'index.html',
@@ -65,14 +65,7 @@ export async function build(params: BuildParams) {
   const { outputDir } = params;
   validatePluginConfig(params);
 
-  const { mainJs, mainJsPath, previewJsPath } = readStorybookConfig(params);
-  await buildManager({ outputDir, mainJs });
-  await buildPreview({
-    pluginConfig: params,
-    outputDir,
-    rootDir: process.cwd(),
-    mainJs,
-    mainJsPath,
-    previewJsPath,
-  });
+  const storybookConfig = readStorybookConfig(params);
+  await buildManager({ outputDir, storybookConfig });
+  await buildPreview({ storybookConfig, pluginConfig: params, outputDir, rootDir: process.cwd() });
 }

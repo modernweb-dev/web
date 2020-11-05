@@ -12,8 +12,8 @@ import { injectExportsOrder } from '../shared/stories/injectExportsOrder';
 export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
   validatePluginConfig(pluginConfig);
 
-  const { mainJs, mainJsPath, previewJsPath } = readStorybookConfig(pluginConfig);
-  let config: DevServerCoreConfig;
+  const storybookConfig = readStorybookConfig(pluginConfig);
+  let serverConfig: DevServerCoreConfig;
   let storyImports: string[] = [];
   let storyFilePaths: string[] = [];
 
@@ -21,7 +21,7 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
     name: 'storybook',
 
     serverStart(args) {
-      config = args.config;
+      serverConfig = args.config;
     },
 
     resolveMimeType(context) {
@@ -31,7 +31,7 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
     },
 
     async transform(context) {
-      const filePath = getRequestFilePath(context, config.rootDir);
+      const filePath = getRequestFilePath(context, serverConfig.rootDir);
       if (context.path.endsWith('.mdx')) {
         context.body = await transformMdxToCsf(context.body, filePath);
         // fall through to below to inject exports order as well
@@ -44,18 +44,24 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
 
     async serve(context) {
       if (context.path === '/') {
-        return { type: 'html', body: createManagerHtml(mainJs) };
+        return { type: 'html', body: createManagerHtml(storybookConfig) };
       }
 
       if (context.path === '/iframe.html') {
         ({ storyImports, storyFilePaths } = await findStories(
-          config.rootDir,
-          mainJsPath,
-          mainJs.stories,
+          serverConfig.rootDir,
+          storybookConfig.mainJsPath,
+          storybookConfig.mainJs.stories,
         ));
+
         return {
           type: 'html',
-          body: createPreviewHtml(config.rootDir, pluginConfig, previewJsPath, storyImports),
+          body: createPreviewHtml(
+            pluginConfig,
+            storybookConfig,
+            serverConfig.rootDir,
+            storyImports,
+          ),
         };
       }
     },
