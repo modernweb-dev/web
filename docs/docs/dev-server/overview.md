@@ -15,7 +15,7 @@ Dev Server for web applications, ideal for buildless es module workflows. Option
 - Auto-reload on file changes with the (--watch)
 - History API fallback for SPA routing (--app-index index.html)
 - Plugin and middleware API for extensions
-- Powered by [esbuild](/docs/dev-server/plugins/esbuild.md) and [rollup plugins](/docs/dev-server/plugins/rollup.md)
+- Powered by [esbuild](plugins/esbuild.md) and [rollup plugins](plugins/rollup.md)
 
 > Web Dev server is the successor of [es-dev-server](https://www.npmjs.com/package/es-dev-server)
 
