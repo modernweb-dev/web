@@ -23,8 +23,10 @@
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
-    "rollup-plugin-polyfills-loader.d.ts",
-    "rollup-plugin-polyfills-loader.js",
+    "*.d.ts",
+    "*.js",
+    "*.mjs",
+    "dist",
     "src"
   ],
   "keywords": [
