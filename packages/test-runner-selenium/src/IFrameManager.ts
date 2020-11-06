@@ -1,5 +1,5 @@
 import { CoverageMapData, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { WebDriver } from 'selenium-webdriver';
+import { WebDriver, WebElement } from 'selenium-webdriver';
 
 interface BrowserResult {
   testCoverage?: CoverageMapData;
@@ -41,6 +41,28 @@ export class IFrameManager {
 
   isActive(id: string) {
     return this.framePerSession.has(id);
+  }
+
+  async takeScreenshot(sessionId: string, locator: string): Promise<Buffer> {
+    const frameId = this.framePerSession.get(sessionId);
+    if (!frameId) {
+      throw new Error(
+        `Something went wrong while running tests, there is no frame id for session ${frameId}`,
+      );
+    }
+    const frame = (await this.driver.executeScript(
+      `return document.getElementById("${frameId}");`,
+    )) as WebElement;
+
+    await this.driver.switchTo().frame(frame);
+
+    const element = (await this.driver.executeScript(locator)) as WebElement;
+
+    const base64 = await element.takeScreenshot(true);
+
+    await this.driver.switchTo().parentFrame();
+
+    return Buffer.from(base64, 'base64');
   }
 
   async getBrowserUrl(sessionId: string): Promise<string | undefined> {

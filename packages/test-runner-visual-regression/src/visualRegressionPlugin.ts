@@ -5,6 +5,7 @@ import { defaultOptions, VisualRegressionPluginOptions } from './config';
 import { visualDiffCommand, VisualDiffCommandResult } from './visualDiffCommand';
 import { VisualRegressionError } from './VisualRegressionError';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
+import type { SeleniumLauncher } from '@web/test-runner-selenium';
 
 interface Payload {
   id: string;
@@ -89,6 +90,21 @@ export function visualRegressionPlugin(
             const screenshot = await element.screenshot();
             return visualDiffCommand(mergedOptions, screenshot, session.browser.name, payload.name);
           }
+
+          if (session.browser.type === 'selenium') {
+            const browser = session.browser as SeleniumLauncher;
+
+            const screenshot = await browser.takeScreenshot(session.id, `
+              try {
+                var wtr = window.__WTR_VISUAL_REGRESSION__;
+                return wtr && wtr[${payload.id}];
+              } catch (_) {
+                return undefined;
+              }
+            `);
+
+            return visualDiffCommand(mergedOptions, screenshot, session.browser.name, payload.name);
+        }
 
           throw new Error(
             `Browser type ${session.browser.type} is not supported for visual diffing.`,
