@@ -66,7 +66,7 @@ The only files it can serve are:
 └── index.html
 ```
 
-It will be important to keep this in mind when structuring your projects. In a [buildless](#) workflow, the web server will need to have all of your dependencies, including `node_modules` in its web root. So if you decide to keep your JavaScript code in a subdirectory of the project root, like `/src`, you will need to keep `index.html` in the root directory and run your local development server from there.
+It will be important to keep this in mind when structuring your projects. In a buildless workflow, the web server will need to have all of your dependencies, including `node_modules` in its web root. So if you decide to keep your JavaScript code in a subdirectory of the project root, like `/src`, you will need to keep `index.html` in the root directory and run your local development server from there.
 
 Just like how running `http-server` from `/about` made `help.html` inaccessible, running your local development server from `/src` would make `node_modules` inaccessible.
 
@@ -74,7 +74,7 @@ Just like how running `http-server` from `/about` made `help.html` inaccessible,
 
 The "HT" in <abbr>HTML</abbr>, "HyperText", refers to the way in which documents can link to other documents. This is the fundamental feature of <abbr>HTML</abbr> and the most important feature of the web.
 
-Hyperlinks ("links" for short) in <abbr>HTML</abbr> are represented by the [anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a). The `href` attribute contains the [URL](./servers-and-clients.md) which the hyperlink points to.
+Hyperlinks ("links" for short) in <abbr>HTML</abbr> are represented by the [anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a). The `href` attribute contains the URL which the hyperlink points to.
 
 There are three basic types of URLs which you can link to:
 
