@@ -1,5 +1,12 @@
 # @web/dev-server-storybook
 
+## 0.1.1
+
+### Patch Changes
+
+- cba758e: feat(dev-server-storybook): throw when no config is given
+- c46774c: add support for manager/preview head/body partials
+
 ## 0.1.0
 
 ### Minor Changes
