@@ -9,7 +9,7 @@ eleventyNavigation:
 
 Test runner for web applications.
 
-👉&nbsp;&nbsp; Headless browsers with [Puppeteer](browsers/puppeteer.md), [Playwright](browsers/playwright.md), or [Selenium](browsers/selenium.md). <br>
+👉&nbsp;&nbsp; Headless browsers with [Puppeteer](browser-launchers/puppeteer.md), [Playwright](browser-launchers/playwright.md), or [Selenium](browser-launchers/selenium.md). <br>
 🚧&nbsp;&nbsp; Reports logs, 404s, and errors from the browser. <br>
 🔍&nbsp;&nbsp; Debug opens a real browser window with devtools.<br>
 📦&nbsp;&nbsp; Mock es modules using [Import Maps](./writing-tests/mocking.md).<br>

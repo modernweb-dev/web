@@ -1,6 +1,6 @@
 # Test Runner >> Writing Tests >> Helper Libraries ||30
 
-Not all helper libraries ship es modules which are usable in the browser. On this page we collect libraries which are available as es modules. If need to use a library with another module format, you can follow the instructions at the bottom of the [es modules page](../../../guides/web-development/es-modules.md)
+Not all helper libraries ship es modules which are usable in the browser. On this page we collect libraries which are available as es modules. If need to use a library with another module format, you can follow the instructions at the bottom of the [es modules page](../../../guides/going-buildless/es-modules.md)
 
 ## General libraries
 
