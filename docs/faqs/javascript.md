@@ -6,7 +6,7 @@ eleventyNavigation:
 
 JavaScript is a scripting language for the web. It was invented in 1993 by Brendan Eich at Mozilla (the makers of the Firefox browser). The language standard is maintained by [ECMA International](http://www.ecma-international.org/), a technology standards organization, so you'll sometimes see the terms "JavaScript" (a trademark of Oracle Corporation) or <abbr>JS</abbr> and "ECMAScript" or <abbr>ES</abbr> used interchangeably. You can use JavaScript to dynamically manipulate the HTML document.
 
-The purpose of this document isn't to be a comprehensive introduction to JavaScript, rather, to introduce some programming patterns using modern JavaScript features that we've found to be useful when writing standards-based web applications. Check out [MDN's JavaScript documentation](https://developer.mozilla.org/en-US/docs/guides/JavaScript) for a refresher before continuing.
+The purpose of this document isn't to be a comprehensive introduction to JavaScript, rather, to introduce some programming patterns using modern JavaScript features that we've found to be useful when writing standards-based web applications. Check out [MDN's JavaScript documentation](https://developer.mozilla.org/en-US/docs/Learn/JavaScript) for a refresher before continuing.
 
 ## Composing Classes with JavaScript Mixins
 
@@ -14,7 +14,7 @@ The purpose of this document isn't to be a comprehensive introduction to JavaScr
 >
 > - Gilad Bracha and William Cook, [Mixin-based Inheritance](http://www.bracha.org/oopsla90.pdf)
 
-Some [object-oriented](https://developer.mozilla.org/en-US/docs/guides/JavaScript/Objects/Object-oriented_JS) programming languages allow for "multiple inheritance", or the notion that a class can simultaneously inherit from two or more other classes. A "Baker" class might inherit simultaneously from the "Cook" and "CarbLover" classes. JavaScript does not allow multiple inheritances in `class` syntax. All JavaScript classes that extend other classes may only have one ancestor.
+Some [object-oriented](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object-oriented_JS) programming languages allow for "multiple inheritance", or the notion that a class can simultaneously inherit from two or more other classes. A "Baker" class might inherit simultaneously from the "Cook" and "CarbLover" classes. JavaScript does not allow multiple inheritances in `class` syntax. All JavaScript classes that extend other classes may only have one ancestor.
 
 This presents a problem when you want to share some behaviour among classes which already inherit from a base class.
 

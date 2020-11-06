@@ -4,7 +4,7 @@ Not all helper libraries ship es modules which are usable in the browser. On thi
 
 ## General libraries
 
-[@open-wc/testing](https://open-wc.org/testing/testing.html) is a general-purpose library, including assertions via chai, HTML test fixtures, a11y tests, and test helpers. It is an opinionated implementation that brings together multiple libraries.
+[@open-wc/testing](https://github.com/open-wc/open-wc/tree/master/packages/testing) is a general-purpose library, including assertions via chai, HTML test fixtures, a11y tests, and test helpers. It is an opinionated implementation that brings together multiple libraries.
 
 ## Assertions
 
