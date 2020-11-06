@@ -87,7 +87,7 @@ There are three basic types of URLs which you can link to:
 The most specific type of URL is the fully-qualified URL. They contain a protocol; zero, one, or more subdomains; a domain name; and an optional path. They refer specifically to a single, unique resource. Some examples:
 
 - `https://www.google.com`
-- `https://modern-web.dev/docs/guides/standards-based/html/`
+- `https://modern-web.dev/guides/going-buildless/serving/`
 - `ws://demos.kaazing.com/echo`
 
 Links with fully qualified URLs can link a page on your server, to pages on another server. This is what puts the "world-wide" in "world-wide-web". All the links to [MDN](https://developer.mozilla.org) in this article are like that.
