@@ -66,7 +66,7 @@ A list:
 
 ### DIV Soup
 
-Sometimes, when you [inspect a web page](https://developer.mozilla.org/en-US/docs/guides/Common_questions/What_are_browser_developer_tools), you'll see something like this:
+Sometimes, when you [inspect a web page](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools), you'll see something like this:
 
 ```html
 <div class="css-698um9">
@@ -84,4 +84,4 @@ As much as possible, developers should strive to use the semantically correct HT
 
 ## Learn more
 
-If you wanna know more check out MDN's [HTML basics](https://developer.mozilla.org/en-US/docs/guides/Getting_started_with_the_web/HTML_basics).
+If you wanna know more check out MDN's [HTML basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics).
