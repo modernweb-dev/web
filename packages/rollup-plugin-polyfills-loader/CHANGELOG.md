@@ -1,5 +1,11 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 1.0.2
+
+### Patch Changes
+
+- 9680970: Add missing files to the npm artifact
+
 ## 1.0.1
 
 ### Patch Changes
