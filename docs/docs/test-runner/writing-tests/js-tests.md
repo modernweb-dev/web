@@ -15,4 +15,4 @@ describe('myFunction', () => {
 });
 ```
 
-See the [Test frameworks](../test-frameworks/index.md) and [es modules](../../../guides/web-development/es-modules.md) sections for more information.
+See the [Test frameworks](../test-frameworks/index.md) and [es modules](../../../guides/going-buildless/es-modules.md) sections for more information.

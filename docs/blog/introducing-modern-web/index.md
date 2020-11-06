@@ -55,7 +55,7 @@ That's why we created web test runner.
 
 Some of the highlights of our test runner:
 
-- Headless testing using [Puppeteer](../../docs/test-runner/browsers/puppeteer.md), [Playwright](../../docs/test-runner/browsers/playwright.md), or [Selenium](../../docs/test-runner/browsers/selenium.md). <br>
+- Headless testing using [Puppeteer](../../docs/test-runner/browser-launchers/puppeteer.md), [Playwright](../../docs/test-runner/browser-launchers/playwright.md), or [Selenium](../../docs/test-runner/browser-launchers/selenium.md). <br>
 - Reports logs, 404s, and errors from the browser.
 - Debug opens a real browser window with devtools.
 - Mock ES modules via [Import Maps](../../docs/test-runner/writing-tests/mocking.md).
