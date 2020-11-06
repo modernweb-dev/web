@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/modernweb-dev/actions"
+  <a href="https://github.com/modernweb-dev/web/actions"
     ><img
       src="https://img.shields.io/github/workflow/status/modernweb-dev/web/Release/master?label=workflow&style=flat-square"
       alt="GitHub Actions workflow status"
