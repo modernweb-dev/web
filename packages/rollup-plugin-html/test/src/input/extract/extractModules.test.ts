@@ -29,6 +29,28 @@ describe('extractModules()', () => {
     );
   });
 
+  it('does not touch non module scripts', () => {
+    const document = parse(
+      '<div>before</div>' +
+        '<script src="./foo.js"></script>' +
+        '<script></script>' +
+        '<div>after</div>',
+    );
+
+    const { moduleImports, inlineModules } = extractModules({
+      document,
+      htmlDir: '/',
+      rootDir: '/',
+    });
+    const htmlWithoutModules = serialize(document);
+
+    expect(inlineModules.size).to.equal(0);
+    expect(moduleImports).to.eql([]);
+    expect(htmlWithoutModules).to.eql(
+      '<html><head></head><body><div>before</div><script src="./foo.js"></script><script></script><div>after</div></body></html>',
+    );
+  });
+
   it('resolves imports relative to the root dir', () => {
     const document = parse(
       '<div>before</div>' +

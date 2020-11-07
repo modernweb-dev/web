@@ -14,6 +14,7 @@ describe('injectedUpdatedAssetPaths()', () => {
         '<body>',
         '<img src="./foo/image-a.png">',
         '<img src="/image-b.png">',
+        '<script src="/no-module.js"></script>',
         '</body>',
         '</html>',
       ].join(''),
@@ -31,6 +32,7 @@ describe('injectedUpdatedAssetPaths()', () => {
     hashed.set(path.join(path.sep, 'root', 'styles.css'), 'styles-xxx.css');
     hashed.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
     hashed.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
+    hashed.set(path.join(path.sep, 'root', 'no-module.js'), 'no-module-xxx.js');
 
     injectedUpdatedAssetPaths({
       document,
@@ -46,6 +48,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       '<body>',
       '<img src="image-a-xxx.png">',
       '<img src="image-b-xxx.png">',
+      '<script src="no-module-xxx.js"></script>',
       '</body>',
       '</html>',
     ].join('');
