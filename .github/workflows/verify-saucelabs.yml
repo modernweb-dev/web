@@ -1,6 +1,10 @@
 name: Verify Saucelabs
 
-on: pull_request
+on:
+  # Run the workflow whenever commits are pushed to the main branch
+  push:
+    branches:
+      - master
 
 jobs:
   verify-saucelabs:
