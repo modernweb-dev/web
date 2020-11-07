@@ -42,10 +42,11 @@ async function buildPreview(params: BuildPreviewParams) {
 interface BuildmanagerParams {
   storybookConfig: StorybookConfig;
   outputDir: string;
+  rootDir: string;
 }
 
 async function buildManager(params: BuildmanagerParams) {
-  const managerHtml = createManagerHtml(params.storybookConfig);
+  const managerHtml = createManagerHtml(params.storybookConfig, params.rootDir);
   const config = createRollupConfig({
     outputDir: params.outputDir,
     indexFilename: 'index.html',
@@ -63,9 +64,10 @@ export interface BuildParams {
 
 export async function build(params: BuildParams) {
   const { outputDir } = params;
+  const rootDir = process.cwd();
   validatePluginConfig(params);
 
   const storybookConfig = readStorybookConfig(params);
-  await buildManager({ outputDir, storybookConfig });
-  await buildPreview({ storybookConfig, pluginConfig: params, outputDir, rootDir: process.cwd() });
+  await buildManager({ outputDir, storybookConfig, rootDir });
+  await buildPreview({ storybookConfig, pluginConfig: params, outputDir, rootDir });
 }
