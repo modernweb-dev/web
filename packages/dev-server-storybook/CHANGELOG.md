@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.1.2
+
+### Patch Changes
+
+- d955e42: include manager.js file
+
 ## 0.1.1
 
 ### Patch Changes
