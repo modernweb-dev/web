@@ -16,7 +16,10 @@ function createContentHash(content: string) {
 
 export function extractModules(params: ExtractModulesParams) {
   const { document, htmlDir, rootDir } = params;
-  const scriptNodes = findElements(document, e => getTagName(e) === 'script');
+  const scriptNodes = findElements(
+    document,
+    e => getTagName(e) === 'script' && getAttribute(e, 'type') === 'module',
+  );
 
   const moduleImports: string[] = [];
   const inlineModules = new Map<string, string>();

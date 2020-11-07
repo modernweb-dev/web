@@ -243,4 +243,24 @@ describe('extractAssets', () => {
 
     expect(assets.length).to.equal(0);
   });
+
+  it('does treat none module script tags as assets', () => {
+    const document = parse(`
+      <html>
+        <body>
+          <script src="./no-module.js"></script>
+        </body>
+      </html>
+    `);
+    const assets = extractAssets({
+      document,
+      htmlFilePath: path.join(rootDir, 'index.html'),
+      htmlDir: path.join(rootDir),
+      rootDir,
+    });
+
+    expect(assets.length).to.equal(1);
+    expect(assets[0].filePath).to.equal(path.join(rootDir, 'no-module.js'));
+    expect(assets[0].content.toString('utf-8')).to.equal('/* no module script file */\n');
+  });
 });
