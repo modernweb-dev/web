@@ -225,7 +225,7 @@ export default {
       files: 'packages/a/test/**/*.test.js',
     },
     {
-      name: 'package-a',
+      name: 'package-b',
       files: 'packages/b/test/**/*.test.js',
     },
   ],
