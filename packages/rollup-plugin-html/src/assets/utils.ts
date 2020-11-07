@@ -19,7 +19,7 @@ function isAsset(node: Node) {
       }
       break;
     case 'script':
-      if (getAttribute(node, 'type') !== 'module') {
+      if (getAttribute(node, 'type') !== 'module' && getAttribute(node, 'src')) {
         path = getAttribute(node, 'src') ?? '';
       }
       break;

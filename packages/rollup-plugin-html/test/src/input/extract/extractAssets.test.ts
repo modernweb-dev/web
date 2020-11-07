@@ -244,7 +244,7 @@ describe('extractAssets', () => {
     expect(assets.length).to.equal(0);
   });
 
-  it('does treat none module script tags as assets', () => {
+  it('does treat non module script tags as assets', () => {
     const document = parse(`
       <html>
         <body>
