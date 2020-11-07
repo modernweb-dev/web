@@ -50,6 +50,8 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
       }),
       babel({
         babelHelpers: 'bundled',
+        babelrc: false,
+        configFile: false,
         extensions: [...DEFAULT_EXTENSIONS, 'md', 'mdx'],
         exclude: `${prebuiltDir}/**`,
         presets: [
