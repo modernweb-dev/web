@@ -120,7 +120,7 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
           resizeObserver: true,
         },
       }),
-      terser({ output: { comments: false } }),
+      terser({ format: { comments: false } }) as Plugin,
     ],
   };
 
