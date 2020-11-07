@@ -1,5 +1,12 @@
 # @web/rollup-plugin-html
 
+## 1.2.1
+
+### Patch Changes
+
+- cfdeb98: - do not touch `<script>` tags with inline content/code
+  - treat `<script src="...">` tags as assets
+
 ## 1.2.0
 
 ### Minor Changes
