@@ -1,6 +1,6 @@
 {
   "name": "@web/rollup-plugin-polyfills-loader",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publishConfig": {
     "access": "public"
   },
@@ -38,7 +38,7 @@
     "feature detection"
   ],
   "dependencies": {
-    "@web/polyfills-loader": "^1.0.0"
+    "@web/polyfills-loader": "^1.0.1"
   },
   "devDependencies": {
     "@web/rollup-plugin-html": "^1.2.0",

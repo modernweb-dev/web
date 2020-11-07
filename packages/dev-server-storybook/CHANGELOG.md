@@ -1,5 +1,13 @@
 # @web/dev-server-storybook
 
+## 0.1.3
+
+### Patch Changes
+
+- d56c172: add missing dependencies for build
+- Updated dependencies [2006211]
+  - @web/rollup-plugin-polyfills-loader@1.0.3
+
 ## 0.1.2
 
 ### Patch Changes

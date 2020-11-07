@@ -1,5 +1,13 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 1.0.3
+
+### Patch Changes
+
+- 2006211: update minimum systemjs version
+- Updated dependencies [2006211]
+  - @web/polyfills-loader@1.0.1
+
 ## 1.0.2
 
 ### Patch Changes
