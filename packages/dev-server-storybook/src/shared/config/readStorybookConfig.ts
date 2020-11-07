@@ -28,6 +28,7 @@ export function readStorybookConfig(pluginConfig: StorybookPluginConfig): Storyb
     ? path.resolve(pluginConfig.configDir)
     : defaultConfigDir;
   const mainJsPath = path.join(configDir, 'main.js');
+  const managerJsPath = path.join(configDir, 'manager.js');
   const previewJsPath = path.join(configDir, 'preview.js');
   const managerHeadPath = path.join(configDir, 'manager-head.html');
   const previewHeadPath = path.join(configDir, 'preview-head.html');
@@ -54,5 +55,13 @@ export function readStorybookConfig(pluginConfig: StorybookPluginConfig): Storyb
 
   const mainJs = validateMainJs(require(mainJsPath));
 
-  return { mainJs, mainJsPath, previewJsPath, managerHead, previewHead, previewBody };
+  return {
+    mainJs,
+    mainJsPath,
+    managerJsPath,
+    previewJsPath,
+    managerHead,
+    previewHead,
+    previewBody,
+  };
 }

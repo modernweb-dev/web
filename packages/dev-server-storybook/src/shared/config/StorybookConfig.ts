@@ -10,6 +10,7 @@ export interface StorybookConfig {
   mainJs: MainJs;
   mainJsPath: string;
   previewJsPath: string;
+  managerJsPath: string;
   managerHead?: string;
   previewBody?: string;
   previewHead?: string;

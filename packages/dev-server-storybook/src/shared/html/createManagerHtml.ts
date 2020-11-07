@@ -1,6 +1,21 @@
+import fs from 'fs';
 import { StorybookConfig } from '../config/StorybookConfig';
+import { createBrowserImport } from '../utils';
 
-export function createManagerHtml(config: StorybookConfig) {
+function createManagerImport(rootDir: string, managerJsPath: string) {
+  if (!fs.existsSync(managerJsPath)) {
+    return '';
+  }
+  const managerImport = createBrowserImport(rootDir, managerJsPath);
+  return `import '${managerImport}';`;
+}
+
+export function createManagerHtml(storybookConfig: StorybookConfig, rootDir: string) {
+  const managerImport = createManagerImport(rootDir, storybookConfig.managerJsPath);
+  const addonImports = storybookConfig.mainJs.addons
+    ? storybookConfig.mainJs.addons.map(a => `import '${a}';`).join('')
+    : '';
+
   return `<!DOCTYPE html>
 <html>
   <head>
@@ -25,7 +40,7 @@ export function createManagerHtml(config: StorybookConfig) {
         display: none !important;
       }
     </style>
-    ${config.managerHead ?? ''}
+    ${storybookConfig.managerHead ?? ''}
   </head>
 
   <body>
@@ -33,7 +48,8 @@ export function createManagerHtml(config: StorybookConfig) {
     <div id="docs-root"></div>
     <script type="module">
       import '@web/storybook-prebuilt/manager.js';
-      ${config.mainJs.addons ? config.mainJs.addons.map(a => `import '${a}';`).join('') : ''}
+      ${managerImport}
+      ${addonImports}
     </script>
   </body>
 </html>`;

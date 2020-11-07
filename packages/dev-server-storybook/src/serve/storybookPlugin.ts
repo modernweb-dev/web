@@ -44,7 +44,7 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
 
     async serve(context) {
       if (context.path === '/') {
-        return { type: 'html', body: createManagerHtml(storybookConfig) };
+        return { type: 'html', body: createManagerHtml(storybookConfig, serverConfig.rootDir) };
       }
 
       if (context.path === '/iframe.html') {
