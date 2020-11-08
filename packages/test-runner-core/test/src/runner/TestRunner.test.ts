@@ -1,25 +1,49 @@
-import { stub } from 'sinon';
+import * as hanbi from 'hanbi';
 import { expect } from 'chai';
 import portfinder from 'portfinder';
 import path from 'path';
 
+import { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher';
 import { TestRunnerCoreConfig } from '../../../src/config/TestRunnerCoreConfig';
 import { TestRunner } from '../../../src/runner/TestRunner';
 import { Logger } from '../../../src/logger/Logger';
 import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus';
 import { TestRunnerGroupConfig } from '../../../src';
 
-function createBrowserStub() {
-  return {
+interface BrowserStubs {
+  stop: hanbi.Stub<Exclude<BrowserLauncher['stop'], undefined>>;
+  startDebugSession: hanbi.Stub<BrowserLauncher['startDebugSession']>;
+  startSession: hanbi.Stub<BrowserLauncher['startSession']>;
+  stopSession: hanbi.Stub<BrowserLauncher['stopSession']>;
+  isActive: hanbi.Stub<BrowserLauncher['isActive']>;
+  getBrowserUrl: hanbi.Stub<BrowserLauncher['getBrowserUrl']>;
+}
+
+function createBrowserStub(): [BrowserStubs, BrowserLauncher] {
+  const spies = {
+    stop: hanbi.spy(),
+    getBrowserUrl: hanbi.spy(),
+    startDebugSession: hanbi.spy(),
+    startSession: hanbi.spy(),
+    stopSession: hanbi.spy(),
+    isActive: hanbi.spy()
+  };
+  spies.stop.returns(Promise.resolve());
+  spies.getBrowserUrl.returns('');
+  spies.startDebugSession.returns(Promise.resolve());
+  spies.startSession.returns(Promise.resolve());
+  spies.stopSession.returns(Promise.resolve({}));
+  spies.isActive.returns(true);
+  return [spies, {
     name: 'myBrowser',
     type: 'myBrowser',
-    stop: stub().returns(Promise.resolve()),
-    getBrowserUrl: stub().returns(''),
-    startDebugSession: stub().returns(Promise.resolve()),
-    startSession: stub().returns(Promise.resolve()),
-    stopSession: stub().returns(Promise.resolve({})),
-    isActive: stub().returns(true),
-  };
+    stop: spies.stop.handler,
+    getBrowserUrl: spies.getBrowserUrl.handler,
+    startDebugSession: spies.startDebugSession.handler,
+    startSession: spies.startSession.handler,
+    stopSession: spies.stopSession.handler,
+    isActive: spies.isActive.handler
+  }];
 }
 
 const logger: Logger = {
@@ -40,7 +64,7 @@ async function createTestRunner(
     port: 9000 + Math.floor(Math.random() * 1000),
   });
 
-  const browser = createBrowserStub();
+  const [browserStubs, browser] = createBrowserStub();
 
   const config: TestRunnerCoreConfig = {
     files: [path.resolve(__dirname, '..', '..', 'fixtures', 'a.test.js')],
@@ -61,15 +85,15 @@ async function createTestRunner(
     ...extraConfig,
   };
   const runner = new TestRunner(config, groupConfigs);
-  return { runner, browser };
+  return { runner, browser, browserStubs };
 }
 
 it('can run a single test file', async () => {
-  const { browser, runner } = await createTestRunner();
+  const { browser, runner, browserStubs } = await createTestRunner();
 
   await runner.start();
   expect(runner.started).to.equal(true, 'runner is started');
-  expect(browser.startSession.callCount).to.equal(1, 'browser session is started');
+  expect(browserStubs.startSession.callCount).to.equal(1);
 
   const sessions = Array.from(runner.sessions.all());
   expect(sessions.length).to.equal(1, 'one session is created');
@@ -77,7 +101,7 @@ it('can run a single test file', async () => {
 });
 
 it('closes test runner for a successful test', async () => {
-  const { browser, runner } = await createTestRunner();
+  const { browser, runner, browserStubs } = await createTestRunner();
   let resolveStopped: (passed: boolean) => void;
   const stopped = new Promise<boolean>(resolve => {
     resolveStopped = resolve;
@@ -96,13 +120,13 @@ it('closes test runner for a successful test', async () => {
 
   const passed = await stopped;
 
-  expect(browser.stopSession.callCount).to.equal(1, 'browser session is stopped');
-  expect(browser.stop.callCount).to.equal(1, 'browser is stopped');
+  expect(browserStubs.stopSession.callCount).to.equal(1, 'browser session is stopped');
+  expect(browserStubs.stop.callCount).to.equal(1, 'browser is stopped');
   expect(passed).to.equal(true, 'test runner quits with true');
 });
 
 it('closes test runner for a failed test', async () => {
-  const { browser, runner } = await createTestRunner();
+  const { browser, runner, browserStubs } = await createTestRunner();
   let resolveStopped: (passed: boolean) => void;
   const stopped = new Promise<boolean>(resolve => {
     resolveStopped = resolve;
@@ -120,8 +144,8 @@ it('closes test runner for a failed test', async () => {
   runner.sessions.updateStatus({ ...sessions[0], passed: false }, SESSION_STATUS.TEST_FINISHED);
   const passed = await stopped;
 
-  expect(browser.stopSession.callCount).to.equal(1, 'browser session is stopped');
-  expect(browser.stop.callCount).to.equal(1, 'browser is stopped');
+  expect(browserStubs.stopSession.callCount).to.equal(1, 'browser session is stopped');
+  expect(browserStubs.stop.callCount).to.equal(1, 'browser is stopped');
   expect(passed).to.equal(false, 'test runner quits with false');
 });
 
@@ -141,7 +165,7 @@ describe('groups', () => {
   });
 
   it('can create a group with a custom browser, inheriting test files', async () => {
-    const groupBrowser = createBrowserStub();
+    const [, groupBrowser] = createBrowserStub();
     const { browser, runner } = await createTestRunner(undefined, [
       {
         name: 'a',
@@ -190,7 +214,7 @@ describe('groups', () => {
   });
 
   it('can create test groups with custom browsers', async () => {
-    const browserB = createBrowserStub();
+    const [, browserB] = createBrowserStub();
     const { browser, runner } = await createTestRunner(
       {
         files: undefined,
