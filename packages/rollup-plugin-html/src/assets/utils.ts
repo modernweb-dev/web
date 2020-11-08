@@ -18,6 +18,11 @@ function isAsset(node: Node) {
         path = getAttribute(node, 'href') ?? '';
       }
       break;
+    case 'meta':
+      if (getAttribute(node, 'property') === 'og:image' && getAttribute(node, 'content')) {
+        path = getAttribute(node, 'content') ?? '';
+      }
+      break;
     case 'script':
       if (getAttribute(node, 'type') !== 'module' && getAttribute(node, 'src')) {
         path = getAttribute(node, 'src') ?? '';
@@ -45,6 +50,8 @@ export function isHashedAsset(node: Node) {
       return true;
     case 'link':
       return hashedLinkRels.includes(getAttribute(node, 'rel')!);
+    case 'meta':
+      return true;
     default:
       return false;
   }
@@ -67,6 +74,9 @@ export function getSourceAttribute(node: Node) {
     }
     case 'script': {
       return 'src';
+    }
+    case 'meta': {
+      return 'content';
     }
     default:
       throw new Error(`Unknown node with tagname ${getTagName(node)}`);

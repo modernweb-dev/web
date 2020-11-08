@@ -15,9 +15,9 @@ describe('extractAssets', () => {
           <link rel="manifest" href="./webmanifest.json">
           <link rel="mask-icon" href="./image-a.svg" color="#3f93ce">
           <link rel="stylesheet" href="./styles.css">
+          <meta property="og:image" content="/image-social.png">
         </head>
         <body>
-
           <img src="./image-c.png" />
           <div>
             <img src="./image-b.svg" />
@@ -57,6 +57,11 @@ describe('extractAssets', () => {
       {
         content: undefined,
         filePath: path.join(rootDir, 'styles.css'),
+        hashed: true,
+      },
+      {
+        content: undefined,
+        filePath: path.join(rootDir, 'image-social.png'),
         hashed: true,
       },
       {
