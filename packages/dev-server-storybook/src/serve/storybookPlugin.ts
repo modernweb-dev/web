@@ -1,4 +1,5 @@
 import { DevServerCoreConfig, getRequestFilePath, Plugin } from '@web/dev-server-core';
+import { mdjsToCsf } from 'storybook-addon-markdown-docs';
 
 import { StorybookPluginConfig } from '../shared/config/StorybookPluginConfig';
 import { createManagerHtml } from '../shared/html/createManagerHtml';
@@ -31,13 +32,21 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
     },
 
     async transform(context) {
+      if (context.URL.searchParams.get('story') !== 'true') {
+        return;
+      }
+
       const filePath = getRequestFilePath(context, serverConfig.rootDir);
       if (context.path.endsWith('.mdx')) {
         context.body = await transformMdxToCsf(context.body, filePath);
-        // fall through to below to inject exports order as well
+      }
+
+      if (context.path.endsWith('.md')) {
+        context.body = await mdjsToCsf(context.body, filePath, pluginConfig.type);
       }
 
       if (storyFilePaths.includes(filePath)) {
+        // inject story order, note that MDX and MD and fall through to this as well
         context.body = await injectExportsOrder(context.body, filePath);
       }
     },
@@ -53,6 +62,7 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
           storybookConfig.mainJsPath,
           storybookConfig.mainJs.stories,
         ));
+        storyImports = storyImports.map(i => `${i}?story=true`);
 
         return {
           type: 'html',

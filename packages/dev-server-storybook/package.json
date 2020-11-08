@@ -50,7 +50,6 @@
     "@babel/core": "^7.12.3",
     "@babel/generator": "^7.12.5",
     "@babel/parser": "^7.12.5",
-    "@babel/plugin-transform-react-jsx": "^7.12.5",
     "@babel/preset-env": "^7.12.1",
     "@mdx-js/mdx": "^1.6.19",
     "@rollup/plugin-babel": "^5.2.1",
@@ -65,7 +64,8 @@
     "js-string-escape": "^1.0.1",
     "lodash": "^4.17.20",
     "rollup": "^2.33.1",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "storybook-addon-markdown-docs": "^1.0.0"
   },
   "devDependencies": {
     "@web/dev-server": "^0.0.19",
