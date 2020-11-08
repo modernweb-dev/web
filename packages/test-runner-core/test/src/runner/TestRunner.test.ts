@@ -26,7 +26,7 @@ function createBrowserStub(): [BrowserStubs, BrowserLauncher] {
     startDebugSession: hanbi.spy(),
     startSession: hanbi.spy(),
     stopSession: hanbi.spy(),
-    isActive: hanbi.spy()
+    isActive: hanbi.spy(),
   };
   spies.stop.returns(Promise.resolve());
   spies.getBrowserUrl.returns('');
@@ -34,16 +34,19 @@ function createBrowserStub(): [BrowserStubs, BrowserLauncher] {
   spies.startSession.returns(Promise.resolve());
   spies.stopSession.returns(Promise.resolve({}));
   spies.isActive.returns(true);
-  return [spies, {
-    name: 'myBrowser',
-    type: 'myBrowser',
-    stop: spies.stop.handler,
-    getBrowserUrl: spies.getBrowserUrl.handler,
-    startDebugSession: spies.startDebugSession.handler,
-    startSession: spies.startSession.handler,
-    stopSession: spies.stopSession.handler,
-    isActive: spies.isActive.handler
-  }];
+  return [
+    spies,
+    {
+      name: 'myBrowser',
+      type: 'myBrowser',
+      stop: spies.stop.handler,
+      getBrowserUrl: spies.getBrowserUrl.handler,
+      startDebugSession: spies.startDebugSession.handler,
+      startSession: spies.startSession.handler,
+      stopSession: spies.stopSession.handler,
+      isActive: spies.isActive.handler,
+    },
+  ];
 }
 
 const logger: Logger = {

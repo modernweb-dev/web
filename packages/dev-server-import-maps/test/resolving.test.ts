@@ -351,7 +351,7 @@ describe('resolving imports', () => {
       warn: loggerSpies.warn.handler,
       group: loggerSpies.group.handler,
       groupEnd: loggerSpies.groupEnd.handler,
-      logSyntaxError: loggerSpies.logSyntaxError.handler
+      logSyntaxError: loggerSpies.logSyntaxError.handler,
     };
     const { server, host } = await createTestServer(
       {

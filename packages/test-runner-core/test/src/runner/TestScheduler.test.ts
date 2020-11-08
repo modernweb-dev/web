@@ -40,7 +40,7 @@ describe('TestScheduler', () => {
       startSession: hanbi.spy(),
       stopSession: hanbi.spy(),
       isActive: hanbi.spy(),
-      getBrowserUrl: hanbi.spy()
+      getBrowserUrl: hanbi.spy(),
     };
     spies.stop.returns(timeout(1));
     spies.startDebugSession.returns(timeout(1));
@@ -48,16 +48,19 @@ describe('TestScheduler', () => {
     spies.stopSession.returns(timeout(1).then(() => ({ testCoverage: {} })));
     spies.isActive.returns(true);
     spies.getBrowserUrl.returns('');
-    return [spies, {
-      name,
-      type: name,
-      stop: spies.stop.handler,
-      startDebugSession: spies.startDebugSession.handler,
-      startSession: spies.startSession.handler,
-      stopSession: spies.stopSession.handler,
-      isActive: spies.isActive.handler,
-      getBrowserUrl: spies.getBrowserUrl.handler
-    }];
+    return [
+      spies,
+      {
+        name,
+        type: name,
+        stop: spies.stop.handler,
+        startDebugSession: spies.startDebugSession.handler,
+        startSession: spies.startSession.handler,
+        stopSession: spies.stopSession.handler,
+        isActive: spies.isActive.handler,
+        getBrowserUrl: spies.getBrowserUrl.handler,
+      },
+    ];
   }
 
   beforeEach(() => {
@@ -110,9 +113,7 @@ describe('TestScheduler', () => {
     it('when a session goes to status test finished, the browser is stopped and results is stored', async () => {
       const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
       const testCoverage = {};
-      stubs.stopSession.returns(
-        timeout(1).then(() => ({ testCoverage })),
-      );
+      stubs.stopSession.returns(timeout(1).then(() => ({ testCoverage })));
       scheduler.schedule(1, [session1]);
 
       await timeout(2);
@@ -200,9 +201,7 @@ describe('TestScheduler', () => {
 
     it('error while starting browser marks session as failed', async () => {
       const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
-      stubs.startSession.callsFake(() =>
-        Promise.reject(new Error('mock error')),
-      );
+      stubs.startSession.callsFake(() => Promise.reject(new Error('mock error')));
       scheduler.schedule(1, [session1]);
 
       await timeout(4);
@@ -241,9 +240,7 @@ describe('TestScheduler', () => {
 
     it('error while stopping browser marks session as failed', async () => {
       const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
-      stubs.stopSession.callsFake(() =>
-        Promise.reject(new Error('mock error')),
-      );
+      stubs.stopSession.callsFake(() => Promise.reject(new Error('mock error')));
       scheduler.schedule(1, [session1]);
 
       await timeout(2);
@@ -327,7 +324,11 @@ describe('TestScheduler', () => {
       }
 
       const sessionManager = new TestSessionManager([], sessions);
-      const scheduler = new TestScheduler(mockConfig, sessionManager, browsers.map((b) => b[1]));
+      const scheduler = new TestScheduler(
+        mockConfig,
+        sessionManager,
+        browsers.map(b => b[1]),
+      );
       return [scheduler, sessionManager, browsers, sessions];
     }
 
