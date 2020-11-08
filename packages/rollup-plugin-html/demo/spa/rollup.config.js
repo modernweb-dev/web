@@ -5,5 +5,7 @@ module.exports = {
   output: {
     dir: './demo/dist',
   },
-  plugins: [html()],
+  plugins: [html({
+    absoluteBaseUrl: 'http://localhost:8000'
+  })],
 };
