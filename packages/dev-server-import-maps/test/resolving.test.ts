@@ -1,7 +1,7 @@
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
 import { expect } from 'chai';
-import { stub } from 'sinon';
+import { spy } from 'hanbi';
 import path from 'path';
 
 import { importMapsPlugin } from '../src/importMapsPlugin';
@@ -335,14 +335,23 @@ describe('resolving imports', () => {
           </body>
         </html>`,
     };
+    const loggerSpies = {
+      log: spy(),
+      debug: spy(),
+      error: spy(),
+      warn: spy(),
+      group: spy(),
+      groupEnd: spy(),
+      logSyntaxError: spy(),
+    };
     const logger = {
-      log: stub(),
-      debug: stub(),
-      error: stub(),
-      warn: stub(),
-      group: stub(),
-      groupEnd: stub(),
-      logSyntaxError: stub(),
+      log: loggerSpies.log.handler,
+      debug: loggerSpies.debug.handler,
+      error: loggerSpies.error.handler,
+      warn: loggerSpies.warn.handler,
+      group: loggerSpies.group.handler,
+      groupEnd: loggerSpies.groupEnd.handler,
+      logSyntaxError: loggerSpies.logSyntaxError.handler
     };
     const { server, host } = await createTestServer(
       {
@@ -354,8 +363,8 @@ describe('resolving imports', () => {
 
     const text = await fetchText(`${host}/index.html`);
     expectIncludes(text, '<script type="importmap">{</script>');
-    expect(logger.warn.callCount).to.equal(1);
-    const warning = logger.warn.getCall(0).args[0];
+    expect(loggerSpies.warn.callCount).to.equal(1);
+    const warning = loggerSpies.warn.getCall(0).args[0];
     expectIncludes(warning, 'Failed to parse import map in "');
     expectIncludes(warning, `test${path.sep}index.html": Unexpected end of JSON input`);
     server.stop();

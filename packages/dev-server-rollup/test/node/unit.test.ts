@@ -5,7 +5,7 @@ import path from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from './test-helpers';
 import { fromRollup } from '../../src/index';
-import { stub } from 'sinon';
+import { spy } from 'hanbi';
 
 describe('@web/dev-server-rollup', () => {
   describe('resolveId', () => {
@@ -93,14 +93,23 @@ describe('@web/dev-server-rollup', () => {
           return resolvedId;
         },
       };
+      const mockLoggerSpies = {
+        log: spy(),
+        debug: spy(),
+        error: spy(),
+        warn: spy(),
+        group: spy(),
+        groupEnd: spy(),
+        logSyntaxError: spy(),
+      };
       const mockLogger = {
-        log: stub(),
-        debug: stub(),
-        error: stub(),
-        warn: stub(),
-        group: stub(),
-        groupEnd: stub(),
-        logSyntaxError: stub(),
+        log: mockLoggerSpies.log.handler,
+        debug: mockLoggerSpies.debug.handler,
+        error: mockLoggerSpies.error.handler,
+        warn: mockLoggerSpies.warn.handler,
+        group: mockLoggerSpies.group.handler,
+        groupEnd: mockLoggerSpies.groupEnd.handler,
+        logSyntaxError: mockLoggerSpies.logSyntaxError.handler,
       };
       const { server, host } = await createTestServer(
         {
@@ -112,7 +121,7 @@ describe('@web/dev-server-rollup', () => {
       try {
         const response = await fetch(`${host}/app.js`);
         expect(response.status).to.equal(500);
-        expect(mockLogger.logSyntaxError.calledOnce).to.be.true;
+        expect(mockLoggerSpies.logSyntaxError.callCount).to.equal(1);
       } finally {
         server.stop();
       }

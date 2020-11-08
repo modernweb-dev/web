@@ -6738,6 +6738,11 @@ hamljs@^0.6.2:
   resolved "https://registry.yarnpkg.com/hamljs/-/hamljs-0.6.2.tgz#7b7116cf6dbe7278e42b3f6ef8725a33e177c8e3"
   integrity sha1-e3EWz22+cnjkKz9u+HJaM+F3yOM=
 
+hanbi@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/hanbi/-/hanbi-0.4.0.tgz#66144623ad2170e66bae7a537b11547773c23867"
+  integrity sha512-2FR1EGl+xwhB1IGpqZzktpypbJOuwUuSpUY+2ibQK4xmh/pNb/4Liwf+Vx7CAMEVrWEgIruA4V09qxVN/yhrHQ==
+
 handlebars@^4.7.6:
   version "4.7.6"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.7.6.tgz#d4c05c1baf90e9945f77aa68a7a219aa4a7df74e"
