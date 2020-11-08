@@ -105,7 +105,7 @@ export default {
 
 ### Bundling assets
 
-The HTML plugin will bundle assets referenced from `img` and `link` elements in your HTML. The assets are emitted as rollup assets, and the paths are updated to the rollup output paths.
+The HTML plugin will bundle assets referenced from `img` and `link` and social media tag elements in your HTML. The assets are emitted as rollup assets, and the paths are updated to the rollup output paths.
 
 By default rollup will hash the asset filenames, enabling long term caching. You can customize the filename pattern using the [assetFileNames option](https://rollupjs.org/guide/en/#outputassetfilenames) in your rollup config.
 
@@ -205,6 +205,41 @@ export default {
 
 The HTML plugin does not do any minification by default. You can use a transform function to use a minifier for your HTML or assets.
 
+### Social Media Tags
+
+Some social media tags require full absolute URLs (e.g. https://domain.com/guide/).
+By providing an `absoluteBaseUrl` the plugin can make sure all appropriate URLs are processed.
+
+```js
+import html from '@web/rollup-plugin-html';
+
+export default {
+  input: 'index.html',
+  output: { dir: 'dist' },
+  plugins: [
+    html({
+      absoluteBaseUrl: 'https://domain.com',
+    }),
+  ],
+};
+```
+
+The following tags will be processed:
+
+```html
+<!-- FROM -->
+<meta property="og:image" content="./images/image-social.png" />
+<link rel="canonical" href="/guides/" />
+<meta property="og:url" content="/guides/" />
+
+<!-- TO -->
+<meta property="og:image" content="https://domain.com/assets/image-social-xxx.png" />
+<link rel="canonical" href="https://domain.com/guides/" />
+<meta property="og:url" content="https://domain.com/guides/" />
+```
+
+You can disable this behavior by removing the `absoluteBaseUrl` or setting `absoluteSocialMediaUrls` to false.
+
 ## Type definitions
 
 ```ts
@@ -234,6 +269,10 @@ export interface RollupPluginHTMLOptions {
   transformHtml?: TransformHtmlFunction | TransformHtmlFunction[];
   /** Whether to extract and bundle assets referenced in HTML. Defaults to true. */
   extractAssets?: boolean;
+  /** Define a full absolute url to your site (e.g. https://domain.com) */
+  absoluteBaseUrl?: string;
+  /** Whether to set full absolute urls for ['meta[property=og:image]', 'link[rel=canonical]', 'meta[property=og:url]'] or not. Requires a absoluteBaseUrl to be set. Default to true. */
+  absoluteSocialMediaUrls?: boolean;
 }
 
 export interface GeneratedBundle {

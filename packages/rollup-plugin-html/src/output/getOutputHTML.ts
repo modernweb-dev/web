@@ -8,6 +8,7 @@ import {
 import { parse, serialize } from 'parse5';
 import { injectedUpdatedAssetPaths } from './injectedUpdatedAssetPaths';
 import { EmittedAssets } from './emitAssets';
+import { injectAbsoluteBaseUrl } from './injectAbsoluteBaseUrl';
 
 export interface GetOutputHTMLParams {
   input: InputData;
@@ -30,7 +31,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
     defaultInjectDisabled,
   } = params;
   const { default: defaultBundle, ...multiBundles } = entrypointBundles;
-  const rootDir = pluginOptions.rootDir ?? process.cwd();
+  const { absoluteSocialMediaUrls = true, rootDir = process.cwd() } = pluginOptions;
 
   // inject rollup output into HTML
   const document = parse(input.html);
@@ -39,6 +40,9 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
   }
   if (!defaultInjectDisabled) {
     injectBundles(document, entrypointBundles);
+  }
+  if (absoluteSocialMediaUrls && pluginOptions.absoluteBaseUrl) {
+    injectAbsoluteBaseUrl(document, pluginOptions.absoluteBaseUrl);
   }
 
   let outputHtml = serialize(document);
