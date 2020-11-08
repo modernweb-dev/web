@@ -1,4 +1,4 @@
-import chai, { expect } from 'chai';
+import { expect } from 'chai';
 import * as hanbi from 'hanbi';
 
 import { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher';

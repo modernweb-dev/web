@@ -89,7 +89,7 @@ async function createTestRunner(
 }
 
 it('can run a single test file', async () => {
-  const { browser, runner, browserStubs } = await createTestRunner();
+  const { runner, browserStubs } = await createTestRunner();
 
   await runner.start();
   expect(runner.started).to.equal(true, 'runner is started');
@@ -101,7 +101,7 @@ it('can run a single test file', async () => {
 });
 
 it('closes test runner for a successful test', async () => {
-  const { browser, runner, browserStubs } = await createTestRunner();
+  const { runner, browserStubs } = await createTestRunner();
   let resolveStopped: (passed: boolean) => void;
   const stopped = new Promise<boolean>(resolve => {
     resolveStopped = resolve;
@@ -126,7 +126,7 @@ it('closes test runner for a successful test', async () => {
 });
 
 it('closes test runner for a failed test', async () => {
-  const { browser, runner, browserStubs } = await createTestRunner();
+  const { runner, browserStubs } = await createTestRunner();
   let resolveStopped: (passed: boolean) => void;
   const stopped = new Promise<boolean>(resolve => {
     resolveStopped = resolve;
