@@ -12307,16 +12307,17 @@ statuses@~1.4.0:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.4.0.tgz#bb73d446da2796106efcc1b601a253d6c46bd087"
   integrity sha512-zhSCtt8v2NDrRlPQpCNtw/heZLtfUDqxBM1udqikb/Hbk52LK4nQSwr10u77iopCW5LsyHpuXS0GnEc48mLeew==
 
-storybook-addon-markdown-docs@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/storybook-addon-markdown-docs/-/storybook-addon-markdown-docs-1.0.0.tgz#14fad9e066282696254b0d5aac6b71945624c331"
-  integrity sha512-HNM5SiA8LP+qTFUrcTGfspqVCz8RWW0QvyAi9IJNm+hN4+5sV+ASZxQV6+RZxPG8xylogGP+TKrgjifvzG9iHw==
+storybook-addon-markdown-docs@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/storybook-addon-markdown-docs/-/storybook-addon-markdown-docs-1.0.1.tgz#6da1af3ce0f7469043a2e2d8ecb34303e6b92025"
+  integrity sha512-X64qO0IJA/C7S9DP0mkndZ9csDwtbdjCMliRc4THT8BrZrvMb4heQtywSK5T1u8A7duzuAHjTVk2jaUAkwSPrw==
   dependencies:
     "@babel/code-frame" "^7.8.3"
     "@babel/core" "^7.11.1"
     "@babel/generator" "^7.9.6"
     "@babel/parser" "^7.9.6"
     "@babel/plugin-syntax-import-meta" "^7.10.4"
+    "@babel/plugin-transform-react-jsx" "^7.12.5"
     "@mdjs/core" "^0.4.1"
     "@mdx-js/mdx" "^1.6.21"
     detab "^2.0.3"

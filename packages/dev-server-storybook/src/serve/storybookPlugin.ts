@@ -26,7 +26,11 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
     },
 
     resolveMimeType(context) {
-      if (context.path.endsWith('.mdx')) {
+      if (context.URL.searchParams.get('story') !== 'true') {
+        return;
+      }
+
+      if (context.path.endsWith('.mdx') || context.path.endsWith('.md')) {
         return 'js';
       }
     },
