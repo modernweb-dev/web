@@ -1,5 +1,4 @@
 ```js script
-import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
 import { Button } from '../src/Button.js';
 
 export default {
@@ -7,21 +6,31 @@ export default {
   component: 'my-button',
 };
 
-export const Template = args => Button(args);
+const Template = args => Button(args);
 ```
 
 # Button
 
 This is a demo showing the button component
 
-export const Template = args => Button(args);
-
-```js story
+```js preview-story
 export const Primary = Template.bind({});
-Primary.args = {
-  primary: true,
-  label: 'Button',
-};
+Primary.args = { primary: true, label: 'Button' };
+```
+
+```js preview-story
+export const Secondary = Template.bind({});
+Secondary.args = { label: 'Button' };
+```
+
+```js preview-story
+export const Large = Template.bind({});
+Large.args = { size: 'large', label: 'Button' };
+```
+
+```js preview-story
+export const Small = Template.bind({});
+Small.args = { size: 'small', label: 'Button' };
 ```
 
 ## Level 2 heading

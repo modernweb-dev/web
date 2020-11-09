@@ -10,7 +10,7 @@ This is a demo showing the button component
 export const Template = args => Button(args);
 
 <Canvas>
-  <Story name="Unchecked" args={{ primary: true, label: 'Button' }}>
+  <Story name="Primary" args={{ primary: true, label: 'Button' }}>
     {Template.bind({})}
   </Story>
   <Story name="Secondary" args={{ label: 'Button' }}>

@@ -10,6 +10,7 @@ import { StorybookPluginConfig } from '../shared/config/StorybookPluginConfig';
 import { StorybookConfig } from '../shared/config/StorybookConfig';
 
 interface BuildPreviewParams {
+  type: string;
   storybookConfig: StorybookConfig;
   pluginConfig: StorybookPluginConfig;
   outputDir: string;
@@ -17,7 +18,7 @@ interface BuildPreviewParams {
 }
 
 async function buildPreview(params: BuildPreviewParams) {
-  const { storybookConfig, pluginConfig, outputDir, rootDir } = params;
+  const { type, storybookConfig, pluginConfig, outputDir, rootDir } = params;
   const { storyImports, storyFilePaths } = await findStories(
     rootDir,
     storybookConfig.mainJsPath,
@@ -26,6 +27,7 @@ async function buildPreview(params: BuildPreviewParams) {
   const previewHtml = createPreviewHtml(pluginConfig, storybookConfig, rootDir, storyImports);
 
   let config = createRollupConfig({
+    type,
     outputDir,
     indexFilename: 'iframe.html',
     indexHtmlString: previewHtml,
@@ -40,6 +42,7 @@ async function buildPreview(params: BuildPreviewParams) {
 }
 
 interface BuildmanagerParams {
+  type: string;
   storybookConfig: StorybookConfig;
   outputDir: string;
   rootDir: string;
@@ -48,6 +51,7 @@ interface BuildmanagerParams {
 async function buildManager(params: BuildmanagerParams) {
   const managerHtml = createManagerHtml(params.storybookConfig, params.rootDir);
   const config = createRollupConfig({
+    type: params.type,
     outputDir: params.outputDir,
     indexFilename: 'index.html',
     indexHtmlString: managerHtml,
@@ -63,11 +67,11 @@ export interface BuildParams {
 }
 
 export async function build(params: BuildParams) {
-  const { outputDir } = params;
+  const { type, outputDir } = params;
   const rootDir = process.cwd();
   validatePluginConfig(params);
 
   const storybookConfig = readStorybookConfig(params);
-  await buildManager({ outputDir, storybookConfig, rootDir });
-  await buildPreview({ storybookConfig, pluginConfig: params, outputDir, rootDir });
+  await buildManager({ type, outputDir, storybookConfig, rootDir });
+  await buildPreview({ type, storybookConfig, pluginConfig: params, outputDir, rootDir });
 }

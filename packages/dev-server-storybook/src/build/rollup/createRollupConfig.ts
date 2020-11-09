@@ -7,6 +7,7 @@ import polyfillsLoader from '@web/rollup-plugin-polyfills-loader';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import { terser } from 'rollup-plugin-terser';
 import { mdxPlugin } from './mdxPlugin';
+import { mdjsPlugin } from './mdjsPlugin';
 import { injectExportsOrderPlugin } from './injectExportsOrderPlugin';
 
 const prebuiltDir = require
@@ -23,6 +24,7 @@ function onwarn(warning: RollupWarning, warn: (msg: RollupWarning) => void) {
 }
 
 interface CreateRollupConfigParams {
+  type: string;
   outputDir: string;
   indexFilename: string;
   indexHtmlString: string;
@@ -128,6 +130,7 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
     // plugins we need to inject only in the preview
     options.plugins!.unshift(injectExportsOrderPlugin(storyFilePaths));
     options.plugins!.unshift(mdxPlugin());
+    options.plugins!.unshift(mdjsPlugin(params.type));
   }
 
   return options;
