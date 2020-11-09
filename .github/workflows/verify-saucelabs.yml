@@ -1,12 +1,6 @@
 name: Verify Saucelabs
 
-on:
-  # Run the workflow when commits are pushed to the main branch
-  push:
-    branches:
-      - master
-  # Also run when a PR is opened
-  pull_request:
+on: pull_request
 
 jobs:
   verify-saucelabs:
