@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.2.0
+
+### Minor Changes
+
+- 9df3a31: support MDJS stories
+
 ## 0.1.3
 
 ### Patch Changes
