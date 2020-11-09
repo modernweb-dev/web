@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { Context } from 'koa';
 import fetch from 'node-fetch';
-import * as hanbi from 'hanbi';
+import { stubMethod, restore as restoreStubs } from 'hanbi';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { hmrPlugin } from '../src/index';
 import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin';
@@ -18,7 +18,7 @@ const mockFile = (path: string, source: string) => ({
 
 describe('HmrPlugin', () => {
   afterEach(() => {
-    hanbi.restore();
+    restoreStubs();
   });
 
   it('should emit reload for untracked files', async () => {
@@ -35,7 +35,7 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = hanbi.stubMethod(webSockets, 'send');
+    const stub = stubMethod(webSockets, 'send');
     try {
       await fetch(`${host}/foo.js`);
       fileWatcher.emit('change', pathUtil.join(__dirname, '/foo.js'));
@@ -65,7 +65,7 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = hanbi.stubMethod(webSockets, 'send');
+    const stub = stubMethod(webSockets, 'send');
     try {
       await fetch(`${host}/foo.js`);
       fileWatcher.emit('change', pathUtil.join(__dirname, '/foo.js'));
