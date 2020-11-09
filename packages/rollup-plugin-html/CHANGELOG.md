@@ -1,5 +1,27 @@
 # @web/rollup-plugin-html
 
+## 1.3.0
+
+### Minor Changes
+
+- ac2e832: Allow for an `absoluteBaseUrl` setting which will convert absolute URLs to full absolute URLs for the following tags.
+
+  ```html
+  <!-- FROM -->
+  <meta property="og:image" content="./images/image-social.png" />
+  <link rel="canonical" href="/guides/" />
+  <meta property="og:url" content="/guides/" />
+
+  <!-- TO -->
+  <meta property="og:image" content="https://domain.com/assets/image-social-xxx.png" />
+  <link rel="canonical" href="https://domain.com/guides/" />
+  <meta property="og:url" content="https://domain.com/guides/" />
+  ```
+
+### Patch Changes
+
+- de5d396: Identify `<meta property="og:image"` as an asset
+
 ## 1.2.1
 
 ### Patch Changes
