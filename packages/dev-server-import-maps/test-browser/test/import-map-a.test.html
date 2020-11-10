@@ -14,12 +14,12 @@
       import { runTests } from '@web/test-runner-mocha';
       import { expect } from '@esm-bundle/chai';
       import { sendMessage } from '../src/sendMessage.js';
-      import { postData, __importMeta } from '../src/postData.js';
+      import { postData, __postDataSpy __importMeta } from '../src/postData.js';
 
       runTests(() => {
         describe('sendMessage()', () => {
           beforeEach(() => {
-            postData.reset();
+            __postDataSpy.reset();
           });
 
           it('serves a mocked module', () => {
@@ -30,14 +30,14 @@
 
           it('calls postData with message a', async () => {
             await sendMessage('a');
-            expect(postData.callCount).to.equal(1);
-            expect(postData.getCall(0).args).to.eql(['message', { message: 'a' }]);
+            expect(__postDataSpy.callCount).to.equal(1);
+            expect(__postDataSpy.getCall(0).args).to.eql(['message', { message: 'a' }]);
           });
 
           it('calls postData with message b', async () => {
             await sendMessage('b');
-            expect(postData.callCount).to.equal(1);
-            expect(postData.getCall(0).args).to.eql(['message', { message: 'b' }]);
+            expect(__postDataSpy.callCount).to.equal(1);
+            expect(__postDataSpy.getCall(0).args).to.eql(['message', { message: 'b' }]);
           });
         });
       });
