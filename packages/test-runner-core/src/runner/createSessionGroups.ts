@@ -66,17 +66,17 @@ export function createTestSessions(
 
   for (const group of groups) {
     const baseDir = group.configFilePath ? path.dirname(group.configFilePath) : process.cwd();
-    const testFilesForGroup = collectTestFiles(group.files, baseDir);
+    const testFilesForGroup = collectTestFiles(group.files, baseDir)
+      // Normalize file path because glob returns windows paths with forward slashes:
+      // C:/foo/bar -> C:\foo\bar
+      .map(testFile => path.normalize(testFile));
 
     if (testFilesForGroup.length === 0) {
       throw new Error(`Could not find any test files with pattern(s): ${group.files}`);
     }
 
     for (const file of testFilesForGroup) {
-      // Normalize file path because glob returns windows paths with forward slashes:
-      // C:/foo/bar -> C:\foo\bar
-      const normalizedFile = path.normalize(file);
-      testFiles.add(normalizedFile);
+      testFiles.add(file);
     }
 
     const sessionGroup: TestSessionGroup = {
