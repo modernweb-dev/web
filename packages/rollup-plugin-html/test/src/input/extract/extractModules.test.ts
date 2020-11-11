@@ -147,4 +147,26 @@ describe('extractModules()', () => {
       '<html><head></head><body><div>before</div><div>after</div></body></html>',
     );
   });
+
+  it('ignores absolute paths', () => {
+    const document = parse(
+      '<div>before</div>' +
+        '<script type="module" src="https://www.my-cdn.com/foo.js"></script>' +
+        '<script type="module" src="/bar.js"></script>' +
+        '<div>after</div>',
+    );
+
+    const { moduleImports, inlineModules } = extractModules({
+      document,
+      htmlDir: '/',
+      rootDir: '/',
+    });
+    const htmlWithoutModules = serialize(document);
+
+    expect(inlineModules.size).to.equal(0);
+    expect(moduleImports).to.eql([`${sep}bar.js`]);
+    expect(htmlWithoutModules).to.eql(
+      '<html><head></head><body><div>before</div><script type="module" src="https://www.my-cdn.com/foo.js"></script><div>after</div></body></html>',
+    );
+  });
 });
