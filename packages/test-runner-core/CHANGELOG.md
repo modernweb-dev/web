@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.8.8
+
+### Patch Changes
+
+- 4bbaa21: use consistent paths on windows
+
 ## 0.8.7
 
 ### Patch Changes
