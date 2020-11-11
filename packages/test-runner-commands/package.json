@@ -43,7 +43,7 @@
   "devDependencies": {
     "@web/test-runner-chrome": "^0.7.2",
     "@web/test-runner-playwright": "^0.6.4",
-    "mocha": "^8.1.1"
+    "mocha": "^8.2.1"
   },
   "exports": {
     ".": "./browser/commands.mjs",

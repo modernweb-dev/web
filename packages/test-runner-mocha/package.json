@@ -35,11 +35,11 @@
     "framework"
   ],
   "dependencies": {
-    "@types/mocha": "^8.0.1",
+    "@types/mocha": "^8.0.4",
     "@web/test-runner-core": "^0.8.4"
   },
   "devDependencies": {
     "clean-css": "^4.2.3",
-    "mocha": "^8.1.1"
+    "mocha": "^8.2.1"
   }
 }
