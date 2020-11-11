@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.9.8
+
+### Patch Changes
+
+- 4bbaa21: use consistent paths on windows
+- Updated dependencies [4bbaa21]
+  - @web/test-runner-core@0.8.8
+
 ## 0.9.7
 
 ### Patch Changes
