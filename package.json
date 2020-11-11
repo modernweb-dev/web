@@ -48,7 +48,7 @@
     "@types/sinon": "^9.0.4",
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",
-    "alex": "^8.1.1",
+    "alex": "^8.2.0",
     "chai": "^4.2.0",
     "concurrently": "^5.2.0",
     "deepmerge": "^4.2.2",

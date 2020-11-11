@@ -3258,7 +3258,7 @@ ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-alex@^8.1.1:
+alex@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/alex/-/alex-8.2.0.tgz#d14c0598a855605cc88635623111f54b087432aa"
   integrity sha512-aJX/ZkyGruiXKr26NJkbrYd+Quc8i0cP7B7b9TIX2AoLxHsV+0SJ0ca+26h8sw63LyrWQMkT7lZQlvMMOBKxqA==
