@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 1.3.1
+
+### Patch Changes
+
+- 53ba8db: ignore scripts with absolute paths
+
 ## 1.3.0
 
 ### Minor Changes
