@@ -42,7 +42,7 @@
     "@changesets/cli": "^2.9.2",
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-typescript": "^5.0.2",
-    "@types/chai": "^4.2.11",
+    "@types/chai": "^4.2.14",
     "@types/mocha": "^8.0.01",
     "@types/node": "^14.6.0",
     "@types/sinon": "^9.0.4",
