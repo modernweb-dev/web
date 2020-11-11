@@ -14,6 +14,15 @@ function createContentHash(content: string) {
   return crypto.createHash('md4').update(content).digest('hex');
 }
 
+function isAbsolute(src: string) {
+  try {
+    new URL(src);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export function extractModules(params: ExtractModulesParams) {
   const { document, htmlDir, rootDir } = params;
   const scriptNodes = findElements(
@@ -34,13 +43,15 @@ export function extractModules(params: ExtractModulesParams) {
       // we make it unique with a content hash, so that duplicate modules are deduplicated
       const importPath = path.posix.join(htmlDir, `/inline-module-${createContentHash(code)}.js`);
       inlineModules.set(importPath, code);
+      remove(scriptNode);
     } else {
-      // external script <script type="module" src="./foo.js"></script>
-      const importPath = resolveAssetFilePath(src, htmlDir, rootDir);
-      moduleImports.push(importPath);
+      if (!isAbsolute(src)) {
+        // external script <script type="module" src="./foo.js"></script>
+        const importPath = resolveAssetFilePath(src, htmlDir, rootDir);
+        moduleImports.push(importPath);
+        remove(scriptNode);
+      }
     }
-
-    remove(scriptNode);
   }
 
   return { moduleImports, inlineModules };
