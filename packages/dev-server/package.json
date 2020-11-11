@@ -67,7 +67,7 @@
     "portfinder": "^1.0.27"
   },
   "devDependencies": {
-    "lit-html": "^1.2.1",
+    "lit-html": "^1.3.0",
     "puppeteer": "^5.2.1"
   },
   "exports": {
