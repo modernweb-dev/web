@@ -9778,10 +9778,10 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-playwright@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.4.2.tgz#84dac641ff7af9f465e367e01fde8a8f1cc274bf"
-  integrity sha512-qiQHrhU4JBxup9JoGZff6hdFL2VrD+ae5QLELGHwRq/vYNQFeJF10Z3ENnQ6hWJmG+YnpfzgoBvX+cUg4WHwTw==
+playwright@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.6.0.tgz#e73b23562f899be618d4b9d204cdb259e550f831"
+  integrity sha512-fzKoIfIa98ffGnxTHoUgcb+iDPGkJF1OCJEL8in9NbDIyuEjed+gTlIn9X9qWi+RuEOJqrJw8bsG7Yi+dghgrw==
   dependencies:
     debug "^4.1.1"
     extract-zip "^2.0.1"
@@ -9790,6 +9790,7 @@ playwright@^1.4.2:
     mime "^2.4.6"
     pngjs "^5.0.0"
     progress "^2.0.3"
+    proper-lockfile "^4.1.1"
     proxy-from-env "^1.1.0"
     rimraf "^3.0.2"
     ws "^7.3.1"
@@ -10338,6 +10339,15 @@ promise@^7.0.1:
   integrity sha512-nolQXZ/4L+bP/UGlkfaIujX9BKxGwmQ9OT4mOt5yvy8iK1h3wqTEJCijzGANTCCl9nWjY41juyAn2K3Q1hLLTg==
   dependencies:
     asap "~2.0.3"
+
+proper-lockfile@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/proper-lockfile/-/proper-lockfile-4.1.1.tgz#284cf9db9e30a90e647afad69deb7cb06881262c"
+  integrity sha512-1w6rxXodisVpn7QYvLk706mzprPTAPCYAqxMvctmPN3ekuRk/kuGkGc82pangZiAt4R3lwSuUzheTTn0/Yb7Zg==
+  dependencies:
+    graceful-fs "^4.1.11"
+    retry "^0.12.0"
+    signal-exit "^3.0.2"
 
 property-information@^5.0.0, property-information@^5.2.0, property-information@^5.3.0:
   version "5.5.0"
@@ -11521,6 +11531,11 @@ retext-profanities@~5.0.0:
     object-keys "^1.0.9"
     pluralize "^8.0.0"
     quotation "^1.0.0"
+
+retry@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/retry/-/retry-0.12.0.tgz#1b42a6266a21f07421d1b0b54b7dc167b01c013b"
+  integrity sha1-G0KmJmoh8HQh0bC1S33BZ7AcATs=
 
 reusify@^1.0.4:
   version "1.0.4"
