@@ -88,7 +88,7 @@ export class HotModule {
         Promise.resolve(handler.callback),
         Promise.all(handler.deps.map((path) => import(\`\${path}?m=\${time}\`)))
       ]);
-    ));
+    }));
 
     for (const [callback, modules] of results) {
       if (callback) {
