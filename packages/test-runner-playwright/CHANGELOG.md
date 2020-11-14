@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.6.5
+
+### Patch Changes
+
+- 72b6bd0: update to playwright 1.6.x
+
 ## 0.6.4
 
 ### Patch Changes
