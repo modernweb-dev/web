@@ -20,6 +20,7 @@ The test runner can be configured using CLI flags, or with a configuration file.
 | group               | string       | runs tests only for the test group with this name                                                                     |
 | concurrent-browsers | number       | amount of browsers to run concurrently. defaults to 2                                                                 |
 | concurrency         | number       | amount of test files to run concurrently. default to CPU cores divided by 2                                           |
+| debug               | boolean      | whether to print debug messages                                                                                       |
 
 Examples:
 

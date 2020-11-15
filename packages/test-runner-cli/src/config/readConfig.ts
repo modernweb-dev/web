@@ -62,7 +62,7 @@ export async function readConfig<T extends TestRunnerCoreConfig & { config?: str
     };
 
     if (!config.logger) {
-      config.logger = new TestRunnerLogger();
+      config.logger = new TestRunnerLogger(!!cliArgsConfig.debug);
     }
 
     if (typeof config.rootDir === 'string') {
