@@ -1,10 +1,11 @@
 import { Middleware } from 'koa';
+import { Logger } from '../logger/Logger';
 import { Plugin } from '../Plugin';
 
 /**
  * Sets up a middleware which allows plugins to resolve the mime type.
  */
-export function pluginMimeTypeMiddleware(plugins: Plugin[]): Middleware {
+export function pluginMimeTypeMiddleware(logger: Logger, plugins: Plugin[]): Middleware {
   const mimeTypePlugins = plugins.filter(p => 'resolveMimeType' in p);
   if (mimeTypePlugins.length === 0) {
     // nothing to transform
@@ -22,6 +23,7 @@ export function pluginMimeTypeMiddleware(plugins: Plugin[]): Middleware {
       const result = await plugin.resolveMimeType?.(context);
       const type = typeof result === 'object' ? result.type : result;
       if (type) {
+        logger.debug(`Plugin ${plugin.name} resolved mime type of ${context.path} to ${type}`);
         context.type = type;
       }
     }

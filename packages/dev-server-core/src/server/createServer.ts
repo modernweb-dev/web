@@ -25,10 +25,10 @@ function httpsRedirect(req: IncomingMessage, res: ServerResponse) {
  * Creates a koa server with middlewares, but does not start it. Returns the koa app and
  * http server instances.
  */
-export function createServer(cfg: DevServerCoreConfig, logger: Logger, fileWatcher: FSWatcher) {
+export function createServer(logger: Logger, cfg: DevServerCoreConfig, fileWatcher: FSWatcher) {
   const app = new Koa();
 
-  addPlugins(cfg);
+  addPlugins(logger, cfg);
 
   // special case the legacy plugin, if it is given make sure the resolve module imports plugin
   // runs before the legacy plugin because it compiles away module syntax. ideally we have a

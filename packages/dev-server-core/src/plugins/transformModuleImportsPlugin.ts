@@ -8,6 +8,7 @@ import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 import { Plugin } from '../Plugin';
 import { PluginSyntaxError } from '../logger/PluginSyntaxError';
 import { toFilePath } from '../utils';
+import { Logger } from '../logger/Logger';
 
 export type ResolveImport = (
   source: string,
@@ -182,6 +183,7 @@ export async function transformImports(
 }
 
 async function transformModuleImportsWithPlugins(
+  logger: Logger,
   context: Context,
   jsCode: string,
   rootDir: string,
@@ -193,10 +195,16 @@ async function transformModuleImportsWithPlugins(
     for (const plugin of resolvePlugins) {
       const resolved = await plugin.resolveImport?.({ source, context, code, column, line });
       if (typeof resolved === 'string') {
+        logger.debug(
+          `Plugin ${plugin.name} resolved import ${source} in ${context.path} to ${resolved}.`,
+        );
         return resolved;
       }
 
       if (typeof resolved === 'object') {
+        logger.debug(
+          `Plugin ${plugin.name} resolved import ${source} in ${context.path} to ${resolved.id}.`,
+        );
         return resolved.id;
       }
     }
@@ -212,10 +220,16 @@ async function transformModuleImportsWithPlugins(
         line,
       });
       if (typeof resolved === 'string') {
+        logger.debug(
+          `Plugin ${plugin.name} transformed import ${resolvedImport} in ${context.path} to ${resolved}.`,
+        );
         resolvedImport = resolved;
       }
 
       if (typeof resolved === 'object' && typeof resolved.id === 'string') {
+        logger.debug(
+          `Plugin ${plugin.name} transformed import ${resolvedImport} in ${context.path} to ${resolved.id}.`,
+        );
         resolvedImport = resolved.id;
       }
     }
@@ -225,7 +239,11 @@ async function transformModuleImportsWithPlugins(
   return transformImports(jsCode, filePath, transformImport);
 }
 
-export function transformModuleImportsPlugin(plugins: Plugin[], rootDir: string): Plugin {
+export function transformModuleImportsPlugin(
+  logger: Logger,
+  plugins: Plugin[],
+  rootDir: string,
+): Plugin {
   const importPlugins = plugins.filter(pl => !!pl.resolveImport || !!pl.transformImport);
 
   return {
@@ -238,6 +256,7 @@ export function transformModuleImportsPlugin(plugins: Plugin[], rootDir: string)
       // resolve served js code
       if (context.response.is('js')) {
         const bodyWithResolvedImports = await transformModuleImportsWithPlugins(
+          logger,
           context,
           context.body,
           rootDir,
@@ -262,6 +281,7 @@ export function transformModuleImportsPlugin(plugins: Plugin[], rootDir: string)
         for (const node of inlineModuleNodes) {
           const code = getTextContent(node);
           const resolvedCode = await transformModuleImportsWithPlugins(
+            logger,
             context,
             code,
             rootDir,

@@ -10,8 +10,8 @@ import { Logger } from '../logger/Logger';
  * Sets up a middleware which allows plugins to transform files before they are served to the browser.
  */
 export function pluginTransformMiddleware(
-  config: DevServerCoreConfig,
   logger: Logger,
+  config: DevServerCoreConfig,
   fileWatcher: FSWatcher,
 ): Middleware {
   const cache = new PluginTransformCache(fileWatcher, config.rootDir);
@@ -59,6 +59,7 @@ export function pluginTransformMiddleware(
           if (result.body != null) {
             context.body = result.body;
             transformedCode = true;
+            logger.debug(`Plugin ${plugin.name} transformed ${context.path}.`);
           }
 
           if (result.headers) {
@@ -69,6 +70,7 @@ export function pluginTransformMiddleware(
         } else if (typeof result === 'string') {
           context.body = result;
           transformedCode = true;
+          logger.debug(`Plugin ${plugin.name} transformed ${context.path}.`);
         }
       }
 
