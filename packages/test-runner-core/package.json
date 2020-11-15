@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-core",
-  "version": "0.8.9",
+  "version": "0.8.10",
   "publishConfig": {
     "access": "public"
   },
@@ -40,7 +40,7 @@
   ],
   "dependencies": {
     "@babel/code-frame": "^7.10.4",
-    "@web/browser-logs": "^0.1.3",
+    "@web/browser-logs": "^0.1.5",
     "@web/dev-server-core": "^0.2.11",
     "co-body": "^6.0.0",
     "debounce": "^1.2.0",
