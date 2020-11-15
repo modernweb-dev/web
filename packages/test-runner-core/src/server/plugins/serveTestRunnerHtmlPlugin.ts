@@ -28,7 +28,9 @@ const iframeModePage = `
 
 async function getManualListItem(config: TestRunnerCoreConfig, context: Context, testFile: string) {
   const testImportPath = await createTestFileImportPath(config, context, testFile);
-  return `<li><a href="/?${PARAM_TEST_FILE}=${testImportPath}">${testImportPath}</a></li>`;
+  const testImportWithoutParams = testImportPath.split('?')[0];
+  const href = `/?${PARAM_TEST_FILE}=${encodeURIComponent(testImportPath)}`;
+  return `<li><a href="${href}">${testImportWithoutParams}</a></li>`;
 }
 
 async function createManualDebugPage(
