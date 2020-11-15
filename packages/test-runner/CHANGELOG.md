@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.9.9
+
+### Patch Changes
+
+- 0f0d474: track manual test session imports
+- Updated dependencies [0f0d474]
+  - @web/test-runner-cli@0.6.10
+  - @web/test-runner-core@0.8.9
+
 ## 0.9.8
 
 ### Patch Changes

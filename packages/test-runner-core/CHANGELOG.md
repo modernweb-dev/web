@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.8.9
+
+### Patch Changes
+
+- 0f0d474: track manual test session imports
+
 ## 0.8.8
 
 ### Patch Changes
