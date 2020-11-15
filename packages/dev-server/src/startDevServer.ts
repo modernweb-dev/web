@@ -62,8 +62,7 @@ export async function startDevServer(options: StartDevServerParams = {}) {
     const config = await parseConfig(mergedConfig, cliArgs);
 
     const { logger, loggerPlugin } = createLogger({
-      // TODO: read debug
-      debugLogging: false,
+      debugLogging: !!config.debug,
       clearTerminalOnReload: !!config.watch && !!config.clearTerminalOnReload,
       logStartMessage: !!logStartMessage,
     });

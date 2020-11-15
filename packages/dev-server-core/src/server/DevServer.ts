@@ -23,7 +23,7 @@ export class DevServer {
     if (!config) throw new Error('Missing config.');
     if (!logger) throw new Error('Missing logger.');
 
-    const createResult = createServer(this.config, this.logger, this.fileWatcher);
+    const createResult = createServer(this.logger, this.config, this.fileWatcher);
     this.koaApp = createResult.app;
     this.server = createResult.server;
     this.webSockets = new WebSocketsManager(this.server);

@@ -54,9 +54,9 @@ export function createMiddleware(
     middlewares.push(historyApiFallbackMiddleware(config.appIndex, config.rootDir, logger));
   }
 
-  middlewares.push(pluginTransformMiddleware(config, logger, fileWatcher));
-  middlewares.push(pluginMimeTypeMiddleware(config.plugins ?? []));
-  middlewares.push(pluginServeMiddleware(config.plugins ?? []));
+  middlewares.push(pluginTransformMiddleware(logger, config, fileWatcher));
+  middlewares.push(pluginMimeTypeMiddleware(logger, config.plugins ?? []));
+  middlewares.push(pluginServeMiddleware(logger, config.plugins ?? []));
 
   // serve static files
   middlewares.push(

@@ -28,4 +28,8 @@ export interface DevServerConfig extends DevServerCoreConfig {
    * If the `appIndex` option is set, setting `open` to true will use the app index value as open path.
    */
   open?: 'string' | boolean;
+  /**
+   * Whether to log debug messages.
+   */
+  debug?: boolean;
 }

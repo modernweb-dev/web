@@ -14,6 +14,8 @@ The dev server can be configured using CLI flags, or with a configuration file.
 | esbuild-target    | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent |
 | preserve-symlinks | boolean      | preserve symlinks when resolving imports                                                                             |
 | config            | object       | where to read the config from                                                                                        |
+| debug             | boolean      | whether to log debug messages                                                                                        |
+| help              | boolean      | List all possible commands                                                                                           |
 
 Examples:
 
@@ -95,6 +97,10 @@ interface DevServerConfig {
   // the root directory to serve files from. this is useful in a monorepo
   // when executing commands from a package
   rootDir?: string;
+  /**
+   * Whether to log debug messages.
+   */
+  debug?: boolean;
 
   // files to serve with a different mime type
   mimeTypes?: MimeTypeMappings;
