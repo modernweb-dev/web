@@ -1,11 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 
-const serializeScript = fs.readFileSync(path.resolve(__dirname, 'serialize.js'), 'utf-8');
-const logUncaughtErrorsScript = fs.readFileSync(
-  path.resolve(__dirname, 'logUncaughtErrors.js'),
-  'utf-8',
-);
+const REGEXP_SOURCE_MAP = /\/\/# sourceMappingURL=.*/;
+
+const serializeScript = fs
+  .readFileSync(path.resolve(__dirname, 'serialize.js'), 'utf-8')
+  .replace(REGEXP_SOURCE_MAP, '');
+const logUncaughtErrorsScript = fs
+  .readFileSync(path.resolve(__dirname, 'logUncaughtErrors.js'), 'utf-8')
+  .replace(REGEXP_SOURCE_MAP, '');
 
 /**
  * Create the browser script. This project is compiled as CJS because it also needs to run in node, so
