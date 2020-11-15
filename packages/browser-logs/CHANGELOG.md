@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.1.5
+
+### Patch Changes
+
+- 3b1a6cc: remove sourcemap URL from scripts
+
 ## 0.1.4
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @web/test-runner-core
 
+## 0.8.10
+
+### Patch Changes
+
+- 931fde9: clean up displayed test file path
+- Updated dependencies [3b1a6cc]
+  - @web/browser-logs@0.1.5
+
 ## 0.8.9
 
 ### Patch Changes
