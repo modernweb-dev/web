@@ -1,7 +1,7 @@
 import path from 'path';
 import { Context } from '@web/dev-server-core';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { PARAM_SESSION_ID } from '../utils/constants';
+import { PARAM_SESSION_ID, PARAM_MANUAL_SESSION } from '../utils/constants';
 
 const toBrowserPathRegExp = new RegExp(path.sep === '\\' ? '\\\\' : path.sep, 'g');
 const toFilePathRegeExp = new RegExp('/', 'g');
@@ -23,7 +23,7 @@ export async function createTestFileImportPath(
   const fullFilePath = path.resolve(filePath);
   const relativeToRootDir = path.relative(config.rootDir, fullFilePath);
   const browserPath = `/${toBrowserPath(relativeToRootDir)}`;
-  const params = sessionId ? `?${PARAM_SESSION_ID}=${sessionId}` : '';
+  const params = sessionId ? `?${PARAM_SESSION_ID}=${sessionId}` : `?${PARAM_MANUAL_SESSION}=true`;
   let importPath = encodeURI(`${browserPath}${params}`);
 
   // allow plugins to transform the import path

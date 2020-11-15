@@ -1,4 +1,4 @@
-import { PARAM_SESSION_ID } from './constants';
+import { PARAM_MANUAL_SESSION, PARAM_SESSION_ID } from './constants';
 
 /**
  * Returns where a given path points to a test file. This should be
@@ -8,5 +8,5 @@ import { PARAM_SESSION_ID } from './constants';
 export function isTestFilePath(path: string) {
   // create a URL with a dummy domain
   const url = new URL(path, 'http://localhost:123');
-  return url.searchParams.has(PARAM_SESSION_ID);
+  return url.searchParams.has(PARAM_SESSION_ID) || url.searchParams.has(PARAM_MANUAL_SESSION);
 }
