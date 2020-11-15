@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.6.11
+
+### Patch Changes
+
+- 8da3fe0: add debug option
+
 ## 0.6.10
 
 ### Patch Changes

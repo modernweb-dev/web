@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.0.20
+
+### Patch Changes
+
+- b025992: add debug logging flag
+- Updated dependencies [b025992]
+  - @web/dev-server-core@0.2.16
+
 ## 0.0.19
 
 ### Patch Changes
