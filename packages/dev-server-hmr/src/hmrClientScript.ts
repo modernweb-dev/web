@@ -24,23 +24,27 @@ export class HotModule {
     this[moduleState] = HmrState.None;
   }
 
-  accept(deps, callback) {
+  acceptDeps(deps, callback) {
     if (this[moduleState] === HmrState.Accepted) {
       return;
     }
 
     sendMessage({ type: 'hmr:accept', id: this.id });
     this[moduleState] = HmrState.Accepted;
-
-    if (!callback) {
-      callback = deps;
-      deps = [];
-    }
-
-    this[acceptHandlers].add([
+    this[acceptHandlers].add({
       deps,
       callback
-    ]);
+    });
+  }
+
+  accept(callback) {
+    if (this[moduleState] === HmrState.Accepted) {
+      return;
+    }
+
+    sendMessage({ type: 'hmr:accept', id: this.id });
+    this[moduleState] = HmrState.Accepted;
+    this[acceptHandlers].add(callback ?? () => {});
   }
 
   dispose(handler) {
@@ -73,16 +77,22 @@ export class HotModule {
 
     const time = Date.now();
     const handlers = [...this[acceptHandlers]];
-    const results = await Promise.all(handlers.map(([depPaths, callback]) =>
-      Promise.all([
-        Promise.resolve(callback),
-        import(\`\${this.id}?m=\${time}\`),
-        ...depPaths.map((path) => import(\`\${path}?m=\${time}\`))
-    ])));
+    const results = await Promise.all(handlers.map((handler) => {
+      if (typeof handler === 'function') {
+        return Promise.all([
+          Promise.resolve(handler),
+          import(\`\${this.id}?m=\${time}\`)
+        ]);
+      }
+      return Promise.all([
+        Promise.resolve(handler.callback),
+        Promise.all(handler.deps.map((path) => import(\`\${path}?m=\${time}\`)))
+      ]);
+    }));
 
-    for (const [callback, module, ...deps] of results) {
+    for (const [callback, modules] of results) {
       if (callback) {
-        callback({deps, module});
+        callback(modules);
       }
     }
   }

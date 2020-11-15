@@ -56,7 +56,7 @@ export let add = (a, b) => {
 };
 
 if (import.meta.hot) {
-  import.meta.hot.accept(({ module }) => {
+  import.meta.hot.accept(module => {
     add = module.add;
   });
 }
@@ -103,7 +103,7 @@ window.someGlobal = 303;
 import.meta.hot.accept();
 ```
 
-### `import.meta.hot.accept(({ module }) => { ... })`
+### `import.meta.hot.accept((module) => { ... })`
 
 If you pass a callback to `accept`, it will be passed the updated module
 any time an update occurs.
@@ -115,12 +115,12 @@ Example:
 
 ```ts
 export let foo = 808;
-import.meta.hot.accept(({ module }) => {
+import.meta.hot.accept(module => {
   foo = module.foo;
 });
 ```
 
-### `import.meta.hot.accept(['./dep1.js', './dep2.js'], ({ deps, module }) => { ... })`
+### `import.meta.hot.acceptDeps(['./dep1.js', './dep2.js'], ([dep1, dep2]) => { ... })`
 
 If you specify a list of dependencies as well as a callback, your callback
 will be provided with the up-to-date version of each of those modules.
@@ -135,7 +135,7 @@ import { add } from './add.js';
 
 export let foo = add(10, 10);
 
-import.meta.hot.accept(['./add.js'], ({ deps, module }) => {
+import.meta.hot.acceptDeps(['./add.js'], deps => {
   foo = deps[0].add(10, 10);
 });
 ```
@@ -150,7 +150,7 @@ Example:
 ```ts
 export let foo = 303;
 
-import.meta.hot.accept(({ module }) => {
+import.meta.hot.accept(module => {
   if (!module.foo) {
     import.meta.hot.invalidate();
   } else {
@@ -187,7 +187,7 @@ export let foo = new Server();
 
 foo.start();
 
-import.meta.hot.accept(({ module }) => {
+import.meta.hot.accept(module => {
   foo = module.foo;
   foo.start();
 });
