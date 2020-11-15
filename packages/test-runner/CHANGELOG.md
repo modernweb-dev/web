@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.9.10
+
+### Patch Changes
+
+- 8da3fe0: add debug option
+- Updated dependencies [8da3fe0]
+  - @web/test-runner-cli@0.6.11
+
 ## 0.9.9
 
 ### Patch Changes
