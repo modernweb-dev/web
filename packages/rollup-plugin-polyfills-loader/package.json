@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@web/rollup-plugin-html": "^1.2.0",
-    "rollup": "^2.33.1"
+    "rollup": "^2.33.2"
   },
   "exports": {
     ".": {
