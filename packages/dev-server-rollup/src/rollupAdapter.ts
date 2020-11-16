@@ -17,7 +17,7 @@ import {
   setTextContent,
 } from '@web/dev-server-core/dist/dom5';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
-import { Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
+import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';
 import { red, cyanBright } from 'chalk';
 
@@ -63,10 +63,22 @@ export function rollupAdapter(
   }
 
   const transformedFiles = new Set();
+  const pluginMetaPerModule = new Map<string, CustomPluginOptions>();
   let rollupPluginContexts: RollupPluginContexts;
   let fileWatcher: FSWatcher;
   let config: DevServerCoreConfig;
   let rootDir: string;
+
+  function savePluginMeta(
+    id: string,
+    { meta }: { meta?: CustomPluginOptions | null | undefined } = {},
+  ) {
+    if (!meta) {
+      return;
+    }
+    const previousMeta = pluginMetaPerModule.get(id);
+    pluginMetaPerModule.set(id, { ...previousMeta, ...meta });
+  }
 
   const wdsPlugin: WdsPlugin = {
     name: rollupPlugin.name,
@@ -107,6 +119,7 @@ export function rollupAdapter(
           config,
           fileWatcher,
           context,
+          pluginMetaPerModule,
         );
 
         let resolvableImport = source;
@@ -133,6 +146,7 @@ export function rollupAdapter(
           resolvedImportPath = result;
         } else if (typeof result === 'object' && typeof result?.id === 'string') {
           resolvedImportPath = result.id;
+          savePluginMeta(result.id, result);
         }
 
         if (!resolvedImportPath) {
@@ -216,6 +230,7 @@ export function rollupAdapter(
           config,
           fileWatcher,
           context,
+          pluginMetaPerModule,
         );
 
         const result = await rollupPlugin.load?.call(rollupPluginContext, filePath);
@@ -224,6 +239,7 @@ export function rollupAdapter(
           return { body: result, type: 'js' };
         }
         if (typeof result?.code === 'string') {
+          savePluginMeta(filePath, result);
           return { body: result.code, type: 'js' };
         }
       } catch (error) {
@@ -247,6 +263,7 @@ export function rollupAdapter(
             config,
             fileWatcher,
             context,
+            pluginMetaPerModule,
           );
 
           const result = await rollupPlugin.transform?.call(
@@ -261,6 +278,7 @@ export function rollupAdapter(
           }
 
           if (typeof result === 'object' && typeof result?.code === 'string') {
+            savePluginMeta(filePath, result);
             transformedCode = result.code;
           }
 
@@ -297,6 +315,7 @@ export function rollupAdapter(
               config,
               fileWatcher,
               context,
+              pluginMetaPerModule,
             );
 
             const result = await rollupPlugin.transform?.call(
@@ -311,6 +330,7 @@ export function rollupAdapter(
             }
 
             if (typeof result === 'object' && typeof result?.code === 'string') {
+              savePluginMeta(filePath, result);
               transformedCode = result.code;
             }
 
@@ -328,6 +348,25 @@ export function rollupAdapter(
           throw wrapRollupError(filePath, context, error);
         }
       }
+    },
+
+    fileParsed(context) {
+      if (!rollupPlugin.moduleParsed) {
+        return;
+      }
+
+      const rollupPluginContext = createRollupPluginContextAdapter(
+        rollupPluginContexts.transformPluginContext,
+        wdsPlugin,
+        config,
+        fileWatcher,
+        context,
+        pluginMetaPerModule,
+      );
+      const filePath = getRequestFilePath(context, rootDir);
+      const info = rollupPluginContext.getModuleInfo(filePath);
+      if (!info) throw new Error(`Missing info for module ${filePath}`);
+      rollupPlugin.moduleParsed?.call(rollupPluginContext as TransformPluginContext, info);
     },
   };
 

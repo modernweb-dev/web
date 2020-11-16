@@ -93,7 +93,10 @@ module.exports.lorem = lorem;`;
       expectIncludes(text, 'module.exports.foo = foo;');
       expectIncludes(text, "const lorem = 'ipsum';");
       expectIncludes(text, 'module.exports.lorem = lorem;');
-      expectIncludes(text, 'export default /*@__PURE__*/commonjsHelpers.unwrapExports(foo_1);');
+      expectIncludes(
+        text,
+        'export default /*@__PURE__*/commonjsHelpers.getDefaultExportFromCjs(foo_1);',
+      );
     } finally {
       server.stop();
     }
@@ -132,7 +135,10 @@ exports.default = _default;`;
       expectIncludes(text, 'exports.default = void 0;');
       expectIncludes(text, "var _default = 'foo';");
       expectIncludes(text, 'exports.default = _default;');
-      expectIncludes(text, 'export default /*@__PURE__*/commonjsHelpers.unwrapExports(foo);');
+      expectIncludes(
+        text,
+        'export default /*@__PURE__*/commonjsHelpers.getDefaultExportFromCjs(foo);',
+      );
     } finally {
       server.stop();
     }
