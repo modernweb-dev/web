@@ -1774,10 +1774,10 @@
     dependency-graph "^0.8.1"
     sax-wasm "^1.4.5"
 
-"@d4kmor/launch@^0.4.10":
-  version "0.4.10"
-  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.4.10.tgz#4f15cfcd45cd400638d4ebec0a9c59513629aaed"
-  integrity sha512-vk7d0x2VQYgGaIn+PNUBHvYawT48dgP4oCb6E4bL9lyfWTyUOgEv5hWpNyWs53m7/Of+FdD5K5SR9LPBizCS4g==
+"@d4kmor/launch@^0.4.11":
+  version "0.4.11"
+  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.4.11.tgz#439adf2ff8b5c98b26e48c1b5a876159a585e723"
+  integrity sha512-+GGyL5f0pVIH2GpLr7XI60/wWpfZVvi6Fduu/TfWkfrjGGi3P9bactBtZNTGLJ5unh8VW1uBxZlEp5j9tRBa/g==
   dependencies:
     "@d4kmor/drawer" "^0.2.1"
     "@d4kmor/navigation" "^0.2.0"
