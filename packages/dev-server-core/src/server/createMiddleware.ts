@@ -12,6 +12,7 @@ import { pluginServeMiddleware } from '../middleware/pluginServeMiddleware';
 import { pluginTransformMiddleware } from '../middleware/pluginTransformMiddleware';
 import { Logger } from '../logger/Logger';
 import { watchServedFilesMiddleware } from '../middleware/watchServedFilesMiddleware';
+import { pluginFileParsedMiddleware } from '../middleware/pluginFileParsedMiddleware';
 
 /**
  * Creates middlewares based on the given configuration. The middlewares can be
@@ -54,9 +55,11 @@ export function createMiddleware(
     middlewares.push(historyApiFallbackMiddleware(config.appIndex, config.rootDir, logger));
   }
 
+  const plugins = config.plugins ?? [];
+  middlewares.push(pluginFileParsedMiddleware(plugins));
   middlewares.push(pluginTransformMiddleware(logger, config, fileWatcher));
-  middlewares.push(pluginMimeTypeMiddleware(logger, config.plugins ?? []));
-  middlewares.push(pluginServeMiddleware(logger, config.plugins ?? []));
+  middlewares.push(pluginMimeTypeMiddleware(logger, plugins));
+  middlewares.push(pluginServeMiddleware(logger, plugins));
 
   // serve static files
   middlewares.push(

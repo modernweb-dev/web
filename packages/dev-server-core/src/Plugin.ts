@@ -49,4 +49,5 @@ export interface Plugin {
     line?: number;
   }): ResolveResult | Promise<ResolveResult>;
   resolveMimeType?(context: Context): ResolveMimeTypeResult | Promise<ResolveMimeTypeResult>;
+  fileParsed?(context: Context): void;
 }
