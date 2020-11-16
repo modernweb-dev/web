@@ -2188,6 +2188,38 @@
     whatwg-fetch "^3.0.0"
     whatwg-url "^7.0.0"
 
+"@open-wc/building-utils@^2.18.3":
+  version "2.18.3"
+  resolved "https://registry.yarnpkg.com/@open-wc/building-utils/-/building-utils-2.18.3.tgz#bfee503586f690641c3d32dce3b6b165ccfbaedf"
+  integrity sha512-qBVCYK31onFyLrzDu2hpCDyQUl01C5iwFQq6NVUf4jisEkDQdsVHWTEYXXUf8ztCMe1o8tHmfe9C68fUYQZBJw==
+  dependencies:
+    "@babel/core" "^7.11.1"
+    "@babel/plugin-syntax-dynamic-import" "^7.8.3"
+    "@webcomponents/shadycss" "^1.9.4"
+    "@webcomponents/webcomponentsjs" "^2.4.0"
+    arrify "^2.0.1"
+    browserslist "^4.9.1"
+    chokidar "^3.0.0"
+    clean-css "^4.2.1"
+    clone "^2.1.2"
+    core-js-bundle "^3.6.0"
+    deepmerge "^4.2.2"
+    es-module-shims "^0.4.6"
+    html-minifier-terser "^5.1.1"
+    lru-cache "^5.1.1"
+    minimatch "^3.0.4"
+    parse5 "^5.1.1"
+    path-is-inside "^1.0.2"
+    regenerator-runtime "^0.13.3"
+    resolve "^1.11.1"
+    rimraf "^3.0.2"
+    shady-css-scoped-element "^0.0.2"
+    systemjs "^6.3.1"
+    terser "^4.6.7"
+    valid-url "^1.0.9"
+    whatwg-fetch "^3.0.0"
+    whatwg-url "^7.0.0"
+
 "@open-wc/dedupe-mixin@^1.2.18", "@open-wc/dedupe-mixin@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@open-wc/dedupe-mixin/-/dedupe-mixin-1.3.0.tgz#0df5d438285fc3482838786ee81895318f0ff778"
@@ -5659,10 +5691,10 @@ es-abstract@^1.18.0-next.0:
     string.prototype.trimend "^1.0.1"
     string.prototype.trimstart "^1.0.1"
 
-es-dev-server@^1.55.0:
-  version "1.57.4"
-  resolved "https://registry.yarnpkg.com/es-dev-server/-/es-dev-server-1.57.4.tgz#9d6398828c12aa80bd59807edd896d54f77e2419"
-  integrity sha512-GNstq4VeNmkon9W4dABCC3e3540cWVmhsnO4d8axBSgk0D4HQH/t2NqM4o9Qvq4/z9NMAqW1CazmvuFdl8oqKg==
+es-dev-server@^1.57.8:
+  version "1.57.8"
+  resolved "https://registry.yarnpkg.com/es-dev-server/-/es-dev-server-1.57.8.tgz#5aa107f27066686a75ebf03fed412a7de3d7127d"
+  integrity sha512-+zfCy3hH337ktOoHJLcpEIoxRPWAuJA6SjgMFz1ZVV8DYksK/zITrhQbB4SzAkxRNXwJsc+knM29mTTsbwAXHw==
   dependencies:
     "@babel/core" "^7.11.1"
     "@babel/plugin-proposal-dynamic-import" "^7.10.4"
@@ -5676,7 +5708,7 @@ es-dev-server@^1.55.0:
     "@babel/plugin-transform-template-literals" "^7.8.3"
     "@babel/preset-env" "^7.9.0"
     "@koa/cors" "^3.1.0"
-    "@open-wc/building-utils" "^2.18.1"
+    "@open-wc/building-utils" "^2.18.3"
     "@rollup/plugin-node-resolve" "^7.1.1"
     "@rollup/pluginutils" "^3.0.0"
     "@types/babel__core" "^7.1.3"
@@ -5720,7 +5752,7 @@ es-dev-server@^1.55.0:
     open "^7.0.3"
     parse5 "^5.1.1"
     path-is-inside "^1.0.2"
-    polyfills-loader "^1.7.1"
+    polyfills-loader "^1.7.4"
     portfinder "^1.0.21"
     rollup "^2.7.2"
     strip-ansi "^5.2.0"
@@ -9787,7 +9819,7 @@ pngjs@^5.0.0:
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-5.0.0.tgz#e79dd2b215767fd9c04561c01236df960bce7fbb"
   integrity sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==
 
-polyfills-loader@^1.6.1, polyfills-loader@^1.7.1:
+polyfills-loader@^1.6.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/polyfills-loader/-/polyfills-loader-1.7.1.tgz#d7a8442a450acda1ab81b1f68968e68835df0856"
   integrity sha512-+cClGOZNQtWVedt2a2Ku9r6ejfnhQFbuaSPtlaGLl2R9ESWaJNoq8r29d0BTpAgrEX/xXsoh2YHgamNugW6Ahw==
@@ -9816,6 +9848,27 @@ polyfills-loader@^1.7.3:
   dependencies:
     "@babel/core" "^7.11.1"
     "@open-wc/building-utils" "^2.18.2"
+    "@webcomponents/webcomponentsjs" "^2.4.0"
+    abortcontroller-polyfill "^1.4.0"
+    core-js-bundle "^3.6.0"
+    deepmerge "^4.2.2"
+    dynamic-import-polyfill "^0.1.1"
+    es-module-shims "^0.4.6"
+    intersection-observer "^0.7.0"
+    parse5 "^5.1.1"
+    regenerator-runtime "^0.13.3"
+    resize-observer-polyfill "^1.5.1"
+    systemjs "^6.3.1"
+    terser "^4.6.7"
+    whatwg-fetch "^3.0.0"
+
+polyfills-loader@^1.7.4:
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/polyfills-loader/-/polyfills-loader-1.7.5.tgz#a05342a14e18b1e4cadb99adde5275d20da8e196"
+  integrity sha512-4OjSRiMsCUiDHxbQLOXPJ/QWXd6tHenBlxwS0qClgV+XZQre6UD8Fh3bSjFfnkRGRsqfrnjT7dFUJxxAFMe1qQ==
+  dependencies:
+    "@babel/core" "^7.11.1"
+    "@open-wc/building-utils" "^2.18.3"
     "@webcomponents/webcomponentsjs" "^2.4.0"
     abortcontroller-polyfill "^1.4.0"
     core-js-bundle "^3.6.0"
