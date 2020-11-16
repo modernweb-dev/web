@@ -11,7 +11,7 @@
       "updateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance"],
 
       // automatically merge, as long as tests pass
-      "automerge": false
+      "automerge": true
     }
   ],
 
