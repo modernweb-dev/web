@@ -1,5 +1,15 @@
 # @web/dev-server
 
+## 0.0.21
+
+### Patch Changes
+
+- f0472df: add fileParsed hook
+- Updated dependencies [f0472df]
+- Updated dependencies [4913db2]
+  - @web/dev-server-core@0.2.17
+  - @web/dev-server-rollup@0.2.11
+
 ## 0.0.20
 
 ### Patch Changes

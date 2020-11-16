@@ -1,5 +1,13 @@
 # @web/dev-server-rollup
 
+## 0.2.11
+
+### Patch Changes
+
+- 4913db2: implement moduleParsed hook
+- Updated dependencies [f0472df]
+  - @web/dev-server-core@0.2.17
+
 ## 0.2.10
 
 ### Patch Changes
