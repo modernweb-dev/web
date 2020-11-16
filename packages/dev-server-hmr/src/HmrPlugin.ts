@@ -9,7 +9,7 @@ import type {
 import WebSocket from 'ws';
 import type { Context } from 'koa';
 import { hmrClientScript } from './hmrClientScript';
-import { posix as pathUtil } from 'path';
+import path, { posix as pathUtil } from 'path';
 
 export interface HmrReloadMessage {
   type: 'hmr:reload';
@@ -173,8 +173,8 @@ export class HmrPlugin implements Plugin {
       return;
     }
 
-    const relativePath = pathUtil.relative(this._config.rootDir, filePath);
-    const browserPath = relativePath.split(pathUtil.sep).join('/');
+    const relativePath = path.relative(this._config.rootDir, filePath);
+    const browserPath = relativePath.split(path.sep).join('/');
     this._triggerUpdate(`/${browserPath}`);
   }
 
