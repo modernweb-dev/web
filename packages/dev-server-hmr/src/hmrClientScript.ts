@@ -44,7 +44,7 @@ export class HotModule {
 
     sendMessage({ type: 'hmr:accept', id: this.id });
     this[moduleState] = HmrState.Accepted;
-    this[acceptHandlers].add(callback ?? () => {});
+    this[acceptHandlers].add(callback || function() {});
   }
 
   dispose(handler) {

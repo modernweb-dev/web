@@ -80,11 +80,6 @@ export class HmrPlugin implements Plugin {
       }
       return hmrClientScript(this._webSockets);
     }
-
-    // We are serving a new file or it has changed, so clear all the
-    // dependencies we previously tracked (if any).
-    this._clearDependencies(context.path);
-    this._logger?.debug(`[hmr] Cleared dependency tree cache of ${context.path}`);
   }
 
   resolveImport({ source }: { source: string }) {
@@ -199,6 +194,11 @@ export class HmrPlugin implements Plugin {
       return;
     }
 
+    const dependents = new Set<string>(mod.dependents);
+
+    this._clearDependencies(path);
+    this._logger?.debug(`[hmr] Cleared dependency tree cache of ${path}`);
+
     // We're not aware of this module so can't handle it
     if (!mod) {
       this._broadcast({ type: 'hmr:reload' });
@@ -216,8 +216,8 @@ export class HmrPlugin implements Plugin {
     }
 
     // Trigger an update for every module that depends on this one
-    if (mod.dependents.size > 0) {
-      for (const dep of mod.dependents) {
+    if (dependents.size > 0) {
+      for (const dep of dependents) {
         this._triggerUpdate(dep, visited);
       }
       return;
