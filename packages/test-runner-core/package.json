@@ -56,7 +56,7 @@
     "@types/sinon-chai": "^3.2.5",
     "@types/uuid": "^8.0.0",
     "portfinder": "^1.0.28",
-    "sinon": "^9.0.2",
+    "sinon": "^9.2.1",
     "sinon-chai": "^3.5.0"
   },
   "exports": {
