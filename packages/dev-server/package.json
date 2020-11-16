@@ -64,7 +64,7 @@
     "deepmerge": "^4.2.2",
     "ip": "^1.1.5",
     "open": "^7.1.0",
-    "portfinder": "^1.0.27"
+    "portfinder": "^1.0.28"
   },
   "devDependencies": {
     "lit-html": "^1.2.1",

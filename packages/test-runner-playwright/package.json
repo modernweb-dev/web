@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@web/test-runner-mocha": "^0.5.1",
-    "portfinder": "^1.0.26"
+    "portfinder": "^1.0.28"
   },
   "exports": {
     ".": {
