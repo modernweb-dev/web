@@ -1,5 +1,11 @@
 # @web/dev-server-hmr
 
+## 0.1.1
+
+### Patch Changes
+
+- 01860f8: fix windows paths issue
+
 ## 0.1.0
 
 ### Minor Changes
