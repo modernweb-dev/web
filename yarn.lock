@@ -3891,10 +3891,10 @@ browserslist@^4.14.7:
     escalade "^3.1.1"
     node-releases "^1.1.66"
 
-browserstack-local@^1.4.5:
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/browserstack-local/-/browserstack-local-1.4.7.tgz#f957e1cbb6fa3d29ea77ec35229a3d07cb002298"
-  integrity sha512-wZtMa/CDT+Vf7wZrK8zGkWcScaenC4lfLa6RQkHZX/OnP1b4ZDWuE0GevMf2/pe5i8thfzIkCaLhsJnanqql9A==
+browserstack-local@^1.4.8:
+  version "1.4.8"
+  resolved "https://registry.yarnpkg.com/browserstack-local/-/browserstack-local-1.4.8.tgz#07f74a19b324cf2de69ffe65f9c2baa3a2dd9a0e"
+  integrity sha512-s+mc3gTOJwELdLWi4qFVKtGwMbb5JWsR+JxKlMaJkRJxoZ0gg3WREgPxAN0bm6iU5+S4Bi0sz0oxBRZT8BiNsQ==
   dependencies:
     https-proxy-agent "^4.0.0"
     is-running "^2.1.0"
