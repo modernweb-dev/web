@@ -2953,10 +2953,17 @@
   dependencies:
     "@types/puppeteer" "*"
 
-"@types/puppeteer@*", "@types/puppeteer@^3.0.1":
+"@types/puppeteer@*":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-3.0.2.tgz#20085220593b560c7332b6d46aecaf81ae263540"
   integrity sha512-JRuHPSbHZBadOxxFwpyZPeRlpPTTeMbQneMdpFd8LXdyNfFSiX950CGewdm69g/ipzEAXAmMyFF1WOWJOL/nKw==
+  dependencies:
+    "@types/node" "*"
+
+"@types/puppeteer@^3.0.5":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-3.0.5.tgz#5ef5d023f45c0dfcc82e97548891b11b6ce868fb"
+  integrity sha512-NkphUMkpbr/us6hp1AqUh/UxX5Tf2UJU94MvaF8OOgIUPBipYodql+yRjcysJKqwnDkchp+cD/8jntI/C9StzA==
   dependencies:
     "@types/node" "*"
 

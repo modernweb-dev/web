@@ -39,7 +39,7 @@
     "launcher"
   ],
   "dependencies": {
-    "@types/puppeteer": "^3.0.1",
+    "@types/puppeteer": "^3.0.5",
     "@web/test-runner-chrome": "^0.7.2",
     "@web/test-runner-core": "^0.8.4",
     "puppeteer": "^5.3.1"
