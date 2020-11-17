@@ -8,7 +8,7 @@
   "packageRules": [
     // for everything except major or minor updates
     {
-      "updateTypes": ["patch", "pin", "digest", "lockFileMaintenance"],
+      "updateTypes": ["patch", "pin", "digest"],
 
       // automatically merge, as long as tests pass
       "automerge": true,
