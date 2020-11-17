@@ -1865,10 +1865,10 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@import-maps/resolve@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@import-maps/resolve/-/resolve-1.0.0.tgz#e8b7a2d29ed199c193f9e7aa5bf4ed8bc99fb32b"
-  integrity sha512-bDWbkeWlxyKXY2BFWzelNzp1matgrCVyuUnQig/iPGYzUdnTJV6rEuyo6ncrfifRHtcRvxswBBBzhUdKLkQGzA==
+"@import-maps/resolve@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@import-maps/resolve/-/resolve-1.0.1.tgz#1e9fcadcf23aa0822256a329aabca241879d37c9"
+  integrity sha512-tWZNBIS1CoekcwlMuyG2mr0a1Wo5lb5lEHwwWvZo+5GLgr3e9LLDTtmgtCWEwBpXMkxn9D+2W9j2FY6eZQq0tA==
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
