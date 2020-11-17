@@ -5683,10 +5683,15 @@ es-dev-server@^1.57.8:
     useragent "^2.3.0"
     whatwg-url "^7.0.0"
 
-es-module-lexer@^0.3.13, es-module-lexer@^0.3.24, es-module-lexer@^0.3.25:
+es-module-lexer@^0.3.13, es-module-lexer@^0.3.25:
   version "0.3.25"
   resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.3.25.tgz#24a1abcb9c5dc96923a8e42be033b801f788de06"
   integrity sha512-H9VoFD5H9zEfiOX2LeTWDwMvAbLqcAyA2PIb40TOAvGpScOjit02oTGWgIh+M0rx2eJOKyJVM9wtpKFVgnyC3A==
+
+es-module-lexer@^0.3.26:
+  version "0.3.26"
+  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.3.26.tgz#7b507044e97d5b03b01d4392c74ffeb9c177a83b"
+  integrity sha512-Va0Q/xqtrss45hWzP8CZJwzGSZJjDM5/MJRE3IXXnUCcVLElR9BRaE9F62BopysASyc4nM3uwhSW7FFB9nlWAA==
 
 es-module-shims@^0.4.6:
   version "0.4.7"
