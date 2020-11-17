@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.9.11
+
+### Patch Changes
+
+- 0614acf: update v8-to-istanbul
+- Updated dependencies [2278a95]
+  - @web/test-runner-chrome@0.7.3
+  - @web/test-runner-cli@0.6.12
+  - @web/test-runner-core@0.8.11
+
 ## 0.9.10
 
 ### Patch Changes

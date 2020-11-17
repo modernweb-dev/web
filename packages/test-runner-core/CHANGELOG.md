@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.8.11
+
+### Patch Changes
+
+- 2278a95: bump dependencies
+
 ## 0.8.10
 
 ### Patch Changes

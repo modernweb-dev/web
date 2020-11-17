@@ -1,5 +1,15 @@
 # @web/test-runner-playwright
 
+## 0.6.6
+
+### Patch Changes
+
+- 2278a95: bump dependencies
+- Updated dependencies [0614acf]
+- Updated dependencies [2278a95]
+  - @web/test-runner-coverage-v8@0.2.3
+  - @web/test-runner-core@0.8.11
+
 ## 0.6.5
 
 ### Patch Changes

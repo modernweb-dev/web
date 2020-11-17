@@ -1,5 +1,14 @@
 # @web/test-runner-puppeteer
 
+## 0.7.3
+
+### Patch Changes
+
+- 2278a95: bump dependencies
+- Updated dependencies [2278a95]
+  - @web/test-runner-chrome@0.7.3
+  - @web/test-runner-core@0.8.11
+
 ## 0.7.2
 
 ### Patch Changes
