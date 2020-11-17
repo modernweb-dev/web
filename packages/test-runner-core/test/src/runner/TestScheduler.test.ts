@@ -1,6 +1,5 @@
-import chai, { expect } from 'chai';
-import { SinonStub, stub } from 'sinon';
-import sinonChai from 'sinon-chai';
+import { expect } from 'chai';
+import * as hanbi from 'hanbi';
 
 import { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher';
 
@@ -10,10 +9,17 @@ import { TestSession } from '../../../src/test-session/TestSession';
 import { TestSessionManager } from '../../../src/test-session/TestSessionManager';
 import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus';
 
-chai.use(sinonChai);
-
-function timeout(ms = 0) {
+function timeout(ms = 0): Promise<void> {
   return new Promise(r => setTimeout(r, ms));
+}
+
+interface BrowserStubs {
+  stop: hanbi.Stub<Exclude<BrowserLauncher['stop'], undefined>>;
+  startDebugSession: hanbi.Stub<BrowserLauncher['startDebugSession']>;
+  startSession: hanbi.Stub<BrowserLauncher['startSession']>;
+  stopSession: hanbi.Stub<BrowserLauncher['stopSession']>;
+  isActive: hanbi.Stub<BrowserLauncher['isActive']>;
+  getBrowserUrl: hanbi.Stub<BrowserLauncher['getBrowserUrl']>;
 }
 
 describe('TestScheduler', () => {
@@ -27,17 +33,34 @@ describe('TestScheduler', () => {
     } as Partial<TestSession>) as TestSession;
   }
 
-  function createBrowserStub(name: string) {
-    return {
-      name,
-      type: name,
-      stop: stub().returns(timeout(1)),
-      startDebugSession: stub().returns(timeout(1)),
-      startSession: stub().returns(timeout(1)),
-      stopSession: stub().returns(timeout(1).then(() => ({ testCoverage: {} }))),
-      isActive: stub().returns(true),
-      getBrowserUrl: stub().returns(''),
+  function createBrowserStub(name: string): [BrowserStubs, BrowserLauncher] {
+    const spies = {
+      stop: hanbi.spy(),
+      startDebugSession: hanbi.spy(),
+      startSession: hanbi.spy(),
+      stopSession: hanbi.spy(),
+      isActive: hanbi.spy(),
+      getBrowserUrl: hanbi.spy(),
     };
+    spies.stop.returns(timeout(1));
+    spies.startDebugSession.returns(timeout(1));
+    spies.startSession.returns(timeout(1));
+    spies.stopSession.returns(timeout(1).then(() => ({ testCoverage: {} })));
+    spies.isActive.returns(true);
+    spies.getBrowserUrl.returns('');
+    return [
+      spies,
+      {
+        name,
+        type: name,
+        stop: spies.stop.handler,
+        startDebugSession: spies.startDebugSession.handler,
+        startSession: spies.startSession.handler,
+        stopSession: spies.stopSession.handler,
+        isActive: spies.isActive.handler,
+        getBrowserUrl: spies.getBrowserUrl.handler,
+      },
+    ];
   }
 
   beforeEach(() => {
@@ -65,34 +88,32 @@ describe('TestScheduler', () => {
 
   function createTestFixture(
     ...ids: string[]
-  ): [TestScheduler, TestSessionManager, ...TestSession[]] {
-    const browsers: BrowserLauncher[] = [createBrowserStub('a')];
+  ): [TestScheduler, TestSessionManager, TestSession[], BrowserStubs] {
+    const [browserStubs, browser] = createBrowserStub('a');
     const sessions: TestSession[] = [];
     for (const id of ids) {
-      const session = createSession({ id, browser: browsers[0] });
+      const session = createSession({ id, browser });
       sessions.push(session);
     }
     const sessionManager = new TestSessionManager([], sessions);
-    const scheduler = new TestScheduler(mockConfig, sessionManager, browsers);
-    return [scheduler, sessionManager, ...sessions];
+    const scheduler = new TestScheduler(mockConfig, sessionManager, [browser]);
+    return [scheduler, sessionManager, sessions, browserStubs];
   }
 
   describe('single browser', () => {
     it('scheduling a session starts the browser and marks initializing', async () => {
-      const [scheduler, sessions, session1] = createTestFixture('1');
+      const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
       scheduler.schedule(1, [session1]);
 
       const finalSession1 = sessions.get(session1.id)!;
       expect(finalSession1.status).to.equal(SESSION_STATUS.INITIALIZING);
-      expect(finalSession1.browser.startSession).to.be.calledOnce;
+      expect(stubs.startSession.callCount).to.equal(1);
     });
 
     it('when a session goes to status test finished, the browser is stopped and results is stored', async () => {
-      const [scheduler, sessions, session1] = createTestFixture('1');
-      const testCoverage = { foo: 'bar' };
-      (session1.browser.stopSession as SinonStub).returns(
-        timeout(1).then(() => ({ testCoverage })),
-      );
+      const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
+      const testCoverage = {};
+      stubs.stopSession.returns(timeout(1).then(() => ({ testCoverage })));
       scheduler.schedule(1, [session1]);
 
       await timeout(2);
@@ -106,7 +127,7 @@ describe('TestScheduler', () => {
     });
 
     it('batches test execution', async () => {
-      const [scheduler, sessions, ...sessionsToSchedule] = createTestFixture('1', '2', '3');
+      const [scheduler, sessions, sessionsToSchedule] = createTestFixture('1', '2', '3');
       scheduler.schedule(1, sessionsToSchedule);
 
       expect(sessions.get('1')!.status).to.equal(SESSION_STATUS.INITIALIZING);
@@ -136,7 +157,7 @@ describe('TestScheduler', () => {
 
     it('scheduling new tests while executing keeps batching', async () => {
       const sessionIds = ['1', '2', '3', '4', '5', '6'];
-      const [scheduler, sessions, ...sessionsToSchedule] = createTestFixture(...sessionIds);
+      const [scheduler, sessions, sessionsToSchedule] = createTestFixture(...sessionIds);
 
       // schedule 2 sessions
       scheduler.schedule(1, sessionsToSchedule.slice(0, 2));
@@ -179,10 +200,8 @@ describe('TestScheduler', () => {
     });
 
     it('error while starting browser marks session as failed', async () => {
-      const [scheduler, sessions, session1] = createTestFixture('1');
-      (session1.browser.startSession as SinonStub).callsFake(() =>
-        Promise.reject(new Error('mock error')),
-      );
+      const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
+      stubs.startSession.callsFake(() => Promise.reject(new Error('mock error')));
       scheduler.schedule(1, [session1]);
 
       await timeout(4);
@@ -195,9 +214,9 @@ describe('TestScheduler', () => {
     });
 
     it('error while starting browser after a session changed state gets logged', async () => {
-      const errorStub = stub(mockConfig.logger, 'error');
-      const [scheduler, sessions, session1] = createTestFixture('1');
-      (session1.browser.startSession as SinonStub).returns(
+      const errorStub = hanbi.stubMethod(mockConfig.logger, 'error');
+      const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
+      stubs.startSession.returns(
         timeout(5).then(() => {
           throw new Error('mock error');
         }),
@@ -214,16 +233,14 @@ describe('TestScheduler', () => {
 
       await timeout(20);
 
-      expect(errorStub).to.be.calledOnce;
+      expect(errorStub.callCount).to.equal(1);
       expect(errorStub.getCall(0).args[0]).to.an.instanceof(Error);
       expect((errorStub.getCall(0).args[0] as Error).message).to.equal('mock error');
     });
 
     it('error while stopping browser marks session as failed', async () => {
-      const [scheduler, sessions, session1] = createTestFixture('1');
-      (session1.browser.stopSession as SinonStub).callsFake(() =>
-        Promise.reject(new Error('mock error')),
-      );
+      const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
+      stubs.stopSession.callsFake(() => Promise.reject(new Error('mock error')));
       scheduler.schedule(1, [session1]);
 
       await timeout(2);
@@ -239,8 +256,8 @@ describe('TestScheduler', () => {
 
     it('timeout starting the browser marks the session as failed', async () => {
       mockConfig.browserStartTimeout = 2;
-      const [scheduler, sessions, session1] = createTestFixture('1');
-      (session1.browser.startSession as SinonStub).returns(timeout(4));
+      const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
+      stubs.startSession.returns(timeout(4));
       scheduler.schedule(1, [session1]);
 
       await timeout(3);
@@ -256,7 +273,7 @@ describe('TestScheduler', () => {
 
     it('timeout starting the tests marks the session as failed', async () => {
       mockConfig.testsStartTimeout = 2;
-      const [scheduler, sessions, session1] = createTestFixture('1');
+      const [scheduler, sessions, [session1]] = createTestFixture('1');
       scheduler.schedule(1, [session1]);
 
       await timeout(8);
@@ -272,7 +289,7 @@ describe('TestScheduler', () => {
 
     it('timeout finishing the tests marks the session as failed', async () => {
       mockConfig.testsFinishTimeout = 2;
-      const [scheduler, sessions, session1] = createTestFixture('1');
+      const [scheduler, sessions, [session1]] = createTestFixture('1');
       scheduler.schedule(1, [session1]);
 
       await timeout(1);
@@ -292,13 +309,13 @@ describe('TestScheduler', () => {
   describe('multi browsers', () => {
     function createTestFixture(
       fixtures: { name: string; ids: string[] }[],
-    ): [TestScheduler, TestSessionManager, BrowserLauncher[], ...TestSession[]] {
-      const browsers: BrowserLauncher[] = [];
+    ): [TestScheduler, TestSessionManager, Array<[BrowserStubs, BrowserLauncher]>, TestSession[]] {
+      const browsers: Array<[BrowserStubs, BrowserLauncher]> = [];
       const sessions: TestSession[] = [];
 
       for (const fixture of fixtures) {
-        const browser = createBrowserStub(fixture.name);
-        browsers.push(browser);
+        const [stubs, browser] = createBrowserStub(fixture.name);
+        browsers.push([stubs, browser]);
 
         for (const id of fixture.ids) {
           const session = createSession({ id, browser });
@@ -307,12 +324,16 @@ describe('TestScheduler', () => {
       }
 
       const sessionManager = new TestSessionManager([], sessions);
-      const scheduler = new TestScheduler(mockConfig, sessionManager, browsers);
-      return [scheduler, sessionManager, browsers, ...sessions];
+      const scheduler = new TestScheduler(
+        mockConfig,
+        sessionManager,
+        browsers.map(b => b[1]),
+      );
+      return [scheduler, sessionManager, browsers, sessions];
     }
 
     it('can schedule sessions on multiple browsers', async () => {
-      const [scheduler, sessionManager, browsers, ...sessions] = createTestFixture([
+      const [scheduler, sessionManager, browsers, sessions] = createTestFixture([
         { name: 'a', ids: ['1', '2', '3'] },
         { name: 'b', ids: ['4', '5', '6'] },
         { name: 'c', ids: ['7', '8', '9'] },
@@ -322,39 +343,39 @@ describe('TestScheduler', () => {
       const session1 = sessionManager.get('1')!;
       const session2 = sessionManager.get('2')!;
       const session3 = sessionManager.get('3')!;
-      expect(session1.browser).to.equal(browsers[0]);
-      expect(session2.browser).to.equal(browsers[0]);
-      expect(session3.browser).to.equal(browsers[0]);
+      expect(session1.browser).to.equal(browsers[0][1]);
+      expect(session2.browser).to.equal(browsers[0][1]);
+      expect(session3.browser).to.equal(browsers[0][1]);
       expect(session1.status).to.equal(SESSION_STATUS.INITIALIZING);
       expect(session2.status).to.equal(SESSION_STATUS.INITIALIZING);
       expect(session3.status).to.equal(SESSION_STATUS.SCHEDULED);
-      expect(browsers[0].startSession).to.be.calledTwice;
+      expect(browsers[0][0].startSession.callCount).to.equal(2);
 
       const session4 = sessionManager.get('4')!;
       const session5 = sessionManager.get('5')!;
       const session6 = sessionManager.get('6')!;
-      expect(session4.browser).to.equal(browsers[1]);
-      expect(session5.browser).to.equal(browsers[1]);
-      expect(session6.browser).to.equal(browsers[1]);
+      expect(session4.browser).to.equal(browsers[1][1]);
+      expect(session5.browser).to.equal(browsers[1][1]);
+      expect(session6.browser).to.equal(browsers[1][1]);
       expect(session4.status).to.equal(SESSION_STATUS.INITIALIZING);
       expect(session5.status).to.equal(SESSION_STATUS.INITIALIZING);
       expect(session6.status).to.equal(SESSION_STATUS.SCHEDULED);
-      expect(browsers[1].startSession).to.be.calledTwice;
+      expect(browsers[1][0].startSession.callCount).to.equal(2);
 
       const session7 = sessionManager.get('7')!;
       const session8 = sessionManager.get('8')!;
       const session9 = sessionManager.get('9')!;
-      expect(session7.browser).to.equal(browsers[2]);
-      expect(session8.browser).to.equal(browsers[2]);
-      expect(session9.browser).to.equal(browsers[2]);
+      expect(session7.browser).to.equal(browsers[2][1]);
+      expect(session8.browser).to.equal(browsers[2][1]);
+      expect(session9.browser).to.equal(browsers[2][1]);
       expect(session7.status).to.equal(SESSION_STATUS.SCHEDULED);
       expect(session8.status).to.equal(SESSION_STATUS.SCHEDULED);
       expect(session9.status).to.equal(SESSION_STATUS.SCHEDULED);
-      expect(browsers[2].startSession).to.not.be.called;
+      expect(browsers[2][0].startSession.called).to.equal(false);
     });
 
     it('finishing a test schedules a new one', async () => {
-      const [scheduler, sessionManager, browsers, ...sessions] = createTestFixture([
+      const [scheduler, sessionManager, browsers, sessions] = createTestFixture([
         { name: 'a', ids: ['1', '2', '3'] },
         { name: 'b', ids: ['4', '5', '6'] },
         { name: 'c', ids: ['7', '8', '9'] },
@@ -366,13 +387,13 @@ describe('TestScheduler', () => {
       await timeout(4);
 
       const session3 = sessionManager.get('3')!;
-      expect(session3.browser).to.equal(browsers[0]);
+      expect(session3.browser).to.equal(browsers[0][1]);
       expect(session3.status).to.equal(SESSION_STATUS.INITIALIZING);
-      expect(browsers[0].startSession).to.be.calledThrice;
+      expect(browsers[0][0].startSession.callCount).to.equal(3);
     });
 
     it('overflow of concurrency budget does not trigger a new browser to start', async () => {
-      const [scheduler, sessionManager, browsers, ...sessions] = createTestFixture([
+      const [scheduler, sessionManager, browsers, sessions] = createTestFixture([
         { name: 'a', ids: ['1', '2', '3'] },
         { name: 'b', ids: ['4', '5', '6'] },
         { name: 'c', ids: ['7', '8', '9'] },
@@ -385,13 +406,13 @@ describe('TestScheduler', () => {
       await timeout(4);
 
       const session7 = sessionManager.get('7')!;
-      expect(session7.browser).to.equal(browsers[2]);
+      expect(session7.browser).to.equal(browsers[2][1]);
       expect(session7.status).to.equal(SESSION_STATUS.SCHEDULED);
-      expect(browsers[2].startSession).to.not.be.called;
+      expect(browsers[2][0].startSession.called).to.equal(false);
     });
 
     it('finishing one browsers schedules a new browser', async () => {
-      const [scheduler, sessionManager, browsers, ...sessions] = createTestFixture([
+      const [scheduler, sessionManager, browsers, sessions] = createTestFixture([
         { name: 'a', ids: ['1', '2', '3'] },
         { name: 'b', ids: ['4', '5', '6'] },
         { name: 'c', ids: ['7', '8', '9'] },
@@ -406,9 +427,9 @@ describe('TestScheduler', () => {
       await timeout(4);
 
       const session7 = sessionManager.get('7')!;
-      expect(session7.browser).to.equal(browsers[2]);
+      expect(session7.browser).to.equal(browsers[2][1]);
       expect(session7.status).to.equal(SESSION_STATUS.INITIALIZING);
-      expect(browsers[2].startSession).to.be.calledTwice;
+      expect(browsers[2][0].startSession.callCount).to.equal(2);
     });
   });
 });

@@ -45,7 +45,6 @@
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.0.01",
     "@types/node": "^14.6.0",
-    "@types/sinon": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
     "alex": "^8.2.0",
@@ -55,6 +54,7 @@
     "dev-to-git": "^1.4.1",
     "eslint": "^7.13.0",
     "eslint-config-prettier": "^6.15.0",
+    "hanbi": "^0.4.0",
     "husky": "^1.3.1",
     "lint-staged": "^10.5.1",
     "mocha": "^8.2.1",
@@ -68,7 +68,6 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.33.2",
     "rollup-plugin-terser": "^6.1.0",
-    "sinon": "^9.2.1",
     "ts-node": "^8.10.2",
     "typescript": "^4.0.5"
   },

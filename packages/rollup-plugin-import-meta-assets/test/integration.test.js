@@ -2,11 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const rollup = require('rollup');
 const { expect } = require('chai');
-const { createSandbox } = require('sinon');
+const hanbi = require('hanbi');
 
 const { importMetaAssets } = require('../src/rollup-plugin-import-meta-assets.js');
-
-const sandbox = createSandbox();
 
 const outputConfig = {
   format: 'es',
@@ -32,12 +30,14 @@ function expectAsset(output, snapshotUrl, assetName, distName) {
 }
 
 describe('rollup-plugin-import-meta-assets', () => {
+  let consoleStub;
+
   beforeEach(() => {
-    sandbox.stub(console, 'warn');
+    consoleStub = hanbi.stubMethod(console, 'warn');
   });
 
   afterEach(() => {
-    sandbox.restore();
+    hanbi.restore();
   });
 
   it("simple bundle with different new URL('', import.meta.url)", async () => {
@@ -220,11 +220,11 @@ describe('rollup-plugin-import-meta-assets', () => {
     const bundle = await rollup.rollup(config);
     await bundle.generate(outputConfig);
 
-    expect(console.warn.callCount).to.equal(2);
-    expect(console.warn.getCall(0).args[0]).to.match(
+    expect(consoleStub.callCount).to.equal(2);
+    expect(consoleStub.getCall(0).args[0]).to.match(
       /ENOENT: no such file or directory, open '.*[/\\]absolute-path\.svg'/,
     );
-    expect(console.warn.getCall(1).args[0]).to.match(
+    expect(consoleStub.getCall(1).args[0]).to.match(
       /ENOENT: no such file or directory, open '.*[/\\]missing-relative-path\.svg'/,
     );
   });
