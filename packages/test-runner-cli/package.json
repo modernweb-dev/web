@@ -40,7 +40,7 @@
   ],
   "dependencies": {
     "@babel/code-frame": "^7.10.4",
-    "@types/babel__code-frame": "^7.0.1",
+    "@types/babel__code-frame": "^7.0.2",
     "@web/browser-logs": "^0.1.2",
     "@web/config-loader": "^0.1.1",
     "@web/test-runner-chrome": "^0.7.2",
