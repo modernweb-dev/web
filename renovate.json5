@@ -11,11 +11,14 @@
       "updateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance"],
 
       // automatically merge, as long as tests pass
-      "automerge": true
+      "automerge": true,
+
+      // create a branch, wait for test results, and automerge if tests pass
+      "automergeType": "branch"
     }
   ],
 
-  // Replace the range with a newer one if the new version falls outside it, e.g. `^1.0.0` -> `^2.0.0`
+  // bump the range even if the new version satisfies the existing range, e.g. ^1.0.0 -> ^1.1.0
   "rangeStrategy": "bump",
 
   // update lock files (default schedule is once a week)
