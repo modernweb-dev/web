@@ -53,7 +53,7 @@
   "devDependencies": {
     "@types/ua-parser-js": "^0.7.33",
     "es-dev-server": "^1.57.8",
-    "lit-element": "^2.3.1",
+    "lit-element": "^2.4.0",
     "node-fetch": "v3.0.0-beta.9",
     "preact": "^10.5.7"
   },
