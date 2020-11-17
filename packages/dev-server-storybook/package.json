@@ -51,7 +51,7 @@
     "@babel/generator": "^7.12.5",
     "@babel/parser": "^7.12.5",
     "@babel/preset-env": "^7.12.1",
-    "@mdx-js/mdx": "^1.6.19",
+    "@mdx-js/mdx": "^1.6.21",
     "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@web/dev-server-core": "^0.2.17",
