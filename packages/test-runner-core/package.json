@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@types/co-body": "^5.1.0",
-    "@types/istanbul-lib-coverage": "^2.0.2",
+    "@types/istanbul-lib-coverage": "^2.0.3",
     "@types/sinon-chai": "^3.2.5",
     "@types/uuid": "^8.0.0",
     "portfinder": "^1.0.28",
