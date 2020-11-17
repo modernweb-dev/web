@@ -52,7 +52,7 @@
     "@babel/plugin-transform-template-literals": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@web/dev-server-core": "^0.2.13",
-    "browserslist": "^4.13.0",
+    "browserslist": "^4.14.7",
     "browserslist-useragent": "^3.0.3",
     "caniuse-api": "^3.0.0",
     "parse5": "^6.0.0",
