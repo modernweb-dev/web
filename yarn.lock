@@ -2278,7 +2278,7 @@
   dependencies:
     slash "^3.0.0"
 
-"@rollup/plugin-babel@^5.0.4", "@rollup/plugin-babel@^5.1.0", "@rollup/plugin-babel@^5.2.1":
+"@rollup/plugin-babel@^5.1.0", "@rollup/plugin-babel@^5.2.1":
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.2.1.tgz#20fc8f8864dc0eaa1c5578408459606808f72924"
   integrity sha512-Jd7oqFR2dzZJ3NWANDyBjwTtX/lYbZpVcmkHrfQcpvawHs9E4c0nYk5U2mfZ6I/DZcIvy506KZJi54XK/jxH7A==
