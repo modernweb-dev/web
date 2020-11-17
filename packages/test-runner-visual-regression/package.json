@@ -39,7 +39,7 @@
   ],
   "dependencies": {
     "@types/mkdirp": "^1.0.1",
-    "@types/pixelmatch": "^5.2.1",
+    "@types/pixelmatch": "^5.2.2",
     "@types/pngjs": "^3.4.2",
     "@web/test-runner-commands": "^0.2.1",
     "@web/test-runner-core": "^0.8.4",
