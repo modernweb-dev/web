@@ -1,5 +1,13 @@
 # @web/test-runner-coverage-v8
 
+## 0.2.3
+
+### Patch Changes
+
+- 0614acf: update v8-to-istanbul
+- Updated dependencies [2278a95]
+  - @web/test-runner-core@0.8.11
+
 ## 0.2.2
 
 ### Patch Changes
