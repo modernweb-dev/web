@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@d4kmor/cli": "^0.7.1",
-    "@d4kmor/launch": "^0.4.11",
+    "@d4kmor/launch": "^0.7.0",
     "@d4kmor/search": "^0.1.2"
   },
   "devDependencies": {
