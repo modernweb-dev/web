@@ -1,5 +1,11 @@
 # @web/dev-server-hmr
 
+## 0.1.2
+
+### Patch Changes
+
+- 8fab7b1: Prevent dependencies from being cleared eagerly on serve, this prevented from updates to bubble to parents that do accept updates.
+
 ## 0.1.1
 
 ### Patch Changes
