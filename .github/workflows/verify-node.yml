@@ -1,6 +1,10 @@
 name: Verify Node
 
-on: pull_request
+on:
+  pull_request:
+  push:
+    branches:
+    - 'renovate/*'
 
 jobs:
   verify-linux:
