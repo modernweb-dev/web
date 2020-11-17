@@ -6,9 +6,9 @@
 
   // rules for specific subsets of packages
   "packageRules": [
-    // for everything except major updates
+    // for everything except major or minor updates
     {
-      "updateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance"],
+      "updateTypes": ["patch", "pin", "digest", "lockFileMaintenance"],
 
       // automatically merge, as long as tests pass
       "automerge": true,
