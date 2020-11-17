@@ -57,7 +57,7 @@
     "koa-static": "^5.0.0",
     "lru-cache": "^5.1.1",
     "mime-types": "^2.1.27",
-    "parse5": "^6.0.0",
+    "parse5": "^6.0.1",
     "picomatch": "^2.2.2",
     "ws": "^7.3.1"
   },
