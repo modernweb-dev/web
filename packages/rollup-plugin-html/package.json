@@ -42,7 +42,7 @@
     "parse5": "^6.0.1"
   },
   "devDependencies": {
-    "rollup": "^2.33.2"
+    "rollup": "^2.33.3"
   },
   "exports": {
     ".": {

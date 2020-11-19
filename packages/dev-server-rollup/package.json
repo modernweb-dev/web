@@ -44,7 +44,7 @@
     "@web/dev-server-core": "^0.2.17",
     "chalk": "^4.1.0",
     "parse5": "^6.0.1",
-    "rollup": "^2.33.2",
+    "rollup": "^2.33.3",
     "whatwg-url": "^8.1.0"
   },
   "devDependencies": {
