@@ -1,5 +1,11 @@
 # @web/dev-server-hmr
 
+## 0.1.3
+
+### Patch Changes
+
+- 0df8945: improve dependency tracking
+
 ## 0.1.2
 
 ### Patch Changes
