@@ -90,18 +90,14 @@ export class HmrPlugin implements Plugin {
 
   /** @inheritDoc */
   async transformImport({ source, context }: { source: string; context: Context }) {
-    // Can't possibly handle computed dynamic imports
-    if (!/^"[^"]*"|'[^']*'|`[^`]*`/.test(source)) {
-      return;
+    if (
+      source.startsWith('/__web-dev-server__') ||
+      context.path.startsWith('/__web-dev-server__')
+    ) {
+      return source;
     }
 
     const importPath = pathUtil.resolve(context.path, source);
-
-    // Don't want to handle the hmr plugin itself
-    if (context.path === NAME_HMR_CLIENT_IMPORT || source === NAME_HMR_CLIENT_IMPORT) {
-      return;
-    }
-
     const mod = this._getOrCreateModule(context.path);
     const dependencyMod = this._getOrCreateModule(importPath);
 
