@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.9.12
+
+### Patch Changes
+
+- 13993fa: avoid under 1 concurrency
+- Updated dependencies [13993fa]
+  - @web/test-runner-cli@0.6.13
+
 ## 0.9.11
 
 ### Patch Changes

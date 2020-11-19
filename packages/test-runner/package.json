@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.9.11",
+  "version": "0.9.12",
   "publishConfig": {
     "access": "public"
   },
@@ -68,7 +68,7 @@
     "@web/config-loader": "^0.1.2",
     "@web/dev-server-rollup": "^0.2.9",
     "@web/test-runner-chrome": "^0.7.3",
-    "@web/test-runner-cli": "^0.6.12",
+    "@web/test-runner-cli": "^0.6.13",
     "@web/test-runner-commands": "^0.2.1",
     "@web/test-runner-core": "^0.8.11",
     "@web/test-runner-mocha": "^0.5.1",
