@@ -14,6 +14,19 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/dom5": {
+      "require": "./dist/dom5/index.js"
+    },
+    "./test-helpers": {
+      "import": "./test-helpers.mjs",
+      "require": "./dist/test-helpers.js"
+    }
+  },
   "engines": {
     "node": ">=10.0.0"
   },
@@ -24,14 +37,14 @@
     "start:http2": "node demo/http2/start-server.js",
     "start:import-asset": "node demo/import-asset/start-server.js",
     "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot --watch"
+    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot --watch --watch-files src,test"
   },
   "files": [
+    ".self-signed-dev-server-ssl.cert",
+    ".self-signed-dev-server-ssl.key",
     "*.d.ts",
     "*.js",
     "*.mjs",
-    ".self-signed-dev-server-ssl.cert",
-    ".self-signed-dev-server-ssl.key",
     "dist",
     "src"
   ],
@@ -70,18 +83,5 @@
     "node-fetch": "3.0.0-beta.9",
     "portfinder": "^1.0.28",
     "uuid": "^8.2.0"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./dist/dom5": {
-      "require": "./dist/dom5/index.js"
-    },
-    "./test-helpers": {
-      "import": "./test-helpers.mjs",
-      "require": "./dist/test-helpers.js"
-    }
   }
 }

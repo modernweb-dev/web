@@ -9,6 +9,7 @@ import { Plugin } from '../Plugin';
 import { PluginSyntaxError } from '../logger/PluginSyntaxError';
 import { toFilePath } from '../utils';
 import { Logger } from '../logger/Logger';
+import { parseDynamicImport } from './parseDynamicImport';
 
 export type ResolveImport = (
   source: string,
@@ -43,6 +44,11 @@ async function resolveConcatenatedImport(
 ): Promise<string> {
   let pathToResolve = importSpecifier;
   let pathToAppend = '';
+
+  if (['/', '../', './'].some(p => pathToResolve.startsWith(p))) {
+    // don't handle non-bare imports
+    return pathToResolve;
+  }
 
   const parts = importSpecifier.split('/');
   if (importSpecifier.startsWith('@')) {
@@ -146,31 +152,37 @@ export async function transformImports(
       lastIndex = end;
     } else if (dynamicImportIndex >= 0) {
       // dynamic import
-      const dynamicStart = start + 1;
-      const dynamicEnd = end - 1;
-
-      const importSpecifier = code.substring(dynamicStart, dynamicEnd);
-      const stringSymbol = code[dynamicStart - 1];
-      const isStringLiteral = [`\``, "'", '"'].includes(stringSymbol);
-      const concatenatedString =
-        stringSymbol === `\`` || importSpecifier.includes("'") || importSpecifier.includes('"');
+      const {
+        importString,
+        importSpecifier,
+        stringLiteral,
+        concatenatedString,
+        dynamicStart,
+        dynamicEnd,
+      } = parseDynamicImport(code, start, end);
 
       const lines = code.slice(0, dynamicStart).split('\n');
       const line = lines.length;
       const column = lines[lines.length - 1].indexOf('import(') || 0;
 
-      const resolvedImport = isStringLiteral
-        ? await maybeResolveImport(
-            importSpecifier,
-            concatenatedString,
-            resolveImport,
-            code,
-            line,
-            column,
-          )
-        : importSpecifier;
+      let rewrittenImport;
+      if (stringLiteral) {
+        const resolvedImport = await maybeResolveImport(
+          importSpecifier,
+          concatenatedString,
+          resolveImport,
+          code,
+          line,
+          column,
+        );
+        rewrittenImport = `${importString[0]}${resolvedImport}${
+          importString[importString.length - 1]
+        }`;
+      } else {
+        rewrittenImport = importString;
+      }
 
-      resolvedSource += `${code.substring(lastIndex, dynamicStart)}${resolvedImport}`;
+      resolvedSource += `${code.substring(lastIndex, dynamicStart)}${rewrittenImport}`;
       lastIndex = dynamicEnd;
     }
   }
