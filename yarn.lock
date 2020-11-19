@@ -3151,10 +3151,10 @@
   dependencies:
     glob "^7.0.0"
 
-"@web/storybook-prebuilt@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@web/storybook-prebuilt/-/storybook-prebuilt-0.1.8.tgz#03c97b03a3e3c9b3d96bde633874258fcb567fa0"
-  integrity sha512-MP7w8aRqtKCMjUFHoXlkWkMs/WSjgm/nYPJy4gT/v6+l+w6899cwo5QP6fQjm82TaSILOA7EFjwZvG+3r1Wi/Q==
+"@web/storybook-prebuilt@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@web/storybook-prebuilt/-/storybook-prebuilt-0.1.9.tgz#bd2ea989251af3d80008f3f6b30d2bd9d862f9e4"
+  integrity sha512-RbRLPO9/nX1siQSBKIBGSzUT+WItI30OfUrk3CQ6s+e3cei1JcPqpScpZ22CUd8gtfjGV5gXpGDt3bRbmAIbUg==
 
 "@webcomponents/shadycss@^1.9.4":
   version "1.10.1"
