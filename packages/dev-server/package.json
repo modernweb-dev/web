@@ -56,7 +56,7 @@
   ],
   "dependencies": {
     "@babel/code-frame": "^7.10.4",
-    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
     "@types/command-line-args": "^5.0.0",
     "@web/config-loader": "^0.1.1",
     "@web/dev-server-core": "^0.2.18",
