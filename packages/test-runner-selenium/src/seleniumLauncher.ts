@@ -114,7 +114,7 @@ export class SeleniumLauncher implements BrowserLauncher {
         await this.driver.getTitle();
       } catch (e) {
         // Do nothing, just clear the timeout
-        clearTimeout(this.pendingHeartbeat);
+        clearInterval(this.pendingHeartbeat);
       }
       return;
     }, 60000);
