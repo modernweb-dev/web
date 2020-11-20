@@ -16,6 +16,7 @@ export class SeleniumLauncher implements BrowserLauncher {
   private iframeManager?: IFrameManager;
   private __iframeManagerPromise?: Promise<IFrameManager>;
   private isIE = false;
+  private pendingHeartbeat!: NodeJS.Timeout;
 
   constructor(private driverBuilder: Builder) {}
 
@@ -47,6 +48,7 @@ export class SeleniumLauncher implements BrowserLauncher {
 
   async startSession(id: string, url: string) {
     await this.ensureIframeManagerInitialized();
+    this.heartbeat();
     return this.iframeManager!.queueStartSession(id, url);
   }
 
@@ -62,6 +64,10 @@ export class SeleniumLauncher implements BrowserLauncher {
   }
 
   async stopSession(id: string) {
+    // If there is still pending heartbeat, clear the timeout
+    if (this.pendingHeartbeat) {
+      clearTimeout(this.pendingHeartbeat);
+    }
     return this.iframeManager!.queueStopSession(id);
   }
 
@@ -95,6 +101,25 @@ export class SeleniumLauncher implements BrowserLauncher {
     this.iframeManager = new IFrameManager(this.config, this.driver, this.isIE);
 
     return this.iframeManager;
+  }
+
+  private heartbeat() {
+    const driver = this.driver;
+
+    // Heartbeat function to keep alive sessions on Sauce Labs via WebDriver calls
+    this.pendingHeartbeat = setTimeout(async () => {
+      if (!driver) {
+        return;
+      }
+      try {
+        await driver.getTitle();
+        this.heartbeat();
+      } catch (e) {
+        // Do nothing, just clear the timeout
+        clearTimeout(this.pendingHeartbeat);
+      }
+      return;
+    }, 60000);
   }
 }
 
