@@ -39,7 +39,7 @@
     "feature detection"
   ],
   "dependencies": {
-    "@babel/core": "^7.12.3",
+    "@babel/core": "^7.12.7",
     "@web/parse5-utils": "^1.1.2",
     "@webcomponents/webcomponentsjs": "^2.5.0",
     "abortcontroller-polyfill": "^1.5.0",
