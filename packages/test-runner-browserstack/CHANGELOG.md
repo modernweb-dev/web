@@ -1,5 +1,13 @@
 # @web/test-runner-browserstack
 
+## 0.2.3
+
+### Patch Changes
+
+- b6e703a: clear heartbeat interval properly
+- Updated dependencies [b6e703a]
+  - @web/test-runner-selenium@0.3.3
+
 ## 0.2.2
 
 ### Patch Changes

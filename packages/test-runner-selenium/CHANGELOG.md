@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.3.3
+
+### Patch Changes
+
+- b6e703a: clear heartbeat interval properly
+
 ## 0.3.2
 
 ### Patch Changes
