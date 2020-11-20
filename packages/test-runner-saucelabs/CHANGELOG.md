@@ -1,5 +1,13 @@
 # @web/test-runner-saucelabs
 
+## 0.1.2
+
+### Patch Changes
+
+- 9cf02b9: add heartbeat interval to keep connection alive
+- Updated dependencies [9cf02b9]
+  - @web/test-runner-selenium@0.3.2
+
 ## 0.1.1
 
 ### Patch Changes
