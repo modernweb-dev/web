@@ -68,7 +68,7 @@
     "storybook-addon-markdown-docs": "^1.0.1"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.0.21",
+    "@web/dev-server": "^0.0.22",
     "htm": "^3.0.4"
   },
   "exports": {
