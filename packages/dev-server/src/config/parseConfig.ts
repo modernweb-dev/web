@@ -75,7 +75,7 @@ export async function parseConfig(
     const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
     // do node resolve after user plugins, to allow user plugins to resolve imports
     finalConfig.plugins!.push(
-      nodeResolvePlugin(finalConfig.rootDir!, config.preserveSymlinks, userOptions),
+      nodeResolvePlugin(finalConfig.rootDir!, finalConfig.preserveSymlinks, userOptions),
     );
   }
 
