@@ -45,7 +45,7 @@
     "@web/config-loader": "^0.1.1",
     "@web/test-runner-chrome": "^0.7.3",
     "@web/test-runner-core": "^0.8.11",
-    "camelcase": "^6.0.0",
+    "camelcase": "^6.2.0",
     "chalk": "^4.1.0",
     "cli-cursor": "^3.1.0",
     "command-line-args": "^5.1.1",
