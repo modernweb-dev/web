@@ -55,7 +55,7 @@
     "browserslist": "^4.14.7",
     "browserslist-useragent": "^3.0.3",
     "caniuse-api": "^3.0.0",
-    "parse5": "^6.0.0",
+    "parse5": "^6.0.1",
     "polyfills-loader": "^1.6.1",
     "valid-url": "^1.0.9"
   },

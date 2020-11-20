@@ -47,7 +47,7 @@
     "deepmerge": "^4.2.2",
     "dynamic-import-polyfill": "^0.1.1",
     "intersection-observer": "^0.11.0",
-    "parse5": "^6.0.0",
+    "parse5": "^6.0.1",
     "regenerator-runtime": "^0.13.3",
     "resize-observer-polyfill": "^1.5.1",
     "systemjs": "^6.7.1",
