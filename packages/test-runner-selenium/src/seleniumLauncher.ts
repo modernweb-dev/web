@@ -38,6 +38,11 @@ export class SeleniumLauncher implements BrowserLauncher {
       await this.driver?.quit();
       await this.debugDriver?.quit();
 
+      // If there is still pending heartbeat, clear the interval
+      if (this.pendingHeartbeat) {
+        clearInterval(this.pendingHeartbeat);
+      }
+
       this.driver = undefined;
       this.debugDriver = undefined;
       this.iframeManager = undefined;
@@ -63,10 +68,6 @@ export class SeleniumLauncher implements BrowserLauncher {
   }
 
   async stopSession(id: string) {
-    // If there is still pending heartbeat, clear the timeout
-    if (this.pendingHeartbeat) {
-      clearInterval(this.pendingHeartbeat);
-    }
     return this.iframeManager!.queueStopSession(id);
   }
 
@@ -91,8 +92,6 @@ export class SeleniumLauncher implements BrowserLauncher {
     this.__iframeManagerPromise = this.createiframeManager();
     await this.__iframeManagerPromise;
     this.__iframeManagerPromise = undefined;
-
-    this.heartbeat();
   }
 
   private async createiframeManager() {
@@ -100,6 +99,8 @@ export class SeleniumLauncher implements BrowserLauncher {
 
     this.driver = await this.driverBuilder.build();
     this.iframeManager = new IFrameManager(this.config, this.driver, this.isIE);
+
+    this.heartbeat();
 
     return this.iframeManager;
   }
