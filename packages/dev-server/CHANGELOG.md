@@ -1,5 +1,12 @@
 # @web/dev-server
 
+## 0.0.22
+
+### Patch Changes
+
+- 3434dc8: chore: cleanup dev-server-cli leftovers
+- ba418f6: handle preserve-symlinks CLI arg
+
 ## 0.0.21
 
 ### Patch Changes
