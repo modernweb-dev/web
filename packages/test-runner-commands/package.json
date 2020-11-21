@@ -14,6 +14,13 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-commands",
   "main": "browser/commands.mjs",
+  "exports": {
+    ".": "./browser/commands.mjs",
+    "./plugins": {
+      "import": "./plugins.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
     "node": ">=10.0.0"
   },
@@ -44,12 +51,5 @@
     "@web/test-runner-chrome": "^0.7.2",
     "@web/test-runner-playwright": "^0.6.4",
     "mocha": "^8.2.1"
-  },
-  "exports": {
-    ".": "./browser/commands.mjs",
-    "./plugins": {
-      "import": "./plugins.mjs",
-      "require": "./dist/index.js"
-    }
   }
 }

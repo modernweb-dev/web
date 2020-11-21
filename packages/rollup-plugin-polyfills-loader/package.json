@@ -14,6 +14,12 @@
   "author": "modern-web",
   "homepage": "https://github.com/modern-web/web/packages/rollup-plugin-polyfills-loader",
   "main": "src/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
     "node": ">=12.0.0"
   },
@@ -43,11 +49,5 @@
   "devDependencies": {
     "@web/rollup-plugin-html": "^1.2.0",
     "rollup": "^2.33.3"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
   }
 }

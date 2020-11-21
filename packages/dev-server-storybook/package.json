@@ -17,6 +17,12 @@
   "bin": {
     "build-storybook": "dist/build/cli.js"
   },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
     "node": ">=10.0.0"
   },
@@ -70,11 +76,5 @@
   "devDependencies": {
     "@web/dev-server": "^0.0.23",
     "htm": "^3.0.4"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
   }
 }

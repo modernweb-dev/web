@@ -18,6 +18,12 @@
     "web-test-runner": "./dist/bin.js",
     "wtr": "./dist/bin.js"
   },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
     "node": ">=10.0.0"
   },
@@ -80,11 +86,5 @@
   "devDependencies": {
     "@web/dev-server-legacy": "^0.1.6",
     "babel-plugin-istanbul": "^6.0.0"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
   }
 }

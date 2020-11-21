@@ -53,7 +53,7 @@ describe('esbuildPlugin TS', function () {
     }
   });
 
-  it.only('transforms TS decorators', async () => {
+  it('transforms TS decorators', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [

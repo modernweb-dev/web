@@ -15,6 +15,12 @@
   },
   "main": "dist/index.js",
   "module": "index.mjs",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "demo": "rollup -c demo/rollup.config.mjs"
@@ -37,11 +43,5 @@
   "contributors": [
     "Pascal Schilp <pascalschilp@gmail.com>",
     "Benny Powers <web@bennypowers.com>"
-  ],
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
-  }
+  ]
 }

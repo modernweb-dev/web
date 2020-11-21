@@ -14,6 +14,12 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/parse5-utils",
   "main": "src/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./src/index.js"
+    }
+  },
   "engines": {
     "node": ">=10.0.0"
   },
@@ -40,11 +46,5 @@
   },
   "devDependencies": {
     "@types/html-minifier-terser": "^5.1.1"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./src/index.js"
-    }
   }
 }

@@ -18,6 +18,12 @@
     "web-dev-server": "./dist/bin.js",
     "wds": "./dist/bin.js"
   },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
     "node": ">=10.0.0"
   },
@@ -68,11 +74,5 @@
   "devDependencies": {
     "lit-html": "^1.3.0",
     "puppeteer": "^5.2.1"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
   }
 }
