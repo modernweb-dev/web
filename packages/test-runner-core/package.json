@@ -59,12 +59,12 @@
     "globby": "^11.0.1",
     "istanbul-lib-coverage": "^3.0.0",
     "picomatch": "^2.2.2",
-    "uuid": "^8.1.0"
+    "uuid": "^8.3.1"
   },
   "devDependencies": {
     "@types/co-body": "^5.1.0",
     "@types/istanbul-lib-coverage": "^2.0.3",
-    "@types/uuid": "^8.0.0",
+    "@types/uuid": "^8.3.0",
     "portfinder": "^1.0.28"
   }
 }
