@@ -35,6 +35,7 @@
     "*.js",
     "*.mjs",
     "dist",
+    "scripts",
     "src"
   ],
   "dependencies": {
