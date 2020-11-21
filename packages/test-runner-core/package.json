@@ -42,7 +42,7 @@
     "@babel/code-frame": "^7.10.4",
     "@web/browser-logs": "^0.1.5",
     "@web/dev-server-core": "^0.2.11",
-    "co-body": "^6.0.0",
+    "co-body": "^6.1.0",
     "debounce": "^1.2.0",
     "dependency-graph": "^0.9.0",
     "globby": "^11.0.1",
