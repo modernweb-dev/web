@@ -43,7 +43,7 @@
     "@web/parse5-utils": "^1.1.2",
     "@webcomponents/webcomponentsjs": "^2.5.0",
     "abortcontroller-polyfill": "^1.5.0",
-    "core-js-bundle": "^3.6.0",
+    "core-js-bundle": "^3.7.0",
     "deepmerge": "^4.2.2",
     "dynamic-import-polyfill": "^0.1.1",
     "intersection-observer": "^0.11.0",
