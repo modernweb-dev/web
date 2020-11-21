@@ -1,4 +1,4 @@
-import * as puppeteer from 'puppeteer';
+import { Browser, launch as launchPuppeteer } from 'puppeteer';
 import { expect } from 'chai';
 import { Context } from 'koa';
 import fetch from 'node-fetch';
@@ -18,10 +18,10 @@ const mockFile = (path: string, source: string) => ({
 });
 
 describe('HmrPlugin', () => {
-  let browser: puppeteer.Browser;
+  let browser: Browser;
 
   beforeEach(async () => {
-    browser = await puppeteer.launch();
+    browser = await launchPuppeteer();
   });
 
   afterEach(async () => {
