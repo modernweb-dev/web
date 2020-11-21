@@ -7139,6 +7139,13 @@ koa-etag@^3.0.0:
     etag "^1.3.0"
     mz "^2.1.0"
 
+koa-etag@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/koa-etag/-/koa-etag-4.0.0.tgz#2c2bb7ae69ca1ac6ced09ba28dcb78523c810414"
+  integrity sha512-1cSdezCkBWlyuB9l6c/IFoe1ANCDdPBxkDkRiaIup40xpUub6U/wwRXoKBZw/O5BifX9OlqAjYnDyzM6+l+TAg==
+  dependencies:
+    etag "^1.8.1"
+
 koa-is-json@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
