@@ -1,3 +1,5 @@
+import { sharedTemplate } from './sharedTemplate.js';
+
 const renderedComponents = new Set();
 
 export class MyComponent extends HTMLElement {
@@ -28,6 +30,7 @@ export class MyComponent extends HTMLElement {
   render() {
     this.shadowRoot.innerHTML = `
       <style>${MyComponent.styles}</style>
+      ${sharedTemplate}
       ${MyComponent.template}
     `;
   }
