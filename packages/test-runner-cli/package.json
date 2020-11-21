@@ -58,7 +58,7 @@
     "istanbul-lib-report": "^3.0.0",
     "istanbul-reports": "^3.0.2",
     "log-update": "^4.0.0",
-    "open": "^7.0.4",
+    "open": "^7.3.0",
     "portfinder": "^1.0.28",
     "source-map": "^0.7.3"
   },

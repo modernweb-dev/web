@@ -62,7 +62,7 @@
     "debounce": "^1.2.0",
     "deepmerge": "^4.2.2",
     "ip": "^1.1.5",
-    "open": "^7.1.0",
+    "open": "^7.3.0",
     "portfinder": "^1.0.28"
   },
   "devDependencies": {
