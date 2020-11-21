@@ -97,7 +97,7 @@ export class HmrPlugin implements Plugin {
       return source;
     }
 
-    const importPath = pathUtil.resolve(context.path, source);
+    const importPath = pathUtil.resolve(pathUtil.dirname(context.path), source);
     const mod = this._getOrCreateModule(context.path);
     const dependencyMod = this._getOrCreateModule(importPath);
 
@@ -184,7 +184,6 @@ export class HmrPlugin implements Plugin {
 
     const mod = this._getModule(path);
     visited.add(path);
-
     // We have never encountered this module, so can't do anything.
     if (!mod) {
       return;

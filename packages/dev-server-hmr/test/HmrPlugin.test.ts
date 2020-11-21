@@ -51,7 +51,7 @@ describe('HmrPlugin', () => {
     }
   });
 
-  it('should emit update for changed dependencies', async () => {
+  it('should bubble updates for changed dependencies', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
@@ -81,7 +81,37 @@ describe('HmrPlugin', () => {
     }
   });
 
-  it('should emit update for changed dynamic import dependencies', async () => {
+  it('handles dependencies referenced relatively', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        mockFile(
+          '/root/foo.js',
+          `import './bar.js'; import.meta.hot.accept(() => {}); export const a = 1;`,
+        ),
+        mockFile('/root/bar.js', `export const b = 2;`),
+        hmrPlugin(),
+      ],
+    });
+    const { fileWatcher, webSockets } = server;
+    const stub = stubMethod(webSockets, 'send');
+    try {
+      await fetch(`${host}/root/foo.js`);
+      await fetch(`${host}/root/bar.js`);
+      fileWatcher.emit('change', pathUtil.join(__dirname, '/root/bar.js'));
+
+      expect(stub.firstCall!.args[0]).to.equal(
+        JSON.stringify({
+          type: 'hmr:update',
+          url: '/root/foo.js',
+        }),
+      );
+    } finally {
+      await server.stop();
+    }
+  });
+
+  it('should bubble updates for changed dynamic import dependencies', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
