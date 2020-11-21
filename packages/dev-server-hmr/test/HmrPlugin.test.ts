@@ -1,3 +1,4 @@
+import * as puppeteer from 'puppeteer';
 import { expect } from 'chai';
 import { Context } from 'koa';
 import fetch from 'node-fetch';
@@ -17,8 +18,15 @@ const mockFile = (path: string, source: string) => ({
 });
 
 describe('HmrPlugin', () => {
-  afterEach(() => {
+  let browser: puppeteer.Browser;
+
+  beforeEach(async () => {
+    browser = await puppeteer.launch();
+  });
+
+  afterEach(async () => {
     restoreStubs();
+    await browser.close();
   });
 
   it('should emit update for tracked files', async () => {
@@ -220,6 +228,43 @@ describe('HmrPlugin', () => {
       const body = await response.text();
 
       expect(body.includes('__WDS_HMR__')).to.equal(false);
+    } finally {
+      await server.stop();
+    }
+  });
+
+  it('should bubble when bubbles is true', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        mockFile('/foo.html', '<script src="/foo.js" type="module"></script>'),
+        mockFile('/bar.html', '<script src="/bar.js" type="module"></script>'),
+        mockFile('/foo.js', `import '/bar.js'; import.meta.hot.accept();`),
+        mockFile('/bar.js', `import.meta.hot.accept({ bubbles: true })`),
+        hmrPlugin(),
+      ],
+    });
+    const { fileWatcher, webSockets } = server;
+    const stub = stubMethod(webSockets, 'send');
+    const page = await browser.newPage();
+    try {
+      await page.goto(`${host}/foo.html`);
+      await page.goto(`${host}/bar.html`);
+      fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
+
+      expect(stub.callCount).to.equal(2);
+      expect(stub.getCall(0)!.args[0]).to.equal(
+        JSON.stringify({
+          type: 'hmr:update',
+          url: '/bar.js',
+        }),
+      );
+      expect(stub.getCall(1)!.args[0]).to.equal(
+        JSON.stringify({
+          type: 'hmr:update',
+          url: '/foo.js',
+        }),
+      );
     } finally {
       await server.stop();
     }
