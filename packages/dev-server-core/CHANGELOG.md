@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.18
+
+### Patch Changes
+
+- 07edac1: improve handling of dynamic imports
+
 ## 0.2.17
 
 ### Patch Changes
