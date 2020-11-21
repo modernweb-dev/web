@@ -8,8 +8,11 @@ import type {
 } from '@web/dev-server-core';
 import WebSocket from 'ws';
 import type { Context } from 'koa';
-import { hmrClientScript } from './hmrClientScript';
 import path, { posix as pathUtil } from 'path';
+import fs from 'fs';
+
+const hmrClientScriptPath = require.resolve('../scripts/hmrClientScript.js');
+let hmrClientScript = fs.readFileSync(hmrClientScriptPath, 'utf-8');
 
 export interface HmrReloadMessage {
   type: 'hmr:reload';
@@ -59,6 +62,7 @@ export class HmrPlugin implements Plugin {
     if (!webSockets) {
       throw new Error('Cannot use HMR when web sockets are disabled.');
     }
+    hmrClientScript = hmrClientScript.replace('__WEBSOCKET_IMPORT__', webSockets.webSocketImport);
 
     this._config = config;
     this._webSockets = webSockets;
@@ -78,7 +82,7 @@ export class HmrPlugin implements Plugin {
       if (!this._webSockets) {
         return;
       }
-      return hmrClientScript(this._webSockets);
+      return hmrClientScript;
     }
   }
 

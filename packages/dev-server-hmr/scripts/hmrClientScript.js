@@ -1,7 +1,4 @@
-import type { WebSocketsManager } from '@web/dev-server-core';
-
-export const hmrClientScript = (socketManager: WebSocketsManager) => `
-import {webSocket, sendMessage} from '${socketManager.webSocketImport}';
+import { webSocket, sendMessage } from '__WEBSOCKET_IMPORT__';
 
 const modules = new Map();
 const disposeTrigger = Symbol('trigger.dispose');
@@ -12,7 +9,7 @@ const moduleState = Symbol('moduleState');
 const HmrState = {
   None: 0,
   Declined: 1,
-  Accepted: 2
+  Accepted: 2,
 };
 
 export class HotModule {
@@ -33,7 +30,7 @@ export class HotModule {
     this[moduleState] = HmrState.Accepted;
     this[acceptHandlers].add({
       deps,
-      callback
+      callback,
     });
   }
 
@@ -44,7 +41,7 @@ export class HotModule {
 
     sendMessage({ type: 'hmr:accept', id: this.id });
     this[moduleState] = HmrState.Accepted;
-    this[acceptHandlers].add(callback ?? (() => {}));
+    this[acceptHandlers].add(callback || (() => {}));
   }
 
   dispose(handler) {
@@ -77,18 +74,17 @@ export class HotModule {
 
     const time = Date.now();
     const handlers = [...this[acceptHandlers]];
-    const results = await Promise.all(handlers.map((handler) => {
-      if (typeof handler === 'function') {
+    const results = await Promise.all(
+      handlers.map(handler => {
+        if (typeof handler === 'function') {
+          return Promise.all([Promise.resolve(handler), import(`${this.id}?m=${time}`)]);
+        }
         return Promise.all([
-          Promise.resolve(handler),
-          import(\`\${this.id}?m=\${time}\`)
+          Promise.resolve(handler.callback),
+          Promise.all(handler.deps.map(path => import(`${path}?m=${time}`))),
         ]);
-      }
-      return Promise.all([
-        Promise.resolve(handler.callback),
-        Promise.all(handler.deps.map((path) => import(\`\${path}?m=\${time}\`)))
-      ]);
-    }));
+      }),
+    );
 
     for (const [callback, modules] of results) {
       if (callback) {
@@ -115,7 +111,7 @@ export function create(url) {
   return instance;
 }
 
-webSocket.addEventListener('message', (e) => {
+webSocket.addEventListener('message', e => {
   try {
     const message = JSON.parse(e.data);
     if (message.type === 'hmr:reload') {
@@ -131,4 +127,3 @@ webSocket.addEventListener('message', (e) => {
     console.error(error);
   }
 });
-`;

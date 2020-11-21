@@ -8,6 +8,7 @@
 /packages/dev-server-rollup/test/browser/**/*
 /integration/test-runner/tests/*/browser-tests
 /packages/dev-server-storybook/storybook-static/**/*
+/packages/dev-server-hmr/scripts/**/*
 node_modules
 dist
 demo
