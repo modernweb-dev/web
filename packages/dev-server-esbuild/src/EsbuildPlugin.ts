@@ -6,7 +6,7 @@ import {
   DevServerCoreConfig,
   getRequestFilePath,
 } from '@web/dev-server-core';
-import { startService, Service, Loader, Message, Strict } from 'esbuild';
+import { startService, Service, Loader, Message } from 'esbuild';
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs';
@@ -39,7 +39,6 @@ export interface EsbuildConfig {
   tsFileExtensions: string[];
   jsxFactory?: string;
   jsxFragment?: string;
-  strict?: boolean | Strict[];
   define?: { [key: string]: string };
 }
 
@@ -177,19 +176,11 @@ export class EsbuildPlugin implements Plugin {
     target: string | string[],
   ): Promise<string> {
     try {
-      const { js, warnings } = await this.service!.transform(code, {
+      const { code: transformedCode, warnings } = await this.service!.transform(code, {
         sourcefile: filePath,
         sourcemap: 'inline',
         loader,
         target,
-        strict:
-          // use user defined strict config, otherwise default to strict class fields
-          // unless we are transforming TS which does not use strict class fields
-          this.esbuildConfig.strict
-            ? this.esbuildConfig.strict
-            : ['ts', 'tsx'].includes(loader)
-            ? []
-            : ['class-fields'],
         jsxFactory: this.esbuildConfig.jsxFactory,
         jsxFragment: this.esbuildConfig.jsxFragment,
       });
@@ -206,7 +197,7 @@ export class EsbuildPlugin implements Plugin {
         }
       }
 
-      return js;
+      return transformedCode;
     } catch (e) {
       if (Array.isArray(e.errors)) {
         const msg = e.errors[0] as Message;
