@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.2.8
+
+### Patch Changes
+
+- 28890a0: update to latest esbuild
+
 ## 0.2.6
 
 ### Patch Changes
