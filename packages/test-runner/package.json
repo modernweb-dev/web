@@ -78,13 +78,13 @@
     "@web/test-runner-commands": "^0.2.1",
     "@web/test-runner-core": "^0.8.11",
     "@web/test-runner-mocha": "^0.5.1",
-    "@web/test-runner-saucelabs": "^0.1.1",
     "command-line-args": "^5.1.1",
     "deepmerge": "^4.2.2",
     "globby": "^11.0.1"
   },
   "devDependencies": {
     "@web/dev-server-legacy": "^0.1.6",
+    "@web/test-runner-saucelabs": "^0.1.1",
     "babel-plugin-istanbul": "^6.0.0"
   }
 }
