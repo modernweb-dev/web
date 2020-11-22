@@ -10,6 +10,7 @@ module.exports = async function () {
         url: 'https://github.com/modernweb-dev/web',
       },
     ],
+    gitSiteUrl: 'https://github.com/modernweb-dev/web',
     helpUrl: 'https://github.com/modernweb-dev/web/issues',
     logoAlt: 'Tilted sphere with longitudinal stripes',
     iconColorMaskIcon: '#3f93ce',
