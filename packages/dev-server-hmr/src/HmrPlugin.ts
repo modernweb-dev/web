@@ -103,7 +103,8 @@ export class HmrPlugin implements Plugin {
   transformCacheKey(context: Context) {
     const mod = this._getOrCreateModule(context.path);
     if (mod.needsReplacement) {
-      return `${context.path}${Date.now()}`;
+      const marker = context.URL.searchParams.get('m') ?? Date.now();
+      return `${context.path}${marker}`;
     }
   }
 
@@ -124,10 +125,10 @@ export class HmrPlugin implements Plugin {
     dependencyMod.dependents.add(context.path);
     this._logger?.debug(`[hmr] Added dependency from ${context.path} -> ${importPath}`);
 
-    if (mod.needsReplacement) {
-      this._setNeedsReplacement(importPath, mod, false);
+    if (dependencyMod.needsReplacement) {
+      const marker = context.URL.searchParams.get('m') ?? Date.now();
       const divider = source.includes('?') ? '&' : '?';
-      return `${source}${divider}m=${Date.now()}`;
+      return `${source}${divider}m=${marker}`;
     }
   }
 
@@ -137,7 +138,6 @@ export class HmrPlugin implements Plugin {
     if (context.path === NAME_HMR_CLIENT_IMPORT) {
       return;
     }
-
     // If the module references import.meta.hot it can be assumed it
     // supports hot reloading
     const hmrEnabled = context.body.includes('import.meta.hot') === true;
@@ -145,15 +145,16 @@ export class HmrPlugin implements Plugin {
     mod.hmrEnabled = hmrEnabled;
     this._logger?.debug(`[hmr] Setting hmrEnabled=${hmrEnabled} for ${context.path}`);
 
+    if (context.URL.searchParams.has('m')) {
+      this._setNeedsReplacement(context.path, mod, false);
+    }
+
     if (hmrEnabled && context.response.is('js')) {
-      if (context.URL.searchParams.has('m')) {
-        this._setNeedsReplacement(context.path, mod, false);
-      }
-      return `
-        import {create as __WDS_HMR__} from '${NAME_HMR_CLIENT_IMPORT}';
-        import.meta.hot = __WDS_HMR__(import.meta.url);
-        ${context.body}
-      `;
+      return (
+        `import {create as __WDS_HMR__} from '${NAME_HMR_CLIENT_IMPORT}';` +
+        'import.meta.hot = __WDS_HMR__(import.meta.url);' +
+        context.body
+      );
     }
   }
 
@@ -246,21 +247,18 @@ export class HmrPlugin implements Plugin {
     }
 
     // Nothing left to try
-    this._broadcast({ type: 'hmr:reload' });
+    if (dependents.size === 0) {
+      this._broadcast({ type: 'hmr:reload' });
+    }
   }
 
   private _setNeedsReplacement(path: string, module: HmrModule, needsReplacement: boolean) {
     if (needsReplacement) {
       module.replacementRequests += 1;
     } else {
-      module.replacementRequests -= 1;
+      module.replacementRequests = Math.max(0, module.replacementRequests - 1);
     }
     module.needsReplacement = module.replacementRequests > 0;
-    console.log('_setNeedsReplacement', {
-      path,
-      needsReplacement,
-      replacementRequests: module.replacementRequests,
-    });
   }
 
   /**
