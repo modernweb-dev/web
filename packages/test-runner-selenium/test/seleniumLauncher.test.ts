@@ -7,7 +7,7 @@ import { runIntegrationTests } from '../../../integration/test-runner';
 import { seleniumLauncher } from '../src/seleniumLauncher';
 
 async function startSeleniumServer() {
-  await new Promise((resolve, reject) =>
+  await new Promise<void>((resolve, reject) =>
     selenium.install(err => {
       if (err) {
         reject(err);
