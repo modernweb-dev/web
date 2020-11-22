@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.9.13
+
+### Patch Changes
+
+- db298f0: make saucelabs a dev dependency
+
 ## 0.9.12
 
 ### Patch Changes
