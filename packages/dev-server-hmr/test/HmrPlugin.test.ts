@@ -268,7 +268,6 @@ describe('HmrPlugin', () => {
       rootDir: __dirname,
       plugins: [
         mockFile('/foo.html', '<script src="/foo.js" type="module"></script>'),
-        mockFile('/bar.html', '<script src="/bar.js" type="module"></script>'),
         mockFile('/foo.js', `import '/bar.js'; import.meta.hot.accept();`),
         mockFile('/bar.js', `import.meta.hot.accept({ bubbles: true })`),
         hmrPlugin(),
@@ -278,8 +277,7 @@ describe('HmrPlugin', () => {
     const stub = stubMethod(webSockets, 'send');
     const page = await browser.newPage();
     try {
-      await page.goto(`${host}/foo.html`);
-      await page.goto(`${host}/bar.html`);
+      await page.goto(`${host}/foo.html`, { waitUntil: 'networkidle0' });
       fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
 
       expect(stub.callCount).to.equal(2);
