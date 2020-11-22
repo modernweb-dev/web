@@ -263,38 +263,51 @@ describe('HmrPlugin', () => {
     }
   });
 
-  it('should bubble when bubbles is true', async () => {
-    const { server, host } = await createTestServer({
-      rootDir: __dirname,
-      plugins: [
-        mockFile('/foo.html', '<script src="/foo.js" type="module"></script>'),
-        mockFile('/foo.js', `import '/bar.js'; import.meta.hot.accept();`),
-        mockFile('/bar.js', `import.meta.hot.accept({ bubbles: true })`),
-        hmrPlugin(),
-      ],
-    });
-    const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets, 'send');
-    const page = await browser.newPage();
-    try {
-      await page.goto(`${host}/foo.html`, { waitUntil: 'networkidle0' });
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
+  describe('browser tests', () => {
+    let browser: Browser;
 
-      expect(stub.callCount).to.equal(2);
-      expect(stub.getCall(0)!.args[0]).to.equal(
-        JSON.stringify({
-          type: 'hmr:update',
-          url: '/bar.js',
-        }),
-      );
-      expect(stub.getCall(1)!.args[0]).to.equal(
-        JSON.stringify({
-          type: 'hmr:update',
-          url: '/foo.js',
-        }),
-      );
-    } finally {
-      await server.stop();
-    }
+    before(async () => {
+      browser = await launchPuppeteer();
+    });
+
+    after(async () => {
+      await browser.close();
+    });
+
+    it('should bubble when bubbles is true', async () => {
+      const { server, host } = await createTestServer({
+        rootDir: __dirname,
+        plugins: [
+          mockFile('/foo.html', '<script src="/foo.js" type="module"></script>'),
+          mockFile('/foo.js', `import '/bar.js'; import.meta.hot.accept();`),
+          mockFile('/bar.js', `import.meta.hot.accept({ bubbles: true })`),
+          hmrPlugin(),
+        ],
+      });
+      const { fileWatcher, webSockets } = server;
+      const stub = stubMethod(webSockets, 'send');
+      const page = await browser.newPage();
+      try {
+        await page.goto(`${host}/foo.html`, { waitUntil: 'networkidle0' });
+        fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
+
+        expect(stub.callCount).to.equal(2);
+        expect(stub.getCall(0)!.args[0]).to.equal(
+          JSON.stringify({
+            type: 'hmr:update',
+            url: '/bar.js',
+          }),
+        );
+        expect(stub.getCall(1)!.args[0]).to.equal(
+          JSON.stringify({
+            type: 'hmr:update',
+            url: '/foo.js',
+          }),
+        );
+      } finally {
+        await page.close();
+        await server.stop();
+      }
+    });
   });
 });
