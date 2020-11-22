@@ -43,6 +43,8 @@ export interface HmrModule {
   hmrAccepted: boolean;
   hmrEnabled: boolean;
   options?: Partial<HmrModuleOptions>;
+  needsReplacement: boolean;
+  replacementRequests: number;
 }
 
 export const NAME_HMR_CLIENT_IMPORT = '/__web-dev-server__/hmr.js';
@@ -98,6 +100,13 @@ export class HmrPlugin implements Plugin {
     }
   }
 
+  transformCacheKey(context: Context) {
+    const mod = this._getOrCreateModule(context.path);
+    if (mod.needsReplacement) {
+      return `${context.path}${Date.now()}`;
+    }
+  }
+
   /** @inheritDoc */
   async transformImport({ source, context }: { source: string; context: Context }) {
     if (
@@ -114,6 +123,12 @@ export class HmrPlugin implements Plugin {
     mod.dependencies.add(importPath);
     dependencyMod.dependents.add(context.path);
     this._logger?.debug(`[hmr] Added dependency from ${context.path} -> ${importPath}`);
+
+    if (mod.needsReplacement) {
+      this._setNeedsReplacement(importPath, mod, false);
+      const divider = source.includes('?') ? '&' : '?';
+      return `${source}${divider}m=${Date.now()}`;
+    }
   }
 
   /** @inheritDoc */
@@ -131,6 +146,9 @@ export class HmrPlugin implements Plugin {
     this._logger?.debug(`[hmr] Setting hmrEnabled=${hmrEnabled} for ${context.path}`);
 
     if (hmrEnabled && context.response.is('js')) {
+      if (context.URL.searchParams.has('m')) {
+        this._setNeedsReplacement(context.path, mod, false);
+      }
       return `
         import {create as __WDS_HMR__} from '${NAME_HMR_CLIENT_IMPORT}';
         import.meta.hot = __WDS_HMR__(import.meta.url);
@@ -198,7 +216,7 @@ export class HmrPlugin implements Plugin {
     if (!mod) {
       return;
     }
-
+    this._setNeedsReplacement(path, mod, true);
     const dependents = new Set<string>(mod.dependents);
 
     this._clearDependencies(path);
@@ -229,6 +247,20 @@ export class HmrPlugin implements Plugin {
 
     // Nothing left to try
     this._broadcast({ type: 'hmr:reload' });
+  }
+
+  private _setNeedsReplacement(path: string, module: HmrModule, needsReplacement: boolean) {
+    if (needsReplacement) {
+      module.replacementRequests += 1;
+    } else {
+      module.replacementRequests -= 1;
+    }
+    module.needsReplacement = module.replacementRequests > 0;
+    console.log('_setNeedsReplacement', {
+      path,
+      needsReplacement,
+      replacementRequests: module.replacementRequests,
+    });
   }
 
   /**
@@ -306,6 +338,8 @@ export class HmrPlugin implements Plugin {
       hmrEnabled: false,
       dependencies: new Set(),
       dependents: new Set(),
+      needsReplacement: false,
+      replacementRequests: 0,
     };
     this._dependencyTree.set(path, mod);
     return mod;

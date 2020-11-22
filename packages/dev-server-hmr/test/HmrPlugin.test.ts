@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { Context } from 'koa';
 import fetch from 'node-fetch';
 import { stubMethod, restore as restoreStubs } from 'hanbi';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
+import { createTestServer, fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
 import { hmrPlugin } from '../src/index';
 import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin';
 import { posix as pathUtil } from 'path';
@@ -13,6 +13,17 @@ const mockFile = (path: string, source: string) => ({
   serve: (context: Context) => {
     if (context.path === path) {
       return source;
+    }
+  },
+});
+
+const mockFiles = (files: [path: string, source: string][]) => ({
+  name: `test-file:${files.map(f => f[0]).join('_')}`,
+  serve: (context: Context) => {
+    for (const [path, source] of files) {
+      if (context.path === path) {
+        return source;
+      }
     }
   },
 });
@@ -144,6 +155,91 @@ describe('HmrPlugin', () => {
           url: '/foo.js',
         }),
       );
+    } finally {
+      await server.stop();
+    }
+  });
+
+  it('imports changed dependencies with a unique URL', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        mockFiles([
+          ['/a.js', "import '/b.js'; import '/c.js'; import.meta.hot.accept();"],
+          ['/b.js', '// nothing'],
+          ['/c.js', '// nothing'],
+        ]),
+        hmrPlugin(),
+      ],
+    });
+    const { fileWatcher } = server;
+    try {
+      await fetchText(`${host}/a.js`);
+      await fetchText(`${host}/b.js`);
+      await fetchText(`${host}/c.js`);
+      fileWatcher.emit('change', pathUtil.join(__dirname, '/b.js'));
+
+      const updatedA = await fetchText(`${host}/a.js?m=1234567890123`);
+      expect(/import '\/b\.js\?m=\d{13}';/.test(updatedA)).to.equal(true);
+      expectIncludes(updatedA, "import '/c.js';");
+    } finally {
+      await server.stop();
+    }
+  });
+
+  it('imports deeply changed dependencies with a unique URL', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        mockFiles([
+          ['/a.js', "import '/b.js'; import.meta.hot.accept();"],
+          ['/b.js', "import '/c.js';"],
+          ['/c.js', '// nothing'],
+        ]),
+        hmrPlugin(),
+      ],
+    });
+    const { fileWatcher } = server;
+    try {
+      await fetchText(`${host}/a.js`);
+      await fetchText(`${host}/b.js`);
+      await fetchText(`${host}/c.js`);
+      fileWatcher.emit('change', pathUtil.join(__dirname, '/c.js'));
+
+      const updatedA = await fetchText(`${host}/a.js?m=1234567890123`);
+      const updatedB = await fetchText(`${host}/b.js?m=1234567890123`);
+      expect(/import '\/b\.js\?m=\d{13}';/.test(updatedA)).to.equal(true);
+      expect(/import '\/c\.js\?m=\d{13}';/.test(updatedB)).to.equal(true);
+    } finally {
+      await server.stop();
+    }
+  });
+
+  it('multiple dependents will import deep dependency changes with a unique URL', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        mockFiles([
+          ['/a1.js', "import '/b.js'; import.meta.hot.accept(); // a1"],
+          ['/a2.js', "import '/b.js'; import.meta.hot.accept(); // a2"],
+          ['/b.js', "import '/c.js';"],
+          ['/c.js', '// nothing'],
+        ]),
+        hmrPlugin(),
+      ],
+    });
+    const { fileWatcher } = server;
+    try {
+      await fetchText(`${host}/a1.js`);
+      await fetchText(`${host}/a2.js`);
+      await fetchText(`${host}/b.js`);
+      await fetchText(`${host}/c.js`);
+      fileWatcher.emit('change', pathUtil.join(__dirname, '/c.js'));
+
+      const updatedA1 = await fetchText(`${host}/a1.js?m=1234567890123`);
+      // const updatedA2 = await fetchText(`${host}/a2.js?m=1234567890123`);
+      expect(/import '\/b\.js\?m=\d{13}';/.test(updatedA1)).to.equal(true);
+      // expect(/import '\/b\.js\?m=\d{13}';/.test(updatedA2)).to.equal(true);
     } finally {
       await server.stop();
     }
