@@ -1,5 +1,12 @@
 # @web/dev-server-hmr
 
+## 0.1.4
+
+### Patch Changes
+
+- 6f1cb5f: fix resolving relative imports
+- b4f79a1: add HMR bubbles option
+
 ## 0.1.3
 
 ### Patch Changes
