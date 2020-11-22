@@ -1253,7 +1253,7 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@import-maps/resolve@^1.0.0":
+"@import-maps/resolve@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@import-maps/resolve/-/resolve-1.0.1.tgz#1e9fcadcf23aa0822256a329aabca241879d37c9"
   integrity sha512-tWZNBIS1CoekcwlMuyG2mr0a1Wo5lb5lEHwwWvZo+5GLgr3e9LLDTtmgtCWEwBpXMkxn9D+2W9j2FY6eZQq0tA==
@@ -2084,17 +2084,10 @@
   dependencies:
     "@types/puppeteer" "*"
 
-"@types/puppeteer@*":
+"@types/puppeteer@*", "@types/puppeteer@^5.4.0":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-5.4.0.tgz#1ef860bd7a9dcf0c4633aac8c0ec21f75b431868"
   integrity sha512-zTYDLjnHjgzokrwKt7N0rgn7oZPYo1J0m8Ghu+gXqzLCEn8RWbELa2uprE2UFJ0jU/Sk0x9jXXdOH/5QQLFHhQ==
-  dependencies:
-    "@types/node" "*"
-
-"@types/puppeteer@^3.0.5":
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-3.0.5.tgz#5ef5d023f45c0dfcc82e97548891b11b6ce868fb"
-  integrity sha512-NkphUMkpbr/us6hp1AqUh/UxX5Tf2UJU94MvaF8OOgIUPBipYodql+yRjcysJKqwnDkchp+cD/8jntI/C9StzA==
   dependencies:
     "@types/node" "*"
 
@@ -8715,10 +8708,31 @@ pngjs@^5.0.0:
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-5.0.0.tgz#e79dd2b215767fd9c04561c01236df960bce7fbb"
   integrity sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==
 
-polyfills-loader@^1.6.1, polyfills-loader@^1.7.4:
+polyfills-loader@^1.7.4:
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/polyfills-loader/-/polyfills-loader-1.7.5.tgz#a05342a14e18b1e4cadb99adde5275d20da8e196"
   integrity sha512-4OjSRiMsCUiDHxbQLOXPJ/QWXd6tHenBlxwS0qClgV+XZQre6UD8Fh3bSjFfnkRGRsqfrnjT7dFUJxxAFMe1qQ==
+  dependencies:
+    "@babel/core" "^7.11.1"
+    "@open-wc/building-utils" "^2.18.3"
+    "@webcomponents/webcomponentsjs" "^2.4.0"
+    abortcontroller-polyfill "^1.4.0"
+    core-js-bundle "^3.6.0"
+    deepmerge "^4.2.2"
+    dynamic-import-polyfill "^0.1.1"
+    es-module-shims "^0.4.6"
+    intersection-observer "^0.7.0"
+    parse5 "^5.1.1"
+    regenerator-runtime "^0.13.3"
+    resize-observer-polyfill "^1.5.1"
+    systemjs "^6.3.1"
+    terser "^4.6.7"
+    whatwg-fetch "^3.0.0"
+
+polyfills-loader@^1.7.6:
+  version "1.7.6"
+  resolved "https://registry.yarnpkg.com/polyfills-loader/-/polyfills-loader-1.7.6.tgz#5cff98bfc9689cf10e44bdd32f498cfeb4374c51"
+  integrity sha512-AiLIgmGFmzcvsqewyKsqWb7H8CnWNTSQBoM0u+Mauzmp0DsjObXmnZdeqvTn0HNwc1wYHHTOta82WjSjG341eQ==
   dependencies:
     "@babel/core" "^7.11.1"
     "@open-wc/building-utils" "^2.18.3"
@@ -9414,7 +9428,7 @@ puppeteer-core@^5.5.0:
     unbzip2-stream "^1.3.3"
     ws "^7.2.3"
 
-puppeteer@^5.2.1, puppeteer@^5.3.1:
+puppeteer@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-5.5.0.tgz#331a7edd212ca06b4a556156435f58cbae08af00"
   integrity sha512-OM8ZvTXAhfgFA7wBIIGlPQzvyEETzDjeRa4mZRCRHxYL+GNH5WAuYUQdja3rpWZvkX/JKqmuVgbsxDNsDFjMEg==

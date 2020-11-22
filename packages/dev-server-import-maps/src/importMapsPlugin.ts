@@ -34,7 +34,7 @@ import {
   mergeImportMaps,
   getDocumentBaseUrl,
 } from './utils';
-import { ImportMap } from '@import-maps/resolve/src/parser';
+import { ImportMap } from '@import-maps/resolve';
 
 export interface ImportMapData {
   htmlPath: string;

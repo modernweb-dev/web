@@ -32,9 +32,10 @@ export async function collectGroupConfigs(patterns: string[]) {
 
   for (const groupConfigFile of groupConfigFiles) {
     try {
-      const maybeGroupConfig = (await readConfig('', groupConfigFile)) as Partial<
-        TestRunnerGroupConfig
-      >;
+      const maybeGroupConfig = (await readConfig(
+        '',
+        groupConfigFile,
+      )) as Partial<TestRunnerGroupConfig>;
       const groupConfig = validateGroupConfig(groupConfigFile, maybeGroupConfig);
       groupConfigs.push(groupConfig);
     } catch (error) {

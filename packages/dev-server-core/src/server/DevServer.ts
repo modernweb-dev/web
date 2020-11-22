@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import { Server, Socket } from 'net';
+import { ListenOptions, Server, Socket } from 'net';
 import chokidar from 'chokidar';
 import { promisify } from 'util';
 
@@ -38,7 +38,7 @@ export class DevServer {
 
   async start() {
     this.started = true;
-    await promisify(this.server.listen).bind(this.server)({
+    await (promisify<ListenOptions>(this.server.listen).bind(this.server) as any)({
       port: this.config.port,
       // in case of localhost the host should be undefined, otherwise some browsers connect
       // connect to it via local network. for example safari on browserstack
@@ -65,7 +65,7 @@ export class DevServer {
       connection.destroy();
     }
 
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
       this.server.close(err => {
         if (err) {
           console.error(err);

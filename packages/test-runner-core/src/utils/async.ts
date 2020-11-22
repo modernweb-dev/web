@@ -6,9 +6,9 @@ export function withTimeout<T>(
   message: string,
   timeout: number,
 ): Promise<T> {
-  return new Promise((resolve, reject) => {
+  return new Promise<T>((resolve, reject) => {
     if (!(promise instanceof Promise)) {
-      resolve();
+      (resolve as any)();
       return;
     }
 
