@@ -23,9 +23,14 @@ export interface HmrUpdateMessage {
   url: string;
 }
 
+export interface HmrModuleOptions {
+  bubbles: boolean;
+}
+
 export interface HmrAcceptMessage extends WebSocketData {
   type: 'hmr:accept';
   id: string;
+  options?: Partial<HmrModuleOptions>;
 }
 
 export type HmrMessage = HmrReloadMessage | HmrUpdateMessage;
@@ -37,6 +42,7 @@ export interface HmrModule {
   dependents: Set<string>;
   hmrAccepted: boolean;
   hmrEnabled: boolean;
+  options?: Partial<HmrModuleOptions>;
 }
 
 export const NAME_HMR_CLIENT_IMPORT = '/__web-dev-server__/hmr.js';
@@ -209,16 +215,15 @@ export class HmrPlugin implements Plugin {
       this._broadcast({ type: 'hmr:update', url: path });
     }
 
-    // The module has already been dealt with already
-    if (mod.hmrAccepted) {
-      return;
-    }
-
-    // Trigger an update for every module that depends on this one
-    if (dependents.size > 0) {
+    if (mod.options?.bubbles || !mod.hmrEnabled) {
+      // Trigger an update for every module that depends on this one
       for (const dep of dependents) {
         this._triggerUpdate(dep, visited);
       }
+    }
+
+    // Module must've been dealt with by now
+    if (mod.hmrEnabled) {
       return;
     }
 
@@ -262,6 +267,7 @@ export class HmrPlugin implements Plugin {
 
     if (message.type === 'hmr:accept') {
       const mod = this._getOrCreateModule(message.id);
+      mod.options = message.options;
       mod.hmrAccepted = true;
       mod.hmrEnabled = true;
     }

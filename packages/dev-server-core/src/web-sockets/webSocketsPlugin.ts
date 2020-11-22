@@ -1,6 +1,6 @@
 import { Plugin } from '../Plugin';
 import { NAME_WEB_SOCKET_IMPORT } from './WebSocketsManager';
-import { appendToDocument } from '@web/parse5-utils';
+import { appendToDocument, isHtmlFragment } from '@web/parse5-utils';
 
 export const webSocketScript = `<!-- injected by web-dev-server -->
 <script type="module" src="${NAME_WEB_SOCKET_IMPORT}"></script>`;
@@ -95,6 +95,9 @@ if (webSocket) {
 
     async transform(context) {
       if (context.response.is('html')) {
+        if (isHtmlFragment(context.body)) {
+          return;
+        }
         return appendToDocument(context.body, webSocketScript);
       }
     },

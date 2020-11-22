@@ -10,6 +10,7 @@ import { Plugin } from './Plugin';
 
 const defaultConfig: Omit<DevServerCoreConfig, 'port' | 'rootDir'> = {
   hostname: 'localhost',
+  injectWebSocket: true,
   middleware: [],
   plugins: [],
 };

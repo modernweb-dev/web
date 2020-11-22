@@ -34,14 +34,23 @@ export class HotModule {
     });
   }
 
-  accept(callback) {
+  accept(callbackOrOptions, options) {
+    let callback;
+
+    if (typeof callbackOrOptions === 'function') {
+      callback = callbackOrOptions;
+    } else {
+      options = callbackOrOptions;
+      callback = () => {};
+    }
+
     if (this[moduleState] === HmrState.Accepted) {
       return;
     }
 
-    sendMessage({ type: 'hmr:accept', id: this.id });
+    sendMessage({ type: 'hmr:accept', id: this.id, options });
     this[moduleState] = HmrState.Accepted;
-    this[acceptHandlers].add(callback || (() => {}));
+    this[acceptHandlers].add(callback);
   }
 
   dispose(handler) {
