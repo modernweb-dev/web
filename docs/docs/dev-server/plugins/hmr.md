@@ -1,8 +1,5 @@
 # Dev Server >> Plugins >> Hot Module Replacement ||7
 
-> **Warning:** this plugin is still experimental and may change until it
-> reaches a stable release.
-
 Plugin for introducing HMR (hot module replacement) support.
 
 Modules can be written to consume the provided HMR API at development
@@ -25,6 +22,13 @@ export default {
   plugins: [hmrPlugin()],
 };
 ```
+
+## Implementations
+
+You will likely use this plugin through one of the implementations:
+
+- [@open-wc/dev-server-hmr](https://open-wc.org/docs/development/hot-module-replacement/) for web components
+- [@prefresh/web-dev-server](https://github.com/JoviDeCroock/prefresh/) for preact
 
 ## Basic usage
 
