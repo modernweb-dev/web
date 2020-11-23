@@ -2283,10 +2283,10 @@
   resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
   integrity sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==
 
-"@web/storybook-prebuilt@^0.1.9":
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/@web/storybook-prebuilt/-/storybook-prebuilt-0.1.9.tgz#bd2ea989251af3d80008f3f6b30d2bd9d862f9e4"
-  integrity sha512-RbRLPO9/nX1siQSBKIBGSzUT+WItI30OfUrk3CQ6s+e3cei1JcPqpScpZ22CUd8gtfjGV5gXpGDt3bRbmAIbUg==
+"@web/storybook-prebuilt@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@web/storybook-prebuilt/-/storybook-prebuilt-0.1.10.tgz#4eef173657f35bb43573b57b7f8df84efd686e9b"
+  integrity sha512-W7HSmqMMxN/pi7vWHoWBs9uLzk+hdW8Wi0aLvW0Ma+F02nvlHgT7QFHqH65pPWuA3xPUqKj0OcFOh69hbPfr+g==
 
 "@webcomponents/shadycss@^1.9.4":
   version "1.10.2"
