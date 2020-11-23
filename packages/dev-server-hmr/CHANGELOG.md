@@ -1,5 +1,11 @@
 # @web/dev-server-hmr
 
+## 0.1.5
+
+### Patch Changes
+
+- 74c2bf2: update bubbled dependencies
+
 ## 0.1.4
 
 ### Patch Changes
