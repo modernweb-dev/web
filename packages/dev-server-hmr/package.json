@@ -39,7 +39,7 @@
     "src"
   ],
   "dependencies": {
-    "@web/dev-server-core": "^0.2.15"
+    "@web/dev-server-core": "^0.2.18"
   },
   "devDependencies": {
     "@types/puppeteer": "^5.4.0",
