@@ -1,5 +1,11 @@
 # @web/dev-server-hmr
 
+## 0.1.6
+
+### Patch Changes
+
+- 3006e91: update dependencies
+
 ## 0.1.5
 
 ### Patch Changes
