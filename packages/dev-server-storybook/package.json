@@ -63,7 +63,7 @@
     "@web/dev-server-core": "^0.2.18",
     "@web/rollup-plugin-html": "^1.2.0",
     "@web/rollup-plugin-polyfills-loader": "^1.0.3",
-    "@web/storybook-prebuilt": "^0.1.10",
+    "@web/storybook-prebuilt": "^0.1.12",
     "babel-plugin-bundled-import-meta": "^0.3.2",
     "babel-plugin-template-html-minifier": "^4.1.0",
     "globby": "^11.0.1",
