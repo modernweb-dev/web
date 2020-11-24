@@ -213,12 +213,6 @@ export class HmrPlugin implements Plugin {
 
     const mod = this._getModule(path);
     visited.add(path);
-    // We have never encountered this module, so can't do anything.
-    if (!mod) {
-      return;
-    }
-    this._setNeedsReplacement(path, mod, true);
-    const dependents = new Set<string>(mod.dependents);
 
     this._clearDependencies(path);
     this._logger?.debug(`[hmr] Cleared dependency tree cache of ${path}`);
@@ -228,6 +222,9 @@ export class HmrPlugin implements Plugin {
       this._broadcast({ type: 'hmr:reload' });
       return;
     }
+
+    this._setNeedsReplacement(path, mod, true);
+    const dependents = new Set<string>(mod.dependents);
 
     // The module supports HMR so lets tell it to update
     if (mod.hmrEnabled) {
@@ -241,13 +238,9 @@ export class HmrPlugin implements Plugin {
       }
     }
 
-    // Module must've been dealt with by now
-    if (mod.hmrEnabled) {
-      return;
-    }
-
-    // Nothing left to try
-    if (dependents.size === 0) {
+    // If this module doesn't support HMR and it has no dependents,
+    // nothing will handle this. So we must reload.
+    if (!mod.hmrEnabled && dependents.size === 0) {
       this._broadcast({ type: 'hmr:reload' });
     }
   }
