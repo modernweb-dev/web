@@ -53,7 +53,7 @@
     "esm"
   ],
   "dependencies": {
-    "@babel/core": "^7.12.8",
+    "@babel/core": "^7.12.9",
     "@babel/generator": "^7.12.5",
     "@babel/parser": "^7.12.7",
     "@babel/preset-env": "^7.12.7",
