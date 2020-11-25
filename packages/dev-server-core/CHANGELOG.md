@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.2.19
+
+### Patch Changes
+
+- fb56854: Bust cache when a file is deleted
+
 ## 0.2.18
 
 ### Patch Changes
