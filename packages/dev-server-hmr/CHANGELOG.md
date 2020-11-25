@@ -1,5 +1,11 @@
 # @web/dev-server-hmr
 
+## 0.1.7
+
+### Patch Changes
+
+- e2c84e0: clean up bubbling logic
+
 ## 0.1.6
 
 ### Patch Changes
