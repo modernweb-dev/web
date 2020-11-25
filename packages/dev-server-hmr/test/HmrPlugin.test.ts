@@ -73,6 +73,61 @@ describe('HmrPlugin', () => {
     }
   });
 
+  it('should not reload if dependent handles change', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        mockFile('/foo.js', `import '/bar.js'; import.meta.hot.accept();`),
+        mockFile('/bar.js', `export const s = 808;`),
+        hmrPlugin(),
+      ],
+    });
+    const { fileWatcher, webSockets } = server;
+    const stub = stubMethod(webSockets, 'send');
+    try {
+      await fetch(`${host}/foo.js`);
+      await fetch(`${host}/bar.js`);
+      fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
+
+      expect(stub.callCount).to.equal(1);
+      expect(stub.firstCall!.args[0]).to.equal(
+        JSON.stringify({
+          type: 'hmr:update',
+          url: '/foo.js',
+        }),
+      );
+    } finally {
+      await server.stop();
+    }
+  });
+
+  it('should reload if dependents do not handle change', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        mockFile('/foo.js', `import '/bar.js';`),
+        mockFile('/bar.js', `export const s = 808;`),
+        hmrPlugin(),
+      ],
+    });
+    const { fileWatcher, webSockets } = server;
+    const stub = stubMethod(webSockets, 'send');
+    try {
+      await fetch(`${host}/foo.js`);
+      await fetch(`${host}/bar.js`);
+      fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
+
+      expect(stub.callCount).to.equal(1);
+      expect(stub.firstCall!.args[0]).to.equal(
+        JSON.stringify({
+          type: 'hmr:reload',
+        }),
+      );
+    } finally {
+      await server.stop();
+    }
+  });
+
   it('handles dependencies referenced relatively', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
