@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.10.0
+
+### Minor Changes
+
+- 0620eb9: fix(test-runner): run node-resolve after user plugins
+
 ## 0.9.13
 
 ### Patch Changes
