@@ -212,7 +212,8 @@ export async function startTestRunner(options: StartTestRunnerOptions = {}) {
 
     if (config.nodeResolve) {
       const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
-      config.plugins!.unshift(nodeResolvePlugin(rootDir, config.preserveSymlinks, userOptions));
+      // do node resolve after user plugins, to allow user plugins to resolve imports
+      config.plugins.push(nodeResolvePlugin(rootDir, config.preserveSymlinks, userOptions));
     }
 
     if (config.esbuildTarget) {
