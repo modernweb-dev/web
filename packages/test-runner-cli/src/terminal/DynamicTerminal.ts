@@ -3,7 +3,7 @@ import logUpdate from 'log-update';
 import cliCursor from 'cli-cursor';
 import { BufferedConsole } from './BufferedConsole';
 
-const CLEAR_COMMAND = process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[3J\x1B[H';
+const CLEAR_COMMAND = process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[H';
 
 interface EventMap {
   input: string;
