@@ -41,7 +41,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.11.2",
     "@rollup/plugin-node-resolve": "^10.0.0",
-    "@rollup/plugin-typescript": "^6.1.0",
+    "@rollup/plugin-typescript": "^8.0.0",
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.0.01",
     "@types/node": "^14.14.10",
