@@ -62,10 +62,10 @@
       "path": "./packages/test-runner/tsconfig.json"
     },
     {
-      "path": "./packages/dev-server/tsconfig.json"
+      "path": "./packages/rollup-plugin-polyfills-loader/tsconfig.json"
     },
     {
-      "path": "./packages/rollup-plugin-polyfills-loader/tsconfig.json"
+      "path": "./packages/dev-server/tsconfig.json"
     },
     {
       "path": "./packages/rollup-plugin-copy/tsconfig.json"
@@ -84,6 +84,9 @@
     },
     {
       "path": "./packages/dev-server-storybook/tsconfig.json"
+    },
+    {
+      "path": "./packages/test-runner-iframe-manager/tsconfig.json"
     },
     {
       "path": "./packages/test-runner-puppeteer/tsconfig.json"
