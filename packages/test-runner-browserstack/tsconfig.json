@@ -23,6 +23,9 @@
       "path": "../test-runner-core/tsconfig.json"
     },
     {
+      "path": "../test-runner-iframe-manager/tsconfig.json"
+    },
+    {
       "path": "../test-runner-selenium/tsconfig.json"
     },
     {

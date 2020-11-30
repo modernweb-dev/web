@@ -38,6 +38,9 @@
       "path": "../test-runner-playwright/tsconfig.json"
     },
     {
+      "path": "../test-runner-iframe-manager/tsconfig.json"
+    },
+    {
       "path": "../dev-server-esbuild/tsconfig.json"
     },
     {

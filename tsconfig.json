@@ -41,6 +41,9 @@
       "path": "./packages/test-runner-playwright/tsconfig.json"
     },
     {
+      "path": "./packages/test-runner-iframe-manager/tsconfig.json"
+    },
+    {
       "path": "./packages/dev-server-esbuild/tsconfig.json"
     },
     {
@@ -84,9 +87,6 @@
     },
     {
       "path": "./packages/dev-server-storybook/tsconfig.json"
-    },
-    {
-      "path": "./packages/test-runner-iframe-manager/tsconfig.json"
     },
     {
       "path": "./packages/test-runner-puppeteer/tsconfig.json"
