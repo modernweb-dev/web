@@ -14,6 +14,12 @@
       "path": "../parse5-utils/tsconfig.json"
     },
     {
+      "path": "../polyfills-loader/tsconfig.json"
+    },
+    {
+      "path": "../rollup-plugin-html/tsconfig.json"
+    },
+    {
       "path": "../browser-logs/tsconfig.json"
     },
     {
@@ -36,6 +42,9 @@
     },
     {
       "path": "../dev-server-rollup/tsconfig.json"
+    },
+    {
+      "path": "../rollup-plugin-polyfills-loader/tsconfig.json"
     },
     {
       "path": "../dev-server/tsconfig.json"
