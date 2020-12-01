@@ -2040,6 +2040,11 @@
   dependencies:
     "@types/unist" "*"
 
+"@types/mime-types@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/mime-types/-/mime-types-2.1.0.tgz#9ca52cda363f699c69466c2a6ccdaad913ea7a73"
+  integrity sha1-nKUs2jY/aZxpRmwqbM2q2RPqenM=
+
 "@types/mime@*":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.3.tgz#c893b73721db73699943bfc3653b1deb7faa4a3a"
@@ -4828,10 +4833,10 @@ es-abstract@^1.17.0-next.1, es-abstract@^1.17.2:
     string.prototype.trimend "^1.0.1"
     string.prototype.trimstart "^1.0.1"
 
-es-dev-server@^1.57.8:
-  version "1.57.8"
-  resolved "https://registry.yarnpkg.com/es-dev-server/-/es-dev-server-1.57.8.tgz#5aa107f27066686a75ebf03fed412a7de3d7127d"
-  integrity sha512-+zfCy3hH337ktOoHJLcpEIoxRPWAuJA6SjgMFz1ZVV8DYksK/zITrhQbB4SzAkxRNXwJsc+knM29mTTsbwAXHw==
+es-dev-server@^1.58.0:
+  version "1.58.0"
+  resolved "https://registry.yarnpkg.com/es-dev-server/-/es-dev-server-1.58.0.tgz#29bceb18350179e57a7b8405683fb286edd48017"
+  integrity sha512-IT0ipJDmr0WnpzvVpgaYCB+id31bbXQOn93Wfi8vCwGUU/cHlk+5uB7SRWsWP8qFzCsar7Fn35yKRXljbbZt3w==
   dependencies:
     "@babel/core" "^7.11.1"
     "@babel/plugin-proposal-dynamic-import" "^7.10.4"
@@ -4861,6 +4866,7 @@ es-dev-server@^1.57.8:
     "@types/koa-static" "^4.0.1"
     "@types/koa__cors" "^3.0.1"
     "@types/lru-cache" "^5.1.0"
+    "@types/mime-types" "^2.1.0"
     "@types/minimatch" "^3.0.3"
     "@types/path-is-inside" "^1.0.0"
     "@types/whatwg-url" "^6.4.0"
