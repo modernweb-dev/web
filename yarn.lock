@@ -4907,10 +4907,10 @@ es-abstract@^1.17.0-next.1, es-abstract@^1.17.2:
     string.prototype.trimend "^1.0.1"
     string.prototype.trimstart "^1.0.1"
 
-es-dev-server@^1.60.0:
-  version "1.60.0"
-  resolved "https://registry.yarnpkg.com/es-dev-server/-/es-dev-server-1.60.0.tgz#c7d74654ef37d76629432f03e5d31ceca73b1db0"
-  integrity sha512-UhMNwKfPvLSV00wdHVTKSBzVcUwf2Q1ynpWXe8PzlWFUSNsg6kOsOIsEAWAmkJAmt3nxBWZ6xGkgOSs+Buy9Rw==
+es-dev-server@^1.60.1:
+  version "1.60.1"
+  resolved "https://registry.yarnpkg.com/es-dev-server/-/es-dev-server-1.60.1.tgz#79f6906b6115093787e3966055027a6575174632"
+  integrity sha512-7/bn3j51qqQ+D9EKu3vup44XhRGzhNKwTf7MPykv9j7NucIw5BlRJCL0rqMXDF7MCiRiS1RRgblKM7dNKBIp5g==
   dependencies:
     "@babel/core" "^7.11.1"
     "@babel/plugin-proposal-dynamic-import" "^7.10.4"
