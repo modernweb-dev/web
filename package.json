@@ -39,14 +39,14 @@
     "@d4kmor/search": "^0.1.2"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.11.2",
+    "@changesets/cli": "^2.12.0",
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@rollup/plugin-typescript": "^6.1.0",
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.0.01",
     "@types/node": "^14.14.10",
-    "@typescript-eslint/eslint-plugin": "^4.8.2",
-    "@typescript-eslint/parser": "^4.8.2",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
     "alex": "^9.1.0",
     "chai": "^4.2.0",
     "concurrently": "^5.3.0",
@@ -66,7 +66,7 @@
     "remark-preset-prettier": "^0.4.0",
     "remark-validate-links": "^10.0.2",
     "rimraf": "^3.0.2",
-    "rollup": "^2.33.3",
+    "rollup": "^2.34.0",
     "rollup-plugin-terser": "^7.0.2",
     "ts-node": "^9.0.0",
     "typescript": "4.1.2"

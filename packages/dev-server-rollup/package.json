@@ -50,13 +50,13 @@
     "@web/dev-server-core": "^0.2.17",
     "chalk": "^4.1.0",
     "parse5": "^6.0.1",
-    "rollup": "^2.33.3",
+    "rollup": "^2.34.0",
     "whatwg-url": "^8.4.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-template-literals": "^7.12.1",
     "@rollup/plugin-alias": "^3.1.1",
-    "@rollup/plugin-babel": "^5.2.1",
+    "@rollup/plugin-babel": "^5.2.2",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-image": "^2.0.5",
     "@rollup/plugin-inject": "^4.0.2",
