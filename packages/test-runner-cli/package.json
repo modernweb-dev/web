@@ -70,6 +70,7 @@
   },
   "devDependencies": {
     "@types/command-line-args": "^5.0.0",
+    "@types/command-line-usage": "^5.0.1",
     "@types/convert-source-map": "^1.5.1",
     "@types/diff": "^4.0.2",
     "@types/globby": "^9.1.0",

@@ -66,6 +66,9 @@
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
+    "@types/browserslist": "^4.8.0",
+    "@types/browserslist-useragent": "^3.0.2",
+    "@types/caniuse-api": "^3.0.1",
     "@types/valid-url": "^1.0.3"
   }
 }
