@@ -1,6 +1,7 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { remote, BrowserObject, RemoteOptions } from 'webdriverio';
 import { IFrameManager } from './IFrameManager';
+import { SessionManager } from './SessionManager';
 import { getBrowserLabel } from './utils';
 
 export class WebdriverIOLauncher implements BrowserLauncher {
@@ -9,8 +10,8 @@ export class WebdriverIOLauncher implements BrowserLauncher {
   private config?: TestRunnerCoreConfig;
   private driver?: BrowserObject;
   private debugDriver: undefined | BrowserObject = undefined;
-  private iframeManager?: IFrameManager;
-  private __iframeManagerPromise?: Promise<IFrameManager>;
+  private driverManager?: IFrameManager | SessionManager;
+  private __managerPromise?: Promise<IFrameManager | SessionManager>;
   private isIE = false;
 
   constructor(private options: RemoteOptions) {}
@@ -43,30 +44,30 @@ export class WebdriverIOLauncher implements BrowserLauncher {
 
       this.driver = undefined;
       this.debugDriver = undefined;
-      this.iframeManager = undefined;
+      this.driverManager = undefined;
     } catch {
       //
     }
   }
 
   async startSession(id: string, url: string) {
-    await this.ensureIframeManagerInitialized();
-    return this.iframeManager!.queueStartSession(id, url);
+    await this.ensureManagerInitialized();
+    return this.driverManager!.queueStartSession(id, url);
   }
 
   isActive(id: string) {
-    return !!this.iframeManager?.isActive(id);
+    return !!this.driverManager?.isActive(id);
   }
 
   getBrowserUrl(sessionId: string) {
-    if (!this.iframeManager) {
+    if (!this.driverManager) {
       throw new Error('Not initialized');
     }
-    return this.iframeManager.getBrowserUrl(sessionId);
+    return this.driverManager.getBrowserUrl(sessionId);
   }
 
   async stopSession(id: string) {
-    return this.iframeManager!.queueStopSession(id);
+    return this.driverManager!.queueStopSession(id);
   }
 
   async startDebugSession(_: string, url: string) {
@@ -77,27 +78,30 @@ export class WebdriverIOLauncher implements BrowserLauncher {
     await this.debugDriver.navigateTo(url);
   }
 
-  private async ensureIframeManagerInitialized(): Promise<void> {
-    if (this.iframeManager) {
+  private async ensureManagerInitialized(): Promise<void> {
+    if (this.driverManager) {
       return;
     }
 
-    if (this.__iframeManagerPromise) {
-      await this.__iframeManagerPromise;
+    if (this.__managerPromise) {
+      await this.__managerPromise;
       return;
     }
 
-    this.__iframeManagerPromise = this.createIframeManager();
-    await this.__iframeManagerPromise;
-    this.__iframeManagerPromise = undefined;
+    this.__managerPromise = this.createDriverManager();
+    await this.__managerPromise;
+    this.__managerPromise = undefined;
   }
 
-  private async createIframeManager() {
+  private async createDriverManager() {
     if (!this.config || !this.driver) throw new Error('Not initialized');
 
-    this.iframeManager = new IFrameManager(this.config, this.driver, this.isIE);
+    this.driverManager =
+      this.config.concurrency === 1
+        ? new SessionManager(this.config, this.driver, this.isIE)
+        : new IFrameManager(this.config, this.driver, this.isIE);
 
-    return this.iframeManager;
+    return this.driverManager;
   }
 }
 
