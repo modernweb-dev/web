@@ -5836,10 +5836,10 @@ hamljs@^0.6.2:
   resolved "https://registry.yarnpkg.com/hamljs/-/hamljs-0.6.2.tgz#7b7116cf6dbe7278e42b3f6ef8725a33e177c8e3"
   integrity sha1-e3EWz22+cnjkKz9u+HJaM+F3yOM=
 
-hanbi@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/hanbi/-/hanbi-0.4.0.tgz#66144623ad2170e66bae7a537b11547773c23867"
-  integrity sha512-2FR1EGl+xwhB1IGpqZzktpypbJOuwUuSpUY+2ibQK4xmh/pNb/4Liwf+Vx7CAMEVrWEgIruA4V09qxVN/yhrHQ==
+hanbi@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/hanbi/-/hanbi-0.4.1.tgz#6ac3a1ea662fc70b1d4b1c03e362497e94e70168"
+  integrity sha512-z5UYPq/+PfDDT7uZ/IrO4e5BhWcNnR73oP6CUaDUERbskABmBqrDzfePktI0BIPAV4xfyAhue8ZTmyCOh7rZ3g==
 
 handlebars@^4.7.6:
   version "4.7.6"
