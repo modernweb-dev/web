@@ -1,5 +1,5 @@
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { BrowserObject } from 'webdriverio';
+import { BrowserObject, Element } from 'webdriverio';
 import { validateBrowserResult } from './coverage';
 
 /**
@@ -78,5 +78,21 @@ export class SessionManager {
     this.urlMap.delete(id);
 
     return { testCoverage: this.config.coverage ? testCoverage : undefined };
+  }
+
+  async takeScreenshot(_: string, locator: string): Promise<Buffer> {
+    const elementData = (await this.driver.execute(locator, [])) as Element;
+
+    const element = await this.driver.$(elementData);
+
+    let base64 = '';
+
+    try {
+      base64 = await this.driver.takeElementScreenshot(element.elementId);
+    } catch (err) {
+      console.log('Failed to take a screenshot:', err);
+    }
+
+    return Buffer.from(base64, 'base64');
   }
 }

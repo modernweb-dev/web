@@ -1,5 +1,5 @@
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { BrowserObject } from 'webdriverio';
+import { BrowserObject, Element } from 'webdriverio';
 import { validateBrowserResult } from './coverage';
 
 /**
@@ -144,5 +144,29 @@ export class IFrameManager {
     this.inactiveFrames.push(frameId);
 
     return { testCoverage: this.config.coverage ? testCoverage : undefined };
+  }
+
+  async takeScreenshot(sessionId: string, locator: string): Promise<Buffer> {
+    const frameId = this.getFrameId(sessionId);
+
+    const frame = await this.driver.$(`iframe#${frameId}`);
+
+    await this.driver.switchToFrame(frame);
+
+    const elementData = (await this.driver.execute(locator, [])) as Element;
+
+    const element = await this.driver.$(elementData);
+
+    let base64 = '';
+
+    try {
+      base64 = await this.driver.takeElementScreenshot(element.elementId);
+    } catch (err) {
+      console.log('Failed to take a screenshot:', err);
+    }
+
+    await this.driver.switchToParentFrame();
+
+    return Buffer.from(base64, 'base64');
   }
 }

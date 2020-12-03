@@ -103,6 +103,13 @@ export class WebdriverIOLauncher implements BrowserLauncher {
 
     return this.driverManager;
   }
+
+  takeScreenshot(sessionId: string, locator: string) {
+    if (!this.driverManager) {
+      throw new Error('Not initialized');
+    }
+    return this.driverManager.takeScreenshot(sessionId, locator);
+  }
 }
 
 export function webdriverIOLauncher(options: RemoteOptions) {
