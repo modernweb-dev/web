@@ -12396,7 +12396,7 @@ webdriver@6.10.4:
     got "^11.0.2"
     lodash.merge "^4.6.1"
 
-webdriverio@^6.10.0:
+webdriverio@^6.10.5:
   version "6.10.5"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-6.10.5.tgz#3f060b0b5149419e6bd75bd8efdd631f2668bf58"
   integrity sha512-TLIKVOOM0Oszn2mLxZcMQk0vq1bOWpsZNXMxMtpBXKLvcOCLedftxotwh0o1LqRiq8ODiubJ/vNOLgCN/oLFJQ==
