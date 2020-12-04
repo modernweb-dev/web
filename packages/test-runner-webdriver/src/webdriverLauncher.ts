@@ -6,7 +6,7 @@ import { getBrowserLabel } from './utils';
 
 export class WebdriverLauncher implements BrowserLauncher {
   public name = 'Initializing...';
-  public type = 'wdio';
+  public type = 'webdriver';
   private config?: TestRunnerCoreConfig;
   private driver?: BrowserObject;
   private debugDriver: undefined | BrowserObject = undefined;
