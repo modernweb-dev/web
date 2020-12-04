@@ -1,18 +1,18 @@
 {
-  "name": "@web/test-runner-webdriverio",
+  "name": "@web/test-runner-webdriver",
   "version": "0.0.0",
   "publishConfig": {
     "access": "public"
   },
-  "description": "WebdriverIO browser launcher for Web Test Runner",
+  "description": "Webdriver browser launcher for Web Test Runner",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/modernweb-dev/web.git",
-    "directory": "packages/test-runner-webdriverio"
+    "directory": "packages/test-runner-webdriver"
   },
   "author": "modern-web",
-  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-webdriverio",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-webdriver",
   "main": "dist/index.js",
   "exports": {
     ".": {

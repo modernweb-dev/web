@@ -1,7 +1,7 @@
 import os from 'os';
 import selenium from 'selenium-standalone';
 import { runIntegrationTests } from '../../../integration/test-runner';
-import { webdriverIOLauncher } from '../src/webdriverIOLauncher';
+import { webdriverLauncher } from '../src/webdriverLauncher';
 
 async function startSeleniumServer() {
   await new Promise<void>((resolve, reject) =>
@@ -34,7 +34,7 @@ if (os.platform() !== 'win32') {
     seleniumServer = await startSeleniumServer();
   });
 
-  describe('test-runner-webdriverio', function testRunnerWebdriverIO() {
+  describe('test-runner-webdriver', function testRunnerWebdriver() {
     this.timeout(50000);
 
     function createConfig() {
@@ -43,7 +43,7 @@ if (os.platform() !== 'win32') {
         testsStartTimeout: 1000 * 60 * 2,
         testsFinishTimeout: 1000 * 60 * 2,
         browsers: [
-          webdriverIOLauncher({
+          webdriverLauncher({
             automationProtocol: 'webdriver',
             path: '/wd/hub/',
             capabilities: {
@@ -53,7 +53,7 @@ if (os.platform() !== 'win32') {
               },
             },
           }),
-          webdriverIOLauncher({
+          webdriverLauncher({
             automationProtocol: 'webdriver',
             path: '/wd/hub/',
             capabilities: {

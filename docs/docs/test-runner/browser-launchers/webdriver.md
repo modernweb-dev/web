@@ -1,4 +1,4 @@
-# Test Runner >> Browser Launchers >> WebdriverIO ||80
+# Test Runner >> Browser Launchers >> Webdriver ||80
 
 Run tests using [WebdriverIO](https://webdriver.io).
 
@@ -6,14 +6,14 @@ Run tests using [WebdriverIO](https://webdriver.io).
 
 1. Make sure you have a selenium server running, either locally or remote.
 
-2. Add the WebdriverIO launcher to your test runner config and specify relevant [options](https://webdriver.io/docs/options.html):
+2. Add the Webdriver launcher to your test runner config and specify relevant [options](https://webdriver.io/docs/options.html):
 
 ```js
-import { webdriverIOLauncher } from '@web/test-runner-webdriverio';
+import { webdriverLauncher } from '@web/test-runner-webdriver';
 
 module.exports = {
   browsers: [
-    webdriverIOLauncher({
+    webdriverLauncher({
       automationProtocol: 'webdriver',
       path: '/wd/hub/',
       capabilities: {
@@ -23,7 +23,7 @@ module.exports = {
         }
       }
     })
-    webdriverIOLauncher({
+    webdriverLauncher({
       automationProtocol: 'webdriver',
       path: '/wd/hub/',
       capabilities: {

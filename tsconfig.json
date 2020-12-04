@@ -98,7 +98,7 @@
       "path": "./packages/test-runner-visual-regression/tsconfig.json"
     },
     {
-      "path": "./packages/test-runner-webdriverio/tsconfig.json"
+      "path": "./packages/test-runner-webdriver/tsconfig.json"
     }
   ]
 }

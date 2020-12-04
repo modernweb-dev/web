@@ -4,7 +4,7 @@ import { IFrameManager } from './IFrameManager';
 import { SessionManager } from './SessionManager';
 import { getBrowserLabel } from './utils';
 
-export class WebdriverIOLauncher implements BrowserLauncher {
+export class WebdriverLauncher implements BrowserLauncher {
   public name = 'Initializing...';
   public type = 'wdio';
   private config?: TestRunnerCoreConfig;
@@ -112,10 +112,10 @@ export class WebdriverIOLauncher implements BrowserLauncher {
   }
 }
 
-export function webdriverIOLauncher(options: RemoteOptions) {
+export function webdriverLauncher(options: RemoteOptions) {
   if (!options?.capabilities) {
-    throw new Error(`WebdriverIO launcher requires a capabilities property.`);
+    throw new Error(`Webdriver launcher requires a capabilities property.`);
   }
 
-  return new WebdriverIOLauncher(options);
+  return new WebdriverLauncher(options);
 }
