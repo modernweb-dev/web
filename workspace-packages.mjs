@@ -30,6 +30,7 @@ const packages = [
   { name: 'test-runner-mocha', type: 'ts', environment: 'browser' },
   { name: 'test-runner-saucelabs', type: 'ts', environment: 'node' },
   { name: 'test-runner-visual-regression', type: 'ts', environment: 'node' },
+  { name: 'test-runner-webdriverio', type: 'ts', environment: 'node' },
 ];
 
 export { packages };
