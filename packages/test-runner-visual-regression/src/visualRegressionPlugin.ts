@@ -1,10 +1,11 @@
 import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher } from '@web/test-runner-chrome';
+import type { PlaywrightLauncher } from '@web/test-runner-playwright';
+import type { WebdriverLauncher } from '@web/test-runner-webdriver';
 
 import { defaultOptions, VisualRegressionPluginOptions } from './config';
 import { visualDiffCommand, VisualDiffCommandResult } from './visualDiffCommand';
 import { VisualRegressionError } from './VisualRegressionError';
-import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
 interface Payload {
   id: string;
@@ -87,6 +88,24 @@ export function visualRegressionPlugin(
             }
 
             const screenshot = await element.screenshot();
+            return visualDiffCommand(mergedOptions, screenshot, session.browser.name, payload.name);
+          }
+
+          if (session.browser.type === 'webdriver') {
+            const browser = session.browser as WebdriverLauncher;
+
+            const locator = `
+              return (function () {
+                try {
+                  var wtr = window.__WTR_VISUAL_REGRESSION__;
+                  return wtr && wtr[${payload.id}];
+                } catch (_) {
+                  return undefined;
+                }
+              })();
+            `;
+
+            const screenshot = await browser.takeScreenshot(session.id, locator);
             return visualDiffCommand(mergedOptions, screenshot, session.browser.name, payload.name);
           }
 

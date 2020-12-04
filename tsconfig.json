@@ -68,6 +68,9 @@
       "path": "./packages/dev-server/tsconfig.json"
     },
     {
+      "path": "./packages/test-runner-webdriver/tsconfig.json"
+    },
+    {
       "path": "./packages/rollup-plugin-copy/tsconfig.json"
     },
     {
@@ -96,9 +99,6 @@
     },
     {
       "path": "./packages/test-runner-visual-regression/tsconfig.json"
-    },
-    {
-      "path": "./packages/test-runner-webdriver/tsconfig.json"
     }
   ]
 }
