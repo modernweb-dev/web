@@ -36,6 +36,9 @@
     },
     {
       "path": "../test-runner-commands/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-webdriver/tsconfig.json"
     }
   ],
   "include": [
