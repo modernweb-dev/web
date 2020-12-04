@@ -123,6 +123,7 @@ describe('browser tests', function () {
       files['/bar.js'] = 'export default " b ";';
       server.fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
       await page.waitForResponse(r => r.url().startsWith(`${host}/bar.js`));
+      await new Promise(r => setTimeout(r, 1000));
       expectIncludes(await page.content(), '<body> a  b </body>');
 
       for (const error of errors) {
