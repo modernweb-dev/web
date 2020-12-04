@@ -25,10 +25,6 @@ export class SauceLabsLauncherManager {
     process.on('exit', this.closeConnection);
   }
 
-  get webdriverEndpoint() {
-    return `${this.api.webdriverEndpoint}wd/hub`;
-  }
-
   async registerLauncher(launcher: BrowserLauncher) {
     this.launchers.add(launcher);
 

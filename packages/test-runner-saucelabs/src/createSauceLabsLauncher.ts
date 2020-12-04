@@ -1,6 +1,7 @@
 import { BrowserLauncher } from '@web/test-runner-core';
 import { SauceLabsOptions, SauceConnectOptions } from 'saucelabs';
-import { Capabilities } from 'selenium-webdriver';
+import { DesiredCapabilities } from 'webdriver';
+import { RemoteOptions } from 'webdriverio';
 import { v4 as uuid } from 'uuid';
 
 import { SauceLabsLauncher } from './SauceLabsLauncher';
@@ -8,6 +9,7 @@ import { SauceLabsLauncherManager } from './SauceLabsLauncherManager';
 
 export function createSauceLabsLauncher(
   saucelabsOptions: SauceLabsOptions,
+  saucelabsCapabilities?: DesiredCapabilities,
   sauceConnectOptions?: SauceConnectOptions,
 ) {
   if (saucelabsOptions == null) {
@@ -33,39 +35,56 @@ export function createSauceLabsLauncher(
   }
   const manager = new SauceLabsLauncherManager(finalSauceLabsOptions, finalConnectOptions);
 
-  return function sauceLabsLauncher(capabilities: Record<string, unknown>): BrowserLauncher {
+  return function sauceLabsLauncher(capabilities: DesiredCapabilities): BrowserLauncher {
     if (capabilities == null) {
       throw new Error('Capabilities are required.');
     }
-    const finalCapabilities = { ...capabilities };
 
-    // sync the tunnel identifier, username and access key
-    finalCapabilities['sauce:options'] = {
-      ...(finalCapabilities['sauce:options'] as Record<string, unknown>),
-      username: saucelabsOptions.user,
-      accessKey: saucelabsOptions.key,
+    let finalCapabilities = { ...capabilities };
+
+    const finalSauceCapabilities = {
       tunnelIdentifier: finalConnectOptions.tunnelIdentifier,
+      ...saucelabsCapabilities,
     };
 
-    const browserName =
-      finalCapabilities.browser ??
-      finalCapabilities.browserName ??
-      finalCapabilities.device ??
-      'unknown';
-    const browserVersion = finalCapabilities.browser_version
-      ? ` ${finalCapabilities.browser_version}`
-      : '';
-    const os = ` (${finalCapabilities.os} ${finalCapabilities.os_version})`;
-    const browserIdentifier = `${browserName}${browserVersion}${os}`;
+    // W3C capabilities: only browserVersion is mandatory, platformName is optional.
+    // Note that setting 'sauce:options' forces Sauce Labs to use W3C capabilities.
+    if (capabilities.browserVersion) {
+      finalCapabilities.platformName =
+        finalCapabilities.platformName || finalCapabilities.platform || 'Windows 10';
+      finalCapabilities['sauce:options'] = {
+        ...finalSauceCapabilities,
+        ...(finalCapabilities['sauce:options'] || {}),
+      };
 
-    const capabilitiesMap = new Map(Object.entries(finalCapabilities));
-    const seleniumCapabilities = new Capabilities(capabilitiesMap);
+      // Delete JWP capabilities, if any.
+      delete finalCapabilities.version;
+      delete finalCapabilities.platform;
+    } else {
+      // JWP capabilities for remote environments not yet supporting W3C.
+      // This enables running tests on iPhone Simulators in Sauce Labs.
+      finalCapabilities = { ...finalCapabilities, ...finalSauceCapabilities };
+    }
 
-    return new SauceLabsLauncher(
-      manager,
-      browserIdentifier,
-      manager.webdriverEndpoint,
-      seleniumCapabilities,
-    );
+    // Type cast to not fail on snake case syntax e.g. browser_version.
+    const caps = finalCapabilities as Record<string, string>;
+
+    const browserName = caps.browserName ?? caps.browser ?? caps.device ?? 'unknown';
+    const browserVersion = caps.browserVersion ?? caps.version ?? caps.browser_version ?? '';
+    const platform = caps.platformName ?? caps.platform ?? '';
+
+    const browserIdentifier = `${browserName}${browserVersion}${platform}`;
+
+    const options: RemoteOptions = {
+      user: finalSauceLabsOptions.user,
+      key: finalSauceLabsOptions.key,
+      region: finalSauceLabsOptions.region,
+      logLevel: 'error',
+      capabilities: {
+        ...finalCapabilities,
+      },
+    };
+
+    return new SauceLabsLauncher(manager, browserIdentifier, options);
   };
 }
