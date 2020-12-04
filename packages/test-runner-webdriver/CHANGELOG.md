@@ -1,5 +1,11 @@
 # @web/test-runner-webdriver
 
+## 0.0.3
+
+### Patch Changes
+
+- ecfb31c: Update launcher type to webdriver
+
 ## 0.0.2
 
 ### Patch Changes
