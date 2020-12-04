@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 6.0.0
+
+### Major Changes
+
+- 5da1505: upgrade workbox to v6
+
 ## 5.2.1
 
 ### Patch Changes
