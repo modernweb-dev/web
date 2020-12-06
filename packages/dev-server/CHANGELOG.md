@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.0.26
+
+### Patch Changes
+
+- 92f2061: don't clear scrollback buffer
+
 ## 0.0.25
 
 ### Patch Changes

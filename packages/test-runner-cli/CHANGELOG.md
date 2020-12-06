@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.6.14
+
+### Patch Changes
+
+- 92f2061: don't clear scrollback buffer
+
 ## 0.6.13
 
 ### Patch Changes
