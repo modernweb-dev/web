@@ -13,9 +13,7 @@ export function nodeResolvePlugin(
     {
       rootDir,
       extensions: ['.mjs', '.js', '.cjs', '.jsx', '.json', '.ts', '.tsx'],
-      customResolveOptions: {
-        moduleDirectory: ['node_modules', 'web_modules'],
-      },
+      moduleDirectories: ['node_modules', 'web_modules'],
       // allow resolving polyfills for nodejs libs
       preferBuiltins: false,
     },

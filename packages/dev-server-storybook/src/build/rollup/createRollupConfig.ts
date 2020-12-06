@@ -46,9 +46,7 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
     },
     plugins: [
       resolve({
-        customResolveOptions: {
-          moduleDirectory: ['node_modules', 'web_modules'],
-        },
+        moduleDirectories: ['node_modules', 'web_modules'],
       }),
       babel({
         babelHelpers: 'bundled',
