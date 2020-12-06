@@ -1,5 +1,11 @@
 # @web/test-runner-visual-regression
 
+## 0.2.2
+
+### Patch Changes
+
+- f4aedf6: Add Webdriver launcher support
+
 ## 0.2.1
 
 ### Patch Changes
