@@ -218,5 +218,5 @@ If you need to collect coverage from all browsers, or if you're not testing for 
 
 ## Learn more
 
-All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner-coverage).
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner).
 See the [documentation of @web/test-runner](../../../docs/test-runner/overview.md).

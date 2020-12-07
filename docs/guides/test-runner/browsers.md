@@ -62,5 +62,5 @@ For modern browsers we recommend using other browser launchers, as they are a lo
 
 ## Learn more
 
-All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner-playwright).
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner).
 See the [documentation of @web/test-runner](../../docs/test-runner/overview.md).

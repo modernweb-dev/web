@@ -1,6 +1,6 @@
 # Dev Server >> Plugins >> Overview ||1
 
-The Web Dev Server comes with a few plugins out of the box.
+Web Dev Server comes with a few plugins out of the box.
 
 See
 
