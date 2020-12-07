@@ -55,7 +55,7 @@
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^6.15.0",
     "hanbi": "^0.4.1",
-    "husky": "^4.3.4",
+    "husky": "^5.0.4",
     "lint-staged": "^10.5.3",
     "mocha": "^8.2.1",
     "prettier": "^2.2.1",
