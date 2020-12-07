@@ -50,16 +50,20 @@ export function createSauceLabsLauncher(
     // W3C capabilities: only browserVersion is mandatory, platformName is optional.
     // Note that setting 'sauce:options' forces Sauce Labs to use W3C capabilities.
     if (capabilities.browserVersion) {
-      finalCapabilities.platformName =
-        finalCapabilities.platformName || finalCapabilities.platform || 'Windows 10';
+      // version is not a valid W3C key.
+      delete finalCapabilities.version;
+
+      // platform is not a valid W3C key and will throw, use platformName instead.
+      if (capabilities.platform) {
+        finalCapabilities.platformName =
+          finalCapabilities.platformName || finalCapabilities.platform;
+        delete finalCapabilities.platform;
+      }
+
       finalCapabilities['sauce:options'] = {
         ...finalSauceCapabilities,
         ...(finalCapabilities['sauce:options'] || {}),
       };
-
-      // Delete JWP capabilities, if any.
-      delete finalCapabilities.version;
-      delete finalCapabilities.platform;
     } else {
       // JWP capabilities for remote environments not yet supporting W3C.
       // This enables running tests on iPhone Simulators in Sauce Labs.
