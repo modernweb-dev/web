@@ -7,7 +7,7 @@ eleventyNavigation:
   order: 1
 ---
 
-Dev Server for web applications, ideal for buildless es module workflows. Optionally supports simple code transformations.
+Web Dev Server helps developing for the web, using native browser features like es modules. It is ideal for buildless workflows, and has a plugin architecture for light code transformations.
 
 - Efficient browser caching for fast reloads
 - Transform code on older browsers for compatibility
@@ -17,11 +17,11 @@ Dev Server for web applications, ideal for buildless es module workflows. Option
 - Plugin and middleware API for extensions
 - Powered by [esbuild](plugins/esbuild.md) and [rollup plugins](plugins/rollup.md)
 
-> Web Dev server is the successor of [es-dev-server](https://www.npmjs.com/package/es-dev-server)
+> Web Dev Server is the successor of [es-dev-server](https://www.npmjs.com/package/es-dev-server)
 
 ## Installation
 
-Install the web dev server:
+Install Web Dev Server:
 
 ```
 npm i --save-dev @web/dev-server

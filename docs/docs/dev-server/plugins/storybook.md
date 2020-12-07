@@ -1,12 +1,10 @@
 # Dev Server >> Plugins >> Storybook ||7
 
-> This project is currently in alpha. Expect updates and breaking changes.
-
 Plugin for using Storybook with Web Dev Server using es modules.
 
 ## How it works
 
-This plugin uses an [opinionated build](https://github.com/modernweb-dev/storybook-prebuilt) of Storybook, making it possible to use it with native es modules and buildless workflows.
+This plugin uses an [opinionated build](https://github.com/modernweb-dev/storybook-prebuilt) of Storybook, making it possible to use it with Web Dev Server for es modules and buildless workflows.
 
 This build installs a default set of addons:
 
@@ -21,60 +19,9 @@ It's not possible to install other addons at the moment.
 
 ## Usage
 
-Install the package:
+Follow the [Dev Server Storybook guide](../../../guides/dev-server/storybook.md) to learn how to set up the plugin.
 
-```
-npm i --save-dev @web/dev-server-storybook
-```
-
-Add the plugin and set the project type. See below for supported project types.
-
-```js
-import { storybookPlugin } from '@web/dev-server-storybook';
-
-export default {
-  plugins: [storybookPlugin({ type: 'web-components' })],
-};
-```
-
-Add a `.storybook/main.js` file:
-
-```js
-module.exports = {
-  stories: ['../stories/**/*.stories.@(js|jsx|ts|tsx)'],
-};
-```
-
-Add a story: `stories/MyButton.stories.js`:
-
-```js
-export default {
-  title: 'Example/Button',
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
-};
-
-const Button = ({ backgroundColor = 'white', text }) => {
-  return `
-    <button type="button" style="background-color: ${backgroundColor}">
-      ${text}
-    </button>
-  `;
-};
-
-export const ButtonA = args => Button(args);
-ButtonA.args = {
-  text: 'Button A',
-};
-
-export const ButtonB = args => Button(args);
-ButtonB.args = {
-  text: 'Button B',
-};
-```
-
-Follow the regular storybook docs to learn how to create stories.
+Follow the [official storybook docs](https://storybook.js.org/) to learn how to use storybook and create stories.
 
 ## Docs
 
@@ -98,13 +45,13 @@ Follow the regular storybook docs to learn how to create docs.
 
 ### Project types
 
-We currently supported `preact` and `web-components` project types. This corresponds to the Storybook "Framework".
+We currently support `preact` and `web-components` project types. This corresponds to the Storybook "Framework".
 
 Other project types could be supported, let us know if you are interested in this.
 
-### preview.js
+### main.js and preview.js
 
-We read a `.storybook/preview.js` file like regular storybook.
+We read the `.storybook/main.js` and `.storybook/preview.js` files like regular storybook.
 
 ### Customizing storybook directory
 

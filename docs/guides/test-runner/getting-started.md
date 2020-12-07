@@ -128,6 +128,5 @@ fair enough - we didn't create a test file yet.
 
 ## Learn more
 
-All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner-getting-started).
-
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner).
 See the [documentation of @web/test-runner](../../docs/test-runner/overview.md).

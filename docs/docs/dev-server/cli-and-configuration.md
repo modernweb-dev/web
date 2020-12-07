@@ -41,7 +41,7 @@ If you need this flag, we recommend setting this to `auto`. This will compile ba
 
 ## Configuration file
 
-Web dev server looks for a configuration file in the current working directory called `web-dev-server.config`.
+Web Dev Server looks for a configuration file in the current working directory called `web-dev-server.config`.
 
 The file extension can be `.js`, `.cjs` or `.mjs`. A `.js` file will be loaded as an es module or common js module based on your version of node, and the package type of your project.
 
@@ -122,4 +122,19 @@ interface DevServerConfig {
   // path to SSL certificate
   sslCert?: string;
 }
+```
+
+### Node resolve options
+
+The `--node-resolve` flag uses [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve) to resolve module imports.
+
+You can pass extra configuration using the `nodeResolve` option in the config:
+
+```js
+export default {
+  nodeResolve: {
+    exportConditions: ['development'],
+    dedupe: true,
+  },
+};
 ```

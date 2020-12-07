@@ -14,7 +14,9 @@ export function fromRollup<T extends FnArgs>(
   options: FromRollupOptions = {},
 ) {
   if (typeof rollupPluginFn !== 'function') {
-    throw new Error('fromRollup should be called with a rollup plugin function.');
+    throw new Error(
+      `fromRollup should be called with a rollup plugin function. Received: ${rollupPluginFn}`,
+    );
   }
 
   // return a function wrapper which intercepts creation of the rollup plugin
