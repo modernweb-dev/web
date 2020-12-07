@@ -44,7 +44,7 @@
       "path": "./packages/dev-server-esbuild/tsconfig.json"
     },
     {
-      "path": "./packages/test-runner-selenium/tsconfig.json"
+      "path": "./packages/test-runner-webdriver/tsconfig.json"
     },
     {
       "path": "./packages/dev-server-legacy/tsconfig.json"
@@ -68,7 +68,7 @@
       "path": "./packages/dev-server/tsconfig.json"
     },
     {
-      "path": "./packages/test-runner-webdriver/tsconfig.json"
+      "path": "./packages/test-runner-selenium/tsconfig.json"
     },
     {
       "path": "./packages/rollup-plugin-copy/tsconfig.json"
