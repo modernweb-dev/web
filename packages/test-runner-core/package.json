@@ -59,7 +59,7 @@
     "globby": "^11.0.1",
     "istanbul-lib-coverage": "^3.0.0",
     "picomatch": "^2.2.2",
-    "uuid": "^8.3.1"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/co-body": "^5.1.0",
