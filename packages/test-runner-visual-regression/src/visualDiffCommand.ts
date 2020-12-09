@@ -64,7 +64,7 @@ export async function visualDiffCommand(
       filePath: resolveImagePath(baseDir, failedName),
       baseDir,
       name: failedName,
-      content: diffImage,
+      content: image,
     });
   }
 
