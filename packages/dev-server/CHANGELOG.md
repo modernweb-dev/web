@@ -1,5 +1,14 @@
 # @web/dev-server
 
+## 0.0.27
+
+### Patch Changes
+
+- d6de058: don't throw on unresolved local imports
+- Updated dependencies [d6de058]
+- Updated dependencies [6950c7a]
+  - @web/dev-server-rollup@0.2.12
+
 ## 0.0.26
 
 ### Patch Changes

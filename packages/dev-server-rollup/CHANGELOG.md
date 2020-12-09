@@ -1,5 +1,12 @@
 # @web/dev-server-rollup
 
+## 0.2.12
+
+### Patch Changes
+
+- d6de058: don't throw on unresolved local imports
+- 6950c7a: improve error message
+
 ## 0.2.11
 
 ### Patch Changes

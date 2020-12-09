@@ -1,5 +1,11 @@
 # @web/test-runner-visual-regression
 
+## 0.2.3
+
+### Patch Changes
+
+- c0633e4: Fixing bugs related to writing failed and diff images
+
 ## 0.2.2
 
 ### Patch Changes

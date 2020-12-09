@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "publishConfig": {
     "access": "public"
   },
@@ -60,7 +60,7 @@
     "@types/command-line-args": "^5.0.0",
     "@web/config-loader": "^0.1.1",
     "@web/dev-server-core": "^0.2.19",
-    "@web/dev-server-rollup": "^0.2.11",
+    "@web/dev-server-rollup": "^0.2.12",
     "camelcase": "^6.2.0",
     "chalk": "^4.1.0",
     "command-line-args": "^5.1.1",
