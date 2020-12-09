@@ -41,7 +41,7 @@
       "path": "../dev-server-esbuild/tsconfig.json"
     },
     {
-      "path": "../test-runner-selenium/tsconfig.json"
+      "path": "../test-runner-webdriver/tsconfig.json"
     },
     {
       "path": "../dev-server-legacy/tsconfig.json"
