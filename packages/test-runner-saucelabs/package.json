@@ -48,8 +48,8 @@
     "@web/dev-server-esbuild": "^0.2.4",
     "@web/test-runner-webdriver": "^0.0.3",
     "ip": "^1.1.5",
-    "saucelabs": "^4.6.0",
-    "uuid": "^8.3.1",
+    "saucelabs": "^4.6.2",
+    "uuid": "^8.3.2",
     "webdriver": "^6.10.4",
     "webdriverio": "^6.10.5"
   },

@@ -35,7 +35,7 @@
     "framework"
   ],
   "dependencies": {
-    "@types/mocha": "^8.0.4",
+    "@types/mocha": "^8.2.0",
     "@web/test-runner-core": "^0.8.4"
   },
   "devDependencies": {
