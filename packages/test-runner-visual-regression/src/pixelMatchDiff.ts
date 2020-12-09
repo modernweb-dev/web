@@ -25,7 +25,7 @@ export function pixelMatchDiff({ baselineImage, image, options }: DiffArgs): Dif
   const diffPercentage = (numDiffPixels / (width * height)) * 100;
 
   return {
-    diffImage: diff.data,
+    diffImage: PNG.sync.write(diff),
     diffPercentage,
   };
 }
