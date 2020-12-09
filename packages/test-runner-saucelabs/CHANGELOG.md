@@ -1,5 +1,11 @@
 # @web/test-runner-saucelabs
 
+## 0.2.0
+
+### Minor Changes
+
+- 18b3766: Use Webdriver launcher, support JWP capabilities
+
 ## 0.1.3
 
 ### Patch Changes

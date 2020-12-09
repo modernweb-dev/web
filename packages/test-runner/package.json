@@ -84,7 +84,7 @@
   },
   "devDependencies": {
     "@web/dev-server-legacy": "^0.1.6",
-    "@web/test-runner-saucelabs": "^0.1.1",
+    "@web/test-runner-saucelabs": "^0.2.0",
     "babel-plugin-istanbul": "^6.0.0"
   }
 }
