@@ -150,7 +150,10 @@ export function rollupAdapter(
         }
 
         if (!resolvedImportPath) {
-          if (adapterOptions.throwOnUnresolvedImport) {
+          if (
+            !['/', './', '../'].some(prefix => resolvableImport.startsWith(prefix)) &&
+            adapterOptions.throwOnUnresolvedImport
+          ) {
             const errorMessage = red(`Could not resolve import ${cyanBright(`"${source}"`)}.`);
             if (
               typeof code === 'string' &&
