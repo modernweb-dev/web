@@ -8,23 +8,39 @@ import { seleniumLauncher } from '../src/seleniumLauncher';
 
 async function startSeleniumServer() {
   await new Promise<void>((resolve, reject) =>
-    selenium.install(err => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    }),
+    selenium.install(
+      {
+        drivers: {
+          chrome: { version: 'latest' },
+          firefox: { version: 'latest' },
+        },
+      },
+      err => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      },
+    ),
   );
 
   return new Promise<selenium.ChildProcess>((resolve, reject) =>
-    selenium.start((err, server) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(server);
-      }
-    }),
+    selenium.start(
+      {
+        drivers: {
+          chrome: { version: 'latest' },
+          firefox: { version: 'latest' },
+        },
+      },
+      (err, server) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(server);
+        }
+      },
+    ),
   );
 }
 
