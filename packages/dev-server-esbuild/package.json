@@ -50,7 +50,7 @@
     "transform"
   ],
   "dependencies": {
-    "@mdn/browser-compat-data": "^2.0.7",
+    "@mdn/browser-compat-data": "^3.0.0",
     "@web/dev-server-core": "^0.2.2",
     "esbuild": "^0.8.21",
     "parse5": "^6.0.1",
