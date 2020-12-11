@@ -20,6 +20,10 @@ function serializeObject(value: any) {
     return value.constructor.name + ': ' + value.outerHTML;
   }
 
+  if (window.ShadowRoot && value instanceof ShadowRoot) {
+    return value.constructor.name + ': ' + value.innerHTML;
+  }
+
   if (value instanceof RegExp) {
     return {
       [KEY_WTR_TYPE]: 'RegExp',

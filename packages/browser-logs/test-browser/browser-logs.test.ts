@@ -71,6 +71,15 @@ it('handles HTMLElement', () => {
   expect(deserialized).to.equal('HTMLDivElement: <div><h1><span>Hello world</span></h1></div>');
 });
 
+it('handles ShadowRoot', () => {
+  const element = document.createElement('div');
+  element.attachShadow({ mode: 'open' });
+  element.shadowRoot.innerHTML = '<h1><span>Hello world</span></h1>';
+  const serialized = serialize(element.shadowRoot);
+  const deserialized = deserialize(serialized);
+  expect(deserialized).to.equal('ShadowRoot: <h1><span>Hello world</span></h1>');
+});
+
 it('handles RegExp', () => {
   const serialized = serialize(/foo.*?\\/);
   const deserialized = deserialize(serialized);
