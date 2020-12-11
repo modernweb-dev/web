@@ -27,6 +27,7 @@ import { createRollupPluginContexts, RollupPluginContexts } from './createRollup
 
 const NULL_BYTE_PARAM = 'web-dev-server-rollup-null-byte';
 const VIRTUAL_FILE_PREFIX = '/__web-dev-server__/rollup';
+const WDS_FILE_PREFIX = '/__web-dev-server__';
 
 /**
  * Wraps rollup error in a custom error for web dev server.
@@ -214,6 +215,13 @@ export function rollupAdapter(
         return;
       }
 
+      if (
+        context.path.startsWith(WDS_FILE_PREFIX) &&
+        !context.path.startsWith(VIRTUAL_FILE_PREFIX)
+      ) {
+        return;
+      }
+
       let filePath;
       if (
         context.path.startsWith(VIRTUAL_FILE_PREFIX) &&
@@ -254,6 +262,10 @@ export function rollupAdapter(
 
     async transform(context) {
       if (!rollupPlugin.transform) {
+        return;
+      }
+
+      if (context.path.startsWith(WDS_FILE_PREFIX)) {
         return;
       }
 
