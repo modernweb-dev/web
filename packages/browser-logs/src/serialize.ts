@@ -120,5 +120,11 @@ function createReplacer() {
 }
 
 export function serialize(value: unknown) {
-  return JSON.stringify(value, createReplacer());
+  try {
+    return JSON.stringify(value, createReplacer());
+  } catch (error) {
+    console.error('Error while serializing object.');
+    console.error(error);
+    return 'null';
+  }
 }
