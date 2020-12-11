@@ -1,5 +1,12 @@
 # @web/browser-logs
 
+## 0.1.6
+
+### Patch Changes
+
+- 836abc0: handle errors thrown when (de)serializing browser logs
+- f6107a4: handle logging shadow root
+
 ## 0.1.5
 
 ### Patch Changes
