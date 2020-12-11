@@ -79,5 +79,11 @@ function createReviver() {
 const { hasOwnProperty } = Object.prototype;
 
 export function deserialize(value: string) {
-  return JSON.parse(value, createReviver());
+  try {
+    return JSON.parse(value, createReviver());
+  } catch (error) {
+    console.error('Error while deserializing browser logs.');
+    console.error(error);
+    return null;
+  }
 }

@@ -302,3 +302,13 @@ it('handles Promises', () => {
   const deserialized = deserialize(serialized);
   expect(deserialized).to.eql('Promise { }');
 });
+
+it('handles errors thrown during serialization', () => {
+  const serialized = serialize({
+    get x() {
+      throw new Error('error in getter');
+    },
+  });
+  const deserialized = deserialize(serialized);
+  expect(deserialized).to.eql(null);
+});
