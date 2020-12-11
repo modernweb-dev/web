@@ -1,5 +1,14 @@
 # @web/test-runner-core
 
+## 0.8.12
+
+### Patch Changes
+
+- 836abc0: handle errors thrown when (de)serializing browser logs
+- Updated dependencies [836abc0]
+- Updated dependencies [f6107a4]
+  - @web/browser-logs@0.1.6
+
 ## 0.8.11
 
 ### Patch Changes

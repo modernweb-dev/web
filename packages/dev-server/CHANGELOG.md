@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.0.28
+
+### Patch Changes
+
+- 5ac055f: don't handle virtual files
+- Updated dependencies [5ac055f]
+  - @web/dev-server-rollup@0.2.13
+
 ## 0.0.27
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @web/test-runner
 
+## 0.10.1
+
+### Patch Changes
+
+- 836abc0: handle errors thrown when (de)serializing browser logs
+- f6107a4: handle logging shadow root
+- Updated dependencies [836abc0]
+- Updated dependencies [5ac055f]
+  - @web/test-runner-core@0.8.12
+  - @web/dev-server-rollup@0.2.13
+
 ## 0.10.0
 
 ### Minor Changes
