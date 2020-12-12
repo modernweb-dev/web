@@ -10,8 +10,8 @@ import { DevServerCoreConfig } from '../src/DevServerCoreConfig';
 
 export function createTestServer(config: Partial<DevServerCoreConfig> = {}) {
   return originalCreateTestServer({
-    ...config,
     rootDir: path.resolve(__dirname, 'fixtures', 'basic'),
+    ...config,
   });
 }
 

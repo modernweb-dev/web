@@ -1,11 +1,9 @@
 import { Plugin as RollupPlugin, AcornNode } from 'rollup';
 import { expect } from 'chai';
-import fetch from 'node-fetch';
 import path from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from './test-helpers';
 import { fromRollup } from '../../src/index';
-import { spy } from 'hanbi';
 
 describe('@web/dev-server-rollup', () => {
   describe('resolveId', () => {
@@ -85,43 +83,21 @@ describe('@web/dev-server-rollup', () => {
       }
     });
 
-    it('throws when resolving an import to a file outside the current root directory', async () => {
-      const resolvedId = path.resolve(process.cwd(), '..', '..', '..', 'foo.js');
+    it('files resolved outside root directory are rewritten', async () => {
+      const resolvedId = path.resolve(__dirname, '..', '..', '..', '..', '..', 'foo.js');
       const plugin: RollupPlugin = {
         name: 'my-plugin',
         resolveId() {
           return resolvedId;
         },
       };
-      const mockLoggerSpies = {
-        log: spy(),
-        debug: spy(),
-        error: spy(),
-        warn: spy(),
-        group: spy(),
-        groupEnd: spy(),
-        logSyntaxError: spy(),
-      };
-      const mockLogger = {
-        log: mockLoggerSpies.log.handler,
-        debug: mockLoggerSpies.debug.handler,
-        error: mockLoggerSpies.error.handler,
-        warn: mockLoggerSpies.warn.handler,
-        group: mockLoggerSpies.group.handler,
-        groupEnd: mockLoggerSpies.groupEnd.handler,
-        logSyntaxError: mockLoggerSpies.logSyntaxError.handler,
-      };
-      const { server, host } = await createTestServer(
-        {
-          plugins: [fromRollup(() => plugin)()],
-        },
-        mockLogger,
-      );
+      const { server, host } = await createTestServer({
+        plugins: [fromRollup(() => plugin)()],
+      });
 
       try {
-        const response = await fetch(`${host}/app.js`);
-        expect(response.status).to.equal(500);
-        expect(mockLoggerSpies.logSyntaxError.callCount).to.equal(1);
+        const responseText = await fetchText(`${host}/app.js`);
+        expectIncludes(responseText, "import moduleA from '/__wds-outside-root__/7/foo.js'");
       } finally {
         server.stop();
       }

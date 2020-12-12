@@ -185,26 +185,39 @@ export function rollupAdapter(
           return `${resolvedImportPath}`;
         }
 
-        if (!path.normalize(resolvedImportPath).startsWith(rootDir)) {
-          const errorMessage =
-            red(`\n\nResolved ${cyanBright(source)} to ${cyanBright(resolvedImportPath)}.\n\n`) +
-            red('This path is not reachable from the browser because') +
-            red(` it is outside root directory ${cyanBright(rootDir)}\n\n`) +
-            red(`Configure the root directory using the ${cyanBright('--root-dir')}`) +
-            red(` flag or ${cyanBright('rootDir')} option.\n`);
-
-          if (typeof code === 'string' && typeof column === 'number' && typeof line === 'number') {
-            throw new PluginSyntaxError(errorMessage, filePath, code, column, line);
-          } else {
-            throw new PluginError(errorMessage);
+        const normalizedPath = path.normalize(resolvedImportPath);
+        if (!normalizedPath.startsWith(rootDir)) {
+          const relativePath = path.relative(rootDir, normalizedPath);
+          const dirUp = `..${path.sep}`;
+          const lastDirUpIndex = relativePath.lastIndexOf(dirUp) + 3;
+          const dirUpStrings = relativePath.substring(0, lastDirUpIndex).split(path.sep);
+          if (dirUpStrings.length === 0 || dirUpStrings.some(str => !['..', ''].includes(str))) {
+            // we expect the relative part to consist of only ../ or ..\\
+            const errorMessage =
+              red(`\n\nResolved ${cyanBright(source)} to ${cyanBright(resolvedImportPath)}.\n\n`) +
+              red(
+                'This path could not be converted to a browser path. Please file an issue with a reproduction.',
+              );
+            if (
+              typeof code === 'string' &&
+              typeof column === 'number' &&
+              typeof line === 'number'
+            ) {
+              throw new PluginSyntaxError(errorMessage, filePath, code, column, line);
+            } else {
+              throw new PluginError(errorMessage);
+            }
           }
+
+          const importPath = toBrowserPath(relativePath.substring(lastDirUpIndex));
+          resolvedImportPath = `/__wds-outside-root__/${dirUpStrings.length - 1}/${importPath}`;
+        } else {
+          const resolveRelativeTo = path.extname(filePath) ? path.dirname(filePath) : filePath;
+          const relativeImportFilePath = path.relative(resolveRelativeTo, resolvedImportPath);
+          resolvedImportPath = `./${toBrowserPath(relativeImportFilePath)}`;
         }
 
-        const resolveRelativeTo = path.extname(filePath) ? path.dirname(filePath) : filePath;
-        const relativeImportFilePath = path.relative(resolveRelativeTo, resolvedImportPath);
-        const importBrowserPath = `${toBrowserPath(relativeImportFilePath)}`;
-
-        return `./${importBrowserPath}${importSuffix}`;
+        return `${resolvedImportPath}${importSuffix}`;
       } catch (error) {
         throw wrapRollupError(filePath, context, error);
       }
