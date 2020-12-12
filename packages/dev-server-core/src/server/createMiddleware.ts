@@ -1,6 +1,5 @@
 import { Middleware } from 'koa';
 import koaEtag from 'koa-etag';
-import koaStatic from 'koa-static';
 import { FSWatcher } from 'chokidar';
 
 import { DevServerCoreConfig } from '../DevServerCoreConfig';
@@ -13,6 +12,7 @@ import { pluginTransformMiddleware } from '../middleware/pluginTransformMiddlewa
 import { Logger } from '../logger/Logger';
 import { watchServedFilesMiddleware } from '../middleware/watchServedFilesMiddleware';
 import { pluginFileParsedMiddleware } from '../middleware/pluginFileParsedMiddleware';
+import { serveFilesMiddleware } from '../middleware/serveFilesMiddleware';
 
 /**
  * Creates middlewares based on the given configuration. The middlewares can be
@@ -60,19 +60,7 @@ export function createMiddleware(
   middlewares.push(pluginTransformMiddleware(logger, config, fileWatcher));
   middlewares.push(pluginMimeTypeMiddleware(logger, plugins));
   middlewares.push(pluginServeMiddleware(logger, plugins));
-
-  // serve static files
-  middlewares.push(
-    koaStatic(config.rootDir, {
-      hidden: true,
-      defer: true,
-      brotli: false,
-      gzip: false,
-      setHeaders(res) {
-        res.setHeader('cache-control', 'no-cache');
-      },
-    }),
-  );
+  middlewares.push(...serveFilesMiddleware(config.rootDir));
 
   return middlewares;
 }

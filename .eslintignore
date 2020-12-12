@@ -9,7 +9,8 @@
 /integration/test-runner/tests/*/browser-tests
 /packages/dev-server-storybook/storybook-static/**/*
 /packages/dev-server-hmr/scripts/**/*
-node_modules
+/node_modules/
+/packages/*/node_modules/
 dist
 demo
 CHANGELOG.md

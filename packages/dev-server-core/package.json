@@ -67,6 +67,7 @@
     "isbinaryfile": "^4.0.6",
     "koa": "^2.13.0",
     "koa-etag": "^4.0.0",
+    "koa-send": "^5.0.1",
     "koa-static": "^5.0.0",
     "lru-cache": "^6.0.0",
     "mime-types": "^2.1.27",
