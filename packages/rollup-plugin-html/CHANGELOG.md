@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 1.3.2
+
+### Patch Changes
+
+- 05dd36f: fix entryoint for node v10
+
 ## 1.3.1
 
 ### Patch Changes
