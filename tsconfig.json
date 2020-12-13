@@ -50,6 +50,9 @@
       "path": "./packages/dev-server-legacy/tsconfig.json"
     },
     {
+      "path": "./packages/dev-server/tsconfig.json"
+    },
+    {
       "path": "./packages/test-runner-cli/tsconfig.json"
     },
     {
@@ -63,9 +66,6 @@
     },
     {
       "path": "./packages/rollup-plugin-polyfills-loader/tsconfig.json"
-    },
-    {
-      "path": "./packages/dev-server/tsconfig.json"
     },
     {
       "path": "./packages/test-runner-selenium/tsconfig.json"

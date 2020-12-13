@@ -12,15 +12,15 @@ import {
   emulateMediaPlugin,
   setUserAgentPlugin,
 } from '@web/test-runner-commands/plugins';
+import { esbuildPlugin, nodeResolvePlugin } from '@web/dev-server';
 import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
+
 import { TestRunnerStartError } from './TestRunnerStartError';
 import commandLineArgs from 'command-line-args';
 import chalk from 'chalk';
 
 import { puppeteerLauncher, playwrightLauncher } from './loadLauncher';
 import { collectGroupConfigs } from './collectGroupConfigs';
-import { nodeResolvePlugin } from './nodeResolvePlugin';
-import { esbuildPlugin } from './esbuildPlugin';
 
 export interface TestRunnerConfig extends Partial<TestRunnerCoreConfig> {
   groups?: string | string[] | TestRunnerGroupConfig[];
