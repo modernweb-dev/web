@@ -35,6 +35,9 @@
       "path": "../config-loader/tsconfig.json"
     },
     {
+      "path": "../dev-server-rollup/tsconfig.json"
+    },
+    {
       "path": "../test-runner-playwright/tsconfig.json"
     },
     {
@@ -47,7 +50,7 @@
       "path": "../dev-server-legacy/tsconfig.json"
     },
     {
-      "path": "../dev-server-rollup/tsconfig.json"
+      "path": "../dev-server/tsconfig.json"
     },
     {
       "path": "../test-runner-cli/tsconfig.json"
