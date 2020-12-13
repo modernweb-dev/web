@@ -70,9 +70,8 @@
     "cli"
   ],
   "dependencies": {
-    "@rollup/plugin-node-resolve": "^10.0.0",
     "@web/config-loader": "^0.1.2",
-    "@web/dev-server-rollup": "^0.2.13",
+    "@web/dev-server": "^0.0.28",
     "@web/test-runner-chrome": "^0.7.3",
     "@web/test-runner-cli": "^0.6.13",
     "@web/test-runner-commands": "^0.2.1",
