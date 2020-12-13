@@ -37,7 +37,7 @@ export function createTestSessions(
       configFilePath: groupConfig.configFilePath,
       testRunnerHtml: config.testRunnerHtml,
       browsers: config.browsers,
-      files: config.files,
+      files: config.files ?? [],
     };
 
     if (typeof mergedGroupConfig.name !== 'string') {
@@ -110,6 +110,10 @@ export function createTestSessions(
         sessionGroup.sessionIds.push(session.id);
       }
     }
+  }
+
+  if (testFiles.size === 0 || testSessions.length === 0) {
+    throw new Error('Did not find any tests to run.');
   }
 
   return {

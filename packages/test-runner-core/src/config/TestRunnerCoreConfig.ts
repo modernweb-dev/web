@@ -23,7 +23,7 @@ export interface CoverageConfig {
 
 export interface TestRunnerCoreConfig {
   rootDir: string;
-  files: string | string[];
+  files?: string | string[];
   concurrentBrowsers: number;
   concurrency: number;
 
@@ -42,7 +42,7 @@ export interface TestRunnerCoreConfig {
   browserLogs?: boolean;
   filterBrowserLogs?: (log: { type: string; args: any[] }) => boolean;
   coverage?: boolean;
-  coverageConfig?: CoverageConfig;
+  coverageConfig: CoverageConfig;
 
   browserStartTimeout: number;
   testsStartTimeout: number;

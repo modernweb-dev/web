@@ -1,4 +1,6 @@
-module.exports = {
+export default {
+  rootDir: '../../',
+  nodeResolve: true,
   testRunnerHtml: testRunnerImport => `
     <html>
       <head></head>

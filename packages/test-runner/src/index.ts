@@ -1,4 +1,8 @@
+import type { TestRunnerConfig as FullTestRunnerConfig } from './config/TestRunnerConfig';
+
 export * from '@web/test-runner-core';
 export { chromeLauncher } from '@web/test-runner-chrome';
-export { defaultReporter } from '@web/test-runner-cli';
-export { TestRunnerConfig, startTestRunner } from './startTestRunner';
+
+export { startTestRunner } from './startTestRunner';
+export { defaultReporter } from './reporter/defaultReporter';
+export type TestRunnerConfig = FullTestRunnerConfig;

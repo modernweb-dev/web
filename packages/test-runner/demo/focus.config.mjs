@@ -8,7 +8,7 @@ export default /** @type {import('@web/test-runner').TestRunnerConfig} */ ({
     {
       name: 'firefox',
       files: 'demo/test/focus/focus-*.test.js',
-      browsers: [playwrightLauncher({ product: 'firefox', concurrency: 1 })],
+      browsers: [playwrightLauncher({ product: 'firefox' })],
     },
     {
       name: 'chromium',

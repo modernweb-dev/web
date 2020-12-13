@@ -84,6 +84,10 @@ async function createTestRunner(
     browserStartTimeout: 1000,
     testsStartTimeout: 1000,
     testsFinishTimeout: 1000,
+    coverageConfig: {
+      report: false,
+      reportDir: process.cwd(),
+    },
     port,
     ...extraConfig,
   };
