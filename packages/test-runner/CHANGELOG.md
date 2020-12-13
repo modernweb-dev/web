@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.10.2
+
+### Patch Changes
+
+- a5dead1: reuse common dev server plugins
+
 ## 0.10.1
 
 ### Patch Changes
