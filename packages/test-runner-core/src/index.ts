@@ -1,3 +1,5 @@
+export { CoverageMapData } from 'istanbul-lib-coverage';
+
 import * as constants from './utils/constants';
 export { constants };
 export { BrowserLauncher, SessionResult } from './browser-launcher/BrowserLauncher';
@@ -11,6 +13,8 @@ export {
   TestRunFinishedArgs,
 } from './reporter/Reporter';
 export { TestRunner } from './runner/TestRunner';
+export { TestRunnerCli } from './cli/TestRunnerCli';
+export { BufferedLogger } from './cli/BufferedLogger';
 export { TestRunnerPlugin } from './server/TestRunnerPlugin';
 export { TestFramework } from './test-framework/TestFramework';
 export {
@@ -33,4 +37,3 @@ export { TestSessionManager } from './test-session/TestSessionManager';
 export { TestSessionStatus, SESSION_STATUS } from './test-session/TestSessionStatus';
 export { EventEmitter } from './utils/EventEmitter';
 export { isTestFilePath } from './utils/isTestFilePath';
-export { CoverageMapData } from 'istanbul-lib-coverage';

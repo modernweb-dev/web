@@ -62,13 +62,6 @@
       "path": "../test-runner-saucelabs/tsconfig.json"
     }
   ],
-  "include": [
-    "src",
-    "types"
-  ],
-  "exclude": [
-    "src/browser",
-    "tests",
-    "dist"
-  ]
+  "include": ["src", "types", "../test-runner-core/src/cli/BufferedLogger.ts"],
+  "exclude": ["src/browser", "tests", "dist"]
 }

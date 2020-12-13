@@ -2,8 +2,8 @@ import { createSauceLabsLauncher } from '@web/test-runner-saucelabs';
 import { legacyPlugin } from '@web/dev-server-legacy';
 
 const sauceLabsCapabilities = {
-  build: `modern-web ${process.env.GITHUB_REF ?? 'local'} build ${
-    process.env.GITHUB_RUN_NUMBER ?? ''
+  build: `modern-web ${process.env.GITHUB_REF || 'local'} build ${
+    process.env.GITHUB_RUN_NUMBER || ''
   }`,
   name: 'integration test',
 };
@@ -14,7 +14,7 @@ const sauceLabsLauncher = createSauceLabsLauncher(
     key: process.env.SAUCE_ACCESS_KEY,
     region: 'eu',
   },
-  sauceLabsCapabilities
+  sauceLabsCapabilities,
 );
 
 export default {

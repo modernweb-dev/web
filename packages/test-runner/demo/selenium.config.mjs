@@ -1,10 +1,9 @@
-const selenium = require('selenium-standalone');
-const { Builder } = require('selenium-webdriver');
-const { Options: ChromeOptions } = require('selenium-webdriver/chrome');
-const { Options: FirefoxOptions } = require('selenium-webdriver/firefox');
-const { seleniumLauncher } = require('@web/test-runner-selenium');
+import { seleniumLauncher } from '@web/test-runner-selenium';
+import { Builder } from 'selenium-webdriver';
+import { Options as ChromeOptions } from 'selenium-webdriver/chrome.js';
+import { Options as FirefoxOptions } from 'selenium-webdriver/firefox.js';
 
-module.exports = {
+export default {
   rootDir: '../../../',
   files: 'demo/test/pass-!(commands)*.test.js',
   preserveSymlinks: true,
@@ -12,7 +11,6 @@ module.exports = {
 
   browsers: [
     seleniumLauncher({
-      // experimentalIframeMode: true,
       driverBuilder: new Builder()
         .forBrowser('chrome')
         .setChromeOptions(new ChromeOptions().headless())
@@ -20,7 +18,6 @@ module.exports = {
     }),
 
     seleniumLauncher({
-      // experimentalIframeMode: true,
       driverBuilder: new Builder()
         .forBrowser('firefox')
         .setFirefoxOptions(new FirefoxOptions().headless())

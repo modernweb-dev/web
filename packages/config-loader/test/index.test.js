@@ -90,7 +90,7 @@ describe('cjs package', () => {
       } catch (error) {
         thrown = true;
         expect(error.message).to.include(
-          'You are using CommonJS syntax in a config loaded as es module.',
+          'You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module.',
         );
       }
       expect(thrown).to.equal(true);
@@ -116,7 +116,7 @@ describe('mjs package', () => {
       } catch (error) {
         thrown = true;
         expect(error.message).to.include(
-          'You are using CommonJS syntax in a config loaded as es module.',
+          'You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module.',
         );
       }
       expect(thrown).to.equal(true);
@@ -135,7 +135,7 @@ describe('mjs package', () => {
       } catch (error) {
         thrown = true;
         expect(error.message).to.include(
-          'You are using CommonJS syntax in a config loaded as es module.',
+          'You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module.',
         );
       }
       expect(thrown).to.equal(true);

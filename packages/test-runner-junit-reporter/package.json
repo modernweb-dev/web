@@ -45,14 +45,12 @@
   ],
   "dependencies": {
     "@web/test-runner-chrome": "^0.7.2",
-    "@web/test-runner-cli": "^0.6.4",
     "@web/test-runner-core": "^0.8.4",
     "array-flat-polyfill": "^1.0.1",
     "xml": "^1.0.1"
   },
   "devDependencies": {
     "@types/xml": "^1.0.5",
-    "@web/test-runner-cli": "^0.6.4",
     "@web/test-runner-playwright": "^0.6.4"
   }
 }

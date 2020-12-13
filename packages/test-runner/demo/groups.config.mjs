@@ -4,6 +4,8 @@ export default /** @type {import('@web/test-runner').TestRunnerConfig} */ ({
   nodeResolve: true,
   rootDir: '../../',
 
+  files: ['demo/test/pass-*.test.{js,html}'],
+
   groups: [
     {
       name: 'chromium-a',

@@ -1,3 +1,5 @@
+import { TestRunnerStartError } from '../TestRunnerStartError';
+
 /* eslint-disable @typescript-eslint/no-var-requires */
 const puppeteerBrowsers = ['chrome', 'firefox'];
 const playwrightBrowsers = ['chromium', 'firefox', 'webkit'];
@@ -9,7 +11,7 @@ function loadLauncher(name: string) {
     return require(path);
   } catch (error) {
     if (error.code === 'MODULE_NOT_FOUND') {
-      throw new Error(
+      throw new TestRunnerStartError(
         `You need to add ${pkg} as a dependency of your project to use the --${name} flag.`,
       );
     } else {
@@ -21,7 +23,7 @@ function loadLauncher(name: string) {
 export function puppeteerLauncher(browsers: string[] = ['chrome']) {
   for (const browser of browsers) {
     if (!puppeteerBrowsers.includes(browser)) {
-      throw new Error(
+      throw new TestRunnerStartError(
         `Unknown puppeteer browser: ${browser}. ` +
           `Supported browsers: ${puppeteerBrowsers.join(', ')}`,
       );
@@ -35,7 +37,7 @@ export function puppeteerLauncher(browsers: string[] = ['chrome']) {
 export function playwrightLauncher(browsers: string[] = ['chromium']) {
   for (const browser of browsers) {
     if (!playwrightBrowsers.includes(browser)) {
-      throw new Error(
+      throw new TestRunnerStartError(
         `Unknown playwright browser: ${browser}. ` +
           `Supported browsers: ${playwrightBrowsers.join(', ')}`,
       );
