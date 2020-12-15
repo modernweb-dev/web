@@ -8720,10 +8720,10 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-playwright@^1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.6.2.tgz#8631aec4d16b081d8ac414637b006099814a69d1"
-  integrity sha512-KiMmQuANG4O/ozpwxP8EwBBap0/liS3+wwkGo6nBJ4O4951y4ZsRPR1dqwsMOUD9wjsWf3ER+bAmQH5XmEO4Ig==
+playwright@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.7.0.tgz#72a836dcdfa5a99cc36981eb2e86abafd9a30ce3"
+  integrity sha512-yHf4lySomty4wtWetzXu71zswPOBMHnCqyeGM3dMRObuflyuIUWb0/U++hxZnwHCkyS1H8/1+93Rjq25Rz3IGw==
   dependencies:
     debug "^4.1.1"
     extract-zip "^2.0.1"
