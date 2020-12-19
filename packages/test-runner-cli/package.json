@@ -45,7 +45,7 @@
     "CLI"
   ],
   "dependencies": {
-    "@babel/code-frame": "^7.10.4",
+    "@babel/code-frame": "^7.12.11",
     "@types/babel__code-frame": "^7.0.2",
     "@web/browser-logs": "^0.1.2",
     "@web/config-loader": "^0.1.1",

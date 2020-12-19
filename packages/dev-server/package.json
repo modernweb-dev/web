@@ -55,7 +55,7 @@
     "cli"
   ],
   "dependencies": {
-    "@babel/code-frame": "^7.10.4",
+    "@babel/code-frame": "^7.12.11",
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@types/command-line-args": "^5.0.0",
     "@web/config-loader": "^0.1.1",

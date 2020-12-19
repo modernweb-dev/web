@@ -50,7 +50,7 @@
     "core"
   ],
   "dependencies": {
-    "@babel/code-frame": "^7.10.4",
+    "@babel/code-frame": "^7.12.11",
     "@web/browser-logs": "^0.1.6",
     "@web/dev-server-core": "^0.2.11",
     "co-body": "^6.1.0",
