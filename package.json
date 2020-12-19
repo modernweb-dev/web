@@ -67,7 +67,7 @@
     "remark-preset-prettier": "^0.4.0",
     "remark-validate-links": "^10.0.2",
     "rimraf": "^3.0.2",
-    "rollup": "^2.35.0",
+    "rollup": "^2.35.1",
     "rollup-plugin-terser": "^7.0.2",
     "ts-node": "^9.1.1",
     "typescript": "4.1.3"

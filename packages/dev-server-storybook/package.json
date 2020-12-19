@@ -69,7 +69,7 @@
     "globby": "^11.0.1",
     "js-string-escape": "^1.0.1",
     "lodash": "^4.17.20",
-    "rollup": "^2.35.0",
+    "rollup": "^2.35.1",
     "rollup-plugin-terser": "^7.0.2",
     "storybook-addon-markdown-docs": "^1.0.1"
   },
