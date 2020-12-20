@@ -2465,6 +2465,40 @@
   dependencies:
     "@wdio/logger" "6.10.4"
 
+"@web/dev-server-core@^0.2.17", "@web/dev-server-core@^0.2.18":
+  version "0.2.19"
+  resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-0.2.19.tgz#ad5daa7484ad38fcd061036cfc3c1cb7cf69a475"
+  integrity sha512-TaxwNsvj6pfdKLyqZfYIU1ikh+Q2ZlUwBpXRYWtdG6r2GL232hR+Zm/KooBBdwpOCjuMMlkzz70ImYnD6+mPIg==
+  dependencies:
+    "@types/koa" "^2.11.6"
+    "@types/ws" "^7.4.0"
+    "@web/parse5-utils" "^1.0.0"
+    chokidar "^3.4.3"
+    clone "^2.1.2"
+    es-module-lexer "^0.3.26"
+    get-stream "^6.0.0"
+    is-stream "^2.0.0"
+    isbinaryfile "^4.0.6"
+    koa "^2.13.0"
+    koa-etag "^4.0.0"
+    koa-static "^5.0.0"
+    lru-cache "^6.0.0"
+    mime-types "^2.1.27"
+    parse5 "^6.0.1"
+    picomatch "^2.2.2"
+    ws "^7.4.0"
+
+"@web/dev-server-rollup@^0.2.11":
+  version "0.2.13"
+  resolved "https://registry.yarnpkg.com/@web/dev-server-rollup/-/dev-server-rollup-0.2.13.tgz#93274e83133e5776681568c183ab249167331628"
+  integrity sha512-cJe/8m5GzDPTDbaY/8kMhVRdkxlB2ZXija7Zraq+osbsen5ALXU+bqZgQfknr5bRm4O9NGuBO8l53uZxJcYUTw==
+  dependencies:
+    "@web/dev-server-core" "^0.2.17"
+    chalk "^4.1.0"
+    parse5 "^6.0.1"
+    rollup "^2.34.2"
+    whatwg-url "^8.4.0"
+
 "@web/dev-server@^0.0.24":
   version "0.0.24"
   resolved "https://registry.yarnpkg.com/@web/dev-server/-/dev-server-0.0.24.tgz#891de7da5497a538d74b50b7c99a492a1f5661b3"
@@ -5017,10 +5051,10 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-esbuild@^0.8.24:
-  version "0.8.24"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.24.tgz#18645e102254682909017cec648f84d4834f15b3"
-  integrity sha512-bqgEa2VemAN+YM52SM1626+/pdLp+p9NyqISB06ixcvauKIJk6akia3UTTsGAgn0oHEdReZ97gL+LYX+UjgwKA==
+esbuild@^0.8.25:
+  version "0.8.25"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.25.tgz#1e58747d147a9a2d03d48165f01d8e8d637e9437"
+  integrity sha512-c/fe/AIyDb0N+YHQmI7vIykASHK8b6MVyrRi5QUFyw3v4cfDMz6komj/+phQocgXnZwSNGgJn23mXTIn2OX88A==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -10580,7 +10614,7 @@ rollup@^2.16.0, rollup@^2.25.0:
   optionalDependencies:
     fsevents "~2.1.2"
 
-rollup@^2.35.1:
+rollup@^2.34.2, rollup@^2.35.1:
   version "2.35.1"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.35.1.tgz#e6bc8d10893556a638066f89e8c97f422d03968c"
   integrity sha512-q5KxEyWpprAIcainhVy6HfRttD9kutQpHbeqDTWnqAFNJotiojetK6uqmcydNMymBEtC4I8bCYR+J3mTMqeaUA==
@@ -13024,7 +13058,7 @@ write-file-atomic@^3.0.0:
     signal-exit "^3.0.2"
     typedarray-to-buffer "^3.1.5"
 
-ws@^7.2.3, ws@^7.3.1, ws@^7.4.1:
+ws@^7.2.3, ws@^7.3.1, ws@^7.4.0, ws@^7.4.1:
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.1.tgz#a333be02696bd0e54cea0434e21dcc8a9ac294bb"
   integrity sha512-pTsP8UAfhy3sk1lSk/O/s4tjD0CRwvMnzvwr4OKGX7ZvqZtUyx4KIJB5JWbkykPoc55tixMGgTNoh3k4FkNGFQ==
