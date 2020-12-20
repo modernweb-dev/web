@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-playwright",
-  "version": "0.6.6",
+  "version": "0.7.0",
   "publishConfig": {
     "access": "public"
   },
@@ -45,12 +45,12 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.8.11",
-    "@web/test-runner-coverage-v8": "^0.2.3",
+    "@web/test-runner-core": "^0.9.0",
+    "@web/test-runner-coverage-v8": "^0.3.0",
     "playwright": "^1.7.0"
   },
   "devDependencies": {
-    "@web/test-runner-mocha": "^0.5.1",
+    "@web/test-runner-mocha": "^0.6.0",
     "portfinder": "^1.0.28"
   }
 }

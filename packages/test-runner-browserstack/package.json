@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-browserstack",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "publishConfig": {
     "access": "public"
   },
@@ -45,7 +45,7 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-selenium": "^0.3.3",
+    "@web/test-runner-selenium": "^0.4.0",
     "browserstack-local": "^1.4.8",
     "ip": "^1.1.5",
     "selenium-webdriver": "^4.0.0-alpha.8",
@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@types/ip": "^1.1.0",
-    "@web/dev-server-legacy": "^0.1.5",
+    "@web/dev-server-legacy": "^0.1.7",
     "portfinder": "^1.0.28"
   }
 }

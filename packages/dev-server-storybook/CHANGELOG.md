@@ -1,5 +1,16 @@
 # @web/dev-server-storybook
 
+## 0.3.0
+
+### Minor Changes
+
+- 36f6ab39: update to node-resolve v11
+
+### Patch Changes
+
+- Updated dependencies [0f613e0e]
+  - @web/dev-server-core@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes

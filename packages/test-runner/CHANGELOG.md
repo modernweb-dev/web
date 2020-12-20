@@ -1,5 +1,28 @@
 # @web/test-runner
 
+## 0.11.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+- 0f613e0e: handle modules resolved outside root dir
+- 36f6ab39: update to node-resolve v11
+
+### Patch Changes
+
+- 65de3390: reuse common dev server plugins
+- Updated dependencies [6e313c18]
+- Updated dependencies [6e313c18]
+- Updated dependencies [0f613e0e]
+- Updated dependencies [36f6ab39]
+- Updated dependencies [6055a600]
+  - @web/config-loader@0.1.3
+  - @web/test-runner-core@0.9.0
+  - @web/test-runner-chrome@0.8.0
+  - @web/test-runner-commands@0.3.0
+  - @web/test-runner-mocha@0.6.0
+  - @web/dev-server@0.1.0
+
 ## 0.10.2
 
 ### Patch Changes

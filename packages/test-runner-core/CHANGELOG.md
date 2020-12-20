@@ -1,5 +1,17 @@
 # @web/test-runner-core
 
+## 0.9.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+- 0f613e0e: handle modules resolved outside root dir
+
+### Patch Changes
+
+- Updated dependencies [0f613e0e]
+  - @web/dev-server-core@0.3.0
+
 ## 0.8.12
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @web/dev-server
 
+## 0.1.0
+
+### Minor Changes
+
+- 0f613e0e: handle modules resolved outside root dir
+- 36f6ab39: update to node-resolve v11
+
+### Patch Changes
+
+- 6055a600: export partial dev serve config
+- Updated dependencies [6e313c18]
+- Updated dependencies [0f613e0e]
+  - @web/config-loader@0.1.3
+  - @web/dev-server-core@0.3.0
+  - @web/dev-server-rollup@0.3.0
+
 ## 0.0.29
 
 ### Patch Changes

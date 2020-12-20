@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.3.0
+
+### Minor Changes
+
+- 0f613e0e: handle modules resolved outside root dir
+
 ## 0.2.19
 
 ### Patch Changes

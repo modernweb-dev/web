@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-workbox",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "description": "Rollup plugin that builds a service worker with workbox as part of your rollup build",
   "license": "MIT",
   "repository": {

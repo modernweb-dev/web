@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 6.1.0
+
+### Minor Changes
+
+- 36f6ab39: update to node-resolve v11
+
 ## 6.0.0
 
 ### Major Changes

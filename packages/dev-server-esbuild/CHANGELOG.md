@@ -1,5 +1,12 @@
 # @web/dev-server-esbuild
 
+## 0.2.9
+
+### Patch Changes
+
+- Updated dependencies [0f613e0e]
+  - @web/dev-server-core@0.3.0
+
 ## 0.2.8
 
 ### Patch Changes
