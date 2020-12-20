@@ -1,5 +1,18 @@
 # @web/test-runner-chrome
 
+## 0.8.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+
+### Patch Changes
+
+- Updated dependencies [6e313c18]
+- Updated dependencies [0f613e0e]
+  - @web/test-runner-core@0.9.0
+  - @web/test-runner-coverage-v8@0.3.0
+
 ## 0.7.3
 
 ### Patch Changes

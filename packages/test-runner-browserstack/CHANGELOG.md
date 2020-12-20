@@ -1,5 +1,16 @@
 # @web/test-runner-browserstack
 
+## 0.3.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+
+### Patch Changes
+
+- Updated dependencies [6e313c18]
+  - @web/test-runner-selenium@0.4.0
+
 ## 0.2.3
 
 ### Patch Changes

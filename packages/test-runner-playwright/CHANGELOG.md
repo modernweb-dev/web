@@ -1,5 +1,18 @@
 # @web/test-runner-playwright
 
+## 0.7.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+
+### Patch Changes
+
+- Updated dependencies [6e313c18]
+- Updated dependencies [0f613e0e]
+  - @web/test-runner-core@0.9.0
+  - @web/test-runner-coverage-v8@0.3.0
+
 ## 0.6.6
 
 ### Patch Changes

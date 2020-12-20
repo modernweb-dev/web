@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-coverage-v8",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "publishConfig": {
     "access": "public"
   },
@@ -42,7 +42,7 @@
     "server"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.8.11",
+    "@web/test-runner-core": "^0.9.0",
     "istanbul-lib-coverage": "^3.0.0",
     "v8-to-istanbul": "^7.0.0"
   },

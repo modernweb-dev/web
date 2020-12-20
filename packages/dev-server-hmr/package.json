@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-hmr",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "publishConfig": {
     "access": "public"
   },
@@ -39,7 +39,7 @@
     "src"
   ],
   "dependencies": {
-    "@web/dev-server-core": "^0.2.18"
+    "@web/dev-server-core": "^0.3.0"
   },
   "devDependencies": {
     "@types/puppeteer": "^5.4.2",

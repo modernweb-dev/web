@@ -1,5 +1,17 @@
 # @web/test-runner-saucelabs
 
+## 0.3.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+
+### Patch Changes
+
+- Updated dependencies [6e313c18]
+  - @web/test-runner-webdriver@0.1.0
+  - @web/dev-server-esbuild@0.2.9
+
 ## 0.2.0
 
 ### Minor Changes

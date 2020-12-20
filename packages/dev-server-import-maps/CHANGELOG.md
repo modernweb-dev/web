@@ -1,5 +1,12 @@
 # @web/dev-server-import-maps
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [0f613e0e]
+  - @web/dev-server-core@0.3.0
+
 ## 0.0.3
 
 ### Patch Changes
