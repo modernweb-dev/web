@@ -15,7 +15,7 @@ export interface EsBuildPluginArgs {
   define?: { [key: string]: string };
 }
 
-export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
+export function esbuildPlugin(args: EsBuildPluginArgs = {}): Plugin {
   const target = args.target ?? 'auto';
   const loaders: Record<string, Loader> = {};
   for (const [key, value] of Object.entries(args.loaders ?? {})) {
