@@ -47,7 +47,7 @@
   "dependencies": {
     "@web/test-runner-core": "^0.9.0",
     "@web/test-runner-coverage-v8": "^0.3.0",
-    "playwright": "^1.7.0"
+    "playwright": "^1.7.1"
   },
   "devDependencies": {
     "@web/test-runner-mocha": "^0.6.0",
