@@ -216,7 +216,12 @@ export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
       }
 
       const { resolvedImport, matched } = resolve(source, data.importMap, context.URL);
-      return matched && resolvedImport ? resolvedImport.pathname : undefined;
+      // console.log({ resolvedImport });
+      if (matched && resolvedImport) {
+        return resolvedImport.href.startsWith(context.URL.origin)
+          ? resolvedImport.pathname
+          : resolvedImport.href;
+      }
     },
   };
 }
