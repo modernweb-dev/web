@@ -385,4 +385,21 @@ describe('resolving imports', () => {
     expectIncludes(warning, `test${path.sep}index.html": Unexpected end of JSON input`);
     server.stop();
   });
+
+  it('can remap to complete urls with a different domain', async () => {
+    const files = {
+      '/index.html': createHtml({ foo: 'https://my-cdn.com/foo/bar.js' }),
+      '/app.js': 'import "foo";\nimport bar from "./bar.js";',
+    };
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [virtualFilesPlugin(files), importMapsPlugin()],
+    });
+
+    await fetchText(`${host}/index.html`);
+    const text = await fetchText(`${host}/app.js?${IMPORT_MAP_PARAM}=0`);
+    expectIncludes(text, `https://my-cdn.com/foo/bar.js?wds-import-map=0`);
+
+    server.stop();
+  });
 });
