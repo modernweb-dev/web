@@ -11,6 +11,7 @@ function createHtml(importMap: Record<string, unknown>) {
   return `
   <html>
     <head>
+      <link rel="preload" href="./app.js">
       <script type="importmap">
         { "imports": ${JSON.stringify(importMap)} }
       </script>
@@ -38,6 +39,21 @@ describe('applies import map id', () => {
 
     const text = await fetchText(`${host}/index.html`);
     expectIncludes(text, `<script type="module" src="./app.js?${IMPORT_MAP_PARAM}=0"></script>`);
+
+    server.stop();
+  });
+
+  it('to preload links', async () => {
+    const files = {
+      '/index.html': createHtml({ foo: './mocked-foo.js' }),
+    };
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [virtualFilesPlugin(files), importMapsPlugin()],
+    });
+
+    const text = await fetchText(`${host}/index.html`);
+    expectIncludes(text, `<link rel="preload" href="./app.js?${IMPORT_MAP_PARAM}=0">`);
 
     server.stop();
   });

@@ -1,10 +1,10 @@
 import picoMatch from 'picomatch';
 import { Context, getHtmlPath } from '@web/dev-server-core';
 import { DefaultTreeElement as ElementAst } from 'parse5';
+import { getAttribute } from '@web/parse5-utils';
+import { ParsedImportMap } from '@import-maps/resolve';
 
 import { NormalizedInjectSetting, InjectSetting } from './importMapsPlugin';
-import { ParsedImportMap } from '@import-maps/resolve';
-import { getAttribute, predicates, query } from '@web/dev-server-core/dist/dom5';
 
 export const IMPORT_MAP_PARAM = 'wds-import-map';
 
@@ -68,15 +68,12 @@ export function withImportMapIdParam(path: string, id: string) {
   return hasParams ? `${path}?${suffix}` : `${path}&${suffix}`;
 }
 
-export function getDocumentBaseUrl(context: Context, headNode?: ElementAst) {
-  if (headNode) {
-    const baseTag = query(headNode, predicates.hasTagName('base'));
-    if (baseTag) {
-      const baseHref = getAttribute(baseTag, 'href');
-      if (typeof baseHref === 'string') {
-        // there was a <base href="..."> on the page
-        return new URL(baseHref, context.URL.href);
-      }
+export function getDocumentBaseUrl(context: Context, baseNode?: ElementAst | null) {
+  if (baseNode) {
+    const baseHref = getAttribute(baseNode, 'href');
+    if (typeof baseHref === 'string') {
+      // there was a <base href="..."> on the page
+      return new URL(baseHref, context.URL.href);
     }
   }
 
