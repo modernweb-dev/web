@@ -19,16 +19,8 @@ export class WebdriverLauncher implements BrowserLauncher {
 
   async initialize(config: TestRunnerCoreConfig) {
     this.config = config;
-    const options: RemoteOptions = { logLevel: 'error', ...this.options };
 
-    try {
-      this.driver = await remote(options);
-    } catch (e) {
-      this.stop();
-      throw e;
-    }
-
-    const cap = this.driver.capabilities;
+    const cap = this.options.capabilities as WebDriver.DesiredCapabilities;
     this.name = getBrowserLabel(cap);
     const browserName = cap.browserName?.toLowerCase().replace(/_/g, ' ') || '';
     this.isIE =
@@ -97,14 +89,21 @@ export class WebdriverLauncher implements BrowserLauncher {
   }
 
   private async createDriverManager() {
-    if (!this.config || !this.driver) throw new Error('Not initialized');
+    if (!this.config) throw new Error('Not initialized');
+    const options: RemoteOptions = { logLevel: 'error', ...this.options };
 
-    this.driverManager =
-      this.config.concurrency === 1
-        ? new SessionManager(this.config, this.driver, this.isIE)
-        : new IFrameManager(this.config, this.driver, this.isIE);
-    this.setupHeartbeat();
-    return this.driverManager;
+    try {
+      this.driver = await remote(options);
+      this.driverManager =
+        this.config.concurrency === 1
+          ? new SessionManager(this.config, this.driver, this.isIE)
+          : new IFrameManager(this.config, this.driver, this.isIE);
+      this.setupHeartbeat();
+      return this.driverManager;
+    } catch (e) {
+      this.stop();
+      throw e;
+    }
   }
 
   /**
