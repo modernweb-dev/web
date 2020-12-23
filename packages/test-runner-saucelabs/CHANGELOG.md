@@ -1,5 +1,13 @@
 # @web/test-runner-saucelabs
 
+## 0.3.2
+
+### Patch Changes
+
+- 75fba3d0: lazily create webdriver connection
+- Updated dependencies [75fba3d0]
+  - @web/test-runner-webdriver@0.1.2
+
 ## 0.3.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/test-runner-browserstack
 
+## 0.3.2
+
+### Patch Changes
+
+- 75fba3d0: lazily create webdriver connection
+
 ## 0.3.1
 
 ### Patch Changes
