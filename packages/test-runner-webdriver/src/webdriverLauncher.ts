@@ -13,12 +13,12 @@ export class WebdriverLauncher implements BrowserLauncher {
   private driverManager?: IFrameManager | SessionManager;
   private __managerPromise?: Promise<IFrameManager | SessionManager>;
   private isIE = false;
+  private pendingHeartbeat?: ReturnType<typeof setInterval>;
 
   constructor(private options: RemoteOptions) {}
 
   async initialize(config: TestRunnerCoreConfig) {
     this.config = config;
-
     const options: RemoteOptions = { logLevel: 'error', ...this.options };
 
     try {
@@ -39,6 +39,9 @@ export class WebdriverLauncher implements BrowserLauncher {
 
   async stop() {
     try {
+      if (this.pendingHeartbeat != null) {
+        clearInterval(this.pendingHeartbeat);
+      }
       await this.driver?.deleteSession();
       await this.debugDriver?.deleteSession();
 
@@ -100,8 +103,26 @@ export class WebdriverLauncher implements BrowserLauncher {
       this.config.concurrency === 1
         ? new SessionManager(this.config, this.driver, this.isIE)
         : new IFrameManager(this.config, this.driver, this.isIE);
-
+    this.setupHeartbeat();
     return this.driverManager;
+  }
+
+  /**
+   * Sets up a heartbeat to avoid the session from expiring due to
+   * inactivity because of a long running test.
+   */
+  private setupHeartbeat() {
+    this.pendingHeartbeat = setInterval(async () => {
+      if (!this.driver) return;
+      try {
+        await this.driver.getTitle();
+      } catch (e) {
+        // Do nothing, just clear the timeout
+        if (this.pendingHeartbeat != null) {
+          clearInterval(this.pendingHeartbeat);
+        }
+      }
+    }, 60000);
   }
 
   takeScreenshot(sessionId: string, locator: string) {
