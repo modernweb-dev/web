@@ -13,14 +13,14 @@ export async function getRelativeStackFilePath(
   const match = string.match(stackLocationRegExp);
 
   if (match) {
-    const [, prefix, browserPath, line, column, suffix] = match;
-    const pathWithoutParams = browserPath.split('?')[0].split('#')[0];
-    const fullFilePath = pathWithoutParams.startsWith(rootDir)
-      ? pathWithoutParams
-      : path.join(rootDir, toFilePath(pathWithoutParams));
+    const [, prefix, browserPath, browserParams, line, column, suffix] = match;
+    const fullFilePath = browserPath.startsWith(rootDir)
+      ? browserPath
+      : path.join(rootDir, toFilePath(browserPath));
+    const fullBrowserPath = `${browserPath}${browserParams}`;
 
     const sourceMapResult = await sourceMapFunction(
-      pathWithoutParams,
+      fullBrowserPath,
       fullFilePath,
       userAgent,
       Number(line),
