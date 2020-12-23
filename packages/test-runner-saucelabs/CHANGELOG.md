@@ -1,5 +1,13 @@
 # @web/test-runner-saucelabs
 
+## 0.3.1
+
+### Patch Changes
+
+- 5b117da4: add heartbeat to webdriver launcher
+- Updated dependencies [5b117da4]
+  - @web/test-runner-webdriver@0.1.1
+
 ## 0.3.0
 
 ### Minor Changes

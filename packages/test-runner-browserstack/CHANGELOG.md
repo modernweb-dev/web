@@ -1,5 +1,11 @@
 # @web/test-runner-browserstack
 
+## 0.3.1
+
+### Patch Changes
+
+- 5b117da4: add heartbeat to webdriver launcher
+
 ## 0.3.0
 
 ### Minor Changes

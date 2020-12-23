@@ -1,5 +1,11 @@
 # @web/test-runner-webdriver
 
+## 0.1.1
+
+### Patch Changes
+
+- 5b117da4: add heartbeat to webdriver launcher
+
 ## 0.1.0
 
 ### Minor Changes
