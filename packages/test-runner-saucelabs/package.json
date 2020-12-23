@@ -50,8 +50,8 @@
     "ip": "^1.1.5",
     "saucelabs": "^4.6.2",
     "uuid": "^8.3.2",
-    "webdriver": "^6.10.4",
-    "webdriverio": "^6.10.5"
+    "webdriver": "^6.10.11",
+    "webdriverio": "^6.10.11"
   },
   "devDependencies": {
     "@types/ip": "^1.1.0",
