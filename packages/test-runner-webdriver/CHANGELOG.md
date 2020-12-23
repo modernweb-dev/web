@@ -1,5 +1,11 @@
 # @web/test-runner-webdriver
 
+## 0.1.2
+
+### Patch Changes
+
+- 75fba3d0: lazily create webdriver connection
+
 ## 0.1.1
 
 ### Patch Changes

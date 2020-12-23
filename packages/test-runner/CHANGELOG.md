@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.11.1
+
+### Patch Changes
+
+- 3e861601: include url params when resolving stack traces
+
 ## 0.11.0
 
 ### Minor Changes
