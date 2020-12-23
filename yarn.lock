@@ -2534,10 +2534,10 @@
     open "^7.3.0"
     portfinder "^1.0.28"
 
-"@web/storybook-prebuilt@^0.1.12":
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/@web/storybook-prebuilt/-/storybook-prebuilt-0.1.12.tgz#ed5711dedf381e0efd8a4ce8bafb40556642ed51"
-  integrity sha512-WLuc4Zs+gE4s1m/npnNZgY9fFkGsF3myz8rXp+wMY+Q4TkUGNsFoU8D5MI5ttfAF0qt5vjxS2+l3C/69C5hdyA==
+"@web/storybook-prebuilt@^0.1.13":
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/@web/storybook-prebuilt/-/storybook-prebuilt-0.1.13.tgz#e295a7994734f7aa1a07af81571e69adc69c443e"
+  integrity sha512-wvpckR478lJbjsrPR2G2SeGppoGmkb1+fxfE0IOXQ1ijM8GGCQ5sAS6it+V0MJICRA/XDJEAms0d+gZI0R5R8A==
 
 "@webcomponents/shadycss@^1.9.4":
   version "1.10.2"
