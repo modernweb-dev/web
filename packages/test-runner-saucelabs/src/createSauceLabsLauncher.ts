@@ -1,6 +1,6 @@
 import { BrowserLauncher } from '@web/test-runner-core';
 import { SauceLabsOptions, SauceConnectOptions } from 'saucelabs';
-import { DesiredCapabilities } from 'webdriver';
+import WebDriver from 'webdriver';
 import { RemoteOptions } from 'webdriverio';
 import { v4 as uuid } from 'uuid';
 
@@ -9,7 +9,7 @@ import { SauceLabsLauncherManager } from './SauceLabsLauncherManager';
 
 export function createSauceLabsLauncher(
   saucelabsOptions: SauceLabsOptions,
-  saucelabsCapabilities?: DesiredCapabilities,
+  saucelabsCapabilities?: WebDriver.DesiredCapabilities,
   sauceConnectOptions?: SauceConnectOptions,
 ) {
   if (saucelabsOptions == null) {
@@ -35,7 +35,7 @@ export function createSauceLabsLauncher(
   }
   const manager = new SauceLabsLauncherManager(finalSauceLabsOptions, finalConnectOptions);
 
-  return function sauceLabsLauncher(capabilities: DesiredCapabilities): BrowserLauncher {
+  return function sauceLabsLauncher(capabilities: WebDriver.DesiredCapabilities): BrowserLauncher {
     if (capabilities == null) {
       throw new Error('Capabilities are required.');
     }
