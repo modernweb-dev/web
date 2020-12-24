@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.3.1
+
+### Patch Changes
+
+- eceb6295: match dotfiles when resolving mimetypes
+
 ## 0.3.0
 
 ### Minor Changes
