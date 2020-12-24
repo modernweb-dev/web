@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.11.2
+
+### Patch Changes
+
+- eceb6295: match dotfiles when resolving mimetypes
+- Updated dependencies [eceb6295]
+  - @web/dev-server@0.1.1
+  - @web/test-runner-core@0.9.1
+
 ## 0.11.1
 
 ### Patch Changes
