@@ -8,7 +8,7 @@ import { getRequestFilePath } from '../utils';
 function createMatcher(rootDir: string, pattern: string) {
   const resolvedPattern =
     !isAbsolute(pattern) && !pattern.startsWith('*') ? posix.join(rootDir, pattern) : pattern;
-  return picoMatch(resolvedPattern);
+  return picoMatch(resolvedPattern, { dot: true });
 }
 
 interface Matcher {
