@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.3.2
+
+### Patch Changes
+
+- 74315dbd: only reload preview in watch mode
+
 ## 0.3.1
 
 ### Patch Changes

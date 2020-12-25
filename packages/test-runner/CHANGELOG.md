@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.11.4
+
+### Patch Changes
+
+- b92fa63e: filter out non-objects from config
+- Updated dependencies [b92fa63e]
+  - @web/dev-server@0.1.2
+
 ## 0.11.3
 
 ### Patch Changes

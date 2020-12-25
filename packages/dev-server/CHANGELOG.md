@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.1.2
+
+### Patch Changes
+
+- b92fa63e: filter out non-objects from config
+
 ## 0.1.1
 
 ### Patch Changes
