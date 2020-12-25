@@ -60,6 +60,8 @@ export async function parseConfig(
 ): Promise<DevServerConfig> {
   const mergedConfigs = mergeConfigs(defaultConfig, config, cliArgs);
   const finalConfig = validateConfig(mergedConfigs);
+  // filter out non-objects from plugin list
+  finalConfig.plugins = (finalConfig.plugins ?? []).filter(pl => typeof pl === 'object');
 
   // ensure rootDir is always resolved
   if (typeof finalConfig.rootDir === 'string') {
