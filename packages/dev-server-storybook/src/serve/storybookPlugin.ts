@@ -10,6 +10,8 @@ import { findStories } from '../shared/stories/findStories';
 import { transformMdxToCsf } from '../shared/mdx/transformMdxToCsf';
 import { injectExportsOrder } from '../shared/stories/injectExportsOrder';
 
+const regexpReplaceWebsocket = /<!-- injected by web-dev-server -->(.|\s)*<\/script>/m;
+
 export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
   validatePluginConfig(pluginConfig);
 
@@ -36,6 +38,12 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
     },
 
     async transform(context) {
+      if (context.path === '/') {
+        // replace the injected websocket script to avoid reloading the manager in watch mode
+        context.body = context.body.replace(regexpReplaceWebsocket, '');
+        return;
+      }
+
       if (context.URL.searchParams.get('story') !== 'true') {
         return;
       }
