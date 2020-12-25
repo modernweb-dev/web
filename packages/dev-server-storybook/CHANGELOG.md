@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.3.1
+
+### Patch Changes
+
+- b51ab105: throw when trying to load official storybook addons
+
 ## 0.3.0
 
 ### Minor Changes

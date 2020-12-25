@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.11.3
+
+### Patch Changes
+
+- af9811e2: regenerate MJS entrypoint
+- Updated dependencies [af9811e2]
+  - @web/test-runner-core@0.9.2
+
 ## 0.11.2
 
 ### Patch Changes
