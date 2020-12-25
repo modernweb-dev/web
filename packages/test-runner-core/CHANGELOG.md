@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.9.2
+
+### Patch Changes
+
+- af9811e2: regenerate MJS entrypoint
+
 ## 0.9.1
 
 ### Patch Changes
