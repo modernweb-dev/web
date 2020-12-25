@@ -17,8 +17,15 @@ function validateMainJs(mainJs: MainJs): MainJs {
   if (!Array.isArray(mainJs.stories)) {
     throw createError('Stories option main.js must be an array');
   }
-  if (mainJs.addons != null && !Array.isArray(mainJs.addons)) {
-    throw createError('Addons in main.js must be an array');
+  if (mainJs.addons != null) {
+    if (!Array.isArray(mainJs.addons)) {
+      throw createError('Addons in main.js must be an array');
+    }
+    if (mainJs.addons.some(addon => addon.startsWith('@storybook'))) {
+      throw createError(
+        'Official storybook addons are not es modules, and cannot be loaded from this storybook implementation.',
+      );
+    }
   }
   return mainJs;
 }
