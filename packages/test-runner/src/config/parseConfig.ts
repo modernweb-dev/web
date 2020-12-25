@@ -135,6 +135,8 @@ export async function parseConfig(
 
   const mergedConfigs = mergeConfigs(defaultConfig, config, cliArgsConfig);
   const finalConfig = validateConfig(mergedConfigs);
+  // filter out non-objects from plugin list
+  finalConfig.plugins = (finalConfig.plugins ?? []).filter(pl => typeof pl === 'object');
 
   // ensure rootDir is always resolved
   if (typeof finalConfig.rootDir === 'string') {
