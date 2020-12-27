@@ -13,7 +13,7 @@ import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig';
 
 interface EventMap {
-  'test-run-started': { testRun: number; sessions: Iterable<TestSession> };
+  'test-run-started': { testRun: number };
   'test-run-finished': { testRun: number; testCoverage?: TestCoverage };
   finished: boolean;
   stopped: boolean;
@@ -129,8 +129,8 @@ export class TestRunner extends EventEmitter<EventMap> {
       this.testRun += 1;
       this.running = true;
 
-      await this.scheduler.schedule(this.testRun, sessionsToRun);
-      this.emit('test-run-started', { testRun: this.testRun, sessions: sessionsToRun });
+      this.scheduler.schedule(this.testRun, sessionsToRun);
+      this.emit('test-run-started', { testRun: this.testRun });
     } catch (error) {
       this.running = false;
       this.stop(error);
