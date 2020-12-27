@@ -8,7 +8,7 @@ You can view the dev server documentation to learn how to set this up.
 
 - [Using plugins](../dev-server/using-plugins.md)
 - [Typescript and JSX](../dev-server/typescript-and-jsx.md)
-- [Supporting older browsers](../dev-server/supporting-older-browsers.md)
+- [Browser support](../dev-server/browser-support.md)
 
 **Documentation:**
 

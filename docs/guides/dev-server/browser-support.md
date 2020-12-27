@@ -1,4 +1,4 @@
-# Dev Server >> Supporting older browsers ||80
+# Dev Server >> Browser support ||80
 
 Web Dev Server is based on development using features available in modern browsers. With the help of plugins, we can use the dev server on older browsers as well.
 

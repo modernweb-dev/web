@@ -1,14 +1,10 @@
 # Dev Server >> Typescript and JSX ||50
 
-To use typescript, JSX, or new JS features we recommend [esbuild](https://github.com/evanw/esbuild), a blazing fast build tool.
-
-The `@web/dev-server-esbuild` plugin uses esbuild loaders for fast single file transformations, processing a single file within 0-5ms. It doesn't use the `esbuild` bundling API.
-
 ## JSX
 
-Esbuild is great for transforming JSX to JS on the fly.
+To use JSX in Web Dev Server and Web Test Runner we recommend the [esbuild plugin](../../docs/dev-server/plugins/esbuild.md). It's great for transforming JSX to JS on the fly.
 
-Install and add the plugin to your configuration. The `jsx: true` option will process all `.jsx` files automatically.
+To use the plugin, install it, and add the plugin to your configuration. The `jsx: true` option will process all `.jsx` files automatically.
 
 ```js
 import { esbuildPlugin } from '@web/dev-server-esbuild';
@@ -25,7 +21,7 @@ export default {
 };
 ```
 
-If you want to process JSX in JS files you can configure the loader explicitly:
+If you want to process JSX in `.js` files you can configure the loader explicitly:
 
 ```js
 import { esbuildPlugin } from '@web/dev-server-esbuild';
@@ -44,11 +40,33 @@ export default {
 
 ## Typescript
 
-The official typescript compiler (TSC) is the most predictable when it comes to compiling typescript, we generally recommend it for most users.
+### TSC
 
-Esbuild can be used to compile code on the fly before serving to the browser. The benefit is that you don't need to serve from generated files, and the transformation is faster because it doesn't do any type checking. To keep type checking during development, you could run keep TSC running in the background with the `--noEmit`.
+To use Typescript we recommend the official typescript compiler (TSC). It is the most predictable when it comes to compiling typescript.
 
-Example configuration:
+To use both TSC and Web Dev Server or Web Test Runner in the same terminal, you can use the `--preserveWatchOutput` option to avoid both tools clearing the terminal on change.
+
+To run both commands on a unix system:
+
+```
+tsc --watch --preserveWatchOutput & web-dev-server --watch
+tsc --watch --preserveWatchOutput & web-test-runner --watch
+```
+
+You can use [concurrently](https://www.npmjs.com/package/concurrently) for a cross-platform solution. For Web Test Runner, you need to use the `--raw` flag to allow interacting with the watch menu.
+
+```
+concurrently --raw "tsc --watch --preserveWatchOutput" "wds --watch"
+concurrently --raw "tsc --watch --preserveWatchOutput" "wtr --watch"
+```
+
+Remember to use source maps for easier debugging.
+
+### Esbuild
+
+As an alternative to TSC, the [esbuild plugin](../../docs/dev-server/plugins/esbuild.md) can be used to compile typescript on the fly as well. The benefit of this approach is that it is faster, and you don't need to run two separate tools. The downside is that esbuild doesn't do any type checking, it only strips types.
+
+To use the plugin, install it and add the plugin to your configuration. The `ts: true` option handles all `.ts` files automatically.
 
 ```js
 import { esbuildPlugin } from '@web/dev-server-esbuild';
@@ -58,11 +76,17 @@ export default {
 };
 ```
 
+To keep type checking as part of your workflow, you can use TSC as a code linting tool using the `--noEmit` flag.
+
+```
+tsc --noEmit
+```
+
 ## JS Syntax
 
 The esbuild [JS loader](https://esbuild.github.io/content-types/#javascript) has options available for modern JS syntax not yet available in all browsers, or only in the latest versions. You can configure the language target using the `target` option.
 
-See the [supporting older browsers guide](./supporting-older-browsers.md) on how to set this up.
+See the [browser support guide](./browser-support.md) on how to set this up.
 
 ## Learn more
 
