@@ -49,6 +49,7 @@
     "test:puppeteer-firefox": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --puppeteer --browsers firefox",
     "test:saucelabs": "node dist/bin.js --config demo/saucelabs.config.mjs",
     "test:selenium": "node dist/bin.js --config demo/selenium.config.mjs",
+    "test:tsc": "tsc -p demo/tsc/tsconfig.json && concurrently -k -r \"tsc -p demo/tsc/tsconfig.json --watch --preserveWatchOutput\" \"wtr --config demo/tsc/config.mjs --watch\"",
     "test:virtual-files": "node dist/bin.js --config demo/virtual-files.config.mjs --coverage",
     "test:watch": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --watch"
   },
@@ -89,6 +90,7 @@
   "devDependencies": {
     "@web/dev-server-legacy": "^0.1.7",
     "@web/test-runner-saucelabs": "^0.3.2",
-    "babel-plugin-istanbul": "^6.0.0"
+    "babel-plugin-istanbul": "^6.0.0",
+    "concurrently": "^5.3.0"
   }
 }

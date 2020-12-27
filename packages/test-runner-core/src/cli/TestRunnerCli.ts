@@ -172,25 +172,21 @@ export class TestRunnerCli {
 
       if (session.status === SESSION_STATUS.FINISHED) {
         this.reportTestResult(session.testFile);
+        this.reportTestProgress();
       }
-      this.reportTestProgress();
     });
 
     this.runner.on('test-run-started', ({ testRun }) => {
       for (const reporter of this.config.reporters) {
         reporter.onTestRunStarted?.({ testRun });
       }
-
       if (this.activeMenu !== MENUS.OVERVIEW) {
         return;
       }
 
-      if (testRun !== 0 && this.config.watch) {
-        this.terminal.clear();
-      }
-
+      const clearTerminal = testRun !== 0 && this.config.watch;
+      this.reportTestProgress(false, clearTerminal);
       this.reportTestResults();
-      this.reportTestProgress();
     });
 
     this.runner.on('test-run-finished', ({ testRun, testCoverage }) => {
@@ -301,7 +297,7 @@ export class TestRunnerCli {
     return reportPromises;
   }
 
-  private reportTestProgress(final = false) {
+  private reportTestProgress(final = false, clearTerminal = false) {
     if (this.config.manual) {
       return;
     }
@@ -349,6 +345,9 @@ export class TestRunnerCli {
       );
     }
 
+    if (clearTerminal) {
+      this.terminal.clear();
+    }
     if (logStatic) {
       this.terminal.logStatic(reports);
     } else {
