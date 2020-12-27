@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.9.3
+
+### Patch Changes
+
+- f2a84204: reduce delay when clearing terminal between test runs
+
 ## 0.9.2
 
 ### Patch Changes
