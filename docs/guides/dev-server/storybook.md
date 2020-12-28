@@ -49,12 +49,12 @@ const Button = ({ backgroundColor = 'white', text }) => {
   `;
 };
 
-export const ButtonA = args => Button(args);
+export const ButtonA = Button.bind({});
 ButtonA.args = {
   text: 'Button A',
 };
 
-export const ButtonB = args => Button(args);
+export const ButtonB = Button.bind({});
 ButtonB.args = {
   text: 'Button B',
 };
