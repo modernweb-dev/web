@@ -1,0 +1,19 @@
+{
+  "name": "@web/repository-scripts",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Scripts for managing repositories",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/repository-scripts"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/repository-scripts",
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
