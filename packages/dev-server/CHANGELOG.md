@@ -1,5 +1,15 @@
 # @web/dev-server
 
+## 0.1.3
+
+### Patch Changes
+
+- 375116ad: fix handling of paths resolved outside the root dir. we now correctly use the resolved path when resolving relative imports and when populating the transform cache
+- Updated dependencies [375116ad]
+- Updated dependencies [2f205878]
+  - @web/dev-server-core@0.3.2
+  - @web/dev-server-rollup@0.3.1
+
 ## 0.1.2
 
 ### Patch Changes

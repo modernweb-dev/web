@@ -1,5 +1,15 @@
 # @web/test-runner-saucelabs
 
+## 0.3.3
+
+### Patch Changes
+
+- 69b2d13d: use about:blank to kill stale browser pages, this makes tests that rely on browser focus work with puppeteer
+- Updated dependencies [69b2d13d]
+- Updated dependencies [c7f8d271]
+  - @web/test-runner-webdriver@0.1.3
+  - @web/dev-server-esbuild@0.2.10
+
 ## 0.3.2
 
 ### Patch Changes

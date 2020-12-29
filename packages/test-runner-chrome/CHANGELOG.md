@@ -1,5 +1,12 @@
 # @web/test-runner-chrome
 
+## 0.8.1
+
+### Patch Changes
+
+- 69b2d13d: use about:blank to kill stale browser pages, this makes tests that rely on browser focus work with puppeteer
+- 005ab9ae: use fast chrome-launcher installation finder
+
 ## 0.8.0
 
 ### Minor Changes

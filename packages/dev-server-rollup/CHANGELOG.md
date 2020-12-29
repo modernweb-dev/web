@@ -1,5 +1,14 @@
 # @web/dev-server-rollup
 
+## 0.3.1
+
+### Patch Changes
+
+- 375116ad: fix handling of paths resolved outside the root dir. we now correctly use the resolved path when resolving relative imports and when populating the transform cache
+- 2f205878: handle null bytes in HTML
+- Updated dependencies [375116ad]
+  - @web/dev-server-core@0.3.2
+
 ## 0.3.0
 
 ### Minor Changes
