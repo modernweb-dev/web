@@ -98,6 +98,13 @@ export function rollupAdapter(
     },
 
     async resolveImport({ source, context, code, column, line }) {
+      if (context.response.is('html') && source.startsWith('�')) {
+        // when serving HTML a null byte gets parsed as an unknown character
+        // we remap it to a null byte here so that it is handled properly downstream
+        // this isn't a perfect solution
+        source = source.replace('�', '\0');
+      }
+
       // if we just transformed this file and the import is an absolute file path
       // we need to rewrite it to a browser path
       const injectedFilePath = path.normalize(source).startsWith(rootDir);
