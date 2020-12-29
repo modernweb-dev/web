@@ -80,6 +80,7 @@ if (os.platform() !== 'win32') {
 
     runIntegrationTests(createConfig, {
       basic: true,
+      focus: false,
       groups: true,
       parallel: true,
       testFailure: true,

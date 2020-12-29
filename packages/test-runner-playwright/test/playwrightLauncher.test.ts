@@ -11,6 +11,7 @@ describe('test-runner-playwright chromium', function testRunnerPlaywright() {
 
   runIntegrationTests(createConfig, {
     basic: true,
+    focus: true,
     groups: true,
     parallel: true,
     testFailure: true,
@@ -29,6 +30,7 @@ if (os.platform() !== 'win32') {
 
     runIntegrationTests(createConfig, {
       basic: true,
+      focus: true,
       groups: true,
       parallel: true,
       testFailure: true,
@@ -45,6 +47,7 @@ if (os.platform() !== 'win32') {
 
     runIntegrationTests(createConfig, {
       basic: true,
+      focus: true,
       groups: true,
       // firefox doesn't like parallel in the CI
       parallel: false,
@@ -68,6 +71,7 @@ if (os.platform() !== 'win32') {
 
     runIntegrationTests(createConfig, {
       basic: true,
+      focus: true,
       groups: true,
       parallel: false,
       testFailure: false,

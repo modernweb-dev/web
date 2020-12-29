@@ -4,9 +4,11 @@ import { runConfigGroupsTest } from './tests/config-groups/runConfigGroupsTest';
 import { runParallelTest } from './tests/parallel/runParallelTest';
 import { runTestFailureTest } from './tests/test-failure/runTestFailureTest';
 import { runLocationChangeTest } from './tests/location-change/runLocationChangeTest';
+import { runFocusTest } from './tests/focus/runFocusTest';
 
 export interface Tests {
   basic: boolean;
+  focus: boolean;
   groups: boolean;
   parallel: boolean;
   testFailure: boolean;
@@ -19,6 +21,10 @@ export function runIntegrationTests(
 ) {
   if (tests.basic !== false) {
     runBasicTest(createConfig());
+  }
+
+  if (tests.focus !== false) {
+    runFocusTest(createConfig());
   }
 
   if (tests.groups !== false) {

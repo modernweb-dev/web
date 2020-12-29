@@ -1,6 +1,6 @@
 import { expect } from '@esm-bundle/chai';
 
-it('can run a test with focus b', async () => {
+it('can run a test with focus a', async () => {
   const input = document.createElement('input');
   document.body.appendChild(input);
 
@@ -10,6 +10,6 @@ it('can run a test with focus b', async () => {
   });
   input.focus();
 
-  await Promise.resolve();
+  await new Promise(r => setTimeout(r, 100));
   expect(firedEvent).to.be.true;
 });

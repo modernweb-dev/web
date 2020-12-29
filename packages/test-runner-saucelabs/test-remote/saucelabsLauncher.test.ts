@@ -54,6 +54,7 @@ describe('test-runner-saucelabs', function () {
 
   runIntegrationTests(createConfig, {
     basic: true,
+    focus: false,
     groups: false,
     parallel: false,
     testFailure: false,
