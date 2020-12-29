@@ -1,37 +1,28 @@
 {
-  // start with default Renovate settings
   "extends": [
     "config:base"
   ],
 
-  // this allows us to configure settings for minor and patch updates separately
   "separateMinorPatch": true,
 
-  // rules for specific subsets of packages
   "packageRules": [
     {
-      // for all patch updates
       "updateTypes": ["patch"],
 
-      // create a branch, wait for test results, and automerge if tests pass
       "automerge": true,
       "automergeType": "branch"
     },
     {
-      // for minor updates that aren't 0.x
       "updateTypes": ["minor"],
       "matchCurrentVersion": "!/^[~^]?0/",
 
-      // create a branch, wait for test results, and automerge if tests pass
       "automerge": true,
       "automergeType": "branch"
     }
   ],
 
-  // bump the range even if the new version satisfies the existing range, e.g. ^1.0.0 -> ^1.1.0
   "rangeStrategy": "bump",
 
-  // update lock files (default schedule is once a week)
   "lockFileMaintenance": {
     "enabled": true
   }
