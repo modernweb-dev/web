@@ -38,7 +38,6 @@ describe('esbuildPlugin TS', function () {
     try {
       const response = await fetch(`${host}/foo.ts`);
       const text = await response.text();
-
       expect(response.status).to.equal(200);
       expect(response.headers.get('content-type')).to.equal(
         'application/javascript; charset=utf-8',

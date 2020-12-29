@@ -22,6 +22,10 @@ export default {
 };
 ```
 
+## Single file transforms
+
+Note that the esbuild plugin uses the [esbuild single file transform API](https://esbuild.github.io/api/#transform-api), transforming files as they are requested by the browser. We don't use esbuild's bundling API, so some features like module transformation are not available.
+
 ## Configuration
 
 We expose the following options for esbuild. Most of them are a mirror of the esbuild API, check the esbuild docs to learn more about them.
