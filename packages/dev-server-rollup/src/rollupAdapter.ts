@@ -110,8 +110,7 @@ export function rollupAdapter(
         return source;
       }
 
-      const requestedFile = context.path.endsWith('/') ? `${context.path}index.html` : context.path;
-      const filePath = path.join(rootDir, requestedFile);
+      const filePath = getRequestFilePath(context, rootDir);
 
       try {
         const rollupPluginContext = createRollupPluginContextAdapter(

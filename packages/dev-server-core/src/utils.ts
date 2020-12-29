@@ -4,8 +4,7 @@ import getStream from 'get-stream';
 import { isBinaryFile } from 'isbinaryfile';
 import path from 'path';
 
-const REGEXP_TO_BROWSER_PATH = new RegExp(path.sep === '\\' ? '\\\\' : path.sep, 'g');
-const REGEXP_TO_FILE_PATH = new RegExp('/', 'g');
+const OUTSIDE_ROOT_KEY = '/__wds-outside-root__/';
 
 /**
  * Turns a file path into a path suitable for browsers, with a / as seperator.
@@ -13,7 +12,7 @@ const REGEXP_TO_FILE_PATH = new RegExp('/', 'g');
  * @returns {string}
  */
 export function toBrowserPath(filePath: string) {
-  return filePath.replace(REGEXP_TO_BROWSER_PATH, '/');
+  return filePath.split(path.sep).join('/');
 }
 
 /**
@@ -21,7 +20,7 @@ export function toBrowserPath(filePath: string) {
  * but it should use `/` in the browser.
  */
 export function toFilePath(browserPath: string) {
-  return browserPath.replace(REGEXP_TO_FILE_PATH, path.sep);
+  return browserPath.split('/').join(path.sep);
 }
 
 export function getHtmlPath(path: string) {
@@ -89,15 +88,46 @@ export function isInlineScriptRequest(ctx: Context) {
 }
 
 export function getRequestBrowserPath(context: Context) {
+  let requestPath;
   // inline module requests have the source in a query string
   if (isInlineScriptRequest(context)) {
-    return context.URL.searchParams.get('source')!;
+    requestPath = context.URL.searchParams.get('source')!;
+  } else {
+    requestPath = context.path;
   }
-  return context.path;
+
+  if (requestPath.endsWith('/')) {
+    return `${requestPath}index.html`;
+  }
+  return requestPath;
 }
 
 export function getRequestFilePath(context: Context, rootDir: string): string {
   const requestPath = getRequestBrowserPath(context);
-  const filePath = toFilePath(requestPath);
-  return path.join(rootDir, filePath);
+
+  if (isOutsideRootDir(context.path)) {
+    const { normalizedPath, newRootDir } = resolvePathOutsideRootDir(context.path, rootDir);
+    const filePath = toFilePath(normalizedPath);
+    return path.join(newRootDir, filePath);
+  } else {
+    const filePath = toFilePath(requestPath);
+    return path.join(rootDir, filePath);
+  }
+}
+
+export function isOutsideRootDir(browserPath: string) {
+  return browserPath.startsWith(OUTSIDE_ROOT_KEY);
+}
+
+export function resolvePathOutsideRootDir(browserPath: string, rootDir: string) {
+  const [, , depthString] = browserPath.split('/');
+  const depth = Number(depthString);
+  if (depth == null || Number.isNaN(depth)) {
+    throw new Error(`Invalid wds-root-dir path: ${path}`);
+  }
+
+  const normalizedPath = browserPath.replace(`${OUTSIDE_ROOT_KEY}${depth}`, '');
+  const newRootDir = path.resolve(rootDir, `..${path.sep}`.repeat(depth));
+
+  return { normalizedPath, newRootDir };
 }
