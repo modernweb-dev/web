@@ -1,5 +1,11 @@
 # @web/test-runner-webdriver
 
+## 0.1.3
+
+### Patch Changes
+
+- 69b2d13d: use about:blank to kill stale browser pages, this makes tests that rely on browser focus work with puppeteer
+
 ## 0.1.2
 
 ### Patch Changes
