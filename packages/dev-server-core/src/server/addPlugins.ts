@@ -1,4 +1,4 @@
-import { DevServerCoreConfig } from '../DevServerCoreConfig';
+import { DevServerCoreConfig } from './DevServerCoreConfig';
 import { transformModuleImportsPlugin } from '../plugins/transformModuleImportsPlugin';
 import { webSocketsPlugin } from '../web-sockets/webSocketsPlugin';
 import { mimeTypesPlugin } from '../plugins/mimeTypesPlugin';

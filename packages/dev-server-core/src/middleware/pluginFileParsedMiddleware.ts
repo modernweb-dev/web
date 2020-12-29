@@ -1,5 +1,5 @@
 import { Middleware } from 'koa';
-import { Plugin } from '../Plugin';
+import { Plugin } from '../plugins/Plugin';
 
 /**
  * Calls fileParsed hook on plugins.
