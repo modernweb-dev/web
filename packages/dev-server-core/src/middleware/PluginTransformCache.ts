@@ -21,6 +21,9 @@ interface CacheEntry {
   filePath: string;
 }
 
+/**
+ * Cache for file transformations.
+ */
 export class PluginTransformCache {
   private cacheKeysPerFilePath = new Map<string, Set<string>>();
 

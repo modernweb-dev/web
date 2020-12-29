@@ -6,7 +6,7 @@ import http2Server from 'http2';
 import fs from 'fs';
 import net, { Server, Socket, ListenOptions } from 'net';
 
-import { DevServerCoreConfig } from '../DevServerCoreConfig';
+import { DevServerCoreConfig } from './DevServerCoreConfig';
 import { createMiddleware } from './createMiddleware';
 import { Logger } from '../logger/Logger';
 import { addPlugins } from './addPlugins';

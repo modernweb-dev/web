@@ -6,8 +6,8 @@ import WebSocket from 'ws';
 export { WebSocket };
 
 export { DevServer } from './server/DevServer';
-export { Plugin, ServerStartParams } from './Plugin';
-export { DevServerCoreConfig, MimeTypeMappings } from './DevServerCoreConfig';
+export { Plugin, ServerStartParams } from './plugins/Plugin';
+export { DevServerCoreConfig, MimeTypeMappings } from './server/DevServerCoreConfig';
 export { WebSocketsManager, WebSocketData } from './web-sockets/WebSocketsManager';
 export {
   getRequestBrowserPath,

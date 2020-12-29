@@ -1,4 +1,4 @@
-import { Plugin } from '../Plugin';
+import { Plugin } from '../plugins/Plugin';
 import { NAME_WEB_SOCKET_IMPORT } from './WebSocketsManager';
 import { appendToDocument, isHtmlFragment } from '@web/parse5-utils';
 

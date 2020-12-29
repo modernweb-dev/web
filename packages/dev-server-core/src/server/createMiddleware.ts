@@ -2,7 +2,7 @@ import { Middleware } from 'koa';
 import koaEtag from 'koa-etag';
 import { FSWatcher } from 'chokidar';
 
-import { DevServerCoreConfig } from '../DevServerCoreConfig';
+import { DevServerCoreConfig } from './DevServerCoreConfig';
 import { basePathMiddleware } from '../middleware/basePathMiddleware';
 import { etagCacheMiddleware } from '../middleware/etagCacheMiddleware';
 import { historyApiFallbackMiddleware } from '../middleware/historyApiFallbackMiddleware';

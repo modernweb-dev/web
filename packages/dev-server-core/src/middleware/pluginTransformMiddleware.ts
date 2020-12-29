@@ -1,7 +1,7 @@
 import { FSWatcher } from 'chokidar';
 import { Middleware } from 'koa';
 
-import { DevServerCoreConfig } from '../DevServerCoreConfig';
+import { DevServerCoreConfig } from '../server/DevServerCoreConfig';
 import { PluginTransformCache } from './PluginTransformCache';
 import { getRequestFilePath, getResponseBody, RequestCancelledError } from '../utils';
 import { Logger } from '../logger/Logger';

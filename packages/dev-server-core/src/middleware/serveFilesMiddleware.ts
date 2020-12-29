@@ -5,6 +5,9 @@ import koaStatic, { Options as KoaStaticOptions } from 'koa-static';
 
 const OUTSIDE_ROOT_KEY = '/__wds-outside-root__/';
 
+/**
+ * Creates multiple middleware used for serving files.
+ */
 export function serveFilesMiddleware(rootDir: string): Middleware[] {
   const koaStaticOptions: KoaStaticOptions = {
     hidden: true,

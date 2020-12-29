@@ -3,7 +3,7 @@ import { Server } from 'net';
 import { FSWatcher } from 'chokidar';
 import { expect } from 'chai';
 import fetch from 'node-fetch';
-import { ServerStartParams } from '../../src/Plugin';
+import { ServerStartParams } from '../../src/plugins/Plugin';
 import { DevServer } from '../../src/server/DevServer';
 import { createTestServer } from '../helpers';
 

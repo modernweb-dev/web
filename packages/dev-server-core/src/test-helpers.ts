@@ -4,9 +4,9 @@ import chalk from 'chalk';
 import fetch, { RequestInit } from 'node-fetch';
 
 import { DevServer } from './server/DevServer';
-import { DevServerCoreConfig } from './DevServerCoreConfig';
+import { DevServerCoreConfig } from './server/DevServerCoreConfig';
 import { Logger } from './logger/Logger';
-import { Plugin } from './Plugin';
+import { Plugin } from './plugins/Plugin';
 
 const defaultConfig: Omit<DevServerCoreConfig, 'port' | 'rootDir'> = {
   hostname: 'localhost',
