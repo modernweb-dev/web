@@ -181,6 +181,8 @@ export class EsbuildPlugin implements Plugin {
         sourcemap: 'inline',
         loader,
         target,
+        // don't set any format for JS-like formats, otherwise esbuild reformats the code unnecesarily
+        format: ['js', 'jsx', 'ts', 'tsx'].includes(loader) ? undefined : 'esm',
         jsxFactory: this.esbuildConfig.jsxFactory,
         jsxFragment: this.esbuildConfig.jsxFragment,
       });
