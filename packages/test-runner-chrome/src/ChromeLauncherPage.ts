@@ -44,7 +44,7 @@ export class ChromeLauncherPage {
 
     // navigate to an empty page to kill any running code on the page, stopping timers and
     // breaking a potential endless reload loop
-    await this.puppeteerPage.goto('data:,');
+    await this.puppeteerPage.goto('about:blank');
 
     return { testCoverage };
   }

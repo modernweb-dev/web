@@ -39,7 +39,7 @@ export class PlaywrightLauncherPage {
 
     // navigate to an empty page to kill any running code on the page, stopping timers and
     // breaking a potential endless reload loop
-    await this.playwrightPage.goto('data:,');
+    await this.playwrightPage.goto('about:blank');
 
     return { testCoverage };
   }

@@ -85,6 +85,8 @@ if (os.platform() !== 'win32') {
 
     runIntegrationTests(createConfig, {
       basic: true,
+      // focus fails with headless webdriver
+      focus: false,
       groups: true,
       parallel: true,
       testFailure: true,

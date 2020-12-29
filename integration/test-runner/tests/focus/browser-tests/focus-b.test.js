@@ -1,4 +1,4 @@
-import { expect } from '@esm-bundle/chai';
+import { expect } from '../../../../../node_modules/@esm-bundle/chai/esm/chai.js';
 
 it('can run a test with focus b', async () => {
   const input = document.createElement('input');
@@ -10,6 +10,8 @@ it('can run a test with focus b', async () => {
   });
   input.focus();
 
-  await Promise.resolve();
+  // await 2 frames for IE11
+  await new Promise(requestAnimationFrame);
+  await new Promise(requestAnimationFrame);
   expect(firedEvent).to.be.true;
 });

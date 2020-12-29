@@ -1,6 +1,6 @@
 import { expect } from '@esm-bundle/chai';
 
-it('can run a test with focus a', async () => {
+it('can run a test with focus i', async () => {
   const input = document.createElement('input');
   document.body.appendChild(input);
 
