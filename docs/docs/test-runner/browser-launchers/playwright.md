@@ -44,9 +44,10 @@ export default {
 
 ## Customizing launch options
 
-If you want to customize the puppeteer launcher options, you can add the browser launcher in the config.
+If you want to customize the playwright launcher options, you can add the browser launcher in the config.
 
-You can find all possible launch options in the [official documentation](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteerlaunchoptions)
+You can find all possible launch options in the [official documentation](https://github.com/microsoft/playwright/blob/master/docs/api.md#browsertypelaunchoptions).
+
 
 ```js
 import { playwrightLauncher } from '@web/test-runner-playwright';
