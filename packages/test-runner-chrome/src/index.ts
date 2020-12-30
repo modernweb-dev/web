@@ -1,22 +1,31 @@
 import * as puppeteerCore from 'puppeteer-core';
-import { ChromeLauncher } from './ChromeLauncher';
-import { LaunchOptions, Browser, Page } from 'puppeteer-core';
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
+import { ChromeLauncher, CreateBrowserContextFn, CreatePageFn } from './ChromeLauncher';
+import { LaunchOptions, devices } from 'puppeteer-core';
 
 export interface ChromeLauncherArgs {
   puppeteer?: typeof puppeteerCore;
   launchOptions?: LaunchOptions;
-  createPage?: (args: { config: TestRunnerCoreConfig; browser: Browser }) => Promise<Page>;
+  createBrowserContext?: CreateBrowserContextFn;
+  createPage?: CreatePageFn;
   concurrency?: number;
 }
 
-export { ChromeLauncher };
+export { ChromeLauncher, devices };
 
 export function chromeLauncher(args: ChromeLauncherArgs = {}) {
+  const {
+    launchOptions = {},
+    createBrowserContext = ({ browser }) => browser.defaultBrowserContext(),
+    createPage = ({ context }) => context.newPage(),
+    puppeteer,
+    concurrency,
+  } = args;
+
   return new ChromeLauncher(
-    args.launchOptions ?? {},
-    args.puppeteer,
-    args.createPage,
-    args.concurrency,
+    launchOptions,
+    createBrowserContext,
+    createPage,
+    puppeteer,
+    concurrency,
   );
 }

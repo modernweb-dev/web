@@ -14,30 +14,6 @@ npm i --save-dev @web/test-runner-playwright
 wtr test/**/*.test.js --node-resolve --playwright --browsers chromium firefox webkit
 ```
 
-## Customizing launcher options
-
-If you want to customize the playwright launcher options, you can add the browser launcher in the config.
-
-You can find all possible launch options in the [official documentation](https://github.com/microsoft/playwright/blob/master/docs/api.md#browsertypelaunchoptions)
-
-```js
-import { playwrightLauncher } from '@web/test-runner-playwright';
-
-export default {
-  browsers: [
-    playwrightLauncher({
-      // product can be chromium, webkit or firefox
-      product: 'chromium',
-      launchOptions: {
-        executablePath: '/path/to/executable',
-        headless: false,
-        args: ['--some-flag'],
-      },
-    }),
-  ],
-};
-```
-
 ## Testing multiple browsers
 
 For each browser, you can add a separate browser launcher
@@ -63,5 +39,80 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 
 export default {
   browsers: [playwrightLauncher({ product: 'firefox', concurrency: 1 })],
+};
+```
+
+## Customizing launch options
+
+If you want to customize the puppeteer launcher options, you can add the browser launcher in the config.
+
+You can find all possible launch options in the [official documentation](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteerlaunchoptions)
+
+```js
+import { playwrightLauncher } from '@web/test-runner-playwright';
+
+export default {
+  browsers: [
+    playwrightLauncher({
+      launchOptions: {
+        headless: false,
+        devtools: true,
+        args: ['--some-flag'],
+      },
+    }),
+  ],
+};
+```
+
+## Customizing browser context and page
+
+You can customize the way the browser context or playwright page is created. This allows configuring the test environment. Check the [official documentation](https://github.com/microsoft/playwright/blob/master/docs/api.md) for all API options.
+
+```js
+import { playwrightLauncher } from '@web/test-runner-playwright';
+
+export default {
+  browsers: [
+    playwrightLauncher({
+      createBrowserContext: ({ browser, config }) => browser.newContext(),
+      createPage: ({ context, config }) => context.newPage(),
+    }),
+  ],
+};
+```
+
+Some examples:
+
+### Emulate touch
+
+```js
+import { playwrightLauncher, devices } from '@web/test-runner-playwright';
+
+export default {
+  browsers: [
+    playwrightLauncher({
+      browser: 'webkit',
+      createBrowserContext({ browser }) {
+        return browser.newContext({ userAgent: 'custom user agent', hasTouch: true });
+      },
+    }),
+  ],
+};
+```
+
+### Emulate mobile browser
+
+```js
+import { playwrightLauncher, devices } from '@web/test-runner-playwright';
+
+export default {
+  browsers: [
+    playwrightLauncher({
+      browser: 'webkit',
+      createBrowserContext({ browser }) {
+        return browser.newContext({ ...devices['iPhone X'] });
+      },
+    }),
+  ],
 };
 ```
