@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.11.7
+
+### Patch Changes
+
+- cbbeae3f: allow configuring puppeteer and playwright browser context
+- Updated dependencies [cbbeae3f]
+  - @web/test-runner-chrome@0.8.2
+
 ## 0.11.6
 
 ### Patch Changes
