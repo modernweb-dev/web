@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.7.2
+
+### Patch Changes
+
+- cbbeae3f: allow configuring puppeteer and playwright browser context
+
 ## 0.7.1
 
 ### Patch Changes
