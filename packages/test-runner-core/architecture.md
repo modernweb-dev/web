@@ -8,7 +8,7 @@
 - `@web/config-loader` is used to read the config.
 - `@web/browser-logs` is used to serialize browser logs, and deserialize them on the server.
 - `@web/test-runner-mocha` is a test framework implementation.
-- `@web/test-runner-{chrome, puppeteer, playwright, webdriver, saucelabs browserstack}` are browser launcher implementations.
+- `@web/test-runner-{chrome, puppeteer, playwright, webdriver, saucelabs, browserstack}` are browser launcher implementations.
 - `@web/test-runner-junit-reporter` is a test reporter. `@web/test-runner` contains the default reporter.
 - `@web/test-runner-commands` implements some default commands.
 - `@web/test-runner-visual-regression` is a plugin for visual regression testing.
@@ -69,6 +69,19 @@ for (const session of testSessions) {
   const url = createSessionUrl(session);
   session.browser.startSession(session.id, url);
 }
+```
+
+The test URL looks like this: `/?wtr-session-id=<uuid>`
+
+And the served HTML page like this:
+
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <script type="module" src="/test-framework.js"></script>
+  </body>
+</html>
 ```
 
 The browser opens up the test URL in the browser where the configured test framework is loaded. The test framework now takes care of running your test file. For mocha it looks something like this:
