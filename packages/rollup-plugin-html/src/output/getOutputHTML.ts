@@ -9,6 +9,7 @@ import { parse, serialize } from 'parse5';
 import { injectedUpdatedAssetPaths } from './injectedUpdatedAssetPaths';
 import { EmittedAssets } from './emitAssets';
 import { injectAbsoluteBaseUrl } from './injectAbsoluteBaseUrl';
+import { injectServiceWorker } from './injectServiceWorker';
 
 export interface GetOutputHTMLParams {
   input: InputData;
@@ -18,6 +19,7 @@ export interface GetOutputHTMLParams {
   entrypointBundles: Record<string, EntrypointBundle>;
   externalTransformHtmlFns?: TransformHtmlFunction[];
   defaultInjectDisabled: boolean;
+  serviceWorkerDestination: string;
 }
 
 export async function getOutputHTML(params: GetOutputHTMLParams) {
@@ -29,6 +31,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
     outputDir,
     emittedAssets,
     defaultInjectDisabled,
+    serviceWorkerDestination,
   } = params;
   const { default: defaultBundle, ...multiBundles } = entrypointBundles;
   const { absoluteSocialMediaUrls = true, rootDir = process.cwd() } = pluginOptions;
@@ -43,6 +46,9 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
   }
   if (absoluteSocialMediaUrls && pluginOptions.absoluteBaseUrl) {
     injectAbsoluteBaseUrl(document, pluginOptions.absoluteBaseUrl);
+  }
+  if (serviceWorkerDestination) {
+    injectServiceWorker({ document, outputDir, swDest: serviceWorkerDestination, htmlFileName: input.name })
   }
 
   let outputHtml = serialize(document);

@@ -846,4 +846,56 @@ describe('rollup-plugin-html', () => {
       '<html><head></head><body><img src="./image-c.png"><link rel="stylesheet" href="./styles.css"><img src="./image-b.svg"></body></html>',
     );
   });
+
+  it.only('will inject service worker registration code if a service worker path is defined by another plugin', async () => {
+    function createServiceWorker() {
+      return {
+        name: 'create-service-worker',
+        // @ts-ignore
+        async resolveId(source, importer) {
+          if (!importer) {
+            if (outputConfig.dir) {
+              const serviceWorkerDestination = path.join(
+                path.resolve(outputConfig.dir),
+                'service-worker.js',
+              );
+              // @ts-ignore
+              const resolution = await this.resolve(source, undefined, {
+                skipSelf: true,
+                custom: { serviceWorkerDestination },
+              });
+              if (resolution && resolution.id) {
+                return resolution.id;
+              }
+            }
+            return null;
+          }
+          return null;
+        },
+      };
+    }
+
+    const config = {
+      plugins: [
+        createServiceWorker(),
+        rollupPluginHTML({
+          input: '**/*.html',
+          rootDir: path.join(__dirname, 'fixtures', 'inject-service-worker'),
+          flattenOutput: false,
+        }),
+      ],
+    };
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    function extractServiceWorkerPath(src: string) {
+      const registerOpen = src.indexOf('.register(\'');
+      const registerClose = src.indexOf('\')', registerOpen + 11);
+      return src.substring(registerOpen + 11, registerClose);
+    }
+
+    expect(extractServiceWorkerPath(getAsset(output, 'index.html').source)).to.equal('service-worker.js');
+    expect(extractServiceWorkerPath(getAsset(output, 'sub-with-js/index.html').source)).to.equal('../service-worker.js');
+    expect(extractServiceWorkerPath(getAsset(output, 'sub-pure-html/index.html').source)).to.equal('../service-worker.js');
+  });
 });

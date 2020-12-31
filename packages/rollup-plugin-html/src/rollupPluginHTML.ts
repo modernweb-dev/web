@@ -29,6 +29,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
   let generatedBundles: GeneratedBundle[] = [];
   let externalTransformHtmlFns: TransformHtmlFunction[] = [];
   let defaultInjectDisabled = false;
+  let serviceWorkerDestination = '';
 
   function reset() {
     inputs = [];
@@ -79,7 +80,11 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
     },
 
     /** Notifies rollup that we will be handling these modules */
-    resolveId(id) {
+    resolveId(id, importer, { custom }) {
+      // we only need to set this once
+      if (!serviceWorkerDestination && custom?.serviceWorkerDestination) {
+        serviceWorkerDestination = custom.serviceWorkerDestination;
+      }
       if (id === NOOP_IMPORT) {
         return NOOP_IMPORT;
       }
@@ -110,6 +115,8 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
      * @param {OutputBundle} bundle
      */
     async generateBundle(options, bundle) {
+      // @ts-ignore
+      // console.log({ serviceWorkerDestination });
       if (multiOutputNames.length !== 0) {
         // we are generating multiple build outputs, which is handled by child plugins
         return;
@@ -129,6 +136,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
         externalTransformHtmlFns,
         pluginOptions,
         defaultInjectDisabled,
+        serviceWorkerDestination,
       });
 
       for (const output of outputs) {
@@ -184,6 +192,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
                 externalTransformHtmlFns,
                 pluginOptions,
                 defaultInjectDisabled,
+                serviceWorkerDestination,
               });
 
               for (const output of outputs) {

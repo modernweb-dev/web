@@ -18,6 +18,7 @@ export interface CreateHTMLAssetParams {
   externalTransformHtmlFns: TransformHtmlFunction[];
   pluginOptions: RollupPluginHTMLOptions;
   defaultInjectDisabled: boolean;
+  serviceWorkerDestination: string;
 }
 
 export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<EmittedFile> {
@@ -29,6 +30,7 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     externalTransformHtmlFns,
     pluginOptions,
     defaultInjectDisabled,
+    serviceWorkerDestination,
   } = params;
 
   if (generatedBundles.length === 0) {
@@ -51,6 +53,7 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     emittedAssets,
     externalTransformHtmlFns,
     defaultInjectDisabled,
+    serviceWorkerDestination,
   });
 
   return { fileName: input.name, name: input.name, source: outputHtml, type: 'asset' };
@@ -64,6 +67,7 @@ export interface CreateHTMLAssetsParams {
   externalTransformHtmlFns: TransformHtmlFunction[];
   pluginOptions: RollupPluginHTMLOptions;
   defaultInjectDisabled: boolean;
+  serviceWorkerDestination: string;
 }
 
 export async function createHTMLOutput(params: CreateHTMLAssetsParams): Promise<EmittedFile[]> {
