@@ -185,6 +185,7 @@ export class EsbuildPlugin implements Plugin {
         format: ['js', 'jsx', 'ts', 'tsx'].includes(loader) ? undefined : 'esm',
         jsxFactory: this.esbuildConfig.jsxFactory,
         jsxFragment: this.esbuildConfig.jsxFragment,
+        define: this.esbuildConfig.define,
       });
 
       if (warnings) {
