@@ -29,6 +29,8 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
   let generatedBundles: GeneratedBundle[] = [];
   let externalTransformHtmlFns: TransformHtmlFunction[] = [];
   let defaultInjectDisabled = false;
+  let serviceWorkerPath = '';
+  let injectServiceWorker = false;
 
   function reset() {
     inputs = [];
@@ -53,6 +55,13 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
         // if there are only pages with pure HTML we need to make sure there is at
         // least some input for rollup
         moduleImports.push(NOOP_IMPORT);
+      }
+
+      if (pluginOptions.serviceWorkerPath) {
+        serviceWorkerPath = pluginOptions.serviceWorkerPath;
+      }
+      if (pluginOptions.injectServiceWorker) {
+        injectServiceWorker = pluginOptions.injectServiceWorker;
       }
 
       if (pluginOptions.input == null) {
@@ -129,6 +138,8 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
         externalTransformHtmlFns,
         pluginOptions,
         defaultInjectDisabled,
+        serviceWorkerPath,
+        injectServiceWorker,
       });
 
       for (const output of outputs) {
@@ -184,6 +195,8 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
                 externalTransformHtmlFns,
                 pluginOptions,
                 defaultInjectDisabled,
+                serviceWorkerPath,
+                injectServiceWorker,
               });
 
               for (const output of outputs) {

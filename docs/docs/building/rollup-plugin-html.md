@@ -240,6 +240,25 @@ The following tags will be processed:
 
 You can disable this behavior by removing the `absoluteBaseUrl` or setting `absoluteSocialMediaUrls` to false.
 
+### Inject a Service Worker
+
+In order to enable PWA support you can enable the injection of a service worker registration code block.<br>
+Note: This does not create the service worker
+
+```js
+import html from '@web/rollup-plugin-html';
+
+export default {
+  input: 'index.html',
+  plugins: [
+    html({
+      injectServiceWorker: true,
+      serviceWorkerPath: '/file/system/path/to/service-worker.js',
+    }),
+  ],
+};
+```
+
 ## Type definitions
 
 ```ts
@@ -273,6 +292,10 @@ export interface RollupPluginHTMLOptions {
   absoluteBaseUrl?: string;
   /** Whether to set full absolute urls for ['meta[property=og:image]', 'link[rel=canonical]', 'meta[property=og:url]'] or not. Requires a absoluteBaseUrl to be set. Default to true. */
   absoluteSocialMediaUrls?: boolean;
+  /** Should a service worker registration script be injected. Defaults to false. */
+  injectServiceWorker?: boolean;
+  /** File system path to the generated service worker file */
+  serviceWorkerPath?: string;
 }
 
 export interface GeneratedBundle {

@@ -28,6 +28,10 @@ export interface RollupPluginHTMLOptions {
   absoluteBaseUrl?: string;
   /** Whether to set full absolute urls for ['meta[property=og:image]', 'link[rel=canonical]', 'meta[property=og:url]'] or not. Requires a absoluteBaseUrl to be set. Default to true. */
   absoluteSocialMediaUrls?: boolean;
+  /** Should a service worker registration script be injected. Defaults to false. */
+  injectServiceWorker?: boolean;
+  /** File system path to the generated service worker file */
+  serviceWorkerPath?: string;
 }
 
 export interface GeneratedBundle {
