@@ -846,4 +846,42 @@ describe('rollup-plugin-html', () => {
       '<html><head></head><body><img src="./image-c.png"><link rel="stylesheet" href="./styles.css"><img src="./image-b.svg"></body></html>',
     );
   });
+
+  it('can inject a service worker registration script if injectServiceWorker and serviceWorkerPath are provided', async () => {
+    const serviceWorkerPath = path.join(
+      // @ts-ignore
+      path.resolve(outputConfig.dir),
+      'service-worker.js',
+    );
+
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: '**/*.html',
+          rootDir: path.join(__dirname, 'fixtures', 'inject-service-worker'),
+          flattenOutput: false,
+          injectServiceWorker: true,
+          serviceWorkerPath,
+        }),
+      ],
+    };
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    function extractServiceWorkerPath(src: string) {
+      const registerOpen = src.indexOf(".register('");
+      const registerClose = src.indexOf("')", registerOpen + 11);
+      return src.substring(registerOpen + 11, registerClose);
+    }
+
+    expect(extractServiceWorkerPath(getAsset(output, 'index.html').source)).to.equal(
+      'service-worker.js',
+    );
+    expect(
+      extractServiceWorkerPath(getAsset(output, path.join('sub-with-js', 'index.html')).source),
+    ).to.equal(`../service-worker.js`);
+    expect(
+      extractServiceWorkerPath(getAsset(output, path.join('sub-pure-html', 'index.html')).source),
+    ).to.equal(`../service-worker.js`);
+  });
 });

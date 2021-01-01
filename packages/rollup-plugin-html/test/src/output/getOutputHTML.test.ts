@@ -26,6 +26,8 @@ describe('getOutputHTML()', () => {
       inlineModules: new Map(),
     },
     defaultInjectDisabled: false,
+    injectServiceWorker: false,
+    serviceWorkerPath: '',
   };
 
   it('injects output into the input HTML', async () => {
