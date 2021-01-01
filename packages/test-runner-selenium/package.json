@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@types/selenium-standalone": "^6.15.2",
-    "@types/selenium-webdriver": "^4.0.10",
+    "@types/selenium-webdriver": "^4.0.11",
     "selenium-standalone": "^6.23.0"
   }
 }
