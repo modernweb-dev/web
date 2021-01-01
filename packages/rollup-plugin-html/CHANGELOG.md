@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 1.3.3
+
+### Patch Changes
+
+- 1f4a2ab3: Adds an `injectServiceWorker` and `serviceWorkerPath` option which if provided will inject a service worker registration script into html files.
+
 ## 1.3.2
 
 ### Patch Changes
