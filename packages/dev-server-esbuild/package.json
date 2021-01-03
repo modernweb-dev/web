@@ -60,6 +60,6 @@
     "@types/ua-parser-js": "^0.7.35",
     "lit-element": "^2.4.0",
     "node-fetch": "3.0.0-beta.9",
-    "preact": "^10.5.8"
+    "preact": "^10.5.9"
   }
 }
