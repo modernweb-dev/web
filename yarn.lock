@@ -1120,13 +1120,13 @@
   resolved "https://registry.yarnpkg.com/@d4kmor/core/-/core-0.1.3.tgz#5493fc495608257dade8778acade49d14eda6b05"
   integrity sha512-v+Np3i6toU3pLqI4pOMLKb/Fj/DYw85W5aagAFWSyhLjrLJlsN65NKkwP6QDS0YwUtLLWDa5eaDpLElpj4XwUQ==
 
-"@d4kmor/drawer@^0.2.1":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@d4kmor/drawer/-/drawer-0.2.4.tgz#56f02918afe11b321672cd522181498d71ac6039"
-  integrity sha512-6vqqGQeYxxjKRQYLqkrg8+TxKpc1/yhJrFAjzT3HcMvrq+OaSIFqbDjESU85iRI4Fu6whAthTR60F5jsyWEHog==
+"@d4kmor/drawer@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@d4kmor/drawer/-/drawer-0.4.0.tgz#4d272ca986e01ba94c1c3abf99f76718075a555c"
+  integrity sha512-L1Tx2fa6T4hBD/HEHlqvIlNv/RUv2QJls4oSnrHp5j6BBAaSSYoJ5bIDBuPwC1Bcw2aQzFk8YXkZKYbtY5UUFA==
   dependencies:
-    "@lion/overlays" "^0.22.5"
-    lit-element "^2.3.1"
+    "@lion/overlays" "^0.22.8"
+    lit-element "^2.4.0"
 
 "@d4kmor/eleventy-plugin-mdjs-unified@^0.3.1":
   version "0.3.1"
@@ -1145,18 +1145,18 @@
     dependency-graph "^0.8.1"
     sax-wasm "^1.4.5"
 
-"@d4kmor/launch@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.7.0.tgz#8e934366ad71c03bb31cd297e73b95f74a2728e4"
-  integrity sha512-sgTVw71JC08Z4A6m2tCl5vIS4KQs43a8lmeghpz8ax2Blc54RVNlrWTz2MuwpwJgLrrxpx1YStUzCA5MjW7WEg==
+"@d4kmor/launch@^0.11.1":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@d4kmor/launch/-/launch-0.11.1.tgz#2002e99f974b66b813e9c6782028eba4ae2ee6f4"
+  integrity sha512-pxg+90uZYalV+WZ53aaSgaMIiIhIozv00m7uZJytV3ZXAZOW6hxfjvyw4sEwbc9hNMykCrFMYYH1oeURQJQOwg==
   dependencies:
-    "@d4kmor/drawer" "^0.2.1"
-    "@d4kmor/navigation" "^0.2.0"
+    "@d4kmor/drawer" "^0.4.0"
+    "@d4kmor/navigation" "^0.4.0"
 
-"@d4kmor/navigation@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@d4kmor/navigation/-/navigation-0.2.0.tgz#04b412cdb056370dd560d615b4f538eda3916868"
-  integrity sha512-wX96eMy7jZ222kPxhsSCuIk3ZYnJDk3q96qkv75UyvKFhIIHOOrznuIDJB7BVzEwKW+f6PyvN473VtHNFAiPSw==
+"@d4kmor/navigation@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@d4kmor/navigation/-/navigation-0.4.0.tgz#a7fcf0ebd8e1c0676ca1251053471db60a4650be"
+  integrity sha512-Kzgt04PuKwwCNVfyBGJU/0fDPiksVVldWe6wdy6ajILqVmzVI2YcqzFfdkBjNzeAMmYu87L96IU4j06KXR4now==
 
 "@d4kmor/search@^0.1.2":
   version "0.1.2"
@@ -1272,7 +1272,7 @@
     lit-element "~2.4.0"
     lit-html "^1.3.0"
 
-"@lion/overlays@^0.22.5":
+"@lion/overlays@^0.22.8":
   version "0.22.8"
   resolved "https://registry.yarnpkg.com/@lion/overlays/-/overlays-0.22.8.tgz#553c3c5e349667963a535097699d5b95a698a078"
   integrity sha512-J/lRoUhlZfBjkaAmw1ALjTj4zO3zpA7QZlOHr3yWoSnrdbR3e3vSV4OwqMJrhuvdsWaIBNmEccE/qeVMyI0vPg==
