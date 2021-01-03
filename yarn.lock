@@ -2218,10 +2218,24 @@
   dependencies:
     "@types/puppeteer" "*"
 
+"@types/puppeteer-core@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer-core/-/puppeteer-core-3.0.0.tgz#0398c5e7abc41ba7c04b5f969e24f513ea3950e0"
+  integrity sha512-UhYHOKgGNxfy76N6MR6DQaVrwI6lmGXrkVQT8cko64C9UfzYbQDVCvKYAaLmYZLNbZyYHWca2axzWBEBiOPaZg==
+  dependencies:
+    "@types/puppeteer" "^3"
+
 "@types/puppeteer@*", "@types/puppeteer@^5.4.2":
   version "5.4.2"
   resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-5.4.2.tgz#80f3a1f54dedbbf750779716de81401549062072"
   integrity sha512-yjbHoKjZFOGqA6bIEI2dfBE5UPqU0YGWzP+ipDVP1iGzmlhksVKTBVZfT3Aj3wnvmcJ2PQ9zcncwOwyavmafBw==
+  dependencies:
+    "@types/node" "*"
+
+"@types/puppeteer@^3":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-3.0.5.tgz#5ef5d023f45c0dfcc82e97548891b11b6ce868fb"
+  integrity sha512-NkphUMkpbr/us6hp1AqUh/UxX5Tf2UJU94MvaF8OOgIUPBipYodql+yRjcysJKqwnDkchp+cD/8jntI/C9StzA==
   dependencies:
     "@types/node" "*"
 
