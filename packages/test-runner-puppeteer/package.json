@@ -45,7 +45,6 @@
     "launcher"
   ],
   "dependencies": {
-    "@types/puppeteer": "^5.4.2",
     "@web/test-runner-chrome": "^0.8.2",
     "@web/test-runner-core": "^0.9.0",
     "puppeteer": "^5.5.0"
