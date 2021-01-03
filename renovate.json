@@ -1,29 +1,23 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    ":separateMultipleMajorReleases",
+    ":separatePatchReleases",
+    ":maintainLockFilesWeekly",
+    ":widenPeerDependencies"
   ],
-
-  "separateMinorPatch": true,
 
   "packageRules": [
     {
       "updateTypes": ["patch"],
-
-      "automerge": true,
-      "automergeType": "branch"
+      "enabled": false
     },
     {
       "updateTypes": ["minor"],
       "matchCurrentVersion": "!/^[~^]?0/",
-
-      "automerge": true,
-      "automergeType": "branch"
+      "enabled": false
     }
   ],
 
-  "rangeStrategy": "bump",
-
-  "lockFileMaintenance": {
-    "enabled": true
-  }
+  "rangeStrategy": "bump"
 }
