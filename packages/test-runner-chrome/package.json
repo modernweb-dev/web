@@ -52,6 +52,8 @@
     "puppeteer-core": "^5.5.0"
   },
   "devDependencies": {
+    "@types/babel__code-frame": "^7.0.2",
+    "@types/istanbul-reports": "^3.0.0",
     "@web/test-runner-mocha": "^0.6.0"
   }
 }

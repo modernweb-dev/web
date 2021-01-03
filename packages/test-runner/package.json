@@ -88,6 +88,8 @@
     "source-map": "^0.7.3"
   },
   "devDependencies": {
+    "@types/convert-source-map": "^1.5.1",
+    "@types/diff": "^5.0.0",
     "@web/dev-server-legacy": "^0.1.7",
     "@web/test-runner-saucelabs": "^0.3.3",
     "babel-plugin-istanbul": "^6.0.0",

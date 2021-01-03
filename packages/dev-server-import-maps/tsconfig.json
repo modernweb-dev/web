@@ -53,9 +53,6 @@
       "path": "../dev-server/tsconfig.json"
     },
     {
-      "path": "../test-runner-cli/tsconfig.json"
-    },
-    {
       "path": "../test-runner-commands/tsconfig.json"
     },
     {
