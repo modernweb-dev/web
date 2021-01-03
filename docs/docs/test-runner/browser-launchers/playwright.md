@@ -48,7 +48,6 @@ If you want to customize the playwright launcher options, you can add the browse
 
 You can find all possible launch options in the [official documentation](https://github.com/microsoft/playwright/blob/master/docs/api.md#browsertypelaunchoptions).
 
-
 ```js
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
