@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.8.0
+
+### Minor Changes
+
+- 405433f3: Deprecate the `@web/test-runner-cli` package. This is now merged into `@web/test-runner-core` and `@web/test-runner`.
+
 ## 0.7.0
 
 ### Minor Changes

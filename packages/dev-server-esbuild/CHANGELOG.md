@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.2.11
+
+### Patch Changes
+
+- 87705b04: pass `esbuildconfig.define` to esbuild transform function
+
 ## 0.2.10
 
 ### Patch Changes
