@@ -18,7 +18,6 @@ const packages = [
   { name: 'dev-server-storybook', type: 'ts', environment: 'node' },
   { name: 'test-runner', type: 'ts', environment: 'node' },
   { name: 'test-runner-core', type: 'ts', environment: 'node' },
-  { name: 'test-runner-cli', type: 'ts', environment: 'node' },
   { name: 'test-runner-chrome', type: 'ts', environment: 'node' },
   { name: 'test-runner-puppeteer', type: 'ts', environment: 'node' },
   { name: 'test-runner-playwright', type: 'ts', environment: 'node' },
