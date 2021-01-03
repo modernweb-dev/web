@@ -904,6 +904,11 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@bundled-es-modules/message-format@6.0.4":
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/@bundled-es-modules/message-format/-/message-format-6.0.4.tgz#232da6877adb960f6c8f598c72588a84352de147"
+  integrity sha512-NGUoPxqsBzDwvRhY3A3L/AhS1hzS9OWappfyDOyCwE7G3W4ua28gau7QwvJz7QzA6ArbAdeb8c1mLjvd1WUFAA==
+
 "@changesets/apply-release-plan@^4.0.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@changesets/apply-release-plan/-/apply-release-plan-4.1.0.tgz#ec67c9a0f507c19740d9344766e37dd51fc981ee"
@@ -1158,12 +1163,16 @@
   resolved "https://registry.yarnpkg.com/@d4kmor/navigation/-/navigation-0.2.0.tgz#04b412cdb056370dd560d615b4f538eda3916868"
   integrity sha512-wX96eMy7jZ222kPxhsSCuIk3ZYnJDk3q96qkv75UyvKFhIIHOOrznuIDJB7BVzEwKW+f6PyvN473VtHNFAiPSw==
 
-"@d4kmor/search@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@d4kmor/search/-/search-0.1.2.tgz#d3918b7cf790ca2451a8269dc7a5ba98ff7af056"
-  integrity sha512-iewBSUEUyeoF4pbf+zkVKiF8wYThOabZPU67C4G1lA6WKDnAhkMEaOAzeRhdccv1rR10vKZJyDW78PjWQeSzEg==
+"@d4kmor/search@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@d4kmor/search/-/search-0.4.1.tgz#97c2e9bbaad8f8f6aba31da6f26267577f0489ae"
+  integrity sha512-lrzfdrgYtARZSo3pss8II05QfCy9IjKcvuiYLTZb091slP+AUJ0yLv/bV1QnV4V7zwaCL6sqQxQ15lXRimVbaA==
   dependencies:
-    minisearch "^3.0.0"
+    "@lion/combobox" "^0.1.16"
+    "@open-wc/scoped-elements" "^1.3.2"
+    minisearch "^3.0.2"
+    plugins-manager "^0.1.0"
+    sax-wasm "^2.0.0"
 
 "@eslint/eslintrc@^0.2.2":
   version "0.2.2"
@@ -1262,6 +1271,16 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha512-tsAQNx32a8CoFhjhijUIhI4kccIAgmGhy8LZMZgGfmXcpMbPRUqn5LWmgRttILi6yeGmBJd2xsPkFMs0PzgPCw==
 
+"@lion/combobox@^0.1.16":
+  version "0.1.16"
+  resolved "https://registry.yarnpkg.com/@lion/combobox/-/combobox-0.1.16.tgz#f36a6ffab0c00eaf55b801c02b7be224391bba27"
+  integrity sha512-txkiTEIkaRvuAPD4hIkaZzUTQwfMVwbC/dozHJt3sps1M7LOm3KMnj2Tc4dCVWGx11TbOEdbjPbaeHktwefu0w==
+  dependencies:
+    "@lion/core" "0.13.6"
+    "@lion/form-core" "0.6.14"
+    "@lion/listbox" "0.3.12"
+    "@lion/overlays" "0.22.8"
+
 "@lion/core@0.13.6":
   version "0.13.6"
   resolved "https://registry.yarnpkg.com/@lion/core/-/core-0.13.6.tgz#de769c53842e6c67b70e48d487c6cd1220627e4d"
@@ -1272,7 +1291,32 @@
     lit-element "~2.4.0"
     lit-html "^1.3.0"
 
-"@lion/overlays@^0.22.5":
+"@lion/form-core@0.6.14":
+  version "0.6.14"
+  resolved "https://registry.yarnpkg.com/@lion/form-core/-/form-core-0.6.14.tgz#55bfb407c415a57d8fc97cabcb564dba9442a532"
+  integrity sha512-1IwlE9FN0Dvr5ebpzIlqVeONMgWtWDlb598kUBZBZuJrytP6KCMKn/3ftAU4AZWA4zhhHx7SMxfyzw6Bizp0vw==
+  dependencies:
+    "@lion/core" "0.13.6"
+    "@lion/localize" "0.15.3"
+
+"@lion/listbox@0.3.12":
+  version "0.3.12"
+  resolved "https://registry.yarnpkg.com/@lion/listbox/-/listbox-0.3.12.tgz#50d48fc09e325b2aa69dbd7f3865a8f67d0f4a5e"
+  integrity sha512-v9tKhYHT3DmsszZmdXlKEncSNMGuDABGnVX/dpDTnc7Ob4+Q8REoKyzTAU2JmXhyLiXEvW65I3CoowbVFjDD5Q==
+  dependencies:
+    "@lion/core" "0.13.6"
+    "@lion/form-core" "0.6.14"
+
+"@lion/localize@0.15.3":
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/@lion/localize/-/localize-0.15.3.tgz#86f33ebcacd7b60456280aa1e8325f84850819f2"
+  integrity sha512-byKVxo/Hd1/QUZSH4I2TgeGMXZCqeexJrCKujX0w/HDtsDS3i8sSt8Uus5PeA28F7P4wEQJgHZhy1s6Kz2TsZQ==
+  dependencies:
+    "@bundled-es-modules/message-format" "6.0.4"
+    "@lion/core" "0.13.6"
+    singleton-manager "1.2.0"
+
+"@lion/overlays@0.22.8", "@lion/overlays@^0.22.5":
   version "0.22.8"
   resolved "https://registry.yarnpkg.com/@lion/overlays/-/overlays-0.22.8.tgz#553c3c5e349667963a535097699d5b95a698a078"
   integrity sha512-J/lRoUhlZfBjkaAmw1ALjTj4zO3zpA7QZlOHr3yWoSnrdbR3e3vSV4OwqMJrhuvdsWaIBNmEccE/qeVMyI0vPg==
@@ -7916,7 +7960,7 @@ minimist@^1.2.0, minimist@^1.2.5:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
-minisearch@^3.0.0:
+minisearch@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/minisearch/-/minisearch-3.0.2.tgz#fa470114ffc7c4bcc0786b2adb7010d4b773bc32"
   integrity sha512-7rTrJEzovKNi5LSwiIr5aCfJNNo6Lk4O9HTVzjFTMdp+dSr6UisUnEqdwj4rBgNcAcaWW5ClpXnpgTurv8PGqA==
@@ -8725,6 +8769,11 @@ please-upgrade-node@^3.2.0:
   integrity sha512-gQR3WpIgNIKwBMVLkpMUeR3e1/E1y42bqDQZfql+kDeXd8COYfM8PQA4X6y7a8u9Ua9FHmsrrmirW2vHs45hWg==
   dependencies:
     semver-compare "^1.0.0"
+
+plugins-manager@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/plugins-manager/-/plugins-manager-0.1.0.tgz#ce28c2a79d713f966f388b10ba166b76db03625d"
+  integrity sha512-DQ1neX7rLpc7zsQB64PerLIGpSKNqAtL3O3dnwRmLpFgm0ip6+2i+WMxU11YtMMRrrKxlR2BMJsyF6HQd1m/aQ==
 
 pluralize@^8.0.0:
   version "8.0.0"
@@ -10547,6 +10596,11 @@ sax-wasm@^1.4.5:
   version "1.4.6"
   resolved "https://registry.yarnpkg.com/sax-wasm/-/sax-wasm-1.4.6.tgz#2e74c0d25c658299b77c5965e81dc15307bed59e"
   integrity sha512-XL/7rKPcSvxMwuF+nTF2RQ+vMRvxyT1n/fE8C3Myh89YG0hERvxnKt7E06pmlItiAWl8Nb4JP8ZnqQvlKN8s1g==
+
+sax-wasm@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/sax-wasm/-/sax-wasm-2.0.0.tgz#be6d2d53bb1785fcb3e2f29624554cc7a4bea566"
+  integrity sha512-u2LwHmhmF0r8PlwRk4QPWRwAtdR4tH8NCYP1gsNRPOn1x137tf+DIoGfvBebL0BDYHP19exDmVGYoWBkv1mInw==
 
 sax@~1.2.4:
   version "1.2.4"
