@@ -9,6 +9,7 @@ export interface ExtractAssetsParams {
   htmlFilePath: string;
   htmlDir: string;
   rootDir: string;
+  absolutePathPrefix?: string;
 }
 
 export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
@@ -17,7 +18,12 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
 
   for (const node of assetNodes) {
     const sourcePath = getSourcePath(node);
-    const filePath = resolveAssetFilePath(sourcePath, params.htmlDir, params.rootDir);
+    const filePath = resolveAssetFilePath(
+      sourcePath,
+      params.htmlDir,
+      params.rootDir,
+      params.absolutePathPrefix,
+    );
     const hashed = isHashedAsset(node);
     const alreadyHandled = allAssets.find(a => a.filePath === filePath && a.hashed === hashed);
     if (!alreadyHandled) {

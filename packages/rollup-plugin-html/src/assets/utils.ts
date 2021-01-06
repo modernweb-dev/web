@@ -57,10 +57,19 @@ export function isHashedAsset(node: Node) {
   }
 }
 
-export function resolveAssetFilePath(browserPath: string, htmlDir: string, projectRootDir: string) {
+export function resolveAssetFilePath(
+  browserPath: string,
+  htmlDir: string,
+  projectRootDir: string,
+  absolutePathPrefix?: string,
+) {
+  const _browserPath =
+    absolutePathPrefix && browserPath[0] === '/'
+      ? '/' + path.relative(absolutePathPrefix, browserPath)
+      : browserPath;
   return path.join(
-    browserPath.startsWith('/') ? projectRootDir : htmlDir,
-    browserPath.split('/').join(path.sep),
+    _browserPath.startsWith('/') ? projectRootDir : htmlDir,
+    _browserPath.split('/').join(path.sep),
   );
 }
 

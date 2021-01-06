@@ -21,6 +21,7 @@ export interface GetOutputHTMLParams {
   defaultInjectDisabled: boolean;
   serviceWorkerPath: string;
   injectServiceWorker: boolean;
+  absolutePathPrefix?: string;
 }
 
 export async function getOutputHTML(params: GetOutputHTMLParams) {
@@ -34,6 +35,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
     defaultInjectDisabled,
     serviceWorkerPath,
     injectServiceWorker,
+    absolutePathPrefix,
   } = params;
   const { default: defaultBundle, ...multiBundles } = entrypointBundles;
   const { absoluteSocialMediaUrls = true, rootDir = process.cwd() } = pluginOptions;
@@ -41,7 +43,14 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
   // inject rollup output into HTML
   const document = parse(input.html);
   if (pluginOptions.extractAssets !== false) {
-    injectedUpdatedAssetPaths({ document, input, outputDir, rootDir, emittedAssets });
+    injectedUpdatedAssetPaths({
+      document,
+      input,
+      outputDir,
+      rootDir,
+      emittedAssets,
+      absolutePathPrefix,
+    });
   }
   if (!defaultInjectDisabled) {
     injectBundles(document, entrypointBundles);

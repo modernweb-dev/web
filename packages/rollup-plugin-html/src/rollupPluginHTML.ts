@@ -31,6 +31,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
   let defaultInjectDisabled = false;
   let serviceWorkerPath = '';
   let injectServiceWorker = false;
+  let absolutePathPrefix: string;
 
   function reset() {
     inputs = [];
@@ -62,6 +63,9 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
       }
       if (pluginOptions.injectServiceWorker) {
         injectServiceWorker = pluginOptions.injectServiceWorker;
+      }
+      if (pluginOptions.absolutePathPrefix) {
+        absolutePathPrefix = pluginOptions.absolutePathPrefix;
       }
 
       if (pluginOptions.input == null) {
@@ -140,6 +144,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
         defaultInjectDisabled,
         serviceWorkerPath,
         injectServiceWorker,
+        absolutePathPrefix,
       });
 
       for (const output of outputs) {
@@ -197,6 +202,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
                 defaultInjectDisabled,
                 serviceWorkerPath,
                 injectServiceWorker,
+                absolutePathPrefix,
               });
 
               for (const output of outputs) {
