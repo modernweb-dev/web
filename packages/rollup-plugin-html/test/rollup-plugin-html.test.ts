@@ -884,4 +884,38 @@ describe('rollup-plugin-html', () => {
       extractServiceWorkerPath(getAsset(output, path.join('sub-pure-html', 'index.html')).source),
     ).to.equal(`../service-worker.js`);
   });
+
+  it('does support a absolutePathPrefix to allow for sub folder deployments', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: {
+            html: `<html>
+<body>
+<img src="/my-prefix/x/foo.svg" />
+<link rel="stylesheet" href="../styles.css" />
+<img src="../image-b.svg" />
+</body>
+</html>`,
+            name: 'x/index.html',
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+          absolutePathPrefix: '/my-prefix/',
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(stripNewlines(getAsset(output, 'x/index.html').source)).to.equal(
+      [
+        '<html><head></head><body>',
+        '<img src="../assets/foo-c9db7cc0.svg">',
+        '<link rel="stylesheet" href="../assets/styles-ed723e17.css">',
+        '<img src="../assets/image-b-ee32b49e.svg">',
+        '</body></html>',
+      ].join(''),
+    );
+  });
 });

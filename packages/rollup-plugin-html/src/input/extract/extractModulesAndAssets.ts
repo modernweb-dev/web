@@ -8,17 +8,23 @@ export interface ExtractParams {
   htmlFilePath: string;
   rootDir: string;
   extractAssets: boolean;
+  absolutePathPrefix?: string;
 }
 
 export function extractModulesAndAssets(params: ExtractParams) {
-  const { html, htmlFilePath, rootDir } = params;
+  const { html, htmlFilePath, rootDir, absolutePathPrefix } = params;
   const htmlDir = path.dirname(htmlFilePath);
   const document = parse(html);
 
   // extract functions mutate the AST
-  const { moduleImports, inlineModules } = extractModules({ document, htmlDir, rootDir });
+  const { moduleImports, inlineModules } = extractModules({
+    document,
+    htmlDir,
+    rootDir,
+    absolutePathPrefix,
+  });
   const assets = params.extractAssets
-    ? extractAssets({ document, htmlDir, htmlFilePath, rootDir })
+    ? extractAssets({ document, htmlDir, htmlFilePath, rootDir, absolutePathPrefix })
     : [];
 
   // turn mutated AST back to a string

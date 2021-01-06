@@ -31,12 +31,19 @@ export interface CreateInputDataParams {
   rootDir: string;
   filePath?: string;
   extractAssets: boolean;
+  absolutePathPrefix?: string;
 }
 
 function createInputData(params: CreateInputDataParams): InputData {
-  const { name, html, rootDir, filePath, extractAssets } = params;
+  const { name, html, rootDir, filePath, extractAssets, absolutePathPrefix } = params;
   const htmlFilePath = filePath ? filePath : path.resolve(rootDir, name);
-  const result = extractModulesAndAssets({ html, htmlFilePath, rootDir, extractAssets });
+  const result = extractModulesAndAssets({
+    html,
+    htmlFilePath,
+    rootDir,
+    extractAssets,
+    absolutePathPrefix,
+  });
 
   return {
     html: result.htmlWithoutModules,
@@ -52,14 +59,25 @@ export function getInputData(
   pluginOptions: RollupPluginHTMLOptions,
   rollupInput?: InputOption,
 ): InputData[] {
-  const { rootDir = process.cwd(), flattenOutput, extractAssets = true } = pluginOptions;
+  const {
+    rootDir = process.cwd(),
+    flattenOutput,
+    extractAssets = true,
+    absolutePathPrefix,
+  } = pluginOptions;
   const allInputs = normalizeInputOptions(pluginOptions, rollupInput);
 
   const result: InputData[] = [];
   for (const input of allInputs) {
     if (typeof input.html === 'string') {
       const name = input.name ?? 'index.html';
-      const data = createInputData({ name, html: input.html, rootDir, extractAssets });
+      const data = createInputData({
+        name,
+        html: input.html,
+        rootDir,
+        extractAssets,
+        absolutePathPrefix,
+      });
       result.push(data);
     } else if (typeof input.path === 'string') {
       const filePaths = resolveGlob(input.path, rootDir);
@@ -72,7 +90,14 @@ export function getInputData(
       for (const filePath of filePaths) {
         const name = input.name ?? getName(filePath, rootDir, flattenOutput);
         const html = fs.readFileSync(filePath, 'utf-8');
-        const data = createInputData({ name, html, rootDir, filePath, extractAssets });
+        const data = createInputData({
+          name,
+          html,
+          rootDir,
+          filePath,
+          extractAssets,
+          absolutePathPrefix,
+        });
         result.push(data);
       }
     } else {

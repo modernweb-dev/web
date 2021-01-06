@@ -8,6 +8,7 @@ export interface ExtractModulesParams {
   document: Document;
   htmlDir: string;
   rootDir: string;
+  absolutePathPrefix?: string;
 }
 
 function createContentHash(content: string) {
@@ -24,7 +25,7 @@ function isAbsolute(src: string) {
 }
 
 export function extractModules(params: ExtractModulesParams) {
-  const { document, htmlDir, rootDir } = params;
+  const { document, htmlDir, rootDir, absolutePathPrefix } = params;
   const scriptNodes = findElements(
     document,
     e => getTagName(e) === 'script' && getAttribute(e, 'type') === 'module',
@@ -47,7 +48,7 @@ export function extractModules(params: ExtractModulesParams) {
     } else {
       if (!isAbsolute(src)) {
         // external script <script type="module" src="./foo.js"></script>
-        const importPath = resolveAssetFilePath(src, htmlDir, rootDir);
+        const importPath = resolveAssetFilePath(src, htmlDir, rootDir, absolutePathPrefix);
         moduleImports.push(importPath);
         remove(scriptNode);
       }

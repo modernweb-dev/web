@@ -32,6 +32,8 @@ export interface RollupPluginHTMLOptions {
   injectServiceWorker?: boolean;
   /** File system path to the generated service worker file */
   serviceWorkerPath?: string;
+  /** If output is supposed to be deploy as a subdirectory you need to define the prefix path so assets can be found */
+  absolutePathPrefix?: string;
 }
 
 export interface GeneratedBundle {

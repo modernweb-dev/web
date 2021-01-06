@@ -21,17 +21,26 @@ export interface InjectUpdatedAssetPathsArgs {
   rootDir: string;
   emittedAssets: EmittedAssets;
   publicPath?: string;
+  absolutePathPrefix?: string;
 }
 
 export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
-  const { document, input, outputDir, rootDir, emittedAssets, publicPath = './' } = args;
+  const {
+    document,
+    input,
+    outputDir,
+    rootDir,
+    emittedAssets,
+    publicPath = './',
+    absolutePathPrefix,
+  } = args;
   const assetNodes = findAssets(document);
 
   for (const node of assetNodes) {
     const sourcePath = getSourcePath(node);
     const htmlFilePath = input.filePath ? input.filePath : path.join(rootDir, input.name);
     const htmlDir = path.dirname(htmlFilePath);
-    const filePath = resolveAssetFilePath(sourcePath, htmlDir, rootDir);
+    const filePath = resolveAssetFilePath(sourcePath, htmlDir, rootDir, absolutePathPrefix);
     const assetPaths = isHashedAsset(node) ? emittedAssets.hashed : emittedAssets.static;
     const relativeOutputPath = assetPaths.get(filePath);
 
