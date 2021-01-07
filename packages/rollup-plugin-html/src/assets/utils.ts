@@ -65,7 +65,7 @@ export function resolveAssetFilePath(
 ) {
   const _browserPath =
     absolutePathPrefix && browserPath[0] === '/'
-      ? '/' + path.relative(absolutePathPrefix, browserPath)
+      ? '/' + path.posix.relative(absolutePathPrefix, browserPath)
       : browserPath;
   return path.join(
     _browserPath.startsWith('/') ? projectRootDir : htmlDir,
