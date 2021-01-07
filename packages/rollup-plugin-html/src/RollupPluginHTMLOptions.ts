@@ -32,7 +32,7 @@ export interface RollupPluginHTMLOptions {
   injectServiceWorker?: boolean;
   /** File system path to the generated service worker file */
   serviceWorkerPath?: string;
-  /** If output is supposed to be deploy as a subdirectory you need to define the prefix path so assets can be found */
+  /** Prefix to strip from absolute paths when resolving assets and scripts, for example when using a base path that does not exist on disk. */
   absolutePathPrefix?: string;
 }
 
