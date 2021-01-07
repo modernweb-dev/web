@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 1.4.0
+
+### Minor Changes
+
+- 58d78c33: Add option `absolutePathPrefix` to support subfolders deployments if absolute urls are used
+
 ## 1.3.3
 
 ### Patch Changes
