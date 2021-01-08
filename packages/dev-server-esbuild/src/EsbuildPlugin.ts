@@ -97,7 +97,7 @@ export class EsbuildPlugin implements Plugin {
 
     // a TS file imported a .js file relatively, but they might intend to import a .ts file instead
     // check if the .ts file exists, and rewrite it in that case
-    const filePath = getRequestFilePath(context, this.config!.rootDir);
+    const filePath = getRequestFilePath(context.url, this.config!.rootDir);
     const fileDir = path.dirname(filePath);
     const importAsTs = source.substring(0, source.length - 3) + '.ts';
     const importedTsFilePath = path.join(fileDir, importAsTs);
@@ -135,7 +135,7 @@ export class EsbuildPlugin implements Plugin {
       return;
     }
 
-    const filePath = getRequestFilePath(context, this.config!.rootDir);
+    const filePath = getRequestFilePath(context.url, this.config!.rootDir);
     if (context.response.is('html')) {
       this.transformedHtmlFiles.push(context.path);
       return this.__transformHtml(context, filePath, loader, target);
