@@ -9,8 +9,7 @@ import { parseBrowserLogs } from './parseBrowserLogs';
 function createMapStackLocation(smFn: SourceMapFunction, userAgent: string): MapStackLocation {
   return async function mapStackLocation(originalLoc: StackLocation) {
     const mappedLoc = await smFn(originalLoc, userAgent);
-    const returnV = mappedLoc ? mappedLoc : originalLoc;
-    return returnV;
+    return mappedLoc ? mappedLoc : originalLoc;
   };
 }
 
