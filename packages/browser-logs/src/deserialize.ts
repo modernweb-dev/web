@@ -1,14 +1,11 @@
+import { ParseStackTraceOptions, parseStackTrace } from './parseStackTrace';
+
 const KEY_WTR_TYPE = '__WTR_TYPE__';
 const KEY_CONSTRUCTOR_NAME = '__WTR_CONSTRUCTOR_NAME__';
-export const MARKER_BROWSER_ERROR = '__WTR_BROWSER_ERROR__';
 
-export interface BrowserError {
-  __BROWSER_ERROR__: true;
-  message: string;
-  stack?: string;
-}
+const ASYNC_DESERIALIZE_WRAPPER = Symbol('ASYNC_DESERIALIZE_WRAPPER');
 
-function createReviver() {
+function createReviver(promises: Promise<unknown>[], options?: DeserializeOptions) {
   const undefinedPropsPerObject = new Map();
 
   return function reviver(this: any, key: string, value: any) {
@@ -49,7 +46,31 @@ function createReviver() {
           // Create a new RegExp using the same parameters
           return new RegExp(value.source, value.flags);
         case 'Error': {
-          return { [MARKER_BROWSER_ERROR]: true, message: value.message, stack: value.stack };
+          let errorMsg = `${value.name}: ${value.message}`;
+          if (value.stack) {
+            const parsePromise = parseStackTrace(value.message, value.stack, options)
+              .then(parsedStack => {
+                if (parsedStack) {
+                  // set the async deserialized error msg
+                  errorMsg = `${errorMsg}\n${parsedStack}`;
+
+                  if (this[key][ASYNC_DESERIALIZE_WRAPPER]) {
+                    // replace the returned wrapper with the async value
+                    // this only works when the error appears somewhere in an object
+                    // or array, ex. deserialize({ myError: new Error('...') }) not when the
+                    // top level object is the error: deserialize(new Error('...')) this case
+                    // is handled in the serialize function
+                    this[key] = this[key].value();
+                  }
+                }
+              })
+              .catch(error => {
+                console.error(error);
+              });
+            promises.push(parsePromise);
+          }
+          // deserializing an error is async, return a wrapper that is unpacked later
+          return { [ASYNC_DESERIALIZE_WRAPPER]: true, value: () => errorMsg };
         }
         case 'Promise':
           // Create a fake new Promise. Just to show that its a Promise.
@@ -78,9 +99,21 @@ function createReviver() {
 
 const { hasOwnProperty } = Object.prototype;
 
-export function deserialize(value: string) {
+interface DeserializeOptions extends ParseStackTraceOptions {}
+
+export async function deserialize(value: string, options?: DeserializeOptions) {
   try {
-    return JSON.parse(value, createReviver());
+    const promises: Promise<unknown>[] = [];
+    const parsed = JSON.parse(value, createReviver(promises, options));
+
+    // wait for any async work to finish
+    await Promise.all(promises);
+    if (parsed != null && parsed[ASYNC_DESERIALIZE_WRAPPER]) {
+      // if deserialization of the top level object was async,
+      // return the wrapped value which was provided async
+      return parsed.value();
+    }
+    return parsed;
   } catch (error) {
     console.error('Error while deserializing browser logs.');
     console.error(error);
