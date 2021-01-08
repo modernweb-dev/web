@@ -48,7 +48,7 @@ export interface StopArgs {
 export interface ReporterConstructor {}
 
 export interface Reporter {
-  reportTestFileResults?(args: ReportTestResultsArgs): void | Promise<void>;
+  reportTestFileResults?(args: ReportTestResultsArgs): void;
   getTestProgress?(args: GetTestProgressArgs): string | string[];
   onTestRunStarted?(args: TestRunStartedArgs): void;
   onTestRunFinished?(args: TestRunFinishedArgs): void;

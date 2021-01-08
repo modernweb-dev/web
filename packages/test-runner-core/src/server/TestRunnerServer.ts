@@ -5,9 +5,10 @@ import { RunSessions, watchFilesMiddleware } from './middleware/watchFilesMiddle
 import { cacheMiddleware } from './middleware/cacheMiddleware';
 import { serveTestRunnerHtmlPlugin } from './plugins/serveTestRunnerHtmlPlugin';
 import { serveTestFrameworkPlugin } from './plugins/serveTestFrameworkPlugin';
-import { testRunnerApiPlugin } from './plugins/testRunnerApiPlugin';
+import { testRunnerApiPlugin } from './plugins/api/testRunnerApiPlugin';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { TestSessionManager } from '../test-session/TestSessionManager';
+import { TestRunner } from '../runner/TestRunner';
 
 const CACHED_PATTERNS = [
   'node_modules/@web/test-runner-',
@@ -23,6 +24,7 @@ export class TestRunnerServer {
 
   constructor(
     config: TestRunnerCoreConfig,
+    testRunner: TestRunner,
     sessions: TestSessionManager,
     testFiles: string[],
     runSessions: RunSessions,
@@ -46,7 +48,7 @@ export class TestRunnerServer {
       ],
 
       plugins: [
-        testRunnerApiPlugin(config, plugins, sessions),
+        testRunnerApiPlugin(config, testRunner, sessions, plugins),
         serveTestRunnerHtmlPlugin(config, testFiles, sessions, testFrameworkImport),
         testFrameworkPlugin,
         ...(config.plugins || []),

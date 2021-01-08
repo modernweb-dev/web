@@ -1,57 +1,9 @@
 import { TestSession, Logger } from '@web/test-runner-core';
-import { MARKER_BROWSER_ERROR, BrowserError } from '@web/browser-logs';
 
-import { formatStackTrace } from './utils/formatStackTrace';
-import { SourceMapFunction } from './utils/createSourceMapFunction';
-
-/**
- * Transforms logs, resolving stack traces in errors.
- */
-function transformLogArgs(
-  logArgs: any[],
-  userAgent: string | undefined,
-  rootDir: string,
-  stackLocationRegExp: RegExp,
-  sourceMapFunction: SourceMapFunction,
-) {
-  return logArgs.map(log => {
-    if (log == null) {
-      return log;
-    }
-
-    if (log[MARKER_BROWSER_ERROR]) {
-      const error = log as BrowserError;
-      if (!error.stack) {
-        return error.message;
-      }
-
-      return formatStackTrace(
-        log as BrowserError,
-        userAgent,
-        rootDir,
-        stackLocationRegExp,
-        sourceMapFunction,
-      );
-    }
-    return log;
-  });
-}
-
-interface Log {
-  userAgent?: string;
-  args: any[];
-}
-
-export async function reportBrowserLogs(
-  logger: Logger,
-  sessions: TestSession[],
-  rootDir: string,
-  stackLocationRegExp: RegExp,
-  sourceMapFunction: SourceMapFunction,
-) {
-  const commonLogs: Log[] = [];
+export function reportBrowserLogs(logger: Logger, sessions: TestSession[]) {
+  const commonLogs: any[] = [];
   const commonStringified: string[] = [];
-  const logsByBrowser = new Map<string, Log[]>();
+  const logsByBrowser = new Map<string, any[]>();
 
   const allStringified = sessions.map(s => JSON.stringify(s.logs));
   for (const session of sessions) {
@@ -66,7 +18,7 @@ export async function reportBrowserLogs(
         (session === sessions[0] || !commonStringified.includes(stringifiedArgs))
       ) {
         if (allStringified.every(logs => logs.includes(stringifiedArgs))) {
-          commonLogs.push({ userAgent: session.userAgent, args });
+          commonLogs.push(args);
           commonStringified.push(stringifiedArgs);
         } else {
           let logsForBrowser = logsByBrowser.get(session.browser.name);
@@ -74,7 +26,7 @@ export async function reportBrowserLogs(
             logsForBrowser = [];
             logsByBrowser.set(session.browser.name, logsForBrowser);
           }
-          logsForBrowser.push({ userAgent: session.userAgent, args });
+          logsForBrowser.push(args);
         }
       }
     }
@@ -85,11 +37,8 @@ export async function reportBrowserLogs(
     logger.group();
     logger.group();
     logger.group();
-    for (const { userAgent, args } of commonLogs) {
-      const transformedArgs = await Promise.all(
-        transformLogArgs(args, userAgent, rootDir, stackLocationRegExp, sourceMapFunction),
-      );
-      logger.log(...transformedArgs);
+    for (const args of commonLogs) {
+      logger.log(...args);
     }
     logger.groupEnd();
     logger.groupEnd();
@@ -101,11 +50,8 @@ export async function reportBrowserLogs(
     logger.group();
     logger.group();
     logger.group();
-    for (const { userAgent, args } of logs) {
-      const transformedArgs = await Promise.all(
-        transformLogArgs(args, userAgent, rootDir, stackLocationRegExp, sourceMapFunction),
-      );
-      logger.log(...transformedArgs);
+    for (const args of logs) {
+      logger.log(...args);
     }
     logger.groupEnd();
     logger.groupEnd();

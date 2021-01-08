@@ -184,9 +184,11 @@ export class TestRunnerCli {
         return;
       }
 
-      const clearTerminal = testRun !== 0 && this.config.watch;
-      this.reportTestProgress(false, clearTerminal);
+      if (testRun !== 0 && this.config.watch) {
+        this.terminal.clear();
+      }
       this.reportTestResults();
+      this.reportTestProgress(false);
     });
 
     this.runner.on('test-run-finished', ({ testRun, testCoverage }) => {
@@ -243,7 +245,7 @@ export class TestRunnerCli {
     }
   }
 
-  private async reportTestResult(testFile: string, forceReport = false) {
+  private reportTestResult(testFile: string, forceReport = false) {
     const testRun = this.runner.testRun;
     const sessionsForTestFile = Array.from(this.sessions.forTestFile(testFile));
     const allFinished = sessionsForTestFile.every(s => s.status === SESSION_STATUS.FINISHED);
@@ -265,12 +267,14 @@ export class TestRunnerCli {
     reportedFiles.add(testFile);
 
     const bufferedLogger = new BufferedLogger(this.logger);
-    const reportsPromises = this.getTestResultReports(bufferedLogger, testFile, testRun);
-
-    this.pendingReportPromises.push(...reportsPromises);
-    await Promise.all(reportsPromises);
-    for (const prom of reportsPromises) {
-      this.pendingReportPromises.splice(this.pendingReportPromises.indexOf(prom), 1);
+    for (const reporter of this.config.reporters) {
+      const sessionsForTestFile = Array.from(this.sessions.forTestFile(testFile));
+      reporter.reportTestFileResults?.({
+        logger: bufferedLogger,
+        sessionsForTestFile,
+        testFile,
+        testRun,
+      });
     }
 
     // all the logs from the reportered were buffered, if they finished before a new test run
@@ -280,24 +284,7 @@ export class TestRunnerCli {
     }
   }
 
-  private getTestResultReports(logger: Logger, testFile: string, testRun: number) {
-    const reportPromises: Promise<void>[] = [];
-
-    for (const reporter of this.config.reporters) {
-      const sessionsForTestFile = Array.from(this.sessions.forTestFile(testFile));
-      const maybeReportPromise = reporter.reportTestFileResults?.({
-        logger,
-        sessionsForTestFile,
-        testFile,
-        testRun,
-      });
-      reportPromises.push(Promise.resolve(maybeReportPromise).catch(err => console.error(err)));
-    }
-
-    return reportPromises;
-  }
-
-  private reportTestProgress(final = false, clearTerminal = false) {
+  private reportTestProgress(final = false) {
     if (this.config.manual) {
       return;
     }
@@ -345,9 +332,6 @@ export class TestRunnerCli {
       );
     }
 
-    if (clearTerminal) {
-      this.terminal.clear();
-    }
     if (logStatic) {
       this.terminal.logStatic(reports);
     } else {
@@ -459,7 +443,6 @@ export class TestRunnerCli {
       });
     }
     this.reportTestProgress(true);
-    await Promise.all(this.pendingReportPromises);
     this.terminal.stop();
     this.runner.stop();
   }

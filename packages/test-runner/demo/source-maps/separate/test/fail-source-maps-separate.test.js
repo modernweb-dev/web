@@ -34,28 +34,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var MyClass = /** @class */ (function () {
-    function MyClass() {
-    }
-    MyClass.prototype.doFoo = function (foo, bar) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, Promise.resolve()];
-                    case 1:
-                        _a.sent();
-                        foo.nonExisting();
-                        return [2 /*return*/, new Promise(function (resolve) {
-                                resolve();
-                            })];
-                }
-            });
+import { MyClass, doBar } from '../src/MyClass';
+describe('fail source maps separate', function () {
+    it('fails one', function () {
+        doBar('a', 5);
+    });
+    it('fails two', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var myClass;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    myClass = new MyClass();
+                    return [4 /*yield*/, myClass.doFoo('a', 5)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
-    };
-    return MyClass;
-}());
-export { MyClass };
-export function doBar(bar, foo) {
-    throw new Error('undefined is a function');
-}
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTXlDbGFzcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIk15Q2xhc3MudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUE7SUFBQTtJQVFBLENBQUM7SUFQTyx1QkFBSyxHQUFYLFVBQVksR0FBVyxFQUFFLEdBQVc7Ozs7NEJBQ2xDLHFCQUFNLE9BQU8sQ0FBQyxPQUFPLEVBQUUsRUFBQTs7d0JBQXZCLFNBQXVCLENBQUM7d0JBQ3ZCLEdBQVcsQ0FBQyxXQUFXLEVBQUUsQ0FBQzt3QkFDM0Isc0JBQU8sSUFBSSxPQUFPLENBQUMsVUFBQSxPQUFPO2dDQUN4QixPQUFPLEVBQUUsQ0FBQzs0QkFDWixDQUFDLENBQUMsRUFBQzs7OztLQUNKO0lBQ0gsY0FBQztBQUFELENBQUMsQUFSRCxJQVFDOztBQUVELE1BQU0sVUFBVSxLQUFLLENBQUMsR0FBVyxFQUFFLEdBQVc7SUFDNUMsTUFBTSxJQUFJLEtBQUssQ0FBQyx5QkFBeUIsQ0FBQyxDQUFDO0FBQzdDLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgY2xhc3MgTXlDbGFzcyB7XG4gIGFzeW5jIGRvRm9vKGZvbzogc3RyaW5nLCBiYXI6IG51bWJlcik6IFByb21pc2U8c3RyaW5nPiB7XG4gICAgYXdhaXQgUHJvbWlzZS5yZXNvbHZlKCk7XG4gICAgKGZvbyBhcyBhbnkpLm5vbkV4aXN0aW5nKCk7XG4gICAgcmV0dXJuIG5ldyBQcm9taXNlKHJlc29sdmUgPT4ge1xuICAgICAgcmVzb2x2ZSgpO1xuICAgIH0pO1xuICB9XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBkb0JhcihiYXI6IHN0cmluZywgZm9vOiBudW1iZXIpIHtcbiAgdGhyb3cgbmV3IEVycm9yKCd1bmRlZmluZWQgaXMgYSBmdW5jdGlvbicpO1xufVxuIl19
+    }); });
+});
+//# sourceMappingURL=fail-source-maps-separate.test.js.map

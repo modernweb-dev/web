@@ -28,3 +28,30 @@ export function withTimeout<T>(
       });
   });
 }
+
+/**
+ * Iterates iterable, executes each function in parallel and awaits
+ * all function return values
+ */
+export async function forEachAsync<T>(
+  it: Iterable<T>,
+  fn: (t: T) => void | Promise<void>,
+): Promise<void> {
+  const result: (void | Promise<void>)[] = [];
+  for (const e of it) {
+    result.push(fn(e));
+  }
+  await Promise.all(result);
+}
+
+/**
+ * Iterates iterable, executes each function in parallel and awaits
+ * all function return values returning the awaited result
+ */
+export function mapAsync<T, R>(it: Iterable<T>, fn: (t: T) => R | Promise<R>): Promise<R[]> {
+  const result: (R | Promise<R>)[] = [];
+  for (const e of it) {
+    result.push(fn(e));
+  }
+  return Promise.all(result);
+}

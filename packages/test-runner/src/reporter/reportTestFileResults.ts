@@ -7,48 +7,22 @@ import { reportBrowserLogs } from './reportBrowserLogs';
 import { reportRequest404s } from './reportRequest404s';
 import { reportTestFileErrors } from './reportTestFileErrors';
 import { BufferedLogger } from '@web/test-runner-core/src/cli/BufferedLogger';
-import { SourceMapFunction } from './utils/createSourceMapFunction';
 
-export async function reportTestFileResults(
+export function reportTestFileResults(
   logger: BufferedLogger,
   testFile: string,
   allBrowserNames: string[],
   favoriteBrowser: string,
-  rootDir: string,
-  stackLocationRegExp: RegExp,
   sessionsForTestFile: TestSession[],
-  sourceMapFunction: SourceMapFunction,
 ) {
   const failedSessions = sessionsForTestFile.filter(s => !s.passed);
 
-  await reportBrowserLogs(
-    logger,
-    sessionsForTestFile,
-    rootDir,
-    stackLocationRegExp,
-    sourceMapFunction,
-  );
+  reportBrowserLogs(logger, sessionsForTestFile);
   reportRequest404s(logger, sessionsForTestFile);
-  await reportTestFileErrors(
-    logger,
-    allBrowserNames,
-    favoriteBrowser,
-    sessionsForTestFile,
-    rootDir,
-    stackLocationRegExp,
-    sourceMapFunction,
-  );
+  reportTestFileErrors(logger, allBrowserNames, favoriteBrowser, sessionsForTestFile);
 
   if (failedSessions.length > 0) {
-    await reportTestsErrors(
-      logger,
-      allBrowserNames,
-      favoriteBrowser,
-      failedSessions,
-      rootDir,
-      stackLocationRegExp,
-      sourceMapFunction,
-    );
+    reportTestsErrors(logger, allBrowserNames, favoriteBrowser, failedSessions);
   }
 
   if (logger.buffer.length > 0) {
