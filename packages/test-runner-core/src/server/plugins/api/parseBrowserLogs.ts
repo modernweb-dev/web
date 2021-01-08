@@ -1,7 +1,6 @@
 import { deserialize, MapStackLocation } from '@web/browser-logs';
 import { MapBrowserUrl } from '@web/browser-logs/src/parseStackTrace';
 import { getRequestFilePath } from '@web/dev-server-core';
-import path from 'path';
 
 import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
 import { TestSession } from '../../../test-session/TestSession';
