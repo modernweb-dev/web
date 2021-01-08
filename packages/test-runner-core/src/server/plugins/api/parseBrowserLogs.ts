@@ -1,6 +1,6 @@
 import { deserialize, MapStackLocation } from '@web/browser-logs';
 import { MapBrowserUrl } from '@web/browser-logs/src/parseStackTrace';
-import { isOutsideRootDir, resolvePathOutsideRootDir } from '@web/dev-server-core';
+import { getRequestFilePath } from '@web/dev-server-core';
 import path from 'path';
 
 import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
@@ -35,22 +35,7 @@ export async function parseBrowserLogs(
   }
 
   const browserLogs = (result.logs as any) as BrowserLog[];
-
-  function mapBrowserUrl(url: URL) {
-    let browserPath: string;
-    let rootDir: string;
-
-    if (isOutsideRootDir(url.pathname)) {
-      const result = resolvePathOutsideRootDir(url.pathname, config.rootDir);
-      browserPath = result.normalizedPath;
-      rootDir = result.newRootDir;
-    } else {
-      browserPath = url.pathname;
-      rootDir = config.rootDir;
-    }
-
-    return path.join(rootDir, browserPath.split('/').join(path.sep));
-  }
+  const mapBrowserUrl = (url: URL) => getRequestFilePath(url.href, config.rootDir);
 
   const logsWithType = await mapAsync(browserLogs, b =>
     parseBrowserLog(b, mapBrowserUrl, mapStackLocation, config),

@@ -83,17 +83,20 @@ export async function getResponseBody(ctx: Context): Promise<string | Buffer> {
   return ctx.body;
 }
 
-export function isInlineScriptRequest(ctx: Context) {
-  return ctx.url.includes(`inline-script-`) && ctx.URL.searchParams.has('source');
+export function isInlineScriptRequest(contextOrUrl: Context | string) {
+  const url = typeof contextOrUrl === 'string' ? contextOrUrl : contextOrUrl.url;
+  return url.includes(`inline-script-`) && url.includes('source');
 }
 
-export function getRequestBrowserPath(context: Context) {
+export function getRequestBrowserPath(url: string) {
+  const urlObj = new URL(url, 'http://localhost:8000/');
+
   let requestPath;
   // inline module requests have the source in a query string
-  if (isInlineScriptRequest(context)) {
-    requestPath = context.URL.searchParams.get('source')!;
+  if (isInlineScriptRequest(url)) {
+    requestPath = urlObj.searchParams.get('source')!;
   } else {
-    requestPath = context.path;
+    requestPath = urlObj.pathname;
   }
 
   if (requestPath.endsWith('/')) {
@@ -102,11 +105,12 @@ export function getRequestBrowserPath(context: Context) {
   return requestPath;
 }
 
-export function getRequestFilePath(context: Context, rootDir: string): string {
-  const requestPath = getRequestBrowserPath(context);
+export function getRequestFilePath(contextOrString: Context | string, rootDir: string): string {
+  const url = typeof contextOrString === 'string' ? contextOrString : contextOrString.url;
+  const requestPath = getRequestBrowserPath(url);
 
-  if (isOutsideRootDir(context.path)) {
-    const { normalizedPath, newRootDir } = resolvePathOutsideRootDir(context.path, rootDir);
+  if (isOutsideRootDir(requestPath)) {
+    const { normalizedPath, newRootDir } = resolvePathOutsideRootDir(requestPath, rootDir);
     const filePath = toFilePath(normalizedPath);
     return path.join(newRootDir, filePath);
   } else {

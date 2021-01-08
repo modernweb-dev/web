@@ -33,7 +33,7 @@ export function mimeTypesPlugin(mappings: MimeTypeMappings): Plugin {
     },
 
     resolveMimeType(context) {
-      const filePath = getRequestFilePath(context, rootDir);
+      const filePath = getRequestFilePath(context.url, rootDir);
       for (const matcher of matchers) {
         if (matcher.fn(filePath)) {
           return matcher.mimeType;

@@ -166,7 +166,10 @@ export function serveTestRunnerHtmlPlugin(
         return;
       }
       const isTestRunnerHtml = context.path === '/';
-      if (!isTestRunnerHtml && !testFiles.includes(getRequestFilePath(context, config.rootDir))) {
+      if (
+        !isTestRunnerHtml &&
+        !testFiles.includes(getRequestFilePath(context.url, config.rootDir))
+      ) {
         return;
       }
 

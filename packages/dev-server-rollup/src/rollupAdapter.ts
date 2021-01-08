@@ -117,7 +117,7 @@ export function rollupAdapter(
         return source;
       }
 
-      const filePath = getRequestFilePath(context, rootDir);
+      const filePath = getRequestFilePath(context.url, rootDir);
 
       try {
         const rollupPluginContext = createRollupPluginContextAdapter(
@@ -337,7 +337,7 @@ export function rollupAdapter(
           ),
         );
 
-        const filePath = getRequestFilePath(context, rootDir);
+        const filePath = getRequestFilePath(context.url, rootDir);
         let transformed = false;
         try {
           for (const node of inlineScripts) {
@@ -397,7 +397,7 @@ export function rollupAdapter(
         context,
         pluginMetaPerModule,
       );
-      const filePath = getRequestFilePath(context, rootDir);
+      const filePath = getRequestFilePath(context.url, rootDir);
       const info = rollupPluginContext.getModuleInfo(filePath);
       if (!info) throw new Error(`Missing info for module ${filePath}`);
       rollupPlugin.moduleParsed?.call(rollupPluginContext as TransformPluginContext, info);

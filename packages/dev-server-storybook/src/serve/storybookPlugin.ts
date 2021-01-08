@@ -48,7 +48,7 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
         return;
       }
 
-      const filePath = getRequestFilePath(context, serverConfig.rootDir);
+      const filePath = getRequestFilePath(context.url, serverConfig.rootDir);
       if (context.path.endsWith('.mdx')) {
         context.body = await transformMdxToCsf(context.body, filePath);
       }
