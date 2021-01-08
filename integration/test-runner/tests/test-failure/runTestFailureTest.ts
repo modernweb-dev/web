@@ -56,7 +56,8 @@ export function runTestFailureTest(
         ]);
         expect(session.errors).to.eql([ERROR_NOT_IMPORTABLE]);
         expect(session.logs.length).to.equal(1);
-        expectFetchModuleFailed((session.logs[0] as any)[0].message);
+        console.log(session.logs);
+        expectFetchModuleFailed((session.logs[0] as any)[0]);
       }
     });
 
@@ -69,8 +70,10 @@ export function runTestFailureTest(
           'true is really true',
         ]);
         expect(session.errors.length).to.equal(1);
-        expect(session.errors[0].message).to.include('"after each" hook for "true is true"');
-        expect(session.errors[0].stack).to.include('error thrown in afterEach hook');
+        expect(session.errors[0].message).to.include('error thrown in afterEach hook');
+        expect(session.errors[0].stack).to.include(
+          'test-failure/browser-tests/fail-after-each.test.js',
+        );
         expect(session.logs).to.eql([]);
       }
     });
@@ -84,8 +87,9 @@ export function runTestFailureTest(
           'true is really true',
         ]);
         expect(session.errors.length).to.equal(1);
-        expect(session.errors[0].message).to.include('"after all" hook for "true is really true"');
-        expect(session.errors[0].stack).to.include('error thrown in after hook');
+        expect(session.errors[0].message).to.include('error thrown in after hook');
+
+        expect(session.errors[0].stack).to.include('test-failure/browser-tests/fail-after.test.js');
         expect(session.logs).to.eql([]);
       }
     });
@@ -99,8 +103,11 @@ export function runTestFailureTest(
           'true is really true',
         ]);
         expect(session.errors.length).to.equal(1);
-        expect(session.errors[0].message).to.include('"before each" hook for "true is true"');
-        expect(session.errors[0].stack).to.include('error thrown in beforeEach hook');
+        expect(session.errors[0].message).to.include('error thrown in beforeEach hook');
+
+        expect(session.errors[0].stack).to.include(
+          'test-failure/browser-tests/fail-before-each.test.js',
+        );
         expect(session.logs).to.eql([]);
       }
     });
@@ -114,8 +121,11 @@ export function runTestFailureTest(
           'true is really true',
         ]);
         expect(session.errors.length).to.equal(1);
-        expect(session.errors[0].message).to.include('"before all" hook for "true is true"');
-        expect(session.errors[0].stack).to.include('error thrown in before hook');
+        expect(session.errors[0].message).to.include('error thrown in before hook');
+
+        expect(session.errors[0].stack).to.include(
+          'test-failure/browser-tests/fail-before.test.js',
+        );
         expect(session.logs).to.eql([]);
       }
     });
@@ -143,7 +153,7 @@ export function runTestFailureTest(
         expect(session.testResults!.suites.length).to.equal(0);
         expect(session.testResults!.tests.length).to.equal(0);
         expect(session.errors).to.eql([ERROR_NOT_IMPORTABLE]);
-        expect((session.logs[0] as any)[0].message).to.equal('This is thrown before running tests');
+        expect(session.logs[0][0]).to.include('This is thrown before running tests');
       }
     });
 
