@@ -1,6 +1,5 @@
 import { expect } from './chai.js';
-
-throw new Error('This is thrown before running tests');
+import './fail-error-module-exec.js';
 
 it('test 1', () => {
   expect(true).to.be.true;

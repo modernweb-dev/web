@@ -4,6 +4,7 @@ import { BasicTestSession } from './BasicTestSession';
 
 export interface TestResultError {
   message: string;
+  name?: string;
   stack?: string;
   expected?: string;
   actual?: string;
@@ -33,5 +34,4 @@ export interface TestSession extends BasicTestSession {
   logs: any[][];
   request404s: string[];
   testCoverage?: CoverageMapData;
-  userAgent?: string;
 }

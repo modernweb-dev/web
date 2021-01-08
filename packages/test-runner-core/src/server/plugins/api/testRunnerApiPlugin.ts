@@ -1,12 +1,14 @@
 import { Context, ServerStartParams, WebSocket } from '@web/dev-server-core';
-import { deserialize } from '@web/browser-logs';
 
-import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
-import { TestSessionManager } from '../../test-session/TestSessionManager';
-import { PARAM_SESSION_ID } from '../../utils/constants';
-import { TestRunnerPlugin } from '../TestRunnerPlugin';
-import { SESSION_STATUS } from '../../test-session/TestSessionStatus';
-import { TestSession } from '../../test-session/TestSession';
+import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
+import { TestSessionManager } from '../../../test-session/TestSessionManager';
+import { PARAM_SESSION_ID } from '../../../utils/constants';
+import { TestRunnerPlugin } from '../../TestRunnerPlugin';
+import { SESSION_STATUS } from '../../../test-session/TestSessionStatus';
+import { TestSession } from '../../../test-session/TestSession';
+import { parseBrowserResult } from './parseBrowserResult';
+import { TestRunner } from '../../../runner/TestRunner';
+import { createSourceMapFunction, SourceMapFunction } from './createSourceMapFunction';
 
 interface SessionMessage extends Record<string, unknown> {
   sessionId: string;
@@ -19,20 +21,38 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
 
   private config: TestRunnerCoreConfig;
   private plugins: TestRunnerPlugin[];
+  private testRunner: TestRunner;
   private sessions: TestSessionManager;
-  /** key: session id, value: test file import url */
-  private testFileUrls = new Map<string, string>();
+  private sourceMapFunction: SourceMapFunction;
   /** key: session id, value: browser url */
   private testSessionUrls = new Map<string, string>();
 
   constructor(
     config: TestRunnerCoreConfig,
-    plugins: TestRunnerPlugin[],
+    testRunner: TestRunner,
     sessions: TestSessionManager,
+    plugins: TestRunnerPlugin[],
   ) {
     this.config = config;
-    this.plugins = plugins;
+    this.testRunner = testRunner;
     this.sessions = sessions;
+    this.plugins = plugins;
+    this.sourceMapFunction = createSourceMapFunction(
+      this.config.protocol,
+      this.config.hostname,
+      this.config.port,
+    );
+
+    this.testRunner.on('test-run-started', ({ testRun }) => {
+      if (testRun !== 0) {
+        // create a new source map function to clear the cached source maps
+        this.sourceMapFunction = createSourceMapFunction(
+          this.config.protocol,
+          this.config.hostname,
+          this.config.port,
+        );
+      }
+    });
   }
 
   getSession(sessionId: string) {
@@ -58,15 +78,6 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
       }
 
       try {
-        const session = this.getSession(sessionId);
-        if (!session.debug) {
-          // store the session user agent, used for source maps
-          this.sessions.update({
-            ...session,
-            userAgent: context.headers['user-agent'],
-          });
-        }
-
         this.testSessionUrls.set(
           sessionId,
           `${this.config.protocol}//${this.config.hostname}:${this.config.port}${context.url}`,
@@ -114,24 +125,22 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
     }
   }
 
-  private _onSessionFinished(data: Record<string, unknown>) {
+  private async _onSessionFinished(data: Record<string, unknown>) {
     const { session, message } = this.parseSessionMessage(data);
     if (session.debug) return;
     if (typeof message.result !== 'object') {
       throw new Error('Missing result in session-finished message.');
     }
-    const result = message.result as any;
-    if (result.logs) {
-      result.logs = result.logs
-        .map((log: any) => ({
-          type: log.type,
-          args: log.args.map((a: any) => deserialize(a)),
-        }))
-        .filter((log: any) =>
-          this.config.filterBrowserLogs ? this.config.filterBrowserLogs(log) : true,
-        )
-        .map((log: any) => log.args);
+    if (!data.userAgent || typeof data.userAgent !== 'string') {
+      throw new Error('Missing userAgent in session-finished message.');
     }
+
+    const result = await parseBrowserResult(
+      this.config,
+      this.sourceMapFunction,
+      data.userAgent,
+      message.result as Partial<TestSession>,
+    );
 
     this.sessions.updateStatus({ ...session, ...result }, SESSION_STATUS.TEST_FINISHED);
   }
@@ -229,8 +238,9 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
 
 export function testRunnerApiPlugin(
   config: TestRunnerCoreConfig,
-  plugins: TestRunnerPlugin[],
+  testRunner: TestRunner,
   sessions: TestSessionManager,
+  plugins: TestRunnerPlugin[],
 ) {
-  return new TestRunnerApiPlugin(config, plugins, sessions);
+  return new TestRunnerApiPlugin(config, testRunner, sessions, plugins);
 }

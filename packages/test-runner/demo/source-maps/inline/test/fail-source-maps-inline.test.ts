@@ -1,12 +1,12 @@
-import { MyClass, doBar } from './src/MyClass.js';
+import { MyClass, doBar } from '../src/MyClass';
 
 describe('fail source maps separate', () => {
   it('fails one', () => {
-    doBar();
+    doBar('a', 5);
   });
 
   it('fails two', async () => {
     const myClass = new MyClass();
-    await myClass.doFoo();
+    await myClass.doFoo('a', 5);
   });
 });

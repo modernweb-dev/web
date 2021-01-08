@@ -67,9 +67,15 @@ export class TestRunner extends EventEmitter<EventMap> {
 
     this.sessions = new TestSessionManager(sessionGroups, testSessions);
     this.scheduler = new TestScheduler(config, this.sessions, browsers);
-    this.server = new TestRunnerServer(this.config, this.sessions, this.testFiles, sessions => {
-      this.runTests(sessions);
-    });
+    this.server = new TestRunnerServer(
+      this.config,
+      this,
+      this.sessions,
+      this.testFiles,
+      sessions => {
+        this.runTests(sessions);
+      },
+    );
     this.sessions.on('session-status-updated', session => {
       if (session.status === SESSION_STATUS.FINISHED) {
         this.onSessionFinished();

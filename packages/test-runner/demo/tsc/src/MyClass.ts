@@ -1,8 +1,8 @@
 export class MyClass {
-  async doFoo(foo: string, bar: number): Promise<string> {
+  async doFoo(foo: string, bar: number): Promise<void> {
     await Promise.resolve();
     (foo as any).nonExisting();
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
       resolve();
     });
   }

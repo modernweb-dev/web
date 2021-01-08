@@ -3,9 +3,6 @@ import chalk from 'chalk';
 import * as diff from 'diff';
 
 import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers';
-import { getErrorLocation } from './utils/getErrorLocation';
-import { formatStackTrace } from './utils/formatStackTrace';
-import { SourceMapFunction } from './utils/createSourceMapFunction';
 import { getFlattenedTestResults } from './utils/getFlattenedTestResults';
 
 function renderDiff(actual: string, expected: string) {
@@ -36,59 +33,43 @@ function renderDiff(actual: string, expected: string) {
   return `${chalk.green('+ expected')} ${chalk.red('- actual')}\n\n${diffMsg}`;
 }
 
-export async function formatError(
-  err: TestResultError,
-  userAgent: string,
-  rootDir: string,
-  stackLocationRegExp: RegExp,
-  sourceMapFunction: SourceMapFunction,
-): Promise<string> {
+export function formatError(error: TestResultError) {
   const strings: string[] = [];
-  const errorLocation = await getErrorLocation(
-    err,
-    userAgent,
-    rootDir,
-    stackLocationRegExp,
-    sourceMapFunction,
-  );
-  if (errorLocation != null) {
-    strings.push(`${chalk.gray('at:')} ${chalk.white(errorLocation)}`);
+  const { name, message = 'Unknown error' } = error;
+  const errorMsg = name ? `${name}: ${message}` : message;
+  const showDiff = typeof error.expected === 'string' && typeof error.actual === 'string';
+  strings.push(chalk.red(errorMsg));
+
+  if (showDiff) {
+    strings.push(`${renderDiff(error.actual!, error.expected!)}\n`);
   }
 
-  if (typeof err.expected === 'string' && typeof err.actual === 'string') {
-    strings.push(`${renderDiff(err.actual, err.expected)} \n`);
+  if (error.stack) {
+    if (showDiff) {
+      const dedented = error.stack
+        .split('\n')
+        .map(s => s.trim())
+        .join('\n');
+      strings.push(chalk.gray(dedented));
+    } else {
+      strings.push(chalk.gray(error.stack));
+    }
   }
 
-  if (err.stack) {
-    strings.push(
-      `${chalk.red(
-        await formatStackTrace(err, userAgent, rootDir, stackLocationRegExp, sourceMapFunction),
-      )}`,
-    );
-  }
-
-  if (!err.expected && !err.stack) {
-    strings.push(chalk.red(err.message ?? 'Unknown error'));
+  if (!error.expected && !error.stack) {
+    strings.push(chalk.red(error.message || 'Unknown error'));
   }
 
   return strings.join('\n');
 }
 
-interface ErrorEntry {
-  error: TestResultError;
-  userAgent: string;
-}
-
-export async function reportTestsErrors(
+export function reportTestsErrors(
   logger: Logger,
   allBrowserNames: string[],
   favoriteBrowser: string,
   failedSessions: TestSession[],
-  rootDir: string,
-  stackLocationRegExp: RegExp,
-  sourceMapFunction: SourceMapFunction,
 ) {
-  const testErrorsPerBrowser = new Map<string, Map<string, ErrorEntry>>();
+  const testErrorsPerBrowser = new Map<string, Map<string, TestResultError>>();
 
   for (const session of failedSessions) {
     if (session.testResults) {
@@ -97,13 +78,12 @@ export async function reportTestsErrors(
         if (test.error) {
           let testErrorsForBrowser = testErrorsPerBrowser.get(test.name);
           if (!testErrorsForBrowser) {
-            testErrorsForBrowser = new Map<string, ErrorEntry>();
+            testErrorsForBrowser = new Map<string, TestResultError>();
             testErrorsPerBrowser.set(test.name, testErrorsForBrowser);
           }
-          testErrorsForBrowser.set(session.browser.name, {
-            error: test.error!,
-            userAgent: session.userAgent!,
-          });
+          if (test.error) {
+            testErrorsForBrowser.set(session.browser.name, test.error);
+          }
         }
       }
     }
@@ -112,7 +92,7 @@ export async function reportTestsErrors(
   if (testErrorsPerBrowser.size > 0) {
     for (const [name, errorsForBrowser] of testErrorsPerBrowser) {
       const failedBrowsers = Array.from(errorsForBrowser.keys());
-      const { error, userAgent } =
+      const error =
         errorsForBrowser.get(favoriteBrowser) ?? errorsForBrowser.get(failedBrowsers[0])!;
       const failedOn = getFailedOnBrowsers(allBrowserNames, failedBrowsers);
 
@@ -120,9 +100,7 @@ export async function reportTestsErrors(
       logger.group();
       logger.group();
       logger.group();
-      logger.log(
-        await formatError(error, userAgent, rootDir, stackLocationRegExp, sourceMapFunction),
-      );
+      logger.log(formatError(error));
       logger.groupEnd();
       logger.groupEnd();
       logger.groupEnd();

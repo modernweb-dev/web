@@ -1,10 +1,7 @@
 import { TestSession, TestResultError, Logger } from '@web/test-runner-core';
 import chalk from 'chalk';
 
-import { replaceRelativeStackFilePath } from './utils/replaceRelativeStackFilePath';
-import { SourceMapFunction } from './utils/createSourceMapFunction';
 import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers';
-import { formatStackTrace } from './utils/formatStackTrace';
 
 function isSameError(a: TestResultError, b: TestResultError) {
   return a.message === b.message && a.stack === b.stack;
@@ -14,17 +11,13 @@ interface ErrorReport {
   testFile: string;
   failedBrowsers: string[];
   error: TestResultError;
-  userAgent: string;
 }
 
-export async function reportTestFileErrors(
+export function reportTestFileErrors(
   logger: Logger,
   browserNames: string[],
   favoriteBrowser: string,
   sessionsForTestFile: TestSession[],
-  rootDir: string,
-  stackLocationRegExp: RegExp,
-  sourceMapFunction: SourceMapFunction,
 ) {
   const reports: ErrorReport[] = [];
 
@@ -36,7 +29,6 @@ export async function reportTestFileErrors(
           testFile: session.testFile,
           failedBrowsers: [],
           error,
-          userAgent: session.userAgent!,
         };
         reports.push(report);
       }
@@ -49,40 +41,23 @@ export async function reportTestFileErrors(
   }
 
   for (const report of reports) {
-    const formattedStacktrace = await formatStackTrace(
-      report.error,
-      report.userAgent,
-      rootDir,
-      stackLocationRegExp,
-      sourceMapFunction,
-    );
+    const { name, message = 'Unknown error' } = report.error;
+    const errorMsg = name ? `${name}: ${message}` : message;
+    const failedOn = getFailedOnBrowsers(browserNames, report.failedBrowsers);
 
-    if (formattedStacktrace) {
-      const [first, ...rest] = formattedStacktrace.split('\n');
-      const restStackString = rest.join('\n');
+    if (report.error.stack) {
       // there was a stack trace, take the first line and decorate it with an icon and which browsers it failed on
-      logger.log(` ❌ ${first} ${getFailedOnBrowsers(browserNames, report.failedBrowsers)}`);
+      logger.log(` ❌ ${chalk.red(errorMsg)} ${failedOn}`);
 
       // if there was more to the stack trace, print it
-      if (restStackString) {
-        logger.group();
-        logger.group();
-        logger.log(chalk.red(restStackString));
-        logger.groupEnd();
-        logger.groupEnd();
-      }
+      logger.group();
+      logger.group();
+      logger.log(chalk.gray(report.error.stack));
+      logger.groupEnd();
+      logger.groupEnd();
     } else {
       // there was no stack trace, so just print the error message
-      const message = report.error.message
-        ? await replaceRelativeStackFilePath(
-            report.error.message,
-            report.userAgent,
-            rootDir,
-            stackLocationRegExp,
-            sourceMapFunction,
-          )
-        : 'Unknown error';
-      logger.log(` ❌ ${message} ${getFailedOnBrowsers(browserNames, report.failedBrowsers)}`);
+      logger.log(` ❌ ${errorMsg} ${failedOn}`);
     }
 
     logger.log('');

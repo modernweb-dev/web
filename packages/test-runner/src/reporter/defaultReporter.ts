@@ -2,8 +2,6 @@ import { Logger, Reporter, ReporterArgs, BufferedLogger } from '@web/test-runner
 
 import { reportTestFileResults } from './reportTestFileResults';
 import { getTestProgressReport } from './getTestProgress';
-import { createSourceMapFunction, SourceMapFunction } from './utils/createSourceMapFunction';
-import { createStackLocationRegExp } from './utils/createStackLocationRegExp';
 
 export interface DefaultReporterArgs {
   reportTestResults?: boolean;
@@ -23,8 +21,6 @@ export function defaultReporter({
 }: DefaultReporterArgs = {}): Reporter {
   let args: ReporterArgs;
   let favoriteBrowser: string;
-  let stackLocationRegExp: RegExp;
-  let sourceMapFunction: SourceMapFunction;
 
   return {
     start(_args) {
@@ -34,30 +30,9 @@ export function defaultReporter({
           const n = name.toLowerCase();
           return n.includes('chrome') || n.includes('chromium') || n.includes('firefox');
         }) ?? args.browserNames[0];
-      stackLocationRegExp = createStackLocationRegExp(
-        args.config.protocol,
-        args.config.hostname,
-        args.config.port,
-      );
-      sourceMapFunction = createSourceMapFunction(
-        args.config.protocol,
-        args.config.hostname,
-        args.config.port,
-      );
     },
 
-    onTestRunStarted({ testRun }) {
-      if (testRun !== 0) {
-        // create a new source map function to clear the cached source maps
-        sourceMapFunction = createSourceMapFunction(
-          args.config.protocol,
-          args.config.hostname,
-          args.config.port,
-        );
-      }
-    },
-
-    async reportTestFileResults({ logger, sessionsForTestFile, testFile }) {
+    reportTestFileResults({ logger, sessionsForTestFile, testFile }) {
       if (!reportTestResults) {
         return undefined;
       }
@@ -71,10 +46,7 @@ export function defaultReporter({
         testFile,
         args.browserNames,
         favoriteBrowser,
-        args.config.rootDir,
-        stackLocationRegExp,
         sessionsForTestFile,
-        sourceMapFunction,
       );
     },
 
