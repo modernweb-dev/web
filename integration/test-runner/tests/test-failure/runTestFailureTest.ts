@@ -1,7 +1,7 @@
 import { BrowserLauncher, TestRunnerCoreConfig, TestSession } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';
-import { resolve } from 'path';
+import { resolve, sep } from 'path';
 import { expect } from 'chai';
 
 const ERROR_NOT_IMPORTABLE = {
@@ -56,7 +56,6 @@ export function runTestFailureTest(
         ]);
         expect(session.errors).to.eql([ERROR_NOT_IMPORTABLE]);
         expect(session.logs.length).to.equal(1);
-        console.log(session.logs);
         expectFetchModuleFailed((session.logs[0] as any)[0]);
       }
     });
@@ -72,7 +71,7 @@ export function runTestFailureTest(
         expect(session.errors.length).to.equal(1);
         expect(session.errors[0].message).to.include('error thrown in afterEach hook');
         expect(session.errors[0].stack).to.include(
-          'test-failure/browser-tests/fail-after-each.test.js',
+          `test-failure${sep}browser-tests${sep}fail-after-each.test.js`,
         );
         expect(session.logs).to.eql([]);
       }
@@ -89,7 +88,9 @@ export function runTestFailureTest(
         expect(session.errors.length).to.equal(1);
         expect(session.errors[0].message).to.include('error thrown in after hook');
 
-        expect(session.errors[0].stack).to.include('test-failure/browser-tests/fail-after.test.js');
+        expect(session.errors[0].stack).to.include(
+          `test-failure${sep}browser-tests${sep}fail-after.test.js`,
+        );
         expect(session.logs).to.eql([]);
       }
     });
@@ -106,7 +107,7 @@ export function runTestFailureTest(
         expect(session.errors[0].message).to.include('error thrown in beforeEach hook');
 
         expect(session.errors[0].stack).to.include(
-          'test-failure/browser-tests/fail-before-each.test.js',
+          `test-failure${sep}browser-tests${sep}fail-before-each.test.js`,
         );
         expect(session.logs).to.eql([]);
       }
@@ -124,7 +125,7 @@ export function runTestFailureTest(
         expect(session.errors[0].message).to.include('error thrown in before hook');
 
         expect(session.errors[0].stack).to.include(
-          'test-failure/browser-tests/fail-before.test.js',
+          `test-failure${sep}browser-tests${sep}fail-before.test.js`,
         );
         expect(session.logs).to.eql([]);
       }
@@ -137,7 +138,7 @@ export function runTestFailureTest(
         expect(session.testResults!.tests.map(t => t.name)).to.eql(['custom error']);
         expect(session.testResults!.tests[0].error!.message).to.include('a custom error thrown');
         expect(session.testResults!.tests[0].error!.stack).to.include(
-          'browser-tests/fail-custom-error.test.js',
+          `browser-tests${sep}fail-custom-error.test.js`,
         );
         expect(session.errors).to.eql([]);
         expect(session.logs).to.eql([]);

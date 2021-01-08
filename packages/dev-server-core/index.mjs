@@ -13,8 +13,6 @@ const {
   getResponseBody,
   getHtmlPath,
   isInlineScriptRequest,
-  isOutsideRootDir,
-  resolvePathOutsideRootDir,
   PluginSyntaxError,
   PluginError,
 } = cjsEntrypoint;
@@ -31,8 +29,6 @@ export {
   getResponseBody,
   getHtmlPath,
   isInlineScriptRequest,
-  isOutsideRootDir,
-  resolvePathOutsideRootDir,
   PluginSyntaxError,
   PluginError,
 };

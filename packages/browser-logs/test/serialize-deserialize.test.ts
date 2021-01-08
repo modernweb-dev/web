@@ -5,6 +5,8 @@ import path from 'path';
 
 import { deserialize } from '../src/deserialize';
 
+const { sep } = path;
+
 const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
 const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };
 
@@ -430,10 +432,10 @@ describe('serialize deserialize', () => {
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include('  at c (test/__puppeteer_evaluation_script__:2:29)');
-    expect(deserialized).to.include('  at b (test/__puppeteer_evaluation_script__:3:29)');
-    expect(deserialized).to.include('  at a (test/__puppeteer_evaluation_script__:4:29)');
-    expect(deserialized).to.include('  at test/__puppeteer_evaluation_script__:5:38');
+    expect(deserialized).to.include(`  at c (test${sep}__puppeteer_evaluation_script__:2:29)`);
+    expect(deserialized).to.include(`  at b (test${sep}__puppeteer_evaluation_script__:3:29)`);
+    expect(deserialized).to.include(`  at a (test${sep}__puppeteer_evaluation_script__:4:29)`);
+    expect(deserialized).to.include(`  at test${sep}__puppeteer_evaluation_script__:5:38`);
   });
 
   it('can define a cwd above current directory', async () => {
@@ -445,13 +447,14 @@ describe('serialize deserialize', () => {
     });
     const deserialized = await deserialize(serialized, {
       cwd: path.resolve(__dirname, '..', 'foo'),
+      browserRootDir: path.resolve(__dirname, '..'),
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include('  at c (../__puppeteer_evaluation_script__:2:29)');
-    expect(deserialized).to.include('  at b (../__puppeteer_evaluation_script__:3:29)');
-    expect(deserialized).to.include('  at a (../__puppeteer_evaluation_script__:4:29)');
-    expect(deserialized).to.include('  at ../__puppeteer_evaluation_script__:5:38');
+    expect(deserialized).to.include(`  at c (..${sep}__puppeteer_evaluation_script__:2:29)`);
+    expect(deserialized).to.include(`  at b (..${sep}__puppeteer_evaluation_script__:3:29)`);
+    expect(deserialized).to.include(`  at a (..${sep}__puppeteer_evaluation_script__:4:29)`);
+    expect(deserialized).to.include(`  at ..${sep}__puppeteer_evaluation_script__:5:38`);
   });
 
   it('handles null', async () => {
