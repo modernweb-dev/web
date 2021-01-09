@@ -1,4 +1,4 @@
-import { Context, ServerStartParams, WebSocket } from '@web/dev-server-core';
+import { Context, getRequestFilePath, ServerStartParams, WebSocket } from '@web/dev-server-core';
 
 import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
 import { TestSessionManager } from '../../../test-session/TestSessionManager';
@@ -9,10 +9,20 @@ import { TestSession } from '../../../test-session/TestSession';
 import { parseBrowserResult } from './parseBrowserResult';
 import { TestRunner } from '../../../runner/TestRunner';
 import { createSourceMapFunction, SourceMapFunction } from './createSourceMapFunction';
+import { MapBrowserUrl } from '@web/browser-logs/src/parseStackTrace';
 
 interface SessionMessage extends Record<string, unknown> {
   sessionId: string;
   testFile: string;
+}
+
+function createMapBrowserUrl(rootDir: string) {
+  return function mapBrowserUrl(url: URL) {
+    if (url.pathname.startsWith('/__web-test-runner__/test-framework')) {
+      return url.pathname.substring('/__web-test-runner__/test-framework'.length);
+    }
+    return getRequestFilePath(url.href, rootDir);
+  };
 }
 
 class TestRunnerApiPlugin implements TestRunnerPlugin {
@@ -24,6 +34,7 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
   private testRunner: TestRunner;
   private sessions: TestSessionManager;
   private sourceMapFunction: SourceMapFunction;
+  private mapBrowserUrl: MapBrowserUrl;
   /** key: session id, value: browser url */
   private testSessionUrls = new Map<string, string>();
 
@@ -37,6 +48,7 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
     this.testRunner = testRunner;
     this.sessions = sessions;
     this.plugins = plugins;
+    this.mapBrowserUrl = createMapBrowserUrl(config.rootDir);
     this.sourceMapFunction = createSourceMapFunction(
       this.config.protocol,
       this.config.hostname,
@@ -137,6 +149,7 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
 
     const result = await parseBrowserResult(
       this.config,
+      this.mapBrowserUrl,
       this.sourceMapFunction,
       data.userAgent,
       message.result as Partial<TestSession>,
