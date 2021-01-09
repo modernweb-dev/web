@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.10.1
+
+### Patch Changes
+
+- 9f1a8a56: normalize test framework path in stack trace
+
 ## 0.10.0
 
 ### Minor Changes
