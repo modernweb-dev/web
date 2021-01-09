@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.9.0
+
+### Minor Changes
+
+- a7d74fdc: drop support for node v10 and v11
+
 ## 0.8.0
 
 ### Minor Changes
