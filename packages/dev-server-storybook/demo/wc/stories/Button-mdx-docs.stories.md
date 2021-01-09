@@ -41,3 +41,9 @@ Small.args = { size: 'small', label: 'Button' };
 - listed
 
 [A link somewhere](./foo.js)
+
+## Code block
+
+```js
+console.log('Hello world');
+```
