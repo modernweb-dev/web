@@ -1,4 +1,5 @@
 import { MapStackLocation, StackLocation } from '@web/browser-logs';
+import { MapBrowserUrl } from '@web/browser-logs/src/parseStackTrace';
 
 import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
 import { TestSession } from '../../../test-session/TestSession';
@@ -15,15 +16,16 @@ function createMapStackLocation(smFn: SourceMapFunction, userAgent: string): Map
 
 export async function parseBrowserResult(
   config: TestRunnerCoreConfig,
+  mapBrowserUrl: MapBrowserUrl,
   sourceMapFunction: SourceMapFunction,
   userAgent: string,
   result: Partial<TestSession>,
 ) {
   const mapStackLocation = createMapStackLocation(sourceMapFunction, userAgent);
   await Promise.all([
-    parseBrowserLogs(config, mapStackLocation, result),
-    parseSessionErrors(config, mapStackLocation, result),
-    parseTestResults(config, mapStackLocation, result),
+    parseBrowserLogs(config, mapBrowserUrl, mapStackLocation, result),
+    parseSessionErrors(config, mapBrowserUrl, mapStackLocation, result),
+    parseTestResults(config, mapBrowserUrl, mapStackLocation, result),
   ]);
   return result;
 }

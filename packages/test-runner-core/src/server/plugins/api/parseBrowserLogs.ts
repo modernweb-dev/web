@@ -1,6 +1,5 @@
 import { deserialize, MapStackLocation } from '@web/browser-logs';
 import { MapBrowserUrl } from '@web/browser-logs/src/parseStackTrace';
-import { getRequestFilePath } from '@web/dev-server-core';
 
 import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
 import { TestSession } from '../../../test-session/TestSession';
@@ -26,6 +25,7 @@ async function parseBrowserLog(
 
 export async function parseBrowserLogs(
   config: TestRunnerCoreConfig,
+  mapBrowserUrl: MapBrowserUrl,
   mapStackLocation: MapStackLocation,
   result: Partial<TestSession>,
 ) {
@@ -34,8 +34,6 @@ export async function parseBrowserLogs(
   }
 
   const browserLogs = (result.logs as any) as BrowserLog[];
-  const mapBrowserUrl = (url: URL) => getRequestFilePath(url.href, config.rootDir);
-
   const logsWithType = await mapAsync(browserLogs, b =>
     parseBrowserLog(b, mapBrowserUrl, mapStackLocation, config),
   );
