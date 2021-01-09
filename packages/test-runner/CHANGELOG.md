@@ -1,5 +1,30 @@
 # @web/test-runner
 
+## 0.12.0
+
+### Minor Changes
+
+- 1dd7cd0e: improve serialization of stack traces cross-browser
+
+  this adds two breaking changes, which should not affect most users:
+
+  - removed `userAgent` field from `TestSession`
+  - test reporter `reportTestFileResults` is no longer async
+
+- a7d74fdc: drop support for node v10 and v11
+
+### Patch Changes
+
+- Updated dependencies [1dd7cd0e]
+- Updated dependencies [a7d74fdc]
+- Updated dependencies [1dd7cd0e]
+- Updated dependencies [1dd7cd0e]
+  - @web/test-runner-core@0.10.0
+  - @web/test-runner-chrome@0.9.0
+  - @web/test-runner-commands@0.4.0
+  - @web/test-runner-mocha@0.7.0
+  - @web/browser-logs@0.2.0
+
 ## 0.11.7
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @web/test-runner-playwright
 
+## 0.8.0
+
+### Minor Changes
+
+- a7d74fdc: drop support for node v10 and v11
+- 1dd7cd0e: version bump after breaking change in @web/test-runner-core
+
+### Patch Changes
+
+- Updated dependencies [1dd7cd0e]
+- Updated dependencies [a7d74fdc]
+- Updated dependencies [1dd7cd0e]
+  - @web/test-runner-core@0.10.0
+  - @web/test-runner-coverage-v8@0.4.0
+
 ## 0.7.2
 
 ### Patch Changes

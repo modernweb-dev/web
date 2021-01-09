@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.2.0
+
+### Minor Changes
+
+- 1dd7cd0e: improve deserialization of stack traces cross browser
+
 ## 0.1.6
 
 ### Patch Changes

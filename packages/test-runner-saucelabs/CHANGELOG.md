@@ -1,5 +1,18 @@
 # @web/test-runner-saucelabs
 
+## 0.4.0
+
+### Minor Changes
+
+- a7d74fdc: drop support for node v10 and v11
+- 1dd7cd0e: version bump after breaking change in @web/test-runner-core
+
+### Patch Changes
+
+- Updated dependencies [a7d74fdc]
+- Updated dependencies [1dd7cd0e]
+  - @web/test-runner-webdriver@0.2.0
+
 ## 0.3.3
 
 ### Patch Changes

@@ -52,12 +52,12 @@
   "dependencies": {
     "@import-maps/resolve": "^1.0.1",
     "@types/parse5": "^5.0.3",
-    "@web/dev-server-core": "^0.3.0",
+    "@web/dev-server-core": "^0.3.3",
     "@web/parse5-utils": "^1.1.2",
     "parse5": "^6.0.1",
     "picomatch": "^2.2.2"
   },
   "devDependencies": {
-    "@web/test-runner": "^0.11.0"
+    "@web/test-runner": "^0.12.0"
   }
 }

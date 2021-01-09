@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.3.3
+
+### Patch Changes
+
+- 1dd7cd0e: export outside root dir utils
+
 ## 0.3.2
 
 ### Patch Changes
