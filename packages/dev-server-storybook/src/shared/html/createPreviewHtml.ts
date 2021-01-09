@@ -124,7 +124,10 @@ export function createPreviewHtml(
       }.js';
       ${previewImport}
       ${storyImports.map((s, i) => `import * as stories${i} from '${s}';`).join('')}
-      configure(() => [${storyImports.map((s, i) => `stories${i}`)}], {}, false);
+
+      setTimeout(() => {
+        configure(() => [${storyImports.map((s, i) => `stories${i}`)}], {}, false);
+      });
     </script>
   </body>
 </html>`;
