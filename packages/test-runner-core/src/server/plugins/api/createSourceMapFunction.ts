@@ -12,8 +12,9 @@ export type SourceMapFunction = (
 ) => Promise<StackLocation | null>;
 
 interface CachedSourceMap {
-  sourceMap: SourceMapConverter;
+  sourceMap?: SourceMapConverter;
   consumer?: SourceMapConsumer;
+  loadingPromise?: Promise<void>;
 }
 
 /**
@@ -41,14 +42,16 @@ async function fetchSourceMap(
 
   // we couldn't retreive this file, this could be because it is a generated file
   // from a server plugin which no longer exists
-  if (!body) return null;
+  if (!body) {
+    return;
+  }
 
-  return (
+  const sourceMap =
     // inline source map
     convertSourceMap.fromSource(body) ||
     // external source map
-    convertSourceMap.fromMapFileSource(body, dirname(filePath))
-  );
+    convertSourceMap.fromMapFileSource(body, dirname(filePath));
+  return sourceMap ?? undefined;
 }
 
 function resolveRelativeTo(relativeTo: string, path: string) {
@@ -76,21 +79,41 @@ export function createSourceMapFunction(
   return async ({ browserUrl, filePath, line, column }, userAgent) => {
     try {
       const cacheKey = `${filePath}${userAgent}`;
-      const cached = cachedSourceMaps.get(cacheKey);
-      if (cached === null) {
-        // null means we know there isn't a source map for this file
-        return null;
+      let cached = cachedSourceMaps.get(cacheKey);
+      if (cached) {
+        if (cached.loadingPromise) {
+          // a request for this source map is already being done in parallel, wait for it to finish
+          await cached.loadingPromise;
+        }
+
+        if (!cached.sourceMap) {
+          // we know there is no source map for this file
+          return null;
+        }
       }
+      cached = {};
+      cachedSourceMaps.set(cacheKey, cached);
 
       // get the raw source map, from cache or new
-      let sourceMap: SourceMapConverter | null;
-      if (cached?.sourceMap) {
+      let sourceMap: SourceMapConverter;
+      if (cached.sourceMap) {
         sourceMap = cached?.sourceMap;
       } else {
-        sourceMap = await fetchSourceMap(protocol, host, port, browserUrl, filePath, userAgent);
-        cachedSourceMaps.set(cacheKey, sourceMap ? { sourceMap: sourceMap } : null);
-        if (!sourceMap) {
+        // fetch source map, maintain a loading boolean for parallel calls to wait before resolving
+        let resolveLoading: () => void;
+        const loadingPromise = new Promise<void>(resolve => {
+          resolveLoading = resolve;
+        });
+        cached.loadingPromise = loadingPromise;
+
+        const result = await fetchSourceMap(protocol, host, port, browserUrl, filePath, userAgent);
+        cached.sourceMap = result;
+        resolveLoading!();
+
+        if (!result) {
           return null;
+        } else {
+          sourceMap = result;
         }
       }
 
