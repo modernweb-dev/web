@@ -45,11 +45,11 @@ export interface StartDevServerParams {
 export async function startDevServer(options: StartDevServerParams = {}) {
   const {
     config: extraConfig,
-    readCliArgs: readCliArgsFlag = true,
-    readFileConfig: readFileConfigFlag = true,
+    readCliArgs: readCliArgsFlag = false,
+    readFileConfig: readFileConfigFlag = false,
     configName,
-    autoExitProcess = true,
-    logStartMessage = true,
+    autoExitProcess = false,
+    logStartMessage = false,
     argv = process.argv,
   } = options;
 
