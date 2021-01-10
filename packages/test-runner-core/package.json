@@ -57,7 +57,7 @@
     "cli-cursor": "^3.1.0",
     "co-body": "^6.1.0",
     "debounce": "^1.2.0",
-    "dependency-graph": "^0.9.0",
+    "dependency-graph": "^0.10.0",
     "globby": "^11.0.1",
     "ip": "^1.1.5",
     "istanbul-lib-coverage": "^3.0.0",
