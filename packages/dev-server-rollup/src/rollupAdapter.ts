@@ -140,13 +140,18 @@ export function rollupAdapter(
           resolvableImport = importPath;
         }
 
-        // if the import was already a fully resolved file path, it was probably injected by a plugin.
-        // in that case use that instead of resolving it through a plugin hook. this puts the resolved file
-        // path through the regular logic to turn it into a relative browser import
-        // otherwise call the resolveID hook on the plugin
-        const result = injectedFilePath
-          ? resolvableImport
-          : await rollupPlugin.resolveId?.call(rollupPluginContext, resolvableImport, filePath, {});
+        let result = await rollupPlugin.resolveId?.call(
+          rollupPluginContext,
+          resolvableImport,
+          filePath,
+          {},
+        );
+
+        if (!result && injectedFilePath) {
+          // the import is a file path but it was not resolved by this plugin
+          // we do assign it here so that it will be converted to a browser path
+          result = resolvableImport;
+        }
 
         let resolvedImportPath: string | undefined = undefined;
         if (typeof result === 'string') {
