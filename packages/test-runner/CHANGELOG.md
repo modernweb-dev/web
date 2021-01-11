@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.12.2
+
+### Patch Changes
+
+- 66638204: deduplicate parallel source map requests
+- Updated dependencies [66638204]
+- Updated dependencies [5d36f239]
+  - @web/test-runner-core@0.10.2
+  - @web/dev-server@0.1.4
+
 ## 0.12.1
 
 ### Patch Changes
