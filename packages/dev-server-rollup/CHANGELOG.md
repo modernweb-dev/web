@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.3.2
+
+### Patch Changes
+
+- 5d36f239: allow resolving extensionless absolute file paths
+
 ## 0.3.1
 
 ### Patch Changes

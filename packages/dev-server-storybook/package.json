@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-storybook",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "publishConfig": {
     "access": "public"
   },
@@ -74,7 +74,7 @@
     "storybook-addon-markdown-docs": "^1.0.1"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.1.2",
+    "@web/dev-server": "^0.1.4",
     "htm": "^3.0.4"
   }
 }

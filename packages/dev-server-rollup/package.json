@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-rollup",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "publishConfig": {
     "access": "public"
   },
@@ -63,7 +63,7 @@
     "@types/parse5": "^5.0.3",
     "@types/whatwg-url": "^8.0.0",
     "@web/test-runner-chrome": "^0.9.0",
-    "@web/test-runner-core": "^0.10.0",
+    "@web/test-runner-core": "^0.10.2",
     "chai": "^4.2.0",
     "node-fetch": "3.0.0-beta.9",
     "rollup-plugin-postcss": "^3.1.8"

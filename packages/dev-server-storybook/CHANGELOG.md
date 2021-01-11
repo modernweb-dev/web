@@ -1,5 +1,12 @@
 # @web/dev-server-storybook
 
+## 0.3.3
+
+### Patch Changes
+
+- a8e5eb8e: configure stories after async setup, this makes some code blocks work on first load
+- d5a433a9: fix styling of docs page
+
 ## 0.3.2
 
 ### Patch Changes
