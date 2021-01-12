@@ -114,7 +114,7 @@ Absolute links containing _only_ a `/` are special, they refer to the web root. 
 
 ### Relative URLs
 
-The least specific type of URL is a relative URL. Like absolute URLs, they omit the protocol and origin, but unlike absolute URLs, which contain a full path, relattive URLs contain a partial, or relative path. They start with `./`, `../`, or a path to a resource. for example:
+The least specific type of URL is a relative URL. Like absolute URLs, they omit the protocol and origin, but unlike absolute URLs, which contain a full path, relative URLs contain a partial, or relative path. They start with `./`, `../`, or a path to a resource. for example:
 
 ```html
 <a href="../">Go Up</a>
