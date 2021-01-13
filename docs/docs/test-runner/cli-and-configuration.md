@@ -80,6 +80,7 @@ A configuration file accepts most of the command line args camel-cased, with som
 
 ```ts
 import { Plugin, Middleware } from '@web/dev-server';
+import { ReportType } from 'istanbul-reports';
 
 interface TestFramework {
   path: string;
@@ -99,6 +100,7 @@ interface CoverageConfig {
   threshold?: CoverageThresholdConfig;
   report: boolean;
   reportDir: string;
+  reporters?: ReportType[];
 }
 
 type MimeTypeMappings = Record<string, string>;

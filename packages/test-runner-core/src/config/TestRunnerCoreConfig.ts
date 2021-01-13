@@ -20,7 +20,7 @@ export interface CoverageConfig {
   threshold?: CoverageThresholdConfig;
   report: boolean;
   reportDir: string;
-  reporters: ReportType[];
+  reporters?: ReportType[];
 }
 
 export interface TestRunnerCoreConfig {
