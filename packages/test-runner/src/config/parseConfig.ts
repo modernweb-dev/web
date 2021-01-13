@@ -43,6 +43,7 @@ const defaultCoverageConfig: CoverageConfig = {
   threshold: { statements: 0, functions: 0, branches: 0, lines: 0 },
   report: true,
   reportDir: 'coverage',
+  reporters: ['lcov'],
 };
 
 function validate(config: Record<string, unknown>, key: string, type: string) {
