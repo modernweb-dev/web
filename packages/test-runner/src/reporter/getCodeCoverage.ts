@@ -39,7 +39,7 @@ export function getCodeCoverage(
     });
   }
 
-  if (!watch && coverageConfig.report && coverageConfig.reporters.includes('lcov')) {
+  if (!watch && coverageConfig.report && coverageConfig.reporters?.includes('lcov')) {
     entries.push(
       `View full coverage report at ${chalk.underline(
         path.join(coverageConfig.reportDir, 'lcov-report', 'index.html'),

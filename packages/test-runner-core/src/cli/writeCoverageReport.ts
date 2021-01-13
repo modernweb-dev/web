@@ -17,7 +17,9 @@ export function writeCoverageReport(testCoverage: TestCoverage, config: Coverage
     coverageMap: testCoverage.coverageMap,
   });
 
-  for (const reporter of config.reporters) {
+  const reporters = config.reporters || [];
+
+  for (const reporter of reporters) {
     const report = reports.create(reporter);
     (report as any).execute(context);
   }
