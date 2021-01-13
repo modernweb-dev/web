@@ -17,6 +17,8 @@ export function writeCoverageReport(testCoverage: TestCoverage, config: Coverage
     coverageMap: testCoverage.coverageMap,
   });
 
-  const report = reports.create('lcov');
-  (report as any).execute(context);
+  for (const reporter of config.reporters) {
+    const report = reports.create(reporter);
+    (report as any).execute(context);
+  }
 }
