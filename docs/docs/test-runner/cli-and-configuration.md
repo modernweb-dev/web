@@ -184,11 +184,11 @@ interface TestRunnerConfig {
   /** Opens browser for manual testing. Requires the manual option to be set. */
   open?: boolean;
 
-  // how long a browser can take to start up before failing. defaults to 30000
+  // how long a browser can take to start up before failing. defaults to 30000 (30 sec)
   browserStartTimeout?: number;
-  // how long a test file can take to load. defaults to 10000
+  // how long a test file can take to load. defaults to 20000 (20 sec)
   testsStartTimeout?: number;
-  // how long a test file can take to finish. defaults to 20000
+  // how long a test file can take to finish. defaults to 120000 (2 min)
   testsFinishTimeout?: number;
 }
 ```
