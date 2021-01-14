@@ -54,8 +54,10 @@
     "@web/browser-logs": "^0.2.0",
     "@web/dev-server-core": "^0.3.3",
     "chalk": "^4.1.0",
+    "chokidar": "^3.4.3",
     "cli-cursor": "^3.1.0",
     "co-body": "^6.1.0",
+    "convert-source-map": "^1.7.0",
     "debounce": "^1.2.0",
     "dependency-graph": "^0.10.0",
     "globby": "^11.0.1",
@@ -64,7 +66,9 @@
     "istanbul-lib-report": "^3.0.0",
     "istanbul-reports": "^3.0.2",
     "log-update": "^4.0.0",
+    "open": "^7.3.0",
     "picomatch": "^2.2.2",
+    "source-map": "^0.7.3",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
