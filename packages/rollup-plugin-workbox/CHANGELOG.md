@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 6.1.1
+
+### Patch Changes
+
+- 8cf22153: Remove "mode" from passed workbox config.
+
 ## 6.1.0
 
 ### Minor Changes
