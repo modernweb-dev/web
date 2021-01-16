@@ -17,7 +17,7 @@ Import the `generateSW` plugin from `rollup-plugin-workbox`, and add it to your 
 You can find a detailed list of supported properties for the workbox config object [here](https://developers.google.com/web/tools/workbox/modules/workbox-build#generatesw_mode).
 
 ```js
-const { generateSW } = require('@web/rollup-plugin-workbox');
+const { generateSW } = require('rollup-plugin-workbox');
 
 module.exports {
   input: 'main.js',
@@ -37,7 +37,7 @@ module.exports {
 You can also `require` your `workbox-config.js` file and pass it to the plugin.
 
 ```js
-const { generateSW } = require('@web/rollup-plugin-workbox');
+const { generateSW } = require('rollup-plugin-workbox');
 
 const workboxConfig = require('./workbox-config.js')
 
@@ -52,7 +52,7 @@ module.exports {
 You can also customize the console output after workbox has generated your service worker by passing an optional render function as the second argument to the plugin:
 
 ```js
-const { generateSW } = require('@web/rollup-plugin-workbox');
+const { generateSW } = require('rollup-plugin-workbox');
 
 const workboxConfig = require('./workbox-config.js')
 
@@ -80,7 +80,7 @@ Import the `injectManifest` plugin from `rollup-plugin-workbox`, and add it to y
 You can find a detailed list of supported properties for the workbox config object [here](https://developers.google.com/web/tools/workbox/modules/workbox-build#injectmanifest_mode).
 
 ```js
-const { injectManifest } = require('@web/rollup-plugin-workbox');
+const { injectManifest } = require('rollup-plugin-workbox');
 
 module.exports {
   input: 'main.js',
@@ -101,7 +101,7 @@ module.exports {
 You can also `require` your `workbox-config.js` file and pass it to the plugin.
 
 ```js
-const { injectManifest } = require('@web/rollup-plugin-workbox');
+const { injectManifest } = require('rollup-plugin-workbox');
 
 const workboxConfig = require('./workbox-config.js')
 
@@ -116,7 +116,7 @@ module.exports {
 You can also customize the console output after workbox has created your service worker by passing an optional render function as the second argument to the plugin:
 
 ```js
-const { injectManifest } = require('@web/rollup-plugin-workbox');
+const { injectManifest } = require('rollup-plugin-workbox');
 
 const workboxConfig = require('./workbox-config.js')
 
@@ -146,7 +146,7 @@ Unfortunately this got [wrongfully documented](https://github.com/GoogleChrome/w
 Until this gets fixed in `workbox-build`, `rollup-plugin-workbox` **does** support the `mode` property in the Workbox configuration for `injectManifest`, and when set to `'production'` will output a production optimized service worker for you.
 
 ```diff
-const { injectManifest } = require('@web/rollup-plugin-workbox');
+const { injectManifest } = require('rollup-plugin-workbox');
 
 module.exports {
   input: 'main.js',
