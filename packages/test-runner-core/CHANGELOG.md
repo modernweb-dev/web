@@ -1,5 +1,12 @@
 # @web/test-runner-core
 
+## 0.10.3
+
+### Patch Changes
+
+- 8e3b1128: fix regression introduced in filterBrowserLogs function that flipped the return value. returning true now properly includes the logs
+- d5a5f2bf: Add undeclared dependencies
+
 ## 0.10.2
 
 ### Patch Changes

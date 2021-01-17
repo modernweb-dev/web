@@ -1,5 +1,14 @@
 # @web/test-runner-coverage-v8
 
+## 0.4.1
+
+### Patch Changes
+
+- d5a5f2bf: Add undeclared dependencies
+- Updated dependencies [8e3b1128]
+- Updated dependencies [d5a5f2bf]
+  - @web/test-runner-core@0.10.3
+
 ## 0.4.0
 
 ### Minor Changes
