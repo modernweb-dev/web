@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.1.5
+
+### Patch Changes
+
+- 82ce63d1: add backwards compatibility for "middlewares" config property
+
 ## 0.1.4
 
 ### Patch Changes
