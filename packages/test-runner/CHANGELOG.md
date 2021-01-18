@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.12.4
+
+### Patch Changes
+
+- 82ce63d1: add backwards compatibility for "middlewares" config property
+- Updated dependencies [82ce63d1]
+  - @web/dev-server@0.1.5
+
 ## 0.12.3
 
 ### Patch Changes
