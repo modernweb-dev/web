@@ -59,6 +59,13 @@ export async function parseConfig(
   cliArgs?: DevServerCliArgs,
 ): Promise<DevServerConfig> {
   const mergedConfigs = mergeConfigs(defaultConfig, config, cliArgs);
+
+  // backwards compatibility for configs written for es-dev-server, where middleware was
+  // spelled incorrectly as middlewares
+  if (Array.isArray((mergedConfigs as any).middlewares)) {
+    mergedConfigs.middleware!.push(...(mergedConfigs as any).middlewares);
+  }
+
   const finalConfig = validateConfig(mergedConfigs);
   // filter out non-objects from plugin list
   finalConfig.plugins = (finalConfig.plugins ?? []).filter(pl => typeof pl === 'object');
