@@ -20,13 +20,10 @@ export function writeCoverageReport(testCoverage: TestCoverage, config: Coverage
   const reporters = config.reporters || [];
 
   for (const reporter of reporters) {
-    const report = reports.create(
-      reporter,
-      {
-        projectRoot: process.cwd(),
-        maxCols: process.stdout.columns || 100
-      }
-    );
+    const report = reports.create(reporter, {
+      projectRoot: process.cwd(),
+      maxCols: process.stdout.columns || 100,
+    });
     (report as any).execute(context);
   }
 }
