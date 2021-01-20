@@ -106,14 +106,24 @@ export function createSourceMapFunction(
         });
         cached.loadingPromise = loadingPromise;
 
-        const result = await fetchSourceMap(protocol, host, port, browserUrl, filePath, userAgent);
-        cached.sourceMap = result;
-        resolveLoading!();
+        try {
+          const result = await fetchSourceMap(
+            protocol,
+            host,
+            port,
+            browserUrl,
+            filePath,
+            userAgent,
+          );
+          cached.sourceMap = result;
 
-        if (!result) {
-          return null;
-        } else {
-          sourceMap = result;
+          if (!result) {
+            return null;
+          } else {
+            sourceMap = result;
+          }
+        } finally {
+          resolveLoading!();
         }
       }
 
