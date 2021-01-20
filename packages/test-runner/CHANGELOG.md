@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.12.5
+
+### Patch Changes
+
+- 43bc451c: add configuration option reporters in coverageConfig to use various istanbul reporters
+- fd831b54: fix manual testing HTML tests
+- Updated dependencies [43bc451c]
+- Updated dependencies [fd831b54]
+  - @web/test-runner-core@0.10.4
+
 ## 0.12.4
 
 ### Patch Changes
