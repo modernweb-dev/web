@@ -23,9 +23,15 @@ export async function parseBrowserResult(
 ) {
   const mapStackLocation = createMapStackLocation(sourceMapFunction, userAgent);
   await Promise.all([
-    parseBrowserLogs(config, mapBrowserUrl, mapStackLocation, result),
-    parseSessionErrors(config, mapBrowserUrl, mapStackLocation, result),
-    parseTestResults(config, mapBrowserUrl, mapStackLocation, result),
+    parseBrowserLogs(config, mapBrowserUrl, mapStackLocation, result).catch(error => {
+      console.error(error);
+    }),
+    parseSessionErrors(config, mapBrowserUrl, mapStackLocation, result).catch(error => {
+      console.error(error);
+    }),
+    parseTestResults(config, mapBrowserUrl, mapStackLocation, result).catch(error => {
+      console.error(error);
+    }),
   ]);
   return result;
 }
