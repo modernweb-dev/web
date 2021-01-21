@@ -8,7 +8,7 @@ eleventyNavigation:
 
 <dfn>HTML</dfn> stands for <q>HyperText Markup Language</q>, <q>HyperText</q> being text documents containing interactive links to other such documents, and <q>Markup</q> meaning a syntax for applying semantics (such as those links) to that document.
 
-As we saw in the [previous section](./servers-and-clients.md), HTML is the primary resource that servers send to browsers. Even if the web server is entirely dynamic, meaning it doesn't send the contents of `.html` files from its web root, it will still send a string of HTML for most requests. Every web page is, ultimately and essentially, an HTML document.
+As we saw in the [previous section](./server.md), HTML is the primary resource that servers send to browsers. Even if the web server is entirely dynamic, meaning it doesn't send the contents of `.html` files from its web root, it will still send a string of HTML for most requests. Every web page is, ultimately and essentially, an HTML document.
 
 The purpose of this document isn't to present a comprehensive tutorial, but to highlight some of the imporant basic aspects of HTML.
 
