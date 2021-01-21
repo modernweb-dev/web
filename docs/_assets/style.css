@@ -54,4 +54,11 @@ footer {
   .sidebar-tags .tag {
     background: var(--footer-background);
   }
+  #mobile-menu-trigger svg {
+    color: #fff;
+  }
+
+  rocket-search svg {
+    fill: #fff;
+  }
 }
