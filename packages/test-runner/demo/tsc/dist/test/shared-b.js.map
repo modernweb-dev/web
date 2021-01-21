@@ -1,0 +1,1 @@
+{"version":3,"file":"shared-b.js","sourceRoot":"","sources":["../../test/shared-b.ts"],"names":[],"mappings":"AAAA,oCAAoC;AAEpC,MAAM,UAAU,QAAQ;IACtB,OAAO,aAAa,CAAC;AACvB,CAAC","sourcesContent":["// this file is shared by some tests\n\nexport function sharedB1() {\n  return 'hello world';\n}\n"]}
