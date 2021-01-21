@@ -1,4 +1,4 @@
-# Dev Server >> Typescript and JSX ||50
+# Dev Server >> TypeScript and JSX ||50
 
 ## JSX
 
