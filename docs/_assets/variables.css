@@ -28,6 +28,12 @@ html {
     --contrast-color-dark: #1d3557;
     --primary-lines-color: #333;
 
+    /* Search */
+    --rocket-search-background-color: #4a4d52;
+    --rocket-search-highlight-color: #41ffb0;
+    --rocket-search-hover-background-color: #6b717a;
+    --rocket-search-fill-color: #fff;
+
     /* Markdown */
     --markdown-octicon-link: var(--primary-text-color);
     --markdown-body: #24292e;
