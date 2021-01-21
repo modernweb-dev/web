@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "MyClass.js",
+  "sourceRoot": "",
+  "sources": [
+    "./MyClass.ts"
+  ],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;IAAA;IAQA,CAAC;IAPO,uBAAK,GAAX,UAAY,GAAW,EAAE,GAAW;;;;4BAClC,qBAAM,OAAO,CAAC,OAAO,EAAE,EAAA;;wBAAvB,SAAuB,CAAC;wBACvB,GAAW,CAAC,WAAW,EAAE,CAAC;wBAC3B,sBAAO,IAAI,OAAO,CAAC,UAAA,OAAO;gCACxB,OAAO,EAAE,CAAC;4BACZ,CAAC,CAAC,EAAC;;;;KACJ;IACH,cAAC;AAAD,CAAC,AARD,IAQC;;AAED,MAAM,UAAU,KAAK,CAAC,GAAW,EAAE,GAAW;IAC5C,MAAM,IAAI,KAAK,CAAC,yBAAyB,CAAC,CAAC;AAC7C,CAAC",
+  "sourcesContent": [
+    "export class MyClass {\n  async doFoo(foo: string, bar: number): Promise<string> {\n    await Promise.resolve();\n    (foo as any).nonExisting();\n    return new Promise(resolve => {\n      resolve();\n    });\n  }\n}\n\nexport function doBar(bar: string, foo: number) {\n  throw new Error('undefined is a function');\n}\n"
+  ]
+}
