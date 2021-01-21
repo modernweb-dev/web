@@ -9,6 +9,7 @@
 /integration/test-runner/tests/*/browser-tests
 /packages/dev-server-storybook/storybook-static/**/*
 /packages/dev-server-hmr/scripts/**/*
+/packages/test-runner/demo/
 /node_modules/
 /packages/*/node_modules/
 dist

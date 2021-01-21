@@ -23,7 +23,8 @@ package-lock.json
 packages/*/yarn.lock
 
 ## build output
-dist
+/dist
+/packages/*/dist
 tsconfig.tsbuildinfo
 _site
 _site-dev
