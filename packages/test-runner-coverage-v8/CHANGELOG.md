@@ -1,5 +1,14 @@
 # @web/test-runner-coverage-v8
 
+## 0.4.2
+
+### Patch Changes
+
+- ad815710: fetch source map from server when generating code coverage reports. this fixes errors when using build tools that generate source maps on the fly, which don't exist on the file system
+- Updated dependencies [ad815710]
+- Updated dependencies [c4738a40]
+  - @web/test-runner-core@0.10.5
+
 ## 0.4.1
 
 ### Patch Changes
