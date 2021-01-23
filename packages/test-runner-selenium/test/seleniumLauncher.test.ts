@@ -53,7 +53,8 @@ if (os.platform() !== 'win32') {
     seleniumServer = await startSeleniumServer();
   });
 
-  describe('test-runner-selenium', function testRunnerSelenium() {
+  // skip tests because this package is deprecated
+  describe.skip('test-runner-selenium', function testRunnerSelenium() {
     this.timeout(50000);
 
     function createConfig() {
