@@ -10,6 +10,7 @@ const {
   SESSION_STATUS,
   EventEmitter,
   isTestFilePath,
+  fetchSourceMap,
 } = cjsEntrypoint;
 
 export {
@@ -21,4 +22,5 @@ export {
   SESSION_STATUS,
   EventEmitter,
   isTestFilePath,
+  fetchSourceMap,
 };

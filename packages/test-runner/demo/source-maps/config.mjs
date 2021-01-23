@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { fromRollup } from '@web/dev-server-rollup';
 
 const moduleDir = path.dirname(fileURLToPath(import.meta.url));
 

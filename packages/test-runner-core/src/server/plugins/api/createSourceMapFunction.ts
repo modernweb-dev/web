@@ -1,11 +1,9 @@
 import path from 'path';
-import convertSourceMap, { SourceMapConverter } from 'convert-source-map';
+import { SourceMapConverter } from 'convert-source-map';
 import { SourceMapConsumer } from 'source-map';
 
-import { request } from './request';
+import { fetchSourceMap } from '../../../utils/fetchSourceMap';
 import { StackLocation } from '@web/browser-logs';
-
-const { mapFileCommentRegex } = convertSourceMap;
 
 export type SourceMapFunction = (
   loc: StackLocation,
@@ -16,67 +14,6 @@ interface CachedSourceMap {
   sourceMap?: SourceMapConverter;
   consumer?: SourceMapConsumer;
   loadingPromise?: Promise<void>;
-}
-
-function is2xxResponse(status?: number) {
-  return typeof status === 'number' && status >= 200 && status < 300;
-}
-
-/**
- * Fetches the source maps for a file by retreiving the original source code from the server, and
- * reading the source maps if there are any available.
- */
-async function fetchSourceMap(
-  protocol: string,
-  host: string,
-  port: number,
-  browserUrl: string,
-  userAgent: string,
-): Promise<SourceMapConverter | undefined> {
-  // fetch the source code used by the browser, using the browser's user agent to
-  // account for accurate transformation
-  const { response, body } = await request({
-    protocol,
-    host,
-    path: encodeURI(browserUrl),
-    port: String(port),
-    method: 'GET',
-    headers: { 'user-agent': userAgent },
-  });
-
-  // we couldn't retreive this file, this could be because it is a generated file
-  // from a server plugin which no longer exists
-  if (!is2xxResponse(response.statusCode) || !body) {
-    return;
-  }
-
-  const match = body.match(mapFileCommentRegex);
-  if (match && match[0]) {
-    const [sourceMapComment] = match;
-    const sourceMapUrl = sourceMapComment.replace('//# sourceMappingURL=', '');
-    if (sourceMapUrl.startsWith('data')) {
-      // this is a data url
-      return convertSourceMap.fromSource(body) ?? undefined;
-    }
-
-    // this is a source map pointing to another file, fetch it
-    const dir = path.posix.dirname(browserUrl.split('?')[0].split('#')[0]);
-    const sourcMapPath = path.join(dir, sourceMapUrl);
-    const { response: sourceMapResponse, body: sourcMapBody } = await request({
-      protocol,
-      host,
-      path: encodeURI(sourcMapPath),
-      port: String(port),
-      method: 'GET',
-      headers: { 'user-agent': userAgent },
-    });
-
-    if (!is2xxResponse(sourceMapResponse.statusCode) || !sourcMapBody) {
-      return undefined;
-    }
-
-    return convertSourceMap.fromJSON(sourcMapBody) ?? undefined;
-  }
 }
 
 function resolveRelativeTo(relativeTo: string, filePath: string): string {
@@ -121,7 +58,7 @@ export function createSourceMapFunction(
       cachedSourceMaps.set(cacheKey, cached);
 
       // get the raw source map, from cache or new
-      let sourceMap: SourceMapConverter;
+      let sourceMap: SourceMapConverter | undefined;
       if (cached.sourceMap) {
         sourceMap = cached?.sourceMap;
       } else {
@@ -133,17 +70,21 @@ export function createSourceMapFunction(
         cached.loadingPromise = loadingPromise;
 
         try {
-          const result = await fetchSourceMap(protocol, host, port, browserUrl, userAgent);
-          cached.sourceMap = result;
-
-          if (!result) {
-            return null;
-          } else {
-            sourceMap = result;
-          }
+          const result = await fetchSourceMap({
+            protocol,
+            host,
+            port,
+            browserUrl,
+            userAgent,
+          });
+          sourceMap = result.sourceMap;
+          cached.sourceMap = sourceMap;
         } finally {
           resolveLoading!();
         }
+      }
+      if (!sourceMap) {
+        return null;
       }
 
       // if there is no line and column we're looking for just the associated file, for example
