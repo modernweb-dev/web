@@ -5,7 +5,7 @@ import { absoluteBaseUrlNetlify } from '@rocket/core/helpers';
 import { adjustPluginOptions } from 'plugins-manager';
 import path from 'path';
 
-const serviceWorkerPath = path.resolve('./_site-dev/sw.js');
+const serviceWorkerPath = path.resolve('./_site/sw.js');
 
 export default {
   presets: [rocketLaunch(), rocketBlog(), rocketSearch()],
