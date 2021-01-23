@@ -45,6 +45,7 @@ export class PlaywrightLauncherPage {
   }
 
   private async collectTestCoverage(config: TestRunnerCoreConfig, testFiles: string[]) {
+    const userAgentPromise = this.playwrightPage.evaluate(() => window.navigator.userAgent);
     try {
       const coverageFromBrowser = await this.playwrightPage.evaluate(
         () => (window as any).__coverage__,
@@ -69,6 +70,7 @@ export class PlaywrightLauncherPage {
     // get native coverage from playwright
     const coverage = ((await this.playwrightPage.coverage?.stopJSCoverage()) ?? []) as V8Coverage[];
     this.nativeInstrumentationEnabledOnPage = false;
-    return v8ToIstanbul(config, testFiles, coverage);
+    const userAgent = await userAgentPromise;
+    return v8ToIstanbul(config, testFiles, coverage, userAgent);
   }
 }

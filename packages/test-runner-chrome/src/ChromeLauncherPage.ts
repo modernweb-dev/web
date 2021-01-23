@@ -50,6 +50,7 @@ export class ChromeLauncherPage {
   }
 
   private async collectTestCoverage(config: TestRunnerCoreConfig, testFiles: string[]) {
+    const userAgent = await this.puppeteerPage.browser().userAgent();
     try {
       const coverageFromBrowser = await this.puppeteerPage.evaluate(
         () => (window as any).__coverage__,
@@ -60,7 +61,7 @@ export class ChromeLauncherPage {
         return coverageFromBrowser;
       }
     } catch (error) {
-      // evaluate throws when the a test navigates in the browser
+      // evaluate throws when the test navigates in the browser
     }
 
     if (config.coverageConfig?.nativeInstrumentation === false) {
@@ -83,20 +84,13 @@ export class ChromeLauncherPage {
     )) as {
       result: V8Coverage[];
     };
-    // puppeteer already has the script sources available, remove this when above issue is resolved
-    const scriptSources = (this.puppeteerPage as any)?.coverage?._jsCoverage?._scriptSources;
-
     const v8Coverage = response.result
       // remove puppeteer specific scripts
-      .filter(r => r.url && r.url !== '__puppeteer_evaluation_script__')
-      // attach source code
-      .map(r => ({
-        ...r,
-        source: scriptSources.get(r.scriptId),
-      }));
+      .filter(r => r.url && r.url !== '__puppeteer_evaluation_script__');
 
     await this.puppeteerPage.coverage?.stopJSCoverage();
     this.nativeInstrumentationEnabledOnPage = false;
-    return v8ToIstanbul(config, testFiles, v8Coverage);
+
+    return v8ToIstanbul(config, testFiles, v8Coverage, userAgent);
   }
 }
