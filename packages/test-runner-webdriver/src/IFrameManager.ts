@@ -115,24 +115,26 @@ export class IFrameManager {
   async stopSession(id: string) {
     const frameId = this.getFrameId(id);
 
-    // Retrieve test results from iframe. Note: IIFE is used to prevent
-    // WebdriverIO from crashing failure with Puppeteer (default mode):
-    // Error: Evaluation failed: SyntaxError: Illegal return statement
-    // See https://github.com/webdriverio/webdriverio/pull/4829
-    const returnValue = await this.driver.execute(`
-      return (function() {
-        var iframe = document.getElementById("${frameId}");
-        var testCoverage;
-        try {
-          testCoverage = iframe.contentWindow.__coverage__;
-        } catch (error) {
-          // iframe can throw a cross-origin error if the test navigated
-        }
-
-        // set src after retrieving values to avoid the iframe from navigating away
-        iframe.src = "data:,";
-        return { testCoverage: testCoverage };
-      })();
+    // Retrieve test results from iframe
+    const returnValue = await this.driver.executeAsync(`
+      var iframe = document.getElementById("${frameId}");
+      var testCoverage;
+      try {
+        testCoverage = iframe.contentWindow.__coverage__;
+      } catch (error) {
+        // iframe can throw a cross-origin error if the test navigated
+      }
+      // Don't move on until the iframe has settled after unloading the page
+      var done = arguments[arguments.length-1];
+      var loaded = function() {
+        iframe.removeEventListener('load', loaded);
+        iframe.removeEventListener('error', loaded);
+        done({ testCoverage: testCoverage });
+      };
+      iframe.addEventListener('load', loaded);
+      iframe.addEventListener('error', loaded);
+      // set src after retrieving values to avoid the iframe from navigating away
+      iframe.src = "data:,";
     `);
 
     if (!validateBrowserResult(returnValue)) {
