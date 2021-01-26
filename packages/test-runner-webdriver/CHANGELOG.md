@@ -1,5 +1,11 @@
 # @web/test-runner-webdriver
 
+## 0.2.1
+
+### Patch Changes
+
+- 967f12d9: Fix intermittent testsStartTimeout on Safari on Sauce
+
 ## 0.2.0
 
 ### Minor Changes
