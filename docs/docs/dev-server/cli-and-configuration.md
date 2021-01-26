@@ -87,8 +87,6 @@ interface DevServerConfig {
   watch?: boolean;
   // resolve bare module imports
   nodeResolve?: boolean | RollupNodeResolveOptions;
-  // preserve symlinks when resolving bare module imports
-  preserveSymlinks?: boolean;
   // JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user agent.
   esbuildTarget?: string | string[];
   // preserve symlinks when resolve imports, instead of following
