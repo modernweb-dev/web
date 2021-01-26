@@ -1,5 +1,11 @@
 # @web/test-runner-browserstack
 
+## 0.4.1
+
+### Patch Changes
+
+- 967f12d9: Fix intermittent testsStartTimeout on Safari on Sauce
+
 ## 0.4.0
 
 ### Minor Changes
