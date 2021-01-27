@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.12.7
+
+### Patch Changes
+
+- c37b4343: Don't use red text color when there are 0 failures
+
 ## 0.12.6
 
 ### Patch Changes
