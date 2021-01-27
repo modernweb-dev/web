@@ -36,9 +36,10 @@ function getProgressReport(
   skippedTests: number,
   failedTests: number,
 ) {
+  const failedText = `${failedTests} failed`;
   const testResults =
     `${chalk.green(`${passedTests} passed`)}` +
-    `, ${chalk.red(`${failedTests} failed`)}` +
+    `, ${failedTests !== 0 ? chalk.red(failedText) : failedText}` +
     (skippedTests !== 0 ? `, ${chalk.gray(`${skippedTests} skipped`)}` : '');
   const progressBar = `${renderProgressBar(
     finishedFiles,
