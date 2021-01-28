@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.3.4
+
+### Patch Changes
+
+- f66aaa80: fix checking path on windows
+
 ## 0.3.3
 
 ### Patch Changes
