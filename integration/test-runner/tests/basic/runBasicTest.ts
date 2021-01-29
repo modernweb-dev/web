@@ -18,7 +18,7 @@ export function runBasicTest(
         plugins: [...(config.plugins ?? []), legacyPlugin()],
       });
       allSessions = result.sessions;
-
+      console.log(allSessions.map(s => s.testFile));
       expect(allSessions.every(s => s.passed)).to.equal(true, 'All sessions should have passed');
     });
 
