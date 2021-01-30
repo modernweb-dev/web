@@ -46,7 +46,7 @@ export default {
       entryFileNames: 'nomodule-[name]-[hash].js',
       dir: 'dist',
       // add a legacy build child plugin
-      plugins: [htmlPlugin.addOutput('legacy')],
+      plugins: [htmlPlugin.api.addOutput('legacy')],
     },
     {
       format: 'es',
@@ -54,7 +54,7 @@ export default {
       entryFileNames: '[name]-[hash].js',
       dir: 'dist',
       // add a modern build child plugin
-      plugins: [htmlPlugin.addOutput('modern')],
+      plugins: [htmlPlugin.api.addOutput('modern')],
     },
   ],
   plugins: [
