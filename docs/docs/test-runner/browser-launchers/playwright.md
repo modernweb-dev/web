@@ -46,7 +46,7 @@ export default {
 
 If you want to customize the playwright launcher options, you can add the browser launcher in the config.
 
-You can find all possible launch options in the [official documentation](https://github.com/microsoft/playwright/blob/master/docs/api.md#browsertypelaunchoptions).
+You can find all possible launch options in the [official documentation](https://playwright.dev/docs/api/class-browsertype#browsertypelaunchoptions).
 
 ```js
 import { playwrightLauncher } from '@web/test-runner-playwright';
@@ -66,7 +66,7 @@ export default {
 
 ## Customizing browser context and page
 
-You can customize the way the browser context or playwright page is created. This allows configuring the test environment. Check the [official documentation](https://github.com/microsoft/playwright/blob/master/docs/api.md) for all API options.
+You can customize the way the browser context or playwright page is created. This allows configuring the test environment. Check the [official documentation](https://playwright.dev/docs/api/class-playwright) for all API options.
 
 ```js
 import { playwrightLauncher } from '@web/test-runner-playwright';
