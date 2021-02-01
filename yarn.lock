@@ -1486,10 +1486,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.6.0.tgz#f022195afdfc942e088ee2101285a1d31c7d727f"
   integrity sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
 
-"@rocket/blog@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@rocket/blog/-/blog-0.2.0.tgz#2ca8b61934647f2a67d0a4d184ad6dd8269f613d"
-  integrity sha512-0VoUwMgQyNHgKrsUBx2eb4Z0AteQjjVaGLEN0bFvcfTkHAfmok5O+9ldd0nqWSnj09hP4sbbFpct5Dj+771CCg==
+"@rocket/blog@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@rocket/blog/-/blog-0.3.0.tgz#769dd08523ec0a641de37407c9bf425afd38e483"
+  integrity sha512-BiqhP6ai+D0+Lft5uqdKycfc4MzSJmfG+TIGG90vxH7cKvCsiOf7HN7zoVxf3SDgjVrs8nfxnqNBW6ONKQC/tg==
   dependencies:
     plugins-manager "^0.2.0"
 
