@@ -1576,10 +1576,10 @@
   resolved "https://registry.yarnpkg.com/@rocket/navigation/-/navigation-0.1.0.tgz#33c2ce9b0f62cb2daf337c2385627678cbc40b1f"
   integrity sha512-o831fCtoo8c4PU522bVPXd3Oi49SguJq8TFnpQmdrRgmjx1HOmwJeThJ/vvxbLsQgIu554laSXHAlSBYilgSBg==
 
-"@rocket/search@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@rocket/search/-/search-0.2.0.tgz#30ec5962be97bb3153b46e3d405921f352a15afe"
-  integrity sha512-Yh1FPqMuFkZp6EkhYrM3iDBhaGY7Jy0+df65BwntHkMfL/mD+5SHXWCL3fowq5ZQNPPRdEewOi3F1NfAANC4cg==
+"@rocket/search@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@rocket/search/-/search-0.3.0.tgz#16d410eda8dc1baf6f6393fa222ed1cd7d94a8a5"
+  integrity sha512-EzBcLu7p9vVhDghfhf+OBG6KErBKDtQUWb44qA8OvjBZnQn4S4MlK4OkwV+ijVnbfmT0lZR6WGHZsjDoCVNKJg==
   dependencies:
     "@lion/combobox" "^0.1.20"
     "@open-wc/scoped-elements" "^1.3.2"
