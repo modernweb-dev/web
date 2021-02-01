@@ -1563,18 +1563,18 @@
     dependency-graph "^0.10.0"
     sax-wasm "^2.0.0"
 
-"@rocket/launch@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@rocket/launch/-/launch-0.3.0.tgz#67f2e9f2b98fc6e351008c53affb517b62e20b00"
-  integrity sha512-B+EqCIDx0zZpu5UkMAZHTm1T8LNJU3uFlxwME3l5ROt3wumt1LfvYBbzRvM1y2iJISgH6PQJKNQQC65mkMqtng==
+"@rocket/launch@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@rocket/launch/-/launch-0.4.0.tgz#f94e197e7f5d3bd7620802266503391cd4b021c9"
+  integrity sha512-s5nuEXR9IERNK0qmBabAkXYkU/d3fdhKV9a7dPnJZmlW8MvImdMjOQAbOehd180wIiUJEAOvDkGPRjlAKEtFSQ==
   dependencies:
     "@rocket/drawer" "^0.1.2"
-    "@rocket/navigation" "^0.1.0"
+    "@rocket/navigation" "^0.2.0"
 
-"@rocket/navigation@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@rocket/navigation/-/navigation-0.1.0.tgz#33c2ce9b0f62cb2daf337c2385627678cbc40b1f"
-  integrity sha512-o831fCtoo8c4PU522bVPXd3Oi49SguJq8TFnpQmdrRgmjx1HOmwJeThJ/vvxbLsQgIu554laSXHAlSBYilgSBg==
+"@rocket/navigation@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@rocket/navigation/-/navigation-0.2.0.tgz#6b02c696727bc3582311df39ac3478fb942f9418"
+  integrity sha512-fLqTN6paasJUzzhJYJey6fZ5LqociipD2/Rf0dtZ98BtddDXRuy41nDFe89wWQjz+xD66boOsQ/LkC+7t60M5w==
 
 "@rocket/search@^0.2.0":
   version "0.2.0"
