@@ -5,7 +5,7 @@
     alt="Modern Web"
   />
 </p>
-
+.
 <p align="center">
   <a href="https://github.com/modernweb-dev/web/actions"
     ><img
