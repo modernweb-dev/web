@@ -62,6 +62,7 @@ describe('test-runner-browserstack', function () {
 
   runIntegrationTests(createConfig, {
     basic: true,
+    many: true,
     focus: true,
     groups: false,
     parallel: false,

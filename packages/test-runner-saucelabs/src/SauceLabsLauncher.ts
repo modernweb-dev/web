@@ -28,9 +28,9 @@ export class SauceLabsLauncher extends WebdriverLauncher {
     return super.initialize(config);
   }
 
-  stop() {
+  async stop() {
     const stopPromise = super.stop();
-    this.manager.deregisterLauncher(this);
+    await this.manager.deregisterLauncher(this);
     return stopPromise;
   }
 }

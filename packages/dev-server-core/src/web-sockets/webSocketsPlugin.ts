@@ -17,24 +17,41 @@ export function webSocketsPlugin(): Plugin {
 
     serve(context) {
       if (context.path === NAME_WEB_SOCKET_IMPORT) {
-        return `export const webSocket = ('WebSocket' in window) ? new WebSocket(\`ws\${location.protocol === 'https:' ? 's': ''}://\${location.host}\`) : null;
-export const webSocketOpened = new Promise((resolve) => {
-  if (!webSocket) {
-    resolve();
-  } else {
-    webSocket.addEventListener('open', () => {
-      resolve();
-    });
-  }
-});
+        // this code is inlined because TS compiles to CJS but we need this to be ESM
+        return `
+export let webSocket;
+export let webSocketOpened;
+let getNextMessageId;
 
-let messageId = 0;
-function nextMessageId() {
-  if (messageId >= Number.MAX_SAFE_INTEGER) {
-    messageId = 0;
-  }
-  messageId += 1;
-  return messageId;
+if (window.parent !== window && window.parent.__WDS_WEB_SOCKET__ !== undefined) {
+  // get the websocket instance from the parent element if present
+  const info = window.parent.__WDS_WEB_SOCKET__;
+  webSocket = info.webSocket;
+  webSocketOpened = info.webSocketOpened;
+  getNextMessageId = info.getNextMessageId;
+} else {
+  webSocket =
+    'WebSocket' in window
+      ? new WebSocket(\`ws\${location.protocol === 'https:' ? 's' : ''}://\${location.host}\`)
+      : null;
+  webSocketOpened = new Promise(resolve => {
+    if (!webSocket) {
+      resolve();
+    } else {
+      webSocket.addEventListener('open', () => {
+        resolve();
+      });
+    }
+  });
+  let messageId = 0;
+  getNextMessageId = function () {
+    if (messageId >= Number.MAX_SAFE_INTEGER) {
+      messageId = 0;
+    }
+    messageId += 1;
+    return messageId;
+  };
+  window.__WDS_WEB_SOCKET__ = { webSocket, webSocketOpened, getNextMessageId };
 }
 
 export async function sendMessage(message) {
@@ -48,14 +65,14 @@ export async function sendMessage(message) {
 // sends a websocket message and expects a response from the server
 export function sendMessageWaitForResponse(message) {
   return new Promise(async (resolve, reject) => {
-    const id = nextMessageId();
+    const id = getNextMessageId();
 
     function onResponse(e) {
       const message = JSON.parse(e.data);
       if (message.type === 'message-response' && message.id === id) {
         webSocket.removeEventListener('message', onResponse);
         if (message.error) {
-          reject(new Error(message.error))
+          reject(new Error(message.error));
         } else {
           resolve(message.response);
         }
@@ -64,9 +81,13 @@ export function sendMessageWaitForResponse(message) {
 
     webSocket.addEventListener('message', onResponse);
 
-    const timeoutId = setTimeout(() => {
+    setTimeout(() => {
       webSocket.removeEventListener('message', onResponse);
-      reject(new Error(\`Did not receive a server response for message with type \${message.type} within 20000ms\`))
+      reject(
+        new Error(
+          \`Did not receive a server response for message with type \${message.type} within 20000ms\`,
+        ),
+      );
     }, 20000);
 
     sendMessage({ ...message, id });
@@ -74,7 +95,7 @@ export function sendMessageWaitForResponse(message) {
 }
 
 if (webSocket) {
-  webSocket.addEventListener('message', async (e) => {
+  webSocket.addEventListener('message', async e => {
     try {
       const message = JSON.parse(e.data);
       if (message.type === 'import') {
@@ -83,13 +104,14 @@ if (webSocket) {
           module.default(...(message.data.args || []));
         }
         return;
-      } 
+      }
     } catch (error) {
       console.error('[Web Dev Server] Error while handling websocket message.');
       console.error(error);
     }
   });
-}`;
+}
+        `;
       }
     },
 
