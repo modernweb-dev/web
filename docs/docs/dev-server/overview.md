@@ -1,11 +1,12 @@
 ---
-title: Web Dev Server
 eleventyNavigation:
   key: Dev Server >> Overview
   title: Overview
   parent: Dev Server
   order: 1
 ---
+
+# Web Dev Server
 
 Web Dev Server helps developing for the web, using native browser features like es modules. It is ideal for buildless workflows, and has a plugin architecture for light code transformations.
 

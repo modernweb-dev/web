@@ -1,7 +1,3 @@
----
-layout: with-index.njk
----
-
 # Test Runner >> Test Frameworks ||4
 
 Test frameworks load and run your tests in the browser, and provide the framework needed to define your tests.

@@ -1,10 +1,10 @@
 ---
-title: Learning Modern Web
-pageTitle: Learning Modern Web
 eleventyNavigation:
   key: Guides
   order: 10
 ---
+
+# Learning Modern Web
 
 In this section, we help you become confident in building for the modern web.
 
