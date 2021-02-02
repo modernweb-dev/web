@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.3.5
+
+### Patch Changes
+
+- d75676de: normalize paths received from globby
+
 ## 0.3.4
 
 ### Patch Changes
