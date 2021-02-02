@@ -12,6 +12,7 @@ describe('test-runner-chrome', function testRunnerChrome() {
 
   runIntegrationTests(createConfig, {
     basic: true,
+    many: true,
     focus: true,
     groups: true,
     parallel: true,

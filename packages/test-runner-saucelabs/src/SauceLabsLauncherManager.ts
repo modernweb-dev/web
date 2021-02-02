@@ -6,6 +6,21 @@ import SaucelabsAPI, {
 } from 'saucelabs';
 import ip from 'ip';
 
+/**
+ * Wraps a Promise with a timeout, rejecing the promise with the timeout.
+ */
+export function withTimeout<T>(promise: Promise<T>, message: string): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timeoutId = setTimeout(() => {
+      reject(new Error(message));
+    }, 5 * 60 * 1000);
+
+    promise
+      .then(val => resolve(val))
+      .catch(err => reject(err))
+      .finally(() => clearTimeout(timeoutId));
+  });
+}
 export class SauceLabsLauncherManager {
   private api: SaucelabsAPI;
   private launchers = new Set<BrowserLauncher>();
@@ -34,10 +49,14 @@ export class SauceLabsLauncherManager {
     }
 
     console.log('[Saucelabs] Setting up Sauce Connect proxy...');
-    this.connectionPromise = this.api.startSauceConnect({
-      ...this.connectOptions,
-      noSslBumpDomains: `127.0.0.1,localhost,${ip.address()}`,
-    });
+
+    this.connectionPromise = withTimeout(
+      this.api.startSauceConnect({
+        ...this.connectOptions,
+        noSslBumpDomains: `127.0.0.1,localhost,${ip.address()}`,
+      }),
+      '[Saucelabs] Timed out setting up Sauce Connect proxy after 5 minutes.',
+    );
     this.connection = await this.connectionPromise;
   }
 
@@ -45,7 +64,7 @@ export class SauceLabsLauncherManager {
     this.launchers.delete(launcher);
 
     if (this.launchers.size === 0) {
-      this.closeConnection();
+      return this.closeConnection();
     }
   }
 
@@ -60,10 +79,12 @@ export class SauceLabsLauncherManager {
       await this.connectionPromise;
     }
 
-    if (this.connection != null) {
-      this.connection.close();
-    }
+    const connection = this.connection;
     this.connection = undefined;
     this.connectionPromise = undefined;
+
+    if (connection != null) {
+      await connection.close();
+    }
   };
 }
