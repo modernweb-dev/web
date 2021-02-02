@@ -1,7 +1,7 @@
 ---
 title: Modern Web Blog
 pageTitle: Modern Web Blog
-layout: blog-overview.njk
+layout: layout-blog-overview
 eleventyNavigation:
   key: Blog
   order: 30

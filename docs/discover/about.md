@@ -1,8 +1,9 @@
 ---
-title: About Modern Web
 eleventyNavigation:
   key: Family
 ---
+
+# About Modern Web
 
 > Our goal is to provide developers with the guides and tools they need to build for the modern web. We aim to work closely with the browser and avoid complex abstractions.
 

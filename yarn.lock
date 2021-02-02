@@ -1486,10 +1486,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.6.0.tgz#f022195afdfc942e088ee2101285a1d31c7d727f"
   integrity sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
 
-"@rocket/blog@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@rocket/blog/-/blog-0.2.0.tgz#2ca8b61934647f2a67d0a4d184ad6dd8269f613d"
-  integrity sha512-0VoUwMgQyNHgKrsUBx2eb4Z0AteQjjVaGLEN0bFvcfTkHAfmok5O+9ldd0nqWSnj09hP4sbbFpct5Dj+771CCg==
+"@rocket/blog@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@rocket/blog/-/blog-0.3.0.tgz#769dd08523ec0a641de37407c9bf425afd38e483"
+  integrity sha512-BiqhP6ai+D0+Lft5uqdKycfc4MzSJmfG+TIGG90vxH7cKvCsiOf7HN7zoVxf3SDgjVrs8nfxnqNBW6ONKQC/tg==
   dependencies:
     plugins-manager "^0.2.0"
 
@@ -1509,10 +1509,10 @@
     rollup-plugin-terser "^7.0.2"
     rollup-plugin-workbox "^6.1.0"
 
-"@rocket/cli@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@rocket/cli/-/cli-0.4.1.tgz#9f323ef6c7472279455b139534abfe9fedeedc2d"
-  integrity sha512-Yo417R2e2Y2FKEM73yXWyRxiwRQ74K0zmlUEofIwQvHuAmEsmMJqUW1uRC7JyM49RL7cK2CQp61GrZcPguxolQ==
+"@rocket/cli@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@rocket/cli/-/cli-0.5.0.tgz#68069407174d004fd68e711ecbff891504fb2b4e"
+  integrity sha512-RF7DSJtN/OVfgy7lC6zQgqyNiCD8NIz3ihNdn0wG5p4yRZZqzxl9bcjp2z1h4MKKSfc5F+MoiYYY8dTPBWfzjA==
   dependencies:
     "@11ty/eleventy" "^0.11.1"
     "@11ty/eleventy-img" "^0.7.4"
@@ -1526,7 +1526,7 @@
     "@web/dev-server" "^0.1.4"
     "@web/dev-server-rollup" "^0.3.2"
     "@web/rollup-plugin-copy" "^0.2.0"
-    check-html-links "^0.1.1"
+    check-html-links "^0.1.2"
     command-line-args "^5.1.1"
     command-line-usage "^6.1.1"
     fs-extra "^9.0.1"
@@ -1563,23 +1563,23 @@
     dependency-graph "^0.10.0"
     sax-wasm "^2.0.0"
 
-"@rocket/launch@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@rocket/launch/-/launch-0.3.0.tgz#67f2e9f2b98fc6e351008c53affb517b62e20b00"
-  integrity sha512-B+EqCIDx0zZpu5UkMAZHTm1T8LNJU3uFlxwME3l5ROt3wumt1LfvYBbzRvM1y2iJISgH6PQJKNQQC65mkMqtng==
+"@rocket/launch@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@rocket/launch/-/launch-0.4.0.tgz#f94e197e7f5d3bd7620802266503391cd4b021c9"
+  integrity sha512-s5nuEXR9IERNK0qmBabAkXYkU/d3fdhKV9a7dPnJZmlW8MvImdMjOQAbOehd180wIiUJEAOvDkGPRjlAKEtFSQ==
   dependencies:
     "@rocket/drawer" "^0.1.2"
-    "@rocket/navigation" "^0.1.0"
+    "@rocket/navigation" "^0.2.0"
 
-"@rocket/navigation@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@rocket/navigation/-/navigation-0.1.0.tgz#33c2ce9b0f62cb2daf337c2385627678cbc40b1f"
-  integrity sha512-o831fCtoo8c4PU522bVPXd3Oi49SguJq8TFnpQmdrRgmjx1HOmwJeThJ/vvxbLsQgIu554laSXHAlSBYilgSBg==
-
-"@rocket/search@^0.2.0":
+"@rocket/navigation@^0.2.0":
   version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@rocket/search/-/search-0.2.0.tgz#30ec5962be97bb3153b46e3d405921f352a15afe"
-  integrity sha512-Yh1FPqMuFkZp6EkhYrM3iDBhaGY7Jy0+df65BwntHkMfL/mD+5SHXWCL3fowq5ZQNPPRdEewOi3F1NfAANC4cg==
+  resolved "https://registry.yarnpkg.com/@rocket/navigation/-/navigation-0.2.0.tgz#6b02c696727bc3582311df39ac3478fb942f9418"
+  integrity sha512-fLqTN6paasJUzzhJYJey6fZ5LqociipD2/Rf0dtZ98BtddDXRuy41nDFe89wWQjz+xD66boOsQ/LkC+7t60M5w==
+
+"@rocket/search@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@rocket/search/-/search-0.3.0.tgz#16d410eda8dc1baf6f6393fa222ed1cd7d94a8a5"
+  integrity sha512-EzBcLu7p9vVhDghfhf+OBG6KErBKDtQUWb44qA8OvjBZnQn4S4MlK4OkwV+ijVnbfmT0lZR6WGHZsjDoCVNKJg==
   dependencies:
     "@lion/combobox" "^0.1.20"
     "@open-wc/scoped-elements" "^1.3.2"
@@ -3516,10 +3516,10 @@ check-error@^1.0.2:
   resolved "https://registry.yarnpkg.com/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
   integrity sha1-V00xLt2Iu13YkS6Sht1sCu1KrII=
 
-check-html-links@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/check-html-links/-/check-html-links-0.1.1.tgz#cb644c854637044f33a349448fd0656946715426"
-  integrity sha512-gcWNTK750kFB88/OYNJ75x3kJ/NcLmtW2wBXV8zjSCrVGckqYi6p3k1ALbYwc/EASsf7xO060MtqymFrsZsCnA==
+check-html-links@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/check-html-links/-/check-html-links-0.1.2.tgz#340d7d8c8325902b5d615e6894b4bab793753c1c"
+  integrity sha512-WKb/QfasPPeWeXKmYkSCl6F6D0cFH0XPh3XcvDcZK1oXKyhlv7RQ3QOgw/EOY4ClbQopVcWQVxBmc8bwdYRN7w==
   dependencies:
     chalk "^4.0.0"
     glob "^7.0.0"
