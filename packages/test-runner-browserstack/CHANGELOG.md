@@ -1,5 +1,11 @@
 # @web/test-runner-browserstack
 
+## 0.4.2
+
+### Patch Changes
+
+- 8861ded8: feat(dev-server-core): share websocket instances with iframe parent
+
 ## 0.4.1
 
 ### Patch Changes
