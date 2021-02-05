@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.3.4
+
+### Patch Changes
+
+- 8861ded8: feat(dev-server-core): share websocket instances with iframe parent
+
 ## 0.3.3
 
 ### Patch Changes

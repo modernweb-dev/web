@@ -1,5 +1,13 @@
 # @web/test-runner-webdriver
 
+## 0.2.2
+
+### Patch Changes
+
+- 8861ded8: feat(dev-server-core): share websocket instances with iframe parent
+- Updated dependencies [8861ded8]
+  - @web/test-runner-core@0.10.6
+
 ## 0.2.1
 
 ### Patch Changes
