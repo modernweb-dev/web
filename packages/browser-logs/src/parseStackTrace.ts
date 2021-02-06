@@ -25,9 +25,23 @@ export interface ParseStackTraceOptions {
 
 // regexp to match a stack track that is only a full address
 const REGEXP_ADDRESS = /^(http(s)?:\/\/.*)(:\d+)(:\d+)$/;
+const FILTERED_STACKS = [
+  '@web/test-runner',
+  '@web/dev-runner',
+  '__web-test-runner__',
+  '__web-dev-server__',
+];
 
 const validString = (str: unknown) => typeof str === 'string' && str !== '';
 const validNumber = (nr: unknown) => typeof nr === 'number' && nr !== -1;
+
+function filterStackFrames(frames: errorStacks.StackFrame[]) {
+  const withoutNative = frames.filter(f => f.type !== 'native');
+  const withoutInternal = withoutNative.filter(
+    f => !FILTERED_STACKS.some(p => f.fileName.includes(p)),
+  );
+  return withoutInternal.length > 0 ? withoutInternal : withoutNative;
+}
 
 async function mapLocation(
   url: URL,
@@ -122,7 +136,8 @@ export async function parseStackTrace(
     mapBrowserUrl = p => path.join(browserRootDir, p.pathname.split('/').join(path.sep)),
   } = options;
 
-  const frames = errorStacks.parseStackTrace(rawStack).filter(f => f.type !== 'native');
+  const allFrames = errorStacks.parseStackTrace(rawStack);
+  const frames = filterStackFrames(allFrames);
   if (frames.length === 0) {
     return undefined;
   }

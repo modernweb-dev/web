@@ -39,7 +39,6 @@
     "@web/test-runner-core": "^0.10.0"
   },
   "devDependencies": {
-    "clean-css": "^5.0.1",
     "mocha": "^8.2.1"
   }
 }
