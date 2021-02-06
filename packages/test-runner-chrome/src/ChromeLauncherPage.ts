@@ -50,7 +50,11 @@ export class ChromeLauncherPage {
   }
 
   private async collectTestCoverage(config: TestRunnerCoreConfig, testFiles: string[]) {
-    const userAgent = await this.puppeteerPage.browser().userAgent();
+    const userAgentPromise = this.puppeteerPage
+      .browser()
+      .userAgent()
+      .catch(() => undefined);
+
     try {
       const coverageFromBrowser = await this.puppeteerPage.evaluate(
         () => (window as any).__coverage__,
@@ -88,6 +92,7 @@ export class ChromeLauncherPage {
       // remove puppeteer specific scripts
       .filter(r => r.url && r.url !== '__puppeteer_evaluation_script__');
 
+    const userAgent = await userAgentPromise;
     await this.puppeteerPage.coverage?.stopJSCoverage();
     this.nativeInstrumentationEnabledOnPage = false;
 

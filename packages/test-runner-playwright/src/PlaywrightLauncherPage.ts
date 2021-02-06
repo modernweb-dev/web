@@ -45,7 +45,10 @@ export class PlaywrightLauncherPage {
   }
 
   private async collectTestCoverage(config: TestRunnerCoreConfig, testFiles: string[]) {
-    const userAgentPromise = this.playwrightPage.evaluate(() => window.navigator.userAgent);
+    const userAgentPromise = this.playwrightPage
+      .evaluate(() => window.navigator.userAgent)
+      .catch(() => undefined);
+
     try {
       const coverageFromBrowser = await this.playwrightPage.evaluate(
         () => (window as any).__coverage__,
