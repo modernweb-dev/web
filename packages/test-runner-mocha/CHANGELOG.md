@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.7.2
+
+### Patch Changes
+
+- e3314b02: update dependency on core
+
 ## 0.7.1
 
 ### Patch Changes

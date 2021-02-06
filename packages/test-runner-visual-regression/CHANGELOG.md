@@ -1,5 +1,13 @@
 # @web/test-runner-visual-regression
 
+## 0.4.1
+
+### Patch Changes
+
+- e3314b02: update dependency on core
+- Updated dependencies [e3314b02]
+  - @web/test-runner-commands@0.4.1
+
 ## 0.4.0
 
 ### Minor Changes

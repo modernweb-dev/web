@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.4.1
+
+### Patch Changes
+
+- e3314b02: update dependency on core
+
 ## 0.4.0
 
 ### Minor Changes

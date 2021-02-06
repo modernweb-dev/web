@@ -1,5 +1,11 @@
 # @web/test-runner-coverage-v8
 
+## 0.4.4
+
+### Patch Changes
+
+- e3314b02: update dependency on core
+
 ## 0.4.3
 
 ### Patch Changes
