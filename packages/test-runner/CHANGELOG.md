@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.12.12
+
+### Patch Changes
+
+- 4a609a18: skip non-http coverage files
+- Updated dependencies [4a609a18]
+  - @web/test-runner-chrome@0.9.4
+
 ## 0.12.11
 
 ### Patch Changes
