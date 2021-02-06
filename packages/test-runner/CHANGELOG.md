@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.12.13
+
+### Patch Changes
+
+- 3885b33e: configure timeout for fetching source maps for code coverage
+- Updated dependencies [3885b33e]
+  - @web/test-runner-core@0.10.9
+
 ## 0.12.12
 
 ### Patch Changes
