@@ -48,25 +48,34 @@ export async function v8ToIstanbul(
     const url = new URL(entry.url);
     const path = url.pathname;
     if (
+      // ignore non-http protocols (for exmaple webpack://)
+      url.protocol.startsWith('http') &&
+      // ignore non-files
       !!extname(path) &&
+      // ignore virtual files
       !path.startsWith('/__web-test-runner') &&
       !path.startsWith('/__web-dev-server')
     ) {
-      const sources = await fetchSourceMap({
-        protocol: config.protocol,
-        host: config.hostname,
-        port: config.port,
-        browserUrl: `${url.pathname}${url.search}${url.hash}`,
-        userAgent,
-      });
+      try {
+        const sources = await fetchSourceMap({
+          protocol: config.protocol,
+          host: config.hostname,
+          port: config.port,
+          browserUrl: `${url.pathname}${url.search}${url.hash}`,
+          userAgent,
+        });
 
-      const filePath = join(config.rootDir, toFilePath(path));
+        const filePath = join(config.rootDir, toFilePath(path));
 
-      if (!testFiles.includes(filePath) && included(filePath) && !excluded(filePath)) {
-        const converter = v8toIstanbulLib(filePath, 0, sources as any);
-        await converter.load();
-        converter.applyCoverage(entry.functions);
-        Object.assign(istanbulCoverage, converter.toIstanbul());
+        if (!testFiles.includes(filePath) && included(filePath) && !excluded(filePath)) {
+          const converter = v8toIstanbulLib(filePath, 0, sources as any);
+          await converter.load();
+          converter.applyCoverage(entry.functions);
+          Object.assign(istanbulCoverage, converter.toIstanbul());
+        }
+      } catch (error) {
+        console.error(`Error while code coverage for ${entry.url}. Are the source maps correct?`);
+        console.error(error);
       }
     }
   }
