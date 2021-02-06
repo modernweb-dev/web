@@ -27,7 +27,15 @@ function httpsRedirect(req: IncomingMessage, res: ServerResponse) {
  */
 export function createServer(logger: Logger, cfg: DevServerCoreConfig, fileWatcher: FSWatcher) {
   const app = new Koa();
+  app.silent = true;
+  app.on('error', error => {
+    if (['EPIPE', 'ECONNRESET'].includes(error.code)) {
+      return;
+    }
 
+    console.error('Error while handling server request.');
+    console.error(error);
+  });
   addPlugins(logger, cfg);
 
   // special case the legacy plugin, if it is given make sure the resolve module imports plugin
