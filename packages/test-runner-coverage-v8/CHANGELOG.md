@@ -1,5 +1,13 @@
 # @web/test-runner-coverage-v8
 
+## 0.4.6
+
+### Patch Changes
+
+- 3885b33e: configure timeout for fetching source maps for code coverage
+- Updated dependencies [3885b33e]
+  - @web/test-runner-core@0.10.9
+
 ## 0.4.5
 
 ### Patch Changes
