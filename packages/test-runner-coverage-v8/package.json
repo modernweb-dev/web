@@ -42,7 +42,7 @@
     "server"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.10.5",
+    "@web/test-runner-core": "^0.10.8",
     "istanbul-lib-coverage": "^3.0.0",
     "picomatch": "^2.2.2",
     "v8-to-istanbul": "^7.1.0"

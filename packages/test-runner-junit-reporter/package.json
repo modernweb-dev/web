@@ -45,7 +45,7 @@
   ],
   "dependencies": {
     "@web/test-runner-chrome": "^0.9.0",
-    "@web/test-runner-core": "^0.10.0",
+    "@web/test-runner-core": "^0.10.8",
     "array-flat-polyfill": "^1.0.1",
     "xml": "^1.0.1"
   },
