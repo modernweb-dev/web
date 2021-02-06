@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.10.8
+
+### Patch Changes
+
+- 83e0757e: handle cases when userAgent is not defined
+
 ## 0.10.7
 
 ### Patch Changes
