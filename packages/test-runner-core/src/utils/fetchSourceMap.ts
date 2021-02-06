@@ -11,7 +11,7 @@ interface FetchCodeArgs {
   host: string;
   port: number;
   browserUrl: string;
-  userAgent: string;
+  userAgent?: string;
 }
 
 interface FetchCodeReturnValue {
@@ -69,12 +69,13 @@ async function doFetchSourceMap(
  * reading the source maps if there are any available.
  */
 export async function fetchSourceMap(args: FetchCodeArgs): Promise<FetchCodeReturnValue> {
+  const headers: Record<string, string> = args.userAgent ? { 'user-agent': args.userAgent } : {};
   const reqOpts = {
     protocol: args.protocol,
     host: args.host,
     port: String(args.port),
     method: 'GET',
-    headers: { 'user-agent': args.userAgent },
+    headers,
   };
 
   // fetch the source code used by the browser, using the browser's user agent to

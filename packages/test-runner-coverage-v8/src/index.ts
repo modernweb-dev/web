@@ -38,7 +38,7 @@ export async function v8ToIstanbul(
   config: TestRunnerCoreConfig,
   testFiles: string[],
   coverage: V8Coverage[],
-  userAgent: string,
+  userAgent?: string,
 ) {
   const included = getMatcher(config?.coverageConfig?.include);
   const excluded = getMatcher(config?.coverageConfig?.exclude);
