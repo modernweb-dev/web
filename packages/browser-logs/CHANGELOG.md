@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.2.1
+
+### Patch Changes
+
+- 6a62b4ee: filter out internal stack traces
+
 ## 0.2.0
 
 ### Minor Changes
