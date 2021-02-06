@@ -1,5 +1,11 @@
 # @web/test-runner-puppeteer
 
+## 0.9.3
+
+### Patch Changes
+
+- e3314b02: update dependency on core
+
 ## 0.9.2
 
 ### Patch Changes

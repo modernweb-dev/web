@@ -1,5 +1,11 @@
 # @web/test-runner-webdriver
 
+## 0.2.3
+
+### Patch Changes
+
+- e3314b02: update dependency on core
+
 ## 0.2.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.5.1
+
+### Patch Changes
+
+- e3314b02: update dependency on core
+
 ## 0.5.0
 
 ### Minor Changes
