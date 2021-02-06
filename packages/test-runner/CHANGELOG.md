@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.12.10
+
+### Patch Changes
+
+- 9ecb49f4: release test coverage package
+- Updated dependencies [9ecb49f4]
+  - @web/test-runner-chrome@0.9.3
+
 ## 0.12.9
 
 ### Patch Changes

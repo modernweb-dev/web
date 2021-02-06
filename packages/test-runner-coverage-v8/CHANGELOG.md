@@ -1,5 +1,11 @@
 # @web/test-runner-coverage-v8
 
+## 0.4.3
+
+### Patch Changes
+
+- 9ecb49f4: release test coverage package
+
 ## 0.4.2
 
 ### Patch Changes
