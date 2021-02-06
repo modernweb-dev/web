@@ -1,5 +1,13 @@
 # @web/test-runner-core
 
+## 0.10.7
+
+### Patch Changes
+
+- 6a62b4ee: filter out internal stack traces
+- Updated dependencies [6a62b4ee]
+  - @web/browser-logs@0.2.1
+
 ## 0.10.6
 
 ### Patch Changes

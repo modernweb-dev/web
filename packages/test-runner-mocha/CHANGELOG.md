@@ -1,5 +1,13 @@
 # @web/test-runner-mocha
 
+## 0.7.1
+
+### Patch Changes
+
+- 6a62b4ee: filter out internal stack traces
+- Updated dependencies [6a62b4ee]
+  - @web/test-runner-core@0.10.7
+
 ## 0.7.0
 
 ### Minor Changes
