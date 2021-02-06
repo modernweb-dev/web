@@ -1,5 +1,11 @@
 # @web/test-runner-coverage-v8
 
+## 0.4.5
+
+### Patch Changes
+
+- 4a609a18: skip non-http coverage files
+
 ## 0.4.4
 
 ### Patch Changes
