@@ -1,5 +1,13 @@
 # @web/test-runner-chrome
 
+## 0.9.2
+
+### Patch Changes
+
+- 83e0757e: handle cases when userAgent is not defined
+- Updated dependencies [83e0757e]
+  - @web/test-runner-core@0.10.8
+
 ## 0.9.1
 
 ### Patch Changes
