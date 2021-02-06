@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.8.3
+
+### Patch Changes
+
+- 9ecb49f4: release test coverage package
+- Updated dependencies [9ecb49f4]
+  - @web/test-runner-coverage-v8@0.4.3
+
 ## 0.8.2
 
 ### Patch Changes
