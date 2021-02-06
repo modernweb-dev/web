@@ -1,6 +1,8 @@
 import { mapFileCommentRegex, fromSource, SourceMapConverter, fromJSON } from 'convert-source-map';
 import path from 'path';
-import { request } from '../server/plugins/api/request';
+import { RequestOptions } from 'http';
+
+import { request } from './request';
 
 function is2xxResponse(status?: number) {
   return typeof status === 'number' && status >= 200 && status < 300;
@@ -17,14 +19,6 @@ interface FetchCodeArgs {
 interface FetchCodeReturnValue {
   source?: string;
   sourceMap?: SourceMapConverter;
-}
-
-interface RequestOptions {
-  protocol: string;
-  host: string;
-  port: string;
-  method: string;
-  headers: Record<string, string>;
 }
 
 async function doFetchSourceMap(
@@ -70,12 +64,13 @@ async function doFetchSourceMap(
  */
 export async function fetchSourceMap(args: FetchCodeArgs): Promise<FetchCodeReturnValue> {
   const headers: Record<string, string> = args.userAgent ? { 'user-agent': args.userAgent } : {};
-  const reqOpts = {
+  const reqOpts: RequestOptions = {
     protocol: args.protocol,
     host: args.host,
     port: String(args.port),
     method: 'GET',
     headers,
+    timeout: 5000,
   };
 
   // fetch the source code used by the browser, using the browser's user agent to

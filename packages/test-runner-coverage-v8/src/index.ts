@@ -74,7 +74,7 @@ export async function v8ToIstanbul(
           Object.assign(istanbulCoverage, converter.toIstanbul());
         }
       } catch (error) {
-        console.error(`Error while code coverage for ${entry.url}. Are the source maps correct?`);
+        console.error(`Error while generating code coverage for ${entry.url}.`);
         console.error(error);
       }
     }
