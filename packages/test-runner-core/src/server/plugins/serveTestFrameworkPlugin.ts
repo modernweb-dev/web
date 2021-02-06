@@ -5,7 +5,6 @@ import { Plugin } from '@web/dev-server-core';
 import { TestFramework } from '../../test-framework/TestFramework';
 
 const TEST_FRAMEWORK_IMPORT_ROOT = '/__web-test-runner__/test-framework/';
-const REGEXP_SOURCE_MAP = /\/\/# sourceMappingURL=.*/;
 
 async function readFile(codePath: string) {
   if (!fs.existsSync(codePath)) {
@@ -15,7 +14,7 @@ async function readFile(codePath: string) {
     );
   }
 
-  return (await promisify(fs.readFile)(codePath, 'utf-8')).replace(REGEXP_SOURCE_MAP, '');
+  return await promisify(fs.readFile)(codePath, 'utf-8');
 }
 
 /**
@@ -39,6 +38,7 @@ export function serveTestFrameworkPlugin(testFramework: TestFramework) {
         if (path.sep === '/') {
           filePath = `/${filePath}`;
         }
+
         const body = await readFile(filePath);
         return { body, type: 'js', headers: { 'cache-control': 'public, max-age=31536000' } };
       }

@@ -1,18 +1,8 @@
-import CleanCSS from 'clean-css';
 import deepmerge from 'deepmerge';
 import createConfig from '../../rollup.browser.config';
 
 const REGEXP_DTS_MOCHA = /'..\/..\/..\/node_modules\/mocha\/mocha.js'/g;
 const REGEXP_DTS_CORE = /'..\/..\/test-runner-core\/browser\/session.js'/g;
-
-const cssPlugin = {
-  transform(code, id) {
-    if (id.endsWith('.css')) {
-      const minified = new CleanCSS().minify(code);
-      return { code: `export default ${JSON.stringify(minified.styles)}`, map: null };
-    }
-  },
-};
 
 const rewriteDtsPlugin = {
   generateBundle(options, bundle) {
@@ -27,20 +17,35 @@ const rewriteDtsPlugin = {
 };
 
 const rewriteWebSocketImportPlugin = {
-  renderChunk(code) {
-    // undo rollup rewrite of import path
-    return code.replace(
-      /['"].*\/__web-dev-server__web-socket\.js['"]/,
-      '"/__web-dev-server__web-socket.js"',
-    );
+  resolveId(id) {
+    if (id === '/__web-dev-server__web-socket.js') {
+      // rollup treats external absolute paths as relative to the root of the file sytem,
+      // while we want to preserve the absolute path. we use a bare import which is mapped
+      // again later
+      return { id: 'wds-socket', external: true };
+    }
   },
 };
 
 export default [
   deepmerge(createConfig('src/autorun.ts'), {
-    plugins: [cssPlugin, rewriteDtsPlugin, rewriteWebSocketImportPlugin],
+    output: {
+      paths: {
+        // resolve bare import to an absolute import to avoid rollup
+        // from normalizing the import relative to the root of the file system
+        'wds-socket': '/__web-dev-server__web-socket.js',
+      },
+    },
+    plugins: [rewriteDtsPlugin, rewriteWebSocketImportPlugin],
   }),
   deepmerge(createConfig('src/standalone.ts'), {
-    plugins: [cssPlugin, rewriteDtsPlugin, rewriteWebSocketImportPlugin],
+    output: {
+      paths: {
+        // resolve bare import to an absolute import to avoid rollup
+        // from normalizing the import relative to the root of the file system
+        'wds-socket': '/__web-dev-server__web-socket.js',
+      },
+    },
+    plugins: [rewriteDtsPlugin, rewriteWebSocketImportPlugin],
   }),
 ];
