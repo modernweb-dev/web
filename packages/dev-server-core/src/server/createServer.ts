@@ -29,7 +29,7 @@ export function createServer(logger: Logger, cfg: DevServerCoreConfig, fileWatch
   const app = new Koa();
   app.silent = true;
   app.on('error', error => {
-    if (['EPIPE', 'ECONNRESET'].includes(error.code)) {
+    if (['EPIPE', 'ECONNRESET', 'ERR_STREAM_PREMATURE_CLOSE'].includes(error.code)) {
       return;
     }
 
