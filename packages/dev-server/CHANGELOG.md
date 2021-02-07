@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.1.6
+
+### Patch Changes
+
+- 2c223cf0: filter server stream errors
+- Updated dependencies [2c223cf0]
+  - @web/dev-server-core@0.3.5
+
 ## 0.1.5
 
 ### Patch Changes
