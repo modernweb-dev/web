@@ -1,5 +1,13 @@
 # @web/test-runner-core
 
+## 0.10.10
+
+### Patch Changes
+
+- 2c223cf0: filter server stream errors
+- Updated dependencies [2c223cf0]
+  - @web/dev-server-core@0.3.5
+
 ## 0.10.9
 
 ### Patch Changes
