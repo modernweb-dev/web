@@ -1,4 +1,6 @@
 import { Context, getRequestFilePath, ServerStartParams, WebSocket } from '@web/dev-server-core';
+import { MapBrowserUrl } from '@web/browser-logs/src/parseStackTrace';
+import parse from 'co-body';
 
 import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
 import { TestSessionManager } from '../../../test-session/TestSessionManager';
@@ -9,7 +11,7 @@ import { TestSession } from '../../../test-session/TestSession';
 import { parseBrowserResult } from './parseBrowserResult';
 import { TestRunner } from '../../../runner/TestRunner';
 import { createSourceMapFunction, SourceMapFunction } from './createSourceMapFunction';
-import { MapBrowserUrl } from '@web/browser-logs/src/parseStackTrace';
+import { DebugTestSession } from '../../../test-session/DebugTestSession';
 
 interface SessionMessage extends Record<string, unknown> {
   sessionId: string;
@@ -104,46 +106,78 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
 
   serverStart({ webSockets }: ServerStartParams) {
     webSockets!.on('message', async ({ webSocket, data }) => {
+      if (!data.type.startsWith('wtr-')) {
+        return;
+      }
+      const { session, message } = this.parseSessionMessage(data);
+
       if (data.type === 'wtr-session-started') {
-        this._onSessionStarted(webSocket, data);
+        if (!data.testFile && !session.debug) {
+          // handle started only when session isn't debug or manual
+          this._onSessionStarted(session);
+          webSocket.on('close', async () => {
+            this._waitForDisconnect(session.id, session.testRun);
+          });
+        }
         return;
       }
 
       if (data.type === 'wtr-session-finished') {
-        this._onSessionFinished(data);
+        this._onSessionFinished(data, session, message);
         return;
       }
 
       if (data.type === 'wtr-command') {
-        this._onCommand(webSocket, data);
+        this._onCommand(webSocket, session, message);
         return;
       }
     });
   }
 
-  private _onSessionStarted(webSocket: WebSocket, data: Record<string, unknown>) {
-    if (!data.testFile) {
-      // this is a regular test session
-      const { session } = this.parseSessionMessage(data);
-      if (!session.debug) {
-        if (session.status !== SESSION_STATUS.INITIALIZING) {
-          this._onMultiInitialized(session);
-          return;
+  async serve(context: Context) {
+    if (context.path === '/__web-test-runner__/wtr-legacy-browser-api') {
+      const data = await parse.json(context);
+      const { session, message } = this.parseSessionMessage(data);
+
+      if (data.type === 'wtr-session-started') {
+        if (!data.testFile && !session.debug) {
+          // handle started only when session isn't debug or manual
+          this._onSessionStarted(session);
+          setTimeout(() => {
+            this._waitForDisconnect(session.id, session.testRun);
+          }, this.config.testsFinishTimeout);
         }
-        // mark the session as started
-        this.sessions.updateStatus(session, SESSION_STATUS.TEST_STARTED);
-        this._waitForDisconnect(webSocket, session.id);
+        return { body: 'OK', type: 'text' };
       }
+
+      if (data.type === 'wtr-session-finished') {
+        this._onSessionFinished(data, session, message);
+        return { body: 'OK', type: 'text' };
+      }
+
+      return { body: 'Commands are not supported', type: 'text', status: 500 };
     }
   }
 
-  private async _onSessionFinished(data: Record<string, unknown>) {
-    const { session, message } = this.parseSessionMessage(data);
+  private _onSessionStarted(session: TestSession) {
+    if (session.status !== SESSION_STATUS.INITIALIZING) {
+      this._onMultiInitialized(session);
+      return;
+    }
+    // mark the session as started
+    this.sessions.updateStatus(session, SESSION_STATUS.TEST_STARTED);
+  }
+
+  private async _onSessionFinished(
+    rawData: Record<string, unknown>,
+    session: TestSession | DebugTestSession,
+    message: SessionMessage,
+  ) {
     if (session.debug) return;
     if (typeof message.result !== 'object') {
       throw new Error('Missing result in session-finished message.');
     }
-    if (!data.userAgent || typeof data.userAgent !== 'string') {
+    if (!rawData.userAgent || typeof rawData.userAgent !== 'string') {
       throw new Error('Missing userAgent in session-finished message.');
     }
 
@@ -151,15 +185,18 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
       this.config,
       this.mapBrowserUrl,
       this.sourceMapFunction,
-      data.userAgent,
+      rawData.userAgent,
       message.result as Partial<TestSession>,
     );
 
     this.sessions.updateStatus({ ...session, ...result }, SESSION_STATUS.TEST_FINISHED);
   }
 
-  private async _onCommand(webSocket: WebSocket, data: Record<string, unknown>) {
-    const { session, message } = this.parseSessionMessage(data);
+  private async _onCommand(
+    webSocket: WebSocket,
+    session: TestSession | DebugTestSession,
+    message: SessionMessage,
+  ) {
     const { id, command, payload } = message;
 
     if (typeof id !== 'number') throw new Error('Missing message id.');
@@ -193,41 +230,47 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
    * Waits for web socket to become disconnected, and checks after disconnect if it was expected
    * or if some error occurred.
    */
-  private _waitForDisconnect(webSocket: WebSocket, sessionId: string) {
-    webSocket.on('close', async () => {
-      const session = this.sessions.get(sessionId);
-      if (session?.status !== SESSION_STATUS.TEST_STARTED) {
-        // websocket closed after finishing the tests, this is expected
-        return;
-      }
+  private async _waitForDisconnect(sessionId: string, testRun: number) {
+    const session = this.sessions.get(sessionId);
+    if (session?.testRun !== testRun) {
+      // a new testrun was started
+      return;
+    }
+    if (session?.status !== SESSION_STATUS.TEST_STARTED) {
+      // websocket closed after finishing the tests, this is expected
+      return;
+    }
 
-      // the websocket disconnected while the tests were still running, this can happen for many reasons.
-      // we wait 2000ms (magic number) to let other handlers come up with a more specific error message
-      await new Promise(r => setTimeout(r, 2000));
-      const updatedSession = this.sessions.get(sessionId);
-      if (updatedSession?.status !== SESSION_STATUS.TEST_STARTED) {
-        // something else handled the disconnect
-        return;
-      }
+    // the websocket disconnected while the tests were still running, this can happen for many reasons.
+    // we wait 2000ms (magic number) to let other handlers come up with a more specific error message
+    await new Promise(r => setTimeout(r, 2000));
+    const updatedSession = this.sessions.get(sessionId);
+    if (updatedSession?.status !== SESSION_STATUS.TEST_STARTED) {
+      // something else handled the disconnect
+      return;
+    }
+    if (updatedSession?.testRun !== testRun) {
+      // a new testrun was started
+      return;
+    }
 
-      const startUrl = this.testSessionUrls.get(updatedSession.id);
-      const currentUrl = await updatedSession.browser.getBrowserUrl(updatedSession.id);
+    const startUrl = this.testSessionUrls.get(updatedSession.id);
+    const currentUrl = await updatedSession.browser.getBrowserUrl(updatedSession.id);
 
-      if (!currentUrl || startUrl !== currentUrl) {
-        this._setSessionFailed(
-          updatedSession,
-          `Tests were interrupted because the page navigated to ${
-            currentUrl ? currentUrl : 'another origin'
-          }. ` +
-            'This can happen when clicking a link, submitting a form or interacting with window.location.',
-        );
-      } else {
-        this._setSessionFailed(
-          updatedSession,
-          'Tests were interrupted because the browser disconnected.',
-        );
-      }
-    });
+    if (!currentUrl || startUrl !== currentUrl) {
+      this._setSessionFailed(
+        updatedSession,
+        `Tests were interrupted because the page navigated to ${
+          currentUrl ? currentUrl : 'another origin'
+        }. ` +
+          'This can happen when clicking a link, submitting a form or interacting with window.location.',
+      );
+    } else {
+      this._setSessionFailed(
+        updatedSession,
+        'Tests were interrupted because the browser disconnected.',
+      );
+    }
   }
 
   private _onMultiInitialized(session: TestSession) {
@@ -240,10 +283,7 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
 
   private _setSessionFailed(session: TestSession, message: string) {
     this.sessions.updateStatus(
-      {
-        ...session,
-        errors: [...(session.errors ?? []), { message }],
-      },
+      { ...session, errors: [...(session.errors ?? []), { message }] },
       SESSION_STATUS.TEST_FINISHED,
     );
   }
