@@ -1,5 +1,14 @@
 # @web/test-runner-core
 
+## 0.10.11
+
+### Patch Changes
+
+- 83750cd2: fallback to fetch on IE11
+- Updated dependencies [83750cd2]
+- Updated dependencies [096fe25f]
+  - @web/dev-server-core@0.3.6
+
 ## 0.10.10
 
 ### Patch Changes
