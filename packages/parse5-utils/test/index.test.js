@@ -57,6 +57,9 @@ describe('parse5-utils', () => {
       expect(utils.isHtmlFragment('')).to.equal(true);
       expect(utils.isHtmlFragment('foo')).to.equal(true);
       expect(utils.isHtmlFragment('<div></div>')).to.equal(true);
+      expect(utils.isHtmlFragment('<!-- COMMENT --><!DOCTYPE><my-element></my-element>')).to.equal(
+        false,
+      );
       expect(utils.isHtmlFragment('<!DOCTYPE><my-element></my-element>')).to.equal(false);
       expect(utils.isHtmlFragment('  <!DOCTYPE><my-element></my-element>')).to.equal(false);
       expect(utils.isHtmlFragment('  <html><my-element></my-element></html>')).to.equal(false);
