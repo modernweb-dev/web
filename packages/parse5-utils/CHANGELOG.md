@@ -1,5 +1,11 @@
 # @web/parse5-utils
 
+## 1.2.0
+
+### Minor Changes
+
+- b5af71e3: Ignore comments when checking isHtmlFragment
+
 ## 1.1.2
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @web/dev-server-core
 
+## 0.3.6
+
+### Patch Changes
+
+- 83750cd2: fallback to fetch on IE11
+- 096fe25f: add stream close error to filter
+- Updated dependencies [b5af71e3]
+  - @web/parse5-utils@1.2.0
+
 ## 0.3.5
 
 ### Patch Changes
