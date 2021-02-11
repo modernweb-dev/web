@@ -12,6 +12,9 @@ export interface PolyfillsLoaderConfig {
   polyfills?: PolyfillsConfig;
   // directory to output polyfills into
   polyfillsDir?: string;
+  // relative path from the html file the loader is being injected into to the
+  // polyfills directory
+  relativePathToPolyfills?: string;
   // whether to minify the loader output
   minify?: boolean;
   // whether to preload the modern entrypoint, best for performance

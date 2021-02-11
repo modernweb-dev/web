@@ -222,6 +222,28 @@ describe('createPolyfillsLoader', function describe() {
     });
   });
 
+  it('generates a loader script with a relative path to polyfills directory', async () => {
+    await testSnapshot({
+      name: 'relative-polyfills-dir',
+      config: {
+        modern: { files: [{ type: fileTypes.MODULE, path: 'app.js' }] },
+        relativePathToPolyfills: '../..',
+        polyfills: {
+          hash: false,
+          coreJs: true,
+          webcomponents: true,
+          fetch: true,
+        },
+      },
+      expectedFiles: [
+        'polyfills/fetch.js',
+        'polyfills/webcomponents.js',
+        'polyfills/custom-elements-es5-adapter.js',
+        'polyfills/core-js.js',
+      ],
+    });
+  });
+
   it('generates a loader script with a polyfill with an initializer', async () => {
     await testSnapshot({
       name: 'polyfills-initializer',

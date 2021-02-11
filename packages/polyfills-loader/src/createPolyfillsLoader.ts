@@ -11,6 +11,7 @@ import { transformAsync } from '@babel/core';
 import Terser from 'terser';
 import { fileTypes, hasFileOfType, cleanImportPath } from './utils';
 import { createPolyfillsData } from './createPolyfillsData';
+import path from 'path';
 
 /**
  * Function which loads a script dynamically, returning a thenable (object with then function)
@@ -134,6 +135,13 @@ function createLoadFilesCode(cfg: PolyfillsLoaderConfig, polyfills: PolyfillFile
 }
 
 /**
+ * Returns the relative path to a polyfill, given the plugin configuation
+ */
+function relativePolyfillPath(polyfillPath: string, cfg: PolyfillsLoaderConfig) {
+  return path.posix.join(cfg.relativePathToPolyfills || './', polyfillPath);
+}
+
+/**
  * Creates code which loads the configured polyfills
  */
 function createPolyfillsLoaderCode(
@@ -147,7 +155,7 @@ function createPolyfillsLoaderCode(
   let loadPolyfillsCode = '  var polyfills = [];';
 
   polyfills.forEach(polyfill => {
-    let loadScript = `loadScript('./${polyfill.path}')`;
+    let loadScript = `loadScript('./${relativePolyfillPath(polyfill.path, cfg)}')`;
     if (polyfill.initializer) {
       loadScript += `.then(function () { ${polyfill.initializer} })`;
     }
@@ -207,7 +215,7 @@ export async function createPolyfillsLoader(
           document.head.removeChild(s);
           polyfillsLoader();
         }
-        s.src = "${coreJs.path}";
+        s.src = "./${relativePolyfillPath(coreJs.path, cfg)}";
         s.onload = onLoaded;
         s.onerror = function () {
           console.error('[polyfills-loader] failed to load: ' + s.src + ' check the network tab for HTTP status.');

@@ -13,4 +13,5 @@ export interface RollupPluginPolyfillsLoaderConfig {
   modernOutput?: OutputConfig;
   legacyOutput?: LegacyOutputConfig | LegacyOutputConfig[];
   polyfills?: PolyfillsConfig;
+  polyfillsDir?: string;
 }

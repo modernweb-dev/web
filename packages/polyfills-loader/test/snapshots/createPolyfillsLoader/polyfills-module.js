@@ -36,7 +36,7 @@
       polyfillsLoader();
     }
 
-    s.src = "polyfills/core-js.js";
+    s.src = "./polyfills/core-js.js";
     s.onload = onLoaded;
 
     s.onerror = function () {

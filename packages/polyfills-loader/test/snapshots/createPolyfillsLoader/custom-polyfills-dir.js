@@ -58,7 +58,7 @@
       polyfillsLoader();
     }
 
-    s.src = "foo/bar/core-js.js";
+    s.src = "./foo/bar/core-js.js";
     s.onload = onLoaded;
 
     s.onerror = function () {
