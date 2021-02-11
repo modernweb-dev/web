@@ -47,7 +47,7 @@ function createScript(attrs = {}, code = undefined) {
  * @param {string} html
  */
 function isHtmlFragment(html) {
-  let htmlWithoutComments = html.replace(/<!--.*?-->/g, '');
+  let htmlWithoutComments = html.replace(/<!--.*?-->/gs, '');
   return !REGEXP_IS_HTML_DOCUMENT.test(htmlWithoutComments);
 }
 
