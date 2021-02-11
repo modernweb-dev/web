@@ -107,10 +107,10 @@ describe('rollup-plugin-polyfills-loader', function describe() {
   it('can inject a polyfills loader with non-flat inputs, flattenOutput: true', async () => {
     const inputOptions: RollupOptions = {
       plugins: [
-        html({ 
+        html({
           rootDir: `${relativeUrl}/fixtures/`,
           input: `non-flat/index.html`,
-          flattenOutput: true
+          flattenOutput: true,
         }),
         polyfillsLoader({
           polyfills: { hash: false, fetch: true },
@@ -129,10 +129,10 @@ describe('rollup-plugin-polyfills-loader', function describe() {
   it('can inject a polyfills loader with non-flat inputs, flattenOutput: false', async () => {
     const inputOptions: RollupOptions = {
       plugins: [
-        html({ 
+        html({
           rootDir: `${relativeUrl}/fixtures/`,
           input: `non-flat/index.html`,
-          flattenOutput: false
+          flattenOutput: false,
         }),
         polyfillsLoader({
           polyfills: { hash: false, fetch: true },
