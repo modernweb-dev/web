@@ -7,6 +7,7 @@ import { readFileConfig } from './config/readFileConfig';
 import { DevServerStartError } from './DevServerStartError';
 import { createLogger } from './logger/createLogger';
 import { openBrowser } from './openBrowser';
+import { dirname } from 'path';
 
 export interface StartDevServerParams {
   /**
@@ -56,7 +57,10 @@ export async function startDevServer(options: StartDevServerParams = {}) {
   try {
     const cliArgs = readCliArgsFlag ? readCliArgs({ argv }) : {};
     const rawConfig = readFileConfigFlag
-      ? await readFileConfig({ configName, configPath: cliArgs.config })
+      ? await readFileConfig({
+          configName,
+          configPath: readCliArgsFlag ? cliArgs.config : dirname(configName),
+        })
       : {};
     const mergedConfig = mergeConfigs(extraConfig, rawConfig);
     const config = await parseConfig(mergedConfig, cliArgs);
