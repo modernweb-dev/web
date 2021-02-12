@@ -2,9 +2,9 @@
 
 Common examples using plugins.
 
-Generally speaking, the two most important plugins are [esbuild](./esbuild.md) and [rollup](./rollup.md). Esbuild can be used for fast transformations, while rollup has a rich plugin ecosystem we can use.
+Generally speaking, the two most important plugins are [esbuild](../plugins/esbuild.md) and [rollup](../plugins/rollup.md). Esbuild can be used for fast transformations, while rollup has a rich plugin ecosystem we can use.
 
-Some of the examples require you to Write Your Own plugin. The examples are straight forward, but you can check the [writing plugins section](./writing-plugins.md) for a more detailed explanation.
+Some of the examples require you to Write Your Own plugin. The examples are straight forward, but you can check the [writing plugins section](./overview.md) for a more detailed explanation.
 
 ## Typescript
 
@@ -18,11 +18,11 @@ Check the [official typescript docs](https://www.typescriptlang.org/) to set up 
 
 ### esbuild
 
-The dev server can also transform TS on the fly using `esbuild.` It is the fastest approach, introducing only a few milliseconds overhead. Check the [esbuild plugin docs](./esbuild.md) to learn more about how to set it up.
+The dev server can also transform TS on the fly using `esbuild`. It is the fastest approach, introducing only a few milliseconds overhead. Check the [esbuild plugin docs](../plugins/esbuild.md) to learn more about how to set it up.
 
 ## Other module formats
 
-The browser only supports standard es modules, using `import` and `export` statements. Check out [es modules docs](../../../guides/web-development/es-modules.md) to learn more about using es modules and supporting other module formats such as CommonJS and UMD.
+The browser only supports standard es modules, using `import` and `export` statements. Check out [es modules docs](../../../guides/going-buildless/es-modules.md) to learn more about using es modules and supporting other module formats such as CommonJS and UMD.
 
 ## Environment variables
 
@@ -74,7 +74,7 @@ Another approach is to replace constants or patterns in your code. We don't reco
 
 <summary>View example</summary>
 
-You can use the [@rollup/plugin-replace](https://npmjs.com/package/@rollup/plugin-replace) for replacing environment variables in your code. Make sure to add an `include` pattern to avoid processing files unnecessarily.
+You can use the [@rollup/plugin-replace](https://www.npmjs.com/package/@rollup/plugin-replace) for replacing environment variables in your code. Make sure to add an `include` pattern to avoid processing files unnecessarily.
 
 ```js
 import rollupReplace from '@rollup/plugin-replace';
@@ -122,7 +122,7 @@ export default doBar() {
 
 ## Babel
 
-You can use [@rollup/plugin-babel](https://npmjs.com/package/@rollup/plugin-babel) to use babel plugins (it's plugin-ception!).
+You can use [@rollup/plugin-babel](https://www.npmjs.com/package/@rollup/plugin-babel) to use babel plugins (it's plugin-ception!).
 
 Note that the dev server and test runner already includes `esbuild` for compiling javascript for compatibility with older browsers. You don't need to use babel for that.
 
@@ -144,11 +144,11 @@ export default {
 
 ## JSX and TSX
 
-You can use [esbuild](./esbuild.md) to handle transforming JSX and TSX on the fly.
+You can use [esbuild](../plugins/esbuild.md) to handle transforming JSX and TSX on the fly.
 
 ## Importing JSON
 
-To import JSON files you can use [@rollup/plugin-json](https://npmjs.com/package/@rollup/plugin-json)
+To import JSON files you can use [@rollup/plugin-json](https://www.npmjs.com/package/@rollup/plugin-json)
 
 <details>
 <summary>View example</summary>
@@ -204,7 +204,7 @@ export default {
 
 </details>
 
-If you're using `lit-element`, you can use [rollup-plugin-lit-css](https://npmjs.com/package/rollup-plugin-lit-css) to import CSS files as js modules.
+If you're using `lit-element`, you can use [rollup-plugin-lit-css](https://www.npmjs.com/package/rollup-plugin-lit-css) to import CSS files as js modules.
 
 <details>
 <summary>View example</summary>
@@ -229,7 +229,7 @@ export default {
 
 ## Importing images
 
-To import images from javascript, you can use [@rollup/plugin-url](https://npmjs.com/package/@rollup/plugin-url).
+To import images from javascript, you can use [@rollup/plugin-url](https://www.npmjs.com/package/@rollup/plugin-url).
 
 <details>
 

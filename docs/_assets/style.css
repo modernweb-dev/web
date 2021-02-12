@@ -1,4 +1,4 @@
-body[layout='home'] .markdown-body .call-to-action:nth-of-type(2) {
+body[layout='layout-home-background'] .markdown-body .call-to-action:nth-of-type(2) {
   --primary-color: #222;
   --primary-color-lighter: #333;
   --primary-color-darker: #000;
@@ -18,8 +18,8 @@ header {
 }
 
 @media screen and (min-width: 1024px) {
-  body[layout='home'][home-layout='background'] .page-background {
-    top: -111px;
+  body[layout='layout-home-background'] .page-background {
+    top: -120px;
     right: -360px;
   }
 }
@@ -53,5 +53,12 @@ footer {
   }
   .sidebar-tags .tag {
     background: var(--footer-background);
+  }
+  #mobile-menu-trigger svg {
+    color: #fff;
+  }
+
+  rocket-search svg {
+    fill: #fff;
   }
 }

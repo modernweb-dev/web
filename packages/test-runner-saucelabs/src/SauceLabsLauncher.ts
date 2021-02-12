@@ -1,19 +1,18 @@
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { SeleniumLauncher } from '@web/test-runner-selenium';
-import webdriver, { Capabilities } from 'selenium-webdriver';
+import { RemoteOptions } from 'webdriverio';
+import { WebdriverLauncher } from '@web/test-runner-webdriver';
 import ip from 'ip';
 import { SauceLabsLauncherManager } from './SauceLabsLauncherManager';
 
 const networkAddress = ip.address();
 
-export class SauceLabsLauncher extends SeleniumLauncher {
+export class SauceLabsLauncher extends WebdriverLauncher {
   constructor(
     private manager: SauceLabsLauncherManager,
     public name: string,
-    sauceLabsUrl: string,
-    capabilities: Capabilities,
+    options: RemoteOptions,
   ) {
-    super(new webdriver.Builder().usingServer(sauceLabsUrl).withCapabilities(capabilities));
+    super(options);
   }
 
   startSession(sessionId: string, url: string) {
@@ -21,7 +20,7 @@ export class SauceLabsLauncher extends SeleniumLauncher {
   }
 
   async startDebugSession() {
-    throw new Error('Starting a debug session is not supported in browserstack');
+    throw new Error('Starting a debug session is not supported in SauceLabs');
   }
 
   async initialize(config: TestRunnerCoreConfig) {
@@ -29,9 +28,9 @@ export class SauceLabsLauncher extends SeleniumLauncher {
     return super.initialize(config);
   }
 
-  stop() {
+  async stop() {
     const stopPromise = super.stop();
-    this.manager.deregisterLauncher(this);
+    await this.manager.deregisterLauncher(this);
     return stopPromise;
   }
 }

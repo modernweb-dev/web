@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/modernweb-dev/actions"
+  <a href="https://github.com/modernweb-dev/web/actions"
     ><img
       src="https://img.shields.io/github/workflow/status/modernweb-dev/web/Release/master?label=workflow&style=flat-square"
       alt="GitHub Actions workflow status"
@@ -54,6 +54,7 @@ If you wanna know more see our [Announcement Blog Post](https://modern-web.dev/b
 ## Our Products
 
 - [Web Test Runner](https://modern-web.dev/docs/test-runner/overview/)
+- [Web Dev Server](https://modern-web.dev/docs/dev-server/overview/)
 
 There is much, much more to come so follow us on [Twitter](https://twitter.com/modern_web_dev).
 
@@ -61,7 +62,7 @@ There is much, much more to come so follow us on [Twitter](https://twitter.com/m
 
 We are always looking for contributors of all skill levels! If you're looking to ease your way into the project, try out a [good first issue](https://github.com/modernweb-dev/web/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
-If you are interested in helping contribute to Modern Web, please take a look at our [Contributing Guide](https://github.com/modernweb-dev/web/blob/master/CONTRIBUTING.md). Also, feel free to drop into [slack](https://modern-web.dev/discover/slack/) and say hi. 👋
+If you are interested in helping contribute to Modern Web, please take a look at our [Contributing Guide](https://github.com/modernweb-dev/web/blob/master/CONTRIBUTING.md). Also, feel free to drop into [Slack](https://modern-web.dev/discover/slack/) and say hi. 👋
 
 ### Financial Contributors
 

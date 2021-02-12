@@ -7,7 +7,11 @@
 /packages/*/test/**/snapshots
 /packages/dev-server-rollup/test/browser/**/*
 /integration/test-runner/tests/*/browser-tests
-node_modules
+/packages/dev-server-storybook/storybook-static/**/*
+/packages/dev-server-hmr/scripts/**/*
+/packages/test-runner/demo/
+/node_modules/
+/packages/*/node_modules/
 dist
 demo
 CHANGELOG.md

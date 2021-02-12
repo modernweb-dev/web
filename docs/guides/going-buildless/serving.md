@@ -66,7 +66,7 @@ The only files it can serve are:
 └── index.html
 ```
 
-It will be important to keep this in mind when structuring your projects. In a [buildless](#) workflow, the web server will need to have all of your dependencies, including `node_modules` in its web root. So if you decide to keep your JavaScript code in a subdirectory of the project root, like `/src`, you will need to keep `index.html` in the root directory and run your local development server from there.
+It will be important to keep this in mind when structuring your projects. In a buildless workflow, the web server will need to have all of your dependencies, including `node_modules` in its web root. So if you decide to keep your JavaScript code in a subdirectory of the project root, like `/src`, you will need to keep `index.html` in the root directory and run your local development server from there.
 
 Just like how running `http-server` from `/about` made `help.html` inaccessible, running your local development server from `/src` would make `node_modules` inaccessible.
 
@@ -74,7 +74,7 @@ Just like how running `http-server` from `/about` made `help.html` inaccessible,
 
 The "HT" in <abbr>HTML</abbr>, "HyperText", refers to the way in which documents can link to other documents. This is the fundamental feature of <abbr>HTML</abbr> and the most important feature of the web.
 
-Hyperlinks ("links" for short) in <abbr>HTML</abbr> are represented by the [anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a). The `href` attribute contains the [URL](./servers-and-clients.md) which the hyperlink points to.
+Hyperlinks ("links" for short) in <abbr>HTML</abbr> are represented by the [anchor element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a). The `href` attribute contains the URL which the hyperlink points to.
 
 There are three basic types of URLs which you can link to:
 
@@ -87,7 +87,7 @@ There are three basic types of URLs which you can link to:
 The most specific type of URL is the fully-qualified URL. They contain a protocol; zero, one, or more subdomains; a domain name; and an optional path. They refer specifically to a single, unique resource. Some examples:
 
 - `https://www.google.com`
-- `https://modern-web.dev/docs/guides/standards-based/html/`
+- `https://modern-web.dev/guides/going-buildless/serving/`
 - `ws://demos.kaazing.com/echo`
 
 Links with fully qualified URLs can link a page on your server, to pages on another server. This is what puts the "world-wide" in "world-wide-web". All the links to [MDN](https://developer.mozilla.org) in this article are like that.
@@ -114,7 +114,7 @@ Absolute links containing _only_ a `/` are special, they refer to the web root. 
 
 ### Relative URLs
 
-The least specific type of URL is a relative URL. Like absolute URLs, they omit the protocol and origin, but unlike absolute URLs, which contain a full path, relattive URLs contain a partial, or relative path. They start with `./`, `../`, or a path to a resource. for example:
+The least specific type of URL is a relative URL. Like absolute URLs, they omit the protocol and origin, but unlike absolute URLs, which contain a full path, relative URLs contain a partial, or relative path. They start with `./`, `../`, or a path to a resource. for example:
 
 ```html
 <a href="../">Go Up</a>

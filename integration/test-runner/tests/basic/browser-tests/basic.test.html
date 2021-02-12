@@ -1,0 +1,16 @@
+<html>
+  <body>
+    <script type="module">
+      import { expect } from '../../../../../node_modules/@esm-bundle/chai/esm/chai.js';
+      import { runTests } from '../../../../../packages/test-runner-mocha/dist/standalone.js';
+
+      runTests(() => {
+        describe('basic test', () => {
+          it('works', () => {
+            expect(true).to.equal(true);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

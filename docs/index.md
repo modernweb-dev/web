@@ -1,6 +1,6 @@
 ---
 title: Modern Web
-layout: home.njk
+layout: layout-home-background
 slogan: Guides, tools and libraries for modern web development.
 callToActionItems:
   [{ text: 'Follow Guides', href: '/guides/' }, { text: 'Browse Docs', href: '/docs/' }]

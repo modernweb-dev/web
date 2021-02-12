@@ -1,5 +1,86 @@
 # @web/dev-server-core
 
+## 0.3.6
+
+### Patch Changes
+
+- 83750cd2: fallback to fetch on IE11
+- 096fe25f: add stream close error to filter
+- Updated dependencies [b5af71e3]
+  - @web/parse5-utils@1.2.0
+
+## 0.3.5
+
+### Patch Changes
+
+- 2c223cf0: filter server stream errors
+
+## 0.3.4
+
+### Patch Changes
+
+- 8861ded8: feat(dev-server-core): share websocket instances with iframe parent
+
+## 0.3.3
+
+### Patch Changes
+
+- 1dd7cd0e: export outside root dir utils
+
+## 0.3.2
+
+### Patch Changes
+
+- 375116ad: fix handling of paths resolved outside the root dir. we now correctly use the resolved path when resolving relative imports and when populating the transform cache
+
+## 0.3.1
+
+### Patch Changes
+
+- eceb6295: match dotfiles when resolving mimetypes
+
+## 0.3.0
+
+### Minor Changes
+
+- 0f613e0e: handle modules resolved outside root dir
+
+## 0.2.19
+
+### Patch Changes
+
+- fb56854: Bust cache when a file is deleted
+
+## 0.2.18
+
+### Patch Changes
+
+- 07edac1: improve handling of dynamic imports
+
+## 0.2.17
+
+### Patch Changes
+
+- f0472df: add fileParsed hook
+
+## 0.2.16
+
+### Patch Changes
+
+- b025992: add debug logging flag
+
+## 0.2.15
+
+### Patch Changes
+
+- a03749e: mark websocket module as resolved import
+
+## 0.2.14
+
+### Patch Changes
+
+- 835d16f: add koa types dependency
+
 ## 0.2.13
 
 ### Patch Changes

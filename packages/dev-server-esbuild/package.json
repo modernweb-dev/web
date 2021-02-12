@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-esbuild",
-  "version": "0.2.6",
+  "version": "0.2.11",
   "publishConfig": {
     "access": "public"
   },
@@ -14,6 +14,12 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
     "node": ">=10.0.0"
   },
@@ -21,8 +27,8 @@
     "build": "tsc",
     "start:demo:jsx": "es-dev-server --config demo/jsx/server.config.js",
     "start:demo:ts": "es-dev-server --config demo/ts/server.config.js",
-    "test": "mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
+    "test": "mocha \"test/**/*.test.ts\" --require ts-node/register",
+    "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -44,23 +50,16 @@
     "transform"
   ],
   "dependencies": {
-    "@mdn/browser-compat-data": "^2.0.2",
-    "@web/dev-server-core": "^0.2.2",
-    "esbuild": "^0.7.15",
+    "@mdn/browser-compat-data": "^3.0.1",
+    "@web/dev-server-core": "^0.3.2",
+    "esbuild": "^0.8.28",
     "parse5": "^6.0.1",
-    "ua-parser-js": "^0.7.21"
+    "ua-parser-js": "^0.7.23"
   },
   "devDependencies": {
-    "@types/ua-parser-js": "^0.7.33",
-    "es-dev-server": "^1.55.0",
-    "lit-element": "^2.3.1",
-    "node-fetch": "v3.0.0-beta.9",
-    "preact": "^10.4.4"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
+    "@types/ua-parser-js": "^0.7.35",
+    "lit-element": "^2.4.0",
+    "node-fetch": "3.0.0-beta.9",
+    "preact": "^10.5.9"
   }
 }

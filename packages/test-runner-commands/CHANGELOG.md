@@ -1,5 +1,36 @@
 # @web/test-runner-commands
 
+## 0.4.1
+
+### Patch Changes
+
+- e3314b02: update dependency on core
+
+## 0.4.0
+
+### Minor Changes
+
+- a7d74fdc: drop support for node v10 and v11
+- 1dd7cd0e: version bump after breaking change in @web/test-runner-core
+
+### Patch Changes
+
+- Updated dependencies [1dd7cd0e]
+- Updated dependencies [a7d74fdc]
+  - @web/test-runner-core@0.10.0
+
+## 0.3.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+
+### Patch Changes
+
+- Updated dependencies [6e313c18]
+- Updated dependencies [0f613e0e]
+  - @web/test-runner-core@0.9.0
+
 ## 0.2.1
 
 ### Patch Changes

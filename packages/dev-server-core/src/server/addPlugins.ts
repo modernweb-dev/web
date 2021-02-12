@@ -1,9 +1,10 @@
-import { DevServerCoreConfig } from '../DevServerCoreConfig';
+import { DevServerCoreConfig } from './DevServerCoreConfig';
 import { transformModuleImportsPlugin } from '../plugins/transformModuleImportsPlugin';
 import { webSocketsPlugin } from '../web-sockets/webSocketsPlugin';
 import { mimeTypesPlugin } from '../plugins/mimeTypesPlugin';
+import { Logger } from '../logger/Logger';
 
-export function addPlugins(config: DevServerCoreConfig) {
+export function addPlugins(logger: Logger, config: DevServerCoreConfig) {
   if (!config.plugins) {
     config.plugins = [];
   }
@@ -18,6 +19,6 @@ export function addPlugins(config: DevServerCoreConfig) {
 
   if (config.plugins?.some(pl => 'resolveImport' in pl || 'transformImport' in pl)) {
     // transform module imports must happen after all other plugins did their regular transforms
-    config.plugins.push(transformModuleImportsPlugin(config.plugins, config.rootDir));
+    config.plugins.push(transformModuleImportsPlugin(logger, config.plugins, config.rootDir));
   }
 }

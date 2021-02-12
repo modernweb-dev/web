@@ -1,7 +1,5 @@
 # Building >> Polyfills loader ||60
 
-> This package is still shipped via the `@open-wc` npm namespace but will soon be switch to `@web`
-
 The polyfills loader makes it easy to manage loading polyfills and/or serving different versions of your application based on browser support. It generates a script that loads the necessary polyfills and the appropriate version of the application through on runtime feature detection.
 
 A simplified version of the loader:
@@ -323,7 +321,7 @@ const config = {
 The `createPolyfillsLoader` function takes configuration and returns the javascript code for the polyfills loader. It also returns information about the generated polyfill files, these will need to be made available at runtime so that they can be imported by the loader code.
 
 ```js
-const { createPolyfillsLoader } = require('polyfills-loader');
+const { createPolyfillsLoader } = require('@web/polyfills-loader');
 
 const result = createPolyfillsLoader({
   // see configuration above
@@ -338,7 +336,7 @@ console.log(result.polyfillFiles);
 The `injectPolyfillsLoader` function injects a polyfills loader into an existing HTML page. It also injects polyfills for any import maps it finds.
 
 ```js
-const { injectPolyfillsLoader } = require('polyfills-loader');
+const { injectPolyfillsLoader } = require('@web/polyfills-loader');
 
 const html = `
 <html>

@@ -11,6 +11,9 @@
   },
   "references": [
     {
+      "path": "../parse5-utils/tsconfig.json"
+    },
+    {
       "path": "../browser-logs/tsconfig.json"
     },
     {
@@ -36,7 +39,8 @@
     }
   ],
   "include": [
-    "src"
+    "src",
+    "types"
   ],
   "exclude": [
     "src/browser",

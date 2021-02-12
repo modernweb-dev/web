@@ -1,6 +1,12 @@
 import path from 'path';
 import { DevServerCoreConfig, FSWatcher, Plugin as WdsPlugin, Context } from '@web/dev-server-core';
-import { PluginContext, MinimalPluginContext, TransformPluginContext } from 'rollup';
+import {
+  PluginContext,
+  MinimalPluginContext,
+  TransformPluginContext,
+  CustomPluginOptions,
+  ModuleInfo,
+} from 'rollup';
 
 export function createRollupPluginContextAdapter<
   T extends PluginContext | MinimalPluginContext | TransformPluginContext
@@ -10,20 +16,27 @@ export function createRollupPluginContextAdapter<
   config: DevServerCoreConfig,
   fileWatcher: FSWatcher,
   context: Context,
+  pluginMetaPerModule: Map<string, CustomPluginOptions>,
 ) {
   return {
     ...pluginContext,
 
-    getModuleInfo(id: string) {
+    getModuleInfo(id: string): ModuleInfo {
       return {
+        id,
+        code: context.body,
+        ast: null,
         dynamicallyImportedIds: [],
         dynamicImporters: [],
-        hasModuleSideEffects: false,
-        id,
+        implicitlyLoadedBefore: [],
+        implicitlyLoadedAfterOneOf: [],
         importedIds: [],
         importers: [],
         isEntry: false,
         isExternal: false,
+        hasModuleSideEffects: false,
+        syntheticNamedExports: false,
+        meta: pluginMetaPerModule.get(id) ?? {},
       };
     },
 

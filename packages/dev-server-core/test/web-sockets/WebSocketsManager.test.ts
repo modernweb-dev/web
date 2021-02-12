@@ -4,7 +4,7 @@ import WebSocket from 'ws';
 import { createTestServer } from '../helpers';
 
 function waitFor(fn: (resolve: () => void) => void, msg: string) {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     const timeoutId = setTimeout(() => {
       reject(new Error(msg));
     }, 1000);

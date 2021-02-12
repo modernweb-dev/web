@@ -43,8 +43,11 @@ export function generateSW(generateSWConfig: GenerateSWConfig, render = report) 
   };
 }
 
-export function injectManifest(injectManifestConfig: InjectManifestConfig, render = report) {
-  const { swSrc, swDest, globDirectory, mode } = injectManifestConfig;
+export function injectManifest(
+  { mode, ...injectManifestConfig }: InjectManifestConfig,
+  render = report,
+) {
+  const { swSrc, swDest, globDirectory } = injectManifestConfig;
 
   if (!swSrc) throw new Error('No service worker source specified');
   if (!swDest) throw new Error('No service worker destination specified');
@@ -81,7 +84,7 @@ const processBundle = async ({ swDest }: { swDest: string }) => {
   const bundle = await rollup.rollup({
     input: swDest,
     plugins: [
-      replace({ 'process.env.NODE_ENV': '"production"' }),
+      replace({ 'process.env.NODE_ENV': '"production"' }) as rollup.Plugin,
       resolve(),
       terser({ output: { comments: false } }),
     ],

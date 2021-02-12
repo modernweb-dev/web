@@ -6,7 +6,7 @@ The test runner can be configured using CLI flags, or with a configuration file.
 
 | name                | type         | description                                                                                                           |
 | ------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------- |
-| files               | string       | test files glob. this is the default option, so you do not need to specify it.                                        |
+| files               | string array | test files glob. this is the default option, so you do not need to specify it.                                        |
 | watch               | boolean      | runs in watch mode                                                                                                    |
 | coverage            | boolean      | whether to analyze code coverage                                                                                      |
 | node-resolve        | boolean      | resolve bare module imports                                                                                           |
@@ -20,6 +20,7 @@ The test runner can be configured using CLI flags, or with a configuration file.
 | group               | string       | runs tests only for the test group with this name                                                                     |
 | concurrent-browsers | number       | amount of browsers to run concurrently. defaults to 2                                                                 |
 | concurrency         | number       | amount of test files to run concurrently. default to CPU cores divided by 2                                           |
+| debug               | boolean      | whether to print debug messages                                                                                       |
 
 Examples:
 
@@ -79,6 +80,7 @@ A configuration file accepts most of the command line args camel-cased, with som
 
 ```ts
 import { Plugin, Middleware } from '@web/dev-server';
+import { ReportType } from 'istanbul-reports';
 
 interface TestFramework {
   path: string;
@@ -98,6 +100,7 @@ interface CoverageConfig {
   threshold?: CoverageThresholdConfig;
   report: boolean;
   reportDir: string;
+  reporters?: ReportType[];
 }
 
 type MimeTypeMappings = Record<string, string>;
@@ -183,11 +186,11 @@ interface TestRunnerConfig {
   /** Opens browser for manual testing. Requires the manual option to be set. */
   open?: boolean;
 
-  // how long a browser can take to start up before failing. defaults to 30000
+  // how long a browser can take to start up before failing. defaults to 30000 (30 sec)
   browserStartTimeout?: number;
-  // how long a test file can take to load. defaults to 10000
+  // how long a test file can take to load. defaults to 20000 (20 sec)
   testsStartTimeout?: number;
-  // how long a test file can take to finish. defaults to 20000
+  // how long a test file can take to finish. defaults to 120000 (2 min)
   testsFinishTimeout?: number;
 }
 ```
@@ -225,7 +228,7 @@ export default {
       files: 'packages/a/test/**/*.test.js',
     },
     {
-      name: 'package-a',
+      name: 'package-b',
       files: 'packages/b/test/**/*.test.js',
     },
   ],

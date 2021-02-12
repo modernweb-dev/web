@@ -39,12 +39,16 @@ export class PlaywrightLauncherPage {
 
     // navigate to an empty page to kill any running code on the page, stopping timers and
     // breaking a potential endless reload loop
-    await this.playwrightPage.goto('data:,');
+    await this.playwrightPage.goto('about:blank');
 
     return { testCoverage };
   }
 
   private async collectTestCoverage(config: TestRunnerCoreConfig, testFiles: string[]) {
+    const userAgentPromise = this.playwrightPage
+      .evaluate(() => window.navigator.userAgent)
+      .catch(() => undefined);
+
     try {
       const coverageFromBrowser = await this.playwrightPage.evaluate(
         () => (window as any).__coverage__,
@@ -69,6 +73,7 @@ export class PlaywrightLauncherPage {
     // get native coverage from playwright
     const coverage = ((await this.playwrightPage.coverage?.stopJSCoverage()) ?? []) as V8Coverage[];
     this.nativeInstrumentationEnabledOnPage = false;
-    return v8ToIstanbul(config, testFiles, coverage);
+    const userAgent = await userAgentPromise;
+    return v8ToIstanbul(config, testFiles, coverage, userAgent);
   }
 }

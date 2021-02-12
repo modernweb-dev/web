@@ -1,0 +1,1 @@
+export { hmrPlugin } from './hmrPluginFactory';

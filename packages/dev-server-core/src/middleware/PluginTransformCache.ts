@@ -21,6 +21,9 @@ interface CacheEntry {
   filePath: string;
 }
 
+/**
+ * Cache for file transformations.
+ */
 export class PluginTransformCache {
   private cacheKeysPerFilePath = new Map<string, Set<string>>();
 
@@ -43,14 +46,17 @@ export class PluginTransformCache {
     });
 
     // remove file from cache on change
-    fileWatcher.addListener('change', (filePath: string) => {
+    const removeCacheListener = (filePath: string) => {
       const cacheKeys = this.cacheKeysPerFilePath.get(filePath);
       if (cacheKeys) {
         for (const cacheKey of cacheKeys) {
           this.lruCache.del(cacheKey);
         }
       }
-    });
+    };
+
+    fileWatcher.addListener('change', removeCacheListener);
+    fileWatcher.addListener('unlink', removeCacheListener);
   }
 
   async get(cacheKey: string) {

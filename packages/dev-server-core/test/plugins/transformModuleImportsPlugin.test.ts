@@ -61,18 +61,20 @@ describe('transformImports()', () => {
   it('resolves dynamic imports', async () => {
     const result = await transformImports(
       [
-        'function lazyLoad() { return import("my-module-2"); }',
-        'import("my-module");',
-        'import("./local-module.js");',
+        'import("/bar.js");',
+        // 'function lazyLoad() { return import("my-module-2"); }',
+        // 'import("my-module");',
+        // 'import("./local-module.js");',
       ].join('\n'),
       defaultFilePath,
       defaultResolveImport,
     );
 
     expect(result.split('\n')).to.eql([
-      'function lazyLoad() { return import("RESOLVED__my-module-2"); }',
-      'import("RESOLVED__my-module");',
-      'import("RESOLVED__./local-module.js");',
+      'import("RESOLVED__/bar.js");',
+      // 'function lazyLoad() { return import("RESOLVED__my-module-2"); }',
+      // 'import("RESOLVED__my-module");',
+      // 'import("RESOLVED__./local-module.js");',
     ]);
   });
 
@@ -131,7 +133,7 @@ describe('transformImports()', () => {
     ]);
   });
 
-  it('resolves the package of dynamic imports with string concatenation', async () => {
+  it('resolves the package of bare dynamic imports with string concatenation', async () => {
     const result = await transformImports(
       [
         //
@@ -151,6 +153,47 @@ describe('transformImports()', () => {
       'import("RESOLVED__my-module/dynamic-files" + "/" + file + ".js");',
       'import("RESOLVED__my-module/dynamic-files/" + file + ".js");',
       'import("RESOLVED__my-module/dynamic-files".concat(file).concat(".js"));',
+    ]);
+  });
+
+  it('resolves dynamic imports', async () => {
+    const result = await transformImports(
+      [
+        //
+        'import("./a.js");',
+        "import('./b.js');",
+      ].join('\n'),
+      defaultFilePath,
+      defaultResolveImport,
+    );
+
+    expect(result.split('\n')).to.eql([
+      'import("RESOLVED__./a.js");',
+      "import('RESOLVED__./b.js');",
+    ]);
+  });
+
+  it('does not get confused by whitespace', async () => {
+    const result = await transformImports(
+      [
+        //
+        'import( "./a.js" );',
+        'import(   "./b.js"   );',
+        'import(   "./c"   +    ".js"   );',
+        `import(
+              './d.js'
+        );`,
+      ].join('\n'),
+      defaultFilePath,
+      defaultResolveImport,
+    );
+    expect(result.split('\n')).to.eql([
+      'import( "RESOLVED__./a.js" );',
+      'import(   "RESOLVED__./b.js"   );',
+      'import(   "./c"   +    ".js"   );',
+      'import(',
+      "              'RESOLVED__./d.js'",
+      '        );',
     ]);
   });
 
@@ -180,6 +223,31 @@ describe('transformImports()', () => {
       defaultFilePath,
       defaultResolveImport,
     );
+  });
+
+  it('does not resolve dynamic imports with string concatenation', async () => {
+    const result = await transformImports(
+      [
+        //
+        'import(`./foo/${file}.js`);',
+        'import(`/${file}.js`);',
+        'import("./foo" + "/" + file + ".js");',
+        'import(file + ".js");',
+        'import(file);',
+        'import("./foo".concat(file).concat(".js"));',
+      ].join('\n'),
+      defaultFilePath,
+      defaultResolveImport,
+    );
+
+    expect(result.split('\n')).to.eql([
+      'import(`./foo/${file}.js`);',
+      'import(`/${file}.js`);',
+      'import("./foo" + "/" + file + ".js");',
+      'import(file + ".js");',
+      'import(file);',
+      'import("./foo".concat(file).concat(".js"));',
+    ]);
   });
 
   it('throws a syntax error on invalid imports', async () => {

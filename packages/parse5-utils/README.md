@@ -61,6 +61,7 @@ const htmlWithInjectedScript = appendToDocument(
 - createDocument
 - createDocumentFragment
 - createElement
+- createScript
 - createCommentNode
 - appendChild
 - insertBefore
@@ -97,7 +98,12 @@ const htmlWithInjectedScript = appendToDocument(
 - getAttributes
 - setAttribute
 - setAttributes
+- setTextContent
+- getTextContent
 - removeAttribute
+- remove
+- findNode
+- findNodes
 - findElement
 - findElements
 - prependToDocument

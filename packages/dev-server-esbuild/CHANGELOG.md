@@ -1,5 +1,32 @@
 # @web/dev-server-esbuild
 
+## 0.2.11
+
+### Patch Changes
+
+- 87705b04: pass `esbuildconfig.define` to esbuild transform function
+
+## 0.2.10
+
+### Patch Changes
+
+- c7f8d271: set esm format for non jslike loaders
+- Updated dependencies [375116ad]
+  - @web/dev-server-core@0.3.2
+
+## 0.2.9
+
+### Patch Changes
+
+- Updated dependencies [0f613e0e]
+  - @web/dev-server-core@0.3.0
+
+## 0.2.8
+
+### Patch Changes
+
+- 28890a0: update to latest esbuild
+
 ## 0.2.6
 
 ### Patch Changes

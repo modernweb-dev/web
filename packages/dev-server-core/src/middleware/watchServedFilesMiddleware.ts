@@ -13,7 +13,7 @@ export function watchServedFilesMiddleware(fileWatcher: FSWatcher, rootDir: stri
     await next();
 
     if (ctx.response.status !== 404) {
-      let filePath = getRequestFilePath(ctx, rootDir);
+      let filePath = getRequestFilePath(ctx.url, rootDir);
       // if the request ends with a / it might be an index.html, check if it exists
       // and watch it
       if (filePath.endsWith('/')) {

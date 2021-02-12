@@ -38,7 +38,6 @@ describe('esbuildPlugin TS', function () {
     try {
       const response = await fetch(`${host}/foo.ts`);
       const text = await response.text();
-
       expect(response.status).to.equal(200);
       expect(response.headers.get('content-type')).to.equal(
         'application/javascript; charset=utf-8',
@@ -48,6 +47,54 @@ describe('esbuildPlugin TS', function () {
       expectIncludes(text, '}');
       expectNotIncludes(text, 'type Foo');
       expectNotIncludes(text, 'interface MyInterface');
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('transforms TS decorators', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        {
+          name: 'test',
+          serve(context) {
+            if (context.path === '/foo.ts') {
+              return `
+@foo
+class Bar {
+  @prop
+  x = 'y';
+}`;
+            }
+          },
+        },
+        esbuildPlugin({ ts: true }),
+      ],
+    });
+
+    try {
+      const response = await fetch(`${host}/foo.ts`);
+      const text = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(response.headers.get('content-type')).to.equal(
+        'application/javascript; charset=utf-8',
+      );
+      expectIncludes(text, '__decorate');
+      expectIncludes(text, 'this.x = "y";');
+      expectIncludes(
+        text,
+        `__decorate([
+  prop
+], Bar.prototype, "x", 2);`,
+      );
+      expectIncludes(
+        text,
+        `Bar = __decorate([
+  foo
+], Bar);`,
+      );
     } finally {
       server.stop();
     }

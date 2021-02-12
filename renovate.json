@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "config:base",
+    ":separateMultipleMajorReleases",
+    ":separatePatchReleases",
+    ":maintainLockFilesWeekly",
+    ":widenPeerDependencies"
+  ],
+
+  "packageRules": [
+    {
+      "updateTypes": ["patch"],
+      "enabled": false
+    },
+    {
+      "updateTypes": ["minor"],
+      "matchCurrentVersion": "!/^[~^]?0/",
+      "enabled": false
+    }
+  ],
+
+  "rangeStrategy": "bump"
+}

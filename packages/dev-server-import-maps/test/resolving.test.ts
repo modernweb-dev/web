@@ -1,7 +1,7 @@
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
 import { expect } from 'chai';
-import { stub } from 'sinon';
+import { spy } from 'hanbi';
 import path from 'path';
 
 import { importMapsPlugin } from '../src/importMapsPlugin';
@@ -11,6 +11,7 @@ function createHtml(importMap: Record<string, unknown>) {
   return `
   <html>
     <head>
+      <link rel="preload" href="./app.js">
       <script type="importmap">
         { "imports": ${JSON.stringify(importMap)} }
       </script>
@@ -38,6 +39,21 @@ describe('applies import map id', () => {
 
     const text = await fetchText(`${host}/index.html`);
     expectIncludes(text, `<script type="module" src="./app.js?${IMPORT_MAP_PARAM}=0"></script>`);
+
+    server.stop();
+  });
+
+  it('to preload links', async () => {
+    const files = {
+      '/index.html': createHtml({ foo: './mocked-foo.js' }),
+    };
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [virtualFilesPlugin(files), importMapsPlugin()],
+    });
+
+    const text = await fetchText(`${host}/index.html`);
+    expectIncludes(text, `<link rel="preload" href="./app.js?${IMPORT_MAP_PARAM}=0">`);
 
     server.stop();
   });
@@ -335,14 +351,23 @@ describe('resolving imports', () => {
           </body>
         </html>`,
     };
+    const loggerSpies = {
+      log: spy(),
+      debug: spy(),
+      error: spy(),
+      warn: spy(),
+      group: spy(),
+      groupEnd: spy(),
+      logSyntaxError: spy(),
+    };
     const logger = {
-      log: stub(),
-      debug: stub(),
-      error: stub(),
-      warn: stub(),
-      group: stub(),
-      groupEnd: stub(),
-      logSyntaxError: stub(),
+      log: loggerSpies.log.handler,
+      debug: loggerSpies.debug.handler,
+      error: loggerSpies.error.handler,
+      warn: loggerSpies.warn.handler,
+      group: loggerSpies.group.handler,
+      groupEnd: loggerSpies.groupEnd.handler,
+      logSyntaxError: loggerSpies.logSyntaxError.handler,
     };
     const { server, host } = await createTestServer(
       {
@@ -354,10 +379,27 @@ describe('resolving imports', () => {
 
     const text = await fetchText(`${host}/index.html`);
     expectIncludes(text, '<script type="importmap">{</script>');
-    expect(logger.warn.callCount).to.equal(1);
-    const warning = logger.warn.getCall(0).args[0];
+    expect(loggerSpies.warn.callCount).to.equal(1);
+    const warning = loggerSpies.warn.getCall(0).args[0];
     expectIncludes(warning, 'Failed to parse import map in "');
     expectIncludes(warning, `test${path.sep}index.html": Unexpected end of JSON input`);
+    server.stop();
+  });
+
+  it('can remap to complete urls with a different domain', async () => {
+    const files = {
+      '/index.html': createHtml({ foo: 'https://my-cdn.com/foo/bar.js' }),
+      '/app.js': 'import "foo";\nimport bar from "./bar.js";',
+    };
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [virtualFilesPlugin(files), importMapsPlugin()],
+    });
+
+    await fetchText(`${host}/index.html`);
+    const text = await fetchText(`${host}/app.js?${IMPORT_MAP_PARAM}=0`);
+    expectIncludes(text, `https://my-cdn.com/foo/bar.js?wds-import-map=0`);
+
     server.stop();
   });
 });

@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-selenium",
-  "version": "0.3.1",
+  "version": "0.5.1",
   "publishConfig": {
     "access": "public"
   },
@@ -14,8 +14,14 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-selenium",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -40,18 +46,12 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.8.4",
-    "selenium-webdriver": "^4.0.0-alpha.7"
+    "@web/test-runner-core": "^0.10.8",
+    "selenium-webdriver": "^4.0.0-alpha.8"
   },
   "devDependencies": {
-    "@types/selenium-standalone": "^6.15.1",
-    "@types/selenium-webdriver": "^4.0.9",
-    "selenium-standalone": "^6.17.0"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
+    "@types/selenium-standalone": "^6.15.2",
+    "@types/selenium-webdriver": "^4.0.11",
+    "selenium-standalone": "^6.23.0"
   }
 }

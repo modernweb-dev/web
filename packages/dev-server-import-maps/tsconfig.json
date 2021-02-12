@@ -11,6 +11,9 @@
   },
   "references": [
     {
+      "path": "../parse5-utils/tsconfig.json"
+    },
+    {
       "path": "../browser-logs/tsconfig.json"
     },
     {
@@ -32,22 +35,22 @@
       "path": "../config-loader/tsconfig.json"
     },
     {
+      "path": "../dev-server-rollup/tsconfig.json"
+    },
+    {
       "path": "../test-runner-playwright/tsconfig.json"
     },
     {
       "path": "../dev-server-esbuild/tsconfig.json"
     },
     {
-      "path": "../test-runner-selenium/tsconfig.json"
+      "path": "../test-runner-webdriver/tsconfig.json"
     },
     {
       "path": "../dev-server-legacy/tsconfig.json"
     },
     {
-      "path": "../dev-server-rollup/tsconfig.json"
-    },
-    {
-      "path": "../test-runner-cli/tsconfig.json"
+      "path": "../dev-server/tsconfig.json"
     },
     {
       "path": "../test-runner-commands/tsconfig.json"
@@ -60,7 +63,8 @@
     }
   ],
   "include": [
-    "src"
+    "src",
+    "types"
   ],
   "exclude": [
     "src/browser",

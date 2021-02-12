@@ -81,9 +81,14 @@ const options: (OptionDefinition & { description: string })[] = [
       'JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user agent. Check the docs for more options.',
   },
   {
+    name: 'debug',
+    type: Boolean,
+    description: 'Whether to log debug messages.',
+  },
+  {
     name: 'help',
     type: Boolean,
-    description: 'Print help commands',
+    description: 'List all possible commands.',
   },
 ];
 

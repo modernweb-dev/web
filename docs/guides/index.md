@@ -1,10 +1,10 @@
 ---
-title: Learning Modern Web
-pageTitle: Learning Modern Web
 eleventyNavigation:
   key: Guides
   order: 10
 ---
+
+# Learning Modern Web
 
 In this section, we help you become confident in building for the modern web.
 
@@ -28,5 +28,9 @@ Testing your code is important to have the confidence to release often. When all
 - [Browsers](./test-runner/browsers.md)
 - [Responsive](./test-runner/responsive.md)
 - [Code Coverage](./test-runner/code-coverage/index.md)
-- [Using TypeScript](./test-runner/using-typescript.md)
-- [Writing Plugins](./test-runner/writing-plugins.md)
+
+## Dev Server
+
+- [Getting Started](./dev-server/getting-started.md)
+- [TypeScript and JSX](./dev-server/typescript-and-jsx.md)
+- [Writing Plugins](./dev-server/writing-plugins.md)

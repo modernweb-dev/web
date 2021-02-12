@@ -59,7 +59,16 @@ export async function parseConfig(
   cliArgs?: DevServerCliArgs,
 ): Promise<DevServerConfig> {
   const mergedConfigs = mergeConfigs(defaultConfig, config, cliArgs);
+
+  // backwards compatibility for configs written for es-dev-server, where middleware was
+  // spelled incorrectly as middlewares
+  if (Array.isArray((mergedConfigs as any).middlewares)) {
+    mergedConfigs.middleware!.push(...(mergedConfigs as any).middlewares);
+  }
+
   const finalConfig = validateConfig(mergedConfigs);
+  // filter out non-objects from plugin list
+  finalConfig.plugins = (finalConfig.plugins ?? []).filter(pl => typeof pl === 'object');
 
   // ensure rootDir is always resolved
   if (typeof finalConfig.rootDir === 'string') {
@@ -75,7 +84,7 @@ export async function parseConfig(
     const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
     // do node resolve after user plugins, to allow user plugins to resolve imports
     finalConfig.plugins!.push(
-      nodeResolvePlugin(finalConfig.rootDir!, config.preserveSymlinks, userOptions),
+      nodeResolvePlugin(finalConfig.rootDir!, finalConfig.preserveSymlinks, userOptions),
     );
   }
 

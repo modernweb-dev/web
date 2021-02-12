@@ -1,9 +1,9 @@
 import Koa from 'koa';
-import { Server, Socket } from 'net';
+import { ListenOptions, Server, Socket } from 'net';
 import chokidar from 'chokidar';
 import { promisify } from 'util';
 
-import { DevServerCoreConfig } from '../DevServerCoreConfig';
+import { DevServerCoreConfig } from './DevServerCoreConfig';
 import { createServer } from './createServer';
 import { Logger } from '../logger/Logger';
 import { WebSocketsManager } from '../web-sockets/WebSocketsManager';
@@ -23,7 +23,7 @@ export class DevServer {
     if (!config) throw new Error('Missing config.');
     if (!logger) throw new Error('Missing logger.');
 
-    const createResult = createServer(this.config, this.logger, this.fileWatcher);
+    const createResult = createServer(this.logger, this.config, this.fileWatcher);
     this.koaApp = createResult.app;
     this.server = createResult.server;
     this.webSockets = new WebSocketsManager(this.server);
@@ -38,7 +38,7 @@ export class DevServer {
 
   async start() {
     this.started = true;
-    await promisify(this.server.listen).bind(this.server)({
+    await (promisify<ListenOptions>(this.server.listen).bind(this.server) as any)({
       port: this.config.port,
       // in case of localhost the host should be undefined, otherwise some browsers connect
       // connect to it via local network. for example safari on browserstack
@@ -65,7 +65,7 @@ export class DevServer {
       connection.destroy();
     }
 
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
       this.server.close(err => {
         if (err) {
           console.error(err);

@@ -9,7 +9,8 @@
 coverage/
 
 ## npm
-node_modules/
+/node_modules/
+/packages/*/node_modules/
 npm-debug.log
 yarn-error.log
 
@@ -22,14 +23,17 @@ package-lock.json
 packages/*/yarn.lock
 
 ## build output
-dist
+/dist
+/packages/*/dist
 tsconfig.tsbuildinfo
 _site
+_site-dev
 stats.html
 
 local.log
 
-packages/*/screenshots/*/failed
+/packages/dev-server-storybook/storybook-static
+/packages/*/screenshots/*/failed
 
 ## Rocket ignore files (need to be the full relative path to the folders)
 docs/_merged_data/

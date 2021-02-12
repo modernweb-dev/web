@@ -3,24 +3,30 @@ import cjsEntrypoint from './dist/index.js';
 
 const {
   chromeLauncher,
-  defaultReporter,
   startTestRunner,
+  defaultReporter,
   constants,
   TestRunner,
+  TestRunnerCli,
+  BufferedLogger,
   TestSessionManager,
   SESSION_STATUS,
   EventEmitter,
   isTestFilePath,
+  fetchSourceMap,
 } = cjsEntrypoint;
 
 export {
   chromeLauncher,
-  defaultReporter,
   startTestRunner,
+  defaultReporter,
   constants,
   TestRunner,
+  TestRunnerCli,
+  BufferedLogger,
   TestSessionManager,
   SESSION_STATUS,
   EventEmitter,
   isTestFilePath,
+  fetchSourceMap,
 };

@@ -3,11 +3,14 @@ import path from 'path';
 import { Context } from 'koa';
 // @ts-ignore
 import { parse, ParsedImport } from 'es-module-lexer';
+
 import { queryAll, predicates, getTextContent, setTextContent } from '../dom5';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
-import { Plugin } from '../Plugin';
+import { Plugin } from './Plugin';
 import { PluginSyntaxError } from '../logger/PluginSyntaxError';
 import { toFilePath } from '../utils';
+import { Logger } from '../logger/Logger';
+import { parseDynamicImport } from './parseDynamicImport';
 
 export type ResolveImport = (
   source: string,
@@ -42,6 +45,11 @@ async function resolveConcatenatedImport(
 ): Promise<string> {
   let pathToResolve = importSpecifier;
   let pathToAppend = '';
+
+  if (['/', '../', './'].some(p => pathToResolve.startsWith(p))) {
+    // don't handle non-bare imports
+    return pathToResolve;
+  }
 
   const parts = importSpecifier.split('/');
   if (importSpecifier.startsWith('@')) {
@@ -145,31 +153,37 @@ export async function transformImports(
       lastIndex = end;
     } else if (dynamicImportIndex >= 0) {
       // dynamic import
-      const dynamicStart = start + 1;
-      const dynamicEnd = end - 1;
-
-      const importSpecifier = code.substring(dynamicStart, dynamicEnd);
-      const stringSymbol = code[dynamicStart - 1];
-      const isStringLiteral = [`\``, "'", '"'].includes(stringSymbol);
-      const concatenatedString =
-        stringSymbol === `\`` || importSpecifier.includes("'") || importSpecifier.includes('"');
+      const {
+        importString,
+        importSpecifier,
+        stringLiteral,
+        concatenatedString,
+        dynamicStart,
+        dynamicEnd,
+      } = parseDynamicImport(code, start, end);
 
       const lines = code.slice(0, dynamicStart).split('\n');
       const line = lines.length;
       const column = lines[lines.length - 1].indexOf('import(') || 0;
 
-      const resolvedImport = isStringLiteral
-        ? await maybeResolveImport(
-            importSpecifier,
-            concatenatedString,
-            resolveImport,
-            code,
-            line,
-            column,
-          )
-        : importSpecifier;
+      let rewrittenImport;
+      if (stringLiteral) {
+        const resolvedImport = await maybeResolveImport(
+          importSpecifier,
+          concatenatedString,
+          resolveImport,
+          code,
+          line,
+          column,
+        );
+        rewrittenImport = `${importString[0]}${resolvedImport}${
+          importString[importString.length - 1]
+        }`;
+      } else {
+        rewrittenImport = importString;
+      }
 
-      resolvedSource += `${code.substring(lastIndex, dynamicStart)}${resolvedImport}`;
+      resolvedSource += `${code.substring(lastIndex, dynamicStart)}${rewrittenImport}`;
       lastIndex = dynamicEnd;
     }
   }
@@ -182,6 +196,7 @@ export async function transformImports(
 }
 
 async function transformModuleImportsWithPlugins(
+  logger: Logger,
   context: Context,
   jsCode: string,
   rootDir: string,
@@ -193,10 +208,16 @@ async function transformModuleImportsWithPlugins(
     for (const plugin of resolvePlugins) {
       const resolved = await plugin.resolveImport?.({ source, context, code, column, line });
       if (typeof resolved === 'string') {
+        logger.debug(
+          `Plugin ${plugin.name} resolved import ${source} in ${context.path} to ${resolved}.`,
+        );
         return resolved;
       }
 
       if (typeof resolved === 'object') {
+        logger.debug(
+          `Plugin ${plugin.name} resolved import ${source} in ${context.path} to ${resolved.id}.`,
+        );
         return resolved.id;
       }
     }
@@ -212,10 +233,16 @@ async function transformModuleImportsWithPlugins(
         line,
       });
       if (typeof resolved === 'string') {
+        logger.debug(
+          `Plugin ${plugin.name} transformed import ${resolvedImport} in ${context.path} to ${resolved}.`,
+        );
         resolvedImport = resolved;
       }
 
       if (typeof resolved === 'object' && typeof resolved.id === 'string') {
+        logger.debug(
+          `Plugin ${plugin.name} transformed import ${resolvedImport} in ${context.path} to ${resolved.id}.`,
+        );
         resolvedImport = resolved.id;
       }
     }
@@ -225,7 +252,11 @@ async function transformModuleImportsWithPlugins(
   return transformImports(jsCode, filePath, transformImport);
 }
 
-export function transformModuleImportsPlugin(plugins: Plugin[], rootDir: string): Plugin {
+export function transformModuleImportsPlugin(
+  logger: Logger,
+  plugins: Plugin[],
+  rootDir: string,
+): Plugin {
   const importPlugins = plugins.filter(pl => !!pl.resolveImport || !!pl.transformImport);
 
   return {
@@ -238,6 +269,7 @@ export function transformModuleImportsPlugin(plugins: Plugin[], rootDir: string)
       // resolve served js code
       if (context.response.is('js')) {
         const bodyWithResolvedImports = await transformModuleImportsWithPlugins(
+          logger,
           context,
           context.body,
           rootDir,
@@ -262,6 +294,7 @@ export function transformModuleImportsPlugin(plugins: Plugin[], rootDir: string)
         for (const node of inlineModuleNodes) {
           const code = getTextContent(node);
           const resolvedCode = await transformModuleImportsWithPlugins(
+            logger,
             context,
             code,
             rootDir,

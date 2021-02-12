@@ -4,21 +4,33 @@ import { runConfigGroupsTest } from './tests/config-groups/runConfigGroupsTest';
 import { runParallelTest } from './tests/parallel/runParallelTest';
 import { runTestFailureTest } from './tests/test-failure/runTestFailureTest';
 import { runLocationChangeTest } from './tests/location-change/runLocationChangeTest';
+import { runFocusTest } from './tests/focus/runFocusTest';
+import { runManyTests } from './tests/many/runManyTests';
 
 export interface Tests {
   basic: boolean;
+  many: boolean;
+  focus: boolean;
   groups: boolean;
   parallel: boolean;
   testFailure: boolean;
   locationChanged: boolean;
 }
 
-export function runIntegrationTests(
+export async function runIntegrationTests(
   createConfig: () => Partial<TestRunnerCoreConfig> & { browsers: BrowserLauncher[] },
   tests: Tests,
 ) {
   if (tests.basic !== false) {
     runBasicTest(createConfig());
+  }
+
+  if (tests.many !== false) {
+    runManyTests(createConfig());
+  }
+
+  if (tests.focus !== false) {
+    runFocusTest(createConfig());
   }
 
   if (tests.groups !== false) {

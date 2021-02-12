@@ -12,6 +12,8 @@ describe('test-runner-puppeteer', function testRunnerPuppeteer() {
 
   runIntegrationTests(createConfig, {
     basic: true,
+    many: true,
+    focus: true,
     groups: true,
     parallel: true,
     testFailure: true,

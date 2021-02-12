@@ -7,13 +7,14 @@ export default input => ({
   input,
   output: {
     dir: './dist',
-    sourcemap: true,
+    sourcemap: false,
     format: 'es',
   },
   plugins: [
     nodeResolve(),
     typescript({
       composite: false,
+      sourceMap: false,
     }),
     terser({
       output: {

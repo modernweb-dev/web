@@ -1,0 +1,50 @@
+<html><head>
+            
+<link rel="preload" href="./entrypoint-a.js" as="script">
+<link rel="preload" href="shared-37ad104a.js" as="script">
+<link rel="preload" href="./entrypoint-b.js" as="script">
+</head><body><script>(function () {
+  function loadScript(src, type) {
+    return new Promise(function (resolve) {
+      var script = document.createElement('script');
+
+      function onLoaded() {
+        if (script.parentElement) {
+          script.parentElement.removeChild(script);
+        }
+
+        resolve();
+      }
+
+      script.src = src;
+      script.onload = onLoaded;
+
+      script.onerror = function () {
+        console.error('[polyfills-loader] failed to load: ' + src + ' check the network tab for HTTP status.');
+        onLoaded();
+      };
+
+      if (type) script.type = type;
+      document.head.appendChild(script);
+    });
+  }
+
+  var polyfills = [];
+  polyfills.push(loadScript('./polyfills/systemjs.c80aa2992e2de3b6e03317286a7104c8.js'));
+
+  function loadFiles() {
+    [function () {
+      return System.import('./entrypoint-a.js');
+    }, function () {
+      return System.import('./entrypoint-b.js');
+    }].reduce(function (a, c) {
+      return a.then(c);
+    }, Promise.resolve());
+  }
+
+  if (polyfills.length) {
+    Promise.all(polyfills).then(loadFiles);
+  } else {
+    loadFiles();
+  }
+})();</script></body></html>

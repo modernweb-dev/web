@@ -11,6 +11,9 @@
   },
   "references": [
     {
+      "path": "../parse5-utils/tsconfig.json"
+    },
+    {
       "path": "../browser-logs/tsconfig.json"
     },
     {
@@ -26,20 +29,15 @@
       "path": "../test-runner-mocha/tsconfig.json"
     },
     {
-      "path": "../config-loader/tsconfig.json"
-    },
-    {
       "path": "../test-runner-chrome/tsconfig.json"
-    },
-    {
-      "path": "../test-runner-cli/tsconfig.json"
     },
     {
       "path": "../test-runner-playwright/tsconfig.json"
     }
   ],
   "include": [
-    "src"
+    "src",
+    "types"
   ],
   "exclude": [
     "src/browser",

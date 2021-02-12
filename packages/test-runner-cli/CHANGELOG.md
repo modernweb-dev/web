@@ -1,5 +1,79 @@
 # @web/test-runner-cli
 
+## 0.9.0
+
+### Minor Changes
+
+- a7d74fdc: drop support for node v10 and v11
+
+## 0.8.0
+
+### Minor Changes
+
+- 405433f3: Deprecate the `@web/test-runner-cli` package. This is now merged into `@web/test-runner-core` and `@web/test-runner`.
+
+## 0.7.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+
+### Patch Changes
+
+- Updated dependencies [6e313c18]
+- Updated dependencies [6e313c18]
+- Updated dependencies [0f613e0e]
+  - @web/config-loader@0.1.3
+  - @web/test-runner-core@0.9.0
+  - @web/test-runner-chrome@0.8.0
+
+## 0.6.14
+
+### Patch Changes
+
+- 92f2061: don't clear scrollback buffer
+
+## 0.6.13
+
+### Patch Changes
+
+- 13993fa: avoid under 1 concurrency
+
+## 0.6.12
+
+### Patch Changes
+
+- 2278a95: bump dependencies
+- Updated dependencies [2278a95]
+  - @web/test-runner-chrome@0.7.3
+  - @web/test-runner-core@0.8.11
+
+## 0.6.11
+
+### Patch Changes
+
+- 8da3fe0: add debug option
+
+## 0.6.10
+
+### Patch Changes
+
+- 0f0d474: track manual test session imports
+- Updated dependencies [0f0d474]
+  - @web/test-runner-core@0.8.9
+
+## 0.6.9
+
+### Patch Changes
+
+- a70da8d: exclude web_modules from coverage
+
+## 0.6.8
+
+### Patch Changes
+
+- e21a4cf: add coverage failure per type when below threshold
+
 ## 0.6.7
 
 ### Patch Changes

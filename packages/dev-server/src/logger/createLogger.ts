@@ -2,7 +2,7 @@ import { Plugin } from '@web/dev-server-core';
 import { DevServerLogger } from './DevServerLogger';
 import { logStartMessage } from './logStartMessage';
 
-const CLEAR_COMMAND = process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[3J\x1B[H';
+const CLEAR_COMMAND = process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[H';
 
 export interface LoggerArgs {
   debugLogging: boolean;

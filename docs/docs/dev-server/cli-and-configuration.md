@@ -14,6 +14,8 @@ The dev server can be configured using CLI flags, or with a configuration file.
 | esbuild-target    | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent |
 | preserve-symlinks | boolean      | preserve symlinks when resolving imports                                                                             |
 | config            | object       | where to read the config from                                                                                        |
+| debug             | boolean      | whether to log debug messages                                                                                        |
+| help              | boolean      | List all possible commands                                                                                           |
 
 Examples:
 
@@ -39,7 +41,7 @@ If you need this flag, we recommend setting this to `auto`. This will compile ba
 
 ## Configuration file
 
-Web dev server looks for a configuration file in the current working directory called `web-dev-server.config`.
+Web Dev Server looks for a configuration file in the current working directory called `web-dev-server.config`.
 
 The file extension can be `.js`, `.cjs` or `.mjs`. A `.js` file will be loaded as an es module or common js module based on your version of node, and the package type of your project.
 
@@ -85,8 +87,6 @@ interface DevServerConfig {
   watch?: boolean;
   // resolve bare module imports
   nodeResolve?: boolean | RollupNodeResolveOptions;
-  // preserve symlinks when resolving bare module imports
-  preserveSymlinks?: boolean;
   // JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user agent.
   esbuildTarget?: string | string[];
   // preserve symlinks when resolve imports, instead of following
@@ -95,6 +95,10 @@ interface DevServerConfig {
   // the root directory to serve files from. this is useful in a monorepo
   // when executing commands from a package
   rootDir?: string;
+  /**
+   * Whether to log debug messages.
+   */
+  debug?: boolean;
 
   // files to serve with a different mime type
   mimeTypes?: MimeTypeMappings;
@@ -116,4 +120,19 @@ interface DevServerConfig {
   // path to SSL certificate
   sslCert?: string;
 }
+```
+
+### Node resolve options
+
+The `--node-resolve` flag uses [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve) to resolve module imports.
+
+You can pass extra configuration using the `nodeResolve` option in the config:
+
+```js
+export default {
+  nodeResolve: {
+    exportConditions: ['development'],
+    dedupe: true,
+  },
+};
 ```

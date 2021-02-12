@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.9.5",
+  "version": "0.12.15",
   "publishConfig": {
     "access": "public"
   },
@@ -18,18 +18,26 @@
     "web-test-runner": "./dist/bin.js",
     "wtr": "./dist/bin.js"
   },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   },
   "scripts": {
     "build": "tsc",
     "test": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\"",
-    "test:babel-coverage": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/babel-coverage.config.js",
+    "test:babel-coverage": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/babel-coverage.config.mjs",
     "test:bare": "node dist/bin.js",
     "test:ci": "yarn test",
-    "test:custom-html": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/customhtml.config.js",
+    "test:coverage": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --coverage",
+    "test:coverage-babel": "node dist/bin.js --config demo/coverage-babel/config.mjs",
+    "test:custom-html": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/customhtml.config.mjs",
     "test:filter-logs": "node dist/bin.js --config demo/filter-logs.config.mjs",
-    "test:focus": "node dist/bin.js --config demo/focus.config.mjs",
+    "test:focus": "node dist/bin.js --config demo/focus/config.mjs",
     "test:groups": "node dist/bin.js --config demo/groups.config.mjs",
     "test:groups-pattern": "node dist/bin.js --groups \"demo/test/groups/**/*.config.mjs\"",
     "test:groups-shared-browser": "node dist/bin.js --config demo/groups-shared-browser.config.mjs",
@@ -38,12 +46,13 @@
     "test:many": "node dist/bin.js \"demo/test/many/**/*.test.js\"",
     "test:mixed": "node dist/bin.js \"demo/test/*.test.js\"",
     "test:mocha-options": "node dist/bin.js --config \"demo/test/mocha-options/config.js\"",
-    "test:parent-dir": "node dist/bin.js --config demo/parent-dir.mjs",
     "test:playwright": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --playwright --browsers chromium firefox webkit",
     "test:puppeteer-firefox": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --puppeteer --browsers firefox",
-    "test:rollup-bundle": "node dist/bin.js --config demo/rollup-bundle.mjs",
     "test:saucelabs": "node dist/bin.js --config demo/saucelabs.config.mjs",
-    "test:selenium": "node dist/bin.js --config demo/selenium.config.js",
+    "test:selenium": "node dist/bin.js --config demo/selenium.config.mjs",
+    "test:source-maps": "node dist/bin.js --config demo/source-maps/config.mjs --coverage",
+    "test:tsc": "tsc -p demo/tsc/tsconfig.json && concurrently -k -r \"tsc -p demo/tsc/tsconfig.json --watch --preserveWatchOutput\" \"wtr --config demo/tsc/config.mjs --watch\"",
+    "test:virtual": "node dist/bin.js --config demo/virtual/config.mjs",
     "test:watch": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --watch"
   },
   "files": [
@@ -63,27 +72,29 @@
     "cli"
   ],
   "dependencies": {
-    "@rollup/plugin-node-resolve": "^8.1.0",
-    "@web/config-loader": "^0.1.2",
-    "@web/dev-server-rollup": "^0.2.9",
-    "@web/test-runner-chrome": "^0.7.2",
-    "@web/test-runner-cli": "^0.6.7",
-    "@web/test-runner-commands": "^0.2.1",
-    "@web/test-runner-core": "^0.8.7",
-    "@web/test-runner-mocha": "^0.5.1",
-    "@web/test-runner-saucelabs": "^0.1.1",
+    "@web/browser-logs": "^0.2.0",
+    "@web/config-loader": "^0.1.3",
+    "@web/dev-server": "^0.1.7",
+    "@web/test-runner-chrome": "^0.9.4",
+    "@web/test-runner-commands": "^0.4.1",
+    "@web/test-runner-core": "^0.10.11",
+    "@web/test-runner-mocha": "^0.7.2",
+    "camelcase": "^6.2.0",
+    "chalk": "^4.1.0",
     "command-line-args": "^5.1.1",
+    "command-line-usage": "^6.1.1",
+    "convert-source-map": "^1.7.0",
     "deepmerge": "^4.2.2",
-    "globby": "^11.0.1"
+    "diff": "^5.0.0",
+    "globby": "^11.0.1",
+    "portfinder": "^1.0.28",
+    "source-map": "^0.7.3"
   },
   "devDependencies": {
-    "@web/dev-server-legacy": "^0.1.6",
-    "babel-plugin-istanbul": "^6.0.0"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
+    "@types/diff": "^5.0.0",
+    "@web/dev-server-legacy": "^0.1.7",
+    "@web/test-runner-saucelabs": "^0.4.2",
+    "babel-plugin-istanbul": "^6.0.0",
+    "concurrently": "^5.3.0"
   }
 }

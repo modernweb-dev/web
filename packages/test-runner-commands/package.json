@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-commands",
-  "version": "0.2.1",
+  "version": "0.4.1",
   "publishConfig": {
     "access": "public"
   },
@@ -14,8 +14,15 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-commands",
   "main": "browser/commands.mjs",
+  "exports": {
+    ".": "./browser/commands.mjs",
+    "./plugins": {
+      "import": "./plugins.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -38,18 +45,11 @@
     "commands"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.8.4"
+    "@web/test-runner-core": "^0.10.8"
   },
   "devDependencies": {
-    "@web/test-runner-chrome": "^0.7.2",
-    "@web/test-runner-playwright": "^0.6.4",
-    "mocha": "^8.1.1"
-  },
-  "exports": {
-    ".": "./browser/commands.mjs",
-    "./plugins": {
-      "import": "./plugins.mjs",
-      "require": "./dist/index.js"
-    }
+    "@web/test-runner-chrome": "^0.9.0",
+    "@web/test-runner-playwright": "^0.8.0",
+    "mocha": "^8.2.1"
   }
 }

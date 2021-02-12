@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sources": [
+    "../src/a.js",
+    "../src/b.js"
+  ],
+  "sourcesContent": [
+    "export function a() {\n  throw new Error('error thrown in a.js')\n}",
+    "export function b() {\n  throw new Error('error thrown in b.js')\n}"
+  ],
+  "names": [],
+  "mappings": "AAAO,SAAS,CAAC,GAAG;AACpB,EAAE,MAAM,IAAI,KAAK,CAAC,sBAAsB,CAAC;AACzC;;ACFO,SAAS,CAAC,GAAG;AACpB,EAAE,MAAM,IAAI,KAAK,CAAC,sBAAsB,CAAC;AACzC;;;;"
+}

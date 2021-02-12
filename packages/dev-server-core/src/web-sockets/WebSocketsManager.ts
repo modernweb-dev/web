@@ -5,7 +5,7 @@ import { EventEmitter } from './EventEmitter';
 export const NAME_WEB_SOCKET_IMPORT = '/__web-dev-server__web-socket.js';
 export const NAME_WEB_SOCKET_API = 'wds';
 
-type WebSocketData = { type: string } & Record<string, unknown>;
+export type WebSocketData = { type: string } & Record<string, unknown>;
 
 export interface Events {
   message: { webSocket: WebSocket; data: WebSocketData };

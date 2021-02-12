@@ -1,5 +1,30 @@
 # @web/browser-logs
 
+## 0.2.1
+
+### Patch Changes
+
+- 6a62b4ee: filter out internal stack traces
+
+## 0.2.0
+
+### Minor Changes
+
+- 1dd7cd0e: improve deserialization of stack traces cross browser
+
+## 0.1.6
+
+### Patch Changes
+
+- 836abc0: handle errors thrown when (de)serializing browser logs
+- f6107a4: handle logging shadow root
+
+## 0.1.5
+
+### Patch Changes
+
+- 3b1a6cc: remove sourcemap URL from scripts
+
 ## 0.1.4
 
 ### Patch Changes

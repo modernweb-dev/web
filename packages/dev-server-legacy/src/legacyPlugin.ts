@@ -61,7 +61,7 @@ export function legacyPlugin(options: LegacyPluginOptions = {}): Plugin {
        * of the inline module in that index.html. We use these to look up the correct code to
        * serve
        */
-      if (isInlineScriptRequest(context)) {
+      if (isInlineScriptRequest(context.url)) {
         const sourcePath = context.URL.searchParams.get('source');
         if (!sourcePath) {
           throw new Error(`${context.url} is missing a source param`);
@@ -108,7 +108,7 @@ export function legacyPlugin(options: LegacyPluginOptions = {}): Plugin {
           context.URL.searchParams.get(PARAM_TRANSFORM_SYSTEMJS) === 'true'
             ? systemJsConfig
             : es5Config;
-        const filePath = getRequestFilePath(context, rootDir);
+        const filePath = getRequestFilePath(context.url, rootDir);
         const transformed = await babelTransform(filePath, context.body, config);
         context.body = transformed;
         return;

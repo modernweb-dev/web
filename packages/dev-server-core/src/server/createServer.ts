@@ -6,7 +6,7 @@ import http2Server from 'http2';
 import fs from 'fs';
 import net, { Server, Socket, ListenOptions } from 'net';
 
-import { DevServerCoreConfig } from '../DevServerCoreConfig';
+import { DevServerCoreConfig } from './DevServerCoreConfig';
 import { createMiddleware } from './createMiddleware';
 import { Logger } from '../logger/Logger';
 import { addPlugins } from './addPlugins';
@@ -25,10 +25,18 @@ function httpsRedirect(req: IncomingMessage, res: ServerResponse) {
  * Creates a koa server with middlewares, but does not start it. Returns the koa app and
  * http server instances.
  */
-export function createServer(cfg: DevServerCoreConfig, logger: Logger, fileWatcher: FSWatcher) {
+export function createServer(logger: Logger, cfg: DevServerCoreConfig, fileWatcher: FSWatcher) {
   const app = new Koa();
+  app.silent = true;
+  app.on('error', error => {
+    if (['EPIPE', 'ECONNRESET', 'ERR_STREAM_PREMATURE_CLOSE'].includes(error.code)) {
+      return;
+    }
 
-  addPlugins(cfg);
+    console.error('Error while handling server request.');
+    console.error(error);
+  });
+  addPlugins(logger, cfg);
 
   // special case the legacy plugin, if it is given make sure the resolve module imports plugin
   // runs before the legacy plugin because it compiles away module syntax. ideally we have a

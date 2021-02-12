@@ -1,5 +1,58 @@
 # @web/dev-server-rollup
 
+## 0.3.2
+
+### Patch Changes
+
+- 5d36f239: allow resolving extensionless absolute file paths
+
+## 0.3.1
+
+### Patch Changes
+
+- 375116ad: fix handling of paths resolved outside the root dir. we now correctly use the resolved path when resolving relative imports and when populating the transform cache
+- 2f205878: handle null bytes in HTML
+- Updated dependencies [375116ad]
+  - @web/dev-server-core@0.3.2
+
+## 0.3.0
+
+### Minor Changes
+
+- 0f613e0e: handle modules resolved outside root dir
+
+### Patch Changes
+
+- Updated dependencies [0f613e0e]
+  - @web/dev-server-core@0.3.0
+
+## 0.2.13
+
+### Patch Changes
+
+- 5ac055f: don't handle virtual files
+
+## 0.2.12
+
+### Patch Changes
+
+- d6de058: don't throw on unresolved local imports
+- 6950c7a: improve error message
+
+## 0.2.11
+
+### Patch Changes
+
+- 4913db2: implement moduleParsed hook
+- Updated dependencies [f0472df]
+  - @web/dev-server-core@0.2.17
+
+## 0.2.10
+
+### Patch Changes
+
+- e2b93b6: Add error when a bare import cannot be resolved
+
 ## 0.2.9
 
 ### Patch Changes

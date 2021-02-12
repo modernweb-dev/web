@@ -4,6 +4,7 @@ import { TestFramework } from '../test-framework/TestFramework.js';
 import { Reporter } from '../reporter/Reporter.js';
 import { Logger } from '../logger/Logger.js';
 import { TestRunnerPlugin } from '../server/TestRunnerPlugin.js';
+import { ReportType } from 'istanbul-reports';
 
 export interface CoverageThresholdConfig {
   statements: number;
@@ -19,11 +20,12 @@ export interface CoverageConfig {
   threshold?: CoverageThresholdConfig;
   report: boolean;
   reportDir: string;
+  reporters?: ReportType[];
 }
 
 export interface TestRunnerCoreConfig {
   rootDir: string;
-  files: string | string[];
+  files?: string | string[];
   concurrentBrowsers: number;
   concurrency: number;
 
@@ -42,7 +44,7 @@ export interface TestRunnerCoreConfig {
   browserLogs?: boolean;
   filterBrowserLogs?: (log: { type: string; args: any[] }) => boolean;
   coverage?: boolean;
-  coverageConfig?: CoverageConfig;
+  coverageConfig: CoverageConfig;
 
   browserStartTimeout: number;
   testsStartTimeout: number;

@@ -1,5 +1,95 @@
 # @web/test-runner-playwright
 
+## 0.8.4
+
+### Patch Changes
+
+- 4a609a18: skip non-http coverage files
+- Updated dependencies [4a609a18]
+  - @web/test-runner-coverage-v8@0.4.5
+
+## 0.8.3
+
+### Patch Changes
+
+- 9ecb49f4: release test coverage package
+- Updated dependencies [9ecb49f4]
+  - @web/test-runner-coverage-v8@0.4.3
+
+## 0.8.2
+
+### Patch Changes
+
+- 83e0757e: handle cases when userAgent is not defined
+- Updated dependencies [83e0757e]
+  - @web/test-runner-core@0.10.8
+
+## 0.8.1
+
+### Patch Changes
+
+- ad815710: fetch source map from server when generating code coverage reports. this fixes errors when using build tools that generate source maps on the fly, which don't exist on the file system
+- Updated dependencies [ad815710]
+- Updated dependencies [c4738a40]
+  - @web/test-runner-core@0.10.5
+  - @web/test-runner-coverage-v8@0.4.2
+
+## 0.8.0
+
+### Minor Changes
+
+- a7d74fdc: drop support for node v10 and v11
+- 1dd7cd0e: version bump after breaking change in @web/test-runner-core
+
+### Patch Changes
+
+- Updated dependencies [1dd7cd0e]
+- Updated dependencies [a7d74fdc]
+- Updated dependencies [1dd7cd0e]
+  - @web/test-runner-core@0.10.0
+  - @web/test-runner-coverage-v8@0.4.0
+
+## 0.7.2
+
+### Patch Changes
+
+- cbbeae3f: allow configuring puppeteer and playwright browser context
+
+## 0.7.1
+
+### Patch Changes
+
+- 69b2d13d: use about:blank to kill stale browser pages, this makes tests that rely on browser focus work with puppeteer
+
+## 0.7.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+
+### Patch Changes
+
+- Updated dependencies [6e313c18]
+- Updated dependencies [0f613e0e]
+  - @web/test-runner-core@0.9.0
+  - @web/test-runner-coverage-v8@0.3.0
+
+## 0.6.6
+
+### Patch Changes
+
+- 2278a95: bump dependencies
+- Updated dependencies [0614acf]
+- Updated dependencies [2278a95]
+  - @web/test-runner-coverage-v8@0.2.3
+  - @web/test-runner-core@0.8.11
+
+## 0.6.5
+
+### Patch Changes
+
+- 72b6bd0: update to playwright 1.6.x
+
 ## 0.6.4
 
 ### Patch Changes

@@ -216,13 +216,11 @@ function testSuiteXMLAttributes(
  * @param testFile Absolute path to test file
  * @param browserName Short browser name
  * @param launcherType browser launcher type
- * @param userAgent User Agent string
  */
 function testSuitePropertiesXMLElement(
   testFile: string,
   browserName: string,
   launcherType: string,
-  userAgent: string,
 ): TestSuitePropertiesXMLElement[] {
   return [
     {
@@ -249,14 +247,6 @@ function testSuitePropertiesXMLElement(
         },
       },
     },
-    {
-      property: {
-        _attr: {
-          name: 'browser.userAgent',
-          value: userAgent,
-        },
-      },
-    },
   ];
 }
 
@@ -274,7 +264,7 @@ function getTestRunXML(sessions: TestSession[], reportLogs: boolean): string {
         {} as TestResultsWithMetadataByBrowserTestFileName,
       ),
   ).map(([name, tests]) => {
-    const [{ testRun = 0, userAgent = '', browser, testFile }] = tests;
+    const [{ testRun = 0, browser, testFile }] = tests;
 
     const browserName = browser.name ?? '';
 
@@ -282,12 +272,7 @@ function getTestRunXML(sessions: TestSession[], reportLogs: boolean): string {
 
     const attributes = testSuiteXMLAttributes(name, testRun, tests);
 
-    const properties = testSuitePropertiesXMLElement(
-      testFile,
-      browserName,
-      launcherType,
-      userAgent,
-    );
+    const properties = testSuitePropertiesXMLElement(testFile, browserName, launcherType);
 
     const testcases = tests.map(testCaseXMLElement);
 

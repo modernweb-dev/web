@@ -1,8 +1,8 @@
 # Dev Server >> Plugins >> Rollup ||4
 
-Adapter for using rollup plugins in web dev server and web test runner.
+Adapter for using rollup plugins in Web Dev Server and Web Test Runner.
 
-Web dev server plugins and rollup plugins share a very similar API, making it possible to reuse rollup plugins inside web dev server with an adapter.
+Web Dev Server plugins and rollup plugins share a very similar API, making it possible to reuse rollup plugins inside Web Dev Server with an adapter.
 
 Since the dev server doesn't run an actual rollup build, only rollup plugins that do single file transformations can be reused.
 
@@ -33,7 +33,7 @@ Some rollup plugins do expensive operations. During development, this matters a 
 
 ## non-standard file types
 
-The rollup build process assumes that any imported files are meant to be compiled to JS, web dev server serves many different kinds of files to the browser. If you are transforming a non-standard filetype to JS, for example .json files, you need to instruct the server to handle it as a JS file:
+The rollup build process assumes that any imported files are meant to be compiled to JS, Web Dev Server serves many different kinds of files to the browser. If you are transforming a non-standard filetype to JS, for example .json files, you need to instruct the server to handle it as a JS file:
 
 ```js
 import json from '@rollup/plugin-json';

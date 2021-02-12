@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-playwright",
-  "version": "0.6.4",
+  "version": "0.8.4",
   "publishConfig": {
     "access": "public"
   },
@@ -14,8 +14,14 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-playwright",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -39,18 +45,12 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.8.4",
-    "@web/test-runner-coverage-v8": "^0.2.1",
-    "playwright": "^1.4.2"
+    "@web/test-runner-core": "^0.10.8",
+    "@web/test-runner-coverage-v8": "^0.4.5",
+    "playwright": "^1.7.1"
   },
   "devDependencies": {
-    "@web/test-runner-mocha": "^0.5.1",
-    "portfinder": "^1.0.26"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
+    "@web/test-runner-mocha": "^0.7.0",
+    "portfinder": "^1.0.28"
   }
 }

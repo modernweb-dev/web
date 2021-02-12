@@ -28,7 +28,10 @@ const iframeModePage = `
 
 async function getManualListItem(config: TestRunnerCoreConfig, context: Context, testFile: string) {
   const testImportPath = await createTestFileImportPath(config, context, testFile);
-  return `<li><a href="/?${PARAM_TEST_FILE}=${testImportPath}">${testImportPath}</a></li>`;
+  const displayedPath = testImportPath.split('?')[0].substring(1);
+  const pagename = displayedPath.endsWith('.html') ? displayedPath : '/';
+  const href = `${pagename}?${PARAM_TEST_FILE}=${encodeURIComponent(testImportPath)}`;
+  return `<li><a href="${href}">${displayedPath}</a></li>`;
 }
 
 async function createManualDebugPage(
@@ -164,7 +167,10 @@ export function serveTestRunnerHtmlPlugin(
         return;
       }
       const isTestRunnerHtml = context.path === '/';
-      if (!isTestRunnerHtml && !testFiles.includes(getRequestFilePath(context, config.rootDir))) {
+      if (
+        !isTestRunnerHtml &&
+        !testFiles.includes(getRequestFilePath(context.url, config.rootDir))
+      ) {
         return;
       }
 

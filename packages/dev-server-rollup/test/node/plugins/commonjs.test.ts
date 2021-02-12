@@ -83,17 +83,11 @@ module.exports.lorem = lorem;`;
 
     try {
       const text = await fetchText(`${host}/foo.js`);
-      expectIncludes(
-        text,
-        "import * as commonjsHelpers from '/__web-dev-server__/rollup/commonjsHelpers.js?web-dev-server-rollup-null-byte=%00commonjsHelpers.js';",
-      );
-      expectIncludes(text, 'var foo_1 = commonjsHelpers.createCommonjsModule(function (module) {');
-      expectIncludes(text, 'module.exports.__esModule = true;');
-      expectIncludes(text, "const foo = 'bar';");
-      expectIncludes(text, 'module.exports.foo = foo;');
-      expectIncludes(text, "const lorem = 'ipsum';");
-      expectIncludes(text, 'module.exports.lorem = lorem;');
-      expectIncludes(text, 'export default /*@__PURE__*/commonjsHelpers.unwrapExports(foo_1);');
+
+      expectIncludes(text, 'export default foo_1;');
+      expectIncludes(text, 'export { foo_1 as __moduleExports };');
+      expectIncludes(text, 'export { foo_2 as foo }');
+      expectIncludes(text, 'export { lorem_1 as lorem }');
     } finally {
       server.stop();
     }
@@ -132,7 +126,10 @@ exports.default = _default;`;
       expectIncludes(text, 'exports.default = void 0;');
       expectIncludes(text, "var _default = 'foo';");
       expectIncludes(text, 'exports.default = _default;');
-      expectIncludes(text, 'export default /*@__PURE__*/commonjsHelpers.unwrapExports(foo);');
+      expectIncludes(
+        text,
+        'export default /*@__PURE__*/commonjsHelpers.getDefaultExportFromCjs(foo);',
+      );
     } finally {
       server.stop();
     }

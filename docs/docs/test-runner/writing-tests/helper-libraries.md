@@ -1,10 +1,10 @@
 # Test Runner >> Writing Tests >> Helper Libraries ||30
 
-Not all helper libraries ship es modules which are usable in the browser. On this page we collect libraries which are available as es modules. If need to use a library with another module format, you can follow the instructions at the bottom of the [es modules page](../../../guides/web-development/es-modules.md)
+Not all helper libraries ship es modules which are usable in the browser. On this page we collect libraries which are available as es modules. If need to use a library with another module format, you can follow the instructions at the bottom of the [es modules page](../../../guides/going-buildless/es-modules.md)
 
 ## General libraries
 
-[@open-wc/testing](https://open-wc.org/testing/testing.html) is a general-purpose library, including assertions via chai, HTML test fixtures, a11y tests, and test helpers. It is an opinionated implementation that brings together multiple libraries.
+[@open-wc/testing](https://github.com/open-wc/open-wc/tree/master/packages/testing) is a general-purpose library, including assertions via chai, HTML test fixtures, a11y tests, and test helpers. It is an opinionated implementation that brings together multiple libraries.
 
 ## Assertions
 

@@ -1,6 +1,6 @@
 # Dev Server >> Plugins >> Esbuild ||3
 
-Plugin for using [esbuild](https://github.com/evanw/esbuild) in web dev server and web test runner. [esbuild](https://github.com/evanw/esbuild) is a blazing fast build tool.
+Plugin for using [esbuild](https://github.com/evanw/esbuild) in Web Dev Server and Web Test Runner. [esbuild](https://github.com/evanw/esbuild) is a blazing fast build tool.
 
 It can be used for fast single-file transforms, for example to transform TS, JSX, TSX and JSON to JS, or to transform modern JS to an older version of JS for older browsers.
 
@@ -21,6 +21,10 @@ export default {
   plugins: [esbuildPlugin({ ts: true, target: 'auto' })],
 };
 ```
+
+## Single file transforms
+
+Note that the esbuild plugin uses the [esbuild single file transform API](https://esbuild.github.io/api/#transform-api), transforming files as they are requested by the browser. We don't use esbuild's bundling API, so some features like module transformation are not available.
 
 ## Configuration
 

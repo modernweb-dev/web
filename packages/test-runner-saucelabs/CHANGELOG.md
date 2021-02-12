@@ -1,5 +1,94 @@
 # @web/test-runner-saucelabs
 
+## 0.4.2
+
+### Patch Changes
+
+- 8861ded8: feat(dev-server-core): share websocket instances with iframe parent
+- Updated dependencies [8861ded8]
+  - @web/test-runner-webdriver@0.2.2
+
+## 0.4.1
+
+### Patch Changes
+
+- 967f12d9: Fix intermittent testsStartTimeout on Safari on Sauce
+- Updated dependencies [967f12d9]
+  - @web/test-runner-webdriver@0.2.1
+
+## 0.4.0
+
+### Minor Changes
+
+- a7d74fdc: drop support for node v10 and v11
+- 1dd7cd0e: version bump after breaking change in @web/test-runner-core
+
+### Patch Changes
+
+- Updated dependencies [a7d74fdc]
+- Updated dependencies [1dd7cd0e]
+  - @web/test-runner-webdriver@0.2.0
+
+## 0.3.3
+
+### Patch Changes
+
+- 69b2d13d: use about:blank to kill stale browser pages, this makes tests that rely on browser focus work with puppeteer
+- Updated dependencies [69b2d13d]
+- Updated dependencies [c7f8d271]
+  - @web/test-runner-webdriver@0.1.3
+  - @web/dev-server-esbuild@0.2.10
+
+## 0.3.2
+
+### Patch Changes
+
+- 75fba3d0: lazily create webdriver connection
+- Updated dependencies [75fba3d0]
+  - @web/test-runner-webdriver@0.1.2
+
+## 0.3.1
+
+### Patch Changes
+
+- 5b117da4: add heartbeat to webdriver launcher
+- Updated dependencies [5b117da4]
+  - @web/test-runner-webdriver@0.1.1
+
+## 0.3.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+
+### Patch Changes
+
+- Updated dependencies [6e313c18]
+  - @web/test-runner-webdriver@0.1.0
+  - @web/dev-server-esbuild@0.2.9
+
+## 0.2.0
+
+### Minor Changes
+
+- 18b3766: Use Webdriver launcher, support JWP capabilities
+
+## 0.1.3
+
+### Patch Changes
+
+- b6e703a: clear heartbeat interval properly
+- Updated dependencies [b6e703a]
+  - @web/test-runner-selenium@0.3.3
+
+## 0.1.2
+
+### Patch Changes
+
+- 9cf02b9: add heartbeat interval to keep connection alive
+- Updated dependencies [9cf02b9]
+  - @web/test-runner-selenium@0.3.2
+
 ## 0.1.1
 
 ### Patch Changes

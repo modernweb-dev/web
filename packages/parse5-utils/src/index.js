@@ -1,14 +1,18 @@
 /** @typedef {import('parse5').TreeAdapter} TreeAdapter */
 /** @typedef {import('parse5').Element} Element */
-/** @typedef {import('parse5').DefaultTreeElement} DefaultTreeElement */
 /** @typedef {import('parse5').Attribute} Attribute */
 /** @typedef {import('parse5').Node} Node */
 /** @typedef {import('parse5').ParentNode} ParentNode */
 /** @typedef {import('parse5').ChildNode} ChildNode */
+/** @typedef {import('parse5').DefaultTreeElement} DefaultTreeElement */
+/** @typedef {import('parse5').DefaultTreeNode} DefaultTreeNode */
+/** @typedef {import('parse5').DefaultTreeChildNode} DefaultTreeChildNode */
+/** @typedef {import('parse5').DefaultTreeCommentNode} DefaultTreeCommentNode */
+/** @typedef {import('parse5').DefaultTreeTextNode} DefaultTreeTextNode */
 
 const parse5 = require('parse5');
 // the tree adapter is not in the parse5 types
-//@ts-expect-error
+//@ts-ignore
 const adapter = /** @type {TreeAdapter} */ (require('parse5/lib/tree-adapters/default'));
 
 const DEFAULT_NAMESPACE = 'http://www.w3.org/1999/xhtml';
@@ -27,10 +31,24 @@ function createElement(tagName, attrs = {}, namespaceURI = DEFAULT_NAMESPACE) {
 }
 
 /**
+ * Creates a script element.
+ * @param {Record<string,string>} [attrs]
+ * @param {string} [code]
+ */
+function createScript(attrs = {}, code = undefined) {
+  const element = createElement('script', attrs);
+  if (code) {
+    setTextContent(element, code);
+  }
+  return element;
+}
+
+/**
  * @param {string} html
  */
 function isHtmlFragment(html) {
-  return !REGEXP_IS_HTML_DOCUMENT.test(html);
+  let htmlWithoutComments = html.replace(/<!--.*?-->/g, '');
+  return !REGEXP_IS_HTML_DOCUMENT.test(htmlWithoutComments);
 }
 
 /**
@@ -110,20 +128,70 @@ function removeAttribute(node, name) {
 }
 
 /**
+ * @param {Node} node
+ * @returns {string}
+ */
+function getTextContent(node) {
+  if (adapter.isCommentNode(node)) {
+    return /** @type {DefaultTreeCommentNode} */ (node).data || '';
+  }
+  if (adapter.isTextNode(node)) {
+    return /** @type {DefaultTreeTextNode} */ (node).value || '';
+  }
+  const subtree = findNodes(node, n => adapter.isTextNode(n));
+  return subtree.map(getTextContent).join('');
+}
+
+/**
+ * @param {Element} node
+ * @param {string} value
+ */
+function setTextContent(node, value) {
+  if (adapter.isCommentNode(node)) {
+    /** @type {DefaultTreeCommentNode} */ (node).data = value;
+  } else if (adapter.isTextNode(node)) {
+    /** @type {DefaultTreeTextNode} */ (node).value = value;
+  } else {
+    const textNode = {
+      nodeName: '#text',
+      value: value,
+      parentNode: node,
+      attrs: [],
+      __location: undefined,
+    };
+    /** @type {DefaultTreeElement} */ (node).childNodes = [textNode];
+  }
+}
+
+/**
+ * Removes element from the AST.
+ * @param {ChildNode} node
+ */
+function remove(node) {
+  const n = /** @type {DefaultTreeChildNode} */ (node);
+  const parent = n.parentNode;
+  if (parent && parent.childNodes) {
+    const idx = parent.childNodes.indexOf(n);
+    parent.childNodes.splice(idx, 1);
+  }
+  /** @type {any} */ (n).parentNode = undefined;
+}
+
+/**
  * Looks for a child node which passes the given test
  * @param {Node[] | Node} nodes
- * @param {(node: DefaultTreeElement) => boolean} test
- * @returns {DefaultTreeElement | null}
+ * @param {(node: DefaultTreeNode) => boolean} test
+ * @returns {DefaultTreeNode | null}
  */
-function findElement(nodes, test) {
+function findNode(nodes, test) {
   const n = Array.isArray(nodes) ? nodes.slice() : [nodes];
 
   while (n.length > 0) {
-    const node = /** @type {DefaultTreeElement} */ (n.shift());
+    const node = /** @type {DefaultTreeNode} */ (n.shift());
     if (!node) {
       continue;
     }
-    if (adapter.isElementNode(node) && test(node)) {
+    if (test(node)) {
       return node;
     }
     const children = adapter.getChildNodes(node);
@@ -135,22 +203,22 @@ function findElement(nodes, test) {
 }
 
 /**
- * Looks for all child element which passes the given test
+ * Looks for all child nodes which passes the given test
  * @param {Node | Node[]} nodes
- * @param {(node: Node) => boolean} test
- * @returns {DefaultTreeElement[]}
+ * @param {(node: DefaultTreeNode) => boolean} test
+ * @returns {DefaultTreeNode[]}
  */
-function findElements(nodes, test) {
+function findNodes(nodes, test) {
   const n = Array.isArray(nodes) ? nodes.slice() : [nodes];
-  /** @type {DefaultTreeElement[]} */
+  /** @type {DefaultTreeNode[]} */
   const found = [];
 
   while (n.length) {
-    const node = /** @type {DefaultTreeElement} */ (n.shift());
+    const node = /** @type {DefaultTreeNode} */ (n.shift());
     if (!node) {
       continue;
     }
-    if (adapter.isElementNode(node) && test(node)) {
+    if (test(node)) {
       found.push(node);
     }
     const children = adapter.getChildNodes(node);
@@ -159,6 +227,32 @@ function findElements(nodes, test) {
     }
   }
   return found;
+}
+
+/**
+ * Looks for a child element which passes the given test
+ * @param {Node[] | Node} nodes
+ * @param {(node: DefaultTreeElement) => boolean} test
+ * @returns {DefaultTreeElement | null}
+ */
+function findElement(nodes, test) {
+  return /** @type {DefaultTreeElement | null} */ (findNode(
+    nodes,
+    n => adapter.isElementNode(n) && test(/** @type {DefaultTreeElement} */ (n)),
+  ));
+}
+
+/**
+ * Looks for all child elements which passes the given test
+ * @param {Node | Node[]} nodes
+ * @param {(node: Node) => boolean} test
+ * @returns {DefaultTreeElement[]}
+ */
+function findElements(nodes, test) {
+  return /** @type {DefaultTreeElement[] } */ (findNodes(
+    nodes,
+    n => adapter.isElementNode(n) && test(/** @type {DefaultTreeElement} */ (n)),
+  ));
 }
 
 /**
@@ -235,18 +329,52 @@ function appendToDocument(document, appendedHtml) {
   return `${start}${appendedHtml}${end}`;
 }
 
-module.exports = {
-  ...adapter,
-  isHtmlFragment,
-  createElement,
-  hasAttribute,
-  getAttribute,
-  getAttributes,
-  setAttribute,
-  setAttributes,
-  removeAttribute,
-  findElement,
-  findElements,
-  prependToDocument,
-  appendToDocument,
-};
+module.exports.createDocument = adapter.createDocument;
+module.exports.createDocumentFragment = adapter.createDocumentFragment;
+module.exports.createElement = createElement;
+module.exports.createScript = createScript;
+module.exports.createCommentNode = adapter.createCommentNode;
+module.exports.appendChild = adapter.appendChild;
+module.exports.insertBefore = adapter.insertBefore;
+module.exports.setTemplateContent = adapter.setTemplateContent;
+module.exports.getTemplateContent = adapter.getTemplateContent;
+module.exports.setDocumentType = adapter.setDocumentType;
+module.exports.setDocumentMode = adapter.setDocumentMode;
+module.exports.getDocumentMode = adapter.getDocumentMode;
+module.exports.detachNode = adapter.detachNode;
+module.exports.insertText = adapter.insertText;
+module.exports.insertTextBefore = adapter.insertTextBefore;
+module.exports.adoptAttributes = adapter.adoptAttributes;
+module.exports.getFirstChild = adapter.getFirstChild;
+module.exports.getChildNodes = adapter.getChildNodes;
+module.exports.getParentNode = adapter.getParentNode;
+module.exports.getAttrList = adapter.getAttrList;
+module.exports.getTagName = adapter.getTagName;
+module.exports.getNamespaceURI = adapter.getNamespaceURI;
+module.exports.getTextNodeContent = adapter.getTextNodeContent;
+module.exports.getCommentNodeContent = adapter.getCommentNodeContent;
+module.exports.getDocumentTypeNodeName = adapter.getDocumentTypeNodeName;
+module.exports.getDocumentTypeNodePublicId = adapter.getDocumentTypeNodePublicId;
+module.exports.getDocumentTypeNodeSystemId = adapter.getDocumentTypeNodeSystemId;
+module.exports.isTextNode = adapter.isTextNode;
+module.exports.isCommentNode = adapter.isCommentNode;
+module.exports.isDocumentTypeNode = adapter.isDocumentTypeNode;
+module.exports.isElementNode = adapter.isElementNode;
+module.exports.setNodeSourceCodeLocation = adapter.setNodeSourceCodeLocation;
+module.exports.getNodeSourceCodeLocation = adapter.getNodeSourceCodeLocation;
+module.exports.isHtmlFragment = isHtmlFragment;
+module.exports.hasAttribute = hasAttribute;
+module.exports.getAttribute = getAttribute;
+module.exports.getAttributes = getAttributes;
+module.exports.setAttribute = setAttribute;
+module.exports.setAttributes = setAttributes;
+module.exports.removeAttribute = removeAttribute;
+module.exports.setTextContent = setTextContent;
+module.exports.getTextContent = getTextContent;
+module.exports.remove = remove;
+module.exports.findNode = findNode;
+module.exports.findNodes = findNodes;
+module.exports.findElement = findElement;
+module.exports.findElements = findElements;
+module.exports.prependToDocument = prependToDocument;
+module.exports.appendToDocument = appendToDocument;

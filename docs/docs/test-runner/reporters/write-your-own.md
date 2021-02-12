@@ -2,7 +2,7 @@
 
 A reporter reports test results and/or test progress. It is an object with several hooks which are called during the lifecycle of of the test runner. The actual logging to the terminal is managed by the test run to ensure interaction with the dynamic progress bar and watch menu are managed properly.
 
-The [types in the code](https://github.com/modernweb-dev/web/tree/master/packages/test-runner-core/src/reporter/Reporter.ts) are a good reference documentation. All the callbacks are optional. We recommend making reporting results and progress configurable, so that people can combine multiple reporters.
+The [types in the code](https://github.com/modernweb-dev/web/blob/master/packages/test-runner-core/src/reporter/Reporter.ts) are a good reference documentation. All the callbacks are optional. We recommend making reporting results and progress configurable, so that people can combine multiple reporters.
 
 Example:
 

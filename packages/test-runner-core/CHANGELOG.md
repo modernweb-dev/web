@@ -1,5 +1,170 @@
 # @web/test-runner-core
 
+## 0.10.11
+
+### Patch Changes
+
+- 83750cd2: fallback to fetch on IE11
+- Updated dependencies [83750cd2]
+- Updated dependencies [096fe25f]
+  - @web/dev-server-core@0.3.6
+
+## 0.10.10
+
+### Patch Changes
+
+- 2c223cf0: filter server stream errors
+- Updated dependencies [2c223cf0]
+  - @web/dev-server-core@0.3.5
+
+## 0.10.9
+
+### Patch Changes
+
+- 3885b33e: configure timeout for fetching source maps for code coverage
+
+## 0.10.8
+
+### Patch Changes
+
+- 83e0757e: handle cases when userAgent is not defined
+
+## 0.10.7
+
+### Patch Changes
+
+- 6a62b4ee: filter out internal stack traces
+- Updated dependencies [6a62b4ee]
+  - @web/browser-logs@0.2.1
+
+## 0.10.6
+
+### Patch Changes
+
+- 8861ded8: feat(dev-server-core): share websocket instances with iframe parent
+- Updated dependencies [8861ded8]
+  - @web/dev-server-core@0.3.4
+
+## 0.10.5
+
+### Patch Changes
+
+- ad815710: fetch source map from server when generating code coverage reports. this fixes errors when using build tools that generate source maps on the fly, which don't exist on the file system
+- c4738a40: support non-inline source maps for stack traces
+
+## 0.10.4
+
+### Patch Changes
+
+- 43bc451c: add configuration option reporters in coverageConfig to use various istanbul reporters
+- fd831b54: fix manual testing HTML tests
+
+## 0.10.3
+
+### Patch Changes
+
+- 8e3b1128: fix regression introduced in filterBrowserLogs function that flipped the return value. returning true now properly includes the logs
+- d5a5f2bf: Add undeclared dependencies
+
+## 0.10.2
+
+### Patch Changes
+
+- 66638204: deduplicate parallel source map requests
+
+## 0.10.1
+
+### Patch Changes
+
+- 9f1a8a56: normalize test framework path in stack trace
+
+## 0.10.0
+
+### Minor Changes
+
+- 1dd7cd0e: improve serialization of stack traces cross-browser
+
+  this adds two breaking changes, which should not affect most users:
+
+  - removed `userAgent` field from `TestSession`
+  - test reporter `reportTestFileResults` is no longer async
+
+- a7d74fdc: drop support for node v10 and v11
+
+### Patch Changes
+
+- Updated dependencies [1dd7cd0e]
+- Updated dependencies [1dd7cd0e]
+  - @web/dev-server-core@0.3.3
+  - @web/browser-logs@0.2.0
+
+## 0.9.3
+
+### Patch Changes
+
+- f2a84204: reduce delay when clearing terminal between test runs
+
+## 0.9.2
+
+### Patch Changes
+
+- af9811e2: regenerate MJS entrypoint
+
+## 0.9.1
+
+### Patch Changes
+
+- eceb6295: match dotfiles when resolving mimetypes
+- Updated dependencies [eceb6295]
+  - @web/dev-server-core@0.3.1
+
+## 0.9.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+- 0f613e0e: handle modules resolved outside root dir
+
+### Patch Changes
+
+- Updated dependencies [0f613e0e]
+  - @web/dev-server-core@0.3.0
+
+## 0.8.12
+
+### Patch Changes
+
+- 836abc0: handle errors thrown when (de)serializing browser logs
+- Updated dependencies [836abc0]
+- Updated dependencies [f6107a4]
+  - @web/browser-logs@0.1.6
+
+## 0.8.11
+
+### Patch Changes
+
+- 2278a95: bump dependencies
+
+## 0.8.10
+
+### Patch Changes
+
+- 931fde9: clean up displayed test file path
+- Updated dependencies [3b1a6cc]
+  - @web/browser-logs@0.1.5
+
+## 0.8.9
+
+### Patch Changes
+
+- 0f0d474: track manual test session imports
+
+## 0.8.8
+
+### Patch Changes
+
+- 4bbaa21: use consistent paths on windows
+
 ## 0.8.7
 
 ### Patch Changes

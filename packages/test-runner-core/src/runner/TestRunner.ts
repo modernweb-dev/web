@@ -13,7 +13,7 @@ import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig';
 
 interface EventMap {
-  'test-run-started': { testRun: number; sessions: Iterable<TestSession> };
+  'test-run-started': { testRun: number };
   'test-run-finished': { testRun: number; testCoverage?: TestCoverage };
   finished: boolean;
   stopped: boolean;
@@ -67,9 +67,15 @@ export class TestRunner extends EventEmitter<EventMap> {
 
     this.sessions = new TestSessionManager(sessionGroups, testSessions);
     this.scheduler = new TestScheduler(config, this.sessions, browsers);
-    this.server = new TestRunnerServer(this.config, this.sessions, this.testFiles, sessions => {
-      this.runTests(sessions);
-    });
+    this.server = new TestRunnerServer(
+      this.config,
+      this,
+      this.sessions,
+      this.testFiles,
+      sessions => {
+        this.runTests(sessions);
+      },
+    );
     this.sessions.on('session-status-updated', session => {
       if (session.status === SESSION_STATUS.FINISHED) {
         this.onSessionFinished();
@@ -129,8 +135,8 @@ export class TestRunner extends EventEmitter<EventMap> {
       this.testRun += 1;
       this.running = true;
 
-      await this.scheduler.schedule(this.testRun, sessionsToRun);
-      this.emit('test-run-started', { testRun: this.testRun, sessions: sessionsToRun });
+      this.scheduler.schedule(this.testRun, sessionsToRun);
+      this.emit('test-run-started', { testRun: this.testRun });
     } catch (error) {
       this.running = false;
       this.stop(error);

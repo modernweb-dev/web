@@ -17,7 +17,8 @@
   },
   "references": [],
   "include": [
-    "src"
+    "src",
+    "types"
   ],
   "exclude": [
     "dist",

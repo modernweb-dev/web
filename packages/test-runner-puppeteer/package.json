@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-puppeteer",
-  "version": "0.7.2",
+  "version": "0.9.3",
   "publishConfig": {
     "access": "public"
   },
@@ -14,8 +14,14 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -39,18 +45,11 @@
     "launcher"
   ],
   "dependencies": {
-    "@types/puppeteer": "^3.0.1",
-    "@web/test-runner-chrome": "^0.7.2",
-    "@web/test-runner-core": "^0.8.4",
-    "puppeteer": "^5.3.1"
+    "@web/test-runner-chrome": "^0.9.3",
+    "@web/test-runner-core": "^0.10.8",
+    "puppeteer": "^5.5.0"
   },
   "devDependencies": {
-    "@web/test-runner-mocha": "^0.5.1"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
+    "@web/test-runner-mocha": "^0.7.2"
   }
 }

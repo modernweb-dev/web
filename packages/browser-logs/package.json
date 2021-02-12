@@ -1,6 +1,6 @@
 {
   "name": "@web/browser-logs",
-  "version": "0.1.4",
+  "version": "0.2.1",
   "publishConfig": {
     "access": "public"
   },
@@ -14,13 +14,19 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/browser-logs",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
     "node": ">=10.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "node ../test-runner/dist/bin.js test-browser/**/*.test.ts",
-    "test:watch": "node ../test-runner/dist/bin.js test-browser/**/*.test.ts --watch"
+    "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register",
+    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -39,13 +45,11 @@
     "serialize",
     "deserialize"
   ],
-  "devDependencies": {
-    "@esm-bundle/chai": "^4.1.5"
+  "dependencies": {
+    "errorstacks": "^2.2.0"
   },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
+  "devDependencies": {
+    "@esm-bundle/chai": "^4.1.5",
+    "puppeteer": "^5.5.0"
   }
 }

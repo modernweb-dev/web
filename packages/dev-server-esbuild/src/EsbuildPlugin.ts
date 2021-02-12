@@ -6,7 +6,7 @@ import {
   DevServerCoreConfig,
   getRequestFilePath,
 } from '@web/dev-server-core';
-import { startService, Service, Loader, Message, Strict } from 'esbuild';
+import { startService, Service, Loader, Message } from 'esbuild';
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs';
@@ -39,7 +39,6 @@ export interface EsbuildConfig {
   tsFileExtensions: string[];
   jsxFactory?: string;
   jsxFragment?: string;
-  strict?: boolean | Strict[];
   define?: { [key: string]: string };
 }
 
@@ -98,7 +97,7 @@ export class EsbuildPlugin implements Plugin {
 
     // a TS file imported a .js file relatively, but they might intend to import a .ts file instead
     // check if the .ts file exists, and rewrite it in that case
-    const filePath = getRequestFilePath(context, this.config!.rootDir);
+    const filePath = getRequestFilePath(context.url, this.config!.rootDir);
     const fileDir = path.dirname(filePath);
     const importAsTs = source.substring(0, source.length - 3) + '.ts';
     const importedTsFilePath = path.join(fileDir, importAsTs);
@@ -136,7 +135,7 @@ export class EsbuildPlugin implements Plugin {
       return;
     }
 
-    const filePath = getRequestFilePath(context, this.config!.rootDir);
+    const filePath = getRequestFilePath(context.url, this.config!.rootDir);
     if (context.response.is('html')) {
       this.transformedHtmlFiles.push(context.path);
       return this.__transformHtml(context, filePath, loader, target);
@@ -177,21 +176,16 @@ export class EsbuildPlugin implements Plugin {
     target: string | string[],
   ): Promise<string> {
     try {
-      const { js, warnings } = await this.service!.transform(code, {
+      const { code: transformedCode, warnings } = await this.service!.transform(code, {
         sourcefile: filePath,
         sourcemap: 'inline',
         loader,
         target,
-        strict:
-          // use user defined strict config, otherwise default to strict class fields
-          // unless we are transforming TS which does not use strict class fields
-          this.esbuildConfig.strict
-            ? this.esbuildConfig.strict
-            : ['ts', 'tsx'].includes(loader)
-            ? []
-            : ['class-fields'],
+        // don't set any format for JS-like formats, otherwise esbuild reformats the code unnecesarily
+        format: ['js', 'jsx', 'ts', 'tsx'].includes(loader) ? undefined : 'esm',
         jsxFactory: this.esbuildConfig.jsxFactory,
         jsxFragment: this.esbuildConfig.jsxFragment,
+        define: this.esbuildConfig.define,
       });
 
       if (warnings) {
@@ -206,7 +200,7 @@ export class EsbuildPlugin implements Plugin {
         }
       }
 
-      return js;
+      return transformedCode;
     } catch (e) {
       if (Array.isArray(e.errors)) {
         const msg = e.errors[0] as Message;

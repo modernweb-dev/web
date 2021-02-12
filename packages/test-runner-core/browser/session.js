@@ -43,7 +43,8 @@ export async function getConfig() {
     };
   } catch (err) {
     await sessionFailed({
-      message: 'Failed to fetch test config',
+      name: err ? err.name : undefined,
+      message: `Failed to fetch test config: ${err ? err.message : 'Unknown error'}`,
       stack: err ? err.stack : undefined,
     });
     throw err;
@@ -52,10 +53,12 @@ export async function getConfig() {
 
 export function sessionFailed(error) {
   return sessionFinished({
+    userAgent: window.navigator.userAgent,
     passed: false,
     errors: [
       // copy references because an Error instance cannot be turned into JSON
       {
+        name: error.name,
         message: error.message,
         stack: error.stack,
         expected: error.expected,
@@ -92,5 +95,11 @@ export async function sessionFinished(result) {
     ...result,
   };
 
-  await sendMessage({ type: 'wtr-session-finished', sessionId, testFile, result: fullResult });
+  await sendMessage({
+    type: 'wtr-session-finished',
+    userAgent: window.navigator.userAgent,
+    sessionId,
+    testFile,
+    result: fullResult,
+  });
 }
