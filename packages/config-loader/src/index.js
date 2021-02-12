@@ -11,6 +11,10 @@ const EXTENSIONS = ['.mjs', '.cjs', '.js'];
  * @param {string} [basedir]
  */
 async function readConfig(name, customPath, basedir = process.cwd()) {
+  if (fileExists(name)) {
+    return importOrRequireConfig(name);
+  }
+
   const resolvedCustomPath = customPath ? path.resolve(basedir, customPath) : undefined;
   if (resolvedCustomPath && !(await fileExists(resolvedCustomPath))) {
     throw new ConfigLoaderError(`Could not find a config file at ${resolvedCustomPath}`);
