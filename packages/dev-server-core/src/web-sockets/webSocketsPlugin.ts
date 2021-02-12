@@ -1,7 +1,7 @@
 import { parse as parseHtml } from 'parse5';
 import { query, predicates } from '../dom5';
 import { Plugin } from '../Plugin';
-import { NAME_WEB_SOCKET_IMPORT } from './WebSocketsManager';
+import { NAME_WEB_SOCKET_IMPORT, NAME_WEB_SOCKET_API } from './WebSocketsManager';
 
 export const webSocketScript = `<!-- injected by web-dev-server -->
 <script type="module" src="${NAME_WEB_SOCKET_IMPORT}"></script>`;
@@ -12,7 +12,7 @@ export function webSocketsPlugin(): Plugin {
 
     serve(context) {
       if (context.path === NAME_WEB_SOCKET_IMPORT) {
-        return `export const webSocket = ('WebSocket' in window) ? new WebSocket(\`ws\${location.protocol === 'https:' ? 's': ''}://\${location.host}\`) : null;
+        return `export const webSocket = ('WebSocket' in window) ? new WebSocket(\`ws\${location.protocol === 'https:' ? 's': ''}://\${location.host}/\${NAME_WEB_SOCKET_API}\`) : null;
 export const webSocketOpened = new Promise((resolve) => {
   if (!webSocket) {
     resolve();
