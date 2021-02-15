@@ -3,6 +3,7 @@ import WebSocket from 'ws';
 import { EventEmitter } from './EventEmitter';
 
 export const NAME_WEB_SOCKET_IMPORT = '/__web-dev-server__web-socket.js';
+export const NAME_WEB_SOCKET_API = 'wds';
 
 export type WebSocketData = { type: string } & Record<string, unknown>;
 
@@ -22,7 +23,10 @@ export class WebSocketsManager extends EventEmitter<Events> {
   constructor(server: Server) {
     super();
 
-    this.webSocketServer = new WebSocket.Server({ noServer: true });
+    this.webSocketServer = new WebSocket.Server({
+      noServer: true,
+      path: `/${NAME_WEB_SOCKET_API}`,
+    });
     this.webSocketServer.on('connection', webSocket => {
       this.openSockets.add(webSocket);
       webSocket.on('close', () => {

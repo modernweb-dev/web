@@ -1,5 +1,5 @@
 import { Plugin } from '../plugins/Plugin';
-import { NAME_WEB_SOCKET_IMPORT } from './WebSocketsManager';
+import { NAME_WEB_SOCKET_IMPORT, NAME_WEB_SOCKET_API } from './WebSocketsManager';
 import { appendToDocument, isHtmlFragment } from '@web/parse5-utils';
 
 export const webSocketScript = `<!-- injected by web-dev-server -->
@@ -40,7 +40,7 @@ function setupWebSocket() {
   } else {
     webSocket =
       'WebSocket' in window
-        ? new WebSocket(\`ws\${location.protocol === 'https:' ? 's' : ''}://\${location.host}\`)
+      ? new WebSocket(\`ws\${location.protocol === 'https:' ? 's' : ''}://\${location.host}/${NAME_WEB_SOCKET_API}\`)
         : null;
     webSocketOpened = new Promise(resolve => {
       if (!webSocket) {
