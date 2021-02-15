@@ -1,10 +1,10 @@
 import * as puppeteerCore from 'puppeteer-core';
 import { ChromeLauncher, CreateBrowserContextFn, CreatePageFn } from './ChromeLauncher';
-import { LaunchOptions, devices } from 'puppeteer-core';
+import { PuppeteerNodeLaunchOptions, devices } from 'puppeteer-core';
 
 export interface ChromeLauncherArgs {
   puppeteer?: typeof puppeteerCore;
-  launchOptions?: LaunchOptions;
+  launchOptions?: PuppeteerNodeLaunchOptions;
   createBrowserContext?: CreateBrowserContextFn;
   createPage?: CreatePageFn;
   concurrency?: number;

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { stubMethod } from 'hanbi';
 import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
-import { Browser, launch as launchPuppeteer, Page } from 'puppeteer';
+import { Browser, HTTPResponse, launch as launchPuppeteer, Page } from 'puppeteer';
 import { posix as pathUtil } from 'path';
 
 import { hmrPlugin } from '../src/index';
@@ -90,7 +90,7 @@ describe('browser tests', function () {
 
       files['/foo.js'] = files['/foo.js'].replace('" a "', '" b "');
       server.fileWatcher.emit('change', pathUtil.join(__dirname, '/foo.js'));
-      await page.waitForResponse(r => r.url().startsWith(`${host}/foo.js`));
+      await page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/foo.js`));
       expectIncludes(await page.content(), '<body> a  b </body>');
 
       for (const error of errors) {
@@ -122,7 +122,7 @@ describe('browser tests', function () {
 
       files['/bar.js'] = 'export default " b ";';
       server.fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
-      await page.waitForResponse(r => r.url().startsWith(`${host}/bar.js`));
+      await page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/bar.js`));
       await new Promise(r => setTimeout(r, 1000));
       expectIncludes(await page.content(), '<body> a  b </body>');
 
@@ -158,9 +158,9 @@ describe('browser tests', function () {
       files['/baz.js'] = 'export default " b ";';
       server.fileWatcher.emit('change', pathUtil.join(__dirname, '/baz.js'));
       await Promise.all([
-        page.waitForResponse(r => r.url().startsWith(`${host}/foo.js`)),
-        page.waitForResponse(r => r.url().startsWith(`${host}/bar.js`)),
-        page.waitForResponse(r => r.url().startsWith(`${host}/baz.js`)),
+        page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/foo.js`)),
+        page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/bar.js`)),
+        page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/baz.js`)),
       ]);
       await new Promise(r => setTimeout(r, 1000));
       expectIncludes(await page.content(), '<body> foo  a  bar  a  foo  b  bar  b </body>');

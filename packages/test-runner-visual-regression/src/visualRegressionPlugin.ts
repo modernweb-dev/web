@@ -66,7 +66,7 @@ export function visualRegressionPlugin(
               );
             }
 
-            const screenshot = await element.screenshot({ encoding: 'binary' });
+            const screenshot = (await element.screenshot({ encoding: 'binary' })) as Buffer;
             return visualDiffCommand(mergedOptions, screenshot, session.browser.name, payload.name);
           }
 
