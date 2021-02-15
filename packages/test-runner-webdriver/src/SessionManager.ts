@@ -1,5 +1,5 @@
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { BrowserObject, Element } from 'webdriverio';
+import { Browser, Element } from 'webdriverio';
 import { validateBrowserResult } from './coverage';
 
 /**
@@ -7,12 +7,12 @@ import { validateBrowserResult } from './coverage';
  */
 export class SessionManager {
   private config: TestRunnerCoreConfig;
-  private driver: BrowserObject;
+  private driver: Browser<'async'>;
   private locked?: Promise<unknown>;
   private isIE: boolean;
   private urlMap = new Map<string, string>();
 
-  constructor(config: TestRunnerCoreConfig, driver: BrowserObject, isIE: boolean) {
+  constructor(config: TestRunnerCoreConfig, driver: Browser<'async'>, isIE: boolean) {
     this.config = config;
     this.driver = driver;
     this.isIE = isIE;
@@ -81,7 +81,7 @@ export class SessionManager {
   }
 
   async takeScreenshot(_: string, locator: string): Promise<Buffer> {
-    const elementData = (await this.driver.execute(locator, [])) as Element;
+    const elementData = (await this.driver.execute(locator, [])) as Element<'async'>;
 
     const element = await this.driver.$(elementData);
 
