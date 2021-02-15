@@ -19,7 +19,7 @@ You can find a detailed list of supported properties for the workbox config obje
 ```js
 const { generateSW } = require('rollup-plugin-workbox');
 
-module.exports {
+module.exports = {
   input: 'main.js',
   output: {
     file: 'dist/bundle.js',
@@ -41,7 +41,7 @@ const { generateSW } = require('rollup-plugin-workbox');
 
 const workboxConfig = require('./workbox-config.js')
 
-module.exports {
+module.exports = {
   // ...
   plugins: [
     generateSW(workboxConfig)
@@ -56,7 +56,7 @@ const { generateSW } = require('rollup-plugin-workbox');
 
 const workboxConfig = require('./workbox-config.js')
 
-module.exports {
+module.exports = {
   // ...
   plugins: [
     generateSW(
@@ -82,7 +82,7 @@ You can find a detailed list of supported properties for the workbox config obje
 ```js
 const { injectManifest } = require('rollup-plugin-workbox');
 
-module.exports {
+module.exports = {
   input: 'main.js',
   output: {
     file: 'dist/bundle.js',
@@ -105,7 +105,7 @@ const { injectManifest } = require('rollup-plugin-workbox');
 
 const workboxConfig = require('./workbox-config.js')
 
-module.exports {
+module.exports = {
   // ...
   plugins: [
     injectManifest(workboxConfig)
@@ -120,7 +120,7 @@ const { injectManifest } = require('rollup-plugin-workbox');
 
 const workboxConfig = require('./workbox-config.js')
 
-module.exports {
+module.exports = {
   // ...
   plugins: [
     injectManifest(
@@ -148,7 +148,7 @@ Until this gets fixed in `workbox-build`, `rollup-plugin-workbox` **does** suppo
 ```diff
 const { injectManifest } = require('rollup-plugin-workbox');
 
-module.exports {
+module.exports = {
   input: 'main.js',
   output: {
     file: 'dist/bundle.js',
