@@ -48,7 +48,7 @@
   ],
   "dependencies": {
     "@web/test-runner-core": "^0.10.8",
-    "webdriverio": "^6.10.11"
+    "webdriverio": "^7.0.3"
   },
   "devDependencies": {
     "@types/selenium-standalone": "^6.15.2",

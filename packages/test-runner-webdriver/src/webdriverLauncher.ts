@@ -1,5 +1,5 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { remote, BrowserObject, RemoteOptions } from 'webdriverio';
+import { Browser, remote, RemoteOptions } from 'webdriverio';
 import { IFrameManager } from './IFrameManager';
 import { SessionManager } from './SessionManager';
 import { getBrowserLabel } from './utils';
@@ -8,8 +8,8 @@ export class WebdriverLauncher implements BrowserLauncher {
   public name = 'Initializing...';
   public type = 'webdriver';
   private config?: TestRunnerCoreConfig;
-  private driver?: BrowserObject;
-  private debugDriver: undefined | BrowserObject = undefined;
+  private driver?: Browser<'async'>;
+  private debugDriver: undefined | Browser<'async'> = undefined;
   private driverManager?: IFrameManager | SessionManager;
   private __managerPromise?: Promise<IFrameManager | SessionManager>;
   private isIE = false;
