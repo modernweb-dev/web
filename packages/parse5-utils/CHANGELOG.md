@@ -1,5 +1,11 @@
 # @web/parse5-utils
 
+## 1.2.1
+
+### Patch Changes
+
+- abe37741: Allow break lines in comments when checking isHtmlFragment
+
 ## 1.2.0
 
 ### Minor Changes
