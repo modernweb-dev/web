@@ -29,7 +29,7 @@ module.exports = {
     generateSW({
       swDest: '/dist/sw.js',
       globDirectory: 'demo/dist/',
-    })
+    }),
   ],
 };
 ```
@@ -39,13 +39,11 @@ You can also `require` your `workbox-config.js` file and pass it to the plugin.
 ```js
 const { generateSW } = require('rollup-plugin-workbox');
 
-const workboxConfig = require('./workbox-config.js')
+const workboxConfig = require('./workbox-config.js');
 
 module.exports = {
   // ...
-  plugins: [
-    generateSW(workboxConfig)
-  ],
+  plugins: [generateSW(workboxConfig)],
 };
 ```
 
@@ -93,7 +91,7 @@ module.exports = {
       swSrc: 'sw.js',
       swDest: '/dist/sw.js',
       globDirectory: 'demo/dist/',
-    })
+    }),
   ],
 };
 ```
@@ -103,13 +101,11 @@ You can also `require` your `workbox-config.js` file and pass it to the plugin.
 ```js
 const { injectManifest } = require('rollup-plugin-workbox');
 
-const workboxConfig = require('./workbox-config.js')
+const workboxConfig = require('./workbox-config.js');
 
 module.exports = {
   // ...
-  plugins: [
-    injectManifest(workboxConfig)
-  ],
+  plugins: [injectManifest(workboxConfig)],
 };
 ```
 
