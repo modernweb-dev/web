@@ -43,6 +43,6 @@
   },
   "devDependencies": {
     "lit-html": "^1.3.0",
-    "puppeteer": "^5.5.0"
+    "puppeteer": "^6.0.0"
   }
 }
