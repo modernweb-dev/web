@@ -1,5 +1,16 @@
 # @web/test-runner-saucelabs
 
+## 0.5.0
+
+### Minor Changes
+
+- d1227d88: Update webdriverio dependency to v7
+
+### Patch Changes
+
+- Updated dependencies [d1227d88]
+  - @web/test-runner-webdriver@0.3.0
+
 ## 0.4.2
 
 ### Patch Changes

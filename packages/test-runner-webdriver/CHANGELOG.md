@@ -1,5 +1,11 @@
 # @web/test-runner-webdriver
 
+## 0.3.0
+
+### Minor Changes
+
+- d1227d88: Update webdriverio dependency to v7
+
 ## 0.2.3
 
 ### Patch Changes
