@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.1.8
+
+### Patch Changes
+
+- 1265c13e: Migrate websocket endpoint away from '/' to '/wds'. This allows end users to potentially proxy web sockets with out colliding with WebDevServer's websocket.
+- Updated dependencies [1265c13e]
+  - @web/dev-server-core@0.3.7
+
 ## 0.1.7
 
 ### Patch Changes
