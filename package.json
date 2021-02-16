@@ -44,7 +44,7 @@
     "@rollup/plugin-node-resolve": "^11.0.1",
     "@rollup/plugin-typescript": "^8.1.0",
     "@types/chai": "^4.2.14",
-    "@types/mocha": "^8.0.01",
+    "@types/mocha": "^8.2.0",
     "@types/node": "^14.14.19",
     "@types/node-fetch": "^2.5.8",
     "@typescript-eslint/eslint-plugin": "^4.11.1",
