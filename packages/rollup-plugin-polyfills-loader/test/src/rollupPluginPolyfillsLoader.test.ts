@@ -142,7 +142,7 @@ describe('rollup-plugin-polyfills-loader', function describe() {
 
     await testSnapshot({
       name: 'non-flattened',
-      fileName: `non-flat/index.html`,
+      fileName: path.normalize(`non-flat/index.html`),
       inputOptions,
       outputOptions: defaultOutputOptions,
     });
