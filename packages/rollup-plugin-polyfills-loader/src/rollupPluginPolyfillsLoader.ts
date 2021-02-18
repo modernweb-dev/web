@@ -33,9 +33,9 @@ export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig
       htmlPlugin.api.disableDefaultInject();
       htmlPlugin.api.addHtmlTransformer(async (html, { bundle, bundles, htmlFileName }) => {
         const config = createPolyfillsLoaderConfig(pluginOptions, bundle, bundles);
-        const relativePathToPolyfills = path.posix.relative(
-          path.posix.dirname(htmlFileName),
-          path.posix.dirname(pluginOptions.polyfillsDir || './polyfills'),
+        const relativePathToPolyfills = path.relative(
+          path.dirname(htmlFileName),
+          path.dirname(pluginOptions.polyfillsDir || './polyfills'),
         );
         let htmlString = html;
 

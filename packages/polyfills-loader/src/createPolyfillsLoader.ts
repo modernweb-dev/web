@@ -135,10 +135,12 @@ function createLoadFilesCode(cfg: PolyfillsLoaderConfig, polyfills: PolyfillFile
 }
 
 /**
- * Returns the relative path to a polyfill, given the plugin configuation
+ * Returns the relative path to a polyfill in posix path format suitable for
+ * a relative URL, given the plugin configuation
  */
 function relativePolyfillPath(polyfillPath: string, cfg: PolyfillsLoaderConfig) {
-  return path.posix.join(cfg.relativePathToPolyfills || './', polyfillPath);
+  const relativePath = path.join(cfg.relativePathToPolyfills || './', polyfillPath);
+  return relativePath.split(path.sep).join(path.posix.sep);
 }
 
 /**
