@@ -1,5 +1,13 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 1.0.4
+
+### Patch Changes
+
+- ac379b48: fix(rollup-plugin-polyfills-loader): fix relative paths to polyfills with `flattenOutput: false`
+- Updated dependencies [ac379b48]
+  - @web/polyfills-loader@1.0.2
+
 ## 1.0.3
 
 ### Patch Changes
