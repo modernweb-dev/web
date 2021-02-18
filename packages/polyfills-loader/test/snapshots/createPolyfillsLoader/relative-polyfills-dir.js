@@ -28,15 +28,15 @@
     var polyfills = [];
 
     if (!('fetch' in window)) {
-      polyfills.push(loadScript('./polyfills/fetch.js'));
+      polyfills.push(loadScript('./../../polyfills/fetch.js'));
     }
 
     if (!('attachShadow' in Element.prototype) || !('getRootNode' in Element.prototype) || window.ShadyDOM && window.ShadyDOM.force) {
-      polyfills.push(loadScript('./polyfills/webcomponents.js'));
+      polyfills.push(loadScript('./../../polyfills/webcomponents.js'));
     }
 
     if (!('noModule' in HTMLScriptElement.prototype) && 'getRootNode' in Element.prototype) {
-      polyfills.push(loadScript('./polyfills/custom-elements-es5-adapter.js'));
+      polyfills.push(loadScript('./../../polyfills/custom-elements-es5-adapter.js'));
     }
 
     function loadFiles() {
@@ -58,7 +58,7 @@
       polyfillsLoader();
     }
 
-    s.src = "./polyfills/core-js.js";
+    s.src = "./../../polyfills/core-js.js";
     s.onload = onLoaded;
 
     s.onerror = function () {

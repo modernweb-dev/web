@@ -31,12 +31,16 @@ export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig
       }
 
       htmlPlugin.api.disableDefaultInject();
-      htmlPlugin.api.addHtmlTransformer(async (html, { bundle, bundles }) => {
+      htmlPlugin.api.addHtmlTransformer(async (html, { bundle, bundles, htmlFileName }) => {
         const config = createPolyfillsLoaderConfig(pluginOptions, bundle, bundles);
+        const relativePathToPolyfills = path.relative(
+          path.dirname(htmlFileName),
+          path.dirname(pluginOptions.polyfillsDir || './polyfills'),
+        );
         let htmlString = html;
 
         if (shouldInjectLoader(config)) {
-          const result = await injectPolyfillsLoader(html, config);
+          const result = await injectPolyfillsLoader(html, { ...config, relativePathToPolyfills });
           htmlString = result.htmlString;
           generatedFiles = result.polyfillFiles;
         } else {

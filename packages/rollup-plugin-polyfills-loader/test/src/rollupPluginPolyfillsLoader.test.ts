@@ -104,6 +104,50 @@ describe('rollup-plugin-polyfills-loader', function describe() {
     });
   });
 
+  it('can inject a polyfills loader with non-flat inputs, flattenOutput: true', async () => {
+    const inputOptions: RollupOptions = {
+      plugins: [
+        html({
+          rootDir: `${relativeUrl}/fixtures/`,
+          input: `non-flat/index.html`,
+          flattenOutput: true,
+        }),
+        polyfillsLoader({
+          polyfills: { hash: false, fetch: true },
+        }),
+      ],
+    };
+
+    await testSnapshot({
+      name: 'flattened',
+      fileName: `index.html`,
+      inputOptions,
+      outputOptions: defaultOutputOptions,
+    });
+  });
+
+  it('can inject a polyfills loader with non-flat inputs, flattenOutput: false', async () => {
+    const inputOptions: RollupOptions = {
+      plugins: [
+        html({
+          rootDir: `${relativeUrl}/fixtures/`,
+          input: `non-flat/index.html`,
+          flattenOutput: false,
+        }),
+        polyfillsLoader({
+          polyfills: { hash: false, fetch: true },
+        }),
+      ],
+    };
+
+    await testSnapshot({
+      name: 'non-flattened',
+      fileName: path.normalize(`non-flat/index.html`),
+      inputOptions,
+      outputOptions: defaultOutputOptions,
+    });
+  });
+
   it('injects the correct preload for systemjs output', async () => {
     const inputOptions: RollupOptions = {
       plugins: [
