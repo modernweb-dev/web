@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.10.12
+
+### Patch Changes
+
+- 826def7d: Move @types devDependencies to dependencies since user's TSC will also lint libs, therefore these types have to be installed for them.
+
 ## 0.10.11
 
 ### Patch Changes
