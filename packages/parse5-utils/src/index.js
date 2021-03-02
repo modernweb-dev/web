@@ -376,5 +376,6 @@ module.exports.findNode = findNode;
 module.exports.findNodes = findNodes;
 module.exports.findElement = findElement;
 module.exports.findElements = findElements;
+module.exports.prepend = prepend;
 module.exports.prependToDocument = prependToDocument;
 module.exports.appendToDocument = appendToDocument;
