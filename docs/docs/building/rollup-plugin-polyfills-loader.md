@@ -60,7 +60,7 @@ export default {
   plugins: [
     htmlPlugin,
     polyfillsLoader({
-      modernOutput: 'modern',
+      modernOutput: { name: 'modern' },
       legacyOutput: { name: 'legacy', test: "!('noModule' in HTMLScriptElement.prototype)" },
       polyfills: {
         coreJs: true,
