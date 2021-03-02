@@ -34,6 +34,8 @@ export interface RollupPluginHTMLOptions {
   serviceWorkerPath?: string;
   /** Prefix to strip from absolute paths when resolving assets and scripts, for example when using a base path that does not exist on disk. */
   absolutePathPrefix?: string;
+  /** When set to true, will insert meta tags for CSP and add script-src values for inline scripts by sha256-hashing the contents */
+  strictCSPInlineScripts?: boolean;
 }
 
 export interface GeneratedBundle {

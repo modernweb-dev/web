@@ -847,6 +847,34 @@ describe('rollup-plugin-html', () => {
     );
   });
 
+  it('can inject a CSP meta tag for inline scripts', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: require.resolve('./fixtures/rollup-plugin-html/csp-page.html'),
+          rootDir,
+          strictCSPInlineScripts: true,
+        }),
+      ],
+    };
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+    expect(output.length).to.equal(4);
+    const { code: entryA } = getChunk(output, 'entrypoint-a.js');
+    const { code: entryB } = getChunk(output, 'entrypoint-b.js');
+    expect(entryA).to.include("console.log('entrypoint-a.js');");
+    expect(entryB).to.include("console.log('entrypoint-b.js');");
+    expect(stripNewlines(getAsset(output, 'csp-page.html').source)).to.equal(
+      '<html><head>' +
+        '<meta http-equiv="Content-Security-Policy" content="script-src \'self\' \'sha256-SojU/IOdT+mEkVVsrIdXHc2+9JVg5VpB90Zl1VlPO2Y=\'">' +
+        '</head><body><h1>hello world</h1>' +
+        "<script>console.log('foo')</script>" +
+        '<script type="module" src="./entrypoint-a.js"></script>' +
+        '<script type="module" src="./entrypoint-b.js"></script>' +
+        '</body></html>',
+    );
+  });
+
   it('can inject a service worker registration script if injectServiceWorker and serviceWorkerPath are provided', async () => {
     const serviceWorkerPath = path.join(
       // @ts-ignore

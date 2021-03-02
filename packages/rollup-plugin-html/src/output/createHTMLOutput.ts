@@ -21,6 +21,7 @@ export interface CreateHTMLAssetParams {
   serviceWorkerPath: string;
   injectServiceWorker: boolean;
   absolutePathPrefix?: string;
+  strictCSPInlineScripts: boolean;
 }
 
 export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<EmittedFile> {
@@ -35,6 +36,7 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     serviceWorkerPath,
     injectServiceWorker,
     absolutePathPrefix,
+    strictCSPInlineScripts,
   } = params;
 
   if (generatedBundles.length === 0) {
@@ -60,6 +62,7 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     serviceWorkerPath,
     injectServiceWorker,
     absolutePathPrefix,
+    strictCSPInlineScripts,
   });
 
   return { fileName: input.name, name: input.name, source: outputHtml, type: 'asset' };
@@ -76,6 +79,7 @@ export interface CreateHTMLAssetsParams {
   serviceWorkerPath: string;
   injectServiceWorker: boolean;
   absolutePathPrefix?: string;
+  strictCSPInlineScripts: boolean;
 }
 
 export async function createHTMLOutput(params: CreateHTMLAssetsParams): Promise<EmittedFile[]> {

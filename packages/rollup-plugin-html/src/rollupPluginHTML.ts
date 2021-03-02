@@ -32,6 +32,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
   let serviceWorkerPath = '';
   let injectServiceWorker = false;
   let absolutePathPrefix: string;
+  let strictCSPInlineScripts = false;
 
   function reset() {
     inputs = [];
@@ -66,6 +67,9 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
       }
       if (pluginOptions.absolutePathPrefix) {
         absolutePathPrefix = pluginOptions.absolutePathPrefix;
+      }
+      if (pluginOptions.strictCSPInlineScripts) {
+        strictCSPInlineScripts = pluginOptions.strictCSPInlineScripts;
       }
 
       if (pluginOptions.input == null) {
@@ -145,6 +149,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
         serviceWorkerPath,
         injectServiceWorker,
         absolutePathPrefix,
+        strictCSPInlineScripts,
       });
 
       for (const output of outputs) {
@@ -203,6 +208,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
                 serviceWorkerPath,
                 injectServiceWorker,
                 absolutePathPrefix,
+                strictCSPInlineScripts,
               });
 
               for (const output of outputs) {
