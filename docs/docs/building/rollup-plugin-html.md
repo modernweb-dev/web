@@ -259,6 +259,20 @@ export default {
 };
 ```
 
+### Strict CSP for inline scripts
+
+To prevent XSS, there is a rule in Content-Security-Policy guidelines called [script-src](https://content-security-policy.com/script-src/).
+
+Some servers will (rightfully so) set this value to 'self', sometimes adding a whitelist of other origins e.g. for Google Analytics.
+This makes it impossible for inline scripts to execute. There's an ugly way around that, by setting CSP rule `unsafe-inline`.
+
+There's also a proper workaround, which is by either using hashes or a nonce to allow inline scripts to run.
+Quite often, rollup plugins will insert inline scripts, e.g. to load polyfills, SystemJS or other common use cases.
+
+In this plugin, you can pass the option `strictCSPInlineScripts` and set it to true.
+The plugin will then scan HTML assets for inline scripts, turn its contents into a sha256 hash.
+These hashes are then inserted in a CSP `meta` tag in the HTML asset, enabling these inline scripts to run even under strict CSP rules.
+
 ## Type definitions
 
 ```ts
@@ -298,6 +312,8 @@ export interface RollupPluginHTMLOptions {
   serviceWorkerPath?: string;
   /** Prefix to strip from absolute paths when resolving assets and scripts, for example when using a base path that does not exist on disk. */
   absolutePathPrefix?: string;
+  /** When set to true, will insert meta tags for CSP and add script-src values for inline scripts by sha256-hashing the contents */
+  strictCSPInlineScripts?: boolean;
 }
 
 export interface GeneratedBundle {

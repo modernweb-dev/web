@@ -28,6 +28,7 @@ describe('getOutputHTML()', () => {
     defaultInjectDisabled: false,
     injectServiceWorker: false,
     serviceWorkerPath: '',
+    strictCSPInlineScripts: false,
   };
 
   it('injects output into the input HTML', async () => {

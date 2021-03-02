@@ -9,6 +9,7 @@ import { parse, serialize } from 'parse5';
 import { injectedUpdatedAssetPaths } from './injectedUpdatedAssetPaths';
 import { EmittedAssets } from './emitAssets';
 import { injectAbsoluteBaseUrl } from './injectAbsoluteBaseUrl';
+import { hashInlineScripts } from './hashInlineScripts';
 import { injectServiceWorkerRegistration } from './injectServiceWorkerRegistration';
 
 export interface GetOutputHTMLParams {
@@ -22,6 +23,7 @@ export interface GetOutputHTMLParams {
   serviceWorkerPath: string;
   injectServiceWorker: boolean;
   absolutePathPrefix?: string;
+  strictCSPInlineScripts: boolean;
 }
 
 export async function getOutputHTML(params: GetOutputHTMLParams) {
@@ -36,6 +38,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
     serviceWorkerPath,
     injectServiceWorker,
     absolutePathPrefix,
+    strictCSPInlineScripts,
   } = params;
   const { default: defaultBundle, ...multiBundles } = entrypointBundles;
   const { absoluteSocialMediaUrls = true, rootDir = process.cwd() } = pluginOptions;
@@ -65,6 +68,10 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
       serviceWorkerPath,
       htmlFileName: input.name,
     });
+  }
+
+  if (strictCSPInlineScripts) {
+    hashInlineScripts(document);
   }
 
   let outputHtml = serialize(document);
