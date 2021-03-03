@@ -44,7 +44,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
   const { absoluteSocialMediaUrls = true, rootDir = process.cwd() } = pluginOptions;
 
   // inject rollup output into HTML
-  const document = parse(input.html);
+  let document = parse(input.html);
   if (pluginOptions.extractAssets !== false) {
     injectedUpdatedAssetPaths({
       document,
@@ -70,10 +70,6 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
     });
   }
 
-  if (strictCSPInlineScripts) {
-    hashInlineScripts(document);
-  }
-
   let outputHtml = serialize(document);
 
   const transforms = [...(externalTransformHtmlFns ?? [])];
@@ -92,6 +88,12 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
       bundles: multiBundles,
       htmlFileName: input.name,
     });
+  }
+
+  if (strictCSPInlineScripts) {
+    document = parse(outputHtml);
+    hashInlineScripts(document);
+    outputHtml = serialize(document);
   }
 
   return outputHtml;
