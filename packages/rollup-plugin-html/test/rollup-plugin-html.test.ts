@@ -851,7 +851,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
-          input: require.resolve('./fixtures/rollup-plugin-html/csp-page.html'),
+          input: require.resolve('./fixtures/rollup-plugin-html/csp-page-a.html'),
           rootDir,
           strictCSPInlineScripts: true,
         }),
@@ -864,11 +864,70 @@ describe('rollup-plugin-html', () => {
     const { code: entryB } = getChunk(output, 'entrypoint-b.js');
     expect(entryA).to.include("console.log('entrypoint-a.js');");
     expect(entryB).to.include("console.log('entrypoint-b.js');");
-    expect(stripNewlines(getAsset(output, 'csp-page.html').source)).to.equal(
+    expect(stripNewlines(getAsset(output, 'csp-page-a.html').source)).to.equal(
       '<html><head>' +
-        '<meta http-equiv="Content-Security-Policy" content="script-src \'self\' \'sha256-SojU/IOdT+mEkVVsrIdXHc2+9JVg5VpB90Zl1VlPO2Y=\'">' +
+        "<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'self' 'sha256-k0fj3IHUtZNziFbz6LL40uxkFlr28beNcMKKtp5+EwE=' 'sha256-UJadfRwzUCb1ajAJFfAPl8NTvtyiHtltKG/12veER70=';\">" +
         '</head><body><h1>hello world</h1>' +
-        "<script>console.log('foo')</script>" +
+        "<script>console.log('foo');</script>" +
+        "<script>console.log('bar');</script>" +
+        '<script type="module" src="./entrypoint-a.js"></script>' +
+        '<script type="module" src="./entrypoint-b.js"></script>' +
+        '</body></html>',
+    );
+  });
+
+  it('can add to an existing CSP meta tag for inline scripts', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: require.resolve('./fixtures/rollup-plugin-html/csp-page-b.html'),
+          rootDir,
+          strictCSPInlineScripts: true,
+        }),
+      ],
+    };
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+    expect(output.length).to.equal(4);
+    const { code: entryA } = getChunk(output, 'entrypoint-a.js');
+    const { code: entryB } = getChunk(output, 'entrypoint-b.js');
+    expect(entryA).to.include("console.log('entrypoint-a.js');");
+    expect(entryB).to.include("console.log('entrypoint-b.js');");
+    expect(stripNewlines(getAsset(output, 'csp-page-b.html').source)).to.equal(
+      '<html><head>' +
+        "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; prefetch-src 'self'; upgrade-insecure-requests; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-k0fj3IHUtZNziFbz6LL40uxkFlr28beNcMKKtp5+EwE=' 'sha256-UJadfRwzUCb1ajAJFfAPl8NTvtyiHtltKG/12veER70=';\">" +
+        '</head><body><h1>hello world</h1>' +
+        "<script>console.log('foo');</script>" +
+        "<script>console.log('bar');</script>" +
+        '<script type="module" src="./entrypoint-a.js"></script>' +
+        '<script type="module" src="./entrypoint-b.js"></script>' +
+        '</body></html>',
+    );
+  });
+
+  it('can add to an existing CSP meta tag for inline scripts even if script-src is already there', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: require.resolve('./fixtures/rollup-plugin-html/csp-page-c.html'),
+          rootDir,
+          strictCSPInlineScripts: true,
+        }),
+      ],
+    };
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+    expect(output.length).to.equal(4);
+    const { code: entryA } = getChunk(output, 'entrypoint-a.js');
+    const { code: entryB } = getChunk(output, 'entrypoint-b.js');
+    expect(entryA).to.include("console.log('entrypoint-a.js');");
+    expect(entryB).to.include("console.log('entrypoint-b.js');");
+    expect(stripNewlines(getAsset(output, 'csp-page-c.html').source)).to.equal(
+      '<html><head>' +
+        "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; prefetch-src 'self'; upgrade-insecure-requests; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-k0fj3IHUtZNziFbz6LL40uxkFlr28beNcMKKtp5+EwE=' 'sha256-UJadfRwzUCb1ajAJFfAPl8NTvtyiHtltKG/12veER70=';\">" +
+        '</head><body><h1>hello world</h1>' +
+        "<script>console.log('foo');</script>" +
+        "<script>console.log('bar');</script>" +
         '<script type="module" src="./entrypoint-a.js"></script>' +
         '<script type="module" src="./entrypoint-b.js"></script>' +
         '</body></html>',
