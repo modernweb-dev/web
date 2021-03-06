@@ -44,6 +44,12 @@ export interface VisualRegressionPluginOptions {
    */
   update: boolean;
   /**
+   * Whether to build a new cache separate from the baseline
+   * of the new/failed images. Useful for removed and/or
+   * purposely updated tests.
+   */
+  buildCache: boolean;
+  /**
    * The base directory to write images to.
    */
   baseDir: string;
@@ -107,6 +113,7 @@ async function saveImage({ filePath, content }: SaveImageArgs) {
 
 export const defaultOptions: VisualRegressionPluginOptions = {
   update: false,
+  buildCache: false,
   baseDir: 'screenshots',
   diffOptions: {},
 

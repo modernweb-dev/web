@@ -31,7 +31,7 @@ export async function visualDiffCommand(
     name: baselineName,
   });
 
-  if (!baselineImage || options.update) {
+  if (options.update) {
     await options.saveBaseline({
       filePath: resolveImagePath(baseDir, baselineName),
       baseDir,
@@ -43,6 +43,25 @@ export async function visualDiffCommand(
 
   const diffName = options.getDiffName({ browser, name });
   const failedName = options.getFailedName({ browser, name });
+
+  const saveFailed = async () => {
+    await options.saveFailed({
+      filePath: resolveImagePath(baseDir, failedName),
+      baseDir,
+      name: failedName,
+      content: image,
+    });
+  };
+
+  if (!baselineImage) {
+    await saveFailed();
+
+    return {
+      errorMessage: 'There was no baseline image to compare against.',
+      diffPercentage: -1,
+      passed: false,
+    };
+  }
 
   const { diffImage, diffPercentage } = await options.getImageDiff({
     name,
@@ -59,13 +78,10 @@ export async function visualDiffCommand(
       name: diffName,
       content: diffImage,
     });
+  }
 
-    await options.saveFailed({
-      filePath: resolveImagePath(baseDir, failedName),
-      baseDir,
-      name: failedName,
-      content: image,
-    });
+  if (!passed || options.buildCache) {
+    await saveFailed();
   }
 
   return {
