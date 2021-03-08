@@ -1,5 +1,11 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 1.0.5
+
+### Patch Changes
+
+- 2c616b84: fix pathToRoot
+
 ## 1.0.4
 
 ### Patch Changes

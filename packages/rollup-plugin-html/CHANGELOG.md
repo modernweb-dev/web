@@ -1,5 +1,16 @@
 # @web/rollup-plugin-html
 
+## 1.5.0
+
+### Minor Changes
+
+- 5688eb5b: Add option to scan for inline scripts in HTML assets, and insert a CSP meta tag to allow them executing with strict CSP rules.
+
+### Patch Changes
+
+- Updated dependencies [a07f4aef]
+  - @web/parse5-utils@1.2.2
+
 ## 1.4.0
 
 ### Minor Changes

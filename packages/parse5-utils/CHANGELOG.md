@@ -1,5 +1,11 @@
 # @web/parse5-utils
 
+## 1.2.2
+
+### Patch Changes
+
+- a07f4aef: Add missing export for prepend utility.
+
 ## 1.2.1
 
 ### Patch Changes
