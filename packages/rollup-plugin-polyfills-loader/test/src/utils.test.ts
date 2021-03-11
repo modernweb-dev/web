@@ -29,6 +29,15 @@ describe('shouldInjectLoader', () => {
         },
       }),
     ).to.equal(true);
+
+    expect(
+      shouldInjectLoader({
+        modern: { files: [{ type: fileTypes.MODULE, path: '' }] },
+        polyfills: {
+          regeneratorRuntime: 'always',
+        },
+      }),
+    ).to.equal(true);
   });
 
   it('returns true when there are custom polyfills', () => {

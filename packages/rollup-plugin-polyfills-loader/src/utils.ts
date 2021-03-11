@@ -21,6 +21,8 @@ export function shouldInjectLoader(config: PolyfillsLoaderConfig) {
 
   return !!(
     config.polyfills &&
-    Object.entries(config.polyfills).some(([k, v]) => !['hash', 'custom'].includes(k) && v === true)
+    Object.entries(config.polyfills).some(
+      ([k, v]) => !['hash', 'custom'].includes(k) && v !== false,
+    )
   );
 }
