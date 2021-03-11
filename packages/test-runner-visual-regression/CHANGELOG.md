@@ -1,5 +1,17 @@
 # @web/test-runner-visual-regression
 
+## 0.5.0
+
+### Minor Changes
+
+- b146365a: Add `buildCache` option to the visual regression config to support always saving the "current" screenshot.
+  Make the `update` option in the visual regression config _strict_, and only save "current" shots as "baseline" when it is set to `true`.
+
+### Patch Changes
+
+- Updated dependencies [b146365a]
+  - @web/test-runner-core@0.10.13
+
 ## 0.4.1
 
 ### Patch Changes
