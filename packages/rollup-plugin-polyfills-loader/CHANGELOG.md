@@ -1,5 +1,11 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 1.0.6
+
+### Patch Changes
+
+- 338f22b6: Inject the polyfills loader also when only using regeneratorRuntime with 'always' value.
+
 ## 1.0.5
 
 ### Patch Changes
