@@ -1,23 +1,28 @@
 import pixelmatch from 'pixelmatch';
-import { PNG } from 'pngjs';
+import { PNG, PNGWithMetadata } from 'pngjs';
 
 import { DiffArgs, DiffResult } from './config';
-import { VisualRegressionError } from './VisualRegressionError';
 
 export function pixelMatchDiff({ baselineImage, image, options }: DiffArgs): DiffResult {
-  const basePng = PNG.sync.read(baselineImage);
-  const png = PNG.sync.read(image);
+  let error = '';
+  let basePng: PNG | PNGWithMetadata = PNG.sync.read(baselineImage);
+  let png: PNG | PNGWithMetadata = PNG.sync.read(image);
+  let { width, height } = png;
 
   if (basePng.width !== png.width || basePng.height !== png.height) {
-    throw new VisualRegressionError(
+    error =
       `Screenshot is not the same width and height as the baseline. ` +
-        `Baseline: { width: ${basePng.width}, height: ${basePng.height} }` +
-        `Screenshot: { width: ${png.width}, height: ${png.height} }`,
-    );
+      `Baseline: { width: ${basePng.width}, height: ${basePng.height} }` +
+      `Screenshot: { width: ${png.width}, height: ${png.height} }`;
+    width = Math.max(basePng.width, png.width);
+    height = Math.max(basePng.height, png.height);
+    let oldPng = basePng;
+    basePng = new PNG({ width, height });
+    oldPng.data.copy(basePng.data, 0, 0, oldPng.data.length);
+    oldPng = png;
+    png = new PNG({ width, height });
+    oldPng.data.copy(png.data, 0, 0, oldPng.data.length);
   }
-
-  const width = png.width;
-  const height = png.height;
 
   const diff = new PNG({ width, height });
 
@@ -25,6 +30,7 @@ export function pixelMatchDiff({ baselineImage, image, options }: DiffArgs): Dif
   const diffPercentage = (numDiffPixels / (width * height)) * 100;
 
   return {
+    error,
     diffImage: PNG.sync.write(diff),
     diffPercentage,
   };
