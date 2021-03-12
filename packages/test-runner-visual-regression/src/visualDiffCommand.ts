@@ -1,6 +1,7 @@
 import path from 'path';
 
 import { VisualRegressionPluginOptions } from './config';
+import { VisualRegressionError } from './VisualRegressionError';
 
 function resolveImagePath(baseDir: string, name: string) {
   const finalName = path.extname(name) ? name : `${name}.png`;
@@ -53,6 +54,15 @@ export async function visualDiffCommand(
     });
   };
 
+  const saveDiff = async () => {
+    await options.saveDiff({
+      filePath: resolveImagePath(baseDir, diffName),
+      baseDir,
+      name: diffName,
+      content: diffImage,
+    });
+  };
+
   if (!baselineImage) {
     await saveFailed();
 
@@ -63,21 +73,25 @@ export async function visualDiffCommand(
     };
   }
 
-  const { diffImage, diffPercentage } = await options.getImageDiff({
+  const { diffImage, diffPercentage, error } = await options.getImageDiff({
     name,
     baselineImage,
     image,
     options: options.diffOptions,
   });
+
+  if (error) {
+    // The diff has failed, be sure to save the new image.
+    await saveFailed();
+    await saveDiff();
+
+    throw new VisualRegressionError(error);
+  }
+
   const passed = diffPercentage === 0;
 
   if (!passed) {
-    await options.saveDiff({
-      filePath: resolveImagePath(baseDir, diffName),
-      baseDir,
-      name: diffName,
-      content: diffImage,
-    });
+    await saveDiff();
   }
 
   if (!passed || options.buildCache) {

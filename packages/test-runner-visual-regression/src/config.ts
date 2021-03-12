@@ -28,6 +28,7 @@ export type OptionalImage = Buffer | undefined | Promise<Buffer | undefined>;
 export interface DiffResult {
   diffPercentage: number;
   diffImage: Buffer;
+  error: string;
 }
 
 export interface DiffArgs {
