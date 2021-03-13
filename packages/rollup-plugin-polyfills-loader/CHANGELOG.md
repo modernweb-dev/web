@@ -1,5 +1,11 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 1.0.7
+
+### Patch Changes
+
+- f2733bb5: allow changing filetype for only modern output
+
 ## 1.0.6
 
 ### Patch Changes
