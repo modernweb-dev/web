@@ -52,9 +52,10 @@ export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig
         }
 
         // preload all entrypoints as well as their direct dependencies
-        const { entrypoints } = pluginOptions.modernOutput
-          ? bundles[pluginOptions.modernOutput.name]
-          : bundle;
+        const { entrypoints } =
+          pluginOptions.legacyOutput && pluginOptions.modernOutput
+            ? bundles[pluginOptions.modernOutput.name]
+            : bundle;
 
         let preloaded = [];
         for (const entrypoint of entrypoints) {

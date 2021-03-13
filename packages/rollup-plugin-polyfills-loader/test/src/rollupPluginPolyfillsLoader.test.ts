@@ -252,6 +252,37 @@ describe('rollup-plugin-polyfills-loader', function describe() {
       plugins: [
         htmlPlugin,
         polyfillsLoader({
+          modernOutput: { name: 'modern', type: 'systemjs' },
+          polyfills: { hash: false, webcomponents: true, fetch: true },
+        }),
+      ],
+    };
+
+    const outputOptions: OutputOptions[] = [
+      {
+        format: 'es',
+        dir: 'dist',
+      },
+    ];
+
+    await testSnapshot({
+      name: 'customize-filetype',
+      fileName: 'index.html',
+      inputOptions,
+      outputOptions,
+    });
+  });
+
+  it('can customize the file type for multiple outputs', async () => {
+    const htmlPlugin = html({
+      input: {
+        html: `<script type="module" src="${relativeUrl}/fixtures/entrypoint-a.js"></script>`,
+      },
+    });
+    const inputOptions = {
+      plugins: [
+        htmlPlugin,
+        polyfillsLoader({
           modernOutput: { name: 'modern', type: 'script' },
           legacyOutput: [
             {
@@ -279,7 +310,7 @@ describe('rollup-plugin-polyfills-loader', function describe() {
     ];
 
     await testSnapshot({
-      name: 'customize-filetype',
+      name: 'customize-filetype-multi-output',
       fileName: 'index.html',
       inputOptions,
       outputOptions,

@@ -191,6 +191,7 @@ describe('createPolyfillsLoaderConfig()', () => {
   it('throws when a single build is output while multiple builds are configured', () => {
     const pluginConfig = {
       modernOutput: 'modern',
+      legacyOutput: 'legacy',
     };
     const bundle = {
       options: { format: 'es' },
