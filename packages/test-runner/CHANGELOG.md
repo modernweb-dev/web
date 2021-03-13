@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.12.17
+
+### Patch Changes
+
+- aea269c9: Capture visual regressions across changing screenshot sizes.
+
 ## 0.12.16
 
 ### Patch Changes

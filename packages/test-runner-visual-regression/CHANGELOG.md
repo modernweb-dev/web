@@ -1,5 +1,11 @@
 # @web/test-runner-visual-regression
 
+## 0.5.1
+
+### Patch Changes
+
+- aea269c9: Capture visual regressions across changing screenshot sizes.
+
 ## 0.5.0
 
 ### Minor Changes
