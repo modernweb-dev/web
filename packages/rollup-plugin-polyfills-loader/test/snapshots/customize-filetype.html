@@ -32,6 +32,8 @@
     polyfills.push(loadScript('./polyfills/fetch.js'));
   }
 
+  polyfills.push(loadScript('./polyfills/systemjs.js'));
+
   if (!('attachShadow' in Element.prototype) || !('getRootNode' in Element.prototype) || window.ShadyDOM && window.ShadyDOM.force) {
     polyfills.push(loadScript('./polyfills/webcomponents.js'));
   }
@@ -41,11 +43,7 @@
   }
 
   function loadFiles() {
-    if (!('noModule' in HTMLScriptElement.prototype)) {
-      loadScript('./entrypoint-a.js');
-    } else {
-      loadScript('./entrypoint-a.js');
-    }
+    System.import('./entrypoint-a.js');
   }
 
   if (polyfills.length) {

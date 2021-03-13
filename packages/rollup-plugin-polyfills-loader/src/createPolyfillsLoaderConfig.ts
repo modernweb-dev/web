@@ -47,14 +47,14 @@ export function createPolyfillsLoaderConfig(
   // @web/rollup-plugin-html outputs `bundle` when there is a single output,
   // otherwise it outputs `bundles`
   if (bundle) {
-    if (modernOutput || legacyOutput) {
+    if (modernOutput && legacyOutput) {
       throw createError(
-        'Options modernOutput or legacyOutput was set, but @web/rollup-plugin-html' +
+        'Options modernOutput and legacyOutput was set, but @web/rollup-plugin-html' +
           ` did not output multiple builds. Make sure you use html.api.addOutput('my-output') for each rollup output.`,
       );
     }
 
-    modern = createEntrypoints(bundle);
+    modern = createEntrypoints(bundle, modernOutput?.type);
   } else {
     if (!bundles || Object.keys(bundles).length === 0) {
       throw createError('@web/rollup-plugin-html did not output any bundles to be injected');
