@@ -34,6 +34,12 @@ const options: (OptionDefinition & { description: string })[] = [
       'The root directory to serve files from. Defaults to the current working directory.',
   },
   {
+    name: 'base-path',
+    alias: 'b',
+    type: String,
+    description: 'Prefix to strip from requests URLs.',
+  },
+  {
     name: 'open',
     alias: 'o',
     type: String,

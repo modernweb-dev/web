@@ -27,20 +27,20 @@ export function createLogger(args: LoggerArgs): { logger: DevServerLogger; logge
           };
         }
 
-        function logStartup() {
-          if (args.clearTerminalOnReload) {
+        function logStartup(skipClear = false) {
+          if (!skipClear && args.clearTerminalOnReload) {
             process.stdout.write(CLEAR_COMMAND);
           }
           logStartMessage(config, logger);
         }
 
         if (args.logStartMessage) {
-          logStartup();
+          logStartup(true);
         }
 
         if (args.clearTerminalOnReload) {
-          fileWatcher.addListener('change', logStartup);
-          fileWatcher.addListener('unlink', logStartup);
+          fileWatcher.addListener('change', () => logStartup());
+          fileWatcher.addListener('unlink', () => logStartup());
         }
       },
     },
