@@ -270,8 +270,10 @@ There's also a proper workaround, which is by either using hashes or a nonce to 
 Quite often, rollup plugins will insert inline scripts, e.g. to load polyfills, SystemJS or other common use cases.
 
 In this plugin, you can pass the option `strictCSPInlineScripts` and set it to true.
-The plugin will then scan HTML assets for inline scripts, turn its contents into a sha256 hash.
+The plugin will then scan HTML assets for inline scripts and turn its contents into a sha256 hash.
 These hashes are then inserted in a CSP `meta` tag in the HTML asset, enabling these inline scripts to run even under strict CSP rules.
+
+> Caveat: If you set CSP rules in your Response headers on the server end, this will override the CSP meta tag from the client.
 
 ## Type definitions
 
