@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.1.10
+
+### Patch Changes
+
+- bc6e88e2: correctly reference base path
+
 ## 0.1.9
 
 ### Patch Changes
