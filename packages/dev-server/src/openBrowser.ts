@@ -22,7 +22,6 @@ function getBasePath(basePath?: string) {
 
 export async function openBrowser(config: DevServerConfig) {
   const basePath = getBasePath(config.basePath);
-
   let openPath: string;
   if (typeof config.open === 'string') {
     // user-provided open path
@@ -31,7 +30,7 @@ export async function openBrowser(config: DevServerConfig) {
     // if an appIndex was provided, use it's directory as open path
     openPath = `${basePath}${path.dirname(config.appIndex)}/`;
   } else {
-    openPath = `${config.basePath}/`;
+    openPath = `${basePath}/`;
   }
 
   if (!isValidURL(openPath)) {
