@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.3.8
+
+### Patch Changes
+
+- d59241f1: add support for base path
+
 ## 0.3.7
 
 ### Patch Changes
