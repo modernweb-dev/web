@@ -7,6 +7,7 @@ The dev server can be configured using CLI flags, or with a configuration file.
 | name              | type         | description                                                                                                          |
 | ----------------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
 | root-dir          | string       | the root directory to serve files from. Defaults to the current working directory                                    |
+| base-path         | string       | prefix to strip from requests URLs                                                                                   |
 | open              | boolean      | Opens the browser on app-index, root dir or a custom path                                                            |
 | app-index         | boolean      | The app's index.html file. When set, serves the index.html for non-file requests. Use this to enable SPA routing     |
 | watch             | boolean      | runs in watch mode, reloading on file changes                                                                        |
@@ -95,6 +96,8 @@ interface DevServerConfig {
   // the root directory to serve files from. this is useful in a monorepo
   // when executing commands from a package
   rootDir?: string;
+  // prefix to strip from request urls
+  basePath?: string;
   /**
    * Whether to log debug messages.
    */

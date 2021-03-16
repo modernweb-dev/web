@@ -37,6 +37,10 @@ export function validateConfig(config: Partial<DevServerConfig>) {
   numberSettings.forEach(key => validate(config, key, 'number'));
   booleanSettings.forEach(key => validate(config, key, 'boolean'));
 
+  if (config.basePath != null && !config.basePath.startsWith('/')) {
+    throw new Error(`basePath property must start with a /. Received: ${config.basePath}`);
+  }
+
   if (
     config.esbuildTarget != null &&
     !(typeof config.esbuildTarget === 'string' || Array.isArray(config.esbuildTarget))

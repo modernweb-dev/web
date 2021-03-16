@@ -5,29 +5,59 @@ import { DevServer } from '../../src/server/DevServer';
 import { createTestServer } from '../helpers';
 
 describe('base path middleware', () => {
-  let host: string;
-  let server: DevServer;
-  beforeEach(async () => {
-    ({ server, host } = await createTestServer({ basePath: '/foo/' }));
+  describe('without a trailing /', () => {
+    let host: string;
+    let server: DevServer;
+    beforeEach(async () => {
+      ({ server, host } = await createTestServer({ basePath: '/foo' }));
+    });
+
+    afterEach(() => {
+      server.stop();
+    });
+
+    it('strips the base path from requests', async () => {
+      const response = await fetch(`${host}/foo/index.html`);
+      const responseText = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(responseText).to.include('<title>My app</title>');
+    });
+
+    it('can request without base path', async () => {
+      const response = await fetch(`${host}/index.html`);
+      const responseText = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(responseText).to.include('<title>My app</title>');
+    });
   });
 
-  afterEach(() => {
-    server.stop();
-  });
+  context('with a trailing /', () => {
+    let host: string;
+    let server: DevServer;
+    beforeEach(async () => {
+      ({ server, host } = await createTestServer({ basePath: '/foo/' }));
+    });
 
-  it('strips the base path from requests', async () => {
-    const response = await fetch(`${host}/foo/index.html`);
-    const responseText = await response.text();
+    afterEach(() => {
+      server.stop();
+    });
 
-    expect(response.status).to.equal(200);
-    expect(responseText).to.include('<title>My app</title>');
-  });
+    it('strips the base path from requests', async () => {
+      const response = await fetch(`${host}/foo/index.html`);
+      const responseText = await response.text();
 
-  it('can request without base path', async () => {
-    const response = await fetch(`${host}/index.html`);
-    const responseText = await response.text();
+      expect(response.status).to.equal(200);
+      expect(responseText).to.include('<title>My app</title>');
+    });
 
-    expect(response.status).to.equal(200);
-    expect(responseText).to.include('<title>My app</title>');
+    it('can request without base path', async () => {
+      const response = await fetch(`${host}/index.html`);
+      const responseText = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(responseText).to.include('<title>My app</title>');
+    });
   });
 });
