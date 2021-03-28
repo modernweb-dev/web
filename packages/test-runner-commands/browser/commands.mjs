@@ -48,3 +48,7 @@ export function emulateMedia(media) {
 export function setUserAgent(options) {
   return executeServerCommand('set-user-agent', options);
 }
+
+export function sendKeys(options) {
+  return executeServerCommand('send-keys', options);
+}
