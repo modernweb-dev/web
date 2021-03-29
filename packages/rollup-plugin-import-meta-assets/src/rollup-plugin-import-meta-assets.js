@@ -102,7 +102,7 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
 
       return {
         code: magicString.toString(),
-        map: magicString.generateMap(),
+        map: magicString.generateMap({ hires: true }),
       };
     },
   };
