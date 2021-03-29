@@ -1,5 +1,11 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 1.0.5
+
+### Patch Changes
+
+- 7fd7a799: fix(rollup-plugin-import-meta-assets): fix outputted sourcemaps
+
 ## 1.0.4
 
 ### Patch Changes
