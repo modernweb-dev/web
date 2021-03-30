@@ -2,7 +2,7 @@
 
 At Modern Web, it is our goal to help developers discover buildless workflows, by working closely with the browser rather than lots of complex tooling and abstractions. In this section, we've gathered several tips, tricks, and alternatives to help you discover the browsers native capabilities, and to go buildless.
 
-Over the last several years, web development has become almost synonymous with web _framework_ development. Indeed, the proliferation and popularity of front-end web frameworks has lead many in the industry know more about their framework of choice than they do about the underlying platform.
+Over the last several years, web development has become almost synonymous with web _framework_ development. Indeed, the proliferation and popularity of front-end web frameworks has lead many in the industry to know more about their framework of choice than they do about the underlying platform.
 
 We feel the best way to become a well-rounded and highly-capable web developer is to focus first on learning what the web platform has to offer with as few frameworks and tools added on top as possible.
 
