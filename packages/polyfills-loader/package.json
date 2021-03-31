@@ -50,7 +50,6 @@
     "@webcomponents/webcomponentsjs": "^2.5.0",
     "abortcontroller-polyfill": "^1.5.0",
     "core-js-bundle": "^3.8.1",
-    "deepmerge": "^4.2.2",
     "dynamic-import-polyfill": "^0.1.1",
     "intersection-observer": "^0.12.0",
     "parse5": "^6.0.1",
