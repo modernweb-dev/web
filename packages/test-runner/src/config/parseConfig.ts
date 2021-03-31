@@ -7,7 +7,6 @@ import {
 } from '@web/test-runner-commands/plugins';
 import { getPortPromise } from 'portfinder';
 import path from 'path';
-import deepmerge from 'deepmerge';
 import { cpus } from 'os';
 
 import { TestRunnerCliArgs } from './readCliArgs';
@@ -158,11 +157,10 @@ export async function parseConfig(
     finalConfig.port = await getPortPromise({ port: 8000 });
   }
 
-  if (finalConfig.coverageConfig) {
-    finalConfig.coverageConfig = deepmerge(defaultCoverageConfig, finalConfig.coverageConfig!);
-  } else {
-    finalConfig.coverageConfig = defaultCoverageConfig;
-  }
+  finalConfig.coverageConfig = {
+    ...defaultCoverageConfig,
+    ...finalConfig.coverageConfig,
+  };
 
   let groupConfigs = await parseConfigGroups(finalConfig, cliArgs);
   if (groupConfigs.find(g => g.name === 'default')) {
