@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.12.18
+
+### Patch Changes
+
+- 4c5fa2fe: coverageConfig now uses object spread to merge with defaults
+
 ## 0.12.17
 
 ### Patch Changes
