@@ -64,6 +64,7 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
 
       const ast = this.parse(code);
       const magicString = new MagicString(code);
+      let modifiedCode = false;
 
       await asyncWalk(ast, {
         enter: async node => {
@@ -89,6 +90,7 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
                 node.arguments[0].end,
                 `import.meta.ROLLUP_FILE_URL_${ref}`,
               );
+              modifiedCode = true;
             } catch (error) {
               if (warnOnError) {
                 this.warn(error, node.arguments[0].start);
@@ -102,7 +104,7 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
 
       return {
         code: magicString.toString(),
-        map: magicString.generateMap({ hires: true }),
+        map: modifiedCode ? magicString.generateMap({ hires: true }) : null,
       };
     },
   };
