@@ -1,5 +1,11 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 1.0.6
+
+### Patch Changes
+
+- b77e5d16: fix(rollup-plugin-import-meta-assets): skip unnecessary sourcemap generation
+
 ## 1.0.5
 
 ### Patch Changes
