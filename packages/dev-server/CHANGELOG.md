@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.1.11
+
+### Patch Changes
+
+- 0a05464b: do not resolve multiple times outside root files
+- Updated dependencies [0a05464b]
+  - @web/dev-server-rollup@0.3.3
+
 ## 0.1.10
 
 ### Patch Changes
