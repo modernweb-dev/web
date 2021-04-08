@@ -86,14 +86,15 @@ describe('@rollup/plugin-node-resolve', () => {
   it('node modules resolved outside root directory are rewritten', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
-      plugins: [
-        nodeResolve(),
-      ],
+      plugins: [nodeResolve()],
     });
 
     try {
       const responseText = await fetchText(`${host}/app.js`);
-      expectIncludes(responseText, "import moduleA from '/__wds-outside-root__/1/node_modules/module-a/index.js'");
+      expectIncludes(
+        responseText,
+        "import moduleA from '/__wds-outside-root__/1/node_modules/module-a/index.js'",
+      );
     } finally {
       server.stop();
     }
@@ -102,15 +103,15 @@ describe('@rollup/plugin-node-resolve', () => {
   it('node modules resolved outside root directory are rewritten with commonjs', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
-      plugins: [
-        commonjs(),
-        nodeResolve(),
-      ],
+      plugins: [commonjs(), nodeResolve()],
     });
 
     try {
       const responseText = await fetchText(`${host}/app.js`);
-      expectIncludes(responseText, "import moduleA from '/__wds-outside-root__/1/node_modules/module-a/index.js'");
+      expectIncludes(
+        responseText,
+        "import moduleA from '/__wds-outside-root__/1/node_modules/module-a/index.js'",
+      );
     } finally {
       server.stop();
     }
