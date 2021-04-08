@@ -29,8 +29,7 @@ describe('emulateMediaPlugin', function test() {
         browsers: [
           playwrightLauncher({ product: 'chromium' }),
           playwrightLauncher({ product: 'firefox' }),
-          // TODO: make webkit work in the CI
-          // playwrightLauncher({ product: 'webkit' }),
+          playwrightLauncher({ product: 'webkit' }),
         ],
         plugins: [emulateMediaPlugin()],
       });

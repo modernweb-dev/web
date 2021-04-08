@@ -16,35 +16,6 @@ npm i --save-dev @web/test-runner-commands
 
 You can use the built-in commands directly in your tests.
 
-### Viewport
-
-The `setViewport` command allows changing the browser's viewport in a test. The function is async and should be awaited.
-
-`setViewport` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
-
-<details>
-  <summary>View example</summary>
-
-```js
-import { setViewport } from '@web/test-runner-commands';
-
-describe('my component', () => {
-  it('works on 360x640', async () => {
-    await setViewport({ width: 360, height: 640 });
-    console.log(window.innerWidth); // 360
-    console.log(window.innerHeight); // 640
-  });
-
-  it('works on 400x800', async () => {
-    await setViewport({ width: 400, height: 800 });
-    console.log(window.innerWidth); // 400
-    console.log(window.innerHeight); // 800
-  });
-});
-```
-
-</details>
-
 ### Emulate media
 
 The `emulateMedia` command allows changing browser media queries. The function is async and should be awaited.
@@ -82,9 +53,40 @@ it('can emulate reduced motion', async () => {
 
 </details>
 
+### Send keys
+
+The `sendKeys` command will cause the browser to `press` or `type` keys as if it received those keys from the keyboard. This greatly simplifies interactions with form elements during test and surfaces the ability to directly inspect the way focus flows through test content in response to the `Tab` key. The function is async and should be awaited.
+
+`sendKeys` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
+
+<details>
+<summary>View example</summary>
+
+```js
+import { sendKeys } from '@web/test-runner-commands';
+
+it('natively presses `Tab`', async () => {
+  const input1 = document.createElement('input');
+  const input2 = document.createElement('input');
+  document.body.append(input1, input2);
+  input1.focus();
+  expect(document.activeElement).to.equal(input1);
+
+  await sendKeys({
+    press: 'Tab',
+  });
+
+  expect(document.activeElement).to.equal(input2);
+  input1.remove();
+  input2.remove();
+});
+```
+
+</details>
+
 ### Set user agent
 
-The `setUserAgent` changes the browser's user agent. The function is async and should be awaited.
+The `setUserAgent` command changes the browser's user agent. The function is async and should be awaited.
 
 `setUserAgent` is supported in `@web/test-runner-chrome` and `-puppeteer`
 
@@ -99,6 +101,35 @@ it('can set the user agent', async () => {
   expect(navigator.userAgent).to.not.equal(userAgent);
   await setUserAgent(userAgent);
   expect(navigator.userAgent).to.equal(userAgent);
+});
+```
+
+</details>
+
+### Viewport
+
+The `setViewport` command allows changing the browser's viewport in a test. The function is async and should be awaited.
+
+`setViewport` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
+
+<details>
+  <summary>View example</summary>
+
+```js
+import { setViewport } from '@web/test-runner-commands';
+
+describe('my component', () => {
+  it('works on 360x640', async () => {
+    await setViewport({ width: 360, height: 640 });
+    console.log(window.innerWidth); // 360
+    console.log(window.innerHeight); // 640
+  });
+
+  it('works on 400x800', async () => {
+    await setViewport({ width: 400, height: 800 });
+    console.log(window.innerWidth); // 400
+    console.log(window.innerHeight); // 800
+  });
 });
 ```
 

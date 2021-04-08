@@ -1,5 +1,6 @@
 import { Media } from '../dist/index';
 import { Viewport } from '../dist/index';
+import { SendKeysPayload } from '../dist/index';
 
 /**
  * Executes a command on the server. If this is a custom command, you need to implement a plugin
@@ -25,4 +26,40 @@ export function emulateMedia(media: Media): Promise<void>;
  */
 export function setUserAgent(userAgent: string): Promise<void>;
 
-export { Media, Viewport };
+/**
+ * Sends a string of keys for the browser to press (all at once, as with single keys
+ * or shortcuts; e.g. `{press: 'Tab'}` or `{press: 'Shift+a'}` or
+ * `{press: 'Option+ArrowUp}`) or type (in sequence, e.g. `{type: 'Your name'}`) natively.
+ *
+ * For specific documentation of the strings to leverage here, see the Playwright documentation,
+ * here:
+ *
+ * - `press`: https://playwright.dev/docs/api/class-keyboard#keyboardpresskey-options
+ * - `type`: https://playwright.dev/docs/api/class-keyboard#keyboardtypetext-options
+ *
+ * Or, the Puppeter documentation, here:
+ *
+ * - `press`: https://pptr.dev/#?product=Puppeteer&show=api-keyboardpresskey-options
+ * - `type`: https://pptr.dev/#?product=Puppeteer&show=api-keyboardtypetext-options
+ *
+ * @param payload An object including a `press` or `type` property an the associated string
+ *     for the browser runner to apply via that input method.
+ *
+ * * @example
+ * ```ts
+ *    await sendKeys({
+ *        press: 'Tab',
+ *    });
+ * ```
+ *
+ * * @example
+ * ```ts
+ *    await sendKeys({
+ *        type: 'Your address',
+ *    });
+ * ```
+ *
+ **/
+export function sendKeys(payload: SendKeysPayload): Promise<void>;
+
+export { Media, Viewport, SendKeysPayload };
