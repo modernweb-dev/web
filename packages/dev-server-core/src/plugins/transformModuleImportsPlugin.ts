@@ -25,6 +25,7 @@ interface ParsedImport {
   ss: number;
   se: number;
   d: number;
+  n?: string;
 }
 
 const CONCAT_NO_PACKAGE_ERROR =
@@ -132,11 +133,11 @@ export async function transformImports(
   let lastIndex = 0;
 
   for (const imp of imports) {
-    const { s: start, e: end, d: dynamicImportIndex } = imp;
+    const { s: start, e: end, d: dynamicImportIndex, n: unescaped } = imp;
 
     if (dynamicImportIndex === -1) {
       // static import
-      const importSpecifier = code.substring(start, end);
+      const importSpecifier = unescaped || code.substring(start, end);
       const lines = code.slice(0, end).split('\n');
       const line = lines.length;
       const column = lines[lines.length - 1].indexOf(importSpecifier);
