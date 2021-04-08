@@ -1,5 +1,51 @@
 # @web/test-runner
 
+## 0.12.19
+
+### Patch Changes
+
+- ce90c7c3: Add the `sendKeys` command
+
+  Sends a string of keys for the browser to press (all at once, as with single keys
+  or shortcuts; e.g. `{press: 'Tab'}` or `{press: 'Shift+a'}` or
+  `{press: 'Option+ArrowUp}`) or type (in sequence, e.g. `{type: 'Your name'}`) natively.
+
+  For specific documentation of the strings to leverage here, see the Playwright documentation,
+  here:
+
+  - `press`: https://playwright.dev/docs/api/class-keyboard#keyboardpresskey-options
+  - `type`: https://playwright.dev/docs/api/class-keyboard#keyboardtypetext-options
+
+  Or, the Puppeter documentation, here:
+
+  - `press`: https://pptr.dev/#?product=Puppeteer&show=api-keyboardpresskey-options
+  - `type`: https://pptr.dev/#?product=Puppeteer&show=api-keyboardtypetext-options
+
+  @param payload An object including a `press` or `type` property an the associated string
+  for the browser runner to apply via that input method.
+
+  @example
+
+  ```ts
+  await sendKeys({
+    press: 'Tab',
+  });
+  ```
+
+  @example
+
+  ```ts
+  await sendKeys({
+    type: 'Your address',
+  });
+  ```
+
+- Updated dependencies [0a05464b]
+- Updated dependencies [ce90c7c3]
+  - @web/dev-server@0.1.11
+  - @web/test-runner-commands@0.4.2
+  - @web/test-runner-core@0.10.14
+
 ## 0.12.18
 
 ### Patch Changes
