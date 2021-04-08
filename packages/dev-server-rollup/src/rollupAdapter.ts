@@ -21,7 +21,7 @@ import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } f
 import { InputOptions } from 'rollup';
 import { red, cyanBright } from 'chalk';
 
-import { toBrowserPath, isAbsoluteFilePath } from './utils';
+import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils';
 import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter';
 import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts';
 
@@ -193,6 +193,11 @@ export function rollupAdapter(
 
         // some plugins don't return a file path, so we just return it as is
         if (!isAbsoluteFilePath(resolvedImportPath)) {
+          return `${resolvedImportPath}`;
+        }
+
+        // file already resolved outsided root dir
+        if (isOutsideRootDir(resolvedImportPath)) {
           return `${resolvedImportPath}`;
         }
 
