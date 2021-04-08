@@ -14,3 +14,7 @@ export function toBrowserPath(filePath: string) {
 export function isAbsoluteFilePath(path: string) {
   return REGEXP_ABSOLUTE.test(path);
 }
+
+export function isOutsideRootDir(path: string) {
+  return path.startsWith('/__wds-outside-root__/');
+}
