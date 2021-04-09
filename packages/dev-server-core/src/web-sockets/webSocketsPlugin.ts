@@ -6,8 +6,13 @@ export const webSocketScript = `<!-- injected by web-dev-server -->
 <script type="module" src="${NAME_WEB_SOCKET_IMPORT}"></script>`;
 
 export function webSocketsPlugin(): Plugin {
+  let origin: string;
   return {
     name: 'web-sockets',
+
+    serverStart({ config }) {
+      origin = `ws${config.http2 ? 's' : ''}://${config.hostname ?? 'localhost'}:${config.port}`;
+    },
 
     resolveImport({ source }) {
       if (source === NAME_WEB_SOCKET_IMPORT) {
@@ -40,7 +45,7 @@ function setupWebSocket() {
   } else {
     webSocket =
       'WebSocket' in window
-      ? new WebSocket(\`ws\${location.protocol === 'https:' ? 's' : ''}://\${location.host}/${NAME_WEB_SOCKET_API}\`)
+      ? new WebSocket('${origin}/${NAME_WEB_SOCKET_API}')
         : null;
     webSocketOpened = new Promise(resolve => {
       if (!webSocket) {
