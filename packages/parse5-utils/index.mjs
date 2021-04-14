@@ -1,7 +1,5 @@
 import cjsEntrypoint from './src/index.js';
 
-console.log(Object.keys(cjsEntrypoint));
-
 const {
   createDocument,
   createDocumentFragment,
