@@ -1,3 +1,5 @@
+import { ScriptModuleTag } from '../RollupPluginHTMLOptions';
+
 export interface InputAsset {
   filePath: string;
   hashed: boolean;
@@ -7,8 +9,8 @@ export interface InputAsset {
 export interface InputData {
   html: string;
   name: string;
-  moduleImports: string[];
-  inlineModules: Map<string, string>;
+  moduleImports: ScriptModuleTag[];
+  inlineModules: ScriptModuleTag[];
   assets: InputAsset[];
   filePath?: string;
 }

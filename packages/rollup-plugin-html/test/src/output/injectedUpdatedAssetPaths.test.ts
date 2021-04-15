@@ -24,7 +24,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       html: '',
       name: 'index.html',
       moduleImports: [],
-      inlineModules: new Map(),
+      inlineModules: [],
       assets: [],
       filePath: '/root/index.html',
     };
@@ -73,7 +73,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       html: '',
       name: 'index.html',
       moduleImports: [],
-      inlineModules: new Map(),
+      inlineModules: [],
       assets: [],
     };
     const hashed = new Map<string, string>();
@@ -118,7 +118,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       html: '',
       name: 'foo/index.html',
       moduleImports: [],
-      inlineModules: new Map(),
+      inlineModules: [],
       assets: [],
       filePath: '/root/foo/index.html',
     };
@@ -165,7 +165,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       html: '',
       name: 'foo/index.html',
       moduleImports: [],
-      inlineModules: new Map(),
+      inlineModules: [],
       assets: [],
     };
     const hashed = new Map<string, string>();
@@ -211,7 +211,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       html: '',
       name: 'index.html',
       moduleImports: [],
-      inlineModules: new Map(),
+      inlineModules: [],
       assets: [],
       filePath: '/root/index.html',
     };

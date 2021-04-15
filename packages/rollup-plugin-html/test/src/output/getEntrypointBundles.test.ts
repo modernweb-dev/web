@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { getEntrypointBundles, createImportPath } from '../../../src/output/getEntrypointBundles';
-import { GeneratedBundle } from '../../../src/RollupPluginHTMLOptions';
+import { GeneratedBundle, ScriptModuleTag } from '../../../src/RollupPluginHTMLOptions';
 
 describe('createImportPath()', () => {
   it('creates a relative import path', () => {
@@ -137,9 +137,14 @@ describe('getEntrypointBundles()', () => {
     },
   ];
 
+  const inputModuleIds: ScriptModuleTag[] = [
+    { importPath: '/root/app.js' },
+    { importPath: '/root/foo.js' },
+  ];
+
   const defaultOptions = {
     pluginOptions: {},
-    inputModuleIds: ['/root/app.js', '/root/foo.js'],
+    inputModuleIds,
     outputDir: 'dist',
     htmlFileName: 'index.html',
     generatedBundles: defaultBundles,
@@ -275,9 +280,15 @@ describe('getEntrypointBundles()', () => {
         },
       },
     ];
+
+    const inputModuleIds: ScriptModuleTag[] = [
+      { importPath: '/root/app.js' },
+      { importPath: '/root/not-app.js' },
+    ];
+
     const output = await getEntrypointBundles({
       ...defaultOptions,
-      inputModuleIds: ['/root/app.js', '/root/not-app.js'],
+      inputModuleIds,
       generatedBundles,
     });
     expect(Object.keys(output).length).to.equal(1);
