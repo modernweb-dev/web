@@ -9,6 +9,7 @@ import { createHTMLOutput } from './output/createHTMLOutput';
 import {
   GeneratedBundle,
   RollupPluginHTMLOptions,
+  ScriptModuleTag,
   TransformHtmlFunction,
 } from './RollupPluginHTMLOptions';
 import { createError, NOOP_IMPORT } from './utils';
@@ -47,7 +48,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
       reset();
 
       inputs = getInputData(pluginOptions, inputOptions.input);
-      const moduleImports: string[] = [];
+      const moduleImports: ScriptModuleTag[] = [];
 
       for (const input of inputs) {
         moduleImports.push(...input.moduleImports);
@@ -74,7 +75,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
 
       if (pluginOptions.input == null) {
         // we are reading rollup input, so replace whatever was there
-        return { ...inputOptions, input: moduleImports };
+        return { ...inputOptions, input: moduleImports.map(mod => mod.importPath) };
       } else {
         // we need to add modules to existing rollup input
         return addRollupInput(inputOptions, moduleImports);
@@ -97,12 +98,12 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
 
     /** Notifies rollup that we will be handling these modules */
     resolveId(id) {
-      if (id === NOOP_IMPORT) {
-        return NOOP_IMPORT;
+      if (id === NOOP_IMPORT.importPath) {
+        return NOOP_IMPORT.importPath;
       }
 
       for (const input of inputs) {
-        if (input.inlineModules.has(id)) {
+        if (input.inlineModules.find(mod => mod.importPath === id)) {
           return id;
         }
       }
@@ -110,13 +111,14 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
 
     /** Provide code for modules we are handling */
     load(id) {
-      if (id === NOOP_IMPORT) {
+      if (id === NOOP_IMPORT.importPath) {
         return 'export default "noop"';
       }
 
       for (const input of inputs) {
-        if (input.inlineModules.has(id)) {
-          return input.inlineModules.get(id);
+        const foundMod = input.inlineModules.find(mod => mod.importPath === id);
+        if (foundMod) {
+          return foundMod.code;
         }
       }
     },

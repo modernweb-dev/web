@@ -1,3 +1,4 @@
+import { Attribute } from 'parse5';
 import path from 'path';
 import { OutputChunk } from 'rollup';
 
@@ -5,6 +6,7 @@ import {
   EntrypointBundle,
   GeneratedBundle,
   RollupPluginHTMLOptions,
+  ScriptModuleTag,
 } from '../RollupPluginHTMLOptions';
 import { createError, NOOP_IMPORT } from '../utils';
 import { toBrowserPath } from './utils';
@@ -41,13 +43,14 @@ export interface GetEntrypointBundlesParams {
   pluginOptions: RollupPluginHTMLOptions;
   generatedBundles: GeneratedBundle[];
   outputDir: string;
-  inputModuleIds: string[];
+  inputModuleIds: ScriptModuleTag[];
   htmlFileName: string;
 }
 
 interface Entrypoint {
   importPath: string;
   chunk: OutputChunk;
+  attributes?: Attribute[];
 }
 
 export function getEntrypointBundles(params: GetEntrypointBundlesParams) {
@@ -63,8 +66,9 @@ export function getEntrypointBundles(params: GetEntrypointBundlesParams) {
     for (const chunkOrAsset of Object.values(bundle)) {
       if (chunkOrAsset.type === 'chunk') {
         const chunk = chunkOrAsset;
-        if (chunk.isEntry && chunk.facadeModuleId !== NOOP_IMPORT) {
-          if (chunk.facadeModuleId && inputModuleIds.includes(chunk.facadeModuleId)) {
+        if (chunk.isEntry && chunk.facadeModuleId !== NOOP_IMPORT.importPath) {
+          const found = inputModuleIds.find(mod => mod.importPath === chunk.facadeModuleId);
+          if (chunk.facadeModuleId && found) {
             const importPath = createImportPath({
               publicPath: pluginOptions.publicPath,
               outputDir,
@@ -72,7 +76,7 @@ export function getEntrypointBundles(params: GetEntrypointBundlesParams) {
               htmlFileName,
               fileName: chunkOrAsset.fileName,
             });
-            entrypoints.push({ importPath, chunk: chunkOrAsset });
+            entrypoints.push({ importPath, chunk: chunkOrAsset, attributes: found.attributes });
           }
         }
       }

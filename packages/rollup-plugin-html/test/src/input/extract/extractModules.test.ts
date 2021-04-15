@@ -22,8 +22,11 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect(inlineModules.size).to.equal(0);
-    expect(moduleImports).to.eql([`${sep}foo.js`, `${sep}bar.js`]);
+    expect(inlineModules.length).to.equal(0);
+    expect(moduleImports).to.eql([
+      { importPath: `${sep}foo.js`, attributes: [] },
+      { importPath: `${sep}bar.js`, attributes: [] },
+    ]);
     expect(htmlWithoutModules).to.eql(
       '<html><head></head><body><div>before</div><div>after</div></body></html>',
     );
@@ -44,7 +47,7 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect(inlineModules.size).to.equal(0);
+    expect(inlineModules.length).to.equal(0);
     expect(moduleImports).to.eql([]);
     expect(htmlWithoutModules).to.eql(
       '<html><head></head><body><div>before</div><script src="./foo.js"></script><script></script><div>after</div></body></html>',
@@ -66,8 +69,11 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect(inlineModules.size).to.equal(0);
-    expect(moduleImports).to.eql([`${sep}foo.js`, `${sep}base${sep}bar.js`]);
+    expect(inlineModules.length).to.equal(0);
+    expect(moduleImports).to.eql([
+      { importPath: `${sep}foo.js`, attributes: [] },
+      { importPath: `${sep}base${sep}bar.js`, attributes: [] },
+    ]);
     expect(htmlWithoutModules).to.eql(
       '<html><head></head><body><div>before</div><div>after</div></body></html>',
     );
@@ -88,10 +94,10 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect(inlineModules.size).to.equal(0);
+    expect(inlineModules.length).to.equal(0);
     expect(moduleImports).to.eql([
-      `${sep}base-1${sep}base-2${sep}foo.js`,
-      `${sep}base-1${sep}bar.js`,
+      { importPath: `${sep}base-1${sep}base-2${sep}foo.js`, attributes: [] },
+      { importPath: `${sep}base-1${sep}bar.js`, attributes: [] },
     ]);
     expect(htmlWithoutModules).to.eql(
       '<html><head></head><body><div>before</div><div>after</div></body></html>',
@@ -113,9 +119,17 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect([...inlineModules.entries()]).to.eql([
-      ['/inline-module-a4e60958bc83128660775c2820e18b97.js', '/* my module 1 */'],
-      ['/inline-module-37f6fef1c772a592e6764b98a0d799dd.js', '/* my module 2 */'],
+    expect(inlineModules).to.eql([
+      {
+        importPath: '/inline-module-a4e60958bc83128660775c2820e18b97.js',
+        code: '/* my module 1 */',
+        attributes: [],
+      },
+      {
+        importPath: '/inline-module-37f6fef1c772a592e6764b98a0d799dd.js',
+        code: '/* my module 2 */',
+        attributes: [],
+      },
     ]);
     expect(moduleImports).to.eql([]);
     expect(htmlWithoutModules).to.eql(
@@ -138,9 +152,17 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect([...inlineModules.entries()]).to.eql([
-      ['/foo/bar/inline-module-a4e60958bc83128660775c2820e18b97.js', '/* my module 1 */'],
-      ['/foo/bar/inline-module-37f6fef1c772a592e6764b98a0d799dd.js', '/* my module 2 */'],
+    expect(inlineModules).to.eql([
+      {
+        importPath: '/foo/bar/inline-module-a4e60958bc83128660775c2820e18b97.js',
+        code: '/* my module 1 */',
+        attributes: [],
+      },
+      {
+        importPath: '/foo/bar/inline-module-37f6fef1c772a592e6764b98a0d799dd.js',
+        code: '/* my module 2 */',
+        attributes: [],
+      },
     ]);
     expect(moduleImports).to.eql([]);
     expect(htmlWithoutModules).to.eql(
@@ -163,8 +185,8 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect(inlineModules.size).to.equal(0);
-    expect(moduleImports).to.eql([`${sep}bar.js`]);
+    expect(inlineModules.length).to.equal(0);
+    expect(moduleImports).to.eql([{ importPath: `${sep}bar.js`, attributes: [] }]);
     expect(htmlWithoutModules).to.eql(
       '<html><head></head><body><div>before</div><script type="module" src="https://www.my-cdn.com/foo.js"></script><div>after</div></body></html>',
     );

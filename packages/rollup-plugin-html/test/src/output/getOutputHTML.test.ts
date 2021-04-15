@@ -23,7 +23,7 @@ describe('getOutputHTML()', () => {
       name: 'index.html',
       moduleImports: [],
       assets: [],
-      inlineModules: new Map(),
+      inlineModules: [],
     },
     defaultInjectDisabled: false,
     injectServiceWorker: false,

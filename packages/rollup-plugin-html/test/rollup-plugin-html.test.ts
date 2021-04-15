@@ -71,6 +71,26 @@ describe('rollup-plugin-html', () => {
     );
   });
 
+  it('will retain attributes on script tags', async () => {
+    const config = {
+      input: require.resolve('./fixtures/rollup-plugin-html/retain-attributes.html'),
+      plugins: [rollupPluginHTML({ rootDir })],
+    };
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+    expect(output.length).to.equal(4);
+    const { code: entryA } = getChunk(output, 'entrypoint-a.js');
+    const { code: entryB } = getChunk(output, 'entrypoint-b.js');
+    expect(entryA).to.include("console.log('entrypoint-a.js');");
+    expect(entryB).to.include("console.log('entrypoint-b.js');");
+    expect(stripNewlines(getAsset(output, 'retain-attributes.html').source)).to.equal(
+      '<html><head></head><body><h1>hello world</h1>' +
+        '<script type="module" src="./entrypoint-a.js" keep-this-attribute=""></script>' +
+        '<script type="module" src="./entrypoint-b.js"></script>' +
+        '</body></html>',
+    );
+  });
+
   it('can build with pure html file as rollup input', async () => {
     const config = {
       input: require.resolve('./fixtures/rollup-plugin-html/pure-index.html'),

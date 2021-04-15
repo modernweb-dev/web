@@ -1,8 +1,10 @@
 import { findElements, getAttribute, getTagName, getTextContent, remove } from '@web/parse5-utils';
-import { Document } from 'parse5';
+import { Document, Attribute } from 'parse5';
 import path from 'path';
 import crypto from 'crypto';
 import { resolveAssetFilePath } from '../../assets/utils';
+import { getAttributes } from '@web/parse5-utils';
+import { ScriptModuleTag } from '../../RollupPluginHTMLOptions';
 
 export interface ExtractModulesParams {
   document: Document;
@@ -31,11 +33,19 @@ export function extractModules(params: ExtractModulesParams) {
     e => getTagName(e) === 'script' && getAttribute(e, 'type') === 'module',
   );
 
-  const moduleImports: string[] = [];
-  const inlineModules = new Map<string, string>();
+  const moduleImports: ScriptModuleTag[] = [];
+  const inlineModules: ScriptModuleTag[] = [];
 
   for (const scriptNode of scriptNodes) {
     const src = getAttribute(scriptNode, 'src');
+
+    const allAttributes = getAttributes(scriptNode);
+    const attributes: Attribute[] = [];
+    for (const attributeName of Object.keys(allAttributes)) {
+      if (attributeName !== 'src' && attributeName !== 'type') {
+        attributes.push({ name: attributeName, value: allAttributes[attributeName] });
+      }
+    }
 
     if (!src) {
       // turn inline module (<script type="module"> ...code ... </script>)
@@ -43,13 +53,22 @@ export function extractModules(params: ExtractModulesParams) {
       // inline modules should be relative to the HTML file to resolve relative imports
       // we make it unique with a content hash, so that duplicate modules are deduplicated
       const importPath = path.posix.join(htmlDir, `/inline-module-${createContentHash(code)}.js`);
-      inlineModules.set(importPath, code);
+      if (!inlineModules.find(tag => tag.importPath === importPath)) {
+        inlineModules.push({
+          importPath,
+          attributes,
+          code,
+        });
+      }
       remove(scriptNode);
     } else {
       if (!isAbsolute(src)) {
         // external script <script type="module" src="./foo.js"></script>
         const importPath = resolveAssetFilePath(src, htmlDir, rootDir, absolutePathPrefix);
-        moduleImports.push(importPath);
+        moduleImports.push({
+          importPath,
+          attributes,
+        });
         remove(scriptNode);
       }
     }
