@@ -26,7 +26,7 @@ async function testSnapshot({ name, config, expectedFiles = [] }: TestSnapshotAr
     fs.writeFileSync(snapshotPath, loader.code, 'utf-8');
   } else {
     const snapshot = fs.readFileSync(snapshotPath, 'utf-8');
-    expect(loader.code.replace(/\s/g, '')).to.equal(snapshot.replace(/\s/g, ''));
+    expect(loader.code.trim()).to.equal(snapshot.trim());
   }
 }
 

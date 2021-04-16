@@ -1,5 +1,5 @@
 (function () {
-  function loadScript(src, type) {
+  function loadScript(src, type, attributes = []) {
     return new Promise(function (resolve) {
       var script = document.createElement('script');
 
@@ -13,6 +13,9 @@
 
       script.src = src;
       script.onload = onLoaded;
+      attributes.forEach(att => {
+        script.setAttribute(att.name, att.value);
+      });
 
       script.onerror = function () {
         console.error('[polyfills-loader] failed to load: ' + src + ' check the network tab for HTTP status.');
@@ -45,9 +48,9 @@
       }, Promise.resolve());
     } else {
       [function () {
-        return loadScript('./app-1.js', 'module');
+        return loadScript('./app-1.js', 'module', []);
       }, function () {
-        return loadScript('./app-2.js', 'module');
+        return loadScript('./app-2.js', 'module', []);
       }].reduce(function (a, c) {
         return a.then(c);
       }, Promise.resolve());
