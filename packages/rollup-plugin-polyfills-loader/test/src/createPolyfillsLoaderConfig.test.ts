@@ -6,7 +6,7 @@ describe('createPolyfillsLoaderConfig()', () => {
     const pluginConfig = {};
     const bundle = {
       options: { format: 'es' },
-      entrypoints: [{ importPath: 'app.js' }],
+      entrypoints: [{ importPath: 'app.js', attributes: [] }],
     };
 
     // @ts-ignore
@@ -14,7 +14,7 @@ describe('createPolyfillsLoaderConfig()', () => {
 
     expect(config).to.eql({
       legacy: undefined,
-      modern: { files: [{ path: 'app.js', type: 'module' }] },
+      modern: { files: [{ path: 'app.js', type: 'module', attributes: [] }] },
       polyfills: undefined,
     });
   });
@@ -23,7 +23,10 @@ describe('createPolyfillsLoaderConfig()', () => {
     const pluginConfig = {};
     const bundle = {
       options: { format: 'es' },
-      entrypoints: [{ importPath: 'app-1.js' }, { importPath: 'app-2.js' }],
+      entrypoints: [
+        { importPath: 'app-1.js', attributes: [] },
+        { importPath: 'app-2.js', attributes: [] },
+      ],
     };
 
     // @ts-ignore
@@ -33,8 +36,8 @@ describe('createPolyfillsLoaderConfig()', () => {
       legacy: undefined,
       modern: {
         files: [
-          { path: 'app-1.js', type: 'module' },
-          { path: 'app-2.js', type: 'module' },
+          { path: 'app-1.js', type: 'module', attributes: [] },
+          { path: 'app-2.js', type: 'module', attributes: [] },
         ],
       },
       polyfills: undefined,
@@ -47,7 +50,7 @@ describe('createPolyfillsLoaderConfig()', () => {
       options: { format: 'system' },
       entrypoints: [
         // @ts-ignore
-        { importPath: 'app.js' },
+        { importPath: 'app.js', attributes: [] },
       ],
     };
 
@@ -56,7 +59,7 @@ describe('createPolyfillsLoaderConfig()', () => {
 
     expect(config).to.eql({
       legacy: undefined,
-      modern: { files: [{ path: 'app.js', type: 'systemjs' }] },
+      modern: { files: [{ path: 'app.js', type: 'systemjs', attributes: [] }] },
       polyfills: undefined,
     });
   });
@@ -69,11 +72,11 @@ describe('createPolyfillsLoaderConfig()', () => {
     const bundles = {
       modern: {
         options: { format: 'es' },
-        entrypoints: [{ importPath: 'app.js' }],
+        entrypoints: [{ importPath: 'app.js', attributes: [] }],
       },
       legacy: {
         options: { format: 'system' },
-        entrypoints: [{ importPath: 'legacy/app.js' }],
+        entrypoints: [{ importPath: 'legacy/app.js', attributes: [] }],
       },
     };
 
@@ -81,10 +84,10 @@ describe('createPolyfillsLoaderConfig()', () => {
     const config = createPolyfillsLoaderConfig(pluginConfig, undefined, bundles);
 
     expect(config).to.eql({
-      modern: { files: [{ path: 'app.js', type: 'module' }] },
+      modern: { files: [{ path: 'app.js', type: 'module', attributes: [] }] },
       legacy: [
         {
-          files: [{ path: 'legacy/app.js', type: 'systemjs' }],
+          files: [{ path: 'legacy/app.js', type: 'systemjs', attributes: [] }],
           test: "!('noModule' in HTMScriptElement.prototype)",
         },
       ],
@@ -103,15 +106,15 @@ describe('createPolyfillsLoaderConfig()', () => {
     const bundles = {
       modern: {
         options: { format: 'es' },
-        entrypoints: [{ importPath: 'app.js' }],
+        entrypoints: [{ importPath: 'app.js', attributes: [] }],
       },
       legacy: {
         options: { format: 'system' },
-        entrypoints: [{ importPath: 'legacy/app.js' }],
+        entrypoints: [{ importPath: 'legacy/app.js', attributes: [] }],
       },
       'super-legacy': {
         options: { format: 'system' },
-        entrypoints: [{ importPath: 'super-legacy/app.js' }],
+        entrypoints: [{ importPath: 'super-legacy/app.js', attributes: [] }],
       },
     };
 
@@ -119,14 +122,14 @@ describe('createPolyfillsLoaderConfig()', () => {
     const config = createPolyfillsLoaderConfig(pluginConfig, undefined, bundles);
 
     expect(config).to.eql({
-      modern: { files: [{ path: 'app.js', type: 'module' }] },
+      modern: { files: [{ path: 'app.js', type: 'module', attributes: [] }] },
       legacy: [
         {
-          files: [{ path: 'super-legacy/app.js', type: 'systemjs' }],
+          files: [{ path: 'super-legacy/app.js', type: 'systemjs', attributes: [] }],
           test: 'window.bar',
         },
         {
-          files: [{ path: 'legacy/app.js', type: 'systemjs' }],
+          files: [{ path: 'legacy/app.js', type: 'systemjs', attributes: [] }],
           test: 'window.foo',
         },
       ],
@@ -146,11 +149,11 @@ describe('createPolyfillsLoaderConfig()', () => {
     const bundles = {
       modern: {
         options: { format: 'es' },
-        entrypoints: [{ importPath: 'app.js' }],
+        entrypoints: [{ importPath: 'app.js', attributes: [] }],
       },
       legacy: {
         options: { format: 'system' },
-        entrypoints: [{ importPath: 'legacy/app.js' }],
+        entrypoints: [{ importPath: 'legacy/app.js', attributes: [] }],
       },
     };
 
@@ -158,10 +161,10 @@ describe('createPolyfillsLoaderConfig()', () => {
     const config = createPolyfillsLoaderConfig(pluginConfig, undefined, bundles);
 
     expect(config).to.eql({
-      modern: { files: [{ path: 'app.js', type: 'script' }] },
+      modern: { files: [{ path: 'app.js', type: 'script', attributes: [] }] },
       legacy: [
         {
-          files: [{ path: 'legacy/app.js', type: 'script' }],
+          files: [{ path: 'legacy/app.js', type: 'script', attributes: [] }],
           test: "!('noModule' in HTMScriptElement.prototype)",
         },
       ],
@@ -175,7 +178,7 @@ describe('createPolyfillsLoaderConfig()', () => {
     };
     const bundle = {
       options: { format: 'es' },
-      entrypoints: [{ importPath: 'app.js' }],
+      entrypoints: [{ importPath: 'app.js', attributes: [] }],
     };
 
     // @ts-ignore
@@ -183,7 +186,7 @@ describe('createPolyfillsLoaderConfig()', () => {
 
     expect(config).to.eql({
       legacy: undefined,
-      modern: { files: [{ path: 'app.js', type: 'module' }] },
+      modern: { files: [{ path: 'app.js', type: 'module', attributes: [] }] },
       polyfills: { fetch: true, webcomponents: true },
     });
   });
@@ -195,7 +198,7 @@ describe('createPolyfillsLoaderConfig()', () => {
     };
     const bundle = {
       options: { format: 'es' },
-      entrypoints: [{ importPath: 'app.js' }],
+      entrypoints: [{ importPath: 'app.js', attributes: [] }],
     };
 
     // @ts-ignore
@@ -208,11 +211,11 @@ describe('createPolyfillsLoaderConfig()', () => {
     const bundles = {
       modern: {
         options: { format: 'es' },
-        entrypoints: [{ importPath: 'app.js' }],
+        entrypoints: [{ importPath: 'app.js', attributes: [] }],
       },
       legacy: {
         options: { format: 'system' },
-        entrypoints: [{ importPath: 'legacy/app.js' }],
+        entrypoints: [{ importPath: 'legacy/app.js', attributes: [] }],
       },
     };
 
@@ -229,11 +232,11 @@ describe('createPolyfillsLoaderConfig()', () => {
     const bundles = {
       modern: {
         options: { format: 'es' },
-        entrypoints: [{ importPath: 'app.js' }],
+        entrypoints: [{ importPath: 'app.js', attributes: [] }],
       },
       legacy: {
         options: { format: 'system' },
-        entrypoints: [{ importPath: 'legacy/app.js' }],
+        entrypoints: [{ importPath: 'legacy/app.js', attributes: [] }],
       },
     };
 

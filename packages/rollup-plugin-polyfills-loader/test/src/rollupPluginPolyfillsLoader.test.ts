@@ -42,7 +42,8 @@ async function testSnapshot({ name, fileName, inputOptions, outputOptions }: Sna
     fs.writeFileSync(snapshotPath, file.source, 'utf-8');
   } else {
     const snapshot = fs.readFileSync(snapshotPath, 'utf-8');
-    expect(file.source.replace(/\s/g, '')).to.equal(snapshot.replace(/\s/g, ''));
+    expect(file.source.trim()).to.equal(snapshot.trim());
+    // expect(file.source.replace(/\s/g, '')).to.equal(snapshot.replace(/\s/g, ''));
   }
   return output;
 }
@@ -98,6 +99,30 @@ describe('rollup-plugin-polyfills-loader', function describe() {
 
     await testSnapshot({
       name: 'multiple-entrypoints',
+      fileName: 'index.html',
+      inputOptions,
+      outputOptions: defaultOutputOptions,
+    });
+  });
+
+  it('retains attributes on script tags when injecting a polyfills loader with multiple entrypoints', async () => {
+    const inputOptions: RollupOptions = {
+      plugins: [
+        html({
+          input: {
+            html: `
+            <script type="module" src="${relativeUrl}/fixtures/entrypoint-a.js" keep-this-attribute></script>
+            <script type="module" src="${relativeUrl}/fixtures/entrypoint-b.js"></script>`,
+          },
+        }),
+        polyfillsLoader({
+          polyfills: { hash: false, fetch: true },
+        }),
+      ],
+    };
+
+    await testSnapshot({
+      name: 'multiple-entrypoints-retain-attributes',
       fileName: 'index.html',
       inputOptions,
       outputOptions: defaultOutputOptions,
@@ -333,6 +358,28 @@ describe('rollup-plugin-polyfills-loader', function describe() {
 
     await testSnapshot({
       name: 'no-polyfills',
+      fileName: 'index.html',
+      inputOptions,
+      outputOptions: defaultOutputOptions,
+    });
+  });
+
+  it('will retain attributes of script tags if there are no polyfills to inject', async () => {
+    const inputOptions: RollupOptions = {
+      plugins: [
+        html({
+          input: {
+            html: `
+            <script type="module" src="${relativeUrl}/fixtures/entrypoint-a.js" keep-this-attribute></script>
+            <script type="module" src="${relativeUrl}/fixtures/entrypoint-b.js"></script>`,
+          },
+        }),
+        polyfillsLoader(),
+      ],
+    };
+
+    await testSnapshot({
+      name: 'no-polyfills-retain-attributes',
       fileName: 'index.html',
       inputOptions,
       outputOptions: defaultOutputOptions,

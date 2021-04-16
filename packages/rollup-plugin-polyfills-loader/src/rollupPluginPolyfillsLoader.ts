@@ -46,7 +46,16 @@ export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig
         } else {
           // we don't need to inject a polyfills loader, so we just inject the scripts directly
           const scripts = config
-            .modern!.files.map((f: File) => `<script type="module" src="${f.path}"></script>\n`)
+            .modern!.files.map((f: File) => {
+              let attributes = '';
+              if (f.attributes && f.attributes.length > 0) {
+                attributes = ' ';
+                attributes += f.attributes
+                  .map(attribute => `${attribute.name}="${attribute.value}"`)
+                  .join(' ');
+              }
+              return `<script type="module" src="${f.path}"${attributes}></script>\n`;
+            })
             .join('');
           htmlString = htmlString.replace('</body>', `\n${scripts}\n</body>`);
         }

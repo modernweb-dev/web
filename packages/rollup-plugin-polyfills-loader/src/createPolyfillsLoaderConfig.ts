@@ -27,7 +27,11 @@ function createEntrypoints(bundle: EntrypointBundle, filetype?: FileType) {
     throw createError('An output format must be configured');
   }
   const type = filetype || formatToFileType(bundle.options.format);
-  const files = bundle.entrypoints.map(e => ({ type, path: e.importPath }));
+  const files = bundle.entrypoints.map(e => ({
+    type,
+    path: e.importPath,
+    attributes: e.attributes,
+  }));
   return { files };
 }
 
