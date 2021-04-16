@@ -1,5 +1,5 @@
 (function () {
-  function loadScript(src, type) {
+  function loadScript(src, type, attributes = []) {
     return new Promise(function (resolve) {
       var script = document.createElement('script');
 
@@ -13,6 +13,9 @@
 
       script.src = src;
       script.onload = onLoaded;
+      attributes.forEach(att => {
+        script.setAttribute(att.name, att.value);
+      });
 
       script.onerror = function () {
         console.error('[polyfills-loader] failed to load: ' + src + ' check the network tab for HTTP status.');
@@ -39,13 +42,13 @@
       [function () {
         return System.import('./legacy/app-1.js');
       }, function () {
-        return loadScript('./legacy/app-2.js');
+        return loadScript('./legacy/app-2.js', null, []);
       }].reduce(function (a, c) {
         return a.then(c);
       }, Promise.resolve());
     } else if ('foo' in bar) {
       [function () {
-        return loadScript('./foobar/app-1.js');
+        return loadScript('./foobar/app-1.js', null, []);
       }, function () {
         return System.import('./foobar/app-2.js');
       }].reduce(function (a, c) {
@@ -53,9 +56,9 @@
       }, Promise.resolve());
     } else {
       [function () {
-        return loadScript('./app-1.js', 'module');
+        return loadScript('./app-1.js', 'module', []);
       }, function () {
-        return loadScript('./app-2.js');
+        return loadScript('./app-2.js', null, []);
       }].reduce(function (a, c) {
         return a.then(c);
       }, Promise.resolve());

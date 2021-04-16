@@ -18,7 +18,7 @@ import path from 'path';
  * because Promise might not be loaded yet
  */
 const loadScriptFunction = `
-  function loadScript(src, type) {
+  function loadScript(src, type, attributes = []) {
     return new Promise(function (resolve) {
       var script = document.createElement('script');
       function onLoaded() {
@@ -29,6 +29,9 @@ const loadScriptFunction = `
       }
       script.src = src;
       script.onload = onLoaded;
+      attributes.forEach(att => {
+        script.setAttribute(att.name, att.value);
+      });
       script.onerror = function () {
         console.error('[polyfills-loader] failed to load: ' + src + ' check the network tab for HTTP status.');
         onLoaded();
@@ -58,22 +61,23 @@ function createLoadScriptCode(cfg: PolyfillsLoaderConfig, polyfills: PolyfillFil
  * Returns a js statement which loads the given resource in the browser.
  */
 function createLoadFile(file: File) {
-  const resourePath = cleanImportPath(file.path);
+  const resourcePath = cleanImportPath(file.path);
+  const attributesAsJsCodeString = file.attributes ? JSON.stringify(file.attributes) : '[]';
 
   switch (file.type) {
     case fileTypes.SCRIPT:
-      return `loadScript('${resourePath}')`;
+      return `loadScript('${resourcePath}', null, ${attributesAsJsCodeString})`;
     case fileTypes.MODULE:
-      return `loadScript('${resourePath}', 'module')`;
+      return `loadScript('${resourcePath}', 'module', ${attributesAsJsCodeString})`;
     case fileTypes.SYSTEMJS:
-      return `System.import('${resourePath}')`;
+      return `System.import('${resourcePath}')`;
     default:
       throw new Error(`Unknown resource type: ${file.type}`);
   }
 }
 
 /**
- * Creates a statement which loads the given resources in the browser sequentually.
+ * Creates a statement which loads the given resources in the browser sequentially.
  */
 function createLoadFiles(files: File[]) {
   if (files.length === 1) {

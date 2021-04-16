@@ -1,3 +1,5 @@
+import { Attribute } from 'parse5';
+
 export interface PolyfillsLoaderConfig {
   // files to load on modern browsers. loaded when there are no
   // legacy entrypoints which match
@@ -82,6 +84,7 @@ export interface File {
   type: FileType;
   // the path of the file
   path: string;
+  attributes?: Attribute[];
 }
 
 export interface GeneratedFile extends File {

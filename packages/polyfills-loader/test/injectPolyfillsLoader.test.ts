@@ -22,7 +22,7 @@ async function testSnapshot(name: string, htmlString: string, config: PolyfillsL
     fs.writeFileSync(snapshotPath, result.htmlString, 'utf-8');
   } else {
     const snapshot = fs.readFileSync(snapshotPath, 'utf-8');
-    expect(result.htmlString.replace(/\s/g, '')).to.equal(snapshot.replace(/\s/g, ''));
+    expect(result.htmlString.trim()).to.equal(snapshot.trim());
   }
 }
 
