@@ -3,8 +3,8 @@ import type { ChromeLauncher } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
 export type SendKeysPayload =
-  | { type: string; press: undefined }
-  | { type: undefined; press: string };
+  | { type: string; press?: undefined }
+  | { type?: undefined; press: string };
 
 function isObject(payload: unknown): payload is Record<string, unknown> {
   return payload != null && typeof payload === 'object';
