@@ -4,22 +4,22 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
-import { sendKeysPlugin } from '../../src/sendKeysPlugin';
+import { a11ySnapshotPlugin } from '../../src/a11ySnapshotPlugin';
 
-describe('sendKeysPlugin', function test() {
+describe('a11ySnapshotPlugin', function test() {
   this.timeout(20000);
 
-  it('can send keys on puppeteer', async () => {
+  it('can find accessibility nodes in the returned accessibility tree on puppeteer', async () => {
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],
       browsers: [chromeLauncher()],
-      plugins: [sendKeysPlugin()],
+      plugins: [a11ySnapshotPlugin()],
     });
   });
 
   // playwright doesn't work on windows VM right now
   if (platform() !== 'win32') {
-    it('can send keys on playwright', async () => {
+    it('can find accessibility nodes in the returned accessibility tree on playwright', async () => {
       await runTests({
         files: [path.join(__dirname, 'browser-test.js')],
         browsers: [
@@ -27,7 +27,7 @@ describe('sendKeysPlugin', function test() {
           playwrightLauncher({ product: 'firefox' }),
           playwrightLauncher({ product: 'webkit' }),
         ],
-        plugins: [sendKeysPlugin()],
+        plugins: [a11ySnapshotPlugin()],
       });
     });
   }

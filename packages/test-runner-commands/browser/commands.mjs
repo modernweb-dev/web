@@ -52,3 +52,18 @@ export function setUserAgent(options) {
 export function sendKeys(options) {
   return executeServerCommand('send-keys', options);
 }
+
+export function a11ySnapshot(options) {
+  return executeServerCommand('a11y-snapshot', options);
+}
+
+export function findAccessibilityNode(node, test) {
+  if (test(node)) return node;
+  for (const child of node.children || []) {
+    const foundNode = findAccessibilityNode(child, test);
+    if (foundNode) {
+      return foundNode;
+    }
+  }
+  return null;
+}
