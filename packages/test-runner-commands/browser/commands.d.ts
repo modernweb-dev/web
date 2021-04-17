@@ -1,6 +1,7 @@
 import { Media } from '../dist/index';
 import { Viewport } from '../dist/index';
 import { SendKeysPayload } from '../dist/index';
+import { A11ySnapshotPayload } from '../dist/index';
 
 /**
  * Executes a command on the server. If this is a custom command, you need to implement a plugin
@@ -45,14 +46,14 @@ export function setUserAgent(userAgent: string): Promise<void>;
  * @param payload An object including a `press` or `type` property an the associated string
  *     for the browser runner to apply via that input method.
  *
- * * @example
+ * @example
  * ```ts
  *    await sendKeys({
  *        press: 'Tab',
  *    });
  * ```
  *
- * * @example
+ * @example
  * ```ts
  *    await sendKeys({
  *        type: 'Your address',
@@ -61,5 +62,59 @@ export function setUserAgent(userAgent: string): Promise<void>;
  *
  **/
 export function sendKeys(payload: SendKeysPayload): Promise<void>;
+
+/**
+ * Request a snapshot of the Accessibility Tree of the entire page or starting from
+ * the element that is obtained via the `selector` property of the `payload` argument.
+ *
+ * Learn more about the tree that is returned from Playwright here:
+ * - https://playwright.dev/docs/api/class-accessibility/
+ *
+ * Learn more about the tree that is returned from Puppeteer here:
+ * - https://pptr.dev/#?product=Puppeteer&show=api-class-accessibility
+ *
+ * @param payload An object including a `selector` property pointing to the root of the
+ *     a11y tree you'd like returned.
+ *
+ * @example
+ * ```ts
+ *    await a11ySnapshot();
+ * ```
+ *
+ * @example
+ * ```ts
+ *    await a11ySnapshot({
+ *        selector: 'main'
+ *    });
+ * ```
+ */
+export function a11ySnapshot(payload: A11ySnapshotPayload): Promise<void>;
+
+/**
+ * Walk the provided accessibility tree that starts on `node` and test each
+ * node in the tree until one is found that meast the `test` provided.
+ *
+ * Learn more about the tree that is returned from Playwright here:
+ * - https://playwright.dev/docs/api/class-accessibility/
+ *
+ * Learn more about the tree that is returned from Puppeteer here:
+ * - https://pptr.dev/#?product=Puppeteer&show=api-class-accessibility
+ *
+ * @param node
+ * @param test
+ *
+ * @example
+ * // return whether a node in the `snapshot` has `name: 'Label Text Value Text'`
+ * ```ts
+ *    findAccessibilityNode<{ name: string }>(
+ *        snapshot,
+ *        (node) => node.name === 'Label Text Value Text'
+ *    )
+ * ```
+ */
+export function findAccessibilityNode<TNode>(
+  node: TNode & { children: TNode[] },
+  test: (node: TNode) => boolean,
+): TNode | null;
 
 export { Media, Viewport, SendKeysPayload };

@@ -16,6 +16,47 @@ npm i --save-dev @web/test-runner-commands
 
 You can use the built-in commands directly in your tests.
 
+### Accessibility Snapshot
+
+The `a11ySnapshot` command requests a snapshot of the accessibility tree built in the browser representing the current page or the tree rooter by the passed `selector` property. The function is async and should be awaited.
+
+`a11ySnapshot` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
+
+<details>
+<summary>View example</summary>
+
+```js
+import { a11ySnapshot, findAccessibilityNode } from '@web/test-runner-commands';
+
+it('returns an accessibility tree with appropriately labelled element in it', async () => {
+  const buttonText = 'Button Text';
+  const labelText = 'Label Text';
+  const fullText = `${labelText} ${buttonText}`;
+  const role = 'button';
+
+  const label = document.createElement('label');
+  label.textContent = labelText;
+  label.id = 'label';
+  const button = document.createElement('button');
+  button.textContent = buttonText;
+  button.id = 'button';
+  button.setAttribute('aria-labelledby', 'label button');
+  document.body.append(label, button);
+
+  const snapshot = await a11ySnapshot();
+  const foundNode = findAccessibilityNode(
+    snapshot,
+    node => node.name === fullText && node.role === role,
+  );
+  expect(foundNode, 'A node with the supplied name has been found.').to.not.be.null;
+
+  label.remove();
+  button.remove();
+});
+```
+
+</details>
+
 ### Emulate media
 
 The `emulateMedia` command allows changing browser media queries. The function is async and should be awaited.
