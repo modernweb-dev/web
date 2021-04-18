@@ -1,5 +1,29 @@
 # @web/rollup-plugin-html
 
+## 1.6.0
+
+### Minor Changes
+
+- 7d0e28c2: Preserve attributes on html script tags.
+
+  Input:
+
+  ```html
+  <script type="module" src="..." some="attribute">
+  ```
+
+  Output before:
+
+  ```html
+  <script type="module" src="...">
+  ```
+
+  Output now:
+
+  ```html
+  <script type="module" src="..." some="attribute">
+  ```
+
 ## 1.5.0
 
 ### Minor Changes

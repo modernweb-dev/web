@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.1.12
+
+### Patch Changes
+
+- 6772f9cc: Detect websocket url from server
+- Updated dependencies [6772f9cc]
+  - @web/dev-server-core@0.3.9
+
 ## 0.1.11
 
 ### Patch Changes
