@@ -1,5 +1,24 @@
 # @web/test-runner-commands
 
+## 0.4.3
+
+### Patch Changes
+
+- 1d9411a3: Export `sendKeysPlugin` from `@web/test-runner-commands/plugins`.
+  Loosen the typing of the command payload.
+- d2389bac: Add a11ySnapshotPlugin to acquire the current accessibility tree from the browser:
+
+  ```js
+  import { a11ySnapshot, findAccessibilityNode } from '@web/test-runner-commands';
+
+  // ...
+
+  const nodeName = 'Label Text';
+  const snapshot = await a11ySnapshot();
+  const foundNode = findAccessibilityNode(snapshot, node => node.name === nodeName);
+  expect(foundNode).to.not.be.null;
+  ```
+
 ## 0.4.2
 
 ### Patch Changes
