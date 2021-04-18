@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 1.1.0
+
+### Minor Changes
+
+- 0892bddd: Retain script tag attributes
+
 ## 1.0.2
 
 ### Patch Changes

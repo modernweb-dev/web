@@ -1,5 +1,16 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 1.1.0
+
+### Minor Changes
+
+- 205bf88f: Retain script attributes
+
+### Patch Changes
+
+- Updated dependencies [0892bddd]
+  - @web/polyfills-loader@1.1.0
+
 ## 1.0.7
 
 ### Patch Changes
