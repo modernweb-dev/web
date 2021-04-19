@@ -6,7 +6,7 @@ import {
   DevServerCoreConfig,
   getRequestFilePath,
 } from '@web/dev-server-core';
-import { startService, Service, Loader, Message } from 'esbuild';
+import { Loader, Message, transform } from 'esbuild';
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs';
@@ -20,7 +20,6 @@ import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 
 import { getEsbuildTarget } from './getEsbuildTarget';
 
-const exitProcessEvents = ['exit', 'SIGINT'];
 const filteredWarnings = ['Unsupported source map comment'];
 
 async function fileExists(path: string) {
@@ -46,7 +45,6 @@ export class EsbuildPlugin implements Plugin {
   private config?: DevServerCoreConfig;
   private esbuildConfig: EsbuildConfig;
   private logger?: Logger;
-  private service?: Service;
   private transformedHtmlFiles: string[] = [];
   name = 'esbuild';
 
@@ -57,24 +55,7 @@ export class EsbuildPlugin implements Plugin {
   async serverStart({ config, logger }: { config: DevServerCoreConfig; logger: Logger }) {
     this.config = config;
     this.logger = logger;
-    this.service = await startService();
-
-    for (const event of exitProcessEvents) {
-      process.on(event, this.onProcessKilled);
-    }
   }
-
-  serverStop() {
-    this.service?.stop();
-
-    for (const event of exitProcessEvents) {
-      process.off(event, this.onProcessKilled);
-    }
-  }
-
-  onProcessKilled = () => {
-    this.service?.stop();
-  };
 
   resolveMimeType(context: Context) {
     const fileExtension = path.posix.extname(context.path);
@@ -176,7 +157,7 @@ export class EsbuildPlugin implements Plugin {
     target: string | string[],
   ): Promise<string> {
     try {
-      const { code: transformedCode, warnings } = await this.service!.transform(code, {
+      const { code: transformedCode, warnings } = await transform(code, {
         sourcefile: filePath,
         sourcemap: 'inline',
         loader,
