@@ -36,7 +36,10 @@ export function esbuildPlugin(args: EsBuildPluginArgs = {}): Plugin {
   if (args.js) {
     loaders['.js'] = 'js';
   }
-  if (typeof args.target === 'string' || Array.isArray(args.target)) {
+  if (
+    !Object.prototype.hasOwnProperty.call(loaders, '.js') &&
+    (typeof args.target === 'string' || Array.isArray(args.target))
+  ) {
     loaders['.js'] = 'js';
   }
 
