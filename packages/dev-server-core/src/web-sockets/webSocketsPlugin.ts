@@ -11,7 +11,7 @@ export function webSocketsPlugin(): Plugin {
     name: 'web-sockets',
 
     serverStart({ config }) {
-      origin = `ws${config.sslCert ? 's' : ''}://${config.hostname ?? 'localhost'}:${config.port}`;
+      origin = `ws${config.http2 ? 's' : ''}://${config.hostname ?? 'localhost'}:${config.port}`;
     },
 
     resolveImport({ source }) {
