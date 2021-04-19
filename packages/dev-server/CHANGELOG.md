@@ -1,5 +1,14 @@
 # @web/dev-server
 
+## 0.1.13
+
+### Patch Changes
+
+- 780a3520: Use http2 config for websocket protocol check
+- 90375262: Upgrade to esbuild ^0.11.0
+- Updated dependencies [780a3520]
+  - @web/dev-server-core@0.3.10
+
 ## 0.1.12
 
 ### Patch Changes
