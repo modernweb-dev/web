@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.3.10
+
+### Patch Changes
+
+- 780a3520: Use http2 config for websocket protocol check
+
 ## 0.3.9
 
 ### Patch Changes

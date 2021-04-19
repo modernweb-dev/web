@@ -1,5 +1,14 @@
 # @web/dev-server-esbuild
 
+## 0.2.12
+
+### Patch Changes
+
+- 90375262: Upgrade to esbuild ^0.11.0
+- 020917c4: Do not override js loader with esbuild target
+- Updated dependencies [780a3520]
+  - @web/dev-server-core@0.3.10
+
 ## 0.2.11
 
 ### Patch Changes
