@@ -50,7 +50,7 @@ const transformedSyntax = {
   ],
   optionalChaining: 'const optionalChaining = (_a = window.bar) == null ? void 0 : _a.foo;',
   optionalCatch: '} catch (e) {',
-  objectSpread: 'const spread = __assign(__assign({}, foo), bar);',
+  objectSpread: 'const spread = __objSpread(__objSpread({}, foo), bar);',
   asyncFunctions: [
     'var __async = (__this, __arguments, generator) => {',
     'return __async(this, null, function* () {',

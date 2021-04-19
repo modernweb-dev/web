@@ -85,13 +85,13 @@ class Bar {
       expectIncludes(text, 'this.x = "y";');
       expectIncludes(
         text,
-        `__decorate([
+        `__decorateClass([
   prop
 ], Bar.prototype, "x", 2);`,
       );
       expectIncludes(
         text,
-        `Bar = __decorate([
+        `Bar = __decorateClass([
   foo
 ], Bar);`,
       );
