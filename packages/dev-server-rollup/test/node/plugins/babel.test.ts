@@ -27,10 +27,9 @@ describe('@rollup/plugin-alias', () => {
 
     try {
       const text = await fetchText(`${host}/app.js`);
-      expectIncludes(text, 'function _templateObject() {');
-      expectIncludes(text, 'const data = _taggedTemplateLiteral(["bar ", " foo"]);');
-      expectIncludes(text, 'function _taggedTemplateLiteral(strings, raw) {');
-      expectIncludes(text, 'const foo = html(_templateObject(), foo);');
+      expectIncludes(text, 'function _taggedTemplateLiteral(');
+      expectIncludes(text, '_taggedTemplateLiteral(["bar ", " foo"])');
+      expectIncludes(text, 'html(_templateObject');
     } finally {
       server.stop();
     }

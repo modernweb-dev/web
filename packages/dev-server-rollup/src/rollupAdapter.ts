@@ -42,7 +42,7 @@ function wrapRollupError(filePath: string, context: Context, error: any) {
       // replace file path in error message since it will be reported be the dev server
       error.message.replace(new RegExp(`(\\s*in\\s*)?(${filePath})`), ''),
       filePath,
-      context.body,
+      context.body as string,
       error.loc.line as number,
       error.loc.column as number,
     );
@@ -312,7 +312,7 @@ export function rollupAdapter(
 
           const result = await rollupPlugin.transform?.call(
             rollupPluginContext as TransformPluginContext,
-            context.body,
+            context.body as string,
             filePath,
           );
 
@@ -338,7 +338,7 @@ export function rollupAdapter(
       }
 
       if (context.response.is('html')) {
-        const documentAst = parseHtml(context.body);
+        const documentAst = parseHtml(context.body as string);
         const inlineScripts = queryAll(
           documentAst,
           predicates.AND(

@@ -122,7 +122,7 @@ export class EsbuildPlugin implements Plugin {
       return this.__transformHtml(context, filePath, loader, target);
     }
 
-    return this.__transformCode(context.body, filePath, loader, target);
+    return this.__transformCode(context.body as string, filePath, loader, target);
   }
 
   private async __transformHtml(
@@ -131,7 +131,7 @@ export class EsbuildPlugin implements Plugin {
     loader: Loader,
     target: string | string[],
   ) {
-    const documentAst = parseHtml(context.body);
+    const documentAst = parseHtml(context.body as string);
     const inlineScripts = queryAll(
       documentAst,
       predicates.AND(predicates.hasTagName('script'), predicates.NOT(predicates.hasAttr('src'))),

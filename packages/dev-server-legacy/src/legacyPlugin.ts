@@ -109,7 +109,7 @@ export function legacyPlugin(options: LegacyPluginOptions = {}): Plugin {
             ? systemJsConfig
             : es5Config;
         const filePath = getRequestFilePath(context.url, rootDir);
-        const transformed = await babelTransform(filePath, context.body, config);
+        const transformed = await babelTransform(filePath, context.body as string, config);
         context.body = transformed;
         return;
       }
@@ -121,7 +121,7 @@ export function legacyPlugin(options: LegacyPluginOptions = {}): Plugin {
         inlineScripts.set(result.htmlPath, {
           ...result,
           inlineScripts: result.inlineScripts,
-          lastModified: context.response.headers['last-modified'],
+          lastModified: context.response.headers['last-modified'] as string,
         });
 
         // cache polyfills for serving

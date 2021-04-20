@@ -137,6 +137,9 @@ if (!!navigator.userAgent.match(/Trident/)) {
 
     async transform(context) {
       if (context.response.is('html')) {
+        if (typeof context.body !== 'string') {
+          return;
+        }
         if (isHtmlFragment(context.body)) {
           return;
         }

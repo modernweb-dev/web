@@ -77,7 +77,12 @@ export function pluginTransformMiddleware(
       if (transformedCode && !disableCache) {
         logger.debug(`Added cache key "${cacheKey}" to plugin transform cache`);
         const filePath = getRequestFilePath(context.url, config.rootDir);
-        cache.set(filePath, context.body, context.response.headers, cacheKey);
+        cache.set(
+          filePath,
+          context.body,
+          context.response.headers as Record<string, string>,
+          cacheKey,
+        );
       }
     } catch (error) {
       if (error instanceof RequestCancelledError) {

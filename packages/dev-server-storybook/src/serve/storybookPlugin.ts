@@ -38,6 +38,10 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
     },
 
     async transform(context) {
+      if (typeof context.body !== 'string') {
+        return;
+      }
+
       if (context.path === '/') {
         // replace the injected websocket script to avoid reloading the manager in watch mode
         context.body = context.body.replace(regexpReplaceWebsocket, '');
@@ -54,12 +58,12 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
       }
 
       if (context.path.endsWith('.md')) {
-        context.body = await mdjsToCsf(context.body, filePath, pluginConfig.type);
+        context.body = await mdjsToCsf(context.body as string, filePath, pluginConfig.type);
       }
 
       if (storyFilePaths.includes(filePath)) {
         // inject story order, note that MDX and MD and fall through to this as well
-        context.body = await injectExportsOrder(context.body, filePath);
+        context.body = await injectExportsOrder(context.body as string, filePath);
       }
     },
 

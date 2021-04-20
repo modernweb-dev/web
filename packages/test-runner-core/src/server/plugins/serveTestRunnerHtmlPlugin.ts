@@ -197,7 +197,7 @@ export function serveTestRunnerHtmlPlugin(
         };
 
         context.body = injectRuntime(
-          context.body,
+          context.body as string,
           runtimeConfig,
           !!config.browserLogs,
           isTestRunnerHtml ? testFile : undefined,
@@ -215,7 +215,7 @@ export function serveTestRunnerHtmlPlugin(
         };
 
         context.body = injectRuntime(
-          context.body,
+          context.body as string,
           runtimeConfig,
           !!config.browserLogs,
           isTestRunnerHtml ? testFile : undefined,
