@@ -1,8 +1,6 @@
 import { TestRunnerPlugin } from '@web/test-runner-core';
-import type { ChromeLauncher } from '@web/test-runner-chrome';
-import type { PlaywrightLauncher } from '@web/test-runner-playwright';
-import type { ElementHandle as PlaywrightElementHandle } from 'playwright';
-import type { ElementHandle as PuppeteerElementHandle } from 'puppeteer';
+import type { ChromeLauncher, puppeteerCore } from '@web/test-runner-chrome';
+import type { PlaywrightLauncher, playwright } from '@web/test-runner-playwright';
 
 export type A11ySnapshotPayload = { selector?: string };
 
@@ -15,7 +13,7 @@ export function a11ySnapshotPlugin(): TestRunnerPlugin<A11ySnapshotPayload> {
         if (session.browser.type === 'playwright') {
           const page = (session.browser as PlaywrightLauncher).getPage(session.id);
           const options: {
-            root?: PlaywrightElementHandle;
+            root?: playwright.ElementHandle;
           } = {};
           if (payload && payload.selector) {
             const root = await page.$(payload.selector);
@@ -31,7 +29,7 @@ export function a11ySnapshotPlugin(): TestRunnerPlugin<A11ySnapshotPayload> {
         if (session.browser.type === 'puppeteer') {
           const page = (session.browser as ChromeLauncher).getPage(session.id);
           const options: {
-            root?: PuppeteerElementHandle;
+            root?: puppeteerCore.ElementHandle;
           } = {};
           if (payload && payload.selector) {
             const root = await page.$(payload.selector);

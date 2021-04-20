@@ -1,4 +1,5 @@
 import { LaunchOptions, devices } from 'playwright';
+import * as playwright from 'playwright';
 import {
   PlaywrightLauncher,
   ProductType,
@@ -8,7 +9,7 @@ import {
 
 const validProductTypes: ProductType[] = ['chromium', 'firefox', 'webkit'];
 
-export { ProductType };
+export { ProductType, playwright };
 
 export interface PlaywrightLauncherArgs {
   product?: ProductType;

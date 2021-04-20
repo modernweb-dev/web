@@ -10,7 +10,7 @@ export interface ChromeLauncherArgs {
   concurrency?: number;
 }
 
-export { ChromeLauncher, devices };
+export { ChromeLauncher, devices, puppeteerCore };
 
 export function chromeLauncher(args: ChromeLauncherArgs = {}) {
   const {

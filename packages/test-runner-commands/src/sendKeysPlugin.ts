@@ -1,5 +1,5 @@
 import { TestRunnerPlugin } from '@web/test-runner-core';
-import type { ChromeLauncher } from '@web/test-runner-chrome';
+import type { ChromeLauncher, puppeteerCore } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
 export type SendKeysPayload =
@@ -54,7 +54,7 @@ export function sendKeysPlugin(): TestRunnerPlugin<SendKeysPayload> {
             await page.keyboard.type(payload.type);
             return true;
           } else if (payload.press) {
-            await page.keyboard.press(payload.press);
+            await page.keyboard.press(payload.press as puppeteerCore.KeyInput);
             return true;
           }
         }
