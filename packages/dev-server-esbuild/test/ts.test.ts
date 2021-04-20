@@ -3,6 +3,8 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
+import { Plugin as RollupPlugin } from 'rollup';
+import { fromRollup } from '@web/dev-server-rollup';
 
 import { esbuildPlugin } from '../src/index';
 
@@ -201,6 +203,42 @@ class Bar {
       expectIncludes(text, "import '../../x.js';");
       expectIncludes(text, "import '../y.js';");
       expectIncludes(text, "import './z.js';");
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('imports with a null byte are rewritten to a special URL', async () => {
+    const plugin: RollupPlugin = {
+      name: 'my-plugin',
+      load(id) {
+        if (id === path.join(__dirname, 'app.js')) {
+          return 'import "\0foo.js";';
+        }
+      },
+      resolveId(id) {
+        if (id === '\0foo.js') {
+          return id;
+        }
+      },
+    };
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        fromRollup(() => plugin)(),
+        esbuildPlugin({
+          js: true,
+        }),
+      ],
+    });
+
+    try {
+      const response = await fetch(`${host}/app.js`);
+      const text = await response.text();
+      expectIncludes(
+        text,
+        'import "/__web-dev-server__/rollup/foo.js?web-dev-server-rollup-null-byte=%00foo.js"',
+      );
     } finally {
       server.stop();
     }
