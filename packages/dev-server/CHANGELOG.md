@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.1.14
+
+### Patch Changes
+
+- 2c06f31e: Update puppeteer and puppeteer-core to 8.0.0
+
 ## 0.1.13
 
 ### Patch Changes

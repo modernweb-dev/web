@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-visual-regression",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "publishConfig": {
     "access": "public"
   },
@@ -48,15 +48,15 @@
     "@types/mkdirp": "^1.0.1",
     "@types/pixelmatch": "^5.2.2",
     "@types/pngjs": "^6.0.0",
-    "@web/test-runner-commands": "^0.4.1",
+    "@web/test-runner-commands": "^0.4.4",
     "@web/test-runner-core": "^0.10.13",
     "mkdirp": "^1.0.4",
     "pixelmatch": "^5.2.1",
     "pngjs": "^6.0.0"
   },
   "devDependencies": {
-    "@web/test-runner-chrome": "^0.9.0",
-    "@web/test-runner-playwright": "^0.8.0",
+    "@web/test-runner-chrome": "^0.10.0",
+    "@web/test-runner-playwright": "^0.8.5",
     "@web/test-runner-webdriver": "^0.3.0",
     "mocha": "^8.2.1"
   }

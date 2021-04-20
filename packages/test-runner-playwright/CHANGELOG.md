@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.8.5
+
+### Patch Changes
+
+- a6a018da: fix type references
+
 ## 0.8.4
 
 ### Patch Changes

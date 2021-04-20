@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.2.2
+
+### Patch Changes
+
+- 2c06f31e: Update puppeteer and puppeteer-core to 8.0.0
+
 ## 0.2.1
 
 ### Patch Changes

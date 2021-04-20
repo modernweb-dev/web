@@ -1,5 +1,11 @@
 # @web/dev-server-hmr
 
+## 0.1.9
+
+### Patch Changes
+
+- 2c06f31e: Update puppeteer and puppeteer-core to 8.0.0
+
 ## 0.1.8
 
 ### Patch Changes
