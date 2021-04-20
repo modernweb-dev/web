@@ -1,5 +1,17 @@
 # @web/test-runner-puppeteer
 
+## 0.10.0
+
+### Minor Changes
+
+- 2c06f31e: Update puppeteer and puppeteer-core to 8.0.0
+
+### Patch Changes
+
+- Updated dependencies [a6a018da]
+- Updated dependencies [2c06f31e]
+  - @web/test-runner-chrome@0.10.0
+
 ## 0.9.3
 
 ### Patch Changes

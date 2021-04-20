@@ -1,5 +1,16 @@
 # @web/test-runner-visual-regression
 
+## 0.6.0
+
+### Minor Changes
+
+- 2c06f31e: Update puppeteer and puppeteer-core to 8.0.0
+
+### Patch Changes
+
+- Updated dependencies [a6a018da]
+  - @web/test-runner-commands@0.4.4
+
 ## 0.5.1
 
 ### Patch Changes

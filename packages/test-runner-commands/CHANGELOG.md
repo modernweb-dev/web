@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.4.4
+
+### Patch Changes
+
+- a6a018da: fix type references
+
 ## 0.4.3
 
 ### Patch Changes
