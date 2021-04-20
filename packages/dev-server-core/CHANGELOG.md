@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.3.11
+
+### Patch Changes
+
+- 6c5893cc: use unescaped import specifier
+
 ## 0.3.10
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.13.1
+
+### Patch Changes
+
+- 6c5893cc: use unescaped import specifier
+- Updated dependencies [6c5893cc]
+  - @web/dev-server@0.1.15
+  - @web/test-runner-core@0.10.15
+
 ## 0.13.0
 
 ### Minor Changes
