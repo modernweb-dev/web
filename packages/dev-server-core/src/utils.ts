@@ -52,7 +52,7 @@ export async function getResponseBody(ctx: Context): Promise<string | Buffer> {
       ctx.body = ctx.body.toString();
     }
 
-    return ctx.body;
+    return ctx.body as string;
   }
 
   if (typeof ctx.body === 'string') {
@@ -80,7 +80,7 @@ export async function getResponseBody(ctx: Context): Promise<string | Buffer> {
     }
   }
 
-  return ctx.body;
+  return ctx.body as string;
 }
 
 export function isInlineScriptRequest(contextOrUrl: Context | string) {

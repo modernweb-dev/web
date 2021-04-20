@@ -79,14 +79,14 @@ export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
      * Extracts import maps from HTML pages.
      */
     transform(context) {
-      if (!context.response.is('html') || isHtmlFragment(context.body)) {
+      if (!context.response.is('html') || isHtmlFragment(context.body as string)) {
         return;
       }
 
       let toInject = injectSettings.find(i => shouldInject(context.path, i));
 
       // collect import map in HTML page
-      const documentAst = parseHtml(context.body);
+      const documentAst = parseHtml(context.body as string);
       const headNode = findElement(documentAst, el => getTagName(el) === 'head');
       if (!headNode) {
         throw new Error('Internal error: HTML document did not generate a <head>.');

@@ -24,7 +24,7 @@ export function createRollupPluginContextAdapter<
     getModuleInfo(id: string): ModuleInfo {
       return {
         id,
-        code: context.body,
+        code: context.body as string,
         ast: null,
         dynamicallyImportedIds: [],
         dynamicImporters: [],

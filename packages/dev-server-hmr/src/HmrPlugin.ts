@@ -140,7 +140,7 @@ export class HmrPlugin implements Plugin {
     }
     // If the module references import.meta.hot it can be assumed it
     // supports hot reloading
-    const hmrEnabled = context.body.includes('import.meta.hot') === true;
+    const hmrEnabled = (context.body as string).includes('import.meta.hot') === true;
     const mod = this._getOrCreateModule(context.path);
     mod.hmrEnabled = hmrEnabled;
     this._logger?.debug(`[hmr] Setting hmrEnabled=${hmrEnabled} for ${context.path}`);

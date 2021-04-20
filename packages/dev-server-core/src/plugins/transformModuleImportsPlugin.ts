@@ -113,7 +113,8 @@ export async function transformImports(
 ) {
   let imports: ParsedImport[];
   try {
-    [imports] = await parse(code, filePath);
+    const parseResult = await parse(code, filePath);
+    imports = (parseResult[0] as any) as ParsedImport[];
   } catch (error) {
     if (typeof error.idx === 'number') {
       throw new PluginSyntaxError(
@@ -271,7 +272,7 @@ export function transformModuleImportsPlugin(
         const bodyWithResolvedImports = await transformModuleImportsWithPlugins(
           logger,
           context,
-          context.body,
+          context.body as string,
           rootDir,
           importPlugins,
         );
@@ -279,7 +280,7 @@ export function transformModuleImportsPlugin(
       }
 
       // resolve inline scripts
-      if (context.response.is('html')) {
+      if (context.response.is('html') && typeof context.body === 'string') {
         const documentAst = parseHtml(context.body);
         const inlineModuleNodes = queryAll(
           documentAst,

@@ -61,7 +61,7 @@ export async function injectPolyfillsLoader(
   context: Context,
   polyfills?: boolean | PolyfillsConfig,
 ): Promise<ReturnValue> {
-  const documentAst = parse(context.body);
+  const documentAst = parse(context.body as string);
   const { files, inlineScripts, scriptNodes } = findScripts(context.url, documentAst);
 
   const polyfillsLoaderConfig = {
