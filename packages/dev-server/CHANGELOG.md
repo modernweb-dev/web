@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.1.15
+
+### Patch Changes
+
+- 6c5893cc: use unescaped import specifier
+- Updated dependencies [6c5893cc]
+  - @web/dev-server-core@0.3.11
+
 ## 0.1.14
 
 ### Patch Changes
