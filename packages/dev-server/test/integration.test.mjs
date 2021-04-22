@@ -60,7 +60,7 @@ describe('integration tests', () => {
       });
 
       it('passes the in-browser tests', async function it() {
-        const openPath = server.config.appIndex || `/demo/${testCase.name}/`;
+        const openPath = `/demo/${testCase.name}/`;
         const browserPath = `http://${server.config.hostname}:${server.config.port}${openPath}`;
         const page = await browser.newPage();
         await page.goto(browserPath, {
