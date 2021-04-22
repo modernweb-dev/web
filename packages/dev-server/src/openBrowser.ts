@@ -27,8 +27,12 @@ export async function openBrowser(config: DevServerConfig) {
     // user-provided open path
     openPath = (config.open as string) === '' ? '/' : config.open;
   } else if (config.appIndex) {
+    const resolvedAppIndex = path.resolve(config.appIndex);
+    const relativeAppIndex = path.relative(config.rootDir, resolvedAppIndex);
+    const appIndexBrowserPath = `/${relativeAppIndex.split(path.sep).join('/')}`;
+    const appIndexDir = path.dirname(appIndexBrowserPath);
     // if an appIndex was provided, use it's directory as open path
-    openPath = `${basePath}${path.dirname(config.appIndex)}/`;
+    openPath = `${basePath}${appIndexDir.endsWith('/') ? appIndexDir : `${appIndexDir}/`}`;
   } else {
     openPath = `${basePath}/`;
   }
