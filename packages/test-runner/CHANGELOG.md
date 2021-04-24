@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.13.2
+
+### Patch Changes
+
+- 21f53211: add commands for reading/writing files
+- Updated dependencies [6bf34874]
+- Updated dependencies [21f53211]
+  - @web/dev-server@0.1.16
+  - @web/test-runner-commands@0.4.5
+
 ## 0.13.1
 
 ### Patch Changes
