@@ -45,7 +45,8 @@
     "commands"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.10.14"
+    "@web/test-runner-core": "^0.10.14",
+    "mkdirp": "^1.0.4"
   },
   "devDependencies": {
     "@web/test-runner-chrome": "^0.10.0",

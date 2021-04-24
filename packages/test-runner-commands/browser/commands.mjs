@@ -57,6 +57,18 @@ export function a11ySnapshot(options) {
   return executeServerCommand('a11y-snapshot', options);
 }
 
+export function writeFile(options) {
+  return executeServerCommand('write-file', options);
+}
+
+export function readFile(options) {
+  return executeServerCommand('read-file', options);
+}
+
+export function removeFile(options) {
+  return executeServerCommand('remove-file', options);
+}
+
 export function findAccessibilityNode(node, test) {
   if (test(node)) return node;
   for (const child of node.children || []) {

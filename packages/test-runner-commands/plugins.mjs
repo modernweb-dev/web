@@ -7,6 +7,7 @@ const {
   setUserAgentPlugin,
   sendKeysPlugin,
   a11ySnapshotPlugin,
+  filePlugin,
 } = cjsEntrypoint;
 
 export {
@@ -15,4 +16,5 @@ export {
   setUserAgentPlugin,
   sendKeysPlugin,
   a11ySnapshotPlugin,
+  filePlugin,
 };
