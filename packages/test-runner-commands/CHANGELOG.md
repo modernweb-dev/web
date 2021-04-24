@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.4.5
+
+### Patch Changes
+
+- 21f53211: add commands for reading/writing files
+
 ## 0.4.4
 
 ### Patch Changes

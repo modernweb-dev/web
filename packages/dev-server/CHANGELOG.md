@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.1.16
+
+### Patch Changes
+
+- 6bf34874: fix open URL with base path and app index
+
 ## 0.1.15
 
 ### Patch Changes
