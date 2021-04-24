@@ -4,6 +4,7 @@ import {
   emulateMediaPlugin,
   setUserAgentPlugin,
   setViewportPlugin,
+  filePlugin,
 } from '@web/test-runner-commands/plugins';
 import { getPortPromise } from 'portfinder';
 import path from 'path';
@@ -243,7 +244,12 @@ export async function parseConfig(
     },
   });
 
-  finalConfig.plugins.unshift(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
+  finalConfig.plugins.unshift(
+    setViewportPlugin(),
+    emulateMediaPlugin(),
+    setUserAgentPlugin(),
+    filePlugin(),
+  );
 
   if (finalConfig.nodeResolve) {
     const userOptions =

@@ -88,7 +88,7 @@ And update our `/demo/index.html` page to include an import to the `lit-html` pa
       console.log('Hello world!');
       console.log(message);
 
-      render(html`<p>Hello lit-html</p>`, document.body);
+      render(html` <p>Hello lit-html</p> `, document.body);
     </script>
   </body>
 </html>

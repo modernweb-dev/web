@@ -16,42 +16,30 @@ npm i --save-dev @web/test-runner-commands
 
 You can use the built-in commands directly in your tests.
 
-### Accessibility Snapshot
+### Viewport
 
-The `a11ySnapshot` command requests a snapshot of the accessibility tree built in the browser representing the current page or the tree rooter by the passed `selector` property. The function is async and should be awaited.
+The `setViewport` command allows changing the browser's viewport in a test. The function is async and should be awaited.
 
-`a11ySnapshot` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
+`setViewport` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
 
 <details>
-<summary>View example</summary>
+  <summary>View example</summary>
 
 ```js
-import { a11ySnapshot, findAccessibilityNode } from '@web/test-runner-commands';
+import { setViewport } from '@web/test-runner-commands';
 
-it('returns an accessibility tree with appropriately labelled element in it', async () => {
-  const buttonText = 'Button Text';
-  const labelText = 'Label Text';
-  const fullText = `${labelText} ${buttonText}`;
-  const role = 'button';
+describe('my component', () => {
+  it('works on 360x640', async () => {
+    await setViewport({ width: 360, height: 640 });
+    console.log(window.innerWidth); // 360
+    console.log(window.innerHeight); // 640
+  });
 
-  const label = document.createElement('label');
-  label.textContent = labelText;
-  label.id = 'label';
-  const button = document.createElement('button');
-  button.textContent = buttonText;
-  button.id = 'button';
-  button.setAttribute('aria-labelledby', 'label button');
-  document.body.append(label, button);
-
-  const snapshot = await a11ySnapshot();
-  const foundNode = findAccessibilityNode(
-    snapshot,
-    node => node.name === fullText && node.role === role,
-  );
-  expect(foundNode, 'A node with the supplied name has been found.').to.not.be.null;
-
-  label.remove();
-  button.remove();
+  it('works on 400x800', async () => {
+    await setViewport({ width: 400, height: 800 });
+    console.log(window.innerWidth); // 400
+    console.log(window.innerHeight); // 800
+  });
 });
 ```
 
@@ -147,30 +135,66 @@ it('can set the user agent', async () => {
 
 </details>
 
-### Viewport
+### Writing and reading files
 
-The `setViewport` command allows changing the browser's viewport in a test. The function is async and should be awaited.
-
-`setViewport` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
+The file commands allow writing, reading and removing files. The specified path is resolved relative to the test file being executed.
 
 <details>
-  <summary>View example</summary>
+<summary>View example</summary>
 
 ```js
-import { setViewport } from '@web/test-runner-commands';
+import { writeFile, readFile, removeFile } from '@web/test-runner-commands';
 
-describe('my component', () => {
-  it('works on 360x640', async () => {
-    await setViewport({ width: 360, height: 640 });
-    console.log(window.innerWidth); // 360
-    console.log(window.innerHeight); // 640
-  });
+it('can use file commands', async () => {
+  await writeFile('test-data/hello-world.txt', 'Hello world!');
 
-  it('works on 400x800', async () => {
-    await setViewport({ width: 400, height: 800 });
-    console.log(window.innerWidth); // 400
-    console.log(window.innerHeight); // 800
-  });
+  const content = await readFile('test-data/hello-world.txt');
+  console.log(content); // 'Hello world!'
+
+  await removeFile('test-data/hello-world.txt');
+});
+```
+
+</details>
+
+File commands are supported in all test runner browsers.
+
+### Accessibility Snapshot
+
+The `a11ySnapshot` command requests a snapshot of the accessibility tree built in the browser representing the current page or the tree rooter by the passed `selector` property. The function is async and should be awaited.
+
+`a11ySnapshot` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
+
+<details>
+<summary>View example</summary>
+
+```js
+import { a11ySnapshot, findAccessibilityNode } from '@web/test-runner-commands';
+
+it('returns an accessibility tree with appropriately labelled element in it', async () => {
+  const buttonText = 'Button Text';
+  const labelText = 'Label Text';
+  const fullText = `${labelText} ${buttonText}`;
+  const role = 'button';
+
+  const label = document.createElement('label');
+  label.textContent = labelText;
+  label.id = 'label';
+  const button = document.createElement('button');
+  button.textContent = buttonText;
+  button.id = 'button';
+  button.setAttribute('aria-labelledby', 'label button');
+  document.body.append(label, button);
+
+  const snapshot = await a11ySnapshot();
+  const foundNode = findAccessibilityNode(
+    snapshot,
+    node => node.name === fullText && node.role === role,
+  );
+  expect(foundNode, 'A node with the supplied name has been found.').to.not.be.null;
+
+  label.remove();
+  button.remove();
 });
 ```
 

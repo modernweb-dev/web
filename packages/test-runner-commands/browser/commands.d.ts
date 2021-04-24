@@ -2,6 +2,7 @@ import { Media } from '../dist/index';
 import { Viewport } from '../dist/index';
 import { SendKeysPayload } from '../dist/index';
 import { A11ySnapshotPayload } from '../dist/index';
+import { WriteFilePayload, ReadFilePayload, RemoveFilePayload } from '../dist/index';
 
 /**
  * Executes a command on the server. If this is a custom command, you need to implement a plugin
@@ -117,4 +118,46 @@ export function findAccessibilityNode<TNode>(
   test: (node: TNode) => boolean,
 ): TNode | null;
 
-export { Media, Viewport, SendKeysPayload };
+/**
+ * Writes a file to disk.
+ *
+ * @param payload.filePath the path of the file to save. This is a path relative to the test file
+ * being executed. It cannot be an absolute path.
+ * @param payload.content the file content to save as a string.
+ * @param payload.encoding optional encoding to use when saving the file.
+ *
+ * @example
+ * ```ts
+ *    await writeFile('hello-world.txt', "Hello world!");
+ * ```
+ */
+export function writeFile(payload: WriteFilePayload): Promise<void>;
+
+/**
+ * Reads a file from disk.
+ *
+ * @param payload.filePath the path of the file to read. This is a path relative to the test file
+ * being executed. It cannot be an absolute path.
+ * @param payload.encoding optional encoding to use when reading the file.
+ *
+ * @example
+ * ```ts
+ *    const content = await readFile('hello-world.txt');
+ * ```
+ */
+export function readFile(payload: WriteFilePayload): Promise<string>;
+
+/**
+ * Removes a file from disk.
+ *
+ * @param payload.filePath the path of the file to remove. This is a path relative to the test file
+ * being executed. It cannot be an absolute path.
+ *
+ * @example
+ * ```ts
+ *    await removeFile('hello-world.txt');
+ * ```
+ */
+export function removeFile(payload: RemoveFilePayload): Promise<string>;
+
+export { Media, Viewport, SendKeysPayload, WriteFilePayload, ReadFilePayload, RemoveFilePayload };
