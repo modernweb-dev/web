@@ -12,10 +12,11 @@ Next, clone your fork onto your computer (replacing YOUR_USERNAME with your actu
 git clone git@github.com:YOUR_USERNAME/web.git
 ```
 
-Once cloning is complete, change directory to the repository.
+Once cloning is complete, change directory to the repository and add the Modern Web project as a remote.
 
 ```sh
 cd web
+git remote add upstream git@github.com:modernweb-dev/web.git
 ```
 
 ## Preparing Your Local Environment for Development
@@ -30,7 +31,17 @@ This will download and install all packages needed.
 
 ## Making Your Changes
 
-Make your changes to the project. Commits are linted using precommit hooks, meaning that any code that raises a linting error cannot be committed. In order to help avoid that, we recommend using an IDE or editor with an ESLint plugin in order to streamline the development process. Plugins are available for all the popular editors. For more information see [ESLint Integrations](https://eslint.org/docs/user-guide/integrations)
+First, update your fork with the latest code from upstream, then create a new branch for your work.
+
+```sh
+git checkout master
+git pull upstream master --rebase
+git checkout -b my-awesome-fix
+```
+
+### Linting
+
+Commits are linted using precommit hooks, meaning that any code that raises a linting error cannot be committed. In order to help avoid that, we recommend using an IDE or editor with an ESLint plugin in order to streamline the development process. Plugins are available for all the popular editors. For more information see [ESLint Integrations](https://eslint.org/docs/user-guide/integrations)
 
 ### Running Tests
 
@@ -68,14 +79,6 @@ Exceptions:
 - For release-candidate and other special cases, other rules may follow.
 
 ## Committing Your Changes
-
-First, create a new branch for your work.
-
-```sh
-git checkout -b my-awesome-fix
-```
-
-### Commit Messages
 
 Commit messages must follow the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0/).
 Modern Web uses the package name as the scope. So for example if you fix a _terrible bug_ in the package `@web/test-runner`, the commit message should look like this:
