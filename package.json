@@ -19,6 +19,7 @@
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --ext .ts,.js,.mjs,.cjs .",
     "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
+    "prepare": "husky install",
     "reinstall-workspace": "rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
     "release": "changeset publish && yarn format",
     "review-content": "alex 'docs/**/*.md'",
@@ -92,11 +93,6 @@
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/no-var-requires": "off",
       "@typescript-eslint/ban-ts-comment": "off"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
