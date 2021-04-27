@@ -222,6 +222,46 @@ it('can set the user agent', async () => {
 
 </details>
 
+### Snapshots
+
+The snapshot commands allow saving and retrieving snapshots. The commands do not include any snapshot comparisons or assertion library plugins.
+
+<details>
+<summary>View example</summary>
+
+```js
+import {
+  getSnapshotConfig,
+  getSnapshots,
+  getSnapshot,
+  saveSnapshot,
+  removeSnapshot,
+} from '@web/test-runner-commands';
+
+it('can use file commands', async () => {
+  // the config contains a boolean whether updating snapshots is enabled, this can be used by assertion
+  // library plugins to decide to overwrite the existing snapshot
+  const config = await getSnapshotConfig();
+  console.log(config.updateSnapshots);
+
+  // returns all the snapshots defined for this test file
+  const snapshots = await getSnapshots();
+
+  // returns the stored snapshot for this file with this name
+  const snapshot = await getSnapshot({ name: 'my-snapshot' });
+
+  // saves snapshot with this name and content
+  await saveSnapshot({ name: 'my-snapshot', content: 'my-content' });
+
+  // removes snapshot with this name
+  await removeSnapshot({ name: 'my-snapshot' });
+});
+```
+
+</details>
+
+File commands are supported in all test runner browsers.
+
 ### Writing and reading files
 
 The file commands allow writing, reading and removing files. The specified path is resolved relative to the test file being executed.

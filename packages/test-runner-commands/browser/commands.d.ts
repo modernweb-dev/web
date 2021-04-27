@@ -1,8 +1,14 @@
-import { Media } from '../dist/index';
-import { Viewport } from '../dist/index';
-import { SendKeysPayload } from '../dist/index';
-import { A11ySnapshotPayload } from '../dist/index';
-import { WriteFilePayload, ReadFilePayload, RemoveFilePayload } from '../dist/index';
+import {
+  Media,
+  Viewport,
+  SendKeysPayload,
+  A11ySnapshotPayload,
+  WriteFilePayload,
+  ReadFilePayload,
+  RemoveFilePayload,
+  SnapshotPluginConfig,
+  SaveSnapshotPayload,
+} from '../dist/index';
 
 /**
  * Executes a command on the server. If this is a custom command, you need to implement a plugin
@@ -128,7 +134,7 @@ export function findAccessibilityNode<TNode>(
  *
  * @example
  * ```ts
- *    await writeFile('hello-world.txt', "Hello world!");
+ *    await writeFile({ path: 'hello-world.txt', content: 'Hello world!' });
  * ```
  */
 export function writeFile(payload: WriteFilePayload): Promise<void>;
@@ -142,10 +148,10 @@ export function writeFile(payload: WriteFilePayload): Promise<void>;
  *
  * @example
  * ```ts
- *    const content = await readFile('hello-world.txt');
+ *    const content = await readFile({ path: 'hello-world.txt' });
  * ```
  */
-export function readFile(payload: WriteFilePayload): Promise<string>;
+export function readFile(payload: WriteFilePayload): Promise<string | undefined>;
 
 /**
  * Removes a file from disk.
@@ -155,9 +161,44 @@ export function readFile(payload: WriteFilePayload): Promise<string>;
  *
  * @example
  * ```ts
- *    await removeFile('hello-world.txt');
+ *    await removeFile({ path: 'hello-world.txt' });
  * ```
  */
-export function removeFile(payload: RemoveFilePayload): Promise<string>;
+export function removeFile(payload: RemoveFilePayload): Promise<void>;
+
+/**
+ * Gets configuration for snapshot testing.
+ *
+ * @param payload.updateSnapshots whether to updated snapshots that are not the same
+ */
+export function getSnapshotConfig(): Promise<SnapshotPluginConfig>;
+
+/**
+ * Gets the snapshots stored for this test file.
+ */
+export function getSnapshots(): Promise<Record<string, string>>;
+
+/**
+ * Saves a snapshot for this test file.
+ *
+ * @param payload.name the name of the snapshot
+ */
+export function getSnapshot(options: { name: string }): Promise<string | undefined>;
+
+/**
+ * Saves a snapshot for this test file.
+ *
+ * @param payload.name the name of the snapshot
+ * @param payload.content the content of the snapshot as a string
+ */
+export function saveSnapshot(options: SaveSnapshotPayload): Promise<void>;
+
+/**
+ * Removes stored snapshots for this test file.
+ *
+ * @param payload.name the name of the snapshot
+ *
+ */
+export function removeSnapshot(options: { name: string }): Promise<void>;
 
 export { Media, Viewport, SendKeysPayload, WriteFilePayload, ReadFilePayload, RemoveFilePayload };

@@ -6,6 +6,7 @@ import {
   setViewportPlugin,
   sendKeysPlugin,
   filePlugin,
+  snapshotPlugin,
 } from '@web/test-runner-commands/plugins';
 import { getPortPromise } from 'portfinder';
 import path from 'path';
@@ -251,6 +252,7 @@ export async function parseConfig(
     setUserAgentPlugin(),
     filePlugin(),
     sendKeysPlugin(),
+    snapshotPlugin(),
   );
 
   if (finalConfig.nodeResolve) {

@@ -4,3 +4,4 @@ export { setUserAgentPlugin } from './setUserAgentPlugin';
 export { sendKeysPlugin, SendKeysPayload } from './sendKeysPlugin';
 export { a11ySnapshotPlugin, A11ySnapshotPayload } from './a11ySnapshotPlugin';
 export { WriteFilePayload, ReadFilePayload, RemoveFilePayload, filePlugin } from './filePlugin';
+export { SaveSnapshotPayload, SnapshotPluginConfig, snapshotPlugin } from './snapshotPlugin';

@@ -87,10 +87,11 @@ export function filePlugin(): TestRunnerPlugin {
         }
 
         const filePath = joinFilePath(session.testFile, payload.path);
-        if (!(await fileExists(filePath))) {
-          throw new Error(`Could not read file at ${filePath} because it does not exist.`);
+        if (await fileExists(filePath)) {
+          return readFile(filePath, payload.encoding || 'utf-8');
+        } else {
+          return undefined;
         }
-        return readFile(filePath, payload.encoding || 'utf-8');
       }
 
       if (command === 'remove-file') {

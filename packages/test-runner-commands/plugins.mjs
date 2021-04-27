@@ -8,6 +8,7 @@ const {
   sendKeysPlugin,
   a11ySnapshotPlugin,
   filePlugin,
+  snapshotPlugin,
 } = cjsEntrypoint;
 
 export {
@@ -17,4 +18,5 @@ export {
   sendKeysPlugin,
   a11ySnapshotPlugin,
   filePlugin,
+  snapshotPlugin,
 };
