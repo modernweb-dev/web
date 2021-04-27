@@ -4,6 +4,7 @@ import {
   emulateMediaPlugin,
   setUserAgentPlugin,
   setViewportPlugin,
+  sendKeysPlugin,
   filePlugin,
 } from '@web/test-runner-commands/plugins';
 import { getPortPromise } from 'portfinder';
@@ -249,6 +250,7 @@ export async function parseConfig(
     emulateMediaPlugin(),
     setUserAgentPlugin(),
     filePlugin(),
+    sendKeysPlugin(),
   );
 
   if (finalConfig.nodeResolve) {
