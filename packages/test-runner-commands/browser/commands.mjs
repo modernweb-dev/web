@@ -5,7 +5,11 @@ const PARAM_SESSION_ID = 'wtr-session-id';
 
 const sessionId = new URL(window.location.href).searchParams.get(PARAM_SESSION_ID);
 
-export async function executeServerCommand(command, payload) {
+function isObject(payload) {
+  return payload != null && typeof payload === 'object';
+}
+
+export async function executeServerCommand(command, payload, pluginName) {
   if (typeof sessionId !== 'string') {
     throw new Error(
       'Unable to execute server commands in a browser not controlled by the test runner. ' +
@@ -22,9 +26,13 @@ export async function executeServerCommand(command, payload) {
     });
 
     if (!response.executed) {
-      throw new Error(
-        `Unknown command ${command}. Did you install a plugin to handle this command?`,
-      );
+      let msg;
+      if (pluginName) {
+        msg = `Unknown command ${command}. Add the ${pluginName} to your config.`;
+      } else {
+        msg = `Unknown command ${command}. Did you install a plugin to handle this command?`;
+      }
+      throw new Error(msg);
     }
 
     return response.result;
@@ -58,15 +66,15 @@ export function a11ySnapshot(options) {
 }
 
 export function writeFile(options) {
-  return executeServerCommand('write-file', options);
+  return executeServerCommand('write-file', options, 'filePlugin from @web/test-runner-commands');
 }
 
 export function readFile(options) {
-  return executeServerCommand('read-file', options);
+  return executeServerCommand('read-file', options, 'filePlugin from @web/test-runner-commands');
 }
 
 export function removeFile(options) {
-  return executeServerCommand('remove-file', options);
+  return executeServerCommand('remove-file', options, 'filePlugin from @web/test-runner-commands');
 }
 
 export function findAccessibilityNode(node, test) {
@@ -78,4 +86,68 @@ export function findAccessibilityNode(node, test) {
     }
   }
   return null;
+}
+
+export function getSnapshotConfig() {
+  return executeServerCommand(
+    'get-snapshot-config',
+    undefined,
+    'snapshotPlugin from @web/test-runner-commands',
+  );
+}
+
+let snapshots;
+export async function getSnapshots() {
+  if (snapshots) {
+    return snapshots;
+  }
+
+  const result = await executeServerCommand(
+    'get-snapshots',
+    undefined,
+    'snapshotPlugin from @web/test-runner-commands',
+  );
+
+  if (typeof result?.content !== 'string') {
+    throw new Error('Expected a result as string');
+  }
+  const module = await import(`data:text/javascript;charset=utf-8,${result.content}`);
+  if (!module || !isObject(module.snapshots)) {
+    throw new Error('Expected snapshot result to be a module that exports an object.');
+  }
+  snapshots = module.snapshots;
+  return snapshots;
+}
+
+export async function getSnapshot(options) {
+  if (!isObject(options)) throw new Error('You must provide a payload object');
+  if (typeof options.name !== 'string') throw new Error('You must provide a snapshot name');
+  const snapshots = await getSnapshots();
+  return snapshots[options.name];
+}
+
+export async function saveSnapshot(options) {
+  if (!isObject(options)) throw new Error('You must provide a payload object');
+  if (typeof options.name !== 'string') throw new Error('You must provide a snapshot name');
+  if (options.content !== undefined && typeof options.content !== 'string')
+    throw new Error('You must provide a snapshot content');
+
+  // ensure snapshots for this file are loaded
+  await getSnapshots();
+
+  // store snapshot in-memory
+  snapshots[options.name] = options.content;
+
+  return executeServerCommand(
+    'save-snapshot',
+    options,
+    'snapshotPlugin from @web/test-runner-commands',
+  );
+}
+
+export function removeSnapshot(options) {
+  if (!isObject(options)) throw new Error('You must provide a payload object');
+  if (typeof options.name !== 'string') throw new Error('You must provide a snapshot name');
+
+  return saveSnapshot({ ...options, content: undefined });
 }
