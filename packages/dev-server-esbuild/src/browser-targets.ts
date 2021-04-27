@@ -13,13 +13,13 @@ function createModernTarget() {
     if (!latestChrome) throw new Error('Could not find latest Chrome major version');
 
     const latestEdge = getLatestStableMajor(browsers.edge.releases);
-    if (!latestEdge) throw new Error('Could not find latest Chrome major version');
+    if (!latestEdge) throw new Error('Could not find latest Edge major version');
 
     const latestSafari = getLatestStableMajor(browsers.safari.releases);
     if (!latestSafari) throw new Error('Could not find latest Safari major version');
 
     const latestFirefox = getLatestStableMajor(browsers.firefox.releases);
-    if (!latestFirefox) throw new Error('Could not find latest Chrome major version');
+    if (!latestFirefox) throw new Error('Could not find latest Firefox major version');
 
     return [
       `chrome${latestChrome - 1}`,
