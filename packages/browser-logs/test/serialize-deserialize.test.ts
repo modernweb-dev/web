@@ -58,6 +58,18 @@ describe('serialize deserialize', () => {
     expect(deserialized.name).to.equal('foo');
   });
 
+  it('handles bound Function', async () => {
+    const serialized = await page.evaluate(() => {
+      function foo(x: number, y: number) {
+        return x * y;
+      }
+      return (window as any)._serialize(foo.bind(null));
+    });
+    const deserialized = await deserialize(serialized);
+    expect(typeof deserialized).to.equal('function');
+    expect(deserialized.name).to.equal('foo');
+  });
+
   it('handles Symbol', async () => {
     const serialized = await page.evaluate(() => (window as any)._serialize(Symbol('foo')));
     const deserialized = await deserialize(serialized);

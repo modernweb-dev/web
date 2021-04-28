@@ -41,7 +41,7 @@ function createReviver(promises: Promise<unknown>[], options?: DeserializeOption
           return;
         case 'Function':
           // Create a fake function with the same name. We don't log the function implementation.
-          return new Function(`return function ${value.name}() { /* implementation hidden */ }`)();
+          return new Function(`return function ${value.name.replace(/^bound\s+/, '')}() { /* implementation hidden */ }`)();
         case 'RegExp':
           // Create a new RegExp using the same parameters
           return new RegExp(value.source, value.flags);
