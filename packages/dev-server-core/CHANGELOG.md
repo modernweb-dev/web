@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.3.12
+
+### Patch Changes
+
+- e7efd5b7: use script origin to connect websocket
+
 ## 0.3.11
 
 ### Patch Changes

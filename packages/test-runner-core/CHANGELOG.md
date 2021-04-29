@@ -1,5 +1,13 @@
 # @web/test-runner-core
 
+## 0.10.16
+
+### Patch Changes
+
+- e7efd5b7: use script origin to connect websocket
+- Updated dependencies [e7efd5b7]
+  - @web/dev-server-core@0.3.12
+
 ## 0.10.15
 
 ### Patch Changes
