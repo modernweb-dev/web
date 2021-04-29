@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.13.3
+
+### Patch Changes
+
+- e7efd5b7: use script origin to connect websocket
+- 16c6d567: Automatically loads `sendKeysPlugin` in the default test runner config
+- Updated dependencies [e7efd5b7]
+  - @web/dev-server@0.1.17
+  - @web/test-runner-core@0.10.16
+
 ## 0.13.2
 
 ### Patch Changes
