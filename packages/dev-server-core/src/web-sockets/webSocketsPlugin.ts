@@ -6,13 +6,8 @@ export const webSocketScript = `<!-- injected by web-dev-server -->
 <script type="module" src="${NAME_WEB_SOCKET_IMPORT}"></script>`;
 
 export function webSocketsPlugin(): Plugin {
-  let origin: string;
   return {
     name: 'web-sockets',
-
-    serverStart({ config }) {
-      origin = `ws${config.http2 ? 's' : ''}://${config.hostname ?? 'localhost'}:${config.port}`;
-    },
 
     resolveImport({ source }) {
       if (source === NAME_WEB_SOCKET_IMPORT) {
@@ -24,6 +19,9 @@ export function webSocketsPlugin(): Plugin {
       if (context.path === NAME_WEB_SOCKET_IMPORT) {
         // this code is inlined because TS compiles to CJS but we need this to be ESM
         return `
+const { protocol, host } = new URL(import.meta.url);
+const webSocketUrl = \`ws\${protocol === 'https:' ? 's' : ''}://\${host}/${NAME_WEB_SOCKET_API}\`;
+
 export let webSocket;
 export let webSocketOpened;
 export let sendMessage;
@@ -45,7 +43,7 @@ function setupWebSocket() {
   } else {
     webSocket =
       'WebSocket' in window
-      ? new WebSocket('${origin}/${NAME_WEB_SOCKET_API}')
+      ? new WebSocket(webSocketUrl)
         : null;
     webSocketOpened = new Promise(resolve => {
       if (!webSocket) {
