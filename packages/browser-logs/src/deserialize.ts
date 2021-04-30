@@ -5,6 +5,8 @@ const KEY_CONSTRUCTOR_NAME = '__WTR_CONSTRUCTOR_NAME__';
 
 const ASYNC_DESERIALIZE_WRAPPER = Symbol('ASYNC_DESERIALIZE_WRAPPER');
 
+const BOUND_NAME_FUNCTION_REGEX = /^bound\s+/;
+
 function createReviver(promises: Promise<unknown>[], options?: DeserializeOptions) {
   const undefinedPropsPerObject = new Map();
 
@@ -43,7 +45,7 @@ function createReviver(promises: Promise<unknown>[], options?: DeserializeOption
           // Create a fake function with the same name. We don't log the function implementation.
           return new Function(
             `return function ${value.name.replace(
-              /^bound\s+/,
+              BOUND_NAME_FUNCTION_REGEX,
               '',
             )}() { /* implementation hidden */ }`,
           )();
