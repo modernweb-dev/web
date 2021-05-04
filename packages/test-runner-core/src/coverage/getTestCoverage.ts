@@ -83,7 +83,7 @@ function patchCoverageItems<T extends BranchMapping | FunctionMapping, U extends
  * Cross references coverage mapping data, looking for missing code branches and
  * functions and adding empty entries for them if found. This is necessary
  * because istanbul expects code branch and function data to be equal for all
- * coverage entries. V8 only outputs actual covered code branchesm and functions
+ * coverage entries. V8 only outputs actual covered code branches and functions
  * that are defined at runtime (for example methods defined in a constructor
  * that isn't run will not be included).
  *
