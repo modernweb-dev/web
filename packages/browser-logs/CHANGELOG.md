@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.2.3
+
+### Patch Changes
+
+- 894461aa: Deserialize bound function from browser logs
+
 ## 0.2.2
 
 ### Patch Changes
