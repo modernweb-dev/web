@@ -53,6 +53,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
       rootDir,
       emittedAssets,
       absolutePathPrefix,
+      publicPath: pluginOptions.publicPath,
     });
   }
   if (!defaultInjectDisabled) {
