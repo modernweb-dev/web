@@ -134,10 +134,15 @@ export function rollupAdapter(
         // we have to special case node-resolve because it doesn't support resolving
         // with hash/params at the moment
         if (rollupPlugin.name === 'node-resolve') {
-          const [withoutHash, hash] = source.split('#');
-          const [importPath, params] = withoutHash.split('?');
-          importSuffix = `${params ? `?${params}` : ''}${hash ? `#${hash}` : ''}`;
-          resolvableImport = importPath;
+          if (source[0] === '#') {
+            // private import
+            resolvableImport = source;
+          } else {
+            const [withoutHash, hash] = source.split('#');
+            const [importPath, params] = withoutHash.split('?');
+            importSuffix = `${params ? `?${params}` : ''}${hash ? `#${hash}` : ''}`;
+            resolvableImport = importPath;
+          }
         }
 
         let result = await rollupPlugin.resolveId?.call(

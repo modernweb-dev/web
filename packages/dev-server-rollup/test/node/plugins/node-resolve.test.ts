@@ -37,6 +37,35 @@ describe('@rollup/plugin-node-resolve', () => {
     }
   });
 
+  it('can resolve private imports in inline scripts', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: path.resolve(__dirname, '..', 'fixtures', 'private-imports'),
+      plugins: [nodeResolve()],
+    });
+
+    try {
+      const text = await fetchText(`${host}/index.html`);
+      console.log(text);
+      expectIncludes(text, "import './internal-a.js';");
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('throws when trying to access files from the package directly if they are not exposed in the export map', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: path.resolve(__dirname, '..', 'fixtures', 'private-imports'),
+      plugins: [nodeResolve()],
+    });
+
+    try {
+      const response = await fetch(`${host}/import-private-directly.html`);
+      expect(response.status).to.equal(500);
+    } finally {
+      server.stop();
+    }
+  });
+
   it('throws on unresolved bare imports', async () => {
     const { server, host } = await createTestServer({
       plugins: [
