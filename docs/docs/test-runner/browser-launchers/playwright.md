@@ -116,3 +116,18 @@ export default {
   ],
 };
 ```
+
+### Using with Github Actions
+
+When used with Github Actions, the above will not work because Playwright requires
+specific packages not available in the GH Action container. Rather than installing
+the require packages manually, the easiest work around is to use
+the official Playwright Action provided by Microsoft.
+
+https://github.com/marketplace/actions/run-playwright-tests
+
+This action will allow you to run the Playwright launcher provided by web-test-runner.
+
+For other CI Environment setups for Playwright, check out the official docs provided by Playwright.
+
+https://playwright.dev/docs/ci
