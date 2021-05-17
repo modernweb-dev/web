@@ -1,0 +1,6 @@
+{
+  "name": "my-app",
+  "imports": {
+    "#internal-a": "./internal-a.js"
+  }
+}
