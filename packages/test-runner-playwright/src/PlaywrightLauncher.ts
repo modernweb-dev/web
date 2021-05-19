@@ -122,7 +122,7 @@ export class PlaywrightLauncher implements BrowserLauncher {
 
   async createNewPage(browser: Browser, context: BrowserContext) {
     const playwrightPage = await this.createPageFn({ config: this.config!, browser, context });
-    return new PlaywrightLauncherPage(this.config!, this.testFiles!, playwrightPage);
+    return new PlaywrightLauncherPage(this.config!, this.product, this.testFiles!, playwrightPage);
   }
 
   async stopSession(sessionId: string) {

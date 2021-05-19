@@ -26,11 +26,11 @@ describe('TestScheduler', () => {
   let mockConfig: TestRunnerCoreConfig;
 
   function createSession(session: Partial<TestSession>): TestSession {
-    return ({
+    return {
       ...session,
       testFile: `test-${session.id}.js`,
       status: SESSION_STATUS.SCHEDULED,
-    } as Partial<TestSession>) as TestSession;
+    } as Partial<TestSession> as TestSession;
   }
 
   function createBrowserStub(name: string): [BrowserStubs, BrowserLauncher] {
@@ -64,7 +64,7 @@ describe('TestScheduler', () => {
   }
 
   beforeEach(() => {
-    mockConfig = ({
+    mockConfig = {
       rootDir: process.cwd(),
       logger: {
         ...console,
@@ -83,7 +83,7 @@ describe('TestScheduler', () => {
       browserStartTimeout: 1000,
       testsStartTimeout: 1000,
       testsFinishTimeout: 1000,
-    } as Partial<TestRunnerCoreConfig>) as TestRunnerCoreConfig;
+    } as Partial<TestRunnerCoreConfig> as TestRunnerCoreConfig;
   });
 
   function createTestFixture(

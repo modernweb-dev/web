@@ -79,7 +79,7 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
 
   parseSessionMessage(data: Record<string, unknown>) {
     if (typeof data.sessionId === 'string') {
-      return { message: (data as any) as SessionMessage, session: this.getSession(data.sessionId) };
+      return { message: data as any as SessionMessage, session: this.getSession(data.sessionId) };
     }
     throw new Error('Missing sessionId in browser websocket message.');
   }

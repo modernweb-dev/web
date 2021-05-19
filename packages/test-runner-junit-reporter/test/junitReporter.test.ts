@@ -9,7 +9,8 @@ import { junitReporter } from '../src/index';
 
 import { getPortPromise } from 'portfinder';
 
-const STACK_TRACE_UNIQUE_IDS_REGEX = /localhost:\d+|wtr-session-id=[\w\d]+-[\w\d]+-[\w\d]+-[\w\d]+-[\w\d]+|\.js:\d+:\d+/g;
+const STACK_TRACE_UNIQUE_IDS_REGEX =
+  /localhost:\d+|wtr-session-id=[\w\d]+-[\w\d]+-[\w\d]+-[\w\d]+-[\w\d]+|\.js:\d+:\d+/g;
 
 const NON_ZERO_TIME_VALUE_REGEX = /time="((\d\.\d+)|(\d))"/g;
 
