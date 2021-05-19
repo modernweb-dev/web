@@ -179,7 +179,7 @@ You can add transform functions to modify the HTML page and assets in the build,
 import html from '@web/rollup-plugin-html';
 
 export default {
-  input: 'pages/**/*.html',
+  input: 'index.html',
   output: { dir: 'dist' },
   plugins: [
     // add HTML plugin
@@ -203,7 +203,22 @@ export default {
 
 ### Minification
 
-The HTML plugin does not do any minification by default. You can use a transform function to use a minifier for your HTML or assets.
+Set the minify option to do default HTML minificiation. If you need custom options, you can implement your own minifier using the `transformHtml` option.
+
+```js
+import html from '@web/rollup-plugin-html';
+
+export default {
+  input: 'index.html',
+  output: { dir: 'dist' },
+  plugins: [
+    // add HTML plugin
+    html({
+      minify: true,
+    }),
+  ],
+};
+```
 
 ### Social Media Tags
 
@@ -292,6 +307,8 @@ export interface InputHTMLOptions {
 export interface RollupPluginHTMLOptions {
   /** HTML file(s) to use as input. If not set, uses rollup input option. */
   input?: string | InputHTMLOptions | (string | InputHTMLOptions)[];
+  /** Whether to minify the output HTML. */
+  minify?: boolean;
   /** Whether to preserve or flatten the directory structure of the HTML file. */
   flattenOutput?: boolean;
   /** Directory to resolve absolute paths relative to, and to use as base for non-flatted filename output. */

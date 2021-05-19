@@ -6,6 +6,7 @@ import {
   TransformHtmlFunction,
 } from '../RollupPluginHTMLOptions';
 import { parse, serialize } from 'parse5';
+import { minify as minifyHTMLFunc } from 'html-minifier-terser';
 import { injectedUpdatedAssetPaths } from './injectedUpdatedAssetPaths';
 import { EmittedAssets } from './emitAssets';
 import { injectAbsoluteBaseUrl } from './injectAbsoluteBaseUrl';
@@ -88,6 +89,19 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
       bundle: defaultBundle,
       bundles: multiBundles,
       htmlFileName: input.name,
+    });
+  }
+
+  if (pluginOptions.minify) {
+    outputHtml = minifyHTMLFunc(outputHtml, {
+      collapseWhitespace: true,
+      removeComments: true,
+      removeRedundantAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      useShortDoctype: true,
+      minifyCSS: true,
+      minifyJS: true,
     });
   }
 

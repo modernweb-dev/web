@@ -172,4 +172,39 @@ describe('getOutputHTML()', () => {
       ].join('\n'),
     );
   });
+
+  it('can minify HTML', async () => {
+    const htmlInput = `
+    
+    <html>
+
+      <head></head>
+      <body>
+        <script>
+          (() => {
+            const foo = 'x';
+            console.log(foo);
+          })();
+
+        </script>
+      </body>
+
+    </html>
+    `;
+    const output = await getOutputHTML({
+      ...defaultOptions,
+      pluginOptions: {
+        ...defaultOptions.pluginOptions,
+        minify: true,
+      },
+      input: {
+        ...defaultOptions.input,
+        html: htmlInput,
+      },
+    });
+
+    expect(output).to.equal(
+      '<html><head></head><body><script>console.log("x")</script><script type="module" src="/app.js"></script><script type="module" src="/module.js"></script></body></html>',
+    );
+  });
 });
