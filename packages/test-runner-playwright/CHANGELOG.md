@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.8.6
+
+### Patch Changes
+
+- fdca82b2: fix error retreiving coverage in latest playwright
+
 ## 0.8.5
 
 ### Patch Changes
