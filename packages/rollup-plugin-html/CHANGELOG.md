@@ -1,5 +1,15 @@
 # @web/rollup-plugin-html
 
+## 1.7.0
+
+### Minor Changes
+
+- be919633: add minify option
+
+### Patch Changes
+
+- e331e429: fix(rollup-plugin-html): fix linked assets not being prefixed with configured publicPath. See https://github.com/modernweb-dev/web/issues/1302
+
 ## 1.6.0
 
 ### Minor Changes
