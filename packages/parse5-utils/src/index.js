@@ -236,10 +236,9 @@ function findNodes(nodes, test) {
  * @returns {DefaultTreeElement | null}
  */
 function findElement(nodes, test) {
-  return /** @type {DefaultTreeElement | null} */ (findNode(
-    nodes,
-    n => adapter.isElementNode(n) && test(/** @type {DefaultTreeElement} */ (n)),
-  ));
+  return /** @type {DefaultTreeElement | null} */ (
+    findNode(nodes, n => adapter.isElementNode(n) && test(/** @type {DefaultTreeElement} */ (n)))
+  );
 }
 
 /**
@@ -249,10 +248,9 @@ function findElement(nodes, test) {
  * @returns {DefaultTreeElement[]}
  */
 function findElements(nodes, test) {
-  return /** @type {DefaultTreeElement[] } */ (findNodes(
-    nodes,
-    n => adapter.isElementNode(n) && test(/** @type {DefaultTreeElement} */ (n)),
-  ));
+  return /** @type {DefaultTreeElement[] } */ (
+    findNodes(nodes, n => adapter.isElementNode(n) && test(/** @type {DefaultTreeElement} */ (n)))
+  );
 }
 
 /**

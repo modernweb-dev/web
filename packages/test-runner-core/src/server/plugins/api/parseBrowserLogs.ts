@@ -33,7 +33,7 @@ export async function parseBrowserLogs(
     return;
   }
 
-  const browserLogs = (result.logs as any) as BrowserLog[];
+  const browserLogs = result.logs as any as BrowserLog[];
   const logsWithType = await mapAsync(browserLogs, b =>
     parseBrowserLog(b, mapBrowserUrl, mapStackLocation, config),
   );

@@ -2,15 +2,23 @@ import { Page } from 'playwright';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { V8Coverage, v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { SessionResult } from '@web/test-runner-core';
+import { ProductType } from './PlaywrightLauncher';
 
 export class PlaywrightLauncherPage {
   private config: TestRunnerCoreConfig;
   private testFiles: string[];
+  private product: ProductType;
   public playwrightPage: Page;
   private nativeInstrumentationEnabledOnPage = false;
 
-  constructor(config: TestRunnerCoreConfig, testFiles: string[], playwrightPage: Page) {
+  constructor(
+    config: TestRunnerCoreConfig,
+    product: ProductType,
+    testFiles: string[],
+    playwrightPage: Page,
+  ) {
     this.config = config;
+    this.product = product;
     this.testFiles = testFiles;
     this.playwrightPage = playwrightPage;
   }
@@ -18,7 +26,7 @@ export class PlaywrightLauncherPage {
   async runSession(url: string, coverage: boolean) {
     if (
       coverage &&
-      this.playwrightPage.coverage &&
+      this.product === 'chromium' &&
       this.config.coverageConfig?.nativeInstrumentation !== false
     ) {
       if (this.nativeInstrumentationEnabledOnPage) {
@@ -71,7 +79,13 @@ export class PlaywrightLauncherPage {
     }
 
     // get native coverage from playwright
-    const coverage = ((await this.playwrightPage.coverage?.stopJSCoverage()) ?? []) as V8Coverage[];
+    let coverage: V8Coverage[];
+    if (this.product === 'chromium') {
+      coverage = await this.playwrightPage?.coverage?.stopJSCoverage();
+    } else {
+      coverage = [];
+    }
+
     this.nativeInstrumentationEnabledOnPage = false;
     const userAgent = await userAgentPromise;
     return v8ToIstanbul(config, testFiles, coverage, userAgent);

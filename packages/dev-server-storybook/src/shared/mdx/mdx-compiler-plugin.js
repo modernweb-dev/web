@@ -16,7 +16,8 @@ const jsStringEscape = require('js-string-escape');
 const STORY_REGEX = /^<Story[\s>]/;
 const CANVAS_REGEX = /^<(Preview|Canvas)[\s>]/;
 const META_REGEX = /^<Meta[\s>]/;
-const RESERVED = /^(?:do|if|in|for|let|new|try|var|case|else|enum|eval|false|null|this|true|void|with|await|break|catch|class|const|super|throw|while|yield|delete|export|import|public|return|static|switch|typeof|default|extends|finally|package|private|continue|debugger|function|arguments|interface|protected|implements|instanceof)$/;
+const RESERVED =
+  /^(?:do|if|in|for|let|new|try|var|case|else|enum|eval|false|null|this|true|void|with|await|break|catch|class|const|super|throw|while|yield|delete|export|import|public|return|static|switch|typeof|default|extends|finally|package|private|continue|debugger|function|arguments|interface|protected|implements|instanceof)$/;
 
 function getAttr(elt, what) {
   const attr = elt.attributes.find(n => n.name.name === what);

@@ -27,9 +27,9 @@ function findImportMapScripts(document: Document) {
   const external: Node[] = [];
   for (const script of scripts) {
     if (getAttribute(script, 'src')) {
-      external.push((script as unknown) as Node);
+      external.push(script as unknown as Node);
     } else {
-      inline.push((script as unknown) as Node);
+      inline.push(script as unknown as Node);
     }
   }
 
@@ -96,8 +96,8 @@ export async function injectPolyfillsLoader(
 ): Promise<InjectPolyfillsLoaderResult> {
   const documentAst = parse(htmlString);
 
-  const headAst = (findElement(documentAst, e => getTagName(e) === 'head') as unknown) as Node;
-  const bodyAst = (findElement(documentAst, e => getTagName(e) === 'body') as unknown) as Node;
+  const headAst = findElement(documentAst, e => getTagName(e) === 'head') as unknown as Node;
+  const bodyAst = findElement(documentAst, e => getTagName(e) === 'body') as unknown as Node;
 
   if (!headAst || !bodyAst) {
     throw new Error(`Invalid index.html: missing <head> or <body>`);

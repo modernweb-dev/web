@@ -61,16 +61,14 @@ describe('polyfills', () => {
         initializer:
           "window.dynamicImportPolyfill.initialize({ importFunctionName: 'importShim' });",
         path: 'polyfills/dynamic-import.js',
-        test:
-          "'noModule' in HTMLScriptElement.prototype && (function () { try { Function('window.importShim = s => import(s);').call(); return false; } catch (_) { return true; } })()",
+        test: "'noModule' in HTMLScriptElement.prototype && (function () { try { Function('window.importShim = s => import(s);').call(); return false; } catch (_) { return true; } })()",
         content: '',
         type: 'script',
       },
       {
         name: 'intersection-observer',
         path: 'polyfills/intersection-observer.js',
-        test:
-          "!('IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype)",
+        test: "!('IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype)",
         content: '',
         type: 'script',
       },
@@ -84,8 +82,7 @@ describe('polyfills', () => {
       {
         name: 'webcomponents',
         path: 'polyfills/webcomponents.js',
-        test:
-          "!('attachShadow' in Element.prototype) || !('getRootNode' in Element.prototype) || (window.ShadyDOM && window.ShadyDOM.force)",
+        test: "!('attachShadow' in Element.prototype) || !('getRootNode' in Element.prototype) || (window.ShadyDOM && window.ShadyDOM.force)",
         content: '',
         type: 'script',
       },
@@ -118,8 +115,7 @@ describe('polyfills', () => {
       {
         name: 'fetch',
         path: 'polyfills/fetch.js',
-        test:
-          "!('fetch' in window) || !('Request' in window) || !('signal' in window.Request.prototype)",
+        test: "!('fetch' in window) || !('Request' in window) || !('signal' in window.Request.prototype)",
         content: '',
         type: 'script',
       },

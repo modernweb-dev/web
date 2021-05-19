@@ -44,13 +44,13 @@ const syntax = {
 const transformedSyntax = {
   classFields: [
     'var __publicField =',
-    '_myPrivateField.set(this, "bar");',
+    '__privateAdd(this, _myPrivateField, "bar");',
     '__publicField(this, "myField", "x");',
     '__publicField(MyClass, "myStaticField", "foo");',
   ],
   optionalChaining: 'const optionalChaining = (_a = window.bar) == null ? void 0 : _a.foo;',
   optionalCatch: '} catch (e) {',
-  objectSpread: 'const spread = __objSpread(__objSpread({}, foo), bar);',
+  objectSpread: 'const spread = __spreadValues(__spreadValues({}, foo), bar)',
   asyncFunctions: [
     'var __async = (__this, __arguments, generator) => {',
     'return __async(this, null, function* () {',

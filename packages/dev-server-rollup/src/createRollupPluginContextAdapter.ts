@@ -9,7 +9,7 @@ import {
 } from 'rollup';
 
 export function createRollupPluginContextAdapter<
-  T extends PluginContext | MinimalPluginContext | TransformPluginContext
+  T extends PluginContext | MinimalPluginContext | TransformPluginContext,
 >(
   pluginContext: T,
   wdsPlugin: WdsPlugin,
