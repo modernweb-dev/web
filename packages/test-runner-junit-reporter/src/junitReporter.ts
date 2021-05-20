@@ -98,7 +98,7 @@ const toResultsWithMetadataByBrowserTestFileName = (
 };
 
 const escapeLogs = (test: TestResultWithMetadata) =>
-  test.logs.flatMap(x => x.map(_cdata => ({ _cdata })));
+  test.logs.flatMap(x => x.map(_cdata => ({ _cdata: stripXMLInvalidChars(_cdata) })));
 
 const isFailedTest = (test: TestResult): boolean =>
   // NB: shouldn't have to check for `error`,
