@@ -84,15 +84,44 @@ it('can emulate reduced motion', async () => {
 
 ### Send keys
 
-The `sendKeys` command will cause the browser to `press` or `type` keys as if it received those keys from the keyboard. This greatly simplifies interactions with form elements during test and surfaces the ability to directly inspect the way focus flows through test content in response to the `Tab` key. The function is async and should be awaited.
+The `sendKeys` command will cause the browser to press keys or type a sequence of characters as if it received those keys from the keyboard. This greatly simplifies interactions with form elements during test and surfaces the ability to directly inspect the way focus flows through test content in response to the `Tab` key. The function is async and should be awaited.
+
+The `sendKeys` command accepts an object with exactly one of the following properties being set, each of which trigger a specific keyboard action:
+
+- `type` - Types a sequence of characters. `type` is not affected by modifier keys, holding `Shift` will not type the text in upper-case.
+- `press` - Presses a single key, resulting in a key down, and a key up. `press` is affected by modifier keys, holding `Shift` will type the text in upper-case. See below for key reference.
+- `down` - Holds down a single key. See below for key reference.
+- `up` - Releases a single key. See below for key reference.
+
+Multiple calls of the `sendKeys` command can be used to trigger key combinations.
+For example sending a `down` command with the value `Shift`, and then sending a `press` command with the value `Tab` will effectively trigger a `Shift+Tab`.
 
 `sendKeys` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
+All commands are simple wrappers around the respective APIs in the supported test runners.
+Please refer to their respective docs for detailed behavior, and which specific strings can be used for the `press`, `down` and `up` commands:
+
+- [Puppeteer Keyboard API](https://pptr.dev/#?product=Puppeteer&show=api-class-keyboard)
+- [Playwright Keyboard API](https://playwright.dev/docs/api/class-keyboard)
 
 <details>
 <summary>View example</summary>
 
 ```js
 import { sendKeys } from '@web/test-runner-commands';
+
+it('natively types into an input', async () => {
+  const keys = 'abc123';
+  const input = document.createElement('input');
+  document.body.append(input);
+  input.focus();
+
+  await sendKeys({
+    type: keys,
+  });
+
+  expect(input.value).to.equal(keys);
+  input.remove();
+});
 
 it('natively presses `Tab`', async () => {
   const input1 = document.createElement('input');
@@ -108,6 +137,64 @@ it('natively presses `Tab`', async () => {
   expect(document.activeElement).to.equal(input2);
   input1.remove();
   input2.remove();
+});
+
+it('natively presses `Shift+Tab`', async () => {
+  const input1 = document.createElement('input');
+  const input2 = document.createElement('input');
+  document.body.append(input1, input2);
+  input2.focus();
+  expect(document.activeElement).to.equal(input2);
+
+  await sendKeys({
+    down: 'Shift',
+  });
+  await sendKeys({
+    press: 'Tab',
+  });
+  await sendKeys({
+    up: 'Shift',
+  });
+
+  expect(document.activeElement).to.equal(input1);
+  input1.remove();
+  input2.remove();
+});
+
+it('natively holds and then releases a key', async () => {
+  const input = document.createElement('input');
+  document.body.append(input);
+  input.focus();
+
+  await sendKeys({
+    down: 'Shift',
+  });
+  // Note that pressed modifier keys are only respected when using `press` or
+  // `down`, and only when using the `Key...` variants.
+  await sendKeys({
+    press: 'KeyA',
+  });
+  await sendKeys({
+    press: 'KeyB',
+  });
+  await sendKeys({
+    press: 'KeyC',
+  });
+  await sendKeys({
+    up: 'Shift',
+  });
+  await sendKeys({
+    press: 'KeyA',
+  });
+  await sendKeys({
+    press: 'KeyB',
+  });
+  await sendKeys({
+    press: 'KeyC',
+  });
+
+  expect(input.value).to.equal('ABCabc');
+  input.remove();
 });
 ```
 
