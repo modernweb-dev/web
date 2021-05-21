@@ -2,16 +2,12 @@ import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher, puppeteerCore } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
-type TypePayload = { type: string; };
-type PressPayload = { press: string; };
-type DownPayload = { down: string; };
-type UpPayload = { up: string; };
+type TypePayload = { type: string };
+type PressPayload = { press: string };
+type DownPayload = { down: string };
+type UpPayload = { up: string };
 
-export type SendKeysPayload =
-  | TypePayload
-  | PressPayload
-  | DownPayload
-  | UpPayload;
+export type SendKeysPayload = TypePayload | PressPayload | DownPayload | UpPayload;
 
 function isObject(payload: unknown): payload is Record<string, unknown> {
   return payload != null && typeof payload === 'object';
@@ -22,16 +18,22 @@ function isSendKeysPayload(payload: unknown): boolean {
 
   if (!isObject(payload)) throw new Error('You must provide a `SendKeysPayload` object');
 
-  const numberOfValidOptions = Object.keys(payload).filter(key => validOptions.includes(key)).length;
+  const numberOfValidOptions = Object.keys(payload).filter(key =>
+    validOptions.includes(key),
+  ).length;
   const unknownOptions = Object.keys(payload).filter(key => !validOptions.includes(key));
 
   if (numberOfValidOptions > 1)
     throw new Error(
-      `You must provide ONLY one of the following properties to pass to the browser runner: ${validOptions.join(', ')}.`,
+      `You must provide ONLY one of the following properties to pass to the browser runner: ${validOptions.join(
+        ', ',
+      )}.`,
     );
   if (numberOfValidOptions === 0)
     throw new Error(
-      `You must provide one of the following properties to pass to the browser runner: ${validOptions.join(', ')}.`,
+      `You must provide one of the following properties to pass to the browser runner: ${validOptions.join(
+        ', ',
+      )}.`,
     );
   if (unknownOptions.length > 0) {
     throw new Error('Unknown options `' + unknownOptions.join(', ') + '` present.');
