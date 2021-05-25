@@ -1,5 +1,23 @@
 # @web/rollup-plugin-copy
 
+## 0.3.0
+
+### Minor Changes
+
+- 7f9d853c: Added `exclude` option for rollup-plugin-copy.
+
+  Example: Exclude single directory:
+
+  ```js
+  copy({ pattern: '**/*.svg', exclude: 'node_modules' });
+  ```
+
+  Example: Exclude multiple globs:
+
+  ```js
+  copy({ pattern: '**/*.svg', exclude: ['node_modules', 'src/graphics'] });
+  ```
+
 ## 0.2.0
 
 ### Minor Changes
