@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 1.1.1
+
+### Patch Changes
+
+- 68726a66: fix to export createPolyfillsLoader
+
 ## 1.1.0
 
 ### Minor Changes
