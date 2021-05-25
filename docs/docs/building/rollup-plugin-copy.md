@@ -31,18 +31,25 @@ Then call `rollup` either via the [CLI](https://www.rollupjs.org/guide/en/#comma
 
 ### `patterns`
 
-Type: `String|String[]`<br>
+Type: `string|string[]`<br>
 Mandatory: true
 
 Does accept a string pattern or an array of strings patterns.
 
 ### `rootDir`
 
-Type: `String`<br>
+Type: `string`<br>
 Default: current working directory
 
 Patterns are relative to this directory and all found files will be resolved relative to it.
 If files can not be found `path.resolve('./my/path)` may be used to ensure a full path.
+
+### `exclude`
+
+Type: `string|string[]`
+Default: `undefined`
+
+A glob or array of globs to exclude from copying.
 
 ## Examples
 
@@ -88,4 +95,65 @@ Result:
 ```
 .
 └── sub-a.svg
+```
+
+### Exclude single directory
+
+```js
+copy({ pattern: '**/*.svg', exclude: 'node_modules' });
+```
+
+Source directory
+
+```
+.
+├── node_modules
+│   ├── many modules...
+├── sub
+│   ├── sub-a.svg
+│   └── sub-b.txt
+├── a.svg
+└── b.svg
+```
+
+Result:
+
+```
+.
+├── sub
+│   └── sub-a.svg
+├── a.svg
+└── b.svg
+```
+
+### Exclude multiple globs
+
+Source directory
+
+```
+.
+├── node_modules
+│   ├── many modules...
+├── src
+│   └── graphics
+│     └── a-unoptimized.svg
+├── sub
+│   ├── sub-a.svg
+│   └── sub-b.txt
+├── a.svg
+└── b.svg
+```
+
+Result:
+
+```
+.
+├── sub
+│   └── sub-a.svg
+├── a.svg
+└── b.svg
+```
+
+```js
+copy({ pattern: '**/*.svg', exclude: ['node_modules', 'src/graphics'] });
 ```
