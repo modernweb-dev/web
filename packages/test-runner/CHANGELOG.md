@@ -1,5 +1,12 @@
 # @web/test-runner
 
+## 0.13.5
+
+### Patch Changes
+
+- Updated dependencies [c3ead4fa]
+  - @web/test-runner-commands@0.5.0
+
 ## 0.13.4
 
 ### Patch Changes

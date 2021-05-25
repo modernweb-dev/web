@@ -1,5 +1,25 @@
 # @web/test-runner-commands
 
+## 0.5.0
+
+### Minor Changes
+
+- c3ead4fa: Added support for holding and releasing keys to the sendKeys command. The command now supports two additional actions `down` and `up` which hold down, or release a key. This effectively allows to hold down modifier keys while pressing other keys, which allows key combinations such as `Shift+Tab`.
+
+  @example
+
+  ```ts
+  await sendKeys({
+    down: 'Shift',
+  });
+  await sendKeys({
+    press: 'Tab',
+  });
+  await sendKeys({
+    up: 'Shift',
+  });
+  ```
+
 ## 0.4.5
 
 ### Patch Changes

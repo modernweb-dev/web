@@ -1,5 +1,11 @@
 # @web/test-runner-junit-reporter
 
+## 0.4.3
+
+### Patch Changes
+
+- 0609aa00: fix logging non UTF-8 characters (e.g. ANSI escape seq) produces malformed junit xml report
+
 ## 0.4.2
 
 ### Patch Changes
