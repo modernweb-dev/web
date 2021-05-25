@@ -17,17 +17,18 @@ const { patternsToFiles } = require('./patternsToFiles.js');
  *
  * @param {object} options
  * @param {string|string[]} options.patterns Single glob or an array of globs
+ * @param {string|string[]} options.exclude Single glob or an array of globs
  * @param {string} [options.rootDir] Defaults to current working directory
  * @return {import('rollup').Plugin} A Rollup Plugin
  */
-function copy({ patterns = [], rootDir = process.cwd() }) {
+function copy({ patterns = [], rootDir = process.cwd(), exclude }) {
   const resolvedRootDir = path.resolve(rootDir);
   /** @type {string[]} */
   let filesToCopy = [];
   return {
     name: '@web/rollup-plugin-copy',
     async buildStart() {
-      filesToCopy = await patternsToFiles(patterns, rootDir);
+      filesToCopy = await patternsToFiles(patterns, rootDir, exclude);
       for (const filePath of filesToCopy) {
         this.addWatchFile(filePath);
       }

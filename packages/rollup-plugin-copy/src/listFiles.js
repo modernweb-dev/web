@@ -9,10 +9,11 @@ const path = require('path');
  *
  * @param {string} fromGlob
  * @param {string} rootDir
+ * @param {string|string[]} [ignore]
  */
-function listFiles(fromGlob, rootDir) {
+function listFiles(fromGlob, rootDir, ignore) {
   return new Promise(resolve => {
-    glob(fromGlob, { cwd: rootDir, dot: true }, (er, files) => {
+    glob(fromGlob, { cwd: rootDir, dot: true, ignore }, (er, files) => {
       // remember, each filepath returned is relative to rootDir
       resolve(
         files
