@@ -1,5 +1,4 @@
 ---
-'@web/test-runner-integration-tests': patch
 '@web/dev-server-core': patch
 ---
 
