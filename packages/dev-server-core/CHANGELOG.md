@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.3.13
+
+### Patch Changes
+
+- fca0a4c3: Safely stringify error messages in tests
+
 ## 0.3.12
 
 ### Patch Changes
