@@ -60,6 +60,18 @@ export function runTestFailureTest(
       }
     });
 
+    it('handles tests that error with a circular reference', () => {
+      const sessions = allSessions.filter(s => s.testFile.endsWith('fail-circular-error.test.js'));
+      expect(sessions.length === browserCount).to.equal(true);
+      for (const session of sessions) {
+        expect(session.testResults!.tests.map(t => t.name)).to.eql(['bad predicate']);
+        expect(session.passed).to.be.false;
+        expect(session.testResults!.tests![0].error!.message).to.equal(
+          "expected { x: 'x', circle: [Circular] } to equal null",
+        );
+      }
+    });
+
     it('handles tests that throw in afterEach', () => {
       const sessions = allSessions.filter(s => s.testFile.endsWith('fail-after-each.test.js'));
       expect(sessions.length === browserCount).to.equal(true);

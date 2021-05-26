@@ -2462,6 +2462,13 @@
     "@wdio/logger" "7.5.3"
     "@wdio/types" "7.6.0"
 
+"@web/rollup-plugin-copy@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@web/rollup-plugin-copy/-/rollup-plugin-copy-0.2.0.tgz#425d32665fe06f39d81ae505ad0775c9354ba1ad"
+  integrity sha512-l3YInTLe/rbth6WuyoA7GY6DuXdt3iX6hQm6uoe5298fBzZfZPa3i0WVyUi3zPo6VttY0bjxPJyWK7JRQ37Cnw==
+  dependencies:
+    glob "^7.0.0"
+
 "@web/storybook-prebuilt@^0.1.20":
   version "0.1.20"
   resolved "https://registry.yarnpkg.com/@web/storybook-prebuilt/-/storybook-prebuilt-0.1.20.tgz#6d27f3387c462c7413967116d710bc16684d65b7"

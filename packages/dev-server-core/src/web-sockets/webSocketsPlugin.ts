@@ -19,6 +19,114 @@ export function webSocketsPlugin(): Plugin {
       if (context.path === NAME_WEB_SOCKET_IMPORT) {
         // this code is inlined because TS compiles to CJS but we need this to be ESM
         return `
+
+        /**
+         * Code at this indent adapted from fast-safe-stringify by David Mark Clements
+         * @license MIT
+         * @see https://github.com/davidmarkclements/fast-safe-stringify
+         */
+        var arr = []
+        var replacerStack = []
+
+        // Stable-stringify
+        function compareFunction (a, b) {
+          if (a < b) {
+            return -1
+          }
+          if (a > b) {
+            return 1
+          }
+          return 0
+        }
+
+        export function stable (obj, replacer, spacer) {
+          var tmp = deterministicDecirc(obj, '', [], undefined) || obj
+          var res
+          if (replacerStack.length === 0) {
+            res = JSON.stringify(tmp, replacer, spacer)
+          } else {
+            res = JSON.stringify(tmp, replaceGetterValues(replacer), spacer)
+          }
+          while (arr.length !== 0) {
+            var part = arr.pop()
+            if (part.length === 4) {
+              Object.defineProperty(part[0], part[1], part[3])
+            } else {
+              part[0][part[1]] = part[2]
+            }
+          }
+          return res
+        }
+
+        function deterministicDecirc (val, k, stack, parent) {
+          var i
+          if (typeof val === 'object' && val !== null) {
+            for (i = 0; i < stack.length; i++) {
+              if (stack[i] === val) {
+                var propertyDescriptor = Object.getOwnPropertyDescriptor(parent, k)
+                if (propertyDescriptor.get !== undefined) {
+                  if (propertyDescriptor.configurable) {
+                    Object.defineProperty(parent, k, { value: '[Circular]' })
+                    arr.push([parent, k, val, propertyDescriptor])
+                  } else {
+                    replacerStack.push([val, k])
+                  }
+                } else {
+                  parent[k] = '[Circular]'
+                  arr.push([parent, k, val])
+                }
+                return
+              }
+            }
+            if (typeof val.toJSON === 'function') {
+              return
+            }
+            stack.push(val)
+            // Optimize for Arrays. Big arrays could kill the performance otherwise!
+            if (Array.isArray(val)) {
+              for (i = 0; i < val.length; i++) {
+                deterministicDecirc(val[i], i, stack, val)
+              }
+            } else {
+              // Create a temporary object in the required way
+              var tmp = {}
+              var keys = Object.keys(val).sort(compareFunction)
+              for (i = 0; i < keys.length; i++) {
+                var key = keys[i]
+                deterministicDecirc(val[key], key, stack, val)
+                tmp[key] = val[key]
+              }
+              if (parent !== undefined) {
+                arr.push([parent, k, val])
+                parent[k] = tmp
+              } else {
+                return tmp
+              }
+            }
+            stack.pop()
+          }
+        }
+
+        // wraps replacer function to handle values we couldn't replace
+        // and mark them as [Circular]
+        function replaceGetterValues (replacer) {
+          replacer = replacer !== undefined ? replacer : function (k, v) { return v }
+          return function (key, val) {
+            if (replacerStack.length > 0) {
+              for (var i = 0; i < replacerStack.length; i++) {
+                var part = replacerStack[i]
+                if (part[1] === key && part[0] === val) {
+                  val = '[Circular]'
+                  replacerStack.splice(i, 1)
+                  break
+                }
+              }
+            }
+            return replacer.call(this, key, val)
+          }
+        }
+
+
 const { protocol, host } = new URL(import.meta.url);
 const webSocketUrl = \`ws\${protocol === 'https:' ? 's' : ''}://\${host}/${NAME_WEB_SOCKET_API}\`;
 
@@ -29,8 +137,8 @@ export let sendMessageWaitForResponse;
 let getNextMessageId;
 
 function setupFetch() {
-  sendMessage = (message) =>fetch('/__web-test-runner__/wtr-legacy-browser-api', { method: 'POST', body: JSON.stringify(message) });
-  sendMessageWaitForResponse = (message) => fetch('/__web-test-runner__/wtr-legacy-browser-api', { method: 'POST', body: JSON.stringify(message) });
+  sendMessage = (message) =>fetch('/__web-test-runner__/wtr-legacy-browser-api', { method: 'POST', body: stable(message) });
+  sendMessageWaitForResponse = (message) => fetch('/__web-test-runner__/wtr-legacy-browser-api', { method: 'POST', body: stable(message) });
 }
 
 function setupWebSocket() {
@@ -64,20 +172,20 @@ function setupWebSocket() {
     };
     window.__WDS_WEB_SOCKET__ = { webSocket, webSocketOpened, getNextMessageId };
   }
-  
+
   sendMessage = async (message) => {
     if (!message.type) {
       throw new Error('Missing message type');
     }
     await webSocketOpened;
-    webSocket.send(JSON.stringify(message));
+    webSocket.send(stable(message));
   }
-  
+
   // sends a websocket message and expects a response from the server
   sendMessageWaitForResponse = async (message) => {
     return new Promise(async (resolve, reject) => {
       const id = getNextMessageId();
-  
+
       function onResponse(e) {
         const message = JSON.parse(e.data);
         if (message.type === 'message-response' && message.id === id) {
@@ -89,9 +197,9 @@ function setupWebSocket() {
           }
         }
       }
-  
+
       webSocket.addEventListener('message', onResponse);
-  
+
       setTimeout(() => {
         webSocket.removeEventListener('message', onResponse);
         reject(
@@ -100,11 +208,11 @@ function setupWebSocket() {
           ),
         );
       }, 20000);
-  
+
       sendMessage({ ...message, id });
     });
   }
-  
+
   if (webSocket) {
     webSocket.addEventListener('message', async e => {
       try {
