@@ -27,7 +27,7 @@ export interface DevServerConfig extends DevServerCoreConfig {
    * Whether to open the browser on start. This can be a boolean, or a path to open the browser on.
    * If the `appIndex` option is set, setting `open` to true will use the app index value as open path.
    */
-  open?: 'string' | boolean;
+  open?: string | boolean;
   /**
    * Whether to log debug messages.
    */
