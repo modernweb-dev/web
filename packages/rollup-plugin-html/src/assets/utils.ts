@@ -13,6 +13,12 @@ function isAsset(node: Node) {
     case 'img':
       path = getAttribute(node, 'src') ?? '';
       break;
+    case 'video':
+      path = getAttribute(node, 'poster') ?? '';
+      break;
+    case 'source':
+      path = getAttribute(node, 'src') ?? '';
+      break;
     case 'link':
       if (linkRels.includes(getAttribute(node, 'rel') ?? '')) {
         path = getAttribute(node, 'href') ?? '';
@@ -45,6 +51,10 @@ function isAsset(node: Node) {
 export function isHashedAsset(node: Node) {
   switch (getTagName(node)) {
     case 'img':
+      return true;
+    case 'video':
+      return true;
+    case 'source':
       return true;
     case 'script':
       return true;
@@ -80,6 +90,12 @@ export function getSourceAttribute(node: Node) {
     }
     case 'link': {
       return 'href';
+    }
+    case 'video': {
+      return 'poster';
+    }
+    case 'source': {
+      return 'src';
     }
     case 'script': {
       return 'src';

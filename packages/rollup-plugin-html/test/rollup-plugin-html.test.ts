@@ -648,6 +648,9 @@ describe('rollup-plugin-html', () => {
 </head>
 <body>
 <img src="./image-c.png" />
+<video poster="./image-d.png">
+<source src="./video.mp4" type="video/mp4"/>
+</video>
 <div>
 <img src="./image-b.svg" />
 </div>
@@ -661,7 +664,7 @@ describe('rollup-plugin-html', () => {
 
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
-    expect(output.length).to.equal(11);
+    expect(output.length).to.equal(12);
     const expectedAssets = [
       'image-c.png',
       'webmanifest.json',
@@ -670,10 +673,13 @@ describe('rollup-plugin-html', () => {
       'x.css',
       'y.css',
       'image-b.svg',
+      'image-d.png',
+      'video.mp4',
     ];
 
     for (const name of expectedAssets) {
       const asset = getAsset(output, name);
+      console.log(asset, name);
       expect(asset).to.exist;
       expect(asset.source).to.exist;
     }
