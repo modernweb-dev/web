@@ -268,4 +268,47 @@ describe('extractAssets', () => {
     expect(assets[0].filePath).to.equal(path.join(rootDir, 'no-module.js'));
     expect(assets[0].content.toString('utf-8')).to.equal('/* no module script file */\n');
   });
+
+  it('handles a picture tag using source tags with srcset', () => {
+    const document = parse(`
+      <html>
+        <body>
+          <picture>
+            <source
+              type="image/avif"
+              srcset="./images/eb26e6ca-30.avif 30w, /images/eb26e6ca-60.avif 60w"
+              sizes="30px"
+            />
+            <source
+              type="image/jpeg"
+              srcset="./images/eb26e6ca-30.jpeg 30w, /images/eb26e6ca-60.jpeg 60w"
+              sizes="30px"
+            />
+            <img
+              alt="My Image Alternative Text"
+              rocket-image="responsive"
+              src="./images/eb26e6ca-30.jpeg"
+              width="30"
+              height="15"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        </body>
+      </html>
+    `);
+    const assets = extractAssets({
+      document,
+      htmlFilePath: path.join(rootDir, 'index.html'),
+      htmlDir: path.join(rootDir),
+      rootDir,
+    });
+
+    // the <img> src is not the same as the small jpeg image
+    expect(assets.length).to.equal(4);
+    expect(assets[0].filePath).to.equal(path.join(rootDir, 'images', 'eb26e6ca-30.avif'));
+    expect(assets[1].filePath).to.equal(path.join(rootDir, 'images', 'eb26e6ca-60.avif'));
+    expect(assets[2].filePath).to.equal(path.join(rootDir, 'images', 'eb26e6ca-30.jpeg'));
+    expect(assets[3].filePath).to.equal(path.join(rootDir, 'images', 'eb26e6ca-60.jpeg'));
+  });
 });

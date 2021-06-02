@@ -7,11 +7,34 @@ import { serialize } from 'v8';
 const hashedLinkRels = ['stylesheet'];
 const linkRels = [...hashedLinkRels, 'icon', 'manifest', 'apple-touch-icon', 'mask-icon'];
 
+function getSrcSetUrls(srcset: string) {
+  if (!srcset) {
+    return [];
+  }
+  const srcsetParts = srcset.includes(',') ? srcset.split(',') : [srcset];
+  const urls = srcsetParts
+    .map(url => url.trim())
+    .map(url => (url.includes(' ') ? url.split(' ')[0] : url));
+  return urls;
+}
+
+function extractFirstUrlOfSrcSet(node: Node) {
+  const srcset = getAttribute(node, 'srcset');
+  if (!srcset) {
+    return '';
+  }
+  const urls = getSrcSetUrls(srcset);
+  return urls[0];
+}
+
 function isAsset(node: Node) {
   let path = '';
   switch (getTagName(node)) {
     case 'img':
       path = getAttribute(node, 'src') ?? '';
+      break;
+    case 'source':
+      path = extractFirstUrlOfSrcSet(node) ?? '';
       break;
     case 'link':
       if (linkRels.includes(getAttribute(node, 'rel') ?? '')) {
@@ -46,6 +69,8 @@ export function isHashedAsset(node: Node) {
   switch (getTagName(node)) {
     case 'img':
       return true;
+    case 'source':
+      return true;
     case 'script':
       return true;
     case 'link':
@@ -78,6 +103,9 @@ export function getSourceAttribute(node: Node) {
     case 'img': {
       return 'src';
     }
+    case 'source': {
+      return 'srcset';
+    }
     case 'link': {
       return 'href';
     }
@@ -92,13 +120,20 @@ export function getSourceAttribute(node: Node) {
   }
 }
 
-export function getSourcePath(node: Node) {
+export function getSourcePaths(node: Node) {
   const key = getSourceAttribute(node);
+
   const src = getAttribute(node, key);
   if (typeof key !== 'string' || src === '') {
     throw createError(`Missing attribute ${key} in element ${serialize(node)}`);
   }
-  return src as string;
+
+  let paths: string[] = [];
+  if (src) {
+    paths = key !== 'srcset' ? [src] : getSrcSetUrls(src);
+  }
+
+  return paths;
 }
 
 export function findAssets(document: Document) {
