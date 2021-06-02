@@ -56,6 +56,70 @@ describe('injectedUpdatedAssetPaths()', () => {
     expect(serialize(document)).to.eql(expected);
   });
 
+  it('handles a picture tag using source tags with srcset', () => {
+    const document = parse(
+      [
+        '<html>',
+        '  <body>',
+        '    <picture>',
+        '      <source',
+        '        type="image/avif"',
+        '        srcset="./images/eb26e6ca-30.avif 30w, /images/eb26e6ca-60.avif 60w"',
+        '        sizes="30px"',
+        '      />',
+        '      <source',
+        '        type="image/jpeg"',
+        '        srcset="./images/eb26e6ca-30.jpeg 30w, /images/eb26e6ca-60.jpeg 60w"',
+        '        sizes="30px"',
+        '      />',
+        '      <img',
+        '        alt="My Image Alternative Text"',
+        '        rocket-image="responsive"',
+        '        src="./images/eb26e6ca-30.jpeg"',
+        '        width="30"',
+        '        height="15"',
+        '        loading="lazy"',
+        '        decoding="async"',
+        '      />',
+        '    </picture>',
+        '  </body>',
+        '</html>',
+      ].join(''),
+    );
+
+    const input: InputData = {
+      html: '',
+      name: 'index.html',
+      moduleImports: [],
+      inlineModules: [],
+      assets: [],
+      filePath: '/root/index.html',
+    };
+    const hashed = new Map<string, string>();
+    hashed.set(path.join(path.sep, 'root', 'images', 'eb26e6ca-30.avif'), 'eb26e6ca-30-xxx.avif');
+    hashed.set(path.join(path.sep, 'root', 'images', 'eb26e6ca-60.avif'), 'eb26e6ca-60-xxx.avif');
+    hashed.set(path.join(path.sep, 'root', 'images', 'eb26e6ca-30.jpeg'), 'eb26e6ca-30-xxx.jpeg');
+    hashed.set(path.join(path.sep, 'root', 'images', 'eb26e6ca-60.jpeg'), 'eb26e6ca-60-xxx.jpeg');
+
+    injectedUpdatedAssetPaths({
+      document,
+      input,
+      outputDir: '/root/dist/',
+      rootDir: '/root/',
+      emittedAssets: { static: new Map(), hashed },
+    });
+
+    const expected = [
+      '<html><head></head><body>',
+      '<picture>',
+      '  <source type="image/avif" srcset="eb26e6ca-30-xxx.avif 30w, eb26e6ca-60-xxx.avif 60w" sizes="30px">',
+      '  <source type="image/jpeg" srcset="eb26e6ca-30-xxx.jpeg 30w, eb26e6ca-60-xxx.jpeg 60w" sizes="30px">',
+      '  <img alt="My Image Alternative Text" rocket-image="responsive" src="eb26e6ca-30-xxx.jpeg" width="30" height="15" loading="lazy" decoding="async">',
+      '</picture>  </body></html>',
+    ].join('\n');
+    expect(serialize(document).replace(/ {4}/g, '\n')).to.eql(expected);
+  });
+
   it('handles virtual files', () => {
     const document = parse(
       [
