@@ -97,10 +97,10 @@ export class EsbuildPlugin implements Plugin {
   async transform(context: Context) {
     let loader: Loader;
 
-    if (context.response.is('html')) {
+    if (context && context.response.is('html')) {
       // we are transforming inline scripts
       loader = 'js';
-    } else {
+    } else if (context.path) {
       const fileExtension = path.posix.extname(context.path);
       loader = this.esbuildConfig.loaders[fileExtension];
     }
