@@ -87,6 +87,34 @@ describe('rollup-plugin-import-meta-assets', () => {
     ]);
   });
 
+  it('simple bundle with ignored assets', async () => {
+    const config = {
+      input: { 'transform-bundle-ignored': require.resolve('./fixtures/transform-entrypoint.js') },
+      plugins: [
+        importMetaAssets({
+          transform: async (assetBuffer, assetPath) => {
+            // Only minify SVG files
+            return assetPath.endsWith('.svg')
+              ? // Fake minification with an XML comment
+                assetBuffer.toString() + '<!-- minified -->\n'
+              : null;
+          },
+        }),
+      ],
+    };
+
+    const bundle = await rollup.rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(output.length).to.equal(5);
+    expectChunk(output, 'snapshots/transform-bundle-ignored.js', 'transform-bundle-ignored.js', [
+      expectAsset(output, 'snapshots/one.min.svg', 'one.svg', 'assets/one-d81655b9.svg'),
+      expectAsset(output, 'snapshots/two.min.svg', 'two.svg', 'assets/two-00516e7a.svg'),
+      expectAsset(output, 'snapshots/three.min.svg', 'three.svg', 'assets/three-0ba6692d.svg'),
+      expectAsset(output, 'snapshots/four.min.svg', 'four.svg', 'assets/four-a00e2e1d.svg'),
+    ]);
+  });
+
   it('multiple level bundle (downward modules)', async () => {
     const config = {
       input: { 'multi-level-bundle': require.resolve('./fixtures/multi-level-entrypoint.js') },

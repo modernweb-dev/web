@@ -80,6 +80,8 @@ By default, referenced assets detected by this plugin are just copied as is to t
 When `transform` is defined, this function will be called for each asset with two parameters, the content of the asset as a [Buffer](https://nodejs.org/api/buffer.html) and the absolute path.
 This allows you to conditionnaly match on the absolute path and maybe transform the content.
 
+When `transform` returns `null`, the asset is skipped from being processed.
+
 In this example, we use it to optimize SVG images with [svgo](https://github.com/svg/svgo):
 
 ```js
