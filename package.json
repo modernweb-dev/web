@@ -22,6 +22,7 @@
     "prepare": "husky install",
     "reinstall-workspace": "rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
     "release": "changeset publish && yarn format",
+    "release:enter-pre": "[ ! -f .changeset/pre.json ] && yarn changeset pre enter next || echo 'Already in pre mode'",
     "review-content": "alex 'docs/**/*.md'",
     "search": "rocket search",
     "start": "rocket start",
