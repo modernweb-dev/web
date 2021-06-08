@@ -58,6 +58,6 @@
     "picomatch": "^2.2.2"
   },
   "devDependencies": {
-    "@web/test-runner": "^0.13.0"
+    "@web/test-runner": "^0.13.6-next.0"
   }
 }
