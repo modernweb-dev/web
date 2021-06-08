@@ -1,4 +1,4 @@
-name: Release
+name: Pre-release
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
   release:
     # Prevents changesets action from creating a PR on forks
     if: github.repository == 'modernweb-dev/web'
-    name: Release
+    name: Pre-release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -46,7 +46,7 @@ jobs:
         run: yarn build:production
 
       - name: Enter prerelease mode
-        run: yarn changeset pre enter next
+        run: yarn release:enter-pre
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
@@ -57,6 +57,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Exit prerelease mode
-        run: yarn changeset pre exit
