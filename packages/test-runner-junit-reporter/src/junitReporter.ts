@@ -125,7 +125,8 @@ const INVALID_CHARACTERS_REGEX =
   // eslint-disable-next-line no-control-regex
   /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007f-\u0084\u0086-\u009f\uD800-\uDFFF\uFDD0-\uFDFF\uFFFF\uC008]/g;
 
-const stripXMLInvalidChars = (x: string): string => x.replace(INVALID_CHARACTERS_REGEX, '');
+const stripXMLInvalidChars = (x: string): string =>
+  x && x.replace ? x.replace(INVALID_CHARACTERS_REGEX, '') : x;
 
 /**
  * Makes a `<failure>` element
