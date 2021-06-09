@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.13.7
+
+### Patch Changes
+
+- 91e0e617: add compareSnapshot function
+- Updated dependencies [91e0e617]
+  - @web/test-runner-commands@0.5.2
+
 ## 0.13.6
 
 ### Patch Changes
