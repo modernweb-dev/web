@@ -36,8 +36,8 @@
   },
   "dependencies": {
     "@rocket/blog": "^0.3.0",
-    "@rocket/cli": "^0.5.0",
-    "@rocket/launch": "^0.4.0",
+    "@rocket/cli": "^0.8.2",
+    "@rocket/launch": "^0.5.0",
     "@rocket/search": "^0.3.0"
   },
   "devDependencies": {
@@ -68,6 +68,11 @@
     "rollup-plugin-terser": "^7.0.2",
     "ts-node": "^9.1.1",
     "typescript": "4.1.3"
+  },
+  "resolutions": {
+    "@mdjs/core": "^0.7.2",
+    "@mdjs/mdjs-preview": "^0.4.2",
+    "@mdjs/mdjs-story": "^0.2.0"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
