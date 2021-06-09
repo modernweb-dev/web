@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.5.1
+
+### Patch Changes
+
+- 339d05f7: add snapshots plugin
+
 ## 0.5.0
 
 ### Minor Changes

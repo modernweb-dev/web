@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.13.6
+
+### Patch Changes
+
+- 339d05f7: add snapshots plugin
+- Updated dependencies [339d05f7]
+  - @web/test-runner-commands@0.5.1
+
 ## 0.13.5
 
 ### Patch Changes
