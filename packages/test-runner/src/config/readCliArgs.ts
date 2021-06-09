@@ -30,6 +30,7 @@ export interface TestRunnerCliArgs
   puppeteer?: boolean;
   playwright?: boolean;
   browsers?: string[];
+  updateSnapshots?: boolean;
 }
 
 const options: OptionDefinition[] = [
@@ -128,6 +129,11 @@ const options: OptionDefinition[] = [
     name: 'node-resolve',
     type: Boolean,
     description: 'Resolve bare module imports using node resolution',
+  },
+  {
+    name: 'update-snapshots',
+    type: Boolean,
+    description: 'Whether to accept changes in shapshots, and save them on disk',
   },
   {
     name: 'esbuild-target',

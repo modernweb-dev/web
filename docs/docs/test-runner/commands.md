@@ -224,7 +224,9 @@ it('can set the user agent', async () => {
 
 ### Snapshots
 
-The snapshot commands allow saving and retrieving snapshots. The commands do not include any snapshot comparisons or assertion library plugins.
+The snapshot commands allow comparing, saving and retrieving snapshots. The snapshot comparison implementation is very basic and does not include any integration with assertion libraries.
+
+The `getSnapshotConfig` and `compareSnapshot` functions use the `updateSnapshots` option which can be passed to the `snapshotsPlugin`. When using the regular `@web/test-runner` package, it can be configured using the `--update-snapshots` CLI flag.
 
 <details>
 <summary>View example</summary>
@@ -236,9 +238,14 @@ import {
   getSnapshot,
   saveSnapshot,
   removeSnapshot,
+  compareSnapshot,
 } from '@web/test-runner-commands';
 
-it('can use file commands', async () => {
+it('can compare snapshots', async () => {
+  await compareSnapshot({ name: 'my-snapshot', content: 'my snapshot content' });
+});
+
+it('can use raw snapshot commands', async () => {
   // the config contains a boolean whether updating snapshots is enabled, this can be used by assertion
   // library plugins to decide to overwrite the existing snapshot
   const config = await getSnapshotConfig();
@@ -251,7 +258,7 @@ it('can use file commands', async () => {
   const snapshot = await getSnapshot({ name: 'my-snapshot' });
 
   // saves snapshot with this name and content
-  await saveSnapshot({ name: 'my-snapshot', content: 'my-content' });
+  await saveSnapshot({ name: 'my-snapshot', content: 'my snapshot content' });
 
   // removes snapshot with this name
   await removeSnapshot({ name: 'my-snapshot' });

@@ -61,12 +61,10 @@ class SnapshotStore {
       return this.snapshots.get(testFilePath)!;
     }
 
-    const promiseObj = {
-      resolve: () => {},
-      promise: new Promise<void>(resolve => {
-        promiseObj.resolve = resolve;
-      }),
-    };
+    const promiseObj = { resolve: () => {}, promise: Promise.resolve() };
+    promiseObj.promise = new Promise<void>(resolve => {
+      promiseObj.resolve = resolve;
+    });
     this.readOperations.set(testFilePath, promiseObj);
 
     // store in cache

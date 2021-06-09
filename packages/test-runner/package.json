@@ -50,7 +50,8 @@
     "test:puppeteer-firefox": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --puppeteer --browsers firefox",
     "test:saucelabs": "node dist/bin.js --config demo/saucelabs.config.mjs",
     "test:selenium": "node dist/bin.js --config demo/selenium.config.mjs",
-    "test:source-maps": "node dist/bin.js --config demo/source-maps/config.mjs --coverage",
+    "test:snapshots": "node dist/bin.js \"demo/test/pass-snapshot.test.js\" --coverage",
+    "test:source-maps": "node dist/bin.js --config demo/source-maps/config.mjs",
     "test:tsc": "tsc -p demo/tsc/tsconfig.json && concurrently -k -r \"tsc -p demo/tsc/tsconfig.json --watch --preserveWatchOutput\" \"wtr --config demo/tsc/config.mjs --watch\"",
     "test:virtual": "node dist/bin.js --config demo/virtual/config.mjs",
     "test:watch": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --watch"

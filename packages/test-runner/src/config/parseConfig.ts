@@ -252,7 +252,7 @@ export async function parseConfig(
     setUserAgentPlugin(),
     filePlugin(),
     sendKeysPlugin(),
-    snapshotPlugin(),
+    snapshotPlugin({ updateSnapshots: !!cliArgs.updateSnapshots }),
   );
 
   if (finalConfig.nodeResolve) {
