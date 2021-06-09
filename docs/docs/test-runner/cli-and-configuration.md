@@ -12,6 +12,7 @@ The test runner can be configured using CLI flags, or with a configuration file.
 | node-resolve        | boolean      | resolve bare module imports                                                                                           |
 | esbuild-target      | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent. |
 | preserve-symlinks   | boolean      | preserve symlinks when resolving imports                                                                              |
+| update-snapshots    | boolean      | updates snapshots stored on disk                                                                                      |
 | puppeteer           | boolean      | whether to run tests with @web/test-runner-puppeteer                                                                  |
 | playwright          | boolean      | whether to run tests with @web/test-runner-playwright                                                                 |
 | browsers            | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit                           |

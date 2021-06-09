@@ -201,4 +201,13 @@ export function saveSnapshot(options: SaveSnapshotPayload): Promise<void>;
  */
 export function removeSnapshot(options: { name: string }): Promise<void>;
 
+/**
+ * If no snapshot exists on disk or if update-snapshots is set to true server-side,
+ * the passed snapshot is saved. Otherwise the snapshot is compared with what's stored
+ * on disk. If the snapshots are not equal, an error is thrown.
+ *
+ * @param options
+ */
+export function compareSnapshot(options: { name: string; content: string }): Promise<void>;
+
 export { Media, Viewport, SendKeysPayload, WriteFilePayload, ReadFilePayload, RemoveFilePayload };

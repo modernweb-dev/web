@@ -88,15 +88,20 @@ export function findAccessibilityNode(node, test) {
   return null;
 }
 
-export function getSnapshotConfig() {
-  return executeServerCommand(
-    'get-snapshot-config',
-    undefined,
-    'snapshotPlugin from @web/test-runner-commands',
-  );
+let snapshotConfig;
+let snapshots;
+export async function getSnapshotConfig() {
+  if (!snapshotConfig) {
+    snapshotConfig = await executeServerCommand(
+      'get-snapshot-config',
+      undefined,
+      'snapshotPlugin from @web/test-runner-commands',
+    );
+  }
+
+  return snapshotConfig;
 }
 
-let snapshots;
 export async function getSnapshots() {
   if (snapshots) {
     return snapshots;
@@ -150,4 +155,21 @@ export function removeSnapshot(options) {
   if (typeof options.name !== 'string') throw new Error('You must provide a snapshot name');
 
   return saveSnapshot({ ...options, content: undefined });
+}
+
+export async function compareSnapshot({ name, content }) {
+  const currentSnapshot = await getSnapshot({ name });
+  if (currentSnapshot) {
+    const config = await getSnapshotConfig();
+    if (!config.updateSnapshots) {
+      if (currentSnapshot !== content) {
+        throw new Error(
+          `Snapshots for ${name} are not equal. \n\n` +
+            `Stored:\n${currentSnapshot}\n\n` +
+            `New:\n${content}`,
+        );
+      }
+    }
+  }
+  await saveSnapshot({ name, content });
 }
