@@ -1,5 +1,11 @@
 # @web/test-runner-junit-reporter
 
+## 0.4.4
+
+### Patch Changes
+
+- 94cddfab: fix: allow stripXMLInvalidChars when replace it not available
+
 ## 0.4.3
 
 ### Patch Changes

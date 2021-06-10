@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.13.8
+
+### Patch Changes
+
+- 94cddfab: fix: allow stripXMLInvalidChars when replace it not available
+
 ## 0.13.7
 
 ### Patch Changes
