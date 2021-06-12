@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.13.10
+
+### Patch Changes
+
+- 3af6ff86: improve snapshot formatting
+- Updated dependencies [3af6ff86]
+  - @web/test-runner-commands@0.5.3
+
 ## 0.13.9
 
 ### Patch Changes
