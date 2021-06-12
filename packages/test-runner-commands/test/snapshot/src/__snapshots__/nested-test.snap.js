@@ -2,10 +2,8 @@
 
 export const snapshots = {};
 
-// snapshot persistent-a
-snapshots['persistent-a'] = `this is snapshot A`;
+snapshots['persistent-a'] = `this is nested snapshot A`;
 // end snapshot persistent-a
 
-// snapshot persistent-b
-snapshots['persistent-b'] = `this is snapshot B`;
+snapshots['persistent-b'] = `this is nested snapshot B`;
 // end snapshot persistent-b
