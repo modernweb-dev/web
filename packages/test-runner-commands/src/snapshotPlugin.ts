@@ -81,11 +81,11 @@ class SnapshotStore {
 
   async saveSnapshot(testFilePath: string, name: string, updatedSnapshot: string) {
     const snapshotPath = getSnapshotPath(testFilePath);
-    const startMarker = `// snapshot ${name}`;
-    const endMarker = `// end snapshot ${name}\n\n`;
     const nameStr = JSON.stringify(name);
+    const startMarker = `snapshots[${nameStr}]`;
+    const endMarker = `// end snapshot ${name}\n\n`;
     const replacement = updatedSnapshot
-      ? `${startMarker}\nsnapshots[${nameStr}] = \`${updatedSnapshot}\`;\n${endMarker}`
+      ? `${startMarker} = \n\`${updatedSnapshot}\`;\n${endMarker}`
       : '';
 
     const content = await this.get(snapshotPath);
@@ -109,7 +109,7 @@ class SnapshotStore {
     }
 
     this.snapshots.set(snapshotPath, updatedContent);
-    if (updatedContent.includes('// snapshot')) {
+    if (updatedContent.includes('// end snapshot')) {
       // update or create snapshot
       const fileDir = path.dirname(snapshotPath);
       await mkdirp(fileDir);
