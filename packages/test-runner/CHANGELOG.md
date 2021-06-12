@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.13.11
+
+### Patch Changes
+
+- 270a633a: dynamic import web socket module
+- Updated dependencies [270a633a]
+  - @web/test-runner-commands@0.5.4
+
 ## 0.13.10
 
 ### Patch Changes
