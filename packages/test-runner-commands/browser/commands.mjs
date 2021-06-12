@@ -1,6 +1,4 @@
 /* eslint-env browser, es2020 */
-import { sendMessageWaitForResponse } from '/__web-dev-server__web-socket.js';
-
 const PARAM_SESSION_ID = 'wtr-session-id';
 
 const sessionId = new URL(window.location.href).searchParams.get(PARAM_SESSION_ID);
@@ -14,6 +12,16 @@ export async function executeServerCommand(command, payload, pluginName) {
     throw new Error(
       'Unable to execute server commands in a browser not controlled by the test runner. ' +
         'Use the debug option from the watch menu to debug in a controlled browser.',
+    );
+  }
+
+  let sendMessageWaitForResponse;
+  try {
+    const webSocketModule = await import('/__web-dev-server__web-socket.js');
+    ({ sendMessageWaitForResponse } = webSocketModule);
+  } catch (error) {
+    throw new Error(
+      'Could not setup web socket connection. Are you executing this test through Web Test Runner?',
     );
   }
 
