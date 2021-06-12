@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.2.4
+
+### Patch Changes
+
+- f8786401: add extra logging when catching an unhandled rejection
+
 ## 0.2.3
 
 ### Patch Changes
