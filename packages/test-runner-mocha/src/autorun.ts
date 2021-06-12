@@ -28,7 +28,7 @@ const baseURI = (base || window.location).href;
     });
   });
 
-  mocha.run(() => {
+  const mochaRunner = mocha.run(() => {
     // setTimeout to wait for logs to come in
     setTimeout(() => {
       const { testResults, hookErrors, passed } = collectTestResults(mocha);
@@ -41,4 +41,5 @@ const baseURI = (base || window.location).href;
       });
     });
   });
+  (window as any).__WTR_MOCHA_RUNNER__ = mochaRunner;
 })();

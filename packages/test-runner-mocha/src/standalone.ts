@@ -25,7 +25,8 @@ export async function runTests(testFn: () => unknown | Promise<unknown>) {
   }
 
   // run the tests, and notify the test runner after finishing
-  mocha.run(sessionFinished);
+  const mochaRunner = mocha.run(sessionFinished);
+  (window as any).__WTR_MOCHA_RUNNER__ = mochaRunner;
 }
 
 export function sessionFinished() {
