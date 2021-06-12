@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.7.3
+
+### Patch Changes
+
+- 773160f9: expose mocha runner
+
 ## 0.7.2
 
 ### Patch Changes

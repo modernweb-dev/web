@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.13.9
+
+### Patch Changes
+
+- 773160f9: expose mocha runner
+- Updated dependencies [773160f9]
+  - @web/test-runner-mocha@0.7.3
+
 ## 0.13.8
 
 ### Patch Changes

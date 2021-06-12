@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.13.8",
+  "version": "0.13.9",
   "publishConfig": {
     "access": "public"
   },
@@ -79,7 +79,7 @@
     "@web/test-runner-chrome": "^0.10.0",
     "@web/test-runner-commands": "^0.5.2",
     "@web/test-runner-core": "^0.10.17",
-    "@web/test-runner-mocha": "^0.7.2",
+    "@web/test-runner-mocha": "^0.7.3",
     "camelcase": "^6.2.0",
     "chalk": "^4.1.0",
     "command-line-args": "^5.1.1",
