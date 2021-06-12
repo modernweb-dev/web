@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.5.3
+
+### Patch Changes
+
+- 3af6ff86: improve snapshot formatting
+
 ## 0.5.2
 
 ### Patch Changes
