@@ -1,12 +1,16 @@
 # Test Runner >> Getting Started ||10
 
-Testing your code is very important to have the confidence to release often.
-Green tests should mean that the change is good to go 👍
+Code tests give you the confidence to release often.
+If all the tests pass, the change is likely good to go 👍
 
-## Writing my first test
+But... it is just as important to test that your test code fails if things are *not* right.
+That's why the initial failures (below) are expected:
+we write all the test scaffolding before writing the function that "does the work."
+
+## Writing the first test
 
 We plan to write a utility function `sum` which sums up 2 parameters.
-We start by defining on what we expect the code to do.
+We start by defining a "specification" that tells what we expect the code to do.
 
 ```js
 it('sums up 2 numbers', () => {
@@ -15,11 +19,12 @@ it('sums up 2 numbers', () => {
 });
 ```
 
-👆 We make sure 1 + 1 equals 2 and 3 + 12 equals 15
+👆 The code above calls `sum()` with the specified values, and tests that 1 + 1 equals 2 and 3 + 12 equals 15
 
-Now that we know what we want we need to place this file somewhere and run a tool to execute this code in the browser automatically.
+Now that we know what we want, we need to place this code somewhere and run a tool to execute this code automatically.
+*Note: we haven't actually created this test file yet. Keep reading...*
 
-## Setup tools
+## Setup the tools
 
 1. Install the necessary packages
 
@@ -36,24 +41,24 @@ Now that we know what we want we need to place this file somewhere and run a too
    }
    ```
 
-With that we can now execute
+3. Test it by running...
 
-```
-npm run test
-```
+   ```
+   npm run test
+   ```
 
-which results in the following output
+   which results in the following output
 
-```
-$ web-test-runner "test/**/*.test.js" --node-resolve
-Could not find any files with pattern(s): test/**/*.test.js
-```
+   ```
+   $ web-test-runner "test/**/*.test.js" --node-resolve
+   Could not find any files with pattern(s): test/**/*.test.js
+   ```
 
-fair enough - we didn't create a test file yet.
+   *=> There's an error. Fair enough - we didn't create a test file yet.*
 
-## Make it work
+## Making it work
 
-1. Take the spec/test from above and create a test file `test/sum.test.js`.
+1. Create a test file `test/sum.test.js`, add the specification from above and the necessary imports.
 
    ```js
    import { expect } from '@esm-bundle/chai';
@@ -65,9 +70,7 @@ fair enough - we didn't create a test file yet.
    });
    ```
 
-   We also added the necessary imports
-
-2. Run it
+2. Test it
 
    ```
    $ npm run test
@@ -83,15 +86,15 @@ fair enough - we didn't create a test file yet.
    Chrome: |██████████████████████████████| 1/1 test files | 0 passed, 0 failed
    ```
 
-   => this is what we expected
+   *=> Good! The "404 network requests" error is expected - we haven't created the `sum.js` file yet.*
 
-3. Create the src file `src/sum.js`
+3. Create the src file `src/sum.js` with an *empty* function body (so it will fail)
 
    ```js
    export function sum(a, b) {}
    ```
 
-   We will make sure to test if it fails correctly.
+   And then test it... 
 
    ```
    $ npm run test
@@ -106,9 +109,9 @@ fair enough - we didn't create a test file yet.
    Chrome: |██████████████████████████████| 1/1 test files | 0 passed, 1 failed
    ```
 
-   => fails correctly
+   *=> Good! It fails correctly, since the `sum()` function returns undefined*
 
-4. Fix it
+4. Fix it, and test again...
 
    ```js
    export function sum(a, b) {
@@ -124,7 +127,7 @@ fair enough - we didn't create a test file yet.
    Finished running tests in 0.9s, all tests passed! 🎉
    ```
 
-   Mission accomplished 💪
+   *=> Good! All tests passed! Mission accomplished 💪*
 
 ## Learn more
 
