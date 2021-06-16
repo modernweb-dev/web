@@ -89,7 +89,7 @@ Isolating a portion of a document within a shadow root allows designers to write
 
 ### Inherited Values
 
-Shadow roots prevent their internal styles from "leaking out" to affect the rest of the document, but they do not prevent document styles from "reaching in" to affect the internal styles of an encapsulated component. Specifically, [inheritted CSS properties](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance) are said to "pierce the shadow boundary" in that way.
+Shadow roots prevent their internal styles from "leaking out" to affect the rest of the document, but they do not prevent document styles from "reaching in" to affect the internal styles of an encapsulated component. Specifically, [inherited CSS properties](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance) are said to "pierce the shadow boundary" in that way.
 
 Some commonly-used inherited properties include:
 
