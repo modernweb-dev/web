@@ -25,19 +25,28 @@ export interface TestCoverage {
 }
 
 const locEquals = (a: Location, b: Location) => a.column === b.column && a.line === b.line;
-const locBefore = (a: Location, b: Location) => a.line < b.line || (a.line === b.line && a.column <= b.column)
+const locBefore = (a: Location, b: Location) =>
+  a.line < b.line || (a.line === b.line && a.column <= b.column);
 const rangeEquals = (a: Range, b: Range) => locEquals(a.start, b.start) && locEquals(a.end, b.end);
-const rangeEncompass = (a: Range, b: Range) => locBefore(a.start, b.start) && locBefore(b.end, a.end);
+const rangeEncompass = (a: Range, b: Range) =>
+  locBefore(a.start, b.start) && locBefore(b.end, a.end);
 
 function getRangeDistance(encompassing: Range, range: Range) {
-  const startDistanceLine = range.start.line - encompassing.start.line
-  const startDistanceColumn = startDistanceLine ? range.start.column - encompassing.start.column : 0
+  const startDistanceLine = range.start.line - encompassing.start.line;
+  const startDistanceColumn = startDistanceLine
+    ? range.start.column - encompassing.start.column
+    : 0;
 
-  const endDistanceLine = encompassing.end.line - range.end.line
-  const endDistanceColumn = endDistanceLine ? encompassing.end.column - range.end.column : 0
+  const endDistanceLine = encompassing.end.line - range.end.line;
+  const endDistanceColumn = endDistanceLine ? encompassing.end.column - range.end.column : 0;
 
   // Multiply each line by 100_000, as lines length are unknown but should never reach this size
-  return startDistanceLine * 100_000 + endDistanceLine * 100_000 + startDistanceColumn + endDistanceColumn
+  return (
+    startDistanceLine * 100_000 +
+    endDistanceLine * 100_000 +
+    startDistanceColumn +
+    endDistanceColumn
+  );
 }
 
 function findKey<T extends BranchMapping | FunctionMapping>(items: Record<string, T>, item: T) {
@@ -48,19 +57,26 @@ function findKey<T extends BranchMapping | FunctionMapping>(items: Record<string
   }
 }
 
-function findEncompassingKey<T extends BranchMapping | FunctionMapping>(items: Record<string, T>, item: T) {
+function findEncompassingKey<T extends BranchMapping | FunctionMapping>(
+  items: Record<string, T>,
+  item: T,
+) {
   // Get all encompassing branches
-  const encompassingEntries = Object.entries(items).filter(([, m]) => rangeEncompass(m.loc, item.loc))
+  const encompassingEntries = Object.entries(items).filter(([, m]) =>
+    rangeEncompass(m.loc, item.loc),
+  );
 
   if (!encompassingEntries.length) {
-    return null
+    return null;
   }
 
   // Sort the encompassing branches by distance to the searched branch
-  encompassingEntries.sort((a, b) => getRangeDistance(a[1].loc, item.loc) - getRangeDistance(b[1].loc, item.loc))
+  encompassingEntries.sort(
+    (a, b) => getRangeDistance(a[1].loc, item.loc) - getRangeDistance(b[1].loc, item.loc),
+  );
 
   // Return the key of the narrowest encompassing branch
-  return encompassingEntries[0][0]
+  return encompassingEntries[0][0];
 }
 
 function collectCoverageItems<T extends BranchMapping | FunctionMapping>(
