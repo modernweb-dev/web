@@ -66,17 +66,15 @@ function findEncompassingKey<T extends BranchMapping | FunctionMapping>(
     rangeEncompass(m.loc, item.loc),
   );
 
-  if (!encompassingEntries.length) {
-    return null;
+  if (encompassingEntries.length) {
+    // Sort the encompassing branches by distance to the searched branch
+    encompassingEntries.sort(
+      (a, b) => getRangeDistance(a[1].loc, item.loc) - getRangeDistance(b[1].loc, item.loc),
+    );
+
+    // Return the key of the narrowest encompassing branch
+    return encompassingEntries[0][0];
   }
-
-  // Sort the encompassing branches by distance to the searched branch
-  encompassingEntries.sort(
-    (a, b) => getRangeDistance(a[1].loc, item.loc) - getRangeDistance(b[1].loc, item.loc),
-  );
-
-  // Return the key of the narrowest encompassing branch
-  return encompassingEntries[0][0];
 }
 
 function collectCoverageItems<T extends BranchMapping | FunctionMapping>(
@@ -103,6 +101,7 @@ function patchCoverageItems<T extends BranchMapping | FunctionMapping, U extends
   itemsPerFile: Map<string, Record<string, T>>,
   itemMap: Record<string, T>,
   itemIndex: Record<string, U>,
+  findOriginalKey: (items: Record<string, T>, item: T) => string | undefined,
   defaultIndex: () => U,
 ) {
   const items = itemsPerFile.get(filePath)!;
@@ -112,7 +111,7 @@ function patchCoverageItems<T extends BranchMapping | FunctionMapping, U extends
   itemIndex = {};
 
   for (const [key, mapping] of Object.entries(items)) {
-    const originalKey = findEncompassingKey(originalItems, mapping);
+    const originalKey = findOriginalKey(originalItems, mapping);
     if (originalKey != null) {
       itemIndex[key] = originalIndex[originalKey];
     } else {
@@ -156,6 +155,7 @@ function addingMissingCoverageItems(coverages: CoverageMapData[]) {
         branchesPerFile,
         fileCoverage.branchMap,
         fileCoverage.b,
+        findEncompassingKey,
         () => [0],
       );
       fileCoverage.branchMap = patchedBranches.itemMap;
@@ -166,6 +166,7 @@ function addingMissingCoverageItems(coverages: CoverageMapData[]) {
         functionsPerFile,
         fileCoverage.fnMap,
         fileCoverage.f,
+        findKey,
         () => 0,
       );
       fileCoverage.fnMap = patchedFunctions.itemMap;
