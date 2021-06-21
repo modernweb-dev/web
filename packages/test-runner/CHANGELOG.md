@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.13.12
+
+### Patch Changes
+
+- 7cc5d13f: Fix coverage branch fusion
+- Updated dependencies [51de0db1]
+  - @web/test-runner-core@0.10.18
+
 ## 0.13.11
 
 ### Patch Changes

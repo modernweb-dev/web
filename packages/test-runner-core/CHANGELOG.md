@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.10.18
+
+### Patch Changes
+
+- 51de0db1: fix(test-runner): fix error when merging multiple test-suites falsely reporting covered branches as uncovered
+
 ## 0.10.17
 
 ### Patch Changes
