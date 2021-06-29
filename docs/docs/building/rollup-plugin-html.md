@@ -307,6 +307,8 @@ export interface InputHTMLOptions {
 export interface RollupPluginHTMLOptions {
   /** HTML file(s) to use as input. If not set, uses rollup input option. */
   input?: string | InputHTMLOptions | (string | InputHTMLOptions)[];
+  /** HTML file glob patterns or patterns to ignore */
+  exclude?: string | string[];
   /** Whether to minify the output HTML. */
   minify?: boolean;
   /** Whether to preserve or flatten the directory structure of the HTML file. */
