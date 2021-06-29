@@ -421,6 +421,22 @@ describe('rollup-plugin-html', () => {
     expect(pageC).to.include('<script type="module" src="./shared.js"></script>');
   });
 
+  it('can exclude globs', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: 'exclude/**/*.html',
+          exclude: '**/partial.html',
+          rootDir,
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+    expect(output.length).to.equal(2);
+  });
+
   it('creates unique inline script names', async () => {
     const config = {
       plugins: [

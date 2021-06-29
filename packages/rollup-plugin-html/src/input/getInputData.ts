@@ -9,8 +9,8 @@ import { normalizeInputOptions } from './normalizeInputOptions';
 import { extractModulesAndAssets } from './extract/extractModulesAndAssets';
 import { InputOption } from 'rollup';
 
-function resolveGlob(fromGlob: string, rootDir: string) {
-  const files = glob.sync(fromGlob, { cwd: rootDir, absolute: true });
+function resolveGlob(fromGlob: string, opts: glob.IOptions) {
+  const files = glob.sync(fromGlob, { ...opts, absolute: true });
   return (
     files
       // filter out directories
@@ -64,6 +64,7 @@ export function getInputData(
     flattenOutput,
     extractAssets = true,
     absolutePathPrefix,
+    exclude: ignore,
   } = pluginOptions;
   const allInputs = normalizeInputOptions(pluginOptions, rollupInput);
 
@@ -80,7 +81,7 @@ export function getInputData(
       });
       result.push(data);
     } else if (typeof input.path === 'string') {
-      const filePaths = resolveGlob(input.path, rootDir);
+      const filePaths = resolveGlob(input.path, { cwd: rootDir, ignore });
       if (filePaths.length === 0) {
         throw new Error(
           `Could not find any HTML files for pattern: ${input.path}, resolved relative to ${rootDir}`,
