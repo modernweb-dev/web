@@ -70,7 +70,7 @@ class SnapshotStore {
     // store in cache
     const content = (await fileExists(snapshotPath))
       ? await readFile(snapshotPath, 'utf-8')
-      : '// @web/test-runner snapshot v1\n\nexport const snapshots = {}\n\n';
+      : 'export const snapshotsVersion = 1;\nexport const snapshots = {};\n\n';
     this.snapshots.set(snapshotPath, content);
 
     // resolve read promise to let others who are waiting continue
