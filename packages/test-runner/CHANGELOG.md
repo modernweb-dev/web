@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.13.13
+
+### Patch Changes
+
+- b362288a: make snapshots work on all browsers
+- Updated dependencies [b362288a]
+  - @web/test-runner-commands@0.5.5
+
 ## 0.13.12
 
 ### Patch Changes
