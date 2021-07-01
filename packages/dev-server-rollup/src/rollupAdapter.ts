@@ -192,6 +192,12 @@ export function rollupAdapter(
           const filename = path.basename(
             resolvedImportPath.replace(/\0*/g, '').split('?')[0].split('#')[0],
           );
+          // if the resolve import path is outside our normal root, fully resolve the file path for rollup
+          const matches = resolvedImportPath.match(/\/__wds-outside-root__\/([0-9]+)\/(.*)/);
+          if (matches) {
+            const upDirs = new Array(parseInt(matches[1], 10) + 1).join(`..${path.sep}`);
+            resolvedImportPath = `\0${path.resolve(`${upDirs}${matches[2]}`)}`;
+          }
           const urlParam = encodeURIComponent(resolvedImportPath);
           return `${VIRTUAL_FILE_PREFIX}/${filename}?${NULL_BYTE_PARAM}=${urlParam}`;
         }
