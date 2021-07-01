@@ -28,6 +28,7 @@ import { createRollupPluginContexts, RollupPluginContexts } from './createRollup
 const NULL_BYTE_PARAM = 'web-dev-server-rollup-null-byte';
 const VIRTUAL_FILE_PREFIX = '/__web-dev-server__/rollup';
 const WDS_FILE_PREFIX = '/__web-dev-server__';
+const OUTSIDE_ROOT_REGEXP = /\/__wds-outside-root__\/([0-9]+)\/(.*)/;
 
 /**
  * Wraps rollup error in a custom error for web dev server.
@@ -193,7 +194,7 @@ export function rollupAdapter(
             resolvedImportPath.replace(/\0*/g, '').split('?')[0].split('#')[0],
           );
           // if the resolve import path is outside our normal root, fully resolve the file path for rollup
-          const matches = resolvedImportPath.match(/\/__wds-outside-root__\/([0-9]+)\/(.*)/);
+          const matches = resolvedImportPath.match(OUTSIDE_ROOT_REGEXP);
           if (matches) {
             const upDirs = new Array(parseInt(matches[1], 10) + 1).join(`..${path.sep}`);
             resolvedImportPath = `\0${path.resolve(`${upDirs}${matches[2]}`)}`;
