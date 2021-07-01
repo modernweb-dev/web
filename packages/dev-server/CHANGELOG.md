@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.1.18
+
+### Patch Changes
+
+- 6222d0b4: fix(dev-server): fixes #1536, correctly handle outside-root paths
+- Updated dependencies [6222d0b4]
+  - @web/dev-server-rollup@0.3.5
+
 ## 0.1.17
 
 ### Patch Changes
