@@ -52,3 +52,23 @@ export default {
 ## Reusing express middleware
 
 It's possible to reuse middleware written in express using an adapter such as [express-to-koa](https://www.npmjs.com/package/express-to-koa).
+
+## Enabling range requests
+
+You can add the capability to handle range request using [koa-range](https://github.com/koajs/koa-range). This is often needed to seek audio or video media.
+
+<details>
+  <summary>Read more</summary>
+
+Install with `npm install --save-dev koa-range`.
+  
+```javascript
+import range from 'koa-range';
+
+export default {
+...
+  middleware: [
+    range
+  ]
+};
+```
