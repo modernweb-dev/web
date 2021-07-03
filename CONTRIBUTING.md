@@ -29,6 +29,12 @@ yarn install
 
 This will download and install all packages needed.
 
+```sh
+yarn build
+```
+
+This will build all of the local packages.
+
 ## Making Your Changes
 
 First, update your fork with the latest code from upstream, then create a new branch for your work.

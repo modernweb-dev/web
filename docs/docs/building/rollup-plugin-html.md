@@ -125,6 +125,25 @@ export default {
 };
 ```
 
+To turn add tags and attributes to the bundled assets, set the `extractAssets` option to a list of `tagName` and `attribute` objects:
+
+```js
+import html from '@web/rollup-plugin-html';
+
+export default {
+  input: 'index.html',
+  output: { dir: 'dist' },
+  plugins: [
+    html({
+      extractAssets: [
+        {tagName: 'my-first-el', attribute: 'my-src'},
+        {tagName: 'my-second-el', attribute: 'my-src'},
+      ]
+    }),
+  ],
+};
+```
+
 ### Handling absolute paths
 
 If your HTML file contains any absolute paths they will be resolved against the current working directory. You can set a different root directory in the config. Input paths will be resolved relative to this root directory as well.

@@ -3,6 +3,7 @@ import path from 'path';
 import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
 import { createError } from '../utils';
 import { serialize } from 'v8';
+import { TagAndAttribute } from '../RollupPluginHTMLOptions';
 
 const hashedLinkRels = ['stylesheet'];
 const linkRels = [...hashedLinkRels, 'icon', 'manifest', 'apple-touch-icon', 'mask-icon'];
@@ -27,7 +28,7 @@ function extractFirstUrlOfSrcSet(node: Node) {
   return urls[0];
 }
 
-function isAsset(node: Node) {
+function isAsset(node: Node, extractAssets?: boolean | TagAndAttribute[]) {
   let path = '';
   switch (getTagName(node)) {
     case 'img':
@@ -52,7 +53,10 @@ function isAsset(node: Node) {
       }
       break;
     default:
-      return false;
+      if (Array.isArray(extractAssets)) {
+        const attr = extractAssets.find(({ tagName }) => tagName === getTagName(node))?.attribute;
+        path = attr ? getAttribute(node, attr) ?? '' : '';
+      }
   }
   if (!path) {
     return false;
@@ -65,7 +69,7 @@ function isAsset(node: Node) {
   }
 }
 
-export function isHashedAsset(node: Node) {
+export function isHashedAsset(node: Node, extractAssets?: boolean | TagAndAttribute[]) {
   switch (getTagName(node)) {
     case 'img':
       return true;
@@ -78,6 +82,9 @@ export function isHashedAsset(node: Node) {
     case 'meta':
       return true;
     default:
+      if (Array.isArray(extractAssets)) {
+        return Boolean(extractAssets.find(({ tagName }) => tagName === getTagName(node)));
+      }
       return false;
   }
 }
@@ -98,7 +105,7 @@ export function resolveAssetFilePath(
   );
 }
 
-export function getSourceAttribute(node: Node) {
+export function getSourceAttribute(node: Node, extractAssets?: boolean | TagAndAttribute[]) {
   switch (getTagName(node)) {
     case 'img': {
       return 'src';
@@ -116,12 +123,18 @@ export function getSourceAttribute(node: Node) {
       return 'content';
     }
     default:
+      if (Array.isArray(extractAssets)) {
+        const attr = extractAssets.find(({ tagName }) => tagName === getTagName(node))?.attribute;
+        if (attr) {
+          return attr;
+        }
+      }
       throw new Error(`Unknown node with tagname ${getTagName(node)}`);
   }
 }
 
-export function getSourcePaths(node: Node) {
-  const key = getSourceAttribute(node);
+export function getSourcePaths(node: Node, extractAssets?: boolean | TagAndAttribute[]) {
+  const key = getSourceAttribute(node, extractAssets);
 
   const src = getAttribute(node, key);
   if (typeof key !== 'string' || src === '') {
@@ -136,6 +149,9 @@ export function getSourcePaths(node: Node) {
   return paths;
 }
 
-export function findAssets(document: Document) {
-  return findElements(document, isAsset);
+export function findAssets(document: Document, extractAssets?: boolean | TagAndAttribute[]) {
+  function isAssetInjected(node: Node) {
+    return isAsset(node, extractAssets);
+  }
+  return findElements(document, isAssetInjected);
 }

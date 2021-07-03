@@ -3,7 +3,7 @@ import path from 'path';
 import glob from 'glob';
 
 import { createError } from '../utils';
-import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions';
+import { RollupPluginHTMLOptions, TagAndAttribute } from '../RollupPluginHTMLOptions';
 import { InputData } from './InputData';
 import { normalizeInputOptions } from './normalizeInputOptions';
 import { extractModulesAndAssets } from './extract/extractModulesAndAssets';
@@ -30,7 +30,7 @@ export interface CreateInputDataParams {
   html: string;
   rootDir: string;
   filePath?: string;
-  extractAssets: boolean;
+  extractAssets: boolean | TagAndAttribute[];
   absolutePathPrefix?: string;
 }
 
