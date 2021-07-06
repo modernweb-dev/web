@@ -13,7 +13,7 @@ export interface InputHTMLOptions {
 export interface TagAndAttribute {
   /** The html element tag name */
   tagName: string;
-  /** The html attributes */
+  /** The html attribute */
   attribute: string;
 }
 

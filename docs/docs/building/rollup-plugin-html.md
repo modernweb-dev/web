@@ -125,7 +125,7 @@ export default {
 };
 ```
 
-To turn add tags and attributes to the bundled assets, set the `extractAssets` option to a list of `tagName` and `attribute` objects:
+To add tags and attributes to the bundled assets, set the `extractAssets` option to an array of `tagName` and `attribute` objects:
 
 ```js
 import html from '@web/rollup-plugin-html';
