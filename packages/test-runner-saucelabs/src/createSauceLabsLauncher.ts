@@ -2,6 +2,7 @@ import { BrowserLauncher } from '@web/test-runner-core';
 import { SauceLabsOptions, SauceConnectOptions } from 'saucelabs';
 import WebDriver from 'webdriver';
 import { RemoteOptions } from 'webdriverio';
+import { Options } from '@wdio/types';
 import { v4 as uuid } from 'uuid';
 
 import { SauceLabsLauncher } from './SauceLabsLauncher';
@@ -82,7 +83,7 @@ export function createSauceLabsLauncher(
     const options: RemoteOptions = {
       user: finalSauceLabsOptions.user,
       key: finalSauceLabsOptions.key,
-      region: finalSauceLabsOptions.region,
+      region: finalSauceLabsOptions.region as Options.SauceRegions,
       logLevel: 'error',
       capabilities: {
         ...finalCapabilities,
