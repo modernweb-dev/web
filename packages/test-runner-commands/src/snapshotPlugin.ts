@@ -70,7 +70,7 @@ class SnapshotStore {
     // store in cache
     const content = (await fileExists(snapshotPath))
       ? await readFile(snapshotPath, 'utf-8')
-      : 'export const snapshotsVersion = 1;\nexport const snapshots = {};\n\n';
+      : '/* @web/test-runner snapshot v1 */\nexport const snapshots = {};\n\n';
     this.snapshots.set(snapshotPath, content);
 
     // resolve read promise to let others who are waiting continue
@@ -83,7 +83,7 @@ class SnapshotStore {
     const snapshotPath = getSnapshotPath(testFilePath);
     const nameStr = JSON.stringify(name);
     const startMarker = `snapshots[${nameStr}]`;
-    const endMarker = `// end snapshot ${name}\n\n`;
+    const endMarker = `/* end snapshot ${name} */\n\n`;
     const replacement = updatedSnapshot
       ? `${startMarker} = \n\`${updatedSnapshot}\`;\n${endMarker}`
       : '';
@@ -109,7 +109,7 @@ class SnapshotStore {
     }
 
     this.snapshots.set(snapshotPath, updatedContent);
-    if (updatedContent.includes('// end snapshot')) {
+    if (updatedContent.includes('/* end snapshot')) {
       // update or create snapshot
       const fileDir = path.dirname(snapshotPath);
       await mkdirp(fileDir);
