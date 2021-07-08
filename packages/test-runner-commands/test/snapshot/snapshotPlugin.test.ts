@@ -1,6 +1,6 @@
 import path from 'path';
 import { runTests } from '@web/test-runner-core/test-helpers';
-import { chromeLauncher } from '@web/test-runner-chrome';
+import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { snapshotPlugin } from '../../src/snapshotPlugin';
 
@@ -10,13 +10,21 @@ describe.only('snapshotPlugin', function test() {
   it('passes snapshot tests', async () => {
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],
-      browsers: [chromeLauncher()],
+      browsers: [
+        playwrightLauncher({ product: 'firefox' }),
+        playwrightLauncher({ product: 'chromium' }),
+        playwrightLauncher({ product: 'webkit' }),
+      ],
       plugins: [snapshotPlugin()],
     });
 
     await runTests({
       files: [path.join(__dirname, 'src', 'nested-test.js')],
-      browsers: [chromeLauncher()],
+      browsers: [
+        playwrightLauncher({ product: 'firefox' }),
+        playwrightLauncher({ product: 'chromium' }),
+        playwrightLauncher({ product: 'webkit' }),
+      ],
       plugins: [snapshotPlugin()],
     });
   });
