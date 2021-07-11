@@ -136,7 +136,7 @@ export class TestRunnerCli {
           if (this.activeMenu === MENUS.OVERVIEW && this.config.coverage) {
             openBrowser(
               `file://${path.resolve(
-                this.config.coverageConfig!.reportDir,
+                this.config.coverageConfig!.reportDir ?? '',
                 'lcov-report',
                 'index.html',
               )}`,
