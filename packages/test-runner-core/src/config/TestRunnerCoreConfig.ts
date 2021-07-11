@@ -18,8 +18,8 @@ export interface CoverageConfig {
   exclude?: string[];
   nativeInstrumentation?: boolean;
   threshold?: CoverageThresholdConfig;
-  report: boolean;
-  reportDir: string;
+  report?: boolean;
+  reportDir?: string;
   reporters?: ReportType[];
 }
 
