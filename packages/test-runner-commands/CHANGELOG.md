@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.5.6
+
+### Patch Changes
+
+- cb693c71: Use block comments in snapshots to make them work in all browsers
+
 ## 0.5.5
 
 ### Patch Changes

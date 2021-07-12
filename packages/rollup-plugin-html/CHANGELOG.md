@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 1.9.0
+
+### Minor Changes
+
+- 075afcf9: Add `exclude` option. Used e.g. to ignore html file assets when bundling.
+
 ## 1.8.0
 
 ### Minor Changes

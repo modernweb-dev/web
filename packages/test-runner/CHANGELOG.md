@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.13.14
+
+### Patch Changes
+
+- cb693c71: Use block comments in snapshots to make them work in all browsers
+- Updated dependencies [cb693c71]
+  - @web/test-runner-commands@0.5.6
+
 ## 0.13.13
 
 ### Patch Changes
