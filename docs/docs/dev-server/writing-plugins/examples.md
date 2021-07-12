@@ -204,7 +204,7 @@ export default {
 
 </details>
 
-If you're using `lit-element`, you can use [rollup-plugin-lit-css](https://www.npmjs.com/package/rollup-plugin-lit-css) to import CSS files as js modules.
+You can use [rollup-plugin-lit-css](https://www.npmjs.com/package/rollup-plugin-lit-css) to import CSS files as JavaScript modules exporting tagged template literals.
 
 <details>
 <summary>View example</summary>
