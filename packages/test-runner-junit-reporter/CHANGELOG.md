@@ -1,5 +1,13 @@
 # @web/test-runner-junit-reporter
 
+## 0.4.5
+
+### Patch Changes
+
+- 73681b6d: Allow user config to be partial
+- Updated dependencies [73681b6d]
+  - @web/test-runner-core@0.10.19
+
 ## 0.4.4
 
 ### Patch Changes
