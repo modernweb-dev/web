@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.8.7-next.0
+
+### Patch Changes
+
+- Updated dependencies [73681b6d]
+  - @web/test-runner-core@0.10.19-next.0
+  - @web/test-runner-coverage-v8@0.4.7-next.0
+
 ## 0.8.6
 
 ### Patch Changes

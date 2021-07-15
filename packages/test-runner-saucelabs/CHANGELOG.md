@@ -1,5 +1,11 @@
 # @web/test-runner-saucelabs
 
+## 0.6.1-next.0
+
+### Patch Changes
+
+- @web/test-runner-webdriver@0.4.1-next.0
+
 ## 0.6.0
 
 ### Minor Changes

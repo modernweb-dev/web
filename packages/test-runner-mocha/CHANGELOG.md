@@ -1,5 +1,12 @@
 # @web/test-runner-mocha
 
+## 0.7.4-next.0
+
+### Patch Changes
+
+- Updated dependencies [73681b6d]
+  - @web/test-runner-core@0.10.19-next.0
+
 ## 0.7.3
 
 ### Patch Changes

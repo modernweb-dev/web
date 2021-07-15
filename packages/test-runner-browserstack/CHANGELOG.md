@@ -1,5 +1,11 @@
 # @web/test-runner-browserstack
 
+## 0.4.3-next.0
+
+### Patch Changes
+
+- @web/test-runner-selenium@0.5.2-next.0
+
 ## 0.4.2
 
 ### Patch Changes

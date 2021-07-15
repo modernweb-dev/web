@@ -1,5 +1,16 @@
 # @web/test-runner
 
+## 0.13.15-next.0
+
+### Patch Changes
+
+- 73681b6d: Allow user config to be partial
+- Updated dependencies [73681b6d]
+  - @web/test-runner-core@0.10.19-next.0
+  - @web/test-runner-chrome@0.10.1-next.0
+  - @web/test-runner-commands@0.5.7-next.0
+  - @web/test-runner-mocha@0.7.4-next.0
+
 ## 0.13.14
 
 ### Patch Changes

@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@web/dev-server-legacy": "^0.1.7",
-    "@web/test-runner-core": "^0.10.18"
+    "@web/test-runner-core": "^0.10.19-next.0"
   },
   "devDependencies": {
     "@esm-bundle/chai": "^4.1.5"

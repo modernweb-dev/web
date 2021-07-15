@@ -1,5 +1,12 @@
 # @web/test-runner-webdriver
 
+## 0.4.1-next.0
+
+### Patch Changes
+
+- Updated dependencies [73681b6d]
+  - @web/test-runner-core@0.10.19-next.0
+
 ## 0.4.0
 
 ### Minor Changes

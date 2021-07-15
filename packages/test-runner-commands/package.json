@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-commands",
-  "version": "0.5.6",
+  "version": "0.5.7-next.0",
   "publishConfig": {
     "access": "public"
   },
@@ -45,12 +45,12 @@
     "commands"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.10.14",
+    "@web/test-runner-core": "^0.10.19-next.0",
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
-    "@web/test-runner-chrome": "^0.10.0",
-    "@web/test-runner-playwright": "^0.8.5",
+    "@web/test-runner-chrome": "^0.10.1-next.0",
+    "@web/test-runner-playwright": "^0.8.7-next.0",
     "mocha": "^8.2.1"
   }
 }

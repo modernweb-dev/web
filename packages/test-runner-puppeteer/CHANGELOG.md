@@ -1,5 +1,13 @@
 # @web/test-runner-puppeteer
 
+## 0.10.1-next.0
+
+### Patch Changes
+
+- Updated dependencies [73681b6d]
+  - @web/test-runner-core@0.10.19-next.0
+  - @web/test-runner-chrome@0.10.1-next.0
+
 ## 0.10.0
 
 ### Minor Changes
