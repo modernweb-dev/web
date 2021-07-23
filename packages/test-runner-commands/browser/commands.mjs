@@ -97,7 +97,8 @@ export function findAccessibilityNode(node, test) {
 }
 
 let snapshotConfig;
-let snapshots;
+let cachedSnapshots;
+
 export async function getSnapshotConfig() {
   if (!snapshotConfig) {
     snapshotConfig = await executeServerCommand(
@@ -110,9 +111,27 @@ export async function getSnapshotConfig() {
   return snapshotConfig;
 }
 
-export async function getSnapshots() {
-  if (snapshots) {
-    return snapshots;
+/**
+ * This regexp is used to capture the snapshots contents.
+ *
+ * snapshots\[[^\]]+] = (\n)? - snapshot definition. Sometimes the initial content backtick is placed in the next line
+ * (?<content>`[^`]+`) - capture the snapshot content, which is included between backticks "`"
+ * /gm - global and multiline
+ * @type {RegExp}
+ */
+const ESCAPE_REGEX = /snapshots\[[^\]]+] = (\n)?(?<content>`[^`]*`)/gm;
+
+const escapeContent = content => {
+  [...content.matchAll(ESCAPE_REGEX)].forEach(({ groups: { content: itemContent } }) => {
+    content = content.replaceAll(itemContent, itemContent.replaceAll(/\n/g, '\\n'));
+  });
+
+  return content;
+};
+
+export async function getSnapshots({ cache = true } = {}) {
+  if (cache && cachedSnapshots) {
+    return cachedSnapshots;
   }
 
   const result = await executeServerCommand(
@@ -124,18 +143,25 @@ export async function getSnapshots() {
   if (typeof result?.content !== 'string') {
     throw new Error('Expected a result as string');
   }
-  const module = await import(`data:text/javascript;charset=utf-8,${result.content}`);
+
+  const content = `${escapeContent(result.content)}/* ${Math.random()} */`;
+  const module = await import(`data:text/javascript;charset=utf-8,${content}`);
+
   if (!module || !isObject(module.snapshots)) {
     throw new Error('Expected snapshot result to be a module that exports an object.');
   }
-  snapshots = module.snapshots;
-  return snapshots;
+
+  cachedSnapshots = module.snapshots;
+
+  return cachedSnapshots;
 }
 
 export async function getSnapshot(options) {
   if (!isObject(options)) throw new Error('You must provide a payload object');
   if (typeof options.name !== 'string') throw new Error('You must provide a snapshot name');
-  const snapshots = await getSnapshots();
+
+  const snapshots = await getSnapshots(options);
+
   return snapshots[options.name];
 }
 
@@ -146,7 +172,7 @@ export async function saveSnapshot(options) {
     throw new Error('You must provide a snapshot content');
 
   // ensure snapshots for this file are loaded
-  await getSnapshots();
+  const snapshots = await getSnapshots();
 
   // store snapshot in-memory
   snapshots[options.name] = options.content;
