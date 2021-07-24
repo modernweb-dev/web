@@ -53,7 +53,7 @@ async function doFetchSourceMap(
 
     return fromJSON(sourceMap);
   } catch (error) {
-    console.error(`Error retreiving source map for ${browserUrl}`);
+    console.error(`Error retrieving source map for ${browserUrl}`);
     console.error(error);
   }
 }
