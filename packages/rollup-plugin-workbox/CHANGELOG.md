@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 6.1.2
+
+### Patch Changes
+
+- 9c97ea53: update dependency @rollup/plugin-node-resolve to v13
+
 ## 6.1.1
 
 ### Patch Changes
