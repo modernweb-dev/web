@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.5.7
+
+### Patch Changes
+
+- 09af51ac: Escape the snapshot contents to avoid problems in Firrefox and Webkit
+
 ## 0.5.6
 
 ### Patch Changes
