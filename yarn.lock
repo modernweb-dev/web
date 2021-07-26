@@ -10594,10 +10594,10 @@ safe-identifier@^0.4.2:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-saucelabs@^4.6.2:
-  version "4.7.8"
-  resolved "https://registry.yarnpkg.com/saucelabs/-/saucelabs-4.7.8.tgz#099a7ddacee297b34420acd5ddc155eb1ad0efde"
-  integrity sha512-K2qaRUixc7+8JiAwpTvEsIQVzzUkYwa0mAfs0akGagRlWXUR1JrsmgJRyz28qkwpERW1KDuByn3Ju96BuW1V7Q==
+saucelabs@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/saucelabs/-/saucelabs-5.1.0.tgz#060749c9b09cb6db147d36559f5579747d4ce5ca"
+  integrity sha512-1X1hFqThuG0oiWLdUwboNTSw4y2mnUNH1v66501tYdJEtbPrdJVPWVCWywtxETaE8x1CKgafm/MT9hrZUrfTrA==
   dependencies:
     bin-wrapper "^4.1.0"
     change-case "^4.1.1"
