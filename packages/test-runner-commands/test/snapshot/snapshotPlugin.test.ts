@@ -4,7 +4,7 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { snapshotPlugin } from '../../src/snapshotPlugin';
 
-describe.only('snapshotPlugin', function test() {
+describe('snapshotPlugin', function test() {
   this.timeout(20000);
 
   it('passes snapshot tests', async () => {
