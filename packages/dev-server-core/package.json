@@ -61,7 +61,7 @@
     "@web/parse5-utils": "^1.2.0",
     "chokidar": "^3.4.3",
     "clone": "^2.1.2",
-    "es-module-lexer": "^0.4.0",
+    "es-module-lexer": "^0.7.1",
     "get-stream": "^6.0.0",
     "is-stream": "^2.0.0",
     "isbinaryfile": "^4.0.6",
