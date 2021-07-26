@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 6.1.3
+
+### Patch Changes
+
+- 687d4750: Downgrade @rollup/plugin-node-resolve to v11
+
 ## 6.1.2
 
 ### Patch Changes
