@@ -49,6 +49,15 @@ function loadComponent() {
 }
 ```
 
+A dynamic import is asynchronous and so the above function will not return the component itself but rather a promise to load the component. You can only use the component once the promise resolves.
+
+For example, using `async`/`await` syntax:
+
+```js
+const component = await loadComponent();
+component.doSomething();
+```
+
 ## File extensions
 
 You will often see es modules using the `.mjs` file extension. For node js the `.mjs` file extension is an indication to execute the file as an es module. Node js will treat a file as an es module if it has a `.mjs` file extension, or if it has `.js` file extension and the `package.json` has `type="module"` set.
