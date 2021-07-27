@@ -1,5 +1,12 @@
 # @web/test-runner
 
+## 0.13.16-next.0
+
+### Patch Changes
+
+- Updated dependencies [ff145621]
+  - @web/dev-server@0.1.20-next.0
+
 ## 0.13.15
 
 ### Patch Changes

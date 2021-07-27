@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.1.20-next.0
+
+### Patch Changes
+
+- ff145621: Use latest upstream dependencies
+
 ## 0.1.19
 
 ### Patch Changes

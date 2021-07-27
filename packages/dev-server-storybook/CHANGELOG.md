@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.3.7-next.0
+
+### Patch Changes
+
+- ff145621: Use latest upstream dependencies
+
 ## 0.3.6
 
 ### Patch Changes
