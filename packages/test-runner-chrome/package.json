@@ -47,7 +47,7 @@
   "dependencies": {
     "@web/test-runner-core": "^0.10.8",
     "@web/test-runner-coverage-v8": "^0.4.5",
-    "chrome-launcher": "^0.13.4",
+    "chrome-launcher": "^0.14.0",
     "puppeteer-core": "^9.1.0"
   },
   "devDependencies": {
