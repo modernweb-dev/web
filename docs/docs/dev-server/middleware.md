@@ -32,7 +32,7 @@ You can add the capability to handle range request using [koa-range](https://git
   <summary>Read more</summary>
 
 Install with `npm install --save-dev koa-range`.
-  
+
 ```javascript
 import range from 'koa-range';
 
