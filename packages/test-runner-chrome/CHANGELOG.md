@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.10.1
+
+### Patch Changes
+
+- 06e612d5: Bump chrome-launcher to 0.14.0
+
 ## 0.10.0
 
 ### Minor Changes
