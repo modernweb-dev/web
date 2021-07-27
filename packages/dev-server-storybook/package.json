@@ -63,7 +63,7 @@
     "@web/dev-server-core": "^0.3.0",
     "@web/rollup-plugin-html": "^1.3.2",
     "@web/rollup-plugin-polyfills-loader": "^1.0.3",
-    "@web/storybook-prebuilt": "^0.1.21-alpha.0",
+    "@web/storybook-prebuilt": "^0.1.22",
     "babel-plugin-bundled-import-meta": "^0.3.2",
     "babel-plugin-template-html-minifier": "^4.1.0",
     "globby": "^11.0.1",
@@ -72,7 +72,7 @@
     "path-is-inside": "^1.0.2",
     "rollup": "^2.35.1",
     "rollup-plugin-terser": "^7.0.2",
-    "storybook-addon-markdown-docs": "^1.0.1"
+    "storybook-addon-markdown-docs": "^1.0.2-next.0"
   },
   "devDependencies": {
     "@types/path-is-inside": "^1.0.0",
