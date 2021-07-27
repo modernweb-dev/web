@@ -17,7 +17,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - uses: microsoft/playwright-github-action@v1
+      - name: Install Playwright dependencies
+        run: npx playwright install-deps
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
