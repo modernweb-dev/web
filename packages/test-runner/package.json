@@ -1,6 +1,10 @@
 {
   "name": "@web/test-runner",
+<<<<<<< HEAD
   "version": "0.13.16",
+=======
+  "version": "0.13.16-next.0",
+>>>>>>> Version Packages (next)
   "publishConfig": {
     "access": "public"
   },
