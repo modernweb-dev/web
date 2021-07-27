@@ -24,6 +24,28 @@ export default {
 
 </details>
 
+## Enabling range requests
+
+You can add the capability to handle range request using [koa-range](https://github.com/koajs/koa-range). This is often needed to seek audio or video media.
+
+<details>
+  <summary>Read more</summary>
+
+Install with `npm install --save-dev koa-range`.
+
+```javascript
+import range from 'koa-range';
+
+export default {
+...
+  middleware: [
+    range
+  ]
+};
+```
+
+</details>  
+  
 ## Rewriting request urls
 
 You can rewrite certain file requests using a middleware. This can be useful for example to serve your `index.html` from a different file location or to alias a module.
