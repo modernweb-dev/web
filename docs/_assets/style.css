@@ -8,6 +8,7 @@ html {
   --contrast-color-light: #fff;
   --contrast-color-dark: #1d3557;
   --primary-text-color: #2c3e50;
+  --text-color: var(--primary-text-color);
   --primary-lines-color: #ccc;
 }
 
@@ -65,6 +66,7 @@ footer {
     --footer-background: rgba(255, 255, 255, 0.1);
     --page-background: #212121;
     --primary-text-color: #eee;
+    --text-color: var(--primary-text-color);
     --primary-color: #3f93ce;
     --primary-color-lighter: #449ad7;
     --primary-color-darker: #1a5285;
