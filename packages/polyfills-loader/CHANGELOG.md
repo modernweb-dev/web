@@ -1,5 +1,13 @@
 # @web/polyfills-loader
 
+## 1.1.2
+
+### Patch Changes
+
+- ca749b0e: Update dependency @types/parse5 to v6
+- Updated dependencies [ca749b0e]
+  - @web/parse5-utils@1.3.0
+
 ## 1.1.1
 
 ### Patch Changes

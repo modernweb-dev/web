@@ -1,5 +1,11 @@
 # @web/parse5-utils
 
+## 1.3.0
+
+### Minor Changes
+
+- ca749b0e: Update dependency @types/parse5 to v6
+
 ## 1.2.2
 
 ### Patch Changes
