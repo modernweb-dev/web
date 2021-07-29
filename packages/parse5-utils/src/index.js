@@ -154,7 +154,7 @@ function setTextContent(node, value) {
       attrs: [],
       __location: undefined,
     };
-    /** @type {Element} */ (node).childNodes = [/** @type {TextNode} */ (textNode)];
+    /** @type {ParentNode} */ (node).childNodes = [/** @type {TextNode} */ (textNode)];
   }
 }
 
@@ -208,7 +208,7 @@ function findNodes(nodes, test) {
   const found = [];
 
   while (n.length) {
-    const node = /** @type {Node} */ (n.shift());
+    const node = n.shift();
     if (!node) {
       continue;
     }
@@ -230,9 +230,7 @@ function findNodes(nodes, test) {
  * @returns {Element | null}
  */
 function findElement(nodes, test) {
-  return /** @type {Element | null} */ (
-    findNode(nodes, n => adapter.isElementNode(n) && test(/** @type {Element} */ (n)))
-  );
+  return /** @type {Element | null} */ (findNode(nodes, n => adapter.isElementNode(n) && test(n)));
 }
 
 /**
@@ -242,9 +240,7 @@ function findElement(nodes, test) {
  * @returns {Element[]}
  */
 function findElements(nodes, test) {
-  return /** @type {Element[]} */ (
-    findNodes(nodes, n => adapter.isElementNode(n) && test(/** @type {Element} */ (n)))
-  );
+  return /** @type {Element[]} */ (findNodes(nodes, n => adapter.isElementNode(n) && test(n)));
 }
 
 /**
@@ -252,8 +248,8 @@ function findElements(nodes, test) {
  * @param {ChildNode} node
  */
 function prepend(parent, node) {
-  /** @type {any} */ (parent).childNodes.unshift(node);
-  /** @type {any} */ (node).parentNode = parent;
+  parent.childNodes.unshift(node);
+  node.parentNode = parent;
 }
 
 /**
@@ -275,7 +271,7 @@ function prependToDocument(document, appendedHtml) {
       if (!head) throw new Error('parse5 did not generated a head element');
       const fragment = parse5.parseFragment(appendedHtml);
       for (const node of adapter.getChildNodes(fragment).reverse()) {
-        prepend(head, /** @type {ChildNode} */ (node));
+        prepend(head, node);
       }
       return parse5.serialize(documentAst);
     }
