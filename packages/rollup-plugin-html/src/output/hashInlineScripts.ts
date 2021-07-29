@@ -1,4 +1,4 @@
-import { Node, Document, DefaultTreeElement } from 'parse5';
+import { Node, Document, Element, ParentNode } from 'parse5';
 import {
   findElement,
   findElements,
@@ -105,7 +105,7 @@ function serializeMetaCSPContent(data: { [key: string]: string[] }): string {
   }, '');
 }
 
-function injectCSPScriptRules(metaCSPEl: DefaultTreeElement, hashes: string[]) {
+function injectCSPScriptRules(metaCSPEl: Element, hashes: string[]) {
   const content = getAttribute(metaCSPEl, 'content');
   if (content) {
     const data = parseMetaCSPContent(content);
@@ -128,7 +128,7 @@ function injectCSPMetaTag(document: Document, hashes: string[]) {
   });
   const head = findNode(document, node => node.nodeName === 'head');
   if (head) {
-    prepend(head, metaTag);
+    prepend(head as ParentNode, metaTag);
   }
 }
 
