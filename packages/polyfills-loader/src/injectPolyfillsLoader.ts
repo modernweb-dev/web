@@ -1,4 +1,4 @@
-import { Document, parse, serialize } from 'parse5';
+import { Node, parse, serialize } from 'parse5';
 import {
   findElements,
   getAttribute,
@@ -15,12 +15,12 @@ import { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile } from './types';
 import { createPolyfillsLoader } from './createPolyfillsLoader';
 import { hasFileOfType, fileTypes } from './utils';
 
-function injectImportMapPolyfill(headAst: Document, originalScript: Node, type: string) {
+function injectImportMapPolyfill(headAst: Node, originalScript: Node, type: string) {
   const systemJsScript = createScript({ type }, getTextContent(originalScript));
   insertBefore(headAst, systemJsScript, originalScript);
 }
 
-function findImportMapScripts(document: Document) {
+function findImportMapScripts(document: Node) {
   const scripts = findElements(document, script => getAttribute(script, 'type') === 'importmap');
 
   const inline: Node[] = [];
@@ -36,11 +36,7 @@ function findImportMapScripts(document: Document) {
   return { inline, external };
 }
 
-function injectImportMapPolyfills(
-  documentAst: Document,
-  headAst: Node,
-  cfg: PolyfillsLoaderConfig,
-) {
+function injectImportMapPolyfills(documentAst: Node, headAst: Node, cfg: PolyfillsLoaderConfig) {
   const importMapScripts = findImportMapScripts(documentAst);
   if (importMapScripts.external.length === 0 && importMapScripts.inline.length === 0) {
     return;
@@ -56,12 +52,12 @@ function injectImportMapPolyfills(
   });
 }
 
-function injectLoaderScript(bodyAst: Document, polyfillsLoader: PolyfillsLoader) {
+function injectLoaderScript(bodyAst: Node, polyfillsLoader: PolyfillsLoader) {
   const loaderScript = createScript({}, polyfillsLoader.code);
   appendChild(bodyAst, loaderScript);
 }
 
-function injectPrefetchLinks(headAst: Document, cfg: PolyfillsLoaderConfig) {
+function injectPrefetchLinks(headAst: Node, cfg: PolyfillsLoaderConfig) {
   for (const file of cfg.modern!.files) {
     const { path } = file;
     const href = path.startsWith('.') || path.startsWith('/') ? path : `./${path}`;
