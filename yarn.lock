@@ -1856,10 +1856,10 @@
   resolved "https://registry.yarnpkg.com/@types/clone/-/clone-2.1.1.tgz#9b880d0ce9b1f209b5e0bd6d9caa38209db34024"
   integrity sha512-BZIU34bSYye0j/BFcPraiDZ5ka6MJADjcDVELGf7glr9K+iE8NYVjFslJFVWzskSxkLLyCrSPScE82/UUoBSvg==
 
-"@types/co-body@^5.1.0":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@types/co-body/-/co-body-5.1.1.tgz#82fdd9832e6b535aeff85b73af5cc62480b01bc3"
-  integrity sha512-0/6AjTfQc5OJUchOS4OHiXNPZVuk+5XvEC2vdcizw/bwx0yb0xY7TKSf8JYvQYZ/OJDiAEjWzxnMjGPnSVlPmA==
+"@types/co-body@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@types/co-body/-/co-body-6.1.0.tgz#b52625390eb0d113c9b697ea92c3ffae7740cdb9"
+  integrity sha512-3e0q2jyDAnx/DSZi0z2H0yoZ2wt5yRDZ+P7ymcMObvq0ufWRT4tsajyO+Q1VwVWiv9PRR4W3YEjEzBjeZlhF+w==
   dependencies:
     "@types/node" "*"
     "@types/qs" "*"
