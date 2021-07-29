@@ -51,7 +51,7 @@
   ],
   "dependencies": {
     "@babel/code-frame": "^7.12.11",
-    "@types/co-body": "^5.1.0",
+    "@types/co-body": "^6.1.0",
     "@types/convert-source-map": "^1.5.1",
     "@types/debounce": "^1.2.0",
     "@types/istanbul-lib-coverage": "^2.0.3",
