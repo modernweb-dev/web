@@ -1,7 +1,7 @@
-import { Node, Document } from 'parse5';
+import { Document, Element } from 'parse5';
 import { findElements, getTagName, getAttribute, setAttribute } from '@web/parse5-utils';
 
-function isAbsoluteableNode(node: Node) {
+function isAbsoluteableNode(node: Element) {
   const metaAttributes = ['og:url', 'og:image'];
   switch (getTagName(node)) {
     case 'link':

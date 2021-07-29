@@ -1,4 +1,4 @@
-import { Node, Document, Element, ParentNode } from 'parse5';
+import { Document, Element, ParentNode } from 'parse5';
 import {
   findElement,
   findElements,
@@ -13,7 +13,7 @@ import {
 } from '@web/parse5-utils';
 import crypto from 'crypto';
 
-function isMetaCSPTag(node: Node) {
+function isMetaCSPTag(node: Element) {
   if (
     getTagName(node) === 'meta' &&
     getAttribute(node, 'http-equiv') === 'Content-Security-Policy'
@@ -23,7 +23,7 @@ function isMetaCSPTag(node: Node) {
   return false;
 }
 
-function isInlineScript(node: Node) {
+function isInlineScript(node: Element) {
   if (getTagName(node) === 'script' && !hasAttribute(node, 'src')) {
     return true;
   }
