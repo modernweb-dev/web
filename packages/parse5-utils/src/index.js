@@ -23,7 +23,7 @@ const REGEXP_IS_HTML_DOCUMENT = /^\s*<(!doctype|html|head|body)\b/i;
  */
 function createElement(tagName, attrs = {}, namespaceURI = DEFAULT_NAMESPACE) {
   const attrsArray = Object.entries(attrs).map(([name, value]) => ({ name, value }));
-  return /** @type {Element} */ (adapter.createElement(tagName, namespaceURI, attrsArray));
+  return adapter.createElement(tagName, namespaceURI, attrsArray);
 }
 
 /**
