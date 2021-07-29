@@ -1,4 +1,4 @@
-import { Node } from 'parse5';
+import { Element } from 'parse5';
 import { getAttribute } from '@web/parse5-utils';
 import crypto from 'crypto';
 import { FileType, PolyfillsLoaderConfig } from './types';
@@ -27,7 +27,7 @@ export function cleanImportPath(importPath: string) {
   return `./${importPath}`;
 }
 
-export function getScriptFileType(script: Node): FileType {
+export function getScriptFileType(script: Element): FileType {
   return getAttribute(script, 'type') === 'module' ? fileTypes.MODULE : fileTypes.SCRIPT;
 }
 

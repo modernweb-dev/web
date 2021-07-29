@@ -1,4 +1,4 @@
-import { Document, Node } from 'parse5';
+import { Document, Element } from 'parse5';
 import path from 'path';
 import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
 import { createError } from '../utils';
@@ -18,7 +18,7 @@ function getSrcSetUrls(srcset: string) {
   return urls;
 }
 
-function extractFirstUrlOfSrcSet(node: Node) {
+function extractFirstUrlOfSrcSet(node: Element) {
   const srcset = getAttribute(node, 'srcset');
   if (!srcset) {
     return '';
@@ -27,7 +27,7 @@ function extractFirstUrlOfSrcSet(node: Node) {
   return urls[0];
 }
 
-function isAsset(node: Node) {
+function isAsset(node: Element) {
   let path = '';
   switch (getTagName(node)) {
     case 'img':
@@ -65,7 +65,7 @@ function isAsset(node: Node) {
   }
 }
 
-export function isHashedAsset(node: Node) {
+export function isHashedAsset(node: Element) {
   switch (getTagName(node)) {
     case 'img':
       return true;
@@ -98,7 +98,7 @@ export function resolveAssetFilePath(
   );
 }
 
-export function getSourceAttribute(node: Node) {
+export function getSourceAttribute(node: Element) {
   switch (getTagName(node)) {
     case 'img': {
       return 'src';
@@ -120,7 +120,7 @@ export function getSourceAttribute(node: Node) {
   }
 }
 
-export function getSourcePaths(node: Node) {
+export function getSourcePaths(node: Element) {
   const key = getSourceAttribute(node);
 
   const src = getAttribute(node, key);

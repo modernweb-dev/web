@@ -8,9 +8,7 @@
 /** @typedef {import('parse5').TextNode} TextNode */
 
 const parse5 = require('parse5');
-// the tree adapter is not in the parse5 types
-//@ts-ignore
-const adapter = /** @type {TreeAdapter} */ (require('parse5/lib/tree-adapters/default'));
+const adapter = require('parse5/lib/tree-adapters/default');
 
 const DEFAULT_NAMESPACE = 'http://www.w3.org/1999/xhtml';
 const REGEXP_IS_HTML_DOCUMENT = /^\s*<(!doctype|html|head|body)\b/i;
@@ -51,20 +49,20 @@ function isHtmlFragment(html) {
 }
 
 /**
- * @param {Node} element
+ * @param {Element} element
  */
 function getAttributes(element) {
   const attrsArray = adapter.getAttrList(element);
   /** @type {Record<string,string>} */
   const attrsObj = {};
-  for (const e of /** @type {Attribute[]} */ (attrsArray)) {
+  for (const e of attrsArray) {
     attrsObj[e.name] = e.value;
   }
   return attrsObj;
 }
 
 /**
- * @param {Node} element
+ * @param {Element} element
  * @param {string} name
  */
 function getAttribute(element, name) {
@@ -73,14 +71,14 @@ function getAttribute(element, name) {
     return null;
   }
 
-  const attr = /** @type {Attribute[]} */ (attrList).find(a => a.name == name);
+  const attr = attrList.find(a => a.name == name);
   if (attr) {
     return attr.value;
   }
 }
 
 /**
- * @param {Node} element
+ * @param {Element} element
  * @param {string} name
  */
 function hasAttribute(element, name) {
@@ -88,24 +86,23 @@ function hasAttribute(element, name) {
 }
 
 /**
- *
- * @param {Node} node
+ * @param {Element} element
  * @param {string} name
  * @param {string} value
  */
-function setAttribute(node, name, value) {
-  const attrs = adapter.getAttrList(node);
-  const existing = attrs.find(a => /** @type {Attribute} */ (a).name === name);
+function setAttribute(element, name, value) {
+  const attrs = adapter.getAttrList(element);
+  const existing = attrs.find(a => a.name === name);
 
   if (existing) {
-    /** @type {Attribute} */ (existing).value = value;
+    existing.value = value;
   } else {
     attrs.push({ name, value });
   }
 }
 
 /**
- * @param {Node} element
+ * @param {Element} element
  * @param {Record<string,string|undefined>} attributes
  */
 function setAttributes(element, attributes) {
@@ -117,15 +114,12 @@ function setAttributes(element, attributes) {
 }
 
 /**
- * @param {Node} node
+ * @param {Element} element
  * @param {string} name
  */
-function removeAttribute(node, name) {
-  const attrs = adapter.getAttrList(node);
-  // parse5 types are broken
-  /** @type {any} */ (node).attrs = attrs.filter(
-    attr => /** @type {Attribute} */ (attr).name !== name,
-  );
+function removeAttribute(element, name) {
+  const attrs = adapter.getAttrList(element);
+  element.attrs = attrs.filter(attr => attr.name !== name);
 }
 
 /**
@@ -134,10 +128,10 @@ function removeAttribute(node, name) {
  */
 function getTextContent(node) {
   if (adapter.isCommentNode(node)) {
-    return /** @type {CommentNode} */ (node).data || '';
+    return node.data || '';
   }
   if (adapter.isTextNode(node)) {
-    return /** @type {TextNode} */ (node).value || '';
+    return node.value || '';
   }
   const subtree = findNodes(node, n => adapter.isTextNode(n));
   return subtree.map(getTextContent).join('');
@@ -149,9 +143,9 @@ function getTextContent(node) {
  */
 function setTextContent(node, value) {
   if (adapter.isCommentNode(node)) {
-    /** @type {CommentNode} */ (node).data = value;
+    node.data = value;
   } else if (adapter.isTextNode(node)) {
-    /** @type {TextNode} */ (node).value = value;
+    node.value = value;
   } else {
     const textNode = {
       nodeName: '#text',
@@ -194,7 +188,7 @@ function findNode(nodes, test) {
     if (test(node)) {
       return node;
     }
-    const children = adapter.getChildNodes(node);
+    const children = adapter.getChildNodes(/** @type {ParentNode} */ (node));
     if (Array.isArray(children)) {
       n.unshift(...children);
     }
@@ -221,7 +215,7 @@ function findNodes(nodes, test) {
     if (test(node)) {
       found.push(node);
     }
-    const children = adapter.getChildNodes(node);
+    const children = adapter.getChildNodes(/** @type {ParentNode} */ (node));
     if (Array.isArray(children)) {
       n.unshift(...children);
     }
@@ -244,7 +238,7 @@ function findElement(nodes, test) {
 /**
  * Looks for all child elements which passes the given test
  * @param {Node | Node[]} nodes
- * @param {(node: Node) => boolean} test
+ * @param {(node: Element) => boolean} test
  * @returns {Element[]}
  */
 function findElements(nodes, test) {
