@@ -1,4 +1,4 @@
-import { Element, Node, ParentNode, parse, serialize } from 'parse5';
+import { Document, Node, ParentNode, parse, serialize } from 'parse5';
 import {
   findElements,
   getAttribute,
@@ -20,11 +20,8 @@ function injectImportMapPolyfill(headAst: ParentNode, originalScript: Node, type
   insertBefore(headAst, systemJsScript, originalScript);
 }
 
-function findImportMapScripts(document: Node) {
-  const scripts = findElements(
-    document,
-    script => getAttribute(script as Element, 'type') === 'importmap',
-  );
+function findImportMapScripts(document: Document) {
+  const scripts = findElements(document, script => getAttribute(script, 'type') === 'importmap');
 
   const inline: Node[] = [];
   const external: Node[] = [];
@@ -40,7 +37,7 @@ function findImportMapScripts(document: Node) {
 }
 
 function injectImportMapPolyfills(
-  documentAst: Node,
+  documentAst: Document,
   headAst: ParentNode,
   cfg: PolyfillsLoaderConfig,
 ) {
@@ -99,8 +96,8 @@ export async function injectPolyfillsLoader(
 ): Promise<InjectPolyfillsLoaderResult> {
   const documentAst = parse(htmlString);
 
-  const headAst = findElement(documentAst, e => getTagName(e) === 'head') as Element;
-  const bodyAst = findElement(documentAst, e => getTagName(e) === 'body') as Element;
+  const headAst = findElement(documentAst, e => getTagName(e) === 'head');
+  const bodyAst = findElement(documentAst, e => getTagName(e) === 'body');
 
   if (!headAst || !bodyAst) {
     throw new Error(`Invalid index.html: missing <head> or <body>`);
