@@ -45,7 +45,7 @@
     "@web/test-runner-core": "^0.10.9",
     "istanbul-lib-coverage": "^3.0.0",
     "picomatch": "^2.2.2",
-    "v8-to-istanbul": "^7.1.0"
+    "v8-to-istanbul": "^8.0.0"
   },
   "devDependencies": {
     "@types/istanbul-lib-coverage": "^2.0.3",
