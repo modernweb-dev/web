@@ -57,7 +57,7 @@
     "dev-to-git": "^1.4.1",
     "eslint": "^7.16.0",
     "eslint-config-prettier": "^8.3.0",
-    "hanbi": "^0.4.1",
+    "hanbi": "^1.0.1",
     "husky": "^7.0.1",
     "lint-staged": "^11.1.1",
     "mocha": "^8.2.1",
