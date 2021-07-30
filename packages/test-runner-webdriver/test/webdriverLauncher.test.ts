@@ -50,8 +50,7 @@ if (os.platform() !== 'win32') {
     seleniumServer = await startSeleniumServer();
   });
 
-  // skipped until we can re-enable, see: https://github.com/modernweb-dev/web/issues/1223
-  describe.skip('test-runner-webdriver', function testRunnerWebdriver() {
+  describe('test-runner-webdriver', function testRunnerWebdriver() {
     this.timeout(50000);
 
     function createConfig() {
