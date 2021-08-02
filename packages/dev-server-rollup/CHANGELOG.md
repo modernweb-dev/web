@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.3.8
+
+### Patch Changes
+
+- f5351987: Update dependency whatwg-url to v9
+
 ## 0.3.7
 
 ### Patch Changes
