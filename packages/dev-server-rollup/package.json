@@ -51,7 +51,7 @@
     "chalk": "^4.1.0",
     "parse5": "^6.0.1",
     "rollup": "^2.35.1",
-    "whatwg-url": "^8.4.0"
+    "whatwg-url": "^9.0.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-template-literals": "^7.12.1",
