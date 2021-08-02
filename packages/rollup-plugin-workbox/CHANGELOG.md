@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 6.1.4
+
+### Patch Changes
+
+- eb2733de: Update dependency @rollup/plugin-replace to v3
+
 ## 6.1.3
 
 ### Patch Changes
