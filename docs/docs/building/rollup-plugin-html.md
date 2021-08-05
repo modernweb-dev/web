@@ -136,9 +136,9 @@ export default {
   plugins: [
     html({
       extractAssets: [
-        {tagName: 'my-first-el', attribute: 'my-src'},
-        {tagName: 'my-second-el', attribute: 'my-src'},
-      ]
+        { tagName: 'my-first-el', attribute: 'my-src' },
+        { tagName: 'my-second-el', attribute: 'my-src' },
+      ],
     }),
   ],
 };

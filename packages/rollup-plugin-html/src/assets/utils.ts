@@ -1,6 +1,14 @@
-import { Document, Node } from 'parse5';
+import { Document, Node, DefaultTreeNode } from 'parse5';
 import path from 'path';
-import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
+import {
+  findElements,
+  getTagName,
+  getAttribute,
+  findNodes,
+  DefaultTreeElement,
+  getTemplateContent,
+  getChildNodes,
+} from '@web/parse5-utils';
 import { createError } from '../utils';
 import { serialize } from 'v8';
 import { TagAndAttribute } from '../RollupPluginHTMLOptions';
@@ -149,9 +157,25 @@ export function getSourcePaths(node: Node, extractAssets?: boolean | TagAndAttri
   return paths;
 }
 
+function findAllElements(
+  nodes: Node | Node[],
+  test: (node: Node) => boolean,
+  elements: DefaultTreeElement[] = [],
+): DefaultTreeElement[] {
+  elements.push(...findElements(nodes, test));
+  const templates = findNodes(
+    nodes,
+    (node: DefaultTreeNode) => node.nodeName === 'template',
+  ) as Element[];
+  for (const template of templates) {
+    elements.push(...findAllElements(getChildNodes(getTemplateContent(template)), test));
+  }
+  return elements;
+}
+
 export function findAssets(document: Document, extractAssets?: boolean | TagAndAttribute[]) {
   function isAssetInjected(node: Node) {
     return isAsset(node, extractAssets);
   }
-  return findElements(document, isAssetInjected);
+  return findAllElements(document, isAssetInjected);
 }

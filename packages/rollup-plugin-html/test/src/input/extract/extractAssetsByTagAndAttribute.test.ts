@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { parse } from 'parse5';
+import { parse, DefaultTreeDocument } from 'parse5';
 import path from 'path';
 import { extractAssets as ea } from '../../../../src/input/extract/extractAssets';
 
@@ -77,7 +77,7 @@ describe('extractAssets by TagAndAttribute', () => {
       },
     ]);
   });
-  it('extracts assets from two TagAndAttribute pairs a document', () => {
+  it('extracts assets from two TagAndAttribute pairs in a document', () => {
     const document = parse(`
       <html>
         <head>
@@ -147,6 +147,45 @@ describe('extractAssets by TagAndAttribute', () => {
       {
         content: undefined,
         filePath: path.join(rootDir, 'image-b.svg'),
+        hashed: true,
+      },
+    ]);
+  });
+  it('extracts assets in template fragments', function () {
+    const document = parse(`
+      <html>
+        <body>
+          <img src="image-a.png">
+          <template>
+            <img src="image-b.svg">
+            <template>
+              <img src="image-c.png">
+            </template>
+          </template>
+        </body>
+      </html>
+    `) as DefaultTreeDocument;
+    const assets = ea({
+      document,
+      htmlFilePath: path.join(rootDir, 'index.html'),
+      htmlDir: rootDir,
+      rootDir,
+    });
+    const assetsWithoutcontent = assets.map(a => ({ ...a, content: undefined }));
+    expect(assetsWithoutcontent).to.eql([
+      {
+        content: undefined,
+        filePath: path.join(rootDir, 'image-a.png'),
+        hashed: true,
+      },
+      {
+        content: undefined,
+        filePath: path.join(rootDir, 'image-b.svg'),
+        hashed: true,
+      },
+      {
+        content: undefined,
+        filePath: path.join(rootDir, 'image-c.png'),
         hashed: true,
       },
     ]);
