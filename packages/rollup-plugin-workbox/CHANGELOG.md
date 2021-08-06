@@ -1,5 +1,23 @@
 # rollup-plugin-workbox
 
+## 6.1.4
+
+### Patch Changes
+
+- eb2733de: Update dependency @rollup/plugin-replace to v3
+
+## 6.1.3
+
+### Patch Changes
+
+- 687d4750: Downgrade @rollup/plugin-node-resolve to v11
+
+## 6.1.2
+
+### Patch Changes
+
+- 9c97ea53: update dependency @rollup/plugin-node-resolve to v13
+
 ## 6.1.1
 
 ### Patch Changes

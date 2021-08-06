@@ -1,5 +1,13 @@
 # @web/dev-server-import-maps
 
+## 0.0.6
+
+### Patch Changes
+
+- ca749b0e: Update dependency @types/parse5 to v6
+- Updated dependencies [ca749b0e]
+  - @web/parse5-utils@1.3.0
+
 ## 0.0.5
 
 ### Patch Changes

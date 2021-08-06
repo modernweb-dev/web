@@ -27,7 +27,7 @@ function getSrcSetUrls(srcset: string) {
   return urls;
 }
 
-function extractFirstUrlOfSrcSet(node: Node) {
+function extractFirstUrlOfSrcSet(node: Element) {
   const srcset = getAttribute(node, 'srcset');
   if (!srcset) {
     return '';
@@ -143,7 +143,6 @@ export function getSourceAttribute(node: Node, extractAssets?: boolean | TagAndA
 
 export function getSourcePaths(node: Node, extractAssets?: boolean | TagAndAttribute[]) {
   const key = getSourceAttribute(node, extractAssets);
-
   const src = getAttribute(node, key);
   if (typeof key !== 'string' || src === '') {
     throw createError(`Missing attribute ${key} in element ${serialize(node)}`);

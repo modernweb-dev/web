@@ -1,5 +1,21 @@
 # @web/dev-server
 
+## 0.1.20
+
+### Patch Changes
+
+- 687d4750: Downgrade @rollup/plugin-node-resolve to v11
+- Updated dependencies [687d4750]
+  - @web/dev-server-rollup@0.3.7
+
+## 0.1.19
+
+### Patch Changes
+
+- 9c97ea53: update dependency @rollup/plugin-node-resolve to v13
+- Updated dependencies [9c97ea53]
+  - @web/dev-server-rollup@0.3.6
+
 ## 0.1.18
 
 ### Patch Changes

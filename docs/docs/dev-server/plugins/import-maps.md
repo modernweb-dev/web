@@ -45,7 +45,7 @@ Install the package:
 npm i --save-dev @web/dev-server-import-maps
 ```
 
-Add the plugin to your `web-dev-server-config.mjs` or `web-test-runner.config.js`:
+Add the plugin to your `web-dev-server.config.mjs` or `web-test-runner.config.js`:
 
 ```js
 import { importMapsPlugin } from '@web/dev-server-import-maps';

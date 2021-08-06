@@ -1,5 +1,23 @@
 # @web/dev-server-rollup
 
+## 0.3.8
+
+### Patch Changes
+
+- f5351987: Update dependency whatwg-url to v9
+
+## 0.3.7
+
+### Patch Changes
+
+- 687d4750: Downgrade @rollup/plugin-node-resolve to v11
+
+## 0.3.6
+
+### Patch Changes
+
+- 9c97ea53: update dependency @rollup/plugin-node-resolve to v13
+
 ## 0.3.5
 
 ### Patch Changes

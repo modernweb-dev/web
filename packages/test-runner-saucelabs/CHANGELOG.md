@@ -1,5 +1,16 @@
 # @web/test-runner-saucelabs
 
+## 0.6.0
+
+### Minor Changes
+
+- 5d440dbd: Bump webdriverio to 7.7.4
+
+### Patch Changes
+
+- Updated dependencies [5d440dbd]
+  - @web/test-runner-webdriver@0.4.0
+
 ## 0.5.0
 
 ### Minor Changes

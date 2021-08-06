@@ -1,5 +1,23 @@
 # @web/test-runner-commands
 
+## 0.5.8
+
+### Patch Changes
+
+- 687d4750: Downgrade @rollup/plugin-node-resolve to v11
+
+## 0.5.7
+
+### Patch Changes
+
+- 09af51ac: Escape the snapshot contents to avoid problems in Firrefox and Webkit
+
+## 0.5.6
+
+### Patch Changes
+
+- cb693c71: Use block comments in snapshots to make them work in all browsers
+
 ## 0.5.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/test-runner-coverage-v8
 
+## 0.4.7
+
+### Patch Changes
+
+- dd775c5d: Update dependency v8-to-istanbul to v8
+
 ## 0.4.6
 
 ### Patch Changes
