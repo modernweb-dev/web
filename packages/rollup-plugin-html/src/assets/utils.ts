@@ -1,11 +1,10 @@
-import { Document, Node, DefaultTreeNode } from 'parse5';
+import { Document, Node, DefaultTreeNode, DefaultTreeElement } from 'parse5';
 import path from 'path';
 import {
   findElements,
   getTagName,
   getAttribute,
   findNodes,
-  DefaultTreeElement,
   getTemplateContent,
   getChildNodes,
 } from '@web/parse5-utils';
@@ -43,7 +42,7 @@ function isAsset(node: Node, extractAssets?: boolean | TagAndAttribute[]) {
       path = getAttribute(node, 'src') ?? '';
       break;
     case 'source':
-      path = extractFirstUrlOfSrcSet(node) ?? '';
+      path = extractFirstUrlOfSrcSet(node as Element) ?? '';
       break;
     case 'link':
       if (linkRels.includes(getAttribute(node, 'rel') ?? '')) {
