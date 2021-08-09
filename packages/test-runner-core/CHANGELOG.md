@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.10.20
+
+### Patch Changes
+
+- fcb8af58: Move Babel types to the correct package
+
 ## 0.10.19
 
 ### Patch Changes
