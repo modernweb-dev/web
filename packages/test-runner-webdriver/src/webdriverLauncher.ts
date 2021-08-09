@@ -69,7 +69,7 @@ export class WebdriverLauncher implements BrowserLauncher {
     if (this.debugDriver) {
       await this.debugDriver.deleteSession();
     }
-    this.debugDriver = await remote(this.options);
+    this.debugDriver = (await remote(this.options)) as Browser<'async'>;
     await this.debugDriver.navigateTo(url);
   }
 
@@ -93,7 +93,7 @@ export class WebdriverLauncher implements BrowserLauncher {
     const options: RemoteOptions = { logLevel: 'error', ...this.options };
 
     try {
-      this.driver = await remote(options);
+      this.driver = (await remote(options)) as Browser<'async'>;
       this.driverManager =
         this.config.concurrency === 1
           ? new SessionManager(this.config, this.driver, this.isIE)
