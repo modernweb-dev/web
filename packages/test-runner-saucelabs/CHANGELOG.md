@@ -1,5 +1,13 @@
 # @web/test-runner-saucelabs
 
+## 0.6.1
+
+### Patch Changes
+
+- 6014eba2: Bump webdriverio dependency to 7.9.0
+- Updated dependencies [6014eba2]
+  - @web/test-runner-webdriver@0.4.1
+
 ## 0.6.0
 
 ### Minor Changes
