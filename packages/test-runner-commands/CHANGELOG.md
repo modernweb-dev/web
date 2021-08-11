@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.5.9
+
+### Patch Changes
+
+- 056ba8c8: Add sendKeys support for webdriver
+
 ## 0.5.8
 
 ### Patch Changes
