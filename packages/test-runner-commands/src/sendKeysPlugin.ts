@@ -1,6 +1,7 @@
 import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher, puppeteerCore } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
+import type { WebdriverLauncher } from '@web/test-runner-webdriver';
 
 type TypePayload = { type: string };
 type PressPayload = { press: string };
@@ -98,6 +99,20 @@ export function sendKeysPlugin(): TestRunnerPlugin<SendKeysPayload> {
           } else if (isUpPayload(payload)) {
             await page.keyboard.up(payload.up as puppeteerCore.KeyInput);
             return true;
+          }
+        }
+
+        // handle specific behavior for webdriver
+        if (session.browser.type === 'webdriver') {
+          const browser = session.browser as WebdriverLauncher;
+          if (isTypePayload(payload)) {
+            await browser.sendKeys(session.id, payload.type.split(''));
+            return true;
+          } else if (isPressPayload(payload)) {
+            await browser.sendKeys(session.id, [payload.press]);
+            return true;
+          } else {
+            throw new Error('Only "press" and "type" are supported by webdriver.');
           }
         }
 

@@ -124,6 +124,13 @@ export class WebdriverLauncher implements BrowserLauncher {
     }, 60000);
   }
 
+  sendKeys(sessionId: string, keys: string[]) {
+    if (!this.driverManager) {
+      throw new Error('Not initialized');
+    }
+    return this.driverManager.sendKeys(sessionId, keys);
+  }
+
   takeScreenshot(sessionId: string, locator: string) {
     if (!this.driverManager) {
       throw new Error('Not initialized');

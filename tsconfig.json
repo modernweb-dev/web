@@ -41,10 +41,10 @@
       "path": "./packages/test-runner-playwright/tsconfig.json"
     },
     {
-      "path": "./packages/dev-server-esbuild/tsconfig.json"
+      "path": "./packages/test-runner-webdriver/tsconfig.json"
     },
     {
-      "path": "./packages/test-runner-webdriver/tsconfig.json"
+      "path": "./packages/dev-server-esbuild/tsconfig.json"
     },
     {
       "path": "./packages/dev-server-legacy/tsconfig.json"
