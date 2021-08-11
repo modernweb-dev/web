@@ -50,6 +50,10 @@ export function setUserAgent(userAgent: string): Promise<void>;
  * - `press`: https://pptr.dev/#?product=Puppeteer&show=api-keyboardpresskey-options
  * - `type`: https://pptr.dev/#?product=Puppeteer&show=api-keyboardtypetext-options
  *
+ * Or, the Webdriver documentation, here:
+ *
+ * https://webdriver.io/docs/api/browser/keys/
+ *
  * @param payload An object including a `press` or `type` property an the associated string
  *     for the browser runner to apply via that input method.
  *
