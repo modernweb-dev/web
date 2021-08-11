@@ -148,6 +148,13 @@ export class IFrameManager {
     return { testCoverage: this.config.coverage ? testCoverage : undefined };
   }
 
+  async sendKeys(sessionId: string, keys: string[]) {
+    const frameId = this.getFrameId(sessionId);
+    const frame = await this.driver.$(`iframe#${frameId}`);
+    await this.driver.switchToFrame(frame);
+    return this.driver.keys(keys);
+  }
+
   async takeScreenshot(sessionId: string, locator: string): Promise<Buffer> {
     const frameId = this.getFrameId(sessionId);
 

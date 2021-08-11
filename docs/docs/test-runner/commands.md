@@ -97,11 +97,13 @@ Multiple calls of the `sendKeys` command can be used to trigger key combinations
 For example sending a `down` command with the value `Shift`, and then sending a `press` command with the value `Tab` will effectively trigger a `Shift+Tab`.
 
 `sendKeys` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
+There is also a limited support in `@web/test-runner-webdriver` (only `type` and `press` actions).
 All commands are simple wrappers around the respective APIs in the supported test runners.
 Please refer to their respective docs for detailed behavior, and which specific strings can be used for the `press`, `down` and `up` commands:
 
 - [Puppeteer Keyboard API](https://pptr.dev/#?product=Puppeteer&show=api-class-keyboard)
 - [Playwright Keyboard API](https://playwright.dev/docs/api/class-keyboard)
+- [Webdriver Keyboard API](https://webdriver.io/docs/api/browser/keys/)
 
 <details>
 <summary>View example</summary>

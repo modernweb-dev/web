@@ -80,6 +80,10 @@ export class SessionManager {
     return { testCoverage: this.config.coverage ? testCoverage : undefined };
   }
 
+  async sendKeys(_: string, keys: string[]) {
+    return this.driver.keys(keys);
+  }
+
   async takeScreenshot(_: string, locator: string): Promise<Buffer> {
     const elementData = (await this.driver.execute(locator, [])) as Element<'async'>;
 
