@@ -20,6 +20,7 @@
     "lint:eslint": "eslint --ext .ts,.js,.mjs,.cjs .",
     "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
     "prepare": "husky install",
+    "prerelease": "[ -f .changeset/pre.json ] && yarn changeset pre exit next || echo 'Not previously in pre mode'",
     "reinstall-workspace": "rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
     "release": "changeset publish && yarn format",
     "release:enter-pre": "[ ! -f .changeset/pre.json ] && yarn changeset pre enter next || echo 'Already in pre mode'",
