@@ -1,5 +1,13 @@
 # @web/test-runner-junit-reporter
 
+## 0.4.6
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+- Updated dependencies [33ada3d8]
+  - @web/test-runner-chrome@0.10.2
+
 ## 0.4.5
 
 ### Patch Changes

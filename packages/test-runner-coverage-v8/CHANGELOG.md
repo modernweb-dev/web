@@ -1,5 +1,11 @@
 # @web/test-runner-coverage-v8
 
+## 0.4.8
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+
 ## 0.4.7
 
 ### Patch Changes

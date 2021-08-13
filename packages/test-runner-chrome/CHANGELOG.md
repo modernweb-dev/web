@@ -1,5 +1,13 @@
 # @web/test-runner-chrome
 
+## 0.10.2
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+- Updated dependencies [33ada3d8]
+  - @web/test-runner-coverage-v8@0.4.8
+
 ## 0.10.1
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.13.16
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+- Updated dependencies [33ada3d8]
+  - @web/test-runner-chrome@0.10.2
+  - @web/test-runner-commands@0.5.10
+  - @web/test-runner-mocha@0.7.4
+
 ## 0.13.15
 
 ### Patch Changes

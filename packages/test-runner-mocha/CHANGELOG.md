@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.7.4
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+
 ## 0.7.3
 
 ### Patch Changes

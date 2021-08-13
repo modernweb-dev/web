@@ -1,5 +1,13 @@
 # @web/test-runner-saucelabs
 
+## 0.6.2
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+- Updated dependencies [33ada3d8]
+  - @web/test-runner-webdriver@0.4.2
+
 ## 0.6.1
 
 ### Patch Changes

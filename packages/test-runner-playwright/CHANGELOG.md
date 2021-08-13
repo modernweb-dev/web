@@ -1,5 +1,13 @@
 # @web/test-runner-playwright
 
+## 0.8.7
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+- Updated dependencies [33ada3d8]
+  - @web/test-runner-coverage-v8@0.4.8
+
 ## 0.8.6
 
 ### Patch Changes
