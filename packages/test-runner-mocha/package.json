@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-mocha",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "publishConfig": {
     "access": "public"
   },

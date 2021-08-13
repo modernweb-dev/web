@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.5.10
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+
 ## 0.5.9
 
 ### Patch Changes

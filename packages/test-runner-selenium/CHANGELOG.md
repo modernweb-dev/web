@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.5.2
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+
 ## 0.5.1
 
 ### Patch Changes
