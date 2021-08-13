@@ -108,7 +108,7 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
           ],
         ],
       }) as Plugin,
-      html({ input: { name: indexFilename, html: indexHtmlString } }),
+      html({ input: { name: indexFilename, html: indexHtmlString } }) as Plugin,
       polyfillsLoader({
         polyfills: {
           coreJs: true,
@@ -119,7 +119,7 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
           intersectionObserver: true,
           resizeObserver: true,
         },
-      }),
+      }) as Plugin,
       terser({ format: { comments: false } }) as Plugin,
     ],
   };
