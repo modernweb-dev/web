@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.3.9
+
+### Patch Changes
+
+- 49dcb6bb: Update Rollup dependency to 2.56.2
+
 ## 0.3.8
 
 ### Patch Changes
