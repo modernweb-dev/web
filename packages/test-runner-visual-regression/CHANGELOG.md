@@ -1,5 +1,13 @@
 # @web/test-runner-visual-regression
 
+## 0.6.2
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+- Updated dependencies [33ada3d8]
+  - @web/test-runner-commands@0.5.10
+
 ## 0.6.1
 
 ### Patch Changes

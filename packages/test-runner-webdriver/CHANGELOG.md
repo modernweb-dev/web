@@ -1,5 +1,11 @@
 # @web/test-runner-webdriver
 
+## 0.4.2
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+
 ## 0.4.1
 
 ### Patch Changes
