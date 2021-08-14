@@ -49,17 +49,17 @@ describe('rollupBundlePlugin', () => {
       const textA1 = await fetchText(`${host}/a1.js`);
       expectIncludes(textA1, "import { b as bc, d } from './__rollup-generated__d.js';");
       expectIncludes(textA1, 'var a1 = `a ${bc} ${d}`;');
-      expectIncludes(textA1, 'export default a1;');
+      expectIncludes(textA1, 'export { a1 as default };');
 
       const textA2 = await fetchText(`${host}/a2.js`);
       expectIncludes(textA2, "import { b as bc, d } from './__rollup-generated__d.js';");
       expectIncludes(textA2, 'var a2 = `a ${bc} ${d}`;');
-      expectIncludes(textA2, 'export default a2;');
+      expectIncludes(textA2, 'export { a2 as default };');
 
       const textA3 = await fetchText(`${host}/a3.js`);
       expectIncludes(textA3, "import { b as bc, d } from './__rollup-generated__d.js';");
       expectIncludes(textA3, 'var a3 = `a ${bc} ${d}`;');
-      expectIncludes(textA3, 'export default a3;');
+      expectIncludes(textA3, 'export { a3 as default };');
 
       const textD = await fetchText(`${host}/__rollup-generated__d.js`);
       expectIncludes(textD, "var c = 'c';");
