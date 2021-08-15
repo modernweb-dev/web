@@ -1,5 +1,12 @@
 # @web/dev-server-storybook
 
+## 0.3.8
+
+### Patch Changes
+
+- e564c039: Use latest upstream dependencies
+- 49d26637: Use the latest Storybook Prebuilt which uses the latest Storybook which allows for the use of pre and post `lit@2.0` versions of the Lit libraries.
+
 ## 0.3.7
 
 ### Patch Changes
