@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 6.2.0
+
+### Minor Changes
+
+- 641e0a9e: Update workbox-build dependency to 6.2.4
+
 ## 6.1.4
 
 ### Patch Changes
