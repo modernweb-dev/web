@@ -9,11 +9,11 @@ reasons:
   [
     {
       header: Built on web standards,
-      text: "Work with and extend what's available in modern browsers, learning skills, and writing code that stays relevant.",
+      text: "Work with and extend what's available in modern browsers, while learning skills and writing code with the longevity of the standards themselves.",
     },
     {
       header: Lightweight,
-      text: 'Simple solutions that are lightweight and have a low barrier to entry. With extension points for power users.',
+      text: 'Simple solutions that are lightweight and have a low barrier to entry, with extension points for power users.',
     },
     {
       header: Low complexity,
