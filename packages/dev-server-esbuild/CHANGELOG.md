@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.2.14
+
+### Patch Changes
+
+- bf89ce23: Update dependency @mdn/browser-compat-data to v4
+
 ## 0.2.13
 
 ### Patch Changes
