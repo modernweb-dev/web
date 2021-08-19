@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.5.11
+
+### Patch Changes
+
+- 62369e4d: Upgrade playwright to 1.14.0 which enables prefers-reduced-motion
+
 ## 0.5.10
 
 ### Patch Changes
