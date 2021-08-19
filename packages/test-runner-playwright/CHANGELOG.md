@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.8.8
+
+### Patch Changes
+
+- 62369e4d: Upgrade playwright to 1.14.0 which enables prefers-reduced-motion
+
 ## 0.8.7
 
 ### Patch Changes
