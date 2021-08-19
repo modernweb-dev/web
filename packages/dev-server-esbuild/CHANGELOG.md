@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.2.13
+
+### Patch Changes
+
+- 9f96e7be: Update esbuild dependency to ^0.12.21
+
 ## 0.2.12
 
 ### Patch Changes
