@@ -31,7 +31,7 @@
     "workbox"
   ],
   "dependencies": {
-    "@rollup/plugin-node-resolve": "^11.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-replace": "^3.0.0",
     "pretty-bytes": "^5.5.0",
     "rollup-plugin-terser": "^7.0.2",
