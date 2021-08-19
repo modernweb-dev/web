@@ -4962,10 +4962,10 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-esbuild@^0.11.0:
-  version "0.11.23"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.11.23.tgz#c42534f632e165120671d64db67883634333b4b8"
-  integrity sha512-iaiZZ9vUF5wJV8ob1tl+5aJTrwDczlvGP0JoMmnpC2B0ppiMCu8n8gmy5ZTGl5bcG081XBVn+U+jP+mPFm5T5Q==
+esbuild@^0.12.21:
+  version "0.12.21"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.21.tgz#7ff32a9ac73ce4310f9cb61ea4c3da9756570d46"
+  integrity sha512-7hyXbU3g94aREufI/5nls7Xcc+RGQeZWZApm6hoBaFvt2BPtpT4TjFMQ9Tb1jU8XyBGz00ShmiyflCogphMHFQ==
 
 escalade@^3.1.1:
   version "3.1.1"
