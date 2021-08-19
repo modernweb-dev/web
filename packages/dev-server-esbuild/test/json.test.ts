@@ -30,7 +30,7 @@ describe('esbuildPlugin JSON', function () {
         'application/javascript; charset=utf-8',
       );
       expectIncludes(text, 'var foo = "bar";');
-      expectIncludes(text, 'var foo_default = {foo};');
+      expectIncludes(text, 'var foo_default = { foo };');
       expectIncludes(text, 'export {');
       expectIncludes(text, 'foo_default as default');
       expectIncludes(text, 'foo');
