@@ -1394,10 +1394,10 @@
   dependencies:
     lit-element "^2.4.0"
 
-"@mdn/browser-compat-data@^3.0.1":
-  version "3.3.10"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-3.3.10.tgz#10299e35ee07b2a78e58731939a5f35d926db622"
-  integrity sha512-3pUDpaS17YjM0yCUyZCzNGVd+p9ig4UUTw0RI5EDpiLlwwDiiSmU+31fhEqv7gHAxkW7X1TUP8z7YXsWY2SJsg==
+"@mdn/browser-compat-data@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-4.0.0.tgz#a947660f0601fc2cf208fbddff6a94fec9fcc675"
+  integrity sha512-Yn5Xf+LyH+KZ0wz0XXzD1C7uGKF29RMrcXLaRHwzH3Uo5fRtnPTdWJIyT8kCrvxt8Wq8MQpMDByk/AufmPWL1A==
 
 "@mdx-js/mdx@^1.6.22":
   version "1.6.22"
