@@ -13,7 +13,7 @@ describe('emulateMediaPlugin', function test() {
     await runTests({
       files: [
         path.join(__dirname, 'browser-test.js'),
-        path.join(__dirname, 'puppeteer-only-test.js'),
+        path.join(__dirname, 'prefers-reduced-motion-test.js'),
       ],
 
       browsers: [chromeLauncher()],
@@ -25,7 +25,10 @@ describe('emulateMediaPlugin', function test() {
   if (platform() !== 'win32') {
     it('can emulate media on playwright', async () => {
       await runTests({
-        files: [path.join(__dirname, 'browser-test.js')],
+        files: [
+          path.join(__dirname, 'browser-test.js'),
+          path.join(__dirname, 'prefers-reduced-motion-test.js'),
+        ],
         browsers: [
           playwrightLauncher({ product: 'chromium' }),
           playwrightLauncher({ product: 'firefox' }),

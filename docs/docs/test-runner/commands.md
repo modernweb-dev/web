@@ -71,7 +71,6 @@ it('can emulate color scheme', async () => {
   expect(matchMedia('(prefers-color-scheme: light)').matches).to.be.true;
 });
 
-// The reducedMotion option is not supported by playwright.
 it('can emulate reduced motion', async () => {
   await emulateMedia({ reducedMotion: 'reduce' });
   expect(matchMedia('(prefers-reduced-motion: reduce)').matches).to.be.true;
