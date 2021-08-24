@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.1.22
+
+### Patch Changes
+
+- dc61726d: Update dependency es-module-lexer to ^0.7.1
+- Updated dependencies [dc61726d]
+  - @web/dev-server-core@0.3.14
+
 ## 0.1.21
 
 ### Patch Changes
