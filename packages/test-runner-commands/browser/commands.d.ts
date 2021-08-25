@@ -155,7 +155,7 @@ export function writeFile(payload: WriteFilePayload): Promise<void>;
  *    const content = await readFile({ path: 'hello-world.txt' });
  * ```
  */
-export function readFile(payload: WriteFilePayload): Promise<string | undefined>;
+export function readFile(payload: ReadFilePayload): Promise<string | undefined>;
 
 /**
  * Removes a file from disk.
