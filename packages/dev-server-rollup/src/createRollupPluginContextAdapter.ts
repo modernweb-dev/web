@@ -69,10 +69,7 @@ export function createRollupPluginContextAdapter<
       if (!context) throw new Error('Context is required.');
 
       for (const pl of config.plugins ?? []) {
-        if (
-          pl.resolveImport &&
-          (!options.skipSelf || pl.resolveImport !== wdsPlugin.resolveImport)
-        ) {
+        if (pl.resolveImport && pl.resolveImport !== wdsPlugin.resolveImport && !options.skipSelf) {
           const result = await pl.resolveImport({ source, context });
           let resolvedId: string | undefined;
           if (typeof result === 'string') {

@@ -129,9 +129,7 @@ describe('@rollup/plugin-node-resolve', () => {
     }
   });
 
-  // Fails after upgrading @rollup/plugin-node-resolve to 13.0.0
-  // See https://github.com/modernweb-dev/web/issues/1568
-  it.skip('node modules resolved outside root directory are rewritten with commonjs', async () => {
+  it('node modules resolved outside root directory are rewritten with commonjs', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
       plugins: [commonjs(), nodeResolve()],
