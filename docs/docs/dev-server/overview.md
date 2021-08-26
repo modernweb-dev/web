@@ -28,6 +28,20 @@ Install Web Dev Server:
 npm i --save-dev @web/dev-server
 ```
 
+Then add the following to the `"scripts"` section in `package.json`:
+
+```
+"start": "web-dev-server --node-resolve --open"
+```
+
+Or use the shorthand:
+
+```
+"start": "wds --node-resolve --open"
+```
+
+Note, the examples below assume an npm script is used.
+
 ## Basic commands
 
 Start the server:
