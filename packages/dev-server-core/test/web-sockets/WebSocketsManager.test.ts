@@ -56,7 +56,7 @@ describe('WebSocketManager', () => {
 
       const waitForMessage = waitFor(resolve => {
         ws.on('message', data => {
-          expect(data).to.equal('hello world');
+          expect(data.toString()).to.equal('hello world');
           resolve();
         });
       }, 'expected a message event');
@@ -91,13 +91,13 @@ describe('WebSocketManager', () => {
 
       const waitForMessage1 = waitFor(resolve => {
         ws1.on('message', data => {
-          expect(data).to.equal('hello world');
+          expect(data.toString()).to.equal('hello world');
           resolve();
         });
       }, 'expected message');
       const waitForMessage2 = waitFor(resolve => {
         ws1.on('message', data => {
-          expect(data).to.equal('hello world');
+          expect(data.toString()).to.equal('hello world');
           resolve();
         });
       }, 'expected message');
