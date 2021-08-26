@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.5.12
+
+### Patch Changes
+
+- ea6d42eb: Fixes the payload type of the readFile command (was WriteFilePayload, now ReadFilePayload).
+
 ## 0.5.11
 
 ### Patch Changes
