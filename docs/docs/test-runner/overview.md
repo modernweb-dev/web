@@ -28,6 +28,20 @@ Install the web test runner:
 npm i --save-dev @web/test-runner
 ```
 
+Then add the following to the `"scripts"` section in `package.json`:
+
+```
+"test": "web-test-runner test/**/*.test.js --node-resolve"
+```
+
+Or use the shorthand:
+
+```
+"test": "wtr test/**/*.test.js --node-resolve"
+```
+
+Note, the examples below assume an npm script is used.
+
 ## Basic commands
 
 Do a single test run:
