@@ -2,6 +2,7 @@ import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 import type { WebdriverLauncher } from '@web/test-runner-webdriver';
+import type { SeleniumLauncher } from '@web/test-runner-selenium';
 
 import { defaultOptions, VisualRegressionPluginOptions } from './config';
 import { visualDiffCommand, VisualDiffCommandResult } from './visualDiffCommand';
@@ -93,6 +94,24 @@ export function visualRegressionPlugin(
 
           if (session.browser.type === 'webdriver') {
             const browser = session.browser as WebdriverLauncher;
+
+            const locator = `
+              return (function () {
+                try {
+                  var wtr = window.__WTR_VISUAL_REGRESSION__;
+                  return wtr && wtr[${payload.id}];
+                } catch (_) {
+                  return undefined;
+                }
+              })();
+            `;
+
+            const screenshot = await browser.takeScreenshot(session.id, locator);
+            return visualDiffCommand(mergedOptions, screenshot, session.browser.name, payload.name);
+          }
+
+          if (session.browser.type === 'selenium') {
+            const browser = session.browser as SeleniumLauncher;
 
             const locator = `
               return (function () {
