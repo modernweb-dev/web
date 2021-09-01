@@ -17,14 +17,19 @@ export interface VisualDiffCommandResult {
   passed: boolean;
 }
 
+export interface VisualDiffCommandContext {
+  browser: string;
+  testFile: string;
+}
+
 export async function visualDiffCommand(
   options: VisualRegressionPluginOptions,
   image: Buffer,
-  browser: string,
   name: string,
+  { browser, testFile }: VisualDiffCommandContext,
 ): Promise<VisualDiffCommandResult> {
   const baseDir = path.resolve(options.baseDir);
-  const baselineName = options.getBaselineName({ browser, name });
+  const baselineName = options.getBaselineName({ browser, name, testFile });
 
   const baselineImage = await options.getBaseline({
     filePath: resolveImagePath(baseDir, baselineName),
@@ -42,8 +47,8 @@ export async function visualDiffCommand(
     return { diffPercentage: -1, passed: true };
   }
 
-  const diffName = options.getDiffName({ browser, name });
-  const failedName = options.getFailedName({ browser, name });
+  const diffName = options.getDiffName({ browser, name, testFile });
+  const failedName = options.getFailedName({ browser, name, testFile });
   const diffFilePath = resolveImagePath(baseDir, diffName);
 
   const saveFailed = async () => {
