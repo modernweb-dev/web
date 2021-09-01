@@ -1,5 +1,13 @@
 # @web/test-runner-junit-reporter
 
+## 0.4.7
+
+### Patch Changes
+
+- de756b28: Update dependency puppeteer-core to v10
+- Updated dependencies [de756b28]
+  - @web/test-runner-chrome@0.10.3
+
 ## 0.4.6
 
 ### Patch Changes

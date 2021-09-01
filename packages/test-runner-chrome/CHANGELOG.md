@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.10.3
+
+### Patch Changes
+
+- de756b28: Update dependency puppeteer-core to v10
+
 ## 0.10.2
 
 ### Patch Changes
