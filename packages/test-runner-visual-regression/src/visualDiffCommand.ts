@@ -44,6 +44,7 @@ export async function visualDiffCommand(
 
   const diffName = options.getDiffName({ browser, name });
   const failedName = options.getFailedName({ browser, name });
+  const diffFilePath = resolveImagePath(baseDir, diffName);
 
   const saveFailed = async () => {
     await options.saveFailed({
@@ -56,7 +57,7 @@ export async function visualDiffCommand(
 
   const saveDiff = async () => {
     await options.saveDiff({
-      filePath: resolveImagePath(baseDir, diffName),
+      filePath: diffFilePath,
       baseDir,
       name: diffName,
       content: diffImage,
@@ -100,7 +101,9 @@ export async function visualDiffCommand(
 
   return {
     errorMessage: !passed
-      ? `Visual diff failed. New screenshot is ${diffPercentage.toFixed(2)} % different.`
+      ? `Visual diff failed. New screenshot is ${diffPercentage.toFixed(
+          2,
+        )}% different.\nSee diff for details: ${diffFilePath}`
       : undefined,
     diffPercentage: -1,
     passed,
