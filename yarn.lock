@@ -9477,7 +9477,7 @@ pupa@^2.0.1:
   dependencies:
     escape-goat "^2.0.0"
 
-puppeteer-core@^10.1.0:
+puppeteer-core@^10.1.0, puppeteer-core@^10.2.0:
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-10.2.0.tgz#8d6606cf345fc0e421bc0612055579ea53234111"
   integrity sha512-c1COxSnfynsE6Mtt+dW0t3TITjF9Ku4dnJbFMDDVhLQuMTYSpz4rkSP37qvzcSo3k02/Ac3GYWk0/ncp6DKZNA==
@@ -9494,24 +9494,6 @@ puppeteer-core@^10.1.0:
     tar-fs "2.0.0"
     unbzip2-stream "1.3.3"
     ws "7.4.6"
-
-puppeteer-core@^9.1.0:
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-9.1.1.tgz#0c189c3275967d65c39270e6b146e559baca3d47"
-  integrity sha512-zbedbitVIGhmgz0nt7eIdLsnaoVZSlNJfBivqm2w67T8LR2bU1dvnruDZ8nQO0zn++Iet7zHbAOdnuS5+H2E7A==
-  dependencies:
-    debug "^4.1.0"
-    devtools-protocol "0.0.869402"
-    extract-zip "^2.0.0"
-    https-proxy-agent "^5.0.0"
-    node-fetch "^2.6.1"
-    pkg-dir "^4.2.0"
-    progress "^2.0.1"
-    proxy-from-env "^1.1.0"
-    rimraf "^3.0.2"
-    tar-fs "^2.0.0"
-    unbzip2-stream "^1.3.3"
-    ws "^7.2.3"
 
 puppeteer@^9.1.0:
   version "9.1.1"
