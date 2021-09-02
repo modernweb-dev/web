@@ -1,5 +1,12 @@
 # @web/test-runner-visual-regression
 
+## 0.6.3
+
+### Patch Changes
+
+- 395c605d: Supply testFile to extensibility points in visualDiffPlugin, making it easy to store snapshot images alongside test files
+- e56d2db0: Output diff file path to console on snapshot mismatch, making it easier to inspect results.
+
 ## 0.6.2
 
 ### Patch Changes
