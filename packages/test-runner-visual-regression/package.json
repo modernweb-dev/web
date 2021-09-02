@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-visual-regression",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "publishConfig": {
     "access": "public"
   },
