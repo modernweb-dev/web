@@ -4,7 +4,11 @@ import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 import type { WebdriverLauncher } from '@web/test-runner-webdriver';
 
 import { defaultOptions, VisualRegressionPluginOptions } from './config';
-import { visualDiffCommand, VisualDiffCommandResult } from './visualDiffCommand';
+import {
+  visualDiffCommand,
+  VisualDiffCommandContext,
+  VisualDiffCommandResult,
+} from './visualDiffCommand';
 import { VisualRegressionError } from './VisualRegressionError';
 
 interface Payload {
@@ -49,6 +53,11 @@ export function visualRegressionPlugin(
             return;
           }
 
+          const context: VisualDiffCommandContext = {
+            testFile: session.testFile,
+            browser: session.browser.name,
+          };
+
           if (session.browser.type === 'puppeteer') {
             const browser = session.browser as ChromeLauncher;
             const page = browser.getPage(session.id);
@@ -67,7 +76,7 @@ export function visualRegressionPlugin(
             }
 
             const screenshot = (await element.screenshot({ encoding: 'binary' })) as Buffer;
-            return visualDiffCommand(mergedOptions, screenshot, session.browser.name, payload.name);
+            return visualDiffCommand(mergedOptions, screenshot, payload.name, context);
           }
 
           if (session.browser.type === 'playwright') {
@@ -88,7 +97,7 @@ export function visualRegressionPlugin(
             }
 
             const screenshot = await element.screenshot();
-            return visualDiffCommand(mergedOptions, screenshot, session.browser.name, payload.name);
+            return visualDiffCommand(mergedOptions, screenshot, payload.name, context);
           }
 
           if (session.browser.type === 'webdriver') {
@@ -106,7 +115,7 @@ export function visualRegressionPlugin(
             `;
 
             const screenshot = await browser.takeScreenshot(session.id, locator);
-            return visualDiffCommand(mergedOptions, screenshot, session.browser.name, payload.name);
+            return visualDiffCommand(mergedOptions, screenshot, payload.name, context);
           }
 
           throw new Error(
