@@ -7,21 +7,27 @@ The test runner can be configured using CLI flags, or with a configuration file.
 | name                | type         | description                                                                                                           |
 | ------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------- |
 | files               | string array | test files glob. this is the default option, so you do not need to specify it.                                        |
+| root-dir            | string       | Root directory to serve files from.                                                                                   |
 | watch               | boolean      | runs in watch mode                                                                                                    |
 | coverage            | boolean      | whether to analyze code coverage                                                                                      |
-| node-resolve        | boolean      | resolve bare module imports                                                                                           |
-| esbuild-target      | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent. |
+| concurrent-browsers | number       | amount of browsers to run concurrently. defaults to 2                                                                 |
+| concurrency         | number       | amount of test files to run concurrently. default to CPU cores divided by 2                                           |
+| config              | string       | where to read the config from                                                                                         |
+| static-logging      | boolean      | Disables rendering a progress bar dynamically to the terminal.                                                        |
+| manual              | boolean      | Starts test runner in manual testing mode. Ignores browsers option and prints manual testing URL.                     |
+| open                | boolean      | Opens browser for manual testing. Requires the manual option to be set.                                               |
+| port                | number       | Port to bind the server on.                                                                                           |
+| groups              | string       | pattern of where to read test group config files from                                                                 |
+| group               | string       | runs tests only for the test group with this name                                                                     |
 | preserve-symlinks   | boolean      | preserve symlinks when resolving imports                                                                              |
-| update-snapshots    | boolean      | updates snapshots stored on disk                                                                                      |
 | puppeteer           | boolean      | whether to run tests with @web/test-runner-puppeteer                                                                  |
 | playwright          | boolean      | whether to run tests with @web/test-runner-playwright                                                                 |
 | browsers            | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit                           |
-| config              | object       | where to read the config from                                                                                         |
-| groups              | string       | pattern of where to read test group config files from                                                                 |
-| group               | string       | runs tests only for the test group with this name                                                                     |
-| concurrent-browsers | number       | amount of browsers to run concurrently. defaults to 2                                                                 |
-| concurrency         | number       | amount of test files to run concurrently. default to CPU cores divided by 2                                           |
+| node-resolve        | boolean      | Resolve bare module imports using node resolution.                                                                    |
+| update-snapshots    | boolean      | updates snapshots stored on disk                                                                                      |
+| esbuild-target      | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent. |
 | debug               | boolean      | whether to print debug messages                                                                                       |
+| help                | boolean      | Print help commands.                                                                                                  |
 
 Examples:
 

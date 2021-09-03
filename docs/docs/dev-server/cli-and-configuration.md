@@ -6,15 +6,17 @@ The dev server can be configured using CLI flags, or with a configuration file.
 
 | name              | type         | description                                                                                                          |
 | ----------------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
+| config            | string       | where to read the config from                                                                                        |
 | root-dir          | string       | the root directory to serve files from. Defaults to the current working directory                                    |
 | base-path         | string       | prefix to strip from requests URLs                                                                                   |
-| open              | boolean      | Opens the browser on app-index, root dir or a custom path                                                            |
-| app-index         | boolean      | The app's index.html file. When set, serves the index.html for non-file requests. Use this to enable SPA routing     |
-| watch             | boolean      | runs in watch mode, reloading on file changes                                                                        |
-| node-resolve      | boolean      | resolve bare module imports                                                                                          |
-| esbuild-target    | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent |
+| open              | string       | Opens the browser on app-index, root dir or a custom path                                                            |
+| app-index         | string       | The app's index.html file. When set, serves the index.html for non-file requests. Use this to enable SPA routing     |
 | preserve-symlinks | boolean      | preserve symlinks when resolving imports                                                                             |
-| config            | object       | where to read the config from                                                                                        |
+| node-resolve      | boolean      | resolve bare module imports                                                                                          |
+| watch             | boolean      | runs in watch mode, reloading on file changes                                                                        |
+| port              | number       | Port to bind the server to                                                                                           |
+| hostname          | string       | Hostname to bind the server to                                                                                       |
+| esbuild-target    | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent |
 | debug             | boolean      | whether to log debug messages                                                                                        |
 | help              | boolean      | List all possible commands                                                                                           |
 
