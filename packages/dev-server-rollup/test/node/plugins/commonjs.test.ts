@@ -50,10 +50,9 @@ describe('@rollup/plugin-commonjs', () => {
 
     try {
       const text = await fetchText(`${host}/foo.js`);
-      expectIncludes(text, 'var foo_1 = "bar"; var lorem = "ipsum";');
+      expectIncludes(text, 'var foo_1 = foo.foo = "bar"; var lorem = foo.lorem = "ipsum";');
       expectIncludes(text, 'export default foo;');
-      expectIncludes(text, 'export { foo_1 as foo };');
-      expectIncludes(text, 'export { lorem };');
+      expectIncludes(text, 'export { foo as __moduleExports, foo_1 as foo, lorem };');
     } finally {
       server.stop();
     }
@@ -84,10 +83,7 @@ module.exports.lorem = lorem;`;
     try {
       const text = await fetchText(`${host}/foo.js`);
 
-      expectIncludes(text, 'export default foo_1;');
-      expectIncludes(text, 'export { foo_1 as __moduleExports };');
-      expectIncludes(text, 'export { foo_2 as foo }');
-      expectIncludes(text, 'export { lorem_1 as lorem }');
+      expectIncludes(text, 'export { foo_1 as __moduleExports, foo_2 as foo, lorem_1 as lorem, foo_1 as default };');
     } finally {
       server.stop();
     }
@@ -116,20 +112,13 @@ exports.default = _default;`;
       const text = await fetchText(`${host}/foo.js`);
       expectIncludes(
         text,
-        "import * as commonjsHelpers from '/__web-dev-server__/rollup/commonjsHelpers.js?web-dev-server-rollup-null-byte=%00commonjsHelpers.js';",
+        'import * as commonjsHelpers from "/__web-dev-server__/rollup/commonjsHelpers.js?web-dev-server-rollup-null-byte=%00commonjsHelpers.js";',
       );
-      expectIncludes(
-        text,
-        'var foo = commonjsHelpers.createCommonjsModule(function (module, exports) {',
-      );
-      expectIncludes(text, 'exports.__esModule = true;');
-      expectIncludes(text, 'exports.default = void 0;');
+      expectIncludes(text, 'foo.__esModule = true;');
+      expectIncludes(text, 'var default_1 = foo.default = void 0;');
       expectIncludes(text, "var _default = 'foo';");
-      expectIncludes(text, 'exports.default = _default;');
-      expectIncludes(
-        text,
-        'export default /*@__PURE__*/commonjsHelpers.getDefaultExportFromCjs(foo);',
-      );
+      expectIncludes(text, "default_1 = foo.default = _default;");
+      expectIncludes(text, 'export { foo as __moduleExports, default_1 as default };');
     } finally {
       server.stop();
     }
@@ -141,7 +130,7 @@ exports.default = _default;`;
         {
           name: 'test',
           resolveImport({ source }) {
-            if (source === 'bar') {
+            if (source === '\x00bar?commonjs-require') {
               return './bar.js';
             }
             return undefined;
@@ -158,13 +147,13 @@ exports.default = _default;`;
 
     try {
       const text = await fetchText(`${host}/foo.js`);
-      expectIncludes(text, "import './bar.js';");
+      expectIncludes(text, "import \"./bar.js\";");
       expectIncludes(
         text,
-        "import bar from '/__web-dev-server__/rollup/bar.js?web-dev-server-rollup-null-byte=%00",
+        'import require$$0 from "/__web-dev-server__/rollup/bar?web-dev-server-rollup-null-byte=%00bar%3Fcommonjs-external";',
       );
       expectIncludes(text, 'export default foo;');
-      expectIncludes(text, 'export { bar_1 as bar };');
+      expectIncludes(text, 'export { foo as __moduleExports, bar_1 as bar };');
     } finally {
       server.stop();
     }
