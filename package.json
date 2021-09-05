@@ -48,7 +48,6 @@
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.2.0",
     "@types/node": "*",
-    "@types/node-fetch": "^2.5.8",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "alex": "^9.1.0",
