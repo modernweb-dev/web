@@ -27,6 +27,7 @@ async function startSeleniumServer() {
         chrome: { version: 'latest' },
         firefox: { version: 'latest' },
       },
+      seleniumArgs: ['-port', '8888'],
     });
   } catch (err) {
     console.error('Error occurred when starting selenium.');
@@ -58,13 +59,13 @@ if (os.platform() !== 'win32') {
             driverBuilder: new Builder()
               .forBrowser('chrome')
               .setChromeOptions(new ChromeOptions().headless())
-              .usingServer('http://localhost:4444/wd/hub'),
+              .usingServer('http://localhost:8888/wd/hub'),
           }),
           seleniumLauncher({
             driverBuilder: new Builder()
               .forBrowser('firefox')
               .setFirefoxOptions(new FirefoxOptions().headless())
-              .usingServer('http://localhost:4444/wd/hub'),
+              .usingServer('http://localhost:8888/wd/hub'),
           }),
         ],
       };
