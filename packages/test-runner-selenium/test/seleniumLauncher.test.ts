@@ -7,19 +7,33 @@ import { runIntegrationTests } from '../../../integration/test-runner';
 import { seleniumLauncher } from '../src/seleniumLauncher';
 
 async function startSeleniumServer() {
-  await selenium.install({
-    drivers: {
-      chrome: { version: 'latest' },
-      firefox: { version: 'latest' },
-    },
-  });
+  let server;
 
-  return await selenium.start({
-    drivers: {
-      chrome: { version: 'latest' },
-      firefox: { version: 'latest' },
-    },
-  });
+  try {
+    await selenium.install({
+      drivers: {
+        chrome: { version: 'latest' },
+        firefox: { version: 'latest' },
+      },
+    });
+  } catch (err) {
+    console.error('Error occurred when installing selenium.');
+    throw err;
+  }
+
+  try {
+    server = await selenium.start({
+      drivers: {
+        chrome: { version: 'latest' },
+        firefox: { version: 'latest' },
+      },
+    });
+  } catch (err) {
+    console.error('Error occurred when starting selenium.');
+    throw err;
+  }
+
+  return server;
 }
 
 let seleniumServer: selenium.ChildProcess;
