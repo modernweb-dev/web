@@ -7,41 +7,23 @@ import { runIntegrationTests } from '../../../integration/test-runner';
 import { seleniumLauncher } from '../src/seleniumLauncher';
 
 async function startSeleniumServer() {
-  await new Promise<void>((resolve, reject) =>
-    selenium.install(
-      {
-        drivers: {
-          chrome: { version: 'latest' },
-          firefox: { version: 'latest' },
-        },
+  await selenium.install(
+    {
+      drivers: {
+        chrome: { version: 'latest' },
+        firefox: { version: 'latest' },
       },
-      err => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      },
-    ),
+    },
   );
 
-  return new Promise<selenium.ChildProcess>((resolve, reject) =>
-    selenium.start(
-      {
-        drivers: {
-          chrome: { version: 'latest' },
-          firefox: { version: 'latest' },
-        },
+  return await selenium.start(
+    {
+      drivers: {
+        chrome: { version: 'latest' },
+        firefox: { version: 'latest' },
       },
-      (err, server) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(server);
-        }
-      },
-    ),
-  );
+    },
+  )
 }
 
 let seleniumServer: selenium.ChildProcess;
@@ -53,8 +35,7 @@ if (os.platform() !== 'win32') {
     seleniumServer = await startSeleniumServer();
   });
 
-  // skip tests because this package is deprecated
-  describe.skip('test-runner-selenium', function testRunnerSelenium() {
+  describe('test-runner-selenium', function testRunnerSelenium() {
     this.timeout(50000);
 
     function createConfig() {

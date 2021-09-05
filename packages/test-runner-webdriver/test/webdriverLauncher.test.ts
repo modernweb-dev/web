@@ -4,41 +4,23 @@ import { runIntegrationTests } from '../../../integration/test-runner';
 import { webdriverLauncher } from '../src/webdriverLauncher';
 
 async function startSeleniumServer() {
-  await new Promise<void>((resolve, reject) =>
-    selenium.install(
-      {
-        drivers: {
-          chrome: { version: 'latest' },
-          firefox: { version: 'latest' },
-        },
+  await selenium.install(
+    {
+      drivers: {
+        chrome: { version: 'latest' },
+        firefox: { version: 'latest' },
       },
-      err => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      },
-    ),
+    },
   );
 
-  return new Promise<selenium.ChildProcess>((resolve, reject) =>
-    selenium.start(
-      {
-        drivers: {
-          chrome: { version: 'latest' },
-          firefox: { version: 'latest' },
-        },
+  return await selenium.start(
+    {
+      drivers: {
+        chrome: { version: 'latest' },
+        firefox: { version: 'latest' },
       },
-      (err, server) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(server);
-        }
-      },
-    ),
-  );
+    },
+  )
 }
 
 let seleniumServer: selenium.ChildProcess;
@@ -50,8 +32,7 @@ if (os.platform() !== 'win32') {
     seleniumServer = await startSeleniumServer();
   });
 
-  // skipped until we can re-enable, see: https://github.com/modernweb-dev/web/issues/1223
-  describe.skip('test-runner-webdriver', function testRunnerWebdriver() {
+  describe('test-runner-webdriver', function testRunnerWebdriver() {
     this.timeout(50000);
 
     function createConfig() {
