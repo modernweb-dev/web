@@ -7,23 +7,19 @@ import { runIntegrationTests } from '../../../integration/test-runner';
 import { seleniumLauncher } from '../src/seleniumLauncher';
 
 async function startSeleniumServer() {
-  await selenium.install(
-    {
-      drivers: {
-        chrome: { version: 'latest' },
-        firefox: { version: 'latest' },
-      },
+  await selenium.install({
+    drivers: {
+      chrome: { version: 'latest' },
+      firefox: { version: 'latest' },
     },
-  );
+  });
 
-  return await selenium.start(
-    {
-      drivers: {
-        chrome: { version: 'latest' },
-        firefox: { version: 'latest' },
-      },
+  return await selenium.start({
+    drivers: {
+      chrome: { version: 'latest' },
+      firefox: { version: 'latest' },
     },
-  )
+  });
 }
 
 let seleniumServer: selenium.ChildProcess;
