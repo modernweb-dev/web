@@ -2199,10 +2199,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/selenium-standalone@^6.15.2":
-  version "6.15.2"
-  resolved "https://registry.yarnpkg.com/@types/selenium-standalone/-/selenium-standalone-6.15.2.tgz#b6562f8e016d7b656bba9ee6445086364959af01"
-  integrity sha512-Jnt4AHHcUOPGuZ5cJRYfP3IpPalNc/o1BmFvuFFmLtU2PtvEGvyyJPdpErqzZDxsP8E4yjTst0GL+QMJiEWuBA==
+"@types/selenium-standalone@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@types/selenium-standalone/-/selenium-standalone-7.0.1.tgz#7d94c2f663ceb495648c2c2a300f317d3a835257"
+  integrity sha512-zbKenL0fAXzPyiOaaFMrvFdMNhj5BgNJQq8bxiZfwQD9ID2J8bUG5xbcS3tQtlzIX/62z9nG5Vo45oaHWTbvbw==
   dependencies:
     "@types/node" "*"
 
@@ -3851,7 +3851,7 @@ command-line-usage@^6.1.1:
     table-layout "^1.0.1"
     typical "^5.2.0"
 
-commander@^2.19.0, commander@^2.2.0, commander@^2.20.0, commander@^2.20.3, commander@^2.8.1:
+commander@^2.19.0, commander@^2.2.0, commander@^2.20.0, commander@^2.8.1:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
@@ -6834,6 +6834,11 @@ is-plain-obj@^2.0.0, is-plain-obj@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-2.1.0.tgz#45e42e37fccf1f40da8e5f76ee21515840c09287"
   integrity sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA==
+
+is-port-reachable@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/is-port-reachable/-/is-port-reachable-3.0.0.tgz#edf721e7d354e6e00cbeb0fc174ad89bdf6056b3"
+  integrity sha512-056IzLiWHdgVd6Eq1F9HtJl+cIkvi5X2MJ/A1fjQtByHkzQE1wGardnPhqrarOGDF88BOW+297X7PDvZ2vcyVg==
 
 is-promise@^2.0.0:
   version "2.2.2"
@@ -10637,15 +10642,17 @@ select@^1.1.2:
   resolved "https://registry.yarnpkg.com/select/-/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
   integrity sha1-DnNQrN7ICxEIUoeG7B1EGNEbOW0=
 
-selenium-standalone@^6.23.0:
-  version "6.24.0"
-  resolved "https://registry.yarnpkg.com/selenium-standalone/-/selenium-standalone-6.24.0.tgz#cca7c1c36bfa3429078a8e6a1a4fd373f641a7c8"
-  integrity sha512-Dun2XgNAgCfJNrrSzuv7Z7Wj7QTvBKpqx0VXFz7bW9T9FUe5ytzgzoCEEshwDVMh0Dv6sCgdZg7VDhM/q2yPPQ==
+selenium-standalone@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/selenium-standalone/-/selenium-standalone-7.1.0.tgz#1192a4ad84f114137dd5deadcb81b0f56afe054a"
+  integrity sha512-Pc7U48qwB4LVy/XczBrPPXwUhEPl3XQSik8SjLfj2qzBEtZqrjyzOlnnXq4aVCdr5wH9FiFJm8LwheJbK2+/oQ==
   dependencies:
-    commander "^2.20.3"
+    commander "^7.2.0"
     cross-spawn "^7.0.3"
     debug "^4.3.1"
+    fs-extra "^10.0.0"
     got "^11.8.2"
+    is-port-reachable "^3.0.0"
     lodash.mapvalues "^4.6.0"
     lodash.merge "^4.6.2"
     minimist "^1.2.5"
