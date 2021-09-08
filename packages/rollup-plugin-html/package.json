@@ -1,6 +1,6 @@
 {
   "name": "@web/rollup-plugin-html",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "publishConfig": {
     "access": "public"
   },
