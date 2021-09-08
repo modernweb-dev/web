@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 1.10.1
+
+### Patch Changes
+
+- 516ecd3f: Fix html-minimier-terser call to use await
+
 ## 1.10.0
 
 ### Minor Changes
