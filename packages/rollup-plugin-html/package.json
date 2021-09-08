@@ -49,6 +49,7 @@
     "parse5": "^6.0.1"
   },
   "devDependencies": {
+    "@types/html-minifier-terser": "^6.0.0",
     "rollup": "^2.35.1"
   }
 }

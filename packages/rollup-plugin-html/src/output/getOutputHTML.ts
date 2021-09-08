@@ -93,7 +93,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
   }
 
   if (pluginOptions.minify) {
-    outputHtml = minifyHTMLFunc(outputHtml, {
+    outputHtml = await minifyHTMLFunc(outputHtml, {
       collapseWhitespace: true,
       removeComments: true,
       removeRedundantAttributes: true,
