@@ -209,7 +209,7 @@ describe('serialize deserialize', () => {
         baz: function baz() {
           return 'baz';
         },
-        'my-element': () => 'bar'
+        'my-element': () => 'bar',
       }),
     );
     const deserialized = await deserialize(serialized);

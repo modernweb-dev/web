@@ -42,10 +42,10 @@ function createReviver(promises: Promise<unknown>[], options?: DeserializeOption
           }
           return;
         case 'Function':
-          if(value.name.includes('-')) {
+          if (value.name.includes('-')) {
             const { name } = value;
             // eslint-disable-next-line
-            const placeholder = { [name]: () => {}};
+            const placeholder = { [name]: () => {} };
             return placeholder[name];
           }
           // Create a fake function with the same name. We don't log the function implementation.
