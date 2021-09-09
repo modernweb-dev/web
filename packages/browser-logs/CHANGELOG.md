@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.2.5
+
+### Patch Changes
+
+- c403949a: fix: support method names in objects containing a dash
+
 ## 0.2.4
 
 ### Patch Changes
