@@ -48,4 +48,24 @@ export default [
     },
     plugins: [rewriteDtsPlugin, rewriteWebSocketImportPlugin],
   }),
+  deepmerge(createConfig('src/autorun-es2018.ts'), {
+    output: {
+      paths: {
+        // resolve bare import to an absolute import to avoid rollup
+        // from normalizing the import relative to the root of the file system
+        'wds-socket': '/__web-dev-server__web-socket.js',
+      },
+    },
+    plugins: [rewriteDtsPlugin, rewriteWebSocketImportPlugin],
+  }),
+  deepmerge(createConfig('src/standalone-es2018.ts'), {
+    output: {
+      paths: {
+        // resolve bare import to an absolute import to avoid rollup
+        // from normalizing the import relative to the root of the file system
+        'wds-socket': '/__web-dev-server__web-socket.js',
+      },
+    },
+    plugins: [rewriteDtsPlugin, rewriteWebSocketImportPlugin],
+  }),
 ];
