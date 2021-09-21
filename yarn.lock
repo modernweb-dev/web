@@ -1265,12 +1265,12 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.3.tgz#e45e384e4b8ec16bce2fd903af78450f6bf7ec98"
   integrity sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
 
-"@lion/accordion@^0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@lion/accordion/-/accordion-0.4.2.tgz#efeb56360113a2b68e182ff29ef0932edd17df8c"
-  integrity sha512-xETjNmpBWYO1tYx2nBMq0I45UgydUJafZ4ft3szH3fQFjYWSBwjJjKsWxIhZSqX/IoTJzA0nNCdtbXoVEbSCLg==
+"@lion/accordion@^0.6.1":
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/@lion/accordion/-/accordion-0.6.3.tgz#93addeec077efc04d7059e7892e3e4844b4ef093"
+  integrity sha512-hk0bkCo5DbRwyHRlkoAtAnfxGIV55w7A4jHRhLRtNLN+LOLn/S/+cfN93/WuugXmNd57DoeGUvrwGbb9Wbdf1g==
   dependencies:
-    "@lion/core" "0.16.0"
+    "@lion/core" "0.18.2"
 
 "@lion/combobox@^0.8.0":
   version "0.8.4"
@@ -1291,6 +1291,15 @@
     "@open-wc/scoped-elements" "^1.3.3"
     lit-element "~2.4.0"
     lit-html "^1.3.0"
+
+"@lion/core@0.18.2":
+  version "0.18.2"
+  resolved "https://registry.yarnpkg.com/@lion/core/-/core-0.18.2.tgz#ffac7a4a4811277cf864afdc7114dbb036a2e27a"
+  integrity sha512-wlzhAZUTTBYBUNeO+/dhMmh/bkzuwKOORhl7bh5PDMeHSLpTpubs5AKjrYLhF16qxczm0k/GautyJ9wZUfq2ZA==
+  dependencies:
+    "@open-wc/dedupe-mixin" "^1.2.18"
+    "@open-wc/scoped-elements" "^2.0.0-next.3"
+    lit "^2.0.0-rc.2"
 
 "@lion/core@0.18.3", "@lion/core@^0.18.0":
   version "0.18.3"
@@ -1344,7 +1353,7 @@
     "@popperjs/core" "^2.5.4"
     singleton-manager "1.4.1"
 
-"@lit/reactive-element@^1.0.0":
+"@lit/reactive-element@^1.0.0", "@lit/reactive-element@^1.0.0-rc.1":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@lit/reactive-element/-/reactive-element-1.0.0.tgz#7b6e6a85709cda0370c47e425ac2f3b553696a4b"
   integrity sha512-Kpgenb8UNFsKCsFhggiVvUkCbcFQSd6N8hffYEEGjz27/4rw3cTSsmP9t3q1EHOAsdum60Wo64HvuZDFpEwexA==
@@ -1394,13 +1403,14 @@
     unist-util-remove "^2.0.1"
     unist-util-visit "^2.0.3"
 
-"@mdjs/mdjs-preview@^0.4.2", "@mdjs/mdjs-preview@^0.5.1":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@mdjs/mdjs-preview/-/mdjs-preview-0.4.2.tgz#7a89fc5e542dcce766605613155569222fd3655f"
-  integrity sha512-ZeQFfRGVgjvPKxo8DRWCO4wtwdBs2D4ModE2xFClnsUNttxQXDj/LL6Tx9ftMQIaM7ov3XzupR4sQSYgCPKQmw==
+"@mdjs/mdjs-preview@^0.5.1", "@mdjs/mdjs-preview@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@mdjs/mdjs-preview/-/mdjs-preview-0.5.2.tgz#fef9ada6edd3925f45ac4dbeb6e4a18ebaca4d4c"
+  integrity sha512-kmr5CxdQO3OnTpOjragGuGGDy5L7MKafqHyuIRLsYtdPdRVOp36W8qN+omQHRR5shrih18hHYypjfz5RBkNCgg==
   dependencies:
-    "@lion/accordion" "^0.4.2"
-    lit-element "^2.4.0"
+    "@lion/accordion" "^0.6.1"
+    "@open-wc/scoped-elements" "^2.0.0-next.3"
+    lit "^2.0.0-rc.2"
 
 "@mdjs/mdjs-story@^0.3.0":
   version "0.3.0"
@@ -1511,13 +1521,13 @@
     lit-html "^1.0.0"
 
 "@open-wc/scoped-elements@^2.0.0-next.3":
-  version "2.0.0-next.6"
-  resolved "https://registry.yarnpkg.com/@open-wc/scoped-elements/-/scoped-elements-2.0.0-next.6.tgz#55917adcab196d18574214db949bd2d3e9152753"
-  integrity sha512-+3oreZWjqqmg+H4JzYx8MLthaXJU8ZcaiNGsMraZQxr81GwYPEkZX3+4Oe7fgdPt1zGStLYdkEGcrlk9MgIG0Q==
+  version "2.0.0-next.5"
+  resolved "https://registry.yarnpkg.com/@open-wc/scoped-elements/-/scoped-elements-2.0.0-next.5.tgz#46ce9abe3bedbb8c7dc098839f21fe442a93c0c1"
+  integrity sha512-yprRHBRDDKhS3CacWi8+UJHG+avhMUO8k6X91AQiHHOcIO4P9E8v2skdGg4bhE2fF/tg5wVex8Sa5ZlsZ21pDg==
   dependencies:
-    "@lit/reactive-element" "^1.0.0"
+    "@lit/reactive-element" "^1.0.0-rc.1"
     "@open-wc/dedupe-mixin" "^1.3.0"
-    "@webcomponents/scoped-custom-element-registry" "^0.0.3"
+    "@webcomponents/scoped-custom-element-registry" "0.0.2"
 
 "@popperjs/core@^2.5.4":
   version "2.10.2"
@@ -2441,10 +2451,10 @@
   resolved "https://registry.yarnpkg.com/@web/storybook-prebuilt/-/storybook-prebuilt-0.1.26.tgz#90f2d814ec83ac25e67b2f965b4e1622d0f33b1a"
   integrity sha512-f2fS2wSTif737y2UyUXdEjnI8pb8HmCr2W73gVl3fi95YN93G02szBnREKzz5kQB9ZVes5Tp6K6ziMUvmmXt2g==
 
-"@webcomponents/scoped-custom-element-registry@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@webcomponents/scoped-custom-element-registry/-/scoped-custom-element-registry-0.0.3.tgz#774591a886b0b0e4914717273ba53fd8d5657522"
-  integrity sha512-lpSzgDCGbM99dytb3+J3Suo4+Bk1E13MPnWB42JK8GwxSAxFz+tC7TTv2hhDSIE2IirGNKNKCf3m08ecu6eAsQ==
+"@webcomponents/scoped-custom-element-registry@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@webcomponents/scoped-custom-element-registry/-/scoped-custom-element-registry-0.0.2.tgz#c863d163cb39c60063808e5ae23e06a1766fbe5f"
+  integrity sha512-lKCoZfKoE3FHvmmj2ytaLBB8Grxp4HaxfSzaGlIZN6xXnOILfpCO0PFJkAxanefLGJWMho4kRY5PhgxWFhmSOw==
 
 "@webcomponents/shadycss@^1.10.2":
   version "1.11.0"
