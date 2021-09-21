@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.3.15
+
+### Patch Changes
+
+- 369394fe: Update dependency es-module-lexer to ^0.9.0
+
 ## 0.3.14
 
 ### Patch Changes
