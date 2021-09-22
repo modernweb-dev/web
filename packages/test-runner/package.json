@@ -81,12 +81,12 @@
     "@web/test-runner-core": "^0.10.20",
     "@web/test-runner-mocha": "^0.7.4",
     "camelcase": "^6.2.0",
-    "chalk": "^4.1.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.1",
     "convert-source-map": "^1.7.0",
     "diff": "^5.0.0",
     "globby": "^11.0.1",
+    "nanocolors": "^0.1.6",
     "portfinder": "^1.0.28",
     "source-map": "^0.7.3"
   },

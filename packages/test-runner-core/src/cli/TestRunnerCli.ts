@@ -1,6 +1,6 @@
 import { codeFrameColumns } from '@babel/code-frame';
 import path from 'path';
-import chalk from 'chalk';
+import { bold, cyan, red } from 'nanocolors';
 import openBrowser from 'open';
 
 import { writeCoverageReport } from './writeCoverageReport';
@@ -85,7 +85,7 @@ export class TestRunnerCli {
     }
 
     if (this.config.staticLogging || !this.terminal.isInteractive) {
-      this.logger.log(chalk.bold(`Running ${this.runner.testFiles.length} test files...\n`));
+      this.logger.log(bold(`Running ${this.runner.testFiles.length} test files...\n`));
     }
 
     if (this.config.open) {
@@ -316,7 +316,7 @@ export class TestRunnerCli {
     if (this.config.watch) {
       if (this.runner.focusedTestFile) {
         reports.push(
-          `Focused on test file: ${chalk.cyanBright(
+          `Focused on test file: ${cyan(
             path.relative(process.cwd(), this.runner.focusedTestFile),
           )}\n`,
         );
@@ -359,9 +359,7 @@ export class TestRunnerCli {
         const { message, code, line, column } = error;
         const result = codeFrameColumns(code, { start: { line, column } }, { highlightCode: true });
         const relativePath = path.relative(process.cwd(), filePath);
-        report.push(
-          chalk.red(`Error while transforming ${chalk.cyanBright(relativePath)}: ${message}`),
-        );
+        report.push(red(`Error while transforming ${cyan(relativePath)}: ${message}`));
         report.push(result);
         report.push('');
       }

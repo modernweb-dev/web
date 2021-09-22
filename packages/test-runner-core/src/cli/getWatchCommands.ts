@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import { gray } from 'nanocolors';
 
 export function getWatchCommands(
   coverage: boolean,
@@ -7,23 +7,21 @@ export function getWatchCommands(
 ): string[] {
   if (focusedTest) {
     return [
-      `${chalk.gray('Press')} F ${chalk.gray('to focus another test file.')}`,
-      `${chalk.gray('Press')} D ${chalk.gray('to debug in the browser.')}`,
-      coverage ? `${chalk.gray('Press')} C ${chalk.gray('to view coverage details.')}` : '',
-      `${chalk.gray('Press')} Q ${chalk.gray('to exit watch mode.')}`,
-      `${chalk.gray('Press')} Enter ${chalk.gray('to re-run this test file.')}`,
-      `${chalk.gray('Press')} ESC ${chalk.gray('to exit focus mode')}`,
+      `${gray('Press')} F ${gray('to focus another test file.')}`,
+      `${gray('Press')} D ${gray('to debug in the browser.')}`,
+      coverage ? `${gray('Press')} C ${gray('to view coverage details.')}` : '',
+      `${gray('Press')} Q ${gray('to exit watch mode.')}`,
+      `${gray('Press')} Enter ${gray('to re-run this test file.')}`,
+      `${gray('Press')} ESC ${gray('to exit focus mode')}`,
     ].filter(_ => !!_);
   }
 
   return [
-    testFiles.length > 1
-      ? `${chalk.gray('Press')} F ${chalk.gray('to focus on a test file.')}`
-      : '',
-    `${chalk.gray('Press')} D ${chalk.gray('to debug in the browser.')}`,
-    `${chalk.gray('Press')} M ${chalk.gray('to debug manually in a custom browser.')}`,
-    coverage ? `${chalk.gray('Press')} C ${chalk.gray('to view coverage details.')}` : '',
-    `${chalk.gray('Press')} Q ${chalk.gray('to quit watch mode.')}`,
-    `${chalk.gray('Press')} Enter ${chalk.gray('to re-run all tests.')}`,
+    testFiles.length > 1 ? `${gray('Press')} F ${gray('to focus on a test file.')}` : '',
+    `${gray('Press')} D ${gray('to debug in the browser.')}`,
+    `${gray('Press')} M ${gray('to debug manually in a custom browser.')}`,
+    coverage ? `${gray('Press')} C ${gray('to view coverage details.')}` : '',
+    `${gray('Press')} Q ${gray('to quit watch mode.')}`,
+    `${gray('Press')} Enter ${gray('to re-run all tests.')}`,
   ].filter(_ => !!_);
 }

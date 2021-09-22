@@ -1,5 +1,5 @@
 import { TestSession } from '@web/test-runner-core';
-import chalk from 'chalk';
+import { bold, cyan } from 'nanocolors';
 import { relative } from 'path';
 
 import { reportTestsErrors } from './reportTestsErrors';
@@ -28,7 +28,7 @@ export function reportTestFileResults(
   if (logger.buffer.length > 0) {
     logger.buffer.unshift({
       method: 'log',
-      args: [`${chalk.bold(chalk.cyanBright(relative(process.cwd(), testFile)))}:\n`],
+      args: [`${bold(cyan(relative(process.cwd(), testFile)))}:\n`],
     });
   }
 }

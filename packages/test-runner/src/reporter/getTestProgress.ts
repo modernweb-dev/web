@@ -6,7 +6,7 @@ import {
   CoverageConfig,
   BrowserLauncher,
 } from '@web/test-runner-core';
-import chalk from 'chalk';
+import { bold, gray, green, red } from 'nanocolors';
 
 import { getPassedFailedSkippedCount } from './utils/getPassedFailedSkippedCount';
 import { getCodeCoverage } from './getCodeCoverage';
@@ -38,9 +38,9 @@ function getProgressReport(
 ) {
   const failedText = `${failedTests} failed`;
   const testResults =
-    `${chalk.green(`${passedTests} passed`)}` +
-    `, ${failedTests !== 0 ? chalk.red(failedText) : failedText}` +
-    (skippedTests !== 0 ? `, ${chalk.gray(`${skippedTests} skipped`)}` : '');
+    `${green(`${passedTests} passed`)}` +
+    `, ${failedTests !== 0 ? red(failedText) : failedText}` +
+    (skippedTests !== 0 ? `, ${gray(`${skippedTests} skipped`)}` : '');
   const progressBar = `${renderProgressBar(
     finishedFiles,
     activeFiles,
@@ -144,9 +144,9 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
 
   if (testRun !== -1 && unfinishedSessions.length === 0) {
     if (coverage && !testCoverage) {
-      entries.push(chalk.bold('Calculating code coverage...'));
+      entries.push(bold('Calculating code coverage...'));
     } else if (config.watch) {
-      entries.push(chalk.bold(`Finished running tests, watching for file changes...`));
+      entries.push(bold(`Finished running tests, watching for file changes...`));
     } else {
       const durationInSec = (Date.now() - startTime) / 1000;
       const duration = Math.trunc(durationInSec * 10) / 10;
@@ -154,31 +154,25 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
       if (failed) {
         if (coverage && !testCoverage?.passed) {
           entries.push(
-            chalk.bold(
-              chalk.red(
-                `Finished running tests in ${duration}s, failed to meet coverage threshold.`,
-              ),
-            ),
+            bold(red(`Finished running tests in ${duration}s, failed to meet coverage threshold.`)),
           );
         } else if (failedTestCount > 0) {
           entries.push(
-            chalk.bold(
-              chalk.red(
-                `Finished running tests in ${duration}s with ${failedTestCount} failed tests.`,
-              ),
+            bold(
+              red(`Finished running tests in ${duration}s with ${failedTestCount} failed tests.`),
             ),
           );
         } else if (finishedFiles.size > 0) {
-          entries.push(chalk.bold(chalk.red(`Error while running tests.`)));
+          entries.push(bold(red(`Error while running tests.`)));
         } else {
-          entries.push(chalk.bold(chalk.red(`Failed to run any tests.`)));
+          entries.push(bold(red(`Failed to run any tests.`)));
         }
       } else {
-        entries.push(chalk.bold(`Finished running tests in ${duration}s, all tests passed! 🎉`));
+        entries.push(bold(`Finished running tests in ${duration}s, all tests passed! 🎉`));
       }
     }
   } else {
-    entries.push(chalk.bold('Running tests...'));
+    entries.push(bold('Running tests...'));
   }
 
   entries.push('');

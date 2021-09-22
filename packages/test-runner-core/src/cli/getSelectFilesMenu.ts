@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import { cyan, red } from 'nanocolors';
 import { relative } from 'path';
 
 export function getSelectFilesMenu(succeededFiles: string[], failedFiles: string[]) {
@@ -6,9 +6,10 @@ export function getSelectFilesMenu(succeededFiles: string[], failedFiles: string
   const minWidth = maxI.toString().length + 1;
 
   function formatTestFile(file: string, i: number, offset: number, failed: boolean) {
-    return `[${i + offset}]${' '.repeat(
-      Math.max(0, minWidth - (i + offset).toString().length),
-    )}${chalk[failed ? 'red' : 'cyan'](relative(process.cwd(), file))}`;
+    const relativePath = relative(process.cwd(), file);
+    return `[${i + offset}]${' '.repeat(Math.max(0, minWidth - (i + offset).toString().length))}${
+      failed ? red(relativePath) : cyan(relativePath)
+    }`;
   }
 
   const entries: string[] = [
