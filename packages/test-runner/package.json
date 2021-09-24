@@ -86,7 +86,7 @@
     "convert-source-map": "^1.7.0",
     "diff": "^5.0.0",
     "globby": "^11.0.1",
-    "nanocolors": "^0.1.6",
+    "nanocolors": "^0.2.1",
     "portfinder": "^1.0.28",
     "source-map": "^0.7.3"
   },
