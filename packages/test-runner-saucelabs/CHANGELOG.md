@@ -1,5 +1,11 @@
 # @web/test-runner-saucelabs
 
+## 0.6.3
+
+### Patch Changes
+
+- d4f92e25: Replace uuid dependency with nanoid
+
 ## 0.6.2
 
 ### Patch Changes

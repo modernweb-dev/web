@@ -1,5 +1,11 @@
 # @web/test-runner-browserstack
 
+## 0.4.3
+
+### Patch Changes
+
+- d4f92e25: Replace uuid dependency with nanoid
+
 ## 0.4.2
 
 ### Patch Changes

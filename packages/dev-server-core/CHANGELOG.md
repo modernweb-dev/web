@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.3.16
+
+### Patch Changes
+
+- a09282b4: Replace chalk with nanocolors
+
 ## 0.3.15
 
 ### Patch Changes
