@@ -1,5 +1,14 @@
 # @web/dev-server
 
+## 0.1.24
+
+### Patch Changes
+
+- a09282b4: Replace chalk with nanocolors
+- Updated dependencies [a09282b4]
+  - @web/dev-server-core@0.3.16
+  - @web/dev-server-rollup@0.3.10
+
 ## 0.1.23
 
 ### Patch Changes

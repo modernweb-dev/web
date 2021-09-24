@@ -1,5 +1,14 @@
 # @web/test-runner-core
 
+## 0.10.21
+
+### Patch Changes
+
+- d4f92e25: Replace uuid dependency with nanoid
+- a09282b4: Replace chalk with nanocolors
+- Updated dependencies [a09282b4]
+  - @web/dev-server-core@0.3.16
+
 ## 0.10.20
 
 ### Patch Changes
