@@ -1,6 +1,6 @@
 import { CoverageThresholdConfig, TestCoverage, CoverageConfig } from '@web/test-runner-core';
 import path from 'path';
-import chalk from 'chalk';
+import { bold, green, red, underline } from 'nanocolors';
 
 const coverageTypes: (keyof CoverageThresholdConfig)[] = [
   'lines',
@@ -20,20 +20,17 @@ export function getCodeCoverage(
   const avgCoverage = Math.round((coverageSum * 100) / 4) / 100;
 
   if (!Number.isNaN(avgCoverage)) {
-    entries.push(
-      `Code coverage: ${chalk.bold(
-        chalk[testCoverage.passed ? 'green' : 'red'](`${avgCoverage} %`),
-      )}`,
-    );
+    const percent = `${avgCoverage} %`;
+    entries.push(`Code coverage: ${bold(testCoverage.passed ? green(percent) : red(percent))}`);
   }
 
   if (!testCoverage.passed && coverageConfig.threshold) {
     coverageTypes.forEach(type => {
       if (testCoverage.summary[type].pct < coverageConfig.threshold![type]) {
         entries.push(
-          `Coverage for ${chalk.bold(type)} failed with ${chalk.bold(
-            chalk.red(`${testCoverage.summary[type].pct} %`),
-          )} compared to configured ${chalk.bold(`${coverageConfig.threshold![type]} %`)}`,
+          `Coverage for ${bold(type)} failed with ${bold(
+            red(`${testCoverage.summary[type].pct} %`),
+          )} compared to configured ${bold(`${coverageConfig.threshold![type]} %`)}`,
         );
       }
     });
@@ -41,7 +38,7 @@ export function getCodeCoverage(
 
   if (!watch && coverageConfig.report && coverageConfig.reporters?.includes('lcov')) {
     entries.push(
-      `View full coverage report at ${chalk.underline(
+      `View full coverage report at ${underline(
         path.join(coverageConfig.reportDir ?? '', 'lcov-report', 'index.html'),
       )}`,
     );

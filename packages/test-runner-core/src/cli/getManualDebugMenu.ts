@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import { cyan, gray } from 'nanocolors';
 import ip from 'ip';
 
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
@@ -13,10 +13,10 @@ export function getManualDebugMenu(config: TestRunnerCoreConfig): string[] {
     "Advanced functionalities such commands for changing viewport and screenshots don't work there.",
     'Use the regular debug option to debug in a controlled browser.',
     ' ',
-    `Local address:   ${chalk.cyanBright(localAddress)}`,
-    `Network address: ${chalk.cyanBright(networkAddress)}`,
+    `Local address:   ${cyan(localAddress)}`,
+    `Network address: ${cyan(networkAddress)}`,
     ' ',
-    `${chalk.gray('Press')} D ${chalk.gray('to open the browser.')}`,
-    `${chalk.gray('Press')} ${config.manual ? 'Q' : 'ESC'} ${chalk.gray('to exit manual debug.')}`,
+    `${gray('Press')} D ${gray('to open the browser.')}`,
+    `${gray('Press')} ${config.manual ? 'Q' : 'ESC'} ${gray('to exit manual debug.')}`,
   ].filter(_ => !!_);
 }

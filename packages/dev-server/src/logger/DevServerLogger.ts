@@ -1,7 +1,7 @@
 import { Logger, PluginSyntaxError } from '@web/dev-server-core';
 import { codeFrameColumns } from '@babel/code-frame';
 import path from 'path';
-import chalk from 'chalk';
+import { red, cyan } from 'nanocolors';
 
 export class DevServerLogger implements Logger {
   private debugLogging: boolean;
@@ -48,9 +48,7 @@ export class DevServerLogger implements Logger {
     const result = codeFrameColumns(code, { start: { line, column } }, { highlightCode: false });
 
     const relativePath = path.relative(process.cwd(), filePath);
-    console.error(
-      chalk.red(`Error while transforming ${chalk.cyanBright(relativePath)}: ${message}\n`),
-    );
+    console.error(red(`Error while transforming ${cyan(relativePath)}: ${message}\n`));
     console.error(highlightedResult);
     console.error('');
 

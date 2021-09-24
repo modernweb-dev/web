@@ -1,6 +1,6 @@
 /* eslint-disable no-inner-declarations */
 import { TestRunner, TestRunnerCli } from '@web/test-runner-core';
-import chalk from 'chalk';
+import { red } from 'nanocolors';
 
 import { TestRunnerConfig } from './config/TestRunnerConfig';
 import { mergeConfigs } from './config/mergeConfigs';
@@ -90,7 +90,7 @@ export async function startTestRunner(options: StartTestRunnerParams = {}) {
     return runner;
   } catch (error) {
     if (error instanceof TestRunnerStartError) {
-      console.error(`\n${chalk.red('Error:')} ${error.message}\n`);
+      console.error(`\n${red('Error:')} ${error.message}\n`);
     } else {
       console.error(error);
     }

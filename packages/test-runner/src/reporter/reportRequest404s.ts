@@ -1,5 +1,5 @@
 import { TestSession, Logger } from '@web/test-runner-core';
-import chalk from 'chalk';
+import { bold, gray } from 'nanocolors';
 
 export function reportRequest404s(logger: Logger, sessions: TestSession[]) {
   const common404s: string[] = [];
@@ -32,7 +32,7 @@ export function reportRequest404s(logger: Logger, sessions: TestSession[]) {
     logger.group();
     logger.group();
     for (const request404 of common404s) {
-      logger.log(`${chalk.bold(chalk.gray('-'))} ${request404}`);
+      logger.log(`${bold(gray('-'))} ${request404}`);
     }
     logger.groupEnd();
     logger.groupEnd();
@@ -43,7 +43,7 @@ export function reportRequest404s(logger: Logger, sessions: TestSession[]) {
     logger.group();
     logger.group();
     for (const request404 of request404s) {
-      logger.log(`${chalk.bold(chalk.gray('-'))} ${request404}`);
+      logger.log(`${bold(gray('-'))} ${request404}`);
     }
     logger.groupEnd();
     logger.groupEnd();

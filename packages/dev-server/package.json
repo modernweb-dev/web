@@ -62,12 +62,12 @@
     "@web/dev-server-core": "^0.3.15",
     "@web/dev-server-rollup": "^0.3.9",
     "camelcase": "^6.2.0",
-    "chalk": "^4.1.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.1",
     "debounce": "^1.2.0",
     "deepmerge": "^4.2.2",
     "ip": "^1.1.5",
+    "nanocolors": "^0.1.6",
     "open": "^8.0.2",
     "portfinder": "^1.0.28"
   },

@@ -1,5 +1,5 @@
 import { TestSession, TestResultError, Logger } from '@web/test-runner-core';
-import chalk from 'chalk';
+import { gray, red } from 'nanocolors';
 
 import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers';
 
@@ -47,12 +47,12 @@ export function reportTestFileErrors(
 
     if (report.error.stack) {
       // there was a stack trace, take the first line and decorate it with an icon and which browsers it failed on
-      logger.log(` ❌ ${chalk.red(errorMsg)} ${failedOn}`);
+      logger.log(` ❌ ${red(errorMsg)} ${failedOn}`);
 
       // if there was more to the stack trace, print it
       logger.group();
       logger.group();
-      logger.log(chalk.gray(report.error.stack));
+      logger.log(gray(report.error.stack));
       logger.groupEnd();
       logger.groupEnd();
     } else {

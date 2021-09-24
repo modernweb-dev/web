@@ -1,6 +1,6 @@
 import portfinder from 'portfinder';
 import { expect } from 'chai';
-import chalk from 'chalk';
+import { green, red, yellow } from 'nanocolors';
 import fetch, { RequestInit } from 'node-fetch';
 
 import { DevServer } from './server/DevServer';
@@ -66,9 +66,7 @@ export async function fetchText(url: string, init?: RequestInit) {
 
 export function expectIncludes(text: string, expected: string) {
   if (!text.includes(expected)) {
-    throw new Error(
-      chalk.red(`Expected "${chalk.yellow(expected)}" in string: \n\n${chalk.green(text)}`),
-    );
+    throw new Error(red(`Expected "${yellow(expected)}" in string: \n\n${green(text)}`));
   }
 }
 
