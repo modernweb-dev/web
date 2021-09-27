@@ -98,3 +98,20 @@ c
     await removeSnapshot({ name });
   }
 });
+
+it('can store snapshots containing # character', async () => {
+  const name = 'hash-character';
+
+  try {
+    const content = `
+## This is a header
+
+And this is the content`;
+    await saveSnapshot({ name, content });
+
+    const savedContent = await getSnapshot({ name, cache: false });
+    expect(savedContent).to.equal(content);
+  } finally {
+    await removeSnapshot({ name });
+  }
+});
