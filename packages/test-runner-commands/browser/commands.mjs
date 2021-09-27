@@ -123,7 +123,7 @@ const ESCAPE_REGEX = /snapshots\[[^\]]+] = (\n)?(?<content>`[^`]*`)/gm;
 
 const escapeContent = content => {
   [...content.matchAll(ESCAPE_REGEX)].forEach(({ groups: { content: itemContent } }) => {
-    content = content.replaceAll(itemContent, itemContent.replaceAll(/\n/g, '\\n'));
+    content = content.replaceAll(itemContent, encodeURIComponent(itemContent));
   });
 
   return content;
