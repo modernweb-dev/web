@@ -137,7 +137,6 @@ You can pass extra configuration using the `nodeResolve` option in the config:
 export default {
   nodeResolve: {
     exportConditions: ['development'],
-    dedupe: true,
   },
 };
 ```
