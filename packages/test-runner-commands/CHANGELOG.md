@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.5.13
+
+### Patch Changes
+
+- fac4bb04: Fix snapshots with # character
+
 ## 0.5.12
 
 ### Patch Changes
