@@ -1590,10 +1590,10 @@
     dependency-graph "^0.10.0"
     sax-wasm "^2.0.0"
 
-"@rocket/launch@^0.5.0":
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/@rocket/launch/-/launch-0.5.6.tgz#83f10f6de62b356cf25e15a9a6a062d6457ff89c"
-  integrity sha512-UCgzy8NFYdeX2CNcYomS/RxWk/3xpO1D1+y+/bAOKQdFsFmpm66FseFJaH8D9D18Mq7XSPz/yd3UlQBhMFKh0g==
+"@rocket/launch@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@rocket/launch/-/launch-0.6.0.tgz#c6225c864df8e73be2e081a4aa687b2ec1cf2b5f"
+  integrity sha512-Utk0MrJe3a9eof71QRWhR/CPeKDnKji+iN3sDbkXQxlEU46hHDTuJ7M0PggfaKdskYNp5w1Y9tGzz/v27fFSOg==
   dependencies:
     "@rocket/drawer" "^0.1.3"
     "@rocket/navigation" "^0.2.1"
