@@ -1505,12 +1505,12 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.10.1.tgz#728ecd95ab207aab8a9a4e421f0422db329232be"
   integrity sha512-HnUhk1Sy9IuKrxEMdIRCxpIqPw6BFsbYSEUO9p/hNw5sMld/+3OLMWQP80F8/db9qsv3qUjs7ZR5bS/R+iinXw==
 
-"@rocket/blog@^0.3.0":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@rocket/blog/-/blog-0.3.3.tgz#e507a0a015d2a2800a29c5e868e1199bc02bdd2f"
-  integrity sha512-4DMmn3GCjPLzWI+u/4BPO3FRw8z9SCUHM967v0SZbhozxVqOnrBOw6LkAQUIBdYvjWG6TqKnz717jN+MREYpWQ==
+"@rocket/blog@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@rocket/blog/-/blog-0.4.0.tgz#ec3fd9b3067f16acff1b4f25bce6aae71852532d"
+  integrity sha512-XNT44ZWkZ6/egs1yCUt9SkRQ/BpsqM2Pgk7HpfexezEvUvx6wKr1O4TEvuEQ9cjby9COouM29PHZHLiAq3lC9w==
   dependencies:
-    plugins-manager "^0.2.4"
+    plugins-manager "^0.3.0"
 
 "@rocket/building-rollup@^0.3.1":
   version "0.3.1"
@@ -8856,10 +8856,15 @@ please-upgrade-node@^3.2.0:
   dependencies:
     semver-compare "^1.0.0"
 
-plugins-manager@^0.2.1, plugins-manager@^0.2.2, plugins-manager@^0.2.4:
+plugins-manager@^0.2.1, plugins-manager@^0.2.2:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/plugins-manager/-/plugins-manager-0.2.4.tgz#56c1a885c732ebc40cc596a7e46d73d8d810d5bd"
   integrity sha512-wTkYRJETLp2ht9ikD2FFZTlSFrNRzSrOsVS+2wdO+BYtcHd4jLJAXz6q2l5gzykDPpFidvcbTud58S55jdw4BQ==
+
+plugins-manager@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/plugins-manager/-/plugins-manager-0.3.0.tgz#70a21798c7a9016be790eddccf13675bb8f0c037"
+  integrity sha512-vzL0QDeTraTcF+6o754/JBo0j+Woyrxgsakl1dCu3oCKzz/MHNvaVv+sgRHzoHjje0QPBMkKbvo99u8pOrBfcQ==
 
 pluralize@^8.0.0:
   version "8.0.0"
