@@ -150,7 +150,7 @@ export function rollupAdapter(
           rollupPluginContext,
           resolvableImport,
           filePath,
-          {},
+          { isEntry: false },
         );
 
         if (!result && injectedFilePath) {
