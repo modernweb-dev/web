@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.3.11
+
+### Patch Changes
+
+- 96f656aa: Update Rollup to 2.58.0, use isEntry flag
+
 ## 0.3.10
 
 ### Patch Changes
