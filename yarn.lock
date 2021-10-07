@@ -1370,17 +1370,17 @@
     globby "^11.0.0"
     read-yaml-file "^1.1.0"
 
-"@mdjs/core@^0.7.1", "@mdjs/core@^0.7.2", "@mdjs/core@^0.8.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@mdjs/core/-/core-0.7.2.tgz#2d94c8440f81860cc8d9fef8d516e329463bfbd7"
-  integrity sha512-0vaiM3l01TC6PCmMZ/Mgun3xHaTzg8A3tSEVewkSQ3unfoB1053GrrqDb8Y8K/CXM5c3CPG1cFJEYOTk4mhuyA==
+"@mdjs/core@^0.7.1", "@mdjs/core@^0.8.2", "@mdjs/core@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@mdjs/core/-/core-0.9.0.tgz#4a09fdd4d8ca32f7f633c62f6f1395fce4a5cbec"
+  integrity sha512-r+x3bYj6IkM8vc3o81g++ZyzxAHhfI/3FOXT/sI9Rrp0NPZWs0J1/kgvnB4fxGPge4EURbch8prx5hKbjEOsSA==
   dependencies:
-    "@mdjs/mdjs-preview" "^0.4.2"
-    "@mdjs/mdjs-story" "^0.2.0"
+    "@mdjs/mdjs-preview" "^0.5.1"
+    "@mdjs/mdjs-story" "^0.3.0"
     "@types/unist" "^2.0.3"
     es-module-lexer "^0.3.26"
     github-markdown-css "^4.0.0"
-    plugins-manager "^0.2.1"
+    plugins-manager "^0.3.0"
     rehype-autolink-headings "^5.0.1"
     rehype-prism-template "^0.4.1"
     rehype-raw "^5.0.0"
@@ -1394,7 +1394,7 @@
     unist-util-remove "^2.0.1"
     unist-util-visit "^2.0.3"
 
-"@mdjs/mdjs-preview@^0.4.2":
+"@mdjs/mdjs-preview@^0.4.2", "@mdjs/mdjs-preview@^0.5.1":
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/@mdjs/mdjs-preview/-/mdjs-preview-0.4.2.tgz#7a89fc5e542dcce766605613155569222fd3655f"
   integrity sha512-ZeQFfRGVgjvPKxo8DRWCO4wtwdBs2D4ModE2xFClnsUNttxQXDj/LL6Tx9ftMQIaM7ov3XzupR4sQSYgCPKQmw==
@@ -1402,7 +1402,7 @@
     "@lion/accordion" "^0.4.2"
     lit-element "^2.4.0"
 
-"@mdjs/mdjs-story@^0.2.0":
+"@mdjs/mdjs-story@^0.2.0", "@mdjs/mdjs-story@^0.3.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@mdjs/mdjs-story/-/mdjs-story-0.2.0.tgz#f0a2030729e8b26868f0266c76da42988b23f9c2"
   integrity sha512-KgHOUNm4e/Il9+PsPY8RatpO2UJ2Gyxwse+dkZdu63LA+vKDxLehGEo9bFVYS86Z4TCGysdSy4Pxdl42rZdGNA==

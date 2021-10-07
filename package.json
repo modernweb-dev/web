@@ -72,7 +72,7 @@
     "typescript": "4.1.3"
   },
   "resolutions": {
-    "@mdjs/core": "^0.7.2",
+    "@mdjs/core": "^0.9.0",
     "@mdjs/mdjs-preview": "^0.4.2",
     "@mdjs/mdjs-story": "^0.2.0"
   },
