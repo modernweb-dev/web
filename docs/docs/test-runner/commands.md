@@ -406,7 +406,7 @@ export function takeScreenshotPlugin() {
           `Taking screenshots is not supported for browser type ${session.browser.type}.`,
         );
       }
-      return false;
+      return undefined;
     },
   };
 }
