@@ -57,7 +57,7 @@
     "@babel/plugin-transform-template-literals": "^7.12.1",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-babel": "^5.2.2",
-    "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-commonjs": "^21.0.0",
     "@rollup/plugin-node-resolve": "^11.0.1",
     "@rollup/plugin-replace": "^3.0.0",
     "@types/parse5": "^6.0.1",
