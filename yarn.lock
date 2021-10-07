@@ -1402,12 +1402,12 @@
     "@lion/accordion" "^0.4.2"
     lit-element "^2.4.0"
 
-"@mdjs/mdjs-story@^0.2.0", "@mdjs/mdjs-story@^0.3.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@mdjs/mdjs-story/-/mdjs-story-0.2.0.tgz#f0a2030729e8b26868f0266c76da42988b23f9c2"
-  integrity sha512-KgHOUNm4e/Il9+PsPY8RatpO2UJ2Gyxwse+dkZdu63LA+vKDxLehGEo9bFVYS86Z4TCGysdSy4Pxdl42rZdGNA==
+"@mdjs/mdjs-story@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@mdjs/mdjs-story/-/mdjs-story-0.3.0.tgz#dd22b472cb5159dcdf2b3f0549c4aa096cc51fae"
+  integrity sha512-wdknFF++NM3/fqCmreF1XI3n0N4XAReg5rdUuxnkjJlfDlG1fcpjd1BEhl7NvdDzLHo/UR2h1V4KHLCH9UIRqA==
   dependencies:
-    lit-element "^2.4.0"
+    lit "^2.0.0-rc.2"
 
 "@mdn/browser-compat-data@^4.0.0":
   version "4.0.5"
@@ -8867,7 +8867,7 @@ please-upgrade-node@^3.2.0:
   dependencies:
     semver-compare "^1.0.0"
 
-plugins-manager@^0.2.1, plugins-manager@^0.2.2:
+plugins-manager@^0.2.2:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/plugins-manager/-/plugins-manager-0.2.4.tgz#56c1a885c732ebc40cc596a7e46d73d8d810d5bd"
   integrity sha512-wTkYRJETLp2ht9ikD2FFZTlSFrNRzSrOsVS+2wdO+BYtcHd4jLJAXz6q2l5gzykDPpFidvcbTud58S55jdw4BQ==

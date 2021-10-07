@@ -74,7 +74,7 @@
   "resolutions": {
     "@mdjs/core": "^0.9.0",
     "@mdjs/mdjs-preview": "^0.4.2",
-    "@mdjs/mdjs-story": "^0.2.0"
+    "@mdjs/mdjs-story": "^0.3.0"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
