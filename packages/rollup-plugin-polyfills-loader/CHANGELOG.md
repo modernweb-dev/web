@@ -1,5 +1,11 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 1.1.1
+
+### Patch Changes
+
+- e40335a4: Update main entrypoint to point to dist
+
 ## 1.1.0
 
 ### Minor Changes
