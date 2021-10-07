@@ -1,5 +1,11 @@
 # @web/test-runner-saucelabs
 
+## 0.7.0
+
+### Minor Changes
+
+- 6fb8910c: Update dependency saucelabs to v6
+
 ## 0.6.3
 
 ### Patch Changes
