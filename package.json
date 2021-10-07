@@ -72,6 +72,7 @@
     "typescript": "4.1.3"
   },
   "resolutions": {
+    "@lion/core": "^0.18.3",
     "@mdjs/core": "^0.9.0",
     "@mdjs/mdjs-story": "^0.3.0"
   },

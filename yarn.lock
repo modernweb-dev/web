@@ -1282,26 +1282,7 @@
     "@lion/listbox" "0.10.5"
     "@lion/overlays" "0.28.4"
 
-"@lion/core@0.16.0":
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/@lion/core/-/core-0.16.0.tgz#c4c8ac81b8d5bece6d40d561a392382c7ae73533"
-  integrity sha512-/MB/G44fZtL+s8iX1GAnyjw+Drn+fROkA13BpTn808UrDMGQ+WW1oq67Wp9Hr+t34LB3ghH3tm7afniDMa1VCA==
-  dependencies:
-    "@open-wc/dedupe-mixin" "^1.2.18"
-    "@open-wc/scoped-elements" "^1.3.3"
-    lit-element "~2.4.0"
-    lit-html "^1.3.0"
-
-"@lion/core@0.18.2":
-  version "0.18.2"
-  resolved "https://registry.yarnpkg.com/@lion/core/-/core-0.18.2.tgz#ffac7a4a4811277cf864afdc7114dbb036a2e27a"
-  integrity sha512-wlzhAZUTTBYBUNeO+/dhMmh/bkzuwKOORhl7bh5PDMeHSLpTpubs5AKjrYLhF16qxczm0k/GautyJ9wZUfq2ZA==
-  dependencies:
-    "@open-wc/dedupe-mixin" "^1.2.18"
-    "@open-wc/scoped-elements" "^2.0.0-next.3"
-    lit "^2.0.0-rc.2"
-
-"@lion/core@0.18.3", "@lion/core@^0.18.0":
+"@lion/core@0.16.0", "@lion/core@0.18.2", "@lion/core@0.18.3", "@lion/core@^0.18.0":
   version "0.18.3"
   resolved "https://registry.yarnpkg.com/@lion/core/-/core-0.18.3.tgz#fbf649e23b5712d5998ef8233013f48fcc598012"
   integrity sha512-BDRuwLnsyg/kDE382xBoe4ytsEsiDkov0h3VN66Y9tvMpnChf6BxAkfY7g+LlxgbsNihmZnykE+eGE7cfP5PSw==
@@ -1511,14 +1492,6 @@
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@open-wc/dedupe-mixin/-/dedupe-mixin-1.3.0.tgz#0df5d438285fc3482838786ee81895318f0ff778"
   integrity sha512-UfdK1MPnR6T7f3svzzYBfu3qBkkZ/KsPhcpc3JYhsUY4hbpwNF9wEQtD4Z+/mRqMTJrKg++YSxIxE0FBhY3RIw==
-
-"@open-wc/scoped-elements@^1.3.3":
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/@open-wc/scoped-elements/-/scoped-elements-1.3.4.tgz#96e27e13c8b09668ee631e9fccd5623a05af5cc2"
-  integrity sha512-WD+ObocdzcFCpBxnc8bQa7NoATeA+tJrK0/c/yV1Nx4leV+1PmJNNu+WCcuckBEGd0Op6FP8w1TidoqmVVba6g==
-  dependencies:
-    "@open-wc/dedupe-mixin" "^1.3.0"
-    lit-html "^1.0.0"
 
 "@open-wc/scoped-elements@^2.0.0-next.3":
   version "2.0.0-next.5"
@@ -7272,14 +7245,7 @@ lit-element@^3.0.0:
     "@lit/reactive-element" "^1.0.0"
     lit-html "^2.0.0"
 
-lit-element@~2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/lit-element/-/lit-element-2.4.0.tgz#b22607a037a8fc08f5a80736dddf7f3f5d401452"
-  integrity sha512-pBGLglxyhq/Prk2H91nA0KByq/hx/wssJBQFiYqXhGDvEnY31PRGYf1RglVzyLeRysu0IHm2K0P196uLLWmwFg==
-  dependencies:
-    lit-html "^1.1.1"
-
-lit-html@^1.0.0, lit-html@^1.1.1, lit-html@^1.3.0:
+lit-html@^1.1.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/lit-html/-/lit-html-1.4.1.tgz#0c6f3ee4ad4eb610a49831787f0478ad8e9ae5e0"
   integrity sha512-B9btcSgPYb1q4oSOb/PrOT6Z/H+r6xuNzfH4lFli/AWhYwdtrgQkQWBbIc6mdnf6E2IL3gDXdkkqNktpU0OZQA==
