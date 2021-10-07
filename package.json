@@ -73,7 +73,6 @@
   },
   "resolutions": {
     "@mdjs/core": "^0.9.0",
-    "@mdjs/mdjs-preview": "^0.5.2",
     "@mdjs/mdjs-story": "^0.3.0"
   },
   "eslintConfig": {

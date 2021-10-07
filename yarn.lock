@@ -1403,7 +1403,7 @@
     unist-util-remove "^2.0.1"
     unist-util-visit "^2.0.3"
 
-"@mdjs/mdjs-preview@^0.5.1", "@mdjs/mdjs-preview@^0.5.2":
+"@mdjs/mdjs-preview@^0.5.1":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@mdjs/mdjs-preview/-/mdjs-preview-0.5.2.tgz#fef9ada6edd3925f45ac4dbeb6e4a18ebaca4d4c"
   integrity sha512-kmr5CxdQO3OnTpOjragGuGGDy5L7MKafqHyuIRLsYtdPdRVOp36W8qN+omQHRR5shrih18hHYypjfz5RBkNCgg==
