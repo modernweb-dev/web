@@ -72,9 +72,10 @@
     "typescript": "4.1.3"
   },
   "resolutions": {
+    "@lion/core": "^0.18.3",
     "@mdjs/core": "^0.9.0",
-    "@mdjs/mdjs-preview": "^0.4.2",
-    "@mdjs/mdjs-story": "^0.3.0"
+    "@mdjs/mdjs-story": "^0.3.0",
+    "@open-wc/scoped-elements": "^2.0.0-next.6"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
