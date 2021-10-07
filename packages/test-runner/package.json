@@ -93,7 +93,7 @@
   "devDependencies": {
     "@types/diff": "^5.0.0",
     "@web/dev-server-legacy": "^0.1.7",
-    "@web/test-runner-saucelabs": "^0.6.3",
+    "@web/test-runner-saucelabs": "^0.7.0",
     "babel-plugin-istanbul": "^6.0.0",
     "concurrently": "^6.0.0"
   }
