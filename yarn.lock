@@ -1370,7 +1370,7 @@
     globby "^11.0.0"
     read-yaml-file "^1.1.0"
 
-"@mdjs/core@^0.7.1", "@mdjs/core@^0.8.2", "@mdjs/core@^0.9.0":
+"@mdjs/core@^0.8.2", "@mdjs/core@^0.9.0":
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/@mdjs/core/-/core-0.9.0.tgz#4a09fdd4d8ca32f7f633c62f6f1395fce4a5cbec"
   integrity sha512-r+x3bYj6IkM8vc3o81g++ZyzxAHhfI/3FOXT/sI9Rrp0NPZWs0J1/kgvnB4fxGPge4EURbch8prx5hKbjEOsSA==
@@ -1531,10 +1531,10 @@
   dependencies:
     plugins-manager "^0.3.0"
 
-"@rocket/building-rollup@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@rocket/building-rollup/-/building-rollup-0.3.1.tgz#b5ffde517161a5e8090219c3c0cd5d80e2dcfbd8"
-  integrity sha512-sZlbzgg5uRSK0NIMox/2g+kyUTRrWdNFRs/Ot2llJNVOyAHeU4l6G1tACguGh4p090v2UHUa+FlKsV7/y6NBPQ==
+"@rocket/building-rollup@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@rocket/building-rollup/-/building-rollup-0.4.0.tgz#cdf49e411aa8d0422dad1a6288971c8630a2f526"
+  integrity sha512-k9VFxtd3ClxNaaDItI0dtrfMBpA/2n3GODb3+EzToIu+ty6ziOZWGCf+YY+7dXzNN2rvYGra/0o8NXQoxqV48w==
   dependencies:
     "@babel/core" "^7.12.10"
     "@babel/preset-env" "^7.12.11"
@@ -1552,16 +1552,16 @@
     workbox-routing "^6.1.5"
     workbox-strategies "^6.1.5"
 
-"@rocket/cli@^0.8.2":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@rocket/cli/-/cli-0.8.2.tgz#a5139c95b4721612d75c0598f0f753f1e370483d"
-  integrity sha512-yyIZ26QCxvNLOoxJqYasDGbdyhkNqkUazasu249Ffaki3Cmx+VJqvAU/B37XM3sGGv+UWyhHwQL4QhhgzeX9IA==
+"@rocket/cli@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@rocket/cli/-/cli-0.10.0.tgz#dfbf613ef92333bdc634c0dac79774bc94ffc31a"
+  integrity sha512-r9LRn9jBbEr2yCOE9qqQlsQwX2Nezrx/HVJ8lPoSU7vHdi3EvnlM2P23HlegtWQ4rExX2NwJFgzv1lBXisQHaA==
   dependencies:
     "@11ty/eleventy" "^0.11.1"
     "@11ty/eleventy-img" "^0.9.0"
-    "@rocket/building-rollup" "^0.3.1"
+    "@rocket/building-rollup" "^0.4.0"
     "@rocket/core" "^0.1.2"
-    "@rocket/eleventy-plugin-mdjs-unified" "^0.4.1"
+    "@rocket/eleventy-plugin-mdjs-unified" "^0.6.0"
     "@rocket/eleventy-rocket-nav" "^0.3.0"
     "@rollup/plugin-babel" "^5.2.2"
     "@rollup/plugin-node-resolve" "^11.0.1"
@@ -1569,12 +1569,12 @@
     "@web/dev-server" "^0.1.4"
     "@web/dev-server-rollup" "^0.3.2"
     "@web/rollup-plugin-copy" "^0.2.0"
-    check-html-links "^0.2.2"
+    check-html-links "^0.2.3"
     command-line-args "^5.1.1"
     command-line-usage "^6.1.1"
     fs-extra "^9.0.1"
     micromatch "^4.0.2"
-    plugins-manager "^0.2.2"
+    plugins-manager "^0.3.0"
     slash "^3.0.0"
     utf8 "^3.0.0"
     workbox-window "^6.1.5"
@@ -1592,12 +1592,12 @@
     "@lion/overlays" "^0.26.1"
     lit-element "^2.4.0"
 
-"@rocket/eleventy-plugin-mdjs-unified@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@rocket/eleventy-plugin-mdjs-unified/-/eleventy-plugin-mdjs-unified-0.4.1.tgz#c634656df110b3e44ad8f9ce4fbf410df5eff1cf"
-  integrity sha512-XuxrQF8DiISVcx7TiEGzhsWKHrnYcMsJH7DUidWaAtIReTeWl5v9LvwgrSS8Z+UUsP5L0wbwjCgMjyH2Oi647g==
+"@rocket/eleventy-plugin-mdjs-unified@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@rocket/eleventy-plugin-mdjs-unified/-/eleventy-plugin-mdjs-unified-0.6.0.tgz#6872f9e66fcad97f52732adc3be7de8bdcbf4e10"
+  integrity sha512-apSI+o/rov6fAOHB2y/o3xJ5pssUYje5jayxbtq3lEmP8RfQNiFLAqQH244PA3sH0BLgO8PEQsz9P9t/zPL6SQ==
   dependencies:
-    "@mdjs/core" "^0.7.1"
+    "@mdjs/core" "^0.9.0"
     es-module-lexer "^0.3.26"
     unist-util-visit "^2.0.3"
 
@@ -3561,7 +3561,7 @@ check-error@^1.0.2:
   resolved "https://registry.yarnpkg.com/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
   integrity sha1-V00xLt2Iu13YkS6Sht1sCu1KrII=
 
-check-html-links@^0.2.2:
+check-html-links@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/check-html-links/-/check-html-links-0.2.3.tgz#2696d15962710a0efb09a2726a21d13c627656cd"
   integrity sha512-0FkIG6AQm7e9ac5ZlsaSr5Sjb+LIRyMMami9/MtyA4ZAR7Ph20Ke3Ubg6taqXkxArGCC+qrL6lUf6DSW8OzXQg==
@@ -8866,11 +8866,6 @@ please-upgrade-node@^3.2.0:
   integrity sha512-gQR3WpIgNIKwBMVLkpMUeR3e1/E1y42bqDQZfql+kDeXd8COYfM8PQA4X6y7a8u9Ua9FHmsrrmirW2vHs45hWg==
   dependencies:
     semver-compare "^1.0.0"
-
-plugins-manager@^0.2.2:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/plugins-manager/-/plugins-manager-0.2.4.tgz#56c1a885c732ebc40cc596a7e46d73d8d810d5bd"
-  integrity sha512-wTkYRJETLp2ht9ikD2FFZTlSFrNRzSrOsVS+2wdO+BYtcHd4jLJAXz6q2l5gzykDPpFidvcbTud58S55jdw4BQ==
 
 plugins-manager@^0.3.0:
   version "0.3.0"
