@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.13.19
+
+### Patch Changes
+
+- e6c7459e: Use full path to browser session file
+- Updated dependencies [e6c7459e]
+  - @web/test-runner-mocha@0.7.5
+
 ## 0.13.18
 
 ### Patch Changes

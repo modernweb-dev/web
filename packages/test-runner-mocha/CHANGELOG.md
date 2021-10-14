@@ -1,5 +1,11 @@
 # @web/test-runner-mocha
 
+## 0.7.5
+
+### Patch Changes
+
+- e6c7459e: Use full path to browser session file
+
 ## 0.7.4
 
 ### Patch Changes
