@@ -10,7 +10,7 @@ const rewriteDtsPlugin = {
       if (name.endsWith('.d.ts')) {
         file.source = file.source
           .replace(REGEXP_DTS_MOCHA, "'mocha/mocha.js'")
-          .replace(REGEXP_DTS_CORE, "'@web/test-runner-core'");
+          .replace(REGEXP_DTS_CORE, "'@web/test-runner-core/browser/session.js'");
       }
     }
   },
