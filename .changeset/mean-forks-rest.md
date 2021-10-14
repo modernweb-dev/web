@@ -3,4 +3,4 @@
 "@web/test-runner": patch
 ---
 
-fix: use full path to browser session file
+Use full path to browser session file
