@@ -22,9 +22,9 @@ async function readFile(codePath: string) {
  */
 export function serveTestFrameworkPlugin(testFramework: TestFramework) {
   const testFrameworkFilePath = path.resolve(testFramework.path);
-  const testeFrameworkBrowserPath = testFrameworkFilePath.split(path.sep).join('/');
+  const testFrameworkBrowserPath = testFrameworkFilePath.split(path.sep).join('/');
   const testFrameworkImport = encodeURI(
-    path.posix.join(TEST_FRAMEWORK_IMPORT_ROOT, testeFrameworkBrowserPath),
+    path.posix.join(TEST_FRAMEWORK_IMPORT_ROOT, testFrameworkBrowserPath),
   );
 
   const testFrameworkPlugin: Plugin = {
