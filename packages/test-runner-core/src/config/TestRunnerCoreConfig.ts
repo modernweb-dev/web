@@ -34,7 +34,7 @@ export interface TestRunnerCoreConfig {
   port: number;
 
   browsers: BrowserLauncher[];
-  testFramework?: TestFramework;
+  testFramework?: Partial<TestFramework>;
   logger: Logger;
   reporters: Reporter[];
 

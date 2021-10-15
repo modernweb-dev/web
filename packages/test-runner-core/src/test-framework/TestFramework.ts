@@ -1,4 +1,4 @@
 export interface TestFramework {
-  path?: string;
+  path: string;
   config?: unknown;
 }
