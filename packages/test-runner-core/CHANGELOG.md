@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.10.22
+
+### Patch Changes
+
+- 64bd29ac: Corrected the typings for test-runner user config `testFramework` option
+
 ## 0.10.21
 
 ### Patch Changes
