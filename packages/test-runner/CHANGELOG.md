@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.13.20
+
+### Patch Changes
+
+- 64bd29ac: Corrected the typings for test-runner user config `testFramework` option
+- Updated dependencies [64bd29ac]
+  - @web/test-runner-core@0.10.22
+
 ## 0.13.19
 
 ### Patch Changes
