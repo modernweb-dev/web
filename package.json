@@ -51,7 +51,7 @@
     "@types/node-fetch": "^2.5.8",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
-    "alex": "^9.1.0",
+    "alex": "^10.0.0",
     "chai": "^4.2.0",
     "concurrently": "^6.0.0",
     "deepmerge": "^4.2.2",
