@@ -11400,18 +11400,18 @@ safe-identifier@^0.4.2:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-saucelabs@~6.1.0:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/saucelabs/-/saucelabs-6.1.2.tgz#157121b70863d4864f74045acf27bf23fffebaf9"
-  integrity sha512-zw0TjrQ4dBEf2sxxRwsuMB+OaGfg/CID5wcE8Q2hq5cDCGuqNFrJLpWQFbf1h+1Vt5fjOuNtjLa4UAoG0V/v/g==
+saucelabs@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/saucelabs/-/saucelabs-7.0.1.tgz#585017851409a9bdc46740a1fc2201dce9c99839"
+  integrity sha512-q6CgyfMXp/uVnwWSouOpHgJwAas3LyCZxPbTkN8wWAaORYrbkST6r8T2ybDaXFl6GNGkkwdspszue+XOPfRWOw==
   dependencies:
     bin-wrapper "^4.1.0"
     change-case "^4.1.2"
     form-data "^4.0.0"
     got "^11.8.2"
     hash.js "^1.1.7"
-    tunnel "0.0.6"
-    yargs "^17.0.1"
+    tunnel "^0.0.6"
+    yargs "^17.2.1"
 
 sax-wasm@^2.0.0:
   version "2.1.0"
@@ -12730,7 +12730,7 @@ tunnel-agent@^0.6.0:
   dependencies:
     safe-buffer "^5.0.1"
 
-tunnel@0.0.6:
+tunnel@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/tunnel/-/tunnel-0.0.6.tgz#72f1314b34a5b192db012324df2cc587ca47f92c"
   integrity sha512-1h/Lnq9yajKY2PEbBadPXj3VxsDDu844OnaAo52UVmIzIvwwtBPIuNvkjuzBlTWpfJyUbG3ez0KSBibQkj4ojg==
@@ -13956,7 +13956,7 @@ yargs@^15.1.0, yargs@^15.4.1:
     y18n "^4.0.0"
     yargs-parser "^18.1.2"
 
-yargs@^17.0.1:
+yargs@^17.2.1:
   version "17.2.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.2.1.tgz#e2c95b9796a0e1f7f3bf4427863b42e0418191ea"
   integrity sha512-XfR8du6ua4K6uLGm5S6fA+FIJom/MdJcFNVY8geLlp2v8GYbOXD4EB1tPNZsRn4vBzKGMgb5DRZMeWuFc2GO8Q==
