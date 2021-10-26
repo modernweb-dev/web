@@ -27,7 +27,7 @@
     "./browser/session.js": "./browser/session.js"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=v16.13.0"
   },
   "scripts": {
     "build": "tsc",

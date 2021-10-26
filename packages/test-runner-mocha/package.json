@@ -15,7 +15,7 @@
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha",
   "main": "dist/standalone.js",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=v16.13.0"
   },
   "scripts": {
     "build": "tsc",

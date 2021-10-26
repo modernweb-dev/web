@@ -21,7 +21,7 @@
     }
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=v16.13.0"
   },
   "scripts": {
     "build": "tsc",
