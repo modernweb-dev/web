@@ -374,7 +374,7 @@ export type TransformHtmlFunction = (
 ) => string | Promise<string>;
 
 export type TransformAssetFunction = (
-  filePath: string,
   content: Buffer,
+  filePath: string,
 ) => string | Buffer | Promise<string | Buffer>;
 ```
