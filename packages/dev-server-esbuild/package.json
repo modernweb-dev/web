@@ -54,7 +54,7 @@
     "@web/dev-server-core": "^0.3.10",
     "esbuild": "^0.12.21",
     "parse5": "^6.0.1",
-    "ua-parser-js": "^0.7.23"
+    "ua-parser-js": "^1.0.2"
   },
   "devDependencies": {
     "@types/ua-parser-js": "^0.7.35",
