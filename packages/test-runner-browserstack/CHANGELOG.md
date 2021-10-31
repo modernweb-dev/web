@@ -1,5 +1,13 @@
 # @web/test-runner-browserstack
 
+## 0.4.4
+
+### Patch Changes
+
+- 1066c0b1: Update selenium-webdriver dependency to 4.0.0
+- Updated dependencies [1066c0b1]
+  - @web/test-runner-selenium@0.5.3
+
 ## 0.4.3
 
 ### Patch Changes
