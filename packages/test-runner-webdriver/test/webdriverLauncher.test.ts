@@ -9,8 +9,8 @@ async function startSeleniumServer() {
   try {
     await selenium.install({
       drivers: {
-        chrome: { version: 'latest' },
-        firefox: { version: 'latest' },
+        chrome: { version: '94.0.4606.41' },
+        // firefox: { version: 'latest' },
       },
     });
   } catch (err) {
@@ -21,8 +21,8 @@ async function startSeleniumServer() {
   try {
     server = await selenium.start({
       drivers: {
-        chrome: { version: 'latest' },
-        firefox: { version: 'latest' },
+        chrome: { version: '94.0.4606.41' },
+        // firefox: { version: 'latest' },
       },
     });
   } catch (err) {
@@ -37,13 +37,12 @@ let seleniumServer: selenium.ChildProcess;
 
 // selenium doesn't work on windows in the CI
 if (os.platform() !== 'win32') {
-  before(async function () {
-    this.timeout(50000);
-    seleniumServer = await startSeleniumServer();
-  });
-
   describe('test-runner-webdriver', function testRunnerWebdriver() {
     this.timeout(50000);
+
+    before(async function () {
+      seleniumServer = await startSeleniumServer();
+    });
 
     function createConfig() {
       return {
@@ -57,20 +56,20 @@ if (os.platform() !== 'win32') {
             capabilities: {
               browserName: 'chrome',
               'goog:chromeOptions': {
-                args: ['headless', 'disable-gpu'],
+                args: ['--no-sandbox', '--headless'],
               },
             },
           }),
-          webdriverLauncher({
-            automationProtocol: 'webdriver',
-            path: '/wd/hub/',
-            capabilities: {
-              browserName: 'firefox',
-              'moz:firefoxOptions': {
-                args: ['-headless'],
-              },
-            },
-          }),
+          // webdriverLauncher({
+          //   automationProtocol: 'webdriver',
+          //   path: '/wd/hub/',
+          //   capabilities: {
+          //     browserName: 'firefox',
+          //     'moz:firefoxOptions': {
+          //       args: ['-headless'],
+          //     },
+          //   },
+          // }),
         ],
       };
     }

@@ -1,7 +1,7 @@
 import selenium from 'selenium-standalone';
 import { Builder } from 'selenium-webdriver';
 import { Options as ChromeOptions } from 'selenium-webdriver/chrome';
-import { Options as FirefoxOptions } from 'selenium-webdriver/firefox';
+// import { Options as FirefoxOptions } from 'selenium-webdriver/firefox';
 import os from 'os';
 import { runIntegrationTests } from '../../../integration/test-runner';
 import { seleniumLauncher } from '../src/seleniumLauncher';
@@ -12,8 +12,8 @@ async function startSeleniumServer() {
   try {
     await selenium.install({
       drivers: {
-        chrome: { version: 'latest' },
-        firefox: { version: 'latest' },
+        chrome: { version: '94.0.4606.41' },
+        // firefox: { version: 'latest' },
       },
     });
   } catch (err) {
@@ -24,10 +24,10 @@ async function startSeleniumServer() {
   try {
     server = await selenium.start({
       drivers: {
-        chrome: { version: 'latest' },
-        firefox: { version: 'latest' },
+        chrome: { version: '94.0.4606.41' },
+        // firefox: { version: 'latest' },
       },
-      seleniumArgs: ['-port', '8888'],
+      seleniumArgs: ['--port', '8888'],
     });
   } catch (err) {
     console.error('Error occurred when starting selenium.');
@@ -41,13 +41,12 @@ let seleniumServer: selenium.ChildProcess;
 
 // selenium doesn't work on windows in the CI
 if (os.platform() !== 'win32') {
-  before(async function () {
-    this.timeout(50000);
-    seleniumServer = await startSeleniumServer();
-  });
-
   describe('test-runner-selenium', function testRunnerSelenium() {
     this.timeout(50000);
+
+    before(async function () {
+      seleniumServer = await startSeleniumServer();
+    });
 
     function createConfig() {
       return {
@@ -61,12 +60,12 @@ if (os.platform() !== 'win32') {
               .setChromeOptions(new ChromeOptions().headless())
               .usingServer('http://localhost:8888/wd/hub'),
           }),
-          seleniumLauncher({
-            driverBuilder: new Builder()
-              .forBrowser('firefox')
-              .setFirefoxOptions(new FirefoxOptions().headless())
-              .usingServer('http://localhost:8888/wd/hub'),
-          }),
+          // seleniumLauncher({
+          //   driverBuilder: new Builder()
+          //     .forBrowser('firefox')
+          //     .setFirefoxOptions(new FirefoxOptions().headless())
+          //     .usingServer('http://localhost:8888/wd/hub'),
+          // }),
         ],
       };
     }
