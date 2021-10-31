@@ -112,11 +112,11 @@ For example
 
 ```html
 <my-layout gap="md">
-  <!-- will set its `--layout-gap` to 16px -->
+  <!-- will set its --layout-gap to 16px -->
   <my-layout>
     <!--
     --layout-gap is authored to default to an initial value of 4px BUT
-    as its parent layout component "pierces the shadow boundary" it'll set
+    as its parent layout component pierces the Shadow boundary it'll set
     this child layout component --layout-gap with the 16px unexpectedly
     -->
   </my-layout>
