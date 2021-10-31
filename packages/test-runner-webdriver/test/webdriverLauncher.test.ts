@@ -56,7 +56,7 @@ if (os.platform() !== 'win32') {
             capabilities: {
               browserName: 'chrome',
               'goog:chromeOptions': {
-                args: ['headless', 'disable-gpu'],
+                args: ['--no-sandbox', '--headless'],
               },
             },
           }),
