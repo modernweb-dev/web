@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-esbuild",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "publishConfig": {
     "access": "public"
   },
