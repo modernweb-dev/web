@@ -10,7 +10,7 @@ async function startSeleniumServer() {
     await selenium.install({
       drivers: {
         chrome: { version: 'latest' },
-        firefox: { version: 'latest' },
+        // firefox: { version: 'latest' },
       },
     });
   } catch (err) {
@@ -22,7 +22,7 @@ async function startSeleniumServer() {
     server = await selenium.start({
       drivers: {
         chrome: { version: 'latest' },
-        firefox: { version: 'latest' },
+        // firefox: { version: 'latest' },
       },
     });
   } catch (err) {
@@ -37,13 +37,12 @@ let seleniumServer: selenium.ChildProcess;
 
 // selenium doesn't work on windows in the CI
 if (os.platform() !== 'win32') {
-  before(async function () {
-    this.timeout(50000);
-    seleniumServer = await startSeleniumServer();
-  });
-
   describe('test-runner-webdriver', function testRunnerWebdriver() {
     this.timeout(50000);
+
+    before(async function () {
+      seleniumServer = await startSeleniumServer();
+    });
 
     function createConfig() {
       return {
@@ -61,16 +60,16 @@ if (os.platform() !== 'win32') {
               },
             },
           }),
-          webdriverLauncher({
-            automationProtocol: 'webdriver',
-            path: '/wd/hub/',
-            capabilities: {
-              browserName: 'firefox',
-              'moz:firefoxOptions': {
-                args: ['-headless'],
-              },
-            },
-          }),
+          // webdriverLauncher({
+          //   automationProtocol: 'webdriver',
+          //   path: '/wd/hub/',
+          //   capabilities: {
+          //     browserName: 'firefox',
+          //     'moz:firefoxOptions': {
+          //       args: ['-headless'],
+          //     },
+          //   },
+          // }),
         ],
       };
     }
