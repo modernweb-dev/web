@@ -112,13 +112,15 @@ For example
 
 ```html
 <my-layout gap="md">
-  // will set its --layout-gap to 16px
+  <!-- will set its --layout-gap to 16px -->
   <my-layout>
-    // --layout-gap is authored to default to an initial value of 4px BUT // as its parent _layout_
-    component "pierces the shadow boundary" it'll set this child _layout_ component --layout-gap
-    with the 16px unexpectedly
-  </my-layout></my-layout
->
+    <!--
+    --layout-gap is authored to default to an initial value of 4px BUT
+    as its parent _layout_component "pierces the shadow boundary" it'll set
+    this child _layout_ component --layout-gap with the 16px unexpectedly
+    -->
+  </my-layout>
+</my-layout>
 ```
 
 In this case, [registering your Custom Property](https://developer.mozilla.org/en-US/docs/Web/CSS/@property) can help prevent inheritance if explicitly set to.
