@@ -1,7 +1,7 @@
 import selenium from 'selenium-standalone';
 import { Builder } from 'selenium-webdriver';
 import { Options as ChromeOptions } from 'selenium-webdriver/chrome';
-// import { Options as FirefoxOptions } from 'selenium-webdriver/firefox';
+import { Options as FirefoxOptions } from 'selenium-webdriver/firefox';
 import os from 'os';
 import { runIntegrationTests } from '../../../integration/test-runner';
 import { seleniumLauncher } from '../src/seleniumLauncher';
@@ -13,7 +13,7 @@ async function startSeleniumServer() {
     await selenium.install({
       drivers: {
         chrome: { version: '94.0.4606.41' },
-        // firefox: { version: 'latest' },
+        firefox: { version: 'latest' },
       },
     });
   } catch (err) {
@@ -25,7 +25,7 @@ async function startSeleniumServer() {
     server = await selenium.start({
       drivers: {
         chrome: { version: '94.0.4606.41' },
-        // firefox: { version: 'latest' },
+        firefox: { version: 'latest' },
       },
       seleniumArgs: ['--port', '8888'],
     });
@@ -60,12 +60,12 @@ if (os.platform() !== 'win32') {
               .setChromeOptions(new ChromeOptions().headless())
               .usingServer('http://localhost:8888/wd/hub'),
           }),
-          // seleniumLauncher({
-          //   driverBuilder: new Builder()
-          //     .forBrowser('firefox')
-          //     .setFirefoxOptions(new FirefoxOptions().headless())
-          //     .usingServer('http://localhost:8888/wd/hub'),
-          // }),
+          seleniumLauncher({
+            driverBuilder: new Builder()
+              .forBrowser('firefox')
+              .setFirefoxOptions(new FirefoxOptions().headless())
+              .usingServer('http://localhost:8888/wd/hub'),
+          }),
         ],
       };
     }
