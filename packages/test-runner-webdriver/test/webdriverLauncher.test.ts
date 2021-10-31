@@ -9,7 +9,7 @@ async function startSeleniumServer() {
   try {
     await selenium.install({
       drivers: {
-        chrome: { version: 'latest' },
+        chrome: { version: '94.0.4606.41' },
         // firefox: { version: 'latest' },
       },
     });
@@ -21,7 +21,7 @@ async function startSeleniumServer() {
   try {
     server = await selenium.start({
       drivers: {
-        chrome: { version: 'latest' },
+        chrome: { version: '94.0.4606.41' },
         // firefox: { version: 'latest' },
       },
     });
