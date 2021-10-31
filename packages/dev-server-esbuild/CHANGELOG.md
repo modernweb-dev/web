@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.2.15
+
+### Patch Changes
+
+- 9f4940f0: Update ua-parser-js dependency to 1.0.2
+
 ## 0.2.14
 
 ### Patch Changes
