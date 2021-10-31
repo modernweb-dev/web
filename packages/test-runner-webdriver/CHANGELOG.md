@@ -1,5 +1,11 @@
 # @web/test-runner-webdriver
 
+## 0.4.3
+
+### Patch Changes
+
+- bfa1d1ca: Update webdriver dependency to 7.16.0
+
 ## 0.4.2
 
 ### Patch Changes

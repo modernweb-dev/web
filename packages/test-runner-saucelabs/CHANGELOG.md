@@ -1,5 +1,13 @@
 # @web/test-runner-saucelabs
 
+## 0.7.1
+
+### Patch Changes
+
+- bfa1d1ca: Update webdriver dependency to 7.16.0
+- Updated dependencies [bfa1d1ca]
+  - @web/test-runner-webdriver@0.4.3
+
 ## 0.7.0
 
 ### Minor Changes
