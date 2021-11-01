@@ -1,5 +1,11 @@
 # @web/test-runner-saucelabs
 
+## 0.7.2
+
+### Patch Changes
+
+- 7e46ba7c: Pin saucelabs version to 6.1.0 minor
+
 ## 0.7.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-saucelabs",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "publishConfig": {
     "access": "public"
   },
