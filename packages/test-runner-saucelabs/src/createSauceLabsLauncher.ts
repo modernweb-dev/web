@@ -31,8 +31,8 @@ export function createSauceLabsLauncher(
   }
 
   const finalConnectOptions: SauceConnectOptions = { ...sauceConnectOptions };
-  if (typeof finalConnectOptions.tunnelIdentifier !== 'string') {
-    finalConnectOptions.tunnelIdentifier = `web-test-runner-${nanoid()}`;
+  if (typeof finalConnectOptions.tunnelName !== 'string') {
+    finalConnectOptions.tunnelName = `web-test-runner-${nanoid()}`;
   }
   const manager = new SauceLabsLauncherManager(finalSauceLabsOptions, finalConnectOptions);
 
@@ -44,7 +44,7 @@ export function createSauceLabsLauncher(
     let finalCapabilities = { ...capabilities };
 
     const finalSauceCapabilities = {
-      tunnelIdentifier: finalConnectOptions.tunnelIdentifier,
+      tunnelName: finalConnectOptions.tunnelName,
       ...saucelabsCapabilities,
     };
 
