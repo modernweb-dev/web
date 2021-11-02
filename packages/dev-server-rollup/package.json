@@ -51,7 +51,7 @@
     "nanocolors": "^0.2.1",
     "parse5": "^6.0.1",
     "rollup": "^2.58.0",
-    "whatwg-url": "^9.0.0"
+    "whatwg-url": "^10.0.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-template-literals": "^7.12.1",
