@@ -1,5 +1,15 @@
 # @web/dev-server
 
+## 0.1.26
+
+### Patch Changes
+
+- 2b226517: Update whatwg-url dependency to 10.0.0
+- 8a1dfdc0: Update whatwg-url dependency to 11.0.0
+- Updated dependencies [2b226517]
+- Updated dependencies [8a1dfdc0]
+  - @web/dev-server-rollup@0.3.12
+
 ## 0.1.25
 
 ### Patch Changes
