@@ -1,5 +1,13 @@
 # @web/test-runner-junit-reporter
 
+## 0.4.8
+
+### Patch Changes
+
+- aab9a42f: Update dependency puppeteer-core to v11
+- Updated dependencies [aab9a42f]
+  - @web/test-runner-chrome@0.10.4
+
 ## 0.4.7
 
 ### Patch Changes
