@@ -84,6 +84,27 @@ export class SessionManager {
     return this.driver.keys(keys);
   }
 
+  async hover(_: string, selector: string) {
+    const { x, y } = await this.driver.$(selector).getLocation();
+    return this.driver.performActions([
+      {
+        type: "pointer",
+        id: "finger1",
+        parameters: {
+          pointerType: "mouse"
+        },
+        actions: [
+          {
+            type: "pointerMove",
+            duration: 0,
+            x: x + 1,
+            y: y + 1
+          }
+        ]
+      }
+    ]);
+  }
+
   async takeScreenshot(_: string, locator: string): Promise<Buffer> {
     const elementData = (await this.driver.execute(locator, [])) as Element<'async'>;
 

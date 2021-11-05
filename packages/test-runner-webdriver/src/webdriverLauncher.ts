@@ -124,6 +124,13 @@ export class WebdriverLauncher implements BrowserLauncher {
     }, 60000);
   }
 
+  hover(sessionId: string, selector: string) {
+    if (!this.driverManager) {
+      throw new Error('Not initialized');
+    }
+    return this.driverManager.hover(sessionId, selector);
+  }
+
   sendKeys(sessionId: string, keys: string[]) {
     if (!this.driverManager) {
       throw new Error('Not initialized');
