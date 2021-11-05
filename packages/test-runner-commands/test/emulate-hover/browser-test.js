@@ -1,5 +1,5 @@
 import { visualDiff } from '@web/test-runner-visual-regression';
-import { emulateHover } from '../../browser/commands.mjs';
+import { hover } from '../../browser/commands.mjs';
 
 let element;
 
@@ -30,8 +30,8 @@ afterEach(() => {
   element.remove();
 });
 
-it('can emulate hover on an element', async () => {
+it('can hover on an element', async () => {
   await visualDiff(element, 'element');
-  await emulateHover('.element');
+  await hover('.element');
   await visualDiff(element, 'element-hover');
 });

@@ -8,17 +8,19 @@ import { webdriverLauncher } from '@web/test-runner-webdriver';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 
-import { emulateHoverPlugin } from '../../src/emulateHoverPlugin';
-
-import { startSeleniumServer } from '../selenium-server.js';
+import { hoverPlugin } from '../../src/hoverPlugin';
+import { startSeleniumServer } from '../selenium-server';
 
 let seleniumServer: selenium.ChildProcess;
 
-describe('emulateHoverPlugin', function test() {
+describe('hoverPlugin', function test() {
   this.timeout(20000);
 
   before(async function () {
-    seleniumServer = await startSeleniumServer();
+    seleniumServer = await startSeleniumServer({
+      chrome: { version: 'latest' },
+      firefox: { version: 'latest' },
+    });
   });
 
   after(() => {
@@ -40,24 +42,24 @@ describe('emulateHoverPlugin', function test() {
     }
   }
 
-  it('can emulate hover on puppeteer', async () => {
+  it('can hover on puppeteer', async () => {
     await runTests({
       files: [
         path.join(__dirname, 'browser-test.js')
       ],
       browsers: [chromeLauncher()],
       plugins: [
-        emulateHoverPlugin(),
+        hoverPlugin(),
         resolveCommandsPlugin(),
         visualRegressionPlugin({
-          baseDir: 'packages/test-runner-commands/screenshots/emulate-hover/puppeteer',
+          baseDir: 'packages/test-runner-commands/screenshots/hover/puppeteer',
           update: process.argv.includes('--update-visual-diffs'),
         })
       ],
     });
   });
 
-  it('can emulate hover on webdriver', async () => {
+  it('can hover on webdriver', async () => {
     await runTests({
       files: [
         path.join(__dirname, 'browser-test.js')
@@ -86,10 +88,10 @@ describe('emulateHoverPlugin', function test() {
         })
       ],
       plugins: [
-        emulateHoverPlugin(),
+        hoverPlugin(),
         resolveCommandsPlugin(),
         visualRegressionPlugin({
-          baseDir: 'packages/test-runner-commands/screenshots/emulate-hover/webdriver',
+          baseDir: 'packages/test-runner-commands/screenshots/hover/webdriver',
           update: process.argv.includes('--update-visual-diffs'),
         })
       ],
@@ -98,7 +100,7 @@ describe('emulateHoverPlugin', function test() {
 
   // playwright doesn't work on windows VM right now
   if (platform() !== 'win32') {
-    it('can emulate hover on playwright', async () => {
+    it('can hover on playwright', async () => {
       await runTests({
         files: [
           path.join(__dirname, 'browser-test.js'),
@@ -109,10 +111,10 @@ describe('emulateHoverPlugin', function test() {
           playwrightLauncher({ product: 'webkit' }),
         ],
         plugins: [
-          emulateHoverPlugin(),
+          hoverPlugin(),
           resolveCommandsPlugin(),
           visualRegressionPlugin({
-            baseDir: 'packages/test-runner-commands/screenshots/emulate-hover/playwright',
+            baseDir: 'packages/test-runner-commands/screenshots/hover/playwright',
             update: process.argv.includes('--update-visual-diffs'),
           })
         ],

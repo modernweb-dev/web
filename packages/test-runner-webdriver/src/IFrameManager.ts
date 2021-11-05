@@ -155,29 +155,8 @@ export class IFrameManager {
     return this.driver.keys(keys);
   }
 
-  async hover(sessionId: string, selector: string) {
-    const frameId = this.getFrameId(sessionId);
-    const frame = await this.driver.$(`iframe#${frameId}`);
-    await this.driver.switchToFrame(frame);
-
-    const { x, y } = await this.driver.$(selector).getLocation();
-    return this.driver.performActions([
-      {
-        type: "pointer",
-        id: "finger1",
-        parameters: {
-          pointerType: "mouse"
-        },
-        actions: [
-          {
-            type: "pointerMove",
-            duration: 0,
-            x: x + 1,
-            y: y + 1
-          }
-        ]
-      }
-    ]);
+  async hover(_sessionId: string, _selector: string) {
+    console.warn('The hover command is not supported in the concurrent mode.')
   }
 
   async takeScreenshot(sessionId: string, locator: string): Promise<Buffer> {

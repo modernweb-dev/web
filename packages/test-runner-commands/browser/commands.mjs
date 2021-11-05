@@ -61,8 +61,8 @@ export function emulateMedia(media) {
   return executeServerCommand('emulate-media', media);
 }
 
-export function emulateHover(options) {
-  return executeServerCommand('emulate-hover', options);
+export function hover(options) {
+  return executeServerCommand('hover', options);
 }
 
 export function setUserAgent(options) {

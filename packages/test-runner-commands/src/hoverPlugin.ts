@@ -3,12 +3,12 @@ import type { ChromeLauncher } from '@web/test-runner-chrome';
 import type { WebdriverLauncher } from '@web/test-runner-webdriver';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
-export function emulateHoverPlugin(): TestRunnerPlugin {
+export function hoverPlugin(): TestRunnerPlugin {
   return {
-    name: 'emulate-hover-command',
+    name: 'hover-command',
 
     async executeCommand({ command, payload, session }): Promise<any> {
-      if (command === 'emulate-hover') {
+      if (command === 'hover') {
         if (typeof payload !== 'string') {
           throw new Error('You must provide a selector as a string');
         }
@@ -31,7 +31,7 @@ export function emulateHoverPlugin(): TestRunnerPlugin {
           return true;
         }
 
-        throw new Error('emulating hover is only supported on puppeteer.');
+        throw new Error(`Browser launcher ${session.browser.type} does not support hover command at the moment.`);
       }
     },
   };
