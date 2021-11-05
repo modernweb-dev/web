@@ -30,6 +30,16 @@ export function setViewport(viewport: Viewport): Promise<void>;
 export function emulateMedia(media: Media): Promise<void>;
 
 /**
+ * Emulates browser hover on the element.
+ *
+ * @example
+ * ```ts
+ *    await emulateHover('.wrapper > .item');
+ * ```
+ */
+export function emulateHover(selector: string): Promise<void>;
+
+ /**
  * Sets the user agent of the browser. This is a puppeteer-only API.
  */
 export function setUserAgent(userAgent: string): Promise<void>;
