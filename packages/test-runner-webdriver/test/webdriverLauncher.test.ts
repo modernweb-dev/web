@@ -9,7 +9,7 @@ async function startSeleniumServer() {
     await selenium.install({
       drivers: {
         chrome: { version: '94.0.4606.41' },
-        // firefox: { version: 'latest' },
+        firefox: { version: '0.30.0' },
       },
     });
   } catch (err) {
@@ -21,7 +21,7 @@ async function startSeleniumServer() {
     server = await selenium.start({
       drivers: {
         chrome: { version: '94.0.4606.41' },
-        // firefox: { version: 'latest' },
+        firefox: { version: '0.30.0' },
       },
     });
   } catch (err) {
@@ -57,16 +57,16 @@ describe('test-runner-webdriver', function testRunnerWebdriver() {
             },
           },
         }),
-        // webdriverLauncher({
-        //   automationProtocol: 'webdriver',
-        //   path: '/wd/hub/',
-        //   capabilities: {
-        //     browserName: 'firefox',
-        //     'moz:firefoxOptions': {
-        //       args: ['-headless'],
-        //     },
-        //   },
-        // }),
+        webdriverLauncher({
+          automationProtocol: 'webdriver',
+          path: '/wd/hub/',
+          capabilities: {
+            browserName: 'firefox',
+            'moz:firefoxOptions': {
+              args: ['-headless'],
+            },
+          },
+        }),
       ],
     };
   }
@@ -82,8 +82,8 @@ describe('test-runner-webdriver', function testRunnerWebdriver() {
     // FIXME: timed out with selenium-standalone v7
     locationChanged: false,
   });
-});
 
-after(() => {
-  seleniumServer.kill();
+  after(() => {
+    seleniumServer.kill();
+  });
 });
