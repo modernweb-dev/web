@@ -1,4 +1,3 @@
-import os from 'os';
 import selenium from 'selenium-standalone';
 import { runIntegrationTests } from '../../../integration/test-runner';
 import { webdriverLauncher } from '../src/webdriverLauncher';
@@ -35,59 +34,56 @@ async function startSeleniumServer() {
 
 let seleniumServer: selenium.ChildProcess;
 
-// selenium doesn't work on windows in the CI
-if (os.platform() !== 'win32') {
-  describe('test-runner-webdriver', function testRunnerWebdriver() {
-    this.timeout(50000);
+describe('test-runner-webdriver', function testRunnerWebdriver() {
+  this.timeout(50000);
 
-    before(async function () {
-      seleniumServer = await startSeleniumServer();
-    });
+  before(async function () {
+    seleniumServer = await startSeleniumServer();
+  });
 
-    function createConfig() {
-      return {
-        browserStartTimeout: 1000 * 60 * 2,
-        testsStartTimeout: 1000 * 60 * 2,
-        testsFinishTimeout: 1000 * 60 * 2,
-        browsers: [
-          webdriverLauncher({
-            automationProtocol: 'webdriver',
-            path: '/wd/hub/',
-            capabilities: {
-              browserName: 'chrome',
-              'goog:chromeOptions': {
-                args: ['--no-sandbox', '--headless'],
-              },
+  function createConfig() {
+    return {
+      browserStartTimeout: 1000 * 60 * 2,
+      testsStartTimeout: 1000 * 60 * 2,
+      testsFinishTimeout: 1000 * 60 * 2,
+      browsers: [
+        webdriverLauncher({
+          automationProtocol: 'webdriver',
+          path: '/wd/hub/',
+          capabilities: {
+            browserName: 'chrome',
+            'goog:chromeOptions': {
+              args: ['--no-sandbox', '--headless'],
             },
-          }),
-          // webdriverLauncher({
-          //   automationProtocol: 'webdriver',
-          //   path: '/wd/hub/',
-          //   capabilities: {
-          //     browserName: 'firefox',
-          //     'moz:firefoxOptions': {
-          //       args: ['-headless'],
-          //     },
-          //   },
-          // }),
-        ],
-      };
-    }
+          },
+        }),
+        // webdriverLauncher({
+        //   automationProtocol: 'webdriver',
+        //   path: '/wd/hub/',
+        //   capabilities: {
+        //     browserName: 'firefox',
+        //     'moz:firefoxOptions': {
+        //       args: ['-headless'],
+        //     },
+        //   },
+        // }),
+      ],
+    };
+  }
 
-    runIntegrationTests(createConfig, {
-      basic: true,
-      many: true,
-      // focus fails with headless webdriver
-      focus: false,
-      groups: true,
-      parallel: true,
-      testFailure: true,
-      // FIXME: timed out with selenium-standalone v7
-      locationChanged: false,
-    });
+  runIntegrationTests(createConfig, {
+    basic: true,
+    many: true,
+    // focus fails with headless webdriver
+    focus: false,
+    groups: true,
+    parallel: true,
+    testFailure: true,
+    // FIXME: timed out with selenium-standalone v7
+    locationChanged: false,
   });
+});
 
-  after(() => {
-    seleniumServer.kill();
-  });
-}
+after(() => {
+  seleniumServer.kill();
+});
