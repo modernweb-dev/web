@@ -1,5 +1,6 @@
 import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher } from '@web/test-runner-chrome';
+import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
 export function emulateHoverPlugin(): TestRunnerPlugin {
   return {
@@ -13,6 +14,12 @@ export function emulateHoverPlugin(): TestRunnerPlugin {
 
         if (session.browser.type === 'puppeteer') {
           const page = (session.browser as ChromeLauncher).getPage(session.id);
+          await page.hover(payload);
+          return true;
+        }
+
+        if (session.browser.type === 'playwright') {
+          const page = (session.browser as PlaywrightLauncher).getPage(session.id);
           await page.hover(payload);
           return true;
         }
