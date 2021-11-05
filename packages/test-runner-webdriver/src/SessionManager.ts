@@ -88,20 +88,20 @@ export class SessionManager {
     const { x, y } = await this.driver.$(selector).getLocation();
     return this.driver.performActions([
       {
-        type: "pointer",
-        id: "finger1",
+        type: 'pointer',
+        id: 'finger1',
         parameters: {
-          pointerType: "mouse"
+          pointerType: 'mouse',
         },
         actions: [
           {
-            type: "pointerMove",
+            type: 'pointerMove',
             duration: 0,
             x: x + 1,
-            y: y + 1
-          }
-        ]
-      }
+            y: y + 1,
+          },
+        ],
+      },
     ]);
   }
 

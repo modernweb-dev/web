@@ -39,14 +39,12 @@ describe('hoverPlugin', function test() {
           return '/packages/test-runner-commands/browser/commands.mjs';
         }
       },
-    }
+    };
   }
 
   it('can hover on puppeteer', async () => {
     await runTests({
-      files: [
-        path.join(__dirname, 'browser-test.js')
-      ],
+      files: [path.join(__dirname, 'browser-test.js')],
       browsers: [chromeLauncher()],
       plugins: [
         hoverPlugin(),
@@ -54,16 +52,14 @@ describe('hoverPlugin', function test() {
         visualRegressionPlugin({
           baseDir: 'packages/test-runner-commands/screenshots/hover/puppeteer',
           update: process.argv.includes('--update-visual-diffs'),
-        })
+        }),
       ],
     });
   });
 
   it('can hover on webdriver', async () => {
     await runTests({
-      files: [
-        path.join(__dirname, 'browser-test.js')
-      ],
+      files: [path.join(__dirname, 'browser-test.js')],
       concurrency: 1,
       browsers: [
         webdriverLauncher({
@@ -72,9 +68,9 @@ describe('hoverPlugin', function test() {
           capabilities: {
             browserName: 'chrome',
             'goog:chromeOptions': {
-              args: ['--no-sandbox', '--headless']
-            }
-          }
+              args: ['--no-sandbox', '--headless'],
+            },
+          },
         }),
         webdriverLauncher({
           automationProtocol: 'webdriver',
@@ -82,10 +78,10 @@ describe('hoverPlugin', function test() {
           capabilities: {
             browserName: 'firefox',
             'moz:firefoxOptions': {
-              args: ['-headless']
-            }
-          }
-        })
+              args: ['-headless'],
+            },
+          },
+        }),
       ],
       plugins: [
         hoverPlugin(),
@@ -93,7 +89,7 @@ describe('hoverPlugin', function test() {
         visualRegressionPlugin({
           baseDir: 'packages/test-runner-commands/screenshots/hover/webdriver',
           update: process.argv.includes('--update-visual-diffs'),
-        })
+        }),
       ],
     });
   });
@@ -102,9 +98,7 @@ describe('hoverPlugin', function test() {
   if (platform() !== 'win32') {
     it('can hover on playwright', async () => {
       await runTests({
-        files: [
-          path.join(__dirname, 'browser-test.js'),
-        ],
+        files: [path.join(__dirname, 'browser-test.js')],
         browsers: [
           playwrightLauncher({ product: 'chromium' }),
           playwrightLauncher({ product: 'firefox' }),
@@ -116,7 +110,7 @@ describe('hoverPlugin', function test() {
           visualRegressionPlugin({
             baseDir: 'packages/test-runner-commands/screenshots/hover/playwright',
             update: process.argv.includes('--update-visual-diffs'),
-          })
+          }),
         ],
       });
     });

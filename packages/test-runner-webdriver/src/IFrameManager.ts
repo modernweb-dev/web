@@ -155,8 +155,9 @@ export class IFrameManager {
     return this.driver.keys(keys);
   }
 
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   async hover(_sessionId: string, _selector: string) {
-    console.warn('The hover command is not supported in the concurrent mode.')
+    console.warn('The hover command is not supported in the concurrent mode.');
   }
 
   async takeScreenshot(sessionId: string, locator: string): Promise<Buffer> {

@@ -31,9 +31,10 @@ export function hoverPlugin(): TestRunnerPlugin {
           return true;
         }
 
-        throw new Error(`Browser launcher ${session.browser.type} does not support hover command at the moment.`);
+        throw new Error(
+          `Browser launcher ${session.browser.type} does not support hover command at the moment.`,
+        );
       }
     },
   };
 }
-
