@@ -142,7 +142,16 @@ function setupFetch() {
 }
 
 function setupWebSocket() {
-  if (window.parent !== window && window.parent.__WDS_WEB_SOCKET__ !== undefined) {
+  let useParent = false;
+  try {
+    // if window is an iframe and accessing a cross origin frame is not allowed this will throw
+    // therefore we try/catch it here so it does not disable all web sockets
+    if (window.parent !== window && window.parent.__WDS_WEB_SOCKET__ !== undefined) {
+      useParent = true;
+    }
+  } catch(e) {}
+
+  if (useParent) {
     // get the websocket instance from the parent element if present
     const info = window.parent.__WDS_WEB_SOCKET__;
     webSocket = info.webSocket;
