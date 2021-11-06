@@ -134,7 +134,14 @@ export class EsbuildPlugin implements Plugin {
     const documentAst = parseHtml(context.body as string);
     const inlineScripts = queryAll(
       documentAst,
-      predicates.AND(predicates.hasTagName('script'), predicates.NOT(predicates.hasAttr('src'))),
+      predicates.AND(
+        predicates.hasTagName('script'),
+        predicates.NOT(predicates.hasAttr('src')),
+        predicates.OR(
+          predicates.NOT(predicates.hasAttr('type')),
+          predicates.hasAttrValue('type', 'module'),
+        ),
+      ),
     );
 
     if (inlineScripts.length === 0) {
