@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-esbuild",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "publishConfig": {
     "access": "public"
   },
@@ -51,7 +51,7 @@
   ],
   "dependencies": {
     "@mdn/browser-compat-data": "^4.0.0",
-    "@web/dev-server-core": "^0.3.10",
+    "@web/dev-server-core": "^0.3.17",
     "esbuild": "^0.12.21",
     "parse5": "^6.0.1",
     "ua-parser-js": "^1.0.2"
