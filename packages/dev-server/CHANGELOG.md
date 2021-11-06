@@ -1,5 +1,14 @@
 # @web/dev-server
 
+## 0.1.27
+
+### Patch Changes
+
+- b2c081d8: When serving content to an iframe within a csp restricted page, the websocket script may not be able to access the parent window.
+  Accessing it may result in an uncaught DOMException which we now handle.
+- Updated dependencies [b2c081d8]
+  - @web/dev-server-core@0.3.17
+
 ## 0.1.26
 
 ### Patch Changes
