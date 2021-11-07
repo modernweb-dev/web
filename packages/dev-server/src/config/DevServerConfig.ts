@@ -1,5 +1,5 @@
 import { DevServerCoreConfig } from '@web/dev-server-core';
-import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
+import { RollupNodeResolveOptions } from '@web/dev-server-rollup';
 
 export interface DevServerConfig extends DevServerCoreConfig {
   /**

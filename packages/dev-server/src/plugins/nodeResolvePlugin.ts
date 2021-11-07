@@ -1,6 +1,5 @@
-import { rollupAdapter } from '@web/dev-server-rollup';
+import { nodeResolve, rollupAdapter, RollupNodeResolveOptions } from '@web/dev-server-rollup';
 import { Plugin } from '@web/dev-server-core';
-import { nodeResolve, RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
 import deepmerge from 'deepmerge';
 
 export function nodeResolvePlugin(
