@@ -9,7 +9,7 @@ on:
 jobs:
   release:
     # Prevents changesets action from creating a PR on forks
-    if: github.repository == 'modernweb-dev/web'
+    if: github.repository == github.event.pull_request.head.repo.full_name
     name: Pre-release
     runs-on: ubuntu-latest
     steps:
