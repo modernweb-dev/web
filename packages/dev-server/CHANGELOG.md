@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.1.28
+
+### Patch Changes
+
+- cbbd5fc8: Resolve missing peer dependency of @rollup/plugin-node-resolve by moving and exposing @rollup/plugin-node-resolve to @web/dev-server-rollup
+- Updated dependencies [cbbd5fc8]
+  - @web/dev-server-rollup@0.3.13
+
 ## 0.1.27
 
 ### Patch Changes
