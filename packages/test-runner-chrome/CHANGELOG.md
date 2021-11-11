@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.10.5
+
+### Patch Changes
+
+- 3f79c247: Update dependency chrome-launcher to ^0.15.0
+
 ## 0.10.4
 
 ### Patch Changes
