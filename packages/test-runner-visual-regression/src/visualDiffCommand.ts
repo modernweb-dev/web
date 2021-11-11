@@ -104,11 +104,14 @@ export async function visualDiffCommand(
     await saveFailed();
   }
 
+  // if diff is suitably small, output raw value, otherwise to two decimal points.
+  // this avoids outputting a message like "New screenshot is 0.00% different"
+  const diffPercentageToDisplay =
+    diffPercentage < 0.005 ? diffPercentage : diffPercentage.toFixed(2);
+
   return {
     errorMessage: !passed
-      ? `Visual diff failed. New screenshot is ${diffPercentage.toFixed(
-          2,
-        )}% different.\nSee diff for details: ${diffFilePath}`
+      ? `Visual diff failed. New screenshot is ${diffPercentageToDisplay}% different.\nSee diff for details: ${diffFilePath}`
       : undefined,
     diffPercentage: -1,
     passed,
