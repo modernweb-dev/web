@@ -63,7 +63,7 @@
     "eslint-config-prettier": "^8.3.0",
     "hanbi": "^1.0.1",
     "husky": "^7.0.4",
-    "lint-staged": "^11.2.6",
+    "lint-staged": "^12.0.1",
     "mocha": "^8.2.1",
     "nanocolors": "^0.2.1",
     "prettier": "^2.4.1",
