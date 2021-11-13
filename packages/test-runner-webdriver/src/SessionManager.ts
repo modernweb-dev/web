@@ -80,6 +80,10 @@ export class SessionManager {
     return { testCoverage: this.config.coverage ? testCoverage : undefined };
   }
 
+  async performActions(_: string, actions: object[]) {
+    return this.driver.performActions(actions);
+  }
+
   async sendKeys(_: string, keys: string[]) {
     return this.driver.keys(keys);
   }
