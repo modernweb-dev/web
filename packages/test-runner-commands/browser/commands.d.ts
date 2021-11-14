@@ -8,7 +8,7 @@ import {
   RemoveFilePayload,
   SnapshotPluginConfig,
   SaveSnapshotPayload,
-  SendMousePayload
+  SendMousePayload,
 } from '../dist/index';
 
 /**
@@ -104,7 +104,7 @@ export function sendKeys(payload: SendKeysPayload): Promise<void>;
  * ```
  *
  **/
- export function sendMouse(payload: SendMousePayload): Promise<void>;
+export function sendMouse(payload: SendMousePayload): Promise<void>;
 
 /**
  * Request a snapshot of the Accessibility Tree of the entire page or starting from
