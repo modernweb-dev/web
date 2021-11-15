@@ -80,7 +80,8 @@
     "@lion/overlays": "^0.29.1",
     "@mdjs/core": "^0.9.0",
     "@mdjs/mdjs-story": "^0.3.0",
-    "@open-wc/scoped-elements": "^2.0.0-next.6"
+    "@open-wc/scoped-elements": "^2.0.0-next.6",
+    "lit-element": "^3.0.2"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
