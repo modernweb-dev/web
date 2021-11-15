@@ -49,7 +49,7 @@ function loadComponent() {
 }
 ```
 
-Because of the nature of dynamic imports, the above function returns a promise, so wou need to use the `await` keyword:
+Because of the nature of dynamic imports, the above function returns a promise, so you need to use the `await` keyword:
 
 ```js
 const component = await loadComponent();
