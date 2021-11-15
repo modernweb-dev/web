@@ -1278,12 +1278,12 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.3.tgz#e45e384e4b8ec16bce2fd903af78450f6bf7ec98"
   integrity sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
 
-"@lion/accordion@^0.6.1":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@lion/accordion/-/accordion-0.6.3.tgz#93addeec077efc04d7059e7892e3e4844b4ef093"
-  integrity sha512-hk0bkCo5DbRwyHRlkoAtAnfxGIV55w7A4jHRhLRtNLN+LOLn/S/+cfN93/WuugXmNd57DoeGUvrwGbb9Wbdf1g==
+"@lion/accordion@^0.6.1", "@lion/accordion@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@lion/accordion/-/accordion-0.7.2.tgz#c60c149ddca0d2fea826868f209c7e2b12dd9afa"
+  integrity sha512-oIKizAXwemVDW1rEKXSXT6KZhEJemQuFrUrNhQZPQaDDyb1K05wV8FIfquE0mNyo6xk69+bqv5O2G89nDwfIkQ==
   dependencies:
-    "@lion/core" "0.18.2"
+    "@lion/core" "0.19.0"
 
 "@lion/combobox@^0.8.0":
   version "0.8.6"
@@ -1295,7 +1295,7 @@
     "@lion/listbox" "0.10.7"
     "@lion/overlays" "0.29.1"
 
-"@lion/core@0.18.2", "@lion/core@0.19.0", "@lion/core@^0.18.0", "@lion/core@^0.19.0":
+"@lion/core@0.19.0", "@lion/core@^0.18.0", "@lion/core@^0.19.0":
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/@lion/core/-/core-0.19.0.tgz#4bf86059acd0ef3f74e6d0689250edc4d6664836"
   integrity sha512-SU2JzKEgGdwOVK9WdsmjKiYkgQ/hOYC05jxyHfG9qJWmOzEUsuvvULjwU8hd1u7gLy5gSxsdEO2nJ2zyWV2ihg==
