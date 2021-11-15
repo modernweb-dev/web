@@ -1,5 +1,11 @@
 # @web/test-runner-visual-regression
 
+## 0.6.4
+
+### Patch Changes
+
+- 7ed9355a: improve output in visual regression tests when very small differences from baseline
+
 ## 0.6.3
 
 ### Patch Changes
