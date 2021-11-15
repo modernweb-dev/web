@@ -1295,7 +1295,7 @@
     "@lion/listbox" "0.10.7"
     "@lion/overlays" "0.29.1"
 
-"@lion/core@0.16.0", "@lion/core@0.18.2", "@lion/core@0.19.0", "@lion/core@^0.18.0", "@lion/core@^0.19.0":
+"@lion/core@0.18.2", "@lion/core@0.19.0", "@lion/core@^0.18.0", "@lion/core@^0.19.0":
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/@lion/core/-/core-0.19.0.tgz#4bf86059acd0ef3f74e6d0689250edc4d6664836"
   integrity sha512-SU2JzKEgGdwOVK9WdsmjKiYkgQ/hOYC05jxyHfG9qJWmOzEUsuvvULjwU8hd1u7gLy5gSxsdEO2nJ2zyWV2ihg==
@@ -1329,7 +1329,7 @@
     "@lion/core" "0.19.0"
     singleton-manager "1.4.2"
 
-"@lion/overlays@0.29.1":
+"@lion/overlays@0.29.1", "@lion/overlays@^0.26.1", "@lion/overlays@^0.29.1":
   version "0.29.1"
   resolved "https://registry.yarnpkg.com/@lion/overlays/-/overlays-0.29.1.tgz#0e2cff719d119a89a09cc7adc9baea1579dab022"
   integrity sha512-MtoPavlnSVbisPPK+VPOyvekE5STHOH3GubC63danjVbMC9Nf927kzLT19l89JPxseejpU0fXHSdz7PVhNGgIA==
@@ -1337,15 +1337,6 @@
     "@lion/core" "0.19.0"
     "@popperjs/core" "^2.5.4"
     singleton-manager "1.4.2"
-
-"@lion/overlays@^0.26.1":
-  version "0.26.1"
-  resolved "https://registry.yarnpkg.com/@lion/overlays/-/overlays-0.26.1.tgz#d1bfa4f5f97108982afa7b409ba4300f8b2d2ba5"
-  integrity sha512-1FvphbR/yTQ1WtcB1gNuH772i9qAydQkI6NwibIw8QeOGXisA+6SChv2OHS7CijlpDJnDxNyX44LGdDM1/Pd8A==
-  dependencies:
-    "@lion/core" "0.16.0"
-    "@popperjs/core" "^2.5.4"
-    singleton-manager "1.4.1"
 
 "@lit/reactive-element@^1.0.0":
   version "1.0.2"
@@ -11460,11 +11451,6 @@ simple-swizzle@^0.2.2:
   integrity sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=
   dependencies:
     is-arrayish "^0.3.1"
-
-singleton-manager@1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/singleton-manager/-/singleton-manager-1.4.1.tgz#0a9cd1db2b26e5cbc4ecdc20d5a16f284b36aabb"
-  integrity sha512-HOvKT/WcHvl2cLYGqmO6MaC2J4wAA82LntGwtLn6avnTq15UDLCnSRVXedmglVooLbQGVsQJ+dQz2sKz+2GUZA==
 
 singleton-manager@1.4.2:
   version "1.4.2"
