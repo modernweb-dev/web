@@ -13,7 +13,7 @@ const ESM_ERRORS = [
 function requireConfig(path) {
   try {
     return require(path);
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (ESM_ERRORS.some(msg => e.stack.includes(msg))) {
       throw new ConfigLoaderError(
         'You are using es module syntax in a config loaded as CommonJS module. ' +

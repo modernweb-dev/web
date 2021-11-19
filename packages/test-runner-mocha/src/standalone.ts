@@ -19,7 +19,7 @@ export async function runTests(testFn: () => unknown | Promise<unknown>) {
   // setup the tests
   try {
     await testFn();
-  } catch (error) {
+  } catch (error: any) {
     sessionFailed(error);
     return;
   }

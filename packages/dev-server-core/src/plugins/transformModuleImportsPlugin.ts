@@ -116,7 +116,7 @@ export async function transformImports(
   try {
     const parseResult = await parse(code, filePath);
     imports = parseResult[0] as any as ParsedImport[];
-  } catch (error) {
+  } catch (error: any) {
     if (typeof error.idx === 'number') {
       throw new PluginSyntaxError(
         'Syntax error',

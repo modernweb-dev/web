@@ -9,7 +9,7 @@ function loadLauncher(name: string) {
   try {
     const path = require.resolve(pkg, { paths: [__dirname, process.cwd()] });
     return require(path);
-  } catch (error) {
+  } catch (error: any) {
     if (error.code === 'MODULE_NOT_FOUND') {
       throw new TestRunnerStartError(
         `You need to add ${pkg} as a dependency of your project to use the --${name} flag.`,

@@ -215,7 +215,7 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
           );
           return;
         }
-      } catch (error) {
+      } catch (error: any) {
         this.config.logger.error(error);
         webSocket.send(JSON.stringify({ type: 'message-response', id, error: error.message }));
         return;

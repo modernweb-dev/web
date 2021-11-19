@@ -2,7 +2,7 @@ function requirePlugin() {
   try {
     const path = require.resolve('@web/dev-server-esbuild', { paths: [__dirname, process.cwd()] });
     return require(path);
-  } catch (error) {
+  } catch (error: any) {
     if (error.code === 'MODULE_NOT_FOUND') {
       throw new Error(
         'You need to add @web/dev-server-esbuild as a dependency of your project to use the esbuild flags.',

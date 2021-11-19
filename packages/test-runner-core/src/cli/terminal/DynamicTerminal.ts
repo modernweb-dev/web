@@ -10,8 +10,10 @@ interface EventMap {
   input: string;
 }
 
+type ConsoleFunction = keyof Omit<Console, 'Console'>;
+
 export class DynamicTerminal extends EventEmitter<EventMap> {
-  private originalFunctions: Partial<Record<keyof Console, (...args: any[]) => any>> = {};
+  private originalFunctions: Partial<Record<ConsoleFunction, (...args: any[]) => any>> = {};
   private previousDynamic: string[] = [];
   private started = false;
   private bufferedConsole = new BufferedConsole();
@@ -60,7 +62,7 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
     logUpdate.done();
 
     for (const [key, fn] of Object.entries(this.originalFunctions)) {
-      console[key as keyof Console] = fn;
+      console[key as ConsoleFunction] = fn;
     }
     this.started = false;
     process.stdin.pause();
@@ -105,12 +107,14 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
    * prevents this.
    */
   private interceptConsoleOutput() {
-    for (const key of Object.keys(console) as (keyof Console)[]) {
+    for (const key of Object.keys(console) as ConsoleFunction[]) {
       if (typeof console[key] === 'function') {
         this.originalFunctions[key] = console[key];
 
+        // @ts-expect-error worked with TS 4.1, broken in 4.5
         console[key] = new Proxy(console[key], {
           apply: (target, thisArg, argArray) => {
+            // @ts-expect-error worked with TS 4.1, broken in 4.5
             this.bufferedConsole.console[key](...argArray);
             if (this.pendingConsoleFlush) {
               return;

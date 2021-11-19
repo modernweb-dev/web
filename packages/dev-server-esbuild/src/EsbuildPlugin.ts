@@ -189,7 +189,7 @@ export class EsbuildPlugin implements Plugin {
       }
 
       return transformedCode;
-    } catch (e) {
+    } catch (e: any) {
       if (Array.isArray(e.errors)) {
         const msg = e.errors[0] as Message;
 

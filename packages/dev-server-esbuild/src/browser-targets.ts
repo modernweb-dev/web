@@ -27,7 +27,7 @@ function createModernTarget() {
       `safari${latestSafari}`,
       `firefox${latestFirefox}`,
     ];
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(
       `Error while initializing default browser targets for @web/dev-server-esbuild: ${error.message}`,
     );

@@ -84,7 +84,7 @@ export function pluginTransformMiddleware(
           cacheKey,
         );
       }
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof RequestCancelledError) {
         return undefined;
       }

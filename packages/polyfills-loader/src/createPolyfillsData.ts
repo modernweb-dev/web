@@ -12,7 +12,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   function addPolyfillConfig(polyfillConfig: PolyfillConfig) {
     try {
       polyfillConfigs.push(polyfillConfig);
-    } catch (error) {
+    } catch (error: any) {
       if (error.code === 'MODULE_NOT_FOUND') {
         throw new Error(
           `[Polyfills loader]: Error resolving polyfill ${polyfillConfig.name}` +
