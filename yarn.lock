@@ -1285,7 +1285,7 @@
   dependencies:
     "@lion/core" "0.19.0"
 
-"@lion/combobox@^0.8.0":
+"@lion/combobox@^0.8.6":
   version "0.8.6"
   resolved "https://registry.yarnpkg.com/@lion/combobox/-/combobox-0.8.6.tgz#746028d0cd9f468dfc35cf2dfbdb603367f4e281"
   integrity sha512-24hm557YTdwK5/CShfgM6VqQD3uATyghU3JZq9rdzVQl2Ff+Sd2wp4zMEKWtKGnSbWPQNdrCn7kdNv7bF54PVg==
@@ -1295,7 +1295,7 @@
     "@lion/listbox" "0.10.7"
     "@lion/overlays" "0.29.1"
 
-"@lion/core@0.19.0", "@lion/core@^0.18.0", "@lion/core@^0.19.0":
+"@lion/core@0.19.0", "@lion/core@^0.19.0":
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/@lion/core/-/core-0.19.0.tgz#4bf86059acd0ef3f74e6d0689250edc4d6664836"
   integrity sha512-SU2JzKEgGdwOVK9WdsmjKiYkgQ/hOYC05jxyHfG9qJWmOzEUsuvvULjwU8hd1u7gLy5gSxsdEO2nJ2zyWV2ihg==
@@ -1312,7 +1312,7 @@
     "@lion/core" "0.19.0"
     "@lion/localize" "0.21.3"
 
-"@lion/listbox@0.10.7", "@lion/listbox@^0.10.1":
+"@lion/listbox@0.10.7", "@lion/listbox@^0.10.7":
   version "0.10.7"
   resolved "https://registry.yarnpkg.com/@lion/listbox/-/listbox-0.10.7.tgz#9af689615ea0964e4a5613c3e5b2df9b33fc2d54"
   integrity sha512-hCVWnYsJv/det/+o5LHPd5w3f5mXiRE1q0ZVf+Hat5lvcHiHXfKnlrKaB2DzMqqL9y9k4ZG7feyQZlNE5PLNrQ==
@@ -1498,7 +1498,7 @@
   resolved "https://registry.yarnpkg.com/@open-wc/dedupe-mixin/-/dedupe-mixin-1.3.0.tgz#0df5d438285fc3482838786ee81895318f0ff778"
   integrity sha512-UfdK1MPnR6T7f3svzzYBfu3qBkkZ/KsPhcpc3JYhsUY4hbpwNF9wEQtD4Z+/mRqMTJrKg++YSxIxE0FBhY3RIw==
 
-"@open-wc/scoped-elements@^2.0.0-next.3", "@open-wc/scoped-elements@^2.0.0-next.6", "@open-wc/scoped-elements@^2.0.1":
+"@open-wc/scoped-elements@^2.0.0", "@open-wc/scoped-elements@^2.0.0-next.3", "@open-wc/scoped-elements@^2.0.0-next.6", "@open-wc/scoped-elements@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@open-wc/scoped-elements/-/scoped-elements-2.0.1.tgz#6b1c3535f809bd90710574db80093a81e3a1fc2d"
   integrity sha512-JS6ozxUFwFX3+Er91v9yQzNIaFn7OnE0iESKTbFvkkKdNwvAPtp1fpckBKIvWk8Ae9ZcoI9DYZuT2DDbMPcadA==
@@ -1540,7 +1540,7 @@
     workbox-routing "^6.1.5"
     workbox-strategies "^6.1.5"
 
-"@rocket/cli@^0.10.0":
+"@rocket/cli@^0.10.1":
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/@rocket/cli/-/cli-0.10.1.tgz#42b9f8c844978e40a2ef124fb121a4915537dadf"
   integrity sha512-XwVQbSipr5fGMvs62iQ//7G16Ld4feLoE97tT4KrG2gmzqnfTqL+hZF5yp81n+HvyFX2vyR6AtgjagI2wNxg8g==
@@ -1610,15 +1610,15 @@
   resolved "https://registry.yarnpkg.com/@rocket/navigation/-/navigation-0.2.1.tgz#ce9c22a6a3b1eafbf531880214d82dbaa9ffe192"
   integrity sha512-MNrMM8yssg39+vpqeWn3YnqwYMQ61iucAPvGBBdXRVP26Ay3xCEKL+iZvdq/sizx63i3G+BvLpvb8lrOz6542Q==
 
-"@rocket/search@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@rocket/search/-/search-0.5.0.tgz#26c5750aa4e252fb4867761e6d0dca0511e3cd87"
-  integrity sha512-M37l+ytiDHt8yy/h3PgwqDD7pm7+BrOxSjQBAaDApn+Z+XD7VOmecQIJ76CnqO7RPCIAnXjPP5ZGLm6NI703yg==
+"@rocket/search@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@rocket/search/-/search-0.5.1.tgz#5112dd52fc363d0b3ef7a64e75d6b34eb10f1fea"
+  integrity sha512-qopmhb8EqdhQgfI010zIHgtqQIK8PY16qqzDdO0XCYhKco2eOQPoTxzMmg9ADrbt/1itGfKwmYwTtXfKLzUkbw==
   dependencies:
-    "@lion/combobox" "^0.8.0"
-    "@lion/core" "^0.18.0"
-    "@lion/listbox" "^0.10.1"
-    "@open-wc/scoped-elements" "^2.0.0-next.3"
+    "@lion/combobox" "^0.8.6"
+    "@lion/core" "^0.19.0"
+    "@lion/listbox" "^0.10.7"
+    "@open-wc/scoped-elements" "^2.0.0"
     chalk "^4.0.0"
     minisearch "^3.0.2"
     plugins-manager "^0.3.0"
