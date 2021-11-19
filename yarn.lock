@@ -1278,7 +1278,7 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.3.tgz#e45e384e4b8ec16bce2fd903af78450f6bf7ec98"
   integrity sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
 
-"@lion/accordion@^0.6.1", "@lion/accordion@^0.7.2":
+"@lion/accordion@^0.7.2":
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/@lion/accordion/-/accordion-0.7.2.tgz#c60c149ddca0d2fea826868f209c7e2b12dd9afa"
   integrity sha512-oIKizAXwemVDW1rEKXSXT6KZhEJemQuFrUrNhQZPQaDDyb1K05wV8FIfquE0mNyo6xk69+bqv5O2G89nDwfIkQ==
@@ -1329,7 +1329,7 @@
     "@lion/core" "0.19.0"
     singleton-manager "1.4.2"
 
-"@lion/overlays@0.29.1", "@lion/overlays@^0.26.1", "@lion/overlays@^0.29.1":
+"@lion/overlays@0.29.1", "@lion/overlays@^0.29.1":
   version "0.29.1"
   resolved "https://registry.yarnpkg.com/@lion/overlays/-/overlays-0.29.1.tgz#0e2cff719d119a89a09cc7adc9baea1579dab022"
   integrity sha512-MtoPavlnSVbisPPK+VPOyvekE5STHOH3GubC63danjVbMC9Nf927kzLT19l89JPxseejpU0fXHSdz7PVhNGgIA==
@@ -1389,14 +1389,14 @@
     unist-util-remove "^2.0.1"
     unist-util-visit "^2.0.3"
 
-"@mdjs/mdjs-preview@^0.5.3":
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/@mdjs/mdjs-preview/-/mdjs-preview-0.5.4.tgz#843b507e5881c7060b25263863a96dc3f475fe95"
-  integrity sha512-SYXjiRJHSDLYYE4LiCD+LJLEmkUjLWo8uoLmvma5T1TGMksxvft/FNzjBEjNL9YthHeNXizUUUB85KEDlQgv0Q==
+"@mdjs/mdjs-preview@^0.5.3", "@mdjs/mdjs-preview@^0.5.5":
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/@mdjs/mdjs-preview/-/mdjs-preview-0.5.5.tgz#00910fe845f05a4db4059b6600c83333aa90b2b5"
+  integrity sha512-DfZ7GqJ5XZhbh4kEcFDaEXOF7woO5uuvQ583R2pB5txrLyFrYgSuVT//4CLVWDPCe/b4i1fFCk0AGis2VZ6R9w==
   dependencies:
-    "@lion/accordion" "^0.6.1"
-    "@open-wc/scoped-elements" "^2.0.0-next.3"
-    lit "^2.0.0-rc.2"
+    "@lion/accordion" "^0.7.2"
+    "@open-wc/scoped-elements" "^2.0.0"
+    lit "^2.0.0"
 
 "@mdjs/mdjs-story@^0.3.0":
   version "0.3.0"
@@ -1498,7 +1498,7 @@
   resolved "https://registry.yarnpkg.com/@open-wc/dedupe-mixin/-/dedupe-mixin-1.3.0.tgz#0df5d438285fc3482838786ee81895318f0ff778"
   integrity sha512-UfdK1MPnR6T7f3svzzYBfu3qBkkZ/KsPhcpc3JYhsUY4hbpwNF9wEQtD4Z+/mRqMTJrKg++YSxIxE0FBhY3RIw==
 
-"@open-wc/scoped-elements@^2.0.0", "@open-wc/scoped-elements@^2.0.0-next.3", "@open-wc/scoped-elements@^2.0.0-next.6", "@open-wc/scoped-elements@^2.0.1":
+"@open-wc/scoped-elements@^2.0.0", "@open-wc/scoped-elements@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@open-wc/scoped-elements/-/scoped-elements-2.0.1.tgz#6b1c3535f809bd90710574db80093a81e3a1fc2d"
   integrity sha512-JS6ozxUFwFX3+Er91v9yQzNIaFn7OnE0iESKTbFvkkKdNwvAPtp1fpckBKIvWk8Ae9ZcoI9DYZuT2DDbMPcadA==
@@ -1572,13 +1572,13 @@
   resolved "https://registry.yarnpkg.com/@rocket/core/-/core-0.1.2.tgz#35921a255379cffa907849442196f6e84df34c42"
   integrity sha512-DVHTKlMKUX4lS/QamVSlZP8qrz3fyetQ3/N49lc9aopnsMKIpdWxx3bYILYW7y3TB13ay81v2iomG/YaCMrDNw==
 
-"@rocket/drawer@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@rocket/drawer/-/drawer-0.1.3.tgz#d184a9bf164f64a52b1d5ba531a43ed28626bac2"
-  integrity sha512-Fpz/o/FZiblkBi6m2vkYUNu/KsSZWEhIkX+uF7vWJBJRzk5TKML2H+4GvNEetk61Mdn+1AokbdniG7AfLcHCnw==
+"@rocket/drawer@^0.1.3", "@rocket/drawer@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@rocket/drawer/-/drawer-0.1.4.tgz#6bed475e44dd436e8b397c93810770a5cd1fd349"
+  integrity sha512-AIL05WMvp0gHUv0/N+eGsL7De31JRi4L3Nwfum9qbmzxqA6XGCGGik1TD4m6/zJnFx8Oxaj2z4wJJRg5m4hhcQ==
   dependencies:
-    "@lion/overlays" "^0.26.1"
-    lit-element "^2.4.0"
+    "@lion/overlays" "^0.29.1"
+    lit "^2.0.0"
 
 "@rocket/eleventy-plugin-mdjs-unified@^0.6.0":
   version "0.6.0"
@@ -7531,7 +7531,7 @@ listr2@^3.13.3:
     through "^2.3.8"
     wrap-ansi "^7.0.0"
 
-lit-element@^2.4.0, lit-element@^3.0.0, lit-element@^3.0.2:
+lit-element@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/lit-element/-/lit-element-3.0.2.tgz#6422b68ba166a32695f524d6f3eb41712610bf50"
   integrity sha512-9vTJ47D2DSE4Jwhle7aMzEwO2ZcOPRikqfT3CVG7Qol2c9/I4KZwinZNW5Xv8hNm+G/enSSfIwqQhIXi6ioAUg==
@@ -7546,7 +7546,7 @@ lit-html@^2.0.0:
   dependencies:
     "@types/trusted-types" "^2.0.2"
 
-lit@^2.0.0-rc.2, lit@^2.0.2:
+lit@^2.0.0, lit@^2.0.0-rc.2, lit@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/lit/-/lit-2.0.2.tgz#5e6f422924e0732258629fb379556b6d23f7179c"
   integrity sha512-hKA/1YaSB+P+DvKWuR2q1Xzy/iayhNrJ3aveD0OQ9CKn6wUjsdnF/7LavDOJsKP/K5jzW/kXsuduPgRvTFrFJw==
