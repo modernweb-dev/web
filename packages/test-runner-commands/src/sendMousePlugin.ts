@@ -2,27 +2,30 @@ import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
+type MousePosition = [number, number];
+type MouseButton = 'left' | 'middle' | 'right';
+
 export type SendMousePayload = MovePayload | ClickPayload | DownPayload | UpPayload;
 
 export type MovePayload = {
   type: 'move',
-  position: [number, number]
+  position: MousePosition
 };
 
 export type ClickPayload = {
   type: 'click',
-  position: [number, number],
-  // TODO: button: 'left' | 'right' | 'middle'
+  position: MousePosition,
+  button?: MouseButton
 }
 
 export type DownPayload = {
   type: 'down',
-  // TODO: button: 'left' | 'right' | 'middle'
+  button?: MouseButton
 }
 
 export type UpPayload = {
   type: 'up',
-  // TODO: button: 'left' | 'right' | 'middle'
+  button?: MouseButton
 }
 
 function isObject(payload: unknown): payload is Record<string, unknown> {
@@ -31,6 +34,7 @@ function isObject(payload: unknown): payload is Record<string, unknown> {
 
 function isSendMousePayload(payload: unknown): payload is SendMousePayload {
   const validTypes = ['move', 'click', 'down', 'up'];
+  const validButtons = ['left', 'middle', 'right'];
 
   if (!isObject(payload)) {
     throw new Error('You must provide a `SendMousePayload` object');
@@ -41,8 +45,14 @@ function isSendMousePayload(payload: unknown): payload is SendMousePayload {
   }
 
   if (['click', 'move'].includes(payload.type)) {
-    if (!Array.isArray(payload.position) || typeof payload.position[0] !== 'number' || typeof payload.position[1] !== 'number') {
-      throw new Error('You must provide a position option as a numerical [x, y] tuple.');
+    if (!Array.isArray(payload.position) || typeof payload.position[0] !== 'number' || typeof payload.position[1] !== 'number' || !/^\d+$/.test(payload.position.join(''))) {
+      throw new Error('You must provide a position option as a [x, y] tuple where x and y are integers.');
+    }
+  }
+
+  if (['click', 'up', 'down'].includes(payload.type)) {
+    if (typeof payload.button === 'string' && !validButtons.includes(payload.button)) {
+      throw new Error(`The button option must be one of the following values when provided: ${validButtons.join(', ')}.`)
     }
   }
 
@@ -66,13 +76,13 @@ export function sendMousePlugin(): TestRunnerPlugin<SendMousePayload> {
               await page.mouse.move(payload.position[0], payload.position[1]);
               return true;
             case 'click':
-              await page.mouse.click(payload.position[0], payload.position[1]);
+              await page.mouse.click(payload.position[0], payload.position[1], { button: payload.button });
               return true;
             case 'down':
-              await page.mouse.down();
+              await page.mouse.down({ button: payload.button });
               return true;
             case 'up':
-              await page.mouse.up();
+              await page.mouse.up({ button: payload.button });
               return true;
           }
         }
@@ -85,13 +95,13 @@ export function sendMousePlugin(): TestRunnerPlugin<SendMousePayload> {
               await page.mouse.move(payload.position[0], payload.position[1]);
               return true;
             case 'click':
-              await page.mouse.click(payload.position[0], payload.position[1]);
+              await page.mouse.click(payload.position[0], payload.position[1], { button: payload.button });
               return true;
             case 'down':
-              await page.mouse.down();
+              await page.mouse.down({ button: payload.button });
               return true;
             case 'up':
-              await page.mouse.up();
+              await page.mouse.up({ button: payload.button });
               return true;
           }
         }
