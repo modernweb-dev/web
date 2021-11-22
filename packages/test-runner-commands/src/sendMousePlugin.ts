@@ -1,6 +1,7 @@
 import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
+import type { WebdriverLauncher } from '@web/test-runner-webdriver';
 
 type MousePosition = [number, number];
 type MouseButton = 'left' | 'middle' | 'right';
@@ -102,6 +103,25 @@ export function sendMousePlugin(): TestRunnerPlugin<SendMousePayload> {
               return true;
             case 'up':
               await page.mouse.up({ button: payload.button });
+              return true;
+          }
+        }
+
+        // handle specific behavior for webdriver
+        if (session.browser.type === 'webdriver') {
+          const page = session.browser as WebdriverLauncher;
+          switch(payload.type) {
+            case 'move':
+              await page.sendMouseMove(session.id, payload.position[0], payload.position[1]);
+              return true;
+            case 'click':
+              await page.sendMouseClick(session.id, payload.position[0], payload.position[1], payload.button);
+              return true;
+            case 'down':
+              await page.sendMouseDown(session.id, payload.button);
+              return true;
+            case 'up':
+              await page.sendMouseUp(session.id, payload.button);
               return true;
           }
         }

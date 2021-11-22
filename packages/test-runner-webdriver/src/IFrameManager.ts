@@ -155,6 +155,11 @@ export class IFrameManager {
     return this.driver.keys(keys);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async performActions(_: string, _actions: object[]) {
+    console.warn('Device actions are not supported in the concurrent mode.');
+  }
+
   async takeScreenshot(sessionId: string, locator: string): Promise<Buffer> {
     const frameId = this.getFrameId(sessionId);
 
