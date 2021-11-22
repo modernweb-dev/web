@@ -73,7 +73,7 @@ describe('sendMousePlugin', function test() {
           },
         }),
       ],
-      plugins: [sendMousePlugin()]
+      plugins: [sendMousePlugin()],
     });
   });
 });

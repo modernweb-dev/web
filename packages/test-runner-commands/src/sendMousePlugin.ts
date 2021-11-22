@@ -9,25 +9,25 @@ type MouseButton = 'left' | 'middle' | 'right';
 export type SendMousePayload = MovePayload | ClickPayload | DownPayload | UpPayload;
 
 export type MovePayload = {
-  type: 'move',
-  position: MousePosition
+  type: 'move';
+  position: MousePosition;
 };
 
 export type ClickPayload = {
-  type: 'click',
-  position: MousePosition,
-  button?: MouseButton
-}
+  type: 'click';
+  position: MousePosition;
+  button?: MouseButton;
+};
 
 export type DownPayload = {
-  type: 'down',
-  button?: MouseButton
-}
+  type: 'down';
+  button?: MouseButton;
+};
 
 export type UpPayload = {
-  type: 'up',
-  button?: MouseButton
-}
+  type: 'up';
+  button?: MouseButton;
+};
 
 function isObject(payload: unknown): payload is Record<string, unknown> {
   return payload != null && typeof payload === 'object';
@@ -42,18 +42,31 @@ function isSendMousePayload(payload: unknown): payload is SendMousePayload {
   }
 
   if (typeof payload.type !== 'string' || !validTypes.includes(payload.type)) {
-    throw new Error(`You must provide a type option with one of the following values: ${validTypes.join(', ')}.`);
+    throw new Error(
+      `You must provide a type option with one of the following values: ${validTypes.join(', ')}.`,
+    );
   }
 
   if (['click', 'move'].includes(payload.type)) {
-    if (!Array.isArray(payload.position) || typeof payload.position[0] !== 'number' || typeof payload.position[1] !== 'number' || !/^\d+$/.test(payload.position.join(''))) {
-      throw new Error('You must provide a position option as a [x, y] tuple where x and y are integers.');
+    if (
+      !Array.isArray(payload.position) ||
+      typeof payload.position[0] !== 'number' ||
+      typeof payload.position[1] !== 'number' ||
+      !/^\d+$/.test(payload.position.join(''))
+    ) {
+      throw new Error(
+        'You must provide a position option as a [x, y] tuple where x and y are integers.',
+      );
     }
   }
 
   if (['click', 'up', 'down'].includes(payload.type)) {
     if (typeof payload.button === 'string' && !validButtons.includes(payload.button)) {
-      throw new Error(`The button option must be one of the following values when provided: ${validButtons.join(', ')}.`)
+      throw new Error(
+        `The button option must be one of the following values when provided: ${validButtons.join(
+          ', ',
+        )}.`,
+      );
     }
   }
 
@@ -72,12 +85,14 @@ export function sendMousePlugin(): TestRunnerPlugin<SendMousePayload> {
         // handle specific behavior for playwright
         if (session.browser.type === 'playwright') {
           const page = (session.browser as PlaywrightLauncher).getPage(session.id);
-          switch(payload.type) {
+          switch (payload.type) {
             case 'move':
               await page.mouse.move(payload.position[0], payload.position[1]);
               return true;
             case 'click':
-              await page.mouse.click(payload.position[0], payload.position[1], { button: payload.button });
+              await page.mouse.click(payload.position[0], payload.position[1], {
+                button: payload.button,
+              });
               return true;
             case 'down':
               await page.mouse.down({ button: payload.button });
@@ -91,12 +106,14 @@ export function sendMousePlugin(): TestRunnerPlugin<SendMousePayload> {
         // handle specific behavior for puppeteer
         if (session.browser.type === 'puppeteer') {
           const page = (session.browser as ChromeLauncher).getPage(session.id);
-          switch(payload.type) {
+          switch (payload.type) {
             case 'move':
               await page.mouse.move(payload.position[0], payload.position[1]);
               return true;
             case 'click':
-              await page.mouse.click(payload.position[0], payload.position[1], { button: payload.button });
+              await page.mouse.click(payload.position[0], payload.position[1], {
+                button: payload.button,
+              });
               return true;
             case 'down':
               await page.mouse.down({ button: payload.button });
@@ -110,12 +127,17 @@ export function sendMousePlugin(): TestRunnerPlugin<SendMousePayload> {
         // handle specific behavior for webdriver
         if (session.browser.type === 'webdriver') {
           const page = session.browser as WebdriverLauncher;
-          switch(payload.type) {
+          switch (payload.type) {
             case 'move':
               await page.sendMouseMove(session.id, payload.position[0], payload.position[1]);
               return true;
             case 'click':
-              await page.sendMouseClick(session.id, payload.position[0], payload.position[1], payload.button);
+              await page.sendMouseClick(
+                session.id,
+                payload.position[0],
+                payload.position[1],
+                payload.button,
+              );
               return true;
             case 'down':
               await page.sendMouseDown(session.id, payload.button);

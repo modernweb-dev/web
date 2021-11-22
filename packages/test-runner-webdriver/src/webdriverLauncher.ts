@@ -7,7 +7,7 @@ import { getBrowserLabel } from './utils';
 type MouseButton = 'left' | 'middle' | 'right';
 
 function getMouseButtonCode(button: MouseButton) {
-  switch(button) {
+  switch (button) {
     case 'left':
       return 0;
     case 'middle':
@@ -146,10 +146,8 @@ export class WebdriverLauncher implements BrowserLauncher {
       {
         type: 'pointer',
         id: 'finger1',
-        actions: [
-          { type: 'pointerMove', duration: 0, x, y }
-        ]
-      }
+        actions: [{ type: 'pointerMove', duration: 0, x, y }],
+      },
     ]);
   }
 
@@ -167,9 +165,9 @@ export class WebdriverLauncher implements BrowserLauncher {
         actions: [
           { type: 'pointerMove', duration: 0, x, y },
           { type: 'pointerDown', button: buttonCode },
-          { type: 'pointerUp', button: buttonCode }
-        ]
-      }
+          { type: 'pointerUp', button: buttonCode },
+        ],
+      },
     ]);
   }
 
@@ -184,10 +182,8 @@ export class WebdriverLauncher implements BrowserLauncher {
       {
         type: 'pointer',
         id: 'finger1',
-        actions: [
-          { type: 'pointerDown', button: buttonCode }
-        ]
-      }
+        actions: [{ type: 'pointerDown', button: buttonCode }],
+      },
     ]);
   }
 
@@ -202,11 +198,9 @@ export class WebdriverLauncher implements BrowserLauncher {
       {
         type: 'pointer',
         id: 'finger1',
-        actions: [
-          { type: 'pointerUp', button: buttonCode }
-        ]
-      }
-    ])
+        actions: [{ type: 'pointerUp', button: buttonCode }],
+      },
+    ]);
   }
 
   sendKeys(sessionId: string, keys: string[]) {
