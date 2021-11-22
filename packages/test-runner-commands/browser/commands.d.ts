@@ -76,9 +76,9 @@ export function setUserAgent(userAgent: string): Promise<void>;
 export function sendKeys(payload: SendKeysPayload): Promise<void>;
 
 /**
- * Sends an action for the mouse to move it to a specific position or click a mouse button.
+ * Sends an action for the mouse to move it to a specific position or click a mouse button (left, middle or right).
  *
- * @param payload An object including a `type` property and a `position` property (required for the `move` and `click` types).
+ * @param payload An object representing a mouse action specified by the `type` property (move, click, down, up) and including properties permitted for this type.
  *
  * @example
  * ```ts
@@ -92,7 +92,8 @@ export function sendKeys(payload: SendKeysPayload): Promise<void>;
  * ```ts
  *    await sendMouse({
  *        type: 'click',
- *        position: [100, 100]
+ *        position: [100, 100],
+ *        button: 'right'
  *    });
  * ```
  *

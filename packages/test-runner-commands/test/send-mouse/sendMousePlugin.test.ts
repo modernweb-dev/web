@@ -1,5 +1,4 @@
 import path from 'path';
-import { platform } from 'os';
 import selenium from 'selenium-standalone';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
@@ -11,7 +10,7 @@ import { startSeleniumServer } from '../selenium-server';
 let seleniumServer: selenium.ChildProcess;
 
 describe('sendMousePlugin', function test() {
-  this.timeout(20000);
+  this.timeout(50000);
 
   before(async function () {
     seleniumServer = await startSeleniumServer({
@@ -32,20 +31,17 @@ describe('sendMousePlugin', function test() {
     });
   });
 
-  // playwright doesn't work on windows VM right now
-  if (platform() !== 'win32') {
-    it('can send mouse on playwright', async () => {
-      await runTests({
-        files: [path.join(__dirname, 'browser-test.js')],
-        browsers: [
-          playwrightLauncher({ product: 'chromium' }),
-          playwrightLauncher({ product: 'firefox' }),
-          playwrightLauncher({ product: 'webkit' }),
-        ],
-        plugins: [sendMousePlugin()],
-      });
+  it('can send mouse on playwright', async () => {
+    await runTests({
+      files: [path.join(__dirname, 'browser-test.js')],
+      browsers: [
+        playwrightLauncher({ product: 'chromium' }),
+        playwrightLauncher({ product: 'firefox' }),
+        playwrightLauncher({ product: 'webkit' }),
+      ],
+      plugins: [sendMousePlugin()],
     });
-  }
+  });
 
   it('can send mouse on webdriver', async () => {
     await runTests({

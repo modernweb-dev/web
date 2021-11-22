@@ -157,7 +157,9 @@ export class IFrameManager {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async performActions(_: string, _actions: object[]) {
-    console.warn('Device actions are not supported in the concurrent mode.');
+    console.warn(
+      'Unsupported operation. In order to use device actions in Webdriver, set "concurrency" to 1.',
+    );
   }
 
   async takeScreenshot(sessionId: string, locator: string): Promise<Buffer> {
