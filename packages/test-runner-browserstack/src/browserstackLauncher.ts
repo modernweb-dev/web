@@ -1,6 +1,5 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { SeleniumLauncher } from '@web/test-runner-selenium';
-import webdriver, { Capabilities } from 'selenium-webdriver';
+import { WebdriverLauncher } from '@web/test-runner-webdriver';
 import browserstack from 'browserstack-local';
 import ip from 'ip';
 import {
@@ -17,23 +16,27 @@ export interface BrowserstackLauncherArgs {
 const REQUIRED_CAPABILITIES = ['name', 'browserstack.user', 'browserstack.key', 'project', 'build'];
 const localIp = ip.address();
 
-export class BrowserstackLauncher extends SeleniumLauncher {
+export class BrowserstackLauncher extends WebdriverLauncher {
   constructor(
-    private capabilities: Capabilities,
+    private capabilities: Record<string, unknown>,
     public name: string,
     private localOptions?: Partial<browserstack.Options>,
   ) {
-    super(
-      new webdriver.Builder()
-        .usingServer('http://hub.browserstack.com/wd/hub')
-        .withCapabilities(capabilities),
-    );
+    super({
+      capabilities: capabilities,
+      hostname: 'hub.browserstack.com',
+      protocol: 'http',
+      port: 80,
+      path: '/wd/hub',
+      user: capabilities['browserstack.user'] as string,
+      key: capabilities['browserstack.key'] as string,
+    });
   }
 
   async initialize(config: TestRunnerCoreConfig) {
     await registerBrowserstackLocal(
       this,
-      this.capabilities.get('browserstack.key')!,
+      this.capabilities['browserstack.key'] as string,
       this.localOptions,
     );
     await super.initialize(config);
@@ -71,16 +74,15 @@ export function browserstackLauncher(args: BrowserstackLauncherArgs): BrowserLau
       caps.browser_version ? ` ${caps.browser_version}` : ''
     }` + ` (${caps.os} ${caps.os_version})`;
 
-  const capabilitiesMap = new Map(Object.entries(args.capabilities));
-  const capabilities = new Capabilities(capabilitiesMap);
-  capabilities.set('timeout', 300);
-  capabilities.set('browserstack.local', true);
-  capabilities.set('browserstack.localIdentifier', localId);
+  const capabilities = { ...args.capabilities };
+  capabilities['timeout'] = 300;
+  capabilities['browserstack.local'] = true;
+  capabilities['browserstack.localIdentifier'] = localId;
 
   // we need to allow popups since we open new windows
-  capabilities.set('browserstack.ie.enablePopups', true);
-  capabilities.set('browserstack.edge.enablePopups', true);
-  capabilities.set('browserstack.safari.enablePopups', true);
+  capabilities['browserstack.ie.enablePopups'] = true;
+  capabilities['browserstack.edge.enablePopups'] = true;
+  capabilities['browserstack.safari.enablePopups'] = true;
 
   return new BrowserstackLauncher(capabilities, browserName, args.localOptions);
 }
