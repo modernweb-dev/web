@@ -1,5 +1,56 @@
 # @web/test-runner
 
+## 0.13.22
+
+### Patch Changes
+
+- 3f79c247: Update dependency chrome-launcher to ^0.15.0
+- Updated dependencies [3f79c247]
+  - @web/test-runner-chrome@0.10.5
+
+## 0.13.21
+
+### Patch Changes
+
+- aab9a42f: Update dependency puppeteer-core to v11
+- Updated dependencies [aab9a42f]
+  - @web/test-runner-chrome@0.10.4
+
+## 0.13.20
+
+### Patch Changes
+
+- 64bd29ac: Corrected the typings for test-runner user config `testFramework` option
+- Updated dependencies [64bd29ac]
+  - @web/test-runner-core@0.10.22
+
+## 0.13.19
+
+### Patch Changes
+
+- e6c7459e: Use full path to browser session file
+- Updated dependencies [e6c7459e]
+  - @web/test-runner-mocha@0.7.5
+
+## 0.13.18
+
+### Patch Changes
+
+- d4f92e25: Replace uuid dependency with nanoid
+- a09282b4: Replace chalk with nanocolors
+- Updated dependencies [d4f92e25]
+- Updated dependencies [a09282b4]
+  - @web/test-runner-core@0.10.21
+  - @web/dev-server@0.1.24
+
+## 0.13.17
+
+### Patch Changes
+
+- de756b28: Update dependency puppeteer-core to v10
+- Updated dependencies [de756b28]
+  - @web/test-runner-chrome@0.10.3
+
 ## 0.13.16
 
 ### Patch Changes

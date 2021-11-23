@@ -46,7 +46,7 @@ This represents the default server root for Apache web server on linux.
 | Contact  | `https://my-domain.com/about/contact.html` | `/var/www/html/about/contact.html` |
 
 Now if you were to request `https://my-domain.com/main.html`, the server would send back the infamous "404 - File not found" error, since there's no `/main.html` file in the web root.
-Likewise, if you were to rename `index.html` to `main.html`, then `https://my-domain.com/help.html` would work but `https://my-domain.com/` would give a "404".
+Likewise, if you were to rename `index.html` to `main.html`, then `https://my-domain.com/main.html` would work but `https://my-domain.com/` would give a "404".
 
 ### Files Outside the Web Root
 

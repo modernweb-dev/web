@@ -1,4 +1,4 @@
-import { CoverageConfig, TestRunnerGroupConfig } from '@web/test-runner-core';
+import { CoverageConfig, TestRunnerCoreConfig, TestRunnerGroupConfig } from '@web/test-runner-core';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import {
   emulateMediaPlugin,
@@ -127,7 +127,7 @@ async function parseConfigGroups(config: TestRunnerConfig, cliArgs: TestRunnerCl
 export async function parseConfig(
   config: Partial<TestRunnerConfig>,
   cliArgs: TestRunnerCliArgs = {},
-): Promise<{ config: TestRunnerConfig; groupConfigs: TestRunnerGroupConfig[] }> {
+): Promise<{ config: TestRunnerCoreConfig; groupConfigs: TestRunnerGroupConfig[] }> {
   const cliArgsConfig: Partial<TestRunnerConfig> = {
     ...(cliArgs as Omit<TestRunnerCliArgs, 'groups' | 'browsers'>),
   };
@@ -274,5 +274,5 @@ export async function parseConfig(
     );
   }
 
-  return { config: finalConfig, groupConfigs };
+  return { config: finalConfig as TestRunnerCoreConfig, groupConfigs };
 }

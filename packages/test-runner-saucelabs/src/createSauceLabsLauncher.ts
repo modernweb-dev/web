@@ -3,7 +3,7 @@ import { SauceLabsOptions, SauceConnectOptions } from 'saucelabs';
 import WebDriver from 'webdriver';
 import { RemoteOptions } from 'webdriverio';
 import { Options } from '@wdio/types';
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid';
 
 import { SauceLabsLauncher } from './SauceLabsLauncher';
 import { SauceLabsLauncherManager } from './SauceLabsLauncherManager';
@@ -32,7 +32,7 @@ export function createSauceLabsLauncher(
 
   const finalConnectOptions: SauceConnectOptions = { ...sauceConnectOptions };
   if (typeof finalConnectOptions.tunnelIdentifier !== 'string') {
-    finalConnectOptions.tunnelIdentifier = `web-test-runner-${uuid()}`;
+    finalConnectOptions.tunnelIdentifier = `web-test-runner-${nanoid()}`;
   }
   const manager = new SauceLabsLauncherManager(finalSauceLabsOptions, finalConnectOptions);
 

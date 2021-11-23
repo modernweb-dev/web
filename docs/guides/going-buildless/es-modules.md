@@ -41,12 +41,20 @@ import { foo } from './foo.js';
 
 ### Dynamic imports
 
-You can also import other modules using dynamic `import()` function. This import is executed lazily, the browser will download the file only when the function is executed.
+You can also import other modules using dynamic [`import()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#dynamic_imports) function. This import is executed lazily, the browser will download the file only when the function is executed.
 
 ```js
 function loadComponent() {
   return import('./components/my-component.js');
 }
+```
+
+Because of the nature of dynamic imports, the above function returns a promise, so you need to use the `await` keyword:
+
+```js
+const component = await loadComponent();
+
+component.doSomething();
 ```
 
 ## File extensions

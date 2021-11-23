@@ -6,12 +6,12 @@
 import browserstack from 'browserstack-local';
 import { BrowserLauncher } from '@web/test-runner-core';
 import { promisify } from 'util';
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid';
 
 const launchers = new Set<BrowserLauncher>();
 let connection: browserstack.Local | undefined = undefined;
 
-export const localId = `web-test-runner-${uuid()}`;
+export const localId = `web-test-runner-${nanoid()}`;
 
 async function setupLocalConnection(password: string, options: Partial<browserstack.Options> = {}) {
   process.on('SIGINT', closeLocalConnection);

@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-core",
-  "version": "0.10.20",
+  "version": "0.10.22",
   "publishConfig": {
     "access": "public"
   },
@@ -57,10 +57,8 @@
     "@types/debounce": "^1.2.0",
     "@types/istanbul-lib-coverage": "^2.0.3",
     "@types/istanbul-reports": "^3.0.0",
-    "@types/uuid": "^8.3.0",
     "@web/browser-logs": "^0.2.1",
-    "@web/dev-server-core": "^0.3.12",
-    "chalk": "^4.1.0",
+    "@web/dev-server-core": "^0.3.16",
     "chokidar": "^3.4.3",
     "cli-cursor": "^3.1.0",
     "co-body": "^6.1.0",
@@ -73,10 +71,11 @@
     "istanbul-lib-report": "^3.0.0",
     "istanbul-reports": "^3.0.2",
     "log-update": "^4.0.0",
+    "nanocolors": "^0.2.1",
+    "nanoid": "^3.1.25",
     "open": "^8.0.2",
     "picomatch": "^2.2.2",
-    "source-map": "^0.7.3",
-    "uuid": "^8.3.2"
+    "source-map": "^0.7.3"
   },
   "devDependencies": {
     "portfinder": "^1.0.28"

@@ -1,5 +1,29 @@
 # @web/test-runner-junit-reporter
 
+## 0.4.9
+
+### Patch Changes
+
+- 3f79c247: Update dependency chrome-launcher to ^0.15.0
+- Updated dependencies [3f79c247]
+  - @web/test-runner-chrome@0.10.5
+
+## 0.4.8
+
+### Patch Changes
+
+- aab9a42f: Update dependency puppeteer-core to v11
+- Updated dependencies [aab9a42f]
+  - @web/test-runner-chrome@0.10.4
+
+## 0.4.7
+
+### Patch Changes
+
+- de756b28: Update dependency puppeteer-core to v10
+- Updated dependencies [de756b28]
+  - @web/test-runner-chrome@0.10.3
+
 ## 0.4.6
 
 ### Patch Changes

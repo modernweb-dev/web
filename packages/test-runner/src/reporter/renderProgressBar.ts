@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import { gray, white } from 'nanocolors';
 
 const PROGRESS_BLOCKS = [' ', '▏', '▎', '▍', '▌', '▋', '▊', '▉', '█'];
 const PROGRESS_WIDTH = 30;
@@ -21,7 +21,7 @@ export function renderProgressBar(finished: number, active: number, total: numbe
   const progressBlocks = createProgressBlocks(finished + active, total);
   const finishedBlockCount = Math.floor((PROGRESS_WIDTH * finished) / total);
 
-  const finishedBlocks = chalk.white(progressBlocks.slice(0, finishedBlockCount));
-  const scheduledBlocks = chalk.grey(progressBlocks.slice(finishedBlockCount));
+  const finishedBlocks = white(progressBlocks.slice(0, finishedBlockCount));
+  const scheduledBlocks = gray(progressBlocks.slice(finishedBlockCount));
   return `|${finishedBlocks}${scheduledBlocks}|`;
 }

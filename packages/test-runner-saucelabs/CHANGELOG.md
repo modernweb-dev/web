@@ -1,5 +1,31 @@
 # @web/test-runner-saucelabs
 
+## 0.7.2
+
+### Patch Changes
+
+- 7e46ba7c: Pin saucelabs version to 6.1.0 minor
+
+## 0.7.1
+
+### Patch Changes
+
+- bfa1d1ca: Update webdriver dependency to 7.16.0
+- Updated dependencies [bfa1d1ca]
+  - @web/test-runner-webdriver@0.4.3
+
+## 0.7.0
+
+### Minor Changes
+
+- 6fb8910c: Update dependency saucelabs to v6
+
+## 0.6.3
+
+### Patch Changes
+
+- d4f92e25: Replace uuid dependency with nanoid
+
 ## 0.6.2
 
 ### Patch Changes

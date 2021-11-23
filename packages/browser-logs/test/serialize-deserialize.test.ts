@@ -209,6 +209,7 @@ describe('serialize deserialize', () => {
         baz: function baz() {
           return 'baz';
         },
+        'my-element': () => 'bar',
       }),
     );
     const deserialized = await deserialize(serialized);
@@ -218,6 +219,8 @@ describe('serialize deserialize', () => {
     expect(deserialized.bar.name).to.equal('bar');
     expect(deserialized.baz).to.be.a('function');
     expect(deserialized.baz.name).to.equal('baz');
+    expect(deserialized['my-element']).to.be.a('function');
+    expect(deserialized['my-element'].name).to.equal('my-element');
   });
 
   it('handles deep objects', async () => {

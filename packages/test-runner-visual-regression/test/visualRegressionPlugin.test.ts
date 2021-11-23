@@ -10,7 +10,7 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 describe('visualRegressionPlugin', function test() {
   this.timeout(20000);
 
-  it.skip('can run a passing test', async () => {
+  it('can run a passing test', async () => {
     await runTests({
       files: [path.join(__dirname, 'diff-pass-test.js')],
       browsers: [
@@ -28,13 +28,14 @@ describe('visualRegressionPlugin', function test() {
           },
         },
         visualRegressionPlugin({
+          baseDir: 'packages/test-runner-visual-regression/screenshots',
           update: process.argv.includes('--update-visual-diffs'),
         }),
       ],
     });
   });
 
-  it.skip('can run a failed test', async () => {
+  it('can run a failed test', async () => {
     const { sessions } = await runTests(
       {
         files: [path.join(__dirname, 'diff-fail-test.js')],
@@ -53,6 +54,7 @@ describe('visualRegressionPlugin', function test() {
             },
           },
           visualRegressionPlugin({
+            baseDir: 'packages/test-runner-visual-regression/screenshots',
             update: process.argv.includes('--update-visual-diffs'),
           }),
         ],

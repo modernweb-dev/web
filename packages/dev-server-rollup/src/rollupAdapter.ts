@@ -19,7 +19,7 @@ import {
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';
-import { red, cyanBright } from 'chalk';
+import { red, cyan } from 'nanocolors';
 
 import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils';
 import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter';
@@ -150,7 +150,7 @@ export function rollupAdapter(
           rollupPluginContext,
           resolvableImport,
           filePath,
-          {},
+          { isEntry: false },
         );
 
         if (!result && injectedFilePath) {
@@ -172,7 +172,7 @@ export function rollupAdapter(
             !['/', './', '../'].some(prefix => resolvableImport.startsWith(prefix)) &&
             adapterOptions.throwOnUnresolvedImport
           ) {
-            const errorMessage = red(`Could not resolve import ${cyanBright(`"${source}"`)}.`);
+            const errorMessage = red(`Could not resolve import ${cyan(`"${source}"`)}.`);
             if (
               typeof code === 'string' &&
               typeof column === 'number' &&
@@ -222,7 +222,7 @@ export function rollupAdapter(
           if (dirUpStrings.length === 0 || dirUpStrings.some(str => !['..', ''].includes(str))) {
             // we expect the relative part to consist of only ../ or ..\\
             const errorMessage =
-              red(`\n\nResolved ${cyanBright(source)} to ${cyanBright(resolvedImportPath)}.\n\n`) +
+              red(`\n\nResolved ${cyan(source)} to ${cyan(resolvedImportPath)}.\n\n`) +
               red(
                 'This path could not be converted to a browser path. Please file an issue with a reproduction.',
               );

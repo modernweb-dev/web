@@ -349,4 +349,40 @@ describe('esbuildPlugin target', function () {
       server.stop();
     }
   });
+
+  it('should leave non-js types as they are', async () => {
+    const importmapString = '{"imports":{"foo":"./bar.js"}}';
+    const jsonString = '{test:1}';
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        {
+          name: 'test',
+          serve(context) {
+            if (context.path === '/index.html') {
+              return `<html>
+  <body>
+    <script type="importmap">${importmapString}</script>
+    <script type="application/json">${jsonString}</script>
+  </body>
+</html>`;
+            }
+          },
+        },
+        esbuildPlugin({ js: true, target: 'es2016' }),
+      ],
+    });
+
+    try {
+      const response = await fetch(`${host}/index.html`);
+      const text = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(response.headers.get('content-type')).to.equal('text/html; charset=utf-8');
+      expect(text).to.include(importmapString);
+      expect(text).to.include(jsonString);
+    } finally {
+      server.stop();
+    }
+  });
 });

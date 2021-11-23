@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-webdriver",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "publishConfig": {
     "access": "public"
   },
@@ -48,10 +48,10 @@
   ],
   "dependencies": {
     "@web/test-runner-core": "^0.10.20",
-    "webdriverio": "^7.9.0"
+    "webdriverio": "^7.16.0"
   },
   "devDependencies": {
-    "@types/selenium-standalone": "^6.15.2",
-    "selenium-standalone": "^6.23.0"
+    "@types/selenium-standalone": "^7.0.1",
+    "selenium-standalone": "^8.0.4"
   }
 }

@@ -1,5 +1,24 @@
 # @web/dev-server-core
 
+## 0.3.17
+
+### Patch Changes
+
+- b2c081d8: When serving content to an iframe within a csp restricted page, the websocket script may not be able to access the parent window.
+  Accessing it may result in an uncaught DOMException which we now handle.
+
+## 0.3.16
+
+### Patch Changes
+
+- a09282b4: Replace chalk with nanocolors
+
+## 0.3.15
+
+### Patch Changes
+
+- 369394fe: Update dependency es-module-lexer to ^0.9.0
+
 ## 0.3.14
 
 ### Patch Changes

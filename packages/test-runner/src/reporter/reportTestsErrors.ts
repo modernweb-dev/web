@@ -1,5 +1,5 @@
 import { TestResultError, TestSession, Logger } from '@web/test-runner-core';
-import chalk from 'chalk';
+import { gray, green, red } from 'nanocolors';
 import * as diff from 'diff';
 
 import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers';
@@ -8,10 +8,10 @@ import { getFlattenedTestResults } from './utils/getFlattenedTestResults';
 function renderDiff(actual: string, expected: string) {
   function cleanUp(line: string) {
     if (line[0] === '+') {
-      return chalk.green(line);
+      return green(line);
     }
     if (line[0] === '-') {
-      return chalk.red(line);
+      return red(line);
     }
     if (line.match(/@@/)) {
       return null;
@@ -30,7 +30,7 @@ function renderDiff(actual: string, expected: string) {
     .filter(l => !!l)
     .join('\n');
 
-  return `${chalk.green('+ expected')} ${chalk.red('- actual')}\n\n${diffMsg}`;
+  return `${green('+ expected')} ${red('- actual')}\n\n${diffMsg}`;
 }
 
 export function formatError(error: TestResultError) {
@@ -38,7 +38,7 @@ export function formatError(error: TestResultError) {
   const { name, message = 'Unknown error' } = error;
   const errorMsg = name ? `${name}: ${message}` : message;
   const showDiff = typeof error.expected === 'string' && typeof error.actual === 'string';
-  strings.push(chalk.red(errorMsg));
+  strings.push(red(errorMsg));
 
   if (showDiff) {
     strings.push(`${renderDiff(error.actual!, error.expected!)}\n`);
@@ -50,14 +50,14 @@ export function formatError(error: TestResultError) {
         .split('\n')
         .map(s => s.trim())
         .join('\n');
-      strings.push(chalk.gray(dedented));
+      strings.push(gray(dedented));
     } else {
-      strings.push(chalk.gray(error.stack));
+      strings.push(gray(error.stack));
     }
   }
 
   if (!error.expected && !error.stack) {
-    strings.push(chalk.red(error.message || 'Unknown error'));
+    strings.push(red(error.message || 'Unknown error'));
   }
 
   return strings.join('\n');

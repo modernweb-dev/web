@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid';
 import path from 'path';
 
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
@@ -94,7 +94,7 @@ export function createTestSessions(
     for (const testFile of testFilesForGroup) {
       for (const browser of group.browsers) {
         const session: TestSession = {
-          id: uuid(),
+          id: nanoid(),
           group: sessionGroup,
           debug: false,
           testRun: -1,

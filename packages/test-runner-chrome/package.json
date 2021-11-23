@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-chrome",
-  "version": "0.10.2",
+  "version": "0.10.5",
   "publishConfig": {
     "access": "public"
   },
@@ -47,8 +47,8 @@
   "dependencies": {
     "@web/test-runner-core": "^0.10.20",
     "@web/test-runner-coverage-v8": "^0.4.8",
-    "chrome-launcher": "^0.14.0",
-    "puppeteer-core": "^9.1.0"
+    "chrome-launcher": "^0.15.0",
+    "puppeteer-core": "^11.0.0"
   },
   "devDependencies": {
     "@types/istanbul-reports": "^3.0.0",

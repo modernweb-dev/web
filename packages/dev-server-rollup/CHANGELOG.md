@@ -1,5 +1,32 @@
 # @web/dev-server-rollup
 
+## 0.3.13
+
+### Patch Changes
+
+- cbbd5fc8: Resolve missing peer dependency of @rollup/plugin-node-resolve by moving and exposing @rollup/plugin-node-resolve to @web/dev-server-rollup
+
+## 0.3.12
+
+### Patch Changes
+
+- 2b226517: Update whatwg-url dependency to 10.0.0
+- 8a1dfdc0: Update whatwg-url dependency to 11.0.0
+
+## 0.3.11
+
+### Patch Changes
+
+- 96f656aa: Update Rollup to 2.58.0, use isEntry flag
+
+## 0.3.10
+
+### Patch Changes
+
+- a09282b4: Replace chalk with nanocolors
+- Updated dependencies [a09282b4]
+  - @web/dev-server-core@0.3.16
+
 ## 0.3.9
 
 ### Patch Changes

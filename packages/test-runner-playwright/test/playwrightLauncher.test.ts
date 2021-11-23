@@ -20,26 +20,26 @@ describe('test-runner-playwright chromium', function testRunnerPlaywright() {
   });
 });
 
+describe('test-runner-playwright webkit', function testRunnerPlaywright() {
+  this.timeout(100000);
+
+  function createConfig() {
+    return { browsers: [playwrightLauncher({ product: 'webkit' })] };
+  }
+
+  runIntegrationTests(createConfig, {
+    basic: true,
+    many: true,
+    focus: true,
+    groups: true,
+    parallel: true,
+    testFailure: true,
+    locationChanged: true,
+  });
+});
+
 // we don't run all tests in the windows CI
 if (os.platform() !== 'win32') {
-  describe('test-runner-playwright webkit', function testRunnerPlaywright() {
-    this.timeout(100000);
-
-    function createConfig() {
-      return { browsers: [playwrightLauncher({ product: 'webkit' })] };
-    }
-
-    runIntegrationTests(createConfig, {
-      basic: true,
-      many: true,
-      focus: true,
-      groups: true,
-      parallel: true,
-      testFailure: true,
-      locationChanged: true,
-    });
-  });
-
   describe('test-runner-playwright firefox', function testRunnerPlaywright() {
     this.timeout(100000);
 
@@ -67,7 +67,7 @@ if (os.platform() !== 'win32') {
         browsers: [
           playwrightLauncher({ product: 'chromium' }),
           playwrightLauncher({ product: 'firefox' }),
-          ...(os.platform() !== 'win32' ? [playwrightLauncher({ product: 'webkit' })] : []),
+          playwrightLauncher({ product: 'webkit' }),
         ],
       };
     }

@@ -40,7 +40,7 @@ export class DevServer {
     this.started = true;
     await (promisify<ListenOptions>(this.server.listen).bind(this.server) as any)({
       port: this.config.port,
-      // in case of localhost the host should be undefined, otherwise some browsers connect
+      // in case of localhost the host should be undefined, otherwise some browsers
       // connect to it via local network. for example safari on browserstack
       host: ['localhost', '127.0.0.1'].includes(this.config.hostname)
         ? undefined

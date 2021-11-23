@@ -1,6 +1,6 @@
 {
   "name": "@web/rollup-plugin-polyfills-loader",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publishConfig": {
     "access": "public"
   },
@@ -13,7 +13,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modern-web/web/packages/rollup-plugin-polyfills-loader",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "exports": {
     ".": {
       "import": "./index.mjs",

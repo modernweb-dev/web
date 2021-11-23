@@ -17,14 +17,19 @@ export interface VisualDiffCommandResult {
   passed: boolean;
 }
 
+export interface VisualDiffCommandContext {
+  browser: string;
+  testFile: string;
+}
+
 export async function visualDiffCommand(
   options: VisualRegressionPluginOptions,
   image: Buffer,
-  browser: string,
   name: string,
+  { browser, testFile }: VisualDiffCommandContext,
 ): Promise<VisualDiffCommandResult> {
   const baseDir = path.resolve(options.baseDir);
-  const baselineName = options.getBaselineName({ browser, name });
+  const baselineName = options.getBaselineName({ browser, name, testFile });
 
   const baselineImage = await options.getBaseline({
     filePath: resolveImagePath(baseDir, baselineName),
@@ -42,8 +47,9 @@ export async function visualDiffCommand(
     return { diffPercentage: -1, passed: true };
   }
 
-  const diffName = options.getDiffName({ browser, name });
-  const failedName = options.getFailedName({ browser, name });
+  const diffName = options.getDiffName({ browser, name, testFile });
+  const failedName = options.getFailedName({ browser, name, testFile });
+  const diffFilePath = resolveImagePath(baseDir, diffName);
 
   const saveFailed = async () => {
     await options.saveFailed({
@@ -56,7 +62,7 @@ export async function visualDiffCommand(
 
   const saveDiff = async () => {
     await options.saveDiff({
-      filePath: resolveImagePath(baseDir, diffName),
+      filePath: diffFilePath,
       baseDir,
       name: diffName,
       content: diffImage,
@@ -98,9 +104,14 @@ export async function visualDiffCommand(
     await saveFailed();
   }
 
+  // if diff is suitably small, output raw value, otherwise to two decimal points.
+  // this avoids outputting a message like "New screenshot is 0.00% different"
+  const diffPercentageToDisplay =
+    diffPercentage < 0.005 ? diffPercentage : diffPercentage.toFixed(2);
+
   return {
     errorMessage: !passed
-      ? `Visual diff failed. New screenshot is ${diffPercentage.toFixed(2)} % different.`
+      ? `Visual diff failed. New screenshot is ${diffPercentageToDisplay}% different.\nSee diff for details: ${diffFilePath}`
       : undefined,
     diffPercentage: -1,
     passed,

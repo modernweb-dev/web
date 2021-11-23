@@ -76,6 +76,7 @@ type PixelMatchOptions = PixelMatchParams[5];
 export interface GetNameArgs {
   browser: string;
   name: string;
+  testFile: string;
 }
 
 export interface ImageArgs {

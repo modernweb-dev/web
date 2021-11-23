@@ -42,7 +42,7 @@
     "@web/dev-server-core": "^0.3.0"
   },
   "devDependencies": {
-    "lit-html": "^1.3.0",
-    "puppeteer": "^9.1.0"
+    "lit-html": "^2.0.0",
+    "puppeteer": "^11.0.0"
   }
 }

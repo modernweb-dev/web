@@ -2,7 +2,7 @@ import fs from 'fs';
 import { join, dirname, basename } from 'path';
 import { fileURLToPath } from 'url';
 import concurrently from 'concurrently';
-import chalk from 'chalk';
+import { green, red, yellow } from 'nanocolors';
 
 export function runWorkspacesScripts({ script, concurrency, filteredPackages = [] }) {
   const moduleDir = dirname(fileURLToPath(import.meta.url));
@@ -39,8 +39,8 @@ export function runWorkspacesScripts({ script, concurrency, filteredPackages = [
   concurrently(commands, { maxProcesses: concurrency })
     .then(() => {
       console.log(
-        chalk.green(
-          `Successfully executed command ${chalk.yellow(script)} for packages: ${chalk.yellow(
+        green(
+          `Successfully executed command ${yellow(script)} for packages: ${yellow(
             commands.map(c => c.name).join(', '),
           )}`,
         ),
@@ -54,8 +54,8 @@ export function runWorkspacesScripts({ script, concurrency, filteredPackages = [
         const count = error.filter(error => error !== 0).length;
         console.log('');
         console.log(
-          chalk.red(
-            `Failed to execute command ${chalk.yellow(
+          red(
+            `Failed to execute command ${yellow(
               script,
             )} for ${count} packages. But we don't know which ones, because concurrently doesn't say.`,
           ),

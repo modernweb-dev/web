@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 import path from 'path';
 import fs from 'fs';
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid';
 
 import { createTestServer, timeout } from '../helpers';
 import { DevServer } from '../../src/server/DevServer';
@@ -71,7 +71,7 @@ describe('etag cache middleware', () => {
       expect(etag).to.be.a('string');
 
       await timeout(10);
-      const fileContent = `// the cache is busted${uuid()}`;
+      const fileContent = `// the cache is busted${nanoid()}`;
       fs.writeFileSync(testFileBPath, fileContent, 'utf-8');
       server.fileWatcher.emit('change', testFileBPath);
 

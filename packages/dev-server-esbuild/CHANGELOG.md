@@ -1,5 +1,19 @@
 # @web/dev-server-esbuild
 
+## 0.2.16
+
+### Patch Changes
+
+- d406c772: Do not process scripts with non-JS type attribute
+- Updated dependencies [b2c081d8]
+  - @web/dev-server-core@0.3.17
+
+## 0.2.15
+
+### Patch Changes
+
+- 9f4940f0: Update ua-parser-js dependency to 1.0.2
+
 ## 0.2.14
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @web/test-runner-chrome
 
+## 0.10.5
+
+### Patch Changes
+
+- 3f79c247: Update dependency chrome-launcher to ^0.15.0
+
+## 0.10.4
+
+### Patch Changes
+
+- aab9a42f: Update dependency puppeteer-core to v11
+
+## 0.10.3
+
+### Patch Changes
+
+- de756b28: Update dependency puppeteer-core to v10
+
 ## 0.10.2
 
 ### Patch Changes

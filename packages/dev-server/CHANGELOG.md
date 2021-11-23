@@ -1,5 +1,57 @@
 # @web/dev-server
 
+## 0.1.28
+
+### Patch Changes
+
+- cbbd5fc8: Resolve missing peer dependency of @rollup/plugin-node-resolve by moving and exposing @rollup/plugin-node-resolve to @web/dev-server-rollup
+- Updated dependencies [cbbd5fc8]
+  - @web/dev-server-rollup@0.3.13
+
+## 0.1.27
+
+### Patch Changes
+
+- b2c081d8: When serving content to an iframe within a csp restricted page, the websocket script may not be able to access the parent window.
+  Accessing it may result in an uncaught DOMException which we now handle.
+- Updated dependencies [b2c081d8]
+  - @web/dev-server-core@0.3.17
+
+## 0.1.26
+
+### Patch Changes
+
+- 2b226517: Update whatwg-url dependency to 10.0.0
+- 8a1dfdc0: Update whatwg-url dependency to 11.0.0
+- Updated dependencies [2b226517]
+- Updated dependencies [8a1dfdc0]
+  - @web/dev-server-rollup@0.3.12
+
+## 0.1.25
+
+### Patch Changes
+
+- 96f656aa: Update Rollup to 2.58.0, use isEntry flag
+- Updated dependencies [96f656aa]
+  - @web/dev-server-rollup@0.3.11
+
+## 0.1.24
+
+### Patch Changes
+
+- a09282b4: Replace chalk with nanocolors
+- Updated dependencies [a09282b4]
+  - @web/dev-server-core@0.3.16
+  - @web/dev-server-rollup@0.3.10
+
+## 0.1.23
+
+### Patch Changes
+
+- 369394fe: Update dependency es-module-lexer to ^0.9.0
+- Updated dependencies [369394fe]
+  - @web/dev-server-core@0.3.15
+
 ## 0.1.22
 
 ### Patch Changes
