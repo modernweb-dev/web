@@ -1,5 +1,5 @@
 import { CoverageMapData, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { By, WebDriver, WebElement } from 'selenium-webdriver';
+import { WebDriver } from 'selenium-webdriver';
 
 interface BrowserResult {
   testCoverage?: CoverageMapData;
@@ -151,27 +151,5 @@ export class IFrameManager {
 
     this.inactiveFrames.push(frameId);
     return { testCoverage: this.config.coverage ? testCoverage : undefined };
-  }
-
-  async takeScreenshot(sessionId: string, locator: string): Promise<Buffer> {
-    const frameId = this.framePerSession.get(sessionId);
-
-    const frame = await this.driver.findElement(By.css(`iframe#${frameId}`));
-
-    await this.driver.switchTo().frame(frame);
-
-    const element = (await this.driver.executeScript(locator, [])) as WebElement;
-
-    let base64 = '';
-
-    try {
-      base64 = await element.takeScreenshot(true);
-    } catch (err) {
-      console.log('Failed to take a screenshot:', err);
-    }
-
-    await this.driver.switchTo().defaultContent();
-
-    return Buffer.from(base64, 'base64');
   }
 }

@@ -79,13 +79,6 @@ export class SeleniumLauncher implements BrowserLauncher {
     await this.debugDriver.navigate().to(url);
   }
 
-  takeScreenshot(sessionId: string, locator: string) {
-    if (!this.iframeManager) {
-      throw new Error('Not initialized');
-    }
-    return this.iframeManager.takeScreenshot(sessionId, locator);
-  }
-
   private async ensureIframeManagerInitialized(): Promise<void> {
     if (this.iframeManager) {
       return;
