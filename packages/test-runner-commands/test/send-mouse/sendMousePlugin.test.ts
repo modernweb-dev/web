@@ -12,17 +12,6 @@ let seleniumServer: selenium.ChildProcess;
 describe('sendMousePlugin', function test() {
   this.timeout(50000);
 
-  before(async function () {
-    seleniumServer = await startSeleniumServer({
-      chrome: { version: '94.0.4606.41' },
-      firefox: { version: 'latest' },
-    });
-  });
-
-  after(() => {
-    seleniumServer.kill();
-  });
-
   it('can send mouse on puppeteer', async () => {
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],
@@ -44,6 +33,11 @@ describe('sendMousePlugin', function test() {
   });
 
   it('can send mouse on webdriver', async () => {
+    seleniumServer = await startSeleniumServer({
+      chrome: { version: '94.0.4606.41' },
+      firefox: { version: 'latest' },
+    });
+
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],
       concurrency: 1,
@@ -71,5 +65,7 @@ describe('sendMousePlugin', function test() {
       ],
       plugins: [sendMousePlugin()],
     });
+
+    seleniumServer.kill();
   });
 });
