@@ -52,7 +52,8 @@ function isSendMousePayload(payload: unknown): payload is SendMousePayload {
       !Array.isArray(payload.position) ||
       typeof payload.position[0] !== 'number' ||
       typeof payload.position[1] !== 'number' ||
-      !/^\d+$/.test(payload.position.join(''))
+      !Number.isInteger(payload.position[0]) ||
+      !Number.isInteger(payload.position[1])
     ) {
       throw new Error(
         'You must provide a position option as a [x, y] tuple where x and y are integers.',
