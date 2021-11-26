@@ -46,3 +46,19 @@ export default {
   browsers: [chromeLauncher({ launchOptions: { args: ['--no-sandbox'] } })],
 };
 ```
+
+
+### Configuring browser timezone
+```js 
+import { playwrightLauncher } from '@web/test-runner-playwright';
+
+export default {
+  browsers: [
+    playwrightLauncher({ product: 'chromium', createBrowserContext: ({ browser }) => browser.newContext({timezoneId: 'Asia/Singapore'}) }),
+  //   playwrightLauncher({ product: 'firefox' }),
+  //   playwrightLauncher({ product: 'webkit' }),
+  ],
+}
+
+```
+
