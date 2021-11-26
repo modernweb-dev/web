@@ -117,6 +117,16 @@ export default {
 };
 ```
 
+### Configuring browser timezone
+
+import { playwrightLauncher } from '@web/test-runner-playwright';
+
+export default {
+  browsers: [
+    playwrightLauncher({ product: 'chromium', createBrowserContext: ({ browser }) => browser.newContext({timezoneId: 'Asia/Singapore'}) }),
+  ],
+}
+
 ### Using with Github Actions
 
 When used with Github Actions, the above will not work because Playwright requires
