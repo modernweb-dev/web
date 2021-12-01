@@ -86,12 +86,12 @@ Some examples:
 ### Emulate touch
 
 ```js
-import { playwrightLauncher, devices } from '@web/test-runner-playwright';
+import { playwrightLauncher } from '@web/test-runner-playwright';
 
 export default {
   browsers: [
     playwrightLauncher({
-      browser: 'webkit',
+      product: 'webkit',
       createBrowserContext({ browser }) {
         return browser.newContext({ userAgent: 'custom user agent', hasTouch: true });
       },
@@ -108,7 +108,7 @@ import { playwrightLauncher, devices } from '@web/test-runner-playwright';
 export default {
   browsers: [
     playwrightLauncher({
-      browser: 'webkit',
+      product: 'webkit',
       createBrowserContext({ browser }) {
         return browser.newContext({ ...devices['iPhone X'] });
       },
@@ -117,15 +117,22 @@ export default {
 };
 ```
 
-### Configuring browser timezone
+### Configuring timezone
 
+```js
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
 export default {
   browsers: [
-    playwrightLauncher({ product: 'chromium', createBrowserContext: ({ browser }) => browser.newContext({timezoneId: 'Asia/Singapore'}) }),
+    playwrightLauncher({
+      product: 'chromium',
+      createBrowserContext({ browser }) {
+        return browser.newContext({ timezoneId: 'Asia/Singapore' });
+      },
+    }),
   ],
-}
+};
+```
 
 ### Using with Github Actions
 
