@@ -2491,10 +2491,10 @@
   dependencies:
     glob "^7.0.0"
 
-"@web/storybook-prebuilt@^0.1.24-alpha.1":
-  version "0.1.26"
-  resolved "https://registry.yarnpkg.com/@web/storybook-prebuilt/-/storybook-prebuilt-0.1.26.tgz#90f2d814ec83ac25e67b2f965b4e1622d0f33b1a"
-  integrity sha512-f2fS2wSTif737y2UyUXdEjnI8pb8HmCr2W73gVl3fi95YN93G02szBnREKzz5kQB9ZVes5Tp6K6ziMUvmmXt2g==
+"@web/storybook-prebuilt@^0.1.28":
+  version "0.1.28"
+  resolved "https://registry.yarnpkg.com/@web/storybook-prebuilt/-/storybook-prebuilt-0.1.28.tgz#44e5e19cf1ada9a93ec8613998240e7217fbc5ea"
+  integrity sha512-MI1VSXI6ciwlzCDvuOojfi5GPUsiEssw6LsdM5g8KEjMyfybjdd8yZ47XyAfn5aM92VZNxMTIa31BPLr34kSPg==
 
 "@webcomponents/scoped-custom-element-registry@^0.0.3":
   version "0.0.3"
@@ -11884,7 +11884,7 @@ statuses@~1.4.0:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.4.0.tgz#bb73d446da2796106efcc1b601a253d6c46bd087"
   integrity sha512-zhSCtt8v2NDrRlPQpCNtw/heZLtfUDqxBM1udqikb/Hbk52LK4nQSwr10u77iopCW5LsyHpuXS0GnEc48mLeew==
 
-storybook-addon-markdown-docs@^1.0.2-next.0:
+storybook-addon-markdown-docs@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/storybook-addon-markdown-docs/-/storybook-addon-markdown-docs-1.0.2.tgz#65eedce64e9aa9c79f5b38e0595cc456497d7e43"
   integrity sha512-n6sNplXgJK8GOhIZ5DeCyWJZLe2oHFYRuysEKqBzRAsMLpJCFK9cXDpNCgrZLdtM7F+m0jWNjBjO0AVyn6xXpg==
