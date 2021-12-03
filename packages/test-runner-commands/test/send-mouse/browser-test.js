@@ -69,9 +69,6 @@ describe('click', () => {
     spy = spyEvent();
     div.addEventListener('mousedown', spy);
     div.addEventListener('mouseup', spy);
-    div.addEventListener('contextmenu', event => {
-      event.preventDefault();
-    });
 
     [x, y] = getMiddleOfElement(div);
   });
