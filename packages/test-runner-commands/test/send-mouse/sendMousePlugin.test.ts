@@ -7,8 +7,6 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 import { sendMousePlugin } from '../../src/sendMousePlugin';
 import { startSeleniumServer } from '../selenium-server';
 
-let seleniumServer: selenium.ChildProcess;
-
 describe('sendMousePlugin', function test() {
   this.timeout(50000);
 
@@ -32,40 +30,48 @@ describe('sendMousePlugin', function test() {
     });
   });
 
-  it('can send mouse on webdriver', async () => {
-    seleniumServer = await startSeleniumServer({
-      chrome: { version: '94.0.4606.41' },
-      firefox: { version: 'latest' },
+  describe('webdriver', () => {
+    let seleniumServer!: selenium.ChildProcess;
+
+    before(async () => {
+      seleniumServer = await startSeleniumServer({
+        chrome: { version: '96.0.4664.18' },
+        firefox: { version: 'latest' },
+      });
     });
 
-    await runTests({
-      files: [path.join(__dirname, 'browser-test.js')],
-      concurrency: 1,
-      browsers: [
-        webdriverLauncher({
-          automationProtocol: 'webdriver',
-          path: '/wd/hub/',
-          capabilities: {
-            browserName: 'chrome',
-            'goog:chromeOptions': {
-              args: ['--no-sandbox', '--headless'],
-            },
-          },
-        }),
-        webdriverLauncher({
-          automationProtocol: 'webdriver',
-          path: '/wd/hub/',
-          capabilities: {
-            browserName: 'firefox',
-            'moz:firefoxOptions': {
-              args: ['-headless'],
-            },
-          },
-        }),
-      ],
-      plugins: [sendMousePlugin()],
+    after(() => {
+      seleniumServer.kill();
     });
 
-    seleniumServer.kill();
+    it('can send mouse on webdriver', async () => {
+      await runTests({
+        files: [path.join(__dirname, 'browser-test.js')],
+        concurrency: 1,
+        browsers: [
+          webdriverLauncher({
+            automationProtocol: 'webdriver',
+            path: '/wd/hub/',
+            capabilities: {
+              browserName: 'chrome',
+              'goog:chromeOptions': {
+                args: ['--no-sandbox', '--headless'],
+              },
+            },
+          }),
+          webdriverLauncher({
+            automationProtocol: 'webdriver',
+            path: '/wd/hub/',
+            capabilities: {
+              browserName: 'firefox',
+              'moz:firefoxOptions': {
+                args: ['-headless'],
+              },
+            },
+          }),
+        ],
+        plugins: [sendMousePlugin()],
+      });
+    });
   });
 });
