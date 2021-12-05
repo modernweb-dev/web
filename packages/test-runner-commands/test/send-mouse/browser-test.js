@@ -54,7 +54,7 @@ describe('move', () => {
 describe('click', () => {
   let spy;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     spy = spyEvent();
     element.addEventListener('mousedown', spy);
     element.addEventListener('mouseup', spy);
