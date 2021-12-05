@@ -41,7 +41,9 @@ describe('sendMousePlugin', function test() {
     });
 
     after(() => {
-      seleniumServer.kill();
+      if (seleniumServer) {
+        seleniumServer.kill();
+      }
     });
 
     it('can send mouse on webdriver', async () => {
