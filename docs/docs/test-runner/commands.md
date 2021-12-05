@@ -81,6 +81,124 @@ it('can emulate reduced motion', async () => {
 
 </details>
 
+### Send mouse
+
+The `sendMouse` command will cause the browser to move the mouse to a specific position or press a mouse button (left, middle, or right). The function is async and should be awaited.
+
+The `sendMouse` command accepts a `type` property that specifies a mouse action to trigger and some properties to configure the action. The following actions are available:
+
+- `move` – Moves the mouse to a specific position. Requires a `position` property. Can be used to trigger CSS `:hover` on an element, for example.
+- `click` – Moves the mouse to a specific position and clicks a mouse button. Requires a `position` property. The `button` property is optional, by default: `left`.
+- `down` – Holds down a mouse button. The `button` property is optional, by default: `left`.
+- `up` – Releases a mouse button. The `button` property is optional, by default: `left`.
+
+The `button` property can be used to specify a mouse button to press. The property is allowed for the `click`, `down`, and `up` actions and accepts one of the following values: `left`, `middle`, `right`.
+
+The `position` property can be used to specify a position to move the mouse to. The property is allowed for the `click` and `move` actions and should match an `[x, y]` tuple where `x` and `y` are integers.
+
+`sendMouse` is supported in `@web/test-runner-puppeteer`, `-playwright` and `-webdriver`.
+
+In Puppeteer and Playwright, all commands are simple wrappers around the respective APIs. Please refer to their respective docs for detailed behavior:
+
+- [Puppeteer Mouse API](https://pptr.dev/#?product=Puppeteer&show=api-class-mouse)
+- [Playwright Mouse API](https://playwright.dev/docs/api/class-mouse)
+
+In WebDriver, commands are based on the `performActions` API. Please refer to the docs for detailed behavior:
+
+- [Webdriver performActions API](https://webdriver.io/docs/api/webdriver/#performactions)
+
+<details>
+<summary>View example</summary>
+
+```js
+import { sendMouse } from '@web/test-runner-commands';
+
+function getMiddleOfElement(element) {
+  const { x, y, width, height } = element.getBoundingClientRect();
+
+  return {
+    x: Math.floor(x + window.pageXOffset + width / 2),
+    y: Math.floor(y + window.pageYOffset + height / 2),
+  };
+}
+
+it('natively hovers over an element', async () => {
+  const div = document.createElement('div');
+  div.textContent = 'Hello world!';
+  div.addEventListener('mouseenter', () => {
+    div.textContent = 'Hovered';
+  });
+  document.body.append(div);
+
+  const { x, y } = getMiddleOfElement(div);
+
+  await sendMouse({ type: 'move', position: [x, y] });
+  expect(div.textContent).to.equal('Hovered');
+
+  div.remove();
+});
+
+it('natively clicks a mouse button on an element', async () => {
+  const div = document.createElement('div');
+  div.textContent = 'Hello world!';
+  div.addEventListener('click', () => {
+    div.textContent = 'Clicked';
+  });
+  document.body.append(div);
+
+  const { x, y } = getMiddleOfElement(div);
+
+  await sendMouse({ type: 'click', position: [x, y] });
+  expect(div.textContent).to.equal('Clicked');
+
+  div.remove();
+});
+
+it('natively holds and releases a mouse button on an element', async () => {
+  const div = document.createElement('div');
+  div.textContent = 'Hello world!';
+  div.addEventListener('mousedown', () => {
+    div.textContent = 'Mouse down';
+  });
+  div.addEventListener('mouseup', () => {
+    div.textContent = 'Mouse up';
+  });
+  document.body.append(div);
+
+  const { x, y } = getMiddleOfElement(div);
+
+  await sendMouse({ type: 'move', position: [x, y] });
+  expect(div.textContent).to.equal('Hello world!');
+
+  await sendMouse({ type: 'down' });
+  expect(div.textContent).to.equal('Mouse down');
+
+  await sendMouse({ type: 'up' });
+  expect(div.textContent).to.equal('Mouse up');
+
+  div.remove();
+});
+
+it('natively opens a context menu on an element', async () => {
+  const link = document.createElement('a');
+  link.textContent = 'Link';
+  link.href = '#';
+  link.addEventListener('contextmenu', () => {
+    link.textContent = 'Context menu opened';
+  });
+  document.body.append(link);
+
+  const { x, y } = getMiddleOfElement(link);
+
+  await sendMouse({ type: 'click', position: [x, y], button: 'right' });
+  expect(link.textContent).to.equal('Context menu opened');
+
+  link.remove();
+});
+```
+
+</details>
+
 ### Send keys
 
 The `sendKeys` command will cause the browser to press keys or type a sequence of characters as if it received those keys from the keyboard. This greatly simplifies interactions with form elements during test and surfaces the ability to directly inspect the way focus flows through test content in response to the `Tab` key. The function is async and should be awaited.
