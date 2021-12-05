@@ -16,6 +16,14 @@ function spyEvent() {
 
 let element, x, y;
 
+before(() => {
+  // The native context menu needs to be prevented from opening at least in WebKit
+  // where it doesn't get automatically closed that, in turn, blocks the next `mouseup` event.
+  document.addEventListener('contextmenu', event => {
+    event.preventDefault();
+  });
+});
+
 beforeEach(() => {
   element = document.createElement('div');
   element.style.width = '100px';
