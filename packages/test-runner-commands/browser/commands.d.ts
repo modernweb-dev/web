@@ -8,6 +8,7 @@ import {
   RemoveFilePayload,
   SnapshotPluginConfig,
   SaveSnapshotPayload,
+  SendMousePayload,
 } from '../dist/index';
 
 /**
@@ -73,6 +74,38 @@ export function setUserAgent(userAgent: string): Promise<void>;
  *
  **/
 export function sendKeys(payload: SendKeysPayload): Promise<void>;
+
+/**
+ * Sends an action for the mouse to move it to a specific position or click a mouse button (left, middle or right).
+ *
+ * @param payload An object representing a mouse action specified by the `type` property (move, click, down, up) and including properties permitted for this type.
+ *
+ * @example
+ * ```ts
+ *    await sendMouse({
+ *        type: 'move',
+ *        position: [100, 100]
+ *    });
+ * ```
+ *
+ * @example
+ * ```ts
+ *    await sendMouse({
+ *        type: 'click',
+ *        position: [100, 100],
+ *        button: 'right'
+ *    });
+ * ```
+ *
+ * @example
+ * ```ts
+ *    await sendMouse({
+ *        type: 'down'
+ *    });
+ * ```
+ *
+ **/
+export function sendMouse(payload: SendMousePayload): Promise<void>;
 
 /**
  * Request a snapshot of the Accessibility Tree of the entire page or starting from

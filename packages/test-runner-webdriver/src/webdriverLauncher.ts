@@ -4,6 +4,19 @@ import { IFrameManager } from './IFrameManager';
 import { SessionManager } from './SessionManager';
 import { getBrowserLabel } from './utils';
 
+type MouseButton = 'left' | 'middle' | 'right';
+
+function getMouseButtonCode(button: MouseButton) {
+  switch (button) {
+    case 'left':
+      return 0;
+    case 'middle':
+      return 1;
+    case 'right':
+      return 2;
+  }
+}
+
 export class WebdriverLauncher implements BrowserLauncher {
   public name = 'Initializing...';
   public type = 'webdriver';
@@ -122,6 +135,72 @@ export class WebdriverLauncher implements BrowserLauncher {
         }
       }
     }, 60000);
+  }
+
+  sendMouseMove(sessionId: string, x: number, y: number) {
+    if (!this.driverManager) {
+      throw new Error('Not initialized');
+    }
+
+    return this.driverManager.performActions(sessionId, [
+      {
+        type: 'pointer',
+        id: 'finger1',
+        actions: [{ type: 'pointerMove', duration: 0, x, y }],
+      },
+    ]);
+  }
+
+  sendMouseClick(sessionId: string, x: number, y: number, button: MouseButton = 'left') {
+    if (!this.driverManager) {
+      throw new Error('Not initialized');
+    }
+
+    const buttonCode = getMouseButtonCode(button);
+
+    return this.driverManager.performActions(sessionId, [
+      {
+        type: 'pointer',
+        id: 'finger1',
+        actions: [
+          { type: 'pointerMove', duration: 0, x, y },
+          { type: 'pointerDown', button: buttonCode },
+          { type: 'pointerUp', button: buttonCode },
+        ],
+      },
+    ]);
+  }
+
+  sendMouseDown(sessionId: string, button: MouseButton = 'left') {
+    if (!this.driverManager) {
+      throw new Error('Not initialized');
+    }
+
+    const buttonCode = getMouseButtonCode(button);
+
+    return this.driverManager.performActions(sessionId, [
+      {
+        type: 'pointer',
+        id: 'finger1',
+        actions: [{ type: 'pointerDown', button: buttonCode }],
+      },
+    ]);
+  }
+
+  sendMouseUp(sessionId: string, button: MouseButton = 'left') {
+    if (!this.driverManager) {
+      throw new Error('Not initialized');
+    }
+
+    const buttonCode = getMouseButtonCode(button);
+
+    return this.driverManager.performActions(sessionId, [
+      {
+        type: 'pointer',
+        id: 'finger1',
+        actions: [{ type: 'pointerUp', button: buttonCode }],
+      },
+    ]);
   }
 
   sendKeys(sessionId: string, keys: string[]) {
