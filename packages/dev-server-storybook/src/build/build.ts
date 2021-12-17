@@ -57,7 +57,7 @@ async function buildManager(params: BuildmanagerParams) {
     indexHtmlString: managerHtml,
   });
 
-  if (storybookConfig.mainJs.rollupConfig) {
+  if (params.storybookConfig.mainJs.rollupConfig) {
     config = (await params.storybookConfig.mainJs.rollupConfig(config)) ?? config;
   }
 
