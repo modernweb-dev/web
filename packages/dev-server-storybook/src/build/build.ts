@@ -50,12 +50,16 @@ interface BuildmanagerParams {
 
 async function buildManager(params: BuildmanagerParams) {
   const managerHtml = createManagerHtml(params.storybookConfig, params.rootDir);
-  const config = createRollupConfig({
+  let config = createRollupConfig({
     type: params.type,
     outputDir: params.outputDir,
     indexFilename: 'index.html',
     indexHtmlString: managerHtml,
   });
+
+  if (storybookConfig.mainJs.rollupConfig) {
+    config = (await params.storybookConfig.mainJs.rollupConfig(config)) ?? config;
+  }
 
   await buildAndWrite(config);
 }
