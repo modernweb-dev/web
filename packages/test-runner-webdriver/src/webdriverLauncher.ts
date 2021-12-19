@@ -203,6 +203,25 @@ export class WebdriverLauncher implements BrowserLauncher {
     ]);
   }
 
+  resetMouse(sessionId: string) {
+    if (!this.driverManager) {
+      throw new Error('Not initialized');
+    }
+
+    return this.driverManager.performActions(sessionId, [
+      {
+        type: 'pointer',
+        id: 'finger1',
+        actions: [
+          { type: 'pointerUp', button: getMouseButtonCode('left') },
+          { type: 'pointerUp', button: getMouseButtonCode('middle') },
+          { type: 'pointerUp', button: getMouseButtonCode('right') },
+          { type: 'pointerMove', duration: 0, x: 0, y: 0 },
+        ],
+      },
+    ]);
+  }
+
   sendKeys(sessionId: string, keys: string[]) {
     if (!this.driverManager) {
       throw new Error('Not initialized');
