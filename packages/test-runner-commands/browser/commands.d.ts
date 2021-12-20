@@ -76,9 +76,15 @@ export function setUserAgent(userAgent: string): Promise<void>;
 export function sendKeys(payload: SendKeysPayload): Promise<void>;
 
 /**
- * Sends an action for the mouse to move it to a specific position or click a mouse button (left, middle or right).
+ * Sends an action for the mouse to move it to a specific position or click a mouse button (left, middle, or right).
  *
- * @param payload An object representing a mouse action specified by the `type` property (move, click, down, up) and including properties permitted for this type.
+ * WARNING: When moving the mouse or holding down a mouse button, the mouse stays in this state as long as
+ * you do not explicitly move it to another position or release the button. For this reason, it is recommended
+ * to reset the mouse state with the `resetMouse` command after each test case manipulating the mouse to avoid
+ * unexpected side effects.
+ *
+ * @param payload An object representing a mouse action specified by the `type` property (move, click, down, up)
+ *     and including some properties to configure this action.
  *
  * @example
  * ```ts
@@ -106,6 +112,25 @@ export function sendKeys(payload: SendKeysPayload): Promise<void>;
  *
  **/
 export function sendMouse(payload: SendMousePayload): Promise<void>;
+
+/**
+ * Resets the mouse position to (0, 0) and releases mouse buttons.
+ *
+ * Use this command to reset the mouse state after mouse manipulations by the `sendMouse` command.
+ *
+ * @example
+ * ```
+ * it('does something with the mouse', () => {
+ *   await sendMouse({ type: 'move', position: [150, 150] });
+ *   await sendMouse({ type: 'down', button: 'middle' });
+ * });
+ *
+ * afterEach(() => {
+ *   await resetMouse();
+ * });
+ * ```
+ */
+export function resetMouse(): Promise<void>;
 
 /**
  * Request a snapshot of the Accessibility Tree of the entire page or starting from

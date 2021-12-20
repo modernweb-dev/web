@@ -152,6 +152,40 @@ export function sendMousePlugin(): TestRunnerPlugin<SendMousePayload> {
         // you might not be able to support all browser launchers
         throw new Error(`Sending mouse is not supported for browser type ${session.browser.type}.`);
       }
+
+      if (command === 'reset-mouse') {
+        // handle specific behavior for playwright
+        if (session.browser.type === 'playwright') {
+          const page = (session.browser as PlaywrightLauncher).getPage(session.id);
+          await page.mouse.up({ button: 'left' });
+          await page.mouse.up({ button: 'middle' });
+          await page.mouse.up({ button: 'right' });
+          await page.mouse.move(0, 0);
+          return true;
+        }
+
+        // handle specific behavior for puppeteer
+        if (session.browser.type === 'puppeteer') {
+          const page = (session.browser as ChromeLauncher).getPage(session.id);
+          await page.mouse.up({ button: 'left' });
+          await page.mouse.up({ button: 'middle' });
+          await page.mouse.up({ button: 'right' });
+          await page.mouse.move(0, 0);
+          return true;
+        }
+
+        // handle specific behavior for webdriver
+        if (session.browser.type === 'webdriver') {
+          const page = session.browser as WebdriverLauncher;
+          await page.resetMouse(session.id);
+          return true;
+        }
+
+        // you might not be able to support all browser launchers
+        throw new Error(
+          `Resetting mouse is not supported for browser type ${session.browser.type}.`,
+        );
+      }
     },
   };
 }

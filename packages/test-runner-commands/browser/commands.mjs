@@ -73,6 +73,10 @@ export function sendMouse(options) {
   return executeServerCommand('send-mouse', options);
 }
 
+export function resetMouse(options) {
+  return executeServerCommand('reset-mouse', options);
+}
+
 export function a11ySnapshot(options) {
   return executeServerCommand('a11y-snapshot', options);
 }
