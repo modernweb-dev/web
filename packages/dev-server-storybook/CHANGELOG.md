@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.4.0
+
+### Minor Changes
+
+- 0357acf3: Update @web/storybook-prebuilt version
+
 ## 0.3.8
 
 ### Patch Changes

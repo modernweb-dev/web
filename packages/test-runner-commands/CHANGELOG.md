@@ -1,5 +1,12 @@
 # @web/test-runner-commands
 
+## 0.6.0
+
+### Minor Changes
+
+- 36a06160: Add the sendMouse command for moving the mouse and clicking mouse buttons
+- 064b9dde: Add a resetMouse command that resets the mouse position and releases mouse buttons.
+
 ## 0.5.13
 
 ### Patch Changes

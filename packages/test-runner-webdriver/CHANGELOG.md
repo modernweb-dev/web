@@ -1,5 +1,11 @@
 # @web/test-runner-webdriver
 
+## 0.5.0
+
+### Minor Changes
+
+- 064b9dde: Add a resetMouse command that resets the mouse position and releases mouse buttons.
+
 ## 0.4.3
 
 ### Patch Changes
