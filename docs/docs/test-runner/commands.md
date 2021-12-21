@@ -81,6 +81,135 @@ it('can emulate reduced motion', async () => {
 
 </details>
 
+### Send mouse
+
+The `sendMouse` command will cause the browser to move the mouse to a specific position or press a mouse button (left, middle, or right). The function is async and should be awaited.
+
+The `sendMouse` command accepts a `type` property that specifies a mouse action to trigger and some properties to configure the action. The following actions are available:
+
+- `move` – Moves the mouse to a specific position. Requires a `position` property. Can be used to trigger CSS `:hover` on an element, for example.
+- `click` – Moves the mouse to a specific position and clicks a mouse button. Requires a `position` property. The `button` property is optional, by default: `left`.
+- `down` – Holds down a mouse button. The `button` property is optional, by default: `left`.
+- `up` – Releases a mouse button. The `button` property is optional, by default: `left`.
+
+The `button` property can be used to specify a mouse button to press. The property is allowed for the `click`, `down`, and `up` actions and accepts one of the following values: `left`, `middle`, `right`.
+
+The `position` property can be used to specify a position to move the mouse to. The property is allowed for the `click` and `move` actions and should match an `[x, y]` tuple where `x` and `y` are integers.
+
+**WARNING:** When you move the mouse or hold down a mouse button, the mouse stays in this state as long as
+you do not explicitly move it to another position or release the button. For this reason, it is recommended
+to reset the mouse state with the `resetMouse` command after each test that manipulates the mouse
+in order to avoid unexpected side effects in the following tests.
+
+`sendMouse` is supported in `@web/test-runner-puppeteer`, `-playwright` and `-webdriver`.
+
+In Puppeteer and Playwright, all mouse actions are simple wrappers around the respective APIs. Please refer to their respective docs for detailed behavior:
+
+- [Puppeteer Mouse API](https://pptr.dev/#?product=Puppeteer&show=api-class-mouse)
+- [Playwright Mouse API](https://playwright.dev/docs/api/class-mouse)
+
+In WebDriver, mouse actions are based on the `performActions` API. Please refer to the docs for detailed behavior:
+
+- [Webdriver performActions API](https://webdriver.io/docs/api/webdriver/#performactions)
+
+<details>
+<summary>View example</summary>
+
+```js
+import { sendMouse } from '@web/test-runner-commands';
+
+function getMiddleOfElement(element) {
+  const { x, y, width, height } = element.getBoundingClientRect();
+
+  return {
+    x: Math.floor(x + window.pageXOffset + width / 2),
+    y: Math.floor(y + window.pageYOffset + height / 2),
+  };
+}
+
+function logEventType(event) {
+  event.target.textContent = event.type;
+}
+
+let div;
+
+beforeEach(() => {
+  div = document.createElement('div');
+  div.addEventListener('contextmenu', logEventType);
+  div.addEventListener('mouseenter', logEventType);
+  div.addEventListener('mousedown', logEventType);
+  div.addEventListener('mouseup', logEventType);
+  div.addEventListener('click', logEventType);
+  document.body.append(div);
+});
+
+afterEach(async () => {
+  div.remove();
+
+  // Remember to reset the mouse state.
+  await resetMouse();
+});
+
+it('natively hovers the mouse over an element', async () => {
+  const { x, y } = getMiddleOfElement(div);
+
+  await sendMouse({ type: 'move', position: [x, y] });
+  expect(div.textContent).to.equal('mouseenter');
+});
+
+it('natively clicks a mouse button on an element', async () => {
+  const { x, y } = getMiddleOfElement(div);
+
+  await sendMouse({ type: 'click', position: [x, y] });
+  expect(div.textContent).to.equal('click');
+});
+
+it('natively holds and releases a mouse button on an element', async () => {
+  const { x, y } = getMiddleOfElement(div);
+
+  await sendMouse({ type: 'move', position: [x, y] });
+  expect(div.textContent).to.equal('mouseenter');
+
+  await sendMouse({ type: 'down' });
+  expect(div.textContent).to.equal('mousedown');
+
+  await sendMouse({ type: 'up' });
+  expect(div.textContent).to.equal('mouseup');
+});
+
+it('natively opens a context menu on an element', async () => {
+  const { x, y } = getMiddleOfElement(div);
+
+  await sendMouse({ type: 'click', position: [x, y], button: 'right' });
+  expect(div.textContent).to.equal('contextmenu');
+});
+```
+
+</details>
+
+### Reset mouse
+
+The `resetMouse` command will move the mouse to (0, 0) and release mouse buttons.
+
+Use the command to reset the mouse state after each test that manipulates the mouse with the `sendMouse` command
+in order to avoid unexpected side effects in the following tests.
+
+<details>
+<summary>View example</summary>
+
+```js
+afterEach(async () => {
+  await resetMouse();
+});
+
+it('does something with mouse', async () => {
+  await sendMouse({ type: 'move', position: [150, 150] });
+  await sendMouse({ type: 'down', button: 'middle' });
+
+  // expect the mouse to be somewhere...
+});
+```
+
 ### Send keys
 
 The `sendKeys` command will cause the browser to press keys or type a sequence of characters as if it received those keys from the keyboard. This greatly simplifies interactions with form elements during test and surfaces the ability to directly inspect the way focus flows through test content in response to the `Tab` key. The function is async and should be awaited.
