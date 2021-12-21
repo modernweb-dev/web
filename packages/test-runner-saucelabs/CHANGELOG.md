@@ -1,5 +1,12 @@
 # @web/test-runner-saucelabs
 
+## 0.7.3
+
+### Patch Changes
+
+- Updated dependencies [064b9dde]
+  - @web/test-runner-webdriver@0.5.0
+
 ## 0.7.2
 
 ### Patch Changes
