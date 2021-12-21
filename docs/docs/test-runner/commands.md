@@ -202,7 +202,7 @@ afterEach(async () => {
   await resetMouse();
 });
 
-it('does something with mouse', await () => {
+it('does something with mouse', async () => {
   await sendMouse({ type: 'move', position: [150, 150] });
   await sendMouse({ type: 'down', button: 'middle' });
 
