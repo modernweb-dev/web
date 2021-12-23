@@ -1,5 +1,7 @@
 import '../../../../../node_modules/chai/chai.js';
 
+import { fail } from './simple-source.js';
+
 describe('real numbers forming a monoid', function() {
   it('under addition', function() {
     chai.expect(1 + 1).to.equal(2);
@@ -25,5 +27,9 @@ describe('logging during a test', function() {
     const actual = '🤷‍♂️';
     console.log('actual is ', actual);
     chai.expect(typeof actual).to.equal('string');
+  });
+
+  it('fails with source trace', function() {
+    chai.expect(fail()).to.equal('string');
   });
 });
