@@ -4,46 +4,42 @@ The test runner can be configured using CLI flags, or with a configuration file.
 
 ## CLI flags
 
-| name                | type         | description                                                                                                           |
-| ------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------- |
-| files               | string array | test files glob. this is the default option, so you do not need to specify it.                                        |
-| root-dir            | string       | Root directory to serve files from.                                                                                   |
-| watch               | boolean      | runs in watch mode                                                                                                    |
-| coverage            | boolean      | whether to analyze code coverage                                                                                      |
-| concurrent-browsers | number       | amount of browsers to run concurrently. defaults to 2                                                                 |
-| concurrency         | number       | amount of test files to run concurrently. default to CPU cores divided by 2                                           |
-| config              | string       | where to read the config from                                                                                         |
-| static-logging      | boolean      | Disables rendering a progress bar dynamically to the terminal.                                                        |
-| manual              | boolean      | Starts test runner in manual testing mode. Ignores browsers option and prints manual testing URL.                     |
-| open                | boolean      | Opens browser for manual testing. Requires the manual option to be set.                                               |
-| port                | number       | Port to bind the server on.                                                                                           |
-| groups              | string       | pattern of where to read test group config files from                                                                 |
-| group               | string       | runs tests only for the test group with this name                                                                     |
-| preserve-symlinks   | boolean      | preserve symlinks when resolving imports                                                                              |
-| puppeteer           | boolean      | whether to run tests with @web/test-runner-puppeteer                                                                  |
-| playwright          | boolean      | whether to run tests with @web/test-runner-playwright                                                                 |
-| browsers            | string array | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit                           |
-| node-resolve        | boolean      | Resolve bare module imports using node resolution.                                                                    |
-| update-snapshots    | boolean      | updates snapshots stored on disk                                                                                      |
-| esbuild-target      | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent. |
-| debug               | boolean      | whether to print debug messages                                                                                       |
-| help                | boolean      | Print help commands.                                                                                                  |
+| name                | type              | description                                                                                                           |
+| ------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------- |
+| files               | string\|string\[] | test files glob patterns.                                                                                             |
+| root-dir            | string            | Root directory to serve files from.                                                                                   |
+| watch               | boolean           | runs in watch mode                                                                                                    |
+| coverage            | boolean           | whether to analyze code coverage                                                                                      |
+| concurrent-browsers | number            | amount of browsers to run concurrently. defaults to 2                                                                 |
+| concurrency         | number            | amount of test files to run concurrently. default to CPU cores divided by 2                                           |
+| config              | string            | where to read the config from                                                                                         |
+| static-logging      | boolean           | Disables rendering a progress bar dynamically to the terminal.                                                        |
+| manual              | boolean           | Starts test runner in manual testing mode. Ignores browsers option and prints manual testing URL.                     |
+| open                | boolean           | Opens browser for manual testing. Requires the manual option to be set.                                               |
+| port                | number            | Port to bind the server on.                                                                                           |
+| groups              | string            | pattern of where to read test group config files from                                                                 |
+| group               | string            | runs tests only for the test group with this name                                                                     |
+| preserve-symlinks   | boolean           | preserve symlinks when resolving imports                                                                              |
+| puppeteer           | boolean           | whether to run tests with @web/test-runner-puppeteer                                                                  |
+| playwright          | boolean           | whether to run tests with @web/test-runner-playwright                                                                 |
+| browsers            | string array      | if playwright is set, specifies which browsers to run tests on. chromium, firefox or webkit                           |
+| node-resolve        | boolean           | Resolve bare module imports using node resolution.                                                                    |
+| update-snapshots    | boolean           | updates snapshots stored on disk                                                                                      |
+| esbuild-target      | string array      | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent. |
+| debug               | boolean           | whether to print debug messages                                                                                       |
+| help                | boolean           | Print help commands.                                                                                                  |
 
 Examples:
 
-```
-web-test-runner test/**/*.test.js --node-resolve
-web-test-runner test/**/*.test.js --node-resolve --watch
-web-test-runner test/**/*.test.js --node-resolve --coverage
-web-test-runner test/**/*.test.js --node-resolve --playwright --browsers chromium firefox webkit
-web-test-runner test/**/*.test.js --node-resolve --esbuild-target auto
-```
+    web-test-runner test/**/*.test.js --node-resolve
+    web-test-runner test/**/*.test.js --node-resolve --watch
+    web-test-runner test/**/*.test.js --node-resolve --coverage
+    web-test-runner test/**/*.test.js --node-resolve --playwright --browsers chromium firefox webkit
+    web-test-runner test/**/*.test.js --node-resolve --esbuild-target auto
 
 You can also use the shorthand `wtr` command:
 
-```
-wtr test/**/*.test.js --node-resolve --esbuild-target auto
-```
+    wtr test/**/*.test.js --node-resolve --esbuild-target auto
 
 ## esbuild target
 
@@ -200,6 +196,20 @@ interface TestRunnerConfig {
   // how long a test file can take to finish. defaults to 120000 (2 min)
   testsFinishTimeout?: number;
 }
+```
+
+## Excluding files
+
+Use a negated glob pattern to exclude test files
+
+```js
+export default {
+  files: [
+    '**/*.spec.ts', // include `.spec.ts` files
+    '!**/*.e2e.spec.ts', // exclude `.spec.ts` files
+    '!**/node_module/**/*', // exclude any node modules
+  ],
+};
 ```
 
 ## Test runner HTML
