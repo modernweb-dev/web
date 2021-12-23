@@ -18,7 +18,13 @@ const normalizeOutput = (cwd: string, output: string) =>
   output
     .replace(NON_ZERO_TIME_VALUE_REGEX, 'time="<<computed>>"')
     .replace(USER_AGENT_STRING_REGEX, '"<<useragent>>"')
-    .replace(/\s+$/, '');
+    // don't judge - normalizing paths for windblows
+    .replace(/\/>/g, '🙈>')
+    .replace(/<\//g, '<🙈')
+    .replace(/\//g, path.sep)
+    .replace(/🙈>/g, '/>')
+    .replace(/<🙈/g, '</')
+    .trimEnd();
 
 const readNormalized = (filePath: string): Promise<string> =>
   fs.readFile(filePath, 'utf-8').then(out => normalizeOutput(rootDir, out));

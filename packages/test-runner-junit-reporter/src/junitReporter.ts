@@ -171,7 +171,7 @@ function testCaseXMLAttributes(
 
   const classname = getSuiteName(test);
 
-  const file = getTestFile(test).replace(`${rootDir}/`, '');
+  const file = getTestFile(test).replace(`${rootDir}${path.sep}`, '');
 
   const [, line] = stripXMLInvalidChars(test.error?.stack ?? '').match(/(\d+):\d+/m) ?? [];
 
@@ -252,7 +252,7 @@ function testSuitePropertiesXMLElement(
       property: {
         _attr: {
           name: 'test.fileName',
-          value: testFile.replace(`${rootDir}/`, ''),
+          value: testFile.replace(`${rootDir}${path.sep}`, ''),
         },
       },
     },
