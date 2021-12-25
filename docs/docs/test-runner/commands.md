@@ -210,6 +210,8 @@ it('does something with mouse', async () => {
 });
 ```
 
+</details>
+
 ### Send keys
 
 The `sendKeys` command will cause the browser to press keys or type a sequence of characters as if it received those keys from the keyboard. This greatly simplifies interactions with form elements during test and surfaces the ability to directly inspect the way focus flows through test content in response to the `Tab` key. The function is async and should be awaited.
