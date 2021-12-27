@@ -41,6 +41,10 @@ describe('test-runner-webdriver', function testRunnerWebdriver() {
     seleniumServer = await startSeleniumServer();
   });
 
+  after(() => {
+    seleniumServer.kill();
+  });
+
   function createConfig() {
     return {
       browserStartTimeout: 1000 * 60 * 2,
@@ -81,9 +85,5 @@ describe('test-runner-webdriver', function testRunnerWebdriver() {
     testFailure: true,
     // FIXME: timed out with selenium-standalone v7
     locationChanged: false,
-  });
-
-  after(() => {
-    seleniumServer.kill();
   });
 });

@@ -65,7 +65,25 @@ export async function runTests(
     // });
 
     let finished = false;
-    runner.on('finished', () => {
+
+    runner.on('test-run-finished', ({ testRun, testCoverage }) => {
+      for (const reporter of finalConfig.reporters) {
+        reporter.onTestRunFinished?.({
+          testRun,
+          sessions: Array.from(runner.sessions.all()),
+          testCoverage,
+          focusedTestFile: runner.focusedTestFile,
+        });
+      }
+    });
+
+    runner.on('finished', async () => {
+      for (const reporter of finalConfig.reporters) {
+        await reporter.stop?.({
+          sessions: Array.from(runner.sessions.all()),
+          focusedTestFile: runner.focusedTestFile,
+        });
+      }
       finished = true;
       runner.stop();
     });

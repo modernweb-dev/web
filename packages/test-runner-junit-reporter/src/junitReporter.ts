@@ -8,6 +8,8 @@ import XML from 'xml';
 export interface JUnitReporterArgs {
   outputPath?: string;
   reportLogs?: boolean;
+  /* package root dir. defaults to cwd */
+  rootDir?: string;
 }
 
 type TestSessionMetadata = Omit<TestSession, 'tests'>;
@@ -29,6 +31,8 @@ interface TestCaseXMLAttributes {
   _attr: {
     name: string;
     time: number;
+    file: string;
+    line?: string;
     classname: string;
   };
 }
@@ -110,9 +114,13 @@ const isSkippedTest = (test: TestResult): boolean => !!test.skipped;
 const addSuiteTime = (time: number, test: TestResultWithMetadata) =>
   time + (test.duration || 0) / 1000;
 
-const getTestName = (test: TestResultWithMetadata): string => test.name;
+type TestMetaGetter<T = string> = (test: TestResultWithMetadata) => T;
 
-const getSuiteName = (test: TestResultWithMetadata): string => test.suiteName;
+const getTestName: TestMetaGetter = test => test.name;
+
+const getSuiteName: TestMetaGetter = test => test.suiteName;
+
+const getTestFile: TestMetaGetter = test => test.testFile;
 
 const getTestDurationInSeconds = ({ duration }: TestResult): number =>
   (typeof duration === 'undefined' ? 0 : duration) / 1000;
@@ -124,6 +132,9 @@ const getTestDurationInSeconds = ({ duration }: TestResult): number =>
 const INVALID_CHARACTERS_REGEX =
   // eslint-disable-next-line no-control-regex
   /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007f-\u0084\u0086-\u009f\uD800-\uDFFF\uFDD0-\uFDFF\uFFFF\uC008]/g;
+
+const STACK_TRACE_UNIQUE_IDS_REGEX =
+  /localhost:\d+|wtr-session-id=[\w\d]+-[\w\d]+-[\w\d]+-[\w\d]+-[\w\d]+|/g;
 
 const stripXMLInvalidChars = (x: string): string =>
   x && x.replace ? x.replace(INVALID_CHARACTERS_REGEX, '') : x;
@@ -138,11 +149,11 @@ function testFailureXMLElement(test: TestResultWithMetadata): TestFailureXMLElem
 
   const stack = stripXMLInvalidChars(error?.stack ?? '');
 
-  const type = stack.match(/^\w+Error:/) ? stack.split(':')[0] : '';
+  const type = error?.name ?? (stack.match(/^\w+Error:/) ? stack.split(':')[0] : '');
 
   return {
     _attr: { message, type },
-    _cdata: stack || message || undefined,
+    _cdata: `${type}: ${message}\n${stack}`.replace(STACK_TRACE_UNIQUE_IDS_REGEX, ''),
   };
 }
 
@@ -150,18 +161,27 @@ function testFailureXMLElement(test: TestResultWithMetadata): TestFailureXMLElem
  * Makes attributes for a `<testcase>` element
  * @param test Test Result
  */
-function testCaseXMLAttributes(test: TestResultWithMetadata): TestCaseXMLAttributes {
+function testCaseXMLAttributes(
+  test: TestResultWithMetadata,
+  rootDir: string,
+): TestCaseXMLAttributes {
   const name = getTestName(test);
 
   const time = getTestDurationInSeconds(test);
 
   const classname = getSuiteName(test);
 
+  const file = getTestFile(test).replace(`${rootDir}${path.sep}`, '');
+
+  const [, line] = stripXMLInvalidChars(test.error?.stack ?? '').match(/(\d+):\d+/m) ?? [];
+
   return {
     _attr: {
       name,
       time,
       classname,
+      file,
+      ...(!!line && { line }),
     },
   };
 }
@@ -169,8 +189,8 @@ function testCaseXMLAttributes(test: TestResultWithMetadata): TestCaseXMLAttribu
 /**
  * Makes a `<testcase>` element
  */
-function testCaseXMLElement(test: TestResultWithMetadata): TestCaseXMLElement {
-  const attributes = testCaseXMLAttributes(test);
+function testCaseXMLElement(test: TestResultWithMetadata, rootDir: string): TestCaseXMLElement {
+  const attributes = testCaseXMLAttributes(test, rootDir);
 
   // prettier-ignore
   if (isSkippedTest(test))
@@ -225,13 +245,14 @@ function testSuitePropertiesXMLElement(
   testFile: string,
   browserName: string,
   launcherType: string,
+  rootDir: string,
 ): TestSuitePropertiesXMLElement[] {
   return [
     {
       property: {
         _attr: {
           name: 'test.fileName',
-          value: testFile,
+          value: testFile.replace(`${rootDir}${path.sep}`, ''),
         },
       },
     },
@@ -259,7 +280,15 @@ function testSuitePropertiesXMLElement(
  * then stringifies the XML.
  * @param sessions Test Sessions
  */
-function getTestRunXML(sessions: TestSession[], reportLogs: boolean): string {
+function getTestRunXML({
+  reportLogs,
+  rootDir,
+  sessions,
+}: {
+  sessions: TestSession[];
+  reportLogs: boolean;
+  rootDir: string;
+}): string {
   const testsuites = Object.entries(
     sessions
       .flatMap(assignSessionAndSuitePropertiesToTests)
@@ -276,9 +305,9 @@ function getTestRunXML(sessions: TestSession[], reportLogs: boolean): string {
 
     const attributes = testSuiteXMLAttributes(name, testRun, tests);
 
-    const properties = testSuitePropertiesXMLElement(testFile, browserName, launcherType);
+    const properties = testSuitePropertiesXMLElement(testFile, browserName, launcherType, rootDir);
 
-    const testcases = tests.map(testCaseXMLElement);
+    const testcases = tests.map(t => testCaseXMLElement(t, rootDir));
 
     const systemOut = !reportLogs ? [] : tests.flatMap(escapeLogs).map(x => ({ 'system-out': x }));
 
@@ -298,13 +327,14 @@ function getTestRunXML(sessions: TestSession[], reportLogs: boolean): string {
 export function junitReporter({
   outputPath = './test-results.xml',
   reportLogs = false,
+  rootDir = process.cwd(),
 }: JUnitReporterArgs = {}): Reporter {
+  const filepath = path.resolve(rootDir, outputPath);
+  const dir = path.dirname(filepath);
   return {
     onTestRunFinished({ sessions }) {
-      const filepath = path.resolve(process.cwd(), outputPath);
-      const dir = path.dirname(filepath);
-      const xml = getTestRunXML(sessions, reportLogs);
-      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+      const xml = getTestRunXML({ reportLogs, rootDir, sessions });
+      fs.mkdirSync(dir, { recursive: true });
       fs.writeFileSync(filepath, xml);
     },
   };
