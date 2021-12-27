@@ -6,13 +6,13 @@ import { runIntegrationTests } from '../../../integration/test-runner';
 import { seleniumLauncher } from '../src/seleniumLauncher';
 
 async function startSeleniumServer() {
-  let server;
+  let server: selenium.ChildProcess;
 
   try {
     await selenium.install({
       drivers: {
         chrome: { version: '96.0.4664.18' },
-        firefox: { version: 'latest' },
+        firefox: { version: '0.30.0' },
       },
     });
   } catch (err) {
@@ -24,12 +24,13 @@ async function startSeleniumServer() {
     server = await selenium.start({
       drivers: {
         chrome: { version: '96.0.4664.18' },
-        firefox: { version: 'latest' },
+        firefox: { version: '0.30.0' },
       },
       seleniumArgs: ['--port', '8888'],
     });
   } catch (err) {
     console.error('Error occurred when starting selenium.');
+    console.log(err);
     throw err;
   }
 
@@ -43,6 +44,10 @@ describe('test-runner-selenium', function testRunnerSelenium() {
 
   before(async function () {
     seleniumServer = await startSeleniumServer();
+  });
+
+  after(() => {
+    seleniumServer.kill();
   });
 
   function createConfig() {
@@ -77,8 +82,4 @@ describe('test-runner-selenium', function testRunnerSelenium() {
     // FIXME: timed out with selenium-standalone v7
     locationChanged: false,
   });
-});
-
-after(() => {
-  seleniumServer.kill();
 });
