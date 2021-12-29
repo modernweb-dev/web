@@ -1,5 +1,14 @@
 # @web/test-runner-junit-reporter
 
+## 0.4.10
+
+### Patch Changes
+
+- cdef38b3: Adds file and line number support to junit reporter
+- Updated dependencies [cdef38b3]
+- Updated dependencies [f4ed8156]
+  - @web/test-runner-core@0.10.23
+
 ## 0.4.9
 
 ### Patch Changes
