@@ -1,6 +1,6 @@
 import mdx from '@mdx-js/mdx';
 import { transformAsync } from '@babel/core';
-import createCompiler from './mdx-compiler-plugin';
+import { createCompiler } from '@storybook/csf-tools/mdx';
 import { createError } from '../utils';
 
 const compilers = [createCompiler({})];
@@ -25,8 +25,12 @@ export async function transformMdxToCsf(body: string, filePath: string): Promise
   }
 
   // rewrite imports
-  const result = babelResult.code.replace(
+  let result = babelResult.code.replace(
     /@storybook\/addon-docs\/blocks/g,
+    '@web/storybook-prebuilt/addon-docs/blocks.js',
+  );
+  result = result.replace(
+    /@storybook\/addon-docs/g,
     '@web/storybook-prebuilt/addon-docs/blocks.js',
   );
   return result;
