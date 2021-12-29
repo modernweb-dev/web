@@ -1,5 +1,25 @@
 # @web/test-runner-core
 
+## 0.10.23
+
+### Patch Changes
+
+- cdef38b3: Adds limited reporter support to test-helpers
+- f4ed8156: Evaluate `files` as a glob list, rather than adding the result of each string to the file list.
+  This allow `files` glob exclude patterns e.g.
+
+  ```js
+  export default {
+    files: [
+      '**/*.spec.ts', // include `.spec.ts` files
+      '!**/*.e2e.spec.ts', // exclude `.e2e.spec.ts` files
+      '!**/node_module/**/*', // exclude any node modules
+    ],
+  };
+  ```
+
+  If you were relying on each glob string pattern being evaluated on it's own, this is a breaking change.
+
 ## 0.10.22
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.4.1
+
+### Patch Changes
+
+- 6ff9cebc: Fix MDX docs rendering by using Storybook compiler and converting more imports to @web/storybook-prebuilt
+
 ## 0.4.0
 
 ### Minor Changes
