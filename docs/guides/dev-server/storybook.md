@@ -23,7 +23,7 @@ export default {
 };
 ```
 
-Add a `.storybook/main.js` file:
+Add a `.storybook/main.cjs` file:
 
 ```js
 module.exports = {

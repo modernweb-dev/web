@@ -12,14 +12,14 @@ function validateMainJs(mainJs: MainJs): MainJs {
     throw createError('main.js must export an bject');
   }
   if (mainJs.stories == null) {
-    throw createError('Missing stories option in main.js');
+    throw createError('Missing stories option in main.cjs');
   }
   if (!Array.isArray(mainJs.stories)) {
-    throw createError('Stories option main.js must be an array');
+    throw createError('Stories option main.cjs must be an array');
   }
   if (mainJs.addons != null) {
     if (!Array.isArray(mainJs.addons)) {
-      throw createError('Addons in main.js must be an array');
+      throw createError('Addons in main.cjs must be an array');
     }
     if (mainJs.addons.some(addon => addon.startsWith('@storybook'))) {
       throw createError(
@@ -34,7 +34,7 @@ export function readStorybookConfig(pluginConfig: StorybookPluginConfig): Storyb
   const configDir = pluginConfig.configDir
     ? path.resolve(pluginConfig.configDir)
     : defaultConfigDir;
-  const mainJsPath = path.join(configDir, 'main.js');
+  const mainJsPath = path.join(configDir, 'main.cjs');
   const managerJsPath = path.join(configDir, 'manager.js');
   const previewJsPath = path.join(configDir, 'preview.js');
   const managerHeadPath = path.join(configDir, 'manager-head.html');

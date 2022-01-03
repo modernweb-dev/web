@@ -51,7 +51,7 @@ Other project types could be supported, let us know if you are interested in thi
 
 ### main.js and preview.js
 
-We read the `.storybook/main.js` and `.storybook/preview.js` files like regular storybook.
+We read the `.storybook/main.cjs` and `.storybook/preview.js` files like regular storybook.
 
 ### Customizing storybook directory
 
