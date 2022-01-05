@@ -2,13 +2,20 @@ name: Verify Node
 
 on: pull_request
 
+env:
+  FORCE_COLOR: true
+
 jobs:
   verify-linux:
     name: Verify linux
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['12', '14', '16']
+        node-version:
+          - '12'
+          - '14'
+          - '16'
+
     steps:
       - uses: actions/checkout@v2
 
@@ -16,7 +23,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
+          cache: yarn
 
       - name: Install Playwright dependencies
         run: npx playwright install-deps
