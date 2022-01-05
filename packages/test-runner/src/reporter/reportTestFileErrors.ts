@@ -18,6 +18,7 @@ export function reportTestFileErrors(
   browserNames: string[],
   favoriteBrowser: string,
   sessionsForTestFile: TestSession[],
+  logFileNames?: boolean,
 ) {
   const reports: ErrorReport[] = [];
 
@@ -58,6 +59,10 @@ export function reportTestFileErrors(
     } else {
       // there was no stack trace, so just print the error message
       logger.log(` ❌ ${errorMsg} ${failedOn}`);
+    }
+
+    if (logFileNames) {
+      logger.log(`  ${report.testFile}`);
     }
 
     logger.log('');
