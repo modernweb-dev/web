@@ -6,4 +6,5 @@ export { chromeLauncher } from '@web/test-runner-chrome';
 export { startTestRunner } from './startTestRunner';
 export { defaultReporter } from './reporter/defaultReporter';
 export { summaryReporter } from './reporter/summaryReporter';
+export { dotReporter } from './reporter/dotReporter';
 export type TestRunnerConfig = Partial<FullTestRunnerConfig>;
