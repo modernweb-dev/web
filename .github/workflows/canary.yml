@@ -21,6 +21,8 @@ jobs:
 
       - name: Setup Node.js 12
         uses: actions/setup-node@v2
+        env:
+          FORCE_COLOR: 0
         with:
           node-version: 12.x
           registry-url: 'https://registry.npmjs.org'

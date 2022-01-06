@@ -17,6 +17,8 @@ jobs:
 
       - name: Setup Node 14
         uses: actions/setup-node@v2
+        env:
+          FORCE_COLOR: 0
         with:
           node-version: '14'
           cache: 'yarn'
