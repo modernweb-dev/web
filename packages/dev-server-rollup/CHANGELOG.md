@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.3.14
+
+### Patch Changes
+
+- 73286ca6: Add missing exports to mjs entrypoints
+
 ## 0.3.13
 
 ### Patch Changes

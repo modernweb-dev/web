@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.6.1
+
+### Patch Changes
+
+- 73286ca6: Add missing exports to mjs entrypoints
+
 ## 0.6.0
 
 ### Minor Changes
