@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.13.25
+
+### Patch Changes
+
+- 24cc9212: Add `sendMousePlugin` to the default test runner config so that it will load automatically.
+
 ## 0.13.24
 
 ### Patch Changes
