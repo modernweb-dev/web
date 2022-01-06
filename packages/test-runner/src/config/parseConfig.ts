@@ -7,6 +7,7 @@ import {
   sendKeysPlugin,
   filePlugin,
   snapshotPlugin,
+  sendMousePlugin,
 } from '@web/test-runner-commands/plugins';
 import { getPortPromise } from 'portfinder';
 import path from 'path';
@@ -252,6 +253,7 @@ export async function parseConfig(
     setUserAgentPlugin(),
     filePlugin(),
     sendKeysPlugin(),
+    sendMousePlugin(),
     snapshotPlugin({ updateSnapshots: !!cliArgs.updateSnapshots }),
   );
 
