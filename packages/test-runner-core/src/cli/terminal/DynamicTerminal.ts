@@ -23,9 +23,11 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
     console.log('');
 
     this.interceptConsoleOutput();
-    process.stdin.resume();
-    process.stdin.setEncoding('utf8');
-    process.stdin.addListener('data', this.onStdInData);
+    if (process.stdin.isTTY === true) {
+      process.stdin.resume();
+      process.stdin.setEncoding('utf8');
+      process.stdin.addListener('data', this.onStdInData);
+    }
     this.started = true;
   }
 
