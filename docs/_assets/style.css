@@ -182,3 +182,85 @@ footer {
     fill: #fff;
   }
 }
+
+/** Supported by **/
+
+body[layout^='layout-home'] .supported-by-items {
+  max-width: 550px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.supported-by-items p {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.supported-by-items img {
+  min-height: 100px;
+}
+
+.supported-by-items > div:nth-child(2) a {
+  width: 100px;
+  margin: 0 auto;
+  display: block;
+}
+
+.supporters {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.supporters > a {
+  display: inline-block;
+  margin-left: -25px;
+  transition: opacity .3s;
+  opacity: .9;
+}
+
+.supporters > a:hover {
+  opacity: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.supporters > a > img {
+  width: 30px;
+  height: 30px;
+  width: calc(30px + 5vw);
+  height: calc(30px + 5vw);
+  max-width: 60px;
+  max-height: 60px;
+  margin-bottom: 6px;
+  color: #fff;
+  border: 2px solid #333;
+  transition: border .3s;
+  object-fit: cover;
+  border-radius: 50%;
+  background: #333;
+}
+
+img.dark {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  img.dark {
+    display: block;
+  }
+
+  img.light {
+    display: none;
+  }
+
+  .supporters > a > img {
+    border-color: #fff;
+    background: #fff;
+  }
+}
+
+.cta-contribute {
+  margin-top: 10px !important;
+  text-align: center;
+}
