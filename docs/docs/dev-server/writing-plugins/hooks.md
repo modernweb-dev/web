@@ -130,7 +130,7 @@ In a web server, the response body is not always a string, but it can be a binar
 <details>
   <summary>Read more</summary>
 
-Rewrite the base path of your application for local development;
+Rewrite the base path of your application for local development:
 
 ```js
 export default {
@@ -242,6 +242,23 @@ export default {
           `;
 
           return stylesheet;
+        }
+      },
+    },
+  ],
+};
+```
+
+Set custom HTTP headers (e.g. for [COOP/COEP](https://web.dev/coop-coep/), [CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy), etc.):
+
+```js
+export default {
+  plugins: [
+    {
+      name: 'my-plugin',
+      transform(context) {
+        if (context.path === '/index.html') {
+          context.set('X-My-Custom-Header', 'hello, world';
         }
       },
     },
