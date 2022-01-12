@@ -2,6 +2,9 @@
 /.idea
 /.vscode
 
+# @11ty/eleventy-cache-assets
+.cache
+
 ## system files
 .DS_Store
 

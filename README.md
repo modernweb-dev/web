@@ -64,9 +64,27 @@ We are always looking for contributors of all skill levels! If you're looking to
 
 If you are interested in helping contribute to Modern Web, please take a look at our [Contributing Guide](https://github.com/modernweb-dev/web/blob/master/CONTRIBUTING.md). Also, feel free to drop into [Slack](https://modern-web.dev/discover/slack/) and say hi. 👋
 
-### Financial Contributors
+## Sponsored by
 
-Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/modern-web/contribute)]
+<a href="https://google.com/chrome" style="border: none;" target="_blank" rel="noopener">
+  <img src="https://github.com/open-wc/open-wc/blob/master/docs/_assets/supporters/chrome.svg" width="100" alt="Chrome's Web Framework & Tools Performance Fund Logo" />
+</a>
+
+<a href="https://divriots.com/" style="border: none;" target="_blank" rel="noopener">
+  <img src="https://github.com/open-wc/open-wc/blob/master/docs/_assets/supporters/divriots-light.svg#gh-light-mode-only" width="200" alt="Divriots Logo" />
+</a>
+
+Become a sponsor and help us sustain our community. [[Contribute](https://opencollective.com/modern-web/contribute)]
+
+## Supported by
+
+<a href="http://browserstack.com/" style="border: none;" target="_blank" rel="noopener">
+  <img src="https://github.com/open-wc/open-wc/blob/master/assets/images/Browserstack-logo.svg" width="200" alt="Browserstack Logo" />
+</a>
+
+<a href="http://netlify.com/" style="border: none;" target="_blank" rel="noopener">
+  <img src="https://www.netlify.com/img/press/logos/full-logo-light.svg" width="185" alt="netlify logo" />
+</a>
 
 ---
 
