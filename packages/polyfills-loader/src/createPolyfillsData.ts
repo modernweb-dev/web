@@ -130,8 +130,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   if (polyfills.intersectionObserver) {
     addPolyfillConfig({
       name: 'intersection-observer',
-      test:
-        "!('IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype)",
+      test: "!('IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype)",
       path: require.resolve('intersection-observer/intersection-observer.js'),
       minify: true,
     });
@@ -149,8 +148,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   if (polyfills.webcomponents && !polyfills.shadyCssCustomStyle) {
     addPolyfillConfig({
       name: 'webcomponents',
-      test:
-        "!('attachShadow' in Element.prototype) || !('getRootNode' in Element.prototype) || (window.ShadyDOM && window.ShadyDOM.force)",
+      test: "!('attachShadow' in Element.prototype) || !('getRootNode' in Element.prototype) || (window.ShadyDOM && window.ShadyDOM.force)",
       path: require.resolve('@webcomponents/webcomponentsjs/webcomponents-bundle.js'),
     });
 
