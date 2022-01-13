@@ -59,8 +59,8 @@ describe('polyfills', () => {
       },
       {
         content: '',
-        name: 'constructible-style',
-        path: 'polyfills/constructible-style.js',
+        name: 'constructible-style-sheets-polyfill',
+        path: 'polyfills/constructible-style-sheets-polyfill.js',
         test: '"adoptedStyleSheets" in document',
         type: 'script',
       },
