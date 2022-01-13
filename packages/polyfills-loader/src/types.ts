@@ -45,7 +45,8 @@ export interface PolyfillsConfig {
   systemjs?: boolean;
   // systemjs extended version with import maps
   systemjsExtended?: boolean;
-  esModuleShims?: boolean;
+  esModuleShims?: boolean | 'always';
+  constructibleStylesheets?: boolean;
   // shady-css-custom-style and shady-css-scoped-element
   shadyCssCustomStyle?: boolean;
 }

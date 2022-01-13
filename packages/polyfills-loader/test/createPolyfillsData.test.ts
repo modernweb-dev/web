@@ -32,6 +32,7 @@ describe('polyfills', () => {
         resizeObserver: true,
         dynamicImport: true,
         esModuleShims: true,
+        constructibleStylesheets: true,
       },
     };
 
@@ -48,6 +49,20 @@ describe('polyfills', () => {
         path: 'polyfills/core-js.js',
         content: '',
         test: "!('noModule' in HTMLScriptElement.prototype)",
+      },
+      {
+        content: '',
+        name: 'es-module-shims',
+        path: 'polyfills/es-module-shims.js',
+        test: '!(\'noModule\' in HTMLScriptElement.prototype)',
+        type: 'script'
+      },
+      {
+        content: '',
+        name: 'constructible-style',
+        path: 'polyfills/constructible-style.js',
+        test: '"adoptedStyleSheets" in document',
+        type: 'script'
       },
       {
         name: 'fetch',
