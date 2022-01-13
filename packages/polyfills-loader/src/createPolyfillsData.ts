@@ -32,6 +32,22 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     });
   }
 
+  if (polyfills.esModuleShims) {
+    addPolyfillConfig({
+      name: 'es-module-shims',
+      test: polyfills.regeneratorRuntime !== 'always' ? noModuleSupportTest : undefined,
+      path: require.resolve('es-module-shims'),
+    });
+  }
+
+  if (polyfills.constructibleStylesheets) {
+    addPolyfillConfig({
+      name: 'constructible-style',
+      test: '"adoptedStyleSheets" in document',
+      path: require.resolve('construct-style-sheets-polyfill'),
+    });
+  }
+
   if (polyfills.regeneratorRuntime) {
     addPolyfillConfig({
       name: 'regenerator-runtime',
