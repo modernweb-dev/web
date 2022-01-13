@@ -12,10 +12,7 @@ export const fileTypes: Record<'SCRIPT' | 'MODULE' | 'SYSTEMJS', FileType> = {
 };
 
 export function createContentHash(content: string) {
-  return crypto
-    .createHash('md4')
-    .update(content)
-    .digest('hex');
+  return crypto.createHash('md4').update(content).digest('hex');
 }
 
 export function cleanImportPath(importPath: string) {
