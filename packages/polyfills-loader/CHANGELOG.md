@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 1.2.0
+
+### Minor Changes
+
+- 738043d1: feat: add constructible stylesheets polyfill to loader
+
 ## 1.1.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@web/polyfills-loader",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "publishConfig": {
     "access": "public"
   },
