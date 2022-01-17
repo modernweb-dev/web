@@ -69,6 +69,8 @@ function createLoadFile(file: File) {
       return `loadScript('${resourcePath}', null, ${attributesAsJsCodeString})`;
     case fileTypes.MODULE:
       return `loadScript('${resourcePath}', 'module', ${attributesAsJsCodeString})`;
+    case fileTypes.MODULESHIM:
+      return `loadScript('${resourcePath}', 'module-shim', ${attributesAsJsCodeString})`;
     case fileTypes.SYSTEMJS:
       return `System.import('${resourcePath}')`;
     default:

@@ -78,7 +78,7 @@ export interface LegacyEntrypoint {
   files: File[];
 }
 
-export type FileType = 'script' | 'module' | 'systemjs';
+export type FileType = 'script' | 'module' | 'systemjs' | 'module-shim';
 
 export interface File {
   // the type of script, instructing how to load it
