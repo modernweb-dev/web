@@ -26,11 +26,12 @@ async function testSnapshot({ name, config, expectedFiles = [] }: TestSnapshotAr
     fs.writeFileSync(snapshotPath, loader.code, 'utf-8');
   } else {
     const snapshot = fs.readFileSync(snapshotPath, 'utf-8');
+    console.log(loader.code.trim())
     expect(loader.code.trim()).to.equal(snapshot.trim());
   }
 }
 
-describe('createPolyfillsLoader', function describe() {
+describe.only('createPolyfillsLoader', function describe() {
   // bootup of the first test can take a long time in CI to load all the polyfills
   this.timeout(5000);
 
@@ -59,6 +60,20 @@ describe('createPolyfillsLoader', function describe() {
         },
       },
       expectedFiles: ['polyfills/fetch.js', 'polyfills/systemjs.js'],
+    });
+  });
+
+  it.only('generates a loader script with one module-shim resource', async () => {
+    await testSnapshot({
+      name: 'module-shim-resource',
+      config: {
+        modern: { files: [{ type: fileTypes.MODULESHIM, path: 'chunk.js' }] },
+        polyfills: {
+          hash: false,
+          fetch: true,
+        },
+      },
+      expectedFiles: ['polyfills/fetch.js'],
     });
   });
 

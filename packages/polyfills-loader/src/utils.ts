@@ -5,9 +5,10 @@ import { FileType, PolyfillsLoaderConfig } from './types';
 
 export const noModuleSupportTest = "!('noModule' in HTMLScriptElement.prototype)";
 
-export const fileTypes: Record<'SCRIPT' | 'MODULE' | 'SYSTEMJS', FileType> = {
+export const fileTypes: Record<'SCRIPT' | 'MODULE' | 'MODULESHIM' | 'SYSTEMJS', FileType> = {
   SCRIPT: 'script',
   MODULE: 'module',
+  MODULESHIM: 'module-shim',
   SYSTEMJS: 'systemjs',
 };
 

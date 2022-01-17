@@ -120,7 +120,7 @@ const config = {
     {
       test: "!('noModule' in HTMLScriptElement.prototype)",
       files: [
-        // filetype can be: 'module', 'script' or 'systemjs
+        // filetype can be: 'module', 'module-shim', 'script' or 'systemjs
         { type: 'systemjs', path: 'file-a.js' },
         { type: 'systemjs', path: 'file-b.js' },
       ],
