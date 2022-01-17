@@ -6,9 +6,9 @@ jobs:
   verify-saucelabs:
     name: Verify Sauce Labs
 
-    # Run the job if it's not triggered by a PR or if the PR is from the same repository
-    # This is because this job requires a secret, and secrets cannot be shared with forks
-    if: github.event.pull_request == null || github.event.pull_request.head.repo.full_name == github.repository
+    # Run only from the original repository
+    # Because this job requires secrets, which cannot be shared with forks
+    if: github.event.pull_request.head.repo.full_name == github.repository
 
     runs-on: ubuntu-latest
 
