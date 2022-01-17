@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 1.2.1
+
+### Patch Changes
+
+- e24a47c2: Added support for module-shim
+
 ## 1.2.0
 
 ### Minor Changes
