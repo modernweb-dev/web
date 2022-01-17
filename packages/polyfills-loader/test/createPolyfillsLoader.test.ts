@@ -26,12 +26,11 @@ async function testSnapshot({ name, config, expectedFiles = [] }: TestSnapshotAr
     fs.writeFileSync(snapshotPath, loader.code, 'utf-8');
   } else {
     const snapshot = fs.readFileSync(snapshotPath, 'utf-8');
-    console.log(loader.code.trim())
     expect(loader.code.trim()).to.equal(snapshot.trim());
   }
 }
 
-describe.only('createPolyfillsLoader', function describe() {
+describe('createPolyfillsLoader', function describe() {
   // bootup of the first test can take a long time in CI to load all the polyfills
   this.timeout(5000);
 
@@ -63,7 +62,7 @@ describe.only('createPolyfillsLoader', function describe() {
     });
   });
 
-  it.only('generates a loader script with one module-shim resource', async () => {
+  it('generates a loader script with one module-shim resource', async () => {
     await testSnapshot({
       name: 'module-shim-resource',
       config: {
