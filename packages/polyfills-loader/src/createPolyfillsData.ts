@@ -35,7 +35,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   if (polyfills.esModuleShims) {
     addPolyfillConfig({
       name: 'es-module-shims',
-      test: polyfills.regeneratorRuntime !== 'always' ? noModuleSupportTest : undefined,
+      test: polyfills.regeneratorRuntime !== 'always' ? '1' : undefined,
       path: require.resolve('es-module-shims'),
     });
   }
