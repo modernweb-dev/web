@@ -54,7 +54,7 @@ describe('polyfills', () => {
         content: '',
         name: 'es-module-shims',
         path: 'polyfills/es-module-shims.js',
-        test: "1",
+        test: '1',
         type: 'script',
       },
       {
