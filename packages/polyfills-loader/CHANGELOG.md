@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 1.2.2
+
+### Patch Changes
+
+- 62623d18: fix: always load EMS for config option 'always'
+
 ## 1.2.1
 
 ### Patch Changes
