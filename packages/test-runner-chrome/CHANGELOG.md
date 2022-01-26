@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.10.6
+
+### Patch Changes
+
+- 7c2fa463: Update puppeteer-core and puppeteer to v13
+
 ## 0.10.5
 
 ### Patch Changes
