@@ -47,11 +47,11 @@
   ],
   "dependencies": {
     "@web/test-runner-core": "^0.10.20",
-    "selenium-webdriver": "^4.0.0"
+    "selenium-webdriver": "^4.1.0"
   },
   "devDependencies": {
     "@types/selenium-standalone": "^7.0.1",
-    "@types/selenium-webdriver": "^4.0.11",
-    "selenium-standalone": "^8.0.4"
+    "@types/selenium-webdriver": "^4.0.18",
+    "selenium-standalone": "^8.0.9"
   }
 }
