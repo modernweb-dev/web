@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.3.15
+
+### Patch Changes
+
+- 156e0b66: Update rollup dependency to 2.66.1
+
 ## 0.3.14
 
 ### Patch Changes

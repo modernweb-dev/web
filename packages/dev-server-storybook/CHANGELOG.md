@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.4.2
+
+### Patch Changes
+
+- 156e0b66: Update rollup dependency to 2.66.1
+
 ## 0.4.1
 
 ### Patch Changes
