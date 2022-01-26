@@ -50,6 +50,6 @@
   },
   "devDependencies": {
     "@types/html-minifier-terser": "^6.0.0",
-    "rollup": "^2.35.1"
+    "rollup": "^2.66.1"
   }
 }
