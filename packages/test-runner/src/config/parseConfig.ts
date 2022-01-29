@@ -166,6 +166,15 @@ export async function parseConfig(
     ...finalConfig.coverageConfig,
   };
 
+  const updateSnapshots =
+    cliArgs.updateSnapshots !== undefined
+      ? cliArgs.updateSnapshots
+      : finalConfig.snapshotConfig?.updateSnapshots;
+  finalConfig.snapshotConfig = {
+    ...finalConfig.snapshotConfig,
+    updateSnapshots,
+  };
+
   let groupConfigs = await parseConfigGroups(finalConfig, cliArgs);
   if (groupConfigs.find(g => g.name === 'default')) {
     throw new TestRunnerStartError(
@@ -254,7 +263,7 @@ export async function parseConfig(
     filePlugin(),
     sendKeysPlugin(),
     sendMousePlugin(),
-    snapshotPlugin({ updateSnapshots: !!cliArgs.updateSnapshots }),
+    snapshotPlugin(finalConfig.snapshotConfig),
   );
 
   if (finalConfig.nodeResolve) {
