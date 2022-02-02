@@ -1,5 +1,6 @@
 ---
 '@web/test-runner-chrome': patch
+'@web/test-runner': patch
 ---
 
-fix: bumped verion of puppeteer-core to fix CVE-2022-0235
+Update puppeteer-core dependency to 13.1.3
