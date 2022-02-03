@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.10.7
+
+### Patch Changes
+
+- 3192c9ff: Update puppeteer-core dependency to 13.1.3
+
 ## 0.10.6
 
 ### Patch Changes
