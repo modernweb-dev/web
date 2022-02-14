@@ -33,5 +33,6 @@ export function pixelMatchDiff({ baselineImage, image, options }: DiffArgs): Dif
     error,
     diffImage: PNG.sync.write(diff),
     diffPercentage,
+    diffPixels: numDiffPixels,
   };
 }
