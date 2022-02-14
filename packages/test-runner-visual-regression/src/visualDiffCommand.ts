@@ -117,7 +117,11 @@ export async function visualDiffCommand(
     await saveFailed();
     await saveDiff();
 
-    throw new VisualRegressionError(error);
+    return {
+      passed: false,
+      errorMessage: error,
+      diffPercentage: -1,
+    };
   }
 
   const { passed, message } = passesFailureThreshold(result, options);

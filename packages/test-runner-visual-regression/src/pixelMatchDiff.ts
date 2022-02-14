@@ -12,7 +12,7 @@ export function pixelMatchDiff({ baselineImage, image, options }: DiffArgs): Dif
   if (basePng.width !== png.width || basePng.height !== png.height) {
     error =
       `Screenshot is not the same width and height as the baseline. ` +
-      `Baseline: { width: ${basePng.width}, height: ${basePng.height} }` +
+      `Baseline: { width: ${basePng.width}, height: ${basePng.height} } ` +
       `Screenshot: { width: ${png.width}, height: ${png.height} }`;
     width = Math.max(basePng.width, png.width);
     height = Math.max(basePng.height, png.height);
