@@ -1,5 +1,11 @@
 # @web/test-runner-browserstack
 
+## 0.5.0
+
+### Minor Changes
+
+- 9a2580a8: Migrates `BrowserstackLauncher` to extend from `WebdriverLauncher` instead of `SeleniumLauncher`. This allows the visual regression plugin to work with said launcher.
+
 ## 0.4.4
 
 ### Patch Changes
