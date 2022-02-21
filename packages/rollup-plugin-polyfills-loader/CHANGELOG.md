@@ -1,5 +1,11 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 1.2.0
+
+### Minor Changes
+
+- ea4ccb03: use modulepreload-shim for es-module-shims
+
 ## 1.1.1
 
 ### Patch Changes
