@@ -35,7 +35,7 @@ describe('sendMousePlugin', function test() {
 
     before(async () => {
       seleniumServer = await startSeleniumServer({
-        chrome: { version: '96.0.4664.18' },
+        chrome: { version: 'latest' },
         firefox: { version: 'latest' },
       });
     });
