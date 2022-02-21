@@ -5,7 +5,7 @@ on: pull_request
 jobs:
   verify-windows:
     name: Verify windows
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
       - name: Set git to use LF
         run: |
