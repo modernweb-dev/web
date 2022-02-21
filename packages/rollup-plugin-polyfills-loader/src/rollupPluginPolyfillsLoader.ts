@@ -81,10 +81,13 @@ export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig
         const type =
           pluginOptions.modernOutput?.type ?? formatToFileType(bundle?.options.format ?? 'esm');
         const crossorigin = type === fileTypes.MODULE ? ' crossorigin="anonymous"' : '';
+        const shim = type === fileTypes.MODULESHIM;
+        const rel = `${shim ? 'module' : ''}preload${shim ? '-shim' : ''}`;
+        const as = shim ? '' : ' as="script"';
         return htmlString.replace(
           '</head>',
           `\n${preloaded
-            .map(i => `<link rel="preload" href="${i}" as="script"${crossorigin}>\n`)
+            .map(i => `<link rel="${rel}" href="${i}"${as}${crossorigin} />\n`)
             .join('')}</head>`,
         );
       });
