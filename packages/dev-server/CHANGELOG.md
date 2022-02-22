@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.1.30
+
+### Patch Changes
+
+- 35fe49d8: Use latest "storybook-addon-markdown-docs"
+
 ## 0.1.29
 
 ### Patch Changes
