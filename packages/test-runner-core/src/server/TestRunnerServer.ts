@@ -40,6 +40,10 @@ export class TestRunnerServer {
       rootDir,
       injectWebSocket: true,
 
+      http2: config.http2,
+      sslKey: config.sslKey,
+      sslCert: config.sslCert,
+
       mimeTypes: config.mimeTypes,
       middleware: [
         watchFilesMiddleware({ runSessions, sessions, rootDir, fileWatcher: this.fileWatcher }),
