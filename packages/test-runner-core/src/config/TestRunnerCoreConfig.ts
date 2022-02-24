@@ -33,6 +33,10 @@ export interface TestRunnerCoreConfig {
   hostname: string;
   port: number;
 
+  http2?: boolean;
+  sslKey?: string;
+  sslCert?: string;
+
   browsers: BrowserLauncher[];
   testFramework?: TestFramework;
   logger: Logger;
