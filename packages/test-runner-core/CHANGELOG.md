@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.10.24
+
+### Patch Changes
+
+- 88a38abf: Allow http2/ssl options to be set in WTR config
+
 ## 0.10.23
 
 ### Patch Changes
