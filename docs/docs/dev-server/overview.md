@@ -31,13 +31,13 @@ npm i --save-dev @web/dev-server
 Then add the following to the `"scripts"` section in `package.json`:
 
 ```
-"start": "web-dev-server --node-resolve --open"
+"start": "web-dev-server --node-resolve --open --watch"
 ```
 
 Or use the shorthand:
 
 ```
-"start": "wds --node-resolve --open"
+"start": "wds --node-resolve --open --watch"
 ```
 
 Note, the examples below assume an npm script is used.
