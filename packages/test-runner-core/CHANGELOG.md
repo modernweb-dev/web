@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.10.25
+
+### Patch Changes
+
+- ec41a73b: Use https module when making requests over SSL
+
 ## 0.10.24
 
 ### Patch Changes
