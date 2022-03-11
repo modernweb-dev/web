@@ -67,6 +67,7 @@ export interface VisualRegressionPluginOptions {
    * For `failureThresholdType` of "pixels", this should be a positive integer.
    */
   failureThreshold: number;
+
   /**
    * The type of threshold that would trigger a failure.
    */
