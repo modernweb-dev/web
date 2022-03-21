@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 1.10.2
+
+### Patch Changes
+
+- d1c2ff91: fix(rollup-plugin-html): dont pass index.html to rollup input
+
 ## 1.10.1
 
 ### Patch Changes
