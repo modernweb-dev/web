@@ -23,7 +23,10 @@ export function addRollupInput(
   if (typeof inputOptions.input === 'string') {
     return {
       ...inputOptions,
-      input: [inputOptions.input, ...inputModuleIds.map(mod => mod.importPath)],
+      input: [
+        ...(inputOptions?.input?.endsWith('.html') ? [] : [inputOptions.input]),
+        ...inputModuleIds.map(mod => mod.importPath),
+      ],
     };
   }
 
