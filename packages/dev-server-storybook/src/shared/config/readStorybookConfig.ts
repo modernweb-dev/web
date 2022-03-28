@@ -14,8 +14,8 @@ function validateMainJs(mainJs: MainJs): MainJs {
   if (mainJs.stories == null) {
     throw createError('Missing stories option in main.js');
   }
-  if (!Array.isArray(mainJs.stories)) {
-    throw createError('Stories option main.js must be an array');
+  if (!(Array.isArray(mainJs.stories) || typeof mainJs.stories === 'function')) {
+    throw createError('Stories option main.js must be an array or function');
   }
   if (mainJs.addons != null) {
     if (!Array.isArray(mainJs.addons)) {
