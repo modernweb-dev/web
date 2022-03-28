@@ -29,8 +29,8 @@ const loadScriptFunction = `
       }
       script.src = src;
       script.onload = onLoaded;
-      if(attributes){
-        attributes.forEach(att => {
+      if(Array.is(attributes)){
+        attributes.forEach(funtion(att) {
           script.setAttribute(att.name, att.value);
         });
       }
