@@ -3,8 +3,15 @@ import path from 'path';
 
 import { createBrowserImport, createError } from '../utils';
 
-export async function findStories(rootDir: string, mainJsPath: string, storiesPatterns: string[]) {
+export async function findStories(
+  rootDir: string,
+  mainJsPath: string,
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  stories: string[] | Function,
+) {
   const mainJsDir = path.dirname(mainJsPath);
+  const storiesPatterns: string[] =
+    typeof stories === 'function' ? await Promise.resolve(stories()) : stories;
   const storyPaths = await globby(storiesPatterns, { cwd: mainJsDir, absolute: false });
   const storyFilePaths = storyPaths.map(p => path.join(mainJsDir, p.split('/').join(path.sep)));
 
