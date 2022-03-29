@@ -29,6 +29,7 @@ function loadScript(src, type, attributes ) {
     }
     script.src = src;
     script.onload = onLoaded;
+    
     if (Array.isArray(attributes)) {
       attributes.forEach(function (att) {
         script.setAttribute(att.name, att.value);

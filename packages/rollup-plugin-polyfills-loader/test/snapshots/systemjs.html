@@ -18,6 +18,7 @@
 
       script.src = src;
       script.onload = onLoaded;
+
       if (Array.isArray(attributes)) {
         attributes.forEach(function (att) {
           script.setAttribute(att.name, att.value);
@@ -35,7 +36,7 @@
   }
 
   var polyfills = [];
-  polyfills.push(loadScript('./polyfills/systemjs.200c680897e2c47082fe1714c434a7c3.js'));
+  polyfills.push(loadScript('./polyfills/systemjs.6744a76d48d4fcc398208e8269c87aa1.js'));
 
   function loadFiles() {
     [function () {
