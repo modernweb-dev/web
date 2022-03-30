@@ -230,4 +230,23 @@ describe('injectPolyfillsLoader', () => {
       ],
     });
   });
+
+  it('can injects a loader externally', async () => {
+    const html = `
+      <div>before</div>
+      <script type="module" src="./app.js"></script>
+      <div>after</div>
+    `;
+
+    await testSnapshot('external-loader', html, {
+      ...defaultConfig,
+      polyfills: {
+        hash: false,
+        webcomponents: true,
+        fetch: true,
+        intersectionObserver: true,
+      },
+      externalScript: true,
+    });
+  });
 });

@@ -71,3 +71,27 @@ export default {
   ],
 };
 ```
+
+### External loader script
+
+By default the polyfills loader scriped is inlined into the HTML. You can configure the plugin to create an external script:
+
+```js
+import html from '@web/rollup-plugin-html';
+import polyfillsLoader from '@web/rollup-plugin-polyfills-loader';
+
+export default {
+  output: { dir: 'dist' },
+  plugins: [
+    html({ input: 'index.html' }),
+    polyfillsLoader({
+      polyfills: {
+        coreJs: true,
+        fetch: true,
+        webcomponents: true,
+      },
+      externalLoaderScript: false,
+    }),
+  ],
+};
+```

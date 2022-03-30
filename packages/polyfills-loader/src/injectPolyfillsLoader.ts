@@ -9,9 +9,10 @@ import {
   createElement,
   findElement,
   getTagName,
+  Element,
 } from '@web/parse5-utils';
 
-import { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile } from './types';
+import { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile, PolyfillFile } from './types';
 import { createPolyfillsLoader } from './createPolyfillsLoader';
 import { hasFileOfType, fileTypes } from './utils';
 
@@ -56,8 +57,21 @@ function injectImportMapPolyfills(
   });
 }
 
-function injectLoaderScript(bodyAst: ParentNode, polyfillsLoader: PolyfillsLoader) {
-  const loaderScript = createScript({}, polyfillsLoader.code);
+function injectLoaderScript(
+  bodyAst: ParentNode,
+  polyfillsLoader: PolyfillsLoader,
+  cfg: PolyfillsLoaderConfig,
+) {
+  let loaderScript: Element;
+  if (cfg.externalLoaderScript) {
+    const loaderScriptFile = polyfillsLoader.polyfillFiles.find(f => f.path.endsWith('loader.js'));
+    if (!loaderScriptFile) {
+      throw new Error('Missing polyfills loader script file');
+    }
+    loaderScript = createScript({ src: loaderScriptFile.path });
+  } else {
+    loaderScript = createScript({}, polyfillsLoader.code);
+  }
   appendChild(bodyAst, loaderScript);
 }
 
@@ -113,7 +127,7 @@ export async function injectPolyfillsLoader(
     injectPrefetchLinks(headAst, cfg);
   }
   injectImportMapPolyfills(documentAst, headAst, cfg);
-  injectLoaderScript(bodyAst, polyfillsLoader);
+  injectLoaderScript(bodyAst, polyfillsLoader, cfg);
 
   return {
     htmlString: serialize(documentAst),

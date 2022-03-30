@@ -16,6 +16,7 @@ describe('createPolyfillsLoaderConfig()', () => {
       legacy: undefined,
       modern: { files: [{ path: 'app.js', type: 'module', attributes: [] }] },
       polyfills: undefined,
+      externalLoaderScript: undefined,
     });
   });
 
@@ -41,6 +42,7 @@ describe('createPolyfillsLoaderConfig()', () => {
         ],
       },
       polyfills: undefined,
+      externalLoaderScript: undefined,
     });
   });
 
@@ -61,6 +63,7 @@ describe('createPolyfillsLoaderConfig()', () => {
       legacy: undefined,
       modern: { files: [{ path: 'app.js', type: 'systemjs', attributes: [] }] },
       polyfills: undefined,
+      externalLoaderScript: undefined,
     });
   });
 
@@ -92,6 +95,7 @@ describe('createPolyfillsLoaderConfig()', () => {
         },
       ],
       polyfills: undefined,
+      externalLoaderScript: undefined,
     });
   });
 
@@ -134,6 +138,7 @@ describe('createPolyfillsLoaderConfig()', () => {
         },
       ],
       polyfills: undefined,
+      externalLoaderScript: undefined,
     });
   });
 
@@ -169,6 +174,7 @@ describe('createPolyfillsLoaderConfig()', () => {
         },
       ],
       polyfills: undefined,
+      externalLoaderScript: undefined,
     });
   });
 
@@ -188,6 +194,7 @@ describe('createPolyfillsLoaderConfig()', () => {
       legacy: undefined,
       modern: { files: [{ path: 'app.js', type: 'module', attributes: [] }] },
       polyfills: { fetch: true, webcomponents: true },
+      externalLoaderScript: undefined,
     });
   });
 

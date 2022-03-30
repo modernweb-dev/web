@@ -37,7 +37,7 @@ async function testSnapshot({ name, fileName, inputOptions, outputOptions }: Sna
 
   const file = getAsset(output, fileName);
   if (!file) throw new Error(`Build did not output ${fileName}`);
-
+console.log(output)
   if (updateSnapshots) {
     fs.writeFileSync(snapshotPath, file.source, 'utf-8');
   } else {
@@ -380,6 +380,29 @@ describe('rollup-plugin-polyfills-loader', function describe() {
 
     await testSnapshot({
       name: 'no-polyfills-retain-attributes',
+      fileName: 'index.html',
+      inputOptions,
+      outputOptions: defaultOutputOptions,
+    });
+  });
+
+  it.only('can inject a polyfills loader as an external script', async () => {
+    const inputOptions: RollupOptions = {
+      plugins: [
+        html({
+          input: {
+            html: `<script type="module" src="${relativeUrl}/fixtures/entrypoint-a.js"></script>`,
+          },
+        }),
+        polyfillsLoader({
+          polyfills: { hash: false, fetch: true },
+          externalLoaderScript: true,
+        }),
+      ],
+    };
+
+    await testSnapshot({
+      name: 'external-script',
       fileName: 'index.html',
       inputOptions,
       outputOptions: defaultOutputOptions,

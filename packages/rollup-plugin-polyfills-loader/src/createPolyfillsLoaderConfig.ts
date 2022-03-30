@@ -86,5 +86,5 @@ export function createPolyfillsLoaderConfig(
     }
   }
 
-  return { modern, legacy, polyfills };
+  return { modern, legacy, polyfills, externalLoaderScript: pluginOptions.externalLoaderScript };
 }

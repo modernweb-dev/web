@@ -22,6 +22,8 @@ export interface PolyfillsLoaderConfig {
   // whether to preload the modern entrypoint, best for performance
   // defaults to true
   preload?: boolean;
+  // whether to inject the loader as an external script instead of inline
+  externalLoaderScript?: boolean;
 }
 
 export interface PolyfillsConfig {
