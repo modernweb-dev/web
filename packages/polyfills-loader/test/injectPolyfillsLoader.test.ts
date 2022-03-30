@@ -246,7 +246,7 @@ describe('injectPolyfillsLoader', () => {
         fetch: true,
         intersectionObserver: true,
       },
-      externalScript: true,
+      externalLoaderScript: true,
     });
   });
 });
