@@ -12,7 +12,7 @@ import {
   Element,
 } from '@web/parse5-utils';
 
-import { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile, PolyfillFile } from './types';
+import { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile } from './types';
 import { createPolyfillsLoader } from './createPolyfillsLoader';
 import { hasFileOfType, fileTypes } from './utils';
 
