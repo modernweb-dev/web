@@ -34,7 +34,7 @@ async function startSeleniumServer() {
 
 let seleniumServer: selenium.ChildProcess;
 
-describe('test-runner-webdriver', function testRunnerWebdriver() {
+describe.skip('test-runner-webdriver', function testRunnerWebdriver() {
   this.timeout(50000);
 
   before(async function () {
