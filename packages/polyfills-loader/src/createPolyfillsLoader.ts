@@ -252,5 +252,9 @@ export async function createPolyfillsLoader(
     ({ code } = output);
   }
 
+  if (cfg.externalLoaderScript) {
+    generatedFiles.push({ type:'script', path: 'loader.js', content: code });
+  }
+
   return { code, polyfillFiles: generatedFiles };
 }

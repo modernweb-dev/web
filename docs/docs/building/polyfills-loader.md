@@ -80,6 +80,7 @@ const config = {
     resizeObserver: true,
   },
   minify: true,
+  externalLoaderScript: false,
 };
 ```
 
@@ -313,6 +314,10 @@ const config = {
 ```
 
 </details>
+
+#### externalLoaderScript
+
+When true, creates a separate loader script instead of inlining it into the HTML.
 
 ## Usage
 
