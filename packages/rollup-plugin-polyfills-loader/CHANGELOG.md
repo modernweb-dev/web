@@ -1,5 +1,16 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 1.3.0
+
+### Minor Changes
+
+- 03f1481c: Add option to externalize polyfills loader script
+
+### Patch Changes
+
+- Updated dependencies [03f1481c]
+  - @web/polyfills-loader@1.3.0
+
 ## 1.2.0
 
 ### Minor Changes
