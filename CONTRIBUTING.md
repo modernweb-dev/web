@@ -45,7 +45,7 @@ Commits are linted using precommit hooks, meaning that any code that raises a li
 
 ### Running Tests
 
-To run the tests of a package, it's recommended to `cd` into the package directory and then using `yarn test` to run them. This way you're only running tests of that specific package.
+To run the tests of a package, it's recommended to `cd` into the package directory and then using `yarn test` to run them. This way you're only running tests of that specific package. The project needs to have been built at least once with `yarn build` for the tests to run.
 
 ### Adding New Packages
 
