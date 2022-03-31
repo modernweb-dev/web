@@ -46,7 +46,7 @@ describe('sendMousePlugin', function test() {
       }
     });
 
-    it('can send mouse on webdriver', async () => {
+    it.skip('can send mouse on webdriver', async () => {
       await runTests({
         files: [path.join(__dirname, 'browser-test.js')],
         concurrency: 1,
