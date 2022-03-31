@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 1.3.0
+
+### Minor Changes
+
+- 03f1481c: Add option to externalize polyfills loader script
+
 ## 1.2.2
 
 ### Patch Changes
