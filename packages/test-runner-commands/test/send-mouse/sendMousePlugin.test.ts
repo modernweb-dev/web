@@ -46,7 +46,11 @@ describe('sendMousePlugin', function test() {
       }
     });
 
-    it('can send mouse on webdriver', async () => {
+  /**
+   * TODO: Test is skipped because webdriver requires Chrome v100 which is not available in
+   * CI. Unskip later when it is supported.
+   */
+    it.skip('can send mouse on webdriver', async () => {
       await runTests({
         files: [path.join(__dirname, 'browser-test.js')],
         concurrency: 1,
