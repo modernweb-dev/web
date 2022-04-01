@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.3.0
+
+### Minor Changes
+
+- c1946b04: Relax `esbuild` semver dependency from `^0.12.21` to `^0.12 || ^0.13 || ^0.14`.
+
 ## 0.2.16
 
 ### Patch Changes
