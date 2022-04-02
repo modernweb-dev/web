@@ -121,12 +121,12 @@ describe('extractModules()', () => {
 
     expect(inlineModules).to.eql([
       {
-        importPath: '/inline-module-a4e60958bc83128660775c2820e18b97.js',
+        importPath: '/inline-module-cce79ce714e2c3b250afef32e61fb003.js',
         code: '/* my module 1 */',
         attributes: [],
       },
       {
-        importPath: '/inline-module-37f6fef1c772a592e6764b98a0d799dd.js',
+        importPath: '/inline-module-d9a0918508784903d131c7c4eb98e424.js',
         code: '/* my module 2 */',
         attributes: [],
       },
@@ -154,12 +154,12 @@ describe('extractModules()', () => {
 
     expect(inlineModules).to.eql([
       {
-        importPath: '/foo/bar/inline-module-a4e60958bc83128660775c2820e18b97.js',
+        importPath: '/foo/bar/inline-module-cce79ce714e2c3b250afef32e61fb003.js',
         code: '/* my module 1 */',
         attributes: [],
       },
       {
-        importPath: '/foo/bar/inline-module-37f6fef1c772a592e6764b98a0d799dd.js',
+        importPath: '/foo/bar/inline-module-d9a0918508784903d131c7c4eb98e424.js',
         code: '/* my module 2 */',
         attributes: [],
       },

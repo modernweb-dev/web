@@ -14,7 +14,7 @@ export interface ExtractModulesParams {
 }
 
 function createContentHash(content: string) {
-  return crypto.createHash('md4').update(content).digest('hex');
+  return crypto.createHash('md5').update(content).digest('hex');
 }
 
 function isAbsolute(src: string) {
