@@ -6,6 +6,7 @@ import {
   DevServerCoreConfig,
   getRequestFilePath,
 } from '@web/dev-server-core';
+import type { TransformOptions } from 'esbuild';
 import { Loader, Message, transform } from 'esbuild';
 import { promisify } from 'util';
 import path from 'path';
@@ -39,6 +40,7 @@ export interface EsbuildConfig {
   jsxFactory?: string;
   jsxFragment?: string;
   define?: { [key: string]: string };
+  tsconfig?: string;
 }
 
 export class EsbuildPlugin implements Plugin {
@@ -164,17 +166,23 @@ export class EsbuildPlugin implements Plugin {
     target: string | string[],
   ): Promise<string> {
     try {
-      const { code: transformedCode, warnings } = await transform(code, {
+
+      const tsconfigRaw = this.esbuildConfig.tsconfig ? await promisify(fs.readFile)(this.esbuildConfig.tsconfig, 'utf8') : undefined;
+
+      const transformOptions: TransformOptions = {
         sourcefile: filePath,
         sourcemap: 'inline',
         loader,
         target,
-        // don't set any format for JS-like formats, otherwise esbuild reformats the code unnecesarily
+        // don't set any format for JS-like formats, otherwise esbuild reformats the code unnecessarily
         format: ['js', 'jsx', 'ts', 'tsx'].includes(loader) ? undefined : 'esm',
         jsxFactory: this.esbuildConfig.jsxFactory,
         jsxFragment: this.esbuildConfig.jsxFragment,
         define: this.esbuildConfig.define,
-      });
+        tsconfigRaw
+      };
+
+      const { code: transformedCode, warnings } = await transform(code, transformOptions);
 
       if (warnings) {
         const relativePath = path.relative(process.cwd(), filePath);
