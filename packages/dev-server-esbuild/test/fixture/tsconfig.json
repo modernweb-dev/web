@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
-    "removeComments": false
+    "target": "es2022",
+    "useDefineForClassFields": true
   }
 }

@@ -245,7 +245,7 @@ class Bar {
   });
 
 
-  it('reads tsconfig.json file', async () => {
+  it.only('reads tsconfig.json file', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.join(__dirname, 'fixture'),
       plugins: [
@@ -265,7 +265,7 @@ class Bar {
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, '// a comment');
+      expectIncludes(text, '__publicField(this, "prop");');
     } finally {
       server.stop();
     }
