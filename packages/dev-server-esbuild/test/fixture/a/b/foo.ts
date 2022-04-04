@@ -1,4 +1,6 @@
-// a comment
+class SomeClass {
+    prop: string
+}
 
 import 'some-lib/some-file.js';
 import '../../x.js';
