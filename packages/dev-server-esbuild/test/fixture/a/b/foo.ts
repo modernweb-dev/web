@@ -1,3 +1,5 @@
+// a comment
+
 import 'some-lib/some-file.js';
 import '../../x.js';
 import '../y.js';

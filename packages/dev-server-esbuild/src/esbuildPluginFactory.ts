@@ -13,6 +13,7 @@ export interface EsBuildPluginArgs {
   jsxFragment?: string;
   loaders?: Record<string, Loader>;
   define?: { [key: string]: string };
+  tsconfig?: string;
 }
 
 export function esbuildPlugin(args: EsBuildPluginArgs = {}): Plugin {
@@ -59,5 +60,6 @@ export function esbuildPlugin(args: EsBuildPluginArgs = {}): Plugin {
     jsxFactory: args.jsxFactory,
     jsxFragment: args.jsxFragment,
     define: args.define,
+    tsconfig: args.tsconfig,
   });
 }
