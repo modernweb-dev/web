@@ -245,7 +245,7 @@ class Bar {
   });
 
 
-  it.only('reads tsconfig.json file', async () => {
+  it('reads tsconfig.json file', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.join(__dirname, 'fixture'),
       plugins: [
