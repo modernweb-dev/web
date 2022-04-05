@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.5.0
+
+### Minor Changes
+
+- 11074fee: Allow custom logic for finding stories
+
 ## 0.4.3
 
 ### Patch Changes
