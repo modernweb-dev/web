@@ -1,6 +1,6 @@
 (function () {
   function polyfillsLoader() {
-    function loadScript(src, type, attributes = []) {
+    function loadScript(src, type, attributes) {
       return new Promise(function (resolve) {
         var script = document.createElement('script');
 
@@ -14,9 +14,12 @@
 
         script.src = src;
         script.onload = onLoaded;
-        attributes.forEach(att => {
-          script.setAttribute(att.name, att.value);
-        });
+
+        if (attributes) {
+          attributes.forEach(att => {
+            script.setAttribute(att.name, att.value);
+          });
+        }
 
         script.onerror = function () {
           console.error('[polyfills-loader] failed to load: ' + src + ' check the network tab for HTTP status.');
