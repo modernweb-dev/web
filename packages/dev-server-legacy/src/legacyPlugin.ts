@@ -1,5 +1,5 @@
 import { Plugin, Logger, getRequestFilePath, isInlineScriptRequest } from '@web/dev-server-core';
-import { GeneratedFile, PolyfillsConfig } from 'polyfills-loader';
+import { GeneratedFile, PolyfillsConfig } from '@web/polyfills-loader';
 import path from 'path';
 import { isLegacyBrowser } from './isLegacyBrowser';
 import { babelTransform, es5Config, systemJsConfig } from './babelTransform';
