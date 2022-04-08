@@ -8,7 +8,7 @@ import {
   getScriptFileType,
   GeneratedFile,
   File,
-} from 'polyfills-loader';
+} from '@web/polyfills-loader';
 import { PARAM_TRANSFORM_SYSTEMJS } from './constants';
 import { findJsScripts } from './findJsScripts';
 
@@ -92,7 +92,7 @@ export async function injectPolyfillsLoader(
     remove(scriptNode);
   }
 
-  const result = originalInjectPolyfillsLoader(serialize(documentAst), polyfillsLoaderConfig);
+  const result = await originalInjectPolyfillsLoader(serialize(documentAst), polyfillsLoaderConfig);
 
   return {
     htmlPath: context.url,

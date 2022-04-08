@@ -97,7 +97,7 @@ describe('legacyPlugin - transform html', function () {
     const text = await fetchText(`${host}/index.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text, "loadScript('./bar.js');");
+    expectIncludes(text, "loadScript('./bar.js'");
     expectIncludes(text, "System.import('./foo.js?systemjs=true');");
     server.stop();
   });
@@ -121,7 +121,7 @@ describe('legacyPlugin - transform html', function () {
     const text = await fetchText(`${host}/index.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text, "loadScript('./inline-script-0.js?source=%2Findex.html');");
+    expectIncludes(text, "loadScript('./inline-script-0.js?source=%2Findex.html'");
     expectIncludes(
       text,
       "System.import('./inline-script-1.js?source=%2Findex.html&systemjs=true');",
