@@ -48,7 +48,7 @@ export class WebSocketsManager extends EventEmitter<Events> {
     });
 
     server.on('upgrade', (request, socket, head) => {
-      if (request.url.match(this.webSocketServer.options.path)) {
+      if (request.url === this.webSocketServer.options.path) {
         this.webSocketServer.handleUpgrade(request, socket, head, ws => {
           this.webSocketServer.emit('connection', ws, request);
         });
