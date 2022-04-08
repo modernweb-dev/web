@@ -24,6 +24,7 @@
     "node": ">=10.0.0"
   },
   "scripts": {
+    "start": "wds --open --config demo/server.config.mjs",
     "build": "tsc",
     "test": "mocha \"test/**/*.test.ts\" --require ts-node/register",
     "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
