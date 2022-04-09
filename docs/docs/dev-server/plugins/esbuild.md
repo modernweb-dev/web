@@ -45,6 +45,7 @@ type Loader =
 
 interface EsbuildPluginArgs {
   target?: string | string[];
+  js?: boolean;
   ts?: boolean;
   json?: boolean;
   jsx?: boolean;
@@ -52,8 +53,8 @@ interface EsbuildPluginArgs {
   jsxFactory?: string;
   jsxFragment?: string;
   loaders?: Record<string, Loader>;
-  strict?: boolean | Strict[];
   define?: { [key: string]: string };
+  tsconfig?: string;
 }
 ```
 
@@ -122,6 +123,14 @@ Transform all .ts files to javascript:
 
 ```js
 esbuildPlugin({ ts: true });
+```
+
+Transform all .ts files to javascript using settings from tsconfig.json. (The `tsconfig.json` file is not read by default.)
+
+```js
+import { fileURLToPath } from 'url';
+
+esbuildPlugin({ ts: true, tsconfig: fileURLToPath(new URL('./tsconfig.json', import.meta.url)) });
 ```
 
 **JSX:**
