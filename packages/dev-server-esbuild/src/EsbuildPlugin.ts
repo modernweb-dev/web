@@ -48,15 +48,20 @@ export class EsbuildPlugin implements Plugin {
   private esbuildConfig: EsbuildConfig;
   private logger?: Logger;
   private transformedHtmlFiles: string[] = [];
+  private tsconfigRaw?: string;
   name = 'esbuild';
 
   constructor(esbuildConfig: EsbuildConfig) {
     this.esbuildConfig = esbuildConfig;
   }
 
+
   async serverStart({ config, logger }: { config: DevServerCoreConfig; logger: Logger }) {
     this.config = config;
     this.logger = logger;
+    if (this.esbuildConfig.tsconfig) {
+      this.tsconfigRaw = await promisify(fs.readFile)(this.esbuildConfig.tsconfig, 'utf8');
+    }
   }
 
   resolveMimeType(context: Context) {
@@ -167,7 +172,6 @@ export class EsbuildPlugin implements Plugin {
   ): Promise<string> {
     try {
 
-      const tsconfigRaw = this.esbuildConfig.tsconfig ? await promisify(fs.readFile)(this.esbuildConfig.tsconfig, 'utf8') : undefined;
 
       const transformOptions: TransformOptions = {
         sourcefile: filePath,
@@ -179,7 +183,7 @@ export class EsbuildPlugin implements Plugin {
         jsxFactory: this.esbuildConfig.jsxFactory,
         jsxFragment: this.esbuildConfig.jsxFragment,
         define: this.esbuildConfig.define,
-        tsconfigRaw
+        tsconfigRaw: this.tsconfigRaw
       };
 
       const { code: transformedCode, warnings } = await transform(code, transformOptions);
