@@ -130,7 +130,10 @@ Transform all .ts files to javascript using settings from tsconfig.json. (The `t
 ```js
 import { fileURLToPath } from 'url';
 
-esbuildPlugin({ ts: true, tsconfig: fileURLToPath(new URL('./tsconfig.json', import.meta.url)) });
+esbuildPlugin({
+  ts: true,
+  tsconfig: fileURLToPath(new URL('./tsconfig.json', import.meta.url)),
+});
 ```
 
 **JSX:**
