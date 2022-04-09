@@ -1,6 +1,6 @@
 import { LitElement, customElement, property, html } from 'lit-element';
 
-@customElement('my-app'
+@customElement('my-app')
 class MyApp extends LitElement {
   @property({ type: String })
   foo = 'bar';
