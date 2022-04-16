@@ -24,8 +24,8 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "wds --open --config demo/server.config.mjs",
     "build": "tsc",
+    "start": "wds --open --config demo/server.config.mjs",
     "test": "mocha \"test/**/*.test.ts\" --require ts-node/register",
     "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
   },
@@ -59,11 +59,11 @@
     "@babel/plugin-transform-template-literals": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
     "@web/dev-server-core": "^0.3.0",
+    "@web/polyfills-loader": "^1.3.1",
     "browserslist": "^4.16.0",
     "browserslist-useragent": "^3.0.3",
     "caniuse-api": "^3.0.0",
     "parse5": "^6.0.1",
-    "@web/polyfills-loader": "^1.3.1",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
