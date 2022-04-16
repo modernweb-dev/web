@@ -1,5 +1,18 @@
 # @web/dev-server-legacy
 
+## 1.0.0
+
+### Major Changes
+
+- 9b0b7a91: Migrate to @web/polyfills-loader
+
+### Patch Changes
+
+- Updated dependencies [16f33e3e]
+- Updated dependencies [283c9258]
+- Updated dependencies [642d5253]
+  - @web/polyfills-loader@1.3.2
+
 ## 0.1.7
 
 ### Patch Changes
