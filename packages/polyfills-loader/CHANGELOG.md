@@ -1,5 +1,13 @@
 # @web/polyfills-loader
 
+## 1.3.2
+
+### Patch Changes
+
+- 16f33e3e: make polyfills loader work on IE11
+- 283c9258: add missing dependency
+- 642d5253: add missing dependency
+
 ## 1.3.1
 
 ### Patch Changes

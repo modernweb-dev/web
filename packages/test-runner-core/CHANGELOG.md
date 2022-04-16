@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.10.26
+
+### Patch Changes
+
+- 336dc2ba: Check isTTY to prevent node from crashing/exiting early
+
 ## 0.10.25
 
 ### Patch Changes
