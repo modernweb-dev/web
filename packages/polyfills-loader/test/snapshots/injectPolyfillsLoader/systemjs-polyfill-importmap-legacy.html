@@ -21,7 +21,7 @@
       script.onload = onLoaded;
 
       if (attributes) {
-        attributes.forEach(att => {
+        attributes.forEach(function (attr) {
           script.setAttribute(att.name, att.value);
         });
       }
