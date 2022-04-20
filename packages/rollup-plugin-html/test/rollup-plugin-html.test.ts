@@ -185,7 +185,7 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
     expect(output.length).to.equal(2);
-    const hash = 'bf016076950b58c1217681e496e92301';
+    const hash = '5ec680a4efbb48ae254268ab1defe610';
     const { code: appCode } = getChunk(output, `inline-module-${hash}.js`);
     expect(appCode).to.include("console.log('entrypoint-a.js');");
     expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
@@ -207,7 +207,7 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
     expect(output.length).to.equal(2);
-    const { code: appCode } = getChunk(output, 'inline-module-a800438e15e36f4770e49fdc32705dd4.js');
+    const { code: appCode } = getChunk(output, 'inline-module-1b13383486c70d87f4e2585ff87b147c.js');
     expect(appCode).to.include("console.log('foo');");
   });
 
@@ -462,17 +462,17 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
     expect(output.length).to.equal(6);
-    expect(getChunk(output, 'inline-module-a1a4b6a2df76d79f9792d53eef2180a9.js')).to.exist;
-    expect(getChunk(output, 'inline-module-de5be8b582edb0591f9b43d8367d2763.js')).to.exist;
-    expect(getChunk(output, 'inline-module-7449e02a4386f3b7ce9e0671ad3e9b1e.js')).to.exist;
+    expect(getChunk(output, 'inline-module-b8667c926d8a16ee8b4499492c1726ed.js')).to.exist;
+    expect(getChunk(output, 'inline-module-c91911481b66e7483731d4de5df616a6.js')).to.exist;
+    expect(getChunk(output, 'inline-module-fbf0242ebea027b7392472c19328791d.js')).to.exist;
     expect(getAsset(output, 'foo/index.html').source).to.equal(
-      '<html><head></head><body><h1>Page A</h1><script type="module" src="../inline-module-a1a4b6a2df76d79f9792d53eef2180a9.js"></script></body></html>',
+      '<html><head></head><body><h1>Page A</h1><script type="module" src="../inline-module-b8667c926d8a16ee8b4499492c1726ed.js"></script></body></html>',
     );
     expect(getAsset(output, 'bar/index.html').source).to.equal(
-      '<html><head></head><body><h1>Page B</h1><script type="module" src="../inline-module-de5be8b582edb0591f9b43d8367d2763.js"></script></body></html>',
+      '<html><head></head><body><h1>Page B</h1><script type="module" src="../inline-module-c91911481b66e7483731d4de5df616a6.js"></script></body></html>',
     );
     expect(getAsset(output, 'x.html').source).to.equal(
-      '<html><head></head><body><h1>Page C</h1><script type="module" src="./inline-module-7449e02a4386f3b7ce9e0671ad3e9b1e.js"></script></body></html>',
+      '<html><head></head><body><h1>Page C</h1><script type="module" src="./inline-module-fbf0242ebea027b7392472c19328791d.js"></script></body></html>',
     );
   });
 
@@ -501,15 +501,15 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
     expect(output.length).to.equal(4);
-    expect(getChunk(output, 'inline-module-a1a4b6a2df76d79f9792d53eef2180a9.js')).to.exist;
+    expect(getChunk(output, 'inline-module-b8667c926d8a16ee8b4499492c1726ed.js')).to.exist;
     expect(getAsset(output, 'a.html').source).to.equal(
-      '<html><head></head><body><h1>Page A</h1><script type="module" src="./inline-module-a1a4b6a2df76d79f9792d53eef2180a9.js"></script></body></html>',
+      '<html><head></head><body><h1>Page A</h1><script type="module" src="./inline-module-b8667c926d8a16ee8b4499492c1726ed.js"></script></body></html>',
     );
     expect(getAsset(output, 'b.html').source).to.equal(
-      '<html><head></head><body><h1>Page B</h1><script type="module" src="./inline-module-a1a4b6a2df76d79f9792d53eef2180a9.js"></script></body></html>',
+      '<html><head></head><body><h1>Page B</h1><script type="module" src="./inline-module-b8667c926d8a16ee8b4499492c1726ed.js"></script></body></html>',
     );
     expect(getAsset(output, 'c.html').source).to.equal(
-      '<html><head></head><body><h1>Page C</h1><script type="module" src="./inline-module-a1a4b6a2df76d79f9792d53eef2180a9.js"></script></body></html>',
+      '<html><head></head><body><h1>Page C</h1><script type="module" src="./inline-module-b8667c926d8a16ee8b4499492c1726ed.js"></script></body></html>',
     );
   });
 

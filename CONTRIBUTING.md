@@ -25,6 +25,7 @@ Now that you have cloned the repository, ensure you have [yarn](https://classic.
 
 ```sh
 yarn install
+yarn build
 ```
 
 This will download and install all packages needed.

@@ -58,7 +58,7 @@ describe('basic', () => {
 });
 
 it('can configure the hostname', async () => {
-  const { server, host } = await createTestServer({ hostname: '0.0.0.0' });
+  const { server, host } = await createTestServer({ hostname: 'localhost' });
   const response = await fetch(`${host}/index.html`);
   const responseText = await response.text();
 
