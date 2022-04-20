@@ -30,7 +30,7 @@ const loadScriptFunction = `
       script.src = src;
       script.onload = onLoaded;
       if (attributes) {
-        attributes.forEach(function (attr) {
+        attributes.forEach(function (att) {
           script.setAttribute(att.name, att.value);
         });
       }
