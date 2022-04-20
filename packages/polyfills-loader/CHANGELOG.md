@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 1.3.3
+
+### Patch Changes
+
+- d3492789: Fixed typo in the loadScriptFunction function parameter (attr to att).
+
 ## 1.3.2
 
 ### Patch Changes
