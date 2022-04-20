@@ -55,7 +55,6 @@ export class EsbuildPlugin implements Plugin {
     this.esbuildConfig = esbuildConfig;
   }
 
-
   async serverStart({ config, logger }: { config: DevServerCoreConfig; logger: Logger }) {
     this.config = config;
     this.logger = logger;
@@ -171,8 +170,6 @@ export class EsbuildPlugin implements Plugin {
     target: string | string[],
   ): Promise<string> {
     try {
-
-
       const transformOptions: TransformOptions = {
         sourcefile: filePath,
         sourcemap: 'inline',
@@ -183,7 +180,7 @@ export class EsbuildPlugin implements Plugin {
         jsxFactory: this.esbuildConfig.jsxFactory,
         jsxFragment: this.esbuildConfig.jsxFragment,
         define: this.esbuildConfig.define,
-        tsconfigRaw: this.tsconfigRaw
+        tsconfigRaw: this.tsconfigRaw,
       };
 
       const { code: transformedCode, warnings } = await transform(code, transformOptions);
