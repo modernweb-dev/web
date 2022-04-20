@@ -30,7 +30,11 @@ describe('sendMousePlugin', function test() {
     });
   });
 
-  describe('webdriver', () => {
+  /**
+   * TODO: Test is skipped because webdriver requires Chrome v100 which is not available in
+   * CI. Unskip later when it is supported.
+   */
+  describe.skip('webdriver', () => {
     let seleniumServer!: selenium.ChildProcess;
 
     before(async () => {
@@ -46,11 +50,7 @@ describe('sendMousePlugin', function test() {
       }
     });
 
-    /**
-     * TODO: Test is skipped because webdriver requires Chrome v100 which is not available in
-     * CI. Unskip later when it is supported.
-     */
-    it.skip('can send mouse on webdriver', async () => {
+    it('can send mouse on webdriver', async () => {
       await runTests({
         files: [path.join(__dirname, 'browser-test.js')],
         concurrency: 1,
