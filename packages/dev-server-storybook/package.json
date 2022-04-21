@@ -39,7 +39,8 @@
     "*.js",
     "*.mjs",
     "dist",
-    "src"
+    "src",
+    "CHANGELOG.md"
   ],
   "keywords": [
     "web",
