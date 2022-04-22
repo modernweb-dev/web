@@ -1,5 +1,13 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 1.3.1
+
+### Patch Changes
+
+- e9508a24: fix: support node 17 & 18 by using md5 hashing
+- Updated dependencies [e9508a24]
+  - @web/polyfills-loader@1.3.4
+
 ## 1.3.0
 
 ### Minor Changes
