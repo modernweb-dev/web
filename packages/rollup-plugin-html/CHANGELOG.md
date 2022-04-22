@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 1.10.3
+
+### Patch Changes
+
+- e9508a24: fix: support node 17 & 18 by using md5 hashing
+
 ## 1.10.2
 
 ### Patch Changes
