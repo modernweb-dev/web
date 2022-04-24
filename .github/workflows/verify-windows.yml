@@ -22,9 +22,6 @@ jobs:
           node-version: '16'
           cache: 'yarn'
 
-      - name: Install Playwright dependencies
-        run: npx playwright install-deps
-
       - name: Install dependencies
         run: yarn --frozen-lockfile
 

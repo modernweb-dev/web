@@ -157,7 +157,7 @@ exports.default = _default;`;
     }
   });
 
-  it('passes the in-browser tests', async function () {
+  it.only('passes the in-browser tests', async function () {
     this.timeout(20000);
 
     await runTests({

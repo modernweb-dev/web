@@ -15,28 +15,36 @@ const { expect } = window.chai;
 
 describe('commonjs', () => {
   it('can handle default export', () => {
+    console.log({ defaultFoo });
     expect(defaultFoo).to.equal('foo');
   });
 
   it('can handle named exports', () => {
+    console.log({ namedFoo });
+    console.log({ namedBar });
     expect(namedFoo).to.equal('foo');
     expect(namedBar).to.equal('bar');
   });
 
   it('can handle compiled es modules with named exports', () => {
+    console.log({ compiledEsm });
     expect(compiledEsm.compiledEsmFoo).to.equal('foo');
     expect(compiledEsm.compiledEsmBar).to.equal('bar');
   });
 
   it('can handle compiled es modules with a default export', () => {
+    console.log({ compiledEsmDefault });
     expect(compiledEsmDefault).to.equal('bar');
   });
 
   it('can handle require default', () => {
+    console.log({ requiredDefault });
     expect(requiredDefault).to.equal('foo');
   });
 
   it('can handle require named', () => {
+    console.log({ requiredNamedFoo });
+    console.log({ requiredNamedBar });
     expect(requiredNamedFoo).to.equal('foo');
     expect(requiredNamedBar).to.equal('bar');
   });
