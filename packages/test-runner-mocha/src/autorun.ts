@@ -20,6 +20,7 @@ const baseURI = (base || window.location).href;
   const { testFile, debug, testFrameworkConfig } = await getConfig();
   setupMocha(debug, testFrameworkConfig);
 
+  console.log({ testFile, baseURI });
   await import(new URL(testFile, baseURI).href).catch(error => {
     console.error(error);
     errors.push({

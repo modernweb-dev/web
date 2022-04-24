@@ -48,6 +48,7 @@ export async function runTests(
 ): Promise<{ runner: TestRunner; sessions: TestSession[] }> {
   return new Promise(async (resolve, reject) => {
     const port = await getPortPromise({ port: 9000 + Math.floor(Math.random() * 1000) });
+    console.log({ port });
     const finalConfig = {
       port,
       ...defaultBaseConfig,
