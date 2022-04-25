@@ -112,6 +112,23 @@ describe('@rollup/plugin-node-resolve', () => {
     }
   });
 
+  it('node modules resolved outside root directory with matching basename via symlink are rewritten', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir'),
+      plugins: [nodeResolve()],
+    });
+
+    try {
+      const responseText = await fetchText(`${host}/src/app.js`);
+      expectIncludes(
+        responseText,
+        "import moduleB from '/__wds-outside-root__/1/resolve-outside-dir-foo/index.js'",
+      );
+    } finally {
+      server.stop();
+    }
+  });
+
   it('node modules resolved outside root directory are rewritten', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),

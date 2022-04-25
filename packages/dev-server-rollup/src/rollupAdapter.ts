@@ -214,7 +214,12 @@ export function rollupAdapter(
         }
 
         const normalizedPath = path.normalize(resolvedImportPath);
-        if (!normalizedPath.startsWith(rootDir)) {
+
+        // append a path separator to rootDir so we are actually testing containment
+        // of the normalized path within the rootDir folder
+        const checkRootDir = rootDir.endsWith(path.sep) ? rootDir : rootDir + path.sep;
+
+        if (!normalizedPath.startsWith(checkRootDir)) {
           const relativePath = path.relative(rootDir, normalizedPath);
           const dirUp = `..${path.sep}`;
           const lastDirUpIndex = relativePath.lastIndexOf(dirUp) + 3;
