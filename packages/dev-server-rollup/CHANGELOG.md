@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.3.16
+
+### Patch Changes
+
+- e10b680d: Support node entry points (export map) containing stars.
+
 ## 0.3.15
 
 ### Patch Changes
