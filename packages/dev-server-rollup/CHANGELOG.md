@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.3.17
+
+### Patch Changes
+
+- 7156b231: Fixed a bug causing packages with common root names to not resolve in monorepos as outside the root dir.
+
 ## 0.3.16
 
 ### Patch Changes
