@@ -332,6 +332,10 @@ The `serverStart` hook is called when the server starts. It is the ideal locatio
 Accessing the serverStart parameters:
 
 ```js
+import _glob from 'glob';
+import { promisify } from 'util';
+const glob = promisify(_glob);
+  
 function myFancyPlugin() {
   let rootDir;
 
@@ -347,8 +351,14 @@ function myFancyPlugin() {
         return next();
       });
 
-      // register a file to be watched
-      fileWatcher.add('/foo.md');
+      // register a single file to be watched
+      fileWatcher.add('/README.md');
+  
+      // register multiple files to be watched
+      const files = await glob('{elements}/**/*.{ts,css,html}', { cwd: process.cwd() });
+      for (const file of files) {
+        fileWatcher.add(file);
+      }
     },
   };
 }
