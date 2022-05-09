@@ -50,6 +50,9 @@ export async function v8ToIstanbul(
     if (
       // ignore non-http protocols (for exmaple webpack://)
       url.protocol.startsWith('http') &&
+      // ignore external urls
+      url.hostname === config.hostname &&
+      url.port === `${config.port}` &&
       // ignore non-files
       !!extname(path) &&
       // ignore virtual files
