@@ -20,8 +20,8 @@ import { esbuildPlugin, nodeResolvePlugin } from '@web/dev-server';
 import { TestRunnerStartError } from '../TestRunnerStartError';
 import { collectGroupConfigs } from './collectGroupConfigs';
 import { playwrightLauncher, puppeteerLauncher } from './loadLauncher';
-import { defaultReporter } from '../reporter/defaultReporter';
-import { TestRunnerLogger } from '../logger/TestRunnerLogger';
+import { defaultReporter } from '@web/test-runner-reporters';
+import { TestRunnerLogger } from '@web/test-runner-logger';
 
 const secondMs = 1000;
 const minuteMs = secondMs * 60;
