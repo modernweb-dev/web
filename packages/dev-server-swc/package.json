@@ -1,0 +1,65 @@
+{
+  "name": "@web/dev-server-swc",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Plugin for using SWC in @web/dev-server",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/dev-server-swc"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server-swc",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start:demo:jsx": "es-dev-server --config demo/jsx/server.config.js",
+    "start:demo:ts": "es-dev-server --config demo/ts/server.config.js",
+    "test": "mocha \"test/**/*.test.ts\" --require ts-node/register",
+    "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
+  },
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "*.mjs",
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "web",
+    "dev",
+    "server",
+    "test",
+    "runner",
+    "testrunner",
+    "typescript",
+    "jsx",
+    "compile",
+    "transform"
+  ],
+  "dependencies": {
+    "@mdn/browser-compat-data": "^4.0.0",
+    "@web/dev-server-core": "^0.3.17",
+    "parse5": "^6.0.1",
+    "ua-parser-js": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/ua-parser-js": "^0.7.35",
+    "@web/dev-server-rollup": "^0.3.3",
+    "lit-element": "^3.0.0",
+    "node-fetch": "3.0.0-beta.9",
+    "preact": "^10.5.9"
+  }
+}

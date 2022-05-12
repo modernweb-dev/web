@@ -1,0 +1,1 @@
+export { esbuildPlugin } from './esbuildPluginFactory';
