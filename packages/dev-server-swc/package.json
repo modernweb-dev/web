@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Plugin for using SWC in @web/dev-server",
+  "description": "Plugin for using swc in @web/dev-server",
   "license": "MIT",
   "repository": {
     "type": "git",
