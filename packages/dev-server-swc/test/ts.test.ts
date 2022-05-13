@@ -6,9 +6,9 @@ import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-hel
 import { Plugin as RollupPlugin } from 'rollup';
 import { fromRollup } from '@web/dev-server-rollup';
 
-import { esbuildPlugin } from '../src/index';
+import { swcPlugin } from '../src/index';
 
-describe('esbuildPlugin TS', function () {
+describe('swcPlugin TS', function () {
   this.timeout(5000);
 
   it('transforms .ts files', async () => {
@@ -33,7 +33,7 @@ describe('esbuildPlugin TS', function () {
             }
           },
         },
-        esbuildPlugin({ ts: true }),
+        swcPlugin({ ts: true }),
       ],
     });
 
@@ -71,7 +71,7 @@ class Bar {
             }
           },
         },
-        esbuildPlugin({ ts: true }),
+        swcPlugin({ ts: true }),
       ],
     });
 
@@ -84,17 +84,17 @@ class Bar {
         'application/javascript; charset=utf-8',
       );
       expectIncludes(text, '__decorate');
-      expectIncludes(text, 'this.x = "y";');
+      expectIncludes(text, "this.x = 'y';");
       expectIncludes(
         text,
-        `__decorateClass([
-  prop
-], Bar.prototype, "x", 2);`,
+        `__decorate([
+    prop
+], Bar.prototype, "x", void 0);`,
       );
       expectIncludes(
         text,
-        `Bar = __decorateClass([
-  foo
+        `Bar = __decorate([
+    foo
 ], Bar);`,
       );
     } finally {
@@ -109,7 +109,7 @@ class Bar {
         {
           name: 'test',
         },
-        esbuildPlugin({ ts: true }),
+        swcPlugin({ ts: true }),
       ],
     });
 
@@ -121,9 +121,9 @@ class Bar {
       expect(response.headers.get('content-type')).to.equal(
         'application/javascript; charset=utf-8',
       );
-      expectIncludes(text, 'import "../../x.ts";');
-      expectIncludes(text, 'import "../y.ts";');
-      expectIncludes(text, 'import "./z.ts";');
+      expectIncludes(text, "import '../../x.ts';");
+      expectIncludes(text, "import '../y.ts';");
+      expectIncludes(text, "import './z.ts';");
     } finally {
       server.stop();
     }
@@ -136,7 +136,7 @@ class Bar {
         {
           name: 'test',
         },
-        esbuildPlugin({ ts: true }),
+        swcPlugin({ ts: true }),
       ],
     });
 
@@ -148,13 +148,13 @@ class Bar {
       expect(response.headers.get('content-type')).to.equal(
         'application/javascript; charset=utf-8',
       );
-      expectIncludes(text, 'import "../../1.js";');
-      expectIncludes(text, 'import "../2.js";');
-      expectIncludes(text, 'import "./3.js";');
+      expectIncludes(text, "import '../../1.js';");
+      expectIncludes(text, "import '../2.js';");
+      expectIncludes(text, "import './3.js';");
 
-      expectIncludes(text, 'import "../../non-existing-a.js";');
-      expectIncludes(text, 'import "../non-existing-b.js";');
-      expectIncludes(text, 'import "./non-existing-c.js";');
+      expectIncludes(text, "import '../../non-existing-a.js';");
+      expectIncludes(text, "import '../non-existing-b.js';");
+      expectIncludes(text, "import './non-existing-c.js';");
     } finally {
       server.stop();
     }
@@ -167,7 +167,7 @@ class Bar {
         {
           name: 'test',
         },
-        esbuildPlugin({}),
+        swcPlugin({}),
       ],
     });
 
@@ -191,7 +191,7 @@ class Bar {
         {
           name: 'test',
         },
-        esbuildPlugin({ ts: true }),
+        swcPlugin({ ts: true }),
       ],
     });
 
@@ -226,7 +226,7 @@ class Bar {
       rootDir: __dirname,
       plugins: [
         fromRollup(() => plugin)(),
-        esbuildPlugin({
+        swcPlugin({
           js: true,
         }),
       ],
@@ -239,32 +239,6 @@ class Bar {
         text,
         'import "/__web-dev-server__/rollup/foo.js?web-dev-server-rollup-null-byte=%00foo.js"',
       );
-    } finally {
-      server.stop();
-    }
-  });
-
-  it('reads tsconfig.json file', async () => {
-    const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixture'),
-      plugins: [
-        {
-          name: 'test',
-        },
-        esbuildPlugin({ ts: true, tsconfig: path.join(__dirname, 'fixture', 'tsconfig.json') }),
-      ],
-    });
-
-    try {
-      const response = await fetch(`${host}/a/b/foo.ts`);
-      const text = await response.text();
-
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
-
-      expectIncludes(text, '__publicField(this, "prop");');
     } finally {
       server.stop();
     }

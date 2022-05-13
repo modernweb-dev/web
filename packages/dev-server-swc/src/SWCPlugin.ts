@@ -6,8 +6,6 @@ import {
   DevServerCoreConfig,
   getRequestFilePath,
 } from '@web/dev-server-core';
-import type { TransformOptions } from 'esbuild';
-import { Loader, Message, transform } from 'esbuild';
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs';
@@ -19,9 +17,9 @@ import {
 } from '@web/dev-server-core/dist/dom5';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 
-import { getEsbuildTarget } from './getEsbuildTarget';
+import { transform, Options, JscTarget, ParserConfig } from '@swc/core';
 
-const filteredWarnings = ['Unsupported source map comment'];
+export type Loader = 'js' | 'jsx' | 'ts' | 'tsx'
 
 async function fileExists(path: string) {
   try {
@@ -32,47 +30,39 @@ async function fileExists(path: string) {
   }
 }
 
-export interface EsbuildConfig {
+export interface SWCConfig {
   loaders: Record<string, Loader>;
-  target: string | string[];
+  target: JscTarget;
   handledExtensions: string[];
   tsFileExtensions: string[];
   jsxFactory?: string;
   jsxFragment?: string;
-  define?: { [key: string]: string };
-  tsconfig?: string;
 }
 
-export class EsbuildPlugin implements Plugin {
+export class SWCPlugin implements Plugin {
   private config?: DevServerCoreConfig;
-  private esbuildConfig: EsbuildConfig;
-  private logger?: Logger;
+  private swcConfig: SWCConfig;
   private transformedHtmlFiles: string[] = [];
-  private tsconfigRaw?: string;
-  name = 'esbuild';
+  name = 'SWC';
 
-  constructor(esbuildConfig: EsbuildConfig) {
-    this.esbuildConfig = esbuildConfig;
+  constructor(swcConfig: SWCConfig) {
+    this.swcConfig = swcConfig;
   }
 
-  async serverStart({ config, logger }: { config: DevServerCoreConfig; logger: Logger }) {
+  async serverStart({ config }: { config: DevServerCoreConfig; logger: Logger }) {
     this.config = config;
-    this.logger = logger;
-    if (this.esbuildConfig.tsconfig) {
-      this.tsconfigRaw = await promisify(fs.readFile)(this.esbuildConfig.tsconfig, 'utf8');
-    }
   }
 
   resolveMimeType(context: Context) {
     const fileExtension = path.posix.extname(context.path);
-    if (this.esbuildConfig.handledExtensions.includes(fileExtension)) {
+    if (this.swcConfig.handledExtensions.includes(fileExtension)) {
       return 'js';
     }
   }
 
   async resolveImport({ source, context }: { source: string; context: Context }) {
     const fileExtension = path.posix.extname(context.path);
-    if (!this.esbuildConfig.tsFileExtensions.includes(fileExtension)) {
+    if (!this.swcConfig.tsFileExtensions.includes(fileExtension)) {
       // only handle typescript files
       return;
     }
@@ -94,12 +84,6 @@ export class EsbuildPlugin implements Plugin {
     return importAsTs;
   }
 
-  transformCacheKey(context: Context) {
-    // the transformed files are cached per esbuild transform target
-    const target = getEsbuildTarget(this.esbuildConfig.target, context.headers['user-agent']);
-    return Array.isArray(target) ? target.join('_') : target;
-  }
-
   async transform(context: Context) {
     let loader: Loader;
 
@@ -108,7 +92,7 @@ export class EsbuildPlugin implements Plugin {
       loader = 'js';
     } else {
       const fileExtension = path.posix.extname(context.path);
-      loader = this.esbuildConfig.loaders[fileExtension];
+      loader = this.swcConfig.loaders[fileExtension];
     }
 
     if (!loader) {
@@ -116,26 +100,19 @@ export class EsbuildPlugin implements Plugin {
       return;
     }
 
-    const target = getEsbuildTarget(this.esbuildConfig.target, context.headers['user-agent']);
-    if (target === 'esnext' && loader === 'js') {
-      // no need run esbuild, this happens when compile target is set to auto and the user is on a modern browser
-      return;
-    }
-
     const filePath = getRequestFilePath(context.url, this.config!.rootDir);
     if (context.response.is('html')) {
       this.transformedHtmlFiles.push(context.path);
-      return this.__transformHtml(context, filePath, loader, target);
+      return this.__transformHtml(context, filePath, loader);
     }
 
-    return this.__transformCode(context.body as string, filePath, loader, target);
+    return this.__transformCode(context.body as string, filePath, loader);
   }
 
   private async __transformHtml(
     context: Context,
     filePath: string,
     loader: Loader,
-    target: string | string[],
   ) {
     const documentAst = parseHtml(context.body as string);
     const inlineScripts = queryAll(
@@ -156,51 +133,68 @@ export class EsbuildPlugin implements Plugin {
 
     for (const node of inlineScripts) {
       const code = getTextContent(node);
-      const transformedCode = await this.__transformCode(code, filePath, loader, target);
+      const transformedCode = await this.__transformCode(code, filePath, loader);
       setTextContent(node, transformedCode);
     }
 
     return serializeHtml(documentAst);
   }
 
+  private __getConfig(loader: Loader): Options {
+    const typeScriptParser: ParserConfig = { syntax: 'typescript' };
+    const ecmaScriptParser: ParserConfig = { syntax: 'ecmascript' };
+
+    let parser: ParserConfig = ecmaScriptParser;
+
+    switch (loader) {
+      case 'jsx':
+        parser = ecmaScriptParser;
+        parser.jsx = true
+        break;
+      case 'ts':
+        parser = typeScriptParser;
+        parser.decorators = true
+        break;
+      case 'tsx':
+        parser = typeScriptParser;
+        parser.tsx = true;
+        break;
+    }
+
+    const transformOptions: Options = {
+      sourceMaps: 'inline',
+      jsc: {
+        parser,
+        transform: {
+          react: {
+            pragma: this.swcConfig.jsxFactory, // || 'React.createElement',
+            pragmaFrag: this.swcConfig.jsxFragment, // 'React.Fragment',
+          },
+        },
+        target: this.swcConfig.target,
+        loose: false,
+        externalHelpers: false,
+        // Requires v1.2.50 or upper and requires target to be es2016 or upper.
+        keepClassNames: false,
+      },
+    };
+    return transformOptions;
+  }
+
   private async __transformCode(
     code: string,
     filePath: string,
-    loader: Loader,
-    target: string | string[],
+    loader: Loader
   ): Promise<string> {
     try {
-      const transformOptions: TransformOptions = {
-        sourcefile: filePath,
-        sourcemap: 'inline',
-        loader,
-        target,
-        // don't set any format for JS-like formats, otherwise esbuild reformats the code unnecessarily
-        format: ['js', 'jsx', 'ts', 'tsx'].includes(loader) ? undefined : 'esm',
-        jsxFactory: this.esbuildConfig.jsxFactory,
-        jsxFragment: this.esbuildConfig.jsxFragment,
-        define: this.esbuildConfig.define,
-        tsconfigRaw: this.tsconfigRaw,
-      };
-
-      const { code: transformedCode, warnings } = await transform(code, transformOptions);
-
-      if (warnings) {
-        const relativePath = path.relative(process.cwd(), filePath);
-
-        for (const warning of warnings) {
-          if (!filteredWarnings.some(w => warning.text.includes(w))) {
-            this.logger!.warn(
-              `[@web/test-runner-esbuild] Warning while transforming ${relativePath}: ${warning.text}`,
-            );
-          }
-        }
-      }
+      const transformOptions = this.__getConfig(loader);
+      transformOptions.filename = filePath;
+      const { code: transformedCode } = await transform(code, transformOptions);
 
       return transformedCode;
     } catch (e) {
       if (Array.isArray(e.errors)) {
-        const msg = e.errors[0] as Message;
+        const msg = e.errors[0];
 
         if (msg.location) {
           throw new PluginSyntaxError(

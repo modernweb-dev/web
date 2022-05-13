@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index';
+import { swcPlugin } from '../src/index';
 
-describe('esbuildPlugin JSX', function () {
+describe('swcPlugin JSX', function () {
   it('transforms .jsx files', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
@@ -21,7 +21,7 @@ export function foo(bar) {
             }
           },
         },
-        esbuildPlugin({ jsx: true }),
+        swcPlugin({ jsx: true }),
       ],
     });
 
@@ -58,7 +58,7 @@ export function foo(bar) {
             }
           },
         },
-        esbuildPlugin({ jsx: true, jsxFactory: 'h', jsxFragment: 'Fragment' }),
+        swcPlugin({ jsx: true, jsxFactory: 'h', jsxFragment: 'Fragment' }),
       ],
     });
 

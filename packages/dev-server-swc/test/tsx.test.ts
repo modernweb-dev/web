@@ -3,9 +3,9 @@ import fetch from 'node-fetch';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index';
+import { swcPlugin } from '../src/index';
 
-describe('esbuildPlugin TSX', function () {
+describe('swcPlugin TSX', function () {
   this.timeout(5000);
 
   it('transforms .tsx files', async () => {
@@ -30,7 +30,7 @@ export function foo (a: number, b: number): Foo {
             }
           },
         },
-        esbuildPlugin({ tsx: true }),
+        swcPlugin({ tsx: true }),
       ],
     });
 
@@ -76,7 +76,7 @@ export function foo (a: number, b: number): Foo {
             }
           },
         },
-        esbuildPlugin({ tsx: true, jsxFactory: 'h', jsxFragment: 'Fragment' }),
+        swcPlugin({ tsx: true, jsxFactory: 'h', jsxFragment: 'Fragment' }),
       ],
     });
 

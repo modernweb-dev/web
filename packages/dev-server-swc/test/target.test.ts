@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index';
+import { swcPlugin } from '../src/index';
 
 const modernJs = `
 class MyClass {
@@ -36,30 +36,30 @@ const syntax = {
   classes: 'class MyClass {',
   classFields: ["static myStaticField = 'foo';", "#myPrivateField = 'bar';", "myField = 'x';"],
   optionalChaining: 'const optionalChaining = window.bar?.foo;',
-  optionalCatch: '} catch {',
+  optionalCatch: '} catch  {',
   objectSpread: ['...foo,', '...bar'],
   asyncFunctions: ['async function myFunction() {', 'await foo;', 'await bar;'],
 };
 
 const transformedSyntax = {
   classFields: [
-    'var __publicField =',
-    '__privateAdd(this, _myPrivateField, "bar");',
-    '__publicField(this, "myField", "x");',
-    '__publicField(MyClass, "myStaticField", "foo");',
+    'function _defineProperty(obj, key, value) {',
+    '_classPrivateFieldInit(this, _myPrivateField, {',
+    `_defineProperty(this, "myField", 'x');`,
+    `_defineProperty(MyClass, "myStaticField", 'foo');`,
   ],
-  optionalChaining: 'const optionalChaining = (_a = window.bar) == null ? void 0 : _a.foo;',
+  optionalChaining: 'const optionalChaining = (ref = window.bar) === null || ref === void 0 ? void 0 : ref.foo;',
   optionalCatch: '} catch (e) {',
-  objectSpread: 'const spread = __spreadValues(__spreadValues({}, foo), bar)',
+  objectSpread: 'const spread = _objectSpread({}, foo, bar);',
   asyncFunctions: [
-    'var __async = (__this, __arguments, generator) => {',
-    'return __async(this, null, function* () {',
+    'function _asyncToGenerator(fn) {',
+    '_myFunction = _asyncToGenerator(function*() {',
     'yield foo;',
     'yield bar;',
   ],
 };
 
-describe('esbuildPlugin target', function () {
+describe('swcPlugin target', function () {
   it('does not transform anything when set to esnext', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
@@ -72,7 +72,7 @@ describe('esbuildPlugin target', function () {
             }
           },
         },
-        esbuildPlugin({ target: 'esnext' }),
+        swcPlugin({ target: 'es2022' }),
       ],
     });
 
@@ -114,7 +114,7 @@ describe('esbuildPlugin target', function () {
             }
           },
         },
-        esbuildPlugin({ js: true, target: 'es2020' }),
+        swcPlugin({ js: true, target: 'es2020' }),
       ],
     });
 
@@ -156,7 +156,7 @@ describe('esbuildPlugin target', function () {
             }
           },
         },
-        esbuildPlugin({ js: true, target: 'es2019' }),
+        swcPlugin({ js: true, target: 'es2019' }),
       ],
     });
 
@@ -198,7 +198,7 @@ describe('esbuildPlugin target', function () {
             }
           },
         },
-        esbuildPlugin({ js: true, target: 'es2018' }),
+        swcPlugin({ js: true, target: 'es2018' }),
       ],
     });
 
@@ -240,7 +240,7 @@ describe('esbuildPlugin target', function () {
             }
           },
         },
-        esbuildPlugin({ js: true, target: 'es2017' }),
+        swcPlugin({ js: true, target: 'es2017' }),
       ],
     });
 
@@ -280,7 +280,7 @@ describe('esbuildPlugin target', function () {
             }
           },
         },
-        esbuildPlugin({ js: true, target: 'es2016' }),
+        swcPlugin({ js: true, target: 'es2016' }),
       ],
     });
 
@@ -324,7 +324,7 @@ describe('esbuildPlugin target', function () {
             }
           },
         },
-        esbuildPlugin({ js: true, target: 'es2016' }),
+        swcPlugin({ js: true, target: 'es2016' }),
       ],
     });
 
@@ -369,7 +369,7 @@ describe('esbuildPlugin target', function () {
             }
           },
         },
-        esbuildPlugin({ js: true, target: 'es2016' }),
+        swcPlugin({ js: true, target: 'es2016' }),
       ],
     });
 
