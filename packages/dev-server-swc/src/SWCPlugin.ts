@@ -19,7 +19,7 @@ import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 
 import { transform, Options, JscTarget, ParserConfig } from '@swc/core';
 
-export type Loader = 'js' | 'jsx' | 'ts' | 'tsx'
+export type Loader = 'js' | 'jsx' | 'ts' | 'tsx';
 
 async function fileExists(path: string) {
   try {
@@ -109,11 +109,7 @@ export class SWCPlugin implements Plugin {
     return this.__transformCode(context.body as string, filePath, loader);
   }
 
-  private async __transformHtml(
-    context: Context,
-    filePath: string,
-    loader: Loader,
-  ) {
+  private async __transformHtml(context: Context, filePath: string, loader: Loader) {
     const documentAst = parseHtml(context.body as string);
     const inlineScripts = queryAll(
       documentAst,
@@ -149,11 +145,11 @@ export class SWCPlugin implements Plugin {
     switch (loader) {
       case 'jsx':
         parser = ecmaScriptParser;
-        parser.jsx = true
+        parser.jsx = true;
         break;
       case 'ts':
         parser = typeScriptParser;
-        parser.decorators = true
+        parser.decorators = true;
         break;
       case 'tsx':
         parser = typeScriptParser;
@@ -181,11 +177,7 @@ export class SWCPlugin implements Plugin {
     return transformOptions;
   }
 
-  private async __transformCode(
-    code: string,
-    filePath: string,
-    loader: Loader
-  ): Promise<string> {
+  private async __transformCode(code: string, filePath: string, loader: Loader): Promise<string> {
     try {
       const transformOptions = this.__getConfig(loader);
       transformOptions.filename = filePath;

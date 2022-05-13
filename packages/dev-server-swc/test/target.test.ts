@@ -48,7 +48,8 @@ const transformedSyntax = {
     `_defineProperty(this, "myField", 'x');`,
     `_defineProperty(MyClass, "myStaticField", 'foo');`,
   ],
-  optionalChaining: 'const optionalChaining = (ref = window.bar) === null || ref === void 0 ? void 0 : ref.foo;',
+  optionalChaining:
+    'const optionalChaining = (ref = window.bar) === null || ref === void 0 ? void 0 : ref.foo;',
   optionalCatch: '} catch (e) {',
   objectSpread: 'const spread = _objectSpread({}, foo, bar);',
   asyncFunctions: [

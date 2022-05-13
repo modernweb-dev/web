@@ -6,8 +6,6 @@ class MyApp extends LitElement {
   foo = 'bar';
 
   render() {
-    return html`
-      <p>Hello world</p>
-    `;
+    return html` <p>Hello world</p> `;
   }
 }

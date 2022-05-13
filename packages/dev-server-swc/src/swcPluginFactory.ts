@@ -1,5 +1,5 @@
 import { Plugin } from '@web/dev-server-core';
-import { JscTarget } from '@swc/core'
+import { JscTarget } from '@swc/core';
 import { Loader, SWCPlugin } from './SWCPlugin';
 
 export interface SWCPluginArgs {
@@ -10,11 +10,11 @@ export interface SWCPluginArgs {
   tsx?: boolean;
   jsxFactory?: string;
   jsxFragment?: string;
-  define?: { [key: string]: string }
+  define?: { [key: string]: string };
 }
 
 export function swcPlugin(args: SWCPluginArgs = {}): Plugin {
-  const target = args.target ?? 'es2022'
+  const target = args.target ?? 'es2022';
   const loaders: Record<string, Loader> = {};
   if (args.ts) {
     loaders['.ts'] = 'ts';
@@ -46,6 +46,6 @@ export function swcPlugin(args: SWCPluginArgs = {}): Plugin {
     handledExtensions,
     tsFileExtensions,
     jsxFactory: args.jsxFactory,
-    jsxFragment: args.jsxFragment
+    jsxFragment: args.jsxFragment,
   });
 }
