@@ -1,9 +1,9 @@
-const { esbuildPlugin } = require('../../dist/esbuildPlugin');
+const { swcPlugin } = require('../../dist/swcPlugin');
 
 module.exports = {
   open: true,
   rootDir: '../..',
   nodeResolve: true,
-  appIndex: 'packages/dev-server-esbuild/demo/jsx/index.html',
-  plugins: [esbuildPlugin({ jsx: true, jsxFactory: 'h', jsxFragment: 'Fragment' })],
+  appIndex: 'packages/dev-server-swc/demo/jsx/index.html',
+  plugins: [swcPlugin({ jsx: true, jsxFactory: 'h', jsxFragment: 'Fragment' })],
 };

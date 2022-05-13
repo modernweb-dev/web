@@ -1,9 +1,9 @@
-const { esbuildPlugin } = require('@web/dev-server-esbuild');
+const { swcPlugin } = require('@web/dev-server-swc');
 
 module.exports = {
   open: true,
   // rootDir: '../..',
   nodeResolve: true,
   appIndex: 'index.html',
-  plugins: [esbuildPlugin({ ts: true })],
+  plugins: [swcPlugin({ ts: true })],
 };

@@ -1,5 +1,5 @@
 {
-  "name": "dev-server-esbuild-demo",
+  "name": "dev-server-swc-demo",
   "version": "1.0.0",
   "license": "ISC",
   "scripts": {
