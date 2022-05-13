@@ -335,7 +335,7 @@ Accessing the serverStart parameters:
 import _glob from 'glob';
 import { promisify } from 'util';
 const glob = promisify(_glob);
-  
+
 function myFancyPlugin() {
   let rootDir;
 
@@ -353,7 +353,7 @@ function myFancyPlugin() {
 
       // register a single file to be watched
       fileWatcher.add('/README.md');
-  
+
       // register multiple files to be watched
       const files = await glob('{elements}/**/*.{ts,css,html}', { cwd: process.cwd() });
       for (const file of files) {
