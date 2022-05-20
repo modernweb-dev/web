@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.13.28
+
+### Patch Changes
+
+- 2b6854cd: Ignore external urls from coverage
+
 ## 0.13.27
 
 ### Patch Changes

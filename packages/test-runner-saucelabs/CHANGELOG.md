@@ -1,5 +1,11 @@
 # @web/test-runner-saucelabs
 
+## 0.8.0
+
+### Minor Changes
+
+- 94291532: Update SauceLabs version to 7.2.0
+
 ## 0.7.3
 
 ### Patch Changes
