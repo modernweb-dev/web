@@ -38,9 +38,9 @@
     "*.d.ts",
     "*.js",
     "*.mjs",
+    "CHANGELOG.md",
     "dist",
-    "src",
-    "CHANGELOG.md"
+    "src"
   ],
   "keywords": [
     "web",
