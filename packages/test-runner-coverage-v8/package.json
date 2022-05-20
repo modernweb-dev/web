@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-coverage-v8",
-  "version": "0.4.8",
+  "version": "0.4.9",
   "publishConfig": {
     "access": "public"
   },
