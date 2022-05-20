@@ -82,7 +82,7 @@
     "@types/lru-cache": "^5.1.0",
     "@types/parse5": "^6.0.1",
     "abort-controller": "^3.0.0",
-    "nanoid": "^3.1.25",
+    "nanoid": "^3.1.31",
     "node-fetch": "3.0.0-beta.9",
     "portfinder": "^1.0.28"
   }

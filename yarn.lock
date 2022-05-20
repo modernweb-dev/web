@@ -1426,9 +1426,9 @@
     unist-util-visit "^2.0.3"
 
 "@mdjs/mdjs-preview@^0.5.3", "@mdjs/mdjs-preview@^0.5.5":
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/@mdjs/mdjs-preview/-/mdjs-preview-0.5.6.tgz#837ac6274f818bfa025cecfb68e5cff8001f3ab3"
-  integrity sha512-PzHxFzKgocnziI1HHe2uMuYzgEcZlEOYS9QD33EekhW4kAo/ZjhGvxkhBXfkZldbXTZDWTPN5fvD8GTgoJmL2A==
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/@mdjs/mdjs-preview/-/mdjs-preview-0.5.7.tgz#06899fe537c302553ac9d1667fc6821765d02804"
+  integrity sha512-nJUAqrYvlmRRN6rgSDlsTzWO3QCVPLCkyUVL/gv+Zl6scqRzgeDCBfwGI4VIGRBlM7CysXp3TLM3E6axi1l+tQ==
   dependencies:
     "@lion/accordion" "^0.7.2"
     "@open-wc/scoped-elements" "^2.0.0"
@@ -9067,10 +9067,15 @@ nanoid@3.1.20:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.20.tgz#badc263c6b1dcf14b71efaa85f6ab4c1d6cfc788"
   integrity sha512-a1cQNyczgKbLX9jwbS/+d7W8fX/RfgYR7lVWwWOGIPNgK2m0MWvrGF6/m4kk6U3QcFMnZf3RIhL0v2Jgh/0Uxw==
 
-nanoid@^3.1.25, nanoid@^3.1.30:
-  version "3.1.30"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.30.tgz#63f93cc548d2a113dc5dfbc63bfa09e2b9b64362"
-  integrity sha512-zJpuPDwOv8D2zq2WRoMe1HsfZthVewpel9CAvTfc/2mBD1uUT/agc5f7GHGWXlYkFvi1mVxe4IjvP2HNrop7nQ==
+nanoid@^3.1.30:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
+  integrity sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==
+
+nanoid@^3.1.31:
+  version "3.1.31"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.31.tgz#f5b58a1ce1b7604da5f0605757840598d8974dc6"
+  integrity sha512-ZivnJm0o9bb13p2Ot5CpgC2rQdzB9Uxm/mFZweqm5eMViqOJe3PV6LU2E30SiLgheesmcPrjquqraoolONSA0A==
 
 napi-build-utils@^1.0.1:
   version "1.0.2"

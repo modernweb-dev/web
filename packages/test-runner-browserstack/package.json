@@ -48,7 +48,7 @@
     "@web/test-runner-webdriver": "^0.5.0",
     "browserstack-local": "^1.4.8",
     "ip": "^1.1.5",
-    "nanoid": "^3.1.25"
+    "nanoid": "^3.1.31"
   },
   "devDependencies": {
     "@types/ip": "^1.1.0",
