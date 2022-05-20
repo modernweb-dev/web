@@ -11331,7 +11331,7 @@ safe-identifier@^0.4.2:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-saucelabs@~7.2.0:
+saucelabs@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/saucelabs/-/saucelabs-7.2.0.tgz#82394a785e4cdc97270d1cd6b71dee9995cdbf91"
   integrity sha512-87NDR3J5aH+mOSO9MY49ukxd2+PpvqYghAA0Vr6CHHw/0yuKtF94henVMdnC1HxpWe9agBizV+Gh9Bi98qzQow==
