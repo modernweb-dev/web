@@ -9,7 +9,7 @@ const defaultConfigDir = path.join(process.cwd(), '.storybook');
 
 function validateMainJs(mainJs: MainJs): MainJs {
   if (typeof mainJs !== 'object') {
-    throw createError('main.js must export an bject');
+    throw createError('main.js must export an object');
   }
   if (mainJs.stories == null) {
     throw createError('Missing stories option in main.js');
