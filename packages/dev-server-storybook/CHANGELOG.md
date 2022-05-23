@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.5.1
+
+### Patch Changes
+
+- 5ca835a2: Error message typo fixed in readStorybookConfig
+
 ## 0.5.0
 
 ### Minor Changes
