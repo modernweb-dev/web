@@ -15,7 +15,10 @@
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-commands",
   "main": "browser/commands.mjs",
   "exports": {
-    ".": "./browser/commands.mjs",
+    ".": {
+      "types": "./browser/commands.d.ts",
+      "default": "./browser/commands.mjs"
+    },
     "./plugins": {
       "import": "./plugins.mjs",
       "require": "./dist/index.js"
