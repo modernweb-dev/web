@@ -207,7 +207,7 @@ export default {
   files: [
     '**/*.spec.ts', // include `.spec.ts` files
     '!**/*.e2e.spec.ts', // exclude `.e2e.spec.ts` files
-    '!**/node_module/**/*', // exclude any node modules
+    '!**/node_modules/**/*', // exclude any node modules
   ],
 };
 ```

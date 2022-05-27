@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-storybook",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "publishConfig": {
     "access": "public"
   },
@@ -38,9 +38,9 @@
     "*.d.ts",
     "*.js",
     "*.mjs",
+    "CHANGELOG.md",
     "dist",
-    "src",
-    "CHANGELOG.md"
+    "src"
   ],
   "keywords": [
     "web",

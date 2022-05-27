@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.13.27",
+  "version": "0.13.28",
   "publishConfig": {
     "access": "public"
   },
@@ -93,7 +93,7 @@
   "devDependencies": {
     "@types/diff": "^5.0.0",
     "@web/dev-server-legacy": "^1.0.0",
-    "@web/test-runner-saucelabs": "^0.7.3",
+    "@web/test-runner-saucelabs": "^0.8.0",
     "babel-plugin-istanbul": "^6.0.0",
     "concurrently": "^6.0.0"
   }
