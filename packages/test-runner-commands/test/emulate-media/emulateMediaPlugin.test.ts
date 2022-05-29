@@ -34,4 +34,15 @@ describe('emulateMediaPlugin', function test() {
       plugins: [emulateMediaPlugin()],
     });
   });
+
+  it('can emulate forced-colors on playwright, except webkit', async () => {
+    await runTests({
+      files: [path.join(__dirname, 'forced-colors-test.js')],
+      browsers: [
+        playwrightLauncher({ product: 'chromium' }),
+        playwrightLauncher({ product: 'firefox' }),
+      ],
+      plugins: [emulateMediaPlugin()],
+    });
+  });
 });
