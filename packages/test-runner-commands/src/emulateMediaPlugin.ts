@@ -6,6 +6,7 @@ export interface Media {
   media?: 'screen' | 'print';
   colorScheme?: 'dark' | 'light' | 'no-preference';
   reducedMotion?: 'reduce' | 'no-preference';
+  forcedColors?: 'active' | 'none';
 }
 
 function isObject(payload: unknown): payload is Record<string, unknown> {

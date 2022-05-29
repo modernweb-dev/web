@@ -26,7 +26,29 @@ export function setViewport(viewport: Viewport): Promise<void>;
  * Emulates browser media, such as screen/print or color scheme, to be used in
  * CSS media queries.
  *
- * The reducedMotion option is a puppeteer-only API.
+ * The `forcedColors` property is Playwright-only API that does not work in WebKit.
+ *
+ * @example
+ * ```ts
+ *    await emulateMedia({
+ *        colorScheme: 'dark',
+ *        reducedMotion: 'reduce',
+ *    });
+ * ```
+ *
+ * @example
+ * ```ts
+ *    await emulateMedia({
+ *        media: 'print',
+ *    });
+ * ```
+ *
+ * @example
+ * ```ts
+ *    await emulateMedia({
+ *        forcedColors: 'active',
+ *    });
+ * ```
  */
 export function emulateMedia(media: Media): Promise<void>;
 

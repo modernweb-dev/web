@@ -49,7 +49,7 @@ describe('my component', () => {
 
 The `emulateMedia` command allows changing browser media queries. The function is async and should be awaited.
 
-`emulateMedia` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`. The `reducedMotion` option is not supported by playwright.
+`emulateMedia` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`. The `forcedColors` option is not supported by puppeteer.
 
 <details>
 <summary>View example</summary>
