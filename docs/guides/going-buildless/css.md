@@ -5,7 +5,7 @@
 import { html } from 'lit-html';
 ```
 
-<abbr>CSS</abbr> stands for "Cascading Style Sheets", and it is the primary way to design web content, whether visually and audially.
+<abbr>CSS</abbr> stands for "Cascading Style Sheets", and it is the primary way to design web content, whether visually or audially.
 
 The purpose of this document isn't to provide a comprehensive tutorial of CSS, or even to cover the basics, but rather to highlight some modern CSS techniques and workflows made possible by web standards. Be sure you are familiar with CSS before continuing. If you are unsure check out MDN's [Learn to style HTML using CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS).
 
