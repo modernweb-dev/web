@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.8.9
+
+### Patch Changes
+
+- 8e3bb3cf: Add "forcedColors" support to "emulateMedia" command
+
 ## 0.8.8
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @web/test-runner
 
+## 0.13.29
+
+### Patch Changes
+
+- 8e3bb3cf: Add "forcedColors" support to "emulateMedia" command
+- Updated dependencies [8e3bb3cf]
+- Updated dependencies [efe42a8f]
+  - @web/test-runner-commands@0.6.2
+
 ## 0.13.28
 
 ### Patch Changes

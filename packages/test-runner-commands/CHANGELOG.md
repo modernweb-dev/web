@@ -1,5 +1,12 @@
 # @web/test-runner-commands
 
+## 0.6.2
+
+### Patch Changes
+
+- 8e3bb3cf: Add "forcedColors" support to "emulateMedia" command
+- efe42a8f: Add explicit types export to work with node16 module resolution (typescript 4.7)
+
 ## 0.6.1
 
 ### Patch Changes
