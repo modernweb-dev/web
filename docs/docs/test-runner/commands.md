@@ -412,12 +412,15 @@ The file commands allow writing, reading and removing files. The specified path 
 import { writeFile, readFile, removeFile } from '@web/test-runner-commands';
 
 it('can use file commands', async () => {
-  await writeFile('test-data/hello-world.txt', 'Hello world!');
+  await writeFile({
+    path: 'test-data/hello-world.txt',
+    content: 'Hello world!',
+  });
 
-  const content = await readFile('test-data/hello-world.txt');
+  const content = await readFile({ path: 'test-data/hello-world.txt' });
   console.log(content); // 'Hello world!'
 
-  await removeFile('test-data/hello-world.txt');
+  await removeFile({ path: 'test-data/hello-world.txt' });
 });
 ```
 
