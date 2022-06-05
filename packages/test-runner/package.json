@@ -21,7 +21,7 @@
   "exports": {
     ".": {
       "import": {
-        "types":"./index.d.ts",
+        "types": "./index.d.ts",
         "default": "./index.mjs"
       },
       "require": {
