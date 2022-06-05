@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.13.29",
+  "version": "0.13.30",
   "publishConfig": {
     "access": "public"
   },

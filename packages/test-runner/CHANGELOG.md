@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.13.30
+
+### Patch Changes
+
+- fff82902: Add types field to package.json exports map
+
 ## 0.13.29
 
 ### Patch Changes
