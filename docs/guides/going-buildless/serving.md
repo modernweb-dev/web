@@ -50,7 +50,7 @@ Likewise, if you were to rename `index.html` to `main.html`, then `https://my-do
 
 ### Files Outside the Web Root
 
-In the above examples, the server used the default web root `/var/www/html`, but we could also have configured it to use `/var/www/html/about`, e.g. by changing into that directory and starting a server from the command line
+In the above examples, the server used the default web root `/var/www/html`, but we could also have configured it to use `/var/www/html/about`, e.g. by changing into that directory and starting a server from the command line:
 
 ```
 cd /var/www/html/about
