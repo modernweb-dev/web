@@ -295,7 +295,7 @@ export function rollupAdapter(
         if (typeof result === 'string') {
           return { body: result, type: 'js' };
         }
-        if (typeof result?.code === 'string') {
+        if (result != null && typeof result?.code === 'string') {
           savePluginMeta(filePath, result);
           return { body: result.code, type: 'js' };
         }
