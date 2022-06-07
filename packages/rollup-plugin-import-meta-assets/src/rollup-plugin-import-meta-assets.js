@@ -90,7 +90,7 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
               });
               magicString.overwrite(
                 node.arguments[0].start,
-                node.arguments[0].end,
+                node.arguments[1].end,
                 `import.meta.ROLLUP_FILE_URL_${ref}`,
               );
               modifiedCode = true;
