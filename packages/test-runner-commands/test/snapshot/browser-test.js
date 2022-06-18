@@ -1,4 +1,9 @@
-import { saveSnapshot, getSnapshot, removeSnapshot } from '../../browser/commands.mjs';
+import {
+  saveSnapshot,
+  getSnapshot,
+  removeSnapshot,
+  compareSnapshot,
+} from '../../browser/commands.mjs';
 import { expect } from '../chai.js';
 
 it('can save, read and remove snapshot a', async () => {
@@ -111,6 +116,21 @@ And this is the content`;
 
     const savedContent = await getSnapshot({ name, cache: false });
     expect(savedContent).to.equal(content);
+  } finally {
+    await removeSnapshot({ name });
+  }
+});
+
+it('can compare an equal snapshot', async () => {
+  const name = 'compare-snapshots-same';
+
+  try {
+    const content = `
+## This is a header
+
+And this is the content`;
+    await saveSnapshot({ name, content });
+    await compareSnapshot({ name, content });
   } finally {
     await removeSnapshot({ name });
   }
