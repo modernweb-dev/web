@@ -211,6 +211,8 @@ export async function compareSnapshot({ name, content }) {
             `New:\n${content}`,
         );
       }
+    } else if (currentSnapshot === content) {
+      return;
     }
   }
   await saveSnapshot({ name, content });
