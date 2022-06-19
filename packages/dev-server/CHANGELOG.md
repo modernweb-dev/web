@@ -1,5 +1,15 @@
 # @web/dev-server
 
+## 0.1.32
+
+### Patch Changes
+
+- 78d610d1: Update Rollup, use moduleSideEffects flag
+- Updated dependencies [78d610d1]
+- Updated dependencies [39610b4c]
+  - @web/dev-server-rollup@0.3.18
+  - @web/dev-server-core@0.3.18
+
 ## 0.1.31
 
 ### Patch Changes
