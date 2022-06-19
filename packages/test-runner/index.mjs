@@ -3,10 +3,10 @@ import cjsEntrypoint from './dist/index.js';
 
 const {
   chromeLauncher,
-  startTestRunner,
   defaultReporter,
   summaryReporter,
   dotReporter,
+  startTestRunner,
   constants,
   TestRunner,
   TestRunnerCli,
@@ -20,10 +20,10 @@ const {
 
 export {
   chromeLauncher,
-  startTestRunner,
   defaultReporter,
   summaryReporter,
   dotReporter,
+  startTestRunner,
   constants,
   TestRunner,
   TestRunnerCli,
