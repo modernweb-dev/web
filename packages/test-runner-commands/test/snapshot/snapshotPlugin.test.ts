@@ -28,4 +28,29 @@ describe('snapshotPlugin', function test() {
       plugins: [snapshotPlugin()],
     });
   });
+
+  it('passes snapshot tests with a user defined snapshot path', async () => {
+    const fileName = (testFile: string) =>
+      path.join(path.dirname(testFile), '__custom-snapshots__', 'custom');
+
+    await runTests({
+      files: [path.join(__dirname, 'browser-test.js')],
+      browsers: [
+        playwrightLauncher({ product: 'firefox' }),
+        playwrightLauncher({ product: 'chromium' }),
+        playwrightLauncher({ product: 'webkit' }),
+      ],
+      plugins: [snapshotPlugin({ fileName })],
+    });
+
+    await runTests({
+      files: [path.join(__dirname, 'src', 'nested-test.js')],
+      browsers: [
+        playwrightLauncher({ product: 'firefox' }),
+        playwrightLauncher({ product: 'chromium' }),
+        playwrightLauncher({ product: 'webkit' }),
+      ],
+      plugins: [snapshotPlugin({ fileName })],
+    });
+  });
 });

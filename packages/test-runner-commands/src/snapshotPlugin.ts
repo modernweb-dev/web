@@ -36,21 +36,27 @@ function isSaveSnapshotPayload(payload: unknown): payload is SaveSnapshotPayload
   return true;
 }
 
-function getSnapshotPath(testFile: string) {
-  const testDir = path.dirname(testFile);
-  const testFileName = path.basename(testFile);
-  const ext = path.extname(testFileName);
-  const fileWithoutExt = testFileName.substring(0, testFileName.length - ext.length);
-  return path.join(testDir, '__snapshots__', `${fileWithoutExt}.snap.js`);
+function getSnapshotPath(testFile: string, config?: SnapshotPluginConfig) {
+  let snapshotFilename: string;
+
+  if (config?.fileName) {
+    snapshotFilename = config.fileName(testFile);
+  } else {
+    const testDir = path.dirname(testFile);
+    const testFileName = path.basename(testFile);
+    const ext = path.extname(testFileName);
+    const fileWithoutExt = testFileName.substring(0, testFileName.length - ext.length);
+    snapshotFilename = path.join(testDir, '__snapshots__', fileWithoutExt);
+  }
+
+  return `${snapshotFilename}.snap.js`;
 }
 
 class SnapshotStore {
   private snapshots = new Map<string, string>();
   private readOperations = new Map<string, { promise: Promise<void>; resolve: () => void }>();
 
-  async get(testFilePath: string): Promise<string> {
-    const snapshotPath = getSnapshotPath(testFilePath);
-
+  async get(testFilePath: string, snapshotPath: string): Promise<string> {
     if (this.readOperations.has(snapshotPath)) {
       // something else is already reading, wait for it
       await this.readOperations.get(snapshotPath)?.promise;
@@ -79,8 +85,12 @@ class SnapshotStore {
     return content;
   }
 
-  async saveSnapshot(testFilePath: string, name: string, updatedSnapshot: string) {
-    const snapshotPath = getSnapshotPath(testFilePath);
+  async saveSnapshot(
+    testFilePath: string,
+    snapshotPath: string,
+    name: string,
+    updatedSnapshot: string,
+  ) {
     const nameStr = JSON.stringify(name);
     const startMarker = `snapshots[${nameStr}]`;
     const endMarker = `/* end snapshot ${name} */\n\n`;
@@ -88,7 +98,7 @@ class SnapshotStore {
       ? `${startMarker} = \n\`${updatedSnapshot}\`;\n${endMarker}`
       : '';
 
-    const content = await this.get(snapshotPath);
+    const content = await this.get(testFilePath, snapshotPath);
     let updatedContent: string;
 
     const startIndex = content.indexOf(startMarker);
@@ -125,6 +135,13 @@ class SnapshotStore {
 
 export interface SnapshotPluginConfig {
   updateSnapshots?: boolean;
+
+  /**
+   * Returns the name of the DOM snapshot file. The name is a path
+   * relative to the baseDir. By default points to a __snapshots__
+   * directory next to the original test file.
+   */
+  fileName?: (testFile: string) => string;
 }
 
 export function snapshotPlugin(config?: SnapshotPluginConfig): TestRunnerPlugin {
@@ -140,7 +157,8 @@ export function snapshotPlugin(config?: SnapshotPluginConfig): TestRunnerPlugin 
       }
 
       if (command === 'get-snapshots') {
-        const content = await snapshots.get(session.testFile);
+        const snapshotPath = getSnapshotPath(session.testFile, config);
+        const content = await snapshots.get(session.testFile, snapshotPath);
         return { content };
       }
 
@@ -149,7 +167,8 @@ export function snapshotPlugin(config?: SnapshotPluginConfig): TestRunnerPlugin 
           throw new Error('Invalid save snapshot payload');
         }
 
-        await snapshots.saveSnapshot(session.testFile, payload.name, payload.content);
+        const snapshotPath = getSnapshotPath(session.testFile, config);
+        await snapshots.saveSnapshot(session.testFile, snapshotPath, payload.name, payload.content);
         return true;
       }
     },
