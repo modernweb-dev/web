@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.3.18
+
+### Patch Changes
+
+- 39610b4c: Handle 'upgrade' requests only for matched url.
+
 ## 0.3.17
 
 ### Patch Changes

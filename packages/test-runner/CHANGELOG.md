@@ -1,5 +1,18 @@
 # @web/test-runner
 
+## 0.13.31
+
+### Patch Changes
+
+- 570cdf70: - improve caching of snapshots in-memory
+  - don't block browser command on writing snapshot to disk
+  - don't write snapshot to disk for each change, batch write per file
+- Updated dependencies [78d610d1]
+- Updated dependencies [570cdf70]
+  - @web/dev-server@0.1.32
+  - @web/test-runner-commands@0.6.3
+  - @web/test-runner-core@0.10.27
+
 ## 0.13.30
 
 ### Patch Changes

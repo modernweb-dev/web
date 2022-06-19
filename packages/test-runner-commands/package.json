@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-commands",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "publishConfig": {
     "access": "public"
   },
@@ -48,7 +48,7 @@
     "commands"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.10.20",
+    "@web/test-runner-core": "^0.10.27",
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
