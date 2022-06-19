@@ -156,9 +156,12 @@ export class TestRunner extends EventEmitter<EventMap> {
 
     this.stopped = true;
     await this.scheduler.stop();
-    this.server.stop().catch(error => {
+
+    const stopActions = [];
+    const stopServerAction = this.server.stop().catch(error => {
       console.error(error);
     });
+    stopActions.push(stopServerAction);
 
     if (this.config.watch) {
       // we only need to stop the browsers in watch mode, in non-watch
@@ -173,8 +176,8 @@ export class TestRunner extends EventEmitter<EventMap> {
           );
         }
       }
-      await Promise.all(stopActions);
     }
+    await Promise.all(stopActions);
     this.emit('stopped', this.passed);
   }
 
