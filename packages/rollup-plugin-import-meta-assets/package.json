@@ -43,7 +43,7 @@
   "dependencies": {
     "@rollup/pluginutils": "^4.1.0",
     "estree-walker": "^2.0.2",
-    "magic-string": "^0.25.7"
+    "magic-string": "^0.26.2"
   },
   "types": "dist/index"
 }
