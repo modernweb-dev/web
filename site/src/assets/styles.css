@@ -1,0 +1,9 @@
+html {
+  background: orange !important;
+}
+
+launch-home::part(background) {
+  transform: none;
+  top: -228px;
+  right: -290px;
+}

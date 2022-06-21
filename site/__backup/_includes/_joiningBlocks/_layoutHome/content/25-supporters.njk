@@ -1,0 +1,24 @@
+<h2 class="reason-header">{{ supportedByHeader | safe }}</h2>
+<div class="reasons supported-by-items">
+  {% for item in supportedByItems %}
+    <div>
+      <a href="{{ item.href }}" target="_blank" rel="noopener">
+        <img src="{{ item.image }}" alt="{{ item.name }}" width="{{ item.width }}" class="light" />
+        <img src="{{ item.imageDark }}" alt="{{ item.name }}" width="{{ item.width }}" class="dark" />
+      </a>
+      <p><strong>{{ item.tier }}</strong> Sponsor</p>
+    </div>
+  {% endfor %}
+</div>
+
+<div class="supporters">
+  {% for supporter in supporters %}
+    <a href="{{ supporter.href }}" target="_blank" rel="noopener noreferrer">
+      <img src="{{ supporter.image }}" alt="{{ supporter.name }}" title="{{ supporter.name }}" />
+    </a>
+  {% endfor %}
+</div>
+
+<p class="cta-contribute">
+  <a href="https://opencollective.com/modern-web">Contribute on Open Collective</a>
+</p>

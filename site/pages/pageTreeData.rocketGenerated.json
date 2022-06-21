@@ -1,0 +1,3071 @@
+{
+  "title": "Welcome to Modern Web",
+  "h1": "\n      \n      Modern Web\n    ",
+  "name": "\n      \n      Modern Web\n    ",
+  "menuLinkText": "\n      \n      Modern Web\n    ",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "description": "Rocket enables everyone to code a website. Use an existing theme or create your own. Be fast by server rendering web components with little to no JavaScript.",
+  "subTitle": "Everyone can code a website",
+  "children": [
+    {
+      "title": "Learning Modern Web | Rocket",
+      "h1": "Learning Modern Web",
+      "headlinesWithId": [
+        {
+          "text": "Learning Modern Web",
+          "id": "learning-modern-web",
+          "level": 1
+        },
+        {
+          "text": "Going Buildless",
+          "id": "going-buildless",
+          "level": 2
+        },
+        {
+          "text": "Web Test Runner",
+          "id": "web-test-runner",
+          "level": 2
+        },
+        {
+          "text": "Dev Server",
+          "id": "dev-server",
+          "level": 2
+        }
+      ],
+      "name": "Learning Modern Web",
+      "menuLinkText": "Guides",
+      "url": "/guides/",
+      "outputRelativeFilePath": "guides/index.html",
+      "sourceRelativeFilePath": "10--guides/index.rocket.md",
+      "level": 1,
+      "children": [
+        {
+          "title": "Going Buildless | Rocket",
+          "h1": "Going Buildless",
+          "headlinesWithId": [
+            {
+              "text": "Going Buildless",
+              "id": "going-buildless",
+              "level": 1
+            }
+          ],
+          "name": "Going Buildless",
+          "menuLinkText": "Going Buildless",
+          "url": "/guides/going-buildless/",
+          "outputRelativeFilePath": "guides/going-buildless/index.html",
+          "sourceRelativeFilePath": "10--guides/10--going-buildless/index.rocket.md",
+          "level": 2,
+          "children": [
+            {
+              "title": "Serving | Rocket",
+              "h1": "Serving",
+              "headlinesWithId": [
+                {
+                  "text": "Serving",
+                  "id": "serving",
+                  "level": 1
+                },
+                {
+                  "text": "Serving Web Content",
+                  "id": "serving-web-content",
+                  "level": 2
+                },
+                {
+                  "text": "Files Outside the Web Root",
+                  "id": "files-outside-the-web-root",
+                  "level": 3
+                },
+                {
+                  "text": "Link Urls",
+                  "id": "link-urls",
+                  "level": 2
+                },
+                {
+                  "text": "Fully Qualified URLs",
+                  "id": "fully-qualified-urls",
+                  "level": 3
+                },
+                {
+                  "text": "Absolute URLs",
+                  "id": "absolute-urls",
+                  "level": 3
+                },
+                {
+                  "text": "Relative URLs",
+                  "id": "relative-urls",
+                  "level": 3
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Serving",
+              "menuLinkText": "Serving",
+              "url": "/guides/going-buildless/serving/",
+              "outputRelativeFilePath": "guides/going-buildless/serving/index.html",
+              "sourceRelativeFilePath": "10--guides/10--going-buildless/10--serving.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "CSS | Rocket",
+              "h1": "CSS",
+              "headlinesWithId": [
+                {
+                  "text": "CSS",
+                  "id": "css",
+                  "level": 1
+                },
+                {
+                  "text": "CSS Custom Properties",
+                  "id": "css-custom-properties",
+                  "level": 2
+                },
+                {
+                  "text": "Using Variables in CSS",
+                  "id": "using-variables-in-css",
+                  "level": 3
+                },
+                {
+                  "text": "Style Encapsulation",
+                  "id": "style-encapsulation",
+                  "level": 2
+                },
+                {
+                  "text": "Inherited Values",
+                  "id": "inherited-values",
+                  "level": 3
+                }
+              ],
+              "name": "CSS",
+              "menuLinkText": "CSS",
+              "url": "/guides/going-buildless/css/",
+              "outputRelativeFilePath": "guides/going-buildless/css/index.html",
+              "sourceRelativeFilePath": "10--guides/10--going-buildless/30--css.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "ES Modules | Rocket",
+              "h1": "ES Modules",
+              "headlinesWithId": [
+                {
+                  "text": "ES Modules",
+                  "id": "es-modules",
+                  "level": 1
+                },
+                {
+                  "text": "Loading modules",
+                  "id": "loading-modules",
+                  "level": 2
+                },
+                {
+                  "text": "Module scripts",
+                  "id": "module-scripts",
+                  "level": 3
+                },
+                {
+                  "text": "Static imports",
+                  "id": "static-imports",
+                  "level": 3
+                },
+                {
+                  "text": "Dynamic imports",
+                  "id": "dynamic-imports",
+                  "level": 3
+                },
+                {
+                  "text": "File extensions",
+                  "id": "file-extensions",
+                  "level": 2
+                },
+                {
+                  "text": "Import paths",
+                  "id": "import-paths",
+                  "level": 2
+                },
+                {
+                  "text": "Referencing Reusable Assets with ",
+                  "id": "referencing-reusable-assets-with-importmetaurl",
+                  "level": 2
+                },
+                {
+                  "text": "CommonJS modules",
+                  "id": "commonjs-modules",
+                  "level": 2
+                },
+                {
+                  "text": "Look for an es module distribution",
+                  "id": "look-for-an-es-module-distribution",
+                  "level": 3
+                },
+                {
+                  "text": "Ask the author to distribute an ESM distribution",
+                  "id": "ask-the-author-to-distribute-an-esm-distribution",
+                  "level": 3
+                },
+                {
+                  "text": "Look for a forked ESM distribution",
+                  "id": "look-for-a-forked-esm-distribution",
+                  "level": 3
+                },
+                {
+                  "text": "Create a UMD wrapper",
+                  "id": "create-a-umd-wrapper",
+                  "level": 3
+                },
+                {
+                  "text": "Use the JSPM CDN",
+                  "id": "use-the-jspm-cdn",
+                  "level": 3
+                },
+                {
+                  "text": "Transform CommonJS to ESM",
+                  "id": "transform-commonjs-to-esm",
+                  "level": 3
+                },
+                {
+                  "text": "CommonJS Plugin",
+                  "id": "commonjs-plugin",
+                  "level": 4
+                },
+                {
+                  "text": "Importing CommonJS modules",
+                  "id": "importing-commonjs-modules",
+                  "level": 4
+                }
+              ],
+              "name": "ES Modules",
+              "menuLinkText": "ES Modules",
+              "url": "/guides/going-buildless/es-modules/",
+              "outputRelativeFilePath": "guides/going-buildless/es-modules/index.html",
+              "sourceRelativeFilePath": "10--guides/10--going-buildless/60--es-modules.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Getting Started | Rocket",
+              "h1": "Getting Started",
+              "headlinesWithId": [
+                {
+                  "text": "Getting Started",
+                  "id": "getting-started",
+                  "level": 1
+                }
+              ],
+              "name": "Getting Started",
+              "menuLinkText": "Getting Started",
+              "url": "/guides/going-buildless/getting-started/",
+              "outputRelativeFilePath": "guides/going-buildless/getting-started/index.html",
+              "sourceRelativeFilePath": "10--guides/10--going-buildless/05--getting-started.rocket.md",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "Test Runner | Rocket",
+          "h1": "Test Runner",
+          "headlinesWithId": [
+            {
+              "text": "Test Runner",
+              "id": "test-runner",
+              "level": 1
+            }
+          ],
+          "name": "Test Runner",
+          "menuLinkText": "Test Runner",
+          "url": "/guides/test-runner/",
+          "outputRelativeFilePath": "guides/test-runner/index.html",
+          "sourceRelativeFilePath": "10--guides/20--test-runner/index.rocket.md",
+          "level": 2,
+          "children": [
+            {
+              "title": "Getting Started | Rocket",
+              "h1": "Getting Started",
+              "headlinesWithId": [
+                {
+                  "text": "Getting Started",
+                  "id": "getting-started",
+                  "level": 1
+                },
+                {
+                  "text": "Writing my first test",
+                  "id": "writing-my-first-test",
+                  "level": 2
+                },
+                {
+                  "text": "Setup tools",
+                  "id": "setup-tools",
+                  "level": 2
+                },
+                {
+                  "text": "Make it work",
+                  "id": "make-it-work",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Getting Started",
+              "menuLinkText": "Getting Started",
+              "url": "/guides/test-runner/getting-started/",
+              "outputRelativeFilePath": "guides/test-runner/getting-started/index.html",
+              "sourceRelativeFilePath": "10--guides/20--test-runner/10--getting-started.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Watch and Debug | Rocket",
+              "h1": "Watch and Debug",
+              "headlinesWithId": [
+                {
+                  "text": "Watch and Debug",
+                  "id": "watch-and-debug",
+                  "level": 1
+                },
+                {
+                  "text": "Triggering watch mode",
+                  "id": "triggering-watch-mode",
+                  "level": 2
+                },
+                {
+                  "text": "Watch Features Overview",
+                  "id": "watch-features-overview",
+                  "level": 2
+                },
+                {
+                  "text": "Preparation",
+                  "id": "preparation",
+                  "level": 3
+                },
+                {
+                  "text": "Focus",
+                  "id": "focus",
+                  "level": 2
+                },
+                {
+                  "text": "Debug",
+                  "id": "debug",
+                  "level": 2
+                },
+                {
+                  "text": "Finish implementation",
+                  "id": "finish-implementation",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Watch and Debug",
+              "menuLinkText": "Watch and Debug",
+              "url": "/guides/test-runner/watch-and-debug/",
+              "outputRelativeFilePath": "guides/test-runner/watch-and-debug/index.html",
+              "sourceRelativeFilePath": "10--guides/20--test-runner/20--watch-and-debug/index.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Browsers | Rocket",
+              "h1": "Browsers",
+              "headlinesWithId": [
+                {
+                  "text": "Browsers",
+                  "id": "browsers",
+                  "level": 1
+                },
+                {
+                  "text": "Testing with Puppeteer",
+                  "id": "testing-with-puppeteer",
+                  "level": 2
+                },
+                {
+                  "text": "Testing in all evergreen browsers",
+                  "id": "testing-in-all-evergreen-browsers",
+                  "level": 2
+                },
+                {
+                  "text": "Using Browserstack",
+                  "id": "using-browserstack",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Browsers",
+              "menuLinkText": "Browsers",
+              "url": "/guides/test-runner/browsers/",
+              "outputRelativeFilePath": "guides/test-runner/browsers/index.html",
+              "sourceRelativeFilePath": "10--guides/20--test-runner/30--browsers.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Responsive Sites | Rocket",
+              "h1": "Responsive Sites",
+              "headlinesWithId": [
+                {
+                  "text": "Responsive Sites",
+                  "id": "responsive-sites",
+                  "level": 1
+                },
+                {
+                  "text": "Testing for mobile",
+                  "id": "testing-for-mobile",
+                  "level": 2
+                },
+                {
+                  "text": "Testing media queries",
+                  "id": "testing-media-queries",
+                  "level": 2
+                },
+                {
+                  "text": "Nested suites",
+                  "id": "nested-suites",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Responsive Sites",
+              "menuLinkText": "Responsive Sites",
+              "url": "/guides/test-runner/responsive/",
+              "outputRelativeFilePath": "guides/test-runner/responsive/index.html",
+              "sourceRelativeFilePath": "10--guides/20--test-runner/40--responsive.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Code Coverage | Rocket",
+              "h1": "Code Coverage",
+              "headlinesWithId": [
+                {
+                  "text": "Code Coverage",
+                  "id": "code-coverage",
+                  "level": 1
+                },
+                {
+                  "text": "Getting the code coverage",
+                  "id": "getting-the-code-coverage",
+                  "level": 2
+                },
+                {
+                  "text": "What to test",
+                  "id": "what-to-test",
+                  "level": 2
+                },
+                {
+                  "text": "Adding more features",
+                  "id": "adding-more-features",
+                  "level": 2
+                },
+                {
+                  "text": "How come we have 100% code coverage?",
+                  "id": "how-come-we-have-100-code-coverage",
+                  "level": 2
+                },
+                {
+                  "text": "Ignoring uncovered lines",
+                  "id": "ignoring-uncovered-lines",
+                  "level": 2
+                },
+                {
+                  "text": "Coverage browser support",
+                  "id": "coverage-browser-support",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Code Coverage",
+              "menuLinkText": "Code Coverage",
+              "url": "/guides/test-runner/code-coverage/",
+              "outputRelativeFilePath": "guides/test-runner/code-coverage/index.html",
+              "sourceRelativeFilePath": "10--guides/20--test-runner/50--code-coverage/index.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Dev Server | Rocket",
+              "h1": "Dev Server",
+              "headlinesWithId": [
+                {
+                  "text": "Dev Server",
+                  "id": "dev-server",
+                  "level": 1
+                }
+              ],
+              "name": "Dev Server",
+              "menuLinkText": "Dev Server",
+              "url": "/guides/test-runner/dev-server/",
+              "outputRelativeFilePath": "guides/test-runner/dev-server/index.html",
+              "sourceRelativeFilePath": "10--guides/20--test-runner/60--dev-server.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Testing TypeScript | Rocket",
+              "h1": "Testing TypeScript",
+              "headlinesWithId": [
+                {
+                  "text": "Testing TypeScript",
+                  "id": "testing-typescript",
+                  "level": 1
+                }
+              ],
+              "name": "Testing TypeScript",
+              "menuLinkText": "Testing TypeScript",
+              "url": "/guides/test-runner/typescript/",
+              "outputRelativeFilePath": "guides/test-runner/typescript/index.html",
+              "sourceRelativeFilePath": "10--guides/20--test-runner/70--typescript.rocket.md",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "Dev Server | Rocket",
+          "h1": "Dev Server",
+          "headlinesWithId": [
+            {
+              "text": "Dev Server",
+              "id": "dev-server",
+              "level": 1
+            }
+          ],
+          "name": "Dev Server",
+          "menuLinkText": "Dev Server",
+          "url": "/guides/dev-server/",
+          "outputRelativeFilePath": "guides/dev-server/index.html",
+          "sourceRelativeFilePath": "10--guides/30--dev-server/index.rocket.md",
+          "level": 2,
+          "children": [
+            {
+              "title": "Getting Started | Rocket",
+              "h1": "Getting Started",
+              "headlinesWithId": [
+                {
+                  "text": "Getting Started",
+                  "id": "getting-started",
+                  "level": 1
+                },
+                {
+                  "text": "Working with Web Dev Server",
+                  "id": "working-with-web-dev-server",
+                  "level": 2
+                },
+                {
+                  "text": "Installing the server",
+                  "id": "installing-the-server",
+                  "level": 2
+                },
+                {
+                  "text": "Creating a simple page",
+                  "id": "creating-a-simple-page",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Getting Started",
+              "menuLinkText": "Getting Started",
+              "url": "/guides/dev-server/getting-started/",
+              "outputRelativeFilePath": "guides/dev-server/getting-started/index.html",
+              "sourceRelativeFilePath": "10--guides/30--dev-server/10--getting-started.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Loading modules | Rocket",
+              "h1": "Loading modules",
+              "headlinesWithId": [
+                {
+                  "text": "Loading modules",
+                  "id": "loading-modules",
+                  "level": 1
+                },
+                {
+                  "text": "Adding a module script",
+                  "id": "adding-a-module-script",
+                  "level": 2
+                },
+                {
+                  "text": "Loading other modules",
+                  "id": "loading-other-modules",
+                  "level": 2
+                },
+                {
+                  "text": "Module paths",
+                  "id": "module-paths",
+                  "level": 2
+                },
+                {
+                  "text": "Node modules",
+                  "id": "node-modules",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Loading modules",
+              "menuLinkText": "Loading modules",
+              "url": "/guides/dev-server/loading-modules/",
+              "outputRelativeFilePath": "guides/dev-server/loading-modules/index.html",
+              "sourceRelativeFilePath": "10--guides/30--dev-server/20--loading-modules.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Proxy to other servers | Rocket",
+              "h1": "Proxy to other servers",
+              "headlinesWithId": [
+                {
+                  "text": "Proxy to other servers",
+                  "id": "proxy-to-other-servers",
+                  "level": 1
+                },
+                {
+                  "text": "Create an example server",
+                  "id": "create-an-example-server",
+                  "level": 2
+                },
+                {
+                  "text": "Add a proxy to your server config",
+                  "id": "add-a-proxy-to-your-server-config",
+                  "level": 2
+                },
+                {
+                  "text": "Making the request",
+                  "id": "making-the-request",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Proxy to other servers",
+              "menuLinkText": "Proxy to other servers",
+              "url": "/guides/dev-server/proxy-to-other-servers/",
+              "outputRelativeFilePath": "guides/dev-server/proxy-to-other-servers/index.html",
+              "sourceRelativeFilePath": "10--guides/30--dev-server/30--proxy-to-other-servers.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Using plugins | Rocket",
+              "h1": "Using plugins",
+              "headlinesWithId": [
+                {
+                  "text": "Using plugins",
+                  "id": "using-plugins",
+                  "level": 1
+                },
+                {
+                  "text": "Rollup replace plugin",
+                  "id": "rollup-replace-plugin",
+                  "level": 2
+                },
+                {
+                  "text": "Configuration",
+                  "id": "configuration",
+                  "level": 3
+                },
+                {
+                  "text": "Add files",
+                  "id": "add-files",
+                  "level": 3
+                },
+                {
+                  "text": "Starting the server",
+                  "id": "starting-the-server",
+                  "level": 3
+                },
+                {
+                  "text": "Commonjs",
+                  "id": "commonjs",
+                  "level": 2
+                },
+                {
+                  "text": "Babel",
+                  "id": "babel",
+                  "level": 2
+                },
+                {
+                  "text": "Plugins",
+                  "id": "plugins",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Using plugins",
+              "menuLinkText": "Using plugins",
+              "url": "/guides/dev-server/using-plugins/",
+              "outputRelativeFilePath": "guides/dev-server/using-plugins/index.html",
+              "sourceRelativeFilePath": "10--guides/30--dev-server/40--using-plugins.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "TypeScript and JSX | Rocket",
+              "h1": "TypeScript and JSX",
+              "headlinesWithId": [
+                {
+                  "text": "TypeScript and JSX",
+                  "id": "typescript-and-jsx",
+                  "level": 1
+                },
+                {
+                  "text": "JSX",
+                  "id": "jsx",
+                  "level": 2
+                },
+                {
+                  "text": "Typescript",
+                  "id": "typescript",
+                  "level": 2
+                },
+                {
+                  "text": "TSC",
+                  "id": "tsc",
+                  "level": 3
+                },
+                {
+                  "text": "Esbuild",
+                  "id": "esbuild",
+                  "level": 3
+                },
+                {
+                  "text": "JS Syntax",
+                  "id": "js-syntax",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "TypeScript and JSX",
+              "menuLinkText": "TypeScript and JSX",
+              "url": "/guides/dev-server/typescript-and-jsx/",
+              "outputRelativeFilePath": "guides/dev-server/typescript-and-jsx/index.html",
+              "sourceRelativeFilePath": "10--guides/30--dev-server/50--typescript-and-jsx.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Writing plugins | Rocket",
+              "h1": "Writing plugins",
+              "headlinesWithId": [
+                {
+                  "text": "Writing plugins",
+                  "id": "writing-plugins",
+                  "level": 1
+                },
+                {
+                  "text": "Injecting code",
+                  "id": "injecting-code",
+                  "level": 2
+                },
+                {
+                  "text": "Environment variables",
+                  "id": "environment-variables",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Writing plugins",
+              "menuLinkText": "Writing plugins",
+              "url": "/guides/dev-server/writing-plugins/",
+              "outputRelativeFilePath": "guides/dev-server/writing-plugins/index.html",
+              "sourceRelativeFilePath": "10--guides/30--dev-server/60--writing-plugins.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Storybook | Rocket",
+              "h1": "Storybook",
+              "headlinesWithId": [
+                {
+                  "text": "Storybook",
+                  "id": "storybook",
+                  "level": 1
+                },
+                {
+                  "text": "Setup",
+                  "id": "setup",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Storybook",
+              "menuLinkText": "Storybook",
+              "url": "/guides/dev-server/storybook/",
+              "outputRelativeFilePath": "guides/dev-server/storybook/index.html",
+              "sourceRelativeFilePath": "10--guides/30--dev-server/70--storybook.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Browser support | Rocket",
+              "h1": "Browser support",
+              "headlinesWithId": [
+                {
+                  "text": "Browser support",
+                  "id": "browser-support",
+                  "level": 1
+                },
+                {
+                  "text": "JS syntax",
+                  "id": "js-syntax",
+                  "level": 2
+                },
+                {
+                  "text": "Legacy browsers",
+                  "id": "legacy-browsers",
+                  "level": 2
+                },
+                {
+                  "text": "Learn more",
+                  "id": "learn-more",
+                  "level": 2
+                }
+              ],
+              "name": "Browser support",
+              "menuLinkText": "Browser support",
+              "url": "/guides/dev-server/browser-support/",
+              "outputRelativeFilePath": "guides/dev-server/browser-support/index.html",
+              "sourceRelativeFilePath": "10--guides/30--dev-server/80--browser-support.rocket.md",
+              "level": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Documentation | Rocket",
+      "h1": "Documentation",
+      "headlinesWithId": [
+        {
+          "text": "Documentation",
+          "id": "documentation",
+          "level": 1
+        }
+      ],
+      "name": "Documentation",
+      "menuLinkText": "Docs",
+      "url": "/docs/",
+      "outputRelativeFilePath": "docs/index.html",
+      "sourceRelativeFilePath": "20--docs/index.rocket.md",
+      "level": 1,
+      "children": [
+        {
+          "title": "Test Runner | Rocket",
+          "h1": "Test Runner",
+          "headlinesWithId": [
+            {
+              "text": "Test Runner",
+              "id": "test-runner",
+              "level": 1
+            }
+          ],
+          "name": "Test Runner",
+          "menuLinkText": "Test Runner",
+          "url": "/docs/test-runner/",
+          "outputRelativeFilePath": "docs/test-runner/index.html",
+          "sourceRelativeFilePath": "20--docs/1--test-runner/index.rocket.md",
+          "level": 2,
+          "children": [
+            {
+              "title": "Web Test Runner | Rocket",
+              "h1": "Web Test Runner",
+              "headlinesWithId": [
+                {
+                  "text": "Web Test Runner",
+                  "id": "web-test-runner",
+                  "level": 1
+                },
+                {
+                  "text": "Installation",
+                  "id": "installation",
+                  "level": 2
+                },
+                {
+                  "text": "Basic commands",
+                  "id": "basic-commands",
+                  "level": 2
+                },
+                {
+                  "text": "Guide",
+                  "id": "guide",
+                  "level": 2
+                },
+                {
+                  "text": "Example projects",
+                  "id": "example-projects",
+                  "level": 2
+                }
+              ],
+              "name": "Web Test Runner",
+              "menuLinkText": "Test Runner >> Overview",
+              "url": "/docs/test-runner/overview/",
+              "outputRelativeFilePath": "docs/test-runner/overview/index.html",
+              "sourceRelativeFilePath": "20--docs/1--test-runner/1--overview.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "CLI and Configuration | Rocket",
+              "h1": "CLI and Configuration",
+              "headlinesWithId": [
+                {
+                  "text": "CLI and Configuration",
+                  "id": "cli-and-configuration",
+                  "level": 1
+                },
+                {
+                  "text": "CLI flags",
+                  "id": "cli-flags",
+                  "level": 2
+                },
+                {
+                  "text": "esbuild target",
+                  "id": "esbuild-target",
+                  "level": 2
+                },
+                {
+                  "text": "Configuration file",
+                  "id": "configuration-file",
+                  "level": 2
+                },
+                {
+                  "text": "Excluding files",
+                  "id": "excluding-files",
+                  "level": 2
+                },
+                {
+                  "text": "Test runner HTML",
+                  "id": "test-runner-html",
+                  "level": 2
+                },
+                {
+                  "text": "Test groups",
+                  "id": "test-groups",
+                  "level": 2
+                },
+                {
+                  "text": "In the main config",
+                  "id": "in-the-main-config",
+                  "level": 3
+                },
+                {
+                  "text": "Default group",
+                  "id": "default-group",
+                  "level": 3
+                },
+                {
+                  "text": "Using separate file",
+                  "id": "using-separate-file",
+                  "level": 3
+                },
+                {
+                  "text": "Examples",
+                  "id": "examples",
+                  "level": 2
+                },
+                {
+                  "text": "Run only some tests on a specific browser",
+                  "id": "run-only-some-tests-on-a-specific-browser",
+                  "level": 3
+                },
+                {
+                  "text": "Customize HTML environment per test group",
+                  "id": "customize-html-environment-per-test-group",
+                  "level": 3
+                },
+                {
+                  "text": "Group per package",
+                  "id": "group-per-package",
+                  "level": 3
+                }
+              ],
+              "name": "CLI and Configuration",
+              "menuLinkText": "CLI and Configuration",
+              "url": "/docs/test-runner/cli-and-configuration/",
+              "outputRelativeFilePath": "docs/test-runner/cli-and-configuration/index.html",
+              "sourceRelativeFilePath": "20--docs/1--test-runner/2--cli-and-configuration.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Writing Tests | Rocket",
+              "h1": "Writing Tests",
+              "headlinesWithId": [
+                {
+                  "text": "Writing Tests",
+                  "id": "writing-tests",
+                  "level": 1
+                }
+              ],
+              "name": "Writing Tests",
+              "menuLinkText": "Writing Tests",
+              "url": "/docs/test-runner/writing-tests/",
+              "outputRelativeFilePath": "docs/test-runner/writing-tests/index.html",
+              "sourceRelativeFilePath": "20--docs/1--test-runner/3--writing-tests/index.rocket.md",
+              "level": 3,
+              "children": [
+                {
+                  "title": "JS Tests | Rocket",
+                  "h1": "JS Tests",
+                  "headlinesWithId": [
+                    {
+                      "text": "JS Tests",
+                      "id": "js-tests",
+                      "level": 1
+                    }
+                  ],
+                  "name": "JS Tests",
+                  "menuLinkText": "JS Tests",
+                  "url": "/docs/test-runner/writing-tests/js-tests/",
+                  "outputRelativeFilePath": "docs/test-runner/writing-tests/js-tests/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/3--writing-tests/10--js-tests.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "HTML Tests | Rocket",
+                  "h1": "HTML Tests",
+                  "headlinesWithId": [
+                    {
+                      "text": "HTML Tests",
+                      "id": "html-tests",
+                      "level": 1
+                    }
+                  ],
+                  "name": "HTML Tests",
+                  "menuLinkText": "HTML Tests",
+                  "url": "/docs/test-runner/writing-tests/html-tests/",
+                  "outputRelativeFilePath": "docs/test-runner/writing-tests/html-tests/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/3--writing-tests/20--html-tests.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Helper Libraries | Rocket",
+                  "h1": "Helper Libraries",
+                  "headlinesWithId": [
+                    {
+                      "text": "Helper Libraries",
+                      "id": "helper-libraries",
+                      "level": 1
+                    },
+                    {
+                      "text": "General libraries",
+                      "id": "general-libraries",
+                      "level": 2
+                    },
+                    {
+                      "text": "Assertions",
+                      "id": "assertions",
+                      "level": 2
+                    },
+                    {
+                      "text": "Chai plugins",
+                      "id": "chai-plugins",
+                      "level": 2
+                    },
+                    {
+                      "text": "Testing helpers",
+                      "id": "testing-helpers",
+                      "level": 2
+                    },
+                    {
+                      "text": "Mocking",
+                      "id": "mocking",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Helper Libraries",
+                  "menuLinkText": "Helper Libraries",
+                  "url": "/docs/test-runner/writing-tests/helper-libraries/",
+                  "outputRelativeFilePath": "docs/test-runner/writing-tests/helper-libraries/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/3--writing-tests/30--helper-libraries.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Code Coverage | Rocket",
+                  "h1": "Code Coverage",
+                  "headlinesWithId": [
+                    {
+                      "text": "Code Coverage",
+                      "id": "code-coverage",
+                      "level": 1
+                    },
+                    {
+                      "text": "Ignoring uncovered lines",
+                      "id": "ignoring-uncovered-lines",
+                      "level": 2
+                    },
+                    {
+                      "text": "Coverage browser support",
+                      "id": "coverage-browser-support",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Code Coverage",
+                  "menuLinkText": "Code Coverage",
+                  "url": "/docs/test-runner/writing-tests/code-coverage/",
+                  "outputRelativeFilePath": "docs/test-runner/writing-tests/code-coverage/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/3--writing-tests/40--code-coverage.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Mocking | Rocket",
+                  "h1": "Mocking",
+                  "headlinesWithId": [
+                    {
+                      "text": "Mocking",
+                      "id": "mocking",
+                      "level": 1
+                    },
+                    {
+                      "text": "Mocking functions",
+                      "id": "mocking-functions",
+                      "level": 2
+                    },
+                    {
+                      "text": "Mocking es modules",
+                      "id": "mocking-es-modules",
+                      "level": 2
+                    },
+                    {
+                      "text": "Using Import Maps to tests",
+                      "id": "using-import-maps-to-tests",
+                      "level": 3
+                    },
+                    {
+                      "text": "Import Map per test",
+                      "id": "import-map-per-test",
+                      "level": 3
+                    }
+                  ],
+                  "name": "Mocking",
+                  "menuLinkText": "Mocking",
+                  "url": "/docs/test-runner/writing-tests/mocking/",
+                  "outputRelativeFilePath": "docs/test-runner/writing-tests/mocking/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/3--writing-tests/50--mocking.rocket.md",
+                  "level": 4
+                }
+              ]
+            },
+            {
+              "title": "Test Frameworks | Rocket",
+              "h1": "Test Frameworks",
+              "headlinesWithId": [
+                {
+                  "text": "Test Frameworks",
+                  "id": "test-frameworks",
+                  "level": 1
+                }
+              ],
+              "name": "Test Frameworks",
+              "menuLinkText": "Test Frameworks",
+              "url": "/docs/test-runner/test-frameworks/",
+              "outputRelativeFilePath": "docs/test-runner/test-frameworks/index.html",
+              "sourceRelativeFilePath": "20--docs/1--test-runner/4--test-frameworks/index.rocket.md",
+              "level": 3,
+              "children": [
+                {
+                  "title": "Mocha | Rocket",
+                  "h1": "Mocha",
+                  "headlinesWithId": [
+                    {
+                      "text": "Mocha",
+                      "id": "mocha",
+                      "level": 1
+                    },
+                    {
+                      "text": "Writing JS tests",
+                      "id": "writing-js-tests",
+                      "level": 2
+                    },
+                    {
+                      "text": "Writing HTML tests",
+                      "id": "writing-html-tests",
+                      "level": 2
+                    },
+                    {
+                      "text": "Configuring mocha options",
+                      "id": "configuring-mocha-options",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Mocha",
+                  "menuLinkText": "Mocha",
+                  "url": "/docs/test-runner/test-frameworks/mocha/",
+                  "outputRelativeFilePath": "docs/test-runner/test-frameworks/mocha/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/4--test-frameworks/10--mocha.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Write Your Own | Rocket",
+                  "h1": "Write Your Own",
+                  "headlinesWithId": [
+                    {
+                      "text": "Write Your Own",
+                      "id": "write-your-own",
+                      "level": 1
+                    }
+                  ],
+                  "name": "Write Your Own",
+                  "menuLinkText": "Write Your Own",
+                  "url": "/docs/test-runner/test-frameworks/write-your-own/",
+                  "outputRelativeFilePath": "docs/test-runner/test-frameworks/write-your-own/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/4--test-frameworks/20--write-your-own.rocket.md",
+                  "level": 4
+                }
+              ]
+            },
+            {
+              "title": "Browser Launchers | Rocket",
+              "h1": "Browser Launchers",
+              "headlinesWithId": [
+                {
+                  "text": "Browser Launchers",
+                  "id": "browser-launchers",
+                  "level": 1
+                }
+              ],
+              "name": "Browser Launchers",
+              "menuLinkText": "Browser Launchers",
+              "url": "/docs/test-runner/browser-launchers/",
+              "outputRelativeFilePath": "docs/test-runner/browser-launchers/index.html",
+              "sourceRelativeFilePath": "20--docs/1--test-runner/5--browser-launchers/index.rocket.md",
+              "level": 3,
+              "children": [
+                {
+                  "title": "Overview | Rocket",
+                  "h1": "Overview",
+                  "headlinesWithId": [
+                    {
+                      "text": "Overview",
+                      "id": "overview",
+                      "level": 1
+                    },
+                    {
+                      "text": "Puppeteer",
+                      "id": "puppeteer",
+                      "level": 2
+                    },
+                    {
+                      "text": "Playwright",
+                      "id": "playwright",
+                      "level": 2
+                    },
+                    {
+                      "text": "Configuring browser launchers",
+                      "id": "configuring-browser-launchers",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Overview",
+                  "menuLinkText": "Overview",
+                  "url": "/docs/test-runner/browser-launchers/overview/",
+                  "outputRelativeFilePath": "docs/test-runner/browser-launchers/overview/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/5--browser-launchers/10--overview.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Chrome | Rocket",
+                  "h1": "Chrome",
+                  "headlinesWithId": [
+                    {
+                      "text": "Chrome",
+                      "id": "chrome",
+                      "level": 1
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    },
+                    {
+                      "text": "Concurrency",
+                      "id": "concurrency",
+                      "level": 2
+                    },
+                    {
+                      "text": "Customizing launch options",
+                      "id": "customizing-launch-options",
+                      "level": 2
+                    },
+                    {
+                      "text": "Customizing browser context and page",
+                      "id": "customizing-browser-context-and-page",
+                      "level": 2
+                    },
+                    {
+                      "text": "Emulate mobile browser",
+                      "id": "emulate-mobile-browser",
+                      "level": 3
+                    },
+                    {
+                      "text": "Grant browser permissions",
+                      "id": "grant-browser-permissions",
+                      "level": 3
+                    }
+                  ],
+                  "name": "Chrome",
+                  "menuLinkText": "Chrome",
+                  "url": "/docs/test-runner/browser-launchers/chrome/",
+                  "outputRelativeFilePath": "docs/test-runner/browser-launchers/chrome/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/5--browser-launchers/20--chrome.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Puppeteer | Rocket",
+                  "h1": "Puppeteer",
+                  "headlinesWithId": [
+                    {
+                      "text": "Puppeteer",
+                      "id": "puppeteer",
+                      "level": 1
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    },
+                    {
+                      "text": "Troubleshooting",
+                      "id": "troubleshooting",
+                      "level": 2
+                    },
+                    {
+                      "text": "Concurrency",
+                      "id": "concurrency",
+                      "level": 2
+                    },
+                    {
+                      "text": "Customizing launch options",
+                      "id": "customizing-launch-options",
+                      "level": 2
+                    },
+                    {
+                      "text": "Customizing browser context and page",
+                      "id": "customizing-browser-context-and-page",
+                      "level": 2
+                    },
+                    {
+                      "text": "Emulate mobile browser",
+                      "id": "emulate-mobile-browser",
+                      "level": 3
+                    },
+                    {
+                      "text": "Grant browser permissions",
+                      "id": "grant-browser-permissions",
+                      "level": 3
+                    },
+                    {
+                      "text": "Testing Firefox",
+                      "id": "testing-firefox",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Puppeteer",
+                  "menuLinkText": "Puppeteer",
+                  "url": "/docs/test-runner/browser-launchers/puppeteer/",
+                  "outputRelativeFilePath": "docs/test-runner/browser-launchers/puppeteer/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/5--browser-launchers/30--puppeteer.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Playwright | Rocket",
+                  "h1": "Playwright",
+                  "headlinesWithId": [
+                    {
+                      "text": "Playwright",
+                      "id": "playwright",
+                      "level": 1
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    },
+                    {
+                      "text": "Testing multiple browsers",
+                      "id": "testing-multiple-browsers",
+                      "level": 2
+                    },
+                    {
+                      "text": "Concurrency",
+                      "id": "concurrency",
+                      "level": 2
+                    },
+                    {
+                      "text": "Customizing launch options",
+                      "id": "customizing-launch-options",
+                      "level": 2
+                    },
+                    {
+                      "text": "Customizing browser context and page",
+                      "id": "customizing-browser-context-and-page",
+                      "level": 2
+                    },
+                    {
+                      "text": "Emulate touch",
+                      "id": "emulate-touch",
+                      "level": 3
+                    },
+                    {
+                      "text": "Emulate mobile browser",
+                      "id": "emulate-mobile-browser",
+                      "level": 3
+                    },
+                    {
+                      "text": "Configuring timezone",
+                      "id": "configuring-timezone",
+                      "level": 3
+                    },
+                    {
+                      "text": "Using with Github Actions",
+                      "id": "using-with-github-actions",
+                      "level": 3
+                    },
+                    {
+                      "text": "CI / Docker",
+                      "id": "ci--docker",
+                      "level": 3
+                    }
+                  ],
+                  "name": "Playwright",
+                  "menuLinkText": "Playwright",
+                  "url": "/docs/test-runner/browser-launchers/playwright/",
+                  "outputRelativeFilePath": "docs/test-runner/browser-launchers/playwright/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/5--browser-launchers/40--playwright.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Selenium | Rocket",
+                  "h1": "Selenium",
+                  "headlinesWithId": [
+                    {
+                      "text": "Selenium",
+                      "id": "selenium",
+                      "level": 1
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Selenium",
+                  "menuLinkText": "Selenium",
+                  "url": "/docs/test-runner/browser-launchers/selenium/",
+                  "outputRelativeFilePath": "docs/test-runner/browser-launchers/selenium/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/5--browser-launchers/50--selenium.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Browserstack | Rocket",
+                  "h1": "Browserstack",
+                  "headlinesWithId": [
+                    {
+                      "text": "Browserstack",
+                      "id": "browserstack",
+                      "level": 1
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    },
+                    {
+                      "text": "Configuration",
+                      "id": "configuration",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Browserstack",
+                  "menuLinkText": "Browserstack",
+                  "url": "/docs/test-runner/browser-launchers/browserstack/",
+                  "outputRelativeFilePath": "docs/test-runner/browser-launchers/browserstack/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/5--browser-launchers/60--browserstack.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Sauce Labs | Rocket",
+                  "h1": "Sauce Labs",
+                  "headlinesWithId": [
+                    {
+                      "text": "Sauce Labs",
+                      "id": "sauce-labs",
+                      "level": 1
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    },
+                    {
+                      "text": "Configuration",
+                      "id": "configuration",
+                      "level": 2
+                    },
+                    {
+                      "text": "Setup",
+                      "id": "setup",
+                      "level": 3
+                    },
+                    {
+                      "text": "Webdriver Capabilities",
+                      "id": "webdriver-capabilities",
+                      "level": 3
+                    },
+                    {
+                      "text": "JWP Capabilities",
+                      "id": "jwp-capabilities",
+                      "level": 3
+                    }
+                  ],
+                  "name": "Sauce Labs",
+                  "menuLinkText": "Sauce Labs",
+                  "url": "/docs/test-runner/browser-launchers/saucelabs/",
+                  "outputRelativeFilePath": "docs/test-runner/browser-launchers/saucelabs/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/5--browser-launchers/70--saucelabs.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Webdriver | Rocket",
+                  "h1": "Webdriver",
+                  "headlinesWithId": [
+                    {
+                      "text": "Webdriver",
+                      "id": "webdriver",
+                      "level": 1
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Webdriver",
+                  "menuLinkText": "Webdriver",
+                  "url": "/docs/test-runner/browser-launchers/webdriver/",
+                  "outputRelativeFilePath": "docs/test-runner/browser-launchers/webdriver/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/5--browser-launchers/80--webdriver.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Write Your Own | Rocket",
+                  "h1": "Write Your Own",
+                  "headlinesWithId": [
+                    {
+                      "text": "Write Your Own",
+                      "id": "write-your-own",
+                      "level": 1
+                    }
+                  ],
+                  "name": "Write Your Own",
+                  "menuLinkText": "Write Your Own",
+                  "url": "/docs/test-runner/browser-launchers/write-your-own/",
+                  "outputRelativeFilePath": "docs/test-runner/browser-launchers/write-your-own/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/5--browser-launchers/90--write-your-own.rocket.md",
+                  "level": 4
+                }
+              ]
+            },
+            {
+              "title": "Commands | Rocket",
+              "h1": "Commands",
+              "headlinesWithId": [
+                {
+                  "text": "Commands",
+                  "id": "commands",
+                  "level": 1
+                },
+                {
+                  "text": "Usage",
+                  "id": "usage",
+                  "level": 2
+                },
+                {
+                  "text": "Built-in commands",
+                  "id": "built-in-commands",
+                  "level": 2
+                },
+                {
+                  "text": "Viewport",
+                  "id": "viewport",
+                  "level": 3
+                },
+                {
+                  "text": "Emulate media",
+                  "id": "emulate-media",
+                  "level": 3
+                },
+                {
+                  "text": "Send mouse",
+                  "id": "send-mouse",
+                  "level": 3
+                },
+                {
+                  "text": "Reset mouse",
+                  "id": "reset-mouse",
+                  "level": 3
+                },
+                {
+                  "text": "Send keys",
+                  "id": "send-keys",
+                  "level": 3
+                },
+                {
+                  "text": "Set user agent",
+                  "id": "set-user-agent",
+                  "level": 3
+                },
+                {
+                  "text": "Snapshots",
+                  "id": "snapshots",
+                  "level": 3
+                },
+                {
+                  "text": "Writing and reading files",
+                  "id": "writing-and-reading-files",
+                  "level": 3
+                },
+                {
+                  "text": "Accessibility Snapshot",
+                  "id": "accessibility-snapshot",
+                  "level": 3
+                },
+                {
+                  "text": "Custom commands",
+                  "id": "custom-commands",
+                  "level": 2
+                }
+              ],
+              "name": "Commands",
+              "menuLinkText": "Commands",
+              "url": "/docs/test-runner/commands/",
+              "outputRelativeFilePath": "docs/test-runner/commands/index.html",
+              "sourceRelativeFilePath": "20--docs/1--test-runner/6--commands.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Plugins | Rocket",
+              "h1": "Plugins",
+              "headlinesWithId": [
+                {
+                  "text": "Plugins",
+                  "id": "plugins",
+                  "level": 1
+                }
+              ],
+              "name": "Plugins",
+              "menuLinkText": "Plugins",
+              "url": "/docs/test-runner/plugins/",
+              "outputRelativeFilePath": "docs/test-runner/plugins/index.html",
+              "sourceRelativeFilePath": "20--docs/1--test-runner/7--plugins.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Reporters | Rocket",
+              "h1": "Reporters",
+              "headlinesWithId": [
+                {
+                  "text": "Reporters",
+                  "id": "reporters",
+                  "level": 1
+                }
+              ],
+              "name": "Reporters",
+              "menuLinkText": "Reporters",
+              "url": "/docs/test-runner/reporters/",
+              "outputRelativeFilePath": "docs/test-runner/reporters/index.html",
+              "sourceRelativeFilePath": "20--docs/1--test-runner/8--reporters/index.rocket.md",
+              "level": 3,
+              "children": [
+                {
+                  "title": "Overview | Rocket",
+                  "h1": "Overview",
+                  "headlinesWithId": [
+                    {
+                      "text": "Overview",
+                      "id": "overview",
+                      "level": 1
+                    }
+                  ],
+                  "name": "Overview",
+                  "menuLinkText": "Overview",
+                  "url": "/docs/test-runner/reporters/overview/",
+                  "outputRelativeFilePath": "docs/test-runner/reporters/overview/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/8--reporters/10--overview.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "JUnit | Rocket",
+                  "h1": "JUnit",
+                  "headlinesWithId": [
+                    {
+                      "text": "JUnit",
+                      "id": "junit",
+                      "level": 1
+                    },
+                    {
+                      "text": "Configuration",
+                      "id": "configuration",
+                      "level": 2
+                    },
+                    {
+                      "text": "Example",
+                      "id": "example",
+                      "level": 2
+                    }
+                  ],
+                  "name": "JUnit",
+                  "menuLinkText": "JUnit",
+                  "url": "/docs/test-runner/reporters/junit/",
+                  "outputRelativeFilePath": "docs/test-runner/reporters/junit/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/8--reporters/20--junit.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Summary | Rocket",
+                  "h1": "Summary",
+                  "headlinesWithId": [
+                    {
+                      "text": "Summary",
+                      "id": "summary",
+                      "level": 1
+                    },
+                    {
+                      "text": "Configuration",
+                      "id": "configuration",
+                      "level": 2
+                    },
+                    {
+                      "text": "Example",
+                      "id": "example",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Summary",
+                  "menuLinkText": "Summary",
+                  "url": "/docs/test-runner/reporters/summary/",
+                  "outputRelativeFilePath": "docs/test-runner/reporters/summary/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/8--reporters/30--summary.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Write Your Own | Rocket",
+                  "h1": "Write Your Own",
+                  "headlinesWithId": [
+                    {
+                      "text": "Write Your Own",
+                      "id": "write-your-own",
+                      "level": 1
+                    }
+                  ],
+                  "name": "Write Your Own",
+                  "menuLinkText": "Write Your Own",
+                  "url": "/docs/test-runner/reporters/write-your-own/",
+                  "outputRelativeFilePath": "docs/test-runner/reporters/write-your-own/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/8--reporters/30--write-your-own.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Dot | Rocket",
+                  "h1": "Dot",
+                  "headlinesWithId": [
+                    {
+                      "text": "Dot",
+                      "id": "dot",
+                      "level": 1
+                    },
+                    {
+                      "text": "Example",
+                      "id": "example",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Dot",
+                  "menuLinkText": "Dot",
+                  "url": "/docs/test-runner/reporters/dot/",
+                  "outputRelativeFilePath": "docs/test-runner/reporters/dot/index.html",
+                  "sourceRelativeFilePath": "20--docs/1--test-runner/8--reporters/40--dot.rocket.md",
+                  "level": 4
+                }
+              ]
+            },
+            {
+              "title": "Testing in a CI | Rocket",
+              "h1": "Testing in a CI",
+              "headlinesWithId": [
+                {
+                  "text": "Testing in a CI",
+                  "id": "testing-in-a-ci",
+                  "level": 1
+                },
+                {
+                  "text": "Puppeteer",
+                  "id": "puppeteer",
+                  "level": 2
+                },
+                {
+                  "text": "Playwright",
+                  "id": "playwright",
+                  "level": 2
+                }
+              ],
+              "name": "Testing in a CI",
+              "menuLinkText": "Testing in a CI",
+              "url": "/docs/test-runner/testing-in-a-ci/",
+              "outputRelativeFilePath": "docs/test-runner/testing-in-a-ci/index.html",
+              "sourceRelativeFilePath": "20--docs/1--test-runner/9--testing-in-a-ci.rocket.md",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "Dev Server | Rocket",
+          "h1": "Dev Server",
+          "headlinesWithId": [
+            {
+              "text": "Dev Server",
+              "id": "dev-server",
+              "level": 1
+            }
+          ],
+          "name": "Dev Server",
+          "menuLinkText": "Dev Server",
+          "url": "/docs/dev-server/",
+          "outputRelativeFilePath": "docs/dev-server/index.html",
+          "sourceRelativeFilePath": "20--docs/2--dev-server/index.rocket.md",
+          "level": 2,
+          "children": [
+            {
+              "title": "Web Dev Server | Rocket",
+              "h1": "Web Dev Server",
+              "headlinesWithId": [
+                {
+                  "text": "Web Dev Server",
+                  "id": "web-dev-server",
+                  "level": 1
+                },
+                {
+                  "text": "Installation",
+                  "id": "installation",
+                  "level": 2
+                },
+                {
+                  "text": "Basic commands",
+                  "id": "basic-commands",
+                  "level": 2
+                },
+                {
+                  "text": "Example projects",
+                  "id": "example-projects",
+                  "level": 2
+                }
+              ],
+              "name": "Web Dev Server",
+              "menuLinkText": "Dev Server >> Overview",
+              "url": "/docs/dev-server/overview/",
+              "outputRelativeFilePath": "docs/dev-server/overview/index.html",
+              "sourceRelativeFilePath": "20--docs/2--dev-server/1--overview.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "CLI and Configuration | Rocket",
+              "h1": "CLI and Configuration",
+              "headlinesWithId": [
+                {
+                  "text": "CLI and Configuration",
+                  "id": "cli-and-configuration",
+                  "level": 1
+                },
+                {
+                  "text": "CLI flags",
+                  "id": "cli-flags",
+                  "level": 2
+                },
+                {
+                  "text": "esbuild target",
+                  "id": "esbuild-target",
+                  "level": 2
+                },
+                {
+                  "text": "Configuration file",
+                  "id": "configuration-file",
+                  "level": 2
+                },
+                {
+                  "text": "Node resolve options",
+                  "id": "node-resolve-options",
+                  "level": 3
+                }
+              ],
+              "name": "CLI and Configuration",
+              "menuLinkText": "CLI and Configuration",
+              "url": "/docs/dev-server/cli-and-configuration/",
+              "outputRelativeFilePath": "docs/dev-server/cli-and-configuration/index.html",
+              "sourceRelativeFilePath": "20--docs/2--dev-server/2--cli-and-configuration.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Plugins | Rocket",
+              "h1": "Plugins",
+              "headlinesWithId": [
+                {
+                  "text": "Plugins",
+                  "id": "plugins",
+                  "level": 1
+                }
+              ],
+              "name": "Plugins",
+              "menuLinkText": "Plugins",
+              "url": "/docs/dev-server/plugins/",
+              "outputRelativeFilePath": "docs/dev-server/plugins/index.html",
+              "sourceRelativeFilePath": "20--docs/2--dev-server/3--plugins/index.rocket.md",
+              "level": 3,
+              "children": [
+                {
+                  "title": "Overview | Rocket",
+                  "h1": "Overview",
+                  "headlinesWithId": [
+                    {
+                      "text": "Overview",
+                      "id": "overview",
+                      "level": 1
+                    }
+                  ],
+                  "name": "Overview",
+                  "menuLinkText": "Overview",
+                  "url": "/docs/dev-server/plugins/overview/",
+                  "outputRelativeFilePath": "docs/dev-server/plugins/overview/index.html",
+                  "sourceRelativeFilePath": "20--docs/2--dev-server/3--plugins/1--overview.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Esbuild | Rocket",
+                  "h1": "Esbuild",
+                  "headlinesWithId": [
+                    {
+                      "text": "Esbuild",
+                      "id": "esbuild",
+                      "level": 1
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    },
+                    {
+                      "text": "Single file transforms",
+                      "id": "single-file-transforms",
+                      "level": 2
+                    },
+                    {
+                      "text": "Configuration",
+                      "id": "configuration",
+                      "level": 2
+                    },
+                    {
+                      "text": "Target",
+                      "id": "target",
+                      "level": 2
+                    },
+                    {
+                      "text": "Auto target",
+                      "id": "auto-target",
+                      "level": 3
+                    },
+                    {
+                      "text": "Always auto",
+                      "id": "always-auto",
+                      "level": 3
+                    },
+                    {
+                      "text": "Browser and language target",
+                      "id": "browser-and-language-target",
+                      "level": 3
+                    },
+                    {
+                      "text": "No target",
+                      "id": "no-target",
+                      "level": 3
+                    },
+                    {
+                      "text": "Loaders",
+                      "id": "loaders",
+                      "level": 2
+                    },
+                    {
+                      "text": "Examples",
+                      "id": "examples",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Esbuild",
+                  "menuLinkText": "Esbuild",
+                  "url": "/docs/dev-server/plugins/esbuild/",
+                  "outputRelativeFilePath": "docs/dev-server/plugins/esbuild/index.html",
+                  "sourceRelativeFilePath": "20--docs/2--dev-server/3--plugins/3--esbuild.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Rollup | Rocket",
+                  "h1": "Rollup",
+                  "headlinesWithId": [
+                    {
+                      "text": "Rollup",
+                      "id": "rollup",
+                      "level": 1
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    },
+                    {
+                      "text": "Performance",
+                      "id": "performance",
+                      "level": 2
+                    },
+                    {
+                      "text": "non-standard file types",
+                      "id": "non-standard-file-types",
+                      "level": 2
+                    },
+                    {
+                      "text": "Compatibility with rollup plugins",
+                      "id": "compatibility-with-rollup-plugins",
+                      "level": 2
+                    },
+                    {
+                      "text": "Bundling",
+                      "id": "bundling",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Rollup",
+                  "menuLinkText": "Rollup",
+                  "url": "/docs/dev-server/plugins/rollup/",
+                  "outputRelativeFilePath": "docs/dev-server/plugins/rollup/index.html",
+                  "sourceRelativeFilePath": "20--docs/2--dev-server/3--plugins/4--rollup.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Import Maps | Rocket",
+                  "h1": "Import Maps",
+                  "headlinesWithId": [
+                    {
+                      "text": "Import Maps",
+                      "id": "import-maps",
+                      "level": 1
+                    },
+                    {
+                      "text": "Import Maps",
+                      "id": "import-maps-1",
+                      "level": 2
+                    },
+                    {
+                      "text": "Installation",
+                      "id": "installation",
+                      "level": 2
+                    },
+                    {
+                      "text": "Basic usage",
+                      "id": "basic-usage",
+                      "level": 2
+                    },
+                    {
+                      "text": "Import map options",
+                      "id": "import-map-options",
+                      "level": 2
+                    },
+                    {
+                      "text": "Injecting import maps",
+                      "id": "injecting-import-maps",
+                      "level": 2
+                    },
+                    {
+                      "text": "Including or excluding file",
+                      "id": "including-or-excluding-file",
+                      "level": 3
+                    },
+                    {
+                      "text": "Multiple Import Maps",
+                      "id": "multiple-import-maps",
+                      "level": 3
+                    }
+                  ],
+                  "name": "Import Maps",
+                  "menuLinkText": "Import Maps",
+                  "url": "/docs/dev-server/plugins/import-maps/",
+                  "outputRelativeFilePath": "docs/dev-server/plugins/import-maps/index.html",
+                  "sourceRelativeFilePath": "20--docs/2--dev-server/3--plugins/5--import-maps.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Legacy | Rocket",
+                  "h1": "Legacy",
+                  "headlinesWithId": [
+                    {
+                      "text": "Legacy",
+                      "id": "legacy",
+                      "level": 1
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    },
+                    {
+                      "text": "How it works",
+                      "id": "how-it-works",
+                      "level": 2
+                    },
+                    {
+                      "text": "Configuration",
+                      "id": "configuration",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Legacy",
+                  "menuLinkText": "Legacy",
+                  "url": "/docs/dev-server/plugins/legacy/",
+                  "outputRelativeFilePath": "docs/dev-server/plugins/legacy/index.html",
+                  "sourceRelativeFilePath": "20--docs/2--dev-server/3--plugins/6--legacy.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Hot Module Replacement | Rocket",
+                  "h1": "Hot Module Replacement",
+                  "headlinesWithId": [
+                    {
+                      "text": "Hot Module Replacement",
+                      "id": "hot-module-replacement",
+                      "level": 1
+                    },
+                    {
+                      "text": "Implementations",
+                      "id": "implementations",
+                      "level": 2
+                    },
+                    {
+                      "text": "Installation",
+                      "id": "installation",
+                      "level": 2
+                    },
+                    {
+                      "text": "Basic usage",
+                      "id": "basic-usage",
+                      "level": 2
+                    },
+                    {
+                      "text": "esm-hmr spec",
+                      "id": "esm-hmr-spec",
+                      "level": 2
+                    },
+                    {
+                      "text": "Note about production",
+                      "id": "note-about-production",
+                      "level": 2
+                    },
+                    {
+                      "text": "Use with libraries/frameworks",
+                      "id": "use-with-librariesframeworks",
+                      "level": 2
+                    },
+                    {
+                      "text": "API",
+                      "id": "api",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Hot Module Replacement",
+                  "menuLinkText": "Hot Module Replacement",
+                  "url": "/docs/dev-server/plugins/hmr/",
+                  "outputRelativeFilePath": "docs/dev-server/plugins/hmr/index.html",
+                  "sourceRelativeFilePath": "20--docs/2--dev-server/3--plugins/7--hmr.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Storybook | Rocket",
+                  "h1": "Storybook",
+                  "headlinesWithId": [
+                    {
+                      "text": "Storybook",
+                      "id": "storybook",
+                      "level": 1
+                    },
+                    {
+                      "text": "How it works",
+                      "id": "how-it-works",
+                      "level": 2
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    },
+                    {
+                      "text": "Docs",
+                      "id": "docs",
+                      "level": 2
+                    },
+                    {
+                      "text": "Configuration",
+                      "id": "configuration",
+                      "level": 2
+                    },
+                    {
+                      "text": "Project types",
+                      "id": "project-types",
+                      "level": 3
+                    },
+                    {
+                      "text": "main.js and preview.js",
+                      "id": "mainjs-and-previewjs",
+                      "level": 3
+                    },
+                    {
+                      "text": "Customizing storybook directory",
+                      "id": "customizing-storybook-directory",
+                      "level": 3
+                    },
+                    {
+                      "text": "Production build",
+                      "id": "production-build",
+                      "level": 2
+                    },
+                    {
+                      "text": "Running a build",
+                      "id": "running-a-build",
+                      "level": 3
+                    },
+                    {
+                      "text": "Customizing the build",
+                      "id": "customizing-the-build",
+                      "level": 3
+                    }
+                  ],
+                  "name": "Storybook",
+                  "menuLinkText": "Storybook",
+                  "url": "/docs/dev-server/plugins/storybook/",
+                  "outputRelativeFilePath": "docs/dev-server/plugins/storybook/index.html",
+                  "sourceRelativeFilePath": "20--docs/2--dev-server/3--plugins/7--storybook.rocket.md",
+                  "level": 4
+                }
+              ]
+            },
+            {
+              "title": "Writing Plugins | Rocket",
+              "h1": "Writing Plugins",
+              "headlinesWithId": [
+                {
+                  "text": "Writing Plugins",
+                  "id": "writing-plugins",
+                  "level": 1
+                }
+              ],
+              "name": "Writing Plugins",
+              "menuLinkText": "Writing Plugins",
+              "url": "/docs/dev-server/writing-plugins/",
+              "outputRelativeFilePath": "docs/dev-server/writing-plugins/index.html",
+              "sourceRelativeFilePath": "20--docs/2--dev-server/4--writing-plugins/index.rocket.md",
+              "level": 3,
+              "children": [
+                {
+                  "title": "Overview | Rocket",
+                  "h1": "Overview",
+                  "headlinesWithId": [
+                    {
+                      "text": "Overview",
+                      "id": "overview",
+                      "level": 1
+                    }
+                  ],
+                  "name": "Overview",
+                  "menuLinkText": "Overview",
+                  "url": "/docs/dev-server/writing-plugins/overview/",
+                  "outputRelativeFilePath": "docs/dev-server/writing-plugins/overview/index.html",
+                  "sourceRelativeFilePath": "20--docs/2--dev-server/4--writing-plugins/1--overview.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Examples | Rocket",
+                  "h1": "Examples",
+                  "headlinesWithId": [
+                    {
+                      "text": "Examples",
+                      "id": "examples",
+                      "level": 1
+                    },
+                    {
+                      "text": "Typescript",
+                      "id": "typescript",
+                      "level": 2
+                    },
+                    {
+                      "text": "tsc",
+                      "id": "tsc",
+                      "level": 3
+                    },
+                    {
+                      "text": "esbuild",
+                      "id": "esbuild",
+                      "level": 3
+                    },
+                    {
+                      "text": "Other module formats",
+                      "id": "other-module-formats",
+                      "level": 2
+                    },
+                    {
+                      "text": "Environment variables",
+                      "id": "environment-variables",
+                      "level": 2
+                    },
+                    {
+                      "text": "Virtual module",
+                      "id": "virtual-module",
+                      "level": 3
+                    },
+                    {
+                      "text": "Constants replacement",
+                      "id": "constants-replacement",
+                      "level": 3
+                    },
+                    {
+                      "text": "Mocking or stubbing modules",
+                      "id": "mocking-or-stubbing-modules",
+                      "level": 2
+                    },
+                    {
+                      "text": "Babel",
+                      "id": "babel",
+                      "level": 2
+                    },
+                    {
+                      "text": "JSX and TSX",
+                      "id": "jsx-and-tsx",
+                      "level": 2
+                    },
+                    {
+                      "text": "Importing JSON",
+                      "id": "importing-json",
+                      "level": 2
+                    },
+                    {
+                      "text": "Importing CSS",
+                      "id": "importing-css",
+                      "level": 2
+                    },
+                    {
+                      "text": "Importing images",
+                      "id": "importing-images",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Examples",
+                  "menuLinkText": "Examples",
+                  "url": "/docs/dev-server/writing-plugins/examples/",
+                  "outputRelativeFilePath": "docs/dev-server/writing-plugins/examples/index.html",
+                  "sourceRelativeFilePath": "20--docs/2--dev-server/4--writing-plugins/2--examples.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Hooks | Rocket",
+                  "h1": "Hooks",
+                  "headlinesWithId": [
+                    {
+                      "text": "Hooks",
+                      "id": "hooks",
+                      "level": 1
+                    },
+                    {
+                      "text": "Hook: serve",
+                      "id": "hook-serve",
+                      "level": 2
+                    },
+                    {
+                      "text": "Hook: resolveMimeType",
+                      "id": "hook-resolvemimetype",
+                      "level": 2
+                    },
+                    {
+                      "text": "Hook: transform",
+                      "id": "hook-transform",
+                      "level": 2
+                    },
+                    {
+                      "text": "Hook: resolveImport",
+                      "id": "hook-resolveimport",
+                      "level": 2
+                    },
+                    {
+                      "text": "Hook: transformImport",
+                      "id": "hook-transformimport",
+                      "level": 2
+                    },
+                    {
+                      "text": "Hook: serverStart",
+                      "id": "hook-serverstart",
+                      "level": 2
+                    },
+                    {
+                      "text": "Hook: serverStop",
+                      "id": "hook-serverstop",
+                      "level": 2
+                    },
+                    {
+                      "text": "Koa Context",
+                      "id": "koa-context",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Hooks",
+                  "menuLinkText": "Hooks",
+                  "url": "/docs/dev-server/writing-plugins/hooks/",
+                  "outputRelativeFilePath": "docs/dev-server/writing-plugins/hooks/index.html",
+                  "sourceRelativeFilePath": "20--docs/2--dev-server/4--writing-plugins/3--hooks.rocket.md",
+                  "level": 4
+                },
+                {
+                  "title": "Web Sockets | Rocket",
+                  "h1": "Web Sockets",
+                  "headlinesWithId": [
+                    {
+                      "text": "Web Sockets",
+                      "id": "web-sockets",
+                      "level": 1
+                    },
+                    {
+                      "text": "Built-in messages",
+                      "id": "built-in-messages",
+                      "level": 3
+                    },
+                    {
+                      "text": "Custom messages",
+                      "id": "custom-messages",
+                      "level": 3
+                    }
+                  ],
+                  "name": "Web Sockets",
+                  "menuLinkText": "Web Sockets",
+                  "url": "/docs/dev-server/writing-plugins/web-sockets/",
+                  "outputRelativeFilePath": "docs/dev-server/writing-plugins/web-sockets/index.html",
+                  "sourceRelativeFilePath": "20--docs/2--dev-server/4--writing-plugins/4--web-sockets.rocket.md",
+                  "level": 4
+                }
+              ]
+            },
+            {
+              "title": "Middleware | Rocket",
+              "h1": "Middleware",
+              "headlinesWithId": [
+                {
+                  "text": "Middleware",
+                  "id": "middleware",
+                  "level": 1
+                },
+                {
+                  "text": "Proxying requests",
+                  "id": "proxying-requests",
+                  "level": 2
+                },
+                {
+                  "text": "Enabling range requests",
+                  "id": "enabling-range-requests",
+                  "level": 2
+                },
+                {
+                  "text": "Rewriting request urls",
+                  "id": "rewriting-request-urls",
+                  "level": 2
+                },
+                {
+                  "text": "Reusing express middleware",
+                  "id": "reusing-express-middleware",
+                  "level": 2
+                }
+              ],
+              "name": "Middleware",
+              "menuLinkText": "Middleware",
+              "url": "/docs/dev-server/middleware/",
+              "outputRelativeFilePath": "docs/dev-server/middleware/index.html",
+              "sourceRelativeFilePath": "20--docs/2--dev-server/5--middleware.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Node API | Rocket",
+              "h1": "Node API",
+              "headlinesWithId": [
+                {
+                  "text": "Node API",
+                  "id": "node-api",
+                  "level": 1
+                },
+                {
+                  "text": "startDevServer",
+                  "id": "startdevserver",
+                  "level": 2
+                },
+                {
+                  "text": "Stopping the server",
+                  "id": "stopping-the-server",
+                  "level": 3
+                },
+                {
+                  "text": "Configuration",
+                  "id": "configuration",
+                  "level": 3
+                },
+                {
+                  "text": "Combine with your own CLI definitions",
+                  "id": "combine-with-your-own-cli-definitions",
+                  "level": 2
+                },
+                {
+                  "text": "Websockets Server",
+                  "id": "websockets-server",
+                  "level": 2
+                },
+                {
+                  "text": "Advanced",
+                  "id": "advanced",
+                  "level": 2
+                }
+              ],
+              "name": "Node API",
+              "menuLinkText": "Node API",
+              "url": "/docs/dev-server/node-api/",
+              "outputRelativeFilePath": "docs/dev-server/node-api/index.html",
+              "sourceRelativeFilePath": "20--docs/2--dev-server/6--node-api.rocket.md",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "Building | Rocket",
+          "h1": "Building",
+          "headlinesWithId": [
+            {
+              "text": "Building",
+              "id": "building",
+              "level": 1
+            }
+          ],
+          "name": "Building",
+          "menuLinkText": "Building",
+          "url": "/docs/building/",
+          "outputRelativeFilePath": "docs/building/index.html",
+          "sourceRelativeFilePath": "20--docs/3--building/index.rocket.md",
+          "level": 2,
+          "children": [
+            {
+              "title": "Overview | Rocket",
+              "h1": "Overview",
+              "headlinesWithId": [
+                {
+                  "text": "Overview",
+                  "id": "overview",
+                  "level": 1
+                }
+              ],
+              "name": "Overview",
+              "menuLinkText": "Overview",
+              "url": "/docs/building/overview/",
+              "outputRelativeFilePath": "docs/building/overview/index.html",
+              "sourceRelativeFilePath": "20--docs/3--building/10--overview.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Rollup Plugin HTML | Rocket",
+              "h1": "Rollup Plugin HTML",
+              "headlinesWithId": [
+                {
+                  "text": "Rollup Plugin HTML",
+                  "id": "rollup-plugin-html",
+                  "level": 1
+                },
+                {
+                  "text": "Installation",
+                  "id": "installation",
+                  "level": 2
+                },
+                {
+                  "text": "Usage",
+                  "id": "usage",
+                  "level": 2
+                },
+                {
+                  "text": "Single page",
+                  "id": "single-page",
+                  "level": 3
+                },
+                {
+                  "text": "Multiple pages",
+                  "id": "multiple-pages",
+                  "level": 3
+                },
+                {
+                  "text": "HTML as string",
+                  "id": "html-as-string",
+                  "level": 3
+                },
+                {
+                  "text": "Bundling assets",
+                  "id": "bundling-assets",
+                  "level": 3
+                },
+                {
+                  "text": "Handling absolute paths",
+                  "id": "handling-absolute-paths",
+                  "level": 3
+                },
+                {
+                  "text": "Preserving directory structure",
+                  "id": "preserving-directory-structure",
+                  "level": 3
+                },
+                {
+                  "text": "Transforming HTML files and assets",
+                  "id": "transforming-html-files-and-assets",
+                  "level": 3
+                },
+                {
+                  "text": "Minification",
+                  "id": "minification",
+                  "level": 3
+                },
+                {
+                  "text": "Social Media Tags",
+                  "id": "social-media-tags",
+                  "level": 3
+                },
+                {
+                  "text": "Inject a Service Worker",
+                  "id": "inject-a-service-worker",
+                  "level": 3
+                },
+                {
+                  "text": "Strict CSP for inline scripts",
+                  "id": "strict-csp-for-inline-scripts",
+                  "level": 3
+                },
+                {
+                  "text": "Type definitions",
+                  "id": "type-definitions",
+                  "level": 2
+                }
+              ],
+              "name": "Rollup Plugin HTML",
+              "menuLinkText": "Rollup Plugin HTML",
+              "url": "/docs/building/rollup-plugin-html/",
+              "outputRelativeFilePath": "docs/building/rollup-plugin-html/index.html",
+              "sourceRelativeFilePath": "20--docs/3--building/20--rollup-plugin-html.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Rollup Plugin Import Meta Assets | Rocket",
+              "h1": "Rollup Plugin Import Meta Assets",
+              "headlinesWithId": [
+                {
+                  "text": "Rollup Plugin Import Meta Assets",
+                  "id": "rollup-plugin-import-meta-assets",
+                  "level": 1
+                },
+                {
+                  "text": "How it works",
+                  "id": "how-it-works",
+                  "level": 2
+                },
+                {
+                  "text": "Install",
+                  "id": "install",
+                  "level": 2
+                },
+                {
+                  "text": "Usage",
+                  "id": "usage",
+                  "level": 2
+                },
+                {
+                  "text": "Options",
+                  "id": "options",
+                  "level": 2
+                },
+                {
+                  "text": "Examples",
+                  "id": "examples",
+                  "level": 2
+                }
+              ],
+              "name": "Rollup Plugin Import Meta Assets",
+              "menuLinkText": "Rollup Plugin Import Meta Assets",
+              "url": "/docs/building/rollup-plugin-import-meta-assets/",
+              "outputRelativeFilePath": "docs/building/rollup-plugin-import-meta-assets/index.html",
+              "sourceRelativeFilePath": "20--docs/3--building/30--rollup-plugin-import-meta-assets.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Rollup Plugin Copy | Rocket",
+              "h1": "Rollup Plugin Copy",
+              "headlinesWithId": [
+                {
+                  "text": "Rollup Plugin Copy",
+                  "id": "rollup-plugin-copy",
+                  "level": 1
+                },
+                {
+                  "text": "Installation",
+                  "id": "installation",
+                  "level": 2
+                },
+                {
+                  "text": "Usage",
+                  "id": "usage",
+                  "level": 2
+                },
+                {
+                  "text": "Options",
+                  "id": "options",
+                  "level": 2
+                },
+                {
+                  "text": "Examples",
+                  "id": "examples",
+                  "level": 2
+                },
+                {
+                  "text": "Pattern all svgs",
+                  "id": "pattern-all-svgs",
+                  "level": 3
+                },
+                {
+                  "text": "Pattern all svgs different root",
+                  "id": "pattern-all-svgs-different-root",
+                  "level": 3
+                },
+                {
+                  "text": "Exclude single directory",
+                  "id": "exclude-single-directory",
+                  "level": 3
+                },
+                {
+                  "text": "Exclude multiple globs",
+                  "id": "exclude-multiple-globs",
+                  "level": 3
+                }
+              ],
+              "name": "Rollup Plugin Copy",
+              "menuLinkText": "Rollup Plugin Copy",
+              "url": "/docs/building/rollup-plugin-copy/",
+              "outputRelativeFilePath": "docs/building/rollup-plugin-copy/index.html",
+              "sourceRelativeFilePath": "20--docs/3--building/40--rollup-plugin-copy.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Rollup Plugin Polyfills Loader | Rocket",
+              "h1": "Rollup Plugin Polyfills Loader",
+              "headlinesWithId": [
+                {
+                  "text": "Rollup Plugin Polyfills Loader",
+                  "id": "rollup-plugin-polyfills-loader",
+                  "level": 1
+                },
+                {
+                  "text": "Examples",
+                  "id": "examples",
+                  "level": 2
+                },
+                {
+                  "text": "Basic rollup build",
+                  "id": "basic-rollup-build",
+                  "level": 3
+                },
+                {
+                  "text": "Multiple rollup build outputs",
+                  "id": "multiple-rollup-build-outputs",
+                  "level": 3
+                },
+                {
+                  "text": "External loader script",
+                  "id": "external-loader-script",
+                  "level": 3
+                }
+              ],
+              "name": "Rollup Plugin Polyfills Loader",
+              "menuLinkText": "Rollup Plugin Polyfills Loader",
+              "url": "/docs/building/rollup-plugin-polyfills-loader/",
+              "outputRelativeFilePath": "docs/building/rollup-plugin-polyfills-loader/index.html",
+              "sourceRelativeFilePath": "20--docs/3--building/50--rollup-plugin-polyfills-loader.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Polyfills loader | Rocket",
+              "h1": "Polyfills loader",
+              "headlinesWithId": [
+                {
+                  "text": "Polyfills loader",
+                  "id": "polyfills-loader",
+                  "level": 1
+                },
+                {
+                  "text": "Performance",
+                  "id": "performance",
+                  "level": 2
+                },
+                {
+                  "text": "Preloading",
+                  "id": "preloading",
+                  "level": 3
+                },
+                {
+                  "text": "Configuration",
+                  "id": "configuration",
+                  "level": 2
+                },
+                {
+                  "text": "Example configuration",
+                  "id": "example-configuration",
+                  "level": 3
+                },
+                {
+                  "text": "Configuration options",
+                  "id": "configuration-options",
+                  "level": 2
+                },
+                {
+                  "text": "modern",
+                  "id": "modern",
+                  "level": 3
+                },
+                {
+                  "text": "legacy",
+                  "id": "legacy",
+                  "level": 3
+                },
+                {
+                  "text": "polyfills",
+                  "id": "polyfills",
+                  "level": 2
+                },
+                {
+                  "text": "Shady css custom style",
+                  "id": "shady-css-custom-style",
+                  "level": 3
+                },
+                {
+                  "text": "hashing",
+                  "id": "hashing",
+                  "level": 3
+                },
+                {
+                  "text": "custom polyfills",
+                  "id": "custom-polyfills",
+                  "level": 3
+                },
+                {
+                  "text": "exclude",
+                  "id": "exclude",
+                  "level": 3
+                },
+                {
+                  "text": "polyfillsDir",
+                  "id": "polyfillsdir",
+                  "level": 4
+                },
+                {
+                  "text": "minify",
+                  "id": "minify",
+                  "level": 4
+                },
+                {
+                  "text": "externalLoaderScript",
+                  "id": "externalloaderscript",
+                  "level": 4
+                },
+                {
+                  "text": "Usage",
+                  "id": "usage",
+                  "level": 2
+                },
+                {
+                  "text": "createPolyfillsLoader",
+                  "id": "createpolyfillsloader",
+                  "level": 3
+                },
+                {
+                  "text": "injectPolyfillsLoader",
+                  "id": "injectpolyfillsloader",
+                  "level": 3
+                }
+              ],
+              "name": "Polyfills loader",
+              "menuLinkText": "Polyfills loader",
+              "url": "/docs/building/polyfills-loader/",
+              "outputRelativeFilePath": "docs/building/polyfills-loader/index.html",
+              "sourceRelativeFilePath": "20--docs/3--building/60--polyfills-loader.rocket.md",
+              "level": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Modern Web Blog | Rocket",
+      "h1": "Modern Web Blog",
+      "headlinesWithId": [
+        {
+          "text": "Modern Web Blog",
+          "id": "modern-web-blog",
+          "level": 1
+        }
+      ],
+      "name": "Modern Web Blog",
+      "menuLinkText": "Blog",
+      "url": "/blog/",
+      "outputRelativeFilePath": "blog/index.html",
+      "sourceRelativeFilePath": "30--blog/index.rocket.md",
+      "level": 1,
+      "children": [
+        {
+          "title": "Introducing: Modern Web | Rocket",
+          "h1": "Introducing: Modern Web",
+          "headlinesWithId": [
+            {
+              "text": "Introducing: Modern Web",
+              "id": "introducing-modern-web",
+              "level": 1
+            },
+            {
+              "text": "What is Modern Web?",
+              "id": "what-is-modern-web",
+              "level": 2
+            },
+            {
+              "text": "The goal for Modern Web",
+              "id": "the-goal-for-modern-web",
+              "level": 2
+            },
+            {
+              "text": "Our plan for the future",
+              "id": "our-plan-for-the-future",
+              "level": 2
+            },
+            {
+              "text": "Guides",
+              "id": "guides",
+              "level": 2
+            },
+            {
+              "text": "Web Test Runner",
+              "id": "web-test-runner",
+              "level": 2
+            },
+            {
+              "text": "Highlights",
+              "id": "highlights",
+              "level": 3
+            },
+            {
+              "text": "Getting started",
+              "id": "getting-started",
+              "level": 3
+            },
+            {
+              "text": "Web Dev Server",
+              "id": "web-dev-server",
+              "level": 2
+            },
+            {
+              "text": "Highlights",
+              "id": "highlights-1",
+              "level": 3
+            },
+            {
+              "text": "Building for production",
+              "id": "building-for-production",
+              "level": 2
+            },
+            {
+              "text": "Progressive web apps",
+              "id": "progressive-web-apps",
+              "level": 2
+            },
+            {
+              "text": "Documentation (rocket)",
+              "id": "documentation-rocket",
+              "level": 2
+            },
+            {
+              "text": "Modern Web Family",
+              "id": "modern-web-family",
+              "level": 2
+            },
+            {
+              "text": "Thanks for reading",
+              "id": "thanks-for-reading",
+              "level": 2
+            }
+          ],
+          "name": "Introducing: Modern Web",
+          "menuLinkText": "Introducing: Modern Web",
+          "url": "/blog/introducing-modern-web/",
+          "outputRelativeFilePath": "blog/introducing-modern-web/index.html",
+          "sourceRelativeFilePath": "30--blog/introducing-modern-web/index.rocket.md",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "title": "About Modern Web | Rocket",
+      "h1": "About Modern Web",
+      "headlinesWithId": [
+        {
+          "text": "About Modern Web",
+          "id": "about-modern-web",
+          "level": 1
+        },
+        {
+          "text": "Modern Web Family",
+          "id": "modern-web-family",
+          "level": 2
+        }
+      ],
+      "name": "About Modern Web",
+      "menuLinkText": "About Modern Web",
+      "url": "/about/",
+      "outputRelativeFilePath": "about/index.html",
+      "sourceRelativeFilePath": "about.rocket.md",
+      "level": 1,
+      "menuNoLink": true
+    }
+  ]
+}
