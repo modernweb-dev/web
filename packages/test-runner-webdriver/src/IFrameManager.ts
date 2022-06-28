@@ -134,7 +134,7 @@ export class IFrameManager {
       iframe.addEventListener('load', loaded);
       iframe.addEventListener('error', loaded);
       // set src after retrieving values to avoid the iframe from navigating away
-      iframe.src = "data:,";
+      iframe.src = "about:blank";
     `);
 
     if (!validateBrowserResult(returnValue)) {
