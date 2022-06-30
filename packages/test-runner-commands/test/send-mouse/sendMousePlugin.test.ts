@@ -30,11 +30,7 @@ describe('sendMousePlugin', function test() {
     });
   });
 
-  /**
-   * TODO: Test is skipped because webdriver requires Chrome v100 which is not available in
-   * CI. Unskip later when it is supported.
-   */
-  describe.skip('webdriver', () => {
+  describe('webdriver', () => {
     let seleniumServer!: selenium.ChildProcess;
 
     before(async () => {

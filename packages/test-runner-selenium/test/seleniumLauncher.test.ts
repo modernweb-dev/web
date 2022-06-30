@@ -39,11 +39,7 @@ async function startSeleniumServer() {
 
 let seleniumServer: selenium.ChildProcess;
 
-/**
- * TODO: Test is skipped because webdriver requires Chrome v100 which is not available in
- * CI. Unskip later when it is supported.
- */
-describe.skip('test-runner-selenium', function testRunnerSelenium() {
+describe('test-runner-selenium', function testRunnerSelenium() {
   this.timeout(50000);
 
   before(async function () {
