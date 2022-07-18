@@ -1,5 +1,11 @@
 # @web/test-runner-webdriver
 
+## 0.5.1
+
+### Patch Changes
+
+- 8a813171: Navigations to blank pages now use `about:blank` instead of `data:,`.
+
 ## 0.5.0
 
 ### Minor Changes

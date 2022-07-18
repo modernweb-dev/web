@@ -1,5 +1,11 @@
 # @web/test-runner-selenium
 
+## 0.5.4
+
+### Patch Changes
+
+- 8a813171: Navigations to blank pages now use `about:blank` instead of `data:,`.
+
 ## 0.5.3
 
 ### Patch Changes
