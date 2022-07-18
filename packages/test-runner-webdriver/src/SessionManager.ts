@@ -73,7 +73,7 @@ export class SessionManager {
     const { testCoverage } = returnValue;
 
     // navigate to an empty page to kill any running code on the page
-    await this.driver.navigateTo('data:,');
+    await this.driver.navigateTo('about:blank');
 
     this.urlMap.delete(id);
 
