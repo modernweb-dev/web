@@ -10,6 +10,13 @@ export interface InputHTMLOptions {
   path?: string;
 }
 
+export interface TagAndAttribute {
+  /** The html element tag name */
+  tagName: string;
+  /** The html attribute */
+  attribute: string;
+}
+
 export interface RollupPluginHTMLOptions {
   /** HTML file(s) to use as input. If not set, uses rollup input option. */
   input?: string | InputHTMLOptions | (string | InputHTMLOptions)[];
@@ -28,7 +35,7 @@ export interface RollupPluginHTMLOptions {
   /** Transform HTML file before output. */
   transformHtml?: TransformHtmlFunction | TransformHtmlFunction[];
   /** Whether to extract and bundle assets referenced in HTML. Defaults to true. */
-  extractAssets?: boolean;
+  extractAssets?: boolean | TagAndAttribute[];
   /** Define a full absolute url to your site (e.g. https://domain.com) */
   absoluteBaseUrl?: string;
   /** Whether to set full absolute urls for ['meta[property=og:image]', 'link[rel=canonical]', 'meta[property=og:url]'] or not. Requires a absoluteBaseUrl to be set. Default to true. */

@@ -8,6 +8,7 @@ import {
   isHashedAsset,
   resolveAssetFilePath,
 } from '../../assets/utils';
+import { TagAndAttribute } from '../../RollupPluginHTMLOptions';
 
 export interface ExtractAssetsParams {
   document: Document;
@@ -15,14 +16,15 @@ export interface ExtractAssetsParams {
   htmlDir: string;
   rootDir: string;
   absolutePathPrefix?: string;
+  extractAssets?: boolean | TagAndAttribute[];
 }
 
 export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
-  const assetNodes = findAssets(params.document);
+  const assetNodes = findAssets(params.document, params.extractAssets);
   const allAssets: InputAsset[] = [];
 
   for (const node of assetNodes) {
-    const sourcePaths = getSourcePaths(node);
+    const sourcePaths = getSourcePaths(node, params.extractAssets);
     for (const sourcePath of sourcePaths) {
       const filePath = resolveAssetFilePath(
         sourcePath,
@@ -30,7 +32,7 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
         params.rootDir,
         params.absolutePathPrefix,
       );
-      const hashed = isHashedAsset(node);
+      const hashed = isHashedAsset(node, params.extractAssets);
       const alreadyHandled = allAssets.find(a => a.filePath === filePath && a.hashed === hashed);
       if (!alreadyHandled) {
         try {

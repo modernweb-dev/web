@@ -1,8 +1,16 @@
-import { Document, Element } from 'parse5';
+import { Document, Node, DefaultTreeNode, DefaultTreeElement } from 'parse5';
 import path from 'path';
-import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
+import {
+  findElements,
+  getTagName,
+  getAttribute,
+  findNodes,
+  getTemplateContent,
+  getChildNodes,
+} from '@web/parse5-utils';
 import { createError } from '../utils';
 import { serialize } from 'v8';
+import { TagAndAttribute } from '../RollupPluginHTMLOptions';
 
 const hashedLinkRels = ['stylesheet'];
 const linkRels = [...hashedLinkRels, 'icon', 'manifest', 'apple-touch-icon', 'mask-icon'];
@@ -27,14 +35,14 @@ function extractFirstUrlOfSrcSet(node: Element) {
   return urls[0];
 }
 
-function isAsset(node: Element) {
+function isAsset(node: Node, extractAssets?: boolean | TagAndAttribute[]) {
   let path = '';
   switch (getTagName(node)) {
     case 'img':
       path = getAttribute(node, 'src') ?? '';
       break;
     case 'source':
-      path = extractFirstUrlOfSrcSet(node) ?? '';
+      path = extractFirstUrlOfSrcSet(node as Element) ?? '';
       break;
     case 'link':
       if (linkRels.includes(getAttribute(node, 'rel') ?? '')) {
@@ -52,7 +60,10 @@ function isAsset(node: Element) {
       }
       break;
     default:
-      return false;
+      if (Array.isArray(extractAssets)) {
+        const attr = extractAssets.find(({ tagName }) => tagName === getTagName(node))?.attribute;
+        path = attr ? getAttribute(node, attr) ?? '' : '';
+      }
   }
   if (!path) {
     return false;
@@ -65,7 +76,7 @@ function isAsset(node: Element) {
   }
 }
 
-export function isHashedAsset(node: Element) {
+export function isHashedAsset(node: Node, extractAssets?: boolean | TagAndAttribute[]) {
   switch (getTagName(node)) {
     case 'img':
       return true;
@@ -78,6 +89,9 @@ export function isHashedAsset(node: Element) {
     case 'meta':
       return true;
     default:
+      if (Array.isArray(extractAssets)) {
+        return Boolean(extractAssets.find(({ tagName }) => tagName === getTagName(node)));
+      }
       return false;
   }
 }
@@ -98,7 +112,7 @@ export function resolveAssetFilePath(
   );
 }
 
-export function getSourceAttribute(node: Element) {
+export function getSourceAttribute(node: Node, extractAssets?: boolean | TagAndAttribute[]) {
   switch (getTagName(node)) {
     case 'img': {
       return 'src';
@@ -116,13 +130,18 @@ export function getSourceAttribute(node: Element) {
       return 'content';
     }
     default:
+      if (Array.isArray(extractAssets)) {
+        const attr = extractAssets.find(({ tagName }) => tagName === getTagName(node))?.attribute;
+        if (attr) {
+          return attr;
+        }
+      }
       throw new Error(`Unknown node with tagname ${getTagName(node)}`);
   }
 }
 
-export function getSourcePaths(node: Element) {
-  const key = getSourceAttribute(node);
-
+export function getSourcePaths(node: Node, extractAssets?: boolean | TagAndAttribute[]) {
+  const key = getSourceAttribute(node, extractAssets);
   const src = getAttribute(node, key);
   if (typeof key !== 'string' || src === '') {
     throw createError(`Missing attribute ${key} in element ${serialize(node)}`);
@@ -136,6 +155,25 @@ export function getSourcePaths(node: Element) {
   return paths;
 }
 
-export function findAssets(document: Document) {
-  return findElements(document, isAsset);
+function findAllElements(
+  nodes: Node | Node[],
+  test: (node: Node) => boolean,
+  elements: DefaultTreeElement[] = [],
+): DefaultTreeElement[] {
+  elements.push(...findElements(nodes, test));
+  const templates = findNodes(
+    nodes,
+    (node: DefaultTreeNode) => node.nodeName === 'template',
+  ) as Element[];
+  for (const template of templates) {
+    elements.push(...findAllElements(getChildNodes(getTemplateContent(template)), test));
+  }
+  return elements;
+}
+
+export function findAssets(document: Document, extractAssets?: boolean | TagAndAttribute[]) {
+  function isAssetInjected(node: Node) {
+    return isAsset(node, extractAssets);
+  }
+  return findAllElements(document, isAssetInjected);
 }

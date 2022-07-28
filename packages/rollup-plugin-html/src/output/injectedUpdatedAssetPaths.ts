@@ -10,6 +10,7 @@ import {
   resolveAssetFilePath,
 } from '../assets/utils';
 import { InputData } from '../input/InputData';
+import { TagAndAttribute } from '../RollupPluginHTMLOptions';
 import { createError } from '../utils';
 import { EmittedAssets } from './emitAssets';
 import { toBrowserPath } from './utils';
@@ -22,6 +23,7 @@ export interface InjectUpdatedAssetPathsArgs {
   emittedAssets: EmittedAssets;
   publicPath?: string;
   absolutePathPrefix?: string;
+  extractAssets?: boolean | TagAndAttribute[];
 }
 
 function getSrcSetUrlWidthPairs(srcset: string) {
@@ -44,16 +46,19 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
     emittedAssets,
     publicPath = './',
     absolutePathPrefix,
+    extractAssets = true,
   } = args;
-  const assetNodes = findAssets(document);
+  const assetNodes = findAssets(document, extractAssets);
 
   for (const node of assetNodes) {
-    const sourcePaths = getSourcePaths(node);
+    const sourcePaths = getSourcePaths(node, extractAssets);
     for (const sourcePath of sourcePaths) {
       const htmlFilePath = input.filePath ? input.filePath : path.join(rootDir, input.name);
       const htmlDir = path.dirname(htmlFilePath);
       const filePath = resolveAssetFilePath(sourcePath, htmlDir, rootDir, absolutePathPrefix);
-      const assetPaths = isHashedAsset(node) ? emittedAssets.hashed : emittedAssets.static;
+      const assetPaths = isHashedAsset(node, extractAssets)
+        ? emittedAssets.hashed
+        : emittedAssets.static;
       const relativeOutputPath = assetPaths.get(filePath);
 
       if (!relativeOutputPath) {
@@ -67,7 +72,7 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
       const relativePathToHtmlFile = path.relative(htmlOutputDir, absoluteOutputPath);
 
       const browserPath = path.posix.join(publicPath, toBrowserPath(relativePathToHtmlFile));
-      const key = getSourceAttribute(node);
+      const key = getSourceAttribute(node, extractAssets);
 
       let newAttributeValue = browserPath;
       if (key === 'srcset') {

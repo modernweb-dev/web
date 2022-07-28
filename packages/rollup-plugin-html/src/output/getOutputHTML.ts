@@ -55,6 +55,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
       emittedAssets,
       absolutePathPrefix,
       publicPath: pluginOptions.publicPath,
+      extractAssets: pluginOptions.extractAssets || true,
     });
   }
   if (!defaultInjectDisabled) {

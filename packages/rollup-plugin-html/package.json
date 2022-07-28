@@ -24,6 +24,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
+    "demo:disable": "rm -rf demo/dist && rollup -c demo/disable/rollup.config.js --watch & yarn serve-demo",
     "demo:mpa": "rm -rf demo/dist && rollup -c demo/mpa/rollup.config.js --watch & yarn serve-demo",
     "demo:spa": "rm -rf demo/dist && rollup -c demo/spa/rollup.config.js --watch & yarn serve-demo",
     "serve-demo": "node ../dev-server/dist/bin.js --watch --root-dir demo/dist --app-index index.html --compatibility none --open",
