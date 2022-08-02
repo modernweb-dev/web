@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.6.4
+
+### Patch Changes
+
+- b25d3fd3: Update `@web/test-runner-webdriver` dependency to `^0.5.1`.
+
 ## 0.6.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/test-runner-saucelabs
 
+## 0.8.1
+
+### Patch Changes
+
+- b25d3fd3: Update `@web/test-runner-webdriver` dependency to `^0.5.1`.
+
 ## 0.8.0
 
 ### Minor Changes

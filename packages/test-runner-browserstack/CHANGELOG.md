@@ -1,5 +1,11 @@
 # @web/test-runner-browserstack
 
+## 0.5.1
+
+### Patch Changes
+
+- b25d3fd3: Update `@web/test-runner-webdriver` dependency to `^0.5.1`.
+
 ## 0.5.0
 
 ### Minor Changes

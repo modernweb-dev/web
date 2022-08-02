@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-visual-regression",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "publishConfig": {
     "access": "public"
   },
@@ -48,7 +48,7 @@
     "@types/mkdirp": "^1.0.1",
     "@types/pixelmatch": "^5.2.2",
     "@types/pngjs": "^6.0.0",
-    "@web/test-runner-commands": "^0.6.0",
+    "@web/test-runner-commands": "^0.6.4",
     "@web/test-runner-core": "^0.10.20",
     "mkdirp": "^1.0.4",
     "pixelmatch": "^5.2.1",
