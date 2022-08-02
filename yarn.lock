@@ -1477,9 +1477,9 @@
     unist-util-visit "^2.0.3"
 
 "@mdjs/mdjs-preview@^0.5.3", "@mdjs/mdjs-preview@^0.5.5":
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/@mdjs/mdjs-preview/-/mdjs-preview-0.5.6.tgz#837ac6274f818bfa025cecfb68e5cff8001f3ab3"
-  integrity sha512-PzHxFzKgocnziI1HHe2uMuYzgEcZlEOYS9QD33EekhW4kAo/ZjhGvxkhBXfkZldbXTZDWTPN5fvD8GTgoJmL2A==
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/@mdjs/mdjs-preview/-/mdjs-preview-0.5.7.tgz#06899fe537c302553ac9d1667fc6821765d02804"
+  integrity sha512-nJUAqrYvlmRRN6rgSDlsTzWO3QCVPLCkyUVL/gv+Zl6scqRzgeDCBfwGI4VIGRBlM7CysXp3TLM3E6axi1l+tQ==
   dependencies:
     "@lion/accordion" "^0.7.2"
     "@open-wc/scoped-elements" "^2.0.0"
