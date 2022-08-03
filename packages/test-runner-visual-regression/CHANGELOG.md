@@ -1,5 +1,13 @@
 # @web/test-runner-visual-regression
 
+## 0.6.6
+
+### Patch Changes
+
+- b25d3fd3: Update `@web/test-runner-webdriver` dependency to `^0.5.1`.
+- Updated dependencies [b25d3fd3]
+  - @web/test-runner-commands@0.6.4
+
 ## 0.6.5
 
 ### Patch Changes
