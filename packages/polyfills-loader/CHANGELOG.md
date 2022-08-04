@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 1.3.5
+
+### Patch Changes
+
+- ca516a01: Update terser to 5.14.2
+
 ## 1.3.4
 
 ### Patch Changes
