@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node.js 12
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         env:
           FORCE_COLOR: 0
         with:
