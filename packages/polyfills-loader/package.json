@@ -60,7 +60,7 @@
     "resize-observer-polyfill": "^1.5.1",
     "shady-css-scoped-element": "^0.0.2",
     "systemjs": "^6.8.1",
-    "terser": "^5.5.1",
+    "terser": "^5.14.2",
     "whatwg-fetch": "^3.5.0"
   },
   "devDependencies": {
