@@ -1,5 +1,13 @@
 # @web/dev-server-storybook
 
+## 0.5.2
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+- Updated dependencies [00da4255]
+  - @web/dev-server-core@0.3.19
+
 ## 0.5.1
 
 ### Patch Changes

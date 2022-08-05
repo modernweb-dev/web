@@ -1,5 +1,13 @@
 # @web/dev-server-legacy
 
+## 1.0.1
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+- Updated dependencies [00da4255]
+  - @web/dev-server-core@0.3.19
+
 ## 1.0.0
 
 ### Major Changes

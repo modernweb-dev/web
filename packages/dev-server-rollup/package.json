@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-rollup",
-  "version": "0.3.18",
+  "version": "0.3.19",
   "publishConfig": {
     "access": "public"
   },
@@ -48,7 +48,7 @@
   ],
   "dependencies": {
     "@rollup/plugin-node-resolve": "^13.0.4",
-    "@web/dev-server-core": "^0.3.18",
+    "@web/dev-server-core": "^0.3.19",
     "nanocolors": "^0.2.1",
     "parse5": "^6.0.1",
     "rollup": "^2.67.0",
