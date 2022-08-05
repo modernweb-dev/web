@@ -1,5 +1,16 @@
 # @web/test-runner
 
+## 0.14.0
+
+### Minor Changes
+
+- 13b75cf3: Add browser name to summaryReporter output
+
+### Patch Changes
+
+- Updated dependencies [00da4255]
+  - @web/dev-server@0.1.33
+
 ## 0.13.31
 
 ### Patch Changes

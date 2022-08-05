@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.8.10
+
+### Patch Changes
+
+- 07e87287: Fixes playwright memory leak
+
 ## 0.8.9
 
 ### Patch Changes

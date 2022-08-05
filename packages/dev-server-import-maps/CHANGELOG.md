@@ -1,5 +1,13 @@
 # @web/dev-server-import-maps
 
+## 0.0.7
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+- Updated dependencies [00da4255]
+  - @web/dev-server-core@0.3.19
+
 ## 0.0.6
 
 ### Patch Changes
