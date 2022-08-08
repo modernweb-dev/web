@@ -8,7 +8,7 @@ export async function injectExportsOrder(source: string, filePath: string) {
   }
 
   const orderedExports = exports.filter(e => e?.n?.toLowerCase() !== 'default');
-  const exportsArray = `['${orderedExports.map(({n}) => n) .join("', '")}']`;
+  const exportsArray = `['${orderedExports.map(({ n }) => n).join("', '")}']`;
 
   return `${source};\nexport const __namedExportsOrder = ${exportsArray};`;
 }
