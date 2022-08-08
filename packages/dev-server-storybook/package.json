@@ -66,6 +66,7 @@
     "@web/storybook-prebuilt": "^0.1.32",
     "babel-plugin-bundled-import-meta": "^0.3.2",
     "babel-plugin-template-html-minifier": "^4.1.0",
+    "es-module-lexer": "^1.0.2",
     "globby": "^11.0.1",
     "path-is-inside": "^1.0.2",
     "rollup": "^2.66.1",
