@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.5.3
+
+### Patch Changes
+
+- 53f74172: fix es-module-lexer logic
+
 ## 0.5.2
 
 ### Patch Changes
