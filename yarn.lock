@@ -5093,7 +5093,7 @@ es-module-lexer@^0.3.26:
   resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.3.26.tgz#7b507044e97d5b03b01d4392c74ffeb9c177a83b"
   integrity sha512-Va0Q/xqtrss45hWzP8CZJwzGSZJjDM5/MJRE3IXXnUCcVLElR9BRaE9F62BopysASyc4nM3uwhSW7FFB9nlWAA==
 
-es-module-lexer@^1.0.0:
+es-module-lexer@^1.0.0, es-module-lexer@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-1.0.2.tgz#89dd1355d0e8a741b431171c69b2bfecc47d4293"
   integrity sha512-W6d+UibP+MDkF0+uUqj2sZTiyqA6v9f7/hDPqrxNYntp+NFMilA9Zr+qF9IZ7F4lcHQqw0toMlwxJxY2qm30uQ==
