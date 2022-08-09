@@ -16,4 +16,4 @@ If you want to use `@web/test-runner-playwright` in a CI environment you need to
 
 For the modern web repositories, we run our tests using Github Actions with the [Github Actions plugin](https://github.com/microsoft/playwright-github-action).
 
-Check the [official documentation](https://playwright.dev/#version=master&path=docs%2Fci.md&q=) for more information on different CI environments.
+The [official documentation](https://playwright.dev/docs/next/cli#install-system-dependencies) recommends to install system dependencies in a CI environment using the Playwright CLI.
