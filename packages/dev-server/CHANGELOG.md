@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.1.34
+
+### Patch Changes
+
+- 93b36337: Keep "Default" stories when building Storybook instance
+
 ## 0.1.33
 
 ### Patch Changes
