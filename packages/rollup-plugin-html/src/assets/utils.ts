@@ -34,7 +34,11 @@ function isAsset(node: Element) {
       path = getAttribute(node, 'src') ?? '';
       break;
     case 'source':
-      path = extractFirstUrlOfSrcSet(node) ?? '';
+      if (getAttribute(node, 'src')) {
+        path = getAttribute(node, 'src') ?? '';
+      } else {
+        path = extractFirstUrlOfSrcSet(node) ?? '';
+      }
       break;
     case 'link':
       if (linkRels.includes(getAttribute(node, 'rel') ?? '')) {
@@ -104,7 +108,7 @@ export function getSourceAttribute(node: Element) {
       return 'src';
     }
     case 'source': {
-      return 'srcset';
+      return getAttribute(node, 'src') ? 'src' : 'srcset';
     }
     case 'link': {
       return 'href';
