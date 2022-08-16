@@ -120,6 +120,50 @@ describe('injectedUpdatedAssetPaths()', () => {
     expect(serialize(document).replace(/ {4}/g, '\n')).to.eql(expected);
   });
 
+  it('handles video tag using source tags with src', () => {
+    const document = parse(
+      [
+        '<html>',
+        '  <body>',
+        '    <video controls>',
+        '      <source src="./videos/typer-hydration.mp4" type="video/mp4">',
+        '    </video>',
+        '  </body>',
+        '</html>',
+      ].join(''),
+    );
+
+    const input: InputData = {
+      html: '',
+      name: 'index.html',
+      moduleImports: [],
+      inlineModules: [],
+      assets: [],
+      filePath: '/root/index.html',
+    };
+    const hashed = new Map<string, string>();
+    hashed.set(
+      path.join(path.sep, 'root', 'videos', 'typer-hydration.mp4'),
+      'typer-hydration-xxx.mp4',
+    );
+
+    injectedUpdatedAssetPaths({
+      document,
+      input,
+      outputDir: '/root/dist/',
+      rootDir: '/root/',
+      emittedAssets: { static: new Map(), hashed },
+    });
+
+    const expected = [
+      '<html><head></head><body>',
+      '<video controls="">',
+      '  <source src="typer-hydration-xxx.mp4" type="video/mp4">',
+      '</video>  </body></html>',
+    ].join('\n');
+    expect(serialize(document).replace(/ {4}/g, '\n')).to.eql(expected);
+  });
+
   it('handles virtual files', () => {
     const document = parse(
       [
