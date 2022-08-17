@@ -1,5 +1,17 @@
 # @web/rollup-plugin-html
 
+## 1.11.0
+
+### Minor Changes
+
+- ab5295e9: Detect `<source src="*">` tags as assets which means videos get copied and hashed.
+
+  ```html
+  <video controls>
+    <source src="./my-video.mp4" type="video/mp4" />
+  </video>
+  ```
+
 ## 1.10.3
 
 ### Patch Changes
