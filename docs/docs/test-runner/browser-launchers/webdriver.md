@@ -32,7 +32,7 @@ module.exports = {
           args: ['-headless']
         }
       }
-    })
-  ]
+    }),
+  ],
 };
 ```
