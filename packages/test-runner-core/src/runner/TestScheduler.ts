@@ -142,7 +142,8 @@ export class TestScheduler {
 
       // when the browser started, wait for session to ping back on time
       this.timeoutHandler.waitForTestsStarted(updatedSession.testRun, updatedSession.id);
-    } catch (error) {
+    } catch (e) {
+      const error = e as Error;
       if (this.timeoutHandler.isStale(updatedSession)) {
         // something else has changed the test session, such as a the browser timeout
         // or a re-run in watch mode. in that was we just log the error
@@ -179,7 +180,7 @@ export class TestScheduler {
         updatedSession.testCoverage = testCoverage;
       }
     } catch (error) {
-      sessionErrors.push(error);
+      sessionErrors.push(error as Error);
     } finally {
       if (sessionErrors.length > 0) {
         // merge with existing erors

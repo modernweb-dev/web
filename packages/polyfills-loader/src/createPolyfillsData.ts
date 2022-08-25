@@ -13,7 +13,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     try {
       polyfillConfigs.push(polyfillConfig);
     } catch (error) {
-      if (error.code === 'MODULE_NOT_FOUND') {
+      if ((error as NodeJS.ErrnoException).code === 'MODULE_NOT_FOUND') {
         throw new Error(
           `[Polyfills loader]: Error resolving polyfill ${polyfillConfig.name}` +
             ' Are dependencies installed correctly?',
