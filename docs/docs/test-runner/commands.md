@@ -434,6 +434,18 @@ The `a11ySnapshot` command requests a snapshot of the accessibility tree built i
 
 `a11ySnapshot` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
 
+The `a11ySnapshot` plugin is not loaded by the Web Test Runner's default configuration, make sure to enable it in your configuration:
+
+```js
+import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
+
+export default {
+  plugins: [
+    a11ySnapshotPlugin()
+  ]
+}
+```
+
 <details>
 <summary>View example</summary>
 
