@@ -440,10 +440,8 @@ The `a11ySnapshot` plugin is not loaded by the Web Test Runner's default configu
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
 
 export default {
-  plugins: [
-    a11ySnapshotPlugin()
-  ]
-}
+  plugins: [a11ySnapshotPlugin()],
+};
 ```
 
 <details>
