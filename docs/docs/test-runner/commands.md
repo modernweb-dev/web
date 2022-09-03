@@ -332,6 +332,84 @@ it('natively holds and then releases a key', async () => {
 
 </details>
 
+### Select option
+
+The `selectOption` command allows you to select an option in a `<select>` tag by either a single value, a label string or as multiple values, depending on the specific implementations of the browser laucher you're using. Once selected, the native `change` and `input` events are dispatched automatically. The `selectOption` command needs the CSS selector to locate the `<select>` by and the value, label, or values to select. The function is async and should be awaited.
+
+The three major launchers all have different support for selecting options, and the `selectOption` takes this into account.Attempting to select an option via a method that is not implemented in the provided launcher will produce errors. Each supported launcher's option selection support is documented below.
+
+- Playwright
+  - Supports selecting options by `label`, `value`, and `multiple values`
+- Puppeteer
+  - Supports selection options by `value`, and `multiple values` only. Selecting options by label is not implemented
+- WebDriver
+  - [No support for selecting options in JS](https://www.selenium.dev/documentation/webdriver/elements/select_lists/)
+
+<details>
+<summary>View example</summary>
+
+```js
+import { selectOption } from '@web/test-runner-commands';
+
+// Assuming the document.body has a select like:
+// <select id="testSelect">
+//   <option value="first">first option</option>
+//   <option value="second">second option</option>
+//   <option value="third">third option</option>
+// </select>
+
+it('natively selects an option by value', async () => {
+  const valueToSelect = 'first';
+  const select = document.querySelector('#testSelect');
+
+  await selectOption({ selector: '#testSelect', value: valueToSelect });
+
+  expect(select.value).to.equal(valueToSelect);
+});
+
+// PLAYWRIGHT ONLY
+it('natively selects an option by label', async () => {
+  const labelToSelect = 'second option';
+  const select = document.querySelector('#testSelect');
+
+  await selectOption({ selector: '#testSelect', label: labelToSelect });
+
+  const expectedSelectedOption = Array.from(document.querySelectorAll('option')).filter(
+    option => option.textContent === labelToSelect,
+  )[0];
+
+  expect(select.value).to.equal(expectedSelectedOption.value);
+});
+
+it('natively selects an option with multiple values', async () => {
+  const valuesToSelect = ['second', 'third'];
+
+  const select = document.querySelector('#testSelect');
+  select.multiple = true;
+
+  await selectOption({ selector: '#testSelect', values: valuesToSelect });
+
+  const selectedValues = Array.from(select.selectedOptions, option => option.value);
+  expect(selectedValues).to.deep.equal(valuesToSelect);
+});
+
+it('change and input events are fired after option is selected', async () => {
+  let changeEventFired, inputEventFired;
+  const valueToSelect = 'first';
+
+  const select = document.querySelector('#testSelect');
+
+  select.addEventListener('change', () => (changeEventFired = true));
+  select.addEventListener('input', () => (inputEventFired = true));
+  await selectOption({ selector: '#testSelect', value: valueToSelect });
+
+  expect(changeEventFired).to.equal(true);
+  expect(inputEventFired).to.equal(true);
+});
+```
+
+</details>
+
 ### Set user agent
 
 The `setUserAgent` command changes the browser's user agent. The function is async and should be awaited.
