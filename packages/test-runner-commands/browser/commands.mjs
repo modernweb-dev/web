@@ -69,6 +69,10 @@ export function sendKeys(options) {
   return executeServerCommand('send-keys', options);
 }
 
+export function selectOption(options) {
+  return executeServerCommand('select-option', options);
+}
+
 export function sendMouse(options) {
   return executeServerCommand('send-mouse', options);
 }
