@@ -2,11 +2,14 @@ import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
-type SelectByValuePayload = { selector: string, value: string };
-type SelectByLabelPayload = { selector: string, label: string };
-type SelectMultipleValuesPayload = { selector: string, values: string[] };
+type SelectByValuePayload = { selector: string; value: string };
+type SelectByLabelPayload = { selector: string; label: string };
+type SelectMultipleValuesPayload = { selector: string; values: string[] };
 
-export type SelectOptionPayload = SelectByLabelPayload | SelectByValuePayload | SelectMultipleValuesPayload;
+export type SelectOptionPayload =
+  | SelectByLabelPayload
+  | SelectByValuePayload
+  | SelectMultipleValuesPayload;
 
 function isObject(payload: unknown): payload is Record<string, unknown> {
   return payload != null && typeof payload === 'object';
@@ -17,14 +20,16 @@ function isSelectOptionPayload(payload: unknown): boolean {
 
   if (!isObject(payload)) throw new Error('You must provide a `SelectOptionPayload` object');
 
-  if(!payload.selector || typeof payload.selector !== 'string') {
+  if (!payload.selector || typeof payload.selector !== 'string') {
     throw new Error(`You must provide a selector representing the select you wish to locate`);
   }
 
   const numberOfValidOptions = Object.keys(payload).filter(key =>
     validOptions.includes(key),
   ).length;
-  const unknownOptions = Object.keys(payload).filter(key => ![...validOptions, 'selector'].includes(key));
+  const unknownOptions = Object.keys(payload).filter(
+    key => ![...validOptions, 'selector'].includes(key),
+  );
 
   if (numberOfValidOptions === 0)
     throw new Error(
@@ -43,13 +48,12 @@ function isValuePayload(payload: SelectOptionPayload): payload is SelectByValueP
 }
 
 function isLabelPayload(payload: SelectOptionPayload): payload is SelectByLabelPayload {
-    return 'selector' in payload && 'label' in payload;
+  return 'selector' in payload && 'label' in payload;
 }
 
 function isMultiplePayload(payload: SelectOptionPayload): payload is SelectMultipleValuesPayload {
-    return 'selector' in payload && 'values' in payload;
+  return 'selector' in payload && 'values' in payload;
 }
-
 
 export function selectOptionPlugin(): TestRunnerPlugin<SelectOptionPayload> {
   return {
@@ -72,7 +76,7 @@ export function selectOptionPlugin(): TestRunnerPlugin<SelectOptionPayload> {
             return true;
           } else if (isMultiplePayload(payload)) {
             const { selector, values } = payload;
-            await page.locator(selector).selectOption([ ...values ]);
+            await page.locator(selector).selectOption([...values]);
             return true;
           }
         }
@@ -91,13 +95,13 @@ export function selectOptionPlugin(): TestRunnerPlugin<SelectOptionPayload> {
           } else {
             throw new Error(`Puppeteer only supports selection of an option by its value(s):
             https://pptr.dev/next/api/puppeteer.page.select#parameters
-            `)
+            `);
           }
         }
 
         // handle specific behavior for webdriver
-        if (session.browser.type === 'webdriver') {      
-            throw new Error(`Selecting an option via a browser driver command is not currently implemented in WebDriver yet.
+        if (session.browser.type === 'webdriver') {
+          throw new Error(`Selecting an option via a browser driver command is not currently implemented in WebDriver yet.
             https://www.selenium.dev/documentation/webdriver/elements/select_lists/
             
             When using WebDriver, the current recommended (September 2022) approach is to:
@@ -109,7 +113,9 @@ export function selectOptionPlugin(): TestRunnerPlugin<SelectOptionPayload> {
         }
 
         // you might not be able to support all browser launchers
-        throw new Error(`Selection of select element options is not supported for browser type ${session.browser.type}.`);
+        throw new Error(
+          `Selection of select element options is not supported for browser type ${session.browser.type}.`,
+        );
       }
     },
   };
