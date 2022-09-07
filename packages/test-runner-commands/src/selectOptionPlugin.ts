@@ -1,7 +1,6 @@
 import { TestRunnerPlugin } from '@web/test-runner-core';
-import type { ChromeLauncher, puppeteerCore } from '@web/test-runner-chrome';
+import type { ChromeLauncher } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
-import type { WebdriverLauncher } from '@web/test-runner-webdriver';
 
 type SelectByValuePayload = { selector: string, value: string };
 type SelectByLabelPayload = { selector: string, label: string };
