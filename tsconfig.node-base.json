@@ -62,6 +62,7 @@
     "skipLibCheck": true,
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
+    "useUnknownInCatchVariables": false,
     "lib": [
       "DOM",
       "DOM.Iterable",

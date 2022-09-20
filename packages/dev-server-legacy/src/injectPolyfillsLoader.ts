@@ -1,6 +1,7 @@
 import { Context } from '@web/dev-server-core';
-import { getAttribute, getTextContent, remove } from '@web/dev-server-core/dist/dom5';
-import { parse, serialize, Document as DocumentAst, Node as NodeAst } from 'parse5';
+import { getAttribute, getTextContent, removeNode } from '@parse5/tools';
+import { parse, serialize } from 'parse5';
+import { Document as DocumentAst, Node as NodeAst } from 'parse5/dist/tree-adapters/default';
 import {
   injectPolyfillsLoader as originalInjectPolyfillsLoader,
   PolyfillsConfig,
@@ -89,7 +90,7 @@ export async function injectPolyfillsLoader(
   // will include them as virtual modules
   for (const scriptNode of scriptNodes) {
     // remove script from document
-    remove(scriptNode);
+    removeNode(scriptNode);
   }
 
   const result = await originalInjectPolyfillsLoader(serialize(documentAst), polyfillsLoaderConfig);

@@ -41,8 +41,7 @@
     "utils"
   ],
   "dependencies": {
-    "@types/parse5": "^6.0.1",
-    "parse5": "^6.0.1"
+    "parse5": "^7.1.0"
   },
   "devDependencies": {
     "@types/html-minifier-terser": "^6.0.0"

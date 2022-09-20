@@ -1,4 +1,4 @@
-import { Attribute } from 'parse5';
+import { Token } from 'parse5';
 
 export interface PolyfillsLoaderConfig {
   // files to load on modern browsers. loaded when there are no
@@ -88,7 +88,7 @@ export interface File {
   type: FileType;
   // the path of the file
   path: string;
-  attributes?: Attribute[];
+  attributes?: Token.Attribute[];
 }
 
 export interface GeneratedFile extends File {

@@ -6,7 +6,8 @@ import {
   resolve,
 } from '@import-maps/resolve';
 import { getHtmlPath } from '@web/dev-server-core';
-import { parse as parseHtml, serialize as serializeHtml, Element as ElementAst } from 'parse5';
+import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
+import { Element as ElementAst } from 'parse5/dist/tree-adapters/default';
 import path from 'path';
 
 import {
@@ -21,16 +22,15 @@ import {
 import { ImportMap } from '@import-maps/resolve';
 import {
   createElement,
-  findElement,
-  findElements,
-  getTagName,
-  isHtmlFragment,
+  query,
+  queryAll,
   getAttribute,
+  isElementNode,
   getTextContent,
   hasAttribute,
   setAttribute,
   setTextContent,
-} from '@web/parse5-utils';
+} from '@parse5/tools';
 
 export interface ImportMapData {
   htmlPath: string;
@@ -60,6 +60,13 @@ function prepend(parent: any, node: any) {
   node.parentNode = parent;
 }
 
+const REGEXP_IS_HTML_DOCUMENT = /^\s*<(!doctype|html|head|body)\b/i;
+
+function isHtmlFragment(html: string) {
+  const htmlWithoutComments = html.replace(/<!--.*?-->/gs, '');
+  return !REGEXP_IS_HTML_DOCUMENT.test(htmlWithoutComments);
+}
+
 export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
   const injectSettings = normalizeInjectSetting(config.inject);
   const importMapsById: ImportMapData[] = [];
@@ -87,14 +94,22 @@ export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
 
       // collect import map in HTML page
       const documentAst = parseHtml(context.body as string);
-      const headNode = findElement(documentAst, el => getTagName(el) === 'head');
+      const headNode = query<ElementAst>(
+        documentAst,
+        el => isElementNode(el) && el.tagName === 'head',
+      );
       if (!headNode) {
         throw new Error('Internal error: HTML document did not generate a <head>.');
       }
-      const importMapScripts: ElementAst[] = findElements(
-        documentAst,
-        el => getTagName(el) === 'script' && getAttribute(el, 'type') === 'importmap',
-      );
+      const importMapScripts: ElementAst[] = [
+        ...queryAll<ElementAst>(
+          documentAst,
+          el =>
+            isElementNode(el) &&
+            el.tagName === 'script' &&
+            getAttribute(el, 'type') === 'importmap',
+        ),
+      ];
 
       if (toInject && importMapScripts.length === 0) {
         // inject import map element into the page
@@ -127,7 +142,10 @@ export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
 
       if (importMapId === -1) {
         // this is the first time we encounter this import map for this
-        const baseNode = findElement(headNode, el => getTagName(el) === 'base');
+        const baseNode = query<ElementAst>(
+          headNode,
+          el => isElementNode(el) && el.tagName === 'base',
+        );
         const documentBaseUrl = getDocumentBaseUrl(context, baseNode);
 
         // parse the import map and store it with the HTML path
@@ -154,14 +172,15 @@ export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
       }
       importMapsIdsByHtmlPath.set(htmlPath, importMapId);
 
-      const scripts = findElements(
+      const scripts = queryAll<ElementAst>(
         documentAst,
-        el => getTagName(el) === 'script' && hasAttribute(el, 'src'),
+        el => isElementNode(el) && el.tagName === 'script' && hasAttribute(el, 'src'),
       );
-      const links = findElements(
+      const links = queryAll<ElementAst>(
         documentAst,
         el =>
-          getTagName(el) === 'link' &&
+          isElementNode(el) &&
+          el.tagName === 'link' &&
           ['preload', 'prefetch', 'modulepreload'].includes(getAttribute(el, 'rel') ?? '') &&
           hasAttribute(el, 'href'),
       );

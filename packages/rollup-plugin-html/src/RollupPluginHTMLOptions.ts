@@ -1,5 +1,5 @@
 import { OutputChunk, OutputOptions, OutputBundle } from 'rollup';
-import { Attribute } from 'parse5';
+import { Token } from 'parse5';
 
 export interface InputHTMLOptions {
   /** The html source code. If set, overwrites path. */
@@ -51,7 +51,7 @@ export interface GeneratedBundle {
 
 export interface ScriptModuleTag {
   importPath: string;
-  attributes?: Attribute[];
+  attributes?: Token.Attribute[];
   code?: string;
 }
 
@@ -63,7 +63,7 @@ export interface EntrypointBundle extends GeneratedBundle {
     // associated rollup chunk, useful if you need to get more information
     // about the chunk. See the rollup docs for type definitions
     chunk: OutputChunk;
-    attributes?: Attribute[];
+    attributes?: Token.Attribute[];
   }[];
 }
 
