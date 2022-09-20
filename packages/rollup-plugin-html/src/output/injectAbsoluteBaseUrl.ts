@@ -1,9 +1,13 @@
-import { Document, Element } from 'parse5';
-import { findElements, getTagName, getAttribute, setAttribute } from '@web/parse5-utils';
+import { Document, Element, Node } from 'parse5/dist/tree-adapters/default';
+import { queryAll, getAttribute, setAttribute, isElementNode } from '@parse5/tools';
 
-function isAbsoluteableNode(node: Element) {
+function isAbsoluteableNode(node: Node) {
+  if (!isElementNode(node)) {
+    return false;
+  }
+
   const metaAttributes = ['og:url', 'og:image'];
-  switch (getTagName(node)) {
+  switch (node.tagName) {
     case 'link':
       if (getAttribute(node, 'rel') === 'canonical' && getAttribute(node, 'href')) {
         return true;
@@ -23,9 +27,9 @@ function isAbsoluteableNode(node: Element) {
 }
 
 export function injectAbsoluteBaseUrl(document: Document, absoluteBaseUrl: string) {
-  const nodes = findElements(document, isAbsoluteableNode);
+  const nodes = [...queryAll<Element>(document, isAbsoluteableNode)];
   for (const node of nodes) {
-    switch (getTagName(node)) {
+    switch (node.tagName) {
       case 'link':
         setAttribute(node, 'href', new URL(getAttribute(node, 'href')!, absoluteBaseUrl).href);
         break;

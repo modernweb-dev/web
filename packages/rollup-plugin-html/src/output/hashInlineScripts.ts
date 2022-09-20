@@ -1,21 +1,21 @@
-import { Document, Element, ParentNode } from 'parse5';
+import { Document, Element, Node } from 'parse5/dist/tree-adapters/default';
 import {
-  findElement,
-  findElements,
-  getTagName,
+  query,
+  queryAll,
   hasAttribute,
   getAttribute,
   getTextContent,
   createElement,
-  findNode,
-  prepend,
   setAttribute,
-} from '@web/parse5-utils';
+  isElementNode,
+  spliceChildren,
+} from '@parse5/tools';
 import crypto from 'crypto';
 
-function isMetaCSPTag(node: Element) {
+function isMetaCSPTag(node: Node) {
   if (
-    getTagName(node) === 'meta' &&
+    isElementNode(node) &&
+    node.tagName === 'meta' &&
     getAttribute(node, 'http-equiv') === 'Content-Security-Policy'
   ) {
     return true;
@@ -23,8 +23,8 @@ function isMetaCSPTag(node: Element) {
   return false;
 }
 
-function isInlineScript(node: Element) {
-  if (getTagName(node) === 'script' && !hasAttribute(node, 'src')) {
+function isInlineScript(node: Node) {
+  if (isElementNode(node) && node.tagName === 'script' && !hasAttribute(node, 'src')) {
     return true;
   }
   return false;
@@ -126,15 +126,15 @@ function injectCSPMetaTag(document: Document, hashes: string[]) {
     'http-equiv': 'Content-Security-Policy',
     content: `script-src 'self' ${hashes.join(' ')};`,
   });
-  const head = findNode(document, node => node.nodeName === 'head');
+  const head = query<Element>(document, node => node.nodeName === 'head');
   if (head) {
-    prepend(head as ParentNode, metaTag);
+    spliceChildren(head, 0, 0, metaTag);
   }
 }
 
 export function hashInlineScripts(document: Document) {
-  const metaCSPEl = findElement(document, isMetaCSPTag);
-  const inlineScripts = findElements(document, isInlineScript);
+  const metaCSPEl = query<Element>(document, isMetaCSPTag);
+  const inlineScripts = [...queryAll<Element>(document, isInlineScript)];
   const hashes: string[] = [];
   inlineScripts.forEach(node => {
     if (node.childNodes[0]) {

@@ -1,5 +1,5 @@
-import { getAttribute, setAttribute } from '@web/parse5-utils';
-import { Document } from 'parse5';
+import { getAttribute, setAttribute } from '@parse5/tools';
+import { Document } from 'parse5/dist/tree-adapters/default';
 import path from 'path';
 
 import {

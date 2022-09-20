@@ -13,10 +13,12 @@ import path from 'path';
 import fs from 'fs';
 import {
   queryAll,
-  predicates,
   getTextContent,
   setTextContent,
-} from '@web/dev-server-core/dist/dom5';
+  hasAttribute,
+  getAttribute,
+  isElementNode,
+} from '@parse5/tools';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 
 import { getEsbuildTarget } from './getEsbuildTarget';
@@ -140,17 +142,16 @@ export class EsbuildPlugin implements Plugin {
     target: string | string[],
   ) {
     const documentAst = parseHtml(context.body as string);
-    const inlineScripts = queryAll(
-      documentAst,
-      predicates.AND(
-        predicates.hasTagName('script'),
-        predicates.NOT(predicates.hasAttr('src')),
-        predicates.OR(
-          predicates.NOT(predicates.hasAttr('type')),
-          predicates.hasAttrValue('type', 'module'),
-        ),
+    const inlineScripts = [
+      ...queryAll(
+        documentAst,
+        node =>
+          isElementNode(node) &&
+          node.tagName === 'script' &&
+          !hasAttribute(node, 'src') &&
+          (!hasAttribute(node, 'type') || getAttribute(node, 'type') === 'module'),
       ),
-    );
+    ];
 
     if (inlineScripts.length === 0) {
       return;

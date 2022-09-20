@@ -1,9 +1,9 @@
-import { findElements, getAttribute, getTagName, getTextContent, remove } from '@web/parse5-utils';
-import { Document, Attribute } from 'parse5';
+import { queryAll, getAttribute, getTextContent, isElementNode, removeNode } from '@parse5/tools';
+import { Document, Element } from 'parse5/dist/tree-adapters/default';
+import { Token } from 'parse5';
 import path from 'path';
 import crypto from 'crypto';
 import { resolveAssetFilePath } from '../../assets/utils';
-import { getAttributes } from '@web/parse5-utils';
 import { ScriptModuleTag } from '../../RollupPluginHTMLOptions';
 
 export interface ExtractModulesParams {
@@ -28,9 +28,9 @@ function isAbsolute(src: string) {
 
 export function extractModules(params: ExtractModulesParams) {
   const { document, htmlDir, rootDir, absolutePathPrefix } = params;
-  const scriptNodes = findElements(
+  const scriptNodes = queryAll<Element>(
     document,
-    e => getTagName(e) === 'script' && getAttribute(e, 'type') === 'module',
+    e => isElementNode(e) && e.tagName === 'script' && getAttribute(e, 'type') === 'module',
   );
 
   const moduleImports: ScriptModuleTag[] = [];
@@ -39,11 +39,10 @@ export function extractModules(params: ExtractModulesParams) {
   for (const scriptNode of scriptNodes) {
     const src = getAttribute(scriptNode, 'src');
 
-    const allAttributes = getAttributes(scriptNode);
-    const attributes: Attribute[] = [];
-    for (const attributeName of Object.keys(allAttributes)) {
-      if (attributeName !== 'src' && attributeName !== 'type') {
-        attributes.push({ name: attributeName, value: allAttributes[attributeName] });
+    const attributes: Token.Attribute[] = [];
+    for (const attr of scriptNode.attrs) {
+      if (attr.name !== 'src' && attr.name !== 'type') {
+        attributes.push({ name: attr.name, value: attr.value });
       }
     }
 
@@ -60,7 +59,7 @@ export function extractModules(params: ExtractModulesParams) {
           code,
         });
       }
-      remove(scriptNode);
+      removeNode(scriptNode);
     } else {
       if (!isAbsolute(src)) {
         // external script <script type="module" src="./foo.js"></script>
@@ -69,7 +68,7 @@ export function extractModules(params: ExtractModulesParams) {
           importPath,
           attributes,
         });
-        remove(scriptNode);
+        removeNode(scriptNode);
       }
     }
   }

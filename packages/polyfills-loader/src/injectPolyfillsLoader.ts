@@ -1,28 +1,37 @@
-import { Document, Node, ParentNode, parse, serialize } from 'parse5';
+import { Document, Node, ParentNode, ChildNode, Element } from 'parse5/dist/tree-adapters/default';
+import { parse, serialize } from 'parse5';
 import {
-  findElements,
+  queryAll,
   getAttribute,
-  createScript,
   getTextContent,
-  insertBefore,
+  isElementNode,
+  setTextContent,
+  spliceChildren,
   appendChild,
   createElement,
-  findElement,
-  getTagName,
-  Element,
-} from '@web/parse5-utils';
+  query,
+} from '@parse5/tools';
 
 import { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile } from './types';
 import { createPolyfillsLoader } from './createPolyfillsLoader';
 import { hasFileOfType, fileTypes } from './utils';
 
 function injectImportMapPolyfill(headAst: ParentNode, originalScript: Node, type: string) {
-  const systemJsScript = createScript({ type }, getTextContent(originalScript));
-  insertBefore(headAst, systemJsScript, originalScript);
+  const systemJsScript = createElement('script', { type });
+  setTextContent(systemJsScript, getTextContent(originalScript));
+  spliceChildren(
+    headAst,
+    headAst.childNodes.indexOf(originalScript as ChildNode) - 1,
+    0,
+    systemJsScript,
+  );
 }
 
 function findImportMapScripts(document: Document) {
-  const scripts = findElements(document, script => getAttribute(script, 'type') === 'importmap');
+  const scripts = queryAll<Element>(
+    document,
+    script => isElementNode(script) && getAttribute(script, 'type') === 'importmap',
+  );
 
   const inline: Node[] = [];
   const external: Node[] = [];
@@ -68,9 +77,10 @@ function injectLoaderScript(
     if (!loaderScriptFile) {
       throw new Error('Missing polyfills loader script file');
     }
-    loaderScript = createScript({ src: loaderScriptFile.path });
+    loaderScript = createElement('script', { src: loaderScriptFile.path });
   } else {
-    loaderScript = createScript({}, polyfillsLoader.code);
+    loaderScript = createElement('script', {});
+    setTextContent(loaderScript, polyfillsLoader.code);
   }
   appendChild(bodyAst, loaderScript);
 }
@@ -110,8 +120,8 @@ export async function injectPolyfillsLoader(
 ): Promise<InjectPolyfillsLoaderResult> {
   const documentAst = parse(htmlString);
 
-  const headAst = findElement(documentAst, e => getTagName(e) === 'head');
-  const bodyAst = findElement(documentAst, e => getTagName(e) === 'body');
+  const headAst = query<Element>(documentAst, e => isElementNode(e) && e.tagName === 'head');
+  const bodyAst = query<Element>(documentAst, e => isElementNode(e) && e.tagName === 'body');
 
   if (!headAst || !bodyAst) {
     throw new Error(`Invalid index.html: missing <head> or <body>`);

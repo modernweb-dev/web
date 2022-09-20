@@ -1,4 +1,4 @@
-import { Attribute } from 'parse5';
+import { Token } from 'parse5';
 import path from 'path';
 import { OutputChunk } from 'rollup';
 
@@ -50,7 +50,7 @@ export interface GetEntrypointBundlesParams {
 interface Entrypoint {
   importPath: string;
   chunk: OutputChunk;
-  attributes?: Attribute[];
+  attributes?: Token.Attribute[];
 }
 
 export function getEntrypointBundles(params: GetEntrypointBundlesParams) {

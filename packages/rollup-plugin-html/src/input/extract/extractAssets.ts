@@ -1,4 +1,5 @@
-import { Document, serialize } from 'parse5';
+import { serialize } from 'parse5';
+import { Document } from 'parse5/dist/tree-adapters/default';
 import fs from 'fs';
 import path from 'path';
 import { InputAsset } from '../InputData';

@@ -1,12 +1,13 @@
 import path from 'path';
-import { Document } from 'parse5';
+import { Document, Element } from 'parse5/dist/tree-adapters/default';
 import {
-  findElement,
-  getTagName,
+  query,
   appendChild,
-  createScript,
   setAttribute,
-} from '@web/parse5-utils';
+  setTextContent,
+  isElementNode,
+  createElement,
+} from '@parse5/tools';
 
 export interface injectServiceWorkerRegistrationArgs {
   document: Document;
@@ -17,7 +18,7 @@ export interface injectServiceWorkerRegistrationArgs {
 
 export function injectServiceWorkerRegistration(args: injectServiceWorkerRegistrationArgs) {
   const { document, serviceWorkerPath, outputDir, htmlFileName } = args;
-  const body = findElement(document, e => getTagName(e) === 'body');
+  const body = query<Element>(document, e => isElementNode(e) && e.tagName === 'body');
   if (!body) {
     throw new Error('Missing body in HTML document.');
   }
@@ -41,7 +42,8 @@ export function injectServiceWorkerRegistration(args: injectServiceWorkerRegistr
     }
   `;
 
-  const script = createScript({}, code);
+  const script = createElement('script');
+  setTextContent(script, code);
   setAttribute(script, 'inject-service-worker', '');
 
   appendChild(body, script);

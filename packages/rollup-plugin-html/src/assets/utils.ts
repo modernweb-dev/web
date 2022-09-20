@@ -1,6 +1,6 @@
-import { Document, Element } from 'parse5';
+import { Document, Element, Node } from 'parse5/dist/tree-adapters/default';
 import path from 'path';
-import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
+import { queryAll, getAttribute, isElementNode } from '@parse5/tools';
 import { createError } from '../utils';
 import { serialize } from 'v8';
 
@@ -27,9 +27,13 @@ function extractFirstUrlOfSrcSet(node: Element) {
   return urls[0];
 }
 
-function isAsset(node: Element) {
+function isAsset(node: Node) {
+  if (!isElementNode(node)) {
+    return false;
+  }
+
   let path = '';
-  switch (getTagName(node)) {
+  switch (node.tagName) {
     case 'img':
       path = getAttribute(node, 'src') ?? '';
       break;
@@ -70,7 +74,7 @@ function isAsset(node: Element) {
 }
 
 export function isHashedAsset(node: Element) {
-  switch (getTagName(node)) {
+  switch (node.tagName) {
     case 'img':
       return true;
     case 'source':
@@ -103,7 +107,7 @@ export function resolveAssetFilePath(
 }
 
 export function getSourceAttribute(node: Element) {
-  switch (getTagName(node)) {
+  switch (node.tagName) {
     case 'img': {
       return 'src';
     }
@@ -120,7 +124,7 @@ export function getSourceAttribute(node: Element) {
       return 'content';
     }
     default:
-      throw new Error(`Unknown node with tagname ${getTagName(node)}`);
+      throw new Error(`Unknown node with tagname ${node.tagName}`);
   }
 }
 
@@ -141,5 +145,5 @@ export function getSourcePaths(node: Element) {
 }
 
 export function findAssets(document: Document) {
-  return findElements(document, isAsset);
+  return [...queryAll<Element>(document, isAsset)];
 }
