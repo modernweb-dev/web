@@ -10,8 +10,14 @@ interface EventMap {
   input: string;
 }
 
+// TODO (43081j): figure a cleaner way out of strongly typing
+// `originalFunctions` and friends. As per, the node types have polluted
+// the global namespace with questionable types we're now having to
+// forcefully cast away.
+type ConsoleFunctions = Record<keyof Console, (...args: any[]) => any>;
+
 export class DynamicTerminal extends EventEmitter<EventMap> {
-  private originalFunctions: Partial<Record<keyof Console, (...args: any[]) => any>> = {};
+  private originalFunctions: Partial<ConsoleFunctions> = {};
   private previousDynamic: string[] = [];
   private started = false;
   private bufferedConsole = new BufferedConsole();
@@ -62,7 +68,7 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
     logUpdate.done();
 
     for (const [key, fn] of Object.entries(this.originalFunctions)) {
-      console[key as keyof Console] = fn;
+      (console as unknown as ConsoleFunctions)[key as keyof Console] = fn;
     }
     this.started = false;
     process.stdin.pause();
@@ -109,21 +115,24 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
   private interceptConsoleOutput() {
     for (const key of Object.keys(console) as (keyof Console)[]) {
       if (typeof console[key] === 'function') {
-        this.originalFunctions[key] = console[key];
+        this.originalFunctions[key] = console[key] as (...args: any[]) => any;
 
-        console[key] = new Proxy(console[key], {
-          apply: (target, thisArg, argArray) => {
-            this.bufferedConsole.console[key](...argArray);
-            if (this.pendingConsoleFlush) {
-              return;
-            }
+        (console as unknown as ConsoleFunctions)[key] = new Proxy(
+          console[key] as (...args: any[]) => any,
+          {
+            apply: (target, thisArg, argArray) => {
+              (this.bufferedConsole.console as unknown as ConsoleFunctions)[key](...argArray);
+              if (this.pendingConsoleFlush) {
+                return;
+              }
 
-            this.pendingConsoleFlush = true;
-            setTimeout(() => {
-              this.flushConsoleOutput();
-            }, 0);
+              this.pendingConsoleFlush = true;
+              setTimeout(() => {
+                this.flushConsoleOutput();
+              }, 0);
+            },
           },
-        });
+        );
       }
     }
   }

@@ -10,9 +10,6 @@
     "allowJs": true
   },
   "references": [
-    {
-      "path": "../parse5-utils/tsconfig.json"
-    }
   ],
   "include": [
     "src",
