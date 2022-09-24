@@ -10,16 +10,6 @@ const parse5 = require('parse5');
 const { defaultTreeAdapter: adapter } = require('parse5');
 const { query, isElementNode } = require('@parse5/tools');
 
-const REGEXP_IS_HTML_DOCUMENT = /^\s*<(!doctype|html|head|body)\b/i;
-
-/**
- * @param {string} html
- */
-function isHtmlFragment(html) {
-  let htmlWithoutComments = html.replace(/<!--.*?-->/gs, '');
-  return !REGEXP_IS_HTML_DOCUMENT.test(htmlWithoutComments);
-}
-
 /**
  * Append HTML snippet to the given html document. The document must have either
  * a <body> or <head> element.
@@ -58,5 +48,4 @@ function appendToDocument(document, appendedHtml) {
   return `${start}${appendedHtml}${end}`;
 }
 
-module.exports.isHtmlFragment = isHtmlFragment;
 module.exports.appendToDocument = appendToDocument;
