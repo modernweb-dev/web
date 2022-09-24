@@ -1,4 +1,4 @@
-import { getTextContent } from '@web/parse5-utils';
+import { getTextContent } from '@parse5/tools';
 import { expect } from 'chai';
 import { parse, serialize } from 'parse5';
 

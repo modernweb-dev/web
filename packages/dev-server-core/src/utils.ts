@@ -3,6 +3,9 @@ import isStream from 'is-stream';
 import getStream from 'get-stream';
 import { isBinaryFile } from 'isbinaryfile';
 import path from 'path';
+import { query, isElementNode } from '@parse5/tools';
+import { defaultTreeAdapter as adapter, parseFragment, parse, serialize } from 'parse5';
+import { Element as ElementAst } from 'parse5/dist/tree-adapters/default';
 
 const OUTSIDE_ROOT_KEY = '/__wds-outside-root__/';
 
@@ -141,4 +144,45 @@ const REGEXP_IS_HTML_DOCUMENT = /^\s*<(!doctype|html|head|body)\b/i;
 export function isHtmlFragment(html: string): boolean {
   const htmlWithoutComments = html.replace(/<!--.*?-->/gs, '');
   return !REGEXP_IS_HTML_DOCUMENT.test(htmlWithoutComments);
+}
+
+/**
+ * Append HTML snippet to the given html document. The document must have either
+ * a <body> or <head> element.
+ * @param {string} document
+ * @param {string} appendedHtml
+ */
+export function appendToDocument(document: string, appendedHtml: string): string {
+  const documentAst = parse(document, { sourceCodeLocationInfo: true });
+  let appendNode = query<ElementAst>(
+    documentAst,
+    node => isElementNode(node) && adapter.getTagName(node) === 'body',
+  );
+  if (!appendNode || !appendNode.sourceCodeLocation || !appendNode.sourceCodeLocation?.endTag) {
+    // there is no body node in the source, use the head instead
+    appendNode = query<ElementAst>(
+      documentAst,
+      node => isElementNode(node) && adapter.getTagName(node) === 'head',
+    );
+    if (!appendNode || !appendNode.sourceCodeLocation || !appendNode.sourceCodeLocation?.endTag) {
+      // the original code did not contain a head or body, so we go with the generated AST
+      const body = query<ElementAst>(
+        documentAst,
+        node => isElementNode(node) && adapter.getTagName(node) === 'body',
+      );
+      if (!body) throw new Error('parse5 did not generated a body element');
+      const fragment = parseFragment(appendedHtml);
+      for (const node of adapter.getChildNodes(fragment)) {
+        adapter.appendChild(body, node);
+      }
+      return serialize(documentAst);
+    }
+  }
+
+  // the original source contained a head or body element, use string manipulation
+  // to preserve original code formatting
+  const { startOffset } = appendNode.sourceCodeLocation.endTag;
+  const start = document.substring(0, startOffset);
+  const end = document.substring(startOffset);
+  return `${start}${appendedHtml}${end}`;
 }
