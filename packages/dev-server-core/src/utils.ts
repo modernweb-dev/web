@@ -11,7 +11,7 @@ const OUTSIDE_ROOT_KEY = '/__wds-outside-root__/';
  * @param {string} filePath
  * @returns {string}
  */
-export function toBrowserPath(filePath: string) {
+export function toBrowserPath(filePath: string): string {
   return filePath.split(path.sep).join('/');
 }
 
@@ -134,4 +134,11 @@ export function resolvePathOutsideRootDir(browserPath: string, rootDir: string) 
   const newRootDir = path.resolve(rootDir, `..${path.sep}`.repeat(depth));
 
   return { normalizedPath, newRootDir };
+}
+
+const REGEXP_IS_HTML_DOCUMENT = /^\s*<(!doctype|html|head|body)\b/i;
+
+export function isHtmlFragment(html: string): boolean {
+  const htmlWithoutComments = html.replace(/<!--.*?-->/gs, '');
+  return !REGEXP_IS_HTML_DOCUMENT.test(htmlWithoutComments);
 }

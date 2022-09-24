@@ -19,9 +19,6 @@
       "import": "./index.mjs",
       "require": "./dist/index.js"
     },
-    "./dist/dom5": {
-      "require": "./dist/dom5/index.js"
-    },
     "./test-helpers": {
       "import": "./test-helpers.mjs",
       "require": "./dist/test-helpers.js"

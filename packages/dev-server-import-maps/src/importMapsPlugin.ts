@@ -5,7 +5,7 @@ import {
   parseFromString,
   resolve,
 } from '@import-maps/resolve';
-import { getHtmlPath } from '@web/dev-server-core';
+import { getHtmlPath, isHtmlFragment } from '@web/dev-server-core';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 import { Element as ElementAst } from 'parse5/dist/tree-adapters/default';
 import path from 'path';
@@ -58,13 +58,6 @@ function prepend(parent: any, node: any) {
   // use 'any' because parse5 types are off
   parent.childNodes.unshift(node);
   node.parentNode = parent;
-}
-
-const REGEXP_IS_HTML_DOCUMENT = /^\s*<(!doctype|html|head|body)\b/i;
-
-function isHtmlFragment(html: string) {
-  const htmlWithoutComments = html.replace(/<!--.*?-->/gs, '');
-  return !REGEXP_IS_HTML_DOCUMENT.test(htmlWithoutComments);
 }
 
 export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
