@@ -9,6 +9,7 @@ import {
   SnapshotPluginConfig,
   SaveSnapshotPayload,
   SendMousePayload,
+  SelectOptionPayload,
 } from '../dist/index';
 
 /**
@@ -134,6 +135,8 @@ export function sendKeys(payload: SendKeysPayload): Promise<void>;
  *
  **/
 export function sendMouse(payload: SendMousePayload): Promise<void>;
+
+export function selectOption(payload: SelectOptionPayload): Promise<void>;
 
 /**
  * Resets the mouse position to (0, 0) and releases mouse buttons.
