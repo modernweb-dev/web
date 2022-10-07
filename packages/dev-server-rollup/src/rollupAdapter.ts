@@ -17,7 +17,12 @@ import {
   setTextContent,
 } from '@web/dev-server-core/dist/dom5';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
-import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
+import {
+  CustomPluginOptions,
+  Plugin as RollupPlugin,
+  TransformPluginContext,
+  ResolveIdHook,
+} from 'rollup';
 import { InputOptions } from 'rollup';
 import { red, cyan } from 'nanocolors';
 
@@ -70,6 +75,7 @@ export function rollupAdapter(
   let fileWatcher: FSWatcher;
   let config: DevServerCoreConfig;
   let rootDir: string;
+  let idResolvers: ResolveIdHook[] = [];
 
   function savePluginMeta(
     id: string,
@@ -89,16 +95,33 @@ export function rollupAdapter(
       ({ rootDir } = config);
       rollupPluginContexts = await createRollupPluginContexts(rollupInputOptions);
 
+      idResolvers = [];
+
       // call the options and buildStart hooks
-      rollupPlugin.options?.call(rollupPluginContexts.minimalPluginContext, rollupInputOptions) ??
-        rollupInputOptions;
+      const transformedOptions =
+        (await rollupPlugin.options?.call(
+          rollupPluginContexts.minimalPluginContext,
+          rollupInputOptions,
+        )) ?? rollupInputOptions;
       rollupPlugin.buildStart?.call(
         rollupPluginContexts.pluginContext,
         rollupPluginContexts.normalizedInputOptions,
       );
+
+      if (transformedOptions && transformedOptions.plugins) {
+        for (const subPlugin of transformedOptions.plugins) {
+          if (subPlugin && subPlugin.resolveId) {
+            idResolvers.push(subPlugin.resolveId);
+          }
+        }
+      }
+
+      if (rollupPlugin.resolveId) {
+        idResolvers.push(rollupPlugin.resolveId);
+      }
     },
 
-    async resolveImport({ source, context, code, column, line }) {
+    async resolveImport({ source, context, code, column, line, resolveOptions }) {
       if (context.response.is('html') && source.startsWith('�')) {
         // when serving HTML a null byte gets parsed as an unknown character
         // we remap it to a null byte here so that it is handled properly downstream
@@ -109,7 +132,7 @@ export function rollupAdapter(
       // if we just transformed this file and the import is an absolute file path
       // we need to rewrite it to a browser path
       const injectedFilePath = path.normalize(source).startsWith(rootDir);
-      if (!injectedFilePath && !rollupPlugin.resolveId) {
+      if (!injectedFilePath && idResolvers.length === 0) {
         return;
       }
 
@@ -146,12 +169,18 @@ export function rollupAdapter(
           }
         }
 
-        let result = await rollupPlugin.resolveId?.call(
-          rollupPluginContext,
-          resolvableImport,
-          filePath,
-          { isEntry: false },
-        );
+        let result = null;
+
+        for (const idResolver of idResolvers) {
+          result = await idResolver.call(rollupPluginContext, resolvableImport, filePath, {
+            ...resolveOptions,
+            isEntry: false,
+          });
+
+          if (result) {
+            break;
+          }
+        }
 
         if (!result && injectedFilePath) {
           // the import is a file path but it was not resolved by this plugin
