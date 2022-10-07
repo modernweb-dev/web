@@ -40,6 +40,7 @@ export interface Plugin {
     code?: string;
     column?: number;
     line?: number;
+    resolveOptions?: Record<string, unknown>;
   }): ResolveResult | Promise<ResolveResult>;
   transformImport?(args: {
     source: string;
