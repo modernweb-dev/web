@@ -36,7 +36,8 @@ export function runWorkspacesScripts({ script, concurrency, filteredPackages = [
     command: `cd ${pkgPath} && yarn ${script}`,
   }));
 
-  concurrently(commands, { maxProcesses: concurrency })
+  const { result } = concurrently(commands, { maxProcesses: concurrency });
+  result
     .then(() => {
       console.log(
         green(
