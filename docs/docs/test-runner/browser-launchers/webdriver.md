@@ -19,9 +19,9 @@ module.exports = {
       capabilities: {
         browserName: 'chrome',
         'goog:chromeOptions': {
-          args: ['--no-sandbox', '--headless']
-        }
-      }
+          args: ['--no-sandbox', '--headless'],
+        },
+      },
     }),
     webdriverLauncher({
       automationProtocol: 'webdriver',
@@ -29,9 +29,9 @@ module.exports = {
       capabilities: {
         browserName: 'firefox',
         'moz:firefoxOptions': {
-          args: ['-headless']
-        }
-      }
+          args: ['-headless'],
+        },
+      },
     }),
   ],
 };
