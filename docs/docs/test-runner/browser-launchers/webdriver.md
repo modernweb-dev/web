@@ -22,7 +22,7 @@ module.exports = {
           args: ['--no-sandbox', '--headless']
         }
       }
-    })
+    }),
     webdriverLauncher({
       automationProtocol: 'webdriver',
       path: '/wd/hub/',
@@ -32,7 +32,7 @@ module.exports = {
           args: ['-headless']
         }
       }
-    })
-  ]
+    }),
+  ],
 };
 ```
