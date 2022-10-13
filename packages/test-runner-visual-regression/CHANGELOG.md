@@ -1,5 +1,11 @@
 # @web/test-runner-visual-regression
 
+## 0.7.0
+
+### Minor Changes
+
+- e98d97f2: Add visual regression config option to set a failure threshold in pixels or percent
+
 ## 0.6.6
 
 ### Patch Changes
