@@ -101,6 +101,6 @@
     "@web/dev-server-legacy": "^1.0.1",
     "@web/test-runner-saucelabs": "^0.8.0",
     "babel-plugin-istanbul": "^6.0.0",
-    "concurrently": "^6.0.0"
+    "concurrently": "^7.3.0"
   }
 }
