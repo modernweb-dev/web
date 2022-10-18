@@ -86,7 +86,7 @@ interface DevServerConfig {
   open?: 'string' | boolean;
   // index HTML to use for SPA routing / history API fallback
   appIndex?: string;
-  // run in watch mode, reloading when files change
+  // reload the brower on file changes.
   watch?: boolean;
   // resolve bare module imports
   nodeResolve?: boolean | RollupNodeResolveOptions;
