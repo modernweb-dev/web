@@ -124,6 +124,10 @@ interface DevServerConfig {
   sslKey?: string;
   // path to SSL certificate
   sslCert?: string;
+
+  // Whether to watch and rebuild served files.
+  // Useful when you want more control over when files are build (e.g. when doing a test run using @web/test-runner).
+  disableFileWatcher?: boolean;
 }
 ```
 
