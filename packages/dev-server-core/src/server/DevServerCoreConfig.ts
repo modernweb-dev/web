@@ -56,4 +56,10 @@ export interface DevServerCoreConfig {
    * by the dev server. Defaults to true.
    */
   injectWebSocket?: boolean;
+  
+  /**
+   * Whether to watch and rebuild served files.
+   * Useful when you want more control over when files are build (e.g. when doing a test run using @web/test-runner).
+   */
+  disableFileWatcher?: boolean;
 }
