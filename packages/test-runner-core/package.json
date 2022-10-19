@@ -78,6 +78,6 @@
     "source-map": "^0.7.3"
   },
   "devDependencies": {
-    "portfinder": "^1.0.28"
+    "portfinder": "^1.0.32"
   }
 }
