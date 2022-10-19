@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.1.35
+
+### Patch Changes
+
+- 04e2fa7d: Update portfinder dependency to 1.0.32
+
 ## 0.1.34
 
 ### Patch Changes
