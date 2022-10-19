@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.3.3
+
+### Patch Changes
+
+- cfc2aa1e: Expose banner/footer as a pass-through to esbuild transform
+
 ## 0.3.2
 
 ### Patch Changes
