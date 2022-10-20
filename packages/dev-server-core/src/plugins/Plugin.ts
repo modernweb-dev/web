@@ -40,7 +40,11 @@ export interface Plugin {
     code?: string;
     column?: number;
     line?: number;
-    resolveOptions?: Record<string, unknown>;
+    resolveOptions?: {
+      custom?: Record<string, unknown>;
+      isEntry?: boolean;
+      skipSelf?: boolean;
+    };
   }): ResolveResult | Promise<ResolveResult>;
   transformImport?(args: {
     source: string;
