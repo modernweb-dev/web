@@ -60,6 +60,8 @@ export interface RollupAdapterOptions {
   throwOnUnresolvedImport?: boolean;
 }
 
+const resolverCache = new WeakMap<Context, WeakMap<WdsPlugin, Set<string>>>();
+
 export function rollupAdapter(
   rollupPlugin: RollupPlugin,
   rollupInputOptions: Partial<InputOptions> = {},
@@ -170,6 +172,21 @@ export function rollupAdapter(
         }
 
         let result = null;
+
+        const resolverCacheForContext =
+          resolverCache.get(context) ?? new WeakMap<WdsPlugin, Set<string>>();
+        resolverCache.set(context, resolverCacheForContext);
+        const resolverCacheForPlugin = resolverCacheForContext.get(wdsPlugin) ?? new Set<string>();
+        resolverCacheForContext.set(wdsPlugin, resolverCacheForPlugin);
+
+        const cacheKey = `${resolvableImport}:${filePath}`;
+
+        if (resolveOptions?.skipSelf) {
+          if (resolverCacheForPlugin.has(cacheKey)) {
+            return undefined;
+          }
+          resolverCacheForPlugin.add(cacheKey);
+        }
 
         for (const idResolver of idResolvers) {
           result = await idResolver.call(rollupPluginContext, resolvableImport, filePath, {
