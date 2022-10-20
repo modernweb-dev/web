@@ -3,8 +3,10 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { resolve } from 'path';
 import { chromeLauncher } from '@web/test-runner-chrome';
 
+import * as path from 'path';
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
 import { fromRollup } from '../../../src/index';
+import { nodeResolvePlugin } from '@web/dev-server';
 
 const commonjs = fromRollup(rollupCommonjs);
 
@@ -130,6 +132,35 @@ exports.default = _default;`;
         text,
         'export default /*@__PURE__*/commonjsHelpers.getDefaultExportFromCjs(foo);',
       );
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('can transform modules which require node-resolved modules', async () => {
+    const rootDir = path.resolve(__dirname, '..', 'fixtures', 'basic');
+    const { server, host } = await createTestServer({
+      plugins: [
+        {
+          name: 'test',
+          serve(context) {
+            if (context.path === '/foo.js') {
+              return 'import {expect} from "chai"; export {expect};';
+            }
+          },
+        },
+        commonjs(),
+        nodeResolvePlugin(rootDir, false, {}),
+      ],
+    });
+
+    try {
+      const text = await fetchText(`${host}/foo.js`);
+      expectIncludes(
+        text,
+        'import {expect} from "/__wds-outside-root__/6/node_modules/chai/index.mjs"',
+      );
+      expectIncludes(text, 'export {expect};');
     } finally {
       server.stop();
     }
