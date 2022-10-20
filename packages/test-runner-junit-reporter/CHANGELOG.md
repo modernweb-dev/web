@@ -1,5 +1,16 @@
 # @web/test-runner-junit-reporter
 
+## 0.5.0
+
+### Minor Changes
+
+- acca5d51: Update dependency v8-to-istanbul to v9
+
+### Patch Changes
+
+- Updated dependencies [acca5d51]
+  - @web/test-runner-chrome@0.11.0
+
 ## 0.4.11
 
 ### Patch Changes

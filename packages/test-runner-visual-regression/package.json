@@ -55,8 +55,8 @@
     "pngjs": "^6.0.0"
   },
   "devDependencies": {
-    "@web/test-runner-chrome": "^0.10.2",
-    "@web/test-runner-playwright": "^0.8.7",
+    "@web/test-runner-chrome": "^0.11.0",
+    "@web/test-runner-playwright": "^0.9.0",
     "@web/test-runner-webdriver": "^0.5.1",
     "mocha": "^8.2.1"
   }
