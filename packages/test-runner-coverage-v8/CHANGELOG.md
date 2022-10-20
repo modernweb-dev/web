@@ -1,5 +1,11 @@
 # @web/test-runner-coverage-v8
 
+## 0.5.0
+
+### Minor Changes
+
+- acca5d51: Update dependency v8-to-istanbul to v9
+
 ## 0.4.9
 
 ### Patch Changes
