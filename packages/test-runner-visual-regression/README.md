@@ -158,7 +158,7 @@ export interface VisualRegressionPluginOptions {
    * Gets the difference between two images.
    */
   getImageDiff: (args: DiffArgs) => DiffResult | Promise<DiffResult>;
-  
+
   /**
    * The threshold after which a diff is considered a failure, depending on the failureThresholdType.
    * For `failureThresholdType` of "percentage", this should be a number between 0-100.
