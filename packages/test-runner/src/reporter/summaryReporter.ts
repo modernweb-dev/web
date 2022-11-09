@@ -33,7 +33,7 @@ export function summaryReporter(opts: Options): Reporter {
 
   function log(name: string, passed: boolean, prefix = '  ', postfix = '') {
     const sign = passed ? green('✓') : red('𐄂');
-    if (flatten) logger.log(`${sign} ${prefix} ${name}${postfix}`);
+    if (flatten) logger.log(`${sign} ${name}${postfix}`);
     else logger.log(`${prefix}  ${sign} ${name}`);
   }
 
@@ -50,7 +50,7 @@ export function summaryReporter(opts: Options): Reporter {
 
   function logSuite(suite: TestSuiteResult, parent?: string, browser?: BrowserLauncher) {
     const browserName = browser?.name ? ` ${dim(`[${browser.name}]`)}` : '';
-    let pref = parent ? `${parent} ` : '';
+    let pref = parent ? `${parent} ` : ' ';
     if (flatten) pref += `${suite.name}`;
     else logger.log(`${pref}${suite.name}${browserName}`);
 
