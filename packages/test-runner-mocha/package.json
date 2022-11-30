@@ -35,11 +35,11 @@
     "framework"
   ],
   "dependencies": {
-    "@types/mocha": "^8.2.0",
+    "@types/mocha": "^9.1.1",
     "@web/test-runner-core": "^0.10.20"
   },
   "devDependencies": {
     "deepmerge": "^4.2.2",
-    "mocha": "^8.2.1"
+    "mocha": "^9.2.2"
   }
 }
