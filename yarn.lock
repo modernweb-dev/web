@@ -2453,9 +2453,9 @@
     "@types/node" "*"
 
 "@types/selenium-webdriver@^4.1.1":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-4.1.1.tgz#aefb038f0462fd880f9c9581b8b3b71ce385719c"
-  integrity sha512-NxxZZek50ylIACiXebKQYHD3D4One3WXOasEXWazL6aTfYbZob7ClNKxUpg8I4/oWArX87oPWvj1cHKqfel3Hg==
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-4.1.6.tgz#a23b15abc8023db5cd56dad736cbb8d830d38c71"
+  integrity sha512-qK1UbVws7APzKmL2pP1ypVXCdMrJko32anuz5Fl6qrU/1AWM/mVVY7cOM7FhsOVrIqLXo+YoKJf6+LLNtXgbSw==
   dependencies:
     "@types/ws" "*"
 
@@ -11390,30 +11390,10 @@ seek-bzip@^1.0.5:
   dependencies:
     commander "^2.8.1"
 
-selenium-standalone@^8.0.4:
-  version "8.0.9"
-  resolved "https://registry.yarnpkg.com/selenium-standalone/-/selenium-standalone-8.0.9.tgz#637becb31a4d4101ffd80a72c5d4053fab90d7d2"
-  integrity sha512-Bl5Wbaeu5bKVmpLVATYeRcPsk9Bv3fr1aUvdC39UZjG6R/bem8j8Pj+dwB9F+PsS/owQnKh0BCg1KalZcAImbw==
-  dependencies:
-    commander "^8.3.0"
-    cross-spawn "^7.0.3"
-    debug "^4.3.1"
-    fs-extra "^10.0.0"
-    got "^11.8.2"
-    is-port-reachable "^3.0.0"
-    lodash.mapvalues "^4.6.0"
-    lodash.merge "^4.6.2"
-    minimist "^1.2.5"
-    mkdirp "^1.0.4"
-    progress "2.0.3"
-    tar-stream "2.2.0"
-    which "^2.0.2"
-    yauzl "^2.10.0"
-
-selenium-standalone@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/selenium-standalone/-/selenium-standalone-8.2.0.tgz#378b9740fe84953083fa9c0b1d8dcbfc3bd8508c"
-  integrity sha512-gRFJm2A91sL0/4PavIsfTVNjyqNjk+zbdJg/zAYgTMjuoWJv+BlYJh+1UbEtyjt4YvZACYif1DFAzFjQapqiOA==
+selenium-standalone@^8.0.4, selenium-standalone@^8.2.0:
+  version "8.2.2"
+  resolved "https://registry.yarnpkg.com/selenium-standalone/-/selenium-standalone-8.2.2.tgz#6b9da1eb918663f4af5f3f2a8dd3ada8746c773e"
+  integrity sha512-CdfN5WnX0mzrjeCTFnvnsjsXEsQwgepLIvrA6OamrKT29gD8mufemwM3v9VG4grQDFHZZy7Ma1giw232x4eGmw==
   dependencies:
     commander "^9.0.0"
     cross-spawn "^7.0.3"
@@ -11431,9 +11411,9 @@ selenium-standalone@^8.2.0:
     yauzl "^2.10.0"
 
 selenium-webdriver@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/selenium-webdriver/-/selenium-webdriver-4.3.1.tgz#5e9c6c4adee65e57776b5bd4c07c59b65b8f056d"
-  integrity sha512-TjH/ls1WKRQoFEHcqtn6UtwcLnA3yvx08v9cSSFYvyhp8hJWRtbe9ae2I8uXPisEZ2EaGKKoxBZ4EHv0BJM15g==
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/selenium-webdriver/-/selenium-webdriver-4.6.1.tgz#ac66867206542a40c24b5a44f4ccbae992e962dc"
+  integrity sha512-FT8Dw0tbzaTp8YYLuwhaCnve/nw03HKrOJrA3aUmTKmxaIFSP4kT2R5fN3K0RpV5kbR0ZnM4FGVI2vANBvekaA==
   dependencies:
     jszip "^3.10.0"
     tmp "^0.2.1"
@@ -13708,9 +13688,9 @@ ws@8.5.0:
   integrity sha512-BWX0SWVgLPzYwF8lTzEy1egjhS4S4OEAHfsO8o65WOVsrnSRGaSiUaa9e0ggGlkMTtBlmOpEXiie9RUcBO86qg==
 
 ws@>=8.7.0:
-  version "8.8.1"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.8.1.tgz#5dbad0feb7ade8ecc99b830c1d77c913d4955ff0"
-  integrity sha512-bGy2JzvzkPowEJV++hF07hAD6niYSr0JzBNo/J29WsB57A2r7Wlc1UFcTR9IzrPvuNVO4B8LGqF8qcpsVOhJCA==
+  version "8.9.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.9.0.tgz#2a994bb67144be1b53fe2d23c53c028adeb7f45e"
+  integrity sha512-Ja7nszREasGaYUYCI2k4lCKIRTt+y7XuqVoHR44YpI49TtryyqbqvDMn5eqfW7e6HzTukDRIsXqzVHScqRcafg==
 
 ws@^7.4.2:
   version "7.5.9"
