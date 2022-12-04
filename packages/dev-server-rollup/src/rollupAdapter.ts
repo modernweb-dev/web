@@ -113,7 +113,11 @@ export function rollupAdapter(
         return;
       }
 
-      if (!injectedFilePath && !path.isAbsolute(source) && whatwgUrl.parseURL(source) != null) {
+      if (
+        !injectedFilePath &&
+        !path.isAbsolute(source) &&
+        /^https?$/.test(whatwgUrl.parseURL(source)?.scheme ?? '')
+      ) {
         // don't resolve relative and valid urls
         return source;
       }
