@@ -1767,10 +1767,10 @@
     "@lit/reactive-element" "^1.0.0"
     "@open-wc/dedupe-mixin" "^1.3.0"
 
-"@parse5/tools@^0.0.2-6":
-  version "0.0.2-6"
-  resolved "https://registry.yarnpkg.com/@parse5/tools/-/tools-0.0.2-6.tgz#69778c077a3625c455de55eacebc368588e676fe"
-  integrity sha512-rrqOYFmqrCOrstXrLMvvrZW/jibM7aXm1aeX9jfkrin176AjXiFi1tPEvcCyK2wAiWSjLAEyLN4Ye0/ITS1paQ==
+"@parse5/tools@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@parse5/tools/-/tools-0.1.0.tgz#06a8ad2cf54a038617e087d322c9b4585ce0d1c4"
+  integrity sha512-VB9+4BsFoS+4HdB/Ph9jD4FHQt7GyiWESVNfBSh8Eu54LujWyy+NySGLjg8GZFWSZcESG72F67LjgmKZDZCvPg==
   dependencies:
     parse5 "^7.0.0"
 
