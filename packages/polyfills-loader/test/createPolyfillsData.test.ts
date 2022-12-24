@@ -33,6 +33,7 @@ describe('polyfills', () => {
         dynamicImport: true,
         esModuleShims: true,
         constructibleStylesheets: true,
+        URLPattern: true,
       },
     };
 
@@ -49,6 +50,13 @@ describe('polyfills', () => {
         path: 'polyfills/core-js.js',
         content: '',
         test: "!('noModule' in HTMLScriptElement.prototype)",
+      },
+      {
+        content: '',
+        name: 'urlpattern-polyfill',
+        path: 'polyfills/urlpattern-polyfill.js',
+        test: '"URLPattern" in window',
+        type: 'script',
       },
       {
         content: '',
