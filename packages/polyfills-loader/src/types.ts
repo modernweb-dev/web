@@ -43,6 +43,7 @@ export interface PolyfillsConfig {
   intersectionObserver?: boolean;
   resizeObserver?: boolean;
   dynamicImport?: boolean;
+  URLPattern?: boolean;
   // systemjs s.js
   systemjs?: boolean;
   // systemjs extended version with import maps
