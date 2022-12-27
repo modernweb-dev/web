@@ -44,7 +44,7 @@
     "feature detection"
   ],
   "dependencies": {
-    "@web/polyfills-loader": "^1.3.4"
+    "@web/polyfills-loader": "^1.4.0"
   },
   "devDependencies": {
     "@web/rollup-plugin-html": "^1.10.3",
