@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 1.4.0
+
+### Minor Changes
+
+- ab5abe10: feat(polyfills-loader): add URLPattern polyfill
+
 ## 1.3.5
 
 ### Patch Changes
