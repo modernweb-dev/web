@@ -16,8 +16,14 @@
   "main": "src/index.js",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./src/index.js"
+      "import": {
+        "types": "./index.d.ts",
+        "default": "./index.mjs"
+      },
+      "require": {
+        "types": "./src/index.d.ts",
+        "default": "./src/index.js"
+      }
     }
   },
   "engines": {

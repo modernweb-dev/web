@@ -19,8 +19,14 @@
   },
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./index.d.ts",
+        "default": "./index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     }
   },
   "engines": {

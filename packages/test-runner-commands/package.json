@@ -20,8 +20,14 @@
       "default": "./browser/commands.mjs"
     },
     "./plugins": {
-      "import": "./plugins.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./plugins.d.ts",
+        "default": "./plugins.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     }
   },
   "engines": {
