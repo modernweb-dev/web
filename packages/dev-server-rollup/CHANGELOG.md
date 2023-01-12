@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.3.20
+
+### Patch Changes
+
+- ab27e502: fix rollup adapter virtual modules resolution for windows environments
+
 ## 0.3.19
 
 ### Patch Changes
