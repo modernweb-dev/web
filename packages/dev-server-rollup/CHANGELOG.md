@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.3.21
+
+### Patch Changes
+
+- bd06b8cd: revert change #2078
+
 ## 0.3.20
 
 ### Patch Changes
