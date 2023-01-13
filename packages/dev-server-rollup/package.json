@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-rollup",
-  "version": "0.3.20",
+  "version": "0.3.21",
   "publishConfig": {
     "access": "public"
   },
