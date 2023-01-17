@@ -113,7 +113,13 @@ export function rollupAdapter(
         return;
       }
 
-      if (!injectedFilePath && !path.isAbsolute(source) && whatwgUrl.parseURL(source) != null) {
+      const isVirtualModule = source.startsWith('\0');
+      if (
+        !injectedFilePath &&
+        !path.isAbsolute(source) &&
+        whatwgUrl.parseURL(source) != null &&
+        !isVirtualModule
+      ) {
         // don't resolve relative and valid urls
         return source;
       }
