@@ -129,7 +129,7 @@ export function rollupAdapter(
       resolverCache.set(context, resolverCacheForContext);
       const resolverCacheForPlugin = resolverCacheForContext.get(wdsPlugin) ?? new Set<string>();
       resolverCacheForContext.set(wdsPlugin, resolverCacheForPlugin);
-      
+
       resolverCacheForPlugin.add(`${source}:${importer}`);
     },
 
