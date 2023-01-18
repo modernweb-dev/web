@@ -8,6 +8,11 @@ import {
   ModuleInfo,
 } from 'rollup';
 
+interface ResolveOptions {
+  skipSelf?: boolean;
+  [key: string]: unknown;
+}
+
 export function createRollupPluginContextAdapter<
   T extends PluginContext | MinimalPluginContext | TransformPluginContext,
 >(
@@ -70,17 +75,19 @@ export function createRollupPluginContextAdapter<
       throw new Error('Emitting files is not yet supported');
     },
 
-    async resolve(source: string, importer: string, options: { isEntry: boolean, skipSelf: boolean, custom: Record<string, unknown> }) {
+    async resolve(source: string, importer: string, options: ResolveOptions) {
       if (!context) throw new Error('Context is required.');
 
-      if (options.skipSelf) wdsPlugin.resolveImportSkip?.(context, source, importer);
+      const { skipSelf, ...resolveOptions } = options;
+
+      if (skipSelf) wdsPlugin.resolveImportSkip?.(context, source, importer);
 
       for (const pl of config.plugins ?? []) {
-        if (pl.resolveImport && (!options.skipSelf || pl !== wdsPlugin)) {
+        if (pl.resolveImport && (!skipSelf || pl !== wdsPlugin)) {
           const result = await pl.resolveImport({
             source,
             context,
-            resolveOptions: {isEntry: options.isEntry, custom: options.custom},
+            resolveOptions,
           });
           let resolvedId: string | undefined;
           if (typeof result === 'string') {
@@ -100,7 +107,11 @@ export function createRollupPluginContextAdapter<
       }
     },
 
-    async resolveId(source: string, importer: string, options: { isEntry: boolean, skipSelf: boolean, custom: Record<string, unknown> }) {
+    async resolveId(
+      source: string,
+      importer: string,
+      options: { isEntry: boolean; skipSelf: boolean; custom: Record<string, unknown> },
+    ) {
       const resolveResult = await this.resolve(source, importer, options);
       if (typeof resolveResult === 'string') {
         return resolveResult;
