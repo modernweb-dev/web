@@ -1,5 +1,11 @@
 import path from 'path';
-import { DevServerCoreConfig, FSWatcher, Plugin as WdsPlugin, Context } from '@web/dev-server-core';
+import {
+  DevServerCoreConfig,
+  FSWatcher,
+  Plugin as WdsPlugin,
+  Context,
+  ResolveOptions,
+} from '@web/dev-server-core';
 import {
   PluginContext,
   MinimalPluginContext,
@@ -7,11 +13,6 @@ import {
   CustomPluginOptions,
   ModuleInfo,
 } from 'rollup';
-
-interface ResolveOptions {
-  skipSelf?: boolean;
-  [key: string]: unknown;
-}
 
 export function createRollupPluginContextAdapter<
   T extends PluginContext | MinimalPluginContext | TransformPluginContext,
