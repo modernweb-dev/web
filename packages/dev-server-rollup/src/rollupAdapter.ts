@@ -123,6 +123,16 @@ export function rollupAdapter(
       }
     },
 
+    resolveImportSkip(context: Context, source: string, importer: string) {
+      const resolverCacheForContext =
+        resolverCache.get(context) ?? new WeakMap<WdsPlugin, Set<string>>();
+      resolverCache.set(context, resolverCacheForContext);
+      const resolverCacheForPlugin = resolverCacheForContext.get(wdsPlugin) ?? new Set<string>();
+      resolverCacheForContext.set(wdsPlugin, resolverCacheForPlugin);
+      
+      resolverCacheForPlugin.add(`${source}:${importer}`);
+    },
+
     async resolveImport({ source, context, code, column, line, resolveOptions }) {
       if (context.response.is('html') && source.startsWith('�')) {
         // when serving HTML a null byte gets parsed as an unknown character
@@ -179,13 +189,8 @@ export function rollupAdapter(
         const resolverCacheForPlugin = resolverCacheForContext.get(wdsPlugin) ?? new Set<string>();
         resolverCacheForContext.set(wdsPlugin, resolverCacheForPlugin);
 
-        const cacheKey = `${resolvableImport}:${filePath}`;
-
-        if (resolveOptions?.skipSelf) {
-          if (resolverCacheForPlugin.has(cacheKey)) {
-            return undefined;
-          }
-          resolverCacheForPlugin.add(cacheKey);
+        if (resolverCacheForPlugin.has(`${source}:${filePath}`)) {
+          return undefined;
         }
 
         for (const idResolver of idResolvers) {

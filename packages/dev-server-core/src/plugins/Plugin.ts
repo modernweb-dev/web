@@ -46,6 +46,7 @@ export interface Plugin {
       skipSelf?: boolean;
     };
   }): ResolveResult | Promise<ResolveResult>;
+  resolveImportSkip?(context: Context, source: string, importer: string): void;
   transformImport?(args: {
     source: string;
     context: Context;

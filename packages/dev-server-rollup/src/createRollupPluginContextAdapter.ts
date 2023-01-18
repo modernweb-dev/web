@@ -70,15 +70,17 @@ export function createRollupPluginContextAdapter<
       throw new Error('Emitting files is not yet supported');
     },
 
-    async resolve(source: string, importer: string, options: { skipSelf: boolean }) {
+    async resolve(source: string, importer: string, options: { isEntry: boolean, skipSelf: boolean, custom: Record<string, unknown> }) {
       if (!context) throw new Error('Context is required.');
+
+      if (options.skipSelf) wdsPlugin.resolveImportSkip?.(context, source, importer);
 
       for (const pl of config.plugins ?? []) {
         if (pl.resolveImport && (!options.skipSelf || pl !== wdsPlugin)) {
           const result = await pl.resolveImport({
             source,
             context,
-            resolveOptions: options,
+            resolveOptions: {isEntry: options.isEntry, custom: options.custom},
           });
           let resolvedId: string | undefined;
           if (typeof result === 'string') {
@@ -98,7 +100,7 @@ export function createRollupPluginContextAdapter<
       }
     },
 
-    async resolveId(source: string, importer: string, options: { skipSelf: boolean }) {
+    async resolveId(source: string, importer: string, options: { isEntry: boolean, skipSelf: boolean, custom: Record<string, unknown> }) {
       const resolveResult = await this.resolve(source, importer, options);
       if (typeof resolveResult === 'string') {
         return resolveResult;
