@@ -51,7 +51,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   if (polyfills.constructibleStylesheets) {
     addPolyfillConfig({
       name: 'constructible-style-sheets-polyfill',
-      test: '"adoptedStyleSheets" in document',
+      test: '!("adoptedStyleSheets" in document)',
       path: require.resolve('construct-style-sheets-polyfill'),
     });
   }
