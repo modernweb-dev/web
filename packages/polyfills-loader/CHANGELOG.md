@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 1.4.1
+
+### Patch Changes
+
+- f80b22ed: fix(polyfills-loader): reverse condition to load the polyfill for constructable stylesheets
+
 ## 1.4.0
 
 ### Minor Changes
