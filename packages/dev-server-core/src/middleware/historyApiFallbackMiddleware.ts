@@ -12,7 +12,7 @@ export function historyApiFallbackMiddleware(
   rootDir: string,
   logger: Logger,
 ): Middleware {
-  const resolvedAppIndex = path.resolve(appIndex);
+  const resolvedAppIndex = path.resolve(rootDir, appIndex);
   const relativeAppIndex = path.relative(rootDir, resolvedAppIndex);
   const appIndexBrowserPath = `/${toBrowserPath(relativeAppIndex)}`;
   const appIndexBrowserPathPrefix = path.dirname(appIndexBrowserPath);
