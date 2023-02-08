@@ -1,3 +1,5 @@
+import {formatError} from '@web/test-runner'
+
 window.addEventListener('error', e => {
   console.error(e.error);
 });
@@ -7,6 +9,6 @@ window.addEventListener('unhandledrejection', e => {
     console.error(
       'An error was thrown in a Promise outside a test. Did you forget to await a function or assertion?',
     );
-    console.error(error);
+    console.error(formatError(error));
   });
 });

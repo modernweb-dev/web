@@ -46,6 +46,7 @@
     "deserialize"
   ],
   "dependencies": {
+    "@web/test-runner": "^0.15.0",
     "errorstacks": "^2.2.0"
   },
   "devDependencies": {
