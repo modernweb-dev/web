@@ -35,7 +35,7 @@ export function readStorybookConfig(pluginConfig: StorybookPluginConfig): Storyb
     ? path.resolve(pluginConfig.configDir)
     : defaultConfigDir;
 
-  const commonJsMainPath = path.join(configDir, 'main.cjs')
+  const commonJsMainPath = path.join(configDir, 'main.cjs');
   const mainJsPath = path.join(configDir, 'main.js');
 
   const managerJsPath = path.join(configDir, 'manager.js');
@@ -47,8 +47,8 @@ export function readStorybookConfig(pluginConfig: StorybookPluginConfig): Storyb
   let previewHead: string | undefined = undefined;
   let previewBody: string | undefined = undefined;
 
-  const mainJsExists = fs.existsSync(mainJsPath)
-  const commonJsMainExists = fs.existsSync(commonJsMainPath)
+  const mainJsExists = fs.existsSync(mainJsPath);
+  const commonJsMainExists = fs.existsSync(commonJsMainPath);
 
   if (!mainJsExists && !commonJsMainExists) {
     throw createError(
@@ -66,9 +66,9 @@ export function readStorybookConfig(pluginConfig: StorybookPluginConfig): Storyb
     previewBody = fs.readFileSync(previewBodyPath, 'utf-8');
   }
 
-  const mainJs = commonJsMainExists ? 
-    validateMainJs(require(commonJsMainPath)) :
-    validateMainJs(require(mainJsPath));
+  const mainJs = commonJsMainExists
+    ? validateMainJs(require(commonJsMainPath))
+    : validateMainJs(require(mainJsPath));
 
   return {
     mainJs,
