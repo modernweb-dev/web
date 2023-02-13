@@ -47,7 +47,10 @@ export function readStorybookConfig(pluginConfig: StorybookPluginConfig): Storyb
   let previewHead: string | undefined = undefined;
   let previewBody: string | undefined = undefined;
 
-  if (!fs.existsSync(mainJsPath) && !fs.existsSync(commonJsMainPath)) {
+  const mainJsExists = fs.existsSync(mainJsPath)
+  const commonJsMainExists = fs.existsSync(commonJsMainPath)
+
+  if (!mainJsExists && !commonJsMainExists) {
     throw createError(
       `Could not find any storybook configuration at ${mainJsPath} or ${commonJsMainPath}. You can change the storybook config directory using the configDir option.`,
     );
@@ -63,7 +66,7 @@ export function readStorybookConfig(pluginConfig: StorybookPluginConfig): Storyb
     previewBody = fs.readFileSync(previewBodyPath, 'utf-8');
   }
 
-  const mainJs = fs.existsSync(commonJsMainPath) ? 
+  const mainJs = commonJsMainExists ? 
     validateMainJs(require(commonJsMainPath)) :
     validateMainJs(require(mainJsPath));
 
