@@ -1,4 +1,4 @@
-import { formatError } from './report-error';
+import { formatError } from './format-error';
 
 window.addEventListener('error', e => {
   console.error(e.error);
