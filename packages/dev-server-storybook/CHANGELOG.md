@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.6.0
+
+### Minor Changes
+
+- f7fe8eee: Load CommonJS configuration file if one exists
+
 ## 0.5.4
 
 ### Patch Changes
