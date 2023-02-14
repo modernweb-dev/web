@@ -2,6 +2,7 @@ import type { TestRunnerConfig as FullTestRunnerConfig } from './config/TestRunn
 
 export * from '@web/test-runner-core';
 export { chromeLauncher } from '@web/test-runner-chrome';
+export { formatError } from '@web/browser-logs';
 
 export { startTestRunner } from './startTestRunner';
 export { defaultReporter } from './reporter/defaultReporter';

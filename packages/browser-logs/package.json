@@ -54,6 +54,7 @@
   "devDependencies": {
     "@esm-bundle/chai": "^4.1.5",
     "@types/diff": "^5.0.0",
+    "@web/test-runner-core": "^0.10.27",
     "puppeteer": "^13.1.2"
   }
 }

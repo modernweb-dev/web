@@ -1,5 +1,3 @@
-import { TestResultError } from '@web/test-runner-core';
-
 import { gray, green, red } from 'nanocolors';
 import * as diff from 'diff';
 
@@ -29,6 +27,14 @@ function renderDiff(actual: string, expected: string) {
     .join('\n');
 
   return `${green('+ expected')} ${red('- actual')}\n\n${diffMsg}`;
+}
+
+interface TestResultError {
+  name?: string | undefined;
+  message: string | undefined;
+  stack?: string | undefined;
+  actual?: string | undefined;
+  expected?: string | undefined;
 }
 
 export function formatError(error: TestResultError) {
