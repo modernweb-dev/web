@@ -90,14 +90,12 @@
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.1",
     "convert-source-map": "^1.7.0",
-    "diff": "^5.0.0",
     "globby": "^11.0.1",
     "nanocolors": "^0.2.1",
     "portfinder": "^1.0.32",
     "source-map": "^0.7.3"
   },
   "devDependencies": {
-    "@types/diff": "^5.0.0",
     "@web/dev-server-legacy": "^1.0.1",
     "@web/test-runner-saucelabs": "^0.8.0",
     "babel-plugin-istanbul": "^6.0.0",

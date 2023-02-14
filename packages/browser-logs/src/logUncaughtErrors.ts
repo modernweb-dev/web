@@ -1,4 +1,4 @@
-import {formatError} from '@web/test-runner'
+import { formatError } from './report-error';
 
 window.addEventListener('error', e => {
   console.error(e.error);
