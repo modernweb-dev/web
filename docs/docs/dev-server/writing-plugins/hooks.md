@@ -258,7 +258,7 @@ export default {
       name: 'my-plugin',
       transform(context) {
         if (context.path === '/index.html') {
-          context.set('X-My-Custom-Header', 'hello, world';
+          context.set('X-My-Custom-Header', 'hello, world');
         }
       },
     },
