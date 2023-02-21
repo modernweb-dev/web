@@ -36,7 +36,12 @@ export function summaryReporter(opts: Options): Reporter {
     else logger.log(`${prefix}  ${sign} ${name}`);
   }
 
-  function logResults(logger: Logger, results?: TestSuiteResult, prefix?: string, browser?: BrowserLauncher) {
+  function logResults(
+    logger: Logger,
+    results?: TestSuiteResult,
+    prefix?: string,
+    browser?: BrowserLauncher,
+  ) {
     const browserName = browser?.name ? ` ${dim(`[${browser.name}]`)}` : '';
     for (const result of results?.tests ?? []) {
       log(logger, result.name, result.passed, prefix, browserName);
@@ -47,7 +52,12 @@ export function summaryReporter(opts: Options): Reporter {
     }
   }
 
-  function logSuite(logger: Logger, suite: TestSuiteResult, parent?: string, browser?: BrowserLauncher) {
+  function logSuite(
+    logger: Logger,
+    suite: TestSuiteResult,
+    parent?: string,
+    browser?: BrowserLauncher,
+  ) {
     const browserName = browser?.name ? ` ${dim(`[${browser.name}]`)}` : '';
     let pref = parent ? `${parent} ` : '';
     if (flatten) pref += `${suite.name}`;
@@ -81,7 +91,13 @@ export function summaryReporter(opts: Options): Reporter {
       if (failedSessions.length > 0) {
         cachedLogger.log('\n\nErrors Reported in Tests:\n\n');
         reportTestsErrors(cachedLogger, args.browserNames, favoriteBrowser, failedSessions);
-        reportTestFileErrors(cachedLogger, args.browserNames, favoriteBrowser, failedSessions, true);
+        reportTestFileErrors(
+          cachedLogger,
+          args.browserNames,
+          favoriteBrowser,
+          failedSessions,
+          true,
+        );
       }
     },
   };
