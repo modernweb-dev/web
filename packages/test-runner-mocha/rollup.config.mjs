@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge';
-import createConfig from '../../rollup.browser.config';
+import createConfig from '../../rollup.browser.config.mjs';
 
 const REGEXP_DTS_MOCHA = /'..\/..\/..\/node_modules\/mocha\/mocha.js'/g;
 const REGEXP_DTS_CORE = /'..\/..\/test-runner-core\/browser\/session.js'/g;
