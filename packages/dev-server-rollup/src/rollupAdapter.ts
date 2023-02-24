@@ -17,12 +17,7 @@ import {
   setTextContent,
 } from '@web/dev-server-core/dist/dom5';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
-import {
-  CustomPluginOptions,
-  Plugin as RollupPlugin,
-  TransformPluginContext,
-  ResolveIdHook,
-} from 'rollup';
+import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';
 import { red, cyan } from 'nanocolors';
 
@@ -77,7 +72,7 @@ export function rollupAdapter(
   let fileWatcher: FSWatcher;
   let config: DevServerCoreConfig;
   let rootDir: string;
-  let idResolvers: ResolveIdHook[] = [];
+  let idResolvers: Array<Required<RollupPlugin>['resolveId']> = [];
 
   function savePluginMeta(
     id: string,
@@ -100,20 +95,35 @@ export function rollupAdapter(
       idResolvers = [];
 
       // call the options and buildStart hooks
-      const transformedOptions =
-        (await rollupPlugin.options?.call(
-          rollupPluginContexts.minimalPluginContext,
-          rollupInputOptions,
-        )) ?? rollupInputOptions;
-      rollupPlugin.buildStart?.call(
-        rollupPluginContexts.pluginContext,
-        rollupPluginContexts.normalizedInputOptions,
-      );
+      let transformedOptions;
+      if (typeof rollupPlugin.options === 'function') {
+        transformedOptions =
+          (await rollupPlugin.options?.call(
+            rollupPluginContexts.minimalPluginContext,
+            rollupInputOptions,
+          )) ?? rollupInputOptions;
+      } else {
+        transformedOptions = rollupInputOptions;
+      }
+      if (typeof rollupPlugin.buildStart === 'function') {
+        rollupPlugin.buildStart?.call(
+          rollupPluginContexts.pluginContext,
+          rollupPluginContexts.normalizedInputOptions,
+        );
+      }
 
-      if (transformedOptions && transformedOptions.plugins) {
+      if (
+        transformedOptions &&
+        transformedOptions.plugins &&
+        Array.isArray(transformedOptions.plugins)
+      ) {
         for (const subPlugin of transformedOptions.plugins) {
-          if (subPlugin && subPlugin.resolveId) {
-            idResolvers.push(subPlugin.resolveId);
+          if (subPlugin && !Array.isArray(subPlugin)) {
+            const resolveId = (subPlugin as RollupPlugin).resolveId;
+
+            if (resolveId) {
+              idResolvers.push(resolveId);
+            }
           }
         }
       }
@@ -200,8 +210,13 @@ export function rollupAdapter(
         }
 
         for (const idResolver of idResolvers) {
-          result = await idResolver.call(rollupPluginContext, resolvableImport, filePath, {
+          const idResolverHandler =
+            typeof idResolver === 'function' ? idResolver : idResolver.handler;
+          result = await idResolverHandler.call(rollupPluginContext, resolvableImport, filePath, {
             ...resolveOptions,
+            assertions: {
+              ...((resolveOptions?.assertions as Record<string, string>) ?? {}),
+            },
             isEntry: false,
           });
 
@@ -347,7 +362,10 @@ export function rollupAdapter(
           pluginMetaPerModule,
         );
 
-        const result = await rollupPlugin.load?.call(rollupPluginContext, filePath);
+        let result;
+        if (typeof rollupPlugin.load === 'function') {
+          result = await rollupPlugin.load?.call(rollupPluginContext, filePath);
+        }
 
         if (typeof result === 'string') {
           return { body: result, type: 'js' };
@@ -384,11 +402,14 @@ export function rollupAdapter(
             pluginMetaPerModule,
           );
 
-          const result = await rollupPlugin.transform?.call(
-            rollupPluginContext as TransformPluginContext,
-            context.body as string,
-            filePath,
-          );
+          let result;
+          if (typeof rollupPlugin.transform === 'function') {
+            result = await rollupPlugin.transform?.call(
+              rollupPluginContext as TransformPluginContext,
+              context.body as string,
+              filePath,
+            );
+          }
 
           let transformedCode: string | undefined = undefined;
           if (typeof result === 'string') {
@@ -436,11 +457,14 @@ export function rollupAdapter(
               pluginMetaPerModule,
             );
 
-            const result = await rollupPlugin.transform?.call(
-              rollupPluginContext as TransformPluginContext,
-              code,
-              filePath,
-            );
+            let result;
+            if (typeof rollupPlugin.transform === 'function') {
+              result = await rollupPlugin.transform?.call(
+                rollupPluginContext as TransformPluginContext,
+                code,
+                filePath,
+              );
+            }
 
             let transformedCode: string | undefined = undefined;
             if (typeof result === 'string') {
@@ -484,7 +508,9 @@ export function rollupAdapter(
       const filePath = getRequestFilePath(context.url, rootDir);
       const info = rollupPluginContext.getModuleInfo(filePath);
       if (!info) throw new Error(`Missing info for module ${filePath}`);
-      rollupPlugin.moduleParsed?.call(rollupPluginContext as TransformPluginContext, info);
+      if (typeof rollupPlugin.moduleParsed === 'function') {
+        rollupPlugin.moduleParsed?.call(rollupPluginContext as TransformPluginContext, info);
+      }
     },
   };
 

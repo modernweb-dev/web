@@ -27,7 +27,7 @@ export function createRollupPluginContextAdapter<
   return {
     ...pluginContext,
 
-    getModuleInfo(id: string): ModuleInfo {
+    getModuleInfo(id: string): Partial<ModuleInfo> {
       return {
         id,
         code: context.body as string,
