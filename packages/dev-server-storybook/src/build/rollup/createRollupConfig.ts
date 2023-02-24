@@ -124,7 +124,7 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
     ],
   };
 
-  if (storyFilePaths && storyFilePaths.length > 0) {
+  if (storyFilePaths && storyFilePaths.length > 0 && Array.isArray(options.plugins)) {
     // plugins we need to inject only in the preview
     options.plugins!.unshift(injectExportsOrderPlugin(storyFilePaths));
     options.plugins!.unshift(mdxPlugin());
