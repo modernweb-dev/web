@@ -1483,7 +1483,7 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@lion/accordion@^0.11.1", "@lion/accordion@^0.7.2":
+"@lion/accordion@^0.11.1", "@lion/accordion@^0.9.0":
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/@lion/accordion/-/accordion-0.11.1.tgz#4f6a59d249e4bce35b6b9a3cc319d43959325ed8"
   integrity sha512-r+p+/39mhS+bRILu2VMebfEtu6qV5z/tdl/6ROW7IKAx4FOlQo8sXgTl7HuAZztq3HisxCcBTjdqcTnnjAdMDg==
@@ -1551,10 +1551,22 @@
     "@popperjs/core" "^2.5.4"
     singleton-manager "^1.5.0"
 
+"@lit-labs/ssr-dom-shim@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@lit-labs/ssr-dom-shim/-/ssr-dom-shim-1.0.0.tgz#427e19a2765681fd83411cd72c55ba80a01e0523"
+  integrity sha512-ic93MBXfApIFTrup4a70M/+ddD8xdt2zxxj9sRwHQzhS9ag/syqkD8JPdTXsc1gUy2K8TTirhlCqyTEM/sifNw==
+
 "@lit/reactive-element@^1.0.0", "@lit/reactive-element@^1.3.0", "@lit/reactive-element@^1.4.0":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@lit/reactive-element/-/reactive-element-1.4.1.tgz#3f587eec5708692135bc9e94cf396130604979f3"
   integrity sha512-qDv4851VFSaBWzpS02cXHclo40jsbAjRXnebNXpm0uVg32kCneZPo9RYVQtrTNICtZ+1wAYHu1ZtxWSWMbKrBw==
+
+"@lit/reactive-element@^1.6.0":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@lit/reactive-element/-/reactive-element-1.6.1.tgz#0d958b6d479d0e3db5fc1132ecc4fa84be3f0b93"
+  integrity sha512-va15kYZr7KZNNPZdxONGQzpUr+4sxVu7V/VG7a8mRfPPXUyhEYj5RzXCQmGrlP3tAh0L3HHm5AjBMFYRqlM9SA==
+  dependencies:
+    "@lit-labs/ssr-dom-shim" "^1.0.0"
 
 "@manypkg/find-root@^1.1.0":
   version "1.1.0"
@@ -1604,13 +1616,13 @@
     unist-util-visit "^2.0.3"
 
 "@mdjs/mdjs-preview@^0.5.3", "@mdjs/mdjs-preview@^0.5.5":
-  version "0.5.7"
-  resolved "https://registry.yarnpkg.com/@mdjs/mdjs-preview/-/mdjs-preview-0.5.7.tgz#06899fe537c302553ac9d1667fc6821765d02804"
-  integrity sha512-nJUAqrYvlmRRN6rgSDlsTzWO3QCVPLCkyUVL/gv+Zl6scqRzgeDCBfwGI4VIGRBlM7CysXp3TLM3E6axi1l+tQ==
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/@mdjs/mdjs-preview/-/mdjs-preview-0.5.9.tgz#5e862b8e895f93df33e8441036c252b720d73394"
+  integrity sha512-0FG3vEYmHVt74x9Vc+d3G10MmAfv0gmq4mzfV1nmG4dtGBEhuWZLrFIHiHOZWExUIv6Kui417EBnuHVLXOg+GA==
   dependencies:
-    "@lion/accordion" "^0.7.2"
+    "@lion/accordion" "^0.9.0"
     "@open-wc/scoped-elements" "^2.0.0"
-    lit "^2.0.0"
+    lit "^2.2.5"
 
 "@mdjs/mdjs-story@^0.3.0":
   version "0.3.1"
@@ -7841,6 +7853,13 @@ lit-html@^2.0.0, lit-html@^2.2.0, lit-html@^2.4.0:
   dependencies:
     "@types/trusted-types" "^2.0.2"
 
+lit-html@^2.6.0:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/lit-html/-/lit-html-2.6.1.tgz#eb29f0b0c2ab54ea77379db11fc011b0c71f1cda"
+  integrity sha512-Z3iw+E+3KKFn9t2YKNjsXNEu/LRLI98mtH/C6lnFg7kvaqPIzPn124Yd4eT/43lyqrejpc5Wb6BHq3fdv4S8Rw==
+  dependencies:
+    "@types/trusted-types" "^2.0.2"
+
 lit@^2.0.0, lit@^2.0.2:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/lit/-/lit-2.4.0.tgz#e33a0f463e17408f6e7f71464e6a266e60a5bb77"
@@ -7849,6 +7868,15 @@ lit@^2.0.0, lit@^2.0.2:
     "@lit/reactive-element" "^1.4.0"
     lit-element "^3.2.0"
     lit-html "^2.4.0"
+
+lit@^2.2.5:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/lit/-/lit-2.6.1.tgz#5951a2098b9bde5b328c73b55c15fdc0eefd96d7"
+  integrity sha512-DT87LD64f8acR7uVp7kZfhLRrHkfC/N4BVzAtnw9Yg8087mbBJ//qedwdwX0kzDbxgPccWRW6mFwGbRQIxy0pw==
+  dependencies:
+    "@lit/reactive-element" "^1.6.0"
+    lit-element "^3.2.0"
+    lit-html "^2.6.0"
 
 load-plugin@^4.0.0:
   version "4.0.1"
@@ -12748,10 +12776,10 @@ ua-parser-js@1.0.2:
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-1.0.2.tgz#e2976c34dbfb30b15d2c300b2a53eac87c57a775"
   integrity sha512-00y/AXhx0/SsnI51fTc0rLRmafiGOM4/O+ny10Ps7f+j/b8p/ZY11ytMgznXkOVo4GQ+KwQG5UQLkLGirsACRg==
 
-ua-parser-js@^1.0.1, ua-parser-js@^1.0.2:
-  version "1.0.32"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-1.0.32.tgz#786bf17df97de159d5b1c9d5e8e9e89806f8a030"
-  integrity sha512-dXVsz3M4j+5tTiovFVyVqssXBu5HM47//YSOeZ9fQkdDKkfzv2v3PP1jmH6FUyPW+yCSn7aBVK1fGGKNhowdDA==
+ua-parser-js@^1.0.1, ua-parser-js@^1.0.33:
+  version "1.0.33"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-1.0.33.tgz#f21f01233e90e7ed0f059ceab46eb190ff17f8f4"
+  integrity sha512-RqshF7TPTE0XLYAqmjlu5cLLuGdKrNu9O1KLA/qp39QtbZwuzwv1dT46DZSopoUMsYgXpB3Cv8a03FI8b74oFQ==
 
 uc.micro@^1.0.1, uc.micro@^1.0.5:
   version "1.0.6"
