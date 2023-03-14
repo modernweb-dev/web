@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@rocket/blog": "^0.4.0",
-    "@rocket/cli": "^0.10.1",
+    "@rocket/cli": "^0.20.4",
     "@rocket/core": "^0.1.2",
     "@rocket/launch": "^0.6.0",
     "@rocket/search": "^0.6.0"
