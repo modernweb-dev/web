@@ -1,5 +1,14 @@
 # @web/dev-server-legacy
 
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
 ## 1.0.1
 
 ### Patch Changes
