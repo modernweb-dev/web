@@ -1,5 +1,19 @@
 # @web/dev-server-rollup
 
+## 0.4.0
+
+### Minor Changes
+
+- acc0a84c: Expand support for Rollup plugins with child plugins, specifically the Node Resolve plugin.
+
+### Patch Changes
+
+- a2198172: fix rollup adapter resolution for virtual modules on Windows
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
 ## 0.3.21
 
 ### Patch Changes
