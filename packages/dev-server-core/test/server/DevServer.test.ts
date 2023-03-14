@@ -213,12 +213,12 @@ describe('disableFileWatcher', () => {
   };
 
   it('disables file watch when true', async () => {
-    const { fileWatchStub, server } = await setupDisableFileWatch({ disableFileWatcher: true })
+    const { fileWatchStub, server } = await setupDisableFileWatch({ disableFileWatcher: true });
 
     expect(fileWatchStub.callCount).to.equal(0);
     server.stop();
   });
-  
+
   it('leaves file watch in tact when false', async () => {
     const { fileWatchStub, server } = await setupDisableFileWatch({ disableFileWatcher: false });
 
