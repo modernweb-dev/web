@@ -1,5 +1,15 @@
 # @web/dev-server-esbuild
 
+## 0.3.4
+
+### Patch Changes
+
+- 1b2ae08c: Bump the `esbuild` version to `^0.16 || ^0.17` fix a decorator bug in 0.14
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
 ## 0.3.3
 
 ### Patch Changes
