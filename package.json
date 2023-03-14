@@ -42,7 +42,7 @@
     "@rocket/blog": "^0.4.0",
     "@rocket/cli": "^0.10.1",
     "@rocket/core": "^0.1.2",
-    "@rocket/launch": "^0.6.0",
+    "@rocket/launch": "^0.21.3",
     "@rocket/search": "^0.6.0"
   },
   "devDependencies": {
