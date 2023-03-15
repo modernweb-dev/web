@@ -695,6 +695,7 @@ describe('rollup-plugin-html', () => {
     }
 
     const outputHtml = getAsset(output, 'index.html').source;
+    console.log(outputHtml);
     expect(outputHtml).to.include(
       '<link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png">',
     );
@@ -705,11 +706,11 @@ describe('rollup-plugin-html', () => {
     expect(outputHtml).to.include(
       '<link rel="mask-icon" href="assets/image-a.svg" color="#3f93ce">',
     );
-    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/styles-ed723e17.css">');
-    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/x-58ef5070.css">');
-    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/y-4f2d398e.css">');
-    expect(outputHtml).to.include('<img src="assets/image-c-23edadf6.png">');
-    expect(outputHtml).to.include('<img src="assets/image-b-ee32b49e.svg">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/styles-7217db1b.css">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/x-fdf2539f.css">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/y-cb026435.css">');
+    expect(outputHtml).to.include('<img src="assets/image-c-50b9e6e7.png">');
+    expect(outputHtml).to.include('<img src="assets/image-b-fbaec9b6.svg">');
   });
 
   it('deduplicates static assets with similar names', async () => {
@@ -762,7 +763,7 @@ describe('rollup-plugin-html', () => {
 
     expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
       '<html><head><link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg"></head>' +
-        '<body><img src="assets/foo-81034cb4.svg"></body></html>',
+        '<body><img src="assets/foo-48d6e4e5.svg"></body></html>',
     );
   });
 
@@ -789,9 +790,9 @@ describe('rollup-plugin-html', () => {
 
     expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
       '<html><head></head><body>' +
-        '<link rel="stylesheet" href="assets/image-a-9c3a45f9.png">' +
-        '<img src="assets/image-a-9c3a45f9.png">' +
-        '<img src="assets/image-a-9c3a45f9.png">' +
+        '<link rel="stylesheet" href="assets/image-a-50b9e6e7.png">' +
+        '<img src="assets/image-a-50b9e6e7.png">' +
+        '<img src="assets/image-a-50b9e6e7.png">' +
         '</body></html>',
     );
   });
@@ -837,20 +838,20 @@ describe('rollup-plugin-html', () => {
 
     expect(stripNewlines(getAsset(output, 'page-a.html').source)).to.equal(
       '<html><head></head><body>' +
-        '  <img src="assets/image-a-9c3a45f9.png">' +
+        '  <img src="assets/image-a-50b9e6e7.png">' +
         '    </body></html>',
     );
 
     expect(stripNewlines(getAsset(output, 'page-b.html').source)).to.equal(
       '<html><head></head><body>' +
-        '  <link rel="stylesheet" href="assets/image-a-9c3a45f9.png">' +
+        '  <link rel="stylesheet" href="assets/image-a-50b9e6e7.png">' +
         '    </body></html>',
     );
 
     expect(stripNewlines(getAsset(output, 'page-c.html').source)).to.equal(
       '<html><head></head><body>' +
-        '  <link rel="stylesheet" href="assets/image-a-9c3a45f9.png">' +
-        '  <img src="assets/image-a-9c3a45f9.png">' +
+        '  <link rel="stylesheet" href="assets/image-a-50b9e6e7.png">' +
+        '  <img src="assets/image-a-50b9e6e7.png">' +
         '    </body></html>',
     );
   });
@@ -1034,9 +1035,9 @@ describe('rollup-plugin-html', () => {
     expect(stripNewlines(getAsset(output, 'x/index.html').source)).to.equal(
       [
         '<html><head></head><body>',
-        '<img src="../assets/foo-c9db7cc0.svg">',
-        '<link rel="stylesheet" href="../assets/styles-ed723e17.css">',
-        '<img src="../assets/image-b-ee32b49e.svg">',
+        '<img src="../assets/foo-3c1050f4.svg">',
+        '<link rel="stylesheet" href="../assets/styles-7217db1b.css">',
+        '<img src="../assets/image-b-fbaec9b6.svg">',
         '</body></html>',
       ].join(''),
     );
