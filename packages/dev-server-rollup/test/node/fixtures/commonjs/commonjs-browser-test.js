@@ -24,6 +24,7 @@ describe('commonjs', () => {
   });
 
   it('can handle compiled es modules with named exports', () => {
+    console.log(compiledEsm);
     expect(compiledEsm.compiledEsmFoo).to.equal('foo');
     expect(compiledEsm.compiledEsmBar).to.equal('bar');
   });
@@ -33,7 +34,7 @@ describe('commonjs', () => {
   });
 
   it('can handle require default', () => {
-    expect(requiredDefault).to.equal('foo');
+    expect(requiredDefault.default).to.equal('foo');
   });
 
   it('can handle require named', () => {
