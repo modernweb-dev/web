@@ -51,10 +51,10 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     expect(output.length).to.equal(5);
     expectChunk(output, 'snapshots/simple-bundle.js', 'simple-bundle.js', [
-      expectAsset(output, 'snapshots/one.svg', 'one.svg', 'assets/one-134aaf72.svg'),
-      expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two-e4de930c.svg'),
-      expectAsset(output, 'snapshots/three.svg', 'three.svg', 'assets/three-3f2c16b3.svg'),
-      expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-b40404a7.svg'),
+      expectAsset(output, 'snapshots/one.svg', 'one.svg', 'assets/one-824f522a.svg'),
+      expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two-efaa9ab3.svg'),
+      expectAsset(output, 'snapshots/three.svg', 'three.svg', 'assets/three-63bfb103.svg'),
+      expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-360cc920.svg'),
     ]);
   });
 
@@ -79,11 +79,11 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     expect(output.length).to.equal(6);
     expectChunk(output, 'snapshots/transform-bundle.js', 'transform-bundle.js', [
-      expectAsset(output, 'snapshots/one.min.svg', 'one.svg', 'assets/one-d81655b9.svg'),
-      expectAsset(output, 'snapshots/two.min.svg', 'two.svg', 'assets/two-00516e7a.svg'),
-      expectAsset(output, 'snapshots/three.min.svg', 'three.svg', 'assets/three-0ba6692d.svg'),
-      expectAsset(output, 'snapshots/four.min.svg', 'four.svg', 'assets/four-a00e2e1d.svg'),
-      expectAsset(output, 'snapshots/image.jpg', 'image.jpg', 'assets/image-d6eb190c.jpg'),
+      expectAsset(output, 'snapshots/one.min.svg', 'one.svg', 'assets/one-2d604b7f.svg'),
+      expectAsset(output, 'snapshots/two.min.svg', 'two.svg', 'assets/two-4f4a5196.svg'),
+      expectAsset(output, 'snapshots/three.min.svg', 'three.svg', 'assets/three-cb83a3f2.svg'),
+      expectAsset(output, 'snapshots/four.min.svg', 'four.svg', 'assets/four-97848687.svg'),
+      expectAsset(output, 'snapshots/image.jpg', 'image.jpg', 'assets/image-c160fa1b.jpg'),
     ]);
   });
 
@@ -108,10 +108,10 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     expect(output.length).to.equal(5);
     expectChunk(output, 'snapshots/transform-bundle-ignored.js', 'transform-bundle-ignored.js', [
-      expectAsset(output, 'snapshots/one.min.svg', 'one.svg', 'assets/one-d81655b9.svg'),
-      expectAsset(output, 'snapshots/two.min.svg', 'two.svg', 'assets/two-00516e7a.svg'),
-      expectAsset(output, 'snapshots/three.min.svg', 'three.svg', 'assets/three-0ba6692d.svg'),
-      expectAsset(output, 'snapshots/four.min.svg', 'four.svg', 'assets/four-a00e2e1d.svg'),
+      expectAsset(output, 'snapshots/one.min.svg', 'one.svg', 'assets/one-2d604b7f.svg'),
+      expectAsset(output, 'snapshots/two.min.svg', 'two.svg', 'assets/two-4f4a5196.svg'),
+      expectAsset(output, 'snapshots/three.min.svg', 'three.svg', 'assets/three-cb83a3f2.svg'),
+      expectAsset(output, 'snapshots/four.min.svg', 'four.svg', 'assets/four-97848687.svg'),
     ]);
   });
 
@@ -126,10 +126,10 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     expect(output.length).to.equal(5);
     expectChunk(output, 'snapshots/multi-level-bundle.js', 'multi-level-bundle.js', [
-      expectAsset(output, 'snapshots/one.svg', 'one.svg', 'assets/one-134aaf72.svg'),
-      expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two-e4de930c.svg'),
-      expectAsset(output, 'snapshots/three.svg', 'three.svg', 'assets/three-3f2c16b3.svg'),
-      expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-b40404a7.svg'),
+      expectAsset(output, 'snapshots/one.svg', 'one.svg', 'assets/one-824f522a.svg'),
+      expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two-efaa9ab3.svg'),
+      expectAsset(output, 'snapshots/three.svg', 'three.svg', 'assets/three-63bfb103.svg'),
+      expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-360cc920.svg'),
     ]);
   });
 
@@ -148,10 +148,10 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     expect(output.length).to.equal(5);
     expectChunk(output, 'snapshots/multi-level-bundle.js', 'multi-level-bundle.js', [
-      expectAsset(output, 'snapshots/one.svg', 'one.svg', 'assets/one-134aaf72.svg'),
-      expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two-e4de930c.svg'),
-      expectAsset(output, 'snapshots/three.svg', 'three.svg', 'assets/three-3f2c16b3.svg'),
-      expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-b40404a7.svg'),
+      expectAsset(output, 'snapshots/one.svg', 'one.svg', 'assets/one-824f522a.svg'),
+      expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two-efaa9ab3.svg'),
+      expectAsset(output, 'snapshots/three.svg', 'three.svg', 'assets/three-63bfb103.svg'),
+      expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-360cc920.svg'),
     ]);
   });
 
@@ -174,15 +174,15 @@ describe('rollup-plugin-import-meta-assets', () => {
       'snapshots/different-asset-levels-bundle.js',
       'different-asset-levels-bundle.js',
       [
-        expectAsset(output, 'snapshots/one.svg', 'one-deep.svg', 'assets/one-deep-d40c1b4b.svg'),
-        expectAsset(output, 'snapshots/two.svg', 'two-deep.svg', 'assets/two-deep-e73b0d96.svg'),
+        expectAsset(output, 'snapshots/one.svg', 'one-deep.svg', 'assets/one-deep-824f522a.svg'),
+        expectAsset(output, 'snapshots/two.svg', 'two-deep.svg', 'assets/two-deep-efaa9ab3.svg'),
         expectAsset(
           output,
           'snapshots/three.svg',
           'three-deep.svg',
-          'assets/three-deep-801763e8.svg',
+          'assets/three-deep-63bfb103.svg',
         ),
-        expectAsset(output, 'snapshots/four.svg', 'four-deep.svg', 'assets/four-deep-c65478aa.svg'),
+        expectAsset(output, 'snapshots/four.svg', 'four-deep.svg', 'assets/four-deep-360cc920.svg'),
       ],
     );
   });
@@ -214,10 +214,10 @@ describe('rollup-plugin-import-meta-assets', () => {
     expectChunk(output, 'snapshots/one-bundle.js', 'one-bundle.js', []);
     expectChunk(output, 'snapshots/two-bundle.js', 'two-bundle.js', []);
     expectChunk(output, 'snapshots/three-bundle.js', 'three-bundle.js', [
-      expectAsset(output, 'snapshots/three.svg', 'three.svg', 'assets/three-3f2c16b3.svg'),
+      expectAsset(output, 'snapshots/three.svg', 'three.svg', 'assets/three-63bfb103.svg'),
     ]);
     expectChunk(output, 'snapshots/four-bundle.js', 'four-bundle.js', [
-      expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-b40404a7.svg'),
+      expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-360cc920.svg'),
     ]);
   });
 
