@@ -53,7 +53,10 @@ describe('@rollup/plugin-commonjs', () => {
     try {
       const text = await fetchText(`${host}/foo.js`);
       expectIncludes(text, 'var foo_1 = foo.foo = "bar"; var lorem = foo.lorem = "ipsum";');
-      expectIncludes(text, 'export { foo as __moduleExports, foo_1 as foo, lorem, foo as default };');
+      expectIncludes(
+        text,
+        'export { foo as __moduleExports, foo_1 as foo, lorem, foo as default };',
+      );
     } finally {
       server.stop();
     }
@@ -89,7 +92,10 @@ module.exports.lorem = lorem;`;
       expectIncludes(text, 'var foo_2 = foo_1.foo = foo;');
       expectIncludes(text, "const lorem = 'ipsum';");
       expectIncludes(text, 'var lorem_1 = foo_1.lorem = lorem;');
-      expectIncludes(text, 'export { foo_1 as __moduleExports, foo_2 as foo, lorem_1 as lorem, foo_1 as default };');
+      expectIncludes(
+        text,
+        'export { foo_1 as __moduleExports, foo_2 as foo, lorem_1 as lorem, foo_1 as default };',
+      );
     } finally {
       server.stop();
     }
@@ -124,10 +130,7 @@ exports.default = _default;`;
       expectIncludes(text, 'var default_1 = foo.default = void 0;');
       expectIncludes(text, "var _default = 'foo';");
       expectIncludes(text, 'default_1 = foo.default = _default;');
-      expectIncludes(
-        text,
-        'export { foo as __moduleExports, default_1 as default };',
-      );
+      expectIncludes(text, 'export { foo as __moduleExports, default_1 as default };');
     } finally {
       server.stop();
     }
@@ -185,7 +188,7 @@ exports.default = _default;`;
 
     try {
       const text = await fetchText(`${host}/foo.js`);
-      expectIncludes(text, "import require$$0 from \"");
+      expectIncludes(text, 'import require$$0 from "');
       expectIncludes(text, 'const bar = require$$0; var bar_1 = foo.bar = bar;');
       expectIncludes(text, 'export { foo as __moduleExports, bar_1 as bar, foo as default };');
     } finally {
