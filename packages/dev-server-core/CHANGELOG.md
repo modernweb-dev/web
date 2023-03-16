@@ -1,5 +1,16 @@
 # @web/dev-server-core
 
+## 0.4.0
+
+### Minor Changes
+
+- ac05ca5d: Add option to disable the fileWatcher in the dev server, to allow the test-runner to run once without files added to the watcher.
+- acc0a84c: Expand support for Rollup plugins with child plugins, specifically the Node Resolve plugin.
+
+### Patch Changes
+
+- 81db401b: Generate longer self signed keys Closes #2122
+
 ## 0.3.19
 
 ### Patch Changes

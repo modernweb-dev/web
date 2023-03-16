@@ -1,5 +1,15 @@
 # @web/test-runner-core
 
+## 0.10.28
+
+### Patch Changes
+
+- ac05ca5d: Add option to disable the fileWatcher in the dev server, to allow the test-runner to run once without files added to the watcher.
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
 ## 0.10.27
 
 ### Patch Changes

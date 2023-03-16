@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.15.1
+
+### Patch Changes
+
+- b2c85736: Report browsers logs when using summary reporter
+
 ## 0.15.0
 
 ### Minor Changes

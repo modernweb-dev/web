@@ -6,7 +6,7 @@ import WebSocket from 'ws';
 export { WebSocket };
 
 export { DevServer } from './server/DevServer';
-export { Plugin, ServerStartParams } from './plugins/Plugin';
+export { Plugin, ServerStartParams, ResolveOptions } from './plugins/Plugin';
 export { DevServerCoreConfig, MimeTypeMappings } from './server/DevServerCoreConfig';
 export { WebSocketsManager, WebSocketData } from './web-sockets/WebSocketsManager';
 export {
