@@ -695,7 +695,6 @@ describe('rollup-plugin-html', () => {
     }
 
     const outputHtml = getAsset(output, 'index.html').source;
-    console.log(outputHtml);
     expect(outputHtml).to.include(
       '<link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png">',
     );
