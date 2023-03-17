@@ -204,6 +204,7 @@ exports.default = _default;`;
       browsers: [chromeLauncher({ launchOptions: { devtools: false } })],
       plugins: [
         fromRollup(rollupCommonjs)({
+          requireReturnsDefault: 'preferred',
           include: '**/commonjs/modules/**/*',
         }),
       ],

@@ -2,10 +2,7 @@ import '../../../../../../node_modules/chai/chai.js';
 import defaultFoo from './modules/default-export.js';
 import { namedFoo, namedBar } from './modules/named-exports.js';
 
-// TODO: Ideally, we would be able to import named exports. But @rollup/plugin-commonjs does not support this yet
-// see: https://github.com/rollup/plugins/issues/481
-// import { compiledEsmFoo, compiledEsmBar } from '../src/compiled-esm-named-exports.js';
-import compiledEsm from './modules/compiled-esm-named-exports.js';
+import { compiledEsmFoo, compiledEsmBar } from './modules/compiled-esm-named-exports.js';
 import compiledEsmDefault from './modules/compiled-esm-default-exports.js';
 
 import requiredDefault from './modules/require-default.js';
@@ -24,9 +21,8 @@ describe('commonjs', () => {
   });
 
   it('can handle compiled es modules with named exports', () => {
-    console.log(compiledEsm);
-    expect(compiledEsm.compiledEsmFoo).to.equal('foo');
-    expect(compiledEsm.compiledEsmBar).to.equal('bar');
+    expect(compiledEsmFoo).to.equal('foo');
+    expect(compiledEsmBar).to.equal('bar');
   });
 
   it('can handle compiled es modules with a default export', () => {
@@ -34,7 +30,7 @@ describe('commonjs', () => {
   });
 
   it('can handle require default', () => {
-    expect(requiredDefault.default).to.equal('foo');
+    expect(requiredDefault).to.equal('foo');
   });
 
   it('can handle require named', () => {
