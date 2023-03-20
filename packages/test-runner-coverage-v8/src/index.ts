@@ -4,13 +4,21 @@ import v8toIstanbulLib from 'v8-to-istanbul';
 import { TestRunnerCoreConfig, fetchSourceMap } from '@web/test-runner-core';
 import { Profiler } from 'inspector';
 import picoMatch from 'picomatch';
+import LruCache from 'lru-cache';
 
 import { toFilePath } from './utils';
 
 type V8Coverage = Profiler.ScriptCoverage;
 type Matcher = (test: string) => boolean;
+type V8Converter = ReturnType<typeof v8toIstanbulLib>;
 
 const cachedMatchers = new Map<string, Matcher>();
+
+// Cache the v8-to-istanbul converters between calls since they
+// result in loading files from disk repeatedly otherwise.
+const cachedConverters = new LruCache<string, V8Converter>({
+  max: 200
+});
 
 // coverage base dir must be separated with "/"
 const coverageBaseDir = process.cwd().split(sep).join('/');
@@ -60,19 +68,25 @@ export async function v8ToIstanbul(
       !path.startsWith('/__web-dev-server')
     ) {
       try {
-        const sources = await fetchSourceMap({
-          protocol: config.protocol,
-          host: config.hostname,
-          port: config.port,
-          browserUrl: `${url.pathname}${url.search}${url.hash}`,
-          userAgent,
-        });
-
         const filePath = join(config.rootDir, toFilePath(path));
 
         if (!testFiles.includes(filePath) && included(filePath) && !excluded(filePath)) {
-          const converter = v8toIstanbulLib(filePath, 0, sources as any);
-          await converter.load();
+          const sources = await fetchSourceMap({
+            protocol: config.protocol,
+            host: config.hostname,
+            port: config.port,
+            browserUrl: `${url.pathname}${url.search}${url.hash}`,
+            userAgent,
+          });
+
+          const cachedConverter = cachedConverters.get(filePath);
+          const converter = cachedConverter ?? v8toIstanbulLib(filePath, 0, sources as any);
+
+          if (!cachedConverter) {
+            await converter.load();
+            cachedConverters.set(filePath, converter);
+          }
+
           converter.applyCoverage(entry.functions);
           Object.assign(istanbulCoverage, converter.toIstanbul());
         }
