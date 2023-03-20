@@ -30,11 +30,11 @@ export class PluginTransformCache {
   private lruCache: LRUCache<string, CacheEntry>;
 
   constructor(private fileWatcher: FSWatcher, private rootDir: string) {
-    this.lruCache = new LRUCache({
-      length: (e, key) => e.body.length + (key ? key.length : 0),
+    this.lruCache = new LRUCache<string, CacheEntry>({
+      sizeCalculation: (e, key) => e.body.length + (key ? key.length : 0),
       max: 52428800,
       noDisposeOnSet: true,
-      dispose: cacheKey => {
+      dispose: (_value, cacheKey) => {
         // remove file path -> url mapping when we are no longer caching it
         for (const [filePath, cacheKeysForFilePath] of this.cacheKeysPerFilePath.entries()) {
           if (cacheKeysForFilePath.has(cacheKey)) {
@@ -50,7 +50,7 @@ export class PluginTransformCache {
       const cacheKeys = this.cacheKeysPerFilePath.get(filePath);
       if (cacheKeys) {
         for (const cacheKey of cacheKeys) {
-          this.lruCache.del(cacheKey);
+          this.lruCache.delete(cacheKey);
         }
       }
     };
