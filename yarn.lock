@@ -8138,17 +8138,17 @@ lru-cache@4.1.x, lru-cache@^4.0.1, lru-cache@^4.1.5:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-lru-cache@8.0.4, lru-cache@^8.0.4:
-  version "8.0.4"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-8.0.4.tgz#49fbbc46c0b4cedc36258885247f93dba341e7ec"
-  integrity sha512-E9FF6+Oc/uFLqZCuZwRKUzgFt5Raih6LfxknOSAVTjNkrCZkBf7DQCwJxZQgd9l4eHjIJDGR+E+1QKD1RhThPw==
-
 lru-cache@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-6.0.0.tgz#6d6fe6570ebd96aaf90fcad1dafa3b2566db3a94"
   integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   dependencies:
     yallist "^4.0.0"
+
+lru-cache@^8.0.4:
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-8.0.4.tgz#49fbbc46c0b4cedc36258885247f93dba341e7ec"
+  integrity sha512-E9FF6+Oc/uFLqZCuZwRKUzgFt5Raih6LfxknOSAVTjNkrCZkBf7DQCwJxZQgd9l4eHjIJDGR+E+1QKD1RhThPw==
 
 luxon@^1.24.1:
   version "1.28.0"
