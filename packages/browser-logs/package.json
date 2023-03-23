@@ -46,15 +46,13 @@
     "deserialize"
   ],
   "dependencies": {
-    "@web/test-runner": "^0.15.0",
     "diff": "^5.0.0",
-    "errorstacks": "^2.2.0",
+    "errorstacks": "^2.4.0",
     "nanocolors": "^0.2.1"
   },
   "devDependencies": {
     "@esm-bundle/chai": "^4.1.5",
     "@types/diff": "^5.0.0",
-    "@web/test-runner-core": "^0.10.27",
     "puppeteer": "^13.1.2"
   }
 }
