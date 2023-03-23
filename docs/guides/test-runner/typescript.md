@@ -5,7 +5,7 @@ compiling using `tsc`. Add `esbuildPlugin({ ts: true })` to your `web-test-runne
 file.
 This uses esbuild to [transform TS sources on-the-fly](https://esbuild.github.io/api/#transform-api).
 [There are some caveats to using esbuild with TypeScript](https://esbuild.github.io/content-types/#typescript-caveats).
-For example, if you use TypeScript paths to alias imports, You may need to build first.
+For example, if you use TypeScript paths to alias imports, you may need to build first.
 
 ```js
 import { esbuildPlugin } from '@web/dev-server-esbuild';

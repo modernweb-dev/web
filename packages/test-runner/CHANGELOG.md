@@ -1,5 +1,30 @@
 # @web/test-runner
 
+## 0.15.1
+
+### Patch Changes
+
+- b2c85736: Report browsers logs when using summary reporter
+
+## 0.15.0
+
+### Minor Changes
+
+- acca5d51: Update dependency v8-to-istanbul to v9
+
+### Patch Changes
+
+- Updated dependencies [acca5d51]
+  - @web/test-runner-chrome@0.11.0
+
+## 0.14.1
+
+### Patch Changes
+
+- 04e2fa7d: Update portfinder dependency to 1.0.32
+- Updated dependencies [04e2fa7d]
+  - @web/dev-server@0.1.35
+
 ## 0.14.0
 
 ### Minor Changes

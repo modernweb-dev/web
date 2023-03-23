@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.6.5
+
+### Patch Changes
+
+- e65aedfe: Add selectOption command to select options by value, label, or multiple values and automatically emit native change/input events
+
 ## 0.6.4
 
 ### Patch Changes

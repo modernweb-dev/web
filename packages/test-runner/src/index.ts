@@ -7,4 +7,5 @@ export { startTestRunner } from './startTestRunner';
 export { defaultReporter } from './reporter/defaultReporter';
 export { summaryReporter } from './reporter/summaryReporter';
 export { dotReporter } from './reporter/dotReporter';
+export { formatError } from './reporter/reportTestsErrors';
 export type TestRunnerConfig = Partial<FullTestRunnerConfig>;

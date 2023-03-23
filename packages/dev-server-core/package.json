@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-core",
-  "version": "0.3.19",
+  "version": "0.4.0",
   "publishConfig": {
     "access": "public"
   },
@@ -84,6 +84,6 @@
     "abort-controller": "^3.0.0",
     "nanoid": "^3.1.25",
     "node-fetch": "3.0.0-beta.9",
-    "portfinder": "^1.0.28"
+    "portfinder": "^1.0.32"
   }
 }

@@ -41,6 +41,8 @@ export interface EsbuildConfig {
   jsxFragment?: string;
   define?: { [key: string]: string };
   tsconfig?: string;
+  banner?: string;
+  footer?: string;
 }
 
 export class EsbuildPlugin implements Plugin {
@@ -181,6 +183,8 @@ export class EsbuildPlugin implements Plugin {
         jsxFragment: this.esbuildConfig.jsxFragment,
         define: this.esbuildConfig.define,
         tsconfigRaw: this.tsconfigRaw,
+        banner: this.esbuildConfig.banner,
+        footer: this.esbuildConfig.footer,
       };
 
       const { code: transformedCode, warnings } = await transform(code, transformOptions);

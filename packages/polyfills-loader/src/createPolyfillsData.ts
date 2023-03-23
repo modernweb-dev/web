@@ -32,6 +32,14 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     });
   }
 
+  if (polyfills.URLPattern) {
+    addPolyfillConfig({
+      name: 'urlpattern-polyfill',
+      test: '"URLPattern" in window',
+      path: require.resolve('urlpattern-polyfill'),
+    });
+  }
+
   if (polyfills.esModuleShims) {
     addPolyfillConfig({
       name: 'es-module-shims',
@@ -43,7 +51,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   if (polyfills.constructibleStylesheets) {
     addPolyfillConfig({
       name: 'constructible-style-sheets-polyfill',
-      test: '"adoptedStyleSheets" in document',
+      test: '!("adoptedStyleSheets" in document)',
       path: require.resolve('construct-style-sheets-polyfill'),
     });
   }

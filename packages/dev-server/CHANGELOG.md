@@ -1,5 +1,24 @@
 # @web/dev-server
 
+## 0.1.36
+
+### Patch Changes
+
+- 737fbcb1: Fix the typings file name for the main entrypoint
+- 81db401b: Generate longer self signed keys Closes #2122
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+- Updated dependencies [a2198172]
+  - @web/dev-server-core@0.4.0
+  - @web/dev-server-rollup@0.4.0
+
+## 0.1.35
+
+### Patch Changes
+
+- 04e2fa7d: Update portfinder dependency to 1.0.32
+
 ## 0.1.34
 
 ### Patch Changes
