@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 
 import { transformImports } from '../../src/plugins/transformModuleImportsPlugin';
+import { PluginSyntaxError } from '../../src/logger/PluginSyntaxError';
 import { createTestServer } from '../helpers';
 
 const defaultFilePath = '/root/my-file.js';
@@ -257,10 +258,10 @@ describe('transformImports()', () => {
       await transformImports('\n\nconst file = "a', defaultFilePath, defaultResolveImport);
     } catch (error) {
       thrown = true;
-      expect(error.message).to.equal('Syntax error');
-      expect(error.filePath).to.equal('/root/my-file.js');
-      expect(error.column).to.equal(16);
-      expect(error.line).to.equal(3);
+      expect((error as PluginSyntaxError).message).to.equal('Syntax error');
+      expect((error as PluginSyntaxError).filePath).to.equal('/root/my-file.js');
+      expect((error as PluginSyntaxError).column).to.equal(16);
+      expect((error as PluginSyntaxError).line).to.equal(3);
     }
 
     expect(thrown).to.be.true;
