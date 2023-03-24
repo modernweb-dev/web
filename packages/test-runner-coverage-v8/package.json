@@ -44,9 +44,9 @@
   "dependencies": {
     "@web/test-runner-core": "^0.10.20",
     "istanbul-lib-coverage": "^3.0.0",
+    "lru-cache": "^8.0.4",
     "picomatch": "^2.2.2",
-    "v8-to-istanbul": "^9.0.1",
-    "lru-cache": "^8.0.4"
+    "v8-to-istanbul": "^9.0.1"
   },
   "devDependencies": {
     "@types/istanbul-lib-coverage": "^2.0.3",
