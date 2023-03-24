@@ -1,4 +1,4 @@
-import { expect } from '../../../../../node_modules/chai/index.mjs';
+import { expect } from '../../../../../node_modules/chai/chai.js';
 
 throw new Error('This is thrown before running tests');
 

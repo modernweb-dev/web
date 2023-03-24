@@ -1,4 +1,4 @@
-import '../../../../../node_modules/chai/chai.js';
+import chai from '../../../../../node_modules/chai/chai.js';
 
 describe('real numbers forming a monoid', function() {
   it('under addition', function() {

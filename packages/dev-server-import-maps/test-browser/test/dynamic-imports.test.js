@@ -1,7 +1,7 @@
 it('it can import chai using a dynamic import', async () => {
-  await import('chai/chai.js');
+  const { expect } = await import('chai/chai.js');
 
-  if (typeof window.chai.expect !== 'function') {
+  if (typeof expect !== 'function') {
     throw new Error('expect should be a function');
   }
 });

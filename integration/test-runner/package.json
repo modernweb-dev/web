@@ -14,7 +14,6 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-integration-tests",
-  "main": "index.js",
   "scripts": {
     "test": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"

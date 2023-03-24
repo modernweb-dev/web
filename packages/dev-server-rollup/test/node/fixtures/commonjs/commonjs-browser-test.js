@@ -1,4 +1,4 @@
-import '../../../../../../node_modules/chai/chai.js';
+import {expect} from '../../../../../../node_modules/chai/chai.js';
 import defaultFoo from './modules/default-export.js';
 import { namedFoo, namedBar } from './modules/named-exports.js';
 
@@ -7,8 +7,6 @@ import compiledEsmDefault from './modules/compiled-esm-default-exports.js';
 
 import requiredDefault from './modules/require-default.js';
 import { requiredNamedFoo, requiredNamedBar } from './modules/require-named.js';
-
-const { expect } = window.chai;
 
 describe('commonjs', () => {
   it('can handle default export', () => {

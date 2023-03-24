@@ -1,4 +1,4 @@
-import { expect } from '../../../../node_modules/chai/index.mjs';
+import { expect } from '../../../../node_modules/chai/chai.js';
 import module from './module-features-a.js';
 
 it('supports static imports', () => {

@@ -157,7 +157,7 @@ exports.default = _default;`;
       const text = await fetchText(`${host}/foo.js`);
       expectIncludes(
         text,
-        'import {expect} from "/__wds-outside-root__/6/node_modules/chai/index.mjs"',
+        'import {expect} from "/__wds-outside-root__/6/node_modules/chai/chai.js"',
       );
       expectIncludes(text, 'export {expect};');
     } finally {
