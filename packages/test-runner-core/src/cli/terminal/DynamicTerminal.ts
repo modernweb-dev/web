@@ -61,7 +61,10 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
     this.flushConsoleOutput();
     logUpdate.done();
 
-    Object.assign(console, this.originalFunctions);
+    for (const [key, fn] of Object.entries(this.originalFunctions)) {
+      // @ts-ignore
+      console[key] = fn;
+    }
     this.started = false;
     process.stdin.pause();
     process.stdin.removeListener('data', this.onStdInData);
