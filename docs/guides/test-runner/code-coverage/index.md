@@ -24,7 +24,7 @@ As good citizens we start with the tests first
 👉 `test/calc.test.js`
 
 ```js
-import { expect } from '@esm-bundle/chai';
+import { expect } from 'chai';
 import { calc } from '../src/calc.js';
 
 it('does plus for 2 numbers', () => {

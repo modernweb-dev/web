@@ -1,1 +1,1 @@
-export { expect } from '@esm-bundle/chai';
+export { expect } from 'chai';
