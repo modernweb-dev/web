@@ -2,11 +2,11 @@
   "name": "@web/root",
   "private": true,
   "license": "MIT",
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/modernweb-dev/web.git"
   },
+  "type": "module",
   "engines": {
     "node": ">=16.0.0"
   },
@@ -50,10 +50,9 @@
     "@changesets/cli": "^2.16.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-typescript": "^11.0.0",
-    "@types/chai": "^4.2.22",
     "@types/mocha": "^10.0.1",
-    "@types/node": "*",
     "@types/chai": "^4.3.4",
+    "@types/node": "*",
     "@types/node-fetch": "^2.5.8",
     "@typescript-eslint/eslint-plugin": "^5.3.0",
     "@typescript-eslint/parser": "^5.3.0",
