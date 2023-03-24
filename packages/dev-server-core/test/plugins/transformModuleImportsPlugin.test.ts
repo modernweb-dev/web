@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 
 import { transformImports } from '../../src/plugins/transformModuleImportsPlugin';
-import { PluginSyntaxError } from '../../src/logger/PluginSyntaxError';
+import type { PluginSyntaxError } from '../../src/logger/PluginSyntaxError';
 import { createTestServer } from '../helpers';
 
 const defaultFilePath = '/root/my-file.js';
