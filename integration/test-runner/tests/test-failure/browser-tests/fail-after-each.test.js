@@ -1,4 +1,4 @@
-import { expect } from '../../../../../node_modules/chai/esm/chai.js';
+import { expect } from '../../../../../node_modules/chai/index.mjs';
 
 afterEach(() => {
   throw new Error('error thrown in afterEach hook');
