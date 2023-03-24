@@ -32,7 +32,7 @@ export class PluginTransformCache {
   constructor(private fileWatcher: FSWatcher, private rootDir: string) {
     this.lruCache = new LRUCache<string, CacheEntry>({
       sizeCalculation: (e, key) => e.body.length + (key ? key.length : 0),
-      max: 52428800,
+      maxSize: 52428800,
       noDisposeOnSet: true,
       dispose: (_value, cacheKey) => {
         // remove file path -> url mapping when we are no longer caching it
