@@ -17,7 +17,7 @@ const cachedMatchers = new Map<string, Matcher>();
 // Cache the v8-to-istanbul converters between calls since they
 // result in loading files from disk repeatedly otherwise.
 const cachedConverters = new LruCache<string, V8Converter>({
-  max: 200
+  max: 200,
 });
 
 // coverage base dir must be separated with "/"
