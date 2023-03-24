@@ -49,7 +49,7 @@
     "errorstacks": "^2.2.0"
   },
   "devDependencies": {
-    "@esm-bundle/chai": "^4.1.5",
+    "chai": "^5.0.0-alpha.0",
     "puppeteer": "^19.9.0"
   }
 }
