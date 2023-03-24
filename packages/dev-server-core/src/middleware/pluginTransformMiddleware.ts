@@ -5,7 +5,7 @@ import { DevServerCoreConfig } from '../server/DevServerCoreConfig';
 import { PluginTransformCache } from './PluginTransformCache';
 import { getRequestFilePath, getResponseBody, RequestCancelledError } from '../utils';
 import { Logger } from '../logger/Logger';
-import { PluginSyntaxError } from '../logger/PluginSyntaxError';
+import type { PluginSyntaxError } from '../logger/PluginSyntaxError';
 
 /**
  * Sets up a middleware which allows plugins to transform files before they are served to the browser.
