@@ -1,4 +1,4 @@
-import chai from '../../../../../node_modules/chai/chai.js';
+import * as chai from '../../../../../node_modules/chai/chai.js';
 
 import { fail } from './simple-source.js';
 

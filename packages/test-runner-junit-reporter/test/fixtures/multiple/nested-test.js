@@ -1,4 +1,4 @@
-import chai from '../../../../../node_modules/chai/chai.js';
+import * as chai from '../../../../../node_modules/chai/chai.js';
 
 const inc = x => x + 1;
 const compose2 = (f, g) => x => f(g(x));
