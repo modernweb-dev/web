@@ -158,7 +158,7 @@ UMD modules are "universal modules", meaning they support multiple module format
 
 You can actually import these libraries using a module import, but instead of exporting something, the UMD module will register itself to the window. You can set up a proxy file to reexport this variable from the window.
 
-A good example of this is the chai library:
+A good example of this is how the chai library used to work before it started shipping ES Modules:
 
 `test/chai.js`:
 
