@@ -1,5 +1,17 @@
 # @web/test-runner
 
+## 0.15.2
+
+### Patch Changes
+
+- b8198d19: Report browsers logs when using summary reporter
+- bf82ccf1: Indent nested suites in summaryReporter output
+- 57fd96c4: Export formatError from `@web/test-runner`
+- Updated dependencies [0f5631d0]
+- Updated dependencies [0e198dcc]
+  - @web/dev-server@0.1.37
+  - @web/test-runner-chrome@0.12.0
+
 ## 0.15.1
 
 ### Patch Changes

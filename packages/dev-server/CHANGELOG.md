@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.1.37
+
+### Patch Changes
+
+- 0f5631d0: chore(deps): bump ua-parser-js from 1.0.32 to 1.0.33
+
 ## 0.1.36
 
 ### Patch Changes
