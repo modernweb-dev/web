@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server",
-  "version": "0.1.36",
+  "version": "0.1.37",
   "publishConfig": {
     "access": "public"
   },

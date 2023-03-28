@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.12.0
+
+### Minor Changes
+
+- 0e198dcc: Update `puppeteer-core` dependency to v18
+
 ## 0.11.0
 
 ### Minor Changes
