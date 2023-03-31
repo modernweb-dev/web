@@ -1631,10 +1631,10 @@
   dependencies:
     lit "^2.0.0"
 
-"@mdn/browser-compat-data@^4.0.0":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-4.2.1.tgz#1fead437f3957ceebe2e8c3f46beccdb9bc575b8"
-  integrity sha512-EWUguj2kd7ldmrF9F+vI5hUOralPd+sdsUnYbRy33vZTuZkduC1shE9TtEMEjAQwyfyMb4ole5KtjF8MsnQOlA==
+"@mdn/browser-compat-data@^5.2.47":
+  version "5.2.47"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-5.2.47.tgz#421bed6950958adf9b2aee8386aeac9d92e22045"
+  integrity sha512-6/QvoKeooo3J/WL7i9yjfDtUkqOZW8K6aqdzcw+bz4YdgMBzBQVZU7vZmEdCGOcV5AlsBHZT38mqx/sTrnZMDQ==
 
 "@mdx-js/mdx@^1.6.22":
   version "1.6.22"
