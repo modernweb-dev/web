@@ -88,7 +88,7 @@
     "@web/test-runner-mocha": "^0.7.5",
     "camelcase": "^6.2.0",
     "command-line-args": "^5.1.1",
-    "command-line-usage": "^6.1.1",
+    "command-line-usage": "^7.0.1",
     "convert-source-map": "^2.0.0",
     "diff": "^5.0.0",
     "globby": "^11.0.1",
