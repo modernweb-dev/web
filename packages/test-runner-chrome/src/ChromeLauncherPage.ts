@@ -83,9 +83,9 @@ export class ChromeLauncherPage {
     // get native coverage from puppeteer
     // TODO: this is using a private puppeteer API to grab v8 code coverage, this can be removed
     // when https://github.com/puppeteer/puppeteer/issues/2136 is resolved
-    const response = (await (this.puppeteerPage as any)._client().send(
-      'Profiler.takePreciseCoverage',
-    )) as {
+    const response = (await (this.puppeteerPage as any)
+      ._client()
+      .send('Profiler.takePreciseCoverage')) as {
       result: V8Coverage[];
     };
     const v8Coverage = response.result
