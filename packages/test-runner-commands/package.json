@@ -49,7 +49,7 @@
   ],
   "dependencies": {
     "@web/test-runner-core": "^0.10.27",
-    "mkdirp": "^1.0.4"
+    "mkdirp": "^2.1.6"
   },
   "devDependencies": {
     "@web/test-runner-chrome": "^0.12.0",
