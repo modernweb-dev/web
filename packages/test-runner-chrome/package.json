@@ -48,7 +48,7 @@
     "@web/test-runner-core": "^0.10.20",
     "@web/test-runner-coverage-v8": "^0.5.0",
     "chrome-launcher": "^0.15.0",
-    "puppeteer-core": "^18.2.1"
+    "puppeteer-core": "^19.8.1"
   },
   "devDependencies": {
     "@types/istanbul-reports": "^3.0.0",
