@@ -10,10 +10,10 @@
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
   "scripts": {
-    "build": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build",
+    "build": "rimraf --glob packages/*/tsconfig.tsbuildinfo && tsc --build",
     "build:production": "node scripts/workspaces-scripts-bin.mjs build:production",
     "build:site": "yarn build && rocket build",
-    "build:watch": "rimraf packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
+    "build:watch": "rimraf --glob packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
     "dev-to-git": "dev-to-git",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js,.mjs,.cjs . --fix",
@@ -23,7 +23,7 @@
     "lint:eslint": "eslint --ext .ts,.js,.mjs,.cjs .",
     "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
     "prepare": "husky install",
-    "reinstall-workspace": "rimraf packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
+    "reinstall-workspace": "rimraf --glob packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
     "release": "changeset publish && yarn format",
     "release:enter-pre": "[ ! -f .changeset/pre.json ] && yarn changeset pre enter next || echo 'Already in pre mode'",
     "review-content": "alex 'docs/**/*.md'",
