@@ -68,6 +68,7 @@ export function visualRegressionPlugin(
                 (window as any).__WTR_VISUAL_REGRESSION__[elementId]
               );
             }, payload.id);
+            // @ts-ignore
             const element = handle.asElement();
             if (!element) {
               throw new VisualRegressionError(
