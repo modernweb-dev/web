@@ -51,7 +51,7 @@
     "@web/dev-server-core": "^0.4.0",
     "nanocolors": "^0.2.1",
     "parse5": "^6.0.1",
-    "rollup": "^2.67.0",
+    "rollup": "^3.20.2",
     "whatwg-url": "^11.0.0"
   },
   "devDependencies": {

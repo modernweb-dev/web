@@ -48,6 +48,6 @@
   },
   "devDependencies": {
     "@web/rollup-plugin-html": "^1.10.3",
-    "rollup": "^2.66.1"
+    "rollup": "^3.20.2"
   }
 }
