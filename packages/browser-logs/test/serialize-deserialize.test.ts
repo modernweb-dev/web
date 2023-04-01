@@ -5,6 +5,8 @@ import path from 'path';
 
 import { deserialize } from '../src/deserialize';
 
+const { sep } = path;
+
 const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
 const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };
 
@@ -404,10 +406,10 @@ describe('serialize deserialize', () => {
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include('  at c (../test__MAPPED__:1:2)');
-    expect(deserialized).to.include('  at b (../test__MAPPED__:1:2)');
-    expect(deserialized).to.include('  at a (../test__MAPPED__:1:2)');
-    expect(deserialized).to.include('  at ../test__MAPPED__:1:2');
+    expect(deserialized).to.include(`  at c (..${sep}test__MAPPED__:1:2)`);
+    expect(deserialized).to.include(`  at b (..${sep}test__MAPPED__:1:2)`);
+    expect(deserialized).to.include(`  at a (..${sep}test__MAPPED__:1:2)`);
+    expect(deserialized).to.include(`  at ..${sep}test__MAPPED__:1:2`);
   });
 
   it('mapped stack traces can be async', async () => {
@@ -426,10 +428,10 @@ describe('serialize deserialize', () => {
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include('  at c (../test__MAPPED__:1:2)');
-    expect(deserialized).to.include('  at b (../test__MAPPED__:1:2)');
-    expect(deserialized).to.include('  at a (../test__MAPPED__:1:2)');
-    expect(deserialized).to.include('  at ../test__MAPPED__:1:2');
+    expect(deserialized).to.include(`  at c (..${sep}test__MAPPED__:1:2)`);
+    expect(deserialized).to.include(`  at b (..${sep}test__MAPPED__:1:2)`);
+    expect(deserialized).to.include(`  at a (..${sep}test__MAPPED__:1:2)`);
+    expect(deserialized).to.include(`  at ../test__MAPPED__:1:2`);
   });
 
   it('can define a cwd below current directory', async () => {
