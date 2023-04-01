@@ -5,8 +5,6 @@ import path from 'path';
 
 import { deserialize } from '../src/deserialize';
 
-const { sep } = path;
-
 const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
 const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };
 
