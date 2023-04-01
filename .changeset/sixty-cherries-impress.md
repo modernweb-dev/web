@@ -1,8 +1,8 @@
 ---
-'@web/browser-logs': patch
-'@web/dev-server': patch
-'@web/dev-server-hmr': patch
-'@web/test-runner-puppeteer': patch
+'@web/browser-logs': minor
+'@web/dev-server': minor
+'@web/dev-server-hmr': minor
+'@web/test-runner-puppeteer': minor
 ---
 
 Update puppeteer
