@@ -444,7 +444,7 @@ describe('serialize deserialize', () => {
       cwd: path.resolve(__dirname, '..'),
     });
     expect(deserialized).to.be.a('string');
-    expect(deserialized).to.include('my error msg');    
+    expect(deserialized).to.include('my error msg');
     expect(deserialized).to.include(`  at c (test:2:29)`);
     expect(deserialized).to.include(`  at b (test:3:29)`);
     expect(deserialized).to.include(`  at a (test:4:29)`);
