@@ -431,7 +431,7 @@ describe('serialize deserialize', () => {
     expect(deserialized).to.include(`  at c (..${sep}test__MAPPED__:1:2)`);
     expect(deserialized).to.include(`  at b (..${sep}test__MAPPED__:1:2)`);
     expect(deserialized).to.include(`  at a (..${sep}test__MAPPED__:1:2)`);
-    expect(deserialized).to.include(`  at ../test__MAPPED__:1:2`);
+    expect(deserialized).to.include(`  at ..${sep}test__MAPPED__:1:2`);
   });
 
   it('can define a cwd below current directory', async () => {
