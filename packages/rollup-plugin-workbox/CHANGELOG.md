@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 6.2.2
+
+### Patch Changes
+
+- f7ddc726: Revert back to non-ESM version of `pretty-bytes`
+
 ## 6.2.1
 
 ### Patch Changes
