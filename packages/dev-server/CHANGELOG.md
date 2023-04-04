@@ -1,5 +1,23 @@
 # @web/dev-server
 
+## 0.1.38
+
+### Patch Changes
+
+- c103f166: Update `isbinaryfile`
+- 18a16bb0: Update `html-minifier-terser`
+- d8579f15: Update `command-line-usage`
+- 9b83280e: Update puppeteer
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [fa2c1779]
+- Updated dependencies [c103f166]
+- Updated dependencies [1113fa09]
+- Updated dependencies [817d674b]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/dev-server-rollup@0.4.1
+  - @web/dev-server-core@0.4.1
+
 ## 0.1.37
 
 ### Patch Changes

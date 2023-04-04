@@ -1,5 +1,13 @@
 # @web/dev-server-esbuild
 
+## 0.3.6
+
+### Patch Changes
+
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+  - @web/dev-server-core@0.4.1
+
 ## 0.3.5
 
 ### Patch Changes

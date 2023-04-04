@@ -1,5 +1,11 @@
 # @web/parse5-utils
 
+## 1.3.1
+
+### Patch Changes
+
+- 18a16bb0: Update `html-minifier-terser`
+
 ## 1.3.0
 
 ### Minor Changes

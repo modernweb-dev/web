@@ -1,5 +1,20 @@
 # @web/test-runner-core
 
+## 0.10.29
+
+### Patch Changes
+
+- cdeafe4a: fix: enable file watcher in manual mode
+- 1113fa09: Update `@rollup/pluginutils`
+- 817d674b: Update `browserslist-useragent`
+- 445b20e6: Update `convert-source-map`
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+- Updated dependencies [9b83280e]
+  - @web/dev-server-core@0.4.1
+  - @web/browser-logs@0.2.6
+
 ## 0.10.28
 
 ### Patch Changes

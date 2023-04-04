@@ -1,5 +1,11 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 1.0.8
+
+### Patch Changes
+
+- 1113fa09: Update `@rollup/pluginutils`
+
 ## 1.0.7
 
 ### Patch Changes
