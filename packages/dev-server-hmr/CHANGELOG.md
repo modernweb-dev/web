@@ -1,5 +1,13 @@
 # @web/dev-server-hmr
 
+## 0.1.12
+
+### Patch Changes
+
+- 9b83280e: Update puppeteer
+- Updated dependencies [c103f166]
+  - @web/dev-server-core@0.4.1
+
 ## 0.1.11
 
 ### Patch Changes

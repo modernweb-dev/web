@@ -1,5 +1,20 @@
 # @web/test-runner-junit-reporter
 
+## 0.5.2
+
+### Patch Changes
+
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [77e413d9]
+- Updated dependencies [cdeafe4a]
+- Updated dependencies [1113fa09]
+- Updated dependencies [817d674b]
+- Updated dependencies [445b20e6]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/test-runner-chrome@0.12.1
+  - @web/test-runner-core@0.10.29
+
 ## 0.5.1
 
 ### Patch Changes

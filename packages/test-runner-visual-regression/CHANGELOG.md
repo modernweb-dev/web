@@ -1,5 +1,20 @@
 # @web/test-runner-visual-regression
 
+## 0.7.1
+
+### Patch Changes
+
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [cdeafe4a]
+- Updated dependencies [1113fa09]
+- Updated dependencies [817d674b]
+- Updated dependencies [445b20e6]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/test-runner-core@0.10.29
+  - @web/test-runner-commands@0.6.6
+
 ## 0.7.0
 
 ### Minor Changes

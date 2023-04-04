@@ -1,5 +1,22 @@
 # @web/test-runner-puppeteer
 
+## 0.12.1
+
+### Patch Changes
+
+- 9b83280e: Update puppeteer
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [77e413d9]
+- Updated dependencies [cdeafe4a]
+- Updated dependencies [1113fa09]
+- Updated dependencies [817d674b]
+- Updated dependencies [445b20e6]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/test-runner-chrome@0.12.1
+  - @web/test-runner-core@0.10.29
+
 ## 0.12.0
 
 ### Minor Changes

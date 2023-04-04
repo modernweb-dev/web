@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.2.6
+
+### Patch Changes
+
+- 9b83280e: Update puppeteer
+
 ## 0.2.5
 
 ### Patch Changes
