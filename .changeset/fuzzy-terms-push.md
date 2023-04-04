@@ -15,7 +15,7 @@
 '@web/rollup-plugin-html': major
 '@web/rollup-plugin-import-meta-assets': major
 '@web/rollup-plugin-polyfills-loader': major
-'@web/rollup-plugin-workbox': minor
+'rollup-plugin-workbox': minor
 '@web/test-runner': minor
 '@web/test-runner-browserstack': minor
 '@web/test-runner-chrome': minor
