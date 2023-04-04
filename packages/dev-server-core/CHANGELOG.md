@@ -1,5 +1,13 @@
 # @web/dev-server-core
 
+## 0.4.1
+
+### Patch Changes
+
+- c103f166: Update `isbinaryfile`
+- Updated dependencies [18a16bb0]
+  - @web/parse5-utils@1.3.1
+
 ## 0.4.0
 
 ### Minor Changes

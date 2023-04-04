@@ -1,5 +1,13 @@
 # @web/rollup-plugin-html
 
+## 1.11.1
+
+### Patch Changes
+
+- 18a16bb0: Update `html-minifier-terser`
+- Updated dependencies [18a16bb0]
+  - @web/parse5-utils@1.3.1
+
 ## 1.11.0
 
 ### Minor Changes

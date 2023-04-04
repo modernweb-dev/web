@@ -1,5 +1,17 @@
 # @web/dev-server-rollup
 
+## 0.4.1
+
+### Patch Changes
+
+- fa2c1779: Update @rollup/plugin-babel
+- 1113fa09: Update `@rollup/pluginutils`
+- 817d674b: Update `browserslist-useragent`
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+  - @web/dev-server-core@0.4.1
+
 ## 0.4.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @web/dev-server-legacy
 
+## 1.0.3
+
+### Patch Changes
+
+- 817d674b: Update `browserslist-useragent`
+- Updated dependencies [c103f166]
+  - @web/dev-server-core@0.4.1
+
 ## 1.0.2
 
 ### Patch Changes

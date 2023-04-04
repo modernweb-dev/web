@@ -1,5 +1,32 @@
 # @web/test-runner
 
+## 0.15.3
+
+### Patch Changes
+
+- c103f166: Update `isbinaryfile`
+- 18a16bb0: Update `html-minifier-terser`
+- d8579f15: Update `command-line-usage`
+- 445b20e6: Update `convert-source-map`
+- 6188c8ff: chore(deps): update dependency concurrently to v8
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [77e413d9]
+- Updated dependencies [cdeafe4a]
+- Updated dependencies [c103f166]
+- Updated dependencies [18a16bb0]
+- Updated dependencies [1113fa09]
+- Updated dependencies [d8579f15]
+- Updated dependencies [817d674b]
+- Updated dependencies [445b20e6]
+- Updated dependencies [9b83280e]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/test-runner-chrome@0.12.1
+  - @web/test-runner-core@0.10.29
+  - @web/dev-server@0.1.38
+  - @web/browser-logs@0.2.6
+  - @web/test-runner-commands@0.6.6
+
 ## 0.15.2
 
 ### Patch Changes

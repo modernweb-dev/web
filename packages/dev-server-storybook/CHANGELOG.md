@@ -1,5 +1,16 @@
 # @web/dev-server-storybook
 
+## 0.6.2
+
+### Patch Changes
+
+- fa2c1779: Update @rollup/plugin-babel
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+- Updated dependencies [18a16bb0]
+  - @web/dev-server-core@0.4.1
+  - @web/rollup-plugin-html@1.11.1
+
 ## 0.6.1
 
 ### Patch Changes
