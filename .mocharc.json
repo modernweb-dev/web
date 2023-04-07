@@ -1,6 +1,5 @@
 {
   "extension": ["ts", "js", "mjs", "cjs"],
-  "spec": "packages/*/test/**/*.test.{ts,js,mjs,cjs}",
   "exit": true,
   "loader": "ts-node/esm",
   "retries": 3
