@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { promises as fs } from 'fs';
 import path from 'path';
-import globby from 'globby';
+import { globby } from 'globby';
 
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';

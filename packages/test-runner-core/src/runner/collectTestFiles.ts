@@ -1,4 +1,4 @@
-import globby from 'globby';
+import { globby } from 'globby';
 import { sep } from 'path';
 
 export function collectTestFiles(patterns: string | string[], baseDir = process.cwd()) {
