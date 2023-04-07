@@ -9,6 +9,9 @@ const configName = 'my-project.config';
 const packageCjsPath = path.resolve(__dirname, 'fixtures', 'package-cjs');
 const packageMjsPath = path.resolve(__dirname, 'fixtures', 'package-mjs');
 
+/**
+  * @param {string} configPath - Config Path
+  */
 async function expectThrowsOldNodeError(configPath) {
   let thrown = false;
   try {
