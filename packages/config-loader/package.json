@@ -19,9 +19,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.js --reporter dot",
+    "test": "mocha --no-config test/**/*.test.js --reporter dot",
     "test:ci": "yarn test",
-    "test:watch": "mocha test/**/*.test.js --watch --watch-files .,src,test --reporter dot"
+    "test:watch": "mocha --no-config test/**/*.test.js --watch --watch-files .,src,test --reporter dot"
   },
   "files": [
     "*.d.ts",
