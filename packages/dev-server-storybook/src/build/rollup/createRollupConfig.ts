@@ -55,6 +55,7 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
         extensions: [...DEFAULT_EXTENSIONS, 'md', 'mdx'],
         exclude: `${prebuiltDir}/**`,
         sourceMaps: true,
+        // @ts-ignore The provided types are wrong. See https://babeljs.io/docs/options#inputsourcemap
         inputSourceMap: false,
         presets: [
           [
