@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsc",
     "build:production": "rimraf dist && rollup -c rollup.config.js",
-    "test": "mocha test/**/*.test.js",
+    "test": "mocha --no-config test/**/*.test.js",
     "test:watch": "mocha test/**/*.test.js --watch --watch-files src,test"
   },
   "files": [
