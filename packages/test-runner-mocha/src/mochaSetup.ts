@@ -1,8 +1,11 @@
+import mocha from 'mocha';
 import { styles } from './styles.js';
 
-const mocha = (window as any).mocha as BrowserMocha;
-const BaseReporter = (mocha as any).Mocha.reporters.Base;
-class SilentReporter extends BaseReporter {}
+class SilentReporter {
+  done() {
+    return;
+  }
+}
 
 export function setupMocha(debug: boolean, testFrameworkConfig?: unknown) {
   const userOptions = typeof testFrameworkConfig === 'object' ? testFrameworkConfig : {};
@@ -26,5 +29,6 @@ export function setupMocha(debug: boolean, testFrameworkConfig?: unknown) {
     mochaOptions.reporter = SilentReporter as any;
   }
 
+  // @ts-ignore
   mocha.setup(mochaOptions);
 }
