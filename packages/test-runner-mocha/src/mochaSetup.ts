@@ -1,4 +1,4 @@
-import mocha from 'mocha';
+import * as mocha from 'mocha';
 import { styles } from './styles.js';
 
 class SilentReporter {
