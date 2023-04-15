@@ -1,5 +1,7 @@
-import * as mocha from 'mocha';
 import { styles } from './styles.js';
+
+// @ts-ignore
+const mocha = window.mocha;
 
 class SilentReporter {
   done() {
