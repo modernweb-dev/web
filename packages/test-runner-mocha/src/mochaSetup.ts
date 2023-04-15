@@ -1,13 +1,9 @@
 import { styles } from './styles.js';
 
-// @ts-ignore
-const mocha = window.mocha;
+const mocha = (window as any).mocha;
+const mochaExports = (window as any).Mocha;
 
-class SilentReporter {
-  done() {
-    return;
-  }
-}
+class SilentReporter extends mochaExports.reporters.Base {}
 
 export function setupMocha(debug: boolean, testFrameworkConfig?: unknown) {
   const userOptions = typeof testFrameworkConfig === 'object' ? testFrameworkConfig : {};
@@ -31,6 +27,5 @@ export function setupMocha(debug: boolean, testFrameworkConfig?: unknown) {
     mochaOptions.reporter = SilentReporter as any;
   }
 
-  // @ts-ignore
   mocha.setup(mochaOptions);
 }
