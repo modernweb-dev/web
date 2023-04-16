@@ -48,11 +48,11 @@ interface StartDevServerParams {
    */
   config?: Partial<DevServerConfig>;
   /**
-   * Whether to read CLI args. Default true.
+   * Whether to read CLI args. Default false.
    */
   readCliArgs?: boolean;
   /**
-   * Whether to read a user config from the file system. Default true.
+   * Whether to read a user config from the file system. Default false.
    */
   readFileConfig?: boolean;
   /**
@@ -60,11 +60,11 @@ interface StartDevServerParams {
    */
   configName?: string;
   /**
-   * Whether to automatically exit the process when the server is stopped, killed or an error is thrown.
+   * Whether to automatically exit the process when the server is stopped, killed or an error is thrown. Default false.
    */
   autoExitProcess?: boolean;
   /**
-   * Whether to log a message when the server is started.
+   * Whether to log a message when the server is started. Default false.
    */
   logStartMessage?: boolean;
   /**
@@ -86,8 +86,8 @@ async function main() {
       port: 1234,
       watch: true,
     },
-    readCliArgs: false,
-    readFileConfig: false,
+    autoExitProcess: true,
+    logStartMessage: true,
   });
 }
 
