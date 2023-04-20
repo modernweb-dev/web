@@ -1,6 +1,5 @@
 const packages = [
   { name: 'config-loader', type: 'js', environment: 'node' },
-  { name: 'parse5-utils', type: 'js', environment: 'node' },
   { name: 'browser-logs', type: 'ts', environment: 'node' },
   { name: 'polyfills-loader', type: 'ts', environment: 'node' },
   { name: 'rollup-plugin-html', type: 'ts', environment: 'node' },

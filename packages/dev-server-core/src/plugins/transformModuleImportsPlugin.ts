@@ -4,8 +4,16 @@ import { Context } from 'koa';
 // @ts-ignore
 import { parse, ParsedImport } from 'es-module-lexer';
 
-import { queryAll, predicates, getTextContent, setTextContent } from '../dom5';
+import {
+  queryAll,
+  getTextContent,
+  setTextContent,
+  isElementNode,
+  getAttribute,
+  hasAttribute,
+} from '@parse5/tools';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
+import { Element as ElementAst } from 'parse5/dist/tree-adapters/default';
 import { Plugin } from './Plugin';
 import { PluginSyntaxError } from '../logger/PluginSyntaxError';
 import { toFilePath } from '../utils';
@@ -114,7 +122,7 @@ export async function transformImports(
 ) {
   let imports: ParsedImport[];
   try {
-    const parseResult = await parse(code, filePath);
+    const parseResult = parse(code, filePath);
     imports = parseResult[0] as any as ParsedImport[];
   } catch (error) {
     if (typeof error.idx === 'number') {
@@ -283,13 +291,13 @@ export function transformModuleImportsPlugin(
       // resolve inline scripts
       if (context.response.is('html') && typeof context.body === 'string') {
         const documentAst = parseHtml(context.body);
-        const inlineModuleNodes = queryAll(
+        const inlineModuleNodes = queryAll<ElementAst>(
           documentAst,
-          predicates.AND(
-            predicates.hasTagName('script'),
-            predicates.hasAttrValue('type', 'module'),
-            predicates.NOT(predicates.hasAttr('src')),
-          ),
+          node =>
+            isElementNode(node) &&
+            node.tagName === 'script' &&
+            getAttribute(node, 'type') === 'module' &&
+            !hasAttribute(node, 'src'),
         );
         let transformed = false;
 

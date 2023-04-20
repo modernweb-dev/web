@@ -1,16 +1,16 @@
 import { isUri } from 'valid-url';
-import { Document as DocumentAst, Node as NodeAst } from 'parse5';
-import { queryAll, predicates, getAttribute, hasAttribute } from '@web/dev-server-core/dist/dom5';
+import { Document as DocumentAst, Element as ElementAst } from 'parse5/dist/tree-adapters/default';
+import { queryAll, hasAttribute, getAttribute, isElementNode } from '@parse5/tools';
 
-function isDeferred(script: NodeAst) {
+function isDeferred(script: ElementAst) {
   return getAttribute(script, 'type') === 'module' || hasAttribute(script, 'defer');
 }
 
-function isAsync(script: NodeAst) {
+function isAsync(script: ElementAst) {
   return hasAttribute(script, 'async');
 }
 
-function sortByLoadingPriority(a: NodeAst, b: NodeAst) {
+function sortByLoadingPriority(a: ElementAst, b: ElementAst) {
   if (isAsync(a)) {
     return 0;
   }
@@ -34,7 +34,9 @@ function sortByLoadingPriority(a: NodeAst, b: NodeAst) {
 }
 
 export function findJsScripts(document: DocumentAst) {
-  const allScripts = queryAll(document, predicates.hasTagName('script'));
+  const allScripts = [
+    ...queryAll<ElementAst>(document, node => isElementNode(node) && node.tagName === 'script'),
+  ];
 
   return allScripts
     .filter(script => {

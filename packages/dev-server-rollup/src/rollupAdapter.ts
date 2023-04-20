@@ -12,10 +12,12 @@ import {
 } from '@web/dev-server-core';
 import {
   queryAll,
-  predicates,
   getTextContent,
   setTextContent,
-} from '@web/dev-server-core/dist/dom5';
+  isElementNode,
+  hasAttribute,
+} from '@parse5/tools';
+import { Element as ElementAst } from 'parse5/dist/tree-adapters/default';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';
@@ -434,12 +436,9 @@ export function rollupAdapter(
 
       if (context.response.is('html')) {
         const documentAst = parseHtml(context.body as string);
-        const inlineScripts = queryAll(
+        const inlineScripts = queryAll<ElementAst>(
           documentAst,
-          predicates.AND(
-            predicates.hasTagName('script'),
-            predicates.NOT(predicates.hasAttr('src')),
-          ),
+          node => isElementNode(node) && node.tagName === 'script' && !hasAttribute(node, 'src'),
         );
 
         const filePath = getRequestFilePath(context.url, rootDir);

@@ -1,5 +1,5 @@
-import { Element } from 'parse5';
-import { getAttribute } from '@web/parse5-utils';
+import { Element } from 'parse5/dist/tree-adapters/default';
+import { getAttribute } from '@parse5/tools';
 import crypto from 'crypto';
 import { FileType, PolyfillsLoaderConfig } from './types';
 

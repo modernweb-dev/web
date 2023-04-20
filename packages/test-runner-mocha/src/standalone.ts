@@ -3,6 +3,7 @@ import {
   sessionFinished as testRunnerOnSessionFinished,
   sessionFailed,
   getConfig,
+  TestResultError,
 } from '../../test-runner-core/browser/session.js';
 import '../../../node_modules/mocha/mocha.js';
 import { collectTestResults } from './collectTestResults.js';
@@ -20,7 +21,7 @@ export async function runTests(testFn: () => unknown | Promise<unknown>) {
   try {
     await testFn();
   } catch (error) {
-    sessionFailed(error);
+    sessionFailed(error as TestResultError);
     return;
   }
 
