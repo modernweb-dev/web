@@ -146,8 +146,7 @@ describe('@rollup/plugin-node-resolve', () => {
     }
   });
 
-  // works with @rollup/plugin-commonjs 22.x but that breaks other tests
-  it.skip('node modules resolved outside root directory are rewritten with commonjs', async () => {
+  it('node modules resolved outside root directory are rewritten with commonjs', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
       plugins: [commonjs(), nodeResolve()],
