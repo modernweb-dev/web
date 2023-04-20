@@ -1,5 +1,17 @@
 # @web/test-runner-puppeteer
 
+## 0.13.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-chrome@0.13.0
+  - @web/test-runner-core@0.11.0
+
 ## 0.12.1
 
 ### Patch Changes

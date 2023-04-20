@@ -1,5 +1,22 @@
 # @web/dev-server
 
+## 0.2.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+- Updated dependencies [b7d8ee66]
+- Updated dependencies [72c63bc5]
+  - @web/dev-server-core@0.5.0
+  - @web/config-loader@0.2.0
+  - @web/dev-server-rollup@0.5.0
+
 ## 0.1.38
 
 ### Patch Changes

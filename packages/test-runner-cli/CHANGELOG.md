@@ -1,5 +1,11 @@
 # @web/test-runner-cli
 
+## 0.10.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
 ## 0.9.0
 
 ### Minor Changes
