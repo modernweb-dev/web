@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.3.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
 ## 0.2.6
 
 ### Patch Changes

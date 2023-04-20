@@ -1,5 +1,16 @@
 # @web/test-runner-webdriver
 
+## 0.6.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-core@0.11.0
+
 ## 0.5.1
 
 ### Patch Changes

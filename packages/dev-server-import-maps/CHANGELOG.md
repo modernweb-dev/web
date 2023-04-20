@@ -1,5 +1,18 @@
 # @web/dev-server-import-maps
 
+## 0.1.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+  - @web/parse5-utils@2.0.0
+
 ## 0.0.8
 
 ### Patch Changes

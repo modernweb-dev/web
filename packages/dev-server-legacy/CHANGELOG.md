@@ -1,5 +1,18 @@
 # @web/dev-server-legacy
 
+## 2.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+  - @web/polyfills-loader@2.0.0
+
 ## 1.0.3
 
 ### Patch Changes
