@@ -69,7 +69,6 @@ async function cleanupFixtures() {
 }
 
 describe('junitReporter', function () {
-  this.timeout(10000);
   after(cleanupFixtures);
 
   describe('for a simple case', function () {
