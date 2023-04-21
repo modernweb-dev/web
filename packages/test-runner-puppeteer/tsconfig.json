@@ -11,13 +11,16 @@
   },
   "references": [
     {
+      "path": "../parse5-utils/tsconfig.json"
+    },
+    {
+      "path": "../browser-logs/tsconfig.json"
+    },
+    {
       "path": "../dev-server-core/tsconfig.json"
     },
     {
       "path": "../test-runner-core/tsconfig.json"
-    },
-    {
-      "path": "../browser-logs/tsconfig.json"
     },
     {
       "path": "../test-runner-coverage-v8/tsconfig.json"
@@ -30,7 +33,8 @@
     }
   ],
   "include": [
-    "src"
+    "src",
+    "types"
   ],
   "exclude": [
     "src/browser",

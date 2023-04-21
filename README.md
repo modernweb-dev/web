@@ -7,9 +7,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/modernweb-dev/actions"
+  <a href="https://github.com/modernweb-dev/web/actions"
     ><img
-      src="https://img.shields.io/github/workflow/status/modernweb-dev/web/Release/master?label=workflow&style=flat-square"
+      src="https://img.shields.io/github/actions/workflow/status/modernweb-dev/web/release.yml?branch=master&label=workflow&style=flat-square"
       alt="GitHub Actions workflow status"
   /></a>
   <a href="https://twitter.com/modern_web_dev"
@@ -54,6 +54,7 @@ If you wanna know more see our [Announcement Blog Post](https://modern-web.dev/b
 ## Our Products
 
 - [Web Test Runner](https://modern-web.dev/docs/test-runner/overview/)
+- [Web Dev Server](https://modern-web.dev/docs/dev-server/overview/)
 
 There is much, much more to come so follow us on [Twitter](https://twitter.com/modern_web_dev).
 
@@ -61,11 +62,29 @@ There is much, much more to come so follow us on [Twitter](https://twitter.com/m
 
 We are always looking for contributors of all skill levels! If you're looking to ease your way into the project, try out a [good first issue](https://github.com/modernweb-dev/web/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
-If you are interested in helping contribute to Modern Web, please take a look at our [Contributing Guide](https://github.com/modernweb-dev/web/blob/master/CONTRIBUTING.md). Also, feel free to drop into [slack](https://modern-web.dev/discover/slack/) and say hi. 👋
+If you are interested in helping contribute to Modern Web, please take a look at our [Contributing Guide](https://github.com/modernweb-dev/web/blob/master/CONTRIBUTING.md). Also, feel free to drop into [Slack](https://modern-web.dev/discover/slack/) and say hi. 👋
 
-### Financial Contributors
+## Sponsored by
 
-Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/modern-web/contribute)]
+<a href="https://google.com/chrome" style="border: none;" target="_blank" rel="noopener">
+  <img src="https://github.com/open-wc/open-wc/blob/master/docs/_assets/supporters/chrome.svg" width="100" alt="Chrome's Web Framework & Tools Performance Fund Logo" />
+</a>
+
+<a href="https://divriots.com/" style="border: none;" target="_blank" rel="noopener">
+  <img src="https://github.com/open-wc/open-wc/blob/master/docs/_assets/supporters/divriots-light.svg#gh-light-mode-only" width="200" alt="Divriots Logo" />
+</a>
+
+Become a sponsor and help us sustain our community. [[Contribute](https://opencollective.com/modern-web/contribute)]
+
+## Supported by
+
+<a href="http://browserstack.com/" style="border: none;" target="_blank" rel="noopener">
+  <img src="https://github.com/open-wc/open-wc/blob/master/assets/images/Browserstack-logo.svg" width="200" alt="Browserstack Logo" />
+</a>
+
+<a href="http://netlify.com/" style="border: none;" target="_blank" rel="noopener">
+  <img src="https://www.netlify.com/img/press/logos/full-logo-light.svg" width="185" alt="netlify logo" />
+</a>
 
 ---
 

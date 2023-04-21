@@ -1,10 +1,4 @@
----
-title: Taking code coverage into account
-eleventyNavigation:
-  key: Code Coverage
-  parent: Test Runner
-  order: 50
----
+# Test Runner >> Code Coverage ||50
 
 Once you have a decent set of tests you may want to look into what could still be improved.
 Code coverage can help to find which code segments have not yet been tested.
@@ -224,5 +218,5 @@ If you need to collect coverage from all browsers, or if you're not testing for 
 
 ## Learn more
 
-All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner-coverage).
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner).
 See the [documentation of @web/test-runner](../../../docs/test-runner/overview.md).

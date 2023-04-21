@@ -1,5 +1,220 @@
 # @web/dev-server-core
 
+## 0.5.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- ca715faf: Upgrade lru-cache dependency & add a file cache for v8-to-istanbul conversions
+- Updated dependencies [febd9d9d]
+  - @web/parse5-utils@2.0.0
+
+## 0.4.1
+
+### Patch Changes
+
+- c103f166: Update `isbinaryfile`
+- Updated dependencies [18a16bb0]
+  - @web/parse5-utils@1.3.1
+
+## 0.4.0
+
+### Minor Changes
+
+- ac05ca5d: Add option to disable the fileWatcher in the dev server, to allow the test-runner to run once without files added to the watcher.
+- acc0a84c: Expand support for Rollup plugins with child plugins, specifically the Node Resolve plugin.
+
+### Patch Changes
+
+- 81db401b: Generate longer self signed keys Closes #2122
+
+## 0.3.19
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+
+## 0.3.18
+
+### Patch Changes
+
+- 39610b4c: Handle 'upgrade' requests only for matched url.
+
+## 0.3.17
+
+### Patch Changes
+
+- b2c081d8: When serving content to an iframe within a csp restricted page, the websocket script may not be able to access the parent window.
+  Accessing it may result in an uncaught DOMException which we now handle.
+
+## 0.3.16
+
+### Patch Changes
+
+- a09282b4: Replace chalk with nanocolors
+
+## 0.3.15
+
+### Patch Changes
+
+- 369394fe: Update dependency es-module-lexer to ^0.9.0
+
+## 0.3.14
+
+### Patch Changes
+
+- dc61726d: Update dependency es-module-lexer to ^0.7.1
+
+## 0.3.13
+
+### Patch Changes
+
+- fca0a4c3: Safely stringify error messages in tests
+
+## 0.3.12
+
+### Patch Changes
+
+- e7efd5b7: use script origin to connect websocket
+
+## 0.3.11
+
+### Patch Changes
+
+- 6c5893cc: use unescaped import specifier
+
+## 0.3.10
+
+### Patch Changes
+
+- 780a3520: Use http2 config for websocket protocol check
+
+## 0.3.9
+
+### Patch Changes
+
+- 6772f9cc: Detect websocket url from server
+
+## 0.3.8
+
+### Patch Changes
+
+- d59241f1: add support for base path
+
+## 0.3.7
+
+### Patch Changes
+
+- 1265c13e: Migrate websocket endpoint away from '/' to '/wds'. This allows end users to potentially proxy web sockets with out colliding with WebDevServer's websocket.
+
+## 0.3.6
+
+### Patch Changes
+
+- 83750cd2: fallback to fetch on IE11
+- 096fe25f: add stream close error to filter
+- Updated dependencies [b5af71e3]
+  - @web/parse5-utils@1.2.0
+
+## 0.3.5
+
+### Patch Changes
+
+- 2c223cf0: filter server stream errors
+
+## 0.3.4
+
+### Patch Changes
+
+- 8861ded8: feat(dev-server-core): share websocket instances with iframe parent
+
+## 0.3.3
+
+### Patch Changes
+
+- 1dd7cd0e: export outside root dir utils
+
+## 0.3.2
+
+### Patch Changes
+
+- 375116ad: fix handling of paths resolved outside the root dir. we now correctly use the resolved path when resolving relative imports and when populating the transform cache
+
+## 0.3.1
+
+### Patch Changes
+
+- eceb6295: match dotfiles when resolving mimetypes
+
+## 0.3.0
+
+### Minor Changes
+
+- 0f613e0e: handle modules resolved outside root dir
+
+## 0.2.19
+
+### Patch Changes
+
+- fb56854: Bust cache when a file is deleted
+
+## 0.2.18
+
+### Patch Changes
+
+- 07edac1: improve handling of dynamic imports
+
+## 0.2.17
+
+### Patch Changes
+
+- f0472df: add fileParsed hook
+
+## 0.2.16
+
+### Patch Changes
+
+- b025992: add debug logging flag
+
+## 0.2.15
+
+### Patch Changes
+
+- a03749e: mark websocket module as resolved import
+
+## 0.2.14
+
+### Patch Changes
+
+- 835d16f: add koa types dependency
+
+## 0.2.13
+
+### Patch Changes
+
+- e8ebfcc: ensure user plugins are run after builtin plugins
+
+## 0.2.12
+
+### Patch Changes
+
+- 1ba84e4: Expose webSocketServer on the WebSocketManager in case developers using the Node API want apply their own WebSocket message handling, but reusing the WebSocket Server of the dev server.
+
+## 0.2.11
+
+### Patch Changes
+
+- 2291ca1: export websocket types
+
+## 0.2.10
+
+### Patch Changes
+
+- 3a2dc12: fixed caching of index.html using directory path
+
 ## 0.2.9
 
 ### Patch Changes

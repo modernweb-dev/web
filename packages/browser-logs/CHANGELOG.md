@@ -1,5 +1,72 @@
 # @web/browser-logs
 
+## 0.3.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+## 0.2.6
+
+### Patch Changes
+
+- 9b83280e: Update puppeteer
+
+## 0.2.5
+
+### Patch Changes
+
+- c403949a: fix: support method names in objects containing a dash
+
+## 0.2.4
+
+### Patch Changes
+
+- f8786401: add extra logging when catching an unhandled rejection
+
+## 0.2.3
+
+### Patch Changes
+
+- 894461aa: Deserialize bound function from browser logs
+
+## 0.2.2
+
+### Patch Changes
+
+- 2c06f31e: Update puppeteer and puppeteer-core to 8.0.0
+
+## 0.2.1
+
+### Patch Changes
+
+- 6a62b4ee: filter out internal stack traces
+
+## 0.2.0
+
+### Minor Changes
+
+- 1dd7cd0e: improve deserialization of stack traces cross browser
+
+## 0.1.6
+
+### Patch Changes
+
+- 836abc0: handle errors thrown when (de)serializing browser logs
+- f6107a4: handle logging shadow root
+
+## 0.1.5
+
+### Patch Changes
+
+- 3b1a6cc: remove sourcemap URL from scripts
+
+## 0.1.4
+
+### Patch Changes
+
+- bbb0b78: Added serializing and deserializing for Promises
+
 ## 0.1.3
 
 ### Patch Changes

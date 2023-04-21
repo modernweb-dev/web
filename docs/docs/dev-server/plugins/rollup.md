@@ -1,14 +1,8 @@
----
-title: Rollup
-eleventyNavigation:
-  key: Rollup
-  parent: Plugins
-  order: 3
----
+# Dev Server >> Plugins >> Rollup ||4
 
-Adapter for using rollup plugins in web dev server and web test runner.
+Adapter for using rollup plugins in Web Dev Server and Web Test Runner.
 
-Web dev server plugins and rollup plugins share a very similar API, making it possible to reuse rollup plugins inside web dev server with an adapter.
+Web Dev Server plugins and rollup plugins share a very similar API, making it possible to reuse rollup plugins inside Web Dev Server with an adapter.
 
 Since the dev server doesn't run an actual rollup build, only rollup plugins that do single file transformations can be reused.
 
@@ -39,7 +33,7 @@ Some rollup plugins do expensive operations. During development, this matters a 
 
 ## non-standard file types
 
-The rollup build process assumes that any imported files are meant to be compiled to JS, web dev server serves many different kinds of files to the browser. If you are transforming a non-standard filetype to JS, for example .json files, you need to instruct the server to handle it as a JS file:
+The rollup build process assumes that any imported files are meant to be compiled to JS, Web Dev Server serves many different kinds of files to the browser. If you are transforming a non-standard filetype to JS, for example .json files, you need to instruct the server to handle it as a JS file:
 
 ```js
 import json from '@rollup/plugin-json';
@@ -79,7 +73,28 @@ The following rollup plugins have been tested to work correctly:
 - [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve)
 - [@rollup/plugin-replace](https://github.com/rollup/plugins/tree/master/packages/replace)
 - [@rollup/plugin-sucrase](https://github.com/rollup/plugins/tree/master/packages/sucrase)
+- [rollup-plugin-typescript-paths](https://github.com/simonhaenisch/rollup-plugin-typescript-paths)
 
 The following rollup plugins don't work correctly at the moment:
 
 - [@rollup/plugin-typescript](https://github.com/rollup/plugins/tree/master/packages/typescript). For compiling typescript we recommend [@web/dev-server-esbuild](https://github.com/modernweb-dev/web/tree/master/packages/dev-server-esbuild)
+
+## Bundling
+
+We export an experimental plugin for on the fly bundling with rollup. This is useful when you rely on some specific rollup logic, or when running tests remotely and the performance benefits outweigh the bundling times. Debugging a bundled application is harder.
+
+To use the plugin, add `rollupBundlePlugin` to your config and set your test files as input.
+
+```js
+import { rollupBundlePlugin } from '@web/dev-server-rollup';
+
+export default {
+  plugins: [
+    rollupBundlePlugin({
+      rollupConfig: {
+        input: ['test/foo.test.js', 'test/bar.test.js'],
+      },
+    }),
+  ],
+};
+```

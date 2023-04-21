@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-core",
-  "version": "0.7.13",
+  "version": "0.11.0",
   "publishConfig": {
     "access": "public"
   },
@@ -15,13 +15,24 @@
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-core",
   "main": "./dist/index.js",
   "module": "./index.mjs",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./test-helpers": {
+      "import": "./test-helpers.mjs",
+      "require": "./dist/test-helpers.js"
+    },
+    "./browser/session.js": "./browser/session.js"
+  },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
+    "test": "mocha test/**/*.test.ts --require ts-node/register",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -39,33 +50,34 @@
     "core"
   ],
   "dependencies": {
-    "@babel/code-frame": "^7.10.4",
-    "@web/dev-server-core": "^0.2.9",
-    "co-body": "^6.0.0",
+    "@babel/code-frame": "^7.12.11",
+    "@types/babel__code-frame": "^7.0.2",
+    "@types/co-body": "^6.1.0",
+    "@types/convert-source-map": "^2.0.0",
+    "@types/debounce": "^1.2.0",
+    "@types/istanbul-lib-coverage": "^2.0.3",
+    "@types/istanbul-reports": "^3.0.0",
+    "@web/browser-logs": "^0.3.0",
+    "@web/dev-server-core": "^0.5.0",
+    "chokidar": "^3.4.3",
+    "cli-cursor": "^3.1.0",
+    "co-body": "^6.1.0",
+    "convert-source-map": "^2.0.0",
     "debounce": "^1.2.0",
-    "dependency-graph": "^0.9.0",
+    "dependency-graph": "^0.11.0",
+    "globby": "^11.0.1",
+    "ip": "^1.1.5",
     "istanbul-lib-coverage": "^3.0.0",
+    "istanbul-lib-report": "^3.0.0",
+    "istanbul-reports": "^3.0.2",
+    "log-update": "^4.0.0",
+    "nanocolors": "^0.2.1",
+    "nanoid": "^3.1.25",
+    "open": "^8.0.2",
     "picomatch": "^2.2.2",
-    "uuid": "^8.1.0"
+    "source-map": "^0.7.3"
   },
   "devDependencies": {
-    "@types/co-body": "^5.1.0",
-    "@types/istanbul-lib-coverage": "^2.0.2",
-    "@types/sinon-chai": "^3.2.4",
-    "@types/uuid": "^8.0.0",
-    "portfinder": "^1.0.28",
-    "sinon": "^9.0.2",
-    "sinon-chai": "^3.5.0"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./test-helpers": {
-      "import": "./test-helpers.mjs",
-      "require": "./dist/test-helpers.js"
-    },
-    "./browser/session.js": "./browser/session.js"
+    "portfinder": "^1.0.32"
   }
 }

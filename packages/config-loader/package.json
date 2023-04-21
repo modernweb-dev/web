@@ -1,6 +1,6 @@
 {
   "name": "@web/config-loader",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -15,7 +15,7 @@
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/config-loader",
   "main": "src/index.js",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -39,7 +39,7 @@
     "es module"
   ],
   "dependencies": {
-    "semver": "^7.3.2"
+    "semver": "^7.3.4"
   },
   "types": "dist/index.d.ts",
   "exports": {

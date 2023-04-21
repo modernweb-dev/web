@@ -1,7 +1,1 @@
----
-title: Going Buildless
-layout: with-index.njk
-eleventyNavigation:
-  key: Going Buildless
-  order: 10
----
+# Going Buildless ||10

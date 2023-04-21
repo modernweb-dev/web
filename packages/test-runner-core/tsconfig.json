@@ -11,11 +11,18 @@
   },
   "references": [
     {
+      "path": "../parse5-utils/tsconfig.json"
+    },
+    {
+      "path": "../browser-logs/tsconfig.json"
+    },
+    {
       "path": "../dev-server-core/tsconfig.json"
     }
   ],
   "include": [
-    "src"
+    "src",
+    "types"
   ],
   "exclude": [
     "src/browser",

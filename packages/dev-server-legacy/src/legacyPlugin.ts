@@ -1,9 +1,10 @@
 import { Plugin, Logger, getRequestFilePath, isInlineScriptRequest } from '@web/dev-server-core';
-import { GeneratedFile } from 'polyfills-loader';
+import { GeneratedFile, PolyfillsConfig } from '@web/polyfills-loader';
 import path from 'path';
 import { isLegacyBrowser } from './isLegacyBrowser';
-import { babelTransform } from './babelTransform';
+import { babelTransform, es5Config, systemJsConfig } from './babelTransform';
 import { injectPolyfillsLoader } from './injectPolyfillsLoader';
+import { PARAM_TRANSFORM_SYSTEMJS } from './constants';
 
 interface inlineScripts {
   lastModified: string;
@@ -21,7 +22,11 @@ function toBrowserPath(filePath: string) {
   return filePath.replace(REGEXP_TO_BROWSER_PATH, '/');
 }
 
-export function legacyPlugin(): Plugin {
+export interface LegacyPluginOptions {
+  polyfills?: PolyfillsConfig;
+}
+
+export function legacyPlugin(options: LegacyPluginOptions = {}): Plugin {
   // index html data, keyed by url
   const inlineScripts = new Map<string, inlineScripts>();
   // polyfills, keyed by request path
@@ -56,7 +61,7 @@ export function legacyPlugin(): Plugin {
        * of the inline module in that index.html. We use these to look up the correct code to
        * serve
        */
-      if (isInlineScriptRequest(context)) {
+      if (isInlineScriptRequest(context.url)) {
         const sourcePath = context.URL.searchParams.get('source');
         if (!sourcePath) {
           throw new Error(`${context.url} is missing a source param`);
@@ -99,20 +104,24 @@ export function legacyPlugin(): Plugin {
         if (context.path.includes('/polyfills/')) {
           return;
         }
-        const filePath = getRequestFilePath(context, rootDir);
-        const transformed = await babelTransform(filePath, context.body);
+        const config =
+          context.URL.searchParams.get(PARAM_TRANSFORM_SYSTEMJS) === 'true'
+            ? systemJsConfig
+            : es5Config;
+        const filePath = getRequestFilePath(context.url, rootDir);
+        const transformed = await babelTransform(filePath, context.body as string, config);
         context.body = transformed;
         return;
       }
 
       if (context.response.is('html')) {
-        const result = await injectPolyfillsLoader(context);
+        const result = await injectPolyfillsLoader(context, options.polyfills);
         context.body = result.indexHTML;
 
         inlineScripts.set(result.htmlPath, {
           ...result,
           inlineScripts: result.inlineScripts,
-          lastModified: context.response.headers['last-modified'],
+          lastModified: context.response.headers['last-modified'] as string,
         });
 
         // cache polyfills for serving
@@ -124,6 +133,15 @@ export function legacyPlugin(): Plugin {
           polyfills.set(`${root}${toBrowserPath(p.path)}`, p.content);
         });
       }
+    },
+
+    transformImport({ source, context }) {
+      if (!isLegacyBrowser(context, logger)) {
+        return;
+      }
+
+      const prefix = source.includes('?') ? '&' : '?';
+      return `${source}${prefix}${PARAM_TRANSFORM_SYSTEMJS}=true`;
     },
   };
 }

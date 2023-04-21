@@ -3,9 +3,12 @@ import WebSocket from 'ws';
 import { EventEmitter } from './EventEmitter';
 
 export const NAME_WEB_SOCKET_IMPORT = '/__web-dev-server__web-socket.js';
+export const NAME_WEB_SOCKET_API = 'wds';
+
+export type WebSocketData = { type: string } & Record<string, unknown>;
 
 export interface Events {
-  message: { webSocket: WebSocket; data: WebSocket.Data };
+  message: { webSocket: WebSocket; data: WebSocketData };
 }
 
 /**
@@ -14,33 +17,47 @@ export interface Events {
  */
 export class WebSocketsManager extends EventEmitter<Events> {
   public webSocketImport = NAME_WEB_SOCKET_IMPORT;
-  private webSocketServer: WebSocket.Server;
+  public webSocketServer: WebSocket.Server;
   private openSockets = new Set<WebSocket>();
 
   constructor(server: Server) {
     super();
 
-    this.webSocketServer = new WebSocket.Server({ noServer: true });
+    this.webSocketServer = new WebSocket.Server({
+      noServer: true,
+      path: `/${NAME_WEB_SOCKET_API}`,
+    });
     this.webSocketServer.on('connection', webSocket => {
       this.openSockets.add(webSocket);
       webSocket.on('close', () => {
         this.openSockets.delete(webSocket);
       });
 
-      webSocket.on('message', data => {
-        this.emit('message', { webSocket, data });
+      webSocket.on('message', rawData => {
+        try {
+          const data = JSON.parse(rawData.toString());
+          if (!data.type) {
+            throw new Error('Missing property "type".');
+          }
+          this.emit('message', { webSocket, data });
+        } catch (error) {
+          console.error('Failed to parse websocket event received from the browser: ', rawData);
+          console.error(error);
+        }
       });
     });
 
     server.on('upgrade', (request, socket, head) => {
-      this.webSocketServer.handleUpgrade(request, socket, head, ws => {
-        this.webSocketServer.emit('connection', ws, request);
-      });
+      if (request.url === this.webSocketServer.options.path) {
+        this.webSocketServer.handleUpgrade(request, socket, head, ws => {
+          this.webSocketServer.emit('connection', ws, request);
+        });
+      }
     });
   }
 
   /**
-   * Imports the given path, executing the module as well as a default export if it executes a function.
+   * Imports the given path, executing the module as well as a default export if it exports a function.
    *
    * This is a built-in web socket message and will be handled automatically.
    *

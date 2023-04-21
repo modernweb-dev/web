@@ -1,11 +1,4 @@
----
-title: JS Tests
-eleventyNavigation:
-  key: Writing tests > JS Tests
-  title: JS Tests
-  parent: Writing tests
-  order: 10
----
+# Test Runner >> Writing Tests >> JS Tests ||10
 
 Javascript files are loaded by the test framework that is configured. The default test framework is mocha, which loads your test as a standard browser es module. You can use module imports to import your code and any modules you want to use for testing.
 
@@ -22,4 +15,4 @@ describe('myFunction', () => {
 });
 ```
 
-See the [Test frameworks](../test-frameworks/index.md) and [es modules](../../../guides/web-development/es-modules.md) sections for more information.
+See the [Test frameworks](../test-frameworks/index.md) and [es modules](../../../guides/going-buildless/es-modules.md) sections for more information.

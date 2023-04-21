@@ -6,7 +6,8 @@ import {
   DevServerCoreConfig,
   getRequestFilePath,
 } from '@web/dev-server-core';
-import { startService, Service, Loader, Message, Strict } from 'esbuild';
+import type { TransformOptions } from 'esbuild';
+import { Loader, Message, transform } from 'esbuild';
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs';
@@ -20,7 +21,7 @@ import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 
 import { getEsbuildTarget } from './getEsbuildTarget';
 
-const exitProcessEvents = ['exit', 'SIGINT'];
+const filteredWarnings = ['Unsupported source map comment'];
 
 async function fileExists(path: string) {
   try {
@@ -38,16 +39,18 @@ export interface EsbuildConfig {
   tsFileExtensions: string[];
   jsxFactory?: string;
   jsxFragment?: string;
-  strict?: boolean | Strict[];
   define?: { [key: string]: string };
+  tsconfig?: string;
+  banner?: string;
+  footer?: string;
 }
 
 export class EsbuildPlugin implements Plugin {
   private config?: DevServerCoreConfig;
   private esbuildConfig: EsbuildConfig;
   private logger?: Logger;
-  private service?: Service;
   private transformedHtmlFiles: string[] = [];
+  private tsconfigRaw?: string;
   name = 'esbuild';
 
   constructor(esbuildConfig: EsbuildConfig) {
@@ -57,24 +60,10 @@ export class EsbuildPlugin implements Plugin {
   async serverStart({ config, logger }: { config: DevServerCoreConfig; logger: Logger }) {
     this.config = config;
     this.logger = logger;
-    this.service = await startService();
-
-    for (const event of exitProcessEvents) {
-      process.on(event, this.onProcessKilled);
+    if (this.esbuildConfig.tsconfig) {
+      this.tsconfigRaw = await promisify(fs.readFile)(this.esbuildConfig.tsconfig, 'utf8');
     }
   }
-
-  serverStop() {
-    this.service?.stop();
-
-    for (const event of exitProcessEvents) {
-      process.off(event, this.onProcessKilled);
-    }
-  }
-
-  onProcessKilled = () => {
-    this.service?.stop();
-  };
 
   resolveMimeType(context: Context) {
     const fileExtension = path.posix.extname(context.path);
@@ -97,7 +86,7 @@ export class EsbuildPlugin implements Plugin {
 
     // a TS file imported a .js file relatively, but they might intend to import a .ts file instead
     // check if the .ts file exists, and rewrite it in that case
-    const filePath = getRequestFilePath(context, this.config!.rootDir);
+    const filePath = getRequestFilePath(context.url, this.config!.rootDir);
     const fileDir = path.dirname(filePath);
     const importAsTs = source.substring(0, source.length - 3) + '.ts';
     const importedTsFilePath = path.join(fileDir, importAsTs);
@@ -135,13 +124,13 @@ export class EsbuildPlugin implements Plugin {
       return;
     }
 
-    const filePath = getRequestFilePath(context, this.config!.rootDir);
+    const filePath = getRequestFilePath(context.url, this.config!.rootDir);
     if (context.response.is('html')) {
       this.transformedHtmlFiles.push(context.path);
       return this.__transformHtml(context, filePath, loader, target);
     }
 
-    return this.__transformCode(context.body, filePath, loader, target);
+    return this.__transformCode(context.body as string, filePath, loader, target);
   }
 
   private async __transformHtml(
@@ -150,10 +139,17 @@ export class EsbuildPlugin implements Plugin {
     loader: Loader,
     target: string | string[],
   ) {
-    const documentAst = parseHtml(context.body);
+    const documentAst = parseHtml(context.body as string);
     const inlineScripts = queryAll(
       documentAst,
-      predicates.AND(predicates.hasTagName('script'), predicates.NOT(predicates.hasAttr('src'))),
+      predicates.AND(
+        predicates.hasTagName('script'),
+        predicates.NOT(predicates.hasAttr('src')),
+        predicates.OR(
+          predicates.NOT(predicates.hasAttr('type')),
+          predicates.hasAttrValue('type', 'module'),
+        ),
+      ),
     );
 
     if (inlineScripts.length === 0) {
@@ -176,34 +172,36 @@ export class EsbuildPlugin implements Plugin {
     target: string | string[],
   ): Promise<string> {
     try {
-      const { js, warnings } = await this.service!.transform(code, {
+      const transformOptions: TransformOptions = {
         sourcefile: filePath,
         sourcemap: 'inline',
         loader,
         target,
-        strict:
-          // use user defined strict config, otherwise default to strict class fields
-          // unless we are transforming TS which does not use strict class fields
-          this.esbuildConfig.strict
-            ? this.esbuildConfig.strict
-            : ['ts', 'tsx'].includes(loader)
-            ? []
-            : ['class-fields'],
+        // don't set any format for JS-like formats, otherwise esbuild reformats the code unnecessarily
+        format: ['js', 'jsx', 'ts', 'tsx'].includes(loader) ? undefined : 'esm',
         jsxFactory: this.esbuildConfig.jsxFactory,
         jsxFragment: this.esbuildConfig.jsxFragment,
-      });
+        define: this.esbuildConfig.define,
+        tsconfigRaw: this.tsconfigRaw,
+        banner: this.esbuildConfig.banner,
+        footer: this.esbuildConfig.footer,
+      };
+
+      const { code: transformedCode, warnings } = await transform(code, transformOptions);
 
       if (warnings) {
         const relativePath = path.relative(process.cwd(), filePath);
 
         for (const warning of warnings) {
-          this.logger!.warn(
-            `[@web/test-runner-esbuild] Warning while transforming ${relativePath}: ${warning.text}`,
-          );
+          if (!filteredWarnings.some(w => warning.text.includes(w))) {
+            this.logger!.warn(
+              `[@web/test-runner-esbuild] Warning while transforming ${relativePath}: ${warning.text}`,
+            );
+          }
         }
       }
 
-      return js;
+      return transformedCode;
     } catch (e) {
       if (Array.isArray(e.errors)) {
         const msg = e.errors[0] as Message;

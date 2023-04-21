@@ -2,31 +2,33 @@
 import cjsEntrypoint from './dist/index.js';
 
 const {
+  FSWatcher,
+  Koa,
+  Server,
+  WebSocket,
   DevServer,
+  WebSocketsManager,
   getRequestBrowserPath,
   getRequestFilePath,
   getResponseBody,
   getHtmlPath,
   isInlineScriptRequest,
-  EventStreamManager,
-  FSWatcher,
-  Koa,
-  Server,
   PluginSyntaxError,
   PluginError,
 } = cjsEntrypoint;
 
 export {
+  FSWatcher,
+  Koa,
+  Server,
+  WebSocket,
   DevServer,
+  WebSocketsManager,
   getRequestBrowserPath,
   getRequestFilePath,
   getResponseBody,
   getHtmlPath,
   isInlineScriptRequest,
-  EventStreamManager,
-  FSWatcher,
-  Koa,
-  Server,
   PluginSyntaxError,
   PluginError,
 };

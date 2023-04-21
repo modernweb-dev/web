@@ -17,18 +17,27 @@ export interface BrowserLauncher {
    * A unique identifier for the type of browser launcher.
    */
   type: string;
-  /**
-   * One time startup for the browser launcher. Called when the test runner
-   * starts.
-   * @param config The test runner config.
-   */
-  start(config: TestRunnerCoreConfig, testFiles: string[]): void | Promise<void>;
 
   /**
-   * One time teardown for the browser launcher. Called when the test runner
-   * stops.
+   * Optional concurrency for this browser launcher only. Overwrites a globally
+   * configured concurrency option.
    */
-  stop(): Promise<void>;
+  concurrency?: number;
+
+  __experimentalWindowFocus__?: boolean;
+
+  /**
+   * One time startup for the browser launcher. Called when the test runner
+   * starts. Use this for async initialization work.
+   * @param config
+   */
+  initialize?(config: TestRunnerCoreConfig, testFiles: string[]): void | Promise<void>;
+
+  /**
+   * Called after running tests when not in watch mode. Called when the test runner
+   * shuts down when in watch mode.
+   */
+  stop?(): Promise<void>;
 
   /**
    * Start a single test sessions in a single browser page or tab. This should
@@ -46,6 +55,12 @@ export interface BrowserLauncher {
    * @param session
    */
   isActive(sessionId: string): boolean;
+
+  /**
+   * Returns the current browser URL for the test session. This is used for example to
+   * detect browser navigations.
+   */
+  getBrowserUrl(sessionId: string): string | undefined | Promise<string | undefined>;
 
   /**
    * Stops a single test session. There is no mandatory action to be taken here.

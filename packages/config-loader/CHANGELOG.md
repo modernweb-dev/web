@@ -1,5 +1,17 @@
 # @web/config-loader
 
+## 0.2.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+## 0.1.3
+
+### Patch Changes
+
+- 6e313c18: improve error message
+
 ## 0.1.2
 
 ### Patch Changes

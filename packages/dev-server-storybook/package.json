@@ -1,0 +1,81 @@
+{
+  "name": "@web/dev-server-storybook",
+  "version": "0.7.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Dev server plugin for using storybook with es modules.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/dev-server-storybook"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server-storybook",
+  "main": "dist/index.js",
+  "bin": {
+    "build-storybook": "dist/build/cli.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build:wc": "node dist/build/cli.js -c demo/wc/.storybook",
+    "start:build": "wds --root-dir storybook-static --open",
+    "start:preact": "wds --config demo/preact/web-dev-server.config.mjs",
+    "start:wc": "wds --config demo/wc/web-dev-server.config.mjs",
+    "test": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --reporter dot",
+    "test:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
+  },
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "*.mjs",
+    "CHANGELOG.md",
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "web",
+    "dev",
+    "server",
+    "plugin",
+    "storybook",
+    "buildless",
+    "es modules",
+    "modules",
+    "esm"
+  ],
+  "dependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "@mdx-js/mdx": "^1.6.22",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@storybook/csf-tools": "^6.4.9",
+    "@web/dev-server-core": "^0.5.0",
+    "@web/rollup-plugin-html": "^2.0.0",
+    "@web/rollup-plugin-polyfills-loader": "^2.0.0",
+    "@web/storybook-prebuilt": "^0.1.32",
+    "babel-plugin-bundled-import-meta": "^0.3.2",
+    "babel-plugin-template-html-minifier": "^4.1.0",
+    "es-module-lexer": "^1.0.2",
+    "globby": "^11.0.1",
+    "path-is-inside": "^1.0.2",
+    "rollup": "^3.15.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "storybook-addon-markdown-docs": "^1.0.4"
+  },
+  "devDependencies": {
+    "@types/path-is-inside": "^1.0.0",
+    "@web/dev-server": "^0.2.0",
+    "htm": "^3.1.0"
+  }
+}

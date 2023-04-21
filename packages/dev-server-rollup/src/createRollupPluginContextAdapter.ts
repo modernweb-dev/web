@@ -1,29 +1,53 @@
 import path from 'path';
-import { DevServerCoreConfig, FSWatcher, Plugin as WdsPlugin, Context } from '@web/dev-server-core';
-import { PluginContext, MinimalPluginContext, TransformPluginContext } from 'rollup';
+import {
+  DevServerCoreConfig,
+  FSWatcher,
+  Plugin as WdsPlugin,
+  Context,
+  ResolveOptions,
+} from '@web/dev-server-core';
+import {
+  PluginContext,
+  MinimalPluginContext,
+  TransformPluginContext,
+  CustomPluginOptions,
+  ModuleInfo,
+} from 'rollup';
 
 export function createRollupPluginContextAdapter<
-  T extends PluginContext | MinimalPluginContext | TransformPluginContext
+  T extends PluginContext | MinimalPluginContext | TransformPluginContext,
 >(
   pluginContext: T,
   wdsPlugin: WdsPlugin,
   config: DevServerCoreConfig,
   fileWatcher: FSWatcher,
   context: Context,
+  pluginMetaPerModule: Map<string, CustomPluginOptions>,
 ) {
   return {
     ...pluginContext,
 
-    getModuleInfo(id: string) {
+    getModuleInfo(id: string): Partial<ModuleInfo> {
       return {
-        dynamicallyImportedIds: [],
-        dynamicImporters: [],
-        hasModuleSideEffects: false,
         id,
+        code: context.body as string,
+        ast: null,
+        dynamicallyImportedIds: [],
+        dynamicallyImportedIdResolutions: [],
+        dynamicImporters: [],
+        hasDefaultExport: false,
+        implicitlyLoadedBefore: [],
+        implicitlyLoadedAfterOneOf: [],
         importedIds: [],
+        importedIdResolutions: [],
         importers: [],
         isEntry: false,
         isExternal: false,
+        isIncluded: false,
+        hasModuleSideEffects: false,
+        moduleSideEffects: false,
+        syntheticNamedExports: false,
+        meta: pluginMetaPerModule.get(id) ?? {},
       };
     },
 
@@ -52,15 +76,20 @@ export function createRollupPluginContextAdapter<
       throw new Error('Emitting files is not yet supported');
     },
 
-    async resolve(source: string, importer: string, options: { skipSelf: boolean }) {
+    async resolve(source: string, importer: string, options: ResolveOptions) {
       if (!context) throw new Error('Context is required.');
 
+      const { skipSelf, ...resolveOptions } = options;
+
+      if (skipSelf) wdsPlugin.resolveImportSkip?.(context, source, importer);
+
       for (const pl of config.plugins ?? []) {
-        if (
-          pl.resolveImport &&
-          (!options.skipSelf || pl.resolveImport !== wdsPlugin.resolveImport)
-        ) {
-          const result = await pl.resolveImport({ source, context });
+        if (pl.resolveImport && (!skipSelf || pl !== wdsPlugin)) {
+          const result = await pl.resolveImport({
+            source,
+            context,
+            resolveOptions,
+          });
           let resolvedId: string | undefined;
           if (typeof result === 'string') {
             resolvedId = result;
@@ -79,7 +108,11 @@ export function createRollupPluginContextAdapter<
       }
     },
 
-    async resolveId(source: string, importer: string, options: { skipSelf: boolean }) {
+    async resolveId(
+      source: string,
+      importer: string,
+      options: { isEntry: boolean; skipSelf: boolean; custom: Record<string, unknown> },
+    ) {
       const resolveResult = await this.resolve(source, importer, options);
       if (typeof resolveResult === 'string') {
         return resolveResult;

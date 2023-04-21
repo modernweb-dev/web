@@ -4,14 +4,36 @@ import { TestSessionManager } from '../test-session/TestSessionManager';
 import { TestSession, TestResultError } from '../test-session/TestSession';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus';
 import { withTimeout } from '../utils/async';
+import { TestSessionTimeoutHandler } from './TestSessionTimeoutHandler';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 
 export class TestScheduler {
-  private timeoutIdsPerSession = new Map<string, NodeJS.Timeout[]>();
+  private config: TestRunnerCoreConfig;
+  private sessions: TestSessionManager;
+  private timeoutHandler: TestSessionTimeoutHandler;
+  private browsers: BrowserLauncher[];
+  private finishedBrowsers = new Set<BrowserLauncher>();
+  private stopPromises = new Set<Promise<unknown>>();
+  private browserStartTimeoutMsg: string;
 
-  constructor(private config: TestRunnerCoreConfig, private sessions: TestSessionManager) {
+  constructor(
+    config: TestRunnerCoreConfig,
+    sessions: TestSessionManager,
+    browsers: BrowserLauncher[],
+  ) {
+    this.config = config;
+    this.sessions = sessions;
+    this.browsers = [...browsers].sort(
+      (a, b) => (a.__experimentalWindowFocus__ ? 1 : 0) - (b.__experimentalWindowFocus__ ? 1 : 0),
+    );
+    this.timeoutHandler = new TestSessionTimeoutHandler(this.config, this.sessions, this);
+    this.browserStartTimeoutMsg =
+      `The browser was unable to create and start a test page after ${this.config.browserStartTimeout}ms. ` +
+      'You can increase this timeout with the browserStartTimeout option.';
+
     sessions.on('session-status-updated', async session => {
       if (session.status === SESSION_STATUS.TEST_STARTED) {
-        this.waitForTestsFinished(session.testRun, session.id);
+        this.timeoutHandler.waitForTestsFinished(session.testRun, session.id);
         return;
       }
 
@@ -22,12 +44,13 @@ export class TestScheduler {
       }
 
       if (session.status === SESSION_STATUS.FINISHED) {
-        // the session is full finished, clear any related timeouts
-        const timeoutIds = this.timeoutIdsPerSession.get(session.id);
-        if (timeoutIds) {
-          this.clearTimeouts(timeoutIds);
-        }
-        this.runNextScheduled();
+        this.timeoutHandler.clearTimeoutsForSession(session);
+
+        setTimeout(() => {
+          // run next scheduled after a timeout, so that other actors on status change can
+          // do their work first
+          this.runNextScheduled();
+        });
       }
     });
   }
@@ -46,46 +69,66 @@ export class TestScheduler {
     this.runNextScheduled();
   }
 
-  stop() {
-    for (const ids of this.timeoutIdsPerSession.values()) {
-      this.clearTimeouts(ids);
-    }
+  stop(): Promise<unknown> {
+    this.timeoutHandler.clearAllTimeouts();
+    return Promise.all(Array.from(this.stopPromises));
   }
 
   /** Runs the next batch of scheduled sessions, if any. */
   private runNextScheduled() {
-    const runningCount = Array.from(
-      this.sessions.forStatus(
-        SESSION_STATUS.INITIALIZING,
-        SESSION_STATUS.TEST_STARTED,
-        SESSION_STATUS.TEST_FINISHED,
-      ),
-    ).length;
-    const count = this.config.concurrency! - runningCount;
-    if (count === 0) {
-      return;
-    }
+    let runningBrowsers = 0;
 
-    const scheduled = Array.from(this.sessions.forStatus(SESSION_STATUS.SCHEDULED)).slice(0, count);
-    for (const session of scheduled) {
-      this.startSession(session);
+    for (const browser of this.browsers) {
+      if (runningBrowsers >= 1 && browser.__experimentalWindowFocus__) {
+        return;
+      }
+
+      if (runningBrowsers >= this.config.concurrentBrowsers) {
+        // do not boot up more than the allowed concurrent browsers
+        return;
+      }
+
+      const unfinishedCount = this.getUnfinishedSessions(browser).length;
+      if (unfinishedCount > 0) {
+        // this browser has not finished running all tests
+        runningBrowsers += 1;
+
+        const runningCount = this.getRunningSessions(browser).length;
+        let maxBudget;
+
+        if (browser.__experimentalWindowFocus__) {
+          maxBudget = 1;
+        } else {
+          maxBudget = browser.concurrency ?? this.config.concurrency;
+        }
+
+        const runBudget = Math.max(0, maxBudget - runningCount);
+        if (runBudget !== 0) {
+          // we have budget to schedule new sessions for this browser
+          const allScheduled = this.getScheduledSessions(browser);
+          const toRun = allScheduled.slice(0, runBudget);
+          for (const session of toRun) {
+            this.startSession(session);
+          }
+        }
+      }
     }
   }
 
   private async startSession(session: TestSession) {
     const updatedSession = { ...session, status: SESSION_STATUS.INITIALIZING };
-    this.sessions.update(updatedSession);
+    this.sessions.updateStatus(updatedSession, SESSION_STATUS.INITIALIZING);
     let browserStarted = false;
 
     // browser should be started within the specified milliseconds
     const timeoutId = setTimeout(() => {
-      if (!browserStarted && !this.isStale(updatedSession)) {
+      if (!browserStarted && !this.timeoutHandler.isStale(updatedSession)) {
         this.setSessionFailed(this.sessions.get(updatedSession.id)!, {
-          message: `The browser was unable to open the test page after ${this.config.browserStartTimeout}ms.`,
+          message: this.browserStartTimeoutMsg,
         });
       }
     }, this.config.browserStartTimeout!);
-    this.addTimeoutId(updatedSession.id, timeoutId);
+    this.timeoutHandler.addTimeoutId(updatedSession.id, timeoutId);
 
     try {
       await withTimeout(
@@ -93,17 +136,19 @@ export class TestScheduler {
           updatedSession.id,
           createSessionUrl(this.config, updatedSession),
         ),
-        'Timeout starting the browser page.',
-        this.config.browserStartTimeout!,
+        this.browserStartTimeoutMsg,
+        this.config.browserStartTimeout,
       );
 
       // when the browser started, wait for session to ping back on time
-      this.waitForTestsStarted(updatedSession.testRun, updatedSession.id);
+      this.timeoutHandler.waitForTestsStarted(updatedSession.testRun, updatedSession.id);
     } catch (error) {
-      if (this.isStale(updatedSession)) {
+      if (this.timeoutHandler.isStale(updatedSession)) {
         // something else has changed the test session, such as a the browser timeout
         // or a re-run in watch mode. in that was we just log the error
-        this.config.logger.error(error);
+        if (error.message !== this.browserStartTimeoutMsg) {
+          this.config.logger.error(error);
+        }
       } else {
         this.setSessionFailed(updatedSession, { message: error.message, stack: error.stack });
       }
@@ -117,7 +162,7 @@ export class TestScheduler {
   }
 
   async stopSession(session: TestSession, errors: TestResultError[] = []) {
-    if (this.isStale(session)) {
+    if (this.timeoutHandler.isStale(session)) {
       return;
     }
     const sessionErrors = [...errors];
@@ -125,14 +170,13 @@ export class TestScheduler {
 
     try {
       if (session.browser.isActive(session.id)) {
-        const { testCoverage, browserLogs, errors } = await withTimeout(
+        const { testCoverage, errors } = await withTimeout(
           session.browser.stopSession(session.id),
           'Timed out stopping the browser page',
-          this.config.testsFinishTimeout!,
+          this.config.testsFinishTimeout,
         );
         updatedSession.errors = [...(updatedSession.errors ?? []), ...(errors ?? [])];
         updatedSession.testCoverage = testCoverage;
-        updatedSession.logs = browserLogs ?? [];
       }
     } catch (error) {
       sessionErrors.push(error);
@@ -142,77 +186,55 @@ export class TestScheduler {
         updatedSession.errors = [...(updatedSession.errors ?? []), ...sessionErrors];
         updatedSession.passed = false;
       }
+
       this.sessions.updateStatus(updatedSession, SESSION_STATUS.FINISHED);
+
+      const remaining = this.getUnfinishedSessions(session.browser);
+
+      if (
+        !this.config.watch &&
+        !this.finishedBrowsers.has(session.browser) &&
+        remaining.length === 0
+      ) {
+        if (session.browser.stop) {
+          this.finishedBrowsers.add(session.browser);
+          const stopPromise = session.browser
+            .stop()
+            .catch(error => {
+              console.error(error);
+            })
+            .then(() => {
+              this.stopPromises.delete(stopPromise);
+            });
+          this.stopPromises.add(stopPromise);
+        }
+      }
     }
   }
 
-  private waitForTestsStarted(testRun: number, sessionId: string) {
-    const timeoutId = setTimeout(() => {
-      const session = this.sessions.get(sessionId)!;
-      if (session.testRun !== testRun) {
-        // session reloaded in the meantime
-        return;
-      }
-
-      if (session.status === SESSION_STATUS.INITIALIZING) {
-        this.setSessionFailed(session, {
-          message:
-            `Browser tests did not start after ${this.config.testsStartTimeout}ms. ` +
-            'Check the browser logs or open the browser in debug mode for more information.',
-        });
-        return;
-      }
-    }, this.config.testsStartTimeout!);
-
-    this.addTimeoutId(sessionId, timeoutId);
-  }
-
-  private waitForTestsFinished(testRun: number, sessionId: string) {
-    const timeoutId = setTimeout(() => {
-      const session = this.sessions.get(sessionId)!;
-      if (session.testRun !== testRun) {
-        // session reloaded in the meantime
-        return;
-      }
-
-      if (session.status !== SESSION_STATUS.TEST_FINISHED) {
-        this.setSessionFailed(session, {
-          message:
-            `Browser tests did not finish within ${this.config.testsFinishTimeout}ms. ` +
-            'Check the browser logs or open the browser in debug mode for more information.',
-        });
-      }
-    }, this.config.testsFinishTimeout!);
-
-    this.addTimeoutId(sessionId, timeoutId);
-  }
-
-  /**
-   * Returns whether the session has gone stale. Sessions are immutable, this takes in a
-   * snapshot of a session and returns whether the session has since changed test run or status.
-   * This can be used to decide whether perform side effects like logging or changing status.
-   */
-  private isStale(session: TestSession): boolean {
-    const currentSession = this.sessions.get(session.id);
-    return (
-      !currentSession ||
-      currentSession.testRun !== session.testRun ||
-      currentSession.status !== session.status
+  private getScheduledSessions(browser: BrowserLauncher) {
+    return Array.from(
+      this.sessions.filtered(s => s.browser === browser && s.status === SESSION_STATUS.SCHEDULED),
     );
   }
 
-  private addTimeoutId(sessionId: string, id: any) {
-    let timeoutIds = this.timeoutIdsPerSession.get(sessionId);
-    if (!timeoutIds) {
-      timeoutIds = [];
-      this.timeoutIdsPerSession.set(sessionId, timeoutIds);
-    }
-    timeoutIds.push(id);
+  private getRunningSessions(browser: BrowserLauncher) {
+    return Array.from(
+      this.sessions.filtered(
+        s =>
+          s.browser === browser &&
+          [
+            SESSION_STATUS.INITIALIZING,
+            SESSION_STATUS.TEST_STARTED,
+            SESSION_STATUS.TEST_FINISHED,
+          ].includes(s.status),
+      ),
+    );
   }
 
-  private clearTimeouts(timeoutIds: NodeJS.Timeout[]) {
-    for (const id of timeoutIds) {
-      clearTimeout(id);
-    }
+  private getUnfinishedSessions(browser: BrowserLauncher) {
+    return Array.from(
+      this.sessions.filtered(s => s.browser === browser && s.status !== SESSION_STATUS.FINISHED),
+    );
   }
 }

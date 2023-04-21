@@ -10,3 +10,6 @@ import './3.js';
 import '../../non-existing-a.js';
 import '../non-existing-b.js';
 import './non-existing-c.js';
+export class SomeClass {
+  prop: string;
+}

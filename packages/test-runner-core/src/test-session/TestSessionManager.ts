@@ -2,6 +2,8 @@ import { TestSession } from './TestSession';
 import { TestSessionStatus } from './TestSessionStatus';
 import { EventEmitter } from '../utils/EventEmitter';
 import { DebugTestSession } from './DebugTestSession';
+import { TestSessionGroup } from './TestSessionGroup';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 
 interface EventMap {
   'session-status-updated': TestSession;
@@ -17,10 +19,13 @@ function* filtered<T>(it: Iterator<T>, filter: (value: T) => unknown) {
 }
 
 export class TestSessionManager extends EventEmitter<EventMap> {
+  private _groups: TestSessionGroup[];
   private sessionsMap = new Map<string, TestSession>();
   private debugSessions = new Map<string, DebugTestSession>();
 
-  add(...sessions: TestSession[]) {
+  constructor(groups: TestSessionGroup[], sessions: TestSession[]) {
+    super();
+    this._groups = groups;
     for (const session of sessions) {
       this.sessionsMap.set(session.id, session);
     }
@@ -44,6 +49,10 @@ export class TestSessionManager extends EventEmitter<EventMap> {
     }
     this.sessionsMap.set(session.id, session);
     this.emit('session-updated', undefined);
+  }
+
+  groups() {
+    return this._groups;
   }
 
   get(id: string) {
@@ -72,14 +81,20 @@ export class TestSessionManager extends EventEmitter<EventMap> {
     return this.filtered(s => testFiles.includes(s.testFile));
   }
 
-  forBrowser(...browserNames: string[]) {
-    return this.filtered(s => browserNames.includes(s.browser.name));
+  forBrowser(browser: BrowserLauncher) {
+    return this.filtered(s => s.browser === browser);
   }
 
-  forBrowserAndTestFile(testFile?: string, ...browserNames: string[]) {
-    return this.filtered(
-      s => browserNames.includes(s.browser.name) && (!testFile || s.testFile === testFile),
-    );
+  forGroup(groupName: string) {
+    return this.filtered(s => s.group.name === groupName);
+  }
+
+  forBrowserName(browserName: string) {
+    return this.filtered(s => s.browser.name === browserName);
+  }
+
+  forBrowserNames(browserNames: string[]) {
+    return this.filtered(s => browserNames.includes(s.browser.name));
   }
 
   passed() {

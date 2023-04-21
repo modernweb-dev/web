@@ -5,29 +5,22 @@ import {
   TestResultError,
 } from '../../test-runner-core/browser/session.js';
 import '../../../node_modules/mocha/mocha.js';
-import { styles } from './styles.js';
 import { collectTestResults } from './collectTestResults.js';
+import { setupMocha } from './mochaSetup.js';
 
 sessionStarted();
+
+// avoid using document.baseURI for IE11 support
+const base = document.querySelector('base');
+const baseURI = (base || window.location).href;
 
 (async () => {
   const errors: TestResultError[] = [];
 
   const { testFile, debug, testFrameworkConfig } = await getConfig();
-  const div = document.createElement('div');
-  div.id = 'mocha';
-  document.body.appendChild(div);
+  setupMocha(debug, testFrameworkConfig);
 
-  if (debug) {
-    const styleElement = document.createElement('style');
-    styleElement.textContent = styles;
-    document.head.appendChild(styleElement);
-  }
-
-  const userOptions = typeof testFrameworkConfig === 'object' ? testFrameworkConfig : {};
-  mocha.setup({ ui: 'bdd', allowUncaught: false, ...userOptions });
-
-  await import(new URL(testFile, document.baseURI).href).catch(error => {
+  await import(new URL(testFile, baseURI).href).catch(error => {
     console.error(error);
     errors.push({
       message:
@@ -35,7 +28,7 @@ sessionStarted();
     });
   });
 
-  mocha.run(() => {
+  const mochaRunner = mocha.run(() => {
     // setTimeout to wait for logs to come in
     setTimeout(() => {
       const { testResults, hookErrors, passed } = collectTestResults(mocha);
@@ -48,4 +41,5 @@ sessionStarted();
       });
     });
   });
+  (window as any).__WTR_MOCHA_RUNNER__ = mochaRunner;
 })();

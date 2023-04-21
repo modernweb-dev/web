@@ -1,11 +1,12 @@
 import { Middleware } from 'koa';
 import path from 'path';
-import { Plugin } from '../Plugin';
+import { Logger } from '../logger/Logger';
+import { Plugin } from '../plugins/Plugin';
 
 /**
  * Sets up a middleware which allows plugins to serve files instead of looking it up in the file system.
  */
-export function pluginServeMiddleware(plugins: Plugin[]): Middleware {
+export function pluginServeMiddleware(logger: Logger, plugins: Plugin[]): Middleware {
   const servePlugins = plugins.filter(p => 'serve' in p);
   if (servePlugins.length === 0) {
     // nothing to serve
@@ -36,11 +37,13 @@ export function pluginServeMiddleware(plugins: Plugin[]): Middleware {
           }
         }
 
+        logger.debug(`Plugin ${plugin.name} served ${context.path}.`);
         context.status = 200;
         return;
       } else if (typeof response === 'string') {
         context.body = response;
         context.type = path.extname(path.basename(context.path));
+        logger.debug(`Plugin ${plugin.name} served ${context.path}.`);
         context.status = 200;
         return;
       }

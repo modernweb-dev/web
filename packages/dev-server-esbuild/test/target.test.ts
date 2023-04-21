@@ -44,13 +44,13 @@ const syntax = {
 const transformedSyntax = {
   classFields: [
     'var __publicField =',
-    '_myPrivateField.set(this, "bar");',
+    '__privateAdd(this, _myPrivateField, "bar");',
     '__publicField(this, "myField", "x");',
     '__publicField(MyClass, "myStaticField", "foo");',
   ],
   optionalChaining: 'const optionalChaining = (_a = window.bar) == null ? void 0 : _a.foo;',
   optionalCatch: '} catch (e) {',
-  objectSpread: 'const spread = __assign(__assign({}, foo), bar);',
+  objectSpread: 'const spread = __spreadValues(__spreadValues({}, foo), bar)',
   asyncFunctions: [
     'var __async = (__this, __arguments, generator) => {',
     'return __async(this, null, function* () {',
@@ -345,6 +345,42 @@ describe('esbuildPlugin target', function () {
       for (const e of transformedSyntax.asyncFunctions) {
         expectIncludes(text, e);
       }
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('should leave non-js types as they are', async () => {
+    const importmapString = '{"imports":{"foo":"./bar.js"}}';
+    const jsonString = '{test:1}';
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        {
+          name: 'test',
+          serve(context) {
+            if (context.path === '/index.html') {
+              return `<html>
+  <body>
+    <script type="importmap">${importmapString}</script>
+    <script type="application/json">${jsonString}</script>
+  </body>
+</html>`;
+            }
+          },
+        },
+        esbuildPlugin({ js: true, target: 'es2016' }),
+      ],
+    });
+
+    try {
+      const response = await fetch(`${host}/index.html`);
+      const text = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(response.headers.get('content-type')).to.equal('text/html; charset=utf-8');
+      expect(text).to.include(importmapString);
+      expect(text).to.include(jsonString);
     } finally {
       server.stop();
     }

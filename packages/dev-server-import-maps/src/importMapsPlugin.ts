@@ -1,28 +1,12 @@
 import { Plugin, Logger, getRequestFilePath } from '@web/dev-server-core';
 import {
-  query,
-  queryAll,
-  predicates,
-  getAttribute,
-  getTextContent,
-  setAttribute,
-  constructors,
-  setTextContent,
-  insertBefore,
-  append,
-} from '@web/dev-server-core/dist/dom5';
-import {
   ParsedImportMap,
   parse as parseFromObject,
   parseFromString,
   resolve,
 } from '@import-maps/resolve';
 import { getHtmlPath } from '@web/dev-server-core';
-import {
-  parse as parseHtml,
-  serialize as serializeHtml,
-  DefaultTreeElement as ElementAst,
-} from 'parse5';
+import { parse as parseHtml, serialize as serializeHtml, Element as ElementAst } from 'parse5';
 import path from 'path';
 
 import {
@@ -34,7 +18,19 @@ import {
   mergeImportMaps,
   getDocumentBaseUrl,
 } from './utils';
-import { ImportMap } from '@import-maps/resolve/src/parser';
+import { ImportMap } from '@import-maps/resolve';
+import {
+  createElement,
+  findElement,
+  findElements,
+  getTagName,
+  isHtmlFragment,
+  getAttribute,
+  getTextContent,
+  hasAttribute,
+  setAttribute,
+  setTextContent,
+} from '@web/parse5-utils';
 
 export interface ImportMapData {
   htmlPath: string;
@@ -58,6 +54,12 @@ export interface NormalizedInjectSetting {
   importMap: ImportMap;
 }
 
+function prepend(parent: any, node: any) {
+  // use 'any' because parse5 types are off
+  parent.childNodes.unshift(node);
+  node.parentNode = parent;
+}
+
 export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
   const injectSettings = normalizeInjectSetting(config.inject);
   const importMapsById: ImportMapData[] = [];
@@ -77,39 +79,29 @@ export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
      * Extracts import maps from HTML pages.
      */
     transform(context) {
-      if (!context.response.is('html')) {
+      if (!context.response.is('html') || isHtmlFragment(context.body as string)) {
         return;
       }
 
       let toInject = injectSettings.find(i => shouldInject(context.path, i));
 
       // collect import map in HTML page
-      const documentAst = parseHtml(context.body, { sourceCodeLocationInfo: true });
-      const htmlNode = query(documentAst, predicates.hasTagName('html')) as ElementAst;
-      const headNode = query(documentAst, predicates.hasTagName('head')) as ElementAst;
-      if (!htmlNode?.sourceCodeLocation) {
-        // if html or body tag does not have a source code location it was generated
-        return;
+      const documentAst = parseHtml(context.body as string);
+      const headNode = findElement(documentAst, el => getTagName(el) === 'head');
+      if (!headNode) {
+        throw new Error('Internal error: HTML document did not generate a <head>.');
       }
-
-      const importMapScripts: ElementAst[] = queryAll(
+      const importMapScripts: ElementAst[] = findElements(
         documentAst,
-        predicates.AND(
-          predicates.hasTagName('script'),
-          predicates.hasAttrValue('type', 'importmap'),
-        ),
+        el => getTagName(el) === 'script' && getAttribute(el, 'type') === 'importmap',
       );
 
       if (toInject && importMapScripts.length === 0) {
         // inject import map element into the page
-        importMapScripts.push(constructors.element('script'));
-        setAttribute(importMapScripts[0], 'type', 'importmap');
-        setTextContent(importMapScripts[0], JSON.stringify(toInject.importMap));
-        if (headNode.childNodes.length === 0) {
-          insertBefore(headNode, headNode.childNodes[0], importMapScripts[0]);
-        } else {
-          append(headNode, importMapScripts[0]);
-        }
+        const script = createElement('script', { type: 'importmap' });
+        setTextContent(script, JSON.stringify(toInject.importMap));
+        importMapScripts.push(script);
+        prepend(headNode, script);
         toInject = undefined;
       }
 
@@ -135,7 +127,7 @@ export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
 
       if (importMapId === -1) {
         // this is the first time we encounter this import map for this
-        const baseNode = query(headNode, predicates.hasTagName('base')) as ElementAst;
+        const baseNode = findElement(headNode, el => getTagName(el) === 'base');
         const documentBaseUrl = getDocumentBaseUrl(context, baseNode);
 
         // parse the import map and store it with the HTML path
@@ -154,7 +146,7 @@ export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
           importMapsById.push({ htmlPath, importMap, importMapString });
           importMapId = importMapsById.length - 1;
         } catch (error) {
-          const filePath = getRequestFilePath(context, rootDir);
+          const filePath = getRequestFilePath(context.url, rootDir);
           const relativeFilePath = path.relative(process.cwd(), filePath);
           logger.warn(`Failed to parse import map in "${relativeFilePath}": ${error.message}`);
           return;
@@ -162,9 +154,16 @@ export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
       }
       importMapsIdsByHtmlPath.set(htmlPath, importMapId);
 
-      const scripts = queryAll(
+      const scripts = findElements(
         documentAst,
-        predicates.AND(predicates.hasTagName('script'), predicates.hasAttr('src')),
+        el => getTagName(el) === 'script' && hasAttribute(el, 'src'),
+      );
+      const links = findElements(
+        documentAst,
+        el =>
+          getTagName(el) === 'link' &&
+          ['preload', 'prefetch', 'modulepreload'].includes(getAttribute(el, 'rel') ?? '') &&
+          hasAttribute(el, 'href'),
       );
 
       // add import map id to all script tags
@@ -172,6 +171,14 @@ export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
         const src = getAttribute(script, 'src');
         if (src) {
           setAttribute(script, 'src', withImportMapIdParam(src, String(importMapId)));
+        }
+      }
+
+      // add import map id to all preload links
+      for (const link of links) {
+        const href = getAttribute(link, 'href');
+        if (href) {
+          setAttribute(link, 'href', withImportMapIdParam(href, String(importMapId)));
         }
       }
       return serializeHtml(documentAst);
@@ -209,7 +216,12 @@ export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
       }
 
       const { resolvedImport, matched } = resolve(source, data.importMap, context.URL);
-      return matched && resolvedImport ? resolvedImport.pathname : undefined;
+      // console.log({ resolvedImport });
+      if (matched && resolvedImport) {
+        return resolvedImport.href.startsWith(context.URL.origin)
+          ? resolvedImport.pathname
+          : resolvedImport.href;
+      }
     },
   };
 }

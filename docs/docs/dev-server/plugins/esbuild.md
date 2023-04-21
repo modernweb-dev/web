@@ -1,12 +1,6 @@
----
-title: Esbuild
-eleventyNavigation:
-  key: Esbuild
-  parent: Plugins
-  order: 2
----
+# Dev Server >> Plugins >> Esbuild ||3
 
-Plugin for using [esbuild](https://github.com/evanw/esbuild) in web dev server and web test runner. [esbuild](https://github.com/evanw/esbuild) is a blazing fast build tool.
+Plugin for using [esbuild](https://github.com/evanw/esbuild) in Web Dev Server and Web Test Runner. [esbuild](https://github.com/evanw/esbuild) is a blazing fast build tool.
 
 It can be used for fast single-file transforms, for example to transform TS, JSX, TSX and JSON to JS, or to transform modern JS to an older version of JS for older browsers.
 
@@ -28,6 +22,10 @@ export default {
 };
 ```
 
+## Single file transforms
+
+Note that the esbuild plugin uses the [esbuild single file transform API](https://esbuild.github.io/api/#transform-api), transforming files as they are requested by the browser. We don't use esbuild's bundling API, so some features like module transformation are not available.
+
 ## Configuration
 
 We expose the following options for esbuild. Most of them are a mirror of the esbuild API, check the esbuild docs to learn more about them.
@@ -47,6 +45,7 @@ type Loader =
 
 interface EsbuildPluginArgs {
   target?: string | string[];
+  js?: boolean;
   ts?: boolean;
   json?: boolean;
   jsx?: boolean;
@@ -54,8 +53,8 @@ interface EsbuildPluginArgs {
   jsxFactory?: string;
   jsxFragment?: string;
   loaders?: Record<string, Loader>;
-  strict?: boolean | Strict[];
   define?: { [key: string]: string };
+  tsconfig?: string;
 }
 ```
 
@@ -124,6 +123,17 @@ Transform all .ts files to javascript:
 
 ```js
 esbuildPlugin({ ts: true });
+```
+
+Transform all .ts files to javascript using settings from tsconfig.json. (The `tsconfig.json` file is not read by default.)
+
+```js
+import { fileURLToPath } from 'url';
+
+esbuildPlugin({
+  ts: true,
+  tsconfig: fileURLToPath(new URL('./tsconfig.json', import.meta.url)),
+});
 ```
 
 **JSX:**

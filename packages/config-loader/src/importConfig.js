@@ -37,7 +37,7 @@ async function importConfig(path) {
   } catch (e) {
     if (CJS_ERRORS.some(msg => e.stack.includes(msg))) {
       throw new ConfigLoaderError(
-        'You are using CommonJS syntax in a config loaded as es module. ' +
+        'You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module. ' +
           'Use import/export syntax, or load the file as a CommonJS module by ' +
           'using the .cjs file extension or by removing type="module" from your package.json.',
       );

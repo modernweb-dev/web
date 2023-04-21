@@ -10,35 +10,35 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 describe('visualRegressionPlugin', function test() {
   this.timeout(20000);
 
-  it.skip('can run a passing test', async () => {
-    await runTests(
-      {
-        browsers: [
-          chromeLauncher(),
-          playwrightLauncher({ product: 'firefox' }),
-          playwrightLauncher({ product: 'webkit' }),
-        ],
-        plugins: [
-          {
-            name: 'resolve-commands',
-            resolveImport({ source }) {
-              if (source === '@web/test-runner-commands') {
-                return '/packages/test-runner-commands/browser/commands.mjs';
-              }
-            },
+  it('can run a passing test', async () => {
+    await runTests({
+      files: [path.join(__dirname, 'diff-pass-test.js')],
+      browsers: [
+        chromeLauncher(),
+        playwrightLauncher({ product: 'firefox' }),
+        playwrightLauncher({ product: 'webkit' }),
+      ],
+      plugins: [
+        {
+          name: 'resolve-commands',
+          resolveImport({ source }) {
+            if (source === '@web/test-runner-commands') {
+              return '/packages/test-runner-commands/browser/commands.mjs';
+            }
           },
-          visualRegressionPlugin({
-            update: process.argv.includes('--update-visual-diffs'),
-          }),
-        ],
-      },
-      [path.join(__dirname, 'diff-pass-test.js')],
-    );
+        },
+        visualRegressionPlugin({
+          baseDir: 'packages/test-runner-visual-regression/screenshots',
+          update: process.argv.includes('--update-visual-diffs'),
+        }),
+      ],
+    });
   });
 
-  it.skip('can run a failed test', async () => {
-    const runner = await runTests(
+  it('can run a failed test', async () => {
+    const { sessions } = await runTests(
       {
+        files: [path.join(__dirname, 'diff-fail-test.js')],
         browsers: [
           chromeLauncher(),
           playwrightLauncher({ product: 'firefox' }),
@@ -54,15 +54,15 @@ describe('visualRegressionPlugin', function test() {
             },
           },
           visualRegressionPlugin({
+            baseDir: 'packages/test-runner-visual-regression/screenshots',
             update: process.argv.includes('--update-visual-diffs'),
           }),
         ],
       },
-      [path.join(__dirname, 'diff-fail-test.js')],
+      [],
       { allowFailure: true, reportErrors: false },
     );
 
-    const sessions = Array.from(runner.sessions.all());
     expect(sessions.length).to.equal(3);
 
     for (const session of sessions) {

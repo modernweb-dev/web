@@ -1,0 +1,53 @@
+{
+  "name": "@web/rollup-plugin-polyfills-loader",
+  "version": "2.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Plugin for injecting a polyfills loader to HTML pages",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modern-web/web.git",
+    "directory": "packages/rollup-plugin-polyfills-loader"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modern-web/web/packages/rollup-plugin-polyfills-loader",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "test": "mocha test/**/*.test.ts --require ts-node/register",
+    "test:update-snapshots": "mocha test/**/*.test.ts --require ts-node/register --update-snapshots",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+  },
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "*.mjs",
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "rollup-plugin",
+    "minify",
+    "html",
+    "polyfill",
+    "loader",
+    "feature detection"
+  ],
+  "dependencies": {
+    "@web/polyfills-loader": "^2.0.0"
+  },
+  "devDependencies": {
+    "@web/rollup-plugin-html": "^2.0.0",
+    "rollup": "^3.15.0"
+  }
+}

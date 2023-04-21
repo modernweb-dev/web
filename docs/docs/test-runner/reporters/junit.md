@@ -1,10 +1,4 @@
----
-title: JUnit
-eleventyNavigation:
-  key: JUnit
-  parent: Reporters
-  order: 20
----
+# Test Runner >> Reporters >> JUnit ||20
 
 JUnit XML reporter for web test runner
 
@@ -20,14 +14,15 @@ Web test runner JUnit reporter accepts two options:
 ## Example
 
 ```js
-import { defaultReporter } from '@web/test-runner-cli';
+import { defaultReporter } from '@web/test-runner';
 import { junitReporter } from '@web/test-runner-junit-reporter';
 
 export default {
   nodeResolve: true,
   reporters: [
-    // add the default reporter if you want to retain the test runner reporting in the CLI
-    defaultReporter(),
+    // use the default reporter only for reporting test progress
+    defaultReporter({ reportTestResults: false, reportTestProgress: true }),
+    // use another reporter to report test results
     junitReporter({
       outputPath: './results/test-results.xml', // default `'./test-results.xml'`
       reportLogs: true, // default `false`

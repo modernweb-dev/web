@@ -1,5 +1,1100 @@
 # @web/test-runner
 
+## 0.16.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+- Updated dependencies [b7d8ee66]
+- Updated dependencies [72c63bc5]
+  - @web/browser-logs@0.3.0
+  - @web/config-loader@0.2.0
+  - @web/dev-server@0.2.0
+  - @web/test-runner-chrome@0.13.0
+  - @web/test-runner-commands@0.7.0
+  - @web/test-runner-core@0.11.0
+  - @web/test-runner-mocha@0.8.0
+
+## 0.15.3
+
+### Patch Changes
+
+- c103f166: Update `isbinaryfile`
+- 18a16bb0: Update `html-minifier-terser`
+- d8579f15: Update `command-line-usage`
+- 445b20e6: Update `convert-source-map`
+- 6188c8ff: chore(deps): update dependency concurrently to v8
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [77e413d9]
+- Updated dependencies [cdeafe4a]
+- Updated dependencies [c103f166]
+- Updated dependencies [18a16bb0]
+- Updated dependencies [1113fa09]
+- Updated dependencies [d8579f15]
+- Updated dependencies [817d674b]
+- Updated dependencies [445b20e6]
+- Updated dependencies [9b83280e]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/test-runner-chrome@0.12.1
+  - @web/test-runner-core@0.10.29
+  - @web/dev-server@0.1.38
+  - @web/browser-logs@0.2.6
+  - @web/test-runner-commands@0.6.6
+
+## 0.15.2
+
+### Patch Changes
+
+- b8198d19: Report browsers logs when using summary reporter
+- bf82ccf1: Indent nested suites in summaryReporter output
+- 57fd96c4: Export formatError from `@web/test-runner`
+- Updated dependencies [0f5631d0]
+- Updated dependencies [0e198dcc]
+  - @web/dev-server@0.1.37
+  - @web/test-runner-chrome@0.12.0
+
+## 0.15.1
+
+### Patch Changes
+
+- b2c85736: Report browsers logs when using summary reporter
+
+## 0.15.0
+
+### Minor Changes
+
+- acca5d51: Update dependency v8-to-istanbul to v9
+
+### Patch Changes
+
+- Updated dependencies [acca5d51]
+  - @web/test-runner-chrome@0.11.0
+
+## 0.14.1
+
+### Patch Changes
+
+- 04e2fa7d: Update portfinder dependency to 1.0.32
+- Updated dependencies [04e2fa7d]
+  - @web/dev-server@0.1.35
+
+## 0.14.0
+
+### Minor Changes
+
+- 13b75cf3: Add browser name to summaryReporter output
+
+### Patch Changes
+
+- Updated dependencies [00da4255]
+  - @web/dev-server@0.1.33
+
+## 0.13.31
+
+### Patch Changes
+
+- 570cdf70: - improve caching of snapshots in-memory
+  - don't block browser command on writing snapshot to disk
+  - don't write snapshot to disk for each change, batch write per file
+- Updated dependencies [78d610d1]
+- Updated dependencies [570cdf70]
+  - @web/dev-server@0.1.32
+  - @web/test-runner-commands@0.6.3
+  - @web/test-runner-core@0.10.27
+
+## 0.13.30
+
+### Patch Changes
+
+- fff82902: Add types field to package.json exports map
+
+## 0.13.29
+
+### Patch Changes
+
+- 8e3bb3cf: Add "forcedColors" support to "emulateMedia" command
+- Updated dependencies [8e3bb3cf]
+- Updated dependencies [efe42a8f]
+  - @web/test-runner-commands@0.6.2
+
+## 0.13.28
+
+### Patch Changes
+
+- 2b6854cd: Ignore external urls from coverage
+
+## 0.13.27
+
+### Patch Changes
+
+- 3192c9ff: Update puppeteer-core dependency to 13.1.3
+- Updated dependencies [3192c9ff]
+  - @web/test-runner-chrome@0.10.7
+
+## 0.13.26
+
+### Patch Changes
+
+- 7c2fa463: Update puppeteer-core and puppeteer to v13
+- Updated dependencies [7c2fa463]
+  - @web/test-runner-chrome@0.10.6
+
+## 0.13.25
+
+### Patch Changes
+
+- 24cc9212: Add `sendMousePlugin` to the default test runner config so that it will load automatically.
+
+## 0.13.24
+
+### Patch Changes
+
+- 65eed8d7: Adds a summary reporter which lists all the tests run when the test runner finishes.
+
+  ```js
+  import { summaryReporter } from '@web/test-runner';
+  export default {
+    reporters: [summaryReporter()],
+  };
+  ```
+
+  If you'd like to flatten the suite names, so that each test is reported with it's full chain of suite titles, set the `flatten` option to true.
+
+  ```js
+  summaryReporter({ flatten: true });
+  ```
+
+- 8edded31: Adds a dot reporter a la mocha.
+
+  ```js
+  import { dotReporter } from '@web/test-runner';
+  export default {
+    reporters: [dotReporter()],
+  };
+  ```
+
+## 0.13.23
+
+### Patch Changes
+
+- Updated dependencies [36a06160]
+- Updated dependencies [064b9dde]
+  - @web/test-runner-commands@0.6.0
+
+## 0.13.22
+
+### Patch Changes
+
+- 3f79c247: Update dependency chrome-launcher to ^0.15.0
+- Updated dependencies [3f79c247]
+  - @web/test-runner-chrome@0.10.5
+
+## 0.13.21
+
+### Patch Changes
+
+- aab9a42f: Update dependency puppeteer-core to v11
+- Updated dependencies [aab9a42f]
+  - @web/test-runner-chrome@0.10.4
+
+## 0.13.20
+
+### Patch Changes
+
+- 64bd29ac: Corrected the typings for test-runner user config `testFramework` option
+- Updated dependencies [64bd29ac]
+  - @web/test-runner-core@0.10.22
+
+## 0.13.19
+
+### Patch Changes
+
+- e6c7459e: Use full path to browser session file
+- Updated dependencies [e6c7459e]
+  - @web/test-runner-mocha@0.7.5
+
+## 0.13.18
+
+### Patch Changes
+
+- d4f92e25: Replace uuid dependency with nanoid
+- a09282b4: Replace chalk with nanocolors
+- Updated dependencies [d4f92e25]
+- Updated dependencies [a09282b4]
+  - @web/test-runner-core@0.10.21
+  - @web/dev-server@0.1.24
+
+## 0.13.17
+
+### Patch Changes
+
+- de756b28: Update dependency puppeteer-core to v10
+- Updated dependencies [de756b28]
+  - @web/test-runner-chrome@0.10.3
+
+## 0.13.16
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+- Updated dependencies [33ada3d8]
+  - @web/test-runner-chrome@0.10.2
+  - @web/test-runner-commands@0.5.10
+  - @web/test-runner-mocha@0.7.4
+
+## 0.13.15
+
+### Patch Changes
+
+- 73681b6d: Allow user config to be partial
+- Updated dependencies [73681b6d]
+  - @web/test-runner-core@0.10.19
+
+## 0.13.14
+
+### Patch Changes
+
+- cb693c71: Use block comments in snapshots to make them work in all browsers
+- Updated dependencies [cb693c71]
+  - @web/test-runner-commands@0.5.6
+
+## 0.13.13
+
+### Patch Changes
+
+- b362288a: make snapshots work on all browsers
+- Updated dependencies [b362288a]
+  - @web/test-runner-commands@0.5.5
+
+## 0.13.12
+
+### Patch Changes
+
+- 7cc5d13f: Fix coverage branch fusion
+- Updated dependencies [51de0db1]
+  - @web/test-runner-core@0.10.18
+
+## 0.13.11
+
+### Patch Changes
+
+- 270a633a: dynamic import web socket module
+- Updated dependencies [270a633a]
+  - @web/test-runner-commands@0.5.4
+
+## 0.13.10
+
+### Patch Changes
+
+- 3af6ff86: improve snapshot formatting
+- Updated dependencies [3af6ff86]
+  - @web/test-runner-commands@0.5.3
+
+## 0.13.9
+
+### Patch Changes
+
+- 773160f9: expose mocha runner
+- Updated dependencies [773160f9]
+  - @web/test-runner-mocha@0.7.3
+
+## 0.13.8
+
+### Patch Changes
+
+- 94cddfab: fix: allow stripXMLInvalidChars when replace it not available
+
+## 0.13.7
+
+### Patch Changes
+
+- 91e0e617: add compareSnapshot function
+- Updated dependencies [91e0e617]
+  - @web/test-runner-commands@0.5.2
+
+## 0.13.6
+
+### Patch Changes
+
+- 339d05f7: add snapshots plugin
+- Updated dependencies [339d05f7]
+  - @web/test-runner-commands@0.5.1
+
+## 0.13.5
+
+### Patch Changes
+
+- Updated dependencies [c3ead4fa]
+  - @web/test-runner-commands@0.5.0
+
+## 0.13.4
+
+### Patch Changes
+
+- 6f80be68: fix(test-runner): fix error when function metadata varies between tests, as seen in [https://github.com/modernweb-dev/web/issues/689](https://github.com/modernweb-dev/web/issues/689) and [https://github.com/istanbuljs/v8-to-istanbul/issues/121](https://github.com/istanbuljs/v8-to-istanbul/issues/121).
+- Updated dependencies [6f80be68]
+  - @web/test-runner-core@0.10.17
+
+## 0.13.3
+
+### Patch Changes
+
+- e7efd5b7: use script origin to connect websocket
+- 16c6d567: Automatically loads `sendKeysPlugin` in the default test runner config
+- Updated dependencies [e7efd5b7]
+  - @web/dev-server@0.1.17
+  - @web/test-runner-core@0.10.16
+
+## 0.13.2
+
+### Patch Changes
+
+- 21f53211: add commands for reading/writing files
+- Updated dependencies [6bf34874]
+- Updated dependencies [21f53211]
+  - @web/dev-server@0.1.16
+  - @web/test-runner-commands@0.4.5
+
+## 0.13.1
+
+### Patch Changes
+
+- 6c5893cc: use unescaped import specifier
+- Updated dependencies [6c5893cc]
+  - @web/dev-server@0.1.15
+  - @web/test-runner-core@0.10.15
+
+## 0.13.0
+
+### Minor Changes
+
+- 2c06f31e: Update puppeteer and puppeteer-core to 8.0.0
+
+### Patch Changes
+
+- Updated dependencies [a6a018da]
+- Updated dependencies [2c06f31e]
+  - @web/test-runner-chrome@0.10.0
+  - @web/test-runner-commands@0.4.4
+  - @web/browser-logs@0.2.2
+  - @web/dev-server@0.1.14
+
+## 0.12.20
+
+### Patch Changes
+
+- 1d9411a3: Export `sendKeysPlugin` from `@web/test-runner-commands/plugins`.
+  Loosen the typing of the command payload.
+- d2389bac: Add a11ySnapshotPlugin to acquire the current accessibility tree from the browser:
+
+  ```js
+  import { a11ySnapshot, findAccessibilityNode } from '@web/test-runner-commands';
+
+  // ...
+
+  const nodeName = 'Label Text';
+  const snapshot = await a11ySnapshot();
+  const foundNode = findAccessibilityNode(snapshot, node => node.name === nodeName);
+  expect(foundNode).to.not.be.null;
+  ```
+
+- Updated dependencies [1d9411a3]
+- Updated dependencies [d2389bac]
+  - @web/test-runner-commands@0.4.3
+
+## 0.12.19
+
+### Patch Changes
+
+- ce90c7c3: Add the `sendKeys` command
+
+  Sends a string of keys for the browser to press (all at once, as with single keys
+  or shortcuts; e.g. `{press: 'Tab'}` or `{press: 'Shift+a'}` or
+  `{press: 'Option+ArrowUp}`) or type (in sequence, e.g. `{type: 'Your name'}`) natively.
+
+  For specific documentation of the strings to leverage here, see the Playwright documentation,
+  here:
+
+  - `press`: https://playwright.dev/docs/api/class-keyboard#keyboardpresskey-options
+  - `type`: https://playwright.dev/docs/api/class-keyboard#keyboardtypetext-options
+
+  Or, the Puppeter documentation, here:
+
+  - `press`: https://pptr.dev/#?product=Puppeteer&show=api-keyboardpresskey-options
+  - `type`: https://pptr.dev/#?product=Puppeteer&show=api-keyboardtypetext-options
+
+  @param payload An object including a `press` or `type` property an the associated string
+  for the browser runner to apply via that input method.
+
+  @example
+
+  ```ts
+  await sendKeys({
+    press: 'Tab',
+  });
+  ```
+
+  @example
+
+  ```ts
+  await sendKeys({
+    type: 'Your address',
+  });
+  ```
+
+- Updated dependencies [0a05464b]
+- Updated dependencies [ce90c7c3]
+  - @web/dev-server@0.1.11
+  - @web/test-runner-commands@0.4.2
+  - @web/test-runner-core@0.10.14
+
+## 0.12.18
+
+### Patch Changes
+
+- 4c5fa2fe: coverageConfig now uses object spread to merge with defaults
+
+## 0.12.17
+
+### Patch Changes
+
+- aea269c9: Capture visual regressions across changing screenshot sizes.
+
+## 0.12.16
+
+### Patch Changes
+
+- b146365a: Add `buildCache` option to the visual regression config to support always saving the "current" screenshot.
+  Make the `update` option in the visual regression config _strict_, and only save "current" shots as "baseline" when it is set to `true`.
+- Updated dependencies [b146365a]
+  - @web/test-runner-core@0.10.13
+
+## 0.12.15
+
+### Patch Changes
+
+- 83750cd2: fallback to fetch on IE11
+- Updated dependencies [83750cd2]
+- Updated dependencies [096fe25f]
+  - @web/test-runner-core@0.10.11
+  - @web/dev-server@0.1.7
+
+## 0.12.14
+
+### Patch Changes
+
+- 2c223cf0: filter server stream errors
+- Updated dependencies [2c223cf0]
+  - @web/dev-server@0.1.6
+  - @web/test-runner-core@0.10.10
+
+## 0.12.13
+
+### Patch Changes
+
+- 3885b33e: configure timeout for fetching source maps for code coverage
+- Updated dependencies [3885b33e]
+  - @web/test-runner-core@0.10.9
+
+## 0.12.12
+
+### Patch Changes
+
+- 4a609a18: skip non-http coverage files
+- Updated dependencies [4a609a18]
+  - @web/test-runner-chrome@0.9.4
+
+## 0.12.11
+
+### Patch Changes
+
+- e3314b02: update dependency on core
+- Updated dependencies [e3314b02]
+  - @web/test-runner-commands@0.4.1
+  - @web/test-runner-mocha@0.7.2
+
+## 0.12.10
+
+### Patch Changes
+
+- 9ecb49f4: release test coverage package
+- Updated dependencies [9ecb49f4]
+  - @web/test-runner-chrome@0.9.3
+
+## 0.12.9
+
+### Patch Changes
+
+- 83e0757e: handle cases when userAgent is not defined
+- Updated dependencies [83e0757e]
+  - @web/test-runner-chrome@0.9.2
+  - @web/test-runner-core@0.10.8
+
+## 0.12.8
+
+### Patch Changes
+
+- 8861ded8: feat(dev-server-core): share websocket instances with iframe parent
+- Updated dependencies [8861ded8]
+  - @web/test-runner-core@0.10.6
+
+## 0.12.7
+
+### Patch Changes
+
+- c37b4343: Don't use red text color when there are 0 failures
+
+## 0.12.6
+
+### Patch Changes
+
+- ad815710: fetch source map from server when generating code coverage reports. this fixes errors when using build tools that generate source maps on the fly, which don't exist on the file system
+- c4738a40: support non-inline source maps for stack traces
+- Updated dependencies [ad815710]
+- Updated dependencies [c4738a40]
+  - @web/test-runner-chrome@0.9.1
+  - @web/test-runner-core@0.10.5
+
+## 0.12.5
+
+### Patch Changes
+
+- 43bc451c: add configuration option reporters in coverageConfig to use various istanbul reporters
+- fd831b54: fix manual testing HTML tests
+- Updated dependencies [43bc451c]
+- Updated dependencies [fd831b54]
+  - @web/test-runner-core@0.10.4
+
+## 0.12.4
+
+### Patch Changes
+
+- 82ce63d1: add backwards compatibility for "middlewares" config property
+- Updated dependencies [82ce63d1]
+  - @web/dev-server@0.1.5
+
+## 0.12.3
+
+### Patch Changes
+
+- 8e3b1128: fix regression introduced in filterBrowserLogs function that flipped the return value. returning true now properly includes the logs
+- d5a5f2bf: Add undeclared dependencies
+- Updated dependencies [8e3b1128]
+- Updated dependencies [d5a5f2bf]
+  - @web/test-runner-core@0.10.3
+
+## 0.12.2
+
+### Patch Changes
+
+- 66638204: deduplicate parallel source map requests
+- Updated dependencies [66638204]
+- Updated dependencies [5d36f239]
+  - @web/test-runner-core@0.10.2
+  - @web/dev-server@0.1.4
+
+## 0.12.1
+
+### Patch Changes
+
+- 9f1a8a56: normalize test framework path in stack trace
+- Updated dependencies [9f1a8a56]
+  - @web/test-runner-core@0.10.1
+
+## 0.12.0
+
+### Minor Changes
+
+- 1dd7cd0e: improve serialization of stack traces cross-browser
+
+  this adds two breaking changes, which should not affect most users:
+
+  - removed `userAgent` field from `TestSession`
+  - test reporter `reportTestFileResults` is no longer async
+
+- a7d74fdc: drop support for node v10 and v11
+
+### Patch Changes
+
+- Updated dependencies [1dd7cd0e]
+- Updated dependencies [a7d74fdc]
+- Updated dependencies [1dd7cd0e]
+- Updated dependencies [1dd7cd0e]
+  - @web/test-runner-core@0.10.0
+  - @web/test-runner-chrome@0.9.0
+  - @web/test-runner-commands@0.4.0
+  - @web/test-runner-mocha@0.7.0
+  - @web/browser-logs@0.2.0
+
+## 0.11.7
+
+### Patch Changes
+
+- cbbeae3f: allow configuring puppeteer and playwright browser context
+- Updated dependencies [cbbeae3f]
+  - @web/test-runner-chrome@0.8.2
+
+## 0.11.6
+
+### Patch Changes
+
+- 69b2d13d: use about:blank to kill stale browser pages, this makes tests that rely on browser focus work with puppeteer
+- 005ab9ae: use fast chrome-launcher installation finder
+- Updated dependencies [69b2d13d]
+- Updated dependencies [375116ad]
+- Updated dependencies [005ab9ae]
+  - @web/test-runner-chrome@0.8.1
+  - @web/dev-server@0.1.3
+
+## 0.11.5
+
+### Patch Changes
+
+- f2a84204: reduce delay when clearing terminal between test runs
+- Updated dependencies [f2a84204]
+  - @web/test-runner-core@0.9.3
+
+## 0.11.4
+
+### Patch Changes
+
+- b92fa63e: filter out non-objects from config
+- Updated dependencies [b92fa63e]
+  - @web/dev-server@0.1.2
+
+## 0.11.3
+
+### Patch Changes
+
+- af9811e2: regenerate MJS entrypoint
+- Updated dependencies [af9811e2]
+  - @web/test-runner-core@0.9.2
+
+## 0.11.2
+
+### Patch Changes
+
+- eceb6295: match dotfiles when resolving mimetypes
+- Updated dependencies [eceb6295]
+  - @web/dev-server@0.1.1
+  - @web/test-runner-core@0.9.1
+
+## 0.11.1
+
+### Patch Changes
+
+- 3e861601: include url params when resolving stack traces
+
+## 0.11.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+- 0f613e0e: handle modules resolved outside root dir
+- 36f6ab39: update to node-resolve v11
+
+### Patch Changes
+
+- 65de3390: reuse common dev server plugins
+- Updated dependencies [6e313c18]
+- Updated dependencies [6e313c18]
+- Updated dependencies [0f613e0e]
+- Updated dependencies [36f6ab39]
+- Updated dependencies [6055a600]
+  - @web/config-loader@0.1.3
+  - @web/test-runner-core@0.9.0
+  - @web/test-runner-chrome@0.8.0
+  - @web/test-runner-commands@0.3.0
+  - @web/test-runner-mocha@0.6.0
+  - @web/dev-server@0.1.0
+
+## 0.10.2
+
+### Patch Changes
+
+- a5dead1: reuse common dev server plugins
+
+## 0.10.1
+
+### Patch Changes
+
+- 836abc0: handle errors thrown when (de)serializing browser logs
+- f6107a4: handle logging shadow root
+- Updated dependencies [836abc0]
+- Updated dependencies [5ac055f]
+  - @web/test-runner-core@0.8.12
+  - @web/dev-server-rollup@0.2.13
+
+## 0.10.0
+
+### Minor Changes
+
+- 0620eb9: fix(test-runner): run node-resolve after user plugins
+
+## 0.9.13
+
+### Patch Changes
+
+- db298f0: make saucelabs a dev dependency
+
+## 0.9.12
+
+### Patch Changes
+
+- 13993fa: avoid under 1 concurrency
+- Updated dependencies [13993fa]
+  - @web/test-runner-cli@0.6.13
+
+## 0.9.11
+
+### Patch Changes
+
+- 0614acf: update v8-to-istanbul
+- Updated dependencies [2278a95]
+  - @web/test-runner-chrome@0.7.3
+  - @web/test-runner-cli@0.6.12
+  - @web/test-runner-core@0.8.11
+
+## 0.9.10
+
+### Patch Changes
+
+- 8da3fe0: add debug option
+- Updated dependencies [8da3fe0]
+  - @web/test-runner-cli@0.6.11
+
+## 0.9.9
+
+### Patch Changes
+
+- 0f0d474: track manual test session imports
+- Updated dependencies [0f0d474]
+  - @web/test-runner-cli@0.6.10
+  - @web/test-runner-core@0.8.9
+
+## 0.9.8
+
+### Patch Changes
+
+- 4bbaa21: use consistent paths on windows
+- Updated dependencies [4bbaa21]
+  - @web/test-runner-core@0.8.8
+
+## 0.9.7
+
+### Patch Changes
+
+- 382affc: don't require files to exist on disk for coverage
+- Updated dependencies [a70da8d]
+  - @web/test-runner-cli@0.6.9
+
+## 0.9.6
+
+### Patch Changes
+
+- e21a4cf: add coverage failure per type when below threshold
+- Updated dependencies [e21a4cf]
+  - @web/test-runner-cli@0.6.8
+
+## 0.9.5
+
+### Patch Changes
+
+- 145a8e6: correctly encode/decode test framework url
+- Updated dependencies [145a8e6]
+  - @web/test-runner-core@0.8.7
+  - @web/test-runner-cli@0.6.7
+
+## 0.9.4
+
+### Patch Changes
+
+- 49fba90: run user plugins after builtin plugins
+
+## 0.9.3
+
+### Patch Changes
+
+- 304558e: fix(test-runner): deduplicated browsers when reporting
+- Updated dependencies [304558e]
+  - @web/test-runner-cli@0.6.6
+  - @web/test-runner-core@0.8.6
+
+## 0.9.2
+
+### Patch Changes
+
+- 4edf123: added option to configure test runner HTML per group
+- cd8928b: separate reporting per browser launcher
+- Updated dependencies [4edf123]
+- Updated dependencies [cd8928b]
+  - @web/test-runner-core@0.8.5
+  - @web/test-runner-cli@0.6.5
+
+## 0.9.1
+
+### Patch Changes
+
+- aadf0fe: Speed up test loading by inling test config and preloading test files.
+- Updated dependencies [416c0d2]
+- Updated dependencies [aadf0fe]
+  - @web/test-runner-chrome@0.7.2
+  - @web/test-runner-cli@0.6.4
+  - @web/test-runner-commands@0.2.1
+  - @web/test-runner-saucelabs@0.1.1
+  - @web/test-runner-core@0.8.4
+  - @web/test-runner-mocha@0.5.1
+
+## 0.9.0
+
+### Minor Changes
+
+- b397a4c: Disabled the in-browser reporter during regular test runs, improving performance.
+
+  Defaulted to the spec reporter instead of the HTML reporter in the browser when debugging. This avoids manipulating the testing environment by default.
+
+  You can opt back into the old behavior by setting the mocha config:
+
+  ```js
+  export default {
+    testFramework: {
+      config: { reporter: 'html' },
+    },
+  };
+  ```
+
+### Patch Changes
+
+- Updated dependencies [b397a4c]
+  - @web/test-runner-mocha@0.5.0
+
+## 0.8.5
+
+### Patch Changes
+
+- c256a08: allow configuring concurrency per browser launcher
+- Updated dependencies [c256a08]
+  - @web/test-runner-cli@0.6.3
+  - @web/test-runner-chrome@0.7.1
+  - @web/test-runner-core@0.8.3
+
+## 0.8.4
+
+### Patch Changes
+
+- 859008b: added experimental mode to test workflows where tests on firefox require the browser window to be focused
+- Updated dependencies [859008b]
+  - @web/test-runner-core@0.8.2
+
+## 0.8.3
+
+### Patch Changes
+
+- 0b5cc82: always print stack traces in errors
+- Updated dependencies [0b5cc82]
+  - @web/test-runner-cli@0.6.2
+
+## 0.8.2
+
+### Patch Changes
+
+- 175b124: fixed reporting multiple test files for a browser
+- 7ec6e94: don't require files option when using groups
+- 438176c: Allow specifying default test group
+- Updated dependencies [175b124]
+- Updated dependencies [7ec6e94]
+- Updated dependencies [438176c]
+  - @web/test-runner-core@0.8.1
+  - @web/test-runner-cli@0.6.1
+
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependencies [80d5814]
+  - @web/test-runner-mocha@0.4.0
+
+## 0.8.0
+
+### Minor Changes
+
+- 2291ca1: replaced HTTP with websocket for server-browser communication
+
+  this improves test speed, especially when a test file makes a lot of concurrent requests
+  it lets us us catch more errors during test execution, and makes us catch them faster
+
+### Patch Changes
+
+- Updated dependencies [2291ca1]
+  - @web/test-runner-chrome@0.7.0
+  - @web/test-runner-cli@0.6.0
+  - @web/test-runner-commands@0.2.0
+  - @web/test-runner-core@0.8.0
+  - @web/test-runner-saucelabs@0.1.0
+
+## 0.7.42
+
+### Patch Changes
+
+- f2d0bb2: avoid using document.baseURI in IE11
+- Updated dependencies [f2d0bb2]
+  - @web/test-runner-mocha@0.3.7
+
+## 0.7.41
+
+### Patch Changes
+
+- ae056f5: throw when combining browsers config and flags
+
+## 0.7.40
+
+### Patch Changes
+
+- 72ffcde: improve error message when no browsers are configured
+- fcc2e28: added manual testing and open browser options
+- Updated dependencies [72ffcde]
+- Updated dependencies [fcc2e28]
+  - @web/test-runner-core@0.7.23
+  - @web/test-runner-cli@0.5.18
+
+## 0.7.39
+
+### Patch Changes
+
+- bd27fff: improve browser and proxy close logic
+- Updated dependencies [bd27fff]
+  - @web/test-runner-core@0.7.22
+  - @web/test-runner-saucelabs@0.0.9
+
+## 0.7.38
+
+### Patch Changes
+
+- c8abc29: fix generating manual debug page
+- Updated dependencies [c8abc29]
+  - @web/test-runner-core@0.7.21
+
+## 0.7.37
+
+### Patch Changes
+
+- 38d8f03: turn on selenium iframe mode by default
+- Updated dependencies [38d8f03]
+- Updated dependencies [38d8f03]
+  - @web/test-runner-cli@0.5.17
+  - @web/test-runner-saucelabs@0.0.8
+
+## 0.7.36
+
+### Patch Changes
+
+- d15ffee: serve iframe page with HTML content-type
+- Updated dependencies [d15ffee]
+  - @web/test-runner-core@0.7.20
+
+## 0.7.35
+
+### Patch Changes
+
+- f5d6086: improve iframe mode speed
+- Updated dependencies [f5d6086]
+  - @web/test-runner-saucelabs@0.0.7
+
+## 0.7.34
+
+### Patch Changes
+
+- c723271: add port CLI flag
+- Updated dependencies [c723271]
+  - @web/test-runner-cli@0.5.16
+
+## 0.7.33
+
+### Patch Changes
+
+- 88cc7ac: Reworked concurrent scheduling logic
+
+  When running tests in multiple browsers, the browsers are no longer all started in parallel. Instead a new `concurrentBrowsers` property controls how many browsers are run concurrently. This helps improve speed and stability.
+
+- Updated dependencies [88cc7ac]
+  - @web/test-runner-chrome@0.6.8
+  - @web/test-runner-cli@0.5.15
+  - @web/test-runner-core@0.7.19
+  - @web/test-runner-saucelabs@0.0.6
+
+## 0.7.32
+
+### Patch Changes
+
+- 34efaad: added support for config groups
+- Updated dependencies [34efaad]
+  - @web/test-runner-cli@0.5.14
+  - @web/test-runner-core@0.7.18
+
+## 0.7.31
+
+### Patch Changes
+
+- 4ac0b3a: added experimental iframes mode to test improve speed when testing with selenium
+- Updated dependencies [4ac0b3a]
+  - @web/test-runner-core@0.7.17
+
+## 0.7.30
+
+### Patch Changes
+
+- 534e92c: added the ability to transform test file imports
+- Updated dependencies [534e92c]
+  - @web/test-runner-core@0.7.16
+  - @web/test-runner-cli@0.5.13
+
+## 0.7.29
+
+### Patch Changes
+
+- 13001e2: bump versions
+
+## 0.7.28
+
+### Patch Changes
+
+- cde5d29: add browser logging for all browser launchers
+- cde5d29: add filterBrowserLogs option
+- Updated dependencies [cde5d29]
+- Updated dependencies [cde5d29]
+  - @web/test-runner-chrome@0.6.7
+  - @web/test-runner-core@0.7.15
+
+## 0.7.27
+
+### Patch Changes
+
+- 6949d03: fix serving generated rollup chunks
+- Updated dependencies [6949d03]
+  - @web/dev-server-rollup@0.2.9
+
+## 0.7.26
+
+### Patch Changes
+
+- 3d6004b: added rollup bundle plugin
+- Updated dependencies [3d6004b]
+  - @web/dev-server-rollup@0.2.8
+
+## 0.7.25
+
+### Patch Changes
+
+- 3c72bdd: fixed serving test files outside cwd
+- Updated dependencies [3c72bdd]
+  - @web/test-runner-core@0.7.14
+
 ## 0.7.24
 
 ### Patch Changes

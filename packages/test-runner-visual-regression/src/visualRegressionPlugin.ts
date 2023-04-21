@@ -1,10 +1,15 @@
 import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher } from '@web/test-runner-chrome';
+import type { PlaywrightLauncher } from '@web/test-runner-playwright';
+import type { WebdriverLauncher } from '@web/test-runner-webdriver';
 
 import { defaultOptions, VisualRegressionPluginOptions } from './config';
-import { visualDiffCommand, VisualDiffCommandResult } from './visualDiffCommand';
+import {
+  visualDiffCommand,
+  VisualDiffCommandContext,
+  VisualDiffCommandResult,
+} from './visualDiffCommand';
 import { VisualRegressionError } from './VisualRegressionError';
-import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
 interface Payload {
   id: string;
@@ -48,6 +53,11 @@ export function visualRegressionPlugin(
             return;
           }
 
+          const context: VisualDiffCommandContext = {
+            testFile: session.testFile,
+            browser: session.browser.name,
+          };
+
           if (session.browser.type === 'puppeteer') {
             const browser = session.browser as ChromeLauncher;
             const page = browser.getPage(session.id);
@@ -58,6 +68,7 @@ export function visualRegressionPlugin(
                 (window as any).__WTR_VISUAL_REGRESSION__[elementId]
               );
             }, payload.id);
+            // @ts-ignore
             const element = handle.asElement();
             if (!element) {
               throw new VisualRegressionError(
@@ -65,8 +76,8 @@ export function visualRegressionPlugin(
               );
             }
 
-            const screenshot = await element.screenshot({ encoding: 'binary' });
-            return visualDiffCommand(mergedOptions, screenshot, session.browser.name, payload.name);
+            const screenshot = (await element.screenshot({ encoding: 'binary' })) as Buffer;
+            return visualDiffCommand(mergedOptions, screenshot, payload.name, context);
           }
 
           if (session.browser.type === 'playwright') {
@@ -87,7 +98,25 @@ export function visualRegressionPlugin(
             }
 
             const screenshot = await element.screenshot();
-            return visualDiffCommand(mergedOptions, screenshot, session.browser.name, payload.name);
+            return visualDiffCommand(mergedOptions, screenshot, payload.name, context);
+          }
+
+          if (session.browser.type === 'webdriver') {
+            const browser = session.browser as WebdriverLauncher;
+
+            const locator = `
+              return (function () {
+                try {
+                  var wtr = window.__WTR_VISUAL_REGRESSION__;
+                  return wtr && wtr[${payload.id}];
+                } catch (_) {
+                  return undefined;
+                }
+              })();
+            `;
+
+            const screenshot = await browser.takeScreenshot(session.id, locator);
+            return visualDiffCommand(mergedOptions, screenshot, payload.name, context);
           }
 
           throw new Error(

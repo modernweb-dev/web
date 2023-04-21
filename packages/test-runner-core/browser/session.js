@@ -3,9 +3,8 @@
 /** @typedef {import('../dist/index').TestResult} TestResult */
 /** @typedef {import('../dist/index').TestSuiteResult} TestSuiteResult */
 
-// mocking libraries might overwrite window.fetch, by grabbing a reference here
-// we make sure we are using the original fetch instead of the mocked variant
-const fetch = window.fetch;
+import { sendMessage } from '/__web-dev-server__web-socket.js';
+
 const PARAM_SESSION_ID = 'wtr-session-id';
 const PARAM_TEST_FILE = 'wtr-test-file';
 const PARAM_IMPORT_MAP = 'wds-import-map';
@@ -17,30 +16,17 @@ if (typeof sessionId !== 'string' && typeof testFile !== 'string') {
   throw new Error(`Could not find any session id or test filequery parameter.`);
 }
 
-function postJSON(url, body) {
-  return fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
+if (!window.__WTR_CONFIG__) {
+  const message =
+    'Could not find any config defined by the test runner. Are your dependencies up to date?';
+  sessionFailed({ message });
+  throw new Error(message);
 }
 
-const logs = [];
-
-async function getSessionConfig() {
-  const response = await fetch(`/wtr/${sessionId}/config`);
-  return response.json();
-}
-
-async function getTestFileConfig() {
-  const response = await fetch(`/wtr/test-config`);
-  const config = await response.json();
-  return { ...config, testFile };
-}
-
+// TODO: make this sync
 export async function getConfig() {
   try {
-    const config = await (sessionId ? getSessionConfig() : getTestFileConfig());
+    const config = window.__WTR_CONFIG__;
     const url = new URL(import.meta.url);
 
     // pass on import map parameter to test files, this special cases a specific plugin
@@ -57,7 +43,8 @@ export async function getConfig() {
     };
   } catch (err) {
     await sessionFailed({
-      message: 'Failed to fetch test config',
+      name: err ? err.name : undefined,
+      message: `Failed to fetch test config: ${err ? err.message : 'Unknown error'}`,
       stack: err ? err.stack : undefined,
     });
     throw err;
@@ -66,10 +53,12 @@ export async function getConfig() {
 
 export function sessionFailed(error) {
   return sessionFinished({
+    userAgent: window.navigator.userAgent,
     passed: false,
     errors: [
       // copy references because an Error instance cannot be turned into JSON
       {
+        name: error.name,
         message: error.message,
         stack: error.stack,
         expected: error.expected,
@@ -85,7 +74,7 @@ export async function sessionStarted() {
     return;
   }
 
-  await fetch(`/wtr/${sessionId}/session-started`, { method: 'POST' });
+  await sendMessage({ type: 'wtr-session-started', sessionId, testFile });
 }
 
 export async function sessionFinished(result) {
@@ -99,10 +88,18 @@ export async function sessionFinished(result) {
   }
   finished = true;
 
-  const sessionResult = {
-    logs,
+  const fullResult = {
+    // some browser launchers set browser logs here
+    logs: window.__wtr_browser_logs__ ? window.__wtr_browser_logs__.logs : [],
     errors: [],
     ...result,
   };
-  await postJSON(`/wtr/${sessionId}/session-finished`, sessionResult);
+
+  await sendMessage({
+    type: 'wtr-session-finished',
+    userAgent: window.navigator.userAgent,
+    sessionId,
+    testFile,
+    result: fullResult,
+  });
 }

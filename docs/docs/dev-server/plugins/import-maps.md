@@ -1,10 +1,4 @@
----
-title: Import Maps
-eleventyNavigation:
-  key: Import Maps
-  parent: Plugins
-  order: 4
----
+# Dev Server >> Plugins >> Import Maps ||5
 
 Plugin for resolving imports using [Import maps](https://github.com/WICG/import-maps).
 
@@ -51,7 +45,7 @@ Install the package:
 npm i --save-dev @web/dev-server-import-maps
 ```
 
-Add the plugin to your `web-dev-server-config.mjs` or `web-test-runner.config.js`:
+Add the plugin to your `web-dev-server.config.mjs` or `web-test-runner.config.js`:
 
 ```js
 import { importMapsPlugin } from '@web/dev-server-import-maps';
@@ -128,7 +122,7 @@ export default {
   plugins: [
     importMapsPlugin({
       inject: {
-        incude: '/pages/*.html',
+        include: '/pages/*.html',
         importMap: {
           imports: { foo: './bar.js' },
         },

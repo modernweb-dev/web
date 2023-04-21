@@ -3,7 +3,8 @@ import { Server } from 'net';
 import { FSWatcher } from 'chokidar';
 import { expect } from 'chai';
 import fetch from 'node-fetch';
-import { ServerArgs } from '../../src/Plugin';
+import { Stub, stubMethod } from 'hanbi';
+import { ServerStartParams } from '../../src/plugins/Plugin';
 import { DevServer } from '../../src/server/DevServer';
 import { createTestServer } from '../helpers';
 
@@ -58,7 +59,7 @@ describe('basic', () => {
 });
 
 it('can configure the hostname', async () => {
-  const { server, host } = await createTestServer({ hostname: '0.0.0.0' });
+  const { server, host } = await createTestServer({ hostname: 'localhost' });
   const response = await fetch(`${host}/index.html`);
   const responseText = await response.text();
 
@@ -107,7 +108,7 @@ it('can add extra middleware', async () => {
 });
 
 it('calls serverStart on plugin hook on start', async () => {
-  let startArgs: ServerArgs;
+  let startArgs: ServerStartParams;
   const { server } = await createTestServer({
     plugins: [
       {
@@ -179,4 +180,49 @@ it('waits on server start hooks before starting', async () => {
   expect(aFinished).to.be.true;
   expect(bFinished).to.be.true;
   server.stop();
+});
+
+describe('disableFileWatcher', () => {
+  /**
+   * Extracted setup to ensure `fileWatcher.add` is called when
+   * `disableFileWatch = false`. Only then there is confidence that the
+   * `disableFileWatch = true` actually works.
+   * */
+  const setupDisableFileWatch = async (config: { disableFileWatcher: boolean }) => {
+    let fileWatchStub: Stub<FSWatcher['add']>;
+    const { host, server } = await createTestServer({
+      disableFileWatcher: config.disableFileWatcher,
+      plugins: [
+        {
+          name: 'watcher-stub',
+          serverStart({ fileWatcher }) {
+            fileWatchStub = stubMethod(fileWatcher, 'add');
+          },
+        },
+      ],
+    });
+    // @ts-ignore
+    if (!fileWatchStub) {
+      throw new Error('Something went wrong with stubbing the file watcher');
+    }
+
+    // Ensure something is fetched to trigger all the middlewares
+    await fetch(`${host}/index.html`);
+
+    return { fileWatchStub, host, server };
+  };
+
+  it('disables file watch when true', async () => {
+    const { fileWatchStub, server } = await setupDisableFileWatch({ disableFileWatcher: true });
+
+    expect(fileWatchStub.callCount).to.equal(0);
+    server.stop();
+  });
+
+  it('leaves file watch in tact when false', async () => {
+    const { fileWatchStub, server } = await setupDisableFileWatch({ disableFileWatcher: false });
+
+    expect(fileWatchStub.callCount).to.gt(0);
+    server.stop();
+  });
 });

@@ -1,14 +1,14 @@
 import picoMatch from 'picomatch';
 import { isAbsolute, posix, sep } from 'path';
 
-import { MimeTypeMappings } from '../DevServerCoreConfig';
-import { Plugin } from '../Plugin';
+import { MimeTypeMappings } from '../server/DevServerCoreConfig';
+import { Plugin } from './Plugin';
 import { getRequestFilePath } from '../utils';
 
 function createMatcher(rootDir: string, pattern: string) {
   const resolvedPattern =
     !isAbsolute(pattern) && !pattern.startsWith('*') ? posix.join(rootDir, pattern) : pattern;
-  return picoMatch(resolvedPattern);
+  return picoMatch(resolvedPattern, { dot: true });
 }
 
 interface Matcher {
@@ -33,7 +33,7 @@ export function mimeTypesPlugin(mappings: MimeTypeMappings): Plugin {
     },
 
     resolveMimeType(context) {
-      const filePath = getRequestFilePath(context, rootDir);
+      const filePath = getRequestFilePath(context.url, rootDir);
       for (const matcher of matchers) {
         if (matcher.fn(filePath)) {
           return matcher.mimeType;

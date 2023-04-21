@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-junit-reporter",
-  "version": "0.1.2",
+  "version": "0.6.0",
   "publishConfig": {
     "access": "public"
   },
@@ -14,8 +14,14 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-junit-reporter",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -38,21 +44,13 @@
     "reporter"
   ],
   "dependencies": {
-    "@web/test-runner-chrome": "^0.6.4",
-    "@web/test-runner-cli": "^0.5.4",
-    "@web/test-runner-core": "^0.7.4",
+    "@web/test-runner-chrome": "^0.13.0",
+    "@web/test-runner-core": "^0.11.0",
     "array-flat-polyfill": "^1.0.1",
     "xml": "^1.0.1"
   },
   "devDependencies": {
     "@types/xml": "^1.0.5",
-    "@web/test-runner-cli": "^0.5.4",
-    "@web/test-runner-playwright": "^0.5.4"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
+    "@web/test-runner-playwright": "^0.10.0"
   }
 }

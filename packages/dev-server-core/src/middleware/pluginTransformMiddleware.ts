@@ -1,7 +1,7 @@
 import { FSWatcher } from 'chokidar';
 import { Middleware } from 'koa';
 
-import { DevServerCoreConfig } from '../DevServerCoreConfig';
+import { DevServerCoreConfig } from '../server/DevServerCoreConfig';
 import { PluginTransformCache } from './PluginTransformCache';
 import { getRequestFilePath, getResponseBody, RequestCancelledError } from '../utils';
 import { Logger } from '../logger/Logger';
@@ -10,8 +10,8 @@ import { Logger } from '../logger/Logger';
  * Sets up a middleware which allows plugins to transform files before they are served to the browser.
  */
 export function pluginTransformMiddleware(
-  config: DevServerCoreConfig,
   logger: Logger,
+  config: DevServerCoreConfig,
   fileWatcher: FSWatcher,
 ): Middleware {
   const cache = new PluginTransformCache(fileWatcher, config.rootDir);
@@ -59,6 +59,7 @@ export function pluginTransformMiddleware(
           if (result.body != null) {
             context.body = result.body;
             transformedCode = true;
+            logger.debug(`Plugin ${plugin.name} transformed ${context.path}.`);
           }
 
           if (result.headers) {
@@ -69,13 +70,19 @@ export function pluginTransformMiddleware(
         } else if (typeof result === 'string') {
           context.body = result;
           transformedCode = true;
+          logger.debug(`Plugin ${plugin.name} transformed ${context.path}.`);
         }
       }
 
       if (transformedCode && !disableCache) {
         logger.debug(`Added cache key "${cacheKey}" to plugin transform cache`);
-        const filePath = getRequestFilePath(context, config.rootDir);
-        cache.set(filePath, context.body, context.response.headers, cacheKey);
+        const filePath = getRequestFilePath(context.url, config.rootDir);
+        cache.set(
+          filePath,
+          context.body,
+          context.response.headers as Record<string, string>,
+          cacheKey,
+        );
       }
     } catch (error) {
       if (error instanceof RequestCancelledError) {

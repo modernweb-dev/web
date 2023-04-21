@@ -1,8 +1,8 @@
-import path from 'path';
 import { fileURLToPath } from 'url';
+import { resolve } from 'path';
 
 export default {
-  rootDir: fileURLToPath(path.join(import.meta.url, '../../../../..')),
-  appIndex: '/packages/dev-server/demo/node-resolve/index.html',
+  rootDir: resolve(fileURLToPath(import.meta.url), '..', '..', '..'),
+  appIndex: '/demo/node-resolve/index.html',
   nodeResolve: true,
 };

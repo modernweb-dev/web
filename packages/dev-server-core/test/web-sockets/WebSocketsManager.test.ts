@@ -1,10 +1,11 @@
 import { expect } from 'chai';
 import WebSocket from 'ws';
+import { NAME_WEB_SOCKET_API } from '../../src/web-sockets/WebSocketsManager';
 
 import { createTestServer } from '../helpers';
 
 function waitFor(fn: (resolve: () => void) => void, msg: string) {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     const timeoutId = setTimeout(() => {
       reject(new Error(msg));
     }, 1000);
@@ -29,7 +30,7 @@ describe('WebSocketManager', () => {
     let ws: WebSocket;
 
     try {
-      ws = new WebSocket(`ws://localhost:${port}`);
+      ws = new WebSocket(`ws://localhost:${port}/${NAME_WEB_SOCKET_API}`);
 
       await waitFor(resolve => {
         ws.on('open', resolve);
@@ -48,7 +49,7 @@ describe('WebSocketManager', () => {
     let ws: WebSocket;
 
     try {
-      ws = new WebSocket(`ws://localhost:${port}`);
+      ws = new WebSocket(`ws://localhost:${port}/${NAME_WEB_SOCKET_API}`);
       await waitFor(resolve => {
         ws.on('open', resolve);
       }, 'expected web socket to open');
@@ -77,8 +78,8 @@ describe('WebSocketManager', () => {
     let ws2: WebSocket;
 
     try {
-      ws1 = new WebSocket(`ws://localhost:${port}`);
-      ws2 = new WebSocket(`ws://localhost:${port}`);
+      ws1 = new WebSocket(`ws://localhost:${port}/${NAME_WEB_SOCKET_API}`);
+      ws2 = new WebSocket(`ws://localhost:${port}/${NAME_WEB_SOCKET_API}`);
 
       const waitForOpen1 = waitFor(resolve => {
         ws1.on('open', resolve);
@@ -118,7 +119,7 @@ describe('WebSocketManager', () => {
     let ws: WebSocket;
 
     try {
-      ws = new WebSocket(`ws://localhost:${port}`);
+      ws = new WebSocket(`ws://localhost:${port}/${NAME_WEB_SOCKET_API}`);
       await waitFor(resolve => {
         ws.on('open', resolve);
       }, 'expected web socket to open');
@@ -126,12 +127,12 @@ describe('WebSocketManager', () => {
       const waitForMessage = waitFor(resolve => {
         server.webSockets.on('message', ({ webSocket, data }) => {
           expect(webSocket).to.be.an.instanceOf(WebSocket);
-          expect(data).to.equal('foo');
+          expect(data).to.eql({ type: 'foo' });
           resolve();
         });
       }, 'expected message event fired from manager');
 
-      ws.send('foo');
+      ws.send(JSON.stringify({ type: 'foo' }));
       await waitForMessage;
     } finally {
       server.stop();
@@ -147,7 +148,7 @@ describe('WebSocketManager', () => {
     let ws: WebSocket;
 
     try {
-      ws = new WebSocket(`ws://localhost:${port}`);
+      ws = new WebSocket(`ws://localhost:${port}/${NAME_WEB_SOCKET_API}`);
       await waitFor(resolve => {
         ws.on('open', resolve);
       }, 'expected web socket to open');
@@ -182,7 +183,7 @@ describe('WebSocketManager', () => {
     let ws: WebSocket;
 
     try {
-      ws = new WebSocket(`ws://localhost:${port}`);
+      ws = new WebSocket(`ws://localhost:${port}/${NAME_WEB_SOCKET_API}`);
       await waitFor(resolve => {
         ws.on('open', resolve);
       }, 'expected web socket to open');

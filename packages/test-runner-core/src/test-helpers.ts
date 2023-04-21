@@ -3,8 +3,9 @@ import { getPortPromise } from 'portfinder';
 import path from 'path';
 import { TestRunner, TestRunnerCoreConfig } from './index';
 import { Logger } from './logger/Logger';
-import { TestResult, TestSuiteResult } from './test-session/TestSession';
+import { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession';
 import { SESSION_STATUS } from './test-session/TestSessionStatus';
+import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig';
 
 const logger: Logger = {
   ...console,
@@ -16,6 +17,9 @@ const logger: Logger = {
   },
 };
 
+const secondMs = 1000;
+const minuteMs = secondMs * 60;
+
 const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   watch: false,
   rootDir: path.join(__dirname, '..', '..', '..'),
@@ -25,39 +29,61 @@ const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   protocol: 'http:',
   hostname: 'localhost',
   reporters: [],
+  concurrentBrowsers: 2,
   concurrency: 10,
-  browserStartTimeout: 30000,
-  testsStartTimeout: 10000,
-  testsFinishTimeout: 20000,
-  logBrowserLogs: true,
-  logUncaughtErrors: true,
+  browserStartTimeout: minuteMs / 2,
+  testsStartTimeout: secondMs * 20,
+  testsFinishTimeout: minuteMs * 2,
+  browserLogs: true,
   logger,
 };
 
 export async function runTests(
   config: Partial<TestRunnerCoreConfig>,
-  testFiles: string[],
+  groupConfigs?: TestRunnerGroupConfig[],
   {
     allowFailure = false,
     reportErrors = true,
   }: { allowFailure?: boolean; reportErrors?: boolean } = {},
-): Promise<TestRunner> {
+): Promise<{ runner: TestRunner; sessions: TestSession[] }> {
   return new Promise(async (resolve, reject) => {
     const port = await getPortPromise({ port: 9000 + Math.floor(Math.random() * 1000) });
     const finalConfig = {
       port,
       ...defaultBaseConfig,
       ...config,
+      testFramework: {
+        ...defaultBaseConfig.testFramework,
+        ...config.testFramework,
+      },
     } as TestRunnerCoreConfig;
 
-    const runner = new TestRunner(finalConfig, testFiles);
+    const runner = new TestRunner(finalConfig, groupConfigs);
 
     // runner.sessions.on('session-status-updated', session => {
     //   console.log(session.browser.name, session.id, session.status);
     // });
 
     let finished = false;
-    runner.on('finished', () => {
+
+    runner.on('test-run-finished', ({ testRun, testCoverage }) => {
+      for (const reporter of finalConfig.reporters) {
+        reporter.onTestRunFinished?.({
+          testRun,
+          sessions: Array.from(runner.sessions.all()),
+          testCoverage,
+          focusedTestFile: runner.focusedTestFile,
+        });
+      }
+    });
+
+    runner.on('finished', async () => {
+      for (const reporter of finalConfig.reporters) {
+        await reporter.stop?.({
+          sessions: Array.from(runner.sessions.all()),
+          focusedTestFile: runner.focusedTestFile,
+        });
+      }
       finished = true;
       runner.stop();
     });
@@ -74,11 +100,7 @@ export async function runTests(
 
       if (reportErrors) {
         for (const session of sessions) {
-          if (
-            !session.passed ||
-            session.logs.some(l => l.length > 0) ||
-            session.request404s.length > 0
-          ) {
+          if (!session.passed || session.request404s.length > 0) {
             console.log('');
             console.log(
               'Failed test file:',
@@ -134,10 +156,8 @@ export async function runTests(
       }
 
       if (allowFailure || passed) {
-        resolve(runner);
+        resolve({ runner, sessions });
       } else {
-        console.error('Failed tests:');
-        console.error(sessions.filter(s => !s.passed));
         reject(new Error('Test run did not pass'));
       }
     });

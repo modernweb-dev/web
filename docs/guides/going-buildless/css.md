@@ -1,19 +1,13 @@
----
-title: CSS
-eleventyNavigation:
-  key: CSS
-  parent: Going Buildless
-  order: 30
----
+# Going Buildless >> CSS ||30
 
 ```js script
 // TODO: find out why this is needed?
 import { html } from 'lit-html';
 ```
 
-<abbr>CSS</abbr> stands for "Cascading Style Sheets", and it is the primary way to design web content, whether visually and audially.
+<abbr>CSS</abbr> stands for "Cascading Style Sheets", and it is the primary way to design web content, whether visually or audially.
 
-The purpose of this document isn't to provide a comprehensive tutorial of CSS, or even to cover the basics, but rather to highlight some modern CSS techniques and workflows made possible by web standards. Be sure you are familiar with CSS before continuing. If you are unsure check out MDN's [Learn to style HTML using CSS](https://developer.mozilla.org/en-US/docs/guides/CSS).
+The purpose of this document isn't to provide a comprehensive tutorial of CSS, or even to cover the basics, but rather to highlight some modern CSS techniques and workflows made possible by web standards. Be sure you are familiar with CSS before continuing. If you are unsure check out MDN's [Learn to style HTML using CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS).
 
 ## CSS Custom Properties
 
@@ -56,13 +50,14 @@ With this CSS in play, the following document would show two paragraphs, both `c
 
 ```html preview-story
 <style>
-  html {
+  :host {
     --my-background-color: green;
     --my-font-size: 12px;
   }
 
-  article {
+  article p {
     --my-font-size: 24px;
+    --my-background-color: cornflowerblue;
     --p-padding-horizontal: 12px;
   }
 
@@ -70,7 +65,7 @@ With this CSS in play, the following document would show two paragraphs, both `c
     display: inline-block;
     border-radius: 4px;
     padding: 4px var(--p-padding-horizontal, 6px);
-    background-color: var(--my-background-color, cornflowerblue);
+    background-color: var(--my-background-color);
     font-size: var(--my-font-size);
   }
 </style>
@@ -88,13 +83,13 @@ The style rules which are ultimately applied to an element depend on all the rul
 
 While the cascade is fundamental to CSS, and is certainly useful, it can at times make it more difficult to control the styles applied to a portion of a document. This is particularly important when designing reusable components, which should maintain their style no matter where they're used.
 
-While a number of toolchains and techniques for achieving style encapsulation, like [BEM](http://getbem.com/introduction/) and [Styled Components](https://github.com/styled-components/styled-components), the web platform itself provides a native mechanism for isolating styles, called [Shadow DOM](https://www.w3.org/TR/shadow-dom/).
+While a number of toolchains and techniques exist for achieving style encapsulation, like [BEM](http://getbem.com/introduction/) and [Styled Components](https://github.com/styled-components/styled-components), the web platform itself provides a native mechanism for isolating styles, called [Shadow DOM](https://www.w3.org/TR/shadow-dom/).
 
 Isolating a portion of a document within a shadow root allows designers to write the CSS for that component without worrying about how their CSS will affect the rest of the document. Shadow DOM removes the need for complex CSS toolchains or naming conventions. Designers can use simple type, id, or class selectors, in that order.
 
 ### Inherited Values
 
-Shadow roots prevent their internal styles from "leaking out" to affect the rest of the document, but they do not prevent document styles from "reaching in" to affect the internal styles of an encapsulated component. Specifically, [inheritted CSS properties](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance) are said to "pierce the shadow boundary" in that way.
+Shadow roots prevent their internal styles from "leaking out" to affect the rest of the document, but they do not prevent document styles from "reaching in" to affect the internal styles of an encapsulated component. Specifically, [inherited CSS properties](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance) are said to "pierce the shadow boundary" in that way.
 
 Some commonly-used inherited properties include:
 
@@ -111,3 +106,21 @@ html {
   --theme-gap: 16px;
 }
 ```
+
+However, you might still need to contain custom properties in a self containing component.
+For example
+
+```html
+<my-layout gap="md">
+  <!-- will set its --layout-gap to 16px -->
+  <my-layout>
+    <!--
+    --layout-gap is authored to default to an initial value of 4px BUT
+    as its parent layout component pierces the Shadow boundary it'll set
+    this child layout component --layout-gap with the 16px unexpectedly
+    -->
+  </my-layout>
+</my-layout>
+```
+
+In this case, [registering your Custom Property](https://developer.mozilla.org/en-US/docs/Web/CSS/@property) can help prevent inheritance if explicitly set to.

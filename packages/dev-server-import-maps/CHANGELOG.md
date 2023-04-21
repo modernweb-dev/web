@@ -1,5 +1,57 @@
 # @web/dev-server-import-maps
 
+## 0.1.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+  - @web/parse5-utils@2.0.0
+
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
+## 0.0.7
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+- Updated dependencies [00da4255]
+  - @web/dev-server-core@0.3.19
+
+## 0.0.6
+
+### Patch Changes
+
+- ca749b0e: Update dependency @types/parse5 to v6
+- Updated dependencies [ca749b0e]
+  - @web/parse5-utils@1.3.0
+
+## 0.0.5
+
+### Patch Changes
+
+- 662dad92: allow remapping to another domain
+- 3ad36405: add import map id to preload links
+
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [0f613e0e]
+  - @web/dev-server-core@0.3.0
+
 ## 0.0.3
 
 ### Patch Changes

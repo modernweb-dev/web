@@ -8,9 +8,13 @@ const REGEXP_ABSOLUTE = /^(?:\/|(?:[A-Za-z]:)?[\\|/])/;
  * @returns {string}
  */
 export function toBrowserPath(filePath: string) {
-  return filePath.replace(new RegExp(path.sep === '\\' ? '\\\\' : path.sep, 'g'), '/');
+  return filePath.split(path.sep).join('/');
 }
 
 export function isAbsoluteFilePath(path: string) {
   return REGEXP_ABSOLUTE.test(path);
+}
+
+export function isOutsideRootDir(path: string) {
+  return path.startsWith('/__wds-outside-root__/');
 }

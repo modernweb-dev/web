@@ -4,8 +4,14 @@
 /packages/test-runner-mocha/*.d.ts
 /packages/config-loader/
 /packages/*/test/**/fixtures
+/packages/*/test/**/snapshots
 /packages/dev-server-rollup/test/browser/**/*
-node_modules
+/integration/test-runner/tests/*/browser-tests
+/packages/dev-server-storybook/storybook-static/**/*
+/packages/dev-server-hmr/scripts/**/*
+/packages/test-runner/demo/
+/node_modules/
+/packages/*/node_modules/
 dist
 demo
 CHANGELOG.md

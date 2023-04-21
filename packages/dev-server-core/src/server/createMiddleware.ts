@@ -1,9 +1,8 @@
 import { Middleware } from 'koa';
 import koaEtag from 'koa-etag';
-import koaStatic from 'koa-static';
 import { FSWatcher } from 'chokidar';
 
-import { DevServerCoreConfig } from '../DevServerCoreConfig';
+import { DevServerCoreConfig } from './DevServerCoreConfig';
 import { basePathMiddleware } from '../middleware/basePathMiddleware';
 import { etagCacheMiddleware } from '../middleware/etagCacheMiddleware';
 import { historyApiFallbackMiddleware } from '../middleware/historyApiFallbackMiddleware';
@@ -12,6 +11,8 @@ import { pluginServeMiddleware } from '../middleware/pluginServeMiddleware';
 import { pluginTransformMiddleware } from '../middleware/pluginTransformMiddleware';
 import { Logger } from '../logger/Logger';
 import { watchServedFilesMiddleware } from '../middleware/watchServedFilesMiddleware';
+import { pluginFileParsedMiddleware } from '../middleware/pluginFileParsedMiddleware';
+import { serveFilesMiddleware } from '../middleware/serveFilesMiddleware';
 
 /**
  * Creates middlewares based on the given configuration. The middlewares can be
@@ -40,8 +41,10 @@ export function createMiddleware(
     middlewares.push(m);
   }
 
-  // watch files that are served
-  middlewares.push(watchServedFilesMiddleware(fileWatcher, config.rootDir));
+  if (!config.disableFileWatcher) {
+    // watch files that are served
+    middlewares.push(watchServedFilesMiddleware(fileWatcher, config.rootDir));
+  }
 
   // serves 304 responses if resource hasn't changed
   middlewares.push(etagCacheMiddleware());
@@ -54,22 +57,12 @@ export function createMiddleware(
     middlewares.push(historyApiFallbackMiddleware(config.appIndex, config.rootDir, logger));
   }
 
-  middlewares.push(pluginTransformMiddleware(config, logger, fileWatcher));
-  middlewares.push(pluginMimeTypeMiddleware(config.plugins ?? []));
-  middlewares.push(pluginServeMiddleware(config.plugins ?? []));
-
-  // serve static files
-  middlewares.push(
-    koaStatic(config.rootDir, {
-      hidden: true,
-      defer: true,
-      brotli: false,
-      gzip: false,
-      setHeaders(res) {
-        res.setHeader('cache-control', 'no-cache');
-      },
-    }),
-  );
+  const plugins = config.plugins ?? [];
+  middlewares.push(pluginFileParsedMiddleware(plugins));
+  middlewares.push(pluginTransformMiddleware(logger, config, fileWatcher));
+  middlewares.push(pluginMimeTypeMiddleware(logger, plugins));
+  middlewares.push(pluginServeMiddleware(logger, plugins));
+  middlewares.push(...serveFilesMiddleware(config.rootDir));
 
   return middlewares;
 }

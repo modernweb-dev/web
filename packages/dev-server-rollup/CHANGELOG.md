@@ -1,5 +1,258 @@
 # @web/dev-server-rollup
 
+## 0.5.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- b7d8ee66: Update mocha from version 8.2.0 to version 10.2.0
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+
+## 0.4.1
+
+### Patch Changes
+
+- fa2c1779: Update @rollup/plugin-babel
+- 1113fa09: Update `@rollup/pluginutils`
+- 817d674b: Update `browserslist-useragent`
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+  - @web/dev-server-core@0.4.1
+
+## 0.4.0
+
+### Minor Changes
+
+- acc0a84c: Expand support for Rollup plugins with child plugins, specifically the Node Resolve plugin.
+
+### Patch Changes
+
+- a2198172: fix rollup adapter resolution for virtual modules on Windows
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
+## 0.3.21
+
+### Patch Changes
+
+- bd06b8cd: revert change #2078
+
+## 0.3.20
+
+### Patch Changes
+
+- ab27e502: fix rollup adapter virtual modules resolution for windows environments
+
+## 0.3.19
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+- Updated dependencies [00da4255]
+  - @web/dev-server-core@0.3.19
+
+## 0.3.18
+
+### Patch Changes
+
+- 78d610d1: Update Rollup, use moduleSideEffects flag
+- Updated dependencies [39610b4c]
+  - @web/dev-server-core@0.3.18
+
+## 0.3.17
+
+### Patch Changes
+
+- 7156b231: Fixed a bug causing packages with common root names to not resolve in monorepos as outside the root dir.
+
+## 0.3.16
+
+### Patch Changes
+
+- e10b680d: Support node entry points (export map) containing stars.
+
+## 0.3.15
+
+### Patch Changes
+
+- 156e0b66: Update rollup dependency to 2.66.1
+
+## 0.3.14
+
+### Patch Changes
+
+- 73286ca6: Add missing exports to mjs entrypoints
+
+## 0.3.13
+
+### Patch Changes
+
+- cbbd5fc8: Resolve missing peer dependency of @rollup/plugin-node-resolve by moving and exposing @rollup/plugin-node-resolve to @web/dev-server-rollup
+
+## 0.3.12
+
+### Patch Changes
+
+- 2b226517: Update whatwg-url dependency to 10.0.0
+- 8a1dfdc0: Update whatwg-url dependency to 11.0.0
+
+## 0.3.11
+
+### Patch Changes
+
+- 96f656aa: Update Rollup to 2.58.0, use isEntry flag
+
+## 0.3.10
+
+### Patch Changes
+
+- a09282b4: Replace chalk with nanocolors
+- Updated dependencies [a09282b4]
+  - @web/dev-server-core@0.3.16
+
+## 0.3.9
+
+### Patch Changes
+
+- 49dcb6bb: Update Rollup dependency to 2.56.2
+
+## 0.3.8
+
+### Patch Changes
+
+- f5351987: Update dependency whatwg-url to v9
+
+## 0.3.7
+
+### Patch Changes
+
+- 687d4750: Downgrade @rollup/plugin-node-resolve to v11
+
+## 0.3.6
+
+### Patch Changes
+
+- 9c97ea53: update dependency @rollup/plugin-node-resolve to v13
+
+## 0.3.5
+
+### Patch Changes
+
+- 6222d0b4: fix(dev-server): fixes #1536, correctly handle outside-root paths
+
+## 0.3.4
+
+### Patch Changes
+
+- c41fba24: Support for subpath imports
+
+  👉 `my-pkg/package.json`
+
+  ```json
+  {
+    "name": "my-pkg",
+    "imports": {
+      "#internal-a": "./path/to/internal-a.js"
+    }
+  }
+  ```
+
+  👉 `my-pkg/src/file.js`
+
+  ```js
+  import { private } from '#internal-a';
+  ```
+
+  Subpath imports are not available to users of your package
+
+  👉 `other-pkg/src/file.js`
+
+  ```js
+  // both will fail
+  import { private } from 'my-pkg#internal-a';
+  import { private } from 'my-pkg/path/to/internal-a.js';
+  ```
+
+## 0.3.3
+
+### Patch Changes
+
+- 0a05464b: do not resolve multiple times outside root files
+
+## 0.3.2
+
+### Patch Changes
+
+- 5d36f239: allow resolving extensionless absolute file paths
+
+## 0.3.1
+
+### Patch Changes
+
+- 375116ad: fix handling of paths resolved outside the root dir. we now correctly use the resolved path when resolving relative imports and when populating the transform cache
+- 2f205878: handle null bytes in HTML
+- Updated dependencies [375116ad]
+  - @web/dev-server-core@0.3.2
+
+## 0.3.0
+
+### Minor Changes
+
+- 0f613e0e: handle modules resolved outside root dir
+
+### Patch Changes
+
+- Updated dependencies [0f613e0e]
+  - @web/dev-server-core@0.3.0
+
+## 0.2.13
+
+### Patch Changes
+
+- 5ac055f: don't handle virtual files
+
+## 0.2.12
+
+### Patch Changes
+
+- d6de058: don't throw on unresolved local imports
+- 6950c7a: improve error message
+
+## 0.2.11
+
+### Patch Changes
+
+- 4913db2: implement moduleParsed hook
+- Updated dependencies [f0472df]
+  - @web/dev-server-core@0.2.17
+
+## 0.2.10
+
+### Patch Changes
+
+- e2b93b6: Add error when a bare import cannot be resolved
+
+## 0.2.9
+
+### Patch Changes
+
+- 6949d03: fix serving generated rollup chunks
+
+## 0.2.8
+
+### Patch Changes
+
+- 3d6004b: added rollup bundle plugin
+
 ## 0.2.7
 
 ### Patch Changes

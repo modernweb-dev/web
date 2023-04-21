@@ -1,10 +1,4 @@
----
-title: Hooks
-eleventyNavigation:
-  key: Hooks
-  parent: Writing Plugins
-  order: 2
----
+# Dev Server >> Writing Plugins >> Hooks ||3
 
 ## Hook: serve
 
@@ -136,7 +130,7 @@ In a web server, the response body is not always a string, but it can be a binar
 <details>
   <summary>Read more</summary>
 
-Rewrite the base path of your application for local development;
+Rewrite the base path of your application for local development:
 
 ```js
 export default {
@@ -255,6 +249,23 @@ export default {
 };
 ```
 
+Set custom HTTP headers (e.g. for [COOP/COEP](https://web.dev/coop-coep/), [CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy), etc.):
+
+```js
+export default {
+  plugins: [
+    {
+      name: 'my-plugin',
+      transform(context) {
+        if (context.path === '/index.html') {
+          context.set('X-My-Custom-Header', 'hello, world');
+        }
+      },
+    },
+  ],
+};
+```
+
 </details>
 &nbsp;
 
@@ -321,6 +332,10 @@ The `serverStart` hook is called when the server starts. It is the ideal locatio
 Accessing the serverStart parameters:
 
 ```js
+import _glob from 'glob';
+import { promisify } from 'util';
+const glob = promisify(_glob);
+
 function myFancyPlugin() {
   let rootDir;
 
@@ -336,8 +351,14 @@ function myFancyPlugin() {
         return next();
       });
 
-      // register a file to be watched
-      fileWatcher.add('/foo.md');
+      // register a single file to be watched
+      fileWatcher.add('/README.md');
+
+      // register multiple files to be watched
+      const files = await glob('{elements}/**/*.{ts,css,html}', { cwd: process.cwd() });
+      for (const file of files) {
+        fileWatcher.add(file);
+      }
     },
   };
 }

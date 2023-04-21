@@ -1,0 +1,11 @@
+{
+  "name": "dev-server-esbuild-demo",
+  "version": "1.0.0",
+  "license": "ISC",
+  "scripts": {
+    "start": "wds --node-resolve --open --watch"
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.1.30"
+  }
+}

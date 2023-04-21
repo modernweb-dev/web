@@ -1,16 +1,24 @@
 import { extname, join, isAbsolute, sep, posix } from 'path';
 import { CoverageMapData } from 'istanbul-lib-coverage';
 import v8toIstanbulLib from 'v8-to-istanbul';
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
+import { TestRunnerCoreConfig, fetchSourceMap } from '@web/test-runner-core';
 import { Profiler } from 'inspector';
 import picoMatch from 'picomatch';
+import LruCache from 'lru-cache';
 
-import { toFilePath, fileExists } from './utils';
+import { toFilePath } from './utils';
 
-type V8Coverage = Profiler.ScriptCoverage & { source?: string };
+type V8Coverage = Profiler.ScriptCoverage;
 type Matcher = (test: string) => boolean;
+type V8Converter = ReturnType<typeof v8toIstanbulLib>;
 
 const cachedMatchers = new Map<string, Matcher>();
+
+// Cache the v8-to-istanbul converters between calls since they
+// result in loading files from disk repeatedly otherwise.
+const cachedConverters = new LruCache<string, V8Converter>({
+  max: 200,
+});
 
 // coverage base dir must be separated with "/"
 const coverageBaseDir = process.cwd().split(sep).join('/');
@@ -38,30 +46,53 @@ export async function v8ToIstanbul(
   config: TestRunnerCoreConfig,
   testFiles: string[],
   coverage: V8Coverage[],
+  userAgent?: string,
 ) {
   const included = getMatcher(config?.coverageConfig?.include);
   const excluded = getMatcher(config?.coverageConfig?.exclude);
   const istanbulCoverage: CoverageMapData = {};
 
   for (const entry of coverage) {
-    const path = new URL(entry.url).pathname;
-    if (!!extname(path) && !path.startsWith('/__web-test-runner__/')) {
-      const filePath = join(config.rootDir, toFilePath(path));
+    const url = new URL(entry.url);
+    const path = url.pathname;
+    if (
+      // ignore non-http protocols (for exmaple webpack://)
+      url.protocol.startsWith('http') &&
+      // ignore external urls
+      url.hostname === config.hostname &&
+      url.port === `${config.port}` &&
+      // ignore non-files
+      !!extname(path) &&
+      // ignore virtual files
+      !path.startsWith('/__web-test-runner') &&
+      !path.startsWith('/__web-dev-server')
+    ) {
+      try {
+        const filePath = join(config.rootDir, toFilePath(path));
 
-      if (
-        (await fileExists(filePath)) &&
-        !testFiles.includes(filePath) &&
-        included(filePath) &&
-        !excluded(filePath)
-      ) {
-        const converter = v8toIstanbulLib(
-          filePath,
-          0,
-          entry.source ? { source: entry.source } : undefined,
-        );
-        await converter.load();
-        converter.applyCoverage(entry.functions);
-        Object.assign(istanbulCoverage, converter.toIstanbul());
+        if (!testFiles.includes(filePath) && included(filePath) && !excluded(filePath)) {
+          const sources = await fetchSourceMap({
+            protocol: config.protocol,
+            host: config.hostname,
+            port: config.port,
+            browserUrl: `${url.pathname}${url.search}${url.hash}`,
+            userAgent,
+          });
+
+          const cachedConverter = cachedConverters.get(filePath);
+          const converter = cachedConverter ?? v8toIstanbulLib(filePath, 0, sources as any);
+
+          if (!cachedConverter) {
+            await converter.load();
+            cachedConverters.set(filePath, converter);
+          }
+
+          converter.applyCoverage(entry.functions);
+          Object.assign(istanbulCoverage, converter.toIstanbul());
+        }
+      } catch (error) {
+        console.error(`Error while generating code coverage for ${entry.url}.`);
+        console.error(error);
       }
     }
   }

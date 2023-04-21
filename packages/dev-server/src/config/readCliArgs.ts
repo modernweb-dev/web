@@ -34,6 +34,12 @@ const options: (OptionDefinition & { description: string })[] = [
       'The root directory to serve files from. Defaults to the current working directory.',
   },
   {
+    name: 'base-path',
+    alias: 'b',
+    type: String,
+    description: 'Prefix to strip from requests URLs.',
+  },
+  {
     name: 'open',
     alias: 'o',
     type: String,
@@ -63,6 +69,17 @@ const options: (OptionDefinition & { description: string })[] = [
     type: Boolean,
   },
   {
+    name: 'port',
+    alias: 'p',
+    description: 'Port to bind the server to.',
+    type: Number,
+  },
+  {
+    name: 'hostname',
+    alias: 'h',
+    description: 'Hostname to bind the server to.',
+  },
+  {
     name: 'esbuild-target',
     type: String,
     multiple: true,
@@ -70,9 +87,14 @@ const options: (OptionDefinition & { description: string })[] = [
       'JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user agent. Check the docs for more options.',
   },
   {
+    name: 'debug',
+    type: Boolean,
+    description: 'Whether to log debug messages.',
+  },
+  {
     name: 'help',
     type: Boolean,
-    description: 'Print help commands',
+    description: 'List all possible commands.',
   },
 ];
 

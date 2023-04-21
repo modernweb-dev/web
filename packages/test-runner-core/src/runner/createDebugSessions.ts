@@ -1,23 +1,19 @@
-import { v4 as uuid } from 'uuid';
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
+import { nanoid } from 'nanoid';
 import { DebugTestSession } from '../test-session/DebugTestSession';
+import { TestSession } from '../test-session/TestSession';
 
-export function createDebugSessions(
-  browsers: BrowserLauncher[],
-  testFile: string,
-): DebugTestSession[] {
-  const sessions = [];
+export function createDebugSessions(sessions: TestSession[]): DebugTestSession[] {
+  const debugSessions = [];
 
-  for (const browser of browsers) {
-    const session: DebugTestSession = {
-      id: uuid(),
-      testFile,
+  for (const session of sessions) {
+    const debugSession: DebugTestSession = {
+      ...session,
+      id: nanoid(),
       debug: true,
-      browser,
     };
 
-    sessions.push(session);
+    debugSessions.push(debugSession);
   }
 
-  return sessions;
+  return debugSessions;
 }

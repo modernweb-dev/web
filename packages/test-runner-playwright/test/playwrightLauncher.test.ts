@@ -1,28 +1,85 @@
-import { runTests } from '@web/test-runner-core/test-helpers';
-import { resolve } from 'path';
-
+import os from 'os';
+import { runIntegrationTests } from '../../../integration/test-runner';
 import { playwrightLauncher } from '../src/index';
 
-it('runs tests with playwright', async function () {
-  this.timeout(50000);
+describe('test-runner-playwright chromium', function testRunnerPlaywright() {
+  this.timeout(100000);
 
-  await runTests(
-    {
-      browsers: [
-        playwrightLauncher({ product: 'chromium' }),
-        playwrightLauncher({ product: 'firefox' }),
-        playwrightLauncher({ product: 'webkit' }),
-      ],
-      concurrency: 3,
-    },
-    [
-      resolve(__dirname, 'fixtures', 'a.js'),
-      resolve(__dirname, 'fixtures', 'b.js'),
-      resolve(__dirname, 'fixtures', 'c.js'),
-      resolve(__dirname, 'fixtures', 'd.js'),
-      resolve(__dirname, 'fixtures', 'e.js'),
-      resolve(__dirname, 'fixtures', 'f.js'),
-      resolve(__dirname, 'fixtures', 'g.js'),
-    ],
-  );
+  function createConfig() {
+    return { browsers: [playwrightLauncher({ product: 'chromium' })] };
+  }
+
+  runIntegrationTests(createConfig, {
+    basic: true,
+    many: true,
+    focus: true,
+    groups: true,
+    parallel: true,
+    testFailure: true,
+    locationChanged: true,
+  });
 });
+
+describe('test-runner-playwright webkit', function testRunnerPlaywright() {
+  this.timeout(100000);
+
+  function createConfig() {
+    return { browsers: [playwrightLauncher({ product: 'webkit' })] };
+  }
+
+  runIntegrationTests(createConfig, {
+    basic: true,
+    many: true,
+    focus: true,
+    groups: true,
+    parallel: true,
+    testFailure: true,
+    locationChanged: true,
+  });
+});
+
+// we don't run all tests in the windows CI
+if (os.platform() !== 'win32') {
+  describe('test-runner-playwright firefox', function testRunnerPlaywright() {
+    this.timeout(100000);
+
+    function createConfig() {
+      return { browsers: [playwrightLauncher({ product: 'firefox' })] };
+    }
+
+    runIntegrationTests(createConfig, {
+      basic: true,
+      many: true,
+      focus: true,
+      groups: true,
+      // firefox doesn't like parallel in the CI
+      parallel: false,
+      testFailure: true,
+      locationChanged: true,
+    });
+  });
+
+  describe('test-runner-playwright all', function testRunnerPlaywright() {
+    this.timeout(100000);
+
+    function createConfig() {
+      return {
+        browsers: [
+          playwrightLauncher({ product: 'chromium' }),
+          playwrightLauncher({ product: 'firefox' }),
+          playwrightLauncher({ product: 'webkit' }),
+        ],
+      };
+    }
+
+    runIntegrationTests(createConfig, {
+      basic: true,
+      many: true,
+      focus: true,
+      groups: true,
+      parallel: false,
+      testFailure: false,
+      locationChanged: false,
+    });
+  });
+}

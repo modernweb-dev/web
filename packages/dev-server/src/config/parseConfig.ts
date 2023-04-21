@@ -37,6 +37,10 @@ export function validateConfig(config: Partial<DevServerConfig>) {
   numberSettings.forEach(key => validate(config, key, 'number'));
   booleanSettings.forEach(key => validate(config, key, 'boolean'));
 
+  if (config.basePath != null && !config.basePath.startsWith('/')) {
+    throw new Error(`basePath property must start with a /. Received: ${config.basePath}`);
+  }
+
   if (
     config.esbuildTarget != null &&
     !(typeof config.esbuildTarget === 'string' || Array.isArray(config.esbuildTarget))
@@ -59,7 +63,16 @@ export async function parseConfig(
   cliArgs?: DevServerCliArgs,
 ): Promise<DevServerConfig> {
   const mergedConfigs = mergeConfigs(defaultConfig, config, cliArgs);
+
+  // backwards compatibility for configs written for es-dev-server, where middleware was
+  // spelled incorrectly as middlewares
+  if (Array.isArray((mergedConfigs as any).middlewares)) {
+    mergedConfigs.middleware!.push(...(mergedConfigs as any).middlewares);
+  }
+
   const finalConfig = validateConfig(mergedConfigs);
+  // filter out non-objects from plugin list
+  finalConfig.plugins = (finalConfig.plugins ?? []).filter(pl => typeof pl === 'object');
 
   // ensure rootDir is always resolved
   if (typeof finalConfig.rootDir === 'string') {
@@ -68,24 +81,24 @@ export async function parseConfig(
 
   // generate a default random port
   if (typeof finalConfig.port !== 'number') {
-    const port = 9000 + Math.floor(Math.random() * 1000);
-    finalConfig.port = await getPortPromise({ port });
-  }
-
-  // map flags to plugin
-  if (finalConfig?.esbuildTarget) {
-    finalConfig.plugins!.push(esbuildPlugin(finalConfig.esbuildTarget));
+    finalConfig.port = await getPortPromise({ port: 8000 });
   }
 
   if (finalConfig.nodeResolve) {
     const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
+    // do node resolve after user plugins, to allow user plugins to resolve imports
     finalConfig.plugins!.push(
-      nodeResolvePlugin(finalConfig.rootDir!, config.preserveSymlinks, userOptions),
+      nodeResolvePlugin(finalConfig.rootDir!, finalConfig.preserveSymlinks, userOptions),
     );
   }
 
+  // map flags to plugin
+  if (finalConfig?.esbuildTarget) {
+    finalConfig.plugins!.unshift(esbuildPlugin(finalConfig.esbuildTarget));
+  }
+
   if (finalConfig.watch) {
-    finalConfig.plugins!.push(watchPlugin());
+    finalConfig.plugins!.unshift(watchPlugin());
   }
 
   return finalConfig;

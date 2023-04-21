@@ -1,6 +1,7 @@
 import path from 'path';
 
-import { VisualRegressionPluginOptions } from './config';
+import { VisualRegressionPluginOptions, DiffResult } from './config';
+import { VisualRegressionError } from './VisualRegressionError';
 
 function resolveImagePath(baseDir: string, name: string) {
   const finalName = path.extname(name) ? name : `${name}.png`;
@@ -16,14 +17,43 @@ export interface VisualDiffCommandResult {
   passed: boolean;
 }
 
+export interface VisualDiffCommandContext {
+  browser: string;
+  testFile: string;
+}
+
+function passesFailureThreshold(
+  { diffPercentage, diffPixels }: DiffResult,
+  { failureThresholdType, failureThreshold }: VisualRegressionPluginOptions,
+): { passed: boolean; message?: string } {
+  if (failureThresholdType === 'percent') {
+    return diffPercentage <= failureThreshold
+      ? { passed: true }
+      : {
+          passed: false,
+          // if diff is suitably small, output raw value, otherwise to two decimal points.
+          // this avoids outputting a failure value of "0.00%"
+          message: `${diffPercentage < 0.005 ? diffPercentage : diffPercentage.toFixed(2)}%`,
+        };
+  }
+
+  if (failureThresholdType === 'pixel') {
+    return diffPixels <= failureThreshold
+      ? { passed: true }
+      : { passed: false, message: `${diffPixels} pixels` };
+  }
+
+  throw new VisualRegressionError(`Unrecognized failureThresholdType: ${failureThresholdType}`);
+}
+
 export async function visualDiffCommand(
   options: VisualRegressionPluginOptions,
   image: Buffer,
-  browser: string,
   name: string,
+  { browser, testFile }: VisualDiffCommandContext,
 ): Promise<VisualDiffCommandResult> {
   const baseDir = path.resolve(options.baseDir);
-  const baselineName = options.getBaselineName({ browser, name });
+  const baselineName = options.getBaselineName({ browser, name, testFile });
 
   const baselineImage = await options.getBaseline({
     filePath: resolveImagePath(baseDir, baselineName),
@@ -31,7 +61,7 @@ export async function visualDiffCommand(
     name: baselineName,
   });
 
-  if (!baselineImage || options.update) {
+  if (options.update) {
     await options.saveBaseline({
       filePath: resolveImagePath(baseDir, baselineName),
       baseDir,
@@ -41,36 +71,72 @@ export async function visualDiffCommand(
     return { diffPercentage: -1, passed: true };
   }
 
-  const diffName = options.getDiffName({ browser, name });
-  const failedName = options.getFailedName({ browser, name });
+  const diffName = options.getDiffName({ browser, name, testFile });
+  const failedName = options.getFailedName({ browser, name, testFile });
+  const diffFilePath = resolveImagePath(baseDir, diffName);
 
-  const { diffImage, diffPercentage } = await options.getImageDiff({
+  const saveFailed = async () => {
+    await options.saveFailed({
+      filePath: resolveImagePath(baseDir, failedName),
+      baseDir,
+      name: failedName,
+      content: image,
+    });
+  };
+
+  const saveDiff = async () => {
+    await options.saveDiff({
+      filePath: diffFilePath,
+      baseDir,
+      name: diffName,
+      content: diffImage,
+    });
+  };
+
+  if (!baselineImage) {
+    await saveFailed();
+
+    return {
+      errorMessage: 'There was no baseline image to compare against.',
+      diffPercentage: -1,
+      passed: false,
+    };
+  }
+
+  const result = await options.getImageDiff({
     name,
     baselineImage,
     image,
     options: options.diffOptions,
   });
-  const passed = diffPercentage === 0;
+
+  const { error, diffImage } = result;
+
+  if (error) {
+    // The diff has failed, be sure to save the new image.
+    await saveFailed();
+    await saveDiff();
+
+    return {
+      passed: false,
+      errorMessage: error,
+      diffPercentage: -1,
+    };
+  }
+
+  const { passed, message } = passesFailureThreshold(result, options);
 
   if (!passed) {
-    await options.saveDiff({
-      filePath: resolveImagePath(baseDir, diffName),
-      baseDir,
-      name: diffName,
-      content: diffImage,
-    });
+    await saveDiff();
+  }
 
-    await options.saveFailed({
-      filePath: resolveImagePath(baseDir, failedName),
-      baseDir,
-      name: failedName,
-      content: diffImage,
-    });
+  if (!passed || options.buildCache) {
+    await saveFailed();
   }
 
   return {
     errorMessage: !passed
-      ? `Visual diff failed. New screenshot is ${diffPercentage.toFixed(2)} % different.`
+      ? `Visual diff failed. New screenshot is ${message} different.\nSee diff for details: ${diffFilePath}`
       : undefined,
     diffPercentage: -1,
     passed,

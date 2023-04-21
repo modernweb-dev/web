@@ -1,0 +1,55 @@
+{
+  "name": "@web/rollup-plugin-html",
+  "version": "2.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Rollup plugin for bundling HTML files",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/rollup-plugin-html"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/rollup-plugin-html",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "demo:mpa": "rm -rf demo/dist && rollup -c demo/mpa/rollup.config.js --watch & yarn serve-demo",
+    "demo:spa": "rm -rf demo/dist && rollup -c demo/spa/rollup.config.js --watch & yarn serve-demo",
+    "serve-demo": "node ../dev-server/dist/bin.js --watch --root-dir demo/dist --app-index index.html --compatibility none --open",
+    "test": "mocha test/**/*.test.ts --require ts-node/register",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+  },
+  "files": [
+    "*.js",
+    "*.mjs",
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "rollup",
+    "plugin",
+    "rollup-plugin",
+    "html"
+  ],
+  "dependencies": {
+    "@web/parse5-utils": "^2.0.0",
+    "glob": "^7.1.6",
+    "html-minifier-terser": "^7.1.0",
+    "parse5": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/html-minifier-terser": "^7.0.0",
+    "rollup": "^3.15.0"
+  }
+}

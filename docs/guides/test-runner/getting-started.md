@@ -1,10 +1,4 @@
----
-title: Getting started with the test runner
-eleventyNavigation:
-  key: Getting Started
-  parent: Test Runner
-  order: 10
----
+# Test Runner >> Getting Started ||10
 
 Testing your code is very important to have the confidence to release often.
 Green tests should mean that the change is good to go 👍
@@ -134,6 +128,5 @@ fair enough - we didn't create a test file yet.
 
 ## Learn more
 
-All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner-getting-started).
-
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner).
 See the [documentation of @web/test-runner](../../docs/test-runner/overview.md).

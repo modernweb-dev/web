@@ -1,11 +1,4 @@
----
-title: HTML Tests
-eleventyNavigation:
-  key: Writing tests > HTML Tests
-  title: HTML Tests
-  parent: Writing tests
-  order: 20
----
+# Test Runner >> Writing Tests >> HTML Tests ||20
 
 HTML files are loaded in the browser as is, and are not processed by a test framework. This way you have full control over the test environment. Depending on which test framework you're using, the way you run your tests can be a little different.
 
@@ -16,6 +9,7 @@ With mocha, you need to define your tests inside the `runTests` function:
   <body>
     <script type="module">
       import { runTests } from '@web/test-runner-mocha';
+      import { expect } from '@esm-bundle/chai';
 
       runTests(async () => {
         // write your tests inline

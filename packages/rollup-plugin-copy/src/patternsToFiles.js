@@ -4,10 +4,11 @@ const { listFiles } = require('./listFiles.js');
  *
  * @param {string|string[]} inPatterns
  * @param {string} rootDir
+ * @param {string|string[]} [exclude]
  */
-async function patternsToFiles(inPatterns, rootDir) {
+async function patternsToFiles(inPatterns, rootDir, exclude) {
   const patterns = typeof inPatterns === 'string' ? [inPatterns] : inPatterns;
-  const listFilesPromises = patterns.map(pattern => listFiles(pattern, rootDir));
+  const listFilesPromises = patterns.map(pattern => listFiles(pattern, rootDir, exclude));
   const arrayOfFilesArrays = await Promise.all(listFilesPromises);
   const files = [];
 

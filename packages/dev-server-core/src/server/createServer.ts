@@ -6,10 +6,10 @@ import http2Server from 'http2';
 import fs from 'fs';
 import net, { Server, Socket, ListenOptions } from 'net';
 
-import { DevServerCoreConfig } from '../DevServerCoreConfig';
+import { DevServerCoreConfig } from './DevServerCoreConfig';
 import { createMiddleware } from './createMiddleware';
 import { Logger } from '../logger/Logger';
-import { createPlugins } from './createPlugins';
+import { addPlugins } from './addPlugins';
 
 /**
  * A request handler that returns a 301 HTTP Redirect to the same location as the original
@@ -25,25 +25,29 @@ function httpsRedirect(req: IncomingMessage, res: ServerResponse) {
  * Creates a koa server with middlewares, but does not start it. Returns the koa app and
  * http server instances.
  */
-export function createServer(cfg: DevServerCoreConfig, logger: Logger, fileWatcher: FSWatcher) {
+export function createServer(logger: Logger, cfg: DevServerCoreConfig, fileWatcher: FSWatcher) {
   const app = new Koa();
+  app.silent = true;
+  app.on('error', error => {
+    if (['EPIPE', 'ECONNRESET', 'ERR_STREAM_PREMATURE_CLOSE'].includes(error.code)) {
+      return;
+    }
 
-  const plugins = createPlugins(cfg);
-  if (!cfg.plugins) {
-    cfg.plugins = [];
-  }
-  cfg.plugins.push(...plugins);
+    console.error('Error while handling server request.');
+    console.error(error);
+  });
+  addPlugins(logger, cfg);
 
   // special case the legacy plugin, if it is given make sure the resolve module imports plugin
   // runs before the legacy plugin because it compiles away module syntax. ideally we have a
   // generic API for this, but we need to design that a bit more first
-  const indexOfLegacy = cfg.plugins.findIndex(p => p.name === 'legacy');
-  let indexOfResolve = cfg.plugins.findIndex(p => p.name === 'resolve-module-imports');
+  const indexOfLegacy = cfg.plugins!.findIndex(p => p.name === 'legacy');
+  let indexOfResolve = cfg.plugins!.findIndex(p => p.name === 'resolve-module-imports');
   if (indexOfLegacy !== -1 && indexOfResolve !== -1) {
-    const legacy = cfg.plugins.splice(indexOfLegacy, 1)[0];
+    const legacy = cfg.plugins!.splice(indexOfLegacy, 1)[0];
     // recompute after splicing
-    indexOfResolve = cfg.plugins.findIndex(p => p.name === 'resolve-module-imports');
-    cfg.plugins.splice(indexOfResolve, 1, cfg.plugins[indexOfResolve], legacy);
+    indexOfResolve = cfg.plugins!.findIndex(p => p.name === 'resolve-module-imports');
+    cfg.plugins!.splice(indexOfResolve, 1, cfg.plugins![indexOfResolve], legacy);
   }
 
   const middleware = createMiddleware(cfg, logger, fileWatcher);

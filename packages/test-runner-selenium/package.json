@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-selenium",
-  "version": "0.2.4",
+  "version": "0.6.0",
   "publishConfig": {
     "access": "public"
   },
@@ -14,13 +14,19 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-selenium",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
+    "test": "mocha test/**/*.test.ts --require ts-node/register",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -40,18 +46,12 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.7.10",
-    "selenium-webdriver": "^4.0.0-alpha.7"
+    "@web/test-runner-core": "^0.11.0",
+    "selenium-webdriver": "^4.0.0"
   },
   "devDependencies": {
-    "@types/selenium-standalone": "^6.15.1",
-    "@types/selenium-webdriver": "^4.0.9",
-    "selenium-standalone": "^6.17.0"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
+    "@types/selenium-standalone": "^7.0.1",
+    "@types/selenium-webdriver": "^4.0.11",
+    "selenium-standalone": "^8.0.4"
   }
 }

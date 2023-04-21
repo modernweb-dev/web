@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-puppeteer",
-  "version": "0.6.3",
+  "version": "0.13.0",
   "publishConfig": {
     "access": "public"
   },
@@ -14,13 +14,19 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
+    "test": "mocha test/**/*.test.ts --require ts-node/register",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -39,18 +45,12 @@
     "launcher"
   ],
   "dependencies": {
-    "@types/puppeteer": "^3.0.1",
-    "@web/test-runner-chrome": "^0.6.4",
-    "@web/test-runner-core": "^0.7.4",
-    "puppeteer": "^5.1.0"
+    "@web/test-runner-chrome": "^0.13.0",
+    "@web/test-runner-core": "^0.11.0",
+    "puppeteer": "^19.9.0"
   },
   "devDependencies": {
-    "@web/test-runner-mocha": "^0.3.1"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
+    "@web/test-runner-mocha": "^0.8.0",
+    "puppeteer-core": "^19.8.1"
   }
 }

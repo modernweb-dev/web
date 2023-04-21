@@ -1,14 +1,16 @@
-import {
-  generateSW as _generateSw,
-  injectManifest as _injectManifest,
-  GenerateSWConfig,
-  InjectManifestConfig,
-} from 'workbox-build';
+import { generateSW as _generateSw, injectManifest as _injectManifest } from 'workbox-build';
+import type { GenerateSWOptions, InjectManifestOptions } from 'workbox-build';
 import * as prettyBytes from 'pretty-bytes';
 import * as rollup from 'rollup';
 import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
+
+interface RollupPartial {
+  mode?: string | null;
+}
+
+type RollupInjectManifestOptions = InjectManifestOptions & RollupPartial;
 
 const name = 'workbox';
 
@@ -19,7 +21,7 @@ const report = ({ swDest, count, size }: { swDest: string; count: number; size: 
   console.log(`The service worker will precache ${count} URLs, totaling ${prettySize}.\n`);
 };
 
-export function generateSW(generateSWConfig: GenerateSWConfig, render = report) {
+export function generateSW(generateSWConfig: GenerateSWOptions, render = report) {
   const { swDest, globDirectory } = generateSWConfig;
 
   if (!swDest) throw new Error('No service worker destination specified');
@@ -43,8 +45,11 @@ export function generateSW(generateSWConfig: GenerateSWConfig, render = report) 
   };
 }
 
-export function injectManifest(injectManifestConfig: InjectManifestConfig, render = report) {
-  const { swSrc, swDest, globDirectory, mode } = injectManifestConfig;
+export function injectManifest(
+  { mode, ...injectManifestConfig }: RollupInjectManifestOptions,
+  render = report,
+) {
+  const { swSrc, swDest, globDirectory } = injectManifestConfig;
 
   if (!swSrc) throw new Error('No service worker source specified');
   if (!swDest) throw new Error('No service worker destination specified');
@@ -81,7 +86,7 @@ const processBundle = async ({ swDest }: { swDest: string }) => {
   const bundle = await rollup.rollup({
     input: swDest,
     plugins: [
-      replace({ 'process.env.NODE_ENV': '"production"' }),
+      replace({ 'process.env.NODE_ENV': '"production"' }) as rollup.Plugin,
       resolve(),
       terser({ output: { comments: false } }),
     ],

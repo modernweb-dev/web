@@ -1,15 +1,16 @@
 ---
-title: Web Test Runner
 eleventyNavigation:
-  key: Test Runner > Overview
+  key: Test Runner >> Overview
   title: Overview
   parent: Test Runner
   order: 1
 ---
 
+# Web Test Runner
+
 Test runner for web applications.
 
-👉&nbsp;&nbsp; Headless browsers with [Puppeteer](browsers/puppeteer.md), [Playwright](browsers/playwright.md), or [Selenium](browsers/selenium.md). <br>
+👉&nbsp;&nbsp; Headless browsers with [Puppeteer](browser-launchers/puppeteer.md), [Playwright](browser-launchers/playwright.md), [Selenium](browser-launchers/selenium.md) or [WebdriverIO](browser-launchers/webdriver.md). <br>
 🚧&nbsp;&nbsp; Reports logs, 404s, and errors from the browser. <br>
 🔍&nbsp;&nbsp; Debug opens a real browser window with devtools.<br>
 📦&nbsp;&nbsp; Mock es modules using [Import Maps](./writing-tests/mocking.md).<br>
@@ -17,7 +18,7 @@ Test runner for web applications.
 ⏱&nbsp;&nbsp;Runs tests in parallel and isolation.<br>
 👀&nbsp;&nbsp; Interactive watch mode.<br>
 🏃&nbsp;&nbsp; Fast development by rerunning only changed tests.<br>
-🚀&nbsp;&nbsp; Powered by [esbuild](/docs/dev-server/plugins/esbuild.md) and [rollup plugins](/docs/dev-server/plugins/rollup.md)
+🚀&nbsp;&nbsp; Powered by [esbuild](../dev-server/plugins/esbuild.md) and [rollup plugins](../dev-server/plugins/rollup.md)
 
 ## Installation
 
@@ -26,6 +27,20 @@ Install the web test runner:
 ```
 npm i --save-dev @web/test-runner
 ```
+
+Then add the following to the `"scripts"` section in `package.json`:
+
+```
+"test": "web-test-runner test/**/*.test.js --node-resolve"
+```
+
+Or use the shorthand:
+
+```
+"test": "wtr test/**/*.test.js --node-resolve"
+```
+
+Note, the examples below assume an npm script is used.
 
 ## Basic commands
 

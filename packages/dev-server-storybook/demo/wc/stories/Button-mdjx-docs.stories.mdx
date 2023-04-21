@@ -1,0 +1,40 @@
+import { Meta, Story, Canvas, ArgsTable } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+import { Button } from '../src/Button.js';
+
+<Meta title="MDX Docs/Button" component={'my-button'} />
+
+# Button
+
+This is a demo showing the button component
+
+export const Template = args => Button(args);
+
+<Canvas>
+  <Story name="Primary" args={{ primary: true, label: 'Button' }}>
+    {Template.bind({})}
+  </Story>
+  <Story name="Secondary" args={{ label: 'Button' }}>
+    {Template.bind({})}
+  </Story>
+  <Story name="Large" args={{ size: 'large', label: 'Button' }}>
+    {Template.bind({})}
+  </Story>
+  <Story name="Small" args={{ size: 'small', label: 'Button' }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Level 2 heading
+
+- a list
+- of things
+- to be
+- listed
+
+[A link somewhere](./foo.js)
+
+## Code block
+
+```js
+console.log('Hello world');
+```

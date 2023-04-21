@@ -4,6 +4,7 @@ import { TestFramework } from '../test-framework/TestFramework.js';
 import { Reporter } from '../reporter/Reporter.js';
 import { Logger } from '../logger/Logger.js';
 import { TestRunnerPlugin } from '../server/TestRunnerPlugin.js';
+import { ReportType } from 'istanbul-reports';
 
 export interface CoverageThresholdConfig {
   statements: number;
@@ -17,20 +18,24 @@ export interface CoverageConfig {
   exclude?: string[];
   nativeInstrumentation?: boolean;
   threshold?: CoverageThresholdConfig;
-  report: boolean;
-  reportDir: string;
+  report?: boolean;
+  reportDir?: string;
+  reporters?: ReportType[];
 }
-
-export type LogLevel = 'log' | 'warn' | 'error' | 'debug';
 
 export interface TestRunnerCoreConfig {
   rootDir: string;
-  files: string | string[];
-  concurrency?: number;
+  files?: string | string[];
+  concurrentBrowsers: number;
+  concurrency: number;
 
   protocol: string;
   hostname: string;
   port: number;
+
+  http2?: boolean;
+  sslKey?: string;
+  sslCert?: string;
 
   browsers: BrowserLauncher[];
   testFramework?: TestFramework;
@@ -40,15 +45,20 @@ export interface TestRunnerCoreConfig {
   testRunnerHtml?: (testRunnerImport: string, config: TestRunnerCoreConfig) => string;
   watch: boolean;
 
-  logBrowserLogs?: boolean | LogLevel[];
-  logUncaughtErrors?: boolean;
+  browserLogs?: boolean;
+  filterBrowserLogs?: (log: { type: string; args: any[] }) => boolean;
   coverage?: boolean;
-  coverageConfig?: CoverageConfig;
+  coverageConfig: CoverageConfig;
 
-  browserStartTimeout?: number;
-  testsStartTimeout?: number;
-  testsFinishTimeout?: number;
+  browserStartTimeout: number;
+  testsStartTimeout: number;
+  testsFinishTimeout: number;
   staticLogging?: boolean;
+
+  /** Ignores browsers option and prints manual testing URL. */
+  manual?: boolean;
+  /** Opens browser for manual testing. Requires the manual option to be set. */
+  open?: boolean;
 
   debug?: boolean;
   mimeTypes?: Record<string, string>;

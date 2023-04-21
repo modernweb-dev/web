@@ -6,16 +6,16 @@ const { expect } = require('chai');
 it('can run tests with standalone', async function () {
   this.timeout(50000);
 
-  const results = await runTests(
+  const { sessions } = await runTests(
     {
+      files: [resolve(__dirname, 'fixtures', 'standalone.html')],
       browsers: [chromeLauncher()],
       concurrency: 10,
     },
-    [resolve(__dirname, 'fixtures', 'standalone.html')],
+    [],
     { allowFailure: true, reportErrors: false },
   );
 
-  const sessions = Array.from(results.sessions.all());
   expect(sessions.length).to.equal(1);
   expect(sessions[0].passed).to.equal(false);
 
@@ -45,16 +45,16 @@ it('can run tests with standalone', async function () {
 it('captures errors during setup', async function () {
   this.timeout(50000);
 
-  const results = await runTests(
+  const { sessions } = await runTests(
     {
+      files: [resolve(__dirname, 'fixtures', 'standalone-setup-fail.html')],
       browsers: [chromeLauncher()],
       concurrency: 10,
     },
-    [resolve(__dirname, 'fixtures', 'standalone-setup-fail.html')],
+    [],
     { allowFailure: true, reportErrors: false },
   );
 
-  const sessions = Array.from(results.sessions.all());
   expect(sessions.length).to.equal(1);
   expect(sessions[0].passed).to.equal(false);
   expect(sessions[0].errors.length).to.equal(1);

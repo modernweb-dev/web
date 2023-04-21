@@ -1,5 +1,485 @@
 # @web/test-runner-core
 
+## 0.11.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+  - @web/browser-logs@0.3.0
+
+## 0.10.29
+
+### Patch Changes
+
+- cdeafe4a: fix: enable file watcher in manual mode
+- 1113fa09: Update `@rollup/pluginutils`
+- 817d674b: Update `browserslist-useragent`
+- 445b20e6: Update `convert-source-map`
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+- Updated dependencies [9b83280e]
+  - @web/dev-server-core@0.4.1
+  - @web/browser-logs@0.2.6
+
+## 0.10.28
+
+### Patch Changes
+
+- ac05ca5d: Add option to disable the fileWatcher in the dev server, to allow the test-runner to run once without files added to the watcher.
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
+## 0.10.27
+
+### Patch Changes
+
+- 570cdf70: - improve caching of snapshots in-memory
+  - don't block browser command on writing snapshot to disk
+  - don't write snapshot to disk for each change, batch write per file
+- Updated dependencies [39610b4c]
+  - @web/dev-server-core@0.3.18
+
+## 0.10.26
+
+### Patch Changes
+
+- 336dc2ba: Check isTTY to prevent node from crashing/exiting early
+
+## 0.10.25
+
+### Patch Changes
+
+- ec41a73b: Use https module when making requests over SSL
+
+## 0.10.24
+
+### Patch Changes
+
+- 88a38abf: Allow http2/ssl options to be set in WTR config
+
+## 0.10.23
+
+### Patch Changes
+
+- cdef38b3: Adds limited reporter support to test-helpers
+- f4ed8156: Evaluate `files` as a glob list, rather than adding the result of each string to the file list.
+  This allow `files` glob exclude patterns e.g.
+
+  ```js
+  export default {
+    files: [
+      '**/*.spec.ts', // include `.spec.ts` files
+      '!**/*.e2e.spec.ts', // exclude `.e2e.spec.ts` files
+      '!**/node_module/**/*', // exclude any node modules
+    ],
+  };
+  ```
+
+  If you were relying on each glob string pattern being evaluated on it's own, this is a breaking change.
+
+## 0.10.22
+
+### Patch Changes
+
+- 64bd29ac: Corrected the typings for test-runner user config `testFramework` option
+
+## 0.10.21
+
+### Patch Changes
+
+- d4f92e25: Replace uuid dependency with nanoid
+- a09282b4: Replace chalk with nanocolors
+- Updated dependencies [a09282b4]
+  - @web/dev-server-core@0.3.16
+
+## 0.10.20
+
+### Patch Changes
+
+- fcb8af58: Move Babel types to the correct package
+
+## 0.10.19
+
+### Patch Changes
+
+- 73681b6d: Allow user config to be partial
+
+## 0.10.18
+
+### Patch Changes
+
+- 51de0db1: fix(test-runner): fix error when merging multiple test-suites falsely reporting covered branches as uncovered
+
+## 0.10.17
+
+### Patch Changes
+
+- 6f80be68: fix(test-runner): fix error when function metadata varies between tests, as seen in [https://github.com/modernweb-dev/web/issues/689](https://github.com/modernweb-dev/web/issues/689) and [https://github.com/istanbuljs/v8-to-istanbul/issues/121](https://github.com/istanbuljs/v8-to-istanbul/issues/121).
+
+## 0.10.16
+
+### Patch Changes
+
+- e7efd5b7: use script origin to connect websocket
+- Updated dependencies [e7efd5b7]
+  - @web/dev-server-core@0.3.12
+
+## 0.10.15
+
+### Patch Changes
+
+- 6c5893cc: use unescaped import specifier
+- Updated dependencies [6c5893cc]
+  - @web/dev-server-core@0.3.11
+
+## 0.10.14
+
+### Patch Changes
+
+- ce90c7c3: Add the `sendKeys` command
+
+  Sends a string of keys for the browser to press (all at once, as with single keys
+  or shortcuts; e.g. `{press: 'Tab'}` or `{press: 'Shift+a'}` or
+  `{press: 'Option+ArrowUp}`) or type (in sequence, e.g. `{type: 'Your name'}`) natively.
+
+  For specific documentation of the strings to leverage here, see the Playwright documentation,
+  here:
+
+  - `press`: https://playwright.dev/docs/api/class-keyboard#keyboardpresskey-options
+  - `type`: https://playwright.dev/docs/api/class-keyboard#keyboardtypetext-options
+
+  Or, the Puppeter documentation, here:
+
+  - `press`: https://pptr.dev/#?product=Puppeteer&show=api-keyboardpresskey-options
+  - `type`: https://pptr.dev/#?product=Puppeteer&show=api-keyboardtypetext-options
+
+  @param payload An object including a `press` or `type` property an the associated string
+  for the browser runner to apply via that input method.
+
+  @example
+
+  ```ts
+  await sendKeys({
+    press: 'Tab',
+  });
+  ```
+
+  @example
+
+  ```ts
+  await sendKeys({
+    type: 'Your address',
+  });
+  ```
+
+## 0.10.13
+
+### Patch Changes
+
+- b146365a: Add `buildCache` option to the visual regression config to support always saving the "current" screenshot.
+  Make the `update` option in the visual regression config _strict_, and only save "current" shots as "baseline" when it is set to `true`.
+
+## 0.10.12
+
+### Patch Changes
+
+- 826def7d: Move @types devDependencies to dependencies since user's TSC will also lint libs, therefore these types have to be installed for them.
+
+## 0.10.11
+
+### Patch Changes
+
+- 83750cd2: fallback to fetch on IE11
+- Updated dependencies [83750cd2]
+- Updated dependencies [096fe25f]
+  - @web/dev-server-core@0.3.6
+
+## 0.10.10
+
+### Patch Changes
+
+- 2c223cf0: filter server stream errors
+- Updated dependencies [2c223cf0]
+  - @web/dev-server-core@0.3.5
+
+## 0.10.9
+
+### Patch Changes
+
+- 3885b33e: configure timeout for fetching source maps for code coverage
+
+## 0.10.8
+
+### Patch Changes
+
+- 83e0757e: handle cases when userAgent is not defined
+
+## 0.10.7
+
+### Patch Changes
+
+- 6a62b4ee: filter out internal stack traces
+- Updated dependencies [6a62b4ee]
+  - @web/browser-logs@0.2.1
+
+## 0.10.6
+
+### Patch Changes
+
+- 8861ded8: feat(dev-server-core): share websocket instances with iframe parent
+- Updated dependencies [8861ded8]
+  - @web/dev-server-core@0.3.4
+
+## 0.10.5
+
+### Patch Changes
+
+- ad815710: fetch source map from server when generating code coverage reports. this fixes errors when using build tools that generate source maps on the fly, which don't exist on the file system
+- c4738a40: support non-inline source maps for stack traces
+
+## 0.10.4
+
+### Patch Changes
+
+- 43bc451c: add configuration option reporters in coverageConfig to use various istanbul reporters
+- fd831b54: fix manual testing HTML tests
+
+## 0.10.3
+
+### Patch Changes
+
+- 8e3b1128: fix regression introduced in filterBrowserLogs function that flipped the return value. returning true now properly includes the logs
+- d5a5f2bf: Add undeclared dependencies
+
+## 0.10.2
+
+### Patch Changes
+
+- 66638204: deduplicate parallel source map requests
+
+## 0.10.1
+
+### Patch Changes
+
+- 9f1a8a56: normalize test framework path in stack trace
+
+## 0.10.0
+
+### Minor Changes
+
+- 1dd7cd0e: improve serialization of stack traces cross-browser
+
+  this adds two breaking changes, which should not affect most users:
+
+  - removed `userAgent` field from `TestSession`
+  - test reporter `reportTestFileResults` is no longer async
+
+- a7d74fdc: drop support for node v10 and v11
+
+### Patch Changes
+
+- Updated dependencies [1dd7cd0e]
+- Updated dependencies [1dd7cd0e]
+  - @web/dev-server-core@0.3.3
+  - @web/browser-logs@0.2.0
+
+## 0.9.3
+
+### Patch Changes
+
+- f2a84204: reduce delay when clearing terminal between test runs
+
+## 0.9.2
+
+### Patch Changes
+
+- af9811e2: regenerate MJS entrypoint
+
+## 0.9.1
+
+### Patch Changes
+
+- eceb6295: match dotfiles when resolving mimetypes
+- Updated dependencies [eceb6295]
+  - @web/dev-server-core@0.3.1
+
+## 0.9.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+- 0f613e0e: handle modules resolved outside root dir
+
+### Patch Changes
+
+- Updated dependencies [0f613e0e]
+  - @web/dev-server-core@0.3.0
+
+## 0.8.12
+
+### Patch Changes
+
+- 836abc0: handle errors thrown when (de)serializing browser logs
+- Updated dependencies [836abc0]
+- Updated dependencies [f6107a4]
+  - @web/browser-logs@0.1.6
+
+## 0.8.11
+
+### Patch Changes
+
+- 2278a95: bump dependencies
+
+## 0.8.10
+
+### Patch Changes
+
+- 931fde9: clean up displayed test file path
+- Updated dependencies [3b1a6cc]
+  - @web/browser-logs@0.1.5
+
+## 0.8.9
+
+### Patch Changes
+
+- 0f0d474: track manual test session imports
+
+## 0.8.8
+
+### Patch Changes
+
+- 4bbaa21: use consistent paths on windows
+
+## 0.8.7
+
+### Patch Changes
+
+- 145a8e6: correctly encode/decode test framework url
+
+## 0.8.6
+
+### Patch Changes
+
+- 304558e: fix(test-runner): deduplicated browsers when reporting
+
+## 0.8.5
+
+### Patch Changes
+
+- 4edf123: added option to configure test runner HTML per group
+- cd8928b: separate reporting per browser launcher
+
+## 0.8.4
+
+### Patch Changes
+
+- aadf0fe: Speed up test loading by inling test config and preloading test files.
+
+## 0.8.3
+
+### Patch Changes
+
+- c256a08: allow configuring concurrency per browser launcher
+
+## 0.8.2
+
+### Patch Changes
+
+- 859008b: added experimental mode to test workflows where tests on firefox require the browser window to be focused
+
+## 0.8.1
+
+### Patch Changes
+
+- 175b124: fixed reporting multiple test files for a browser
+
+## 0.8.0
+
+### Minor Changes
+
+- 2291ca1: replaced HTTP with websocket for server-browser communication
+
+  this improves test speed, especially when a test file makes a lot of concurrent requests
+  it lets us us catch more errors during test execution, and makes us catch them faster
+
+### Patch Changes
+
+- Updated dependencies [2291ca1]
+  - @web/dev-server-core@0.2.11
+
+## 0.7.23
+
+### Patch Changes
+
+- 72ffcde: improve error message when no browsers are configured
+- fcc2e28: added manual testing and open browser options
+
+## 0.7.22
+
+### Patch Changes
+
+- bd27fff: improve browser and proxy close logic
+
+## 0.7.21
+
+### Patch Changes
+
+- c8abc29: fix generating manual debug page
+
+## 0.7.20
+
+### Patch Changes
+
+- d15ffee: serve iframe page with HTML content-type
+
+## 0.7.19
+
+### Patch Changes
+
+- 88cc7ac: Reworked concurrent scheduling logic
+
+  When running tests in multiple browsers, the browsers are no longer all started in parallel. Instead a new `concurrentBrowsers` property controls how many browsers are run concurrently. This helps improve speed and stability.
+
+## 0.7.18
+
+### Patch Changes
+
+- 34efaad: added support for config groups
+
+## 0.7.17
+
+### Patch Changes
+
+- 4ac0b3a: added experimental iframes mode to test improve speed when testing with selenium
+
+## 0.7.16
+
+### Patch Changes
+
+- 534e92c: added the ability to transform test file imports
+
+## 0.7.15
+
+### Patch Changes
+
+- cde5d29: add browser logging for all browser launchers
+- cde5d29: add filterBrowserLogs option
+
+## 0.7.14
+
+### Patch Changes
+
+- 3c72bdd: fixed serving test files outside cwd
+
 ## 0.7.13
 
 ### Patch Changes

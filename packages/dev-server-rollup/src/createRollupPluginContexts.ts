@@ -38,14 +38,14 @@ export async function createRollupPluginContexts(
           normalizedInputOptions = options;
         },
         resolveId(id) {
-          pluginContext = this;
+          pluginContext = this; // eslint-disable-line @typescript-eslint/no-this-alias
           return id;
         },
         load() {
           return '';
         },
         transform() {
-          transformPluginContext = this;
+          transformPluginContext = this; // eslint-disable-line @typescript-eslint/no-this-alias
           return null;
         },
       },

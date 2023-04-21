@@ -1,11 +1,4 @@
----
-title: CLI and Configuration
-eleventyNavigation:
-  key: Dev Server > CLI and Configuration
-  title: CLI and Configuration
-  parent: Dev Server
-  order: 2
----
+# Dev Server >> CLI and Configuration ||2
 
 The dev server can be configured using CLI flags, or with a configuration file.
 
@@ -13,14 +6,19 @@ The dev server can be configured using CLI flags, or with a configuration file.
 
 | name              | type         | description                                                                                                          |
 | ----------------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
+| config            | string       | where to read the config from                                                                                        |
 | root-dir          | string       | the root directory to serve files from. Defaults to the current working directory                                    |
-| open              | boolean      | Opens the browser on app-index, root dir or a custom path                                                            |
-| app-index         | boolean      | The app's index.html file. When set, serves the index.html for non-file requests. Use this to enable SPA routing     |
-| watch             | boolean      | runs in watch mode, reloading on file changes                                                                        |
-| node-resolve      | boolean      | resolve bare module imports                                                                                          |
-| esbuild-target    | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent |
+| base-path         | string       | prefix to strip from requests URLs                                                                                   |
+| open              | string       | Opens the browser on app-index, root dir or a custom path                                                            |
+| app-index         | string       | The app's index.html file. When set, serves the index.html for non-file requests. Use this to enable SPA routing     |
 | preserve-symlinks | boolean      | preserve symlinks when resolving imports                                                                             |
-| config            | object       | where to read the config from                                                                                        |
+| node-resolve      | boolean      | resolve bare module imports                                                                                          |
+| watch             | boolean      | runs in watch mode, reloading on file changes                                                                        |
+| port              | number       | Port to bind the server to                                                                                           |
+| hostname          | string       | Hostname to bind the server to                                                                                       |
+| esbuild-target    | string array | JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user-agent |
+| debug             | boolean      | whether to log debug messages                                                                                        |
+| help              | boolean      | List all possible commands                                                                                           |
 
 Examples:
 
@@ -46,7 +44,7 @@ If you need this flag, we recommend setting this to `auto`. This will compile ba
 
 ## Configuration file
 
-Web dev server looks for a configuration file in the current working directory called `web-dev-server.config`.
+Web Dev Server looks for a configuration file in the current working directory called `web-dev-server.config`.
 
 The file extension can be `.js`, `.cjs` or `.mjs`. A `.js` file will be loaded as an es module or common js module based on your version of node, and the package type of your project.
 
@@ -59,7 +57,7 @@ export default {
   open: true,
   nodeResolve: true,
   appIndex: 'demo/index.html'
-  // in a monorepo you need to set set the root dir to resolve modules
+  // in a monorepo you need to set the root dir to resolve modules
   rootDir: '../../',
 };
 ```
@@ -71,7 +69,7 @@ module.exports = {
   open: true,
   nodeResolve: true,
   appIndex: 'demo/index.html'
-  // in a monorepo you need to set set the root dir to resolve modules
+  // in a monorepo you need to set the root dir to resolve modules
   rootDir: '../../',
 };
 ```
@@ -88,12 +86,10 @@ interface DevServerConfig {
   open?: 'string' | boolean;
   // index HTML to use for SPA routing / history API fallback
   appIndex?: string;
-  // run in watch mode, reloading when files change
+  // reload the brower on file changes.
   watch?: boolean;
   // resolve bare module imports
   nodeResolve?: boolean | RollupNodeResolveOptions;
-  // preserve symlinks when resolving bare module imports
-  preserveSymlinks?: boolean;
   // JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user agent.
   esbuildTarget?: string | string[];
   // preserve symlinks when resolve imports, instead of following
@@ -102,6 +98,12 @@ interface DevServerConfig {
   // the root directory to serve files from. this is useful in a monorepo
   // when executing commands from a package
   rootDir?: string;
+  // prefix to strip from request urls
+  basePath?: string;
+  /**
+   * Whether to log debug messages.
+   */
+  debug?: boolean;
 
   // files to serve with a different mime type
   mimeTypes?: MimeTypeMappings;
@@ -122,5 +124,23 @@ interface DevServerConfig {
   sslKey?: string;
   // path to SSL certificate
   sslCert?: string;
+
+  // Whether to watch and rebuild served files.
+  // Useful when you want more control over when files are build (e.g. when doing a test run using @web/test-runner).
+  disableFileWatcher?: boolean;
 }
+```
+
+### Node resolve options
+
+The `--node-resolve` flag uses [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve) to resolve module imports.
+
+You can pass extra configuration using the `nodeResolve` option in the config:
+
+```js
+export default {
+  nodeResolve: {
+    exportConditions: ['development'],
+  },
+};
 ```

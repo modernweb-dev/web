@@ -6,16 +6,16 @@ const { expect } = require('chai');
 it('can run tests with autorun', async function () {
   this.timeout(50000);
 
-  const results = await runTests(
+  const { sessions } = await runTests(
     {
+      files: [resolve(__dirname, 'fixtures', 'autorun.js')],
       browsers: [chromeLauncher()],
       concurrency: 10,
     },
-    [resolve(__dirname, 'fixtures', 'autorun.js')],
+    [],
     { allowFailure: true, reportErrors: false },
   );
 
-  const sessions = Array.from(results.sessions.all());
   expect(sessions.length).to.equal(1);
   expect(sessions[0].passed).to.equal(false);
 

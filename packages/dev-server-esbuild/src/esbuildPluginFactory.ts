@@ -13,9 +13,12 @@ export interface EsBuildPluginArgs {
   jsxFragment?: string;
   loaders?: Record<string, Loader>;
   define?: { [key: string]: string };
+  tsconfig?: string;
+  banner?: string;
+  footer?: string;
 }
 
-export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
+export function esbuildPlugin(args: EsBuildPluginArgs = {}): Plugin {
   const target = args.target ?? 'auto';
   const loaders: Record<string, Loader> = {};
   for (const [key, value] of Object.entries(args.loaders ?? {})) {
@@ -36,7 +39,10 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
   if (args.js) {
     loaders['.js'] = 'js';
   }
-  if (typeof args.target === 'string' || Array.isArray(args.target)) {
+  if (
+    !Object.prototype.hasOwnProperty.call(loaders, '.js') &&
+    (typeof args.target === 'string' || Array.isArray(args.target))
+  ) {
     loaders['.js'] = 'js';
   }
 
@@ -56,5 +62,8 @@ export function esbuildPlugin(args: EsBuildPluginArgs): Plugin {
     jsxFactory: args.jsxFactory,
     jsxFragment: args.jsxFragment,
     define: args.define,
+    tsconfig: args.tsconfig,
+    banner: args.banner,
+    footer: args.footer,
   });
 }

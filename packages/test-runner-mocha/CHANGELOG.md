@@ -1,5 +1,124 @@
 # @web/test-runner-mocha
 
+## 0.8.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- b7d8ee66: Update mocha from version 8.2.0 to version 10.2.0
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-core@0.11.0
+
+## 0.7.5
+
+### Patch Changes
+
+- e6c7459e: Use full path to browser session file
+
+## 0.7.4
+
+### Patch Changes
+
+- 33ada3d8: Align @web/test-runner-core version
+
+## 0.7.3
+
+### Patch Changes
+
+- 773160f9: expose mocha runner
+
+## 0.7.2
+
+### Patch Changes
+
+- e3314b02: update dependency on core
+
+## 0.7.1
+
+### Patch Changes
+
+- 6a62b4ee: filter out internal stack traces
+- Updated dependencies [6a62b4ee]
+  - @web/test-runner-core@0.10.7
+
+## 0.7.0
+
+### Minor Changes
+
+- a7d74fdc: drop support for node v10 and v11
+- 1dd7cd0e: version bump after breaking change in @web/test-runner-core
+
+### Patch Changes
+
+- Updated dependencies [1dd7cd0e]
+- Updated dependencies [a7d74fdc]
+  - @web/test-runner-core@0.10.0
+
+## 0.6.0
+
+### Minor Changes
+
+- 6e313c18: merged @web/test-runner-cli package into @web/test-runner
+
+### Patch Changes
+
+- Updated dependencies [6e313c18]
+- Updated dependencies [0f613e0e]
+  - @web/test-runner-core@0.9.0
+
+## 0.5.1
+
+### Patch Changes
+
+- aadf0fe: Speed up test loading by inling test config and preloading test files.
+- Updated dependencies [aadf0fe]
+  - @web/test-runner-core@0.8.4
+
+## 0.5.0
+
+### Minor Changes
+
+- b397a4c: Disabled the in-browser reporter during regular test runs, improving performance.
+
+  Defaulted to the spec reporter instead of the HTML reporter in the browser when debugging. This avoids manipulating the testing environment by default.
+
+  You can opt back into the old behavior by setting the mocha config:
+
+  ```js
+  export default {
+    testFramework: {
+      config: { reporter: 'html' },
+    },
+  };
+  ```
+
+## 0.4.0
+
+### Minor Changes
+
+- 80d5814: release new version of test-runner-mocha
+
+### Patch Changes
+
+- Updated dependencies [80d5814]
+  - @web/test-runner-mocha@0.4.0
+
+## 0.3.7
+
+### Patch Changes
+
+- f2d0bb2: avoid using document.baseURI in IE11
+
+## 0.3.6
+
+### Patch Changes
+
+- dbde3ba: track browser logs on all browser launchers
+
 ## 0.3.5
 
 ### Patch Changes

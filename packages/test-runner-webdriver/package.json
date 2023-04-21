@@ -1,0 +1,57 @@
+{
+  "name": "@web/test-runner-webdriver",
+  "version": "0.6.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Webdriver browser launcher for Web Test Runner",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-webdriver"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-webdriver",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha test/**/*.test.ts --require ts-node/register",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+  },
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "*.mjs",
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "webdriver",
+    "webdriverio",
+    "wdio",
+    "browser",
+    "launcher"
+  ],
+  "dependencies": {
+    "@web/test-runner-core": "^0.11.0",
+    "webdriverio": "^7.16.0"
+  },
+  "devDependencies": {
+    "@types/selenium-standalone": "^7.0.1",
+    "selenium-standalone": "^8.0.4"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@web/test-runner-integration-tests",
+  "version": "0.0.0",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Web Test Runner integration tests",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-integration-tests"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-integration-tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
+  },
+  "dependencies": {
+    "@web/dev-server-legacy": "^2.0.0",
+    "@web/test-runner-core": "^0.11.0"
+  },
+  "devDependencies": {
+    "@esm-bundle/chai": "^4.1.5"
+  }
+}

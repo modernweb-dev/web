@@ -1,0 +1,50 @@
+{
+  "name": "@web/parse5-utils",
+  "version": "2.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Utils for using parse5",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/parse5-utils"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/parse5-utils",
+  "main": "src/index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./src/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register",
+    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch"
+  },
+  "files": [
+    "*.d.ts",
+    "*.mjs",
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "web",
+    "node",
+    "parse5",
+    "utils"
+  ],
+  "dependencies": {
+    "@types/parse5": "^6.0.1",
+    "parse5": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/html-minifier-terser": "^7.0.0"
+  }
+}

@@ -1,161 +1,103 @@
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import {
-  readCliArgsConfig,
-  readConfig,
-  startTestRunner as defaultStartTestRunner,
-  validateCoreConfig,
-  defaultReporter,
-} from '@web/test-runner-cli';
-import { chromeLauncher } from '@web/test-runner-chrome';
-import {
-  setViewportPlugin,
-  emulateMediaPlugin,
-  setUserAgentPlugin,
-} from '@web/test-runner-commands/plugins';
-import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
-import commandLineArgs from 'command-line-args';
-import chalk from 'chalk';
+/* eslint-disable no-inner-declarations */
+import { TestRunner, TestRunnerCli } from '@web/test-runner-core';
+import { red } from 'nanocolors';
 
-import { puppeteerLauncher, playwrightLauncher } from './loadLauncher';
-import { nodeResolvePlugin } from './nodeResolvePlugin';
-import { esbuildPlugin } from './esbuildPlugin';
+import { TestRunnerConfig } from './config/TestRunnerConfig';
+import { mergeConfigs } from './config/mergeConfigs';
+import { parseConfig } from './config/parseConfig';
+import { readCliArgs } from './config/readCliArgs';
+import { readFileConfig } from './config/readFileConfig';
+import { TestRunnerStartError } from './TestRunnerStartError';
 
-export interface TestRunnerConfig extends TestRunnerCoreConfig {
-  nodeResolve?: boolean | RollupNodeResolveOptions;
-  preserveSymlinks?: boolean;
-  esbuildTarget?: string | string[];
-}
-
-export interface TestRunnerCliArgsConfig extends Omit<TestRunnerConfig, 'browsers'> {
-  puppeteer?: boolean;
-  playwright?: boolean;
-  browsers?: string[];
-}
-
-export interface StartTestRunnerOptions {
+export interface StartTestRunnerParams {
+  /**
+   * Optional config to merge with the user-defined config.
+   */
+  config?: Partial<TestRunnerConfig>;
+  /**
+   * Whether to read CLI args. Default true.
+   */
+  readCliArgs?: boolean;
+  /**
+   * Whether to read a user config from the file system. Default true.
+   */
+  readFileConfig?: boolean;
+  /**
+   * Name of the configuration to read. Defaults to web-dev-server.config.{mjs,cjs,js}
+   */
+  configName?: string;
+  /**
+   * Whether to automatically exit the process when the server is stopped, killed or an error is thrown.
+   */
   autoExitProcess?: boolean;
+  /**
+   * Array to read the CLI args from. Defaults to process.argv.
+   */
   argv?: string[];
 }
 
-const cliOptions: (commandLineArgs.OptionDefinition & { description: string })[] = [
-  {
-    name: 'node-resolve',
-    type: Boolean,
-    description: 'Resolve bare module imports using node resolution',
-  },
-  {
-    name: 'preserve-symlinks',
-    type: Boolean,
-    description: "Don't follow symlinks when resolving imports",
-  },
-  {
-    name: 'puppeteer',
-    type: Boolean,
-    description: 'Run tests using puppeteer',
-  },
-  {
-    name: 'playwright',
-    type: Boolean,
-    description: 'Run tests using playwright',
-  },
-  {
-    name: 'browsers',
-    type: String,
-    multiple: true,
-    description: 'Browsers to run when choosing puppeteer or playwright',
-  },
-  {
-    name: 'esbuild-target',
-    type: String,
-    multiple: true,
-    description:
-      'JS language target to compile down to using esbuild. Recommended value is "auto", which compiles based on user agent. Check the docs for more options.',
-  },
-  {
-    name: 'debug',
-    type: Boolean,
-    description: 'Log debug messages',
-  },
-];
+/**
+ * Starts the test runner.
+ */
+export async function startTestRunner(options: StartTestRunnerParams = {}) {
+  const {
+    config: extraConfig,
+    readCliArgs: readCliArgsFlag = true,
+    readFileConfig: readFileConfigFlag = true,
+    configName,
+    autoExitProcess = true,
+    argv = process.argv,
+  } = options;
 
-export async function startTestRunner(options: StartTestRunnerOptions = {}) {
-  const { autoExitProcess = true, argv = process.argv } = options;
   try {
-    const cliArgs = readCliArgsConfig<TestRunnerCliArgsConfig>(cliOptions, argv);
-    const cliArgsConfig: Partial<TestRunnerConfig> = {};
+    const cliArgs = readCliArgsFlag ? readCliArgs({ argv }) : {};
+    const rawConfig = readFileConfigFlag
+      ? await readFileConfig({ configName, configPath: cliArgs.config })
+      : {};
+    const mergedConfig = mergeConfigs(extraConfig, rawConfig);
+    const { config, groupConfigs } = await parseConfig(mergedConfig, cliArgs);
 
-    for (const [key, value] of Object.entries(cliArgs)) {
-      if (key !== 'browsers') {
-        // cli args are read from a file, they are validated by cli-options and later on as well
-        (cliArgsConfig as any)[key] = value;
+    const runner = new TestRunner(config, groupConfigs);
+    const cli = new TestRunnerCli(config, runner);
+
+    function stop() {
+      runner.stop();
+    }
+
+    if (autoExitProcess) {
+      (['exit', 'SIGINT'] as NodeJS.Signals[]).forEach(event => {
+        process.on(event, stop);
+      });
+    }
+
+    if (autoExitProcess) {
+      process.on('uncaughtException', error => {
+        /* eslint-disable-next-line no-console */
+        console.error(error);
+        stop();
+      });
+    }
+
+    runner.on('stopped', passed => {
+      if (autoExitProcess) {
+        process.exit(passed ? 0 : 1);
       }
-    }
-
-    const config = await readConfig<TestRunnerConfig>(cliArgsConfig);
-    const { rootDir } = config;
-
-    if (cliArgs.puppeteer) {
-      config.browsers = puppeteerLauncher(cliArgs.browsers);
-    } else if (cliArgs.playwright) {
-      config.browsers = playwrightLauncher(cliArgs.browsers);
-    } else {
-      if (cliArgs.browsers != null) {
-        throw new Error(
-          `The browsers option must be used along with the puppeteer or playwright option.`,
-        );
-      }
-
-      // add default chrome launcher if the user did not configure their own browsers
-      if (!config.browsers) {
-        config.browsers = [chromeLauncher()];
-      }
-    }
-
-    if (typeof rootDir !== 'string') {
-      throw new Error('No rootDir specified.');
-    }
-
-    config.testFramework = {
-      path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
-      ...(config.testFramework ?? {}),
-    };
-
-    if (!config.reporters) {
-      config.reporters = [defaultReporter()];
-    }
-
-    if (config.plugins == null) {
-      config.plugins = [];
-    }
-
-    if (config.esbuildTarget) {
-      config.plugins.push(esbuildPlugin(config.esbuildTarget));
-    }
-
-    if (config.nodeResolve) {
-      const userOptions = typeof config.nodeResolve === 'object' ? config.nodeResolve : undefined;
-      config.plugins!.push(nodeResolvePlugin(rootDir, config.preserveSymlinks, userOptions));
-    }
-
-    // plugin with a noop transformImport hook, this will cause the dev server to analyze modules and
-    // catch syntax errors. this way we still report syntax errors when the user has no flags enabled
-    config.plugins.push({
-      name: 'syntax-checker',
-      transformImport() {
-        return undefined;
-      },
     });
 
-    config.plugins.push(setViewportPlugin(), emulateMediaPlugin(), setUserAgentPlugin());
+    await runner.start();
+    cli.start();
 
-    const validatedConfig = validateCoreConfig<TestRunnerConfig>(config);
-    return defaultStartTestRunner(validatedConfig, { autoExitProcess });
+    return runner;
   } catch (error) {
-    if (autoExitProcess) {
-      console.error(chalk.red(`\nFailed to start test runner: ${error.message}\n`));
-      process.exit(1);
+    if (error instanceof TestRunnerStartError) {
+      console.error(`\n${red('Error:')} ${error.message}\n`);
     } else {
-      throw error;
+      console.error(error);
     }
+
+    setTimeout(() => {
+      // exit after a timeout to allow CLI to flush console output
+      process.exit(1);
+    }, 0);
   }
 }

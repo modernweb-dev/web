@@ -3,10 +3,13 @@ import { TestSessionManager } from '../test-session/TestSessionManager';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { TestCoverage } from '../coverage/getTestCoverage';
 import { Logger } from '../logger/Logger';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 
 export interface ReporterArgs {
   config: TestRunnerCoreConfig;
   sessions: TestSessionManager;
+  browsers: BrowserLauncher[];
+  browserNames: string[];
   testFiles: string[];
   startTime: number;
 }
@@ -45,7 +48,7 @@ export interface StopArgs {
 export interface ReporterConstructor {}
 
 export interface Reporter {
-  reportTestFileResults?(args: ReportTestResultsArgs): void | Promise<void>;
+  reportTestFileResults?(args: ReportTestResultsArgs): void;
   getTestProgress?(args: GetTestProgressArgs): string | string[];
   onTestRunStarted?(args: TestRunStartedArgs): void;
   onTestRunFinished?(args: TestRunFinishedArgs): void;

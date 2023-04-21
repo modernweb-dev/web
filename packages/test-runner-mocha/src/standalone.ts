@@ -6,24 +6,15 @@ import {
 } from '../../test-runner-core/browser/session.js';
 import '../../../node_modules/mocha/mocha.js';
 import { collectTestResults } from './collectTestResults.js';
+import { setupMocha } from './mochaSetup.js';
 
 const mocha = (window as any).mocha as BrowserMocha;
-const BaseReporter = (mocha as any).Mocha.reporters.Base;
-class QuietReporter extends BaseReporter {}
 
 sessionStarted();
 
 export async function runTests(testFn: () => unknown | Promise<unknown>) {
-  const { testFrameworkConfig } = await getConfig();
-
-  // setup mocha
-  const userOptions = typeof testFrameworkConfig === 'object' ? testFrameworkConfig : {};
-  mocha.setup({
-    ui: 'bdd',
-    allowUncaught: false,
-    reporter: QuietReporter as any,
-    ...userOptions,
-  });
+  const { debug, testFrameworkConfig } = await getConfig();
+  setupMocha(debug, testFrameworkConfig);
 
   // setup the tests
   try {
@@ -34,7 +25,8 @@ export async function runTests(testFn: () => unknown | Promise<unknown>) {
   }
 
   // run the tests, and notify the test runner after finishing
-  mocha.run(sessionFinished);
+  const mochaRunner = mocha.run(sessionFinished);
+  (window as any).__WTR_MOCHA_RUNNER__ = mochaRunner;
 }
 
 export function sessionFinished() {

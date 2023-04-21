@@ -1,81 +1,85 @@
-import { runTests } from '@web/test-runner-core/test-helpers';
 import selenium from 'selenium-standalone';
 import { Builder } from 'selenium-webdriver';
 import { Options as ChromeOptions } from 'selenium-webdriver/chrome';
 import { Options as FirefoxOptions } from 'selenium-webdriver/firefox';
-import { resolve } from 'path';
-import os from 'os';
-
+import { runIntegrationTests } from '../../../integration/test-runner';
 import { seleniumLauncher } from '../src/seleniumLauncher';
 
 async function startSeleniumServer() {
-  await new Promise((resolve, reject) =>
-    selenium.install(err => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    }),
-  );
+  let server: selenium.ChildProcess;
 
-  return new Promise<selenium.ChildProcess>((resolve, reject) =>
-    selenium.start((err, server) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(server);
-      }
-    }),
-  );
+  try {
+    await selenium.install({
+      drivers: {
+        chrome: { version: 'latest' },
+        firefox: { version: 'latest' },
+      },
+    });
+  } catch (err) {
+    console.error('Error occurred when installing selenium.');
+    throw err;
+  }
+
+  try {
+    server = await selenium.start({
+      drivers: {
+        chrome: { version: 'latest' },
+        firefox: { version: 'latest' },
+      },
+      seleniumArgs: ['--port', '8888'],
+    });
+  } catch (err) {
+    console.error('Error occurred when starting selenium.');
+    console.log(err);
+    throw err;
+  }
+
+  return server;
 }
 
 let seleniumServer: selenium.ChildProcess;
 
-before(async function () {
-  this.timeout(50000);
-  seleniumServer = await startSeleniumServer();
-});
-
-// selenium doesn't work on windows in the CI
-(os.platform() === 'win32' ? it.skip : it)('runs tests with selenium', async function () {
+describe('test-runner-selenium', function testRunnerSelenium() {
   this.timeout(50000);
 
-  await runTests(
-    {
+  before(async function () {
+    seleniumServer = await startSeleniumServer();
+  });
+
+  after(() => {
+    seleniumServer.kill();
+  });
+
+  function createConfig() {
+    return {
+      browserStartTimeout: 1000 * 60 * 2,
+      testsStartTimeout: 1000 * 60 * 2,
+      testsFinishTimeout: 1000 * 60 * 2,
       browsers: [
         seleniumLauncher({
           driverBuilder: new Builder()
             .forBrowser('chrome')
             .setChromeOptions(new ChromeOptions().headless())
-            .usingServer('http://localhost:4444/wd/hub'),
+            .usingServer('http://localhost:8888/wd/hub'),
         }),
         seleniumLauncher({
           driverBuilder: new Builder()
             .forBrowser('firefox')
             .setFirefoxOptions(new FirefoxOptions().headless())
-            .usingServer('http://localhost:4444/wd/hub'),
+            .usingServer('http://localhost:8888/wd/hub'),
         }),
       ],
-      concurrency: 5,
-    },
-    [
-      resolve(__dirname, 'fixtures', 'a.js'),
-      resolve(__dirname, 'fixtures', 'b.js'),
-      resolve(__dirname, 'fixtures', 'c.js'),
-      resolve(__dirname, 'fixtures', 'd.js'),
-      resolve(__dirname, 'fixtures', 'e.js'),
-      resolve(__dirname, 'fixtures', 'f.js'),
-      resolve(__dirname, 'fixtures', 'g.js'),
-      resolve(__dirname, 'fixtures', 'h.js'),
-      resolve(__dirname, 'fixtures', 'i.js'),
-      resolve(__dirname, 'fixtures', 'j.js'),
-      resolve(__dirname, 'fixtures', 'module-features.js'),
-      resolve(__dirname, 'fixtures', 'stage-4-features.js'),
-    ],
-  );
-});
+    };
+  }
 
-after(() => {
-  seleniumServer.kill();
+  runIntegrationTests(createConfig, {
+    basic: true,
+    many: true,
+    focus: false,
+    groups: true,
+    parallel: true,
+    testFailure: true,
+    // FIXME: timed out with selenium-standalone v7
+    locationChanged: false,
+  });
 });

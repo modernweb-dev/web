@@ -1,23 +1,22 @@
-import { runTests } from '@web/test-runner-core/test-helpers';
-import { resolve } from 'path';
+import { runIntegrationTests } from '../../../integration/test-runner';
 import { chromeLauncher } from '../src/index';
 
-it('runs tests with chrome', async function () {
-  this.timeout(50000);
+describe('test-runner-chrome', function testRunnerChrome() {
+  this.timeout(20000);
 
-  await runTests(
-    {
+  function createConfig() {
+    return {
       browsers: [chromeLauncher()],
-      concurrency: 3,
-    },
-    [
-      resolve(__dirname, 'fixtures', 'a.js'),
-      resolve(__dirname, 'fixtures', 'b.js'),
-      resolve(__dirname, 'fixtures', 'c.js'),
-      resolve(__dirname, 'fixtures', 'd.js'),
-      resolve(__dirname, 'fixtures', 'e.js'),
-      resolve(__dirname, 'fixtures', 'f.js'),
-      resolve(__dirname, 'fixtures', 'g.js'),
-    ],
-  );
+    };
+  }
+
+  runIntegrationTests(createConfig, {
+    basic: true,
+    many: true,
+    focus: true,
+    groups: true,
+    parallel: true,
+    testFailure: true,
+    locationChanged: true,
+  });
 });

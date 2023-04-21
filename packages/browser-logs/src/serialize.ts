@@ -20,6 +20,10 @@ function serializeObject(value: any) {
     return value.constructor.name + ': ' + value.outerHTML;
   }
 
+  if (window.ShadowRoot && value instanceof ShadowRoot) {
+    return value.constructor.name + ': ' + value.innerHTML;
+  }
+
   if (value instanceof RegExp) {
     return {
       [KEY_WTR_TYPE]: 'RegExp',
@@ -82,6 +86,10 @@ function createReplacer() {
       return { [KEY_WTR_TYPE]: 'undefined' };
     }
 
+    if (value instanceof Promise) {
+      return { [KEY_WTR_TYPE]: 'Promise' };
+    }
+
     if (value == null) {
       return value;
     }
@@ -116,5 +124,11 @@ function createReplacer() {
 }
 
 export function serialize(value: unknown) {
-  return JSON.stringify(value, createReplacer());
+  try {
+    return JSON.stringify(value, createReplacer());
+  } catch (error) {
+    console.error('Error while serializing object.');
+    console.error(error);
+    return 'null';
+  }
 }

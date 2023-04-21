@@ -15,14 +15,14 @@ export function collectTestResults(mocha: BrowserMocha) {
       const hookError = (hook as any).err as Error | undefined;
       if (hook.state === 'failed' || hookError) {
         if (hookError) {
-          const message = hook.title;
           const stackArray = hookError.stack?.split('\n') ?? [];
-          if (!stackArray[0].includes(hookError.message)) {
-            stackArray?.unshift(hookError.message);
-          }
-          hookErrors.push({ message, stack: stackArray.join('\n') });
+          hookErrors.push({
+            name: hookError.name,
+            message: hookError.message,
+            stack: stackArray.join('\n'),
+          });
         } else {
-          hookErrors.push({ message: 'Unknown error' });
+          hookErrors.push({ message: 'Unknown error in mocha hook' });
         }
       }
     }
@@ -42,6 +42,7 @@ export function collectTestResults(mocha: BrowserMocha) {
         ...(test.duration !== undefined && { duration: test.duration }),
         error: err
           ? {
+              name: err.name,
               message: err.message,
               stack: err.stack,
               expected: err.expected,

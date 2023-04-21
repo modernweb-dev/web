@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server",
-  "version": "0.0.10",
+  "version": "0.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -18,8 +18,14 @@
     "web-dev-server": "./dist/bin.js",
     "wds": "./dist/bin.js"
   },
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "start": "yarn start:syntax",
@@ -34,6 +40,7 @@
     "test:watch": "mocha \"test/**/*.test.mjs\" --watch --watch-files src,test --reporter dot"
   },
   "files": [
+    "*.d.mts",
     "*.d.ts",
     "*.js",
     "*.mjs",
@@ -49,31 +56,24 @@
     "cli"
   ],
   "dependencies": {
-    "@babel/code-frame": "^7.10.4",
-    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@babel/code-frame": "^7.12.11",
     "@types/command-line-args": "^5.0.0",
-    "@web/config-loader": "^0.1.1",
-    "@web/dev-server-cli": "^0.0.3",
-    "@web/dev-server-core": "^0.2.9",
-    "@web/dev-server-rollup": "^0.2.5",
-    "camelcase": "^6.0.0",
-    "chalk": "^4.1.0",
+    "@web/config-loader": "^0.2.0",
+    "@web/dev-server-core": "^0.5.0",
+    "@web/dev-server-rollup": "^0.5.0",
+    "camelcase": "^6.2.0",
     "command-line-args": "^5.1.1",
-    "command-line-usage": "^6.1.0",
+    "command-line-usage": "^7.0.1",
     "debounce": "^1.2.0",
     "deepmerge": "^4.2.2",
     "ip": "^1.1.5",
-    "open": "^7.1.0",
-    "portfinder": "^1.0.27"
+    "nanocolors": "^0.2.1",
+    "open": "^8.0.2",
+    "portfinder": "^1.0.32"
   },
   "devDependencies": {
-    "lit-html": "^1.2.1",
-    "puppeteer": "^5.2.1"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
+    "@types/command-line-usage": "^5.0.1",
+    "lit-html": "^2.0.0",
+    "puppeteer": "^19.9.0"
   }
 }

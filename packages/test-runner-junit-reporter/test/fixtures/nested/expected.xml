@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Chrome_puppeteer_/test/fixtures/nested/nested-test.js" id="0" tests="1" skipped="0" errors="0" failures="0" time="0.001">
+  <testsuite name="Chrome_puppeteer_/packages/test-runner-junit-reporter/test/fixtures/nested/nested-test.js" id="0" tests="1" skipped="0" errors="0" failures="0" time="0.001">
     <properties>
-      <property name="test.fileName" value="<<cwd>>/packages/test-runner-junit-reporter/test/fixtures/nested/nested-test.js"/>
+      <property name="test.fileName" value="packages/test-runner-junit-reporter/test/fixtures/nested/nested-test.js"/>
       <property name="browser.name" value="Chrome"/>
       <property name="browser.launcher" value="puppeteer"/>
-      <property name="browser.userAgent" value="<<useragent>>"/>
     </properties>
-    <testcase name="is equivalent to map (f.g) f a" time="<<computed>>" classname="given a functor f and a function a -&gt; b map f map g f a"/>
+    <testcase name="is equivalent to map (f.g) f a" time="<<computed>>" classname="given a functor f and a function a -&gt; b map f map g f a" file="packages/test-runner-junit-reporter/test/fixtures/nested/nested-test.js"/>
   </testsuite>
 </testsuites>

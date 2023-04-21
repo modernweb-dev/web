@@ -1,5 +1,83 @@
 # @web/dev-server-legacy
 
+## 2.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+  - @web/polyfills-loader@2.0.0
+
+## 1.0.3
+
+### Patch Changes
+
+- 817d674b: Update `browserslist-useragent`
+- Updated dependencies [c103f166]
+  - @web/dev-server-core@0.4.1
+
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
+## 1.0.1
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+- Updated dependencies [00da4255]
+  - @web/dev-server-core@0.3.19
+
+## 1.0.0
+
+### Major Changes
+
+- 9b0b7a91: Migrate to @web/polyfills-loader
+
+### Patch Changes
+
+- Updated dependencies [16f33e3e]
+- Updated dependencies [283c9258]
+- Updated dependencies [642d5253]
+  - @web/polyfills-loader@1.3.2
+
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [0f613e0e]
+  - @web/dev-server-core@0.3.0
+
+## 0.1.6
+
+### Patch Changes
+
+- 7aabb52: only transform modules to systemjs
+- Updated dependencies [e8ebfcc]
+  - @web/dev-server-core@0.2.13
+
+## 0.1.5
+
+### Patch Changes
+
+- 7901081: Include URL parameters in inline scripts cache
+
+## 0.1.4
+
+### Patch Changes
+
+- 71348e2: make polyfills configurable
+
 ## 0.1.3
 
 ### Patch Changes

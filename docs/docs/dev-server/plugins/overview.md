@@ -1,35 +1,13 @@
----
-title: Dev Server Plugins
-eleventyNavigation:
-  key: Overview
-  parent: Plugins
-  order: 1
----
+# Dev Server >> Plugins >> Overview ||1
 
-Plugins are objects with lifecycle hooks called by the dev server or test runner as it serves files to the browser. They can be used to serve virtual files, transform files, or resolve module imports.
+Web Dev Server comes with a few plugins out of the box.
 
-Plugins share a similar API to [rollup](https://github.com/rollup/rollup) plugins. In fact, you can reuse rollup plugins in the dev server. See the [Rollup section](./rollup.md) for that, and the [examples section](./examples.md) for practical use cases.
+See
 
-A plugin is an object that you add to the `plugins` array in your configuration file. You can add an object directly, or create one from a function somewhere:
+- [esbuild](./esbuild.md)
+- [rollup](./rollup.md)
+- [import-maps](./import-maps.md)
+- [legacy](./legacy.md)
+- [hmr](./hmr.md)
 
-In your `web-dev-server.config.mjs` or `web-test-runner.config.mjs`:
-
-```js
-import awesomePlugin from 'awesome-plugin';
-
-export default {
-  plugins: [
-    // use a plugin
-    awesomePlugin({ someOption: 'someProperty' }),
-    // create an inline plugin
-    {
-      name: 'my-plugin',
-      transform(context) {
-        if (context.response.is('html')) {
-          return { body: context.body.replace(/<base href=".*">/, '<base href="/foo/">') };
-        }
-      },
-    },
-  ],
-};
-```
+If you have more specific needs it's best to [write your own plugin](../writing-plugins/overview.md).

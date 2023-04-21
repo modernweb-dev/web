@@ -1,5 +1,154 @@
 # @web/dev-server-esbuild
 
+## 0.4.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+
+## 0.3.6
+
+### Patch Changes
+
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+  - @web/dev-server-core@0.4.1
+
+## 0.3.5
+
+### Patch Changes
+
+- 0f5631d0: chore(deps): bump ua-parser-js from 1.0.32 to 1.0.33
+
+## 0.3.4
+
+### Patch Changes
+
+- 1b2ae08c: Bump the `esbuild` version to `^0.16 || ^0.17` fix a decorator bug in 0.14
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
+## 0.3.3
+
+### Patch Changes
+
+- cfc2aa1e: Expose banner/footer as a pass-through to esbuild transform
+
+## 0.3.2
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+- Updated dependencies [00da4255]
+  - @web/dev-server-core@0.3.19
+
+## 0.3.1
+
+### Patch Changes
+
+- d0e5e3f0: Add a `tsconfig` option which can be pointed towards your tsconfig.json to keep esbuild and typescript in sync.
+
+  Usage example:
+
+  ```js
+  import { fileURLToPath } from 'url';
+  esbuildPlugin({
+    ts: true,
+    tsconfig: fileURLToPath(new URL('./tsconfig.json', import.meta.url)),
+  });
+  ```
+
+  Note: Without the above code the `tsconfig.json` file will not be used.
+
+## 0.3.0
+
+### Minor Changes
+
+- c1946b04: Relax `esbuild` semver dependency from `^0.12.21` to `^0.12 || ^0.13 || ^0.14`.
+
+## 0.2.16
+
+### Patch Changes
+
+- d406c772: Do not process scripts with non-JS type attribute
+- Updated dependencies [b2c081d8]
+  - @web/dev-server-core@0.3.17
+
+## 0.2.15
+
+### Patch Changes
+
+- 9f4940f0: Update ua-parser-js dependency to 1.0.2
+
+## 0.2.14
+
+### Patch Changes
+
+- bf89ce23: Update dependency @mdn/browser-compat-data to v4
+
+## 0.2.13
+
+### Patch Changes
+
+- 9f96e7be: Update esbuild dependency to ^0.12.21
+
+## 0.2.12
+
+### Patch Changes
+
+- 90375262: Upgrade to esbuild ^0.11.0
+- 020917c4: Do not override js loader with esbuild target
+- Updated dependencies [780a3520]
+  - @web/dev-server-core@0.3.10
+
+## 0.2.11
+
+### Patch Changes
+
+- 87705b04: pass `esbuildconfig.define` to esbuild transform function
+
+## 0.2.10
+
+### Patch Changes
+
+- c7f8d271: set esm format for non jslike loaders
+- Updated dependencies [375116ad]
+  - @web/dev-server-core@0.3.2
+
+## 0.2.9
+
+### Patch Changes
+
+- Updated dependencies [0f613e0e]
+  - @web/dev-server-core@0.3.0
+
+## 0.2.8
+
+### Patch Changes
+
+- 28890a0: update to latest esbuild
+
+## 0.2.6
+
+### Patch Changes
+
+- 46a01fb: filter unsupported sourcemap warnings
+
+## 0.2.5
+
+### Patch Changes
+
+- 8111c2f: upgrade mdn-browser-compat-data to @mdn/browser-compat-data
+- 201ffbd: updated esbuild dependency
+
 ## 0.2.4
 
 ### Patch Changes

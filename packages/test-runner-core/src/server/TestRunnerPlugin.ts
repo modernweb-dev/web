@@ -3,12 +3,12 @@ import { BasicTestSession } from '../test-session/BasicTestSession';
 
 export type ExecuteCommandResult = void | unknown | Promise<void> | Promise<unknown>;
 
-export interface ExecuteCommandArgs {
+export interface ExecuteCommandArgs<TPayload> {
   command: string;
-  payload?: unknown;
+  payload?: TPayload;
   session: BasicTestSession;
 }
 
-export interface TestRunnerPlugin extends Plugin {
-  executeCommand?(args: ExecuteCommandArgs): ExecuteCommandResult;
+export interface TestRunnerPlugin<TPayload = unknown> extends Plugin {
+  executeCommand?(args: ExecuteCommandArgs<TPayload>): ExecuteCommandResult;
 }

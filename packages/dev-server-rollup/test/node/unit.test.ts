@@ -1,11 +1,9 @@
 import { Plugin as RollupPlugin, AcornNode } from 'rollup';
 import { expect } from 'chai';
-import fetch from 'node-fetch';
 import path from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from './test-helpers';
 import { fromRollup } from '../../src/index';
-import { stub } from 'sinon';
 
 describe('@web/dev-server-rollup', () => {
   describe('resolveId', () => {
@@ -85,34 +83,21 @@ describe('@web/dev-server-rollup', () => {
       }
     });
 
-    it('throws when resolving an import to a file outside the current root directory', async () => {
-      const resolvedId = path.resolve(process.cwd(), '..', '..', '..', 'foo.js');
+    it('files resolved outside root directory are rewritten', async () => {
+      const resolvedId = path.resolve(__dirname, '..', '..', '..', '..', '..', 'foo.js');
       const plugin: RollupPlugin = {
         name: 'my-plugin',
         resolveId() {
           return resolvedId;
         },
       };
-      const mockLogger = {
-        log: stub(),
-        debug: stub(),
-        error: stub(),
-        warn: stub(),
-        group: stub(),
-        groupEnd: stub(),
-        logSyntaxError: stub(),
-      };
-      const { server, host } = await createTestServer(
-        {
-          plugins: [fromRollup(() => plugin)()],
-        },
-        mockLogger,
-      );
+      const { server, host } = await createTestServer({
+        plugins: [fromRollup(() => plugin)()],
+      });
 
       try {
-        const response = await fetch(`${host}/app.js`);
-        expect(response.status).to.equal(500);
-        expect(mockLogger.logSyntaxError.calledOnce).to.be.true;
+        const responseText = await fetchText(`${host}/app.js`);
+        expectIncludes(responseText, "import moduleA from '/__wds-outside-root__/7/foo.js'");
       } finally {
         server.stop();
       }
@@ -283,7 +268,7 @@ describe('@web/dev-server-rollup', () => {
     }
   });
 
-  it('requests with a null byte are receives by the rollup plugin without special prefix', async () => {
+  it('requests with a null byte are received by the rollup plugin without special prefix', async () => {
     const plugin: RollupPlugin = {
       name: 'my-plugin',
       load(id) {
@@ -348,6 +333,43 @@ describe('@web/dev-server-rollup', () => {
       const text = await fetchText(`${host}/multiple-inline.html`);
       expect(text).to.equal(
         `<html><head></head><body>\n    <script type="module">\n      console.log("asd");\n    </script>\n    <script type="module">\n      console.log("transformed");\n    </script>\n  \n\n</body></html>`,
+      );
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('can inject null byte imports into inline scripts', async () => {
+    const plugin: RollupPlugin = {
+      name: 'my-plugin',
+      transform(code) {
+        return `import "\0foo.js"; \n${code}`;
+      },
+      resolveId(id) {
+        if (id === '\0foo.js') {
+          return id;
+        }
+      },
+    };
+    const { server, host } = await createTestServer({
+      plugins: [
+        {
+          name: 'serve-html',
+          serve(context) {
+            if (context.path === '/index.html') {
+              return '<script type="module">console.log("hello world");</script>';
+            }
+          },
+        },
+        fromRollup(() => plugin)(),
+      ],
+    });
+
+    try {
+      const text = await fetchText(`${host}/index.html`);
+      expectIncludes(
+        text,
+        'import "/__web-dev-server__/rollup/foo.js?web-dev-server-rollup-null-byte=%00foo.js"',
       );
     } finally {
       server.stop();

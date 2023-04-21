@@ -1,10 +1,4 @@
----
-title: Testing responsive sites
-eleventyNavigation:
-  key: Responsive
-  parent: Test Runner
-  order: 40
----
+# Test Runner >> Responsive Sites ||40
 
 With the world going mobile first, it is more important than ever to test your code against different viewport.
 
@@ -180,6 +174,5 @@ describe('desktop', () => {
 
 ## Learn more
 
-All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner-responsive).
-
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner).
 See the [documentation of @web/test-runner](../../docs/test-runner/overview.md).

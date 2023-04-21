@@ -1,10 +1,4 @@
----
-title: Using watch mode and debugging
-eleventyNavigation:
-  key: Watch and Debug
-  parent: Test Runner
-  order: 20
----
+# Test Runner >> Watch and Debug ||20
 
 During development, it can be annoying to re-run all your tests manually every time there is a change.
 Watch mode helps by watching the file system, re-running the tests that have changes, and reporting the updated results.
@@ -316,6 +310,5 @@ Finished running tests in 1s, all tests passed! 🎉
 
 ## Learn more
 
-All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner-watch-and-debug).
-
+All the code is available on [github](https://github.com/modernweb-dev/example-projects/tree/master/guides/test-runner).
 See the [documentation of @web/test-runner](../../../docs/test-runner/overview.md).

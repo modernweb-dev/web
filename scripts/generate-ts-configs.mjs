@@ -86,7 +86,7 @@ packageDirnameMap.forEach((packageDirname, packageName) => {
       references: internalDependencies.map(dep => {
         return { path: `../${packageDirnameMap.get(dep)}/tsconfig.json` };
       }),
-      include: ['src'],
+      include: ['src', 'types'],
       exclude: ['src/browser', 'tests', 'dist'],
     },
     tsConfigOverride,

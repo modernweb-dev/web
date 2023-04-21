@@ -3,6 +3,7 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "linked": [],
+  "ignore": ["@web/test-runner-integration-tests"],
   "access": "public",
   "baseBranch": "master",
   "updateInternalDependencies": "patch"

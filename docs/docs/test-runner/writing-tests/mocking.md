@@ -1,11 +1,4 @@
----
-title: Mocking
-eleventyNavigation:
-  key: Writing tests > Mocking
-  title: Mocking
-  parent: Writing tests
-  order: 50
----
+# Test Runner >> Writing Tests >> Mocking ||50
 
 ## Mocking functions
 
@@ -44,7 +37,7 @@ export default {
       inject: {
         importMap: {
           imports: {
-            // mock a dependeny
+            // mock a dependency
             'package-a': '/mocks/package-a.js',
             // mock a module in your own code
             '/src/my-module.js': '/mocks/my-module.js',

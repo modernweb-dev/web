@@ -10,14 +10,12 @@
     "allowJs": true,
     "lib": [
       "webworker"
-    ],
-    "types": [
-      "workbox-build"
     ]
   },
   "references": [],
   "include": [
-    "src"
+    "src",
+    "types"
   ],
   "exclude": [
     "dist",

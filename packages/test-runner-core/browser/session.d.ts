@@ -10,6 +10,7 @@ export interface RuntimeConfig {
 export type BrowserSessionResult = Pick<TestSession, 'passed' | 'errors' | 'testResults'>;
 
 export interface FullBrowserSessionResult extends BrowserSessionResult {
+  userAgent: string;
   logs: string[];
 }
 

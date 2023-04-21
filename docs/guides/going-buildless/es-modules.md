@@ -1,10 +1,4 @@
----
-title: ECMAScript Modules
-eleventyNavigation:
-  key: ES Modules
-  parent: Going Buildless
-  order: 60
----
+# Going Buildless >> ES Modules ||60
 
 All modern browsers support standard es modules. These are javascript files using `import` and `export` statements:
 
@@ -47,12 +41,20 @@ import { foo } from './foo.js';
 
 ### Dynamic imports
 
-You can also import other modules using dynamic `import()` function. This import is executed lazily, the browser will download the file only when the function is executed.
+You can also import other modules using dynamic [`import()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#dynamic_imports) function. This import is executed lazily, the browser will download the file only when the function is executed.
 
 ```js
 function loadComponent() {
   return import('./components/my-component.js');
 }
+```
+
+Because of the nature of dynamic imports, the above function returns a promise, so you need to use the `await` keyword:
+
+```js
+const component = await loadComponent();
+
+component.doSomething();
 ```
 
 ## File extensions
@@ -152,7 +154,7 @@ Popular collections of forks are [@esm-bundle](https://github.com/esm-bundle/) a
 
 ### Create a UMD wrapper
 
-UMD modules are "universal modules", meaning they support multiple module formats in a single file. It's quite an old standard, and it doesn't support standard es modules, so it's not quite "universal" anymore. However, many libraries ship a UMD version where the library and it's dependencies are bundled into a single file. It's been the way to ship code for the browser for a long time.
+UMD modules are "universal modules", meaning they support multiple module formats in a single file. It's quite an old standard, and it doesn't support standard es modules, so it's not quite "universal" anymore. However, many libraries ship a UMD version where the library and its dependencies are bundled into a single file. It's been the way to ship code for the browser for a long time.
 
 You can actually import these libraries using a module import, but instead of exporting something, the UMD module will register itself to the window. You can set up a proxy file to reexport this variable from the window.
 

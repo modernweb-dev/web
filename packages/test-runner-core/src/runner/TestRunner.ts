@@ -1,7 +1,5 @@
-import { resolve } from 'path';
-
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { createTestSessions } from './createTestSessions';
+import { createTestSessions } from './createSessionGroups';
 import { TestSession } from '../test-session/TestSession';
 import { getTestCoverage, TestCoverage } from '../coverage/getTestCoverage';
 import { TestScheduler } from './TestScheduler';
@@ -11,9 +9,11 @@ import { EventEmitter } from '../utils/EventEmitter';
 import { createSessionUrl } from './createSessionUrl';
 import { createDebugSessions } from './createDebugSessions';
 import { TestRunnerServer } from '../server/TestRunnerServer';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
+import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig';
 
 interface EventMap {
-  'test-run-started': { testRun: number; sessions: Iterable<TestSession> };
+  'test-run-started': { testRun: number };
   'test-run-finished': { testRun: number; testCoverage?: TestCoverage };
   finished: boolean;
   stopped: boolean;
@@ -21,8 +21,10 @@ interface EventMap {
 
 export class TestRunner extends EventEmitter<EventMap> {
   public config: TestRunnerCoreConfig;
-  public sessions = new TestSessionManager();
+  public sessions: TestSessionManager;
   public testFiles: string[];
+  public browsers: BrowserLauncher[];
+  public browserNames: string[];
   public startTime = -1;
   public testRun = -1;
   public started = false;
@@ -35,15 +37,45 @@ export class TestRunner extends EventEmitter<EventMap> {
   private server: TestRunnerServer;
   private pendingSessions = new Set<TestSession>();
 
-  constructor(config: TestRunnerCoreConfig, testFiles: string[]) {
+  constructor(config: TestRunnerCoreConfig, groupConfigs: TestRunnerGroupConfig[] = []) {
     super();
-    this.config = config;
-    this.testFiles = testFiles.map(f => resolve(f));
-    this.scheduler = new TestScheduler(config, this.sessions);
-    this.server = new TestRunnerServer(this.config, this.sessions, this.testFiles, sessions => {
-      this.runTests(sessions);
-    });
+    if (!config.manual && (!config.browsers || config.browsers.length === 0)) {
+      throw new Error('No browsers are configured to run tests');
+    }
 
+    if (config.manual && config.watch) {
+      throw new Error('Cannot combine the manual and watch options.');
+    }
+
+    if (config.open && !config.manual) {
+      throw new Error('The open option requires the manual option to be set.');
+    }
+
+    const { sessionGroups, testFiles, testSessions, browsers } = createTestSessions(
+      config,
+      groupConfigs,
+    );
+    this.config = config;
+
+    this.testFiles = testFiles;
+    this.browsers = browsers;
+    this.browserNames = Array.from(new Set(this.browsers.map(b => b.name)));
+    this.browserNames.sort(
+      (a, b) =>
+        this.browsers.findIndex(br => br.name === a) - this.browsers.findIndex(br => br.name === b),
+    );
+
+    this.sessions = new TestSessionManager(sessionGroups, testSessions);
+    this.scheduler = new TestScheduler(config, this.sessions, browsers);
+    this.server = new TestRunnerServer(
+      this.config,
+      this,
+      this.sessions,
+      this.testFiles,
+      sessions => {
+        this.runTests(sessions);
+      },
+    );
     this.sessions.on('session-status-updated', session => {
       if (session.status === SESSION_STATUS.FINISHED) {
         this.onSessionFinished();
@@ -60,16 +92,19 @@ export class TestRunner extends EventEmitter<EventMap> {
       this.started = true;
       this.startTime = Date.now();
 
-      for (const browser of this.config.browsers) {
-        await browser.start(this.config, this.testFiles);
-      }
-
-      const createdSessions = createTestSessions(this.config.browsers, this.testFiles);
-      this.sessions.add(...createdSessions);
-
       await this.server.start();
 
-      this.runTests(this.sessions.all());
+      if (!this.config.manual) {
+        for (const browser of this.browsers) {
+          if (browser.initialize) {
+            await browser.initialize(this.config, this.testFiles);
+          }
+        }
+
+        // the browser names can be updated after initialize
+        this.browserNames = Array.from(new Set(this.browsers.map(b => b.name)));
+        this.runTests(this.sessions.all());
+      }
     } catch (error) {
       this.stop(error);
     }
@@ -100,8 +135,8 @@ export class TestRunner extends EventEmitter<EventMap> {
       this.testRun += 1;
       this.running = true;
 
-      await this.scheduler.schedule(this.testRun, sessionsToRun);
-      this.emit('test-run-started', { testRun: this.testRun, sessions: sessionsToRun });
+      this.scheduler.schedule(this.testRun, sessionsToRun);
+      this.emit('test-run-started', { testRun: this.testRun });
     } catch (error) {
       this.running = false;
       this.stop(error);
@@ -120,25 +155,35 @@ export class TestRunner extends EventEmitter<EventMap> {
     }
 
     this.stopped = true;
-    this.scheduler.stop();
-    this.server.stop().catch(error => {
-      console.error(error);
-    });
+    await this.scheduler.stop();
 
     const stopActions = [];
-    for (const browser of this.config.browsers) {
-      stopActions.push(
-        browser.stop().catch(error => {
-          console.error(error);
-        }),
-      );
+    const stopServerAction = this.server.stop().catch(error => {
+      console.error(error);
+    });
+    stopActions.push(stopServerAction);
+
+    if (this.config.watch) {
+      // we only need to stop the browsers in watch mode, in non-watch
+      // mode the scheduler has already stopped them
+      const stopActions = [];
+      for (const browser of this.browsers) {
+        if (browser.stop) {
+          stopActions.push(
+            browser.stop().catch(error => {
+              console.error(error);
+            }),
+          );
+        }
+      }
     }
     await Promise.all(stopActions);
     this.emit('stopped', this.passed);
   }
 
   startDebugBrowser(testFile: string) {
-    const debugSessions = createDebugSessions(this.config.browsers, testFile);
+    const sessions = this.sessions.forTestFile(testFile);
+    const debugSessions = createDebugSessions(Array.from(sessions));
     this.sessions.addDebug(...debugSessions);
 
     for (const session of debugSessions) {

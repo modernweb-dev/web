@@ -1,13 +1,15 @@
-import { Context, getHtmlPath } from '@web/dev-server-core';
+import { Context } from '@web/dev-server-core';
 import { getAttribute, getTextContent, remove } from '@web/dev-server-core/dist/dom5';
 import { parse, serialize, Document as DocumentAst, Node as NodeAst } from 'parse5';
 import {
   injectPolyfillsLoader as originalInjectPolyfillsLoader,
+  PolyfillsConfig,
   fileTypes,
   getScriptFileType,
   GeneratedFile,
   File,
-} from 'polyfills-loader';
+} from '@web/polyfills-loader';
+import { PARAM_TRANSFORM_SYSTEMJS } from './constants';
 import { findJsScripts } from './findJsScripts';
 
 function findScripts(indexUrl: string, documentAst: DocumentAst) {
@@ -21,13 +23,17 @@ function findScripts(indexUrl: string, documentAst: DocumentAst) {
     let src = getAttribute(scriptNode, 'src');
 
     if (!src) {
-      src = `inline-script-${i}.js?source=${encodeURIComponent(indexUrl)}`;
+      const suffix = type === 'module' ? `&${PARAM_TRANSFORM_SYSTEMJS}=true` : '';
+      src = `inline-script-${i}.js?source=${encodeURIComponent(indexUrl)}${suffix}`;
       inlineScripts.push({
         path: src,
         type,
         content: getTextContent(scriptNode),
       });
       inlineScriptNodes.push(scriptNode);
+    } else if (type === 'module') {
+      const separator = src.includes('?') ? '&' : '?';
+      src = `${src}${separator}${PARAM_TRANSFORM_SYSTEMJS}=true`;
     }
 
     files.push({
@@ -51,10 +57,12 @@ export interface ReturnValue {
  * with the appropriate polyfills, shims and a script loader so that they can be loaded
  * at the right time
  */
-export async function injectPolyfillsLoader(context: Context): Promise<ReturnValue> {
-  const htmlPath = getHtmlPath(context.path);
-  const documentAst = parse(context.body);
-  const { files, inlineScripts, scriptNodes } = findScripts(htmlPath, documentAst);
+export async function injectPolyfillsLoader(
+  context: Context,
+  polyfills?: boolean | PolyfillsConfig,
+): Promise<ReturnValue> {
+  const documentAst = parse(context.body as string);
+  const { files, inlineScripts, scriptNodes } = findScripts(context.url, documentAst);
 
   const polyfillsLoaderConfig = {
     modern: {
@@ -63,13 +71,17 @@ export async function injectPolyfillsLoader(context: Context): Promise<ReturnVal
         type: f.type === fileTypes.MODULE ? fileTypes.SYSTEMJS : f.type,
       })),
     },
-    polyfills: {
-      coreJs: true,
-      regeneratorRuntime: 'always' as const,
-      fetch: true,
-      abortController: true,
-      webcomponents: true,
-    },
+    polyfills:
+      polyfills === false
+        ? { regeneratorRuntime: 'always' as const }
+        : {
+            coreJs: true,
+            regeneratorRuntime: 'always' as const,
+            fetch: true,
+            abortController: true,
+            webcomponents: true,
+            ...(polyfills === true ? {} : polyfills),
+          },
     preload: false,
   };
 
@@ -80,10 +92,10 @@ export async function injectPolyfillsLoader(context: Context): Promise<ReturnVal
     remove(scriptNode);
   }
 
-  const result = originalInjectPolyfillsLoader(serialize(documentAst), polyfillsLoaderConfig);
+  const result = await originalInjectPolyfillsLoader(serialize(documentAst), polyfillsLoaderConfig);
 
   return {
-    htmlPath,
+    htmlPath: context.url,
     indexHTML: result.htmlString,
     inlineScripts,
     polyfills: result.polyfillFiles,

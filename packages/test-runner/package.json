@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.7.24",
+  "version": "0.16.0",
   "publishConfig": {
     "access": "public"
   },
@@ -18,24 +18,48 @@
     "web-test-runner": "./dist/bin.js",
     "wtr": "./dist/bin.js"
   },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./index.d.ts",
+        "default": "./index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "build": "tsc",
     "test": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\"",
-    "test:babel-coverage": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/babel-coverage.config.js",
+    "test:babel-coverage": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/babel-coverage.config.mjs",
     "test:bare": "node dist/bin.js",
     "test:ci": "yarn test",
-    "test:custom-html": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/customhtml.config.js",
-    "test:legacy": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config legacy.config.js",
+    "test:coverage": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --coverage",
+    "test:coverage-babel": "node dist/bin.js --config demo/coverage-babel/config.mjs",
+    "test:custom-html": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/customhtml.config.mjs",
+    "test:filter-logs": "node dist/bin.js --config demo/filter-logs.config.mjs",
+    "test:focus": "node dist/bin.js --config demo/focus/config.mjs",
+    "test:groups": "node dist/bin.js --config demo/groups.config.mjs",
+    "test:groups-pattern": "node dist/bin.js --groups \"demo/test/groups/**/*.config.mjs\"",
+    "test:groups-shared-browser": "node dist/bin.js --config demo/groups-shared-browser.config.mjs",
+    "test:legacy": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/legacy.config.mjs",
     "test:logging": "node dist/bin.js \"demo/test/logging.test.js\"",
     "test:many": "node dist/bin.js \"demo/test/many/**/*.test.js\"",
     "test:mixed": "node dist/bin.js \"demo/test/*.test.js\"",
     "test:mocha-options": "node dist/bin.js --config \"demo/test/mocha-options/config.js\"",
     "test:playwright": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --playwright --browsers chromium firefox webkit",
     "test:puppeteer-firefox": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --puppeteer --browsers firefox",
-    "test:source-maps": "node dist/bin.js \"demo/test/source-maps/**/*/*.test.js\"",
+    "test:saucelabs": "node dist/bin.js --config demo/saucelabs.config.mjs",
+    "test:selenium": "node dist/bin.js --config demo/selenium.config.mjs",
+    "test:snapshots": "node dist/bin.js \"demo/test/pass-snapshot.test.js\" --coverage",
+    "test:source-maps": "node dist/bin.js --config demo/source-maps/config.mjs",
+    "test:tsc": "tsc -p demo/tsc/tsconfig.json && concurrently -k -r \"tsc -p demo/tsc/tsconfig.json --watch --preserveWatchOutput\" \"wtr --config demo/tsc/config.mjs --watch\"",
+    "test:virtual": "node dist/bin.js --config demo/virtual/config.mjs",
     "test:watch": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --watch"
   },
   "files": [
@@ -55,24 +79,28 @@
     "cli"
   ],
   "dependencies": {
-    "@rollup/plugin-node-resolve": "^8.1.0",
-    "@web/dev-server-rollup": "^0.2.5",
-    "@web/test-runner-chrome": "^0.6.6",
-    "@web/test-runner-cli": "^0.5.11",
-    "@web/test-runner-commands": "^0.1.5",
-    "@web/test-runner-core": "^0.7.12",
-    "@web/test-runner-mocha": "^0.3.3",
+    "@web/browser-logs": "^0.3.0",
+    "@web/config-loader": "^0.2.0",
+    "@web/dev-server": "^0.2.0",
+    "@web/test-runner-chrome": "^0.13.0",
+    "@web/test-runner-commands": "^0.7.0",
+    "@web/test-runner-core": "^0.11.0",
+    "@web/test-runner-mocha": "^0.8.0",
+    "camelcase": "^6.2.0",
     "command-line-args": "^5.1.1",
-    "deepmerge": "^4.2.2"
+    "command-line-usage": "^7.0.1",
+    "convert-source-map": "^2.0.0",
+    "diff": "^5.0.0",
+    "globby": "^11.0.1",
+    "nanocolors": "^0.2.1",
+    "portfinder": "^1.0.32",
+    "source-map": "^0.7.3"
   },
   "devDependencies": {
-    "@web/dev-server-legacy": "^0.1.2",
-    "babel-plugin-istanbul": "^6.0.0"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
-    }
+    "@types/diff": "^5.0.0",
+    "@web/dev-server-legacy": "^2.0.0",
+    "@web/test-runner-saucelabs": "^0.9.0",
+    "babel-plugin-istanbul": "^6.0.0",
+    "concurrently": "^8.0.1"
   }
 }

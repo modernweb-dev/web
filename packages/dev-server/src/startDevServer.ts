@@ -62,13 +62,12 @@ export async function startDevServer(options: StartDevServerParams = {}) {
     const config = await parseConfig(mergedConfig, cliArgs);
 
     const { logger, loggerPlugin } = createLogger({
-      // TODO: read debug
-      debugLogging: false,
-      clearTerminalOnReload: !!config.clearTerminalOnReload,
+      debugLogging: !!config.debug,
+      clearTerminalOnReload: !!config.watch && !!config.clearTerminalOnReload,
       logStartMessage: !!logStartMessage,
     });
     config.plugins = config.plugins ?? [];
-    config.plugins.push(loggerPlugin);
+    config.plugins.unshift(loggerPlugin);
 
     const server = new DevServer(config, logger);
 
@@ -86,7 +85,7 @@ export async function startDevServer(options: StartDevServerParams = {}) {
 
     await server.start();
 
-    if (config.open != null) {
+    if (config.open != null && config.open !== false) {
       await openBrowser(config);
     }
 

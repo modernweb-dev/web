@@ -54,7 +54,7 @@ wtr test/**/*.test.js --node-resolve --esbuild-target auto
 
 ## Guide
 
-Check out this [step by step guide](../../guides/test-runner/getting-started.md) to get started.
+Check out this [step by step guide](../../docs/guides/test-runner/getting-started.md) to get started.
 
 ## Example projects
 

@@ -1,6 +1,7 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Builder, WebDriver } from 'selenium-webdriver';
-import { WindowManager } from './WindowManager';
+import { getBrowserLabel, getBrowserName } from './utils';
+import { IFrameManager } from './IFrameManager';
 
 export interface SeleniumLauncherArgs {
   driverBuilder: Builder;
@@ -9,22 +10,27 @@ export interface SeleniumLauncherArgs {
 export class SeleniumLauncher implements BrowserLauncher {
   public name = 'Initializing...';
   public type = 'selenium';
-  private driver: undefined | WebDriver;
+  private config?: TestRunnerCoreConfig;
+  private driver?: WebDriver;
   private debugDriver: undefined | WebDriver = undefined;
-  private windowManager?: WindowManager;
+  private iframeManager?: IFrameManager;
+  private __iframeManagerPromise?: Promise<IFrameManager>;
+  private isIE = false;
+  private pendingHeartbeat!: ReturnType<typeof setInterval>;
 
   constructor(private driverBuilder: Builder) {}
 
-  async start(config: TestRunnerCoreConfig) {
+  async initialize(config: TestRunnerCoreConfig) {
+    this.config = config;
     const cap = this.driverBuilder.getCapabilities();
-    cap.setPageLoadStrategy('none');
+
     this.driverBuilder.withCapabilities(cap);
-    this.driver = await this.driverBuilder.build();
-    this.name = [cap.getPlatform(), cap.getBrowserName(), cap.getBrowserVersion()]
-      .filter(_ => _)
-      .join(' ');
-    this.windowManager = new WindowManager(this.driver, config);
-    await this.windowManager.initialize();
+    this.name = getBrowserLabel(cap);
+    const browserName = getBrowserName(cap).toLowerCase().replace(/_/g, ' ');
+    this.isIE =
+      (browserName.includes('internet') && browserName.includes('explorer')) ||
+      browserName === 'ie' ||
+      browserName === 'ie11';
   }
 
   async stop() {
@@ -32,24 +38,37 @@ export class SeleniumLauncher implements BrowserLauncher {
       await this.driver?.quit();
       await this.debugDriver?.quit();
 
+      // If there is still pending heartbeat, clear the interval
+      if (this.pendingHeartbeat) {
+        clearInterval(this.pendingHeartbeat);
+      }
+
       this.driver = undefined;
       this.debugDriver = undefined;
-      this.windowManager = undefined;
+      this.iframeManager = undefined;
     } catch {
       //
     }
   }
 
   async startSession(id: string, url: string) {
-    return this.windowManager!.queueStartSession(id, url);
+    await this.ensureIframeManagerInitialized();
+    return this.iframeManager!.queueStartSession(id, url);
   }
 
   isActive(id: string) {
-    return this.windowManager!.isActive(id);
+    return !!this.iframeManager?.isActive(id);
+  }
+
+  getBrowserUrl(sessionId: string) {
+    if (!this.iframeManager) {
+      throw new Error('Not initialized');
+    }
+    return this.iframeManager.getBrowserUrl(sessionId);
   }
 
   async stopSession(id: string) {
-    return this.windowManager!.queueStopSession(id);
+    return this.iframeManager!.queueStopSession(id);
   }
 
   async startDebugSession(_: string, url: string) {
@@ -58,6 +77,48 @@ export class SeleniumLauncher implements BrowserLauncher {
     }
     this.debugDriver = await this.driverBuilder.build();
     await this.debugDriver.navigate().to(url);
+  }
+
+  private async ensureIframeManagerInitialized(): Promise<void> {
+    if (this.iframeManager) {
+      return;
+    }
+
+    if (this.__iframeManagerPromise) {
+      await this.__iframeManagerPromise;
+      return;
+    }
+
+    this.__iframeManagerPromise = this.createiframeManager();
+    await this.__iframeManagerPromise;
+    this.__iframeManagerPromise = undefined;
+  }
+
+  private async createiframeManager() {
+    if (!this.config) throw new Error('Not initialized');
+
+    this.driver = await this.driverBuilder.build();
+    this.iframeManager = new IFrameManager(this.config, this.driver, this.isIE);
+
+    this.heartbeat();
+
+    return this.iframeManager;
+  }
+
+  private heartbeat() {
+    // Heartbeat function to keep alive sessions on Sauce Labs via WebDriver calls
+    this.pendingHeartbeat = setInterval(async () => {
+      if (!this.driver) {
+        return;
+      }
+      try {
+        await this.driver.getTitle();
+      } catch (e) {
+        // Do nothing, just clear the timeout
+        clearInterval(this.pendingHeartbeat);
+      }
+      return;
+    }, 60000);
   }
 }
 
