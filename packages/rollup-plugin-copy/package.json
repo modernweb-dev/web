@@ -1,6 +1,6 @@
 {
   "name": "@web/rollup-plugin-copy",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "publishConfig": {
     "access": "public"
   },
@@ -25,7 +25,7 @@
     }
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "test": "mocha test/**/*.test.js --reporter dot",

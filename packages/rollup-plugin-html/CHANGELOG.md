@@ -1,5 +1,17 @@
 # @web/rollup-plugin-html
 
+## 2.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/parse5-utils@2.0.0
+
 ## 1.11.1
 
 ### Patch Changes

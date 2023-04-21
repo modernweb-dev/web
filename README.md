@@ -9,7 +9,7 @@
 <p align="center">
   <a href="https://github.com/modernweb-dev/web/actions"
     ><img
-      src="https://img.shields.io/github/workflow/status/modernweb-dev/web/Release/master?label=workflow&style=flat-square"
+      src="https://img.shields.io/github/actions/workflow/status/modernweb-dev/web/release.yml?branch=master&label=workflow&style=flat-square"
       alt="GitHub Actions workflow status"
   /></a>
   <a href="https://twitter.com/modern_web_dev"

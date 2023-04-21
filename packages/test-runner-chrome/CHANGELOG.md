@@ -1,5 +1,18 @@
 # @web/test-runner-chrome
 
+## 0.13.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-coverage-v8@0.6.0
+  - @web/test-runner-core@0.11.0
+
 ## 0.12.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # rollup-plugin-workbox
 
+## 7.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
 ## 6.2.2
 
 ### Patch Changes

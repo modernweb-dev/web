@@ -1,5 +1,18 @@
 # @web/test-runner-core
 
+## 0.11.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+  - @web/browser-logs@0.3.0
+
 ## 0.10.29
 
 ### Patch Changes

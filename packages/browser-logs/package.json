@@ -1,6 +1,6 @@
 {
   "name": "@web/browser-logs",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "publishConfig": {
     "access": "public"
   },
@@ -21,7 +21,7 @@
     }
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "build": "tsc",
