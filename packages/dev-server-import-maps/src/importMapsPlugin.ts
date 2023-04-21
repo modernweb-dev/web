@@ -148,7 +148,9 @@ export function importMapsPlugin(config: ImportMapsPluginConfig = {}): Plugin {
         } catch (error) {
           const filePath = getRequestFilePath(context.url, rootDir);
           const relativeFilePath = path.relative(process.cwd(), filePath);
-          logger.warn(`Failed to parse import map in "${relativeFilePath}": ${error.message}`);
+          logger.warn(
+            `Failed to parse import map in "${relativeFilePath}": ${(error as Error).message}`,
+          );
           return;
         }
       }
