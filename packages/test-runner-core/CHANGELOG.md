@@ -1,5 +1,43 @@
 # @web/test-runner-core
 
+## 0.11.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+  - @web/browser-logs@0.3.0
+
+## 0.10.29
+
+### Patch Changes
+
+- cdeafe4a: fix: enable file watcher in manual mode
+- 1113fa09: Update `@rollup/pluginutils`
+- 817d674b: Update `browserslist-useragent`
+- 445b20e6: Update `convert-source-map`
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+- Updated dependencies [9b83280e]
+  - @web/dev-server-core@0.4.1
+  - @web/browser-logs@0.2.6
+
+## 0.10.28
+
+### Patch Changes
+
+- ac05ca5d: Add option to disable the fileWatcher in the dev server, to allow the test-runner to run once without files added to the watcher.
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
 ## 0.10.27
 
 ### Patch Changes

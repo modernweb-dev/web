@@ -1,5 +1,29 @@
 # @web/test-runner-playwright
 
+## 0.10.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-coverage-v8@0.6.0
+  - @web/test-runner-core@0.11.0
+
+## 0.9.0
+
+### Minor Changes
+
+- acca5d51: Update dependency v8-to-istanbul to v9
+
+### Patch Changes
+
+- Updated dependencies [acca5d51]
+  - @web/test-runner-coverage-v8@0.5.0
+
 ## 0.8.10
 
 ### Patch Changes

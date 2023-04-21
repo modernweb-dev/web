@@ -1,5 +1,18 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 2.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+## 1.0.8
+
+### Patch Changes
+
+- 1113fa09: Update `@rollup/pluginutils`
+
 ## 1.0.7
 
 ### Patch Changes

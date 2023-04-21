@@ -1,5 +1,56 @@
 # @web/test-runner-puppeteer
 
+## 0.13.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-chrome@0.13.0
+  - @web/test-runner-core@0.11.0
+
+## 0.12.1
+
+### Patch Changes
+
+- 9b83280e: Update puppeteer
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [77e413d9]
+- Updated dependencies [cdeafe4a]
+- Updated dependencies [1113fa09]
+- Updated dependencies [817d674b]
+- Updated dependencies [445b20e6]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/test-runner-chrome@0.12.1
+  - @web/test-runner-core@0.10.29
+
+## 0.12.0
+
+### Minor Changes
+
+- 0e198dcc: Update `puppeteer-core` dependency to v18
+
+### Patch Changes
+
+- Updated dependencies [0e198dcc]
+  - @web/test-runner-chrome@0.12.0
+
+## 0.11.0
+
+### Minor Changes
+
+- acca5d51: Update dependency v8-to-istanbul to v9
+
+### Patch Changes
+
+- Updated dependencies [acca5d51]
+  - @web/test-runner-chrome@0.11.0
+
 ## 0.10.5
 
 ### Patch Changes

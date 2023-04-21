@@ -45,6 +45,9 @@ export class TestRunnerServer {
       sslCert: config.sslCert,
 
       mimeTypes: config.mimeTypes,
+
+      disableFileWatcher: !config.watch && !config.manual,
+
       middleware: [
         watchFilesMiddleware({ runSessions, sessions, rootDir, fileWatcher: this.fileWatcher }),
         cacheMiddleware(CACHED_PATTERNS, config.watch),

@@ -32,11 +32,13 @@ export function a11ySnapshotPlugin(): TestRunnerPlugin<A11ySnapshotPayload> {
             root?: puppeteerCore.ElementHandle;
           } = {};
           if (payload && payload.selector) {
+            // @ts-ignore
             const root = await page.$(payload.selector);
             if (root) {
               options.root = root;
             }
           }
+          // @ts-ignore
           const snapshot = await page.accessibility.snapshot(options);
           return snapshot;
         }

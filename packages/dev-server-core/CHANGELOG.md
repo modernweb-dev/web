@@ -1,5 +1,36 @@
 # @web/dev-server-core
 
+## 0.5.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- ca715faf: Upgrade lru-cache dependency & add a file cache for v8-to-istanbul conversions
+- Updated dependencies [febd9d9d]
+  - @web/parse5-utils@2.0.0
+
+## 0.4.1
+
+### Patch Changes
+
+- c103f166: Update `isbinaryfile`
+- Updated dependencies [18a16bb0]
+  - @web/parse5-utils@1.3.1
+
+## 0.4.0
+
+### Minor Changes
+
+- ac05ca5d: Add option to disable the fileWatcher in the dev server, to allow the test-runner to run once without files added to the watcher.
+- acc0a84c: Expand support for Rollup plugins with child plugins, specifically the Node Resolve plugin.
+
+### Patch Changes
+
+- 81db401b: Generate longer self signed keys Closes #2122
+
 ## 0.3.19
 
 ### Patch Changes

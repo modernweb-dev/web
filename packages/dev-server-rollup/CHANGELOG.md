@@ -1,5 +1,57 @@
 # @web/dev-server-rollup
 
+## 0.5.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- b7d8ee66: Update mocha from version 8.2.0 to version 10.2.0
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+
+## 0.4.1
+
+### Patch Changes
+
+- fa2c1779: Update @rollup/plugin-babel
+- 1113fa09: Update `@rollup/pluginutils`
+- 817d674b: Update `browserslist-useragent`
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+  - @web/dev-server-core@0.4.1
+
+## 0.4.0
+
+### Minor Changes
+
+- acc0a84c: Expand support for Rollup plugins with child plugins, specifically the Node Resolve plugin.
+
+### Patch Changes
+
+- a2198172: fix rollup adapter resolution for virtual modules on Windows
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
+## 0.3.21
+
+### Patch Changes
+
+- bd06b8cd: revert change #2078
+
+## 0.3.20
+
+### Patch Changes
+
+- ab27e502: fix rollup adapter virtual modules resolution for windows environments
+
 ## 0.3.19
 
 ### Patch Changes

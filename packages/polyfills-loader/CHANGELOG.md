@@ -1,5 +1,28 @@
 # @web/polyfills-loader
 
+## 2.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/parse5-utils@2.0.0
+
+## 1.4.1
+
+### Patch Changes
+
+- f80b22ed: fix(polyfills-loader): reverse condition to load the polyfill for constructable stylesheets
+
+## 1.4.0
+
+### Minor Changes
+
+- ab5abe10: feat(polyfills-loader): add URLPattern polyfill
+
 ## 1.3.5
 
 ### Patch Changes
