@@ -117,13 +117,14 @@ export async function transformImports(
     const parseResult = await parse(code, filePath);
     imports = parseResult[0] as any as ParsedImport[];
   } catch (error) {
-    if (typeof error.idx === 'number') {
+    if (typeof (error as Error & { idx: number }).idx === 'number') {
+      const lexerError = error as Error & { idx: number };
       throw new PluginSyntaxError(
         'Syntax error',
         filePath,
         code,
-        code.slice(0, error.idx).split('\n').length,
-        error.idx - code.lastIndexOf('\n', error.idx - 1),
+        code.slice(0, lexerError.idx).split('\n').length,
+        lexerError.idx - code.lastIndexOf('\n', lexerError.idx - 1),
       );
     }
     throw error;

@@ -26,6 +26,12 @@ export interface ServerStartParams {
   webSockets?: WebSocketsManager;
 }
 
+export interface ResolveOptions {
+  isEntry?: boolean;
+  skipSelf?: boolean;
+  [key: string]: unknown;
+}
+
 export interface Plugin {
   name: string;
   injectWebSocket?: boolean;
@@ -40,7 +46,9 @@ export interface Plugin {
     code?: string;
     column?: number;
     line?: number;
+    resolveOptions?: ResolveOptions;
   }): ResolveResult | Promise<ResolveResult>;
+  resolveImportSkip?(context: Context, source: string, importer: string): void;
   transformImport?(args: {
     source: string;
     context: Context;

@@ -41,8 +41,10 @@ export function createMiddleware(
     middlewares.push(m);
   }
 
-  // watch files that are served
-  middlewares.push(watchServedFilesMiddleware(fileWatcher, config.rootDir));
+  if (!config.disableFileWatcher) {
+    // watch files that are served
+    middlewares.push(watchServedFilesMiddleware(fileWatcher, config.rootDir));
+  }
 
   // serves 304 responses if resource hasn't changed
   middlewares.push(etagCacheMiddleware());

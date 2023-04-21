@@ -1,5 +1,47 @@
 # @web/dev-server-storybook
 
+## 0.7.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+- Updated dependencies [72c63bc5]
+  - @web/dev-server-core@0.5.0
+  - @web/rollup-plugin-html@2.0.0
+  - @web/rollup-plugin-polyfills-loader@2.0.0
+
+## 0.6.2
+
+### Patch Changes
+
+- fa2c1779: Update @rollup/plugin-babel
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+- Updated dependencies [18a16bb0]
+  - @web/dev-server-core@0.4.1
+  - @web/rollup-plugin-html@1.11.1
+
+## 0.6.1
+
+### Patch Changes
+
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
+## 0.6.0
+
+### Minor Changes
+
+- f7fe8eee: Load CommonJS configuration file if one exists
+
 ## 0.5.4
 
 ### Patch Changes

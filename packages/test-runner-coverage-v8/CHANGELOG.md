@@ -1,5 +1,17 @@
 # @web/test-runner-coverage-v8
 
+## 0.6.0
+
+### Minor Changes
+
+- ca715faf: Upgrade lru-cache dependency & add a file cache for v8-to-istanbul conversions
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-core@0.11.0
+
 ## 0.5.0
 
 ### Minor Changes

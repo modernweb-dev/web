@@ -15,7 +15,7 @@ npm install --save-dev @web/rollup-plugin-html
 If you have a single HTML page, you can set it as rollup input. This will be used by the HTML plugin as input for the plugin.
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   input: 'index.html',
@@ -29,7 +29,7 @@ export default {
 If all pages share the same config, you can use a glob pattern to match multiple HTML files.
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   input: 'pages/*.html',
@@ -41,7 +41,7 @@ export default {
 If your pages cannot be matched with a single glob you can set the input directly on HTML plugin.
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   output: { dir: 'dist' },
@@ -52,7 +52,7 @@ export default {
 If each input should be bundled with a different config, you can create multiple instances of the HTML plugin.
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   output: { dir: 'dist' },
@@ -69,7 +69,7 @@ export default {
 If your HTML file does not exist on disk, you can provide it as a string as well.
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   output: { dir: 'dist' },
@@ -88,7 +88,7 @@ export default {
 This can also be set as an array:
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   output: { dir: 'dist' },
@@ -112,7 +112,7 @@ By default rollup will hash the asset filenames, enabling long term caching. You
 To turn off bundling assets completely, set the `extractAssets` option to false:
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   input: 'index.html',
@@ -130,7 +130,7 @@ export default {
 If your HTML file contains any absolute paths they will be resolved against the current working directory. You can set a different root directory in the config. Input paths will be resolved relative to this root directory as well.
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   input: 'index.html',
@@ -159,7 +159,7 @@ Will be output as:
 - `dist/pages/bar/page-c.html`
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   input: 'pages/**/*.html',
@@ -176,7 +176,7 @@ export default {
 You can add transform functions to modify the HTML page and assets in the build, for example to inject scripts or minification.
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   input: 'index.html',
@@ -206,7 +206,7 @@ export default {
 Set the minify option to do default HTML minificiation. If you need custom options, you can implement your own minifier using the `transformHtml` option.
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   input: 'index.html',
@@ -226,7 +226,7 @@ Some social media tags require full absolute URLs (e.g. https://domain.com/guide
 By providing an `absoluteBaseUrl` the plugin can make sure all appropriate URLs are processed.
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   input: 'index.html',
@@ -261,7 +261,7 @@ In order to enable PWA support you can enable the injection of a service worker 
 Note: This does not create the service worker
 
 ```js
-import html from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
 export default {
   input: 'index.html',

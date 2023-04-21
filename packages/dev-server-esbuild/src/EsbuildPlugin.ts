@@ -6,7 +6,7 @@ import {
   DevServerCoreConfig,
   getRequestFilePath,
 } from '@web/dev-server-core';
-import type { TransformOptions } from 'esbuild';
+import type { TransformOptions, BuildFailure } from 'esbuild';
 import { Loader, Message, transform } from 'esbuild';
 import { promisify } from 'util';
 import path from 'path';
@@ -203,8 +203,8 @@ export class EsbuildPlugin implements Plugin {
 
       return transformedCode;
     } catch (e) {
-      if (Array.isArray(e.errors)) {
-        const msg = e.errors[0] as Message;
+      if (Array.isArray((e as BuildFailure).errors)) {
+        const msg = (e as BuildFailure).errors[0] as Message;
 
         if (msg.location) {
           throw new PluginSyntaxError(

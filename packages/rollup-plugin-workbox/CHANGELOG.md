@@ -1,5 +1,28 @@
 # rollup-plugin-workbox
 
+## 7.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+## 6.2.2
+
+### Patch Changes
+
+- f7ddc726: Revert back to non-ESM version of `pretty-bytes`
+
+## 6.2.1
+
+### Patch Changes
+
+- 7b35551b: Update `pretty-bytes`
+- 1113fa09: Update `@rollup/pluginutils`
+- 817d674b: Update `browserslist-useragent`
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+
 ## 6.2.0
 
 ### Minor Changes
