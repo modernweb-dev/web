@@ -1,5 +1,21 @@
 # @web/dev-server-storybook
 
+## 0.7.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+- Updated dependencies [72c63bc5]
+  - @web/dev-server-core@0.5.0
+  - @web/rollup-plugin-html@2.0.0
+  - @web/rollup-plugin-polyfills-loader@2.0.0
+
 ## 0.6.2
 
 ### Patch Changes

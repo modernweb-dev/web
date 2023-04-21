@@ -1,5 +1,16 @@
 # @web/polyfills-loader
 
+## 2.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/parse5-utils@2.0.0
+
 ## 1.4.1
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @web/test-runner-commands
 
+## 0.7.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- b7d8ee66: Update mocha from version 8.2.0 to version 10.2.0
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-core@0.11.0
+
 ## 0.6.6
 
 ### Patch Changes

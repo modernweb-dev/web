@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-storybook",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "publishConfig": {
     "access": "public"
   },
@@ -60,9 +60,9 @@
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@storybook/csf-tools": "^6.4.9",
-    "@web/dev-server-core": "^0.4.1",
-    "@web/rollup-plugin-html": "^1.11.1",
-    "@web/rollup-plugin-polyfills-loader": "^1.1.1",
+    "@web/dev-server-core": "^0.5.0",
+    "@web/rollup-plugin-html": "^2.0.0",
+    "@web/rollup-plugin-polyfills-loader": "^2.0.0",
     "@web/storybook-prebuilt": "^0.1.32",
     "babel-plugin-bundled-import-meta": "^0.3.2",
     "babel-plugin-template-html-minifier": "^4.1.0",
@@ -75,7 +75,7 @@
   },
   "devDependencies": {
     "@types/path-is-inside": "^1.0.0",
-    "@web/dev-server": "^0.1.38",
+    "@web/dev-server": "^0.2.0",
     "htm": "^3.1.0"
   }
 }

@@ -1,5 +1,19 @@
 # @web/test-runner-visual-regression
 
+## 0.8.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- b7d8ee66: Update mocha from version 8.2.0 to version 10.2.0
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+- Updated dependencies [b7d8ee66]
+  - @web/test-runner-commands@0.7.0
+  - @web/test-runner-core@0.11.0
+
 ## 0.7.1
 
 ### Patch Changes
