@@ -46,7 +46,7 @@ export class TestRunnerServer {
 
       mimeTypes: config.mimeTypes,
 
-      disableFileWatcher: !config.watch,
+      disableFileWatcher: !config.watch && !config.manual,
 
       middleware: [
         watchFilesMiddleware({ runSessions, sessions, rootDir, fileWatcher: this.fileWatcher }),

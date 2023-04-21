@@ -1,5 +1,25 @@
 # @web/dev-server-core
 
+## 0.5.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- ca715faf: Upgrade lru-cache dependency & add a file cache for v8-to-istanbul conversions
+- Updated dependencies [febd9d9d]
+  - @web/parse5-utils@2.0.0
+
+## 0.4.1
+
+### Patch Changes
+
+- c103f166: Update `isbinaryfile`
+- Updated dependencies [18a16bb0]
+  - @web/parse5-utils@1.3.1
+
 ## 0.4.0
 
 ### Minor Changes

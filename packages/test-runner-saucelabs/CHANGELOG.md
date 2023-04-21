@@ -1,5 +1,16 @@
 # @web/test-runner-saucelabs
 
+## 0.9.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-webdriver@0.6.0
+
 ## 0.8.1
 
 ### Patch Changes

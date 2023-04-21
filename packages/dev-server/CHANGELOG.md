@@ -1,5 +1,46 @@
 # @web/dev-server
 
+## 0.2.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+- Updated dependencies [b7d8ee66]
+- Updated dependencies [72c63bc5]
+  - @web/dev-server-core@0.5.0
+  - @web/config-loader@0.2.0
+  - @web/dev-server-rollup@0.5.0
+
+## 0.1.38
+
+### Patch Changes
+
+- c103f166: Update `isbinaryfile`
+- 18a16bb0: Update `html-minifier-terser`
+- d8579f15: Update `command-line-usage`
+- 9b83280e: Update puppeteer
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [fa2c1779]
+- Updated dependencies [c103f166]
+- Updated dependencies [1113fa09]
+- Updated dependencies [817d674b]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/dev-server-rollup@0.4.1
+  - @web/dev-server-core@0.4.1
+
+## 0.1.37
+
+### Patch Changes
+
+- 0f5631d0: chore(deps): bump ua-parser-js from 1.0.32 to 1.0.33
+
 ## 0.1.36
 
 ### Patch Changes

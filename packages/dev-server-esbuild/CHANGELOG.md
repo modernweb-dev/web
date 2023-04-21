@@ -1,5 +1,31 @@
 # @web/dev-server-esbuild
 
+## 0.4.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+
+## 0.3.6
+
+### Patch Changes
+
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+  - @web/dev-server-core@0.4.1
+
+## 0.3.5
+
+### Patch Changes
+
+- 0f5631d0: chore(deps): bump ua-parser-js from 1.0.32 to 1.0.33
+
 ## 0.3.4
 
 ### Patch Changes

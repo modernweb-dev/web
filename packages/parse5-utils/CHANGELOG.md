@@ -1,5 +1,17 @@
 # @web/parse5-utils
 
+## 2.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+## 1.3.1
+
+### Patch Changes
+
+- 18a16bb0: Update `html-minifier-terser`
+
 ## 1.3.0
 
 ### Minor Changes
