@@ -21,8 +21,8 @@ export class WebdriverLauncher implements BrowserLauncher {
   public name = 'Initializing...';
   public type = 'webdriver';
   private config?: TestRunnerCoreConfig;
-  private driver?: Browser<'async'>;
-  private debugDriver: undefined | Browser<'async'> = undefined;
+  private driver?: Browser;
+  private debugDriver: undefined | Browser = undefined;
   private driverManager?: IFrameManager | SessionManager;
   private __managerPromise?: Promise<IFrameManager | SessionManager>;
   private isIE = false;
@@ -82,7 +82,7 @@ export class WebdriverLauncher implements BrowserLauncher {
     if (this.debugDriver) {
       await this.debugDriver.deleteSession();
     }
-    this.debugDriver = (await remote(this.options)) as Browser<'async'>;
+    this.debugDriver = (await remote(this.options)) as Browser;
     await this.debugDriver.navigateTo(url);
   }
 
@@ -106,7 +106,7 @@ export class WebdriverLauncher implements BrowserLauncher {
     const options: RemoteOptions = { logLevel: 'error', ...this.options };
 
     try {
-      this.driver = (await remote(options)) as Browser<'async'>;
+      this.driver = (await remote(options)) as Browser;
       this.driverManager =
         this.config.concurrency === 1
           ? new SessionManager(this.config, this.driver, this.isIE)

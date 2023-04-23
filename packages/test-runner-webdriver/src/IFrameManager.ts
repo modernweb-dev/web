@@ -7,7 +7,7 @@ import { validateBrowserResult } from './coverage';
  */
 export class IFrameManager {
   private config: TestRunnerCoreConfig;
-  private driver: Browser<'async'>;
+  private driver: Browser;
   private framePerSession = new Map<string, string>();
   private inactiveFrames: string[] = [];
   private frameCount = 0;
@@ -16,7 +16,7 @@ export class IFrameManager {
   private locked?: Promise<unknown>;
   private isIE: boolean;
 
-  constructor(config: TestRunnerCoreConfig, driver: Browser<'async'>, isIE: boolean) {
+  constructor(config: TestRunnerCoreConfig, driver: Browser, isIE: boolean) {
     this.config = config;
     this.driver = driver;
     this.isIE = isIE;
@@ -169,7 +169,7 @@ export class IFrameManager {
 
     await this.driver.switchToFrame(frame);
 
-    const elementData = (await this.driver.execute(locator, [])) as Element<'async'>;
+    const elementData = (await this.driver.execute(locator, [])) as Element;
 
     const element = await this.driver.$(elementData);
 

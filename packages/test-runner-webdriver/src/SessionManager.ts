@@ -7,12 +7,12 @@ import { validateBrowserResult } from './coverage';
  */
 export class SessionManager {
   private config: TestRunnerCoreConfig;
-  private driver: Browser<'async'>;
+  private driver: Browser;
   private locked?: Promise<unknown>;
   private isIE: boolean;
   private urlMap = new Map<string, string>();
 
-  constructor(config: TestRunnerCoreConfig, driver: Browser<'async'>, isIE: boolean) {
+  constructor(config: TestRunnerCoreConfig, driver: Browser, isIE: boolean) {
     this.config = config;
     this.driver = driver;
     this.isIE = isIE;
@@ -89,7 +89,7 @@ export class SessionManager {
   }
 
   async takeScreenshot(_: string, locator: string): Promise<Buffer> {
-    const elementData = (await this.driver.execute(locator, [])) as Element<'async'>;
+    const elementData = (await this.driver.execute(locator, [])) as Element;
 
     const element = await this.driver.$(elementData);
 
