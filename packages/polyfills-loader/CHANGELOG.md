@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 2.0.1
+
+### Patch Changes
+
+- c26d3730: Update TypeScript
+
 ## 2.0.0
 
 ### Major Changes

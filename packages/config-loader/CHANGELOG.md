@@ -1,5 +1,11 @@
 # @web/config-loader
 
+## 0.2.1
+
+### Patch Changes
+
+- c26d3730: Update TypeScript
+
 ## 0.2.0
 
 ### Minor Changes

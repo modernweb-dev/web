@@ -1,5 +1,16 @@
 # @web/test-runner-webdriver
 
+## 0.7.0
+
+### Minor Changes
+
+- 812400a3: Update `webdriver` to version 8
+
+### Patch Changes
+
+- Updated dependencies [c26d3730]
+  - @web/test-runner-core@0.11.1
+
 ## 0.6.0
 
 ### Minor Changes

@@ -1,5 +1,15 @@
 # @web/dev-server
 
+## 0.2.1
+
+### Patch Changes
+
+- 0cd3a2f8: chore(deps): bump puppeteer from 19.8.2 to 19.9.0
+- c26d3730: Update TypeScript
+- Updated dependencies [c26d3730]
+  - @web/dev-server-core@0.5.1
+  - @web/config-loader@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes

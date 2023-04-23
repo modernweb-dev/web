@@ -49,7 +49,7 @@
     "@types/pixelmatch": "^5.2.2",
     "@types/pngjs": "^6.0.0",
     "@web/test-runner-commands": "^0.7.0",
-    "@web/test-runner-core": "^0.11.0",
+    "@web/test-runner-core": "^0.11.1",
     "mkdirp": "^1.0.4",
     "pixelmatch": "^5.2.1",
     "pngjs": "^6.0.0"
@@ -57,7 +57,7 @@
   "devDependencies": {
     "@web/test-runner-chrome": "^0.13.0",
     "@web/test-runner-playwright": "^0.10.0",
-    "@web/test-runner-webdriver": "^0.6.0",
+    "@web/test-runner-webdriver": "^0.7.0",
     "mocha": "^10.2.0"
   }
 }
