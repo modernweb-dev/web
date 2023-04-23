@@ -1,5 +1,12 @@
 # @web/test-runner-browserstack
 
+## 0.6.1
+
+### Patch Changes
+
+- Updated dependencies [812400a3]
+  - @web/test-runner-webdriver@0.7.0
+
 ## 0.6.0
 
 ### Minor Changes

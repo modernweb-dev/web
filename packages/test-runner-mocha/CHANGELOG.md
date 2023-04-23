@@ -1,5 +1,13 @@
 # @web/test-runner-mocha
 
+## 0.8.1
+
+### Patch Changes
+
+- c26d3730: Update TypeScript
+- Updated dependencies [c26d3730]
+  - @web/test-runner-core@0.11.1
+
 ## 0.8.0
 
 ### Minor Changes

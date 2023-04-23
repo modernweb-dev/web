@@ -1,5 +1,13 @@
 # @web/dev-server-import-maps
 
+## 0.1.1
+
+### Patch Changes
+
+- c26d3730: Update TypeScript
+- Updated dependencies [c26d3730]
+  - @web/dev-server-core@0.5.1
+
 ## 0.1.0
 
 ### Minor Changes

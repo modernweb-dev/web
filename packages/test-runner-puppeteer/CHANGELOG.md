@@ -1,5 +1,13 @@
 # @web/test-runner-puppeteer
 
+## 0.13.1
+
+### Patch Changes
+
+- 0cd3a2f8: chore(deps): bump puppeteer from 19.8.2 to 19.9.0
+- Updated dependencies [c26d3730]
+  - @web/test-runner-core@0.11.1
+
 ## 0.13.0
 
 ### Minor Changes
