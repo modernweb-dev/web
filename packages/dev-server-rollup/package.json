@@ -60,7 +60,6 @@
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "24.0.1",
     "@rollup/plugin-replace": "^5.0.2",
-    "@types/parse5": "^7.0.0",
     "@types/whatwg-url": "^11.0.0",
     "@web/test-runner-chrome": "^0.13.0",
     "@web/test-runner-core": "^0.11.0",

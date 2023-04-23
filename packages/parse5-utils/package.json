@@ -41,7 +41,6 @@
     "utils"
   ],
   "dependencies": {
-    "@types/parse5": "^7.0.0",
     "parse5": "^7.0.0"
   },
   "devDependencies": {

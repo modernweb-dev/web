@@ -79,7 +79,6 @@
     "@types/clone": "^2.1.0",
     "@types/koa-etag": "^3.0.0",
     "@types/koa-static": "^4.0.1",
-    "@types/parse5": "^7.0.0",
     "abort-controller": "^3.0.0",
     "nanoid": "^3.1.25",
     "node-fetch": "3.0.0-beta.9",

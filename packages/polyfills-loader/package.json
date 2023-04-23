@@ -66,7 +66,6 @@
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.12",
-    "@types/parse5": "^7.0.0",
     "@types/valid-url": "^1.0.3"
   }
 }
