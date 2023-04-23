@@ -49,8 +49,8 @@
     "ip": "^1.1.5",
     "nanoid": "^3.1.25",
     "saucelabs": "^7.2.0",
-    "webdriver": "^7.16.0",
-    "webdriverio": "^7.16.0"
+    "webdriver": "^8.8.6",
+    "webdriverio": "^8.8.6"
   },
   "devDependencies": {
     "@types/ip": "^1.1.0",
