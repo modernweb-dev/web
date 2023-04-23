@@ -1,12 +1,3 @@
-/** @typedef {import('parse5').TreeAdapter} TreeAdapter */
-/** @typedef {import('parse5').Element} Element */
-/** @typedef {import('parse5').Attribute} Attribute */
-/** @typedef {import('parse5').Node} Node */
-/** @typedef {import('parse5').ParentNode} ParentNode */
-/** @typedef {import('parse5').ChildNode} ChildNode */
-/** @typedef {import('parse5').CommentNode} CommentNode */
-/** @typedef {import('parse5').TextNode} TextNode */
-
 const parse5 = require('parse5');
 const adapter = require('parse5/lib/tree-adapters/default');
 
