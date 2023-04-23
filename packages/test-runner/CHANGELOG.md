@@ -1,5 +1,19 @@
 # @web/test-runner
 
+## 0.16.1
+
+### Patch Changes
+
+- 0cd3a2f8: chore(deps): bump puppeteer from 19.8.2 to 19.9.0
+- c26d3730: Update TypeScript
+- Updated dependencies [0cd3a2f8]
+- Updated dependencies [c26d3730]
+  - @web/browser-logs@0.3.1
+  - @web/dev-server@0.2.1
+  - @web/test-runner-mocha@0.8.1
+  - @web/test-runner-core@0.11.1
+  - @web/config-loader@0.2.1
+
 ## 0.16.0
 
 ### Minor Changes

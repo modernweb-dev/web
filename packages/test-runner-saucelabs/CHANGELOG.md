@@ -1,5 +1,16 @@
 # @web/test-runner-saucelabs
 
+## 0.10.0
+
+### Minor Changes
+
+- 812400a3: Update `webdriver` to version 8
+
+### Patch Changes
+
+- Updated dependencies [812400a3]
+  - @web/test-runner-webdriver@0.7.0
+
 ## 0.9.0
 
 ### Minor Changes

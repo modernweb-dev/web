@@ -1,5 +1,15 @@
 # @web/test-runner-core
 
+## 0.11.1
+
+### Patch Changes
+
+- c26d3730: Update TypeScript
+- Updated dependencies [0cd3a2f8]
+- Updated dependencies [c26d3730]
+  - @web/browser-logs@0.3.1
+  - @web/dev-server-core@0.5.1
+
 ## 0.11.0
 
 ### Minor Changes

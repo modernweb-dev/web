@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.5.1
+
+### Patch Changes
+
+- c26d3730: Update TypeScript
+
 ## 0.5.0
 
 ### Minor Changes

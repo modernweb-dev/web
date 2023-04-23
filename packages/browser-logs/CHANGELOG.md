@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.3.1
+
+### Patch Changes
+
+- 0cd3a2f8: chore(deps): bump puppeteer from 19.8.2 to 19.9.0
+
 ## 0.3.0
 
 ### Minor Changes
