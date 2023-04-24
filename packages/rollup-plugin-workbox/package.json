@@ -34,7 +34,7 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-replace": "^5.0.2",
     "pretty-bytes": "^5.5.0",
-    "rollup-plugin-terser": "^7.0.2",
+    "@rollup/plugin-terser": "^0.4.1",
     "workbox-build": "^6.2.4"
   },
   "contributors": [
