@@ -52,7 +52,7 @@ export function runTestFailureTest(
         expect(session.testResults!.suites.length).to.equal(0);
         expect(session.testResults!.tests.length).to.equal(0);
         expect(session.request404s).to.eql([
-          'integration/test-runner/tests/test-failure/browser-tests/non-existing.js',
+          'integration/test-runner/tests/test-failure/browser-tests/non-existing.js?systemjs=true',
         ]);
         expect(session.errors).to.eql([ERROR_NOT_IMPORTABLE]);
         expect(session.logs.length).to.equal(1);
