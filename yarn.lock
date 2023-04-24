@@ -3083,6 +3083,11 @@
   resolved "https://registry.yarnpkg.com/@web/storybook-prebuilt/-/storybook-prebuilt-0.1.34.tgz#993ee48a287f10e98adac55a6bab8e596a1ba228"
   integrity sha512-03IvmZNfWK1FO9WQn71uCmzbLorNpzqJNV3L2bx85ND8Gg7CqnFxBKOhEeh5JAbqU2j+JGRgTvsZPusGjng38g==
 
+"@webcomponents/scoped-custom-element-registry@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@webcomponents/scoped-custom-element-registry/-/scoped-custom-element-registry-0.0.9.tgz#dd6ea3378bfeaea64d0c7542120e0ffd17b48b0e"
+  integrity sha512-4RVHwN9oIp23mhrxeDbP9/0wvdcrB0d/MFMqIStShIgfzsqXZXf1OdU5kvqjgdMYavQ5Zm8C6BuBcAjzNwAetQ==
+
 "@webcomponents/shadycss@^1.11.0":
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/@webcomponents/shadycss/-/shadycss-1.11.2.tgz#7539b0ad29598aa2eafee8b341059e20ac9e1006"

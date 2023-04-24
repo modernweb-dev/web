@@ -153,6 +153,16 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     });
   }
 
+  if (polyfills.scopedCustomElementRegistry) {
+    addPolyfillConfig({
+      name: 'scoped-custom-element-registry',
+      test: "!('createElement' in ShadowRoot.prototype)",
+      path: require.resolve(
+        '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js',
+      ),
+    });
+  }
+
   if (polyfills.webcomponents && !polyfills.shadyCssCustomStyle) {
     addPolyfillConfig({
       name: 'webcomponents',
