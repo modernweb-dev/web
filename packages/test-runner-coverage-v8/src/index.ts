@@ -88,7 +88,7 @@ export async function v8ToIstanbul(
           } else {
             // When we reuse a cached converter, we need to reset it before using its `applyCoverage` function.
             // If we don't, the coverage results will be poisoned with the results of the previous uses.
-            // 
+            //
             // This "workaround" is resetting some internal variables of the `V8ToIstanbul` class: `branches` & `functions`.
             // This can break when newer versions of v8-to-istanbul are released. (variable renaming, more variables are used, ...)
             //
@@ -98,7 +98,7 @@ export async function v8ToIstanbul(
             converter.branches = {};
             // @ts-ignore
             converter.functions = {};
-          }  
+          }
 
           converter.applyCoverage(entry.functions);
           Object.assign(istanbulCoverage, converter.toIstanbul());
