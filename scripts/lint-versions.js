@@ -1,4 +1,4 @@
-/* eslint-disable */
+#!/usr/bin/env node
 const { readdirSync, existsSync, readFileSync } = require('fs');
 
 const getDirectories = source =>
@@ -53,28 +53,24 @@ let currentVersions = readPackageJsonDeps('./package.json');
 let endReturn = 0;
 
 // find all versions in the monorepo
-['./packages', './demo/projects'].forEach(rootDir => {
-  getDirectories(rootDir).forEach(subPackage => {
-    const filePath = `${rootDir}/${subPackage}/package.json`;
-    currentVersions = { ...currentVersions, ...readPackageJsonNameVersion(filePath) };
-  });
-});
+for (const subPackage of getDirectories('./packages')) {
+  const filePath = `./packages/${subPackage}/package.json`;
+  currentVersions = { ...currentVersions, ...readPackageJsonNameVersion(filePath) };
+}
 
 // lint all versions in packages
-['./packages', './demo/projects'].forEach(rootDir => {
-  getDirectories(rootDir).forEach(subPackage => {
-    const filePath = `${rootDir}/${subPackage}/package.json`;
-    const subPackageVersions = readPackageJsonDeps(filePath);
-    const { output, newVersions } = compareVersions(currentVersions, subPackageVersions);
-    currentVersions = { ...newVersions };
-    if (output) {
-      console.log(`Version mismatches found in "${filePath}":`);
-      console.log(output);
-      console.log();
-      endReturn = 1;
-    }
-  });
-});
+for (const subPackage of getDirectories('./packages')) {
+  const filePath = `./packages/${subPackage}/package.json`;
+  const subPackageVersions = readPackageJsonDeps(filePath);
+  const { output, newVersions } = compareVersions(currentVersions, subPackageVersions);
+  currentVersions = { ...newVersions };
+  if (output) {
+    console.log(`Version mismatches found in "${filePath}":`);
+    console.log(output);
+    console.log();
+    endReturn = 1;
+  }
+}
 
 if (endReturn === 0) {
   console.log('All versions are aligned 💪');
