@@ -1,5 +1,12 @@
 # @web/dev-server-storybook
 
+## 0.7.1
+
+### Patch Changes
+
+- dc1d5e84: Fix console logging due to source mapping issues.
+- 1109ec37: Replace `rollup-plugin-terser` with `@rollup/plugin-terser`
+
 ## 0.7.0
 
 ### Minor Changes

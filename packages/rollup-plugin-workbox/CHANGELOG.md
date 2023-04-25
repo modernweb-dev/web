@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 7.0.1
+
+### Patch Changes
+
+- 1109ec37: Replace `rollup-plugin-terser` with `@rollup/plugin-terser`
+
 ## 7.0.0
 
 ### Major Changes
