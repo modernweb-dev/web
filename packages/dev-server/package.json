@@ -73,7 +73,7 @@
   },
   "devDependencies": {
     "@types/command-line-usage": "^5.0.1",
-    "lit-html": "^2.0.0",
+    "lit-html": "^2.7.3",
     "puppeteer": "^19.9.0"
   }
 }
