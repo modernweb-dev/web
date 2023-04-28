@@ -1918,10 +1918,10 @@
     plugins-manager "^0.3.0"
     sax-wasm "^2.0.0"
 
-"@rollup/plugin-alias@^4.0.3":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-alias/-/plugin-alias-4.0.4.tgz#67734ec44a7747916aa52a3b1a0e8d459dbf3ae2"
-  integrity sha512-0CaAY238SMtYAWEXXptWSR8iz8NYZnH7zNBKuJ14xFJSGwLtPgjvXYsoApAHfzYXXH1ejxpVw7WlHss3zhh9SQ==
+"@rollup/plugin-alias@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-alias/-/plugin-alias-5.0.0.tgz#70f3d504bd17d8922e35c6b61c08b40a6ec25af2"
+  integrity sha512-l9hY5chSCjuFRPsnRm16twWBiSApl2uYFLsepQYwtBuAxNMQ/1dJqADld40P0Jkqm65GRTLy/AC6hnpVebtLsA==
   dependencies:
     slash "^4.0.0"
 
@@ -1941,10 +1941,10 @@
     "@babel/helper-module-imports" "^7.18.6"
     "@rollup/pluginutils" "^5.0.1"
 
-"@rollup/plugin-commonjs@24.0.1":
-  version "24.0.1"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-24.0.1.tgz#d54ba26a3e3c495dc332bd27a81f7e9e2df46f90"
-  integrity sha512-15LsiWRZk4eOGqvrJyu3z3DaBu5BhXIMeWnijSRvd8irrrg9SHpQ1pH+BUK4H6Z9wL9yOxZJMTLU+Au86XHxow==
+"@rollup/plugin-commonjs@24.1.0":
+  version "24.1.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-24.1.0.tgz#79e54bd83bb64396761431eee6c44152ef322100"
+  integrity sha512-eSL45hjhCWI0jCCXcNtLVqM5N1JlBGvlFfY0m6oOYnLCJ6N0qEXoZql4sY2MOUArzhH4SA/qBpTxvvZp2Sc+DQ==
   dependencies:
     "@rollup/pluginutils" "^5.0.1"
     commondir "^1.0.1"
