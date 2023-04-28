@@ -1,5 +1,11 @@
 # @web/test-runner-coverage-v8
 
+## 0.6.1
+
+### Patch Changes
+
+- 58b560ae: fix: reset coverage result converters between Chrome session runs
+
 ## 0.6.0
 
 ### Minor Changes
