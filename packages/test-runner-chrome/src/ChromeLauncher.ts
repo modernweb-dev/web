@@ -79,7 +79,11 @@ export class ChromeLauncher implements BrowserLauncher {
   }
 
   launchBrowser(options: PuppeteerNodeLaunchOptions = {}) {
-    const mergedOptions: PuppeteerNodeLaunchOptions = { headless: 'new', ...this.launchOptions, ...options };
+    const mergedOptions: PuppeteerNodeLaunchOptions = {
+      headless: 'new',
+      ...this.launchOptions,
+      ...options,
+    };
     if (this.customPuppeteer) {
       // launch using a custom puppeteer instance
       return this.customPuppeteer.launch(mergedOptions).catch(error => {

@@ -34,7 +34,7 @@ describe('integration tests', () => {
 
   before(async () => {
     browser = await puppeteer.launch({
-      headless: 'new'
+      headless: 'new',
     });
   });
 
