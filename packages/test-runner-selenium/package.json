@@ -24,9 +24,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "tsc",
-    "test": "mocha test/**/*.test.ts --require ts-node/register",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+    "build": "tsc"
   },
   "files": [
     "*.d.ts",
