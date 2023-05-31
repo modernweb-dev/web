@@ -31,7 +31,6 @@ interface TestCaseXMLAttributes {
   _attr: {
     name: string;
     time: number;
-    file: string;
     line?: string;
     classname: string;
   };
@@ -62,7 +61,8 @@ interface TestSuiteXMLAttributes {
     skipped: number;
     errors: number;
     failures: number;
-    time: number;
+    time: string;
+    file: string;
   };
 }
 
@@ -120,8 +120,6 @@ const getTestName: TestMetaGetter = test => test.name;
 
 const getSuiteName: TestMetaGetter = test => test.suiteName;
 
-const getTestFile: TestMetaGetter = test => test.testFile;
-
 const getTestDurationInSeconds = ({ duration }: TestResult): number =>
   (typeof duration === 'undefined' ? 0 : duration) / 1000;
 
@@ -161,17 +159,12 @@ function testFailureXMLElement(test: TestResultWithMetadata): TestFailureXMLElem
  * Makes attributes for a `<testcase>` element
  * @param test Test Result
  */
-function testCaseXMLAttributes(
-  test: TestResultWithMetadata,
-  rootDir: string,
-): TestCaseXMLAttributes {
+function testCaseXMLAttributes(test: TestResultWithMetadata): TestCaseXMLAttributes {
   const name = getTestName(test);
 
   const time = getTestDurationInSeconds(test);
 
   const classname = getSuiteName(test);
-
-  const file = getTestFile(test).replace(`${rootDir}${path.sep}`, '');
 
   const [, line] = stripXMLInvalidChars(test.error?.stack ?? '').match(/(\d+):\d+/m) ?? [];
 
@@ -180,7 +173,6 @@ function testCaseXMLAttributes(
       name,
       time,
       classname,
-      file,
       ...(!!line && { line }),
     },
   };
@@ -189,8 +181,8 @@ function testCaseXMLAttributes(
 /**
  * Makes a `<testcase>` element
  */
-function testCaseXMLElement(test: TestResultWithMetadata, rootDir: string): TestCaseXMLElement {
-  const attributes = testCaseXMLAttributes(test, rootDir);
+function testCaseXMLElement(test: TestResultWithMetadata): TestCaseXMLElement {
+  const attributes = testCaseXMLAttributes(test);
 
   // prettier-ignore
   if (isSkippedTest(test))
@@ -211,6 +203,8 @@ function testSuiteXMLAttributes(
   name: string,
   id: number,
   results: TestResultWithMetadata[],
+  testFile: string,
+  rootDir: string,
 ): TestSuiteXMLAttributes {
   const tests = results.length;
 
@@ -220,7 +214,9 @@ function testSuiteXMLAttributes(
 
   const failures = results.filter(isFailedTest).length;
 
-  const time = results.reduce(addSuiteTime, 0);
+  const time = results.reduce(addSuiteTime, 0).toFixed(3);
+
+  const file = testFile.replace(`${rootDir}${path.sep}`, '');
 
   return {
     _attr: {
@@ -231,6 +227,7 @@ function testSuiteXMLAttributes(
       errors,
       failures,
       time,
+      file,
     },
   };
 }
@@ -303,11 +300,11 @@ function getTestRunXML({
 
     const launcherType = browser.type ?? '';
 
-    const attributes = testSuiteXMLAttributes(name, testRun, tests);
+    const attributes = testSuiteXMLAttributes(name, testRun, tests, testFile, rootDir);
 
     const properties = testSuitePropertiesXMLElement(testFile, browserName, launcherType, rootDir);
 
-    const testcases = tests.map(t => testCaseXMLElement(t, rootDir));
+    const testcases = tests.map(testCaseXMLElement);
 
     const systemOut = !reportLogs ? [] : tests.flatMap(escapeLogs).map(x => ({ 'system-out': x }));
 
