@@ -56,7 +56,6 @@ async function run(cwd: string): Promise<{ actual: string; expected: string }> {
     reportErrors: false,
   });
   const actual = await readNormalized(outputPath);
-  console.log(actual);
   const expected = await readNormalized(path.join(cwd, './expected.xml'));
   return { actual, expected };
 }
