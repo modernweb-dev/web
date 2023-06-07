@@ -18,7 +18,7 @@
     <testcase name="null hypothesis" time="<<computed>>" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js"/>
     <testcase name="asserts error" time="<<computed>>" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js" line="15">
       <failure message="expected false to be true" type="AssertionError"><![CDATA[AssertionError: expected false to be true
-  at Context.<anonymous> (packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js:15:29)]]></failure>
+  at <<anonymous>> (packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js:15:29)]]></failure>
     </testcase>
     <testcase name="tbd: confirm true positive" time="<<computed>>" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js">
       <skipped/>
