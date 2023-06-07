@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Chrome_puppeteer_/packages/test-runner-junit-reporter/test/fixtures/nested/nested-test.js" id="0" tests="1" skipped="0" errors="0" failures="0" time="0.001">
+  <testsuite name="Chrome_puppeteer_/packages/test-runner-junit-reporter/test/fixtures/nested/nested-test.js" id="0" tests="1" skipped="0" errors="0" failures="0" time="<<computed>>">
     <properties>
       <property name="test.fileName" value="packages/test-runner-junit-reporter/test/fixtures/nested/nested-test.js"/>
       <property name="browser.name" value="Chrome"/>
