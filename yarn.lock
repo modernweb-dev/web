@@ -11247,7 +11247,7 @@ puppeteer-core@19.11.1, puppeteer-core@^19.8.1:
     unbzip2-stream "1.4.3"
     ws "8.13.0"
 
-puppeteer@^19.9.0:
+puppeteer@^19.11.1, puppeteer@^19.9.0:
   version "19.11.1"
   resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-19.11.1.tgz#bb75d518e87b0b4f6ef9bad1ea7e9d1cdcd18a5d"
   integrity sha512-39olGaX2djYUdhaQQHDZ0T0GwEp+5f9UB9HmEP0qHfdQHIq0xGQZuAZ5TLnJIc/88SrPLpEflPC+xUqOTv3c5g==
