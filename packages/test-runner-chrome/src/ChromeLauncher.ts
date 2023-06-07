@@ -79,8 +79,12 @@ export class ChromeLauncher implements BrowserLauncher {
   }
 
   launchBrowser(options: PuppeteerNodeLaunchOptions = {}) {
+    const mergedOptions: PuppeteerNodeLaunchOptions = {
+      headless: 'new',
+      ...this.launchOptions,
+      ...options,
+    };
     if (this.customPuppeteer) {
-      const mergedOptions = { ...this.launchOptions, ...options };
       // launch using a custom puppeteer instance
       return this.customPuppeteer.launch(mergedOptions).catch(error => {
         if (mergedOptions.product === 'firefox') {
@@ -95,8 +99,6 @@ export class ChromeLauncher implements BrowserLauncher {
     }
 
     // launch using puppeteer-core, connecting to an installed browser
-    const mergedOptions = { ...this.launchOptions, ...options };
-
     // add a default executable path if the user did not provide any
     if (!mergedOptions.executablePath) {
       if (!this.cachedExecutablePath) {
