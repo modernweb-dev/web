@@ -2697,10 +2697,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/selenium-webdriver@^4.0.11":
-  version "4.1.13"
-  resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-4.1.13.tgz#c31e833a3e67a2d2c9e46da3aac8b6acbffc838a"
-  integrity sha512-kGpIh7bvu4HGCJXl4PEJ53kzpG4iXlRDd66SNNCfJ58QhFuk9skOm57lVffZap5ChEOJwbge/LJ9IVGVC8EEOg==
+"@types/selenium-webdriver@^4.1.1":
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-4.1.6.tgz#a23b15abc8023db5cd56dad736cbb8d830d38c71"
+  integrity sha512-qK1UbVws7APzKmL2pP1ypVXCdMrJko32anuz5Fl6qrU/1AWM/mVVY7cOM7FhsOVrIqLXo+YoKJf6+LLNtXgbSw==
   dependencies:
     "@types/ws" "*"
 
@@ -12177,14 +12177,34 @@ selenium-standalone@^8.0.4:
     which "^2.0.2"
     yauzl "^2.10.0"
 
-selenium-webdriver@^4.0.0:
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/selenium-webdriver/-/selenium-webdriver-4.9.0.tgz#21a33a2ac547c5b79785e93c2d566da8f4461121"
-  integrity sha512-QGaPoREo7sgOVhTiAvCasoi1f4ruTaJDtp0RKNFIbfyns5smK5+iCwnRTIPXb0R3CAYdaqUXd6BHduh37DorzQ==
+selenium-standalone@^8.2.0:
+  version "8.2.2"
+  resolved "https://registry.yarnpkg.com/selenium-standalone/-/selenium-standalone-8.2.2.tgz#6b9da1eb918663f4af5f3f2a8dd3ada8746c773e"
+  integrity sha512-CdfN5WnX0mzrjeCTFnvnsjsXEsQwgepLIvrA6OamrKT29gD8mufemwM3v9VG4grQDFHZZy7Ma1giw232x4eGmw==
   dependencies:
-    jszip "^3.10.1"
+    commander "^9.0.0"
+    cross-spawn "^7.0.3"
+    debug "^4.3.1"
+    fs-extra "^10.0.0"
+    got "^11.8.2"
+    is-port-reachable "^3.0.0"
+    lodash.mapvalues "^4.6.0"
+    lodash.merge "^4.6.2"
+    minimist "^1.2.5"
+    mkdirp "^1.0.4"
+    progress "2.0.3"
+    tar-stream "2.2.0"
+    which "^2.0.2"
+    yauzl "^2.10.0"
+
+selenium-webdriver@^4.3.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/selenium-webdriver/-/selenium-webdriver-4.6.1.tgz#ac66867206542a40c24b5a44f4ccbae992e962dc"
+  integrity sha512-FT8Dw0tbzaTp8YYLuwhaCnve/nw03HKrOJrA3aUmTKmxaIFSP4kT2R5fN3K0RpV5kbR0ZnM4FGVI2vANBvekaA==
+  dependencies:
+    jszip "^3.10.0"
     tmp "^0.2.1"
-    ws ">=8.13.0"
+    ws ">=8.7.0"
 
 semver-compare@^1.0.0:
   version "1.0.0"
