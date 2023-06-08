@@ -3,7 +3,7 @@ import type { GenerateSWOptions, InjectManifestOptions } from 'workbox-build';
 import * as prettyBytes from 'pretty-bytes';
 import * as rollup from 'rollup';
 import replace from '@rollup/plugin-replace';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 
 interface RollupPartial {
