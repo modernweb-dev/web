@@ -317,7 +317,7 @@ export function rollupAdapter(
           const importPath = toBrowserPath(relativePath.substring(lastDirUpIndex));
           resolvedImportPath = `/__wds-outside-root__/${dirUpStrings.length - 1}/${importPath}`;
         } else {
-          const resolveRelativeTo = path.extname(filePath) ? path.dirname(filePath) : filePath;
+          const resolveRelativeTo = path.dirname(filePath);
           const relativeImportFilePath = path.relative(resolveRelativeTo, resolvedImportPath);
           resolvedImportPath = `./${toBrowserPath(relativeImportFilePath)}`;
         }
