@@ -5,23 +5,35 @@ import { TestRunnerCoreConfig, fetchSourceMap } from '@web/test-runner-core';
 import { Profiler } from 'inspector';
 import picoMatch from 'picomatch';
 import LruCache from 'lru-cache';
+import { readFile } from 'node:fs/promises';
 
 import { toFilePath } from './utils';
 
 type V8Coverage = Profiler.ScriptCoverage;
 type Matcher = (test: string) => boolean;
-type V8Converter = ReturnType<typeof v8toIstanbulLib>;
+type IstanbulSource = Required<Parameters<typeof v8toIstanbulLib>>[2];
 
 const cachedMatchers = new Map<string, Matcher>();
 
-// Cache the v8-to-istanbul converters between calls since they
-// result in loading files from disk repeatedly otherwise.
-const cachedConverters = new LruCache<string, V8Converter>({
-  max: 200,
+// Cache the sourcemap/source objects to avoid repeatedly having to load
+// them from disk per call
+const cachedSources = new LruCache<string, IstanbulSource>({
+  maxSize: 1024 * 1024 * 50,
 });
 
 // coverage base dir must be separated with "/"
 const coverageBaseDir = process.cwd().split(sep).join('/');
+
+function hasOriginalSource(source: IstanbulSource): boolean {
+  return (
+    'sourceMap' in source &&
+    source.sourceMap !== undefined &&
+    typeof source.sourceMap.sourcemap === 'object' &&
+    source.sourceMap.sourcemap !== null &&
+    Array.isArray(source.sourceMap.sourcemap.sourcesContent) &&
+    source.sourceMap.sourcemap.sourcesContent.length > 0
+  );
+}
 
 function getMatcher(patterns?: string[]) {
   if (!patterns || patterns.length === 0) {
@@ -71,34 +83,28 @@ export async function v8ToIstanbul(
         const filePath = join(config.rootDir, toFilePath(path));
 
         if (!testFiles.includes(filePath) && included(filePath) && !excluded(filePath)) {
-          const sources = await fetchSourceMap({
-            protocol: config.protocol,
-            host: config.hostname,
-            port: config.port,
-            browserUrl: `${url.pathname}${url.search}${url.hash}`,
-            userAgent,
-          });
+          const browserUrl = `${url.pathname}${url.search}${url.hash}`;
+          const cachedSource = cachedSources.get(browserUrl);
+          const sources =
+            cachedSource ??
+            ((await fetchSourceMap({
+              protocol: config.protocol,
+              host: config.hostname,
+              port: config.port,
+              browserUrl,
+              userAgent,
+            })) as IstanbulSource);
 
-          const cachedConverter = cachedConverters.get(filePath);
-          const converter = cachedConverter ?? v8toIstanbulLib(filePath, 0, sources as any);
-
-          if (!cachedConverter) {
-            await converter.load();
-            cachedConverters.set(filePath, converter);
-          } else {
-            // When we reuse a cached converter, we need to reset it before using its `applyCoverage` function.
-            // If we don't, the coverage results will be poisoned with the results of the previous uses.
-            //
-            // This "workaround" is resetting some internal variables of the `V8ToIstanbul` class: `branches` & `functions`.
-            // This can break when newer versions of v8-to-istanbul are released. (variable renaming, more variables are used, ...)
-            //
-            // TODO: use a (stable) clone technique instead when available (`structuredClone` is available in node 17)
-            //
-            // @ts-ignore
-            converter.branches = {};
-            // @ts-ignore
-            converter.functions = {};
+          if (!cachedSource) {
+            if (!hasOriginalSource(sources)) {
+              const contents = await readFile(filePath, 'utf8');
+              (sources as IstanbulSource & { originalSource: string }).originalSource = contents;
+            }
+            cachedSources.set(browserUrl, sources);
           }
+
+          const converter = v8toIstanbulLib(filePath, 0, sources);
+          await converter.load();
 
           converter.applyCoverage(entry.functions);
           Object.assign(istanbulCoverage, converter.toIstanbul());
