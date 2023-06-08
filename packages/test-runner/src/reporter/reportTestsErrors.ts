@@ -75,7 +75,7 @@ export function reportTestsErrors(
     if (session.testResults) {
       const flattenedTests = getFlattenedTestResults(session.testResults);
       for (const test of flattenedTests) {
-        if (!test.passed && !test.skipped) {
+        if (test.error || (!test.passed && !test.skipped)) {
           let testErrorsForBrowser = testErrorsPerBrowser.get(test.name);
           if (!testErrorsForBrowser) {
             testErrorsForBrowser = new Map<string, TestResultError>();
