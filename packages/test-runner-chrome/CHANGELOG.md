@@ -1,5 +1,13 @@
 # @web/test-runner-chrome
 
+## 0.13.1
+
+### Patch Changes
+
+- 9ae77c47: Acquire raw v8 coverage via puppeteer API rather than CDP calls
+- Updated dependencies [3c33d74a]
+  - @web/test-runner-coverage-v8@0.7.0
+
 ## 0.13.0
 
 ### Minor Changes
