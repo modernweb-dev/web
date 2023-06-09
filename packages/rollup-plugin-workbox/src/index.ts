@@ -64,12 +64,12 @@ export function injectManifest(
     name,
     async writeBundle() {
       await esbuild.build({
-        entryPoints: [swSrc],
-        outfile: swDest,
         bundle: true,
         minify: true,
         format: 'iife',
         ...esbuildOptions,
+        entryPoints: [swSrc],
+        outfile: swDest,
       });
 
       injectManifestConfig.swSrc = swDest;
