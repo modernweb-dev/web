@@ -1,5 +1,13 @@
 # @web/dev-server-storybook
 
+## 0.7.2
+
+### Patch Changes
+
+- 85647c10: Update `lit-html`
+- 5acaf838: Update `@typescript-eslint/parser`
+- ab4720fa: fix: terser import
+
 ## 0.7.1
 
 ### Patch Changes
