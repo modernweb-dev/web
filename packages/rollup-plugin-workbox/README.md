@@ -52,21 +52,16 @@ You can also customize the console output after workbox has generated your servi
 ```js
 const { generateSW } = require('rollup-plugin-workbox');
 
-const workboxConfig = require('./workbox-config.js')
+const workboxConfig = require('./workbox-config.js');
 
 module.exports = {
   // ...
   plugins: [
-    generateSW(
-      workboxConfig,
-      function render({ swDest, count, size }) {
-        console.log(
-          '📦', swDest,
-          '#️⃣', count,
-          '🐘', size,
-        );
-      }),
-    )
+    generateSW(workboxConfig, {
+      render: ({ swDest, count, size }) => {
+        console.log('📦', swDest, '#️⃣', count, '🐘', size);
+      },
+    }),
   ],
 };
 ```
@@ -114,49 +109,39 @@ You can also customize the console output after workbox has created your service
 ```js
 const { injectManifest } = require('rollup-plugin-workbox');
 
-const workboxConfig = require('./workbox-config.js')
+const workboxConfig = require('./workbox-config.js');
 
 module.exports = {
   // ...
   plugins: [
-    injectManifest(
-      workboxConfig,
-      function render({ swDest, count, size }) {
-        console.log(
-          '📦', swDest,
-          '#️⃣', count,
-          '🐘', size,
-        );
-      }),
-    )
+    injectManifest(workboxConfig, {
+      render: ({ swDest, count, size }) => {
+        console.log('📦', swDest, '#️⃣', count, '🐘', size);
+      },
+    }),
   ],
 };
 ```
 
-### A note on the `mode` config property
+### Bundling
 
-The `generateSW` mode of Workbox supports a `mode` property, that when set to `'production'` will bundle your generated service worker, and get rid of any `process.env.NODE_ENV` variables that are internally used in the Workbox libraries.
+When using `injectManifest`, your service worker will also automatically get bundled via `esbuild`. During bundling, any mentions of Workbox's internal usage of `process.env` variables will also be replaced, so you'll end up with a service worker that will have browser-compatible syntax only.
 
-Unfortunately this got [wrongfully documented](https://github.com/GoogleChrome/workbox/issues/2427) for `injectManifest`, and this means that `injectManifest` does not actually support the `mode` property. There is a feature request on the [Workbox repo](https://github.com/GoogleChrome/workbox/issues/2588) to support this feature for `injectManifest` as well.
+You can override the `esbuild` options used like so:
 
-Until this gets fixed in `workbox-build`, `rollup-plugin-workbox` **does** support the `mode` property in the Workbox configuration for `injectManifest`, and when set to `'production'` will output a production optimized service worker for you.
-
-```diff
+```js
 const { injectManifest } = require('rollup-plugin-workbox');
 
+const workboxConfig = require('./workbox-config.js');
+
 module.exports = {
-  input: 'main.js',
-  output: {
-    file: 'dist/bundle.js',
-    format: 'esm',
-  },
+  // ...
   plugins: [
-    injectManifest({
-      swSrc: 'sw.js',
-      swDest: '/dist/sw.js',
-      globDirectory: 'demo/dist/',
-+     mode: 'production',
-    })
+    injectManifest(workboxConfig, {
+      esbuild: {
+        minify: false,
+      },
+    }),
   ],
 };
 ```

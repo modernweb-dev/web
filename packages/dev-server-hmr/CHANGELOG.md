@@ -1,5 +1,11 @@
 # @web/dev-server-hmr
 
+## 0.2.2
+
+### Patch Changes
+
+- 85647c10: Update `lit-html`
+
 ## 0.2.1
 
 ### Patch Changes

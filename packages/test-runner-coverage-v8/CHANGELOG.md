@@ -1,5 +1,11 @@
 # @web/test-runner-coverage-v8
 
+## 0.7.0
+
+### Minor Changes
+
+- 3c33d74a: Cache sourcemap resolution across v8-to-istanbul calls to avoid heavy FS reads
+
 ## 0.6.1
 
 ### Patch Changes

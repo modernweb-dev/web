@@ -1,6 +1,6 @@
-import { Page } from 'puppeteer-core';
+import { Page, JSCoverageEntry } from 'puppeteer-core';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { V8Coverage, v8ToIstanbul } from '@web/test-runner-coverage-v8';
+import { v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { SessionResult } from '@web/test-runner-core';
 
 export class ChromeLauncherPage {
@@ -32,7 +32,9 @@ export class ChromeLauncherPage {
         await this.puppeteerPage.coverage.stopJSCoverage();
       }
       this.nativeInstrumentationEnabledOnPage = true;
-      await this.puppeteerPage.coverage.startJSCoverage();
+      await this.puppeteerPage.coverage.startJSCoverage({
+        includeRawScriptCoverage: true,
+      });
     }
 
     await this.puppeteerPage.setViewport({ height: 600, width: 800 });
@@ -80,20 +82,13 @@ export class ChromeLauncherPage {
       return undefined;
     }
 
-    // get native coverage from puppeteer
-    // TODO: this is using a private puppeteer API to grab v8 code coverage, this can be removed
-    // when https://github.com/puppeteer/puppeteer/issues/2136 is resolved
-    const response = (await (this.puppeteerPage as any)
-      ._client()
-      .send('Profiler.takePreciseCoverage')) as {
-      result: V8Coverage[];
-    };
-    const v8Coverage = response.result
-      // remove puppeteer specific scripts
-      .filter(r => r.url && r.url !== '__puppeteer_evaluation_script__');
-
-    const userAgent = await userAgentPromise;
-    await this.puppeteerPage.coverage?.stopJSCoverage();
+    const [userAgent, coverageResult] = await Promise.all([
+      userAgentPromise,
+      this.puppeteerPage.coverage?.stopJSCoverage(),
+    ]);
+    const v8Coverage = coverageResult
+      ?.map(entry => entry.rawScriptCoverage)
+      .filter((cov): cov is Required<JSCoverageEntry>['rawScriptCoverage'] => cov !== undefined);
     this.nativeInstrumentationEnabledOnPage = false;
 
     return v8ToIstanbul(config, testFiles, v8Coverage, userAgent);
