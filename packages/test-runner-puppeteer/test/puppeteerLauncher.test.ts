@@ -13,7 +13,10 @@ describe('test-runner-puppeteer', function testRunnerPuppeteer() {
   runIntegrationTests(createConfig, {
     basic: true,
     many: true,
-    focus: true,
+    // Focus tests are failing because of a puppeteer/chrome bug.
+    // See https://github.com/puppeteer/puppeteer/issues/10350 and 
+    // https://bugs.chromium.org/p/chromium/issues/detail?id=1454012
+    focus: false,
     groups: true,
     parallel: true,
     testFailure: true,
