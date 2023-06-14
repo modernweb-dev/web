@@ -30,12 +30,6 @@ jobs:
       - name: Install Playwright dependencies
         run: npx playwright install-deps
 
-      - name: Install Chrome 113
-        run: |
-          VERSION_STRING="113.0.5672.63-1"
-          wget "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${VERSION_STRING}_amd64.deb"
-          sudo dpkg -i "google-chrome-stable_${VERSION_STRING}_amd64.deb"
-
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
