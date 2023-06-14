@@ -11414,7 +11414,7 @@ puppeteer-core@19.11.1, puppeteer-core@^19.8.1:
     unbzip2-stream "1.4.3"
     ws "8.13.0"
 
-puppeteer@19.10, puppeteer@^19.9.0:
+puppeteer@^19.9.0:
   version "19.10.1"
   resolved "https://registry.npmjs.org/puppeteer/-/puppeteer-19.10.1.tgz"
   integrity sha512-HqpY8sWqz28JfyZE8cGG9kBPgASD7iRHn/ryWLvVLXE10poR5AyU/mMsLmL175qoYl/chwMTN2pxKSz7HobaCg==
