@@ -1,5 +1,13 @@
 # @web/test-runner-chrome
 
+## 0.13.2
+
+### Patch Changes
+
+- 015766e9: Use new headless chrome mode
+- Updated dependencies [015766e9]
+  - @web/test-runner-core@0.11.2
+
 ## 0.13.1
 
 ### Patch Changes
