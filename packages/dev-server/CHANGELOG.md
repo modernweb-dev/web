@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.2.3
+
+### Patch Changes
+
+- 015766e9: Use new headless chrome mode
+
 ## 0.2.2
 
 ### Patch Changes

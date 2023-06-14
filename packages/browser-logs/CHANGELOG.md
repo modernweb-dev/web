@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.3.2
+
+### Patch Changes
+
+- 015766e9: Use new headless chrome mode
+
 ## 0.3.1
 
 ### Patch Changes
