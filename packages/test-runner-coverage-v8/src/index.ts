@@ -19,6 +19,7 @@ const cachedMatchers = new Map<string, Matcher>();
 // them from disk per call
 const cachedSources = new LruCache<string, IstanbulSource>({
   maxSize: 1024 * 1024 * 50,
+  sizeCalculation: n => n.source.length,
 });
 
 // coverage base dir must be separated with "/"
