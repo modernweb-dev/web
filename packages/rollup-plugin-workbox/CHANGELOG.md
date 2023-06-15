@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 8.0.1
+
+### Patch Changes
+
+- 9ae9c2e7: fix: generate sw arg
+
 ## 8.0.0
 
 ### Major Changes
