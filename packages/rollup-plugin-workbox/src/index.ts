@@ -13,7 +13,7 @@ const report = ({ swDest, count, size }: { swDest: string; count: number; size: 
   console.log(`The service worker will precache ${count} URLs, totaling ${prettySize}.\n`);
 };
 
-export function generateSW(generateSWConfig: GenerateSWOptions, { render = report }) {
+export function generateSW(generateSWConfig: GenerateSWOptions, { render = report } = {}) {
   const { swDest, globDirectory } = generateSWConfig;
 
   if (!swDest) throw new Error('No service worker destination specified');
