@@ -1,5 +1,20 @@
 # @web/dev-server
 
+## 0.2.3
+
+### Patch Changes
+
+- 015766e9: Use new headless chrome mode
+
+## 0.2.2
+
+### Patch Changes
+
+- 85647c10: Update `lit-html`
+- ab4720fa: fix: terser import
+- Updated dependencies [6ab3ee55]
+  - @web/dev-server-rollup@0.5.1
+
 ## 0.2.1
 
 ### Patch Changes
