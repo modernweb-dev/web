@@ -1,4 +1,4 @@
-import playwright, { Browser, Page, LaunchOptions, BrowserContext } from 'playwright';
+import playwright, { Browser, Page, LaunchOptions, BrowserContext } from 'playwright-core';
 import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
 import { PlaywrightLauncherPage } from './PlaywrightLauncherPage';
 

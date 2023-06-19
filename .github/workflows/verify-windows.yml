@@ -23,7 +23,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install Playwright dependencies
-        run: npx playwright install-deps
+        run: npx playwright-core install-deps
 
       - name: Install dependencies
         run: yarn --frozen-lockfile

@@ -1,5 +1,5 @@
-import { LaunchOptions, devices } from 'playwright';
-import * as playwright from 'playwright';
+import { LaunchOptions, devices } from 'playwright-core';
+import * as playwright from 'playwright-core';
 import {
   PlaywrightLauncher,
   ProductType,
