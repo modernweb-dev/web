@@ -24,7 +24,7 @@ jobs:
         env:
           FORCE_COLOR: 0
         with:
-          node-version: '16'
+          node-version: '18'
           cache: 'yarn'
           registry-url: 'https://registry.npmjs.org'
 
