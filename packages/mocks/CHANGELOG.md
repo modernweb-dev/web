@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.0.5
+
+### Patch Changes
+
+- d952332b: docs: msw
+
 ## 0.0.4
 
 ### Patch Changes
