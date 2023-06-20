@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.0.7
+
+### Patch Changes
+
+- 1dcec76b: fix: mock rollup plugin
+
 ## 0.0.6
 
 ### Patch Changes
