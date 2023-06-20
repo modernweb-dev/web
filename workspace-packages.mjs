@@ -3,6 +3,7 @@ const packages = [
   { name: 'parse5-utils', type: 'js', environment: 'node' },
   { name: 'browser-logs', type: 'ts', environment: 'node' },
   { name: 'polyfills-loader', type: 'ts', environment: 'node' },
+  { name: 'mocks', type: 'ts', environment: 'browser' },
   { name: 'rollup-plugin-html', type: 'ts', environment: 'node' },
   { name: 'rollup-plugin-polyfills-loader', type: 'ts', environment: 'node' },
   { name: 'rollup-plugin-copy', type: 'js', environment: 'node' },
