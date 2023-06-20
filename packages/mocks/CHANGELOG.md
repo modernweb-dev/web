@@ -1,5 +1,12 @@
 # @web/mocks
 
+## 0.0.6
+
+### Patch Changes
+
+- 1354dd07: Docs/mocks
+- b0d8a907: fix: type: module, and add missing file
+
 ## 0.0.5
 
 ### Patch Changes
