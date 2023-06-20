@@ -27,6 +27,7 @@
     "rest.js",
     "rollup-plugin.js",
     "wds-plugin.js",
+    "msw.js",
     "sw.js",
     "polyfills.js"
   ],
