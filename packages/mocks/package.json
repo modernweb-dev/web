@@ -22,7 +22,13 @@
     "build": "tsc"
   },
   "files": [
-    "dist"
+    "browser.js",
+    "node.js",
+    "rest.js",
+    "rollup-plugin.js",
+    "wds-plugin.js",
+    "sw.js",
+    "polyfills.js"
   ],
   "keywords": [
     "mocks",
