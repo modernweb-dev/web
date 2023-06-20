@@ -1,0 +1,35 @@
+{
+  "name": "@web/mocks",
+  "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "MSW integration for @web tooling",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/mocks"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/mocks",
+  "exports": {
+    "./rest.js": "./rest.js",
+    "./browser.js": "./browser.js",
+    "./node.js": "./node.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "mocks",
+    "msw"
+  ],
+  "dependencies": {
+    "@web/storybook-prebuilt": "^0.1.34",
+    "msw": "0.0.0-fetch.rc-14"
+  }
+}

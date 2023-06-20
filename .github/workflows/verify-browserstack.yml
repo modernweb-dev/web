@@ -15,12 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node 16
+      - name: Setup Node 18
         uses: actions/setup-node@v3
         env:
           FORCE_COLOR: 0
         with:
-          node-version: '16'
+          node-version: '18'
           cache: 'yarn'
 
       - name: Install dependencies
