@@ -1,4 +1,4 @@
-# msw-integration-layer
+# @web/mocks
 
 [`MSW`](https://mswjs.io/) integration layer for usage with [`@web/dev-server`](https://modern-web.dev/docs/dev-server/overview/), [`@web/test-runner`](https://modern-web.dev/docs/test-runner/overview/) and [`@web/dev-server-storybook`](https://modern-web.dev/docs/dev-server/plugins/storybook/#mainjs-and-previewjs).
 
@@ -7,7 +7,7 @@
 `feature-a/demo/mocks.js`:
 
 ```js
-import { rest } from 'msw-integration-layer/rest.js';
+import { rest } from '@web/mocks/rest.js';
 import mocksFromAnotherFeature from 'another-feature/demo/mocks.js';
 
 /**
@@ -96,7 +96,7 @@ rest.get('/api/foo', ({ request, cookies, params }) => {
 
 ```js
 import { storybookPlugin } from '@web/dev-server-storybook';
-import { mockPlugin } from 'msw-integration-layer/node.js';
+import { mockPlugin } from '@web/mocks/node.js';
 
 export default {
   nodeResolve: true,
@@ -112,18 +112,26 @@ You can also add the `mswRollupPlugin` to your `.storybook/main.cjs` config for 
 module.exports = {
   stories: ['../stories/**/*.stories.{js,md,mdx}'],
   rollupConfig: async config => {
-    const { mswRollupPlugin } = await import('msw-integration-layer/node.js');
+    const { mswRollupPlugin } = await import('@web/mocks/node.js');
     config.plugins.push(mswRollupPlugin());
     return config;
   },
 };
 ```
 
+`feature-a/.storybook/preview.js`:
+
+```js
+import { withMocks } from '@web/mocks/browser.js';
+
+export const decorators = [withMocks()];
+```
+
 `feature-a/stories/default.stories.js`:
 
 ```js
 import { html } from 'lit';
-import { rest } from 'msw-integration-layer/rest.js';
+import { rest } from '@web/mocks/rest.js';
 import mocks from '../demo/mocks.js';
 
 export const Default = () => html`<feature-a></feature-a>`;
@@ -157,7 +165,7 @@ The `registerMockRoutes` function will ensure the service worker is installed, a
 `feature-a/web-test-runner.config.mjs`:
 
 ```js
-import { mockPlugin } from 'msw-integration-layer/node.js';
+import { mockPlugin } from '@web/mocks/node.js';
 
 export default {
   nodeResolve: true,
@@ -169,7 +177,7 @@ export default {
 `feature-a/test/my-test.test.js`:
 
 ```js
-import { registerMockRoutes, rest } from 'msw-integration-layer';
+import { registerMockRoutes, rest } from '@web/mocks';
 import mocks from '../demo/mocks.js';
 import featureBmocks from 'feature-b/demo/mocks.js';
 
@@ -225,7 +233,7 @@ Default.story = {
 `msw@2.0.0` may have a different API or it's service worker may expect a different message, event, or data format. In order to ensure forward compatibility, we expose a "middleman" function:
 
 ```js
-import { rest } from 'msw-integration-layer/rest.js';
+import { rest } from '@web/mocks/rest.js';
 
 rest.get('/api/foo', () => Response.json({ foo: 'bar' }));
 ```
