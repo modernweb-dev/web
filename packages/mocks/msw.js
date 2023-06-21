@@ -1,6 +1,7 @@
 import { rest } from 'msw';
 import { setupWorker } from 'msw/browser';
 
+const bypassServiceWorker = new URL(window.location.href).searchParams.has('bypass-sw');
 const worker = setupWorker();
 worker.start({
   serviceWorker: {
@@ -23,9 +24,9 @@ const SUPPORTED_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'options'];
  */
 
 /**
-Mock the given mocked routes using a Service Worker.
-
- * @param  {Array<Array<Mock>|Mock>} mocks 
+ * Mock the given mocked routes using a Service Worker.
+ *
+ * @param  {Array<Array<Mock>|Mock>} mocks
  */
 function registerMockRoutes(...mocks) {
   worker.resetHandlers();
@@ -45,7 +46,9 @@ function registerMockRoutes(...mocks) {
     );
   }
 
-  worker.use(...handlers);
+  if (!bypassServiceWorker) {
+    worker.use(...handlers);
+  }
 }
 
 export { worker, registerMockRoutes };
