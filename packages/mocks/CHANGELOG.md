@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.0.10
+
+### Patch Changes
+
+- 1b8b7792: chore: add comment to injected code
+
 ## 0.0.9
 
 ### Patch Changes
