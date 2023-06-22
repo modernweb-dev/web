@@ -1671,7 +1671,7 @@
 
 "@lion/core@^0.21.0", "@lion/core@^0.24.0":
   version "0.24.0"
-  resolved "https://registry.npmjs.org/@lion/core/-/core-0.24.0.tgz"
+  resolved "https://registry.yarnpkg.com/@lion/core/-/core-0.24.0.tgz#e58c280bbd95e4694bad9f9aae4c2da6dba43e5c"
   integrity sha512-hC5Fpi5U3PY0HOVycSev1jzoE8DYHFSN42s5gt6g6RlvvRYN5Pou0wtKnDOkOYf1UfjuL+T/4r8W99UFD1r/Eg==
   dependencies:
     "@open-wc/dedupe-mixin" "^1.3.0"
@@ -1680,7 +1680,7 @@
 
 "@lion/form-core@^0.16.0", "@lion/form-core@^0.18.3":
   version "0.18.3"
-  resolved "https://registry.npmjs.org/@lion/form-core/-/form-core-0.18.3.tgz"
+  resolved "https://registry.yarnpkg.com/@lion/form-core/-/form-core-0.18.3.tgz#6a9a60b9367a4d666c64538746de67c9e96ae6db"
   integrity sha512-AmVJRIsToSbhl/7Smp2NVPuDdPzelc7ohri58PfOf5iM1YOTbESuIXVA6khRaxTkw+b4/Dtf/ThwwvBs1BAFtg==
   dependencies:
     "@lion/core" "^0.24.0"
@@ -1696,7 +1696,7 @@
 
 "@lion/listbox@^0.14.1":
   version "0.14.1"
-  resolved "https://registry.npmjs.org/@lion/listbox/-/listbox-0.14.1.tgz"
+  resolved "https://registry.yarnpkg.com/@lion/listbox/-/listbox-0.14.1.tgz#1dcc6ad1097be75d3bf4a680a41f11966da24bf8"
   integrity sha512-cxREJY7SOSgsy6Dz6zrsEp82NTy0Z3tfpIkzeeht56YnYOXaWJsQvp9LmU49nuj41RYhrIbrQsiSF3qJXLwXtA==
   dependencies:
     "@lion/core" "^0.24.0"
@@ -1704,7 +1704,7 @@
 
 "@lion/localize@^0.26.0":
   version "0.26.0"
-  resolved "https://registry.npmjs.org/@lion/localize/-/localize-0.26.0.tgz"
+  resolved "https://registry.yarnpkg.com/@lion/localize/-/localize-0.26.0.tgz#c40ba0bd572d5a6298ba86dc45fd4bbeb7ac8c25"
   integrity sha512-ZFXumnVYviPq689DYrU9ZVhBEOk7/b/bht0ySw36fLqg61VCDSRdbImv2WOYJywaSeuncBcMNhcJu0UlK9wflw==
   dependencies:
     "@bundled-es-modules/message-format" "6.0.4"
@@ -1713,7 +1713,7 @@
 
 "@lion/overlays@^0.29.1", "@lion/overlays@^0.33.2":
   version "0.33.2"
-  resolved "https://registry.npmjs.org/@lion/overlays/-/overlays-0.33.2.tgz"
+  resolved "https://registry.yarnpkg.com/@lion/overlays/-/overlays-0.33.2.tgz#be2ae0b96cf680638731619562e84eabc22f5911"
   integrity sha512-xi6Jdj3QNfXO+bZ1GNS+9wZm4nZ7zwlY3Vqu4vNArV21lYM3/A6Vx/CbNPOjVVfhdvHvxR3RriVSLipI/YQMWA==
   dependencies:
     "@lion/core" "^0.24.0"
@@ -12588,10 +12588,10 @@ semver@^6.0.0, semver@^6.1.1, semver@^6.1.2, semver@^6.3.0:
   resolved "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
-semver@^7.3.2, semver@^7.3.4, semver@^7.3.5, semver@^7.3.7:
-  version "7.5.0"
-  resolved "https://registry.npmjs.org/semver/-/semver-7.5.0.tgz"
-  integrity sha512-+XC0AD/R7Q2mPSRuy2Id0+CGTZ98+8f+KvwirxOKIEyid+XSx6HbC63p+O4IndTHuX5Z+JxQ0TghCkO5Cg/2HA==
+semver@^7.3.2, semver@^7.3.4, semver@^7.3.5, semver@^7.3.7, semver@^7.5.2:
+  version "7.5.2"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.2.tgz#5b851e66d1be07c1cdaf37dfc856f543325a2beb"
+  integrity sha512-SoftuTROv/cRjCze/scjGyiDtcUyxw1rgYQSZY7XTmtR5hX+dm76iDbTH8TkLPHCQmlbQVSSbNZCPM2hb0knnQ==
   dependencies:
     lru-cache "^6.0.0"
 
