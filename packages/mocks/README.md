@@ -119,6 +119,51 @@ module.exports = {
 };
 ```
 
+<details>
+<summary>
+  <b><code>mswRollupPlugin</code> configuration options</b>
+</summary>
+The rollup plugin also takes an optional <code>interceptor</code>, which can be useful to handle things like rewriting <code>api.</code> prefixes made in requests, for example:
+
+```js
+mswRollupPlugin({
+  interceptor: `
+    const domain = window.location.hostname;
+    const apiDomain = `api.${domain}`;
+
+    const { fetch: originalFetch } = window;
+
+    async function fetch(request) {
+      request = new Request(request);
+
+      const resolvedURL = new URL(request.url, window.location);
+      if (resolvedURL.hostname === apiDomain) {
+        // rewrite hostname without api.
+        resolvedURL.hostname = domain;
+
+        const init = {};
+        for (const property in request) {
+          init[property] = request[property];
+        }
+
+        request = new Request(resolvedURL.href, init);
+        if (request.body != null) {
+          request = new Request(request, { body: await request.arrayBuffer() });
+        }
+      }
+      return originalFetch(request);
+    }
+
+    window.fetch = fetch;
+  `
+});
+```
+
+This can be used to avoid CORS issues when deploying your Storybooks.
+
+</details>
+<br/>
+
 `feature-a/.storybook/preview.js`:
 
 ```js
