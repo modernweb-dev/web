@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.0.9
+
+### Patch Changes
+
+- e2e0bf97: feat: request interceptor
+
 ## 0.0.8
 
 ### Patch Changes
