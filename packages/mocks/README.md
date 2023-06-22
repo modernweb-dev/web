@@ -129,7 +129,7 @@ The rollup plugin also takes an optional <code>interceptor</code>, which can be 
 mswRollupPlugin({
   interceptor: `
     const domain = window.location.hostname;
-    const apiDomain = `api.${domain}`;
+    const apiDomain = "api." + domain;
 
     const { fetch: originalFetch } = window;
 
@@ -155,7 +155,7 @@ mswRollupPlugin({
     }
 
     window.fetch = fetch;
-  `
+  `,
 });
 ```
 
