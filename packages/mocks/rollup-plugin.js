@@ -22,7 +22,10 @@ export function mswRollupPlugin(
         const htmlPlugin = options.plugins.find(p => p.name === '@web/rollup-plugin-html');
 
         htmlPlugin.api.addHtmlTransformer(html => {
-          return html.replace('<head>', `<head><script>${interceptor}</script>`);
+          return html.replace(
+            '<head>',
+            `<head><!-- Injected by @web/mocks mswRollupPlugin --><script>${interceptor}</script>`,
+          );
         });
       }
     },
