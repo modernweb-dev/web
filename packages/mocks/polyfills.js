@@ -7,7 +7,7 @@ if (!globalThis?.process) {
 }
 
 if (!('json' in Response)) {
-  Response.json = function (data, options) {
+  Response.json = function (data, options = {}) {
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
 
