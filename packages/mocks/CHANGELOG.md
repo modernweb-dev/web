@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.0.11
+
+### Patch Changes
+
+- e2189387: fix: default value for opts
+
 ## 0.0.10
 
 ### Patch Changes
