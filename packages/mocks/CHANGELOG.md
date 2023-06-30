@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.0.13
+
+### Patch Changes
+
+- 2062d628: chore: update sw
+
 ## 0.0.12
 
 ### Patch Changes
