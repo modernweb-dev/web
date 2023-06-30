@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.0.12
+
+### Patch Changes
+
+- 6d765f22: chore: bump msw and remove process.env shim
+
 ## 0.0.11
 
 ### Patch Changes
