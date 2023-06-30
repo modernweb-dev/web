@@ -1,11 +1,3 @@
-if (!globalThis?.process) {
-  globalThis.process = {
-    env: {
-      NODE_ENV: 'production',
-    },
-  };
-}
-
 if (!('json' in Response)) {
   Response.json = function (data, options = {}) {
     const headers = new Headers();
