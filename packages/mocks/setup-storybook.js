@@ -1,5 +1,5 @@
 import { makeDecorator } from '@web/storybook-prebuilt/addons';
-import { registerMockRoutes } from './msw.js';
+import { registerMockRoutes } from './browser.js';
 
 export function withMocks() {
   return makeDecorator({

@@ -4,7 +4,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "module",
   "description": "MSW integration for @web tooling",
   "license": "MIT",
   "repository": {
@@ -14,25 +13,21 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/mocks",
+  "type": "module",
   "exports": {
+    ".": {
+      "node": "./node.js",
+      "default": "./browser.js"
+    },
     "./rest.js": "./rest.js",
-    "./browser.js": "./browser.js",
-    "./node.js": "./node.js"
+    "./setup.js": "./setup.js",
+    "./setup-storybook.js": "./setup-storybook.js"
   },
   "scripts": {
     "build": "tsc"
   },
   "files": [
-    "README.md",
-    "browser.js",
-    "node.js",
-    "rest.js",
-    "rollup-plugin.js",
-    "wds-plugin.js",
-    "msw.js",
-    "sw.js",
-    "polyfills.js",
-    "storybook-decorator.js"
+    "./*.js"
   ],
   "keywords": [
     "mocks",
