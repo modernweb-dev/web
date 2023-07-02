@@ -63,7 +63,7 @@ export function calc(type, a, b) {
 So let's run our test
 
 ```
-$ yarn test
+$ npm run test
 $ web-test-runner "test/**/*.test.js" --node-resolve --coverage
 
 Chrome: |██████████████████████████████| 1/1 test files | 1 passed, 0 failed
@@ -138,7 +138,7 @@ it('does multiply for 2 numbers', () => {
 Run it
 
 ```
-$ yarn test
+$ npm run test
 $ web-test-runner "test/**/*.test.js" --node-resolve --coverage
 
 Chrome: |██████████████████████████████| 1/1 test files | 4 passed, 0 failed

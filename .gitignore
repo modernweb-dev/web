@@ -20,8 +20,7 @@ yarn-error.log
 ## temp folders
 /.tmp/
 
-## we prefer yarn.lock
-package-lock.json
+yarn.lock
 ## lock files in packages we do not need to save
 packages/*/yarn.lock
 
