@@ -93,7 +93,7 @@ if (fixes.size && process.argv.includes('--fix')) {
   for (const [filePath, changes] of fixes) {
     fixJSON(filePath, changes);
   }
-  console.log('package.json files updated, run `yarn`');
+  console.log('package.json files updated, run `npm install`');
 }
 
 if (endReturn === 0) {

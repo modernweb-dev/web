@@ -21,18 +21,18 @@ jobs:
           FORCE_COLOR: 0
         with:
           node-version: '18'
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: npm ci
 
       - name: Build packages
-        run: yarn build
+        run: npm run build
 
       - name: Test
         run: |
           cd packages/test-runner-saucelabs
-          yarn test
+          npm run test
         env:
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}

@@ -12,7 +12,7 @@
   "scripts": {
     "build": "rimraf --glob packages/*/tsconfig.tsbuildinfo && tsc --build",
     "build:production": "node scripts/workspaces-scripts-bin.mjs build:production",
-    "build:site": "yarn build && rocket build",
+    "build:site": "npm run build && rocket build",
     "build:watch": "rimraf --glob packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
     "dev-to-git": "dev-to-git",
     "format": "npm run format:eslint && npm run format:prettier",
@@ -23,20 +23,20 @@
     "lint:eslint": "eslint --ext .ts,.js,.mjs,.cjs .",
     "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
     "prepare": "husky install",
-    "reinstall-workspace": "rimraf --glob packages/*/node_modules && rimraf node_modules && yarn install && yarn build",
-    "release": "changeset publish && yarn format",
-    "release:enter-pre": "[ ! -f .changeset/pre.json ] && yarn changeset pre enter next || echo 'Already in pre mode'",
+    "reinstall-workspace": "rimraf --glob packages/*/node_modules && rimraf node_modules && npm run install && npm run build",
+    "release": "changeset publish && npm run format",
+    "release:enter-pre": "[ ! -f .changeset/pre.json ] && npm run changeset pre enter next || echo 'Already in pre mode'",
     "review-content": "alex 'docs/**/*.md'",
     "search": "rocket search",
     "start": "rocket start",
     "start:build": "node packages/dev-server/dist/bin.js --root-dir _site --open",
-    "test": "yarn test:node && yarn test:browser && node scripts/workspaces-scripts-bin.mjs test:ci",
+    "test": "npm run test:node && npm run test:browser && node scripts/workspaces-scripts-bin.mjs test:ci",
     "test:browser": "node packages/test-runner/dist/bin.js \"packages/*/test-browser/**/*.test.{js,ts}\"",
     "test:node": "mocha \"packages/!(*test-runner-selenium|*test-runner-webdriver)/test/**/*.test.{ts,js,mjs,cjs}\"",
     "update": "npm run update:mjs-dts-entrypoints && npm run update:tsconfigs",
     "update-dependency": "node scripts/update-dependency.js",
-    "update:mjs-dts-entrypoints": "node scripts/generate-mjs-dts-entrypoints.mjs && yarn format",
-    "update:tsconfigs": "node scripts/generate-ts-configs.mjs && yarn format"
+    "update:mjs-dts-entrypoints": "node scripts/generate-mjs-dts-entrypoints.mjs && npm run format",
+    "update:tsconfigs": "node scripts/generate-ts-configs.mjs && npm run format"
   },
   "dependencies": {
     "@rocket/blog": "^0.4.0",
@@ -75,7 +75,7 @@
     "ts-node": "^10.4.0",
     "typescript": "~5.0.4"
   },
-  "resolutions": {
+  "overrides": {
     "@lion/accordion": "^0.11.1",
     "@lion/combobox": "^0.11.1",
     "@lion/core": "^0.24.0",
