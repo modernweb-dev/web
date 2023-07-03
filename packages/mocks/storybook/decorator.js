@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { makeDecorator } from '@web/storybook-prebuilt/addons';
 import { registerMockRoutes } from '../browser.js';
 

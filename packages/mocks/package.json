@@ -4,7 +4,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "module",
   "description": "MSW integration for @web tooling",
   "license": "MIT",
   "repository": {
@@ -14,19 +13,36 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/mocks",
+  "type": "module",
   "exports": {
-    "./http.js": "./http.js",
-    "./browser.js": "./browser.js",
-    "./storybook/decorator.js": "./storybook/decorator.js",
-    "./plugins.js": "./plugins.js",
-    "./node.js": "./node.js"
+    "./http.js": {
+      "types": "./dist-types/http.d.ts",
+      "default": "./http.js"
+    },
+    "./browser.js": {
+      "types": "./dist-types/browser.d.ts",
+      "default": "./browser.js"
+    },
+    "./storybook/decorator.js": {
+      "types": "./dist-types/storybook/decorator.d.ts",
+      "default": "./storybook/decorator.js"
+    },
+    "./plugins.js": {
+      "types": "./dist-types/plugins.d.ts",
+      "default": "./plugins.js"
+    },
+    "./node.js": {
+      "types": "./dist-types/node.d.ts",
+      "default": "./node.js"
+    }
   },
   "scripts": {
-    "build": "tsc"
+    "types": "wireit"
   },
   "files": [
-    "README.md",
-    "**/*.js"
+    "**/*.js",
+    "dist-types",
+    "README.md"
   ],
   "keywords": [
     "mocks",
@@ -35,5 +51,19 @@
   "dependencies": {
     "@web/storybook-prebuilt": "^0.1.34",
     "msw": "0.0.0-fetch.rc-15"
+  },
+  "wireit": {
+    "types": {
+      "command": "tsc --build --pretty",
+      "files": [
+        "**/*.js",
+        "**/*.ts",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist-types/**"
+      ],
+      "dependencies": []
+    }
   }
 }

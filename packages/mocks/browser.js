@@ -18,7 +18,7 @@ worker.start({
 /**
  * Mock the given mocked routes using a Service Worker.
  *
- * @param  {Array<Array<Mock>|Mock>} mocks
+ * @param  {import('./types.js').Mock[]} mocks
  */
 function registerMockRoutes(...mocks) {
   _registerMockRoutes(worker, bypassServiceWorker, ...mocks);

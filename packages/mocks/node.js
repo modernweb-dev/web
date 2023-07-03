@@ -1,5 +1,5 @@
 import { setupServer } from 'msw/node';
-import { _registerMockRoutes } from './_registerMockRoutes.js';
+import { _registerMockRoutes } from './registerMockRoutes.js';
 
 export const server = setupServer();
 server.listen();
@@ -7,7 +7,7 @@ server.listen();
 /**
  * Mock the given mocked routes using a Service Worker.
  *
- * @param  {Array<Array<Mock>|Mock>} mocks
+ * @param  {import('./types.js').Mock[]} mocks
  */
 export function registerMockRoutes(...mocks) {
   _registerMockRoutes(server, false, ...mocks);

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
