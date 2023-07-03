@@ -1,20 +1,4 @@
 import { rest } from 'msw';
-import { setupWorker } from 'msw/browser';
-
-const bypassServiceWorker = new URL(window.location.href).searchParams.has('bypass-sw');
-const worker = setupWorker();
-worker.start({
-  serviceWorker: {
-    url: '__msw_sw__.js',
-  },
-  quiet: true,
-  // See https://github.com/mswjs/msw/discussions/1231#discussioncomment-2729999 if you'd like to warn if there's a unhandled request
-  onUnhandledRequest() {
-    return undefined;
-  },
-});
-
-const SUPPORTED_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'options'];
 
 /**
  * @typedef {Object} Mock
@@ -23,13 +7,17 @@ const SUPPORTED_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'options'];
  * @property {({request}: {request: Request}) => Response | Promise<Response>} handler
  */
 
+const SUPPORTED_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'options'];
+
 /**
  * Mock the given mocked routes using a Service Worker.
  *
+ * @param  {Object} system The Service Worker or Server Instance
+ * @param  {boolean} bypassServiceWorker
  * @param  {Array<Array<Mock>|Mock>} mocks
  */
-function registerMockRoutes(...mocks) {
-  worker.resetHandlers();
+export function _registerMockRoutes(system, bypassServiceWorker = false, ...mocks) {
+  system.resetHandlers();
 
   const handlers = [];
   for (const { method, endpoint, handler } of mocks.flat(Infinity)) {
@@ -40,15 +28,12 @@ function registerMockRoutes(...mocks) {
     handlers.push(
       rest[method](endpoint, async ({ cookies, params, request }) => {
         const response = await handler({ request, cookies, params });
-
         return response;
       }),
     );
   }
 
   if (!bypassServiceWorker) {
-    worker.use(...handlers);
+    system.use(...handlers);
   }
 }
-
-export { worker, registerMockRoutes };

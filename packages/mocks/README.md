@@ -7,7 +7,7 @@
 `feature-a/demo/mocks.js`:
 
 ```js
-import { rest } from '@web/mocks/rest.js';
+import { http } from '@web/mocks/http.js';
 import mocksFromAnotherFeature from 'another-feature/demo/mocks.js';
 
 /**
@@ -17,11 +17,11 @@ export default {
   /**
    * Return an object from the handler
    */
-  default: [rest.get('/api/foo', context => Response.json({ foo: 'bar' }))],
+  default: [http.get('/api/foo', context => Response.json({ foo: 'bar' }))],
   /**
    * Return native `Response` object from the handler
    */
-  error: [rest.get('/api/foo', context => new Response('', { status: 400 }))],
+  error: [http.get('/api/foo', context => new Response('', { status: 400 }))],
   /**
    * Handle additional custom logic in the handler, based on url, searchparams, whatever
    */
@@ -29,7 +29,7 @@ export default {
     /**
      * Customize based on searchParams
      */
-    rest.get('/api/users', ({ request }) => {
+    http.get('/api/users', ({ request }) => {
       const searchParams = new URL(request.url).searchParams;
 
       if (searchParams.get('user') === '123') {
@@ -42,7 +42,7 @@ export default {
     /**
      * Customize based on params
      */
-    rest.get('/api/users/:id', ({ params }) => {
+    http.get('/api/users/:id', ({ params }) => {
       if (params.id === '123') {
         return new Response('', { status: 400 });
       }
@@ -53,7 +53,7 @@ export default {
     /**
      * Customize based on cookies
      */
-    rest.get('/api/abtest', ({ cookies }) => {
+    http.get('/api/abtest', ({ cookies }) => {
       return Response.json({ abtest: cookies.segment === 'business' });
     }),
   ],
@@ -61,17 +61,17 @@ export default {
    * Provide an async fn, a fn returning an object, a fn returning a Response, or just an object
    */
   returnValues: [
-    rest.get('/api/foo', async context => Response.json({ foo: 'bar' })),
-    rest.get(
+    http.get('/api/foo', async context => Response.json({ foo: 'bar' })),
+    http.get(
       '/api/foo',
       async context => new Response(JSON.stringify({ foo: 'bar' }), { status: 200 }),
     ),
-    rest.get('/api/foo', context => Response.json({ foo: 'bar' })),
-    rest.get('/api/foo', context => new Response(JSON.stringify({ foo: 'bar' }), { status: 200 })),
+    http.get('/api/foo', context => Response.json({ foo: 'bar' })),
+    http.get('/api/foo', context => new Response(JSON.stringify({ foo: 'bar' }), { status: 200 })),
   ],
   importedMocks: [
     mocksFromAnotherFeature.default,
-    rest.get('/api/foo', () => Response.json({ foo: 'bar' })),
+    http.get('/api/foo', () => Response.json({ foo: 'bar' })),
   ],
 };
 ```
@@ -81,7 +81,7 @@ export default {
 The `context` object that gets passed to the handler includes:
 
 ```js
-rest.get('/api/foo', ({ request, cookies, params }) => {
+http.get('/api/foo', ({ request, cookies, params }) => {
   return Response.json({ foo: 'bar' });
 });
 ```
@@ -96,7 +96,7 @@ rest.get('/api/foo', ({ request, cookies, params }) => {
 
 ```js
 import { storybookPlugin } from '@web/dev-server-storybook';
-import { mockPlugin } from '@web/mocks/node.js';
+import { mockPlugin } from '@web/mocks/plugins.js';
 
 export default {
   nodeResolve: true,
@@ -104,7 +104,7 @@ export default {
 };
 ```
 
-You can also add the `mswRollupPlugin` to your `.storybook/main.cjs` config for when you're bundling your Storybook to deploy somewhere; your mocks will be deployed along with your Storybook, and will work in whatever environment you deploy them to.
+You can also add the `mockRollupPlugin` to your `.storybook/main.cjs` config for when you're bundling your Storybook to deploy somewhere; your mocks will be deployed along with your Storybook, and will work in whatever environment you deploy them to.
 
 `feature-a/.storybook/main.cjs`:
 
@@ -112,8 +112,8 @@ You can also add the `mswRollupPlugin` to your `.storybook/main.cjs` config for 
 module.exports = {
   stories: ['../stories/**/*.stories.{js,md,mdx}'],
   rollupConfig: async config => {
-    const { mswRollupPlugin } = await import('@web/mocks/node.js');
-    config.plugins.push(mswRollupPlugin());
+    const { mockRollupPlugin } = await import('@web/mocks/plugins.js');
+    config.plugins.push(mockRollupPlugin());
     return config;
   },
 };
@@ -121,12 +121,12 @@ module.exports = {
 
 <details>
 <summary>
-  <b><code>mswRollupPlugin</code> configuration options</b>
+  <b><code>mockRollupPlugin</code> configuration options</b>
 </summary>
 The rollup plugin also takes an optional <code>interceptor</code>, which can be useful to handle things like rewriting <code>api.</code> prefixes made in requests, for example:
 
 ```js
-mswRollupPlugin({
+mockRollupPlugin({
   interceptor: `
     const domain = window.location.hostname;
     const apiDomain = "api." + domain;
@@ -167,16 +167,16 @@ This can be used to avoid CORS issues when deploying your Storybooks.
 `feature-a/.storybook/preview.js`:
 
 ```js
-import { withMocks } from '@web/mocks/browser.js';
+import { withMocks } from '@web/mocks/storybook/decorator.js';
 
-export const decorators = [withMocks()];
+export const decorators = [withMocks];
 ```
 
 `feature-a/stories/default.stories.js`:
 
 ```js
 import { html } from 'lit';
-import { rest } from '@web/mocks/rest.js';
+import { http } from '@web/mocks/http.js';
 import mocks from '../demo/mocks.js';
 
 export const Default = () => html`<feature-a></feature-a>`;
@@ -187,12 +187,12 @@ Default.story = {
     mocks: [
       mocks.default,
       otherMocks.error,
-      rest.get('/api/bar', () => Response.json({ bar: 'bar' })),
-      rest.post('/api/baz', () => new Response('', { status: 400 })),
+      http.get('/api/bar', () => Response.json({ bar: 'bar' })),
+      http.post('/api/baz', () => new Response('', { status: 400 })),
     ],
     // or
     mocks: [
-      rest.get('/api/users/:id', ({ params }) => {
+      http.get('/api/users/:id', ({ params }) => {
         if (params.id === '123') {
           return Response.json({ name: 'frank' });
         }
@@ -210,7 +210,7 @@ The `registerMockRoutes` function will ensure the service worker is installed, a
 `feature-a/web-test-runner.config.mjs`:
 
 ```js
-import { mockPlugin } from '@web/mocks/node.js';
+import { mockPlugin } from '@web/mocks/plugins.js';
 
 export default {
   nodeResolve: true,
@@ -222,13 +222,14 @@ export default {
 `feature-a/test/my-test.test.js`:
 
 ```js
-import { registerMockRoutes, rest } from '@web/mocks';
+import { registerMockRoutes } from '@web/mocks/browser.js';
+import { http } from '@web/mocks/http.js';
 import mocks from '../demo/mocks.js';
 import featureBmocks from 'feature-b/demo/mocks.js';
 
 describe('feature-a', () => {
   it('works', async () => {
-    registerMockRoutes(rest.get('/api/foo', () => Response.json({ foo: 'foo' })));
+    registerMockRoutes(http.get('/api/foo', () => Response.json({ foo: 'foo' })));
 
     const response = await fetch('/api/foo').then(r => r.json());
     expect(response.foo).to.equal('foo');
@@ -243,10 +244,26 @@ describe('feature-a', () => {
       featureBmocks.default,
 
       // Additional mocks
-      rest.get('/api/baz', context => Response.json({ baz: 'baz' })),
+      http.get('/api/baz', context => Response.json({ baz: 'baz' })),
     );
   });
 });
+```
+
+## Mocking requests in node.js
+
+You can also mock requests in node.js:
+
+```js
+import { registerMockRoutes } from '@web/mocks/node.js';
+import { http } from '@web/mocks/http.js';
+
+registerMockRoutes(
+  http.get('/api/foo', () => new Response(JSON.stringify({ foo: 'bar' }), { status: 200 })),
+);
+
+const r = await fetch('/api/foo').then(r => r.json());
+console.assert(r.foo === 'bar');
 ```
 
 ## Rationale
@@ -278,9 +295,9 @@ Default.story = {
 `msw@2.0.0` may have a different API or it's service worker may expect a different message, event, or data format. In order to ensure forward compatibility, we expose a "middleman" function:
 
 ```js
-import { rest } from '@web/mocks/rest.js';
+import { http } from '@web/mocks/http.js';
 
-rest.get('/api/foo', () => Response.json({ foo: 'bar' }));
+http.get('/api/foo', () => Response.json({ foo: 'bar' }));
 ```
 
 The middleware function simply returns an object that looks like:

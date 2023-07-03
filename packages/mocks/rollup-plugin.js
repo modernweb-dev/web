@@ -4,7 +4,7 @@ import path from 'node:path';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
-export function mswRollupPlugin(
+export function mockRollupPlugin(
   { interceptor } = {
     interceptor: '',
   },
@@ -24,7 +24,7 @@ export function mswRollupPlugin(
         htmlPlugin.api.addHtmlTransformer(html => {
           return html.replace(
             '<head>',
-            `<head><!-- Injected by @web/mocks mswRollupPlugin --><script>${interceptor}</script>`,
+            `<head><!-- Injected by @web/mocks mockRollupPlugin --><script>${interceptor}</script>`,
           );
         });
       }
