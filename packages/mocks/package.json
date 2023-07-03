@@ -1,6 +1,6 @@
 {
   "name": "@web/mocks",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "access": "public"
   },
@@ -49,7 +49,7 @@
     "msw"
   ],
   "dependencies": {
-    "@web/storybook-prebuilt": "^0.1.34",
+    "@web/storybook-prebuilt": "^0.1.36",
     "msw": "0.0.0-fetch.rc-15"
   },
   "wireit": {
