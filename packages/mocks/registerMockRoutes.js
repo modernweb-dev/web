@@ -1,20 +1,13 @@
 import { rest } from 'msw';
 
-/**
- * @typedef {Object} Mock
- * @property {string} method
- * @property {string} endpoint
- * @property {({request}: {request: Request}) => Response | Promise<Response>} handler
- */
-
-const SUPPORTED_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'options'];
+const SUPPORTED_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'options', 'head'];
 
 /**
  * Mock the given mocked routes using a Service Worker.
  *
- * @param  {Object} system The Service Worker or Server Instance
+ * @param  {import('msw/node').SetupServer | import('msw/browser').SetupWorker} system The Service Worker or Server Instance
  * @param  {boolean} bypassServiceWorker
- * @param  {Array<Array<Mock>|Mock>} mocks
+ * @param  {import('./types.js').Mock[]} mocks
  */
 export function _registerMockRoutes(system, bypassServiceWorker = false, ...mocks) {
   system.resetHandlers();
@@ -26,7 +19,9 @@ export function _registerMockRoutes(system, bypassServiceWorker = false, ...mock
     }
 
     handlers.push(
+      // @ts-ignore
       rest[method](endpoint, async ({ cookies, params, request }) => {
+        // @ts-ignore
         const response = await handler({ request, cookies, params });
         return response;
       }),

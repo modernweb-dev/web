@@ -27,6 +27,9 @@ jobs:
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
 
+      # Set up GitHub Actions caching for Wireit.
+      - uses: google/wireit@setup-github-actions-caching/v1
+
       - name: Install Dependencies
         run: npm ci
 

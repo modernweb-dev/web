@@ -10,7 +10,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "rimraf --glob packages/*/tsconfig.tsbuildinfo && tsc --build",
+    "build": "rimraf --glob packages/*/tsconfig.tsbuildinfo && tsc --build && npm run types",
     "build:production": "node scripts/workspaces-scripts-bin.mjs build:production",
     "build:site": "npm run build && rocket build",
     "build:watch": "rimraf --glob packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
@@ -30,6 +30,7 @@
     "search": "rocket search",
     "start": "rocket start",
     "start:build": "node packages/dev-server/dist/bin.js --root-dir _site --open",
+    "types": "wireit",
     "test": "npm run test:node && npm run test:browser && node scripts/workspaces-scripts-bin.mjs test:ci",
     "test:browser": "node packages/test-runner/dist/bin.js \"packages/*/test-browser/**/*.test.{js,ts}\"",
     "test:node": "mocha \"packages/!(*test-runner-selenium|*test-runner-webdriver)/test/**/*.test.{ts,js,mjs,cjs}\"",
@@ -73,17 +74,8 @@
     "rimraf": "^4.4.1",
     "rollup": "^3.15.0",
     "ts-node": "^10.4.0",
-    "typescript": "~5.0.4"
-  },
-  "overrides": {
-    "@lion/accordion": "^0.11.1",
-    "@lion/combobox": "^0.11.1",
-    "@lion/core": "^0.24.0",
-    "@lion/form-core": "^0.18.3",
-    "@lion/overlays": "^0.33.2",
-    "@mdjs/core": "^0.9.0",
-    "@mdjs/mdjs-preview": "^0.5.5",
-    "@rocket/drawer": "^0.1.4"
+    "typescript": "~5.0.4",
+    "wireit": "^0.9.5"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -125,11 +117,28 @@
     "exit": true,
     "retries": 3
   },
+  "overrides": {
+    "@lion/accordion": "^0.11.1",
+    "@lion/combobox": "^0.11.1",
+    "@lion/core": "^0.24.0",
+    "@lion/form-core": "^0.18.3",
+    "@lion/overlays": "^0.33.2",
+    "@mdjs/core": "^0.9.0",
+    "@mdjs/mdjs-preview": "^0.5.5",
+    "@rocket/drawer": "^0.1.4"
+  },
   "prettier": {
     "singleQuote": true,
     "arrowParens": "avoid",
     "printWidth": 100,
     "trailingComma": "all"
+  },
+  "wireit": {
+    "types": {
+      "dependencies": [
+        "./packages/mocks:types"
+      ]
+    }
   },
   "workspaces": [
     "packages/*",

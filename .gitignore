@@ -25,6 +25,8 @@ yarn.lock
 packages/*/yarn.lock
 
 ## build output
+dist-types
+.wireit
 /dist
 /packages/*/dist
 tsconfig.tsbuildinfo
