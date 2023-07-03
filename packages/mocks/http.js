@@ -1,6 +1,11 @@
 const VERSION = Symbol.for('msw-integration-layer::version');
 
-export const rest = {
+/**
+ * This wrapper was made to be forward/backward compatible with potential future versions
+ * of the underlying mocking library. It's api should not change, it should not have dependencies,
+ * and it's import should be pure and non-sideeffectful.
+ */
+export const http = {
   get: (endpoint, handler) => {
     return { [VERSION]: '1.x.x', method: 'get', endpoint, handler };
   },

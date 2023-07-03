@@ -15,8 +15,10 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/mocks",
   "exports": {
-    "./rest.js": "./rest.js",
+    "./http.js": "./http.js",
     "./browser.js": "./browser.js",
+    "./storybook/decorator.js": "./storybook/decorator.js",
+    "./plugins.js": "./plugins.js",
     "./node.js": "./node.js"
   },
   "scripts": {
@@ -24,15 +26,7 @@
   },
   "files": [
     "README.md",
-    "browser.js",
-    "node.js",
-    "rest.js",
-    "rollup-plugin.js",
-    "wds-plugin.js",
-    "msw.js",
-    "sw.js",
-    "polyfills.js",
-    "storybook-decorator.js"
+    "*.js"
   ],
   "keywords": [
     "mocks",
