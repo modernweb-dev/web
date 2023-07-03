@@ -250,6 +250,22 @@ describe('feature-a', () => {
 });
 ```
 
+## Mocking requests in node.js
+
+You can also mock requests in node.js:
+
+```js
+import { registerMockRoutes } from '@web/mocks/node.js';
+import { http } from '@web/mocks/http.js';
+
+registerMockRoutes(
+  http.get('/api/foo', () => new Response(JSON.stringify({ foo: 'bar' }), { status: 200 })),
+);
+
+const r = await fetch('/api/foo').then(r => r.json());
+console.assert(r.foo === 'bar');
+```
+
 ## Rationale
 
 ### Why not use MSW directly?
