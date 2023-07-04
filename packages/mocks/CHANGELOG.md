@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.1.2
+
+### Patch Changes
+
+- e9c77e06: Version Packages
+
 ## 0.1.1
 
 ### Patch Changes

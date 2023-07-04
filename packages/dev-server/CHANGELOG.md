@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.2.4
+
+### Patch Changes
+
+- e9c77e06: Version Packages
+
 ## 0.2.3
 
 ### Patch Changes
