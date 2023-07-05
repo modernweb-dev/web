@@ -4,13 +4,12 @@ import {
   NormalizedInputOptions,
   PluginContext,
   TransformPluginContext,
-  MinimalPluginContext,
 } from 'rollup';
 
 export interface RollupPluginContexts {
   normalizedInputOptions: NormalizedInputOptions;
   pluginContext: PluginContext;
-  minimalPluginContext: MinimalPluginContext;
+  minimalPluginContext: any;
   transformPluginContext: TransformPluginContext;
 }
 
