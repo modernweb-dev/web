@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 0.7.3
+
+### Patch Changes
+
+- e9c77e06: Version Packages
+
 ## 0.7.2
 
 ### Patch Changes

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { LitElement, html } from 'lit';
 
 class MyElement extends LitElement {
