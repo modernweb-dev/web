@@ -27,6 +27,7 @@
       "types": "./dist-types/storybook/decorator.d.ts",
       "default": "./storybook/decorator.js"
     },
+    "./storybook/addon.js": "./storybook/addon.js",
     "./plugins.js": {
       "types": "./dist-types/plugins.d.ts",
       "default": "./plugins.js"
@@ -37,7 +38,8 @@
     }
   },
   "scripts": {
-    "types": "wireit"
+    "types": "wireit",
+    "start": "wds --config demo/wc/web-dev-server.config.mjs"
   },
   "files": [
     "**/*.js",
@@ -49,7 +51,8 @@
     "msw"
   ],
   "dependencies": {
-    "@web/storybook-prebuilt": "^0.1.36",
+    "@web/storybook-prebuilt": "^0.1.37",
+    "lit": "^2.7.5",
     "msw": "0.0.0-fetch.rc-15"
   },
   "wireit": {
@@ -65,5 +68,9 @@
       ],
       "dependencies": []
     }
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.2.3",
+    "@web/dev-server-storybook": "^0.7.2"
   }
 }
