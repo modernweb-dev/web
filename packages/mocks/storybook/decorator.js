@@ -56,7 +56,7 @@ export const withMocks = makeDecorator({
     });
 
     if (finalizedMocks) {
-      addons.getChannel().emit('mocks:loaded', finalizedMocks);
+      addons.getChannel().emit('mocks:loaded', finalizedMocks.flat(Infinity));
       registerMockRoutes(finalizedMocks);
     }
 
