@@ -45,7 +45,12 @@ export const withMocks = makeDecorator({
         ? {
             ...editedMock,
             handler: () =>
-              new Response(JSON.stringify(editedMock.data), { status: editedMock.status }),
+              new Response(JSON.stringify(editedMock.data), {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                status: editedMock.status,
+              }),
           }
         : mock;
     });
