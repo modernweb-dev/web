@@ -108,14 +108,14 @@ You can also add the `mockRollupPlugin` to your `.storybook/main.cjs` config for
 
 `feature-a/.storybook/main.cjs`:
 
-```js
+```diff
 module.exports = {
   stories: ['../stories/**/*.stories.{js,md,mdx}'],
-  rollupConfig: async config => {
-    const { mockRollupPlugin } = await import('@web/mocks/plugins.js');
-    config.plugins.push(mockRollupPlugin());
-    return config;
-  },
++  rollupConfig: async config => {
++    const { mockRollupPlugin } = await import('@web/mocks/plugins.js');
++    config.plugins.push(mockRollupPlugin());
++    return config;
++  },
 };
 ```
 
@@ -163,6 +163,21 @@ This can be used to avoid CORS issues when deploying your Storybooks.
 
 </details>
 <br/>
+
+And add the addon:
+`feature-a/.storybook/main.cjs`:
+
+```diff
+module.exports = {
+  stories: ['../stories/**/*.stories.{js,md,mdx}'],
++  addons: ['@web/mocks/storybook/addon.js'],
+  rollupConfig: async config => {
+    const { mockRollupPlugin } = await import('@web/mocks/plugins.js');
+    config.plugins.push(mockRollupPlugin());
+    return config;
+  },
+};
+```
 
 `feature-a/.storybook/preview.js`:
 
