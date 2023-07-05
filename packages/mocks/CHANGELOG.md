@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.1.4
+
+### Patch Changes
+
+- fd7cb03e: fix: content type
+
 ## 0.1.3
 
 ### Patch Changes
