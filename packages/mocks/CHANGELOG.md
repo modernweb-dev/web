@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.1.5
+
+### Patch Changes
+
+- c2a9df28: fix: flatten mocks correctly
+
 ## 0.1.4
 
 ### Patch Changes
