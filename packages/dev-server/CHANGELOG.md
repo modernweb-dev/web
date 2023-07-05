@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.2.5
+
+### Patch Changes
+
+- f2362bbf: Trigger pipeline
+
 ## 0.2.4
 
 ### Patch Changes
