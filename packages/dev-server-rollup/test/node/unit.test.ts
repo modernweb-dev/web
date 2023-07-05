@@ -2,10 +2,47 @@ import { Plugin as RollupPlugin, AcornNode } from 'rollup';
 import { expect } from 'chai';
 import path from 'path';
 
-import { createTestServer, fetchText, expectIncludes } from './test-helpers';
+import { createTestServer, fetchText, expectIncludes, timeout } from './test-helpers';
 import { fromRollup } from '../../src/index';
 
 describe('@web/dev-server-rollup', () => {
+  describe('buildStart', () => {
+    it('awaits buildStart when starting a server', async () => {
+      let resolveBuildStartCalled: undefined | ((value: void) => void);
+      const buildStartCalledPromise = new Promise(resolve => (resolveBuildStartCalled = resolve));
+
+      let resolveBuildStart: undefined | ((value: void) => void);
+      const plugin: RollupPlugin = {
+        name: 'my-plugin',
+        buildStart() {
+          if (resolveBuildStartCalled) {
+            resolveBuildStartCalled();
+          }
+          return new Promise(resolve => (resolveBuildStart = resolve));
+        },
+      };
+
+      const serverPromise = createTestServer({
+        plugins: [fromRollup(() => plugin)()],
+      });
+
+      await buildStartCalledPromise;
+
+      try {
+        const res = await Promise.race([serverPromise, timeout(0, 'timeout')]);
+        expect(res).to.equal('timeout');
+        if (resolveBuildStart) {
+          resolveBuildStart();
+        }
+        const res2 = await Promise.race([serverPromise, timeout(0, 'timeout')]);
+        expect(res2).not.to.equal('timeout');
+      } finally {
+        const { server } = await serverPromise;
+        server.stop();
+      }
+    });
+  });
+
   describe('resolveId', () => {
     it('can resolve imports, returning a string', async () => {
       const plugin: RollupPlugin = {

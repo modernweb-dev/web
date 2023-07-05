@@ -55,7 +55,8 @@ export async function createTestServer(
   return { server, port, host: `http://localhost:${port}` };
 }
 
-export const timeout = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
+export const timeout = <T>(ms = 0, value?: T): Promise<T> =>
+  new Promise(resolve => setTimeout(value ? () => resolve(value) : resolve, ms));
 
 export async function fetchText(url: string, init?: RequestInit) {
   const response = await fetch(url, init);
