@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.5.2
+
+### Patch Changes
+
+- 6b359149: fix: await buildStart in serverStart
+
 ## 0.5.1
 
 ### Patch Changes
