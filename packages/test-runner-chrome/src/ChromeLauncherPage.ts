@@ -9,6 +9,7 @@ export class ChromeLauncherPage {
   private product: string;
   public puppeteerPage: Page;
   private nativeInstrumentationEnabledOnPage = false;
+  private patchAdded = false;
 
   constructor(
     config: TestRunnerCoreConfig,
@@ -35,6 +36,31 @@ export class ChromeLauncherPage {
       await this.puppeteerPage.coverage.startJSCoverage({
         includeRawScriptCoverage: true,
       });
+    }
+
+    // Patching the browser page to workaround an issue in the new headless mode of Chrome where some functions
+    // with callbacks (requestAnimationFrame and requestIdleCallback) are not executing their callbacks.
+    // https://github.com/puppeteer/puppeteer/issues/10350
+    if (!this.patchAdded) {
+      await this.puppeteerPage.exposeFunction('__bringTabToFront', () =>
+        this.puppeteerPage.bringToFront(),
+      );
+      await this.puppeteerPage.evaluateOnNewDocument(() => {
+        // @ts-ignore
+        function patchFunction(name, fn) {
+          // @ts-ignore
+          window[name] = (...args) => {
+            fn.call(window, ...args);
+            // Make sure that the tab running the test code is brought back to the front.
+            // @ts-ignore
+            window.__bringTabToFront();
+          };
+        }
+
+        patchFunction('requestAnimationFrame', window.requestAnimationFrame);
+        patchFunction('requestIdleCallback', window.requestIdleCallback);
+      });
+      this.patchAdded = true;
     }
 
     await this.puppeteerPage.setViewport({ height: 600, width: 800 });
