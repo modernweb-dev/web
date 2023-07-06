@@ -3,6 +3,10 @@ import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { SessionResult } from '@web/test-runner-core';
 
+declare global {
+  interface Window { __bringTabToFront: Function; }
+}
+
 export class ChromeLauncherPage {
   private config: TestRunnerCoreConfig;
   private testFiles: string[];
@@ -46,13 +50,10 @@ export class ChromeLauncherPage {
         this.puppeteerPage.bringToFront(),
       );
       await this.puppeteerPage.evaluateOnNewDocument(() => {
-        // @ts-ignore
-        function patchFunction(name, fn) {
-          // @ts-ignore
-          window[name] = (...args) => {
+        function patchFunction(name: string, fn: Function) {
+          (window as any)[name] = (...args: unknown[]) => {
             fn.call(window, ...args);
             // Make sure that the tab running the test code is brought back to the front.
-            // @ts-ignore
             window.__bringTabToFront();
           };
         }
