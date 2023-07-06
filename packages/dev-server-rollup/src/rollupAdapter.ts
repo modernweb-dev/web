@@ -106,7 +106,7 @@ export function rollupAdapter(
         transformedOptions = rollupInputOptions;
       }
       if (typeof rollupPlugin.buildStart === 'function') {
-        rollupPlugin.buildStart?.call(
+        await rollupPlugin.buildStart?.call(
           rollupPluginContexts.pluginContext,
           rollupPluginContexts.normalizedInputOptions,
         );
