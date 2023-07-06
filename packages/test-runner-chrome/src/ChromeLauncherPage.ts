@@ -4,7 +4,9 @@ import { v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { SessionResult } from '@web/test-runner-core';
 
 declare global {
-  interface Window { __bringTabToFront: Function; }
+  interface Window {
+    __bringTabToFront: () => void;
+  }
 }
 
 export class ChromeLauncherPage {
@@ -50,6 +52,7 @@ export class ChromeLauncherPage {
         this.puppeteerPage.bringToFront(),
       );
       await this.puppeteerPage.evaluateOnNewDocument(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-types
         function patchFunction(name: string, fn: Function) {
           (window as any)[name] = (...args: unknown[]) => {
             fn.call(window, ...args);
