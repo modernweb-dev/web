@@ -4,6 +4,7 @@ on: pull_request
 
 jobs:
   verify-browserstack:
+    timeout-minutes: 30
     name: Verify Browserstack
 
     # Run only from the original repository

@@ -10,7 +10,7 @@ const { sep } = path;
 const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
 const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };
 
-describe.only('serialize deserialize', () => {
+describe('serialize deserialize', () => {
   let browser: Browser;
   let page: Page;
   before(async () => {
