@@ -1,5 +1,13 @@
 # @web/test-runner-chrome
 
+## 0.13.3
+
+### Patch Changes
+
+- 18d4a631: fix: add workaround for headless issue
+
+  This will patch `window.requestAnimationFrame` and `window.requestIdleCallback` and make sure that the tab running the test code is brought back to the front.
+
 ## 0.13.2
 
 ### Patch Changes
