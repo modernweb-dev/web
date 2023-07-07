@@ -4,6 +4,7 @@ on: pull_request
 
 jobs:
   verify-windows:
+    timeout-minutes: 30
     name: Verify windows
     runs-on: windows-2022
     steps:

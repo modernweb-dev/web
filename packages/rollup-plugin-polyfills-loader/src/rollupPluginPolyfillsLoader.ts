@@ -67,15 +67,30 @@ export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig
             : bundle;
 
         let preloaded = [];
-        for (const entrypoint of entrypoints) {
-          preloaded.push(entrypoint.importPath);
-
-          // js files (incl. chunks) will always be in the root directory
-          const pathToRoot = path.posix.dirname(entrypoint.importPath);
-          for (const chunkPath of entrypoint.chunk.imports) {
-            preloaded.push(path.posix.join(pathToRoot, chunkPath));
+        function normalize(path: string) {
+          if (path.startsWith('../')) {
+            return path;
+          } else if (path.startsWith('./')) {
+            return path;
+          } else if (path.startsWith('/')) {
+            return '.' + path;
+          } else {
+            return './' + path;
           }
         }
+
+        for (const entrypoint of entrypoints) {
+          const importPath = normalize(path.posix.relative('', entrypoint.importPath));
+          preloaded.push(importPath);
+
+          // js files (incl. chunks) will always be in the root directory
+          const pathToRoot = path.posix.dirname(importPath);
+          for (const chunkPath of entrypoint.chunk.imports) {
+            const relativeChunkPath = normalize(path.posix.join(pathToRoot, chunkPath));
+            preloaded.push(relativeChunkPath);
+          }
+        }
+
         preloaded = [...new Set(preloaded)];
 
         const type =

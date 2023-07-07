@@ -4,6 +4,7 @@ on: pull_request
 
 jobs:
   verify-saucelabs:
+    timeout-minutes: 30
     name: Verify Sauce Labs
 
     # Run only from the original repository
