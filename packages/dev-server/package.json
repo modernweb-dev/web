@@ -68,7 +68,7 @@
     "deepmerge": "^4.2.2",
     "ip": "^1.1.5",
     "nanocolors": "^0.2.1",
-    "open": "^8.0.2",
+    "open": "^9.1.0",
     "portfinder": "^1.0.32"
   },
   "devDependencies": {
