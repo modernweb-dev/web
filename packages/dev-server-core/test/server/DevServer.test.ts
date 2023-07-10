@@ -1,8 +1,11 @@
+import express from 'express';
+import http from 'http';
 import Koa from 'koa';
 import { Server } from 'net';
 import { FSWatcher } from 'chokidar';
 import { expect } from 'chai';
 import fetch from 'node-fetch';
+import portfinder from 'portfinder';
 import { Stub, stubMethod } from 'hanbi';
 import { ServerStartParams } from '../../src/plugins/Plugin';
 import { DevServer } from '../../src/server/DevServer';
@@ -66,6 +69,30 @@ it('can configure the hostname', async () => {
   expect(response.status).to.equal(200);
   expect(responseText).to.include('<title>My app</title>');
   server.stop();
+});
+
+it('can run in middleware mode', async () => {
+  const { server: wdsServer } = await createTestServer({ middlewareMode: true });
+  expect(wdsServer.server).to.equal(undefined);
+
+  const app = express();
+  let httpServer: http.Server;
+  const port = await portfinder.getPortPromise({ port: 9000 });
+  await new Promise(
+    resolve =>
+      (httpServer = app.listen(port, 'localhost', () => {
+        resolve(undefined);
+      })),
+  );
+  app.use(wdsServer.koaApp.callback());
+
+  const response = await fetch(`http://localhost:${port}/index.html`);
+  const responseText = await response.text();
+
+  expect(response.status).to.equal(200);
+  expect(responseText).to.include('<title>My app</title>');
+
+  httpServer!.close();
 });
 
 it('can run multiple servers in parallel', async () => {

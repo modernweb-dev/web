@@ -46,7 +46,7 @@ describe('browser tests', function () {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets, 'send');
+    const stub = stubMethod(webSockets!, 'send');
     const page = await browser.newPage();
     try {
       await page.goto(`${host}/foo.html`, { waitUntil: 'networkidle0' });

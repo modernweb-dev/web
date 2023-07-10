@@ -7,7 +7,7 @@ export interface DevServerCoreConfig {
   /**
    * The port to run the server on.
    */
-  port: number;
+  port?: number;
   /**
    * Root directory to serve files from. All served files must be accessible with
    * this directory. If you are in a monorepository, you may need to set the to
@@ -17,7 +17,11 @@ export interface DevServerCoreConfig {
   /**
    * Hostname to bind the server to.
    */
-  hostname: string;
+  hostname?: string;
+  /**
+   * Whether to run server or not and allow to use as a middleware connected to another server.
+   */
+  middlewareMode?: boolean;
   basePath?: string;
   /**
    * The app's index.html file. When set, serves the index.html for non-file requests. Use this to enable SPA routing
