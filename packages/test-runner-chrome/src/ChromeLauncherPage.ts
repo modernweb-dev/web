@@ -2,10 +2,14 @@ import { Page, JSCoverageEntry } from 'puppeteer-core';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { SessionResult } from '@web/test-runner-core';
+import { Mutex } from 'async-mutex';
+
+const mutex = new Mutex();
 
 declare global {
   interface Window {
-    __bringTabToFront: () => void;
+    __bringTabToFront: (id: string) => void;
+    __releaseLock: (id: string) => void;
   }
 }
 
@@ -16,6 +20,7 @@ export class ChromeLauncherPage {
   public puppeteerPage: Page;
   private nativeInstrumentationEnabledOnPage = false;
   private patchAdded = false;
+  private resolvers: Record<string, () => void> = {};
 
   constructor(
     config: TestRunnerCoreConfig,
@@ -48,16 +53,29 @@ export class ChromeLauncherPage {
     // with callbacks (requestAnimationFrame and requestIdleCallback) are not executing their callbacks.
     // https://github.com/puppeteer/puppeteer/issues/10350
     if (!this.patchAdded) {
-      await this.puppeteerPage.exposeFunction('__bringTabToFront', () =>
-        this.puppeteerPage.bringToFront(),
-      );
+      await this.puppeteerPage.exposeFunction('__bringTabToFront', (id: string) => {
+        const promise = new Promise(resolve => {
+          this.resolvers[id] = resolve as () => void;
+        });
+        return mutex.runExclusive(async () => {
+          await this.puppeteerPage.bringToFront();
+          await promise;
+        });
+      });
+      await this.puppeteerPage.exposeFunction('__releaseLock', (id: string) => {
+        this.resolvers[id]?.();
+      });
       await this.puppeteerPage.evaluateOnNewDocument(() => {
         // eslint-disable-next-line @typescript-eslint/ban-types
         function patchFunction(name: string, fn: Function) {
           (window as any)[name] = (...args: unknown[]) => {
             fn.call(window, ...args);
+            const id = Math.random().toString().substring(2);
             // Make sure that the tab running the test code is brought back to the front.
-            window.__bringTabToFront();
+            window.__bringTabToFront(id);
+            fn.call(window, () => {
+              window.__releaseLock(id);
+            });
           };
         }
 
