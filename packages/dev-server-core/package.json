@@ -16,15 +16,30 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./index.d.ts",
+        "default": "./index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
     "./dist/dom5": {
-      "require": "./dist/dom5/index.js"
+      "require": {
+        "types": "./dist/dom5/index.d.ts",
+        "default": "./dist/dom5/index.js"
+      }
     },
     "./test-helpers": {
-      "import": "./test-helpers.mjs",
-      "require": "./dist/test-helpers.js"
+      "import": {
+        "types": "./test-helpers.d.ts",
+        "default": "./test-helpers.mjs"
+      },
+      "require": {
+        "types": "./dist/test-helpers.d.ts",
+        "default": "./dist/test-helpers.js"
+      }
     }
   },
   "engines": {

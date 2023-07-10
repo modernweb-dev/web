@@ -15,10 +15,19 @@
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-visual-regression",
   "main": "browser/commands.mjs",
   "exports": {
-    ".": "./browser/commands.mjs",
+    ".": {
+      "types": "./browser/commands.d.ts",
+      "default": "./browser/commands.mjs"
+    },
     "./plugin": {
-      "import": "./plugin.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./plugin.d.ts",
+        "default": "./plugin.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     }
   },
   "engines": {

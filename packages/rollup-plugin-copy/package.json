@@ -20,8 +20,14 @@
   "module": "index.mjs",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./src/copy.js"
+      "import": {
+        "types": "./index.d.ts",
+        "default": "./index.mjs"
+      },
+      "require": {
+        "types": "./src/copy.d.ts",
+        "default": "./src/copy.js"
+      }
     }
   },
   "engines": {

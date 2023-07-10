@@ -17,14 +17,29 @@
   "module": "./index.mjs",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./index.d.ts",
+        "default": "./index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
     "./test-helpers": {
-      "import": "./test-helpers.mjs",
-      "require": "./dist/test-helpers.js"
+      "import": {
+        "types": "./test-helpers.d.ts",
+        "default": "./test-helpers.mjs"
+      },
+      "require": {
+        "types": "./dist/test-helpers.d.ts",
+        "default": "./dist/test-helpers.js"
+      }
     },
-    "./browser/session.js": "./browser/session.js"
+    "./browser/session.js": {
+      "types": "./browser/session.d.ts",
+      "default": "./browser/session.js"
+    }
   },
   "engines": {
     "node": ">=16.0.0"
