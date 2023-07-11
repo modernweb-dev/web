@@ -10,7 +10,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "rimraf --glob packages/*/tsconfig.tsbuildinfo && tsc --build && npm run types",
+    "build": "rimraf --glob packages/*/tsconfig.tsbuildinfo && tsc --build",
     "build:production": "node scripts/workspaces-scripts-bin.mjs build:production",
     "build:site": "npm run build && rocket build",
     "build:watch": "rimraf --glob packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
