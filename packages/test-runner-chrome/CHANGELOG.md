@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.13.4
+
+### Patch Changes
+
+- 5c02eca2: fix(test-runner-chrome): add mutex when bringing tabs to front
+
 ## 0.13.3
 
 ### Patch Changes
