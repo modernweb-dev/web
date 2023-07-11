@@ -25,7 +25,12 @@ function httpsRedirect(req: IncomingMessage, res: ServerResponse) {
  * Creates a koa server with middlewares, but does not start it. Returns the koa app and
  * http server instances.
  */
-export function createServer(logger: Logger, cfg: DevServerCoreConfig, fileWatcher: FSWatcher) {
+export function createServer(
+  logger: Logger,
+  cfg: DevServerCoreConfig,
+  fileWatcher: FSWatcher,
+  middlewareMode = false,
+) {
   const app = new Koa();
   app.silent = true;
   app.on('error', error => {
@@ -53,6 +58,10 @@ export function createServer(logger: Logger, cfg: DevServerCoreConfig, fileWatch
   const middleware = createMiddleware(cfg, logger, fileWatcher);
   for (const m of middleware) {
     app.use(m);
+  }
+
+  if (middlewareMode) {
+    return { app };
   }
 
   let server: Server;
