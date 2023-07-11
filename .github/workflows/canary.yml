@@ -38,6 +38,9 @@ jobs:
       - name: Build packages
         run: npm run build
 
+      - name: Build types for js packages
+        run: npm run types
+
       - name: Build for production
         run: npm run build:production
 
