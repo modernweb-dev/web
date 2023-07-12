@@ -1,6 +1,6 @@
 {
   "name": "@web/mocks",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "publishConfig": {
     "access": "public"
   },
@@ -35,6 +35,10 @@
     "./node.js": {
       "types": "./dist-types/node.d.ts",
       "default": "./node.js"
+    },
+    "./types.js": {
+      "types": "./dist-types/types.d.ts",
+      "default": "./types.js"
     }
   },
   "scripts": {
