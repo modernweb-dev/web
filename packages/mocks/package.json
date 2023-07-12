@@ -60,7 +60,7 @@
     "msw": "0.0.0-fetch.rc-15"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.2.5",
+    "@web/dev-server": "^0.3.0",
     "@web/dev-server-storybook": "^0.7.4"
   },
   "wireit": {

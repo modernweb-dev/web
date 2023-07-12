@@ -1,5 +1,12 @@
 # @web/test-runner-visual-regression
 
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependencies [0c87f59e]
+  - @web/test-runner-commands@0.8.0
+
 ## 0.8.0
 
 ### Minor Changes
