@@ -17,7 +17,13 @@ const testCases = [
   },
   {
     name: 'node-resolve',
-    tests: ['inlineNodeResolve', 'nodeResolve', 'noExtension', 'extensionPriority'],
+    tests: [
+      'developmentExportCondition',
+      'inlineNodeResolve',
+      'nodeResolve',
+      'noExtension',
+      'extensionPriority',
+    ],
   },
   {
     name: 'static',
