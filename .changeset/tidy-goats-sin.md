@@ -6,7 +6,6 @@
 "@web/test-runner-commands": minor
 "@web/test-runner-puppeteer": minor
 "@web/test-runner": minor
-"@web/test-runner-integration-tests": minor
 ---
 
 feat/various fixes
