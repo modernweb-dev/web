@@ -52,7 +52,7 @@
     "@web/test-runner-core": "^0.11.1",
     "mkdirp": "^1.0.4",
     "pixelmatch": "^5.2.1",
-    "pngjs": "^6.0.0"
+    "pngjs": "^7.0.0"
   },
   "devDependencies": {
     "@web/test-runner-chrome": "^0.14.0",
