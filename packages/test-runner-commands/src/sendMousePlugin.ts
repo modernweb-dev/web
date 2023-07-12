@@ -167,10 +167,7 @@ export function sendMousePlugin(): TestRunnerPlugin<SendMousePayload> {
         // handle specific behavior for puppeteer
         if (session.browser.type === 'puppeteer') {
           const page = (session.browser as ChromeLauncher).getPage(session.id);
-          await page.mouse.up({ button: 'left' });
-          await page.mouse.up({ button: 'middle' });
-          await page.mouse.up({ button: 'right' });
-          await page.mouse.move(0, 0);
+          await page.mouse.reset();
           return true;
         }
 
