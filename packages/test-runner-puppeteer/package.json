@@ -51,6 +51,6 @@
   },
   "devDependencies": {
     "@web/test-runner-mocha": "^0.8.1",
-    "puppeteer-core": "^20.0.0"
+    "puppeteer-core": "^20.8.2"
   }
 }
