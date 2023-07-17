@@ -9,7 +9,7 @@ import {
   SnapshotPluginConfig,
   SaveSnapshotPayload,
   SendMousePayload,
-} from '../dist/index';
+} from '../dist/index.js';
 
 /**
  * Executes a command on the server. If this is a custom command, you need to implement a plugin

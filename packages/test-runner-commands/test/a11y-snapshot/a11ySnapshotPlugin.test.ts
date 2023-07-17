@@ -3,7 +3,7 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
-import { a11ySnapshotPlugin } from '../../src/a11ySnapshotPlugin';
+import { a11ySnapshotPlugin } from '../../src/a11ySnapshotPlugin.js';
 
 describe('a11ySnapshotPlugin', function test() {
   this.timeout(20000);

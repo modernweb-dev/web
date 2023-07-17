@@ -1,11 +1,11 @@
 import { Context, getRequestFilePath } from '@web/dev-server-core';
 
-import { PARAM_SESSION_ID, PARAM_TEST_FILE } from '../../utils/constants';
-import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig';
-import { createTestFileImportPath } from '../utils';
-import { trackBrowserLogs } from './trackBrowserLogs';
-import { TestSessionManager } from '../../test-session/TestSessionManager';
-import { TestRunnerGroupConfig } from '../../config/TestRunnerGroupConfig';
+import { PARAM_SESSION_ID, PARAM_TEST_FILE } from '../../utils/constants.js';
+import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig.js';
+import { createTestFileImportPath } from '../utils.js';
+import { trackBrowserLogs } from './trackBrowserLogs.js';
+import { TestSessionManager } from '../../test-session/TestSessionManager.js';
+import { TestRunnerGroupConfig } from '../../config/TestRunnerGroupConfig.js';
 
 const iframeModePage = `
 <!DOCTYPE html>

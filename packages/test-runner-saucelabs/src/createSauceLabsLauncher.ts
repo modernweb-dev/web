@@ -5,8 +5,8 @@ import { RemoteOptions } from 'webdriverio';
 import { Options } from '@wdio/types';
 import { nanoid } from 'nanoid';
 
-import { SauceLabsLauncher } from './SauceLabsLauncher';
-import { SauceLabsLauncherManager } from './SauceLabsLauncherManager';
+import { SauceLabsLauncher } from './SauceLabsLauncher.js';
+import { SauceLabsLauncherManager } from './SauceLabsLauncherManager.js';
 
 export function createSauceLabsLauncher(
   saucelabsOptions: SauceLabsOptions,

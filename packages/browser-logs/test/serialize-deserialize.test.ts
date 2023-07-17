@@ -3,7 +3,7 @@ import puppeteer, { Browser, Page } from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
 
-import { deserialize } from '../src/deserialize';
+import { deserialize } from '../src/deserialize.js';
 
 const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
 const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };

@@ -2,8 +2,8 @@
 import { expect } from 'chai';
 const fetch = await import('node-fetch');
 
-import { createTestServer } from '../helpers';
-import { fetchText, expectIncludes } from '../../src/test-helpers';
+import { createTestServer } from '../helpers.js';
+import { fetchText, expectIncludes } from '../../src/test-helpers.js';
 
 describe('plugin-transform middleware', () => {
   it('can transform a served file', async () => {

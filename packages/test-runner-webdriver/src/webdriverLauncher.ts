@@ -1,8 +1,8 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Browser, remote, RemoteOptions } from 'webdriverio';
-import { IFrameManager } from './IFrameManager';
-import { SessionManager } from './SessionManager';
-import { getBrowserLabel } from './utils';
+import { IFrameManager } from './IFrameManager.js';
+import { SessionManager } from './SessionManager.js';
+import { getBrowserLabel } from './utils.js';
 
 type MouseButton = 'left' | 'middle' | 'right';
 

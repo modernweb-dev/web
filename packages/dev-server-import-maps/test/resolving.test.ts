@@ -4,8 +4,8 @@ import { expect } from 'chai';
 import { spy } from 'hanbi';
 import path from 'path';
 
-import { importMapsPlugin } from '../src/importMapsPlugin';
-import { IMPORT_MAP_PARAM } from '../src/utils';
+import { importMapsPlugin } from '../src/importMapsPlugin.js';
+import { IMPORT_MAP_PARAM } from '../src/utils.js';
 
 function createHtml(importMap: Record<string, unknown>) {
   return `

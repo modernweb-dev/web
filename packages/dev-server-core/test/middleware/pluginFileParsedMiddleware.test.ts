@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { Context } from 'koa';
 const fetch = await import('node-fetch');
 
-import { createTestServer } from '../helpers';
+import { createTestServer } from '../helpers.js';
 
 describe('plugin-file-parsed middleware', () => {
   it('is called after other plugin hooks', async () => {

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 const fetch = await import('node-fetch');
 
-import { createTestServer } from '../helpers';
+import { createTestServer } from '../helpers.js';
 
 describe('plugin-serve middleware', () => {
   it('can serve non-existing files', async () => {

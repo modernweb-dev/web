@@ -2,10 +2,10 @@ import { TestSession } from '@web/test-runner-core';
 import { bold, cyan } from 'nanocolors';
 import { relative } from 'path';
 
-import { reportTestsErrors } from './reportTestsErrors';
-import { reportBrowserLogs } from './reportBrowserLogs';
-import { reportRequest404s } from './reportRequest404s';
-import { reportTestFileErrors } from './reportTestFileErrors';
+import { reportTestsErrors } from './reportTestsErrors.js';
+import { reportBrowserLogs } from './reportBrowserLogs.js';
+import { reportRequest404s } from './reportRequest404s.js';
+import { reportTestFileErrors } from './reportTestFileErrors.js';
 import { BufferedLogger } from '@web/test-runner-core/src/cli/BufferedLogger';
 
 export function reportTestFileResults(

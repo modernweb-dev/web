@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { addons, makeDecorator } from '@web/storybook-prebuilt/addons';
+import { addons, makeDecorator } from '@web/storybook-prebuilt/addons.js';
 import { registerMockRoutes } from '../browser.js';
 
 function getEditedMocks() {

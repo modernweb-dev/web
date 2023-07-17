@@ -3,8 +3,8 @@ import rollupNodeResolve from '@rollup/plugin-node-resolve';
 import rollupCommonjs from '@rollup/plugin-commonjs';
 const fetch = await import('node-fetch');
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { fromRollup } from '../../../src/index';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
+import { fromRollup } from '../../../src/index.js';
 import { expect } from 'chai';
 
 const nodeResolve = fromRollup(rollupNodeResolve, {}, { throwOnUnresolvedImport: true });

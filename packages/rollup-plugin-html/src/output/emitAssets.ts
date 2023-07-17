@@ -1,8 +1,8 @@
 import { PluginContext } from 'rollup';
 import path from 'path';
 
-import { InputAsset, InputData } from '../input/InputData';
-import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions';
+import { InputAsset, InputData } from '../input/InputData.js';
+import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions.js';
 
 export interface EmittedAssets {
   static: Map<string, string>;

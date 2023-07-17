@@ -1,5 +1,5 @@
 import { runIntegrationTests } from '../../../integration/test-runner';
-import { chromeLauncher } from '../src/index';
+import { chromeLauncher } from '../src/index.js';
 
 describe('test-runner-chrome', function testRunnerChrome() {
   this.timeout(20000);

@@ -1,1 +1,1 @@
-export { visualRegressionPlugin } from './visualRegressionPlugin';
+export { visualRegressionPlugin } from './visualRegressionPlugin.js';

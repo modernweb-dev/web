@@ -1,1 +1,1 @@
-export { junitReporter } from './junitReporter';
+export { junitReporter } from './junitReporter.js';

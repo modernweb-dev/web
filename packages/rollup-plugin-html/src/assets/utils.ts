@@ -1,7 +1,7 @@
 import { Document, Element } from 'parse5';
 import path from 'path';
 import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
-import { createError } from '../utils';
+import { createError } from '../utils.js';
 import { serialize } from 'v8';
 
 const hashedLinkRels = ['stylesheet'];

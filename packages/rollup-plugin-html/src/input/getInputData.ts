@@ -2,11 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import glob from 'glob';
 
-import { createError } from '../utils';
-import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions';
-import { InputData } from './InputData';
-import { normalizeInputOptions } from './normalizeInputOptions';
-import { extractModulesAndAssets } from './extract/extractModulesAndAssets';
+import { createError } from '../utils.js';
+import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions.js';
+import { InputData } from './InputData.js';
+import { normalizeInputOptions } from './normalizeInputOptions.js';
+import { extractModulesAndAssets } from './extract/extractModulesAndAssets.js';
 import { InputOption } from 'rollup';
 
 function resolveGlob(fromGlob: string, opts: glob.IOptions) {

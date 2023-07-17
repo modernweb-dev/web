@@ -1,7 +1,7 @@
 import commandLineArgs from 'command-line-args';
 import commandLineUsage, { OptionDefinition } from 'command-line-usage';
 import camelCase from 'camelcase';
-import { DevServerConfig } from './DevServerConfig';
+import { DevServerConfig } from './DevServerConfig.js';
 
 export interface DevServerCliArgs
   extends Partial<

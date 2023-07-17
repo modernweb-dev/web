@@ -1,3 +1,3 @@
-export { deserialize } from './deserialize';
-export { browserScript } from './browserScript';
-export { parseStackTrace, StackLocation, MapStackLocation } from './parseStackTrace';
+export { deserialize } from './deserialize.js';
+export { browserScript } from './browserScript.js';
+export { parseStackTrace, StackLocation, MapStackLocation } from './parseStackTrace.js';

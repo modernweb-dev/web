@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 const fetch = await import('node-fetch');
 
-import { createTestServer } from '../helpers';
+import { createTestServer } from '../helpers.js';
 
 describe('mimeTypesPLugin', () => {
   it('can configure mime types for files', async () => {

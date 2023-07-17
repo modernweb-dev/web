@@ -2,7 +2,7 @@ import { mapFileCommentRegex, fromSource, SourceMapConverter, fromJSON } from 'c
 import path from 'path';
 import { RequestOptions } from 'http';
 
-import { request } from './request';
+import { request } from './request.js';
 
 function is2xxResponse(status?: number) {
   return typeof status === 'number' && status >= 200 && status < 300;

@@ -1,6 +1,6 @@
 import { CoverageMapData } from 'istanbul-lib-coverage';
-import { TestSessionStatus } from './TestSessionStatus';
-import { BasicTestSession } from './BasicTestSession';
+import { TestSessionStatus } from './TestSessionStatus.js';
+import { BasicTestSession } from './BasicTestSession.js';
 
 export interface TestResultError {
   message: string;

@@ -1,6 +1,6 @@
 import playwright, { Browser, Page, LaunchOptions, BrowserContext } from 'playwright';
 import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
-import { PlaywrightLauncherPage } from './PlaywrightLauncherPage';
+import { PlaywrightLauncherPage } from './PlaywrightLauncherPage.js';
 
 function capitalize(str: string) {
   return `${str[0].toUpperCase()}${str.substring(1)}`;

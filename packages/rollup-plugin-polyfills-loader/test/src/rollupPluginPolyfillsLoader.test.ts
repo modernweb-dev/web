@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
 import html from '@web/rollup-plugin-html';
-import polyfillsLoader from '../../src/index';
+import polyfillsLoader from '../../src/index.js';
 
 type Output = (OutputChunk | OutputAsset)[];
 

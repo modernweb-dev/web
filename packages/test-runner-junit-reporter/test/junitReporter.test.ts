@@ -6,7 +6,7 @@ import globby from 'globby';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
-import { junitReporter } from '../src/junitReporter';
+import { junitReporter } from '../src/junitReporter.js';
 
 const NON_ZERO_TIME_VALUE_REGEX = /time="((\d\.\d+)|(\d))"/g;
 

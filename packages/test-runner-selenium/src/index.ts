@@ -1,1 +1,1 @@
-export { seleniumLauncher, SeleniumLauncher } from './seleniumLauncher';
+export { seleniumLauncher, SeleniumLauncher } from './seleniumLauncher.js';

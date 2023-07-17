@@ -1,7 +1,7 @@
 import { rollup, OutputChunk, OutputAsset, OutputOptions, Plugin } from 'rollup';
 import { expect } from 'chai';
 import path from 'path';
-import { rollupPluginHTML } from '../src/index';
+import { rollupPluginHTML } from '../src/index.js';
 
 type Output = (OutputChunk | OutputAsset)[];
 

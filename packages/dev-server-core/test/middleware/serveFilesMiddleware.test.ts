@@ -2,7 +2,7 @@ import { expect } from 'chai';
 const fetch = await import('node-fetch');
 import path from 'path';
 
-import { createTestServer } from '../helpers';
+import { createTestServer } from '../helpers.js';
 
 describe('serveFilesMiddleware', () => {
   it('can serve files outside of the root directory', async () => {

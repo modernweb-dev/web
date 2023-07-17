@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 const fetch = await import('node-fetch');
 
-import { transformImports } from '../../src/plugins/transformModuleImportsPlugin';
-import type { PluginSyntaxError } from '../../src/logger/PluginSyntaxError';
-import { createTestServer } from '../helpers';
+import { transformImports } from '../../src/plugins/transformModuleImportsPlugin.js';
+import type { PluginSyntaxError } from '../../src/logger/PluginSyntaxError.js';
+import { createTestServer } from '../helpers.js';
 
 const defaultFilePath = '/root/my-file.js';
 const defaultResolveImport = (src: string) => `RESOLVED__${src}`;

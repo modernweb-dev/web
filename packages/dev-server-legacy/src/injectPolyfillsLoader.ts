@@ -1,5 +1,5 @@
 import { Context } from '@web/dev-server-core';
-import { getAttribute, getTextContent, remove } from '@web/dev-server-core/dist/dom5';
+import { getAttribute, getTextContent, remove } from '@web/dev-server-core/dist/dom5.js';
 import { parse, serialize, Document as DocumentAst, Node as NodeAst } from 'parse5';
 import {
   injectPolyfillsLoader as originalInjectPolyfillsLoader,
@@ -9,8 +9,8 @@ import {
   GeneratedFile,
   File,
 } from '@web/polyfills-loader';
-import { PARAM_TRANSFORM_SYSTEMJS } from './constants';
-import { findJsScripts } from './findJsScripts';
+import { PARAM_TRANSFORM_SYSTEMJS } from './constants.js';
+import { findJsScripts } from './findJsScripts.js';
 
 function findScripts(indexUrl: string, documentAst: DocumentAst) {
   const scriptNodes = findJsScripts(documentAst);

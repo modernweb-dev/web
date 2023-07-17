@@ -5,12 +5,12 @@ import {
   PolyfillFile,
   PolyfillsLoader,
   LegacyEntrypoint,
-} from './types';
+} from './types.js';
 
 import { transformAsync } from '@babel/core';
 import Terser from 'terser';
-import { fileTypes, hasFileOfType, cleanImportPath } from './utils';
-import { createPolyfillsData } from './createPolyfillsData';
+import { fileTypes, hasFileOfType, cleanImportPath } from './utils.js';
+import { createPolyfillsData } from './createPolyfillsData.js';
 import path from 'path';
 
 /**

@@ -1,7 +1,7 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Builder, WebDriver } from 'selenium-webdriver';
-import { getBrowserLabel, getBrowserName } from './utils';
-import { IFrameManager } from './IFrameManager';
+import { getBrowserLabel, getBrowserName } from './utils.js';
+import { IFrameManager } from './IFrameManager.js';
 
 export interface SeleniumLauncherArgs {
   driverBuilder: Builder;

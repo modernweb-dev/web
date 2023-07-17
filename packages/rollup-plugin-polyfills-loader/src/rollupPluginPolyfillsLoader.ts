@@ -4,8 +4,8 @@ import { GeneratedFile, injectPolyfillsLoader, File, fileTypes } from '@web/poly
 import path from 'path';
 
 import { RollupPluginPolyfillsLoaderConfig } from './types';
-import { createError, shouldInjectLoader } from './utils';
-import { createPolyfillsLoaderConfig, formatToFileType } from './createPolyfillsLoaderConfig';
+import { createError, shouldInjectLoader } from './utils.js';
+import { createPolyfillsLoaderConfig, formatToFileType } from './createPolyfillsLoaderConfig.js';
 
 export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig = {}): Plugin {
   let generatedFiles: GeneratedFile[] | undefined;

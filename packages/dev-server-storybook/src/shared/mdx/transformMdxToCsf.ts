@@ -1,7 +1,7 @@
 import mdx from '@mdx-js/mdx';
 import { transformAsync } from '@babel/core';
-import { createCompiler } from '@storybook/csf-tools/mdx';
-import { createError } from '../utils';
+import { createCompiler } from '@storybook/csf-tools/mdx.js';
+import { createError } from '../utils.js';
 
 const compilers = [createCompiler({})];
 

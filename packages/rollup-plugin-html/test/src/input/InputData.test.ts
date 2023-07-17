@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import path from 'path';
 
-import { getInputData } from '../../../src/input/getInputData';
-import { InputData } from '../../../src/input/InputData';
+import { getInputData } from '../../../src/input/getInputData.js';
+import { InputData } from '../../../src/input/InputData.js';
 
 const rootDir = path.join(__dirname, '..', '..', 'fixtures', 'basic');
 

@@ -1,5 +1,5 @@
 import { runIntegrationTests } from '../../../integration/test-runner';
-import { browserstackLauncher } from '../src/index';
+import { browserstackLauncher } from '../src/index.js';
 
 if (!process.env.BROWSER_STACK_USERNAME) {
   throw new Error('Missing env var BROWSER_STACK_USERNAME');

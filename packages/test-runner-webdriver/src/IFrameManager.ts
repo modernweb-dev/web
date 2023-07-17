@@ -1,6 +1,6 @@
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Browser, Element } from 'webdriverio';
-import { validateBrowserResult } from './coverage';
+import { validateBrowserResult } from './coverage.js';
 
 /**
  * Manages tests to be executed in iframes on a page.

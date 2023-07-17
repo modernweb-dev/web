@@ -8,11 +8,11 @@ import {
   getSourcePaths,
   isHashedAsset,
   resolveAssetFilePath,
-} from '../assets/utils';
-import { InputData } from '../input/InputData';
-import { createError } from '../utils';
-import { EmittedAssets } from './emitAssets';
-import { toBrowserPath } from './utils';
+} from '../assets/utils.js';
+import { InputData } from '../input/InputData.js';
+import { createError } from '../utils.js';
+import { EmittedAssets } from './emitAssets.js';
+import { toBrowserPath } from './utils.js';
 
 export interface InjectUpdatedAssetPathsArgs {
   document: Document;

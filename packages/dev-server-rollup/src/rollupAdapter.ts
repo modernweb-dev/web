@@ -15,15 +15,15 @@ import {
   predicates,
   getTextContent,
   setTextContent,
-} from '@web/dev-server-core/dist/dom5';
+} from '@web/dev-server-core/dist/dom5.js';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';
 import { red, cyan } from 'nanocolors';
 
-import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils';
-import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter';
-import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts';
+import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils.js';
+import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter.js';
+import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts.js';
 
 const NULL_BYTE_PARAM = 'web-dev-server-rollup-null-byte';
 const VIRTUAL_FILE_PREFIX = '/__web-dev-server__/rollup';

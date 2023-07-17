@@ -2,7 +2,7 @@ import path from 'path';
 import { parse, serialize } from 'parse5';
 import { expect } from 'chai';
 
-import { extractModules } from '../../../../src/input/extract/extractModules';
+import { extractModules } from '../../../../src/input/extract/extractModules.js';
 
 const { sep } = path;
 

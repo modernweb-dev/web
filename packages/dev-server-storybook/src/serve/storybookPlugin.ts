@@ -1,14 +1,14 @@
 import { DevServerCoreConfig, getRequestFilePath, Plugin } from '@web/dev-server-core';
 import { mdjsToCsf } from 'storybook-addon-markdown-docs';
 
-import { StorybookPluginConfig } from '../shared/config/StorybookPluginConfig';
-import { createManagerHtml } from '../shared/html/createManagerHtml';
-import { createPreviewHtml } from '../shared/html/createPreviewHtml';
-import { readStorybookConfig } from '../shared/config/readStorybookConfig';
-import { validatePluginConfig } from '../shared/config/validatePluginConfig';
-import { findStories } from '../shared/stories/findStories';
-import { transformMdxToCsf } from '../shared/mdx/transformMdxToCsf';
-import { injectExportsOrder } from '../shared/stories/injectExportsOrder';
+import { StorybookPluginConfig } from '../shared/config/StorybookPluginConfig.js';
+import { createManagerHtml } from '../shared/html/createManagerHtml.js';
+import { createPreviewHtml } from '../shared/html/createPreviewHtml.js';
+import { readStorybookConfig } from '../shared/config/readStorybookConfig.js';
+import { validatePluginConfig } from '../shared/config/validatePluginConfig.js';
+import { findStories } from '../shared/stories/findStories.js';
+import { transformMdxToCsf } from '../shared/mdx/transformMdxToCsf.js';
+import { injectExportsOrder } from '../shared/stories/injectExportsOrder.js';
 
 const regexpReplaceWebsocket = /<!-- injected by web-dev-server -->(.|\s)*<\/script>/m;
 

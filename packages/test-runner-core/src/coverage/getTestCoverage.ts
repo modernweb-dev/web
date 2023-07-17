@@ -8,8 +8,8 @@ import {
   Location,
   Range,
 } from 'istanbul-lib-coverage';
-import { TestSession } from '../test-session/TestSession';
-import { CoverageConfig } from '../config/TestRunnerCoreConfig';
+import { TestSession } from '../test-session/TestSession.js';
+import { CoverageConfig } from '../config/TestRunnerCoreConfig.js';
 
 export const coverageTypes: (keyof CoverageSummaryData)[] = [
   'lines',

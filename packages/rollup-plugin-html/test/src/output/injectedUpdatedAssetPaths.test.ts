@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import path from 'path';
 import { parse, serialize } from 'parse5';
-import { InputData } from '../../../src/input/InputData';
+import { InputData } from '../../../src/input/InputData.js';
 
-import { injectedUpdatedAssetPaths } from '../../../src/output/injectedUpdatedAssetPaths';
+import { injectedUpdatedAssetPaths } from '../../../src/output/injectedUpdatedAssetPaths.js';
 
 describe('injectedUpdatedAssetPaths()', () => {
   it('injects updated asset paths', () => {

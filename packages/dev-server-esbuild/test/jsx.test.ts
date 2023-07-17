@@ -2,7 +2,7 @@ import { expect } from 'chai';
 const fetch = await import('node-fetch');
 import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index';
+import { esbuildPlugin } from '../src/index.js';
 
 describe('esbuildPlugin JSX', function () {
   it('transforms .jsx files', async () => {

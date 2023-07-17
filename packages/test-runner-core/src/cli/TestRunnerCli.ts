@@ -3,19 +3,19 @@ import path from 'path';
 import { bold, cyan, red } from 'nanocolors';
 import openBrowser from 'open';
 
-import { writeCoverageReport } from './writeCoverageReport';
-import { getSelectFilesMenu } from './getSelectFilesMenu';
-import { getWatchCommands } from './getWatchCommands';
-import { DynamicTerminal } from './terminal/DynamicTerminal';
-import { BufferedLogger } from './BufferedLogger';
-import { getManualDebugMenu } from './getManualDebugMenu';
-import { ErrorWithLocation } from '../logger/Logger';
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { TestSessionManager } from '../test-session/TestSessionManager';
-import { SESSION_STATUS } from '../test-session/TestSessionStatus';
-import { Logger } from '../logger/Logger';
-import { TestRunner } from '../runner/TestRunner';
-import { TestCoverage } from '../coverage/getTestCoverage';
+import { writeCoverageReport } from './writeCoverageReport.js';
+import { getSelectFilesMenu } from './getSelectFilesMenu.js';
+import { getWatchCommands } from './getWatchCommands.js';
+import { DynamicTerminal } from './terminal/DynamicTerminal.js';
+import { BufferedLogger } from './BufferedLogger.js';
+import { getManualDebugMenu } from './getManualDebugMenu.js';
+import { ErrorWithLocation } from '../logger/Logger.js';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
+import { TestSessionManager } from '../test-session/TestSessionManager.js';
+import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
+import { Logger } from '../logger/Logger.js';
+import { TestRunner } from '../runner/TestRunner.js';
+import { TestCoverage } from '../coverage/getTestCoverage.js';
 
 export type MenuType = 'none' | 'overview' | 'focus' | 'debug' | 'manual-debug';
 

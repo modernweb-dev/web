@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 const {default: fetch} = await import('node-fetch');
 
-import { DevServer } from '../../src/server/DevServer';
-import { createTestServer } from '../helpers';
+import { DevServer } from '../../src/server/DevServer.js';
+import { createTestServer } from '../helpers.js';
 
 describe('base path middleware', () => {
   describe('without a trailing /', () => {

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { parse } from 'parse5';
 import path from 'path';
-import { extractAssets } from '../../../../src/input/extract/extractAssets';
+import { extractAssets } from '../../../../src/input/extract/extractAssets.js';
 
 const rootDir = path.resolve(__dirname, '..', '..', '..', 'fixtures', 'assets');
 

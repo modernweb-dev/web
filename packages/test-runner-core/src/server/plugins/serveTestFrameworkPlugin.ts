@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
 import { Plugin } from '@web/dev-server-core';
-import { TestFramework } from '../../test-framework/TestFramework';
+import { TestFramework } from '../../test-framework/TestFramework.js';
 
 const TEST_FRAMEWORK_IMPORT_ROOT = '/__web-test-runner__/test-framework/';
 

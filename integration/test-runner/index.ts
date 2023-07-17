@@ -1,11 +1,11 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { runBasicTest } from './tests/basic/runBasicTest';
-import { runConfigGroupsTest } from './tests/config-groups/runConfigGroupsTest';
-import { runParallelTest } from './tests/parallel/runParallelTest';
-import { runTestFailureTest } from './tests/test-failure/runTestFailureTest';
-import { runLocationChangeTest } from './tests/location-change/runLocationChangeTest';
-import { runFocusTest } from './tests/focus/runFocusTest';
-import { runManyTests } from './tests/many/runManyTests';
+import { runBasicTest } from './tests/basic/runBasicTest.js';
+import { runConfigGroupsTest } from './tests/config-groups/runConfigGroupsTest.js';
+import { runParallelTest } from './tests/parallel/runParallelTest.js';
+import { runTestFailureTest } from './tests/test-failure/runTestFailureTest.js';
+import { runLocationChangeTest } from './tests/location-change/runLocationChangeTest.js';
+import { runFocusTest } from './tests/focus/runFocusTest.js';
+import { runManyTests } from './tests/many/runManyTests.js';
 
 export interface Tests {
   basic: boolean;

@@ -1,9 +1,9 @@
 import path from 'path';
 import { expect } from 'chai';
 
-import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types';
-import { createPolyfillsData } from '../src/createPolyfillsData';
-import { noModuleSupportTest, fileTypes } from '../src/utils';
+import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.js';
+import { createPolyfillsData } from '../src/createPolyfillsData.js';
+import { noModuleSupportTest, fileTypes } from '../src/utils.js';
 
 function cleanupPolyfill(polyfill: PolyfillFile) {
   if (!polyfill) {
