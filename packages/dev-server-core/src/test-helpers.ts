@@ -8,7 +8,7 @@ import { DevServerCoreConfig } from './server/DevServerCoreConfig';
 import { Logger } from './logger/Logger';
 import { Plugin } from './plugins/Plugin';
 
-const {default : fetch} = await import('node-fetch');
+const { default: fetch } = await import('node-fetch');
 
 const defaultConfig: Omit<DevServerCoreConfig, 'port' | 'rootDir'> = {
   hostname: 'localhost',
