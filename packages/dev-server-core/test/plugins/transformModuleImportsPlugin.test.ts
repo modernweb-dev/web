@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-const fetch = await import('node-fetch');
+const { default: fetch } = await import('node-fetch');
 
 import { transformImports } from '../../src/plugins/transformModuleImportsPlugin.js';
 import type { PluginSyntaxError } from '../../src/logger/PluginSyntaxError.js';

@@ -1,4 +1,4 @@
-const fetch = await import('node-fetch');
+const { default: fetch } = await import('node-fetch');
 import { expect } from 'chai';
 
 import { createTestServer } from '../helpers.js';

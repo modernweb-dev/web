@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 const { default: fetch } = await import('node-fetch');
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expectIncludes } from '@web/dev-server-core/test-helpers';
+import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
 
 import { esbuildPlugin } from '../src/index.js';
 

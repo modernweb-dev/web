@@ -1,11 +1,15 @@
 import { expect } from 'chai';
-const fetch = await import('node-fetch');
+const { default: fetch } = await import('node-fetch');
 import path from 'path';
 import fs from 'fs';
 import { nanoid } from 'nanoid';
 
 import { createTestServer, timeout } from '../helpers.js';
 import { DevServer } from '../../src/server/DevServer.js';
+
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 
 const fixtureDir = path.resolve(__dirname, '..', 'fixtures', 'basic');
 const testFileAName = '/cached-file-a.js';
