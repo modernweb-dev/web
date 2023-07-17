@@ -10,7 +10,6 @@ import { DevServer } from '../../src/server/DevServer.js';
 import * as url from 'url';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-
 const fixtureDir = path.resolve(__dirname, '..', 'fixtures', 'basic');
 const testFileAName = '/cached-file-a.js';
 const testFileBName = '/cached-file-b.js';

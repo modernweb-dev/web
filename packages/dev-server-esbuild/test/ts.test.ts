@@ -1,6 +1,6 @@
 import path from 'path';
 import { expect } from 'chai';
-const {default: fetch} = await import('node-fetch');
+const { default: fetch } = await import('node-fetch');
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 import { Plugin as RollupPlugin } from 'rollup';
