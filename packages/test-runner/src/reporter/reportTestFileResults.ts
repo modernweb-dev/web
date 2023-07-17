@@ -6,7 +6,7 @@ import { reportTestsErrors } from './reportTestsErrors.js';
 import { reportBrowserLogs } from './reportBrowserLogs.js';
 import { reportRequest404s } from './reportRequest404s.js';
 import { reportTestFileErrors } from './reportTestFileErrors.js';
-import { BufferedLogger } from '@web/test-runner-core/src/cli/BufferedLogger';
+import { BufferedLogger } from '@web/test-runner-core/cli/BufferedLogger.js';
 
 export function reportTestFileResults(
   logger: BufferedLogger,

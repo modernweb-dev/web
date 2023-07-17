@@ -1,4 +1,5 @@
 import { TestFramework, TestRunnerCoreConfig, TestRunnerGroupConfig } from '@web/test-runner-core';
+// @ts-ignore
 import { RollupNodeResolveOptions } from '@web/dev-server';
 
 export interface TestRunnerConfig extends Omit<TestRunnerCoreConfig, 'testFramework'> {

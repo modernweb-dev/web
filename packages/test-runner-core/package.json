@@ -26,7 +26,8 @@
       "import": "./test-helpers.mjs",
       "require": "./dist/test-helpers.js"
     },
-    "./browser/session.js": "./browser/session.js"
+    "./browser/session.js": "./browser/session.js",
+    "./cli/BufferedLogger.js": "./dist/cli/BufferedLogger.js"
   },
   "engines": {
     "node": ">=16.0.0"

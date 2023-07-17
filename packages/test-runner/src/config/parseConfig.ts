@@ -16,6 +16,7 @@ import { cpus } from 'os';
 import { TestRunnerCliArgs } from './readCliArgs.js';
 import { mergeConfigs } from './mergeConfigs.js';
 import { TestRunnerConfig } from './TestRunnerConfig.js';
+// @ts-ignore
 import { esbuildPlugin, nodeResolvePlugin } from '@web/dev-server';
 import { TestRunnerStartError } from '../TestRunnerStartError.js';
 import { collectGroupConfigs } from './collectGroupConfigs.js';

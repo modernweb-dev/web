@@ -22,7 +22,8 @@
     },
     "./plugins": {
       "import": "./plugins.mjs",
-      "require": "./dist/index.js"
+      "require": "./dist/index.js",
+      "types": "./plugins.d.ts"
     }
   },
   "engines": {
