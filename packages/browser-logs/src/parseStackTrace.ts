@@ -1,3 +1,4 @@
+// @ts-ignore
 import * as errorStacks from 'errorstacks';
 import path from 'path';
 
