@@ -1,6 +1,7 @@
-import { Plugin } from '../plugins/Plugin';
-import { NAME_WEB_SOCKET_IMPORT, NAME_WEB_SOCKET_API } from './WebSocketsManager';
+import { Plugin } from '../plugins/Plugin.js';
+import { NAME_WEB_SOCKET_IMPORT, NAME_WEB_SOCKET_API } from './WebSocketsManager.js';
 import { appendToDocument, isHtmlFragment } from '@web/parse5-utils';
+import type { Context } from 'koa';
 
 export const webSocketScript = `<!-- injected by web-dev-server -->
 <script type="module" src="${NAME_WEB_SOCKET_IMPORT}"></script>`;
@@ -15,7 +16,7 @@ export function webSocketsPlugin(): Plugin {
       }
     },
 
-    serve(context) {
+    serve(context: Context) {
       if (context.path === NAME_WEB_SOCKET_IMPORT) {
         // this code is inlined because TS compiles to CJS but we need this to be ESM
         return `
@@ -250,7 +251,7 @@ if (!!navigator.userAgent.match(/Trident/)) {
       }
     },
 
-    async transform(context) {
+    async transform(context: Context) {
       if (context.response.is('html')) {
         if (typeof context.body !== 'string') {
           return;

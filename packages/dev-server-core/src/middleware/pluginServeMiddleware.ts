@@ -1,7 +1,7 @@
 import { Middleware } from 'koa';
 import path from 'path';
-import { Logger } from '../logger/Logger';
-import { Plugin } from '../plugins/Plugin';
+import { Logger } from '../logger/Logger.js';
+import { Plugin } from '../plugins/Plugin.js';
 
 /**
  * Sets up a middleware which allows plugins to serve files instead of looking it up in the file system.

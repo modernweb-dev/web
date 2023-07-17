@@ -3,10 +3,10 @@ import { ListenOptions, Server, Socket } from 'net';
 import chokidar from 'chokidar';
 import { promisify } from 'util';
 
-import { DevServerCoreConfig } from './DevServerCoreConfig';
-import { createServer } from './createServer';
-import { Logger } from '../logger/Logger';
-import { WebSocketsManager } from '../web-sockets/WebSocketsManager';
+import { DevServerCoreConfig } from './DevServerCoreConfig.js';
+import { createServer } from './createServer.js';
+import { Logger } from '../logger/Logger.js';
+import { WebSocketsManager } from '../web-sockets/WebSocketsManager.js';
 
 export class DevServer {
   public koaApp: Koa;

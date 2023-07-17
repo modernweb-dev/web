@@ -1,5 +1,5 @@
 import { Middleware } from 'koa';
-import { Plugin } from '../plugins/Plugin';
+import { Plugin } from '../plugins/Plugin.js';
 
 export type MimeTypeMappings = Record<string, string>;
 

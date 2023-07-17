@@ -13,7 +13,7 @@
  * http://polymer.github.io/PATENTS.txt
  */
 
-import { getAttribute, getAttributeIndex, getTextContent } from './util';
+import { getAttribute, getAttributeIndex, getTextContent } from './util.js';
 
 /**
  * Match the text inside an element, textnode, or comment
