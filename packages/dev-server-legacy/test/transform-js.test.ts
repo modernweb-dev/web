@@ -71,7 +71,7 @@ describe('legacyPlugin - transform js', function () {
       expectIncludes(text, '_asyncToGenerator');
       expectIncludes(
         text,
-        'console.log((_window = window) === null || _window === void 0 ? void 0 : (_window$foo = _window.foo) === null || _window$foo === void 0 ? void 0 : _window$foo.bar);',
+        'console.log((_window = window) === null || _window === void 0 || (_window = _window.foo) === null || _window === void 0 ? void 0 : _window.bar);',
       );
       server.stop();
     });
@@ -102,7 +102,7 @@ describe('legacyPlugin - transform js', function () {
       expectIncludes(text, '_asyncToGenerator');
       expectIncludes(
         text,
-        'console.log((_window = window) === null || _window === void 0 ? void 0 : (_window$foo = _window.foo) === null || _window$foo === void 0 ? void 0 : _window$foo.bar);',
+        'console.log((_window = window) === null || _window === void 0 || (_window = _window.foo) === null || _window === void 0 ? void 0 : _window.bar);',
       );
       server.stop();
     });
