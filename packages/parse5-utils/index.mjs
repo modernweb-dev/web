@@ -1,4 +1,4 @@
-import cjsEntrypoint from './src/index.js';
+import * as cjsEntrypoint from './src/index.js';
 
 const {
   createDocument,
