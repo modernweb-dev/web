@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax, no-await-in-loop */
 import { expect } from 'chai';
-import fetch from 'node-fetch';
+const fetch = await import('node-fetch');
 
 import { createTestServer } from '../helpers';
 import { fetchText, expectIncludes } from '../../src/test-helpers';

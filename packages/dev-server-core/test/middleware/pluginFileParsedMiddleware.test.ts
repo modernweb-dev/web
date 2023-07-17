@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Context } from 'koa';
-import fetch from 'node-fetch';
+const fetch = await import('node-fetch');
 
 import { createTestServer } from '../helpers';
 

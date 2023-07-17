@@ -4,7 +4,7 @@ import Koa from 'koa';
 import { Server } from 'net';
 import { FSWatcher } from 'chokidar';
 import { expect } from 'chai';
-import fetch from 'node-fetch';
+const fetch = await import('node-fetch');
 import portfinder from 'portfinder';
 import { Stub, stubMethod } from 'hanbi';
 import { ServerStartParams } from '../../src/plugins/Plugin';

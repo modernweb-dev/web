@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import fetch from 'node-fetch';
+const fetch = await import('node-fetch');
 import { stubMethod, restore as restoreStubs } from 'hanbi';
 import { createTestServer, fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
 import { posix as pathUtil } from 'path';
