@@ -1,8 +1,8 @@
 import { Plugin, RollupOptions, RollupWarning } from 'rollup';
 
-import {nodeResolve as resolve} from '@rollup/plugin-node-resolve';
+import { nodeResolve as resolve } from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
-import {rollupPluginHTML as html} from '@web/rollup-plugin-html';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 import { polyfillsLoader } from '@web/rollup-plugin-polyfills-loader';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import terser from '@rollup/plugin-terser';

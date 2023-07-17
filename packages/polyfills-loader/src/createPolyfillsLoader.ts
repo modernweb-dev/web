@@ -8,7 +8,7 @@ import {
 } from './types.js';
 
 import { transformAsync } from '@babel/core';
-import {minify} from 'terser';
+import { minify } from 'terser';
 import { fileTypes, hasFileOfType, cleanImportPath } from './utils.js';
 import { createPolyfillsData } from './createPolyfillsData.js';
 import path from 'path';
