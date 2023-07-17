@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import { expect } from 'chai';
 
 import { createTestServer } from '../helpers';

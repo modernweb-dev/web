@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import fetch from 'node-fetch';
 import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
 
 import { esbuildPlugin } from '../src/index';

@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import fetch from 'node-fetch';
 import path from 'path';
 import fs from 'fs';
 import { nanoid } from 'nanoid';
