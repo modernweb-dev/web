@@ -14,6 +14,7 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha",
   "main": "dist/standalone.js",
+  "type": "module",
   "engines": {
     "node": ">=16.0.0"
   },

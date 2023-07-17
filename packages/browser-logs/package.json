@@ -17,7 +17,12 @@
   "exports": {
     ".": {
       "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "require": "./dist/index.js",
+      "types": "./index.d.ts"
+    },
+    "./parseStackTrace": {
+      "import": "./dist/parseStackTrace.js",
+      "require": "./dist/parseStackTrace.js"
     }
   },
   "engines": {

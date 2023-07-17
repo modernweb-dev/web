@@ -41,11 +41,11 @@
   "dependencies": {
     "semver": "^7.3.4"
   },
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./index.mjs",
-      "require": "./src/index.js"
+      "require": "./src/index.js",
+      "types": "./index.d.ts"
     }
   }
 }

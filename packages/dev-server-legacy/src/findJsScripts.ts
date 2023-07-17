@@ -1,6 +1,6 @@
 import { isUri } from 'valid-url';
-import { Document as DocumentAst, Node as NodeAst } from 'parse5';
-import { queryAll, predicates, getAttribute, hasAttribute } from '@web/dev-server-core/dist/dom5.js';
+import { Element, Document as DocumentAst, Node as NodeAst } from 'parse5';
+import { queryAll, predicates, getAttribute, hasAttribute } from '@web/dev-server-core/dist/dom5';
 
 function isDeferred(script: NodeAst) {
   return getAttribute(script, 'type') === 'module' || hasAttribute(script, 'defer');
@@ -33,7 +33,7 @@ function sortByLoadingPriority(a: NodeAst, b: NodeAst) {
   return 0;
 }
 
-export function findJsScripts(document: DocumentAst) {
+export function findJsScripts(document: DocumentAst): Element[] {
   const allScripts = queryAll(document, predicates.hasTagName('script'));
 
   return allScripts

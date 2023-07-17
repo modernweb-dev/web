@@ -19,7 +19,8 @@
   "exports": {
     ".": {
       "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "require": "./dist/index.js",
+      "types": "./index.d.ts"
     },
     "./test-helpers": {
       "import": "./test-helpers.mjs",

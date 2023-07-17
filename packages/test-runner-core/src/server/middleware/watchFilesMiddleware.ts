@@ -5,7 +5,7 @@ import path from 'path';
 import { FSWatcher } from 'chokidar';
 
 import { TestSessionManager } from '../../test-session/TestSessionManager.js';
-import { constants } from '../..';
+import { constants } from '../../index.js';
 import { TestSession } from '../../test-session/TestSession.js';
 
 const IGNORED_404s = ['favicon.ico'];

@@ -1,5 +1,5 @@
 import { Context, getRequestFilePath, ServerStartParams, WebSocket } from '@web/dev-server-core';
-import { MapBrowserUrl } from '@web/browser-logs/src/parseStackTrace';
+import { MapBrowserUrl } from '@web/browser-logs/parseStackTrace';
 import parse from 'co-body';
 
 import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.js';

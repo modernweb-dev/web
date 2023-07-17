@@ -22,6 +22,7 @@
       "types": "./index.d.ts"
     },
     "./dist/dom5": {
+      "import": "./dist/dom5/index.js",
       "require": "./dist/dom5/index.js"
     },
     "./test-helpers": {

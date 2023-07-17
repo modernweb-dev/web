@@ -15,7 +15,7 @@ import {
   predicates,
   getTextContent,
   setTextContent,
-} from '@web/dev-server-core/dist/dom5.js';
+} from '@web/dev-server-core/dist/dom5';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';

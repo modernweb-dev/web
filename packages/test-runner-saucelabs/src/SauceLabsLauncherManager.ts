@@ -22,6 +22,7 @@ export function withTimeout<T>(promise: Promise<T>, message: string): Promise<T>
   });
 }
 export class SauceLabsLauncherManager {
+  // @ts-ignore
   private api: SaucelabsAPI;
   private launchers = new Set<BrowserLauncher>();
   private connectionPromise?: Promise<SauceConnectInstance>;
@@ -32,6 +33,7 @@ export class SauceLabsLauncherManager {
   constructor(options: SauceLabsOptions, connectOptions?: SauceConnectOptions) {
     this.options = options;
     this.connectOptions = connectOptions;
+    // @ts-ignore
     this.api = new SaucelabsAPI(this.options);
 
     process.on('SIGINT', this.closeConnection);

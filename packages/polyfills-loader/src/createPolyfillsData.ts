@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import Terser from 'terser';
+import {minify} from 'terser';
 import { PolyfillsLoaderConfig, PolyfillConfig, PolyfillFile } from './types.js';
 import { createContentHash, noModuleSupportTest, hasFileOfType, fileTypes } from './utils.js';
 
@@ -226,7 +226,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
       content = readPolyfillFileContents(polyfillConfig.path);
     }
     if (polyfillConfig.minify) {
-      const minifyResult = await Terser.minify(content, { sourceMap: false });
+      const minifyResult = await minify(content, { sourceMap: false });
       // @ts-ignore
       content = minifyResult.code;
     }

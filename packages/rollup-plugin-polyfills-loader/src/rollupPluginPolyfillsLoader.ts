@@ -3,7 +3,7 @@ import { Plugin } from 'rollup';
 import { GeneratedFile, injectPolyfillsLoader, File, fileTypes } from '@web/polyfills-loader';
 import path from 'path';
 
-import { RollupPluginPolyfillsLoaderConfig } from './types';
+import { RollupPluginPolyfillsLoaderConfig } from './types.js';
 import { createError, shouldInjectLoader } from './utils.js';
 import { createPolyfillsLoaderConfig, formatToFileType } from './createPolyfillsLoaderConfig.js';
 
