@@ -1,7 +1,7 @@
-const path = require('path');
-const { expect } = require('chai');
+import path from 'path';
+import { expect } from 'chai';
 
-const { listFiles } = require('../src/listFiles.js');
+import { listFiles } from '../src/listFiles.js';
 
 describe('listFiles', () => {
   it('gives a list of files', async () => {

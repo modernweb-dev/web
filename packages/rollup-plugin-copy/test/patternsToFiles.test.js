@@ -1,7 +1,7 @@
-const path = require('path');
-const { expect } = require('chai');
+import path from 'path';
+import { expect } from 'chai';
 
-const { patternsToFiles } = require('../src/patternsToFiles.js');
+import { patternsToFiles } from '../src/patternsToFiles.js';
 
 describe('patternsToFiles', () => {
   it('works with a string', async () => {

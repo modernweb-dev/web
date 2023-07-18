@@ -1,8 +1,8 @@
-const path = require('path');
-const { expect } = require('chai');
-const rollup = require('rollup');
+import path from 'path';
+import { expect } from 'chai';
+import { rollup } from 'rollup';
 
-const { copy } = require('../src/copy.js');
+import { copy } from '../src/copy.js';
 
 describe('rollup-plugin-copy', () => {
   it('adds files to rollup', async () => {
