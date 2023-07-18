@@ -14,6 +14,7 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-commands",
   "main": "browser/commands.mjs",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./browser/commands.d.ts",
