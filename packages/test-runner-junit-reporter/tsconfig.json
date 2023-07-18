@@ -3,7 +3,7 @@
 {
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
-    "module": "nodenext",
+    "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
