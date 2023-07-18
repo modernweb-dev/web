@@ -1,9 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { createRequire } from 'module';
-import { packages } from '../workspace-packages.mjs';
-
 const require = createRequire(import.meta.url);
+import { packages } from '../workspace-packages.mjs';
 
 for (const pkg of packages) {
   if (pkg.type === 'ts' && pkg.environment === 'node') {
