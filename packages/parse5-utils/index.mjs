@@ -1,6 +1,6 @@
 import * as cjsEntrypoint from './src/index.js';
 
-const {
+export {
   createDocument,
   createDocumentFragment,
   createElement,
