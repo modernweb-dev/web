@@ -1,4 +1,4 @@
-const { listFiles } = require('./listFiles.js');
+import { listFiles } from './listFiles.js';
 
 /**
  *
@@ -6,7 +6,7 @@ const { listFiles } = require('./listFiles.js');
  * @param {string} rootDir
  * @param {string|string[]} [exclude]
  */
-async function patternsToFiles(inPatterns, rootDir, exclude) {
+export async function patternsToFiles(inPatterns, rootDir, exclude) {
   const patterns = typeof inPatterns === 'string' ? [inPatterns] : inPatterns;
   const listFilesPromises = patterns.map(pattern => listFiles(pattern, rootDir, exclude));
   const arrayOfFilesArrays = await Promise.all(listFilesPromises);
@@ -20,5 +20,3 @@ async function patternsToFiles(inPatterns, rootDir, exclude) {
 
   return files;
 }
-
-module.exports = { patternsToFiles };

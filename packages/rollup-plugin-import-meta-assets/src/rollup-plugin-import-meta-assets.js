@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const { createFilter } = require('@rollup/pluginutils');
-const { asyncWalk } = require('estree-walker');
-const MagicString = require('magic-string');
+import fs from 'fs';
+import path from 'path';
+import { createFilter } from '@rollup/pluginutils';
+import { asyncWalk } from 'estree-walker';
+import MagicString from 'magic-string';
 
 /**
  * Extract the relative path from an AST node representing this kind of expression `new URL('./path/to/asset.ext', import.meta.url)`.
@@ -51,7 +50,7 @@ function isNewUrlImportMetaUrl(node) {
  * @param {function} [options.transform] A function to transform assets.
  * @return {import('rollup').Plugin} A Rollup Plugin
  */
-function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
+export function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
   const filter = createFilter(include, exclude);
 
   return {
@@ -112,5 +111,3 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
     },
   };
 }
-
-module.exports = { importMetaAssets };

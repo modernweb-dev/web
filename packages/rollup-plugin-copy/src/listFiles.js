@@ -1,6 +1,6 @@
-const glob = require('glob');
-const fs = require('fs');
-const path = require('path');
+import glob from 'glob';
+import fs from 'fs';
+import path from 'path';
 
 /**
  * Lists all files using the specified glob, starting from the given root directory.
@@ -11,7 +11,7 @@ const path = require('path');
  * @param {string} rootDir
  * @param {string|string[]} [ignore]
  */
-function listFiles(fromGlob, rootDir, ignore) {
+export function listFiles(fromGlob, rootDir, ignore) {
   return new Promise(resolve => {
     glob(fromGlob, { cwd: rootDir, dot: true, ignore }, (er, files) => {
       // remember, each filepath returned is relative to rootDir
@@ -25,5 +25,3 @@ function listFiles(fromGlob, rootDir, ignore) {
     });
   });
 }
-
-module.exports = { listFiles };

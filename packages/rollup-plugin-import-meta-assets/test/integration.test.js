@@ -1,10 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const rollup = require('rollup');
-const { expect } = require('chai');
-const hanbi = require('hanbi');
+import fs from 'fs';
+import path from 'path';
+import { rollup } from 'rollup';
+import { expect } from 'chai';
+import * as hanbi from 'hanbi';
 
-const { importMetaAssets } = require('../src/rollup-plugin-import-meta-assets.js');
+import { importMetaAssets } from '../src/rollup-plugin-import-meta-assets.js';
 
 const outputConfig = {
   format: 'es',
