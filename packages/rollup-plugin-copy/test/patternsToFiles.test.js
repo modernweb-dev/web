@@ -1,5 +1,8 @@
 import path from 'path';
 import { expect } from 'chai';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 import { patternsToFiles } from '../src/patternsToFiles.js';
 

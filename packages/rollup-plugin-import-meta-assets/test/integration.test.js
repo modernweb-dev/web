@@ -7,6 +7,8 @@ import * as hanbi from 'hanbi';
 import { importMetaAssets } from '../src/rollup-plugin-import-meta-assets.js';
 
 import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const outputConfig = {
