@@ -17,10 +17,12 @@
   "bin": {
     "build-storybook": "dist/build/cli.js"
   },
+  "type": "module",
   "exports": {
     ".": {
       "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "require": "./dist/index.js",
+      "types": "./index.d.ts"
     }
   },
   "engines": {
