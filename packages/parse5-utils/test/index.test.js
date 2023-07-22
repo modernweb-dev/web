@@ -288,6 +288,21 @@ describe('parse5-utils', () => {
       const found = utils.findElements(doc, el => utils.hasAttribute(el, 'non-existing'));
       expect(found.length).to.equal(0);
     });
+
+    it('returns child elements within template elements', () => {
+      const doc = parse(`
+      <html>
+        <body>
+          <template>
+            <img src="foo.png" />
+          </template>
+        </body>
+      </html>
+    `);
+
+      const found = utils.findElements(doc, el => utils.hasAttribute(el, 'src'));
+      expect(found.length).to.equal(1);
+    });
   });
 
   describe('prependToDocument', () => {
