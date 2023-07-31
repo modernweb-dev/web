@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 1.0.0
+
+### Major Changes
+
+- 68d596ed: This packages is now a ES Module by default.
+
 ## 0.7.4
 
 ### Patch Changes
