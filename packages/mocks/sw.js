@@ -121,15 +121,6 @@ self.addEventListener('fetch', function (event) {
         );
         return;
       }
-
-      // At this point, any exception indicates an issue with the original request/response.
-      console.error(
-        `\
-[MSW] Caught an exception from the "%s %s" request (%s). This is probably not a problem with Mock Service Worker. There is likely an additional logging output above.`,
-        request.method,
-        request.url,
-        `${error.name}: ${error.message}`,
-      );
     }),
   );
 });
