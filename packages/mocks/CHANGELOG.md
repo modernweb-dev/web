@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.1.7
+
+### Patch Changes
+
+- 49b85fe2: fix: msw improvements
+
 ## 0.1.6
 
 ### Patch Changes
