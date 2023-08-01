@@ -15,6 +15,7 @@ export function nodeResolvePlugin(
       moduleDirectories: ['node_modules', 'web_modules'],
       // allow resolving polyfills for nodejs libs
       preferBuiltins: false,
+      exportConditions: ['development'],
     },
     userOptionsObject,
   );

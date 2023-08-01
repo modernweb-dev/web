@@ -18,6 +18,7 @@ const normalizeOutput = (cwd: string, output: string) =>
   output
     .replace(NON_ZERO_TIME_VALUE_REGEX, 'time="<<computed>>"')
     .replace(USER_AGENT_STRING_REGEX, '"<<useragent>>"')
+    .replace(/(Context|n).<anonymous>/g, '<<anonymous>>')
     // don't judge - normalizing paths for windblows
     .replace(/\/>/g, '🙈>')
     .replace(/<\//g, '<🙈')
@@ -69,7 +70,6 @@ async function cleanupFixtures() {
 }
 
 describe('junitReporter', function () {
-  this.timeout(10000);
   after(cleanupFixtures);
 
   describe('for a simple case', function () {

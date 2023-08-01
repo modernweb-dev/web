@@ -1,0 +1,80 @@
+{
+  "name": "@web/mocks",
+  "version": "0.1.7",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "MSW integration for @web tooling",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/mocks"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/mocks",
+  "type": "module",
+  "exports": {
+    "./http.js": {
+      "types": "./dist-types/http.d.ts",
+      "default": "./http.js"
+    },
+    "./browser.js": {
+      "types": "./dist-types/browser.d.ts",
+      "default": "./browser.js"
+    },
+    "./storybook/decorator.js": {
+      "types": "./dist-types/storybook/decorator.d.ts",
+      "default": "./storybook/decorator.js"
+    },
+    "./storybook/addon.js": "./storybook/addon.js",
+    "./plugins.js": {
+      "types": "./dist-types/plugins.d.ts",
+      "default": "./plugins.js"
+    },
+    "./node.js": {
+      "types": "./dist-types/node.d.ts",
+      "default": "./node.js"
+    },
+    "./types.js": {
+      "types": "./dist-types/types.d.ts",
+      "default": "./types.js"
+    }
+  },
+  "scripts": {
+    "start": "wds --config demo/wc/web-dev-server.config.mjs",
+    "types": "wireit"
+  },
+  "files": [
+    "**/*.js",
+    "dist-types",
+    "README.md"
+  ],
+  "keywords": [
+    "mocks",
+    "msw"
+  ],
+  "dependencies": {
+    "@web/storybook-prebuilt": "^0.1.37",
+    "lit": "^2.7.5",
+    "msw": "0.0.0-fetch.rc-15"
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.3.0",
+    "@web/dev-server-storybook": "^1.0.0"
+  },
+  "wireit": {
+    "types": {
+      "command": "tsc --build --pretty",
+      "files": [
+        "**/*.js",
+        "**/*.ts",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist-types/**"
+      ],
+      "dependencies": []
+    }
+  }
+}

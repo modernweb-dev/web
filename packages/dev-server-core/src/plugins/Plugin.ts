@@ -20,7 +20,7 @@ export type ResolveMimeTypeResult = void | string | { type?: string };
 export interface ServerStartParams {
   config: DevServerCoreConfig;
   app: Koa;
-  server: Server;
+  server?: Server;
   fileWatcher: FSWatcher;
   logger: Logger;
   webSockets?: WebSocketsManager;

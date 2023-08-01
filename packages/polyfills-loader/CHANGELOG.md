@@ -1,5 +1,18 @@
 # @web/polyfills-loader
 
+## 2.1.1
+
+### Patch Changes
+
+- 85647c10: Update `lit-html`
+- 5acaf838: Update `@typescript-eslint/parser`
+
+## 2.1.0
+
+### Minor Changes
+
+- 6a8a7648: add support for the Scoped CustomElementRegistry polyfill (this is a prototype polyfill)
+
 ## 2.0.1
 
 ### Patch Changes

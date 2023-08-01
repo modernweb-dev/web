@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.16.1",
+  "version": "0.17.0",
   "publishConfig": {
     "access": "public"
   },
@@ -38,7 +38,7 @@
     "test": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\"",
     "test:babel-coverage": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/babel-coverage.config.mjs",
     "test:bare": "node dist/bin.js",
-    "test:ci": "yarn test",
+    "test:ci": "npm run test",
     "test:coverage": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --coverage",
     "test:coverage-babel": "node dist/bin.js --config demo/coverage-babel/config.mjs",
     "test:custom-html": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/customhtml.config.mjs",
@@ -79,11 +79,11 @@
     "cli"
   ],
   "dependencies": {
-    "@web/browser-logs": "^0.3.1",
+    "@web/browser-logs": "^0.3.3",
     "@web/config-loader": "^0.2.1",
-    "@web/dev-server": "^0.2.1",
-    "@web/test-runner-chrome": "^0.13.0",
-    "@web/test-runner-commands": "^0.7.0",
+    "@web/dev-server": "^0.3.0",
+    "@web/test-runner-chrome": "^0.14.0",
+    "@web/test-runner-commands": "^0.8.0",
     "@web/test-runner-core": "^0.11.1",
     "@web/test-runner-mocha": "^0.8.1",
     "camelcase": "^6.2.0",

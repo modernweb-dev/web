@@ -1,5 +1,45 @@
 # @web/test-runner-chrome
 
+## 0.14.0
+
+### Minor Changes
+
+- 0c87f59e: feat/various fixes
+
+  - Update puppeteer to `20.0.0`, fixes #2282
+  - Use puppeteer's new `page.mouse.reset()` in sendMousePlugin, fixes #2262
+  - Use `development` export condition by default
+
+## 0.13.4
+
+### Patch Changes
+
+- 5c02eca2: fix(test-runner-chrome): add mutex when bringing tabs to front
+
+## 0.13.3
+
+### Patch Changes
+
+- 18d4a631: fix: add workaround for headless issue
+
+  This will patch `window.requestAnimationFrame` and `window.requestIdleCallback` and make sure that the tab running the test code is brought back to the front.
+
+## 0.13.2
+
+### Patch Changes
+
+- 015766e9: Use new headless chrome mode
+- Updated dependencies [015766e9]
+  - @web/test-runner-core@0.11.2
+
+## 0.13.1
+
+### Patch Changes
+
+- 9ae77c47: Acquire raw v8 coverage via puppeteer API rather than CDP calls
+- Updated dependencies [3c33d74a]
+  - @web/test-runner-coverage-v8@0.7.0
+
 ## 0.13.0
 
 ### Minor Changes

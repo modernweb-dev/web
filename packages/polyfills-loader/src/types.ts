@@ -52,6 +52,7 @@ export interface PolyfillsConfig {
   constructibleStylesheets?: boolean;
   // shady-css-custom-style and shady-css-scoped-element
   shadyCssCustomStyle?: boolean;
+  scopedCustomElementRegistry?: boolean;
 }
 
 export interface PolyfillConfig {

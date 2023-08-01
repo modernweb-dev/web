@@ -1,6 +1,6 @@
 {
   "name": "@web/browser-logs",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "publishConfig": {
     "access": "public"
   },
@@ -49,7 +49,7 @@
     "errorstacks": "^2.2.0"
   },
   "devDependencies": {
-    "chai": "^5.0.0-alpha.0",
-    "puppeteer": "^19.9.0"
+    "@esm-bundle/chai": "^4.1.5",
+    "puppeteer": "^20.0.0"
   }
 }

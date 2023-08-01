@@ -1,5 +1,11 @@
 # @web/dev-server-legacy
 
+## 2.0.1
+
+### Patch Changes
+
+- 7bb523fa: Update various dependencies
+
 ## 2.0.0
 
 ### Major Changes

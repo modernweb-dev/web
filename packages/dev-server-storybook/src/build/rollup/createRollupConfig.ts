@@ -5,7 +5,7 @@ import babel from '@rollup/plugin-babel';
 import html from '@web/rollup-plugin-html';
 import polyfillsLoader from '@web/rollup-plugin-polyfills-loader';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import { mdxPlugin } from './mdxPlugin';
 import { mdjsPlugin } from './mdjsPlugin';
 import { injectExportsOrderPlugin } from './injectExportsOrderPlugin';
@@ -54,6 +54,9 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
         configFile: false,
         extensions: [...DEFAULT_EXTENSIONS, 'md', 'mdx'],
         exclude: `${prebuiltDir}/**`,
+        sourceMaps: true,
+        // @ts-ignore The provided types are wrong. See https://babeljs.io/docs/options#inputsourcemap
+        inputSourceMap: false,
         presets: [
           [
             require.resolve('@babel/preset-env'),

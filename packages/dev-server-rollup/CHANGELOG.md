@@ -1,5 +1,17 @@
 # @web/dev-server-rollup
 
+## 0.5.2
+
+### Patch Changes
+
+- 6b359149: fix: await buildStart in serverStart
+
+## 0.5.1
+
+### Patch Changes
+
+- 6ab3ee55: fix: ensure imports are resolved correctly in pages without extension
+
 ## 0.5.0
 
 ### Minor Changes

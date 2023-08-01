@@ -8,7 +8,7 @@ it('can emulate print media type', async () => {
   expect(matchMedia('screen').matches).to.be.true;
 });
 
-it.only('can emulate color scheme', async () => {
+it('can emulate color scheme', async () => {
   await emulateMedia({ colorScheme: 'dark' });
   expect(matchMedia('(prefers-color-scheme: dark)').matches).to.be.true;
   await emulateMedia({ colorScheme: 'light' });

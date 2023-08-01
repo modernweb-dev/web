@@ -34,6 +34,7 @@ describe('polyfills', () => {
         esModuleShims: true,
         constructibleStylesheets: true,
         URLPattern: true,
+        scopedCustomElementRegistry: true,
       },
     };
 
@@ -99,6 +100,13 @@ describe('polyfills', () => {
         name: 'resize-observer',
         path: 'polyfills/resize-observer.js',
         test: "!('ResizeObserver' in window)",
+        content: '',
+        type: 'script',
+      },
+      {
+        name: 'scoped-custom-element-registry',
+        path: 'polyfills/scoped-custom-element-registry.js',
+        test: "!('createElement' in ShadowRoot.prototype)",
         content: '',
         type: 'script',
       },

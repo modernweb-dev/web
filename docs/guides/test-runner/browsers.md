@@ -43,7 +43,7 @@ This will locally install the required versions of Chromium, Firefox, and WebKit
 Now all we need to do is run our tests:
 
 ```
-$ yarn test
+$ npm run test
 $ web-test-runner "test/**/*.test.js" --node-resolve --playwright --browsers chromium firefox webkit
 
 Chromium: |██████████████████████████████| 2/2 test files | 3 passed, 0 failed

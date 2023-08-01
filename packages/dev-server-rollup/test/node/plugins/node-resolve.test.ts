@@ -24,6 +24,29 @@ describe('@rollup/plugin-node-resolve', () => {
     }
   });
 
+  it('can resolve imports in extensionless pages', async () => {
+    const { server, host } = await createTestServer({
+      plugins: [
+        nodeResolve(),
+        {
+          name: 'test',
+          serve(ctx) {
+            if (ctx.path === '/index') {
+              return { body: '<script type="module">import \'module-a\';</script>', type: 'html' };
+            }
+          },
+        },
+      ],
+    });
+
+    try {
+      const text = await fetchText(`${host}/index`);
+      expectIncludes(text, "import './node_modules/module-a/index.js'");
+    } finally {
+      server.stop();
+    }
+  });
+
   it('can resolve imports in inline scripts', async () => {
     const { server, host } = await createTestServer({
       plugins: [nodeResolve()],

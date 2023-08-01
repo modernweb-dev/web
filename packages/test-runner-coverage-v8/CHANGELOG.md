@@ -1,5 +1,23 @@
 # @web/test-runner-coverage-v8
 
+## 0.7.1
+
+### Patch Changes
+
+- 8040495d: fix: ensure the size of source files is calculcated correctly when caching them
+
+## 0.7.0
+
+### Minor Changes
+
+- 3c33d74a: Cache sourcemap resolution across v8-to-istanbul calls to avoid heavy FS reads
+
+## 0.6.1
+
+### Patch Changes
+
+- 58b560ae: fix: reset coverage result converters between Chrome session runs
+
 ## 0.6.0
 
 ### Minor Changes

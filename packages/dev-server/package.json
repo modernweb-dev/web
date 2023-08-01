@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "publishConfig": {
     "access": "public"
   },
@@ -28,7 +28,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "start": "yarn start:syntax",
+    "start": "npm run start:syntax",
     "start:base-path": "node dist/bin.js --config demo/base-path/config.mjs --open",
     "start:http2": "node dist/bin.js --config demo/http2/config.mjs --open demo/http2/",
     "start:index-rewrite": "node dist/bin.js --config demo/index-rewrite/config.mjs --open",
@@ -60,7 +60,7 @@
     "@types/command-line-args": "^5.0.0",
     "@web/config-loader": "^0.2.1",
     "@web/dev-server-core": "^0.5.1",
-    "@web/dev-server-rollup": "^0.5.0",
+    "@web/dev-server-rollup": "^0.5.1",
     "camelcase": "^6.2.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^7.0.1",
@@ -73,7 +73,7 @@
   },
   "devDependencies": {
     "@types/command-line-usage": "^5.0.1",
-    "lit-html": "^2.0.0",
-    "puppeteer": "^19.9.0"
+    "lit-html": "^2.7.3",
+    "puppeteer": "^20.0.0"
   }
 }

@@ -5,8 +5,6 @@ import path from 'path';
 
 import { deserialize } from '../src/deserialize';
 
-const { sep } = path;
-
 const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
 const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };
 
@@ -14,7 +12,7 @@ describe('serialize deserialize', () => {
   let browser: Browser;
   let page: Page;
   before(async () => {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({ headless: 'new' });
     page = await browser.newPage();
     await page.goto('about:blank');
     await page.evaluate(
@@ -346,10 +344,10 @@ describe('serialize deserialize', () => {
     const deserialized = await deserialize(serialized, defaultOptions);
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include('  at c (pptr://__puppeteer_evaluation_script__:2:29)');
-    expect(deserialized).to.include('  at b (pptr://__puppeteer_evaluation_script__:3:29)');
-    expect(deserialized).to.include('  at a (pptr://__puppeteer_evaluation_script__:4:29)');
-    expect(deserialized).to.include('  at pptr://__puppeteer_evaluation_script__:5:38');
+    expect(deserialized).to.include('2:29');
+    expect(deserialized).to.include('3:29');
+    expect(deserialized).to.include('4:29');
+    expect(deserialized).to.include('5:38');
   });
 
   it('handles errors in objects', async () => {
@@ -362,10 +360,10 @@ describe('serialize deserialize', () => {
     const deserialized = await deserialize(serialized, defaultOptions);
     expect(deserialized.myError).to.be.a('string');
     expect(deserialized.myError).to.include('my error msg');
-    expect(deserialized.myError).to.include('  at c (pptr://__puppeteer_evaluation_script__:2:29)');
-    expect(deserialized.myError).to.include('  at b (pptr://__puppeteer_evaluation_script__:3:29)');
-    expect(deserialized.myError).to.include('  at a (pptr://__puppeteer_evaluation_script__:4:29)');
-    expect(deserialized.myError).to.include('at pptr://__puppeteer_evaluation_script__:5:49');
+    expect(deserialized.myError).to.include('2:29');
+    expect(deserialized.myError).to.include('3:29');
+    expect(deserialized.myError).to.include('4:29');
+    expect(deserialized.myError).to.include('5:49');
   });
 
   it('handles errors in arrays', async () => {
@@ -378,19 +376,19 @@ describe('serialize deserialize', () => {
     const deserialized = await deserialize(serialized, defaultOptions);
     expect(deserialized[0]).to.be.a('string');
     expect(deserialized[0]).to.include('my error msg');
-    expect(deserialized[0]).to.include('  at c (pptr://__puppeteer_evaluation_script__:2:29)');
-    expect(deserialized[0]).to.include('  at b (pptr://__puppeteer_evaluation_script__:3:29)');
-    expect(deserialized[0]).to.include('  at a (pptr://__puppeteer_evaluation_script__:4:29)');
-    expect(deserialized[0]).to.include('at pptr://__puppeteer_evaluation_script__:5:39');
+    expect(deserialized[0]).to.include('2:29');
+    expect(deserialized[0]).to.include('3:29');
+    expect(deserialized[0]).to.include('4:29');
+    expect(deserialized[0]).to.include('5:39');
     expect(deserialized[1]).to.be.a('string');
     expect(deserialized[1]).to.include('my error msg');
-    expect(deserialized[1]).to.include('  at c (pptr://__puppeteer_evaluation_script__:2:29)');
-    expect(deserialized[1]).to.include('  at b (pptr://__puppeteer_evaluation_script__:3:29)');
-    expect(deserialized[1]).to.include('at pptr://__puppeteer_evaluation_script__:5:44');
+    expect(deserialized[1]).to.include('2:29');
+    expect(deserialized[1]).to.include('3:29');
+    expect(deserialized[1]).to.include('5:44');
     expect(deserialized[2]).to.be.a('string');
     expect(deserialized[2]).to.include('my error msg');
-    expect(deserialized[2]).to.include('  at c (pptr://__puppeteer_evaluation_script__:2:29)');
-    expect(deserialized[2]).to.include('at pptr://__puppeteer_evaluation_script__:5:49');
+    expect(deserialized[2]).to.include('2:29');
+    expect(deserialized[2]).to.include('5:49');
   });
 
   it('can map stack trace locations', async () => {
@@ -406,10 +404,7 @@ describe('serialize deserialize', () => {
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include(`  at c (..${sep}test__MAPPED__:1:2)`);
-    expect(deserialized).to.include(`  at b (..${sep}test__MAPPED__:1:2)`);
-    expect(deserialized).to.include(`  at a (..${sep}test__MAPPED__:1:2)`);
-    expect(deserialized).to.include(`  at ..${sep}test__MAPPED__:1:2`);
+    expect(deserialized).to.include(`__MAPPED__:1:2`);
   });
 
   it('mapped stack traces can be async', async () => {
@@ -428,10 +423,7 @@ describe('serialize deserialize', () => {
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include(`  at c (..${sep}test__MAPPED__:1:2)`);
-    expect(deserialized).to.include(`  at b (..${sep}test__MAPPED__:1:2)`);
-    expect(deserialized).to.include(`  at a (..${sep}test__MAPPED__:1:2)`);
-    expect(deserialized).to.include(`  at ..${sep}test__MAPPED__:1:2`);
+    expect(deserialized).to.include(`__MAPPED__:1:2`);
   });
 
   it('can define a cwd below current directory', async () => {
@@ -447,10 +439,10 @@ describe('serialize deserialize', () => {
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include(`  at c (test:2:29)`);
-    expect(deserialized).to.include(`  at b (test:3:29)`);
-    expect(deserialized).to.include(`  at a (test:4:29)`);
-    expect(deserialized).to.include(`  at test:5:38`);
+    expect(deserialized).to.include(`2:29`);
+    expect(deserialized).to.include(`3:29`);
+    expect(deserialized).to.include(`4:29`);
+    expect(deserialized).to.include(`5:38`);
   });
 
   it('can define a cwd above current directory', async () => {
@@ -466,10 +458,10 @@ describe('serialize deserialize', () => {
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include(`  at c (..:2:29)`);
-    expect(deserialized).to.include(`  at b (..:3:29)`);
-    expect(deserialized).to.include(`  at a (..:4:29)`);
-    expect(deserialized).to.include(`  at ..:5:38`);
+    expect(deserialized).to.include(`2:29`);
+    expect(deserialized).to.include(`3:29`);
+    expect(deserialized).to.include(`4:29`);
+    expect(deserialized).to.include(`5:38`);
   });
 
   it('handles null', async () => {

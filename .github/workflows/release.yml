@@ -7,6 +7,7 @@ on:
 
 jobs:
   release:
+    timeout-minutes: 30
     # Prevents changesets action from creating a PR on forks
     if: github.repository == 'modernweb-dev/web'
     name: Release
@@ -23,28 +24,34 @@ jobs:
         env:
           FORCE_COLOR: 0
         with:
-          node-version: '16'
-          cache: 'yarn'
+          node-version: '18'
+          cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
 
+      # Set up GitHub Actions caching for Wireit.
+      - uses: google/wireit@setup-github-actions-caching/v1
+
       - name: Install Dependencies
-        run: yarn --frozen-lockfile
+        run: npm ci
 
       - name: Build packages
-        run: yarn build
+        run: npm run build
+
+      - name: Build types for js packages
+        run: npm run types
 
       - name: Build for production
-        run: yarn build:production
+        run: npm run build:production
 
       - name: Sync blog to dev.to
-        run: DEV_TO_GIT_TOKEN=${{ secrets.DEV_TO_GIT_TOKEN }} yarn run dev-to-git
+        run: DEV_TO_GIT_TOKEN=${{ secrets.DEV_TO_GIT_TOKEN }} npm run dev-to-git
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@master
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: yarn release
+          publish: npm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

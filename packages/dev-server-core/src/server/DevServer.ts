@@ -10,8 +10,8 @@ import { WebSocketsManager } from '../web-sockets/WebSocketsManager';
 
 export class DevServer {
   public koaApp: Koa;
-  public server: Server;
-  public webSockets;
+  public server?: Server;
+  public webSockets?: WebSocketsManager;
   private started = false;
   private connections = new Set<Socket>();
 
@@ -23,29 +23,37 @@ export class DevServer {
     if (!config) throw new Error('Missing config.');
     if (!logger) throw new Error('Missing logger.');
 
-    const createResult = createServer(this.logger, this.config, this.fileWatcher);
-    this.koaApp = createResult.app;
-    this.server = createResult.server;
-    this.webSockets = new WebSocketsManager(this.server);
-
-    this.server.on('connection', connection => {
-      this.connections.add(connection);
-      connection.on('close', () => {
-        this.connections.delete(connection);
+    const { app, server } = createServer(
+      this.logger,
+      this.config,
+      this.fileWatcher,
+      config.middlewareMode,
+    );
+    this.koaApp = app;
+    if (server) {
+      this.server = server;
+      this.webSockets = new WebSocketsManager(this.server);
+      this.server.on('connection', connection => {
+        this.connections.add(connection);
+        connection.on('close', () => {
+          this.connections.delete(connection);
+        });
       });
-    });
+    }
   }
 
   async start() {
     this.started = true;
-    await (promisify<ListenOptions>(this.server.listen).bind(this.server) as any)({
-      port: this.config.port,
-      // in case of localhost the host should be undefined, otherwise some browsers
-      // connect to it via local network. for example safari on browserstack
-      host: ['localhost', '127.0.0.1'].includes(this.config.hostname)
-        ? undefined
-        : this.config.hostname,
-    });
+    if (this.server && this.config.hostname) {
+      await (promisify<ListenOptions>(this.server.listen).bind(this.server) as any)({
+        port: this.config.port,
+        // in case of localhost the host should be undefined, otherwise some browsers
+        // connect to it via local network. for example safari on browserstack
+        host: ['localhost', '127.0.0.1'].includes(this.config.hostname)
+          ? undefined
+          : this.config.hostname,
+      });
+    }
 
     for (const plugin of this.config.plugins ?? []) {
       await plugin.serverStart?.({
@@ -60,13 +68,17 @@ export class DevServer {
   }
 
   private closeServer() {
+    if (!this.server) {
+      return;
+    }
+
     // close all open connections
     for (const connection of this.connections) {
       connection.destroy();
     }
 
     return new Promise<void>(resolve => {
-      this.server.close(err => {
+      this.server!.close(err => {
         if (err) {
           console.error(err);
         }

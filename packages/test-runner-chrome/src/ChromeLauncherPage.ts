@@ -1,7 +1,17 @@
-import { Page } from 'puppeteer-core';
+import { Page, JSCoverageEntry } from 'puppeteer-core';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { V8Coverage, v8ToIstanbul } from '@web/test-runner-coverage-v8';
+import { v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { SessionResult } from '@web/test-runner-core';
+import { Mutex } from 'async-mutex';
+
+const mutex = new Mutex();
+
+declare global {
+  interface Window {
+    __bringTabToFront: (id: string) => void;
+    __releaseLock: (id: string) => void;
+  }
+}
 
 export class ChromeLauncherPage {
   private config: TestRunnerCoreConfig;
@@ -9,6 +19,8 @@ export class ChromeLauncherPage {
   private product: string;
   public puppeteerPage: Page;
   private nativeInstrumentationEnabledOnPage = false;
+  private patchAdded = false;
+  private resolvers: Record<string, () => void> = {};
 
   constructor(
     config: TestRunnerCoreConfig,
@@ -32,7 +44,45 @@ export class ChromeLauncherPage {
         await this.puppeteerPage.coverage.stopJSCoverage();
       }
       this.nativeInstrumentationEnabledOnPage = true;
-      await this.puppeteerPage.coverage.startJSCoverage();
+      await this.puppeteerPage.coverage.startJSCoverage({
+        includeRawScriptCoverage: true,
+      });
+    }
+
+    // Patching the browser page to workaround an issue in the new headless mode of Chrome where some functions
+    // with callbacks (requestAnimationFrame and requestIdleCallback) are not executing their callbacks.
+    // https://github.com/puppeteer/puppeteer/issues/10350
+    if (!this.patchAdded) {
+      await this.puppeteerPage.exposeFunction('__bringTabToFront', (id: string) => {
+        const promise = new Promise(resolve => {
+          this.resolvers[id] = resolve as () => void;
+        });
+        return mutex.runExclusive(async () => {
+          await this.puppeteerPage.bringToFront();
+          await promise;
+        });
+      });
+      await this.puppeteerPage.exposeFunction('__releaseLock', (id: string) => {
+        this.resolvers[id]?.();
+      });
+      await this.puppeteerPage.evaluateOnNewDocument(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-types
+        function patchFunction(name: string, fn: Function) {
+          (window as any)[name] = (...args: unknown[]) => {
+            fn.call(window, ...args);
+            const id = Math.random().toString().substring(2);
+            // Make sure that the tab running the test code is brought back to the front.
+            window.__bringTabToFront(id);
+            fn.call(window, () => {
+              window.__releaseLock(id);
+            });
+          };
+        }
+
+        patchFunction('requestAnimationFrame', window.requestAnimationFrame);
+        patchFunction('requestIdleCallback', window.requestIdleCallback);
+      });
+      this.patchAdded = true;
     }
 
     await this.puppeteerPage.setViewport({ height: 600, width: 800 });
@@ -80,20 +130,13 @@ export class ChromeLauncherPage {
       return undefined;
     }
 
-    // get native coverage from puppeteer
-    // TODO: this is using a private puppeteer API to grab v8 code coverage, this can be removed
-    // when https://github.com/puppeteer/puppeteer/issues/2136 is resolved
-    const response = (await (this.puppeteerPage as any)
-      ._client()
-      .send('Profiler.takePreciseCoverage')) as {
-      result: V8Coverage[];
-    };
-    const v8Coverage = response.result
-      // remove puppeteer specific scripts
-      .filter(r => r.url && r.url !== '__puppeteer_evaluation_script__');
-
-    const userAgent = await userAgentPromise;
-    await this.puppeteerPage.coverage?.stopJSCoverage();
+    const [userAgent, coverageResult] = await Promise.all([
+      userAgentPromise,
+      this.puppeteerPage.coverage?.stopJSCoverage(),
+    ]);
+    const v8Coverage = coverageResult
+      ?.map(entry => entry.rawScriptCoverage)
+      .filter((cov): cov is Required<JSCoverageEntry>['rawScriptCoverage'] => cov !== undefined);
     this.nativeInstrumentationEnabledOnPage = false;
 
     return v8ToIstanbul(config, testFiles, v8Coverage, userAgent);

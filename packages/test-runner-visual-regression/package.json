@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-visual-regression",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "publishConfig": {
     "access": "public"
   },
@@ -15,10 +15,14 @@
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-visual-regression",
   "main": "browser/commands.mjs",
   "exports": {
-    ".": "./browser/commands.mjs",
+    ".": {
+      "import": "./browser/commands.mjs",
+      "types": "./index.d.ts"
+    },
     "./plugin": {
       "import": "./plugin.mjs",
-      "require": "./dist/index.js"
+      "require": "./dist/index.js",
+      "types": "./plugin.d.ts"
     }
   },
   "engines": {
@@ -48,14 +52,14 @@
     "@types/mkdirp": "^1.0.1",
     "@types/pixelmatch": "^5.2.2",
     "@types/pngjs": "^6.0.0",
-    "@web/test-runner-commands": "^0.7.0",
+    "@web/test-runner-commands": "^0.8.0",
     "@web/test-runner-core": "^0.11.1",
     "mkdirp": "^1.0.4",
     "pixelmatch": "^5.2.1",
-    "pngjs": "^6.0.0"
+    "pngjs": "^7.0.0"
   },
   "devDependencies": {
-    "@web/test-runner-chrome": "^0.13.0",
+    "@web/test-runner-chrome": "^0.14.0",
     "@web/test-runner-playwright": "^0.10.0",
     "@web/test-runner-webdriver": "^0.7.0",
     "mocha": "^10.2.0"

@@ -30,7 +30,11 @@ describe('sendMousePlugin', function test() {
     });
   });
 
-  describe('webdriver', () => {
+  /**
+   * Temporarily disabled until webdriver selenium-standalone issues are fixed
+   * https://github.com/webdriverio/selenium-standalone/issues/788
+   */
+  describe.skip('webdriver', () => {
     let seleniumServer!: selenium.ChildProcess;
 
     before(async () => {

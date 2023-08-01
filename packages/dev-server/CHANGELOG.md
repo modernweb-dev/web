@@ -1,5 +1,42 @@
 # @web/dev-server
 
+## 0.3.0
+
+### Minor Changes
+
+- 0c87f59e: feat/various fixes
+
+  - Update puppeteer to `20.0.0`, fixes #2282
+  - Use puppeteer's new `page.mouse.reset()` in sendMousePlugin, fixes #2262
+  - Use `development` export condition by default
+
+## 0.2.5
+
+### Patch Changes
+
+- f2362bbf: Trigger pipeline
+
+## 0.2.4
+
+### Patch Changes
+
+- e9c77e06: Version Packages
+
+## 0.2.3
+
+### Patch Changes
+
+- 015766e9: Use new headless chrome mode
+
+## 0.2.2
+
+### Patch Changes
+
+- 85647c10: Update `lit-html`
+- ab4720fa: fix: terser import
+- Updated dependencies [6ab3ee55]
+  - @web/dev-server-rollup@0.5.1
+
 ## 0.2.1
 
 ### Patch Changes

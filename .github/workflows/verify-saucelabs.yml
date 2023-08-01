@@ -4,6 +4,7 @@ on: pull_request
 
 jobs:
   verify-saucelabs:
+    timeout-minutes: 30
     name: Verify Sauce Labs
 
     # Run only from the original repository
@@ -15,24 +16,27 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node 16
+      - name: Setup Node 18
         uses: actions/setup-node@v3
         env:
           FORCE_COLOR: 0
         with:
-          node-version: '16'
-          cache: 'yarn'
+          node-version: '18'
+          cache: 'npm'
 
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+      # Set up GitHub Actions caching for Wireit.
+      - uses: google/wireit@setup-github-actions-caching/v1
+
+      - name: Install Dependencies
+        run: npm ci
 
       - name: Build packages
-        run: yarn build
+        run: npm run build
 
       - name: Test
         run: |
           cd packages/test-runner-saucelabs
-          yarn test
+          npm run test
         env:
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}

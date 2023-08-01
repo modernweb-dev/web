@@ -60,10 +60,6 @@ export async function runTests(
 
     const runner = new TestRunner(finalConfig, groupConfigs);
 
-    // runner.sessions.on('session-status-updated', session => {
-    //   console.log(session.browser.name, session.id, session.status);
-    // });
-
     let finished = false;
 
     runner.on('test-run-finished', ({ testRun, testCoverage }) => {

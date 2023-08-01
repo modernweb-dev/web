@@ -1,5 +1,20 @@
 # @web/test-runner-puppeteer
 
+## 0.14.0
+
+### Minor Changes
+
+- 0c87f59e: feat/various fixes
+
+  - Update puppeteer to `20.0.0`, fixes #2282
+  - Use puppeteer's new `page.mouse.reset()` in sendMousePlugin, fixes #2262
+  - Use `development` export condition by default
+
+### Patch Changes
+
+- Updated dependencies [0c87f59e]
+  - @web/test-runner-chrome@0.14.0
+
 ## 0.13.1
 
 ### Patch Changes

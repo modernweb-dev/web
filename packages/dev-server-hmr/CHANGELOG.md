@@ -1,5 +1,21 @@
 # @web/dev-server-hmr
 
+## 0.3.0
+
+### Minor Changes
+
+- 0c87f59e: feat/various fixes
+
+  - Update puppeteer to `20.0.0`, fixes #2282
+  - Use puppeteer's new `page.mouse.reset()` in sendMousePlugin, fixes #2262
+  - Use `development` export condition by default
+
+## 0.2.2
+
+### Patch Changes
+
+- 85647c10: Update `lit-html`
+
 ## 0.2.1
 
 ### Patch Changes

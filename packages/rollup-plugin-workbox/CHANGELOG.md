@@ -1,5 +1,33 @@
 # rollup-plugin-workbox
 
+## 8.0.1
+
+### Patch Changes
+
+- 9ae9c2e7: fix: generate sw arg
+
+## 8.0.0
+
+### Major Changes
+
+- f7927b81: feat: update workbox v7
+
+  - Update workbox to v7
+  - Removed the mode option in favour of just always bundling/removing process.env for the service worker when using injectManifest
+
+### Patch Changes
+
+- 85647c10: Update `lit-html`
+- 5acaf838: Update `@typescript-eslint/parser`
+- d56f6bb0: fix: esbuild options shouldnt override swsrc and swdest
+- ab4720fa: fix: terser import
+
+## 7.0.1
+
+### Patch Changes
+
+- 1109ec37: Replace `rollup-plugin-terser` with `@rollup/plugin-terser`
+
 ## 7.0.0
 
 ### Major Changes

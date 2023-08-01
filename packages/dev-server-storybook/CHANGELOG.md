@@ -1,5 +1,38 @@
 # @web/dev-server-storybook
 
+## 1.0.0
+
+### Major Changes
+
+- 68d596ed: This packages is now a ES Module by default.
+
+## 0.7.4
+
+### Patch Changes
+
+- f2362bbf: Trigger pipeline
+
+## 0.7.3
+
+### Patch Changes
+
+- e9c77e06: Version Packages
+
+## 0.7.2
+
+### Patch Changes
+
+- 85647c10: Update `lit-html`
+- 5acaf838: Update `@typescript-eslint/parser`
+- ab4720fa: fix: terser import
+
+## 0.7.1
+
+### Patch Changes
+
+- dc1d5e84: Fix console logging due to source mapping issues.
+- 1109ec37: Replace `rollup-plugin-terser` with `@rollup/plugin-terser`
+
 ## 0.7.0
 
 ### Minor Changes
