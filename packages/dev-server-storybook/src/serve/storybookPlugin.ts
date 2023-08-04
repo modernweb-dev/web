@@ -31,7 +31,7 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
   return {
     name: 'storybook',
 
-    serverStart(args: {config: unknown}) {
+    serverStart(args: { config: unknown }) {
       serverConfig = args.config;
     },
 

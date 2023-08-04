@@ -1,7 +1,7 @@
 import { Plugin, RollupOptions, RollupWarning } from 'rollup';
 
-import {nodeResolve as resolve} from '@rollup/plugin-node-resolve';
-import {babel} from '@rollup/plugin-babel';
+import { nodeResolve as resolve } from '@rollup/plugin-node-resolve';
+import { babel } from '@rollup/plugin-babel';
 // @ts-ignore
 import html from '@web/rollup-plugin-html';
 // @ts-ignore
