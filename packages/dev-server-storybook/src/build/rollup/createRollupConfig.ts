@@ -125,6 +125,7 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
           resizeObserver: true,
         },
       }) as Plugin,
+      // @ts-ignore the provided type is wrong
       terser({ format: { comments: false } }) as Plugin,
     ],
   };
