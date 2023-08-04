@@ -1,7 +1,8 @@
 import mdx from '@mdx-js/mdx';
 import { transformAsync } from '@babel/core';
+// @ts-ignore
 import { createCompiler } from '@storybook/csf-tools/mdx';
-import { createError } from '../utils';
+import { createError } from '../utils.js';
 
 const compilers = [createCompiler({})];
 
