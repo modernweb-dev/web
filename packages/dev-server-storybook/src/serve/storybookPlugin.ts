@@ -12,6 +12,13 @@ import { injectExportsOrder } from '../shared/stories/injectExportsOrder.js';
 
 const regexpReplaceWebsocket = /<!-- injected by web-dev-server -->(.|\s)*<\/script>/m;
 
+interface Context {
+  URL: URL;
+  path: string;
+  body: unknown;
+  url: string;
+}
+
 export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
   validatePluginConfig(pluginConfig);
 
@@ -23,11 +30,11 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
   return {
     name: 'storybook',
 
-    serverStart(args) {
+    serverStart(args: {config: unknown}) {
       serverConfig = args.config;
     },
 
-    resolveMimeType(context) {
+    resolveMimeType(context: Context) {
       if (context.URL.searchParams.get('story') !== 'true') {
         return;
       }
@@ -37,7 +44,7 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
       }
     },
 
-    async transform(context) {
+    async transform(context: Context) {
       if (typeof context.body !== 'string') {
         return;
       }
@@ -67,7 +74,7 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
       }
     },
 
-    async serve(context) {
+    async serve(context: Context) {
       if (context.path === '/') {
         return { type: 'html', body: createManagerHtml(storybookConfig, serverConfig.rootDir) };
       }
