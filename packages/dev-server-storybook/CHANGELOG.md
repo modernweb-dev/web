@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 1.0.1
+
+### Patch Changes
+
+- 4841ad58: Fix output format of package.
+
 ## 1.0.0
 
 ### Major Changes
