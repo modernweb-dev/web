@@ -68,7 +68,7 @@
     "globby": "^11.0.1",
     "ip": "^1.1.5",
     "istanbul-lib-coverage": "^3.0.0",
-    "istanbul-lib-report": "^3.0.0",
+    "istanbul-lib-report": "^3.0.1",
     "istanbul-reports": "^3.0.2",
     "log-update": "^4.0.0",
     "nanocolors": "^0.2.1",
