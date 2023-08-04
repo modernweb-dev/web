@@ -215,7 +215,19 @@ function findNodes(nodes, test) {
     if (test(node)) {
       found.push(node);
     }
-    const children = adapter.getChildNodes(/** @type {ParentNode} */ (node));
+
+    /** @type {Node[]} */
+    let children = [];
+
+    if (adapter.isElementNode(node) && adapter.getTagName(node) === 'template') {
+      const content = adapter.getTemplateContent(node);
+      if (content) {
+        children = adapter.getChildNodes(content);
+      }
+    } else {
+      children = adapter.getChildNodes(/** @type {ParentNode} */ (node));
+    }
+
     if (Array.isArray(children)) {
       n.unshift(...children);
     }
