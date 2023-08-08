@@ -256,4 +256,20 @@ describe('rollup-plugin-import-meta-assets', () => {
       /ENOENT: no such file or directory, open '.*[/\\]missing-relative-path\.svg'/,
     );
   });
+
+  it('allows backticks in path if there are no dynamic parts included', async () => {
+    const config = {
+      input: { backticks: require.resolve('./fixtures/backticks.js') },
+      plugins: [importMetaAssets({ warnOnError: true })],
+    };
+
+    const bundle = await rollup.rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(output.length).to.equal(3);
+    expectChunk(output, 'snapshots/backticks.js', 'backticks.js', [
+      expectAsset(output, 'snapshots/one.svg', 'one.svg', 'assets/one-824f522a.svg'),
+      expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two-efaa9ab3.svg'),
+    ]);
+  });
 });
