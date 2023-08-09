@@ -155,7 +155,7 @@ export class ChromeLauncher implements BrowserLauncher {
 
   async startDebugSession(sessionId: string, url: string) {
     if (!this.debugBrowser || !this.debugBrowserContext) {
-      this.debugBrowser = await this.launchBrowser({ devtools: true });
+      this.debugBrowser = await this.launchBrowser({ devtools: true, headless: false });
       this.debugBrowserContext = await this.createBrowserContextFn({
         config: this.config!,
         browser: this.debugBrowser,
