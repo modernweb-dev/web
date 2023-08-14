@@ -19,10 +19,9 @@
   },
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js",
-      "types": "./index.d.ts"
+    "./plugin.js": {
+      "import": "./dist/serve/storybookPlugin.js",
+      "types": "./dist/serve/storybookPlugin.d.ts"
     }
   },
   "engines": {
