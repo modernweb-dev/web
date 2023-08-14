@@ -7,7 +7,7 @@ export async function transformMdxToCsf(value: string, path: string): Promise<st
   const jsx = `
       import { React, mdx } from '@web/storybook-prebuilt/web-components.js';
 
-      ${(await compile({value, path })).value}
+      ${(await compile({ value, path })).value}
     `;
 
   // turn JSX to JS
