@@ -1,5 +1,11 @@
 # @web/parse5-utils
 
+## 2.0.1
+
+### Patch Changes
+
+- d5da0e4a: Adds support for traversing <template> elements
+
 ## 2.0.0
 
 ### Major Changes
