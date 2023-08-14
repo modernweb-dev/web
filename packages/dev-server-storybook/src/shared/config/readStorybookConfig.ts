@@ -30,7 +30,9 @@ function validateMainJs(mainJs: MainJs): MainJs {
   return mainJs;
 }
 
-export async function readStorybookConfig(pluginConfig: StorybookPluginConfig): Promise<StorybookConfig> {
+export async function readStorybookConfig(
+  pluginConfig: StorybookPluginConfig,
+): Promise<StorybookConfig> {
   const configDir = pluginConfig.configDir
     ? path.resolve(pluginConfig.configDir)
     : defaultConfigDir;
