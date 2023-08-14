@@ -1,6 +1,6 @@
 declare module '@mdx-js/mdx' {
-  export default function async(
+  export async function compile(
     src: string,
-    options: { compilers: any; filepath: string },
+    options: Record<string, unknown>
   ): Promise<string>;
 }

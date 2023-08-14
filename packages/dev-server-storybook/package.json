@@ -58,11 +58,11 @@
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
-    "@mdx-js/mdx": "^1.6.22",
+    "@mdx-js/mdx": "^2.3.0",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-terser": "^0.4.1",
-    "@storybook/csf-tools": "^6.4.9",
+    "@storybook/csf-tools": "^7.2.3",
     "@web/dev-server-core": "^0.5.0",
     "@web/rollup-plugin-html": "^2.0.0",
     "@web/rollup-plugin-polyfills-loader": "^2.0.0",
@@ -73,7 +73,7 @@
     "globby": "^11.0.1",
     "path-is-inside": "^1.0.2",
     "rollup": "^3.15.0",
-    "storybook-addon-markdown-docs": "^1.0.4"
+    "storybook-addon-markdown-docs": "^2.0.0"
   },
   "devDependencies": {
     "@types/path-is-inside": "^1.0.0",
