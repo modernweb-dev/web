@@ -19,7 +19,7 @@
   },
   "type": "module",
   "exports": {
-    "./plugin.js": {
+    ".": {
       "import": "./dist/serve/storybookPlugin.js",
       "types": "./dist/serve/storybookPlugin.d.ts"
     }
