@@ -20,10 +20,9 @@ interface Context {
   url: string;
 }
 
-export async function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
+export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
   validatePluginConfig(pluginConfig);
 
-  const storybookConfig = await readStorybookConfig(pluginConfig);
   let serverConfig: DevServerCoreConfig;
   let storyImports: string[] = [];
   let storyFilePaths: string[] = [];
@@ -76,6 +75,7 @@ export async function storybookPlugin(pluginConfig: StorybookPluginConfig): Plug
     },
 
     async serve(context: Context) {
+      const storybookConfig = await readStorybookConfig(pluginConfig);
       if (context.path === '/') {
         return { type: 'html', body: createManagerHtml(storybookConfig, serverConfig.rootDir) };
       }
