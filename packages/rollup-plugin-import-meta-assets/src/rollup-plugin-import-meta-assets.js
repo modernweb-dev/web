@@ -15,7 +15,8 @@ const MagicString = require('magic-string');
  * @returns {string} The relative path
  */
 function getRelativeAssetPath(node) {
-  const browserPath = node.arguments[0].value;
+  // either normal string expression or else it would be Template Literal with a single quasi
+  const browserPath = node.arguments[0].value ?? node.arguments[0].quasis[0].value.cooked;
   return browserPath.split('/').join(path.sep);
 }
 
@@ -31,7 +32,11 @@ function isNewUrlImportMetaUrl(node) {
     node.callee.type === 'Identifier' &&
     node.callee.name === 'URL' &&
     node.arguments.length === 2 &&
-    node.arguments[0].type === 'Literal' &&
+    (node.arguments[0].type === 'Literal' ||
+      // Allow template literals if it does not contain any dynamic expressions
+      (node.arguments[0].type === 'TemplateLiteral' &&
+        node.arguments[0].quasis.length === 1 &&
+        node.arguments[0].expressions.length === 0)) &&
     typeof getRelativeAssetPath(node) === 'string' &&
     node.arguments[1].type === 'MemberExpression' &&
     node.arguments[1].object.type === 'MetaProperty' &&
