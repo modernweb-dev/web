@@ -20,10 +20,10 @@ interface Context {
   url: string;
 }
 
-export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
+export async function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
   validatePluginConfig(pluginConfig);
 
-  const storybookConfig = readStorybookConfig(pluginConfig);
+  const storybookConfig = await readStorybookConfig(pluginConfig);
   let serverConfig: DevServerCoreConfig;
   let storyImports: string[] = [];
   let storyFilePaths: string[] = [];

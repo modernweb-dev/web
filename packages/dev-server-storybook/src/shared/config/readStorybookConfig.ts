@@ -30,7 +30,7 @@ function validateMainJs(mainJs: MainJs): MainJs {
   return mainJs;
 }
 
-export function readStorybookConfig(pluginConfig: StorybookPluginConfig): StorybookConfig {
+export async function readStorybookConfig(pluginConfig: StorybookPluginConfig): Promise<StorybookConfig> {
   const configDir = pluginConfig.configDir
     ? path.resolve(pluginConfig.configDir)
     : defaultConfigDir;
@@ -67,8 +67,8 @@ export function readStorybookConfig(pluginConfig: StorybookPluginConfig): Storyb
   }
 
   const mainJs = commonJsMainExists
-    ? validateMainJs(require(commonJsMainPath))
-    : validateMainJs(require(mainJsPath));
+    ? validateMainJs((await import(commonJsMainPath)).default)
+    : validateMainJs((await import(mainJsPath)).default);
 
   return {
     mainJs,
