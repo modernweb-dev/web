@@ -13,14 +13,18 @@ const path = require('path');
  */
 function listFiles(fromGlob, rootDir, ignore) {
   return new Promise(resolve => {
-    glob(fromGlob, { cwd: rootDir, dot: true, ignore }, (er, files) => {
+    glob.sync(fromGlob, { cwd: rootDir, dot: true, ignore }, (er, files) => {
       // remember, each filepath returned is relative to rootDir
       resolve(
         files
-          // fully resolve the filename relative to rootDir
-          .map(filePath => path.resolve(rootDir, filePath))
-          // filter out directories
-          .filter(filePath => !fs.lstatSync(filePath).isDirectory()),
+          .map(
+            /** @param {string} filePath */
+            filePath => path.resolve(rootDir, filePath),
+          )
+          .filter(
+            /** @param {string} filePath */
+            filePath => !fs.lstatSync(filePath).isDirectory(),
+          ),
       );
     });
   });
