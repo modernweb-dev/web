@@ -44,7 +44,7 @@
   ],
   "dependencies": {
     "@web/parse5-utils": "^2.0.0",
-    "glob": "^7.1.6",
+    "glob": "^10.3.3",
     "html-minifier-terser": "^7.1.0",
     "parse5": "^6.0.1"
   },

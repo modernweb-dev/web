@@ -44,7 +44,7 @@
     "copy"
   ],
   "dependencies": {
-    "glob": "^7.1.6"
+    "glob": "^10.3.3"
   },
   "devDependencies": {
     "@types/glob": "^7.1.3"
