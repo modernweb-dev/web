@@ -71,7 +71,7 @@ export async function build(params: BuildParams) {
   const rootDir = process.cwd();
   validatePluginConfig(params);
 
-  const storybookConfig = readStorybookConfig(params);
+  const storybookConfig = await readStorybookConfig(params);
   await buildManager({ type, outputDir, storybookConfig, rootDir });
   await buildPreview({ type, storybookConfig, pluginConfig: params, outputDir, rootDir });
 }

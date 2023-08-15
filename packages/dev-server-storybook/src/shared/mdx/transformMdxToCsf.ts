@@ -1,28 +1,24 @@
-import mdx from '@mdx-js/mdx';
+import { compile } from '@mdx-js/mdx';
 import { transformAsync } from '@babel/core';
-// @ts-ignore
-import { createCompiler } from '@storybook/csf-tools/mdx';
 import { createError } from '../utils.js';
 
-const compilers = [createCompiler({})];
-
-export async function transformMdxToCsf(body: string, filePath: string): Promise<string> {
+export async function transformMdxToCsf(value: string, path: string): Promise<string> {
   // turn MDX to JSX
   const jsx = `
       import { React, mdx } from '@web/storybook-prebuilt/web-components.js';
 
-      ${await mdx(body, { compilers, filepath: filePath })}
+      ${(await compile({ value, path })).value}
     `;
 
   // turn JSX to JS
   const babelResult = await transformAsync(jsx, {
-    filename: filePath,
+    filename: path,
     sourceMaps: true,
     plugins: [require.resolve('@babel/plugin-transform-react-jsx')],
   });
 
   if (!babelResult?.code) {
-    throw createError(`Something went wrong while transforming ${filePath}`);
+    throw createError(`Something went wrong while transforming ${path}`);
   }
 
   // rewrite imports

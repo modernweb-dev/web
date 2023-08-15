@@ -23,7 +23,6 @@ interface Context {
 export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
   validatePluginConfig(pluginConfig);
 
-  const storybookConfig = readStorybookConfig(pluginConfig);
   let serverConfig: DevServerCoreConfig;
   let storyImports: string[] = [];
   let storyFilePaths: string[] = [];
@@ -76,6 +75,7 @@ export function storybookPlugin(pluginConfig: StorybookPluginConfig): Plugin {
     },
 
     async serve(context: Context) {
+      const storybookConfig = await readStorybookConfig(pluginConfig);
       if (context.path === '/') {
         return { type: 'html', body: createManagerHtml(storybookConfig, serverConfig.rootDir) };
       }
