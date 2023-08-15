@@ -1,6 +1,6 @@
 import { TestRunnerGroupConfig } from '@web/test-runner-core';
 import { readConfig, ConfigLoaderError } from '@web/config-loader';
-import globby from 'globby';
+import { globbySync } from 'globby';
 import { TestRunnerStartError } from '../TestRunnerStartError';
 
 function validateGroupConfig(configFilePath: string, config: Partial<TestRunnerGroupConfig>) {
@@ -24,7 +24,7 @@ export async function collectGroupConfigs(patterns: string[]) {
   const groupConfigs: TestRunnerGroupConfig[] = [];
 
   for (const pattern of patterns) {
-    const filePaths = globby.sync(pattern, { absolute: true });
+    const filePaths = globbySync(pattern, { absolute: true });
     for (const filePath of filePaths) {
       groupConfigFiles.add(filePath);
     }
