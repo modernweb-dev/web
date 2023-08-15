@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 1.0.2
+
+### Patch Changes
+
+- 7102860c: Fixes the entrypoint of the package.
+
 ## 1.0.1
 
 ### Patch Changes
