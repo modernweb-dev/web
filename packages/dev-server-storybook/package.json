@@ -68,7 +68,7 @@
     "babel-plugin-bundled-import-meta": "^0.3.2",
     "babel-plugin-template-html-minifier": "^4.1.0",
     "es-module-lexer": "^1.0.2",
-    "globby": "^11.0.1",
+    "globby": "^13.2.2",
     "path-is-inside": "^1.0.2",
     "rollup": "^3.15.0",
     "storybook-addon-markdown-docs": "^2.0.0"
