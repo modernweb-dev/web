@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import glob from 'glob';
-import type {GlobOptions} from 'glob';
+import type { GlobOptions } from 'glob';
 
 import { createError } from '../utils';
 import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions';
