@@ -1,4 +1,4 @@
-const glob = require('glob');
+const { glob } = require('glob');
 const fs = require('fs');
 const path = require('path');
 

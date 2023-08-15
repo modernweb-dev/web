@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import glob from 'glob';
+import type {GlobOptions} from 'glob';
 
 import { createError } from '../utils';
 import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions';
@@ -9,13 +10,9 @@ import { normalizeInputOptions } from './normalizeInputOptions';
 import { extractModulesAndAssets } from './extract/extractModulesAndAssets';
 import { InputOption } from 'rollup';
 
-function resolveGlob(fromGlob: string, opts: glob.IOptions) {
+function resolveGlob(fromGlob: string, opts: GlobOptions) {
   const files = glob.sync(fromGlob, { ...opts, absolute: true });
-  return (
-    files
-      // filter out directories
-      .filter(filePath => !fs.lstatSync(filePath).isDirectory())
-  );
+  return (files as any[]).filter(filePath => !fs.lstatSync(filePath).isDirectory());
 }
 
 function getName(filePath: string, rootDir: string, flattenOutput = true) {
