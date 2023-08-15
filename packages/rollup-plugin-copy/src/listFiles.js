@@ -14,7 +14,7 @@ const path = require('path');
  * @returns Promise<string[]>
  */
 async function listFiles(fromGlob, rootDir, ignore) {
-  const files = await glob(fromGlob, { cwd: rootDir, dot: true, ignore });
+  const files = (await glob(fromGlob, { cwd: rootDir, dot: true, ignore })) || [];
   return files
     .map(filePath => path.resolve(rootDir, filePath))
     .filter(filePath => !fs.lstatSync(filePath).isDirectory());
