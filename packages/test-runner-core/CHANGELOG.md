@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.11.4
+
+### Patch Changes
+
+- c69e3fcc: Destroy consumer when it is used and refactor the caching code for readability
+
 ## 0.11.3
 
 ### Patch Changes
