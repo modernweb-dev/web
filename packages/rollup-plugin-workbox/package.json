@@ -32,7 +32,7 @@
     "workbox"
   ],
   "dependencies": {
-    "esbuild": "^0.17.19",
+    "esbuild": "^0.19.2",
     "pretty-bytes": "^5.5.0",
     "workbox-build": "^7.0.0"
   },
