@@ -45,6 +45,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
       name: 'es-module-shims',
       test: polyfills.esModuleShims !== 'always' ? '1' : undefined,
       path: require.resolve('es-module-shims'),
+      minify: true,
     });
   }
 
