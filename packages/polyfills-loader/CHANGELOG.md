@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 2.1.2
+
+### Patch Changes
+
+- cb5da085: Minify `es-modules-shims`
+
 ## 2.1.1
 
 ### Patch Changes
