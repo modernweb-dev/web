@@ -71,7 +71,10 @@ class Bar {
             }
           },
         },
-        esbuildPlugin({ ts: true }),
+        esbuildPlugin({
+          ts: true,
+          tsconfig: path.join(__dirname, 'fixture', 'tsconfig-with-experimental-decorators.json')
+        }),
       ],
     });
 
