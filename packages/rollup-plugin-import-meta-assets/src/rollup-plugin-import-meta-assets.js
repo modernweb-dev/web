@@ -100,10 +100,12 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
               );
               modifiedCode = true;
             } catch (error) {
-              if (warnOnError) {
-                this.warn(error, node.arguments[0].start);
-              } else {
-                this.error(error, node.arguments[0].start);
+              if (error.code !== 'EISDIR') {
+                if (warnOnError) {
+                  this.warn(error, node.arguments[0].start);
+                } else {
+                  this.error(error, node.arguments[0].start);
+                }
               }
             }
           }

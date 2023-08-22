@@ -272,4 +272,24 @@ describe('rollup-plugin-import-meta-assets', () => {
       expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two-efaa9ab3.svg'),
     ]);
   });
+
+  it('ignores patterns that reference a directory', async () => {
+    const config = {
+      input: {
+        'directories-ignored': require.resolve('./fixtures/directories-and-simple-entrypoint.js'),
+      },
+      plugins: [importMetaAssets()],
+    };
+
+    const bundle = await rollup.rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(output.length).to.equal(5);
+    expectChunk(output, 'snapshots/directories-ignored.js', 'directories-ignored.js', [
+      expectAsset(output, 'snapshots/one.svg', 'one.svg', 'assets/one-824f522a.svg'),
+      expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two-efaa9ab3.svg'),
+      expectAsset(output, 'snapshots/three.svg', 'three.svg', 'assets/three-63bfb103.svg'),
+      expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-360cc920.svg'),
+    ]);
+  });
 });
