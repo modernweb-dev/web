@@ -49,12 +49,13 @@ describe('rollup-plugin-import-meta-assets', () => {
     const bundle = await rollup.rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
-    expect(output.length).to.equal(5);
+    expect(output.length).to.equal(6);
     expectChunk(output, 'snapshots/simple-bundle.js', 'simple-bundle.js', [
       expectAsset(output, 'snapshots/one.svg', 'one.svg', 'assets/one-824f522a.svg'),
       expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two-efaa9ab3.svg'),
       expectAsset(output, 'snapshots/three.svg', 'three.svg', 'assets/three-63bfb103.svg'),
       expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-360cc920.svg'),
+      expectAsset(output, 'snapshots/five', 'five', 'assets/five-cd1ca868'),
     ]);
   });
 
