@@ -48,6 +48,7 @@ function isNewUrlImportMetaUrl(node) {
 /**
  * Detects assets references relative to modules using patterns such as `new URL('./path/to/asset.ext', import.meta.url)`.
  * The assets are added to the rollup pipeline, allowing them to be transformed and hash the filenames.
+ * Patterns that represent directories are skipped.
  *
  * @param {object} options
  * @param {string|string[]} [options.include] A picomatch pattern, or array of patterns, which specifies the files in the build the plugin should operate on. By default all files are targeted.
@@ -100,10 +101,13 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
               );
               modifiedCode = true;
             } catch (error) {
-              if (warnOnError) {
-                this.warn(error, node.arguments[0].start);
-              } else {
-                this.error(error, node.arguments[0].start);
+              // Do not process directories, just skip
+              if (error.code !== 'EISDIR') {
+                if (warnOnError) {
+                  this.warn(error, node.arguments[0].start);
+                } else {
+                  this.error(error, node.arguments[0].start);
+                }
               }
             }
           }
