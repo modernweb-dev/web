@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module';
 import { Plugin, RollupOptions, RollupWarning } from 'rollup';
 
 import { nodeResolve as resolve } from '@rollup/plugin-node-resolve';
@@ -11,6 +12,8 @@ import terser from '@rollup/plugin-terser';
 import { mdxPlugin } from './mdxPlugin.js';
 import { mdjsPlugin } from './mdjsPlugin.js';
 import { injectExportsOrderPlugin } from './injectExportsOrderPlugin.js';
+
+const require = createRequire(import.meta.url);
 
 const prebuiltDir = require
   .resolve('@web/storybook-prebuilt/package.json')
