@@ -1,5 +1,11 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 2.0.2
+
+### Patch Changes
+
+- db02e2df: Make import-meta-assets rollup plugin ignore patterns like "new URL('./', import.meta.url)" that reference directories.
+
 ## 2.0.1
 
 ### Patch Changes
