@@ -50,7 +50,7 @@ To run the tests of a package, it's recommended to `cd` into the package directo
 
 ### Adding New Packages
 
-For all projects, the tsconfig/jsconfig configuration files are auto-generated. You need to add an entry to the [./workspace-packages.mjs](./workspace-packages.mjs) to let it generate a config for you. After adding an entry, run `npm run update-package-configs` to generate the files for you.
+For all projects, the tsconfig/jsconfig configuration files are auto-generated. You need to add an entry to the [./workspace-packages.mjs](./workspace-packages.mjs) to let it generate a config for you. After adding an entry, run `npm run update:tsconfigs` to generate the files for you.
 
 ### Creating a Changeset
 
