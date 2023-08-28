@@ -35,10 +35,13 @@
       "path": "../dev-server-rollup/tsconfig.json"
     },
     {
-      "path": "../dev-server-esbuild/tsconfig.json"
+      "path": "../polyfills-loader/tsconfig.json"
     },
     {
       "path": "../test-runner-webdriver/tsconfig.json"
+    },
+    {
+      "path": "../dev-server-esbuild/tsconfig.json"
     },
     {
       "path": "../dev-server-legacy/tsconfig.json"
