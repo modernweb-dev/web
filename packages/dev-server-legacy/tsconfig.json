@@ -15,6 +15,9 @@
     },
     {
       "path": "../dev-server-core/tsconfig.json"
+    },
+    {
+      "path": "../polyfills-loader/tsconfig.json"
     }
   ],
   "include": [

@@ -35,10 +35,10 @@
       "path": "../test-runner-playwright/tsconfig.json"
     },
     {
-      "path": "../test-runner-commands/tsconfig.json"
+      "path": "../test-runner-webdriver/tsconfig.json"
     },
     {
-      "path": "../test-runner-webdriver/tsconfig.json"
+      "path": "../test-runner-commands/tsconfig.json"
     }
   ],
   "include": [

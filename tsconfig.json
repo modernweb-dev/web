@@ -41,10 +41,10 @@
       "path": "./packages/test-runner-playwright/tsconfig.json"
     },
     {
-      "path": "./packages/dev-server-esbuild/tsconfig.json"
+      "path": "./packages/test-runner-webdriver/tsconfig.json"
     },
     {
-      "path": "./packages/test-runner-webdriver/tsconfig.json"
+      "path": "./packages/dev-server-esbuild/tsconfig.json"
     },
     {
       "path": "./packages/dev-server-legacy/tsconfig.json"
@@ -65,9 +65,6 @@
       "path": "./packages/rollup-plugin-polyfills-loader/tsconfig.json"
     },
     {
-      "path": "./packages/test-runner-selenium/tsconfig.json"
-    },
-    {
       "path": "./packages/rollup-plugin-copy/tsconfig.json"
     },
     {
@@ -83,10 +80,10 @@
       "path": "./packages/dev-server-import-maps/tsconfig.json"
     },
     {
-      "path": "./packages/dev-server-storybook/tsconfig.json"
+      "path": "./packages/test-runner-puppeteer/tsconfig.json"
     },
     {
-      "path": "./packages/test-runner-puppeteer/tsconfig.json"
+      "path": "./packages/test-runner-selenium/tsconfig.json"
     },
     {
       "path": "./packages/test-runner-browserstack/tsconfig.json"

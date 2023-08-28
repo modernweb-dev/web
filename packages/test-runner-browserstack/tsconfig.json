@@ -23,7 +23,10 @@
       "path": "../test-runner-core/tsconfig.json"
     },
     {
-      "path": "../test-runner-selenium/tsconfig.json"
+      "path": "../polyfills-loader/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-webdriver/tsconfig.json"
     },
     {
       "path": "../dev-server-legacy/tsconfig.json"
