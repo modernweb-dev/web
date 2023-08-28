@@ -29,11 +29,18 @@ for (const pkg of packages) {
       if (typeof val === 'string') {
         exportedFile = val;
       } else if (typeof val === 'object') {
-        if (!val.require) {
-          throw new Error(`Export map in package ${pkg.name} has an object but no require field.`);
+        if (val.default) {
+          exportedFile = val.default;
+        } else if (val.require) {
+          exportedFile = typeof val.require === 'object' ? val.require.default : val.require;
+          createEsmWrapper = true;
+        } else if (val.import) {
+          exportedFile = val.import;
+        } else {
+          throw new Error(
+            `Export map in package ${pkg.name} has an object but no default, import or require field.`,
+          );
         }
-        exportedFile = val.require;
-        createEsmWrapper = true;
       } else {
         throw new Error('Export map is not an object or string.');
       }
