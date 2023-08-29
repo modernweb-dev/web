@@ -15,6 +15,8 @@ const packages = [
   { name: 'dev-server-rollup', type: 'ts', environment: 'node' },
   { name: 'dev-server-legacy', type: 'ts', environment: 'node' },
   { name: 'dev-server-import-maps', type: 'ts', environment: 'node' },
+  { name: 'storybook-builder', type: 'ts', environment: 'node' },
+  { name: 'storybook-framework-web-components', type: 'ts', environment: 'node' },
   { name: 'test-runner', type: 'ts', environment: 'node' },
   { name: 'test-runner-core', type: 'ts', environment: 'node' },
   { name: 'test-runner-chrome', type: 'ts', environment: 'node' },
