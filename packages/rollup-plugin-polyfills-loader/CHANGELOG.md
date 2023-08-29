@@ -1,5 +1,11 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 2.0.1
+
+### Patch Changes
+
+- f6ba53f0: Export types with package
+
 ## 2.0.0
 
 ### Major Changes
