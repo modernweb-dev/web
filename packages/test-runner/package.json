@@ -91,7 +91,7 @@
     "command-line-usage": "^7.0.1",
     "convert-source-map": "^2.0.0",
     "diff": "^5.0.0",
-    "globby": "^11.0.1",
+    "globby": "^13.2.2",
     "nanocolors": "^0.2.1",
     "portfinder": "^1.0.32",
     "source-map": "^0.7.3"
