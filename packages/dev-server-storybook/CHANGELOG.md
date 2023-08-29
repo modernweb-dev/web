@@ -1,5 +1,14 @@
 # @web/dev-server-storybook
 
+## 1.0.3
+
+### Patch Changes
+
+- f6ba53f0: Fix `build-storybook` bin
+- Updated dependencies [f6ba53f0]
+  - @web/rollup-plugin-polyfills-loader@2.0.1
+  - @web/rollup-plugin-html@2.0.1
+
 ## 1.0.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @web/test-runner
 
+## 0.17.1
+
+### Patch Changes
+
+- 72d31ec6: update mjs entrypoint with formatError
+- Updated dependencies [5470b5b9]
+  - @web/dev-server@0.3.1
+
 ## 0.17.0
 
 ### Minor Changes

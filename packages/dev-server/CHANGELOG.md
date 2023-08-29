@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.3.1
+
+### Patch Changes
+
+- 5470b5b9: generate types entrypoint
+
 ## 0.3.0
 
 ### Minor Changes
