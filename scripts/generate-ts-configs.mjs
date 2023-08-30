@@ -92,6 +92,11 @@ packageDirnameMap.forEach((packageDirname, packageName) => {
     tsConfigOverride,
     { arrayMerge: overwriteMerge },
   );
+
+  if (pkg.ignoreTsConfig) {
+    return;
+  }
+
   fs.writeFileSync(tsconfigPath, TSCONFIG_COMMENT + JSON.stringify(tsconfigData, null, '  '));
 });
 
