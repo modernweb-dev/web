@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 1.0.4
+
+### Patch Changes
+
+- 4d67523f: Make sure to publish `@web/dev-server-storybook`
+
 ## 1.0.3
 
 ### Patch Changes
