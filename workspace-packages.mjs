@@ -29,7 +29,7 @@ const packages = [
   { name: 'test-runner-saucelabs', type: 'ts', environment: 'node' },
   { name: 'test-runner-visual-regression', type: 'ts', environment: 'node' },
   { name: 'test-runner-webdriver', type: 'ts', environment: 'node' },
-  { name: 'dev-server-storybook', ignore: true },
+  { name: 'dev-server-storybook', ignoreTsConfig: true },
 ];
 
 export { packages };

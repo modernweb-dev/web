@@ -93,7 +93,7 @@ packageDirnameMap.forEach((packageDirname, packageName) => {
     { arrayMerge: overwriteMerge },
   );
 
-  if (pkg.ignore) {
+  if (pkg.ignoreTsConfig) {
     return;
   }
 
