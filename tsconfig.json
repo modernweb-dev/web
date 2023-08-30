@@ -93,6 +93,9 @@
     },
     {
       "path": "./packages/test-runner-visual-regression/tsconfig.json"
+    },
+    {
+      "path": "./packages/dev-server-storybook/tsconfig.json"
     }
   ]
 }
