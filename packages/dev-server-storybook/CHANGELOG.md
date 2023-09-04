@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 1.0.5
+
+### Patch Changes
+
+- e1fc9961: Fix mdx imports once more
+
 ## 1.0.4
 
 ### Patch Changes
