@@ -26,7 +26,7 @@ export default {
 Add a `.storybook/main.js` file:
 
 ```js
-module.exports = {
+export default {
   stories: ['../stories/**/*.stories.@(js|jsx|ts|tsx)'],
 };
 ```
