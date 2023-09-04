@@ -12,7 +12,7 @@
   "scripts": {
     "build": "npm run build:clean && tsc --build",
     "build:clean": "rimraf --glob packages/*/tsconfig.tsbuildinfo && rimraf --glob packages/*/dist",
-    "build:production": "npm run build:clean && node scripts/workspaces-scripts-bin.mjs build:production",
+    "build:production": "node scripts/workspaces-scripts-bin.mjs build:production",
     "build:site": "npm run build && rocket build",
     "build:watch": "npm run build:clean && tsc --build --watch",
     "dev-to-git": "dev-to-git",
