@@ -10,10 +10,11 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "rimraf --glob packages/*/tsconfig.tsbuildinfo && tsc --build",
-    "build:production": "node scripts/workspaces-scripts-bin.mjs build:production",
+    "build": "npm run build:clean && tsc --build",
+    "build:clean": "rimraf --glob packages/*/tsconfig.tsbuildinfo && rimraf --glob packages/*/dist",
+    "build:production": "npm run build:clean && node scripts/workspaces-scripts-bin.mjs build:production",
     "build:site": "npm run build && rocket build",
-    "build:watch": "rimraf --glob packages/*/tsconfig.tsbuildinfo && tsc --build --watch",
+    "build:watch": "npm run build:clean && tsc --build --watch",
     "dev-to-git": "dev-to-git",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js,.mjs,.cjs . --fix",
