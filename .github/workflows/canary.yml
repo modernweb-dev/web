@@ -41,7 +41,7 @@ jobs:
       - name: Build types for js packages
         run: npm run types
 
-      - name: Build for production
+      - name: Build specific packages for production
         run: npm run build:production
 
       - name: Version canary release
