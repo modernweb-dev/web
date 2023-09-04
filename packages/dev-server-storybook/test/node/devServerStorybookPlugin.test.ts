@@ -1,13 +1,9 @@
-import path from 'node:path';
-import * as url from 'node:url';
 import { expect } from 'chai';
 import portfinder from 'portfinder';
 
-import { DevServer } from '../../../dev-server-core/index.mjs';
+import { DevServer, DevServerCoreConfig, Logger } from '@web/dev-server-core';
 
-import type { DevServerCoreConfig, Logger } from '../../../dev-server-core/index.d.ts';
-    
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+import { storybookPlugin } from '../../src/serve/storybookPlugin.js';
 
 const mockLogger: Logger = {
   ...console,
@@ -19,53 +15,63 @@ const mockLogger: Logger = {
   },
 };
 
-async function createTestServer(
-  config: Partial<DevServerCoreConfig>,
-  _mockLogger = mockLogger,
-) {
+const defaultConfig: Omit<DevServerCoreConfig, 'port' | 'rootDir'> = {
+  hostname: 'localhost',
+  injectWebSocket: true,
+  middleware: [],
+  plugins: [],
+};
+
+async function createTestServer(config: Partial<DevServerCoreConfig>) {
   if (!config.rootDir) {
     throw new Error('A rootDir must be configured.');
   }
 
-  const port = await portfinder.getPortPromise({
-    port: 9000 + Math.floor(Math.random() * 1000),
-  });
-  const server = new DevServer({ 
-    hostname: 'localhost',
-    injectWebSocket: true,
-    middleware: [],
-    plugins: [],
-    ...config, rootDir: config.rootDir, port },
-    _mockLogger,
+  const port = await portfinder.getPortPromise({ port: 9000 });
+  const server = new DevServer(
+    { ...defaultConfig, ...config, rootDir: config.rootDir, port },
+    mockLogger,
   );
   await server.start();
   return { server, port, host: `http://localhost:${port}` };
 }
 
-describe('dev-server-storybook', () => {
-  it('will load up a storybook UI', async () => {
-    const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixtures', 'bundle-basic'),
-      plugins: [],
-    });
+const configDir = './test/fixtures/storybook-config-dir';
 
-    try {
-      expect(1 + 1).to.equal(2);
-    } finally {
-      server.stop();
-    }
+describe('dev-server-storybook', () => {
+  describe('type=web-components', () => {
+    it('will load up a storybook UI', async () => {
+      const { server, host } = await createTestServer({
+        rootDir: 'foobar',
+        plugins: [storybookPlugin({ type: 'web-components', configDir })],
+      });
+
+      try {
+        const response = await fetch(`${host}/`);
+        const body = await response.text();
+        expect(body).to.include("import '@web/storybook-prebuilt/manager.js';");
+        expect(body).to.include('<title>Storybook</title>');
+      } finally {
+        server.stop();
+      }
+    });
   });
 
-  it('will build a static storybook site', async () => {
-    const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixtures', 'bundle-multi'),
-      plugins: [],
-    });
+  describe('type=preact', () => {
+    it('will load a storybook UI', async () => {
+      const { server, host } = await createTestServer({
+        rootDir: 'foobar',
+        plugins: [storybookPlugin({ type: 'preact', configDir })],
+      });
 
-    try {
-      expect(1 + 1).to.equal(2);
-    } finally {
-      server.stop();
-    }
+      try {
+        const response = await fetch(`${host}/`);
+        const body = await response.text();
+        expect(body).to.include('<title>Storybook</title>');
+        expect(body).to.include("import '@web/storybook-prebuilt/manager.js';");
+      } finally {
+        server.stop();
+      }
+    });
   });
 });
