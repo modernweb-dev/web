@@ -62,6 +62,9 @@
       "path": "./packages/test-runner/tsconfig.json"
     },
     {
+      "path": "./packages/storybook-builder/tsconfig.json"
+    },
+    {
       "path": "./packages/rollup-plugin-polyfills-loader/tsconfig.json"
     },
     {
@@ -78,6 +81,9 @@
     },
     {
       "path": "./packages/dev-server-import-maps/tsconfig.json"
+    },
+    {
+      "path": "./packages/storybook-framework-web-components/tsconfig.json"
     },
     {
       "path": "./packages/test-runner-puppeteer/tsconfig.json"
