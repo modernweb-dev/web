@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.1.8
+
+### Patch Changes
+
+- bec7bfe1: fix: add missing handler message
+
 ## 0.1.7
 
 ### Patch Changes
