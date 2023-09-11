@@ -18,6 +18,11 @@ export function _registerMockRoutes(system, bypassServiceWorker = false, ...mock
       throw new Error(`Unsupported method ${method}`);
     }
 
+    if (!handler) {
+      throw new Error(`Missing handler for method: "${method}", endpoint: "${endpoint}".
+This likely means there is something wrong with how you're using \`http.get(method, handler)\`. Make sure the \`handler\` exists and is a function.`);
+    }
+
     handlers.push(
       // @ts-ignore
       rest[method](endpoint, async ({ cookies, params, request }) => {
