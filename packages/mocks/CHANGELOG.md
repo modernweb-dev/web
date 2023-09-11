@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.1.9
+
+### Patch Changes
+
+- 1633a764: fix: error message
+
 ## 0.1.8
 
 ### Patch Changes
