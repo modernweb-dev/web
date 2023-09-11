@@ -20,7 +20,7 @@ export function _registerMockRoutes(system, bypassServiceWorker = false, ...mock
 
     if (!handler) {
       throw new Error(`Missing handler for method: "${method}", endpoint: "${endpoint}".
-This likely means there is something wrong with how you're using \`http.get(method, handler)\`. Make sure the \`handler\` exists and is a function.`);
+This likely means there is something wrong with how you're using \`http.get(endpoint, handler)\`. Make sure the \`handler\` exists and is a function.`);
     }
 
     handlers.push(
