@@ -258,19 +258,20 @@ describe('rollup-plugin-import-meta-assets', () => {
     );
   });
 
-  it('allows backticks in path if there are no dynamic parts included', async () => {
+  it('allows backtics and dynamic vars in path', async () => {
     const config = {
-      input: { backticks: require.resolve('./fixtures/backticks.js') },
+      input: { 'dynamic-vars': require.resolve('./fixtures/dynamic-vars.js') },
       plugins: [importMetaAssets({ warnOnError: true })],
     };
 
     const bundle = await rollup.rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
-    expect(output.length).to.equal(3);
-    expectChunk(output, 'snapshots/backticks.js', 'backticks.js', [
-      expectAsset(output, 'snapshots/one.svg', 'one.svg', 'assets/one-824f522a.svg'),
+    expect(output.length).to.equal(4);
+    expectChunk(output, 'snapshots/dynamic-vars.js', 'dynamic-vars.js', [
+      expectAsset(output, 'snapshots/three.svg', 'three.svg', 'assets/three-63bfb103.svg'),
       expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two-efaa9ab3.svg'),
+      expectAsset(output, 'snapshots/one.svg', 'one.svg', 'assets/one-824f522a.svg'),
     ]);
   });
 
