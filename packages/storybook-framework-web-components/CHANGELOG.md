@@ -1,5 +1,11 @@
 # @web/storybook-framework-web-components
 
+## 0.1.1
+
+### Patch Changes
+
+- ac6a79d1: Include package.json in package exports
+
 ## 0.1.0
 
 ### Minor Changes
