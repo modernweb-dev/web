@@ -24,7 +24,8 @@
       "require": "./dist/preset.js",
       "import": "./preset.mjs",
       "types": "./preset.d.ts"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "engines": {
     "node": ">=16.0.0"
