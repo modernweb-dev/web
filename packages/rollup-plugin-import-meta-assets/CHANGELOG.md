@@ -1,5 +1,11 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 2.1.0
+
+### Minor Changes
+
+- a8039a46: Enabled using dynamic import vars when importing assets
+
 ## 2.0.2
 
 ### Patch Changes
