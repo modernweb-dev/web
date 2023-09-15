@@ -47,7 +47,7 @@
   "dependencies": {
     "@web/test-runner-webdriver": "^0.7.0",
     "ip": "^1.1.5",
-    "nanoid": "^3.1.25",
+    "nanoid": "^5.0.1",
     "saucelabs": "^7.2.0",
     "webdriver": "^8.8.6",
     "webdriverio": "^8.8.6"
