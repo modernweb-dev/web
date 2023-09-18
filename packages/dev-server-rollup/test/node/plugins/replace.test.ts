@@ -15,7 +15,7 @@ describe('@rollup/plugin-replace', () => {
             return 'if (__buildEnv__ === "production") { console.log("foo"); }';
           },
         },
-        replace({ __buildEnv__: '"production"' }),
+        replace({ __buildEnv__: '"production"', preventAssignment: true }),
       ],
     });
 
