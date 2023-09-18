@@ -155,7 +155,7 @@ describe('TestScheduler', () => {
       expect(sessions.get('3')!.status).to.equal(SESSION_STATUS.INITIALIZING);
     });
 
-    it('scheduling new tests while executing keeps batching', async () => {
+    it('scheduling new tests while executing keeps batching @slow', async () => {
       const sessionIds = ['1', '2', '3', '4', '5', '6'];
       const [scheduler, sessions, sessionsToSchedule] = createTestFixture(...sessionIds);
 
@@ -213,7 +213,7 @@ describe('TestScheduler', () => {
       expect(finalSession1.errors[0].message).to.equal('mock error');
     });
 
-    it('error while starting browser after a session changed state gets logged', async () => {
+    it('error while starting browser after a session changed state gets logged @slow', async () => {
       const errorStub = hanbi.stubMethod(mockConfig.logger, 'error');
       const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
       stubs.startSession.returns(
@@ -254,7 +254,7 @@ describe('TestScheduler', () => {
       expect(finalSession1.errors[0].message).to.equal('mock error');
     });
 
-    it('timeout starting the browser marks the session as failed', async () => {
+    it('timeout starting the browser marks the session as failed @slow', async () => {
       mockConfig.browserStartTimeout = 2;
       const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
       stubs.startSession.returns(timeout(4));

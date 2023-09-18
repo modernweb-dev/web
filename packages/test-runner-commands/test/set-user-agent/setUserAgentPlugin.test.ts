@@ -7,7 +7,7 @@ import { setUserAgentPlugin } from '../../src/setUserAgentPlugin';
 describe('setUserAgentPlugin', function test() {
   this.timeout(20000);
 
-  it('can set the user agent on puppeteer', async () => {
+  it('can set the user agent on puppeteer @slow', async () => {
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],
       browsers: [chromeLauncher()],

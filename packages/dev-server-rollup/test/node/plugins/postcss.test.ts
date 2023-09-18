@@ -57,7 +57,7 @@ html {
     }
   });
 
-  it('passes the in-browser tests', async () => {
+  it('passes the in-browser tests @slow', async () => {
     await runTests({
       files: [resolve(__dirname, '..', 'fixtures', 'postcss', 'postcss-browser-test.js')],
       browsers: [chromeLauncher()],

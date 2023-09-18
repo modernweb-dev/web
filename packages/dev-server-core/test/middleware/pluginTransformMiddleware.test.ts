@@ -204,7 +204,7 @@ describe('plugin-transform middleware', () => {
     }
   });
 
-  it('allows users to turn off caching of response body', async () => {
+  it('allows users to turn off caching of response body @slow', async () => {
     const { host, server } = await createTestServer({
       plugins: [
         {
@@ -256,7 +256,7 @@ describe('plugin-transform middleware', () => {
     }
   });
 
-  it('plugins can configure cache keys', async () => {
+  it('plugins can configure cache keys @slow', async () => {
     let callCountA = 0;
     let callCountB = 0;
 

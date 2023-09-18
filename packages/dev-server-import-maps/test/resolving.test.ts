@@ -285,7 +285,7 @@ describe('resolving imports', () => {
     server.stop();
   });
 
-  it(`unchanged import maps does not create new import map ids`, async () => {
+  it(`unchanged import maps does not create new import map ids @slow`, async () => {
     let i = 0;
 
     const { server, host } = await createTestServer({

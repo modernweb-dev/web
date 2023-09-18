@@ -69,7 +69,7 @@ async function cleanupFixtures() {
     await fs.unlink(file);
 }
 
-describe('junitReporter', function () {
+describe('junitReporter @slow', function () {
   after(cleanupFixtures);
 
   describe('for a simple case', function () {

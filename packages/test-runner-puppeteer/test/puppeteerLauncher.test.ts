@@ -1,7 +1,7 @@
 import { runIntegrationTests } from '../../../integration/test-runner';
 import { puppeteerLauncher } from '../src/index';
 
-describe('test-runner-puppeteer', function testRunnerPuppeteer() {
+describe('test-runner-puppeteer @slow', function testRunnerPuppeteer() {
   this.timeout(20000);
 
   function createConfig() {

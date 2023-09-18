@@ -2,7 +2,7 @@ import os from 'os';
 import { runIntegrationTests } from '../../../integration/test-runner';
 import { playwrightLauncher } from '../src/index';
 
-describe('test-runner-playwright chromium', function testRunnerPlaywright() {
+describe('test-runner-playwright chromium @slow', function testRunnerPlaywright() {
   this.timeout(100000);
 
   function createConfig() {
@@ -20,7 +20,7 @@ describe('test-runner-playwright chromium', function testRunnerPlaywright() {
   });
 });
 
-describe('test-runner-playwright webkit', function testRunnerPlaywright() {
+describe('test-runner-playwright webkit @slow', function testRunnerPlaywright() {
   this.timeout(100000);
 
   function createConfig() {
@@ -40,7 +40,7 @@ describe('test-runner-playwright webkit', function testRunnerPlaywright() {
 
 // we don't run all tests in the windows CI
 if (os.platform() !== 'win32') {
-  describe('test-runner-playwright firefox', function testRunnerPlaywright() {
+  describe('test-runner-playwright firefox @slow', function testRunnerPlaywright() {
     this.timeout(100000);
 
     function createConfig() {
@@ -59,7 +59,7 @@ if (os.platform() !== 'win32') {
     });
   });
 
-  describe('test-runner-playwright all', function testRunnerPlaywright() {
+  describe('test-runner-playwright all @slow', function testRunnerPlaywright() {
     this.timeout(100000);
 
     function createConfig() {

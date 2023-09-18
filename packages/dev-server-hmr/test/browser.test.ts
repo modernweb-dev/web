@@ -33,7 +33,7 @@ describe('browser tests', function () {
     await browser.close();
   });
 
-  it('should bubble when bubbles is true', async () => {
+  it('should bubble when bubbles is true @slow', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
@@ -71,7 +71,7 @@ describe('browser tests', function () {
     }
   });
 
-  it('should hot replace a module', async () => {
+  it('should hot replace a module @slow', async () => {
     const files = {
       '/foo.html': '<script src="/foo.js" type="module"></script>',
       '/foo.js':
@@ -102,7 +102,7 @@ describe('browser tests', function () {
     }
   });
 
-  it('should hot replace a bubbled module', async () => {
+  it('should hot replace a bubbled module @slow', async () => {
     const files = {
       '/foo.html': '<script src="/foo.js" type="module"></script>',
       '/foo.js':
@@ -135,7 +135,7 @@ describe('browser tests', function () {
     }
   });
 
-  it('hot replaces multiple bubbled modules', async () => {
+  it('hot replaces multiple bubbled modules @slow', async () => {
     const files = {
       '/foo.html': '<script type="module">import "/foo.js"; import "/bar.js";</script>',
       '/foo.js':
@@ -174,7 +174,7 @@ describe('browser tests', function () {
     }
   });
 
-  it('reloads the page when a module has no hot replacable parent', async () => {
+  it('reloads the page when a module has no hot replacable parent @slow', async () => {
     const files = {
       '/foo.html':
         '<script src="/foo.js" type="module"></script><script src="/baz.js" type="module"></script>',

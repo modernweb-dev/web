@@ -1,11 +1,11 @@
-import { expect } from 'chai';
 import { Context } from 'koa';
+import { expect } from 'chai';
 import fetch from 'node-fetch';
 
 import { createTestServer } from '../helpers';
 
 describe('plugin-file-parsed middleware', () => {
-  it('is called after other plugin hooks', async () => {
+  it('is called after other plugin hooks @slow', async () => {
     const order: string[] = [];
     let context: Context | undefined;
     const { host, server } = await createTestServer({

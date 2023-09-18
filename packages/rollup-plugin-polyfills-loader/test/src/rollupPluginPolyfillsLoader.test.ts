@@ -55,7 +55,7 @@ const defaultOutputOptions: OutputOptions[] = [
   },
 ];
 
-describe('rollup-plugin-polyfills-loader', function describe() {
+describe('rollup-plugin-polyfills-loader @slow', function describe() {
   // bootup of the first test can take a long time in CI to load all the polyfills
   this.timeout(5000);
 

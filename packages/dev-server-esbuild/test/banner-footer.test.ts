@@ -8,7 +8,7 @@ import { esbuildPlugin } from '../src/index';
 describe('esbuildPlugin banner/footers', function () {
   this.timeout(5000);
 
-  it('prepends custom banner', async () => {
+  it('prepends custom banner @slow', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
@@ -38,7 +38,7 @@ describe('esbuildPlugin banner/footers', function () {
     }
   });
 
-  it('appends custom footer', async () => {
+  it('appends custom footer @slow', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [

@@ -56,7 +56,7 @@ describe('cjs package', () => {
     });
   }
 
-  it('throws when loading module-in-.cjs', async () => {
+  it('throws when loading module-in-.cjs @slow', async () => {
     let thrown = false;
     try {
       await readConfig(configName, undefined, path.resolve(packageCjsPath, 'module-in-.cjs'));
@@ -160,7 +160,7 @@ describe('mjs package', () => {
   });
 
   if (supportsEsm) {
-    it('can load module-in-.js', async () => {
+    it('can load module-in-.js @slow', async () => {
       const result = await readConfig(
         configName,
         undefined,

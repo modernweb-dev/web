@@ -3,7 +3,7 @@ import { rollupBundlePlugin } from '../../src/rollupBundlePlugin';
 import { createTestServer, fetchText, expectIncludes } from './test-helpers';
 
 describe('rollupBundlePlugin', () => {
-  it('can bundle a single entrypoint', async () => {
+  it('can bundle a single entrypoint @slow', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.join(__dirname, 'fixtures', 'bundle-basic'),
       plugins: [
@@ -26,7 +26,7 @@ describe('rollupBundlePlugin', () => {
     }
   });
 
-  it('can bundle multiple entrypoint', async () => {
+  it('can bundle multiple entrypoint @slow', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.join(__dirname, 'fixtures', 'bundle-multi'),
       plugins: [
@@ -71,7 +71,7 @@ describe('rollupBundlePlugin', () => {
     }
   });
 
-  it('can serve regular files not bundled by rollup', async () => {
+  it('can serve regular files not bundled by rollup @slow', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.join(__dirname, 'fixtures', 'bundle-basic'),
       plugins: [

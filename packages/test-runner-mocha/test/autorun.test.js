@@ -3,7 +3,7 @@ const { chromeLauncher } = require('@web/test-runner-chrome');
 const { resolve } = require('path');
 const { expect } = require('chai');
 
-it('can run tests with autorun', async function () {
+it('can run tests with autorun @slow', async function () {
   this.timeout(50000);
 
   const { sessions } = await runTests(

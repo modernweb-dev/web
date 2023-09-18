@@ -61,7 +61,7 @@ describe('basic', () => {
   });
 });
 
-it('can configure the hostname', async () => {
+it('can configure the hostname @slow', async () => {
   const { server, host } = await createTestServer({ hostname: 'localhost' });
   const response = await fetch(`${host}/index.html`);
   const responseText = await response.text();
@@ -95,7 +95,7 @@ it('can run in middleware mode', async () => {
   httpServer!.close();
 });
 
-it('can run multiple servers in parallel', async () => {
+it('can run multiple servers in parallel @slow', async () => {
   const results = [
     await createTestServer(),
     await createTestServer(),
@@ -173,7 +173,7 @@ it('calls serverStop on plugin hook on stop', async () => {
   expect(stopCalled).to.be.true;
 });
 
-it('waits on server start hooks before starting', async () => {
+it('waits on server start hooks before starting @slow', async () => {
   let aFinished = false;
   let bFinished = false;
 

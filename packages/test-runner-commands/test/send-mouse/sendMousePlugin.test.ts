@@ -7,7 +7,7 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 import { sendMousePlugin } from '../../src/sendMousePlugin';
 import { startSeleniumServer } from '../selenium-server';
 
-describe('sendMousePlugin', function test() {
+describe('sendMousePlugin @slow', function test() {
   this.timeout(50000);
 
   it('can send mouse on puppeteer', async () => {

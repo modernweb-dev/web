@@ -5,7 +5,7 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { sendKeysPlugin } from '../../src/sendKeysPlugin';
 
-describe('sendKeysPlugin', function test() {
+describe('sendKeysPlugin @slow', function test() {
   this.timeout(20000);
 
   it('can send keys on puppeteer', async () => {

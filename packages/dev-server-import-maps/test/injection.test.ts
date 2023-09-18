@@ -3,7 +3,7 @@ import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-c
 
 import { importMapsPlugin } from '../src/importMapsPlugin';
 
-it('can inject an import map into any page', async () => {
+it('can inject an import map into any page @slow', async () => {
   const { server, host } = await createTestServer({
     rootDir: __dirname,
     plugins: [
@@ -26,7 +26,7 @@ it('can inject an import map into any page', async () => {
   server.stop();
 });
 
-it('can use an include pattern', async () => {
+it('can use an include pattern @slow', async () => {
   const { server, host } = await createTestServer({
     rootDir: __dirname,
     plugins: [
