@@ -69,8 +69,6 @@ async function createTestRunner(
 
   const [browserStubs, browser] = createBrowserStub();
 
-  console.log(path.resolve(__dirname, '..', '..', '..', '..', '..'));
-
   const config: TestRunnerCoreConfig = {
     files: [path.resolve(__dirname, '..', '..', 'fixtures', 'a.test.js')],
     reporters: [],

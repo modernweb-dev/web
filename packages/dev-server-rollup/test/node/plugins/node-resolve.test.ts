@@ -90,19 +90,30 @@ describe('@rollup/plugin-node-resolve', () => {
   });
 
   it('throws on unresolved bare imports', async () => {
-    const { server, host } = await createTestServer({
-      plugins: [
-        nodeResolve(),
-        {
-          name: 'test',
-          serve(ctx) {
-            if (ctx.path === '/test-app.js') {
-              return 'import "non-existing"';
-            }
+    const { server, host } = await createTestServer(
+      {
+        plugins: [
+          nodeResolve(),
+          {
+            name: 'test',
+            serve(ctx) {
+              if (ctx.path === '/test-app.js') {
+                return 'import "non-existing"';
+              }
+            },
           },
+        ],
+      },
+      {
+        ...console,
+        debug() {
+          // no debug
         },
-      ],
-    });
+        logSyntaxError() {
+          // nothing
+        },
+      },
+    );
 
     try {
       const response = await fetch(`${host}/test-app.js`);
