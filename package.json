@@ -116,7 +116,9 @@
   "mocha": {
     "loader": "ts-node/esm",
     "exit": true,
-    "retries": 3
+    "retries": 3,
+    "slow": 100,
+    "timeout": 200
   },
   "overrides": {
     "@lion/accordion": "^0.11.1",
