@@ -20,7 +20,12 @@ async function getPackageType(basedir) {
         return pkgJson.type || 'commonjs';
       }
 
+      const previousPath = currentPath
       currentPath = path.resolve(currentPath, '..');
+
+      if(currentPath == previousPath) {
+        return 'commonjs'
+      }
     }
   } catch (e) {
     // don't log any error
