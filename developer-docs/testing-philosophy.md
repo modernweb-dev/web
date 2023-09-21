@@ -1,3 +1,5 @@
+# Testing Philosophy
+
 The Modern Web repository has a lot of tests. As the repository matures it's essential to have a reliable test suite so that changes are less likely to break existing features.
 
 One aspect where tests become unreliable is in regards to test execution time. Completing a single run of the node tests for the modern web project takes around 2 minutes. 2 minutes might not sound like a lot but it's enough to take a developer out of the flow state[^flow-state] while developing.
