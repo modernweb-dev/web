@@ -50,7 +50,7 @@ To run the tests of a package, it's recommended to `cd` into the package directo
 
 ### Adding Tests
 
-Any new functionality needs to include a set of tests that verify that behaviour. Additionally each test should run in under 100ms so that the test suite doesn't become bloated and burdensome to run.
+Any new functionality needs to include a set of tests that verify that behaviour. Additionally each test should run in under 75 ms so that the test suite doesn't become bloated and burdensome to run.
 
 See [out testing philosophy](./developer-docs/testing-philosophy.md) for more information.
 
