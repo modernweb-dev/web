@@ -10,7 +10,7 @@ The project would benefit from having high quality tests that run fast to provid
 
 In order to get the project started towards having tests that run fast, the tests are now split up into “slow” and “fast” tests. To include a test in the slow test suite, the name of the test needs to include the `@slow` mocha tag[^mocha-tags].
 
-Fast tests are slow when they take 100 ms to run and timeout at 200 ms. Tests that exceeds the fast test timeout limit are slow while all others tests are fast. Developers should write as tests fast tests where ever possible and only drop-down to the slow test suite when the alternative is impossible.
+Fast tests are slow when they take more than 25 ms to run and timeout at 75 ms. Tests that exceeds the fast test timeout limit are slow while all others tests are fast. Developers should write as tests fast tests where ever possible and only drop-down to the slow test suite when the alternative is impossible.
 
 The ultimate state of the test suite is to contain roughly 70% fast tests and 30% slow tests. The fast test run as part of the developer feedback loop and the slower slow tests can run either right before pushing to source control, or as part of a CI run before publishing the changes.
 

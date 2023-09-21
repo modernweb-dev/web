@@ -119,7 +119,8 @@
     "loader": "ts-node/esm",
     "exit": true,
     "retries": 3,
-    "timeout": 200
+    "timeout": 75,
+    "slow": 25
   },
   "overrides": {
     "@lion/accordion": "^0.11.1",
