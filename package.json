@@ -34,8 +34,8 @@
     "test": "npm run test:node && npm run test:browser && node scripts/workspaces-scripts-bin.mjs test:ci",
     "test:browser": "node packages/test-runner/dist/bin.js \"packages/*/test-browser/**/*.test.{js,ts}\"",
     "test:node": "npm run test:node:fast && npm run test:node:slow",
-    "test:node:slow": "mocha --reporter dot --grep @slow \"packages/!(*test-runner-selenium|*test-runner-webdriver)/test/**/*.test.{ts,js,mjs,cjs}\"",
-    "test:node:fast": "mocha --reporter dot --grep @slow --invert \"packages/!(*test-runner-selenium|*test-runner-webdriver)/test/**/*.test.{ts,js,mjs,cjs}\"",
+    "test:node:slow": "mocha --timeout 2000 --grep @slow \"packages/!(*test-runner-selenium|*test-runner-webdriver)/test/**/*.test.{ts,js,mjs,cjs}\"",
+    "test:node:fast": "mocha --grep @slow --invert \"packages/!(*test-runner-selenium|*test-runner-webdriver)/test/**/*.test.{ts,js,mjs,cjs}\"",
     "types": "wireit",
     "update": "npm run update:mjs-dts-entrypoints && npm run update:tsconfigs",
     "update-dependency": "node scripts/update-dependency.js",
@@ -119,7 +119,6 @@
     "loader": "ts-node/esm",
     "exit": true,
     "retries": 3,
-    "slow": 100,
     "timeout": 200
   },
   "overrides": {
