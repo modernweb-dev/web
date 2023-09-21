@@ -48,6 +48,12 @@ Commits are linted using precommit hooks, meaning that any code that raises a li
 
 To run the tests of a package, it's recommended to `cd` into the package directory and then using `npm run test` to run them. This way you're only running tests of that specific package. The project needs to have been built at least once with `npm run build` for the tests to run.
 
+### Adding Tests
+
+Any new functionality needs to include a set of tests that verify that behaviour. Additionally each test should run in under 100ms so that the test suite doesn't become bloated and burdensome to run.
+
+See [out testing philosophy](./developer-docs/testing-philosophy.md) for more information.
+
 ### Adding New Packages
 
 For all projects, the tsconfig/jsconfig configuration files are auto-generated. You need to add an entry to the [./workspace-packages.mjs](./workspace-packages.mjs) to let it generate a config for you. After adding an entry, run `npm run update:tsconfigs` to generate the files for you.
