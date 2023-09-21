@@ -161,9 +161,9 @@ describe('browser tests', function () {
         page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/baz.js`)),
       ]);
 
-      await page.waitForFunction(() => {
-        return document.body.outerHTML === '<body> foo  a  bar  a  foo  b  bar  b </body>'
-      });
+      await page.waitForFunction(
+        () => document.body.outerHTML === '<body> foo  a  bar  a  foo  b  bar  b </body>',
+      );
 
       for (const error of errors) {
         throw error;
