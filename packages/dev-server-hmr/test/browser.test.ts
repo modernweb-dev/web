@@ -24,7 +24,7 @@ type Predicate = (...args: unknown[]) => Promise<boolean> | boolean;
 
 async function pollFor(predicate: Predicate): Promise<void> {
   let content = await predicate();
-  while(!content) {
+  while (!content) {
     await timeout(10);
     content = await predicate();
   }
@@ -41,7 +41,7 @@ describe('browser tests', function () {
     await browser.close();
   });
 
-  it('should bubble when bubbles is true', async function() {
+  it('should bubble when bubbles is true', async function () {
     this.timeout(3000);
     const { server, host } = await createTestServer({
       rootDir: __dirname,
@@ -170,10 +170,10 @@ describe('browser tests', function () {
         page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/bar.js`)),
         page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/baz.js`)),
       ]);
-      
+
       await pollFor(async () => {
         const content = await page.content();
-        return content.includes('<body> foo  a  bar  a  foo  b  bar  b </body>')
+        return content.includes('<body> foo  a  bar  a  foo  b  bar  b </body>');
       });
 
       for (const error of errors) {
