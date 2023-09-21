@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { stubMethod } from 'hanbi';
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
+import { timeout, createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
 import { Browser, HTTPResponse, launch as launchPuppeteer, Page } from 'puppeteer';
 import { posix as pathUtil } from 'path';
 
@@ -18,6 +18,16 @@ function trackErrors(page: Page) {
     }
   });
   return errors;
+}
+
+type Predicate = (...args: unknown[]) => Promise<boolean> | boolean;
+
+async function pollFor(predicate: Predicate): Promise<void> {
+  let content = await predicate();
+  while(!content) {
+    await timeout(10);
+    content = await predicate();
+  }
 }
 
 describe('browser tests', function () {
@@ -160,7 +170,11 @@ describe('browser tests', function () {
         page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/bar.js`)),
         page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/baz.js`)),
       ]);
-      expectIncludes(await page.content(), '<body> foo  a  bar  a  foo  b  bar  b </body>');
+      
+      await pollFor(async () => {
+        const content = await page.content();
+        return content.includes('<body> foo  a  bar  a  foo  b  bar  b </body>')
+      });
 
       for (const error of errors) {
         throw error;
