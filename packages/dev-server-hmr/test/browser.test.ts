@@ -21,8 +21,6 @@ function trackErrors(page: Page) {
 }
 
 describe('browser tests', function () {
-  this.timeout(10000);
-
   let browser: Browser;
 
   before(async () => {
@@ -85,7 +83,7 @@ describe('browser tests', function () {
     const errors = trackErrors(page);
 
     try {
-      await page.goto(`${host}/foo.html`, { waitUntil: 'networkidle0' });
+      await page.goto(`${host}/foo.html`);
       expectIncludes(await page.content(), '<body> a </body>');
 
       files['/foo.js'] = files['/foo.js'].replace('" a "', '" b "');
@@ -117,13 +115,12 @@ describe('browser tests', function () {
     const errors = trackErrors(page);
 
     try {
-      await page.goto(`${host}/foo.html`, { waitUntil: 'networkidle0' });
+      await page.goto(`${host}/foo.html`);
       expectIncludes(await page.content(), '<body> a </body>');
 
       files['/bar.js'] = 'export default " b ";';
       server.fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
       await page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/bar.js`));
-      await new Promise(r => setTimeout(r, 1000));
       expectIncludes(await page.content(), '<body> a  b </body>');
 
       for (const error of errors) {
@@ -152,8 +149,8 @@ describe('browser tests', function () {
     const errors = trackErrors(page);
 
     try {
-      await page.goto(`${host}/foo.html`, { waitUntil: 'networkidle0' });
-      // expectIncludes(await page.content(), '<body> foo  a  bar  a </body>');
+      await page.goto(`${host}/foo.html`);
+      expectIncludes(await page.content(), '<body> foo  a  bar  a </body>');
 
       files['/baz.js'] = 'export default " b ";';
       server.fileWatcher.emit('change', pathUtil.join(__dirname, '/baz.js'));
@@ -162,8 +159,10 @@ describe('browser tests', function () {
         page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/bar.js`)),
         page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/baz.js`)),
       ]);
-      await new Promise(r => setTimeout(r, 1000));
-      expectIncludes(await page.content(), '<body> foo  a  bar  a  foo  b  bar  b </body>');
+
+      await page.waitForFunction(
+        () => document.body.outerHTML === '<body> foo  a  bar  a  foo  b  bar  b </body>',
+      );
 
       for (const error of errors) {
         throw error;
@@ -191,12 +190,12 @@ describe('browser tests', function () {
     const errors = trackErrors(page);
 
     try {
-      await page.goto(`${host}/foo.html`, { waitUntil: 'networkidle0' });
+      await page.goto(`${host}/foo.html`);
       await page.evaluate('document.body.appendChild(document.createTextNode(" c "))');
       expectIncludes(await page.content(), '<body> a  b  c </body>');
 
       server.fileWatcher.emit('change', pathUtil.join(__dirname, '/baz.js'));
-      await page.waitForNavigation({ waitUntil: 'networkidle0' });
+      await page.waitForNavigation();
       expectIncludes(await page.content(), '<body> a  b </body>');
 
       for (const error of errors) {
