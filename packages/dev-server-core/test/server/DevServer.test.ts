@@ -71,6 +71,36 @@ it('can configure the hostname', async () => {
   server.stop();
 });
 
+describe('http2', () => {
+  before(() => {
+    // Turn off the TLS authorized check in node.js so that we don't reject the network response
+    // based off the fact it has a self-signed certificate.
+    //
+    // A better way to achive this might be to _somehow_ load up the certificate used into the
+    // testing process so that we aren't just turning off the TLS/SSL certificate validation.
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+  });
+
+  after(() => {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "1";
+  });
+
+  it('serves a website', async () => {
+    const { server, host } = await createTestServer({ hostname: 'localhost', http2: true });
+    const response = await fetch(`${host}/index.html`);
+    console.log(response.body, response.size);
+    const responseText = await response.text();
+
+    // It's a bit of a shame that we can't verify that the response was delivered with a http/2
+    // protocol. It would be good to have a extra assertion here. Something like:
+    //
+    // expect(response.protocol).to.equal('http2');
+    expect(response.status).to.equal(200);
+    expect(responseText).to.include('<title>My app</title>');
+    server.stop();
+  });
+});
+
 it('can run in middleware mode', async () => {
   const { server: wdsServer } = await createTestServer({ middlewareMode: true });
   expect(wdsServer.server).to.equal(undefined);
