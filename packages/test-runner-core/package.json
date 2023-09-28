@@ -17,10 +17,12 @@
   "module": "./index.mjs",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./dist/index.js"
     },
     "./test-helpers": {
+      "types": "./dist/test-helpers.d.ts",
       "import": "./test-helpers.mjs",
       "require": "./dist/test-helpers.js"
     },

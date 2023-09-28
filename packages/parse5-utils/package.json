@@ -16,6 +16,7 @@
   "main": "src/index.js",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./src/index.js"
     }
