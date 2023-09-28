@@ -78,11 +78,11 @@ describe('http2', () => {
     //
     // A better way to achive this might be to _somehow_ load up the certificate used into the
     // testing process so that we aren't just turning off the TLS/SSL certificate validation.
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   });
 
   after(() => {
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "1";
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
   });
 
   it('serves a website', async () => {
