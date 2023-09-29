@@ -52,7 +52,11 @@ export async function createTestServer(
     _mockLogger,
   );
   await server.start();
-  return { server, port, host: `http://localhost:${port}` };
+
+  const url = new URL('http://localhost');
+  url.protocol = config.http2 ? 'https' : 'http';
+  url.port = port.toString();
+  return { server, port, host: url.toString().slice(0, -1) };
 }
 
 export const timeout = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
