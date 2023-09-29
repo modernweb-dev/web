@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-storybook",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "publishConfig": {
     "access": "public"
   },
@@ -76,7 +76,7 @@
   },
   "devDependencies": {
     "@types/path-is-inside": "^1.0.0",
-    "@web/dev-server": "^0.3.1",
+    "@web/dev-server": "^0.3.2",
     "htm": "^3.1.0"
   }
 }
