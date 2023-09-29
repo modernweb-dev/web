@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 1.0.6
+
+### Patch Changes
+
+- 7ae27f3c: fix: storybook import for windows
+
 ## 1.0.5
 
 ### Patch Changes

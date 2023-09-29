@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.3.2
+
+### Patch Changes
+
+- 7ae27f3c: fix: storybook import for windows
+
 ## 0.3.1
 
 ### Patch Changes
