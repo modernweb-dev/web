@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import { pathToFileURL } from 'url';
 
 import { StorybookPluginConfig } from './StorybookPluginConfig.js';
 import { createError } from '../utils.js';
@@ -70,7 +71,7 @@ export async function readStorybookConfig(
 
   const mainJs = commonJsMainExists
     ? validateMainJs((await import(commonJsMainPath)).default)
-    : validateMainJs((await import(mainJsPath)).default);
+    : validateMainJs((await import(pathToFileURL(mainJsPath).href)).default);
 
   return {
     mainJs,
