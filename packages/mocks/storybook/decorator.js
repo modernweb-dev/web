@@ -36,28 +36,30 @@ export const withMocks = makeDecorator({
 
     const editedMocks = getEditedMocks() ?? [];
 
-    const finalizedMocks = mocks.map(mock => {
-      const editedMock = editedMocks.find(
-        edited => edited.method === mock.method && edited.endpoint === mock.endpoint,
-      );
+    if (Array.isArray(mocks)) {
+      const finalizedMocks = mocks.map(mock => {
+        const editedMock = editedMocks.find(
+          edited => edited.method === mock.method && edited.endpoint === mock.endpoint,
+        );
 
-      return editedMock
-        ? {
-            ...editedMock,
-            handler: () =>
-              new Response(JSON.stringify(editedMock.data), {
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                status: editedMock.status,
-              }),
-          }
-        : mock;
-    });
+        return editedMock
+          ? {
+              ...editedMock,
+              handler: () =>
+                new Response(JSON.stringify(editedMock.data), {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  status: editedMock.status,
+                }),
+            }
+          : mock;
+      });
 
-    if (finalizedMocks) {
-      addons.getChannel().emit('mocks:loaded', finalizedMocks.flat(Infinity));
-      registerMockRoutes(finalizedMocks);
+      if (finalizedMocks) {
+        addons.getChannel().emit('mocks:loaded', finalizedMocks.flat(Infinity));
+        registerMockRoutes(finalizedMocks);
+      }
     }
 
     return getStory(context);

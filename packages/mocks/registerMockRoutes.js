@@ -13,7 +13,8 @@ export function _registerMockRoutes(system, bypassServiceWorker = false, ...mock
   system.resetHandlers();
 
   const handlers = [];
-  for (const { method, endpoint, handler } of mocks.flat(Infinity)) {
+
+  for (let { method, endpoint, handler } of mocks.flat(Infinity)) {
     if (!SUPPORTED_METHODS.includes(method.toLowerCase())) {
       throw new Error(`Unsupported method ${method}`);
     }
@@ -21,6 +22,17 @@ export function _registerMockRoutes(system, bypassServiceWorker = false, ...mock
     if (!handler) {
       throw new Error(`Missing handler for method: "${method}", endpoint: "${endpoint}".
 This likely means there is something wrong with how you're using \`http.get(endpoint, handler)\`. Make sure the \`handler\` exists and is a function.`);
+    }
+
+    /**
+     * If the `endpoint` starts with a "/", we append a "*" in front of it because
+     * some api calls may have an optional prefix, for example: "https://api.localhost:8000/api/foo"
+     *
+     * Adding the "*" will match api calls made with a prefix, and api calls made without a prefix,
+     * without the need to overwrite the native fetch function.
+     */
+    if (endpoint.startsWith('/')) {
+      endpoint = '*' + endpoint;
     }
 
     handlers.push(
