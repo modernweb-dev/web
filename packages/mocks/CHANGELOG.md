@@ -1,5 +1,12 @@
 # @web/mocks
 
+## 0.1.10
+
+### Patch Changes
+
+- 69bf1091: fix: api prefix
+- 68bf3293: fix: types
+
 ## 0.1.9
 
 ### Patch Changes
