@@ -40,7 +40,7 @@ export async function parseBrowserLogs(
 
   const logs: any[][] = [];
   for (const log of logsWithType) {
-    if (!config.filterBrowserLogs || config.filterBrowserLogs(log)) {
+    if (!config.filterBrowserLogs || config.filterBrowserLogs(log, result)) {
       logs.push(log.args);
     }
   }
