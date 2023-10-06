@@ -4,6 +4,7 @@ import cjsEntrypoint from './dist/index.js';
 const {
   setViewportPlugin,
   emulateMediaPlugin,
+  selectOptionPlugin,
   setUserAgentPlugin,
   sendKeysPlugin,
   sendMousePlugin,
@@ -15,6 +16,7 @@ const {
 export {
   setViewportPlugin,
   emulateMediaPlugin,
+  selectOptionPlugin,
   setUserAgentPlugin,
   sendKeysPlugin,
   sendMousePlugin,

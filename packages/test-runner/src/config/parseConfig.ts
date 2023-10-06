@@ -2,6 +2,7 @@ import { CoverageConfig, TestRunnerCoreConfig, TestRunnerGroupConfig } from '@we
 import { chromeLauncher } from '@web/test-runner-chrome';
 import {
   emulateMediaPlugin,
+  selectOptionPlugin,
   setUserAgentPlugin,
   setViewportPlugin,
   sendKeysPlugin,
@@ -251,6 +252,7 @@ export async function parseConfig(
     setViewportPlugin(),
     emulateMediaPlugin(),
     setUserAgentPlugin(),
+    selectOptionPlugin(),
     filePlugin(),
     sendKeysPlugin(),
     sendMousePlugin(),
