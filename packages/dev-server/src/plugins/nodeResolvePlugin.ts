@@ -14,11 +14,13 @@ export function nodeResolvePlugin(
       extensions: ['.mjs', '.js', '.cjs', '.jsx', '.json', '.ts', '.tsx'],
       moduleDirectories: ['node_modules', 'web_modules'],
       // allow resolving polyfills for nodejs libs
-      preferBuiltins: false,
-      exportConditions: ['development'],
+      preferBuiltins: false
     },
     userOptionsObject,
   );
+
+  // use user config exportConditions if present. otherwise use ['development']
+  options.exportConditions = userOptionsObject.exportConditions || ['development'];
 
   return rollupAdapter(
     nodeResolve(options),
