@@ -138,7 +138,7 @@ export function sendMouse(payload: SendMousePayload): Promise<void>;
 
 /**
  * Selects an option in a <select> element by value or label
- * 
+ *
  * @example
  * ```
  * it('natively selects an option by value', async () => {
