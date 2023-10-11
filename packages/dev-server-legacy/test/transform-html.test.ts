@@ -28,7 +28,7 @@ const inlineScriptHtmlBody = `
 describe('legacyPlugin - transform html', function () {
   this.timeout(10000);
 
-  it(`does not do any work on a modern browser`, async () => {
+  it(`does not do any work on a modern browser @slow`, async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
@@ -52,7 +52,7 @@ describe('legacyPlugin - transform html', function () {
     server.stop();
   });
 
-  it(`injects polyfills into the HTML page on legacy browsers`, async () => {
+  it(`injects polyfills into the HTML page on legacy browsers @slow`, async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
@@ -78,7 +78,7 @@ describe('legacyPlugin - transform html', function () {
     server.stop();
   });
 
-  it(`injects systemjs param to inline modules`, async () => {
+  it(`injects systemjs param to inline modules @slow`, async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
@@ -102,7 +102,7 @@ describe('legacyPlugin - transform html', function () {
     server.stop();
   });
 
-  it(`handles inline scripts`, async () => {
+  it(`handles inline scripts @slow`, async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
@@ -129,7 +129,7 @@ describe('legacyPlugin - transform html', function () {
     server.stop();
   });
 
-  it(`can request inline scripts`, async () => {
+  it(`can request inline scripts @slow`, async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
@@ -156,7 +156,7 @@ describe('legacyPlugin - transform html', function () {
     server.stop();
   });
 
-  it(`includes url parameters in inline script key`, async () => {
+  it(`includes url parameters in inline script key @slow`, async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [

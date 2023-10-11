@@ -6,7 +6,7 @@ import { Logger } from '@web/dev-server-core';
 describe('executeServerCommand', function test() {
   this.timeout(20000);
 
-  it('can execute commands', async () => {
+  it('can execute commands @slow', async () => {
     const logger: Logger = {
       ...console,
       debug() {

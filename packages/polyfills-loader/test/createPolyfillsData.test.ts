@@ -20,7 +20,7 @@ function cleanupPolyfill(polyfill: PolyfillFile) {
 }
 
 describe('polyfills', () => {
-  it('returns the correct polyfills data', async () => {
+  it('returns the correct polyfills data @slow', async () => {
     const config: PolyfillsLoaderConfig = {
       modern: { files: [{ type: fileTypes.MODULE, path: 'foo.js' }] },
       polyfills: {
@@ -127,7 +127,7 @@ describe('polyfills', () => {
     ]);
   });
 
-  it('adds abort controller to the fetch polyfill', async () => {
+  it('adds abort controller to the fetch polyfill @slow', async () => {
     const config: PolyfillsLoaderConfig = {
       modern: { files: [{ type: fileTypes.MODULE, path: 'foo.js' }] },
       polyfills: {

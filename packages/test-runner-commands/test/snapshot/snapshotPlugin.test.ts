@@ -7,7 +7,7 @@ import { snapshotPlugin } from '../../src/snapshotPlugin';
 describe('snapshotPlugin', function test() {
   this.timeout(20000);
 
-  it('passes snapshot tests', async () => {
+  it('passes snapshot tests @slow', async () => {
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],
       browsers: [

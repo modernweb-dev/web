@@ -30,7 +30,7 @@ async function testSnapshot({ name, config, expectedFiles = [] }: TestSnapshotAr
   }
 }
 
-describe('createPolyfillsLoader', function describe() {
+describe('createPolyfillsLoader @slow', function describe() {
   // bootup of the first test can take a long time in CI to load all the polyfills
   this.timeout(5000);
 

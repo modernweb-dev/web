@@ -5,7 +5,7 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { a11ySnapshotPlugin } from '../../src/a11ySnapshotPlugin';
 
-describe('a11ySnapshotPlugin', function test() {
+describe('a11ySnapshotPlugin @slow', function test() {
   this.timeout(20000);
 
   it('can find accessibility nodes in the returned accessibility tree on puppeteer', async () => {

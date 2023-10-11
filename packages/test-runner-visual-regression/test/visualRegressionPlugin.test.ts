@@ -7,7 +7,7 @@ import { visualRegressionPlugin } from '../src/visualRegressionPlugin';
 import { fileExists } from '../src/fs';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
-describe('visualRegressionPlugin', function test() {
+describe('visualRegressionPlugin @slow', function test() {
   this.timeout(20000);
 
   it('can run a passing test', async () => {

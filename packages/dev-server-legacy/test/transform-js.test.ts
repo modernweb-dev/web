@@ -45,7 +45,7 @@ describe('legacyPlugin - transform js', function () {
   }
 
   for (const [name, userAgent] of Object.entries(legacyUserAgents)) {
-    it(`transforms to es5 on ${name}`, async () => {
+    it(`transforms to es5 on ${name} @slow`, async () => {
       const { server, host } = await createTestServer({
         rootDir: __dirname,
         plugins: [
@@ -76,7 +76,7 @@ describe('legacyPlugin - transform js', function () {
       server.stop();
     });
 
-    it(`transforms to SystemJS when systemjs paramater is given ${name}`, async () => {
+    it(`transforms to SystemJS when systemjs paramater is given ${name} @slow`, async () => {
       const { server, host } = await createTestServer({
         rootDir: __dirname,
         plugins: [

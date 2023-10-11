@@ -188,7 +188,7 @@ describe('HmrPlugin', () => {
     }
   });
 
-  it('imports changed dependencies with a unique URL', async () => {
+  it('imports changed dependencies with a unique URL @slow', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
@@ -216,7 +216,7 @@ describe('HmrPlugin', () => {
     }
   });
 
-  it('imports deeply changed dependencies with a unique URL', async () => {
+  it('imports deeply changed dependencies with a unique URL @slow', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [
@@ -245,7 +245,7 @@ describe('HmrPlugin', () => {
     }
   });
 
-  it('multiple dependents will import deep dependency changes with a unique URL', async () => {
+  it('multiple dependents will import deep dependency changes with a unique URL @slow', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
       plugins: [

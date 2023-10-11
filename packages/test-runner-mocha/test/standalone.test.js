@@ -3,7 +3,7 @@ const { chromeLauncher } = require('@web/test-runner-chrome');
 const { resolve } = require('path');
 const { expect } = require('chai');
 
-it('can run tests with standalone', async function () {
+it('can run tests with standalone @slow', async function () {
   this.timeout(50000);
 
   const { sessions } = await runTests(
@@ -42,7 +42,7 @@ it('can run tests with standalone', async function () {
   expect(sessions[0].testResults.suites[0].suites[0].tests[1].passed).to.equal(true);
 });
 
-it('captures errors during setup', async function () {
+it('captures errors during setup @slow', async function () {
   this.timeout(50000);
 
   const { sessions } = await runTests(

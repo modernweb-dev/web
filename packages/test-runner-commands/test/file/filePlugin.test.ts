@@ -7,7 +7,7 @@ import { filePlugin } from '../../src/filePlugin';
 describe('filePlugin', function test() {
   this.timeout(20000);
 
-  it('passes file plugin tests', async () => {
+  it('passes file plugin tests @slow', async () => {
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],
       browsers: [chromeLauncher()],

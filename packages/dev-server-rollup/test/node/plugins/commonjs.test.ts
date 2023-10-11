@@ -11,7 +11,7 @@ import { nodeResolvePlugin } from '@web/dev-server';
 const commonjs = fromRollup(rollupCommonjs);
 
 describe('@rollup/plugin-commonjs', () => {
-  it('can transform a commonjs module with a default export', async () => {
+  it('can transform a commonjs module with a default export @slow', async () => {
     const { server, host } = await createTestServer({
       plugins: [
         {
@@ -136,7 +136,7 @@ exports.default = _default;`;
     }
   });
 
-  it('can transform modules which require node-resolved modules', async () => {
+  it('can transform modules which require node-resolved modules @slow', async () => {
     const rootDir = path.resolve(__dirname, '..', 'fixtures', 'basic');
     const { server, host } = await createTestServer({
       plugins: [
@@ -196,7 +196,7 @@ exports.default = _default;`;
     }
   });
 
-  it('passes the in-browser tests', async function () {
+  it('passes the in-browser tests @slow', async function () {
     this.timeout(20000);
 
     await runTests({

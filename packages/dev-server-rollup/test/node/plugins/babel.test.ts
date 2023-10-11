@@ -7,7 +7,7 @@ import { fromRollup } from '../../../src/index';
 const babel = fromRollup(rollupBabel);
 
 describe('@rollup/plugin-alias', () => {
-  it('can resolve imports', async () => {
+  it('can resolve imports @slow', async () => {
     const { server, host } = await createTestServer({
       plugins: [
         {

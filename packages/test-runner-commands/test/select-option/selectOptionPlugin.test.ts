@@ -5,7 +5,7 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { selectOptionPlugin } from '../../src/selectOptionPlugin';
 
-describe('selectOptionPlugin', function test() {
+describe('selectOptionPlugin @slow', function test() {
   this.timeout(20000);
 
   it('can send keys on puppeteer', async () => {

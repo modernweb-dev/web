@@ -60,7 +60,7 @@ describe('etag cache middleware', () => {
       fs.unlinkSync(testFileBPath);
     });
 
-    it('returns 200 responses if file changed', async () => {
+    it('returns 200 responses if file changed @slow', async () => {
       fs.writeFileSync(testFileBPath, '// this file is cached', 'utf-8');
 
       const initialResponse = await fetch(`${host}${testFileBName}`);

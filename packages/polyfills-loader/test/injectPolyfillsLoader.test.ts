@@ -41,7 +41,7 @@ describe('injectPolyfillsLoader', () => {
     await await testSnapshot('no-polyfills-no-legacy', html, defaultConfig);
   });
 
-  it('injects a loader with module and polyfills', async () => {
+  it('injects a loader with module and polyfills @slow', async () => {
     const html = `
       <div>before</div>
       <script type="module" src="./app.js"></script>
@@ -86,7 +86,7 @@ describe('injectPolyfillsLoader', () => {
     });
   });
 
-  it('injects a loader with module, legacy and polyfills', async () => {
+  it('injects a loader with module, legacy and polyfills @slow', async () => {
     const html = `
       <div>before</div>
       <script type="module" src="./app.js"></script>
@@ -231,7 +231,7 @@ describe('injectPolyfillsLoader', () => {
     });
   });
 
-  it('can injects a loader externally', async () => {
+  it('can injects a loader externally @slow', async () => {
     const html = `
       <div>before</div>
       <script type="module" src="./app.js"></script>

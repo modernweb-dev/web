@@ -5,7 +5,7 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { emulateMediaPlugin } from '../../src/emulateMediaPlugin';
 
-describe('emulateMediaPlugin', function test() {
+describe('emulateMediaPlugin @slow', function test() {
   this.timeout(20000);
 
   it('can emulate media on puppeteer', async () => {

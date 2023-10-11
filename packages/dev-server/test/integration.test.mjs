@@ -49,7 +49,7 @@ describe('integration tests', () => {
   });
 
   for (const testCase of testCases) {
-    describe(`testcase ${testCase.name}`, function test() {
+    describe(`testcase ${testCase.name} @slow`, function test() {
       this.timeout(30000);
       let server;
 
@@ -65,7 +65,7 @@ describe('integration tests', () => {
         await server.stop();
       });
 
-      it('passes the in-browser tests', async function it() {
+      it('passes the in-browser tests @slow', async function it() {
         const openPath = `/demo/${testCase.name}/`;
         const browserPath = `http://${server.config.hostname}:${server.config.port}${openPath}`;
         const page = await browser.newPage();

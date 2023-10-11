@@ -258,7 +258,7 @@ describe('rollup-plugin-import-meta-assets', () => {
     );
   });
 
-  it('allows backtics and dynamic vars in path', async () => {
+  it('allows backtics and dynamic vars in path @slow', async () => {
     const config = {
       input: { 'dynamic-vars': require.resolve('./fixtures/dynamic-vars.js') },
       plugins: [importMetaAssets({ warnOnError: true })],

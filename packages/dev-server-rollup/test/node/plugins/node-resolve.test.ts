@@ -47,7 +47,7 @@ describe('@rollup/plugin-node-resolve', () => {
     }
   });
 
-  it('can resolve imports in inline scripts', async () => {
+  it('can resolve imports in inline scripts @slow', async () => {
     const { server, host } = await createTestServer({
       plugins: [nodeResolve()],
     });
@@ -60,7 +60,7 @@ describe('@rollup/plugin-node-resolve', () => {
     }
   });
 
-  it('can resolve private imports in inline scripts', async () => {
+  it('can resolve private imports in inline scripts @slow', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.resolve(__dirname, '..', 'fixtures', 'private-imports'),
       plugins: [nodeResolve()],
@@ -75,7 +75,7 @@ describe('@rollup/plugin-node-resolve', () => {
     }
   });
 
-  it('throws when trying to access files from the package directly if they are not exposed in the export map', async () => {
+  it('throws when trying to access files from the package directly if they are not exposed in the export map @slow', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.resolve(__dirname, '..', 'fixtures', 'private-imports'),
       plugins: [nodeResolve()],
@@ -90,19 +90,30 @@ describe('@rollup/plugin-node-resolve', () => {
   });
 
   it('throws on unresolved bare imports', async () => {
-    const { server, host } = await createTestServer({
-      plugins: [
-        nodeResolve(),
-        {
-          name: 'test',
-          serve(ctx) {
-            if (ctx.path === '/test-app.js') {
-              return 'import "non-existing"';
-            }
+    const { server, host } = await createTestServer(
+      {
+        plugins: [
+          nodeResolve(),
+          {
+            name: 'test',
+            serve(ctx) {
+              if (ctx.path === '/test-app.js') {
+                return 'import "non-existing"';
+              }
+            },
           },
+        ],
+      },
+      {
+        ...console,
+        debug() {
+          // no debug
         },
-      ],
-    });
+        logSyntaxError() {
+          // nothing
+        },
+      },
+    );
 
     try {
       const response = await fetch(`${host}/test-app.js`);
@@ -135,7 +146,7 @@ describe('@rollup/plugin-node-resolve', () => {
     }
   });
 
-  it('node modules resolved outside root directory with matching basename via symlink are rewritten', async () => {
+  it('node modules resolved outside root directory with matching basename via symlink are rewritten @slow', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir'),
       plugins: [nodeResolve()],

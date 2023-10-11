@@ -1,7 +1,7 @@
 import { runIntegrationTests } from '../../../integration/test-runner';
 import { chromeLauncher } from '../src/index';
 
-describe('test-runner-chrome', function testRunnerChrome() {
+describe('test-runner-chrome @slow', function testRunnerChrome() {
   this.timeout(20000);
 
   function createConfig() {
