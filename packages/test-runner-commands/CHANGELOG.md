@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 0.8.1
+
+### Patch Changes
+
+- d07fc49c: Add the selectOption plugin's exports and types correctly
+
 ## 0.8.0
 
 ### Minor Changes

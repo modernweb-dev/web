@@ -1,5 +1,15 @@
 # @web/test-runner
 
+## 0.17.2
+
+### Patch Changes
+
+- d07fc49c: Add the selectOption plugin's exports and types correctly
+- Updated dependencies [d07fc49c]
+- Updated dependencies [d9996d2d]
+  - @web/test-runner-commands@0.8.1
+  - @web/dev-server@0.3.3
+
 ## 0.17.1
 
 ### Patch Changes
