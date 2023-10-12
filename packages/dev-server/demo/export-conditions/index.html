@@ -1,0 +1,31 @@
+<html>
+  <body>
+    <img width="100" src="../logo.png" />
+
+    <h1>Node resolve demo</h1>
+    <p>A demo which resolves bare module imports</p>
+
+    <div id="test"></div>
+
+    <script type="module">
+      // inline bare modules are resolved
+      import { render, html } from 'lit-html';
+
+      window.__inlineNodeResolve = !!render && !!html;
+    </script>
+
+    <script type="module">
+
+      window.__tests = {
+        // lit-html only adds this global in development mode
+        // so when the exportCondition is overwritten, it'll be undefined
+        prodExport: typeof window.litIssuedWarnings === 'undefined',
+      };
+      document.getElementById('test').innerHTML = `<pre>${JSON.stringify(
+        window.__tests,
+        null,
+        2,
+      )}</pre>`;
+    </script>
+  </body>
+</html>

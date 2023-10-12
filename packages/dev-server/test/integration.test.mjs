@@ -33,6 +33,10 @@ const testCases = [
     name: 'syntax',
     tests: ['stage4', 'inlineStage4', 'importMeta', 'staticImports', 'dynamicImports'],
   },
+  {
+    name: 'export-conditions',
+    tests: ['prodExport'],
+  },
 ];
 
 describe('integration tests', () => {
