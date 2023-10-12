@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.3.3
+
+### Patch Changes
+
+- d9996d2d: Fix an issue where the nodeResolve plugin wasn't accepting user configuration correctly
+
 ## 0.3.2
 
 ### Patch Changes
