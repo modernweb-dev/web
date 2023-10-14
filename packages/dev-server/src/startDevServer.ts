@@ -7,6 +7,7 @@ import { readFileConfig } from './config/readFileConfig';
 import { DevServerStartError } from './DevServerStartError';
 import { createLogger } from './logger/createLogger';
 import { openBrowser } from './openBrowser';
+import { Server } from 'net';
 
 export interface StartDevServerParams {
   /**
@@ -37,6 +38,10 @@ export interface StartDevServerParams {
    * Array to read the CLI args from. Defaults to process.argv.
    */
   argv?: string[];
+  /**
+   * When running as a middleware the server that WDS is running in.
+   */
+  externalServer?: Server;
 }
 
 /**
@@ -51,6 +56,7 @@ export async function startDevServer(options: StartDevServerParams = {}) {
     autoExitProcess = true,
     logStartMessage = true,
     argv = process.argv,
+    externalServer,
   } = options;
 
   try {
@@ -69,7 +75,7 @@ export async function startDevServer(options: StartDevServerParams = {}) {
     config.plugins = config.plugins ?? [];
     config.plugins.unshift(loggerPlugin);
 
-    const server = new DevServer(config, logger);
+    const server = new DevServer(config, logger, undefined, externalServer);
 
     if (autoExitProcess) {
       process.on('uncaughtException', error => {
