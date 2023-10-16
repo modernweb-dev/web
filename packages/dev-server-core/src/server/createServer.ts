@@ -79,6 +79,7 @@ export function createServer(
           : path.join(dir, '..', '.self-signed-dev-server-ssl.cert'),
       ),
       allowHTTP1: true,
+      maxSessionMemory: 20,
     };
 
     const httpsRedirectServer = httpServer.createServer(httpsRedirect);
