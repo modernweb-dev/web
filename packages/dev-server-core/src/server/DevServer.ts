@@ -19,7 +19,6 @@ export class DevServer {
     public config: DevServerCoreConfig,
     public logger: Logger,
     public fileWatcher = chokidar.watch([]),
-    externalServer?: Server,
   ) {
     if (!config) throw new Error('Missing config.');
     if (!logger) throw new Error('Missing logger.');
@@ -28,7 +27,7 @@ export class DevServer {
       this.logger,
       this.config,
       this.fileWatcher,
-      config.middlewareMode,
+      !!config.middlewareMode,
     );
     this.koaApp = app;
     if (server) {
@@ -40,8 +39,11 @@ export class DevServer {
           this.connections.delete(connection);
         });
       });
-    } else if (externalServer) {
-      this.webSockets = new WebSocketsManager(externalServer);
+    } else if (
+      typeof this.config.middlewareMode === 'object' &&
+      this.config.middlewareMode.server
+    ) {
+      this.webSockets = new WebSocketsManager(this.config.middlewareMode.server);
     }
   }
 
