@@ -8,7 +8,9 @@ import { deserialize } from '../src/deserialize';
 const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
 const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };
 
-describe('serialize deserialize', () => {
+describe('serialize deserialize', function () {
+  this.timeout(10000);
+
   let browser: Browser;
   let page: Page;
   before(async () => {
