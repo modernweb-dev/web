@@ -1,0 +1,40 @@
+name: Verify Storybook Builder
+
+on: pull_request
+
+jobs:
+  verify-storybook-builder:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        env:
+          FORCE_COLOR: 0
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build packages
+        run: npm run build
+
+      - name: Symlink built packages binaries (e.g. "wds")
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run tests
+        run: npm run test:storybook-builder
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: packages/storybook-framework-web-components/playwright-report/
+          retention-days: 30
