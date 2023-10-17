@@ -69,13 +69,14 @@ export class ChromeLauncherPage {
         // eslint-disable-next-line @typescript-eslint/ban-types
         function patchFunction(name: string, fn: Function) {
           (window as any)[name] = (...args: unknown[]) => {
-            fn.call(window, ...args);
+            const result = fn.call(window, ...args);
             const id = Math.random().toString().substring(2);
             // Make sure that the tab running the test code is brought back to the front.
             window.__bringTabToFront(id);
             fn.call(window, () => {
               window.__releaseLock(id);
             });
+            return result;
           };
         }
 
