@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.6.0
+
+### Minor Changes
+
+- 7f0f4315: Raise-up the maxSessionMemory of the http2 server to avoid network errors when a large number of files are served
+
 ## 0.5.2
 
 ### Patch Changes

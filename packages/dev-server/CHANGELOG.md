@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.3.4
+
+### Patch Changes
+
+- Updated dependencies [7f0f4315]
+  - @web/dev-server-core@0.6.0
+  - @web/dev-server-rollup@0.5.3
+
 ## 0.3.3
 
 ### Patch Changes
