@@ -1,5 +1,14 @@
 # @web/storybook-builder
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [7f0f4315]
+  - @web/dev-server-core@0.6.0
+  - @web/dev-server@0.3.4
+  - @web/dev-server-rollup@0.5.3
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # @web/test-runner-core
 
+## 0.11.5
+
+### Patch Changes
+
+- Updated dependencies [7f0f4315]
+  - @web/dev-server-core@0.6.0
+
 ## 0.11.4
 
 ### Patch Changes

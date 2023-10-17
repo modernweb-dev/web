@@ -1,5 +1,12 @@
 # @web/dev-server-hmr
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [7f0f4315]
+  - @web/dev-server-core@0.6.0
+
 ## 0.3.0
 
 ### Minor Changes

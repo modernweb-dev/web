@@ -1,5 +1,12 @@
 # @web/test-runner-chrome
 
+## 0.14.2
+
+### Patch Changes
+
+- 165c8134: return inner timer result
+  - @web/test-runner-core@0.11.5
+
 ## 0.14.1
 
 ### Patch Changes

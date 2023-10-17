@@ -1,5 +1,12 @@
 # @web/dev-server-storybook
 
+## 1.0.7
+
+### Patch Changes
+
+- Updated dependencies [7f0f4315]
+  - @web/dev-server-core@0.6.0
+
 ## 1.0.6
 
 ### Patch Changes

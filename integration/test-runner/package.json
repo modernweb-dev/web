@@ -20,8 +20,8 @@
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
   "dependencies": {
-    "@web/dev-server-legacy": "^2.0.1",
-    "@web/test-runner-core": "^0.11.4"
+    "@web/dev-server-legacy": "^2.0.2",
+    "@web/test-runner-core": "^0.11.5"
   },
   "devDependencies": {
     "@esm-bundle/chai": "^4.1.5"
