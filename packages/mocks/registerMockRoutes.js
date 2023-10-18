@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http } from 'msw';
 
 const SUPPORTED_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'options', 'head'];
 
@@ -37,7 +37,7 @@ This likely means there is something wrong with how you're using \`http.get(endp
 
     handlers.push(
       // @ts-ignore
-      rest[method](endpoint, async ({ cookies, params, request }) => {
+      http[method](endpoint, async ({ cookies, params, request }) => {
         // @ts-ignore
         const response = await handler({ request, cookies, params });
         return response;
