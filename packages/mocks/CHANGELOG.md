@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.1.11
+
+### Patch Changes
+
+- 06f917ff: Fix/msw safari issue
+
 ## 0.1.10
 
 ### Patch Changes
