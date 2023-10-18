@@ -1,5 +1,6 @@
 import { Middleware } from 'koa';
 import { Plugin } from '../plugins/Plugin';
+import { Server } from 'net';
 
 export type MimeTypeMappings = Record<string, string>;
 
@@ -21,7 +22,7 @@ export interface DevServerCoreConfig {
   /**
    * Whether to run server or not and allow to use as a middleware connected to another server.
    */
-  middlewareMode?: boolean;
+  middlewareMode?: boolean | { server: Server };
   basePath?: string;
   /**
    * The app's index.html file. When set, serves the index.html for non-file requests. Use this to enable SPA routing

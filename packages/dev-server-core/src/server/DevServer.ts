@@ -27,7 +27,7 @@ export class DevServer {
       this.logger,
       this.config,
       this.fileWatcher,
-      config.middlewareMode,
+      !!config.middlewareMode,
     );
     this.koaApp = app;
     if (server) {
@@ -39,6 +39,11 @@ export class DevServer {
           this.connections.delete(connection);
         });
       });
+    } else if (
+      typeof this.config.middlewareMode === 'object' &&
+      this.config.middlewareMode.server
+    ) {
+      this.webSockets = new WebSocketsManager(this.config.middlewareMode.server);
     }
   }
 

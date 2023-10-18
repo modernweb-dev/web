@@ -53,7 +53,7 @@ export const bail: WdsBuilder['bail'] = async () => {
   await wdsServer?.stop();
 };
 
-export const start: WdsBuilder['start'] = async ({ startTime, options, router }) => {
+export const start: WdsBuilder['start'] = async ({ startTime, options, router, server }) => {
   const previewDirOrigin = join(getNodeModuleDir('@storybook/preview'), 'dist');
   router.use('/sb-preview', express.static(previewDirOrigin, { immutable: true, maxAge: '5m' }));
   router.use(`/${PREBUNDLED_MODULES_DIR}`, express.static(resolve(`./${PREBUNDLED_MODULES_DIR}`)));
@@ -103,7 +103,9 @@ export const start: WdsBuilder['start'] = async ({ startTime, options, router })
   }
 
   // setup middleware mode
-  wdsFinalConfig.middlewareMode = true;
+  wdsFinalConfig.middlewareMode = {
+    server,
+  };
   wdsFinalConfig.port = undefined;
   wdsFinalConfig.hostname = undefined;
 
