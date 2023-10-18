@@ -1,5 +1,13 @@
 # @web/storybook-builder
 
+## 0.1.2
+
+### Patch Changes
+
+- 95715f9b: Pass Storybook server into middleware mode to enable live refresh
+- Updated dependencies [95715f9b]
+  - @web/dev-server-core@0.6.1
+
 ## 0.1.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@web/storybook-builder",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publishConfig": {
     "access": "public"
   },
@@ -54,7 +54,7 @@
     "@storybook/node-logger": "^7.0.0",
     "@storybook/preview": "^7.0.0",
     "@web/dev-server": "^0.3.4",
-    "@web/dev-server-core": "^0.6.0",
+    "@web/dev-server-core": "^0.6.1",
     "@web/dev-server-rollup": "^0.5.3",
     "@web/rollup-plugin-html": "^2.0.0",
     "browser-assert": "^1.2.1",
