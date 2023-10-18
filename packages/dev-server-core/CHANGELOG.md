@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.6.1
+
+### Patch Changes
+
+- 95715f9b: Allow web socket based refresh in middleware mode, by accepting the source `server` as an option for the `middlewareMode` config property
+
 ## 0.6.0
 
 ### Minor Changes
