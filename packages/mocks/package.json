@@ -23,6 +23,11 @@
       "types": "./dist-types/browser.d.ts",
       "default": "./browser.js"
     },
+    "./storybook/addon/decorator.js": {
+      "types": "./dist-types/storybook/addon/decorator.d.ts",
+      "default": "./storybook/addon/decorator.js"
+    },
+    "./storybook/addon/manager.js": "./storybook/addon/manager.js",
     "./storybook/decorator.js": {
       "types": "./dist-types/storybook/decorator.d.ts",
       "default": "./storybook/decorator.js"
@@ -55,7 +60,10 @@
     "msw"
   ],
   "dependencies": {
+    "@storybook/manager-api": "^7.0.0",
+    "@storybook/preview-api": "^7.0.0",
     "@web/storybook-prebuilt": "^0.1.37",
+    "@web/storybook-utils": "^0.0.0",
     "lit": "^2.7.5",
     "msw": "^0.0.0-fetch.rc-23"
   },

@@ -86,6 +86,9 @@
       "path": "./packages/storybook-framework-web-components/tsconfig.json"
     },
     {
+      "path": "./packages/storybook-utils/tsconfig.json"
+    },
+    {
       "path": "./packages/test-runner-puppeteer/tsconfig.json"
     },
     {
