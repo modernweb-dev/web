@@ -3,13 +3,13 @@
 // @ts-nocheck
 
 /**
- * Mock Service Worker (0.0.0-fetch.rc-15).
+ * Mock Service Worker (0.0.0-fetch.rc-23).
  * @see https://github.com/mswjs/msw
  * - Please do NOT modify this file.
  * - Please do NOT serve this file on production.
  */
 
-const INTEGRITY_CHECKSUM = '42fb047ce943b9103a6ed499f86548c4';
+const INTEGRITY_CHECKSUM = '0877fcdc026242810f5bfde0d7178db4';
 const IS_MOCKED_RESPONSE = Symbol('isMockedResponse');
 const activeClientIds = new Set();
 
@@ -88,7 +88,6 @@ self.addEventListener('message', async function (event) {
 
 self.addEventListener('fetch', function (event) {
   const { request } = event;
-  const accept = request.headers.get('accept') || '';
 
   // Bypass navigation requests.
   if (request.mode === 'navigate') {
@@ -109,20 +108,8 @@ self.addEventListener('fetch', function (event) {
   }
 
   // Generate unique request ID.
-  const requestId = Math.random().toString(16).slice(2);
-
-  event.respondWith(
-    handleRequest(event, requestId).catch(error => {
-      if (error.name === 'NetworkError') {
-        console.warn(
-          '[MSW] Successfully emulated a network error for the "%s %s" request.',
-          request.method,
-          request.url,
-        );
-        return;
-      }
-    }),
-  );
+  const requestId = crypto.randomUUID();
+  event.respondWith(handleRequest(event, requestId));
 });
 
 async function handleRequest(event, requestId) {
@@ -261,15 +248,6 @@ async function getResponse(event, client, requestId) {
 
     case 'MOCK_NOT_FOUND': {
       return passthrough();
-    }
-
-    case 'NETWORK_ERROR': {
-      const { name, message } = clientMessage.data;
-      const networkError = new Error(message);
-      networkError.name = name;
-
-      // Rejecting a "respondWith" promise emulates a network error.
-      throw networkError;
     }
   }
 
