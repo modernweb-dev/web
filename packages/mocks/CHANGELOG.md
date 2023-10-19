@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.1.13
+
+### Patch Changes
+
+- 99855b24: fix: lock dep
+
 ## 0.1.12
 
 ### Patch Changes
