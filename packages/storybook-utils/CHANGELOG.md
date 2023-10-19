@@ -1,5 +1,11 @@
 # @web/storybook-utils
 
+## 1.0.1
+
+### Patch Changes
+
+- afc680d2: fix export
+
 ## 1.0.0
 
 ### Major Changes
