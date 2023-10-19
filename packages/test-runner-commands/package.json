@@ -20,6 +20,7 @@
       "default": "./browser/commands.mjs"
     },
     "./plugins": {
+      "types": "./plugins.d.ts",
       "import": "./plugins.mjs",
       "require": "./dist/index.js"
     }
