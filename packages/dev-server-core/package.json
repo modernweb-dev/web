@@ -21,9 +21,11 @@
       "require": "./dist/index.js"
     },
     "./dist/dom5": {
+      "types": "./dist/dom5/index.d.ts",
       "require": "./dist/dom5/index.js"
     },
     "./test-helpers": {
+      "types": "./test-helpers.d.ts",
       "import": "./test-helpers.mjs",
       "require": "./dist/test-helpers.js"
     }
