@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.6.3
+
+### Patch Changes
+
+- 27493246: add types for remaining exports
+
 ## 0.6.2
 
 ### Patch Changes
