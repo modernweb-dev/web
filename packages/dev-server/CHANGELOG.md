@@ -1,5 +1,13 @@
 # @web/dev-server
 
+## 0.3.6
+
+### Patch Changes
+
+- 615db977: cleanup exports
+- Updated dependencies [27493246]
+  - @web/dev-server-core@0.6.3
+
 ## 0.3.5
 
 ### Patch Changes
