@@ -1,5 +1,13 @@
 # @web/dev-server-rollup
 
+## 0.5.4
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/dev-server-core@0.6.2
+
 ## 0.5.3
 
 ### Patch Changes

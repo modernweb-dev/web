@@ -1,5 +1,14 @@
 # @web/test-runner-junit-reporter
 
+## 0.6.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-chrome@0.14.3
+  - @web/test-runner-core@0.11.6
+
 ## 0.6.1
 
 ### Patch Changes

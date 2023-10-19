@@ -1,5 +1,14 @@
 # @web/test-runner-core
 
+## 0.11.6
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/dev-server-core@0.6.2
+  - @web/browser-logs@0.3.4
+
 ## 0.11.5
 
 ### Patch Changes

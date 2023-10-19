@@ -1,5 +1,13 @@
 # @web/dev-server-hmr
 
+## 0.3.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/dev-server-core@0.6.2
+
 ## 0.3.1
 
 ### Patch Changes

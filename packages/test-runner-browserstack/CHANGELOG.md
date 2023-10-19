@@ -1,5 +1,13 @@
 # @web/test-runner-browserstack
 
+## 0.6.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-webdriver@0.7.1
+
 ## 0.6.1
 
 ### Patch Changes

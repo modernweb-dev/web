@@ -1,5 +1,14 @@
 # @web/dev-server-legacy
 
+## 2.0.3
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/polyfills-loader@2.1.3
+  - @web/dev-server-core@0.6.2
+
 ## 2.0.2
 
 ### Patch Changes

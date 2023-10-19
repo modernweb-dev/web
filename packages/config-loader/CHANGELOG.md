@@ -1,5 +1,11 @@
 # @web/config-loader
 
+## 0.2.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+
 ## 0.2.1
 
 ### Patch Changes

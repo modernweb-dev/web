@@ -1,5 +1,14 @@
 # @web/test-runner-puppeteer
 
+## 0.14.1
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-chrome@0.14.3
+  - @web/test-runner-core@0.11.6
+
 ## 0.14.0
 
 ### Minor Changes

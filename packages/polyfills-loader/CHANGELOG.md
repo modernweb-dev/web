@@ -1,5 +1,13 @@
 # @web/polyfills-loader
 
+## 2.1.3
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/parse5-utils@2.0.2
+
 ## 2.1.2
 
 ### Patch Changes

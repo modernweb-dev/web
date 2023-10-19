@@ -1,5 +1,11 @@
 # @web/rollup-plugin-copy
 
+## 0.4.1
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+
 ## 0.4.0
 
 ### Minor Changes

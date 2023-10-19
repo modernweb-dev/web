@@ -1,5 +1,14 @@
 # @web/test-runner-playwright
 
+## 0.10.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-coverage-v8@0.7.2
+  - @web/test-runner-core@0.11.6
+
 ## 0.10.1
 
 ### Patch Changes

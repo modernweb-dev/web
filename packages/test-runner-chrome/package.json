@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-chrome",
-  "version": "0.14.2",
+  "version": "0.14.3",
   "publishConfig": {
     "access": "public"
   },
@@ -46,8 +46,8 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.11.5",
-    "@web/test-runner-coverage-v8": "^0.7.0",
+    "@web/test-runner-core": "^0.11.6",
+    "@web/test-runner-coverage-v8": "^0.7.2",
     "async-mutex": "0.4.0",
     "chrome-launcher": "^0.15.0",
     "puppeteer-core": "^20.0.0"
