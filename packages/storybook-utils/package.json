@@ -17,7 +17,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./index.js"
+      "default": "./index.mjs"
     }
   },
   "engines": {
@@ -29,8 +29,10 @@
   "files": [
     "*.d.ts",
     "*.mjs",
+    "CHANGELOG.md",
     "dist",
-    "src"
+    "src",
+    "README.md"
   ],
   "keywords": [
     "web",
