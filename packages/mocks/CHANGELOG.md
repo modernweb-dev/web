@@ -1,5 +1,13 @@
 # @web/mocks
 
+## 0.1.12
+
+### Patch Changes
+
+- 7320d233: support Storybook 7
+- Updated dependencies [7320d233]
+  - @web/storybook-utils@1.0.0
+
 ## 0.1.11
 
 ### Patch Changes
