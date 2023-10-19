@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 8.0.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+
 ## 8.0.1
 
 ### Patch Changes

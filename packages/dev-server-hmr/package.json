@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-hmr",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "publishConfig": {
     "access": "public"
   },
@@ -40,7 +40,7 @@
     "src"
   ],
   "dependencies": {
-    "@web/dev-server-core": "^0.6.0"
+    "@web/dev-server-core": "^0.6.2"
   },
   "devDependencies": {
     "lit-html": "^2.7.3",

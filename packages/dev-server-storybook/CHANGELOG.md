@@ -1,5 +1,13 @@
 # @web/dev-server-storybook
 
+## 1.0.8
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/dev-server-core@0.6.2
+
 ## 1.0.7
 
 ### Patch Changes

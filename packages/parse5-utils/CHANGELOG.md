@@ -1,5 +1,11 @@
 # @web/parse5-utils
 
+## 2.0.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+
 ## 2.0.1
 
 ### Patch Changes

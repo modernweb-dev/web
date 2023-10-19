@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.3.4
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+
 ## 0.3.3
 
 ### Patch Changes

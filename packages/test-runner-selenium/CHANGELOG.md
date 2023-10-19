@@ -1,5 +1,13 @@
 # @web/test-runner-selenium
 
+## 0.6.1
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-core@0.11.6
+
 ## 0.6.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @web/test-runner-commands
 
+## 0.8.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-core@0.11.6
+
 ## 0.8.1
 
 ### Patch Changes

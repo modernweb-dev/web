@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-core",
-  "version": "0.11.5",
+  "version": "0.11.6",
   "publishConfig": {
     "access": "public"
   },
@@ -59,8 +59,8 @@
     "@types/debounce": "^1.2.0",
     "@types/istanbul-lib-coverage": "^2.0.3",
     "@types/istanbul-reports": "^3.0.0",
-    "@web/browser-logs": "^0.3.2",
-    "@web/dev-server-core": "^0.6.0",
+    "@web/browser-logs": "^0.3.4",
+    "@web/dev-server-core": "^0.6.2",
     "chokidar": "^3.4.3",
     "cli-cursor": "^3.1.0",
     "co-body": "^6.1.0",

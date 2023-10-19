@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-import-maps",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "publishConfig": {
     "access": "public"
   },
@@ -53,8 +53,8 @@
   "dependencies": {
     "@import-maps/resolve": "^1.0.1",
     "@types/parse5": "^6.0.1",
-    "@web/dev-server-core": "^0.6.0",
-    "@web/parse5-utils": "^2.0.0",
+    "@web/dev-server-core": "^0.6.2",
+    "@web/parse5-utils": "^2.0.2",
     "parse5": "^6.0.1",
     "picomatch": "^2.2.2"
   },

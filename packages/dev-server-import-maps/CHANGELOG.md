@@ -1,5 +1,14 @@
 # @web/dev-server-import-maps
 
+## 0.1.3
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/dev-server-core@0.6.2
+  - @web/parse5-utils@2.0.2
+
 ## 0.1.2
 
 ### Patch Changes
