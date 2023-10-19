@@ -41,9 +41,7 @@
     "test:watch": "mocha \"test/**/*.test.mjs\" --watch --watch-files src,test --reporter dot"
   },
   "files": [
-    "*.d.mts",
     "*.d.ts",
-    "*.js",
     "*.mjs",
     "dist",
     "src"

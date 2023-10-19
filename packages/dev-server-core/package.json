@@ -46,7 +46,6 @@
     ".self-signed-dev-server-ssl.cert",
     ".self-signed-dev-server-ssl.key",
     "*.d.ts",
-    "*.js",
     "*.mjs",
     "dist",
     "src"
