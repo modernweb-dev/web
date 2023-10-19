@@ -170,6 +170,9 @@ And add the addon:
 ```diff
 module.exports = {
   stories: ['../stories/**/*.stories.{js,md,mdx}'],
+  // for Storybook 7 (@web/storybook-builder)
++  addons: ['@web/mocks/storybook/addon/manager.js'],
+  // for Storybook 6 (@web/dev-server-storybook)
 +  addons: ['@web/mocks/storybook/addon.js'],
   rollupConfig: async config => {
     const { mockRollupPlugin } = await import('@web/mocks/plugins.js');
@@ -182,6 +185,9 @@ module.exports = {
 `feature-a/.storybook/preview.js`:
 
 ```js
+// for Storybook 7 (@web/storybook-builder)
+import { withMocks } from '@web/mocks/storybook/addon/decorator.js';
+// for Storybook 6 (@web/dev-server-storybook)
 import { withMocks } from '@web/mocks/storybook/decorator.js';
 
 export const decorators = [withMocks];

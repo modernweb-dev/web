@@ -1,0 +1,49 @@
+{
+  "name": "@web/storybook-utils",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Utils for Storybook",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/storybook-utils"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/storybook-utils",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./index.js"
+    }
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "*.d.ts",
+    "*.mjs",
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "web",
+    "storybook",
+    "utils"
+  ],
+  "peerDependencies": {
+    "react": "^18.0.0"
+  },
+  "dependencies": {
+    "@storybook/core-events": "^7.0.0"
+  },
+  "devDependencies": {
+    "react": "^18.0.0"
+  }
+}
