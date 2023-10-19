@@ -65,7 +65,7 @@
     "@web/storybook-prebuilt": "^0.1.37",
     "@web/storybook-utils": "^1.0.0",
     "lit": "^2.7.5",
-    "msw": "^0.0.0-fetch.rc-23"
+    "msw": "0.0.0-fetch.rc-23"
   },
   "devDependencies": {
     "@web/dev-server": "^0.3.0",
