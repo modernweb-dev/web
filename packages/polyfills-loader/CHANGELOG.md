@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 2.1.4
+
+### Patch Changes
+
+- 55d9ea1b: fix: export polyfills data
+
 ## 2.1.3
 
 ### Patch Changes
