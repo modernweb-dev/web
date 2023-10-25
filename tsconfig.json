@@ -105,6 +105,9 @@
     },
     {
       "path": "./packages/dev-server-storybook/tsconfig.json"
-    }
+    },
+    {
+      "path": "./packages/dev-server-polyfill/tsconfig.json"
+    },
   ]
 }

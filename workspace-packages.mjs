@@ -12,6 +12,7 @@ const packages = [
   { name: 'dev-server-core', type: 'ts', environment: 'node' },
   { name: 'dev-server-esbuild', type: 'ts', environment: 'node' },
   { name: 'dev-server-hmr', type: 'ts', environment: 'node' },
+  { name: 'dev-server-polyfill', type: 'ts', environment: 'node' },
   { name: 'dev-server-rollup', type: 'ts', environment: 'node' },
   { name: 'dev-server-legacy', type: 'ts', environment: 'node' },
   { name: 'dev-server-import-maps', type: 'ts', environment: 'node' },
