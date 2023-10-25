@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.3
+
+### Patch Changes
+
+- afe4df6c: improve prebundling to target only really necessary packages
+
 ## 0.1.2
 
 ### Patch Changes
