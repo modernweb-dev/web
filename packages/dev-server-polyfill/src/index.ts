@@ -12,13 +12,11 @@ export function polyfill(polyfillsConfig: PolyfillsConfig): Plugin {
 
       polyfillScripts = polyfillsData.map(({ name, type, test, content }) => {
         return `
-<!-- Injected by @web/dev-server-plugin-polyfill start -->
 <script polyfill ${name} ${type === 'module' ? 'type="module"' : ''}>
 if (${test}) {
   ${content}
 }
 </script>
-<!-- Injected by @web/dev-server-plugin-polyfill end -->
         `;
       });
     },
@@ -30,7 +28,9 @@ if (${test}) {
             /<body>/,
             `
             <body>
+            <!-- Injected by @web/dev-server-plugin-polyfill start -->
             ${polyfillScripts.join('\n')}
+            <!-- Injected by @web/dev-server-plugin-polyfill end -->
           `,
           ),
         };
