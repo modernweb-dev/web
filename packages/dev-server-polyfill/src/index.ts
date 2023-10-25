@@ -9,8 +9,8 @@ export function polyfill(polyfillsConfig: PolyfillsConfig): Plugin {
     name: 'polyfills-loader',
     async serverStart() {
       const polyfillsData = await createPolyfillsData({ polyfills: polyfillsConfig });
-    
-      polyfillScripts = polyfillsData.map(({name, type, test, content}) => {
+
+      polyfillScripts = polyfillsData.map(({ name, type, test, content }) => {
         return `
 <!-- Injected by @web/dev-server-plugin-polyfill start -->
 <script polyfill ${name} ${type === 'module' ? 'type="module"' : ''}>
@@ -19,7 +19,7 @@ if (${test}) {
 }
 </script>
 <!-- Injected by @web/dev-server-plugin-polyfill end -->
-        `
+        `;
       });
     },
     transform(context) {
@@ -27,10 +27,12 @@ if (${test}) {
         return {
           // @ts-expect-error
           body: context.body.replace(
-            /<body>/, `
+            /<body>/,
+            `
             <body>
             ${polyfillScripts.join('\n')}
-          `),
+          `,
+          ),
         };
       }
       return undefined;
