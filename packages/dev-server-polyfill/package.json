@@ -1,0 +1,44 @@
+{
+  "name": "@web/dev-server-polyfill",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Dev server plugin for loading polyfills",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/dev-server-polyfill"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server-polyfill",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "CHANGELOG.md",
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "web",
+    "polyfill"
+  ],
+  "dependencies": {
+    "@web/dev-server": "^0.3.6",
+    "@web/polyfills-loader": "^2.1.3"
+  }
+}
