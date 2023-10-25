@@ -1,3 +1,4 @@
+export { createPolyfillsData } from './createPolyfillsData';
 export { createPolyfillsLoader } from './createPolyfillsLoader';
 export { injectPolyfillsLoader } from './injectPolyfillsLoader';
 export { hasFileOfType, fileTypes, getScriptFileType } from './utils';
