@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 2.1.5
+
+### Patch Changes
+
+- 76a2f86f: update entrypoints
+
 ## 2.1.4
 
 ### Patch Changes

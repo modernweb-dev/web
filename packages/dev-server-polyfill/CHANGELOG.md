@@ -1,5 +1,14 @@
 # @web/dev-server-polyfill
 
+## 1.0.3
+
+### Patch Changes
+
+- 76a2f86f: update entrypoints
+- 3aa8bb85: fix: use the correct package name in the comment markers
+- Updated dependencies [76a2f86f]
+  - @web/polyfills-loader@2.1.5
+
 ## 1.0.2
 
 ### Patch Changes
