@@ -28,9 +28,9 @@ if (${test}) {
             /<body>/,
             `
             <body>
-            <!-- Injected by @web/dev-server-plugin-polyfill start -->
+            <!-- Injected by @web/dev-server-polyfill start -->
             ${polyfillScripts.join('\n')}
-            <!-- Injected by @web/dev-server-plugin-polyfill end -->
+            <!-- Injected by @web/dev-server-polyfill end -->
           `,
           ),
         };
