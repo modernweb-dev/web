@@ -47,7 +47,10 @@ export interface TestRunnerCoreConfig {
   watch: boolean;
 
   browserLogs?: boolean;
-  filterBrowserLogs?: (log: { type: string; args: any[] }, session?: Partial<TestSession>) => boolean;
+  filterBrowserLogs?: (
+    log: { type: string; args: any[] },
+    session?: Partial<TestSession>,
+  ) => boolean;
   coverage?: boolean;
   coverageConfig: CoverageConfig;
 
