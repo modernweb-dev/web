@@ -13,7 +13,7 @@ In the config you can define code coverage thresholds, the test run fails if you
 ```js
 // web-test-runner.config.mjs
 
-module.exports = {
+export default {
   coverageConfig: {
     report: true,
     reportDir: 'test-coverage',
