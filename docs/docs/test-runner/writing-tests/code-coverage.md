@@ -104,7 +104,7 @@ By default coverage reporting uses the lcov reporter. Should you want to use add
 ```js
 // web-test-runner.config.mjs
 
-module.exports = {
+export default {
   coverageConfig: {
     report: true,
     reportDir: 'test-coverage',
