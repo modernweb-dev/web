@@ -251,7 +251,10 @@ describe('TestRunner', function () {
     it('can ignore files via string[] globs', async () => {
       const normalize = (x: string): string => x.replace(/\//g, path.sep);
       const { runner } = await createTestRunner({
-        files: ['./test/fixtures/**/*.test.js', '!./test/fixtures/group-c/*'].map(normalize),
+        files: [
+          'packages/test-runner-core/test/fixtures/**/*.test.js',
+          '!packages/test-runner-core/test/fixtures/group-c/*',
+        ].map(normalize),
       });
 
       const sessions = Array.from(runner.sessions.all());
