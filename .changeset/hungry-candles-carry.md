@@ -1,5 +1,5 @@
 ---
-'@web/dev-server-esbuild': minor
+'@web/dev-server-esbuild': major
 ---
 
 Update ESBuild to latest version.
