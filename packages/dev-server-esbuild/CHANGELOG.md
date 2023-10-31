@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 0.4.4
+
+### Patch Changes
+
+- ef6b2543: Use split versions for all lit dependencies
+
 ## 0.4.3
 
 ### Patch Changes

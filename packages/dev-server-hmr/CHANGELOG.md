@@ -1,5 +1,11 @@
 # @web/dev-server-hmr
 
+## 0.3.3
+
+### Patch Changes
+
+- ef6b2543: Use split versions for all lit dependencies
+
 ## 0.3.2
 
 ### Patch Changes
