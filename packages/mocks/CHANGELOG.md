@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 0.1.14
+
+### Patch Changes
+
+- ef6b2543: Use split versions for all lit dependencies
+
 ## 0.1.13
 
 ### Patch Changes
