@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.17.2",
+  "version": "0.17.3",
   "publishConfig": {
     "access": "public"
   },
@@ -82,10 +82,10 @@
     "@web/browser-logs": "^0.3.3",
     "@web/config-loader": "^0.2.1",
     "@web/dev-server": "^0.3.3",
-    "@web/test-runner-chrome": "^0.14.0",
-    "@web/test-runner-commands": "^0.8.1",
-    "@web/test-runner-core": "^0.11.1",
-    "@web/test-runner-mocha": "^0.8.1",
+    "@web/test-runner-chrome": "^0.14.4",
+    "@web/test-runner-commands": "^0.8.3",
+    "@web/test-runner-core": "^0.12.0",
+    "@web/test-runner-mocha": "^0.8.2",
     "camelcase": "^6.2.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^7.0.1",

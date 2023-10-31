@@ -1,5 +1,16 @@
 # @web/test-runner
 
+## 0.17.3
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+- Updated dependencies [60dda46f]
+  - @web/test-runner-core@0.12.0
+  - @web/test-runner-mocha@0.8.2
+  - @web/test-runner-chrome@0.14.4
+  - @web/test-runner-commands@0.8.3
+
 ## 0.17.2
 
 ### Patch Changes

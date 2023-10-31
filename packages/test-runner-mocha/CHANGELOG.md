@@ -1,5 +1,13 @@
 # @web/test-runner-mocha
 
+## 0.8.2
+
+### Patch Changes
+
+- 60dda46f: Remove `@types/mocha` from dependencies so its global types don't leak into user code.
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+
 ## 0.8.1
 
 ### Patch Changes

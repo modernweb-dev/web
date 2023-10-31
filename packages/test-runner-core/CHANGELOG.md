@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.12.0
+
+### Minor Changes
+
+- 43be7391: Add TestSession to filterBrowserLogs args so logs can be filtered on session result
+
 ## 0.11.6
 
 ### Patch Changes

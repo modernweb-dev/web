@@ -1,5 +1,12 @@
 # @web/test-runner-commands
 
+## 0.8.3
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+
 ## 0.8.2
 
 ### Patch Changes
