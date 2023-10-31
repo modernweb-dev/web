@@ -13,7 +13,7 @@ In the config you can define code coverage thresholds, the test run fails if you
 ```js
 // web-test-runner.config.mjs
 
-module.exports = {
+export default {
   coverageConfig: {
     report: true,
     reportDir: 'test-coverage',
@@ -92,5 +92,29 @@ export default {
       plugins: ['babel-plugin-istanbul'],
     }),
   ],
+};
+```
+
+## Coverage reporting
+
+By default coverage reporting uses the lcov reporter. Should you want to use additional reporters, for example, cobertura, then the `reporter` config element should be modified.
+
+**Example config:**
+
+```js
+// web-test-runner.config.mjs
+
+export default {
+  coverageConfig: {
+    report: true,
+    reportDir: 'test-coverage',
+    reporters: ['cobertura', 'lcov']
+    threshold: {
+      statements: 70,
+      branches: 70,
+      functions: 70,
+      lines: 70,
+    },
+  },
 };
 ```
