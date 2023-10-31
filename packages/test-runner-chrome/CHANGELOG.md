@@ -1,5 +1,13 @@
 # @web/test-runner-chrome
 
+## 0.14.4
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+  - @web/test-runner-coverage-v8@0.7.3
+
 ## 0.14.3
 
 ### Patch Changes

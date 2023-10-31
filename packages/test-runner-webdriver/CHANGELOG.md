@@ -1,5 +1,12 @@
 # @web/test-runner-webdriver
 
+## 0.7.2
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+
 ## 0.7.1
 
 ### Patch Changes
