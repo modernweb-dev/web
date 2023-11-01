@@ -1,3 +1,6 @@
+import { describe, it, beforeEach, afterEach } from 'node:test';
+import * as url from 'node:url';
+
 import { expect } from 'chai';
 import path from 'path';
 import fs from 'fs';
@@ -5,6 +8,8 @@ import { nanoid } from 'nanoid';
 
 import { createTestServer, timeout } from '../helpers';
 import { DevServer } from '../../src/server/DevServer';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const fixtureDir = path.resolve(__dirname, '..', 'fixtures', 'basic');
 const testFileAName = '/cached-file-a.js';
@@ -24,7 +29,7 @@ describe('etag cache middleware', () => {
     server.stop();
   });
 
-  context('', () => {
+  describe('', () => {
     beforeEach(() => {
       fs.writeFileSync(testFileAPath, '// this file is cached', 'utf-8');
     });
@@ -51,7 +56,7 @@ describe('etag cache middleware', () => {
     });
   });
 
-  context('', () => {
+  describe('', () => {
     beforeEach(() => {
       fs.writeFileSync(testFileBPath, '// this file is cached', 'utf-8');
     });

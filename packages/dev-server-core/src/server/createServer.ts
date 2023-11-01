@@ -5,11 +5,14 @@ import httpServer, { IncomingMessage, ServerResponse } from 'http';
 import http2Server from 'http2';
 import fs from 'fs';
 import net, { Server, Socket, ListenOptions } from 'net';
-
+import * as url from 'node:url';
 import { DevServerCoreConfig } from './DevServerCoreConfig';
+
 import { createMiddleware } from './createMiddleware';
 import { Logger } from '../logger/Logger';
 import { addPlugins } from './addPlugins';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 /**
  * A request handler that returns a 301 HTTP Redirect to the same location as the original

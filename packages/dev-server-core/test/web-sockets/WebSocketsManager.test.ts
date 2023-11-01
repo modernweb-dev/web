@@ -1,3 +1,5 @@
+import { describe, it } from 'node:test';
+
 import { expect } from 'chai';
 import WebSocket from 'ws';
 import { NAME_WEB_SOCKET_API } from '../../src/web-sockets/WebSocketsManager';

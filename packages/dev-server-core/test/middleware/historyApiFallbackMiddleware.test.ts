@@ -1,8 +1,13 @@
+import { describe, it, afterEach, beforeEach } from 'node:test';
+import * as url from 'node:url';
+
 import { expect } from 'chai';
 import path from 'path';
 
 import { createTestServer } from '../helpers';
 import { DevServer } from '../../src/server/DevServer';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('history api fallback middleware', () => {
   describe('index in root', () => {

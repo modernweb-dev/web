@@ -1,4 +1,8 @@
-import path from 'path';
+import path from 'node:path';
+import * as url from 'node:url';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 import {
   createTestServer as originalCreateTestServer,
   timeout,

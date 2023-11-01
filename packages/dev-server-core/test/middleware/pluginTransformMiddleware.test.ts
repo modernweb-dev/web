@@ -1,4 +1,5 @@
 /* eslint-disable no-restricted-syntax, no-await-in-loop */
+import { describe, it } from 'node:test';
 import { expect } from 'chai';
 
 import { createTestServer } from '../helpers';

@@ -1,3 +1,4 @@
+import { describe, it, beforeEach, afterEach } from 'node:test';
 import { expect } from 'chai';
 
 import { DevServer } from '../../src/server/DevServer';
@@ -32,7 +33,7 @@ describe('base path middleware', () => {
     });
   });
 
-  context('with a trailing /', () => {
+  describe('with a trailing /', () => {
     let host: string;
     let server: DevServer;
     beforeEach(async () => {

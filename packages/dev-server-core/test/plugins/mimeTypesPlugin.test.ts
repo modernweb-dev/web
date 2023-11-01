@@ -1,6 +1,11 @@
+import { describe, it } from 'node:test';
+import * as url from 'node:url';
+
 import { expect } from 'chai';
 
 import { createTestServer } from '../helpers';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('mimeTypesPLugin', () => {
   it('can configure mime types for files', async () => {

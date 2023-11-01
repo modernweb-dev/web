@@ -1,3 +1,8 @@
+import { describe, it } from 'node:test';
+
+import * as url from 'node:url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 import { expect } from 'chai';
 import path from 'path';
 
