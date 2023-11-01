@@ -71,7 +71,10 @@ class Bar {
             }
           },
         },
-        esbuildPlugin({ ts: true }),
+        esbuildPlugin({
+          ts: true,
+          tsconfig: path.join(__dirname, 'fixture', 'tsconfig-with-experimental-decorators.json'),
+        }),
       ],
     });
 
@@ -84,7 +87,7 @@ class Bar {
         'application/javascript; charset=utf-8',
       );
       expectIncludes(text, '__decorate');
-      expectIncludes(text, 'this.x = "y";');
+      expectIncludes(text, '__publicField(this, "x", "y");');
       expectIncludes(
         text,
         `__decorateClass([
