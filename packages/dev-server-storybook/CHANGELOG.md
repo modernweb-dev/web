@@ -1,5 +1,18 @@
 # @web/dev-server-storybook
 
+## 1.1.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/rollup-plugin-polyfills-loader@2.1.0
+  - @web/rollup-plugin-html@2.1.0
+  - @web/dev-server-core@0.7.0
+
 ## 1.0.8
 
 ### Patch Changes

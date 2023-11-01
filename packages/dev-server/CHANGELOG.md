@@ -1,5 +1,18 @@
 # @web/dev-server
 
+## 0.4.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/dev-server-rollup@0.6.0
+  - @web/dev-server-core@0.7.0
+  - @web/config-loader@0.3.0
+
 ## 0.3.7
 
 ### Patch Changes

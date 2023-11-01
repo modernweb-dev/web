@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-junit-reporter",
-  "version": "0.6.3",
+  "version": "0.7.0",
   "publishConfig": {
     "access": "public"
   },
@@ -45,13 +45,13 @@
     "reporter"
   ],
   "dependencies": {
-    "@web/test-runner-chrome": "^0.14.4",
-    "@web/test-runner-core": "^0.12.0",
+    "@web/test-runner-chrome": "^0.15.0",
+    "@web/test-runner-core": "^0.13.0",
     "array-flat-polyfill": "^1.0.1",
     "xml": "^1.0.1"
   },
   "devDependencies": {
     "@types/xml": "^1.0.5",
-    "@web/test-runner-playwright": "^0.10.3"
+    "@web/test-runner-playwright": "^0.11.0"
   }
 }

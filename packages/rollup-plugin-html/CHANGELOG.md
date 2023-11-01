@@ -1,5 +1,16 @@
 # @web/rollup-plugin-html
 
+## 2.1.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/parse5-utils@2.1.0
+
 ## 2.0.1
 
 ### Patch Changes

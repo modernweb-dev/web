@@ -1,5 +1,17 @@
 # @web/test-runner-junit-reporter
 
+## 0.7.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-chrome@0.15.0
+  - @web/test-runner-core@0.13.0
+
 ## 0.6.3
 
 ### Patch Changes

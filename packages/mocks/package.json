@@ -68,8 +68,8 @@
     "msw": "0.0.0-fetch.rc-23"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.3.7",
-    "@web/dev-server-storybook": "^1.0.0"
+    "@web/dev-server": "^0.4.0",
+    "@web/dev-server-storybook": "^1.1.0"
   },
   "wireit": {
     "types": {

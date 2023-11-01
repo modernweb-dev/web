@@ -1,5 +1,16 @@
 # @web/dev-server-hmr
 
+## 0.4.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/dev-server-core@0.7.0
+
 ## 0.3.3
 
 ### Patch Changes

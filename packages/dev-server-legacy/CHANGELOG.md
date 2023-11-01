@@ -1,5 +1,17 @@
 # @web/dev-server-legacy
 
+## 2.1.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/polyfills-loader@2.2.0
+  - @web/dev-server-core@0.7.0
+
 ## 2.0.3
 
 ### Patch Changes

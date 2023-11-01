@@ -1,5 +1,24 @@
 # @web/dev-server-esbuild
 
+## 1.0.0
+
+### Major Changes
+
+- 8218a0a5: Update ESBuild to latest version.
+
+  ESBuild has changed how TypeScript decorators are enabled in preparation for JavaScript decorators to land in browsers. ESBuild now requires the `experimentalDecorators` key to be set to `true` in the `tsconfig.json` for TypeScript decorators to be enabled.
+
+  If you are having issues with decorators after updating to this version, try setting the `experimentalDecorators` key in your `tsconfig.json`.
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/dev-server-core@0.7.0
+
 ## 0.4.4
 
 ### Patch Changes

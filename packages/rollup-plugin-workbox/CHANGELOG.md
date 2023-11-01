@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 8.1.0
+
+### Minor Changes
+
+- 8218a0a5: Update ESBuild to latest version
+
 ## 8.0.2
 
 ### Patch Changes
