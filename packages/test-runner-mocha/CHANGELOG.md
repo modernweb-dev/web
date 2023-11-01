@@ -1,5 +1,16 @@
 # @web/test-runner-mocha
 
+## 0.9.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-core@0.13.0
+
 ## 0.8.2
 
 ### Patch Changes

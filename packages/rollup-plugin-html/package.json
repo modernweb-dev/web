@@ -1,6 +1,6 @@
 {
   "name": "@web/rollup-plugin-html",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "publishConfig": {
     "access": "public"
   },
@@ -44,7 +44,7 @@
     "html"
   ],
   "dependencies": {
-    "@web/parse5-utils": "^2.0.0",
+    "@web/parse5-utils": "^2.1.0",
     "glob": "^7.1.6",
     "html-minifier-terser": "^7.1.0",
     "parse5": "^6.0.1"

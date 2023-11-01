@@ -1,5 +1,15 @@
 # @web/storybook-builder
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/rollup-plugin-html@2.1.0
+  - @web/dev-server-rollup@0.6.0
+  - @web/dev-server-core@0.7.0
+  - @web/dev-server@0.4.0
+
 ## 0.1.3
 
 ### Patch Changes

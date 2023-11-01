@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.4.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
 ## 0.3.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner",
-  "version": "0.17.3",
+  "version": "0.18.0",
   "publishConfig": {
     "access": "public"
   },
@@ -79,13 +79,13 @@
     "cli"
   ],
   "dependencies": {
-    "@web/browser-logs": "^0.3.3",
-    "@web/config-loader": "^0.2.1",
-    "@web/dev-server": "^0.3.3",
-    "@web/test-runner-chrome": "^0.14.4",
-    "@web/test-runner-commands": "^0.8.3",
-    "@web/test-runner-core": "^0.12.0",
-    "@web/test-runner-mocha": "^0.8.2",
+    "@web/browser-logs": "^0.4.0",
+    "@web/config-loader": "^0.3.0",
+    "@web/dev-server": "^0.4.0",
+    "@web/test-runner-chrome": "^0.15.0",
+    "@web/test-runner-commands": "^0.9.0",
+    "@web/test-runner-core": "^0.13.0",
+    "@web/test-runner-mocha": "^0.9.0",
     "camelcase": "^6.2.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^7.0.1",
@@ -98,8 +98,8 @@
   },
   "devDependencies": {
     "@types/diff": "^5.0.0",
-    "@web/dev-server-legacy": "^2.0.0",
-    "@web/test-runner-saucelabs": "^0.10.0",
+    "@web/dev-server-legacy": "^2.1.0",
+    "@web/test-runner-saucelabs": "^0.11.0",
     "babel-plugin-istanbul": "^6.0.0",
     "concurrently": "^8.0.1"
   }

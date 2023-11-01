@@ -1,5 +1,11 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 2.2.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
 ## 2.1.0
 
 ### Minor Changes

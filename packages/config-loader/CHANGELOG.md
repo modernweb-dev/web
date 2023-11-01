@@ -1,5 +1,11 @@
 # @web/config-loader
 
+## 0.3.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
 ## 0.2.2
 
 ### Patch Changes

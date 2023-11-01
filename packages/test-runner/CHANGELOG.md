@@ -1,5 +1,22 @@
 # @web/test-runner
 
+## 0.18.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-commands@0.9.0
+  - @web/test-runner-chrome@0.15.0
+  - @web/test-runner-mocha@0.9.0
+  - @web/test-runner-core@0.13.0
+  - @web/config-loader@0.3.0
+  - @web/browser-logs@0.4.0
+  - @web/dev-server@0.4.0
+
 ## 0.17.3
 
 ### Patch Changes

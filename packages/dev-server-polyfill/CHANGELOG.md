@@ -1,5 +1,13 @@
 # @web/dev-server-polyfill
 
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/polyfills-loader@2.2.0
+  - @web/dev-server@0.4.0
+
 ## 1.0.3
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @web/test-runner-saucelabs
 
+## 0.11.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-webdriver@0.8.0
+
 ## 0.10.1
 
 ### Patch Changes

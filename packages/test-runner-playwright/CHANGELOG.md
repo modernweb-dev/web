@@ -1,5 +1,17 @@
 # @web/test-runner-playwright
 
+## 0.11.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-coverage-v8@0.8.0
+  - @web/test-runner-core@0.13.0
+
 ## 0.10.3
 
 ### Patch Changes
