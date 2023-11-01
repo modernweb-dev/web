@@ -25,7 +25,7 @@
     }
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build:wc": "node dist/build/cli.js -c demo/wc/.storybook",
