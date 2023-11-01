@@ -42,7 +42,9 @@ describe('etag cache middleware', () => {
 
       expect(etag).to.be.a('string');
 
-      const cachedResponse = await fetch(`${host}${testFileAName}`, { headers: { 'If-None-Match': etag, 'Cache-Control': 'max-age=3600' } });
+      const cachedResponse = await fetch(`${host}${testFileAName}`, {
+        headers: { 'If-None-Match': etag, 'Cache-Control': 'max-age=3600' },
+      });
 
       expect(cachedResponse.status).to.equal(304);
       expect(await cachedResponse.text()).to.equal('');

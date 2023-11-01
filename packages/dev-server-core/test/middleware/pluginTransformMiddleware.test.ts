@@ -198,7 +198,9 @@ describe('plugin-transform middleware', () => {
       expect(textOne).equal('console.log("foo")');
       expect(textTwo).equal('console.log("foo")');
       expect(headersOne.get('x-foo')).eql('bar');
-      expect(Object.fromEntries(headersOne.entries())).eql(Object.fromEntries(headersTwo.entries()))
+      expect(Object.fromEntries(headersOne.entries())).eql(
+        Object.fromEntries(headersTwo.entries()),
+      );
     } finally {
       server.stop();
     }
