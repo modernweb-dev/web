@@ -4,7 +4,6 @@ import Koa from 'koa';
 import { Server } from 'net';
 import { FSWatcher } from 'chokidar';
 import { expect } from 'chai';
-import fetch from 'node-fetch';
 import portfinder from 'portfinder';
 import { Stub, stubMethod } from 'hanbi';
 import { ServerStartParams } from '../../src/plugins/Plugin';
@@ -88,7 +87,6 @@ describe('http2', () => {
   it('serves a website', async () => {
     const { server, host } = await createTestServer({ hostname: 'localhost', http2: true });
     const response = await fetch(`${host}/index.html`);
-    console.log(response.body, response.size);
     const responseText = await response.text();
 
     // It's a bit of a shame that we can't verify that the response was delivered with a http/2

@@ -1,6 +1,5 @@
 /* eslint-disable no-restricted-syntax, no-await-in-loop */
 import { expect } from 'chai';
-import fetch from 'node-fetch';
 
 import { createTestServer } from '../helpers';
 import { fetchText, expectIncludes } from '../../src/test-helpers';
@@ -189,16 +188,17 @@ describe('plugin-transform middleware', () => {
     try {
       const responseOne = await fetch(`${host}/src/foo.js`);
       const textOne = await responseOne.text();
-      const headersOne = responseOne.headers.raw();
+
+      const headersOne = responseOne.headers;
 
       const responseTwo = await fetch(`${host}/src/foo.js`);
       const textTwo = await responseTwo.text();
-      const headersTwo = responseTwo.headers.raw();
+      const headersTwo = responseTwo.headers;
 
       expect(textOne).equal('console.log("foo")');
       expect(textTwo).equal('console.log("foo")');
-      expect(headersOne['x-foo']).eql(['bar']);
-      expect(headersOne).eql(headersTwo);
+      expect(headersOne.get('x-foo')).eql('bar');
+      expect(Object.fromEntries(headersOne.entries())).eql(Object.fromEntries(headersTwo.entries()))
     } finally {
       server.stop();
     }
