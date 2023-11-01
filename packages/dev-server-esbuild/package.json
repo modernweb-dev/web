@@ -52,16 +52,15 @@
   ],
   "dependencies": {
     "@mdn/browser-compat-data": "^4.0.0",
-    "esbuild": "^0.19.5",
     "@web/dev-server-core": "^0.7.0",
     "parse5": "^6.0.1",
+    "esbuild": "^0.19.5",
     "ua-parser-js": "^1.0.33"
   },
   "devDependencies": {
     "@types/ua-parser-js": "^0.7.35",
     "@web/dev-server-rollup": "^0.6.0",
     "lit-element": "^3.0.0 || ^4.0.1",
-    "node-fetch": "3.0.0-beta.9",
     "preact": "^10.5.9"
   }
 }
