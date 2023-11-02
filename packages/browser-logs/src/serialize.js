@@ -2,8 +2,13 @@
 var KEY_WTR_TYPE = '__WTR_TYPE__';
 var KEY_CONSTRUCTOR_NAME = '__WTR_CONSTRUCTOR_NAME__';
 
-/* eslint-disable @typescript-eslint/ban-types */
-function catchFallback<T>(fn: (...args: any[]) => T, fallback = null) {
+/**
+ * @template T
+ *
+ * @param {(...args: any[]) => T} fn
+ * @param {null} fallback
+ */
+function catchFallback(fn, fallback = null) {
   try {
     return fn();
   } catch {
@@ -11,7 +16,10 @@ function catchFallback<T>(fn: (...args: any[]) => T, fallback = null) {
   }
 }
 
-function serializeObject(value: any) {
+/**
+ * @param {any} value
+ */
+function serializeObject(value) {
   if (value instanceof Text || value instanceof Comment) {
     return value.constructor.name + ': ' + value.nodeValue || '';
   }
@@ -70,9 +78,14 @@ function serializeObject(value: any) {
 
 function createReplacer() {
   // maintain a stack of seen objects to handle circular references
-  var objectStack: any[] = [];
+  /** @type {any[]} */
+  var objectStack = [];
 
-  return function replacer(this: any, key: string, value: unknown) {
+  /**
+   * @param {string} key
+   * @param {unknown} value
+   */
+  return function replacer(key, value) {
     if (this[KEY_WTR_TYPE]) {
       return value;
     }
@@ -94,19 +107,18 @@ function createReplacer() {
       return value;
     }
 
-    var type = typeof value;
-    if (type === 'function') {
+    if (typeof value === 'function') {
       return {
         [KEY_WTR_TYPE]: 'Function',
-        name: (value as Function).name,
+        name: value.name,
       };
     }
 
-    if (type === 'symbol') {
-      return (value as Symbol).toString();
+    if (typeof value === 'symbol') {
+      return value.toString();
     }
 
-    if (type === 'object') {
+    if (typeof value === 'object') {
       if (objectStack.includes(value)) {
         // this object already one of the parents, break the circular reference
         return '[Circular]';
@@ -123,7 +135,10 @@ function createReplacer() {
   };
 }
 
-export function serialize(value: unknown) {
+/**
+ * @param {unknown} value
+ */
+export function serialize(value) {
   try {
     return JSON.stringify(value, createReplacer());
   } catch (error) {

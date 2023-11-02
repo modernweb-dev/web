@@ -1,4 +1,4 @@
-import { ParseStackTraceOptions, parseStackTrace } from './parseStackTrace';
+import { parseStackTrace } from './parseStackTrace';
 
 const KEY_WTR_TYPE = '__WTR_TYPE__';
 const KEY_CONSTRUCTOR_NAME = '__WTR_CONSTRUCTOR_NAME__';
@@ -7,10 +7,18 @@ const ASYNC_DESERIALIZE_WRAPPER = Symbol('ASYNC_DESERIALIZE_WRAPPER');
 
 const BOUND_NAME_FUNCTION_REGEX = /^bound\s+/;
 
-function createReviver(promises: Promise<unknown>[], options?: DeserializeOptions) {
+/**
+ * @param {Promise<unknown>[]} promises
+ * @param {DeserializeOptions} [options]
+ */
+function createReviver(promises, options) {
   const undefinedPropsPerObject = new Map();
 
-  return function reviver(this: any, key: string, value: any) {
+  /**
+   * @param {string} key
+   * @param {any} value
+   */
+  return function reviver(key, value) {
     if (value == null || typeof value !== 'object') {
       return value;
     }
@@ -112,11 +120,18 @@ function createReviver(promises: Promise<unknown>[], options?: DeserializeOption
 
 const { hasOwnProperty } = Object.prototype;
 
-interface DeserializeOptions extends ParseStackTraceOptions {}
+/**
+ * @typedef {import('./parseStackTrace').ParseStackTraceOptions} DeserializeOptions
+ */
 
-export async function deserialize(value: string, options?: DeserializeOptions) {
+/**
+ * @param {string} value
+ * @param {DeserializeOptions} [options]
+ */
+export async function deserialize(value, options) {
   try {
-    const promises: Promise<unknown>[] = [];
+    /** @type {Promise<unknown>[]} */
+    const promises = [];
     const parsed = JSON.parse(value, createReviver(promises, options));
 
     // wait for any async work to finish

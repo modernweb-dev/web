@@ -1,27 +1,30 @@
+import path from 'node:path';
+
 import * as errorStacks from 'errorstacks';
-import path from 'path';
 
-type RawLocation = Pick<errorStacks.StackFrame, 'fileName' | 'line' | 'column'>;
+/** @typedef {Pick<errorStacks.StackFrame, 'fileName' | 'line' | 'column'>} RawLocation */
 
-interface Location {
+/** @typedef {{
   filePath: string;
   line: number;
   column: number;
-}
+}} Location 
+*/
 
-export interface StackLocation extends Location {
+/** @typedef {Location & {
   browserUrl: string;
-}
+}} StackLocation
+*/
 
-export type MapStackLocation = (location: StackLocation) => StackLocation | Promise<StackLocation>;
-export type MapBrowserUrl = (url: URL) => string;
+/** @typedef {(location: StackLocation) => StackLocation | Promise<StackLocation>} MapStackLocation */
+/** @typedef {(url: URL) => string} MapBrowserUrl */
 
-export interface ParseStackTraceOptions {
+/** @typedef {{
   browserRootDir?: string;
   cwd?: string;
   mapBrowserUrl?: MapBrowserUrl;
   mapStackLocation?: MapStackLocation;
-}
+}} ParseStackTraceOptions */
 
 // regexp to match a stack track that is only a full address
 const REGEXP_ADDRESS = /^(http(s)?:\/\/.*)(:\d+)(:\d+)$/;
@@ -32,10 +35,15 @@ const FILTERED_STACKS = [
   '__web-dev-server__',
 ];
 
-const validString = (str: unknown) => typeof str === 'string' && str !== '';
-const validNumber = (nr: unknown) => typeof nr === 'number' && nr !== -1;
+/** @param {unknown} str */
+const validString = str => typeof str === 'string' && str !== '';
+/** @param {unknown} nr */
+const validNumber = nr => typeof nr === 'number' && nr !== -1;
 
-function filterStackFrames(frames: errorStacks.StackFrame[]) {
+/**
+ * @param {errorStacks.StackFrame[]} frames
+ */
+function filterStackFrames(frames) {
   const withoutNative = frames.filter(f => f.type !== 'native');
   const withoutInternal = withoutNative.filter(
     f => !FILTERED_STACKS.some(p => f.fileName.includes(p)),
@@ -43,12 +51,13 @@ function filterStackFrames(frames: errorStacks.StackFrame[]) {
   return withoutInternal.length > 0 ? withoutInternal : withoutNative;
 }
 
-async function mapLocation(
-  url: URL,
-  loc: RawLocation,
-  mapBrowserUrl: MapBrowserUrl,
-  mapStackLocation: MapStackLocation,
-) {
+/**
+ * @param {URL} url
+ * @param {RawLocation} loc
+ * @param {MapBrowserUrl} mapBrowserUrl
+ * @param {MapStackLocation} mapStackLocation
+ */
+async function mapLocation(url, loc, mapBrowserUrl, mapStackLocation) {
   const browserUrl = `${url.pathname}${url.search}${url.hash}`;
   const filePath = mapBrowserUrl(url);
   return mapStackLocation({
@@ -59,7 +68,10 @@ async function mapLocation(
   });
 }
 
-function parseUrl(url: string) {
+/**
+ * @param {string} url
+ */
+function parseUrl(url) {
   try {
     return new URL(url, 'http://www.example.org/');
   } catch {
@@ -67,14 +79,18 @@ function parseUrl(url: string) {
   }
 }
 
-async function formatLocation(
-  loc: RawLocation,
-  cwd: string,
-  mapBrowserUrl: MapBrowserUrl,
-  mapStackLocation: MapStackLocation,
-): Promise<StackLocation> {
+/**
+ * @param {RawLocation} loc
+ * @param {string} cwd
+ * @param {MapBrowserUrl} mapBrowserUrl:
+ * @param {MapStackLocation} mapStackLocation
+ *
+ * @returns {Promise<StackLocation>}
+ */
+async function formatLocation(loc, cwd, mapBrowserUrl, mapStackLocation) {
   const url = parseUrl(loc.fileName);
-  let mappedLocation: StackLocation;
+  /** @type {StackLocation} */
+  let mappedLocation;
   if (url) {
     mappedLocation = await mapLocation(url, loc, mapBrowserUrl, mapStackLocation);
   } else {
@@ -85,13 +101,13 @@ async function formatLocation(
   const relativeFileName = path.relative(cwd, mappedLocation.filePath);
   return { ...mappedLocation, filePath: relativeFileName };
 }
-
-async function formatFrame(
-  f: errorStacks.StackFrame,
-  cwd: string,
-  mapBrowserUrl: MapBrowserUrl,
-  mapStackLocation: MapStackLocation,
-) {
+/**
+  @param {errorStacks.StackFrame} f
+  @param {string} cwd
+  @param {MapBrowserUrl} mapBrowserUrl
+  @param {MapStackLocation} mapStackLocation
+*/
+async function formatFrame(f, cwd, mapBrowserUrl, mapStackLocation) {
   if (validString(f.fileName) && validNumber(f.line) && validNumber(f.column)) {
     const location = `${f.fileName}:${f.line}:${f.column}`;
     if (validString(f.name)) {
@@ -118,11 +134,12 @@ async function formatFrame(
   return `  ${trimmedRaw}`;
 }
 
-export async function parseStackTrace(
-  errorMsg: string,
-  rawStack: string,
-  options: ParseStackTraceOptions = {},
-) {
+/**
+ * @param {string} errorMsg
+ * @param {string} rawStack
+ * @param {ParseStackTraceOptions} options
+ */
+export async function parseStackTrace(errorMsg, rawStack, options = {}) {
   if (rawStack === '' || (rawStack.split('\n').length === 1 && rawStack.includes(errorMsg))) {
     // there is no track trace, or it's only an error message
     return undefined;
