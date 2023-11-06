@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import path from 'path';
 import fs from 'fs';
-import { nanoid } from 'nanoid';
 
 import { createTestServer, timeout } from '../helpers';
 import { DevServer } from '../../src/server/DevServer';
@@ -61,6 +60,7 @@ describe('etag cache middleware', () => {
     });
 
     it('returns 200 responses if file changed', async () => {
+      const { nanoid } = await import('nanoid');
       fs.writeFileSync(testFileBPath, '// this file is cached', 'utf-8');
 
       const initialResponse = await fetch(`${host}${testFileBName}`);
