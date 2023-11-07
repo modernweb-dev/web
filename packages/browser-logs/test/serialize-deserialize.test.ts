@@ -19,7 +19,7 @@ describe('serialize deserialize', function () {
   let browser: Browser;
   let page: Page;
   before(async () => {
-    browser = await launch({ headless: false });
+    browser = await launch({ headless: 'new' });
     page = await browser.newPage();
     await page.goto('about:blank');
     console.log(serializeScript);
