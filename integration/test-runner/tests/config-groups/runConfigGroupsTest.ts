@@ -7,8 +7,8 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';
 import { resolve } from 'path';
 import { expect } from 'chai';
-    import * as url from 'url';
-    const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 export function runConfigGroupsTest(
   config: Partial<TestRunnerCoreConfig> & { browsers: BrowserLauncher[] },

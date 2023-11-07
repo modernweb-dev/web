@@ -10,4 +10,4 @@ export {
   a11ySnapshotPlugin,
   filePlugin,
   snapshotPlugin,
-} from './dist/index.js'
+} from './dist/index.js';

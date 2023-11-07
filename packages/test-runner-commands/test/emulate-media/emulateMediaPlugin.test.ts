@@ -4,8 +4,8 @@ import { chromeLauncher } from '@web/test-runner-chrome';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { emulateMediaPlugin } from '../../src/emulateMediaPlugin.js';
-    import * as url from 'url';
-    const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('emulateMediaPlugin', function test() {
   this.timeout(20000);

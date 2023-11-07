@@ -12,9 +12,9 @@
     "directory": "packages/test-runner-visual-regression"
   },
   "author": "modern-web",
-  "type": "module",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-visual-regression",
   "main": "browser/commands.mjs",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./browser/commands.mjs",

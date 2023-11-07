@@ -12,9 +12,9 @@
     "directory": "packages/rollup-plugin-polyfills-loader"
   },
   "author": "modern-web",
-  "type": "module",
   "homepage": "https://github.com/modern-web/web/packages/rollup-plugin-polyfills-loader",
   "main": "dist/index.js",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./index.mjs",

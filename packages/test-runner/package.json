@@ -12,13 +12,13 @@
     "directory": "packages/test-runner"
   },
   "author": "modern-web",
-  "type": "module",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner",
   "main": "dist/index.js",
   "bin": {
     "web-test-runner": "./dist/bin.js",
     "wtr": "./dist/bin.js"
   },
+  "type": "module",
   "exports": {
     ".": {
       "import": {

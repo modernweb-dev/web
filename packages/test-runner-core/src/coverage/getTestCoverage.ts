@@ -7,9 +7,7 @@ import pkg, {
   Location,
   Range,
 } from 'istanbul-lib-coverage';
-const { 
-  createCoverageMap,
-} = pkg;
+const { createCoverageMap } = pkg;
 import { TestSession } from '../test-session/TestSession';
 import { CoverageConfig } from '../config/TestRunnerCoreConfig';
 

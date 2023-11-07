@@ -3,8 +3,8 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { snapshotPlugin } from '../../src/snapshotPlugin.js';
-    import * as url from 'url';
-    const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('snapshotPlugin', function test() {
   this.timeout(20000);
