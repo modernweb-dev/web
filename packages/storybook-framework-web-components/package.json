@@ -12,9 +12,9 @@
     "directory": "packages/storybook-framework-web-components"
   },
   "author": "modern-web",
-  "type": "module",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/storybook-framework-web-components",
   "main": "dist/index.js",
+  "type": "module",
   "exports": {
     ".": {
       "require": "./dist/index.js",

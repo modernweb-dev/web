@@ -16,5 +16,4 @@ export {
   EventEmitter,
   isTestFilePath,
   fetchSourceMap,
-} from './dist/index.js'
-
+} from './dist/index.js';

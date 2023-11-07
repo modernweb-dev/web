@@ -14,4 +14,4 @@ export {
   isInlineScriptRequest,
   PluginSyntaxError,
   PluginError,
-} from './dist/index.js'
+} from './dist/index.js';

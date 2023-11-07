@@ -6,4 +6,4 @@ export {
   hasFileOfType,
   fileTypes,
   getScriptFileType,
-} from './dist/index.js'
+} from './dist/index.js';

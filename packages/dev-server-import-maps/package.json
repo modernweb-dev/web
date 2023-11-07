@@ -12,9 +12,9 @@
     "directory": "packages/dev-server-import-maps"
   },
   "author": "modern-web",
-  "type": "module",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server-import-maps",
   "main": "dist/index.js",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./index.d.ts",

@@ -12,8 +12,8 @@
     "directory": "packages/mocks"
   },
   "author": "modern-web",
-  "type": "module",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/mocks",
+  "type": "module",
   "type": "module",
   "exports": {
     "./http.js": {

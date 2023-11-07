@@ -6,8 +6,8 @@ import { webdriverLauncher } from '@web/test-runner-webdriver';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { sendMousePlugin } from '../../src/sendMousePlugin.js';
 import { startSeleniumServer } from '../selenium-server.js';
-    import * as url from 'url';
-    const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('sendMousePlugin', function test() {
   this.timeout(50000);
