@@ -6,7 +6,7 @@ export async function readFileConfig(customPath?: string): Promise<DevServerConf
     return await readConfig('web-dev-server.config', customPath);
   } catch (error) {
     if (error instanceof ConfigLoaderError) {
-      throw new DevServerStartError(error.message);
+      throw new DevServerStartError((error as Error).message);
     }
     throw error;
   }

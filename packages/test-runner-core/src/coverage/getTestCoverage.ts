@@ -1,5 +1,4 @@
-import {
-  createCoverageMap,
+import pkg, {
   CoverageSummaryData,
   CoverageMap,
   CoverageMapData,
@@ -8,6 +7,9 @@ import {
   Location,
   Range,
 } from 'istanbul-lib-coverage';
+const { 
+  createCoverageMap,
+} = pkg;
 import { TestSession } from '../test-session/TestSession';
 import { CoverageConfig } from '../config/TestRunnerCoreConfig';
 

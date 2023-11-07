@@ -1,4 +1,7 @@
 import { transformAsync, TransformOptions } from '@babel/core';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
 
 export const es5Config: TransformOptions = {
   caller: {

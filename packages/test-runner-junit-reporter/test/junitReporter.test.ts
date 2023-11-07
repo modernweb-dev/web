@@ -8,6 +8,9 @@ import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { junitReporter } from '../src/junitReporter.js';
 
+    import * as url from 'url';
+    const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 const NON_ZERO_TIME_VALUE_REGEX = /time="((\d\.\d+)|(\d))"/g;
 
 const USER_AGENT_STRING_REGEX = /"Mozilla\/5\.0 (.*)"/g;

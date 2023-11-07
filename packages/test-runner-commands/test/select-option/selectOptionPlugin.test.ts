@@ -5,6 +5,9 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { selectOptionPlugin } from '../../src/selectOptionPlugin.js';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 describe('selectOptionPlugin', function test() {
   this.timeout(20000);
 

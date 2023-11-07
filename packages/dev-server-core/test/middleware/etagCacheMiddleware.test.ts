@@ -2,10 +2,12 @@ import { expect } from 'chai';
 import path from 'path';
 import fs from 'fs';
 import { nanoid } from 'nanoid';
+import * as url from 'url';
 
 import { createTestServer, timeout } from '../helpers.js';
 import { DevServer } from '../../src/server/DevServer.js';
 
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const fixtureDir = path.resolve(__dirname, '..', 'fixtures', 'basic');
 const testFileAName = '/cached-file-a.js';
 const testFileBName = '/cached-file-b.js';

@@ -13,13 +13,7 @@
  */
 
 import { constructors } from './modification.js';
-import {
-  isCommentNode,
-  isDocument,
-  isDocumentFragment,
-  isElement,
-  isTextNode,
-} from './predicates.js';
+import { isCommentNode, isDocument, isDocumentFragment, isElement, isTextNode } from './predicates.js';
 import { nodeWalkAll } from './walking.js';
 
 /**
