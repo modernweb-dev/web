@@ -1,4 +1,4 @@
-import * as errorStacks from 'errorstacks';
+import * as errorStacks from '@koddsson/errorstacks';
 import path from 'path';
 
 type RawLocation = Pick<errorStacks.StackFrame, 'fileName' | 'line' | 'column'>;
