@@ -1,13 +1,13 @@
 import { generateSW as _generateSw, injectManifest as _injectManifest } from 'workbox-build';
 import type { GenerateSWOptions, InjectManifestOptions } from 'workbox-build';
-import * as prettyBytes from 'pretty-bytes';
+import prettyBytes from 'pretty-bytes';
 import * as esbuild from 'esbuild';
 import type { BuildOptions } from 'esbuild';
 
 const name = 'workbox';
 
 const report = ({ swDest, count, size }: { swDest: string; count: number; size: number }) => {
-  const prettySize = prettyBytes.default(size);
+  const prettySize = prettyBytes(size);
 
   console.log(`\nThe service worker file was written to ${swDest}`);
   console.log(`The service worker will precache ${count} URLs, totaling ${prettySize}.\n`);

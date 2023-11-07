@@ -12,6 +12,7 @@
     "directory": "packages/test-runner-puppeteer"
   },
   "author": "modern-web",
+  "type": "module",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer",
   "main": "dist/index.js",
   "exports": {

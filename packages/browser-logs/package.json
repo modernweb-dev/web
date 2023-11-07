@@ -6,6 +6,7 @@
   },
   "description": "Capture browser logs for logging in NodeJS",
   "license": "MIT",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/modernweb-dev/web.git",
@@ -13,7 +14,6 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/browser-logs",
-  "main": "dist/index.js",
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -51,6 +51,6 @@
   },
   "devDependencies": {
     "@esm-bundle/chai": "^4.1.5",
-    "puppeteer": "^20.0.0"
+    "puppeteer": "^21.5.0"
   }
 }

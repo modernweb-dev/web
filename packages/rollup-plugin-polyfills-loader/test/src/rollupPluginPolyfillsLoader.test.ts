@@ -6,6 +6,9 @@ import path from 'path';
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 import polyfillsLoader from '../../src/index.js';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 type Output = (OutputChunk | OutputAsset)[];
 
 const relativeUrl = `./${path.relative(process.cwd(), path.join(__dirname, '..'))}`;

@@ -7,8 +7,8 @@
 /** @typedef {import('parse5').CommentNode} CommentNode */
 /** @typedef {import('parse5').TextNode} TextNode */
 
-const parse5 = require('parse5');
-const adapter = require('parse5/lib/tree-adapters/default');
+import parse5 from 'parse5';
+import adapter from 'parse5/lib/tree-adapters/default.js';
 
 const DEFAULT_NAMESPACE = 'http://www.w3.org/1999/xhtml';
 const REGEXP_IS_HTML_DOCUMENT = /^\s*<(!doctype|html|head|body)\b/i;
@@ -21,7 +21,7 @@ const REGEXP_IS_HTML_DOCUMENT = /^\s*<(!doctype|html|head|body)\b/i;
  * @param {string} namespaceURI  Namespace of the element.
  * @returns {Element}
  */
-function createElement(tagName, attrs = {}, namespaceURI = DEFAULT_NAMESPACE) {
+export function createElement(tagName, attrs = {}, namespaceURI = DEFAULT_NAMESPACE) {
   const attrsArray = Object.entries(attrs).map(([name, value]) => ({ name, value }));
   return adapter.createElement(tagName, namespaceURI, attrsArray);
 }
@@ -32,7 +32,7 @@ function createElement(tagName, attrs = {}, namespaceURI = DEFAULT_NAMESPACE) {
  * @param {string} [code]
  * @returns {Element}
  */
-function createScript(attrs = {}, code = undefined) {
+export function createScript(attrs = {}, code = undefined) {
   const element = createElement('script', attrs);
   if (code) {
     setTextContent(element, code);
@@ -43,7 +43,7 @@ function createScript(attrs = {}, code = undefined) {
 /**
  * @param {string} html
  */
-function isHtmlFragment(html) {
+export function isHtmlFragment(html) {
   let htmlWithoutComments = html.replace(/<!--.*?-->/gs, '');
   return !REGEXP_IS_HTML_DOCUMENT.test(htmlWithoutComments);
 }
@@ -51,7 +51,7 @@ function isHtmlFragment(html) {
 /**
  * @param {Element} element
  */
-function getAttributes(element) {
+export function getAttributes(element) {
   const attrsArray = adapter.getAttrList(element);
   /** @type {Record<string,string>} */
   const attrsObj = {};
@@ -65,7 +65,7 @@ function getAttributes(element) {
  * @param {Element} element
  * @param {string} name
  */
-function getAttribute(element, name) {
+export function getAttribute(element, name) {
   const attrList = adapter.getAttrList(element);
   if (!attrList) {
     return null;
@@ -81,7 +81,7 @@ function getAttribute(element, name) {
  * @param {Element} element
  * @param {string} name
  */
-function hasAttribute(element, name) {
+export function hasAttribute(element, name) {
   return getAttribute(element, name) != null;
 }
 
@@ -90,7 +90,7 @@ function hasAttribute(element, name) {
  * @param {string} name
  * @param {string} value
  */
-function setAttribute(element, name, value) {
+export function setAttribute(element, name, value) {
   const attrs = adapter.getAttrList(element);
   const existing = attrs.find(a => a.name === name);
 
@@ -105,7 +105,7 @@ function setAttribute(element, name, value) {
  * @param {Element} element
  * @param {Record<string,string|undefined>} attributes
  */
-function setAttributes(element, attributes) {
+export function setAttributes(element, attributes) {
   for (const [name, value] of Object.entries(attributes)) {
     if (value !== undefined) {
       setAttribute(element, name, value);
@@ -117,7 +117,7 @@ function setAttributes(element, attributes) {
  * @param {Element} element
  * @param {string} name
  */
-function removeAttribute(element, name) {
+export function removeAttribute(element, name) {
   const attrs = adapter.getAttrList(element);
   element.attrs = attrs.filter(attr => attr.name !== name);
 }
@@ -126,7 +126,7 @@ function removeAttribute(element, name) {
  * @param {Node} node
  * @returns {string}
  */
-function getTextContent(node) {
+export function getTextContent(node) {
   if (adapter.isCommentNode(node)) {
     return node.data || '';
   }
@@ -141,7 +141,7 @@ function getTextContent(node) {
  * @param {Node} node
  * @param {string} value
  */
-function setTextContent(node, value) {
+export function setTextContent(node, value) {
   if (adapter.isCommentNode(node)) {
     node.data = value;
   } else if (adapter.isTextNode(node)) {
@@ -162,7 +162,7 @@ function setTextContent(node, value) {
  * Removes element from the AST.
  * @param {ChildNode} node
  */
-function remove(node) {
+export function remove(node) {
   const parent = node.parentNode;
   if (parent && parent.childNodes) {
     const idx = parent.childNodes.indexOf(node);
@@ -177,7 +177,7 @@ function remove(node) {
  * @param {(node: Node) => boolean} test
  * @returns {Node | null}
  */
-function findNode(nodes, test) {
+export function findNode(nodes, test) {
   const n = Array.isArray(nodes) ? nodes.slice() : [nodes];
 
   while (n.length > 0) {
@@ -202,7 +202,7 @@ function findNode(nodes, test) {
  * @param {(node: Node) => boolean} test
  * @returns {Node[]}
  */
-function findNodes(nodes, test) {
+export function findNodes(nodes, test) {
   const n = Array.isArray(nodes) ? nodes.slice() : [nodes];
   /** @type {Node[]} */
   const found = [];
@@ -241,7 +241,7 @@ function findNodes(nodes, test) {
  * @param {(node: Element) => boolean} test
  * @returns {Element | null}
  */
-function findElement(nodes, test) {
+export function findElement(nodes, test) {
   return /** @type {Element | null} */ (findNode(nodes, n => adapter.isElementNode(n) && test(n)));
 }
 
@@ -251,7 +251,7 @@ function findElement(nodes, test) {
  * @param {(node: Element) => boolean} test
  * @returns {Element[]}
  */
-function findElements(nodes, test) {
+export function findElements(nodes, test) {
   return /** @type {Element[]} */ (findNodes(nodes, n => adapter.isElementNode(n) && test(n)));
 }
 
@@ -259,7 +259,7 @@ function findElements(nodes, test) {
  * @param {ParentNode} parent
  * @param {ChildNode} node
  */
-function prepend(parent, node) {
+export function prepend(parent, node) {
   parent.childNodes.unshift(node);
   node.parentNode = parent;
 }
@@ -271,7 +271,7 @@ function prepend(parent, node) {
  * @param {string} appendedHtml
  * @returns {string | null}
  */
-function prependToDocument(document, appendedHtml) {
+export function prependToDocument(document, appendedHtml) {
   const documentAst = parse5.parse(document, { sourceCodeLocationInfo: true });
   let appendNode = findElement(documentAst, node => adapter.getTagName(node) === 'head');
   if (!appendNode || !appendNode.sourceCodeLocation || !appendNode.sourceCodeLocation.startTag) {
@@ -303,7 +303,7 @@ function prependToDocument(document, appendedHtml) {
  * @param {string} document
  * @param {string} appendedHtml
  */
-function appendToDocument(document, appendedHtml) {
+export function appendToDocument(document, appendedHtml) {
   const documentAst = parse5.parse(document, { sourceCodeLocationInfo: true });
   let appendNode = findElement(documentAst, node => adapter.getTagName(node) === 'body');
   if (!appendNode || !appendNode.sourceCodeLocation || !appendNode.sourceCodeLocation.endTag) {
@@ -329,53 +329,34 @@ function appendToDocument(document, appendedHtml) {
   return `${start}${appendedHtml}${end}`;
 }
 
-module.exports.createDocument = adapter.createDocument;
-module.exports.createDocumentFragment = adapter.createDocumentFragment;
-module.exports.createElement = createElement;
-module.exports.createScript = createScript;
-module.exports.createCommentNode = adapter.createCommentNode;
-module.exports.appendChild = adapter.appendChild;
-module.exports.insertBefore = adapter.insertBefore;
-module.exports.setTemplateContent = adapter.setTemplateContent;
-module.exports.getTemplateContent = adapter.getTemplateContent;
-module.exports.setDocumentType = adapter.setDocumentType;
-module.exports.setDocumentMode = adapter.setDocumentMode;
-module.exports.getDocumentMode = adapter.getDocumentMode;
-module.exports.detachNode = adapter.detachNode;
-module.exports.insertText = adapter.insertText;
-module.exports.insertTextBefore = adapter.insertTextBefore;
-module.exports.adoptAttributes = adapter.adoptAttributes;
-module.exports.getFirstChild = adapter.getFirstChild;
-module.exports.getChildNodes = adapter.getChildNodes;
-module.exports.getParentNode = adapter.getParentNode;
-module.exports.getAttrList = adapter.getAttrList;
-module.exports.getTagName = adapter.getTagName;
-module.exports.getNamespaceURI = adapter.getNamespaceURI;
-module.exports.getTextNodeContent = adapter.getTextNodeContent;
-module.exports.getCommentNodeContent = adapter.getCommentNodeContent;
-module.exports.getDocumentTypeNodeName = adapter.getDocumentTypeNodeName;
-module.exports.getDocumentTypeNodePublicId = adapter.getDocumentTypeNodePublicId;
-module.exports.getDocumentTypeNodeSystemId = adapter.getDocumentTypeNodeSystemId;
-module.exports.isTextNode = adapter.isTextNode;
-module.exports.isCommentNode = adapter.isCommentNode;
-module.exports.isDocumentTypeNode = adapter.isDocumentTypeNode;
-module.exports.isElementNode = adapter.isElementNode;
-module.exports.setNodeSourceCodeLocation = adapter.setNodeSourceCodeLocation;
-module.exports.getNodeSourceCodeLocation = adapter.getNodeSourceCodeLocation;
-module.exports.isHtmlFragment = isHtmlFragment;
-module.exports.hasAttribute = hasAttribute;
-module.exports.getAttribute = getAttribute;
-module.exports.getAttributes = getAttributes;
-module.exports.setAttribute = setAttribute;
-module.exports.setAttributes = setAttributes;
-module.exports.removeAttribute = removeAttribute;
-module.exports.setTextContent = setTextContent;
-module.exports.getTextContent = getTextContent;
-module.exports.remove = remove;
-module.exports.findNode = findNode;
-module.exports.findNodes = findNodes;
-module.exports.findElement = findElement;
-module.exports.findElements = findElements;
-module.exports.prepend = prepend;
-module.exports.prependToDocument = prependToDocument;
-module.exports.appendToDocument = appendToDocument;
+export const createDocument = adapter.createDocument;
+export const createDocumentFragment = adapter.createDocumentFragment;
+export const createCommentNode = adapter.createCommentNode;
+export const appendChild = adapter.appendChild;
+export const insertBefore = adapter.insertBefore;
+export const setTemplateContent = adapter.setTemplateContent;
+export const getTemplateContent = adapter.getTemplateContent;
+export const setDocumentType = adapter.setDocumentType;
+export const setDocumentMode = adapter.setDocumentMode;
+export const getDocumentMode = adapter.getDocumentMode;
+export const detachNode = adapter.detachNode;
+export const insertText = adapter.insertText;
+export const insertTextBefore = adapter.insertTextBefore;
+export const adoptAttributes = adapter.adoptAttributes;
+export const getFirstChild = adapter.getFirstChild;
+export const getChildNodes = adapter.getChildNodes;
+export const getParentNode = adapter.getParentNode;
+export const getAttrList = adapter.getAttrList;
+export const getTagName = adapter.getTagName;
+export const getNamespaceURI = adapter.getNamespaceURI;
+export const getTextNodeContent = adapter.getTextNodeContent;
+export const getCommentNodeContent = adapter.getCommentNodeContent;
+export const getDocumentTypeNodeName = adapter.getDocumentTypeNodeName;
+export const getDocumentTypeNodePublicId = adapter.getDocumentTypeNodePublicId;
+export const getDocumentTypeNodeSystemId = adapter.getDocumentTypeNodeSystemId;
+export const isTextNode = adapter.isTextNode;
+export const isCommentNode = adapter.isCommentNode;
+export const isDocumentTypeNode = adapter.isDocumentTypeNode;
+export const isElementNode = adapter.isElementNode;
+export const setNodeSourceCodeLocation = adapter.setNodeSourceCodeLocation;
+export const getNodeSourceCodeLocation = adapter.getNodeSourceCodeLocation;

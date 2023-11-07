@@ -1,13 +1,16 @@
 import fs from 'fs';
 import path from 'path';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 const REGEXP_SOURCE_MAP = /\/\/# sourceMappingURL=.*/;
 
 const serializeScript = fs
-  .readFileSync(path.resolve(__dirname, 'serialize.js'), 'utf-8')
+  .readFileSync(path.resolve(__dirname, '../dist/serialize.js'), 'utf-8')
   .replace(REGEXP_SOURCE_MAP, '');
 const logUncaughtErrorsScript = fs
-  .readFileSync(path.resolve(__dirname, 'logUncaughtErrors.js'), 'utf-8')
+  .readFileSync(path.resolve(__dirname, '../dist/logUncaughtErrors.js'), 'utf-8')
   .replace(REGEXP_SOURCE_MAP, '');
 
 /**

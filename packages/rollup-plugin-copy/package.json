@@ -12,6 +12,7 @@
     "directory": "packages/rollup-plugin-copy"
   },
   "author": "modern-web",
+  "type": "module",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/rollup-plugin-copy",
   "bugs": {
     "url": "https://github.com/modernweb-dev/web/issues"

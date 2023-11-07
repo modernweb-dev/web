@@ -1,8 +1,5 @@
 import { expect } from 'chai';
-import {
-  getEntrypointBundles,
-  createImportPath,
-} from '../../../src/output/getEntrypointBundles.js';
+import { getEntrypointBundles, createImportPath } from '../../../src/output/getEntrypointBundles.js';
 import { GeneratedBundle, ScriptModuleTag } from '../../../src/RollupPluginHTMLOptions.js';
 
 describe('createImportPath()', () => {

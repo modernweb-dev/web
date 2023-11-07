@@ -1,6 +1,6 @@
-const { glob } = require('glob');
-const fs = require('fs');
-const path = require('path');
+import glob from 'glob';
+import fs from 'fs';
+import path from 'path';
 
 /**
  * Lists all files using the specified glob, starting from the given root directory.
@@ -11,7 +11,7 @@ const path = require('path');
  * @param {string} rootDir
  * @param {string|string[]} [ignore]
  */
-async function listFiles(fromGlob, rootDir, ignore) {
+export async function listFiles(fromGlob, rootDir, ignore) {
   // remember, each filepath returned is relative to rootDir
   return (
     (await glob(fromGlob, { cwd: rootDir, dot: true, ignore }))
@@ -21,5 +21,3 @@ async function listFiles(fromGlob, rootDir, ignore) {
       .filter(filePath => !fs.lstatSync(filePath).isDirectory())
   );
 }
-
-module.exports = { listFiles };

@@ -12,6 +12,7 @@
     "directory": "packages/test-runner-junit-reporter"
   },
   "author": "modern-web",
+  "type": "module",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-junit-reporter",
   "main": "dist/index.js",
   "exports": {

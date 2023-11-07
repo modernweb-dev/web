@@ -1,11 +1,15 @@
 import { expect } from 'chai';
-import puppeteer, { Browser, Page } from 'puppeteer';
+import{ launch, Browser, Page } from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
+import * as url from 'url';
 
 import { deserialize } from '../src/deserialize.js';
 
-const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+const serializeScript = fs.readFileSync(path.resolve(__dirname, '../dist/serialize.js'), 'utf-8')
+  .replaceAll(/export /g, '');
 const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };
 
 describe('serialize deserialize', function () {
@@ -14,9 +18,10 @@ describe('serialize deserialize', function () {
   let browser: Browser;
   let page: Page;
   before(async () => {
-    browser = await puppeteer.launch({ headless: 'new' });
+    browser = await launch({ headless: false });
     page = await browser.newPage();
     await page.goto('about:blank');
+    console.log(serializeScript);
     await page.evaluate(
       `(function () { var module = {}; var exports = {}; \n${serializeScript};\n window._serialize = serialize })()`,
     );

@@ -12,6 +12,7 @@
     "directory": "packages/rollup-plugin-html"
   },
   "author": "modern-web",
+  "type": "module",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/rollup-plugin-html",
   "main": "dist/index.js",
   "exports": {

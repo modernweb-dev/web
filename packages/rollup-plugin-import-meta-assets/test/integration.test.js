@@ -1,10 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-const rollup = require('rollup');
-const { expect } = require('chai');
-const hanbi = require('hanbi');
+import fs from 'fs';
+import path from 'path';
+import { rollup } from 'rollup';
+import { expect } from 'chai';
+import * as hanbi from 'hanbi';
+import { createRequire } from 'node:module';
 
-const { importMetaAssets } = require('../src/rollup-plugin-import-meta-assets.js');
+import { importMetaAssets } from '../src/rollup-plugin-import-meta-assets.js';
+
+const require = createRequire(import.meta.url);
 
 const outputConfig = {
   format: 'es',
@@ -46,7 +49,7 @@ describe('rollup-plugin-import-meta-assets', () => {
       plugins: [importMetaAssets()],
     };
 
-    const bundle = await rollup.rollup(config);
+    const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
     expect(output.length).to.equal(6);
@@ -75,7 +78,7 @@ describe('rollup-plugin-import-meta-assets', () => {
       ],
     };
 
-    const bundle = await rollup.rollup(config);
+    const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
     expect(output.length).to.equal(6);
@@ -104,7 +107,7 @@ describe('rollup-plugin-import-meta-assets', () => {
       ],
     };
 
-    const bundle = await rollup.rollup(config);
+    const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
     expect(output.length).to.equal(5);
@@ -122,7 +125,7 @@ describe('rollup-plugin-import-meta-assets', () => {
       plugins: [importMetaAssets()],
     };
 
-    const bundle = await rollup.rollup(config);
+    const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
     expect(output.length).to.equal(5);
@@ -144,7 +147,7 @@ describe('rollup-plugin-import-meta-assets', () => {
       plugins: [importMetaAssets()],
     };
 
-    const bundle = await rollup.rollup(config);
+    const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
     expect(output.length).to.equal(5);
@@ -166,7 +169,7 @@ describe('rollup-plugin-import-meta-assets', () => {
       plugins: [importMetaAssets()],
     };
 
-    const bundle = await rollup.rollup(config);
+    const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
     expect(output.length).to.equal(5);
@@ -207,7 +210,7 @@ describe('rollup-plugin-import-meta-assets', () => {
       ],
     };
 
-    const bundle = await rollup.rollup(config);
+    const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
     // 4 ES modules + 2 assets
@@ -231,7 +234,7 @@ describe('rollup-plugin-import-meta-assets', () => {
     let error;
 
     try {
-      const bundle = await rollup.rollup(config);
+      const bundle = await rollup(config);
       await bundle.generate(outputConfig);
     } catch (e) {
       error = e;
@@ -246,7 +249,7 @@ describe('rollup-plugin-import-meta-assets', () => {
       plugins: [importMetaAssets({ warnOnError: true })],
     };
 
-    const bundle = await rollup.rollup(config);
+    const bundle = await rollup(config);
     await bundle.generate(outputConfig);
 
     expect(consoleStub.callCount).to.equal(2);
@@ -264,7 +267,7 @@ describe('rollup-plugin-import-meta-assets', () => {
       plugins: [importMetaAssets({ warnOnError: true })],
     };
 
-    const bundle = await rollup.rollup(config);
+    const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
     expect(output.length).to.equal(4);
@@ -283,7 +286,7 @@ describe('rollup-plugin-import-meta-assets', () => {
       plugins: [importMetaAssets()],
     };
 
-    const bundle = await rollup.rollup(config);
+    const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
     expect(output.length).to.equal(5);
