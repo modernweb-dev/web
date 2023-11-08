@@ -32,7 +32,7 @@
     "start": "rocket start",
     "start:build": "node packages/dev-server/dist/bin.js --root-dir _site --open",
     "test": "npm run test:node && npm run test:browser && node scripts/workspaces-scripts-bin.mjs test:ci",
-    "test:browser": "node packages/test-runner/dist/bin.js \"packages/*/test-browser/**/*.test.{js,ts}\"",
+    "test:browser": "npm run test:browser --workspaces --if-present",
     "test:node": "mocha \"packages/!(*test-runner-selenium|*test-runner-webdriver)/test/**/*.test.{ts,js,mjs,cjs}\"",
     "types": "wireit",
     "update": "npm run update:mjs-dts-entrypoints && npm run update:tsconfigs",
