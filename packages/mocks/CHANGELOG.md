@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 1.0.0
+
+### Major Changes
+
+- 3b0040ac: Initial release
+
 ## 0.1.14
 
 ### Patch Changes
