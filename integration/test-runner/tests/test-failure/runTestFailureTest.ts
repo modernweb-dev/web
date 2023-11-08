@@ -10,20 +10,20 @@ const ERROR_NOT_IMPORTABLE = {
   message:
     'Could not import your test module. Check the browser logs or open the browser in debug mode for more information.',
 };
-const FAILED_TO_FETCH_MESSAGES = [
-  // chromium
-  'Failed to fetch dynamically imported module',
-  // firefox
-  'error loading dynamically imported module',
-  // safari
-  'Importing a module script failed',
-];
-
-function expectFetchModuleFailed(msg: string) {
-  if (!FAILED_TO_FETCH_MESSAGES.some(m => msg.includes(m))) {
-    throw new Error(`Expected a failed to fetch module message, but got error message: ${msg}`);
-  }
-}
+// const FAILED_TO_FETCH_MESSAGES = [
+//   // chromium
+//   'Failed to fetch dynamically imported module',
+//   // firefox
+//   'error loading dynamically imported module',
+//   // safari
+//   'Importing a module script failed',
+// ];
+//
+// function expectFetchModuleFailed(msg: string) {
+//   if (!FAILED_TO_FETCH_MESSAGES.some(m => msg.includes(m))) {
+//     throw new Error(`Expected a failed to fetch module message, but got error message: ${msg}`);
+//   }
+// }
 
 export function runTestFailureTest(
   config: Partial<TestRunnerCoreConfig> & { browsers: BrowserLauncher[] },
