@@ -1,3 +1,5 @@
+// We're using this fork of errorstacks until 
+// https://github.com/marvinhagemeister/errorstacks/pull/22#issuecomment-1775961444 is fixed
 import * as errorStacks from '@koddsson/errorstacks';
 import path from 'path';
 
