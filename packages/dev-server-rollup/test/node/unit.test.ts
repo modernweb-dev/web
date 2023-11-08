@@ -5,8 +5,8 @@ import path from 'path';
 import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
 import { fromRollup } from '../../src/index.js';
 
-    import * as url from 'url';
-    const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('@web/dev-server-rollup', () => {
   describe('resolveId', () => {
