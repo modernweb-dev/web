@@ -22,7 +22,6 @@ describe('serialize deserialize', function () {
     browser = await launch({ headless: 'new' });
     page = await browser.newPage();
     await page.goto('about:blank');
-    console.log(serializeScript);
     await page.evaluate(
       `(function () { var module = {}; var exports = {}; \n${serializeScript};\n window._serialize = serialize })()`,
     );
