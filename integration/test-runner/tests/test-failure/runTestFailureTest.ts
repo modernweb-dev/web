@@ -168,7 +168,6 @@ export function runTestFailureTest(
         expect(session.testResults!.suites.length).to.equal(0);
         expect(session.testResults!.tests.length).to.equal(0);
         expect(session.errors).to.eql([ERROR_NOT_IMPORTABLE]);
-        console.log(session.logs);
         expect(session.logs[0][0]).to.include('This is thrown before running tests');
       }
     });
