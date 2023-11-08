@@ -2,7 +2,7 @@ import { Middleware } from 'koa';
 import { FSWatcher } from 'chokidar';
 import fs from 'fs';
 
-import { getRequestFilePath } from '../utils';
+import { getRequestFilePath } from '../utils.js';
 
 /**
  * Sets up a middleware which tracks served files and sends a reload message to any

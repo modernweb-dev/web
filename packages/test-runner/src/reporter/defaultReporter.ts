@@ -1,7 +1,7 @@
 import { Logger, Reporter, ReporterArgs, BufferedLogger } from '@web/test-runner-core';
 
-import { reportTestFileResults } from './reportTestFileResults';
-import { getTestProgressReport } from './getTestProgress';
+import { reportTestFileResults } from './reportTestFileResults.js';
+import { getTestProgressReport } from './getTestProgress.js';
 
 export interface DefaultReporterArgs {
   reportTestResults?: boolean;

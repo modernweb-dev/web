@@ -5,12 +5,12 @@ import {
   PolyfillFile,
   PolyfillsLoader,
   LegacyEntrypoint,
-} from './types';
+} from './types.js';
 
 import { transformAsync } from '@babel/core';
-import Terser from 'terser';
-import { fileTypes, hasFileOfType, cleanImportPath } from './utils';
-import { createPolyfillsData } from './createPolyfillsData';
+import { minify } from 'terser';
+import { fileTypes, hasFileOfType, cleanImportPath } from './utils.js';
+import { createPolyfillsData } from './createPolyfillsData.js';
 import path from 'path';
 
 /**
@@ -241,7 +241,7 @@ export async function createPolyfillsLoader(
   }
 
   if (cfg.minify) {
-    const output = await Terser.minify(code);
+    const output = await minify(code);
     if (!output || !output.code) {
       throw new Error('Could not minify loader.');
     }

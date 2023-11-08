@@ -2,8 +2,8 @@ import { Plugin as RollupPlugin, AcornNode } from 'rollup';
 import { expect } from 'chai';
 import path from 'path';
 
-import { createTestServer, fetchText, expectIncludes } from './test-helpers';
-import { fromRollup } from '../../src/index';
+import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
+import { fromRollup } from '../../src/index.js';
 
 describe('@web/dev-server-rollup', () => {
   describe('resolveId', () => {

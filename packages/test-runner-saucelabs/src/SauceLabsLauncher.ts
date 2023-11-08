@@ -2,7 +2,7 @@ import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { RemoteOptions } from 'webdriverio';
 import { WebdriverLauncher } from '@web/test-runner-webdriver';
 import ip from 'ip';
-import { SauceLabsLauncherManager } from './SauceLabsLauncherManager';
+import { SauceLabsLauncherManager } from './SauceLabsLauncherManager.js';
 
 const networkAddress = ip.address();
 

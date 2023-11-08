@@ -3,7 +3,7 @@ import { PolyfillsLoaderConfig, FileType, fileTypes } from '@web/polyfills-loade
 import { ModuleFormat } from 'rollup';
 
 import { RollupPluginPolyfillsLoaderConfig } from './types';
-import { createError } from './utils';
+import { createError } from './utils.js';
 
 export function formatToFileType(format: ModuleFormat) {
   switch (format) {

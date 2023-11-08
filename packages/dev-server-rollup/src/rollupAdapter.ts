@@ -21,9 +21,9 @@ import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } f
 import { InputOptions } from 'rollup';
 import { red, cyan } from 'nanocolors';
 
-import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils';
-import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter';
-import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts';
+import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils.js';
+import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter.js';
+import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts.js';
 
 const NULL_BYTE_PARAM = 'web-dev-server-rollup-null-byte';
 const VIRTUAL_FILE_PREFIX = '/__web-dev-server__/rollup';

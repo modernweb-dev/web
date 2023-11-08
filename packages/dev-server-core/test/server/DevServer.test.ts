@@ -6,9 +6,9 @@ import { FSWatcher } from 'chokidar';
 import { expect } from 'chai';
 import portfinder from 'portfinder';
 import { Stub, stubMethod } from 'hanbi';
-import { ServerStartParams } from '../../src/plugins/Plugin';
-import { DevServer } from '../../src/server/DevServer';
-import { createTestServer } from '../helpers';
+import { ServerStartParams } from '../../src/plugins/Plugin.js';
+import { DevServer } from '../../src/server/DevServer.js';
+import { createTestServer } from '../helpers.js';
 
 describe('basic', () => {
   let host: string;

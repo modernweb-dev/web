@@ -1,6 +1,6 @@
 import { InputOption } from 'rollup';
-import { InputHTMLOptions, RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions';
-import { createError } from '../utils';
+import { InputHTMLOptions, RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions.js';
+import { createError } from '../utils.js';
 
 export function normalizeInputOptions(
   pluginOptions: RollupPluginHTMLOptions,

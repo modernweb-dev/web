@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-syntax, no-await-in-loop */
 import { expect } from 'chai';
 
-import { createTestServer } from '../helpers';
-import { fetchText, expectIncludes } from '../../src/test-helpers';
+import { createTestServer } from '../helpers.js';
+import { fetchText, expectIncludes } from '../../src/test-helpers.js';
 
 describe('plugin-transform middleware', () => {
   it('can transform a served file', async () => {

@@ -3,8 +3,8 @@ import path from 'path';
 import fs from 'fs';
 import { nanoid } from 'nanoid';
 
-import { createTestServer, timeout } from '../helpers';
-import { DevServer } from '../../src/server/DevServer';
+import { createTestServer, timeout } from '../helpers.js';
+import { DevServer } from '../../src/server/DevServer.js';
 
 const fixtureDir = path.resolve(__dirname, '..', 'fixtures', 'basic');
 const testFileAName = '/cached-file-a.js';

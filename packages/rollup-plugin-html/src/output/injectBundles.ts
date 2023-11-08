@@ -1,8 +1,8 @@
 import { Document, Attribute } from 'parse5';
 import { createScript, findElement, getTagName, appendChild } from '@web/parse5-utils';
 
-import { EntrypointBundle } from '../RollupPluginHTMLOptions';
-import { createError } from '../utils';
+import { EntrypointBundle } from '../RollupPluginHTMLOptions.js';
+import { createError } from '../utils.js';
 
 export function createLoadScript(src: string, format: string, attributes?: Attribute[]) {
   const attributesObject: Record<string, string> = {};

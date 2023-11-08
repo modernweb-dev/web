@@ -1,11 +1,10 @@
-import { MapStackLocation, StackLocation } from '@web/browser-logs';
-import { MapBrowserUrl } from '@web/browser-logs/src/parseStackTrace';
+import { MapStackLocation, StackLocation, MapBrowserUrl } from '@web/browser-logs';
 
 import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
 import { TestSession } from '../../../test-session/TestSession';
-import { SourceMapFunction } from './createSourceMapFunction';
-import { parseSessionErrors, parseTestResults } from './parseBrowserErrors';
-import { parseBrowserLogs } from './parseBrowserLogs';
+import { SourceMapFunction } from './createSourceMapFunction.js';
+import { parseSessionErrors, parseTestResults } from './parseBrowserErrors.js';
+import { parseBrowserLogs } from './parseBrowserLogs.js';
 
 function createMapStackLocation(smFn: SourceMapFunction, userAgent: string): MapStackLocation {
   return async function mapStackLocation(originalLoc: StackLocation) {

@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import WebSocket from 'ws';
-import { NAME_WEB_SOCKET_API } from '../../src/web-sockets/WebSocketsManager';
+import { NAME_WEB_SOCKET_API } from '../../src/web-sockets/WebSocketsManager.js';
 
-import { createTestServer } from '../helpers';
+import { createTestServer } from '../helpers.js';
 
 function waitFor(fn: (resolve: () => void) => void, msg: string) {
   return new Promise<void>((resolve, reject) => {
