@@ -53,8 +53,8 @@
   "dependencies": {
     "@mdn/browser-compat-data": "^4.0.0",
     "@web/dev-server-core": "^0.7.0",
-    "parse5": "^6.0.1",
     "esbuild": "^0.19.5",
+    "parse5": "^6.0.1",
     "ua-parser-js": "^1.0.33"
   },
   "devDependencies": {
