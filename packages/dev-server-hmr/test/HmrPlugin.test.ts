@@ -6,6 +6,8 @@ import { posix as pathUtil } from 'path';
 import { hmrPlugin } from '../src/index.js';
 import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin.js';
 import { mockFile, mockFiles } from './utils.js';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('HmrPlugin', () => {
   afterEach(async () => {

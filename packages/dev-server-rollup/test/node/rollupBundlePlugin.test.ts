@@ -2,6 +2,9 @@ import { rollupBundlePlugin } from '../../src/rollupBundlePlugin.js';
 import path from 'path';
 import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 describe('rollupBundlePlugin', () => {
   it('can bundle a single entrypoint', async () => {
     const { server, host } = await createTestServer({

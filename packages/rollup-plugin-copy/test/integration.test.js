@@ -4,6 +4,9 @@ import { rollup } from 'rollup';
 
 import { copy } from '../src/copy.js';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 describe('rollup-plugin-copy', () => {
   it('adds files to rollup', async () => {
     const bundle = await rollup({

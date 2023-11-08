@@ -4,6 +4,8 @@ import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
 
 import { legacyPlugin } from '../src/legacyPlugin.js';
 import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const htmlBody = `
 <html>

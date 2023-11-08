@@ -3,6 +3,9 @@ import path from 'path';
 import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.js';
 import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.js';
 
+import * as url from 'node:url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 describe('getOutputHTML()', () => {
   const defaultEntrypointBundles: Record<string, EntrypointBundle> = {
     default: {

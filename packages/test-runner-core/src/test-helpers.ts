@@ -42,6 +42,8 @@ const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   testsFinishTimeout: minuteMs * 2,
   browserLogs: true,
   logger,
+  //manual: true,
+  //port: 9999
 };
 
 export async function runTests(

@@ -7,6 +7,9 @@ import { resolve } from 'path';
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
 import { fromRollup } from '../../../src/index.js';
 
+import * as url from 'node:url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 const postcss = fromRollup(rollupPostcss);
 
 describe('@rollup/plugin-postcss', () => {

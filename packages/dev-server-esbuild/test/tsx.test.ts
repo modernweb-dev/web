@@ -3,6 +3,8 @@ import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 
 import { esbuildPlugin } from '../src/index.js';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('esbuildPlugin TSX', function () {
   this.timeout(5000);
