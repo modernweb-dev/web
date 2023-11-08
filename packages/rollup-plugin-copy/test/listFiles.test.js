@@ -3,6 +3,9 @@ import { expect } from 'chai';
 
 import { listFiles } from '../src/listFiles.js';
 
+import * as url from 'node:url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 describe('listFiles', () => {
   it('gives a list of files', async () => {
     const files = await listFiles('*.svg', path.resolve(__dirname, './fixture/'));

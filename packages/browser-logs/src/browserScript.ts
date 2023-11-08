@@ -9,9 +9,12 @@ const REGEXP_SOURCE_MAP = /\/\/# sourceMappingURL=.*/;
 const serializeScript = fs
   .readFileSync(path.resolve(__dirname, '../dist/serialize.js'), 'utf-8')
   .replace(REGEXP_SOURCE_MAP, '');
+  .replaceAll(/export /g, '');
+console.log(serializeScript);
 const logUncaughtErrorsScript = fs
   .readFileSync(path.resolve(__dirname, '../dist/logUncaughtErrors.js'), 'utf-8')
   .replace(REGEXP_SOURCE_MAP, '');
+  .replaceAll(/export /g, '');
 
 /**
  * Create the browser script. This project is compiled as CJS because it also needs to run in node, so

@@ -1,10 +1,12 @@
-import path from 'path';
 import rollupNodeResolve from '@rollup/plugin-node-resolve';
+import path from 'path';
 import rollupCommonjs from '@rollup/plugin-commonjs';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
 import { fromRollup } from '../../../src/index.js';
 import { expect } from 'chai';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const nodeResolve = fromRollup(rollupNodeResolve, {}, { throwOnUnresolvedImport: true });
 const commonjs = fromRollup(rollupCommonjs);

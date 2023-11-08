@@ -4,10 +4,12 @@ import { rollup } from 'rollup';
 import { expect } from 'chai';
 import * as hanbi from 'hanbi';
 import { createRequire } from 'node:module';
+import * as url from 'node:url';
 
 import { importMetaAssets } from '../src/rollup-plugin-import-meta-assets.js';
 
 const require = createRequire(import.meta.url);
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const outputConfig = {
   format: 'es',

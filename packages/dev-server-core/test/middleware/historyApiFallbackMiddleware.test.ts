@@ -4,6 +4,9 @@ import path from 'path';
 import { createTestServer } from '../helpers.js';
 import { DevServer } from '../../src/server/DevServer.js';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 describe('history api fallback middleware', () => {
   describe('index in root', () => {
     let host: string;

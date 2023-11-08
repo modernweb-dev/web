@@ -1,7 +1,9 @@
 import path from 'path';
 import { expect } from 'chai';
+import * as url from 'node:url';
 
 import { patternsToFiles } from '../src/patternsToFiles.js';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('patternsToFiles', () => {
   it('works with a string', async () => {

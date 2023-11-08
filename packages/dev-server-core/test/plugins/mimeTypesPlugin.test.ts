@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 
 import { createTestServer } from '../helpers.js';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('mimeTypesPLugin', () => {
   it('can configure mime types for files', async () => {

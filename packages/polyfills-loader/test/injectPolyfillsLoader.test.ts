@@ -5,6 +5,9 @@ import { injectPolyfillsLoader } from '../src/injectPolyfillsLoader.js';
 import { noModuleSupportTest, fileTypes } from '../src/utils.js';
 import { PolyfillsLoaderConfig } from '../src/types.js';
 
+import * as url from 'node:url';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
 const defaultConfig = {
