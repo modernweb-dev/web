@@ -10,17 +10,17 @@
   "compilerOptions": {
     "lib": [
       "es2023",
-    "DOM",
-    "DOM.Iterable",
-    "ScriptHost"
+      "DOM",
+      "DOM.Iterable",
+      "ScriptHost"
     ],
     "module": "es2022",
     "target": "es2022",
-    
+
     "declaration": true /* Generates corresponding '.d.ts' file. */,
     "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
     "sourceMap": true /* Generates corresponding '.map' file. */,
-    
+
     "typeRoots": ["@types", "./types"],
     "types": ["node", "mocha", "chai"] /* Type declaration files to be included in compilation. */,
 
