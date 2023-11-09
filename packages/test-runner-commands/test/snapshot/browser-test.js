@@ -121,6 +121,21 @@ And this is the content`;
   }
 });
 
+it('can store snapshots that are an empty string', async () => {
+  const name = 'empty-string';
+
+  try {
+    const content = ``;
+    await saveSnapshot({ name, content });
+
+    const savedContent = await getSnapshot({ name, cache: false });
+    expect(typeof savedContent).to.equal('string');
+    expect(savedContent).to.equal(content);
+  } finally {
+    await removeSnapshot({ name });
+  }
+});
+
 it('can compare an equal snapshot', async () => {
   const name = 'compare-snapshots-same';
 
