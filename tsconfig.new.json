@@ -1,7 +1,4 @@
 {
-  "ts-node": {
-    "experimentalResolver": true
-  },
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
