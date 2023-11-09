@@ -1,10 +1,6 @@
 {
   "ts-node": {
-    "require": ["tsconfig-paths/register"],
-    "esm": true,
-    "experimentalSpecifierResolution": "node",
-    "experimentalResolver": true,
-    "transpileOnly": true
+    "experimentalResolver": true
   },
   "compilerOptions": {
     "target": "ESNext",
