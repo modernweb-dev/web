@@ -1,4 +1,11 @@
 {
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "experimentalResolver": true,
+    "transpileOnly": true
+  },
   "compilerOptions": {
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */

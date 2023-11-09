@@ -74,6 +74,7 @@
     "rimraf": "^4.4.1",
     "rollup": "^3.15.0",
     "ts-node": "^10.4.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "~5.0.4",
     "wireit": "^0.10.0"
   },
