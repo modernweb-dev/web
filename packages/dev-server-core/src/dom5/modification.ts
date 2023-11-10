@@ -13,8 +13,8 @@
  */
 import cloneObject from 'clone';
 
-import { isDocumentFragment, predicates as p } from './predicates';
-import { queryAll } from './walking';
+import { isDocumentFragment, predicates as p } from './predicates.js';
+import { queryAll } from './walking.js';
 
 function newTextNode(value: string): any {
   return {

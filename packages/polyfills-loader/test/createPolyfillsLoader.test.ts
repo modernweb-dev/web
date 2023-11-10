@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { PolyfillsLoaderConfig } from '../src/types';
-import { createPolyfillsLoader } from '../src/createPolyfillsLoader';
-import { noModuleSupportTest, fileTypes } from '../src/utils';
+import { PolyfillsLoaderConfig } from '../src/types.js';
+import { createPolyfillsLoader } from '../src/createPolyfillsLoader.js';
+import { noModuleSupportTest, fileTypes } from '../src/utils.js';
 
 const updateSnapshots = process.argv.includes('--update-snapshots');
 

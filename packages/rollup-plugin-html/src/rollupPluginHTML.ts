@@ -1,19 +1,19 @@
 import { Plugin } from 'rollup';
 import path from 'path';
 
-import { addRollupInput } from './input/addRollupInput';
-import { getInputData } from './input/getInputData';
-import { InputData } from './input/InputData';
-import { createHTMLOutput } from './output/createHTMLOutput';
+import { addRollupInput } from './input/addRollupInput.js';
+import { getInputData } from './input/getInputData.js';
+import { InputData } from './input/InputData.js';
+import { createHTMLOutput } from './output/createHTMLOutput.js';
 
 import {
   GeneratedBundle,
   RollupPluginHTMLOptions,
   ScriptModuleTag,
   TransformHtmlFunction,
-} from './RollupPluginHTMLOptions';
-import { createError, NOOP_IMPORT } from './utils';
-import { emitAssets } from './output/emitAssets';
+} from './RollupPluginHTMLOptions.js';
+import { createError, NOOP_IMPORT } from './utils.js';
+import { emitAssets } from './output/emitAssets.js';
 
 export interface RollupPluginHtml extends Plugin {
   api: {

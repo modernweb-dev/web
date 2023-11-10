@@ -1,13 +1,13 @@
 import { Document, serialize } from 'parse5';
 import fs from 'fs';
 import path from 'path';
-import { InputAsset } from '../InputData';
+import { InputAsset } from '../InputData.js';
 import {
   findAssets,
   getSourcePaths,
   isHashedAsset,
   resolveAssetFilePath,
-} from '../../assets/utils';
+} from '../../assets/utils.js';
 
 export interface ExtractAssetsParams {
   document: Document;

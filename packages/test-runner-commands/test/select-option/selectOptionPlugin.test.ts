@@ -3,7 +3,7 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
-import { selectOptionPlugin } from '../../src/selectOptionPlugin';
+import { selectOptionPlugin } from '../../src/selectOptionPlugin.js';
 
 describe('selectOptionPlugin', function test() {
   this.timeout(20000);

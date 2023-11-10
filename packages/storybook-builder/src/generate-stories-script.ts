@@ -4,7 +4,7 @@ import { normalizePath } from '@rollup/pluginutils';
 import { logger } from '@storybook/node-logger';
 import type { Options } from '@storybook/types';
 import * as path from 'path';
-import { listStories } from './list-stories';
+import { listStories } from './list-stories.js';
 
 /**
  * This file is largely based on https://github.com/storybookjs/storybook/blob/d1195cbd0c61687f1720fefdb772e2f490a46584/lib/core-common/src/utils/to-importFn.ts

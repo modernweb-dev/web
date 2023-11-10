@@ -38,6 +38,9 @@
       "path": "./packages/dev-server-rollup/tsconfig.json"
     },
     {
+      "path": "./packages/dev-server/tsconfig.json"
+    },
+    {
       "path": "./packages/test-runner-playwright/tsconfig.json"
     },
     {
@@ -48,9 +51,6 @@
     },
     {
       "path": "./packages/dev-server-legacy/tsconfig.json"
-    },
-    {
-      "path": "./packages/dev-server/tsconfig.json"
     },
     {
       "path": "./packages/test-runner-commands/tsconfig.json"
@@ -80,6 +80,9 @@
       "path": "./packages/dev-server-hmr/tsconfig.json"
     },
     {
+      "path": "./packages/dev-server-polyfill/tsconfig.json"
+    },
+    {
       "path": "./packages/dev-server-import-maps/tsconfig.json"
     },
     {
@@ -105,9 +108,6 @@
     },
     {
       "path": "./packages/dev-server-storybook/tsconfig.json"
-    },
-    {
-      "path": "./packages/dev-server-polyfill/tsconfig.json"
-    },
+    }
   ]
 }

@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
 
-import { legacyPlugin } from '../src/legacyPlugin';
-import { modernUserAgents, legacyUserAgents } from './userAgents';
+import { legacyPlugin } from '../src/legacyPlugin.js';
+import { modernUserAgents, legacyUserAgents } from './userAgents.js';
 
 const htmlBody = `
 <html>

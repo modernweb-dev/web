@@ -4,7 +4,7 @@ import { Element as ElementAst } from 'parse5';
 import { getAttribute } from '@web/parse5-utils';
 import { ParsedImportMap } from '@import-maps/resolve';
 
-import { NormalizedInjectSetting, InjectSetting } from './importMapsPlugin';
+import { NormalizedInjectSetting, InjectSetting } from './importMapsPlugin.js';
 
 export const IMPORT_MAP_PARAM = 'wds-import-map';
 

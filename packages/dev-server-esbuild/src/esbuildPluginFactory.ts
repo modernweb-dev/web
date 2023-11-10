@@ -1,6 +1,6 @@
 import { Plugin } from '@web/dev-server-core';
 import { Loader } from 'esbuild';
-import { EsbuildPlugin } from './EsbuildPlugin';
+import { EsbuildPlugin } from './EsbuildPlugin.js';
 
 export interface EsBuildPluginArgs {
   target?: string | string[];

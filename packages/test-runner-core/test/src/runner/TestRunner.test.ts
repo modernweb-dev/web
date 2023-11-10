@@ -3,12 +3,12 @@ import { expect } from 'chai';
 import portfinder from 'portfinder';
 import path from 'path';
 
-import { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher';
-import { TestRunnerCoreConfig } from '../../../src/config/TestRunnerCoreConfig';
-import { TestRunner } from '../../../src/runner/TestRunner';
-import { Logger } from '../../../src/logger/Logger';
-import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus';
-import { TestRunnerGroupConfig } from '../../../src';
+import { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher.js';
+import { TestRunnerCoreConfig } from '../../../src/config/TestRunnerCoreConfig.js';
+import { TestRunner } from '../../../src/runner/TestRunner.js';
+import { Logger } from '../../../src/logger/Logger.js';
+import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus.js';
+import { TestRunnerGroupConfig } from '../../../src/index.js';
 
 interface BrowserStubs {
   stop: hanbi.Stub<Exclude<BrowserLauncher['stop'], undefined>>;

@@ -2,7 +2,7 @@
 
 import { loadPreviewOrConfigFile } from '@storybook/core-common';
 import type { Options, PreviewAnnotation } from '@storybook/types';
-import { virtualSetupAddonsFilename, virtualStoriesFilename } from './virtual-file-names';
+import { virtualSetupAddonsFilename, virtualStoriesFilename } from './virtual-file-names.js';
 
 export async function generateAppScript(options: Options) {
   const { presets, configDir } = options;

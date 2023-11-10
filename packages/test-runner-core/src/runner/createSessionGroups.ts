@@ -1,13 +1,13 @@
 import { nanoid } from 'nanoid';
 import path from 'path';
 
-import { SESSION_STATUS } from '../test-session/TestSessionStatus';
-import { TestSession } from '../test-session/TestSession';
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig';
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
-import { collectTestFiles } from './collectTestFiles';
-import { TestSessionGroup } from '../test-session/TestSessionGroup';
+import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
+import { TestSession } from '../test-session/TestSession.js';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
+import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.js';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
+import { collectTestFiles } from './collectTestFiles.js';
+import { TestSessionGroup } from '../test-session/TestSessionGroup.js';
 
 interface GroupConfigWithoutOptionals extends TestRunnerGroupConfig {
   name: string;

@@ -1,1 +1,1 @@
-export { hmrPlugin } from './hmrPluginFactory';
+export { hmrPlugin } from './hmrPluginFactory.js';

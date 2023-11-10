@@ -12,14 +12,14 @@ import * as fs from 'fs-extra';
 import { join, parse, resolve } from 'path';
 import { OutputOptions, RollupBuild, RollupOptions, rollup } from 'rollup';
 import rollupPluginExternalGlobals from 'rollup-plugin-external-globals';
-import { generateIframeHtml } from './generate-iframe-html';
-import { getNodeModuleDir } from './get-node-module-dir';
-import { readFileConfig } from './read-file-config';
+import { generateIframeHtml } from './generate-iframe-html.js';
+import { getNodeModuleDir } from './get-node-module-dir.js';
+import { readFileConfig } from './read-file-config.js';
 import {
   PREBUNDLED_MODULES_DIR,
   rollupPluginPrebundleModules,
-} from './rollup-plugin-prebundle-modules';
-import { rollupPluginStorybookBuilder } from './rollup-plugin-storybook-builder';
+} from './rollup-plugin-prebundle-modules.js';
+import { rollupPluginStorybookBuilder } from './rollup-plugin-storybook-builder.js';
 
 const wdsPluginExternalGlobals = fromRollup(rollupPluginExternalGlobals);
 const wdsPluginPrebundleModules = fromRollup(rollupPluginPrebundleModules);

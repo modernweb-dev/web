@@ -1,11 +1,11 @@
 import { DevServer, Plugin } from '@web/dev-server-core';
 import chokidar from 'chokidar';
 
-import { RunSessions, watchFilesMiddleware } from './middleware/watchFilesMiddleware';
-import { cacheMiddleware } from './middleware/cacheMiddleware';
-import { serveTestRunnerHtmlPlugin } from './plugins/serveTestRunnerHtmlPlugin';
-import { serveTestFrameworkPlugin } from './plugins/serveTestFrameworkPlugin';
-import { testRunnerApiPlugin } from './plugins/api/testRunnerApiPlugin';
+import { RunSessions, watchFilesMiddleware } from './middleware/watchFilesMiddleware.js';
+import { cacheMiddleware } from './middleware/cacheMiddleware.js';
+import { serveTestRunnerHtmlPlugin } from './plugins/serveTestRunnerHtmlPlugin.js';
+import { serveTestFrameworkPlugin } from './plugins/serveTestFrameworkPlugin.js';
+import { testRunnerApiPlugin } from './plugins/api/testRunnerApiPlugin.js';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { TestSessionManager } from '../test-session/TestSessionManager';
 import { TestRunner } from '../runner/TestRunner';

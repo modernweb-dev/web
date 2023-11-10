@@ -5,7 +5,7 @@ import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-hel
 import { Plugin as RollupPlugin } from 'rollup';
 import { fromRollup } from '@web/dev-server-rollup';
 
-import { esbuildPlugin } from '../src/index';
+import { esbuildPlugin } from '../src/index.js';
 
 describe('esbuildPlugin TS', function () {
   this.timeout(5000);

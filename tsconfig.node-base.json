@@ -1,4 +1,7 @@
 {
+  "ts-node": {
+    "experimentalResolver": true
+  },
   "compilerOptions": {
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */

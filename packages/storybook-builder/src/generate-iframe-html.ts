@@ -1,7 +1,7 @@
 import { normalizeStories } from '@storybook/core-common';
 import type { CoreConfig, Options } from '@storybook/types';
 import { readFile } from 'fs-extra';
-import { virtualAppFilename } from './virtual-file-names';
+import { virtualAppFilename } from './virtual-file-names.js';
 
 export type PreviewHtml = string | undefined;
 

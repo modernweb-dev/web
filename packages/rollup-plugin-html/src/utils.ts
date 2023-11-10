@@ -1,4 +1,4 @@
-import { ScriptModuleTag } from './RollupPluginHTMLOptions';
+import { ScriptModuleTag } from './RollupPluginHTMLOptions.js';
 
 const PLUGIN = '[@web/rollup-plugin-html]';
 

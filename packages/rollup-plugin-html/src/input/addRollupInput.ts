@@ -1,6 +1,6 @@
 import { InputOptions } from 'rollup';
-import { ScriptModuleTag } from '../RollupPluginHTMLOptions';
-import { createError } from '../utils';
+import { ScriptModuleTag } from '../RollupPluginHTMLOptions.js';
+import { createError } from '../utils.js';
 
 function fromEntries<V>(entries: [string, V][]) {
   const obj: Record<string, V> = {};

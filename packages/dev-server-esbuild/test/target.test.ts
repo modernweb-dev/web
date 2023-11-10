@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index';
+import { esbuildPlugin } from '../src/index.js';
 
 const modernJs = `
 class MyClass {

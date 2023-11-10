@@ -1,15 +1,15 @@
 import type { Options } from '@storybook/types';
 import type { Plugin } from 'rollup';
-import { generateAppScript } from './generate-app-script';
-import { generateSetupAddonsScript } from './generate-setup-addons-script';
-import { generateStoriesScript } from './generate-stories-script';
-import { injectExportsOrder } from './inject-exports-order';
-import { listStories } from './list-stories';
+import { generateAppScript } from './generate-app-script.js';
+import { generateSetupAddonsScript } from './generate-setup-addons-script.js';
+import { generateStoriesScript } from './generate-stories-script.js';
+import { injectExportsOrder } from './inject-exports-order.js';
+import { listStories } from './list-stories.js';
 import {
   virtualAppFilename,
   virtualSetupAddonsFilename,
   virtualStoriesFilename,
-} from './virtual-file-names';
+} from './virtual-file-names.js';
 
 export function rollupPluginStorybookBuilder(storybookOptions: Options): Plugin {
   let storyFilePaths: string[];

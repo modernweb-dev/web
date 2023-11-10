@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { parseDynamicImport } from '../../src/plugins/parseDynamicImport';
+import { parseDynamicImport } from '../../src/plugins/parseDynamicImport.js';
 
 describe('parseDynamicImport', () => {
   function testParseDynamicImport(specifier: string) {

@@ -1,5 +1,5 @@
 import * as puppeteerCore from 'puppeteer-core';
-import { ChromeLauncher, CreateBrowserContextFn, CreatePageFn } from './ChromeLauncher';
+import { ChromeLauncher, CreateBrowserContextFn, CreatePageFn } from './ChromeLauncher.js';
 import { PuppeteerNodeLaunchOptions, devices } from 'puppeteer-core';
 
 export interface ChromeLauncherArgs {

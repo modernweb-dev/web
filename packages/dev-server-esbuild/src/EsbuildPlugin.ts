@@ -19,7 +19,7 @@ import {
 } from '@web/dev-server-core/dist/dom5';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 
-import { getEsbuildTarget } from './getEsbuildTarget';
+import { getEsbuildTarget } from './getEsbuildTarget.js';
 
 const filteredWarnings = ['Unsupported source map comment'];
 

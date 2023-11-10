@@ -1,5 +1,5 @@
-import { Plugin } from '../plugins/Plugin';
-import { NAME_WEB_SOCKET_IMPORT, NAME_WEB_SOCKET_API } from './WebSocketsManager';
+import { Plugin } from '../plugins/Plugin.js';
+import { NAME_WEB_SOCKET_IMPORT, NAME_WEB_SOCKET_API } from './WebSocketsManager.js';
 import { appendToDocument, isHtmlFragment } from '@web/parse5-utils';
 
 export const webSocketScript = `<!-- injected by web-dev-server -->

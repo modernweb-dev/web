@@ -1,9 +1,9 @@
 import { deserialize, MapStackLocation } from '@web/browser-logs';
-import { MapBrowserUrl } from '@web/browser-logs/src/parseStackTrace';
+import { MapBrowserUrl } from '@web/browser-logs';
 
-import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
-import { TestSession } from '../../../test-session/TestSession';
-import { mapAsync } from '../../../utils/async';
+import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.js';
+import { TestSession } from '../../../test-session/TestSession.js';
+import { mapAsync } from '../../../utils/async.js';
 
 interface BrowserLog {
   type: string;
