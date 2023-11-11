@@ -1,10 +1,7 @@
 const path = require('path');
 const { expect } = require('chai');
-const semver = require('semver');
 const { readConfig } = require('../src/index');
 
-// some tests are specific for node < v12.17.0
-const supportsEsm = semver.satisfies(process.version, '>=12.17.0');
 const configName = 'my-project.config';
 const packageCjsPath = path.resolve(__dirname, 'fixtures', 'package-cjs');
 const packageMjsPath = path.resolve(__dirname, 'fixtures', 'package-mjs');
@@ -41,7 +38,6 @@ describe('cjs package', () => {
     expect(result).to.eql({ foo: 'bar' });
   });
 
-  if (supportsEsm) {
     it('can load module-in-.mjs', async () => {
       const result = await readConfig(
         configName,
@@ -50,11 +46,6 @@ describe('cjs package', () => {
       );
       expect(result).to.eql({ foo: 'bar' });
     });
-  } else {
-    it('throws an error when trying to load a mjs file', async () => {
-      await expectThrowsOldNodeError(path.resolve(packageCjsPath, 'module-in-.mjs'));
-    });
-  }
 
   it('throws when loading module-in-.cjs', async () => {
     let thrown = false;
@@ -82,7 +73,6 @@ describe('cjs package', () => {
     expect(thrown).to.equal(true);
   });
 
-  if (supportsEsm) {
     it('throws when loading commonjs-in-.mjs', async () => {
       let thrown = false;
       try {
@@ -95,7 +85,6 @@ describe('cjs package', () => {
       }
       expect(thrown).to.equal(true);
     });
-  }
 });
 
 describe('mjs package', () => {
@@ -108,7 +97,6 @@ describe('mjs package', () => {
     expect(result).to.eql({ foo: 'bar' });
   });
 
-  if (supportsEsm) {
     it('throws when loading commonjs-in-.js', async () => {
       let thrown = false;
       try {
@@ -121,13 +109,7 @@ describe('mjs package', () => {
       }
       expect(thrown).to.equal(true);
     });
-  } else {
-    it('throws an error when trying to load commonjs-in-.js', async () => {
-      await expectThrowsOldNodeError(path.resolve(packageMjsPath, 'commonjs-in-.js'));
-    });
-  }
 
-  if (supportsEsm) {
     it('throws when loading commonjs-in-.mjs', async () => {
       let thrown = false;
       try {
@@ -140,11 +122,6 @@ describe('mjs package', () => {
       }
       expect(thrown).to.equal(true);
     });
-  } else {
-    it('throws an error when trying to load commonjs-in-.mjs', async () => {
-      await expectThrowsOldNodeError(path.resolve(packageMjsPath, 'commonjs-in-.mjs'));
-    });
-  }
 
   it('throws when loading module-in-.cjs', async () => {
     let thrown = false;
@@ -159,7 +136,6 @@ describe('mjs package', () => {
     expect(thrown).to.equal(true);
   });
 
-  if (supportsEsm) {
     it('can load module-in-.js', async () => {
       const result = await readConfig(
         configName,
@@ -168,13 +144,7 @@ describe('mjs package', () => {
       );
       expect(result).to.eql({ foo: 'bar' });
     });
-  } else {
-    it('throws an error when trying to load module-in-.js', async () => {
-      await expectThrowsOldNodeError(path.resolve(packageMjsPath, 'module-in-.js'));
-    });
-  }
 
-  if (supportsEsm) {
     it('can load module-in-.mjs', async () => {
       const result = await readConfig(
         configName,
@@ -183,9 +153,4 @@ describe('mjs package', () => {
       );
       expect(result).to.eql({ foo: 'bar' });
     });
-  } else {
-    it('throws an error when trying to load a mjs file', async () => {
-      await expectThrowsOldNodeError(path.resolve(packageMjsPath, 'module-in-.mjs'));
-    });
-  }
 });
