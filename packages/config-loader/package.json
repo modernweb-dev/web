@@ -39,7 +39,6 @@
     "es module"
   ],
   "dependencies": {
-    "semver": "^7.3.4"
   },
   "types": "dist/index.d.ts",
   "exports": {

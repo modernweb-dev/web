@@ -1,8 +1,5 @@
-const semver = require('semver');
 const { pathToFileURL } = require('url');
 const ConfigLoaderError = require('./ConfigLoaderError');
-
-const supportsEsm = semver.satisfies(process.version, '>=12.17.0');
 
 // These strings may be node-version dependent and need updating over time
 // They're just to display a helpful error message
@@ -16,14 +13,6 @@ const CJS_ERRORS = [
  * @param {string} path
  */
 async function importConfig(path) {
-  if (!supportsEsm) {
-    throw new ConfigLoaderError(
-      'You are trying to load a config as es module but your version of node does not support it. ' +
-        'Update to node v12.17.0 or higher, or load the config as commonjs by using the .cjs extension ' +
-        'or .js without type="module" set in your package.json',
-    );
-  }
-
   try {
     const config = await import(pathToFileURL(path).href);
 
