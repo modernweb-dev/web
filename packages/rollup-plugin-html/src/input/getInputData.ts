@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import glob from 'glob';
+import glob, { GlobOptionsWithFileTypesFalse } from 'glob';
 
 import { createError } from '../utils.js';
 import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions.js';
@@ -9,7 +9,7 @@ import { normalizeInputOptions } from './normalizeInputOptions.js';
 import { extractModulesAndAssets } from './extract/extractModulesAndAssets.js';
 import { InputOption } from 'rollup';
 
-function resolveGlob(fromGlob: string, opts: glob.IOptions) {
+function resolveGlob(fromGlob: string, opts: GlobOptionsWithFileTypesFalse) {
   const files = glob.sync(fromGlob, { ...opts, absolute: true });
   return (
     files
