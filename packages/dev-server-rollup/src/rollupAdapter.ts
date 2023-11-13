@@ -214,7 +214,7 @@ export function rollupAdapter(
             typeof idResolver === 'function' ? idResolver : idResolver.handler;
           result = await idResolverHandler.call(rollupPluginContext, resolvableImport, filePath, {
             ...resolveOptions,
-            assertions: {
+            attributes: {
               ...((resolveOptions?.assertions as Record<string, string>) ?? {}),
             },
             isEntry: false,
