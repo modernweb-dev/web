@@ -29,7 +29,10 @@ describe('@rollup/plugin-commonjs', () => {
     try {
       const text = await fetchText(`${host}/foo.js`);
       expectIncludes(text, 'var foo = "foo";');
-      expectIncludes(text, 'export default /*@__PURE__*/commonjsHelpers.getDefaultExportFromCjs(foo)');
+      expectIncludes(
+        text,
+        'export default /*@__PURE__*/commonjsHelpers.getDefaultExportFromCjs(foo)',
+      );
     } finally {
       server.stop();
     }
