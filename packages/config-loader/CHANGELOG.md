@@ -1,5 +1,11 @@
 # @web/config-loader
 
+## 0.3.1
+
+### Patch Changes
+
+- 5b6e1bcd: Drop support for older node runtimes (12 and earlier)
+
 ## 0.3.0
 
 ### Minor Changes

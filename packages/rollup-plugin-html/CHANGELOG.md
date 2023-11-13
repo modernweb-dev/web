@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 2.1.1
+
+### Patch Changes
+
+- b6d8bcf2: Update the `glob` dependency
+
 ## 2.1.0
 
 ### Minor Changes
