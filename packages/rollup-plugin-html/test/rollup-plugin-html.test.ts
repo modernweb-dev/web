@@ -705,11 +705,11 @@ describe('rollup-plugin-html', () => {
     expect(outputHtml).to.include(
       '<link rel="mask-icon" href="assets/image-a.svg" color="#3f93ce">',
     );
-    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/styles-7217db1b.css">');
-    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/x-fdf2539f.css">');
-    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/y-cb026435.css">');
-    expect(outputHtml).to.include('<img src="assets/image-c-50b9e6e7.png">');
-    expect(outputHtml).to.include('<img src="assets/image-b-fbaec9b6.svg">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/styles-hdiMuZ9V.css">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/x-wxoPDuod.css">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/y-yU65zx9z.css">');
+    expect(outputHtml).to.include('<img src="assets/image-c-Mr5Lb2jQ.png">');
+    expect(outputHtml).to.include('<img src="assets/image-b-yrDWczn5.svg">');
   });
 
   it('deduplicates static assets with similar names', async () => {
@@ -762,7 +762,7 @@ describe('rollup-plugin-html', () => {
 
     expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
       '<html><head><link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg"></head>' +
-        '<body><img src="assets/foo-48d6e4e5.svg"></body></html>',
+        '<body><img src="assets/foo-WjgrfMGT.svg"></body></html>',
     );
   });
 
@@ -789,9 +789,9 @@ describe('rollup-plugin-html', () => {
 
     expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
       '<html><head></head><body>' +
-        '<link rel="stylesheet" href="assets/image-a-50b9e6e7.png">' +
-        '<img src="assets/image-a-50b9e6e7.png">' +
-        '<img src="assets/image-a-50b9e6e7.png">' +
+        '<link rel="stylesheet" href="assets/image-a-Mr5Lb2jQ.png">' +
+        '<img src="assets/image-a-Mr5Lb2jQ.png">' +
+        '<img src="assets/image-a-Mr5Lb2jQ.png">' +
         '</body></html>',
     );
   });
@@ -837,20 +837,20 @@ describe('rollup-plugin-html', () => {
 
     expect(stripNewlines(getAsset(output, 'page-a.html').source)).to.equal(
       '<html><head></head><body>' +
-        '  <img src="assets/image-a-50b9e6e7.png">' +
+        '  <img src="assets/image-a-Mr5Lb2jQ.png">' +
         '    </body></html>',
     );
 
     expect(stripNewlines(getAsset(output, 'page-b.html').source)).to.equal(
       '<html><head></head><body>' +
-        '  <link rel="stylesheet" href="assets/image-a-50b9e6e7.png">' +
+        '  <link rel="stylesheet" href="assets/image-a-Mr5Lb2jQ.png">' +
         '    </body></html>',
     );
 
     expect(stripNewlines(getAsset(output, 'page-c.html').source)).to.equal(
       '<html><head></head><body>' +
-        '  <link rel="stylesheet" href="assets/image-a-50b9e6e7.png">' +
-        '  <img src="assets/image-a-50b9e6e7.png">' +
+        '  <link rel="stylesheet" href="assets/image-a-Mr5Lb2jQ.png">' +
+        '  <img src="assets/image-a-Mr5Lb2jQ.png">' +
         '    </body></html>',
     );
   });
@@ -1034,9 +1034,9 @@ describe('rollup-plugin-html', () => {
     expect(stripNewlines(getAsset(output, 'x/index.html').source)).to.equal(
       [
         '<html><head></head><body>',
-        '<img src="../assets/foo-3c1050f4.svg">',
-        '<link rel="stylesheet" href="../assets/styles-7217db1b.css">',
-        '<img src="../assets/image-b-fbaec9b6.svg">',
+        '<img src="../assets/foo-ACZ5M5Wv.svg">',
+        '<link rel="stylesheet" href="../assets/styles-hdiMuZ9V.css">',
+        '<img src="../assets/image-b-yrDWczn5.svg">',
         '</body></html>',
       ].join(''),
     );
