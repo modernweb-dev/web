@@ -1,5 +1,11 @@
 # @web/rollup-plugin-copy
 
+## 0.5.1
+
+### Patch Changes
+
+- b6d8bcf2: Update the `glob` dependency
+
 ## 0.5.0
 
 ### Minor Changes
