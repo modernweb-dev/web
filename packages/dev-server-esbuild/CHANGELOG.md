@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 1.0.1
+
+### Patch Changes
+
+- e31de569: Update `@web/dev-server-rollup` to latest version
+
 ## 1.0.0
 
 ### Major Changes

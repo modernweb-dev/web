@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.4.1
+
+### Patch Changes
+
+- e31de569: Update `@web/dev-server-rollup` to latest version
+
 ## 0.4.0
 
 ### Minor Changes
