@@ -1,5 +1,11 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 2.2.1
+
+### Patch Changes
+
+- 1c0088de: Update Rollup to version 4.
+
 ## 2.2.0
 
 ### Minor Changes

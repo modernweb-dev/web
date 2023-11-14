@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "@web/dev-server": "^0.4.0",
-    "@web/dev-server-storybook": "^1.1.0"
+    "@web/dev-server-storybook": "^2.0.0"
   },
   "wireit": {
     "types": {

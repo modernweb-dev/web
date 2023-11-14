@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.6.1
+
+### Patch Changes
+
+- 1c0088de: Update Rollup to version 4.
+
 ## 0.6.0
 
 ### Minor Changes

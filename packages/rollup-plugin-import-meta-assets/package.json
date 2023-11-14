@@ -1,6 +1,6 @@
 {
   "name": "@web/rollup-plugin-import-meta-assets",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "publishConfig": {
     "access": "public"
   },

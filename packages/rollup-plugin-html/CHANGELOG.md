@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 2.1.2
+
+### Patch Changes
+
+- 1c0088de: Update Rollup to version 4.
+
 ## 2.1.1
 
 ### Patch Changes

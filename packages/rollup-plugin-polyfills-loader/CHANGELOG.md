@@ -1,5 +1,11 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 2.1.1
+
+### Patch Changes
+
+- 1c0088de: Update Rollup to version 4.
+
 ## 2.1.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @web/dev-server-storybook
 
+## 2.0.0
+
+### Major Changes
+
+- 1c0088de: Update Rollup to version 4.
+
+### Patch Changes
+
+- Updated dependencies [1c0088de]
+  - @web/rollup-plugin-polyfills-loader@2.1.1
+  - @web/rollup-plugin-html@2.1.2
+
 ## 1.1.0
 
 ### Minor Changes
