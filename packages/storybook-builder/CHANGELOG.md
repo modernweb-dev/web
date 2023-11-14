@@ -1,5 +1,14 @@
 # @web/storybook-builder
 
+## 0.1.5
+
+### Patch Changes
+
+- 1c0088de: Update Rollup to version 4.
+- Updated dependencies [1c0088de]
+  - @web/rollup-plugin-html@2.1.2
+  - @web/dev-server-rollup@0.6.1
+
 ## 0.1.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@web/storybook-builder",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "publishConfig": {
     "access": "public"
   },
@@ -55,8 +55,8 @@
     "@storybook/preview": "^7.0.0",
     "@web/dev-server": "^0.4.0",
     "@web/dev-server-core": "^0.7.0",
-    "@web/dev-server-rollup": "^0.6.0",
-    "@web/rollup-plugin-html": "^2.1.0",
+    "@web/dev-server-rollup": "^0.6.1",
+    "@web/rollup-plugin-html": "^2.1.2",
     "browser-assert": "^1.2.1",
     "es-module-lexer": "^1.2.1",
     "esbuild": "^0.19.5",
