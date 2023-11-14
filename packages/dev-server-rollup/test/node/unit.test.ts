@@ -1,4 +1,4 @@
-import { Plugin as RollupPlugin, AcornNode } from 'rollup';
+import { Plugin as RollupPlugin, AstNode } from 'rollup';
 import { expect } from 'chai';
 import path from 'path';
 
@@ -193,7 +193,7 @@ describe('@web/dev-server-rollup', () => {
   });
 
   it('rollup plugins can use this.parse', async () => {
-    let parsed: AcornNode | undefined = undefined;
+    let parsed: AstNode | undefined = undefined;
     const plugin: RollupPlugin = {
       name: 'my-plugin',
       transform(code, id) {

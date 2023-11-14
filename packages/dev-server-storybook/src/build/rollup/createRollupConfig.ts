@@ -1,5 +1,5 @@
 import { createRequire } from 'node:module';
-import { Plugin, RollupOptions, RollupWarning } from 'rollup';
+import { Plugin, RollupOptions, RollupLog } from 'rollup';
 
 import { nodeResolve as resolve } from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
@@ -19,7 +19,7 @@ const prebuiltDir = require
 
 const ignoredWarnings = ['EVAL', 'THIS_IS_UNDEFINED'];
 
-function onwarn(warning: RollupWarning, warn: (msg: RollupWarning) => void) {
+function onwarn(warning: RollupLog, warn: (msg: RollupLog) => void) {
   if (ignoredWarnings.includes(warning.code!)) {
     return;
   }

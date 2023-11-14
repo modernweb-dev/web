@@ -44,7 +44,6 @@ export function createRollupPluginContextAdapter<
         isEntry: false,
         isExternal: false,
         isIncluded: false,
-        hasModuleSideEffects: false,
         moduleSideEffects: false,
         syntheticNamedExports: false,
         meta: pluginMetaPerModule.get(id) ?? {},
