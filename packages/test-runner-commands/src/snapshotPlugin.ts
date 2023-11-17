@@ -29,7 +29,7 @@ export interface SaveSnapshotPayload {
   content: string;
 }
 
-function isSaveSnapshotPayload(payload: unknown): payload is SaveSnapshotPayload {
+export function isSaveSnapshotPayload(payload: unknown): payload is SaveSnapshotPayload {
   if (!isObject(payload)) throw new Error('You must provide a payload object');
   if (typeof payload.name !== 'string') throw new Error('You must provide a path option');
   if (payload.content !== undefined && typeof payload.content !== 'string')
@@ -37,7 +37,7 @@ function isSaveSnapshotPayload(payload: unknown): payload is SaveSnapshotPayload
   return true;
 }
 
-function getSnapshotPath(testFile: string) {
+export function getSnapshotPath(testFile: string) {
   const testDir = path.dirname(testFile);
   const testFileName = path.basename(testFile);
   const ext = path.extname(testFileName);
@@ -45,7 +45,7 @@ function getSnapshotPath(testFile: string) {
   return path.join(testDir, '__snapshots__', `${fileWithoutExt}.snap.js`);
 }
 
-class SnapshotStore {
+export class SnapshotStore {
   private snapshots = new Map<string, string>();
   private sessionToSnapshotPath = new Map<string, string>();
   private readOperations = new Map<string, { promise: Promise<void>; resolve: () => void }>();

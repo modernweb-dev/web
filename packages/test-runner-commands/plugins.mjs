@@ -11,6 +11,9 @@ const {
   a11ySnapshotPlugin,
   filePlugin,
   snapshotPlugin,
+  SnapshotStore,
+  getSnapshotPath,
+  isSaveSnapshotPayload,
 } = cjsEntrypoint;
 
 export {
@@ -23,4 +26,7 @@ export {
   a11ySnapshotPlugin,
   filePlugin,
   snapshotPlugin,
+  SnapshotStore,
+  getSnapshotPath,
+  isSaveSnapshotPayload,
 };
