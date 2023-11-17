@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 2.0.1
+
+### Patch Changes
+
+- c796648c: fix: create a require for mdx stories
+
 ## 2.0.0
 
 ### Major Changes
