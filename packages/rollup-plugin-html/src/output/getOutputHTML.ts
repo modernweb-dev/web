@@ -1,10 +1,10 @@
 import { injectBundles } from './injectBundles.js';
-import { InputData } from '../input/InputData';
+import { InputData } from '../input/InputData.js';
 import {
   EntrypointBundle,
   RollupPluginHTMLOptions,
   TransformHtmlFunction,
-} from '../RollupPluginHTMLOptions';
+} from '../RollupPluginHTMLOptions.js';
 import { parse, serialize } from 'parse5';
 import { minify as minifyHTMLFunc } from 'html-minifier-terser';
 import { injectedUpdatedAssetPaths } from './injectedUpdatedAssetPaths.js';

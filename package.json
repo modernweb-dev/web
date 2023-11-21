@@ -6,6 +6,7 @@
     "type": "git",
     "url": "https://github.com/modernweb-dev/web.git"
   },
+  "type": "module",
   "engines": {
     "node": ">=18.0.0"
   },
@@ -37,7 +38,6 @@
     "types": "wireit",
     "update": "npm run update:mjs-dts-entrypoints && npm run update:tsconfigs",
     "update-dependency": "node scripts/update-dependency.js",
-    "update:mjs-dts-entrypoints": "node scripts/generate-mjs-dts-entrypoints.mjs && npm run format",
     "update:tsconfigs": "node scripts/generate-ts-configs.mjs && npm run format"
   },
   "dependencies": {
@@ -58,7 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^5.3.0",
     "@typescript-eslint/parser": "^5.59.1",
     "alex": "^11.0.0",
-    "chai": "^4.3.4",
+    "chai": "^5.0.0-alpha.1",
     "concurrently": "^8.0.1",
     "deepmerge": "^4.2.2",
     "dev-to-git": "^1.4.1",
@@ -74,7 +74,7 @@
     "rimraf": "^4.4.1",
     "rollup": "^4.4.0",
     "ts-node": "^10.4.0",
-    "typescript": "~5.0.4",
+    "typescript": "~5.2.2",
     "wireit": "^0.10.0"
   },
   "eslintConfig": {

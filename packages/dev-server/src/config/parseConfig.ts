@@ -1,5 +1,5 @@
 import { getPortPromise } from 'portfinder';
-import path from 'path';
+import * as path from 'node:path';
 
 import { DevServerCliArgs } from './readCliArgs.js';
 import { mergeConfigs } from './mergeConfigs.js';
@@ -94,7 +94,7 @@ export async function parseConfig(
 
   // map flags to plugin
   if (finalConfig?.esbuildTarget) {
-    finalConfig.plugins!.unshift(esbuildPlugin(finalConfig.esbuildTarget));
+    finalConfig.plugins!.unshift(await esbuildPlugin(finalConfig.esbuildTarget));
   }
 
   if (finalConfig.watch) {

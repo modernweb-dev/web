@@ -1,4 +1,3 @@
-/// <reference types="../../../types/rollup__plugin-babel" />
 import rollupBabel from '@rollup/plugin-babel';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
@@ -20,7 +19,7 @@ describe('@rollup/plugin-alias', () => {
         },
         babel({
           babelHelpers: 'inline',
-          plugins: [require.resolve('@babel/plugin-transform-template-literals')],
+          plugins: [await import.meta.resolve!('@babel/plugin-transform-template-literals')],
         }),
       ],
     });

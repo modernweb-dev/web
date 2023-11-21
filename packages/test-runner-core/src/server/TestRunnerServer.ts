@@ -6,9 +6,9 @@ import { cacheMiddleware } from './middleware/cacheMiddleware.js';
 import { serveTestRunnerHtmlPlugin } from './plugins/serveTestRunnerHtmlPlugin.js';
 import { serveTestFrameworkPlugin } from './plugins/serveTestFrameworkPlugin.js';
 import { testRunnerApiPlugin } from './plugins/api/testRunnerApiPlugin.js';
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { TestSessionManager } from '../test-session/TestSessionManager';
-import { TestRunner } from '../runner/TestRunner';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
+import { TestSessionManager } from '../test-session/TestSessionManager.js';
+import { TestRunner } from '../runner/TestRunner.js';
 
 const CACHED_PATTERNS = [
   'node_modules/@web/test-runner-',

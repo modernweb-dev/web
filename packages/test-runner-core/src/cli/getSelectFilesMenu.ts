@@ -1,5 +1,5 @@
 import { cyan, red } from 'nanocolors';
-import { relative } from 'path';
+import { relative } from 'node:path';
 
 export function getSelectFilesMenu(succeededFiles: string[], failedFiles: string[]) {
   const maxI = succeededFiles.length + failedFiles.length;

@@ -2,6 +2,9 @@ import { expect } from 'chai';
 import path from 'path';
 import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.js';
 import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.js';
+import { fileURLToPath } from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('getOutputHTML()', () => {
   const defaultEntrypointBundles: Record<string, EntrypointBundle> = {
@@ -133,7 +136,7 @@ describe('getOutputHTML()', () => {
   });
 
   it('can converts absolute urls to full absolute urls', async () => {
-    const rootDir = path.resolve(__dirname, '..', '..', 'fixtures', 'assets');
+    const rootDir = path.resolve(dirname, '..', '..', 'fixtures', 'assets');
     const hashed = new Map<string, string>();
     hashed.set(path.join(rootDir, 'image-social.png'), 'image-social-xxx.png');
 

@@ -1,7 +1,7 @@
 import picoMatch from 'picomatch';
-import { isAbsolute, posix, sep } from 'path';
+import { isAbsolute, posix, sep } from 'node:path';
 
-import { MimeTypeMappings } from '../server/DevServerCoreConfig';
+import { MimeTypeMappings } from '../server/DevServerCoreConfig.js';
 import { Plugin } from './Plugin.js';
 import { getRequestFilePath } from '../utils.js';
 

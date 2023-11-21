@@ -1,6 +1,7 @@
 {
   "name": "@web/config-loader",
   "version": "0.3.1",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -14,6 +15,12 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/config-loader",
   "main": "src/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./src/index.js"
+    }
+  },
   "engines": {
     "node": ">=18.0.0"
   },
@@ -42,9 +49,8 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./src/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./src/index.js"
     }
   }
 }

@@ -7,7 +7,7 @@ import {
 } from '@import-maps/resolve';
 import { getHtmlPath } from '@web/dev-server-core';
 import { parse as parseHtml, serialize as serializeHtml, Element as ElementAst } from 'parse5';
-import path from 'path';
+import * as path from 'node:path';
 
 import {
   IMPORT_MAP_PARAM,

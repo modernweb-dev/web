@@ -1,10 +1,13 @@
 import path from 'path';
 import rollupNodeResolve from '@rollup/plugin-node-resolve';
 import rollupCommonjs from '@rollup/plugin-commonjs';
+import { fileURLToPath } from 'node:url';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
 import { fromRollup } from '../../../src/index.js';
 import { expect } from 'chai';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 const nodeResolve = fromRollup(rollupNodeResolve, {}, { throwOnUnresolvedImport: true });
 const commonjs = fromRollup(rollupCommonjs);
@@ -61,7 +64,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
   it('can resolve private imports in inline scripts', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.resolve(__dirname, '..', 'fixtures', 'private-imports'),
+      rootDir: path.resolve(dirname, '..', 'fixtures', 'private-imports'),
       plugins: [nodeResolve()],
     });
 
@@ -76,7 +79,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
   it('throws when trying to access files from the package directly if they are not exposed in the export map', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.resolve(__dirname, '..', 'fixtures', 'private-imports'),
+      rootDir: path.resolve(dirname, '..', 'fixtures', 'private-imports'),
       plugins: [nodeResolve()],
     });
 
@@ -136,7 +139,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
   it('node modules resolved outside root directory with matching basename via symlink are rewritten', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir'),
+      rootDir: path.resolve(dirname, '..', 'fixtures', 'resolve-outside-dir'),
       plugins: [nodeResolve()],
     });
 
@@ -153,7 +156,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
   it('node modules resolved outside root directory are rewritten', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
+      rootDir: path.resolve(dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
       plugins: [nodeResolve()],
     });
 
@@ -170,7 +173,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
   it('node modules resolved outside root directory are rewritten with commonjs', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
+      rootDir: path.resolve(dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
       plugins: [commonjs(), nodeResolve()],
     });
 

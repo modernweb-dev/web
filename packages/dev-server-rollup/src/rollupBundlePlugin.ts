@@ -1,5 +1,5 @@
 import { Plugin } from '@web/dev-server-core';
-import path from 'path';
+import * as path from 'node:path';
 import { rollup, RollupOptions } from 'rollup';
 
 export interface RollupPluginOptions {

@@ -1,5 +1,5 @@
 import { Context } from '@web/dev-server-core';
-import { getAttribute, getTextContent, remove } from '@web/dev-server-core/dist/dom5';
+import { getAttribute, getTextContent, remove } from '@web/dev-server-core/dist/dom5/index.js';
 import { parse, serialize, Document as DocumentAst, Node as NodeAst } from 'parse5';
 import {
   injectPolyfillsLoader as originalInjectPolyfillsLoader,

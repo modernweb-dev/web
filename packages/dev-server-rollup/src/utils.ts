@@ -1,4 +1,4 @@
-import path from 'path';
+import * as path from 'node:path';
 
 const REGEXP_ABSOLUTE = /^(?:\/|(?:[A-Za-z]:)?[\\|/])/;
 

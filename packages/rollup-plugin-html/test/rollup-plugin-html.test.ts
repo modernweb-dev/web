@@ -2,6 +2,9 @@ import { rollup, OutputChunk, OutputAsset, OutputOptions, Plugin } from 'rollup'
 import { expect } from 'chai';
 import path from 'path';
 import { rollupPluginHTML } from '../src/index.js';
+import { fileURLToPath } from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 type Output = (OutputChunk | OutputAsset)[];
 
@@ -24,14 +27,14 @@ function stripNewlines(str: string) {
   return str.replace(/(\r\n|\n|\r)/gm, '');
 }
 
-const rootDir = path.join(__dirname, 'fixtures', 'rollup-plugin-html');
+const rootDir = path.join(dirname, 'fixtures', 'rollup-plugin-html');
 
 describe('rollup-plugin-html', () => {
   it('can build with an input path as input', async () => {
     const config = {
       plugins: [
         rollupPluginHTML({
-          input: require.resolve('./fixtures/rollup-plugin-html/index.html'),
+          input: await import.meta.resolve!('./fixtures/rollup-plugin-html/index.html'),
           rootDir,
         }),
       ],
@@ -53,7 +56,7 @@ describe('rollup-plugin-html', () => {
 
   it('can build with html file as rollup input', async () => {
     const config = {
-      input: require.resolve('./fixtures/rollup-plugin-html/index.html'),
+      input: await import.meta.resolve!('./fixtures/rollup-plugin-html/index.html'),
       plugins: [rollupPluginHTML({ rootDir })],
     };
     const bundle = await rollup(config);
@@ -73,7 +76,7 @@ describe('rollup-plugin-html', () => {
 
   it('will retain attributes on script tags', async () => {
     const config = {
-      input: require.resolve('./fixtures/rollup-plugin-html/retain-attributes.html'),
+      input: await import.meta.resolve!('./fixtures/rollup-plugin-html/retain-attributes.html'),
       plugins: [rollupPluginHTML({ rootDir })],
     };
     const bundle = await rollup(config);
@@ -93,7 +96,7 @@ describe('rollup-plugin-html', () => {
 
   it('can build with pure html file as rollup input', async () => {
     const config = {
-      input: require.resolve('./fixtures/rollup-plugin-html/pure-index.html'),
+      input: await import.meta.resolve!('./fixtures/rollup-plugin-html/pure-index.html'),
       plugins: [rollupPluginHTML({ rootDir })],
     };
     const bundle = await rollup(config);
@@ -108,8 +111,8 @@ describe('rollup-plugin-html', () => {
       plugins: [
         rollupPluginHTML({
           input: [
-            require.resolve('./fixtures/rollup-plugin-html/pure-index.html'),
-            require.resolve('./fixtures/rollup-plugin-html/pure-index2.html'),
+            await import.meta.resolve!('./fixtures/rollup-plugin-html/pure-index.html'),
+            await import.meta.resolve!('./fixtures/rollup-plugin-html/pure-index2.html'),
           ],
           rootDir,
         }),
@@ -199,7 +202,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
-          input: require.resolve('./fixtures/rollup-plugin-html/foo/foo.html'),
+          input: await import.meta.resolve!('./fixtures/rollup-plugin-html/foo/foo.html'),
           rootDir,
         }),
       ],
@@ -213,7 +216,7 @@ describe('rollup-plugin-html', () => {
 
   it('can build transforming final output', async () => {
     const config = {
-      input: require.resolve('./fixtures/rollup-plugin-html/entrypoint-a.js'),
+      input: await import.meta.resolve!('./fixtures/rollup-plugin-html/entrypoint-a.js'),
       plugins: [
         rollupPluginHTML({
           rootDir,
@@ -237,7 +240,7 @@ describe('rollup-plugin-html', () => {
 
   it('can build with a public path', async () => {
     const config = {
-      input: require.resolve('./fixtures/rollup-plugin-html/entrypoint-a.js'),
+      input: await import.meta.resolve!('./fixtures/rollup-plugin-html/entrypoint-a.js'),
       plugins: [
         rollupPluginHTML({
           rootDir,
@@ -259,7 +262,7 @@ describe('rollup-plugin-html', () => {
 
   it('can build with a public path with a file in a directory', async () => {
     const config = {
-      input: require.resolve('./fixtures/rollup-plugin-html/entrypoint-a.js'),
+      input: await import.meta.resolve!('./fixtures/rollup-plugin-html/entrypoint-a.js'),
       plugins: [
         rollupPluginHTML({
           rootDir,
@@ -289,7 +292,7 @@ describe('rollup-plugin-html', () => {
       publicPath: '/static/',
     });
     const config = {
-      input: require.resolve('./fixtures/rollup-plugin-html/entrypoint-a.js'),
+      input: await import.meta.resolve!('./fixtures/rollup-plugin-html/entrypoint-a.js'),
       plugins: [plugin],
     };
     const build = await rollup(config);
@@ -567,7 +570,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
-          rootDir: path.join(__dirname, 'fixtures'),
+          rootDir: path.join(dirname, 'fixtures'),
           input: {
             name: 'rollup-plugin-html/pages/index.html',
             html: '<h1>Hello world</h1><script type="module" src="../entrypoint-a.js"></script>',
@@ -588,17 +591,17 @@ describe('rollup-plugin-html', () => {
     const pluginA = rollupPluginHTML({ input: { html: 'Hello world' } });
     // filename inferred from input filename
     const pluginB = rollupPluginHTML({
-      input: require.resolve('./fixtures/rollup-plugin-html/my-page.html'),
+      input: await import.meta.resolve!('./fixtures/rollup-plugin-html/my-page.html'),
     });
     // filename explicitly set
     const pluginC = rollupPluginHTML({
       input: {
         name: 'pages/my-other-page.html',
-        path: require.resolve('./fixtures/rollup-plugin-html/index.html'),
+        path: await import.meta.resolve!('./fixtures/rollup-plugin-html/index.html'),
       },
     });
     await rollup({
-      input: require.resolve('./fixtures/rollup-plugin-html/entrypoint-a.js'),
+      input: await import.meta.resolve!('./fixtures/rollup-plugin-html/entrypoint-a.js'),
       plugins: [pluginA],
     });
     await rollup({ plugins: [pluginB] });
@@ -613,7 +616,7 @@ describe('rollup-plugin-html', () => {
       plugins: [
         rollupPluginHTML({
           rootDir,
-          input: require.resolve('./fixtures/rollup-plugin-html/index.html'),
+          input: await import.meta.resolve!('./fixtures/rollup-plugin-html/index.html'),
         }),
         {
           name: 'other-plugin',
@@ -670,7 +673,7 @@ describe('rollup-plugin-html', () => {
 </body>
 </html>`,
           },
-          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+          rootDir: path.join(dirname, 'fixtures', 'assets'),
         }),
       ],
     };
@@ -724,7 +727,7 @@ describe('rollup-plugin-html', () => {
 </head>
 </html>`,
           },
-          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+          rootDir: path.join(dirname, 'fixtures', 'assets'),
         }),
       ],
     };
@@ -752,7 +755,7 @@ describe('rollup-plugin-html', () => {
 </head>
 </html>`,
           },
-          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+          rootDir: path.join(dirname, 'fixtures', 'assets'),
         }),
       ],
     };
@@ -779,7 +782,7 @@ describe('rollup-plugin-html', () => {
 </body>
 </html>`,
           },
-          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+          rootDir: path.join(dirname, 'fixtures', 'assets'),
         }),
       ],
     };
@@ -827,7 +830,7 @@ describe('rollup-plugin-html', () => {
   </html>`,
             },
           ],
-          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+          rootDir: path.join(dirname, 'fixtures', 'assets'),
         }),
       ],
     };
@@ -869,7 +872,7 @@ describe('rollup-plugin-html', () => {
 </body>
 </html>`,
           },
-          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+          rootDir: path.join(dirname, 'fixtures', 'assets'),
         }),
       ],
     };
@@ -887,7 +890,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
-          input: require.resolve('./fixtures/rollup-plugin-html/csp-page-a.html'),
+          input: await import.meta.resolve!('./fixtures/rollup-plugin-html/csp-page-a.html'),
           rootDir,
           strictCSPInlineScripts: true,
         }),
@@ -916,7 +919,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
-          input: require.resolve('./fixtures/rollup-plugin-html/csp-page-b.html'),
+          input: await import.meta.resolve!('./fixtures/rollup-plugin-html/csp-page-b.html'),
           rootDir,
           strictCSPInlineScripts: true,
         }),
@@ -945,7 +948,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
-          input: require.resolve('./fixtures/rollup-plugin-html/csp-page-c.html'),
+          input: await import.meta.resolve!('./fixtures/rollup-plugin-html/csp-page-c.html'),
           rootDir,
           strictCSPInlineScripts: true,
         }),
@@ -981,7 +984,7 @@ describe('rollup-plugin-html', () => {
       plugins: [
         rollupPluginHTML({
           input: '**/*.html',
-          rootDir: path.join(__dirname, 'fixtures', 'inject-service-worker'),
+          rootDir: path.join(dirname, 'fixtures', 'inject-service-worker'),
           flattenOutput: false,
           injectServiceWorker: true,
           serviceWorkerPath,
@@ -1022,7 +1025,7 @@ describe('rollup-plugin-html', () => {
 </html>`,
             name: 'x/index.html',
           },
-          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+          rootDir: path.join(dirname, 'fixtures', 'assets'),
           absolutePathPrefix: '/my-prefix/',
         }),
       ],

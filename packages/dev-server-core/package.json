@@ -14,20 +14,16 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server-core",
   "main": "dist/index.js",
+  "type": "module",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     },
-    "./dist/dom5": {
-      "types": "./dist/dom5/index.d.ts",
-      "require": "./dist/dom5/index.js"
+    "./dist/dom5/index.js": {
+      "import": "./dist/dom5/index.js"
     },
-    "./test-helpers": {
-      "types": "./test-helpers.d.ts",
-      "import": "./test-helpers.mjs",
-      "require": "./dist/test-helpers.js"
+    "./dist/test-helpers.js": {
+      "import": "./dist/test-helpers.js"
     }
   },
   "engines": {

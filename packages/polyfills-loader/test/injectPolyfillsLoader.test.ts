@@ -4,6 +4,9 @@ import fs from 'fs';
 import { injectPolyfillsLoader } from '../src/injectPolyfillsLoader.js';
 import { noModuleSupportTest, fileTypes } from '../src/utils.js';
 import { PolyfillsLoaderConfig } from '../src/types.js';
+import { fileURLToPath } from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
@@ -15,7 +18,7 @@ const defaultConfig = {
 };
 
 async function testSnapshot(name: string, htmlString: string, config: PolyfillsLoaderConfig) {
-  const snapshotPath = path.join(__dirname, 'snapshots', 'injectPolyfillsLoader', `${name}.html`);
+  const snapshotPath = path.join(dirname, 'snapshots', 'injectPolyfillsLoader', `${name}.html`);
   const result = await injectPolyfillsLoader(htmlString, config);
 
   if (updateSnapshots) {
@@ -38,7 +41,7 @@ describe('injectPolyfillsLoader', () => {
       </html>
     `;
 
-    await await testSnapshot('no-polyfills-no-legacy', html, defaultConfig);
+    await testSnapshot('no-polyfills-no-legacy', html, defaultConfig);
   });
 
   it('injects a loader with module and polyfills', async () => {

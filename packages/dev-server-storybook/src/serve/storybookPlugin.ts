@@ -1,4 +1,3 @@
-// @ts-ignore
 import { DevServerCoreConfig, getRequestFilePath, Plugin } from '@web/dev-server-core';
 import { mdjsToCsf } from 'storybook-addon-markdown-docs';
 

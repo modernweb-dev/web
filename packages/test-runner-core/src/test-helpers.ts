@@ -1,11 +1,14 @@
 /* eslint-disable no-async-promise-executor, no-inner-declarations */
 import { getPortPromise } from 'portfinder';
-import path from 'path';
+import * as path from 'node:path';
 import { TestRunner, TestRunnerCoreConfig } from './index.js';
 import { Logger } from './logger/Logger.js';
 import { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession.js';
 import { SESSION_STATUS } from './test-session/TestSessionStatus.js';
 import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.js';
+import { fileURLToPath } from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 const logger: Logger = {
   ...console,
@@ -20,23 +23,29 @@ const logger: Logger = {
 const secondMs = 1000;
 const minuteMs = secondMs * 60;
 
-const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
-  watch: false,
-  rootDir: path.join(__dirname, '..', '..', '..'),
-  testFramework: {
-    path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
-  },
-  protocol: 'http:',
-  hostname: 'localhost',
-  reporters: [],
-  concurrentBrowsers: 2,
-  concurrency: 10,
-  browserStartTimeout: minuteMs / 2,
-  testsStartTimeout: secondMs * 20,
-  testsFinishTimeout: minuteMs * 2,
-  browserLogs: true,
-  logger,
-};
+export async function getDefaultBaseConfig(): Promise<Partial<TestRunnerCoreConfig>> {
+  if (!import.meta.resolve) {
+    throw new Error('import.meta.resolve not defined');
+  }
+
+  return {
+    watch: false,
+    rootDir: path.join(dirname, '..', '..', '..'),
+    testFramework: {
+      path: await import.meta.resolve('@web/test-runner-mocha/dist/autorun.js'),
+    },
+    protocol: 'http:',
+    hostname: 'localhost',
+    reporters: [],
+    concurrentBrowsers: 2,
+    concurrency: 10,
+    browserStartTimeout: minuteMs / 2,
+    testsStartTimeout: secondMs * 20,
+    testsFinishTimeout: minuteMs * 2,
+    browserLogs: true,
+    logger,
+  };
+}
 
 export async function runTests(
   config: Partial<TestRunnerCoreConfig>,
@@ -48,6 +57,7 @@ export async function runTests(
 ): Promise<{ runner: TestRunner; sessions: TestSession[] }> {
   return new Promise(async (resolve, reject) => {
     const port = await getPortPromise({ port: 9000 + Math.floor(Math.random() * 1000) });
+    const defaultBaseConfig = await getDefaultBaseConfig();
     const finalConfig = {
       port,
       ...defaultBaseConfig,

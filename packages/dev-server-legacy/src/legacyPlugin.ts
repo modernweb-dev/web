@@ -1,6 +1,6 @@
 import { Plugin, Logger, getRequestFilePath, isInlineScriptRequest } from '@web/dev-server-core';
 import { GeneratedFile, PolyfillsConfig } from '@web/polyfills-loader';
-import path from 'path';
+import * as path from 'node:path';
 import { isLegacyBrowser } from './isLegacyBrowser.js';
 import { babelTransform, es5Config, systemJsConfig } from './babelTransform.js';
 import { injectPolyfillsLoader } from './injectPolyfillsLoader.js';
@@ -106,8 +106,8 @@ export function legacyPlugin(options: LegacyPluginOptions = {}): Plugin {
         }
         const config =
           context.URL.searchParams.get(PARAM_TRANSFORM_SYSTEMJS) === 'true'
-            ? systemJsConfig
-            : es5Config;
+            ? await systemJsConfig()
+            : await es5Config();
         const filePath = getRequestFilePath(context.url, rootDir);
         const transformed = await babelTransform(filePath, context.body as string, config);
         context.body = transformed;

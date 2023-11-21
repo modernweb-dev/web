@@ -1,5 +1,8 @@
-import { dirname } from 'path';
+import { dirname } from 'node:path';
 
-export function getNodeModuleDir(moduleName: string): string {
-  return dirname(require.resolve(`${moduleName}/package.json`));
+export async function getNodeModuleDir(moduleName: string): Promise<string> {
+  if (!import.meta.resolve) {
+    throw new Error('import.meta.resolve was not set');
+  }
+  return dirname(await import.meta.resolve(`${moduleName}/package.json`));
 }

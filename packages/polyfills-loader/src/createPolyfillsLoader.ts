@@ -11,7 +11,7 @@ import { transformAsync } from '@babel/core';
 import { minify } from 'terser';
 import { fileTypes, hasFileOfType, cleanImportPath } from './utils.js';
 import { createPolyfillsData } from './createPolyfillsData.js';
-import path from 'path';
+import * as path from 'path';
 
 /**
  * Function which loads a script dynamically, returning a thenable (object with then function)

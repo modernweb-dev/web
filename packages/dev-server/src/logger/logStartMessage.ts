@@ -1,4 +1,4 @@
-import { DevServerConfig } from '../config/DevServerConfig';
+import { DevServerConfig } from '../config/DevServerConfig.js';
 import { Logger } from '@web/dev-server-core';
 import ip from 'ip';
 import { bold, cyan, white } from 'nanocolors';

@@ -1,4 +1,4 @@
-import path from 'path';
+import * as path from 'node:path';
 
 /**
  * Transforms a file system path to a browser URL. For example windows uses `\` on the file system,

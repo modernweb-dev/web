@@ -14,17 +14,13 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-core",
   "main": "./dist/index.js",
-  "module": "./index.mjs",
+  "type": "module",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     },
-    "./test-helpers": {
-      "types": "./dist/test-helpers.d.ts",
-      "import": "./test-helpers.mjs",
-      "require": "./dist/test-helpers.js"
+    "./dist/test-helpers.js": {
+      "import": "./dist/test-helpers.js"
     },
     "./browser/session.js": "./browser/session.js"
   },

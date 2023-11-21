@@ -1,5 +1,5 @@
 import { Attribute } from 'parse5';
-import path from 'path';
+import * as path from 'node:path';
 import { OutputChunk } from 'rollup';
 
 import {
@@ -7,7 +7,7 @@ import {
   GeneratedBundle,
   RollupPluginHTMLOptions,
   ScriptModuleTag,
-} from '../RollupPluginHTMLOptions';
+} from '../RollupPluginHTMLOptions.js';
 import { createError, NOOP_IMPORT } from '../utils.js';
 import { toBrowserPath } from './utils.js';
 

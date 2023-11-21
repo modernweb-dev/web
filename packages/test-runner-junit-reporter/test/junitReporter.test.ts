@@ -2,17 +2,20 @@ import { expect } from 'chai';
 import { promises as fs } from 'fs';
 import path from 'path';
 import globby from 'globby';
+import { fileURLToPath } from 'node:url';
 
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { runTests } from '@web/test-runner-core/test-helpers';
+import { runTests } from '@web/test-runner-core/dist/test-helpers.js';
 import { junitReporter } from '../src/junitReporter.js';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 const NON_ZERO_TIME_VALUE_REGEX = /time="((\d\.\d+)|(\d))"/g;
 
 const USER_AGENT_STRING_REGEX = /"Mozilla\/5\.0 (.*)"/g;
 
-const rootDir = path.join(__dirname, '..', '..', '..');
+const rootDir = path.join(dirname, '..', '..', '..');
 
 const normalizeOutput = (cwd: string, output: string) =>
   output
@@ -64,7 +67,7 @@ async function run(cwd: string): Promise<{ actual: string; expected: string }> {
 async function cleanupFixtures() {
   for (const file of await globby('fixtures/**/test-results.xml', {
     absolute: true,
-    cwd: __dirname,
+    cwd: dirname,
   }))
     await fs.unlink(file);
 }
@@ -73,7 +76,7 @@ describe('junitReporter', function () {
   after(cleanupFixtures);
 
   describe('for a simple case', function () {
-    const fixtureDir = path.join(__dirname, 'fixtures/simple');
+    const fixtureDir = path.join(dirname, 'fixtures/simple');
     it('produces expected results', async function () {
       const { actual, expected } = await run(fixtureDir);
       expect(actual).to.equal(expected);
@@ -81,7 +84,7 @@ describe('junitReporter', function () {
   });
 
   describe('for a nested suite', function () {
-    const fixtureDir = path.join(__dirname, 'fixtures/nested');
+    const fixtureDir = path.join(dirname, 'fixtures/nested');
     it('produces expected results', async function () {
       const { actual, expected } = await run(fixtureDir);
       expect(actual).to.equal(expected);
@@ -89,7 +92,7 @@ describe('junitReporter', function () {
   });
 
   describe('for multiple test files', function () {
-    const fixtureDir = path.join(__dirname, 'fixtures/multiple');
+    const fixtureDir = path.join(dirname, 'fixtures/multiple');
     it('produces expected results', async function () {
       const { actual, expected } = await run(fixtureDir);
       expect(actual).to.equal(expected);

@@ -1,10 +1,13 @@
 import { expect } from 'chai';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
 
 import { getInputData } from '../../../src/input/getInputData.js';
 import { InputData } from '../../../src/input/InputData.js';
 
-const rootDir = path.join(__dirname, '..', '..', 'fixtures', 'basic');
+const dirname = fileURLToPath(new URL('.', import.meta.url));
+
+const rootDir = path.join(dirname, '..', '..', 'fixtures', 'basic');
 
 function cleanupHtml(str: string) {
   return str.replace(/(\r\n|\n|\r| )/gm, '');

@@ -1,8 +1,11 @@
 import { BrowserLauncher, TestRunnerCoreConfig, TestSession } from '@web/test-runner-core';
-import { runTests } from '@web/test-runner-core/test-helpers';
+import { runTests } from '@web/test-runner-core/dist/test-helpers.js';
 import { legacyPlugin } from '@web/dev-server-legacy';
 import { resolve } from 'path';
 import { expect } from 'chai';
+import { fileURLToPath } from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 export function runFocusTest(
   config: Partial<TestRunnerCoreConfig> & { browsers: BrowserLauncher[] },
@@ -15,7 +18,7 @@ export function runFocusTest(
         ...config,
         // 2 means some are executed concurrently, and some sequentially
         concurrency: 2,
-        files: [...(config.files ?? []), resolve(__dirname, 'browser-tests', '*.test.js')],
+        files: [...(config.files ?? []), resolve(dirname, 'browser-tests', '*.test.js')],
         plugins: [...(config.plugins ?? []), legacyPlugin()],
       });
       allSessions = result.sessions;

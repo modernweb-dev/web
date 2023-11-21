@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import path from 'path';
+import * as path from 'node:path';
 
 import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
 import { TestSession } from '../test-session/TestSession.js';

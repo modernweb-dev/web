@@ -1,5 +1,5 @@
 import { Plugin } from '@web/dev-server-core';
-import { BasicTestSession } from '../test-session/BasicTestSession';
+import { BasicTestSession } from '../test-session/BasicTestSession.js';
 
 export type ExecuteCommandResult = void | unknown | Promise<void> | Promise<unknown>;
 

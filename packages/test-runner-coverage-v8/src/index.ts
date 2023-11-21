@@ -1,8 +1,8 @@
-import { extname, join, isAbsolute, sep, posix } from 'path';
+import { extname, join, isAbsolute, sep, posix } from 'node:path';
 import { CoverageMapData } from 'istanbul-lib-coverage';
 import v8toIstanbulLib from 'v8-to-istanbul';
 import { TestRunnerCoreConfig, fetchSourceMap } from '@web/test-runner-core';
-import { Profiler } from 'inspector';
+import { Profiler } from 'node:inspector';
 import picoMatch from 'picomatch';
 import LruCache from 'lru-cache';
 import { readFile } from 'node:fs/promises';

@@ -1,8 +1,10 @@
-import { mapFileCommentRegex, fromSource, SourceMapConverter, fromJSON } from 'convert-source-map';
-import path from 'path';
-import { RequestOptions } from 'http';
+import convertSourceMap, { SourceMapConverter } from 'convert-source-map';
+import * as path from 'node:path';
+import { RequestOptions } from 'node:http';
 
 import { request } from './request.js';
+
+const { mapFileCommentRegex, fromSource, fromJSON } = convertSourceMap;
 
 function is2xxResponse(status?: number) {
   return typeof status === 'number' && status >= 200 && status < 300;

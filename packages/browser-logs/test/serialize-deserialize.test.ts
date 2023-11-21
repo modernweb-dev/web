@@ -1,25 +1,35 @@
 import { expect } from 'chai';
 import puppeteer, { Browser, Page } from 'puppeteer';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { deserialize } from '../src/deserialize.js';
 
-const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
-const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };
+const serializeScript = fs.readFileSync(
+  path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../dist/serialize.js'),
+  'utf-8',
+);
+const dirname = fileURLToPath(new URL('.', import.meta.url));
+const defaultOptions = { browserRootDir: dirname, cwd: dirname };
 
 describe('serialize deserialize', function () {
   this.timeout(10000);
 
   let browser: Browser;
   let page: Page;
+
   before(async () => {
     browser = await puppeteer.launch({ headless: 'new' });
     page = await browser.newPage();
     await page.goto('about:blank');
-    await page.evaluate(
-      `(function () { var module = {}; var exports = {}; \n${serializeScript};\n window._serialize = serialize })()`,
-    );
+    await page.addScriptTag({
+      content: `
+        ${serializeScript}
+        window._serialize = serialize;
+      `,
+      type: 'module',
+    });
   });
 
   after(async () => {
@@ -437,7 +447,7 @@ describe('serialize deserialize', function () {
     });
     const deserialized = await deserialize(serialized, {
       ...defaultOptions,
-      cwd: path.resolve(__dirname, '..'),
+      cwd: path.resolve(dirname, '..'),
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
@@ -455,8 +465,8 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(a());
     });
     const deserialized = await deserialize(serialized, {
-      cwd: path.resolve(__dirname, '..', 'foo'),
-      browserRootDir: path.resolve(__dirname, '..'),
+      cwd: path.resolve(dirname, '..', 'foo'),
+      browserRootDir: path.resolve(dirname, '..'),
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');

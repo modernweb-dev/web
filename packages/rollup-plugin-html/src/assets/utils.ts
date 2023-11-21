@@ -1,5 +1,5 @@
 import { Document, Element } from 'parse5';
-import path from 'path';
+import * as path from 'node:path';
 import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
 import { createError } from '../utils.js';
 import { serialize } from 'v8';

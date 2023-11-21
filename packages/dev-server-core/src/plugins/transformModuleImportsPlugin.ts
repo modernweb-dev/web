@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import path from 'path';
+import * as path from 'node:path';
 import { Context } from 'koa';
 // @ts-ignore
 import { parse, ParsedImport } from 'es-module-lexer';

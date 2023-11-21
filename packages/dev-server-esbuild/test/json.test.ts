@@ -1,12 +1,15 @@
 import { expect } from 'chai';
-import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
+import { expectIncludes, createTestServer } from '@web/dev-server-core/dist/test-helpers.js';
+import { fileURLToPath } from 'node:url';
 
 import { esbuildPlugin } from '../src/index.js';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('esbuildPlugin JSON', function () {
   it('transforms .json files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',

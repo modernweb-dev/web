@@ -9,10 +9,10 @@ import {
   filePlugin,
   snapshotPlugin,
   sendMousePlugin,
-} from '@web/test-runner-commands/plugins';
+} from '@web/test-runner-commands/dist/index.js';
 import { getPortPromise } from 'portfinder';
-import path from 'path';
-import { cpus } from 'os';
+import * as path from 'node:path';
+import { cpus } from 'node:os';
 
 import { TestRunnerCliArgs } from './readCliArgs.js';
 import { mergeConfigs } from './mergeConfigs.js';
@@ -130,6 +130,10 @@ export async function parseConfig(
   config: Partial<TestRunnerConfig>,
   cliArgs: TestRunnerCliArgs = {},
 ): Promise<{ config: TestRunnerCoreConfig; groupConfigs: TestRunnerGroupConfig[] }> {
+  if (!import.meta.resolve) {
+    throw new Error('import.meta.resolve was not set');
+  }
+
   const cliArgsConfig: Partial<TestRunnerConfig> = {
     ...(cliArgs as Omit<TestRunnerCliArgs, 'groups' | 'browsers'>),
   };
@@ -201,14 +205,14 @@ export async function parseConfig(
         'The --puppeteer flag cannot be used when defining browsers manually in your finalConfig.',
       );
     }
-    finalConfig.browsers = puppeteerLauncher(cliArgs.browsers);
+    finalConfig.browsers = await puppeteerLauncher(cliArgs.browsers);
   } else if (cliArgs.playwright) {
     if (finalConfig.browsers && finalConfig.browsers.length > 0) {
       throw new TestRunnerStartError(
         'The --playwright flag cannot be used when defining browsers manually in your finalConfig.',
       );
     }
-    finalConfig.browsers = playwrightLauncher(cliArgs.browsers);
+    finalConfig.browsers = await playwrightLauncher(cliArgs.browsers);
   } else {
     if (cliArgs.browsers != null) {
       throw new TestRunnerStartError(
@@ -223,7 +227,7 @@ export async function parseConfig(
   }
 
   finalConfig.testFramework = {
-    path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
+    path: await import.meta.resolve('@web/test-runner-mocha/dist/autorun.js'),
     ...(finalConfig.testFramework ?? {}),
   };
 
@@ -269,7 +273,7 @@ export async function parseConfig(
   }
 
   if (finalConfig?.esbuildTarget) {
-    finalConfig.plugins!.unshift(esbuildPlugin(finalConfig.esbuildTarget));
+    finalConfig.plugins!.unshift(await esbuildPlugin(finalConfig.esbuildTarget));
   }
 
   if ((!finalConfig.files || finalConfig.files.length === 0) && groupConfigs.length === 0) {

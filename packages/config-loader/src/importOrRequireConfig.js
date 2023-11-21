@@ -1,14 +1,10 @@
-const getPackageType = require('./getPackageType');
-const path = require('path');
-const requireConfig = require('./requireConfig');
-
 /**
  * @param {string} configPath
  */
-function importConfig(configPath) {
+async function importConfig(configPath) {
   // Conditionally requires importConfig function to avoid logging a warning on node v12
   // when not using an es modules
-  const importConfigFunction = require('./importConfig');
+  const {importConfig: importConfigFunction} = await import('./importConfig.js');
   return importConfigFunction(configPath);
 }
 
@@ -16,18 +12,6 @@ function importConfig(configPath) {
  * @param {string} configPath
  * @param {string} basedir
  */
-async function importOrRequireConfig(configPath, basedir) {
-  const packageType = await getPackageType(basedir);
-  const ext = path.extname(configPath);
-
-  switch (ext) {
-    case '.mjs':
-      return importConfig(configPath);
-    case '.cjs':
-      return requireConfig(configPath);
-    default:
-      return packageType === 'module' ? importConfig(configPath) : requireConfig(configPath);
-  }
+export async function importOrRequireConfig(configPath, basedir) {
+  return importConfig(configPath);
 }
-
-module.exports = importOrRequireConfig;

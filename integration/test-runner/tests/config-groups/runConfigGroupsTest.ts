@@ -3,10 +3,13 @@ import {
   TestRunnerCoreConfig,
   TestRunnerGroupConfig,
 } from '@web/test-runner-core';
-import { runTests } from '@web/test-runner-core/test-helpers';
+import { runTests } from '@web/test-runner-core/dist/test-helpers.js';
 import { legacyPlugin } from '@web/dev-server-legacy';
 import { resolve } from 'path';
 import { expect } from 'chai';
+import { fileURLToPath } from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 export function runConfigGroupsTest(
   config: Partial<TestRunnerCoreConfig> & { browsers: BrowserLauncher[] },
@@ -18,13 +21,13 @@ export function runConfigGroupsTest(
           name: 'a',
           testRunnerHtml: path =>
             `<html><body><script>window.__group__ = "a";</script><script type="module" src=${path}></script></body></html>`,
-          files: [resolve(__dirname, 'browser-tests', 'test-runner-html-a.test.js')],
+          files: [resolve(dirname, 'browser-tests', 'test-runner-html-a.test.js')],
         },
         {
           name: 'b',
           testRunnerHtml: path =>
             `<html><body><script>window.__group__ = "b";</script><script type="module" src=${path}></script></body></html>`,
-          files: [resolve(__dirname, 'browser-tests', 'test-runner-html-b.test.js')],
+          files: [resolve(dirname, 'browser-tests', 'test-runner-html-b.test.js')],
         },
       ];
       const result = await runTests(

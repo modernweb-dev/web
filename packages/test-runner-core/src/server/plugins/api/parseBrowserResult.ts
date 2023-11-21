@@ -1,7 +1,7 @@
 import { MapStackLocation, StackLocation, MapBrowserUrl } from '@web/browser-logs';
 
-import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
-import { TestSession } from '../../../test-session/TestSession';
+import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.js';
+import { TestSession } from '../../../test-session/TestSession.js';
 import { SourceMapFunction } from './createSourceMapFunction.js';
 import { parseSessionErrors, parseTestResults } from './parseBrowserErrors.js';
 import { parseBrowserLogs } from './parseBrowserLogs.js';

@@ -1,10 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-const rollup = require('rollup');
-const { expect } = require('chai');
-const hanbi = require('hanbi');
+import * as fs from 'fs';
+import * as path from 'path';
+import * as rollup from 'rollup';
+import { expect } from 'chai';
+import * as hanbi from 'hanbi';
+import { fileURLToPath } from 'node:url';
 
-const { importMetaAssets } = require('../src/rollup-plugin-import-meta-assets.js');
+import { importMetaAssets } from '../src/rollup-plugin-import-meta-assets.js';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 const outputConfig = {
   format: 'es',
@@ -12,7 +15,7 @@ const outputConfig = {
 };
 
 function expectChunk(output, shapshotUrl, chunkName, referencedFiles) {
-  const bundleJsSource = fs.readFileSync(path.join(__dirname, shapshotUrl));
+  const bundleJsSource = fs.readFileSync(path.join(dirname, shapshotUrl));
   const bundleJs = output.find(({ fileName }) => fileName === chunkName);
   expect(bundleJs.type).to.equal('chunk');
   expect(bundleJs.code).to.deep.equal(bundleJsSource.toString());
@@ -20,7 +23,7 @@ function expectChunk(output, shapshotUrl, chunkName, referencedFiles) {
 }
 
 function expectAsset(output, snapshotUrl, assetName, distName) {
-  const snapshotSource = fs.readFileSync(path.join(__dirname, snapshotUrl));
+  const snapshotSource = fs.readFileSync(path.join(dirname, snapshotUrl));
   const asset = output.find(({ name }) => name === assetName);
   expect(typeof asset).to.equal('object');
   expect(asset.type).to.equal('asset');
@@ -42,7 +45,7 @@ describe('rollup-plugin-import-meta-assets', () => {
 
   it("simple bundle with different new URL('', import.meta.url)", async () => {
     const config = {
-      input: { 'simple-bundle': require.resolve('./fixtures/simple-entrypoint.js') },
+      input: { 'simple-bundle': await import.meta.resolve('./fixtures/simple-entrypoint.js') },
       plugins: [importMetaAssets()],
     };
 
@@ -61,7 +64,9 @@ describe('rollup-plugin-import-meta-assets', () => {
 
   it('simple bundle with transform assets', async () => {
     const config = {
-      input: { 'transform-bundle': require.resolve('./fixtures/transform-entrypoint.js') },
+      input: {
+        'transform-bundle': await import.meta.resolve('./fixtures/transform-entrypoint.js'),
+      },
       plugins: [
         importMetaAssets({
           transform: async (assetBuffer, assetPath) => {
@@ -90,7 +95,9 @@ describe('rollup-plugin-import-meta-assets', () => {
 
   it('simple bundle with ignored assets', async () => {
     const config = {
-      input: { 'transform-bundle-ignored': require.resolve('./fixtures/transform-entrypoint.js') },
+      input: {
+        'transform-bundle-ignored': await import.meta.resolve('./fixtures/transform-entrypoint.js'),
+      },
       plugins: [
         importMetaAssets({
           transform: async (assetBuffer, assetPath) => {
@@ -118,7 +125,9 @@ describe('rollup-plugin-import-meta-assets', () => {
 
   it('multiple level bundle (downward modules)', async () => {
     const config = {
-      input: { 'multi-level-bundle': require.resolve('./fixtures/multi-level-entrypoint.js') },
+      input: {
+        'multi-level-bundle': await import.meta.resolve('./fixtures/multi-level-entrypoint.js'),
+      },
       plugins: [importMetaAssets()],
     };
 
@@ -137,7 +146,7 @@ describe('rollup-plugin-import-meta-assets', () => {
   it('multiple level bundle (upward modules)', async () => {
     const config = {
       input: {
-        'multi-level-bundle': require.resolve(
+        'multi-level-bundle': await import.meta.resolve(
           './fixtures/one/two/three/four/multi-level-entrypoint-deep.js',
         ),
       },
@@ -159,7 +168,7 @@ describe('rollup-plugin-import-meta-assets', () => {
   it('different asset levels', async () => {
     const config = {
       input: {
-        'different-asset-levels-bundle': require.resolve(
+        'different-asset-levels-bundle': await import.meta.resolve(
           './fixtures/one/two/different-asset-levels-entrypoint.js',
         ),
       },
@@ -191,10 +200,10 @@ describe('rollup-plugin-import-meta-assets', () => {
   it('include/exclude options', async () => {
     const config = {
       input: {
-        'one-bundle': require.resolve('./fixtures/one/one.js'),
-        'two-bundle': require.resolve('./fixtures/one/two/two.js'),
-        'three-bundle': require.resolve('./fixtures/one/two/three/three.js'),
-        'four-bundle': require.resolve('./fixtures/one/two/three/four/four.js'),
+        'one-bundle': await import.meta.resolve('./fixtures/one/one.js'),
+        'two-bundle': await import.meta.resolve('./fixtures/one/two/two.js'),
+        'three-bundle': await import.meta.resolve('./fixtures/one/two/three/three.js'),
+        'four-bundle': await import.meta.resolve('./fixtures/one/two/three/four/four.js'),
       },
       plugins: [
         importMetaAssets({
@@ -224,7 +233,7 @@ describe('rollup-plugin-import-meta-assets', () => {
 
   it('bad URL example', async () => {
     const config = {
-      input: { 'bad-url-bundle': require.resolve('./fixtures/bad-url-entrypoint.js') },
+      input: { 'bad-url-bundle': await import.meta.resolve('./fixtures/bad-url-entrypoint.js') },
       plugins: [importMetaAssets()],
     };
 
@@ -242,7 +251,7 @@ describe('rollup-plugin-import-meta-assets', () => {
 
   it('bad URL example with warnOnError: true', async () => {
     const config = {
-      input: { 'bad-url-bundle': require.resolve('./fixtures/bad-url-entrypoint.js') },
+      input: { 'bad-url-bundle': await import.meta.resolve('./fixtures/bad-url-entrypoint.js') },
       plugins: [importMetaAssets({ warnOnError: true })],
     };
 
@@ -260,7 +269,7 @@ describe('rollup-plugin-import-meta-assets', () => {
 
   it('allows backtics and dynamic vars in path', async () => {
     const config = {
-      input: { 'dynamic-vars': require.resolve('./fixtures/dynamic-vars.js') },
+      input: { 'dynamic-vars': await import.meta.resolve('./fixtures/dynamic-vars.js') },
       plugins: [importMetaAssets({ warnOnError: true })],
     };
 
@@ -278,7 +287,9 @@ describe('rollup-plugin-import-meta-assets', () => {
   it('ignores patterns that reference a directory', async () => {
     const config = {
       input: {
-        'directories-ignored': require.resolve('./fixtures/directories-and-simple-entrypoint.js'),
+        'directories-ignored': await import.meta.resolve(
+          './fixtures/directories-and-simple-entrypoint.js',
+        ),
       },
       plugins: [importMetaAssets()],
     };

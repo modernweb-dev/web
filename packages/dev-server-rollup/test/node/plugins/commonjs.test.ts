@@ -1,12 +1,15 @@
 import rollupCommonjs from '@rollup/plugin-commonjs';
-import { runTests } from '@web/test-runner-core/test-helpers';
+import { runTests } from '@web/test-runner-core/dist/test-helpers.js';
 import { resolve } from 'path';
 import { chromeLauncher } from '@web/test-runner-chrome';
+import { fileURLToPath } from 'node:url';
 
 import * as path from 'path';
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
 import { fromRollup } from '../../../src/index.js';
 import { nodeResolvePlugin } from '@web/dev-server';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 const commonjs = fromRollup(rollupCommonjs);
 
@@ -140,7 +143,7 @@ exports.default = _default;`;
   });
 
   it('can transform modules which require node-resolved modules', async () => {
-    const rootDir = path.resolve(__dirname, '..', 'fixtures', 'basic');
+    const rootDir = path.resolve(dirname, '..', 'fixtures', 'basic');
     const { server, host } = await createTestServer({
       plugins: [
         {
@@ -203,7 +206,7 @@ exports.default = _default;`;
     this.timeout(20000);
 
     await runTests({
-      files: [resolve(__dirname, '..', 'fixtures', 'commonjs', 'commonjs-browser-test.js')],
+      files: [resolve(dirname, '..', 'fixtures', 'commonjs', 'commonjs-browser-test.js')],
       browsers: [chromeLauncher({ launchOptions: { devtools: false } })],
       plugins: [
         fromRollup(rollupCommonjs)({

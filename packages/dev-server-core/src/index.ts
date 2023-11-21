@@ -1,7 +1,7 @@
 // reexports of types from internal libraries
 export { FSWatcher } from 'chokidar';
 export { default as Koa, Context, Middleware } from 'koa';
-export { Server } from 'net';
+export { Server } from 'node:net';
 import WebSocket from 'ws';
 export { WebSocket };
 

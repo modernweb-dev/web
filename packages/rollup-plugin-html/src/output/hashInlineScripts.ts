@@ -11,7 +11,7 @@ import {
   prepend,
   setAttribute,
 } from '@web/parse5-utils';
-import crypto from 'crypto';
+import * as crypto from 'node:crypto';
 
 function isMetaCSPTag(node: Element) {
   if (

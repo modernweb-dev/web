@@ -1,11 +1,18 @@
-import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/dist/test-helpers.js';
+import {
+  fetchText,
+  expectIncludes,
+  virtualFilesPlugin,
+} from '@web/dev-server-core/dist/test-helpers.js';
 import { expect } from 'chai';
 import { spy } from 'hanbi';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
 
 import { importMapsPlugin } from '../src/importMapsPlugin.js';
 import { IMPORT_MAP_PARAM } from '../src/utils.js';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 function createHtml(importMap: Record<string, unknown>) {
   return `
@@ -33,7 +40,7 @@ describe('applies import map id', () => {
       '/index.html': createHtml({ foo: './mocked-foo.js' }),
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -48,7 +55,7 @@ describe('applies import map id', () => {
       '/index.html': createHtml({ foo: './mocked-foo.js' }),
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -63,7 +70,7 @@ describe('applies import map id', () => {
       '/index.html': createHtml({ foo: './mocked-foo.js' }),
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -80,7 +87,7 @@ describe('applies import map id', () => {
       '/app.js': 'import "foo"; import foo from "./bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -98,7 +105,7 @@ describe('applies import map id', () => {
       '/app.js': 'import "bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',
@@ -124,7 +131,7 @@ describe('applies import map id', () => {
       '/app.js': 'import "bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',
@@ -150,7 +157,7 @@ describe('applies import map id', () => {
       '/app.js': 'import "bar?foo=bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -169,7 +176,7 @@ describe('resolving imports', () => {
       '/app.js': 'import "foo";\nimport bar from "./bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -187,7 +194,7 @@ describe('resolving imports', () => {
       '/x/y/app.js': 'import bar from "../../bar.js";\nimport bar from "../bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -205,7 +212,7 @@ describe('resolving imports', () => {
       '/x/y/app.js': 'import "x";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -222,7 +229,7 @@ describe('resolving imports', () => {
       '/x/app.js': 'import "./y/bar.js"; \n import "./bar.js"; \n import "../bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -249,7 +256,7 @@ describe('resolving imports', () => {
       '/x/app.js': 'import "bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -274,7 +281,7 @@ describe('resolving imports', () => {
       '/x/app.js': 'import "bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -289,7 +296,7 @@ describe('resolving imports', () => {
     let i = 0;
 
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',
@@ -329,7 +336,7 @@ describe('resolving imports', () => {
       '/index.html': '<html><body><script src="./app.js"></script></body></html>',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -371,7 +378,7 @@ describe('resolving imports', () => {
     };
     const { server, host } = await createTestServer(
       {
-        rootDir: __dirname,
+        rootDir: dirname,
         plugins: [virtualFilesPlugin(files), importMapsPlugin()],
       },
       logger,
@@ -392,7 +399,7 @@ describe('resolving imports', () => {
       '/app.js': 'import "foo";\nimport bar from "./bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 

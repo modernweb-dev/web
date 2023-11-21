@@ -1,6 +1,6 @@
 import { Document, serialize } from 'parse5';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { InputAsset } from '../InputData.js';
 import {
   findAssets,

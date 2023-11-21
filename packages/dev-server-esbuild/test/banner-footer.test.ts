@@ -1,15 +1,18 @@
 import { expect } from 'chai';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expectIncludes } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/dist/test-helpers.js';
+import { expectIncludes } from '@web/dev-server-core/dist/test-helpers.js';
 
 import { esbuildPlugin } from '../src/index.js';
+import { fileURLToPath } from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('esbuildPlugin banner/footers', function () {
   this.timeout(5000);
 
   it('prepends custom banner', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',
@@ -39,7 +42,7 @@ describe('esbuildPlugin banner/footers', function () {
 
   it('appends custom footer', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',

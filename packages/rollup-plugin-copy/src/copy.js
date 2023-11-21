@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const { patternsToFiles } = require('./patternsToFiles.js');
+import * as fs from 'fs';
+import * as path from 'path';
+import { patternsToFiles } from './patternsToFiles.js';
 
 /**
  * Copies all files from the given patterns retaining relative paths relative to the root directory.
@@ -21,7 +21,7 @@ const { patternsToFiles } = require('./patternsToFiles.js');
  * @param {string} [options.rootDir] Defaults to current working directory
  * @return {import('rollup').Plugin} A Rollup Plugin
  */
-function copy({ patterns = [], rootDir = process.cwd(), exclude }) {
+export function copy({ patterns = [], rootDir = process.cwd(), exclude }) {
   const resolvedRootDir = path.resolve(rootDir);
   /** @type {string[]} */
   let filesToCopy = [];
@@ -45,5 +45,3 @@ function copy({ patterns = [], rootDir = process.cwd(), exclude }) {
     },
   };
 }
-
-module.exports = { copy };

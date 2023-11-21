@@ -1,7 +1,7 @@
-const path = require('path');
-const { fileExists } = require('./utils');
-const ConfigLoaderError = require('./ConfigLoaderError.js');
-const importOrRequireConfig = require('./importOrRequireConfig');
+import * as path from 'node:path';
+import { fileExists } from './utils.js';
+import { ConfigLoaderError } from './ConfigLoaderError.js';
+import { importOrRequireConfig } from './importOrRequireConfig.js';
 
 const EXTENSIONS = ['.mjs', '.cjs', '.js'];
 
@@ -10,7 +10,7 @@ const EXTENSIONS = ['.mjs', '.cjs', '.js'];
  * @param {string} [customPath]
  * @param {string} [basedir]
  */
-async function readConfig(name, customPath, basedir = process.cwd()) {
+export async function readConfig(name, customPath, basedir = process.cwd()) {
   const resolvedCustomPath = customPath ? path.resolve(basedir, customPath) : undefined;
   if (resolvedCustomPath && !(await fileExists(resolvedCustomPath))) {
     throw new ConfigLoaderError(`Could not find a config file at ${resolvedCustomPath}`);
@@ -32,4 +32,4 @@ async function readConfig(name, customPath, basedir = process.cwd()) {
   return null;
 }
 
-module.exports = { readConfig, ConfigLoaderError };
+export { ConfigLoaderError };

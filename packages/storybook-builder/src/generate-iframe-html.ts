@@ -1,13 +1,14 @@
 import { normalizeStories } from '@storybook/core-common';
 import type { CoreConfig, Options } from '@storybook/types';
-import { readFile } from 'fs-extra';
+import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
 import { virtualAppFilename } from './virtual-file-names.js';
 
 export type PreviewHtml = string | undefined;
 
 export async function generateIframeHtml(options: Options): Promise<string> {
   const iframeHtmlTemplate = await readFile(
-    require.resolve('../static/iframe-template.html'),
+    fileURLToPath(new URL('../static/iframe-template.html', import.meta.url)),
     'utf-8',
   );
   const { configType, features, presets, serverChannelUrl } = options;

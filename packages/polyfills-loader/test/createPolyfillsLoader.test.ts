@@ -4,6 +4,9 @@ import path from 'path';
 import { PolyfillsLoaderConfig } from '../src/types.js';
 import { createPolyfillsLoader } from '../src/createPolyfillsLoader.js';
 import { noModuleSupportTest, fileTypes } from '../src/utils.js';
+import { fileURLToPath } from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
@@ -14,7 +17,7 @@ interface TestSnapshotArgs {
 }
 
 async function testSnapshot({ name, config, expectedFiles = [] }: TestSnapshotArgs) {
-  const snapshotPath = path.join(__dirname, 'snapshots', 'createPolyfillsLoader', `${name}.js`);
+  const snapshotPath = path.join(dirname, 'snapshots', 'createPolyfillsLoader', `${name}.js`);
   const loader = await createPolyfillsLoader(config);
   if (!loader) {
     throw new Error('No loader was generated');

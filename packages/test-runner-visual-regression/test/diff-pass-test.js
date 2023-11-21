@@ -1,4 +1,4 @@
-import { visualDiff } from '../browser/commands.mjs';
+import { visualDiff } from '../browser/commands.js';
 
 it('can diff an image', async () => {
   const element = document.createElement('div');

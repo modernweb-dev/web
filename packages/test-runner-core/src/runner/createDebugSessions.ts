@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
-import { DebugTestSession } from '../test-session/DebugTestSession';
-import { TestSession } from '../test-session/TestSession';
+import { DebugTestSession } from '../test-session/DebugTestSession.js';
+import { TestSession } from '../test-session/TestSession.js';
 
 export function createDebugSessions(sessions: TestSession[]): DebugTestSession[] {
   const debugSessions = [];
