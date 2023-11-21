@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { startDevServer } from '../index.mjs';
+import { startDevServer } from '../dist/index.js';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 

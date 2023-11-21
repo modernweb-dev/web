@@ -1,13 +1,8 @@
-import fs from 'fs';
-import { promisify } from 'util';
-
-export const readFile = promisify(fs.readFile);
-export const writeFile = promisify(fs.writeFile);
-export const fsAccess = promisify(fs.access);
+import * as fs from 'node:fs/promises';
 
 export async function fileExists(filePath: string) {
   try {
-    await fsAccess(filePath);
+    await fs.access(filePath);
     return true;
   } catch {
     return false;

@@ -1,7 +1,9 @@
-function requirePlugin() {
+async function requirePlugin() {
   try {
-    const path = require.resolve('@web/dev-server-esbuild', { paths: [__dirname, process.cwd()] });
-    return require(path);
+    if (!import.meta.resolve) {
+      throw new Error('import.meta was not set');
+    }
+    return await import('@web/dev-server-esbuild');
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'MODULE_NOT_FOUND') {
       throw new Error(
@@ -13,7 +15,7 @@ function requirePlugin() {
   }
 }
 
-export function esbuildPlugin(target: string | string[]) {
-  const pluginModule = requirePlugin();
+export async function esbuildPlugin(target: string | string[]) {
+  const pluginModule = await requirePlugin();
   return pluginModule.esbuildPlugin({ target });
 }

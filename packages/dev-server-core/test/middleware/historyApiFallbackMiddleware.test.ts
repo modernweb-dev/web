@@ -1,8 +1,11 @@
 import { expect } from 'chai';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
 
 import { createTestServer } from '../helpers.js';
 import { DevServer } from '../../src/server/DevServer.js';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('history api fallback middleware', () => {
   describe('index in root', () => {
@@ -11,7 +14,7 @@ describe('history api fallback middleware', () => {
 
     beforeEach(async () => {
       ({ host, server } = await createTestServer({
-        appIndex: path.resolve(__dirname, '..', 'fixtures', 'basic', 'index.html'),
+        appIndex: path.resolve(dirname, '..', 'fixtures', 'basic', 'index.html'),
       }));
     });
 
@@ -67,7 +70,7 @@ describe('history api fallback middleware', () => {
 
     beforeEach(async () => {
       ({ host, server } = await createTestServer({
-        appIndex: path.resolve(__dirname, '..', 'fixtures', 'basic', 'src', 'index.html'),
+        appIndex: path.resolve(dirname, '..', 'fixtures', 'basic', 'src', 'index.html'),
       }));
     });
 

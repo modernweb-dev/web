@@ -8,15 +8,14 @@ import {
 } from '@web/dev-server-core';
 import type { TransformOptions, BuildFailure } from 'esbuild';
 import { Loader, Message, transform } from 'esbuild';
-import { promisify } from 'util';
-import path from 'path';
-import fs from 'fs';
+import * as path from 'node:path';
+import * as fs from 'node:fs/promises';
 import {
   queryAll,
   predicates,
   getTextContent,
   setTextContent,
-} from '@web/dev-server-core/dist/dom5';
+} from '@web/dev-server-core/dist/dom5/index.js';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 
 import { getEsbuildTarget } from './getEsbuildTarget.js';
@@ -25,7 +24,7 @@ const filteredWarnings = ['Unsupported source map comment'];
 
 async function fileExists(path: string) {
   try {
-    await promisify(fs.access)(path);
+    await fs.access(path);
     return true;
   } catch {
     return false;
@@ -61,7 +60,7 @@ export class EsbuildPlugin implements Plugin {
     this.config = config;
     this.logger = logger;
     if (this.esbuildConfig.tsconfig) {
-      this.tsconfigRaw = await promisify(fs.readFile)(this.esbuildConfig.tsconfig, 'utf8');
+      this.tsconfigRaw = await fs.readFile(this.esbuildConfig.tsconfig, 'utf8');
     }
   }
 

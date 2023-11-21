@@ -1,6 +1,6 @@
 import { TestSession, BufferedLogger } from '@web/test-runner-core';
 import { bold, cyan } from 'nanocolors';
-import { relative } from 'path';
+import { relative } from 'node:path';
 
 import { reportTestsErrors } from './reportTestsErrors.js';
 import { reportBrowserLogs } from './reportBrowserLogs.js';

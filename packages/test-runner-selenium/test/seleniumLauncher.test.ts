@@ -1,9 +1,9 @@
 import selenium from 'selenium-standalone';
 import { Builder } from 'selenium-webdriver';
-import { Options as ChromeOptions } from 'selenium-webdriver/chrome';
-import { Options as FirefoxOptions } from 'selenium-webdriver/firefox';
-import { runIntegrationTests } from '../../../integration/test-runner';
-import { seleniumLauncher } from '../src/seleniumLauncher';
+import { Options as ChromeOptions } from 'selenium-webdriver/chrome.js';
+import { Options as FirefoxOptions } from 'selenium-webdriver/firefox.js';
+import { runIntegrationTests } from '../../../integration/test-runner/index.js';
+import { seleniumLauncher } from '../src/seleniumLauncher.js';
 
 async function startSeleniumServer() {
   let server: selenium.ChildProcess;

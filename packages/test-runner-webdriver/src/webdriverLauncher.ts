@@ -3,6 +3,7 @@ import { Browser, remote, RemoteOptions } from 'webdriverio';
 import { IFrameManager } from './IFrameManager.js';
 import { SessionManager } from './SessionManager.js';
 import { getBrowserLabel } from './utils.js';
+import { Capabilities } from '@wdio/types';
 
 type MouseButton = 'left' | 'middle' | 'right';
 
@@ -33,7 +34,7 @@ export class WebdriverLauncher implements BrowserLauncher {
   async initialize(config: TestRunnerCoreConfig) {
     this.config = config;
 
-    const cap = this.options.capabilities as WebDriver.DesiredCapabilities;
+    const cap = this.options.capabilities as Capabilities.DesiredCapabilities;
     this.name = getBrowserLabel(cap);
     const browserName = cap.browserName?.toLowerCase().replace(/_/g, ' ') || '';
     this.isIE =

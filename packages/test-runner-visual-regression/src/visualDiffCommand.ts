@@ -1,4 +1,4 @@
-import path from 'path';
+import * as path from 'node:path';
 
 import { VisualRegressionPluginOptions, DiffResult } from './config.js';
 import { VisualRegressionError } from './VisualRegressionError.js';

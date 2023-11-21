@@ -1,4 +1,4 @@
-import path from 'path';
+import * as path from 'node:path';
 import { SourceMapConverter } from 'convert-source-map';
 import { SourceMapConsumer } from 'source-map';
 

@@ -1,10 +1,13 @@
-const path = require('path');
-const { expect } = require('chai');
-const { readConfig } = require('../src/index');
+import * as path from 'path';
+import { expect } from 'chai';
+import { readConfig } from '../src/index.js';
+import {fileURLToPath} from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 const configName = 'my-project.config';
-const packageCjsPath = path.resolve(__dirname, 'fixtures', 'package-cjs');
-const packageMjsPath = path.resolve(__dirname, 'fixtures', 'package-mjs');
+const packageCjsPath = path.resolve(dirname, 'fixtures', 'package-cjs');
+const packageMjsPath = path.resolve(dirname, 'fixtures', 'package-mjs');
 
 async function expectThrowsOldNodeError(configPath) {
   let thrown = false;

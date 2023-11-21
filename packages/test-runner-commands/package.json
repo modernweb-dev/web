@@ -13,16 +13,14 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-commands",
-  "main": "browser/commands.mjs",
+  "main": "./browser/commands.js",
+  "type": "module",
   "exports": {
-    ".": {
-      "types": "./browser/commands.d.ts",
-      "default": "./browser/commands.mjs"
+    "./": {
+      "import": "./browser/commands.js"
     },
-    "./plugins": {
-      "types": "./plugins.d.ts",
-      "import": "./plugins.mjs",
-      "require": "./dist/index.js"
+    "./dist/index.js": {
+      "import": "./dist/index.js"
     }
   },
   "engines": {

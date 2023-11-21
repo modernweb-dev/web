@@ -1,5 +1,5 @@
 import { Middleware } from 'koa';
-import path from 'path';
+import * as path from 'node:path';
 import { toBrowserPath } from '../utils.js';
 import { Logger } from '../logger/Logger.js';
 

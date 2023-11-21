@@ -1,9 +1,5 @@
 import { BrowserLauncher } from '@web/test-runner-core';
-import SaucelabsAPI, {
-  SauceLabsOptions,
-  SauceConnectOptions,
-  SauceConnectInstance,
-} from 'saucelabs';
+import SauceLabs, { SauceLabsOptions, SauceConnectOptions, SauceConnectInstance } from 'saucelabs';
 import ip from 'ip';
 
 /**
@@ -22,7 +18,7 @@ export function withTimeout<T>(promise: Promise<T>, message: string): Promise<T>
   });
 }
 export class SauceLabsLauncherManager {
-  private api: SaucelabsAPI;
+  private api: SauceLabs.default;
   private launchers = new Set<BrowserLauncher>();
   private connectionPromise?: Promise<SauceConnectInstance>;
   private connection?: SauceConnectInstance;
@@ -32,7 +28,7 @@ export class SauceLabsLauncherManager {
   constructor(options: SauceLabsOptions, connectOptions?: SauceConnectOptions) {
     this.options = options;
     this.connectOptions = connectOptions;
-    this.api = new SaucelabsAPI(this.options);
+    this.api = new SauceLabs.default(this.options);
 
     process.on('SIGINT', this.closeConnection);
     process.on('SIGTERM', this.closeConnection);

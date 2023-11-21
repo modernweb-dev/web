@@ -1,6 +1,9 @@
 import { expect } from 'chai';
 
 import { createTestServer } from '../helpers.js';
+import { fileURLToPath } from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('mimeTypesPLugin', () => {
   it('can configure mime types for files', async () => {
@@ -33,7 +36,7 @@ describe('mimeTypesPLugin', () => {
 
   it('can resolve literal paths', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       mimeTypes: {
         'foo.css': 'js',
       },

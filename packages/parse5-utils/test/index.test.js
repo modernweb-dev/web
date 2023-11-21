@@ -1,7 +1,6 @@
-const { expect } = require('chai');
-const { parse, serialize } = require('parse5');
-const { getAttribute, getTextContent, findElement } = require('../src/index');
-const utils = require('../src/index');
+import { expect } from 'chai';
+import { parse, serialize } from 'parse5';
+import * as utils from '../src/index.js';
 
 describe('parse5-utils', () => {
   describe('createElement', () => {
@@ -146,18 +145,18 @@ describe('parse5-utils', () => {
   describe('getTextContent()', () => {
     it('returns the node text', () => {
       const doc = parse('<html><body><div id="myDiv">Hello world</div></body></html>');
-      const myDiv = utils.findElement(doc, e => getAttribute(e, 'id') === 'myDiv');
+      const myDiv = utils.findElement(doc, e => utils.getAttribute(e, 'id') === 'myDiv');
       if (!myDiv) throw new Error();
-      expect(getTextContent(myDiv)).to.equal('Hello world');
+      expect(utils.getTextContent(myDiv)).to.equal('Hello world');
     });
 
     it('returns multiple nodes text', () => {
       const doc = parse(
         '<html><body><div id="myDiv">Top level<div>Before<div>A</div><div>B</div>After</div></div></body></html>',
       );
-      const myDiv = utils.findElement(doc, e => getAttribute(e, 'id') === 'myDiv');
+      const myDiv = utils.findElement(doc, e => utils.getAttribute(e, 'id') === 'myDiv');
       if (!myDiv) throw new Error();
-      expect(getTextContent(myDiv)).to.equal('Top levelBeforeABAfter');
+      expect(utils.getTextContent(myDiv)).to.equal('Top levelBeforeABAfter');
     });
   });
 
@@ -176,7 +175,7 @@ describe('parse5-utils', () => {
   describe('remove()', () => {
     it('removes element from the AST', () => {
       const doc = parse('<html><body><div id="myDiv"></div></body></html>');
-      const div = findElement(doc, e => utils.getAttribute(e, 'id') === 'myDiv');
+      const div = utils.findElement(doc, e => utils.getAttribute(e, 'id') === 'myDiv');
       if (!div) throw new Error('element not found');
       utils.remove(div);
       expect(serialize(doc)).to.equal('<html><head></head><body></body></html>');

@@ -1,9 +1,16 @@
 import { expect } from 'chai';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/dist/test-helpers.js';
+import {
+  fetchText,
+  expectIncludes,
+  expectNotIncludes,
+} from '@web/dev-server-core/dist/test-helpers.js';
+import { fileURLToPath } from 'node:url';
 
 import { legacyPlugin } from '../src/legacyPlugin.js';
 import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 const modernCode = `
 class Foo {
@@ -22,7 +29,7 @@ describe('legacyPlugin - transform js', function () {
   for (const [name, userAgent] of Object.entries(modernUserAgents)) {
     it(`does not do any work on ${name}`, async () => {
       const { server, host } = await createTestServer({
-        rootDir: __dirname,
+        rootDir: dirname,
         plugins: [
           {
             name: 'test',
@@ -47,7 +54,7 @@ describe('legacyPlugin - transform js', function () {
   for (const [name, userAgent] of Object.entries(legacyUserAgents)) {
     it(`transforms to es5 on ${name}`, async () => {
       const { server, host } = await createTestServer({
-        rootDir: __dirname,
+        rootDir: dirname,
         plugins: [
           {
             name: 'test',
@@ -78,7 +85,7 @@ describe('legacyPlugin - transform js', function () {
 
     it(`transforms to SystemJS when systemjs paramater is given ${name}`, async () => {
       const { server, host } = await createTestServer({
-        rootDir: __dirname,
+        rootDir: dirname,
         plugins: [
           {
             name: 'test',

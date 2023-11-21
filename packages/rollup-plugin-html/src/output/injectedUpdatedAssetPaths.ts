@@ -1,6 +1,6 @@
 import { getAttribute, setAttribute } from '@web/parse5-utils';
 import { Document } from 'parse5';
-import path from 'path';
+import * as path from 'node:path';
 
 import {
   findAssets,

@@ -1,15 +1,18 @@
 import { expect } from 'chai';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/dist/test-helpers.js';
+import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/dist/test-helpers.js';
+import { fileURLToPath } from 'node:url';
 
 import { esbuildPlugin } from '../src/index.js';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('esbuildPlugin TSX', function () {
   this.timeout(5000);
 
   it('transforms .tsx files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',
@@ -55,7 +58,7 @@ export function foo (a: number, b: number): Foo {
 
   it('can set the JSX factory', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',

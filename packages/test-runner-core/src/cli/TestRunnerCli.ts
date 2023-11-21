@@ -1,5 +1,5 @@
 import { codeFrameColumns } from '@babel/code-frame';
-import path from 'path';
+import * as path from 'node:path';
 import { bold, cyan, red } from 'nanocolors';
 import openBrowser from 'open';
 

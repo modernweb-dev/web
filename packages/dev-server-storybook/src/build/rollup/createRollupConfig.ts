@@ -1,4 +1,3 @@
-import { createRequire } from 'node:module';
 import { Plugin, RollupOptions, RollupLog } from 'rollup';
 
 import { nodeResolve as resolve } from '@rollup/plugin-node-resolve';
@@ -11,11 +10,16 @@ import { mdxPlugin } from './mdxPlugin.js';
 import { mdjsPlugin } from './mdjsPlugin.js';
 import { injectExportsOrderPlugin } from './injectExportsOrderPlugin.js';
 
-const require = createRequire(import.meta.url);
+const getPrebuiltDir = async (): Promise<string> => {
+  if (!import.meta.resolve) {
+    throw new Error('import.meta.resolve was not set');
+  }
 
-const prebuiltDir = require
-  .resolve('@web/storybook-prebuilt/package.json')
-  .replace('/package.json', '');
+  return (await import.meta.resolve('@web/storybook-prebuilt/package.json')).replace(
+    '/package.json',
+    '',
+  );
+};
 
 const ignoredWarnings = ['EVAL', 'THIS_IS_UNDEFINED'];
 
@@ -34,7 +38,11 @@ interface CreateRollupConfigParams {
   storyFilePaths?: string[];
 }
 
-export function createRollupConfig(params: CreateRollupConfigParams): RollupOptions {
+export async function createRollupConfig(params: CreateRollupConfigParams): Promise<RollupOptions> {
+  if (!import.meta.resolve) {
+    throw new Error('import.meta.resolve was not set');
+  }
+
   const { outputDir, indexFilename, indexHtmlString, storyFilePaths } = params;
 
   const options: RollupOptions = {
@@ -56,13 +64,13 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
         babelrc: false,
         configFile: false,
         extensions: [...DEFAULT_EXTENSIONS, 'md', 'mdx'],
-        exclude: `${prebuiltDir}/**`,
+        exclude: `${await getPrebuiltDir()}/**`,
         sourceMaps: true,
         // @ts-ignore The provided types are wrong. See https://babeljs.io/docs/options#inputsourcemap
         inputSourceMap: false,
         presets: [
           [
-            require.resolve('@babel/preset-env'),
+            await import.meta.resolve('@babel/preset-env'),
             {
               targets: [
                 'last 3 Chrome major versions',
@@ -81,9 +89,12 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
           ],
         ],
         plugins: [
-          [require.resolve('babel-plugin-bundled-import-meta'), { importStyle: 'baseURI' }],
           [
-            require.resolve('babel-plugin-template-html-minifier'),
+            await import.meta.resolve('babel-plugin-bundled-import-meta'),
+            { importStyle: 'baseURI' },
+          ],
+          [
+            await import.meta.resolve('babel-plugin-template-html-minifier'),
             {
               modules: {
                 // this is web component specific, but has no effect on other project styles

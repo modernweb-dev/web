@@ -3,7 +3,7 @@
 import { normalizePath } from '@rollup/pluginutils';
 import { logger } from '@storybook/node-logger';
 import type { Options } from '@storybook/types';
-import * as path from 'path';
+import * as path from 'node:path';
 import { listStories } from './list-stories.js';
 
 /**

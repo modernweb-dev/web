@@ -1,6 +1,6 @@
 import LRUCache from 'lru-cache';
 import { FSWatcher } from 'chokidar';
-import fs from 'fs';
+import * as fs from 'node:fs';
 import { promisify } from 'util';
 import { RequestCancelledError } from '../utils.js';
 

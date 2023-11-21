@@ -1,14 +1,12 @@
 import { TestRunnerStartError } from '../TestRunnerStartError.js';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
 const puppeteerBrowsers = ['chrome', 'firefox'];
 const playwrightBrowsers = ['chromium', 'firefox', 'webkit'];
 
-function loadLauncher(name: string) {
+async function loadLauncher(name: string) {
   const pkg = `@web/test-runner-${name}`;
   try {
-    const path = require.resolve(pkg, { paths: [__dirname, process.cwd()] });
-    return require(path);
+    return await import(pkg);
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'MODULE_NOT_FOUND') {
       throw new TestRunnerStartError(
@@ -20,7 +18,7 @@ function loadLauncher(name: string) {
   }
 }
 
-export function puppeteerLauncher(browsers: string[] = ['chrome']) {
+export async function puppeteerLauncher(browsers: string[] = ['chrome']) {
   for (const browser of browsers) {
     if (!puppeteerBrowsers.includes(browser)) {
       throw new TestRunnerStartError(
@@ -30,11 +28,11 @@ export function puppeteerLauncher(browsers: string[] = ['chrome']) {
     }
   }
 
-  const launcher = loadLauncher('puppeteer').puppeteerLauncher;
+  const launcher = (await loadLauncher('puppeteer')).puppeteerLauncher;
   return browsers.map(product => launcher({ launchOptions: { product } }));
 }
 
-export function playwrightLauncher(browsers: string[] = ['chromium']) {
+export async function playwrightLauncher(browsers: string[] = ['chromium']) {
   for (const browser of browsers) {
     if (!playwrightBrowsers.includes(browser)) {
       throw new TestRunnerStartError(
@@ -44,6 +42,6 @@ export function playwrightLauncher(browsers: string[] = ['chromium']) {
     }
   }
 
-  const launcher = loadLauncher('playwright').playwrightLauncher;
+  const launcher = (await loadLauncher('playwright')).playwrightLauncher;
   return browsers.map(product => launcher({ product }));
 }

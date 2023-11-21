@@ -1,4 +1,4 @@
-import path from 'path';
+import * as path from 'node:path';
 import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
 import { PARAM_SESSION_ID } from '../utils/constants.js';
 import { BasicTestSession } from '../test-session/BasicTestSession.js';

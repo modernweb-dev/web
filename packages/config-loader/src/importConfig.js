@@ -1,5 +1,5 @@
-const { pathToFileURL } = require('url');
-const ConfigLoaderError = require('./ConfigLoaderError');
+import { pathToFileURL } from 'node:url';
+import {ConfigLoaderError} from './ConfigLoaderError.js';
 
 // These strings may be node-version dependent and need updating over time
 // They're just to display a helpful error message
@@ -12,7 +12,7 @@ const CJS_ERRORS = [
 /**
  * @param {string} path
  */
-async function importConfig(path) {
+export async function importConfig(path) {
   try {
     const config = await import(pathToFileURL(path).href);
 
@@ -34,5 +34,3 @@ async function importConfig(path) {
     throw e;
   }
 }
-
-module.exports = importConfig;

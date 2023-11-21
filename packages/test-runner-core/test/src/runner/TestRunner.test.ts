@@ -2,6 +2,7 @@ import * as hanbi from 'hanbi';
 import { expect } from 'chai';
 import portfinder from 'portfinder';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
 
 import { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher.js';
 import { TestRunnerCoreConfig } from '../../../src/config/TestRunnerCoreConfig.js';
@@ -9,6 +10,8 @@ import { TestRunner } from '../../../src/runner/TestRunner.js';
 import { Logger } from '../../../src/logger/Logger.js';
 import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus.js';
 import { TestRunnerGroupConfig } from '../../../src/index.js';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 interface BrowserStubs {
   stop: hanbi.Stub<Exclude<BrowserLauncher['stop'], undefined>>;
@@ -69,13 +72,13 @@ async function createTestRunner(
 
   const [browserStubs, browser] = createBrowserStub();
 
-  console.log(path.resolve(__dirname, '..', '..', '..', '..', '..'));
+  console.log(path.resolve(dirname, '..', '..', '..', '..', '..'));
 
   const config: TestRunnerCoreConfig = {
-    files: [path.resolve(__dirname, '..', '..', 'fixtures', 'a.test.js')],
+    files: [path.resolve(dirname, '..', '..', 'fixtures', 'a.test.js')],
     reporters: [],
     logger,
-    rootDir: path.resolve(__dirname, '..', '..', '..', '..', '..'),
+    rootDir: path.resolve(dirname, '..', '..', '..', '..', '..'),
     testFramework: { path: 'my-framework.js' },
     concurrentBrowsers: 2,
     concurrency: 10,
@@ -164,7 +167,7 @@ describe('TestRunner', function () {
       const { runner } = await createTestRunner(undefined, [
         {
           name: 'a',
-          files: [path.join(__dirname, '..', '..', 'fixtures', 'group-a', '*.test.js')],
+          files: [path.join(dirname, '..', '..', 'fixtures', 'group-a', '*.test.js')],
         },
       ]);
 
@@ -203,15 +206,15 @@ describe('TestRunner', function () {
         [
           {
             name: 'a',
-            files: [path.join(__dirname, '..', '..', 'fixtures', 'group-a', '*.test.js')],
+            files: [path.join(dirname, '..', '..', 'fixtures', 'group-a', '*.test.js')],
           },
           {
             name: 'b',
-            files: [path.join(__dirname, '..', '..', 'fixtures', 'group-b', '*.test.js')],
+            files: [path.join(dirname, '..', '..', 'fixtures', 'group-b', '*.test.js')],
           },
           {
             name: 'c',
-            files: [path.join(__dirname, '..', '..', 'fixtures', 'group-c', '*.test.js')],
+            files: [path.join(dirname, '..', '..', 'fixtures', 'group-c', '*.test.js')],
           },
         ],
       );
@@ -232,12 +235,12 @@ describe('TestRunner', function () {
         [
           {
             name: 'a',
-            files: [path.join(__dirname, '..', '..', 'fixtures', 'group-a', 'a-1.test.js')],
+            files: [path.join(dirname, '..', '..', 'fixtures', 'group-a', 'a-1.test.js')],
           },
           {
             name: 'b',
             browsers: [browserB],
-            files: [path.join(__dirname, '..', '..', 'fixtures', 'group-b', 'b-1.test.js')],
+            files: [path.join(dirname, '..', '..', 'fixtures', 'group-b', 'b-1.test.js')],
           },
         ],
       );
@@ -258,7 +261,7 @@ describe('TestRunner', function () {
       });
 
       const sessions = Array.from(runner.sessions.all());
-      const allFiles = sessions.flatMap(x => path.relative(__dirname, x.testFile));
+      const allFiles = sessions.flatMap(x => path.relative(dirname, x.testFile));
       expect(allFiles).to.deep.equal(
         [
           '../../fixtures/a.test.js',

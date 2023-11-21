@@ -1,6 +1,6 @@
 import 'array-flat-polyfill';
-import path from 'path';
-import fs from 'fs';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 import { Reporter, TestResult, TestSession, TestSuiteResult } from '@web/test-runner-core';
 
 import XML from 'xml';

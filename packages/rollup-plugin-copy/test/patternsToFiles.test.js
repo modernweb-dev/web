@@ -1,11 +1,14 @@
-const path = require('path');
-const { expect } = require('chai');
+import * as path from 'path';
+import { expect } from 'chai';
+import { fileURLToPath } from 'node:url';
 
-const { patternsToFiles } = require('../src/patternsToFiles.js');
+import { patternsToFiles } from '../src/patternsToFiles.js';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('patternsToFiles', () => {
   it('works with a string', async () => {
-    const files = await patternsToFiles('*.svg', path.resolve(__dirname, './fixture/'));
+    const files = await patternsToFiles('*.svg', path.resolve(dirname, './fixture/'));
     expect(files.length).to.equal(2);
     expect(files).to.have.members([
       path.join(__dirname, './fixture/a.svg'),
@@ -16,7 +19,7 @@ describe('patternsToFiles', () => {
   it('works with an array of strings ', async () => {
     const files = await patternsToFiles(
       ['*.svg', 'sub/*.mark.svg'],
-      path.resolve(__dirname, './fixture/'),
+      path.resolve(dirname, './fixture/'),
     );
     expect(files.length).to.equal(3);
     expect(files).to.have.members([

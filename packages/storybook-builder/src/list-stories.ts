@@ -3,7 +3,7 @@
 import { normalizeStories } from '@storybook/core-common';
 import type { Options } from '@storybook/types';
 import { promise as glob } from 'glob-promise';
-import * as path from 'path';
+import * as path from 'node:path';
 
 export async function listStories(options: Options) {
   const slash = (await import('slash')).default; // for CJS compatibility

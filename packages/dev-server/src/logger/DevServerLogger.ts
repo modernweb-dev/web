@@ -1,6 +1,6 @@
 import { Logger, PluginSyntaxError } from '@web/dev-server-core';
 import { codeFrameColumns } from '@babel/code-frame';
-import path from 'path';
+import * as path from 'node:path';
 import { red, cyan } from 'nanocolors';
 
 export class DevServerLogger implements Logger {

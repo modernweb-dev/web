@@ -2,8 +2,11 @@ import { expect } from 'chai';
 import { parse } from 'parse5';
 import path from 'path';
 import { extractAssets } from '../../../../src/input/extract/extractAssets.js';
+import { fileURLToPath } from 'node:url';
 
-const rootDir = path.resolve(__dirname, '..', '..', '..', 'fixtures', 'assets');
+const dirname = fileURLToPath(new URL('.', import.meta.url));
+
+const rootDir = path.resolve(dirname, '..', '..', '..', 'fixtures', 'assets');
 
 describe('extractAssets', () => {
   it('extracts assets from a document', () => {

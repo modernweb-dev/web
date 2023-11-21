@@ -1,17 +1,11 @@
 import { TestRunnerPlugin } from '@web/test-runner-core';
-import path from 'path';
-import fs from 'fs';
-import { promisify } from 'util';
+import * as path from 'node:path';
+import * as fs from 'node:fs/promises';
 import mkdirp from 'mkdirp';
-
-const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
-const unlink = promisify(fs.unlink);
-const access = promisify(fs.access);
 
 async function fileExists(filePath: string) {
   try {
-    await access(filePath);
+    await fs.access(filePath);
     return true;
   } catch {
     return false;
@@ -77,7 +71,7 @@ export function filePlugin(): TestRunnerPlugin {
         const filePath = joinFilePath(session.testFile, payload.path);
         const fileDir = path.dirname(filePath);
         await mkdirp(fileDir);
-        await writeFile(filePath, payload.content, payload.encoding || 'utf-8');
+        await fs.writeFile(filePath, payload.content, payload.encoding || 'utf-8');
         return true;
       }
 
@@ -88,7 +82,7 @@ export function filePlugin(): TestRunnerPlugin {
 
         const filePath = joinFilePath(session.testFile, payload.path);
         if (await fileExists(filePath)) {
-          return readFile(filePath, payload.encoding || 'utf-8');
+          return fs.readFile(filePath, payload.encoding || 'utf-8');
         } else {
           return undefined;
         }
@@ -100,7 +94,7 @@ export function filePlugin(): TestRunnerPlugin {
         }
 
         const filePath = joinFilePath(session.testFile, payload.path);
-        await unlink(filePath);
+        await fs.unlink(filePath);
         return true;
       }
     },

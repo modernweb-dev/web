@@ -1,5 +1,5 @@
-import { Writable } from 'stream';
-import { Console } from 'console';
+import { Writable } from 'node:stream';
+import { Console } from 'node:console';
 
 /**
  * Buffers console messages so that they can be flushed all at once.

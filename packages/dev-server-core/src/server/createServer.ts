@@ -1,15 +1,18 @@
 import Koa from 'koa';
-import path from 'path';
+import * as path from 'node:path';
 import { FSWatcher } from 'chokidar';
-import httpServer, { IncomingMessage, ServerResponse } from 'http';
-import http2Server from 'http2';
-import fs from 'fs';
+import httpServer, { IncomingMessage, ServerResponse } from 'node:http';
+import http2Server from 'node:http2';
+import fs from 'node:fs';
 import net, { Server, Socket, ListenOptions } from 'net';
+import { fileURLToPath } from 'node:url';
 
 import { DevServerCoreConfig } from './DevServerCoreConfig.js';
 import { createMiddleware } from './createMiddleware.js';
 import { Logger } from '../logger/Logger.js';
 import { addPlugins } from './addPlugins.js';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 /**
  * A request handler that returns a 301 HTTP Redirect to the same location as the original
@@ -66,7 +69,7 @@ export function createServer(
 
   let server: Server;
   if (cfg.http2) {
-    const dir = path.join(__dirname, '..');
+    const dir = path.join(dirname, '..');
     const options = {
       key: fs.readFileSync(
         cfg.sslKey

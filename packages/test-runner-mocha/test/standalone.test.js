@@ -1,14 +1,17 @@
-const { runTests } = require('@web/test-runner-core/test-helpers');
-const { chromeLauncher } = require('@web/test-runner-chrome');
-const { resolve } = require('path');
-const { expect } = require('chai');
+import { runTests } from '@web/test-runner-core/dist/test-helpers.js';
+import { chromeLauncher } from '@web/test-runner-chrome';
+import { resolve } from 'path';
+import { expect } from 'chai';
+import { fileURLToPath } from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 it('can run tests with standalone', async function () {
   this.timeout(50000);
 
   const { sessions } = await runTests(
     {
-      files: [resolve(__dirname, 'fixtures', 'standalone.html')],
+      files: [resolve(dirname, 'fixtures', 'standalone.html')],
       browsers: [chromeLauncher()],
       concurrency: 10,
     },
@@ -47,7 +50,7 @@ it('captures errors during setup', async function () {
 
   const { sessions } = await runTests(
     {
-      files: [resolve(__dirname, 'fixtures', 'standalone-setup-fail.html')],
+      files: [resolve(dirname, 'fixtures', 'standalone-setup-fail.html')],
       browsers: [chromeLauncher()],
       concurrency: 10,
     },

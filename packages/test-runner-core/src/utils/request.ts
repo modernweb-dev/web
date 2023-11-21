@@ -1,5 +1,5 @@
-import { request as httpRequest, RequestOptions, IncomingMessage } from 'http';
-import { request as httpsRequest, RequestOptions as HttpsRequestOptions } from 'https';
+import { request as httpRequest, RequestOptions, IncomingMessage } from 'node:http';
+import { request as httpsRequest, RequestOptions as HttpsRequestOptions } from 'node:https';
 
 export interface Response {
   response: IncomingMessage;

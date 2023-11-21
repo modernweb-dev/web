@@ -1,6 +1,6 @@
 import { Middleware } from 'koa';
 import { FSWatcher } from 'chokidar';
-import fs from 'fs';
+import * as fs from 'node:fs';
 
 import { getRequestFilePath } from '../utils.js';
 

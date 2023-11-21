@@ -1,9 +1,12 @@
 import { expect } from 'chai';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/dist/test-helpers.js';
+import { fetchText, expectIncludes } from '@web/dev-server-core/dist/test-helpers.js';
+import { fileURLToPath } from 'node:url';
 
 import { legacyPlugin } from '../src/legacyPlugin.js';
 import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 const htmlBody = `
 <html>
@@ -30,7 +33,7 @@ describe('legacyPlugin - transform html', function () {
 
   it(`does not do any work on a modern browser`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',
@@ -54,7 +57,7 @@ describe('legacyPlugin - transform html', function () {
 
   it(`injects polyfills into the HTML page on legacy browsers`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',
@@ -80,7 +83,7 @@ describe('legacyPlugin - transform html', function () {
 
   it(`injects systemjs param to inline modules`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',
@@ -104,7 +107,7 @@ describe('legacyPlugin - transform html', function () {
 
   it(`handles inline scripts`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',
@@ -131,7 +134,7 @@ describe('legacyPlugin - transform html', function () {
 
   it(`can request inline scripts`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',
@@ -158,7 +161,7 @@ describe('legacyPlugin - transform html', function () {
 
   it(`includes url parameters in inline script key`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: dirname,
       plugins: [
         {
           name: 'test',

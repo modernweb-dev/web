@@ -1,5 +1,5 @@
 import * as errorStacks from 'errorstacks';
-import path from 'path';
+import * as path from 'node:path';
 
 type RawLocation = Pick<errorStacks.StackFrame, 'fileName' | 'line' | 'column'>;
 

@@ -14,11 +14,10 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-saucelabs",
   "main": "dist/index.js",
+  "type": "module",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -51,7 +50,7 @@
     "nanoid": "^3.1.25",
     "saucelabs": "^7.2.0",
     "webdriver": "^8.8.6",
-    "webdriverio": "^8.8.6"
+    "webdriverio": "^8.18.0"
   },
   "devDependencies": {
     "@types/ip": "^1.1.0",

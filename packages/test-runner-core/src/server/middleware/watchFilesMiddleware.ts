@@ -1,7 +1,7 @@
 import { Middleware, Context } from '@web/dev-server-core';
 import { DepGraph } from 'dependency-graph';
 import debounce from 'debounce';
-import path from 'path';
+import * as path from 'node:path';
 import { FSWatcher } from 'chokidar';
 
 import { TestSessionManager } from '../../test-session/TestSessionManager.js';

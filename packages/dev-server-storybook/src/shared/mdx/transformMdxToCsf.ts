@@ -1,26 +1,28 @@
-import { createRequire } from 'node:module';
-import mdx from '@mdx-js/mdx';
+import { compile } from '@mdx-js/mdx';
 import { transformAsync } from '@babel/core';
 // @ts-ignore
 import { createCompiler } from '@storybook/csf-tools/mdx.js';
 import { createError } from '../utils.js';
 
-const require = createRequire(import.meta.url);
-const compilers = [createCompiler({})];
+const recmaPlugins = [createCompiler({})];
 
 export async function transformMdxToCsf(body: string, filePath: string): Promise<string> {
+  if (!import.meta.resolve) {
+    throw new Error('import.meta.resolve was not set');
+  }
+
   // turn MDX to JSX
   const jsx = `
       import { React, mdx } from '@web/storybook-prebuilt/web-components.js';
 
-      ${await mdx(body, { compilers, filepath: filePath })}
+      ${await compile(body, { recmaPlugins })}
     `;
 
   // turn JSX to JS
   const babelResult = await transformAsync(jsx, {
     filename: filePath,
     sourceMaps: true,
-    plugins: [require.resolve('@babel/plugin-transform-react-jsx')],
+    plugins: [await import.meta.resolve('@babel/plugin-transform-react-jsx')],
   });
 
   if (!babelResult?.code) {

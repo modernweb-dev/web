@@ -5,7 +5,7 @@
 
 import browserstack from 'browserstack-local';
 import { BrowserLauncher } from '@web/test-runner-core';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import { nanoid } from 'nanoid';
 
 const launchers = new Set<BrowserLauncher>();

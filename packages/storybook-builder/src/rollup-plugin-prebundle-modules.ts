@@ -1,6 +1,6 @@
 import { stringifyProcessEnvs } from '@storybook/core-common';
 import { build } from 'esbuild';
-import { join } from 'path';
+import { join } from 'node:path';
 import type { Plugin } from 'rollup';
 import { getNodeModuleDir } from './get-node-module-dir.js';
 
@@ -13,9 +13,16 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
     name: 'rollup-plugin-prebundle-modules',
 
     async buildStart() {
+      if (!import.meta.resolve) {
+        throw new Error('import.meta.resolve was not set');
+      }
+
       const esbuildCommonjsPlugin = (await import('@chialab/esbuild-plugin-commonjs')).default; // for CJS compatibility
 
-      const modules = getModules();
+      const assert = await import.meta.resolve('browser-assert');
+      const lodash = await getNodeModuleDir('lodash-es');
+      const path = await import.meta.resolve('path-browserify');
+      const modules = await getModules();
 
       for (const module of modules) {
         modulePaths[module] = join(
@@ -33,9 +40,9 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
         splitting: true,
         sourcemap: true,
         alias: {
-          assert: require.resolve('browser-assert'),
-          lodash: getNodeModuleDir('lodash-es'), // more optimal, but also solves esbuild incorrectly compiling lodash/_nodeUtil
-          path: require.resolve('path-browserify'),
+          assert,
+          lodash, // more optimal, but also solves esbuild incorrectly compiling lodash/_nodeUtil
+          path,
         },
         define: {
           ...stringifyProcessEnvs(env),
@@ -50,15 +57,23 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
   };
 }
 
-function getModules() {
-  const include = CANDIDATES.filter(id => {
-    try {
-      require.resolve(id, { paths: [process.cwd()] });
-      return true;
-    } catch (e) {
-      return false;
-    }
-  });
+async function getModules() {
+  const include = (
+    await Promise.all(
+      CANDIDATES.map(async id => {
+        if (!import.meta.resolve) {
+          return id;
+        }
+
+        try {
+          await import.meta.resolve(id);
+          return id;
+        } catch (e) {
+          return null;
+        }
+      }),
+    )
+  ).filter((v): v is string => v !== null);
   return include;
 }
 

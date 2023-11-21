@@ -18,15 +18,11 @@
     "web-test-runner": "./dist/bin.js",
     "wtr": "./dist/bin.js"
   },
+  "type": "module",
   "exports": {
     ".": {
       "import": {
-        "types": "./index.d.ts",
-        "default": "./index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "import": "./dist/index.js"
       }
     }
   },

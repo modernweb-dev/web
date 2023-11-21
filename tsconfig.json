@@ -32,10 +32,13 @@
       "path": "./packages/test-runner-chrome/tsconfig.json"
     },
     {
+      "path": "./packages/dev-server-rollup/tsconfig.json"
+    },
+    {
       "path": "./packages/config-loader/tsconfig.json"
     },
     {
-      "path": "./packages/dev-server-rollup/tsconfig.json"
+      "path": "./packages/dev-server-esbuild/tsconfig.json"
     },
     {
       "path": "./packages/dev-server/tsconfig.json"
@@ -45,9 +48,6 @@
     },
     {
       "path": "./packages/test-runner-webdriver/tsconfig.json"
-    },
-    {
-      "path": "./packages/dev-server-esbuild/tsconfig.json"
     },
     {
       "path": "./packages/dev-server-legacy/tsconfig.json"

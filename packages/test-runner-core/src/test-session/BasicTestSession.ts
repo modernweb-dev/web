@@ -1,4 +1,4 @@
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
 import { TestSessionGroup } from './TestSessionGroup.js';
 
 export interface BasicTestSession {

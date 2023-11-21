@@ -26,7 +26,7 @@ async function buildPreview(params: BuildPreviewParams) {
   );
   const previewHtml = createPreviewHtml(pluginConfig, storybookConfig, rootDir, storyImports);
 
-  let config = createRollupConfig({
+  let config = await createRollupConfig({
     type,
     outputDir,
     indexFilename: 'iframe.html',
@@ -50,7 +50,7 @@ interface BuildmanagerParams {
 
 async function buildManager(params: BuildmanagerParams) {
   const managerHtml = createManagerHtml(params.storybookConfig, params.rootDir);
-  const config = createRollupConfig({
+  const config = await createRollupConfig({
     type: params.type,
     outputDir: params.outputDir,
     indexFilename: 'index.html',

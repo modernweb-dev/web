@@ -8,10 +8,14 @@ import type {
 } from '@web/dev-server-core';
 import WebSocket from 'ws';
 import type { Context } from 'koa';
-import path, { posix as pathUtil } from 'path';
-import fs from 'fs';
+import * as path from 'node:path';
+import { posix as pathUtil } from 'node:path';
+import * as fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-const hmrClientScriptPath = require.resolve('../scripts/hmrClientScript.js');
+const hmrClientScriptPath = fileURLToPath(
+  new URL('../scripts/hmrClientScript.js', import.meta.url),
+);
 let hmrClientScript = fs.readFileSync(hmrClientScriptPath, 'utf-8');
 
 export interface HmrReloadMessage {

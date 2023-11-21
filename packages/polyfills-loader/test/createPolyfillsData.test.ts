@@ -1,9 +1,12 @@
 import path from 'path';
 import { expect } from 'chai';
+import { fileURLToPath } from 'node:url';
 
 import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.js';
 import { createPolyfillsData } from '../src/createPolyfillsData.js';
 import { noModuleSupportTest, fileTypes } from '../src/utils.js';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 function cleanupPolyfill(polyfill: PolyfillFile) {
   if (!polyfill) {
@@ -277,12 +280,12 @@ describe('polyfills', () => {
         name: 'polyfill-a',
         test: "'foo' in window",
         content: '',
-        path: path.resolve(__dirname, 'custom-polyfills/polyfill-a.js'),
+        path: path.resolve(dirname, 'custom-polyfills/polyfill-a.js'),
       },
       {
         name: 'polyfill-b',
         content: '',
-        path: path.resolve(__dirname, 'custom-polyfills/polyfill-b.js'),
+        path: path.resolve(dirname, 'custom-polyfills/polyfill-b.js'),
       },
     ];
 

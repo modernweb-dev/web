@@ -1,7 +1,7 @@
 import Koa from 'koa';
-import { ListenOptions, Server, Socket } from 'net';
+import { ListenOptions, Server, Socket } from 'node:net';
 import chokidar from 'chokidar';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 
 import { DevServerCoreConfig } from './DevServerCoreConfig.js';
 import { createServer } from './createServer.js';

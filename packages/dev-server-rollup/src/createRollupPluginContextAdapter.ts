@@ -1,4 +1,4 @@
-import path from 'path';
+import * as path from 'node:path';
 import {
   DevServerCoreConfig,
   FSWatcher,

@@ -1,19 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { TestRunnerPlugin } from '@web/test-runner-core';
 import { ServerStartParams } from '@web/dev-server-core';
-import path from 'path';
-import fs from 'fs';
-import { promisify } from 'util';
+import * as path from 'node:path';
+import * as fs from 'node:fs/promises';
 import mkdirp from 'mkdirp';
-
-const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
-const unlink = promisify(fs.unlink);
-const access = promisify(fs.access);
 
 async function fileExists(filePath: string) {
   try {
-    await access(filePath);
+    await fs.access(filePath);
     return true;
   } catch {
     return false;
@@ -71,7 +65,7 @@ class SnapshotStore {
     this.readOperations.set(testFilePath, promiseObj);
     // store in cache
     const content = (await fileExists(snapshotPath))
-      ? await readFile(snapshotPath, 'utf-8')
+      ? await fs.readFile(snapshotPath, 'utf-8')
       : '/* @web/test-runner snapshot v1 */\nexport const snapshots = {};\n\n';
     this.snapshots.set(snapshotPath, content);
 
@@ -136,11 +130,11 @@ class SnapshotStore {
       // update or create snapshot
       const fileDir = path.dirname(snapshotPath);
       await mkdirp(fileDir);
-      await writeFile(snapshotPath, updatedContent);
+      await fs.writeFile(snapshotPath, updatedContent);
     } else {
       // snapshot file is empty, remove it
       if (await fileExists(snapshotPath)) {
-        await unlink(snapshotPath);
+        await fs.unlink(snapshotPath);
       }
     }
   }

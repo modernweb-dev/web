@@ -1,15 +1,18 @@
 import { rollupBundlePlugin } from '../../src/rollupBundlePlugin.js';
-import path from 'path';
+import * as path from 'node:path';
 import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
+import { fileURLToPath } from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('rollupBundlePlugin', () => {
   it('can bundle a single entrypoint', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixtures', 'bundle-basic'),
+      rootDir: path.join(dirname, 'fixtures', 'bundle-basic'),
       plugins: [
         rollupBundlePlugin({
           rollupConfig: {
-            input: path.join(__dirname, 'fixtures', 'bundle-basic', 'a.js'),
+            input: path.join(dirname, 'fixtures', 'bundle-basic', 'a.js'),
           },
         }),
       ],
@@ -28,14 +31,14 @@ describe('rollupBundlePlugin', () => {
 
   it('can bundle multiple entrypoint', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixtures', 'bundle-multi'),
+      rootDir: path.join(dirname, 'fixtures', 'bundle-multi'),
       plugins: [
         rollupBundlePlugin({
           rollupConfig: {
             input: [
-              path.join(__dirname, 'fixtures', 'bundle-multi', 'a1.js'),
-              path.join(__dirname, 'fixtures', 'bundle-multi', 'a2.js'),
-              path.join(__dirname, 'fixtures', 'bundle-multi', 'a3.js'),
+              path.join(dirname, 'fixtures', 'bundle-multi', 'a1.js'),
+              path.join(dirname, 'fixtures', 'bundle-multi', 'a2.js'),
+              path.join(dirname, 'fixtures', 'bundle-multi', 'a3.js'),
             ],
             output: {
               chunkFileNames: '[name].js',
@@ -73,11 +76,11 @@ describe('rollupBundlePlugin', () => {
 
   it('can serve regular files not bundled by rollup', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixtures', 'bundle-basic'),
+      rootDir: path.join(dirname, 'fixtures', 'bundle-basic'),
       plugins: [
         rollupBundlePlugin({
           rollupConfig: {
-            input: path.join(__dirname, 'fixtures', 'bundle-basic', 'a.js'),
+            input: path.join(dirname, 'fixtures', 'bundle-basic', 'a.js'),
           },
         }),
       ],
@@ -94,11 +97,11 @@ describe('rollupBundlePlugin', () => {
 
   it('can serve files emitted by a rollup plugin', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixtures', 'bundle-basic'),
+      rootDir: path.join(dirname, 'fixtures', 'bundle-basic'),
       plugins: [
         rollupBundlePlugin({
           rollupConfig: {
-            input: path.join(__dirname, 'fixtures', 'bundle-basic', 'a.js'),
+            input: path.join(dirname, 'fixtures', 'bundle-basic', 'a.js'),
             plugins: [
               {
                 name: 'file-plugin',

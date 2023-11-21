@@ -1,6 +1,8 @@
 import { expect } from 'chai';
-import { browsers } from '@mdn/browser-compat-data';
+import compatData from '@mdn/browser-compat-data';
 import { isLatestModernBrowser, getLatestStableMajor } from '../src/browser-targets.js';
+
+const { browsers } = compatData;
 
 describe('isLatestModernBrowser', () => {
   it('returns true for latest Chrome', async () => {

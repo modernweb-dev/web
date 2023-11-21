@@ -1,7 +1,10 @@
 import path from 'path';
-import { runTests } from '@web/test-runner-core/test-helpers';
+import { runTests } from '@web/test-runner-core/dist/test-helpers.js';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { Logger } from '@web/dev-server-core';
+import { fileURLToPath } from 'node:url';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('executeServerCommand', function test() {
   this.timeout(20000);
@@ -26,7 +29,7 @@ describe('executeServerCommand', function test() {
     };
 
     await runTests({
-      files: [path.join(__dirname, 'browser-test.js')],
+      files: [path.join(dirname, 'browser-test.js')],
       logger,
       browsers: [chromeLauncher()],
       plugins: [

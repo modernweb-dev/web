@@ -1,4 +1,4 @@
-import path from 'path';
+import * as path from 'node:path';
 import { parse, serialize } from 'parse5';
 import { extractModules } from './extractModules.js';
 import { extractAssets } from './extractAssets.js';

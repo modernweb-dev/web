@@ -1,5 +1,5 @@
 /* eslint-disable no-control-regex */
-import path from 'path';
+import * as path from 'node:path';
 import whatwgUrl from 'whatwg-url';
 import {
   Plugin as WdsPlugin,
@@ -15,7 +15,7 @@ import {
   predicates,
   getTextContent,
   setTextContent,
-} from '@web/dev-server-core/dist/dom5';
+} from '@web/dev-server-core/dist/dom5/index.js';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
 import { InputOptions } from 'rollup';
