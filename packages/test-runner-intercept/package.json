@@ -17,7 +17,7 @@
   "exports": {
     ".": {
       "types": "./browser/index.d.ts",
-      "default": "./browser/index.js"
+      "default": "./browser/index.mjs"
     },
     "./plugin": {
       "types": "./plugin.d.ts",
@@ -26,14 +26,12 @@
     }
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha \"test/**/*.test.ts\" --require ts-node/register && npm run test:ci",
-    "test:browser": "node ../test-runner/dist/bin.js test-browser/test/**/*.test.{js,html} --config test-browser/web-test-runner.config.mjs",
-    "test:ci": "npm run test:browser",
-    "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
+    "test": "mocha test/**/*.test.ts --require ts-node/register",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -54,10 +52,13 @@
     "intercept"
   ],
   "dependencies": {
-    "@web/dev-server-core": "^0.6.2",
+    "@web/dev-server-core": "^0.7.0",
     "es-module-lexer": "^1.3.1"
   },
   "devDependencies": {
-    "@web/test-runner": "^0.17.0"
+    "@web/test-runner": "^0.18.0",
+    "@web/test-runner-chrome": "^0.15.0",
+    "chai": "^4.2.0",
+    "mocha": "^10.2.0"
   }
 }
