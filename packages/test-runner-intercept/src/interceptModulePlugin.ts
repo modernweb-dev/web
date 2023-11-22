@@ -1,5 +1,4 @@
 import { Plugin } from '@web/dev-server-core';
-import { readFile } from 'fs/promises';
 import { parse } from 'es-module-lexer';
 import { createResolveImport, ResolveImport } from './createResolveImport';
 import { stripColor } from './stripColor';
@@ -8,7 +7,7 @@ import { stripColor } from './stripColor';
  * Plugin that allows the interception of modules
  */
 export function interceptModulePlugin(): Plugin {
-  const paths: string[] = [];
+  const absolutePaths: string[] = [];
 
   let resolveImport: ResolveImport;
   return {
@@ -18,24 +17,28 @@ export function interceptModulePlugin(): Plugin {
       resolveImport = createResolveImport(params, this);
     },
     async serve(context) {
-      if (context.path.startsWith('/__intercept-module__/')) {
-        let body;
-        try {
-          const source = context.path.replace('/__intercept-module__/', '');
-          paths.push(source);
-
+      let body;
+      try {
+        if (context.path.endsWith('/__intercept-module__')) {
+          const source = (context.querystring[0] === '/' ? '.' : '') + context.querystring;
           const resolvedPath = await resolveImport({ context, source });
-          const url = new URL(resolvedPath as string, context.request.href);
-          const relativeFilePath = url.pathname.substring(1);
 
-          const content = await readFile(relativeFilePath, 'utf-8');
-          const [, exports] = await parse(content, resolvedPath as string);
+          if (!resolvedPath) {
+            throw new Error(`Could not resolve "${context.querystring}".`);
+          }
+
+          body = `export * from '${resolvedPath}?intercept-module'`;
+        } else if (context.querystring === 'intercept-module') {
+          const url = new URL(context.path, context.request.href);
+          const response = await fetch(url);
+          const content = await response.text();
+          const [, exports] = await parse(content, context.path);
 
           const namedExports = exports.map(e => e.n).filter(n => n !== 'default');
           const hasDefaultExport = exports.some(e => e.n === 'default');
 
           body = `
-          import * as original from '${resolvedPath}';
+          import * as original from '${url.pathname}';
           const newOriginal = {...original};
 
           ${namedExports.map(x => `export let ${x} = newOriginal['${x}'];`).join('\n')}
@@ -66,20 +69,22 @@ export function interceptModulePlugin(): Plugin {
             },
           });
         `;
-        } catch (error) {
-          // Server side errors might contain ANSI color escape sequences.
-          // These sequences are not readable in a browser's console, so we strip them. 
-          const errorMessage = stripColor((error as Error).message).replaceAll("'", "\\'");
-          body = `export const __wtr_error__ = '${errorMessage}';`;
         }
-        return { body, type: 'text/javascript' };
+      } catch (error) {
+        // Server side errors might contain ANSI color escape sequences.
+        // These sequences are not readable in a browser's console, so we strip them.
+        const errorMessage = stripColor((error as Error).message).replace(/'/g, "\\'");
+        body = `export const __wtr_error__ = '${errorMessage}';`;
       }
-      return undefined;
+
+      return body ? { body, type: 'text/javascript' } : undefined;
     },
 
-    resolveImport({ source }) {
-      if (paths.includes(source)) {
-        return `/__intercept-module__/${source}`;
+    resolveImport({ source, context }) {
+      if (context.path === '/__intercept-module__') {
+        absolutePaths.push(source);
+      } else if (absolutePaths.includes(source)) {
+        return `${source}?intercept-module`;
       }
       return undefined;
     },

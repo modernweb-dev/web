@@ -5,9 +5,15 @@
  * If the module to be intercepted contains a default export, the export will be available in the `default` property. Only function expressions are supported when intercepting default exports.
  */
 export async function interceptModule(moduleName) {
+  if (moduleName.includes('./')) {
+    throw new Error(
+      `Parameter \`moduleName\` ('${moduleName}') contains a relative reference. This is not supported. Convert \`moduleName\` first to a server relative path. (eg. \`new URL(import.meta.resolve(moduleName)).pathname\`)`,
+    );
+  }
+
   let module;
   try {
-    module = await import(`/__intercept-module__/${moduleName}`);
+    module = await import(`/__intercept-module__?${moduleName}`);
   } catch (e) {
     throw new Error(
       `Module interception is not active. Make sure the \`interceptModulePlugin\` of \`@web/test-runner-intercept\` is added to the Test Runner config.`,
