@@ -7,6 +7,9 @@ import { visualRegressionPlugin } from '../src/visualRegressionPlugin.js';
 import { fileExists } from '../src/fs.js';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 describe('visualRegressionPlugin', function test() {
   this.timeout(20000);
 

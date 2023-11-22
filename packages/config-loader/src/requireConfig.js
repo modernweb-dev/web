@@ -1,4 +1,6 @@
-const ConfigLoaderError = require('./ConfigLoaderError');
+import ConfigLoaderError from './ConfigLoaderError.js';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
 
 // These strings may be node-version dependent and need updating over time
 // They're just to display a helpful error message
@@ -10,7 +12,7 @@ const ESM_ERRORS = [
 /**
  * @param {string} path
  */
-function requireConfig(path) {
+export default function requireConfig(path) {
   try {
     return require(path);
   } catch (e) {
@@ -24,5 +26,3 @@ function requireConfig(path) {
     throw e;
   }
 }
-
-module.exports = requireConfig;

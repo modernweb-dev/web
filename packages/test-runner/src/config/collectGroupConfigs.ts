@@ -40,7 +40,7 @@ export async function collectGroupConfigs(patterns: string[]) {
       groupConfigs.push(groupConfig);
     } catch (error) {
       if (error instanceof ConfigLoaderError) {
-        throw new TestRunnerStartError(error.message);
+        throw new TestRunnerStartError((error as Error).message);
       }
       throw error;
     }

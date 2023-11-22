@@ -2,6 +2,8 @@ import { expect } from 'chai';
 import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
 
 import { esbuildPlugin } from '../src/index.js';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('esbuildPlugin JSX', function () {
   it('transforms .jsx files', async () => {

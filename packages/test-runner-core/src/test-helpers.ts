@@ -1,11 +1,17 @@
 /* eslint-disable no-async-promise-executor, no-inner-declarations */
 import { getPortPromise } from 'portfinder';
 import path from 'path';
+import * as url from 'url';
+import { createRequire } from 'node:module';
+
 import { TestRunner, TestRunnerCoreConfig } from './index.js';
 import { Logger } from './logger/Logger.js';
 import { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession.js';
 import { SESSION_STATUS } from './test-session/TestSessionStatus.js';
 import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.js';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const require = createRequire(import.meta.url);
 
 const logger: Logger = {
   ...console,
@@ -36,6 +42,8 @@ const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   testsFinishTimeout: minuteMs * 2,
   browserLogs: true,
   logger,
+  //manual: true,
+  //port: 9999
 };
 
 export async function runTests(

@@ -3,6 +3,9 @@ import { parse } from 'parse5';
 import path from 'path';
 import { extractAssets } from '../../../../src/input/extract/extractAssets.js';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 const rootDir = path.resolve(__dirname, '..', '..', '..', 'fixtures', 'assets');
 
 describe('extractAssets', () => {

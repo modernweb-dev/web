@@ -4,6 +4,9 @@ import rollupBabel from '@rollup/plugin-babel';
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
 import { fromRollup } from '../../../src/index.js';
 
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+
 const babel = fromRollup(rollupBabel);
 
 describe('@rollup/plugin-alias', () => {

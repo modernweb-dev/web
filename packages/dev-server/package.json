@@ -18,6 +18,7 @@
     "web-dev-server": "./dist/bin.js",
     "wds": "./dist/bin.js"
   },
+  "type": "module",
   "exports": {
     ".": {
       "types": "./index.d.ts",

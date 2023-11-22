@@ -4,6 +4,9 @@ import { TestRunnerStartError } from '../TestRunnerStartError.js';
 const puppeteerBrowsers = ['chrome', 'firefox'];
 const playwrightBrowsers = ['chromium', 'firefox', 'webkit'];
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 function loadLauncher(name: string) {
   const pkg = `@web/test-runner-${name}`;
   try {

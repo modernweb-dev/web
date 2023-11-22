@@ -28,7 +28,7 @@ export async function readFileConfig({
     return await readConfig(configName, typeof configPath === 'string' ? configPath : undefined);
   } catch (error) {
     if (error instanceof ConfigLoaderError) {
-      throw new TestRunnerStartError(error.message);
+      throw new TestRunnerStartError((error as Error).message);
     }
     throw error;
   }

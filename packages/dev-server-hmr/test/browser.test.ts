@@ -6,6 +6,8 @@ import { posix as pathUtil } from 'path';
 
 import { hmrPlugin } from '../src/index.js';
 import { mockFiles } from './utils.js';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 function trackErrors(page: Page) {
   const errors: any[] = [];

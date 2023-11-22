@@ -5,6 +5,9 @@ import { PolyfillsLoaderConfig } from '../src/types.js';
 import { createPolyfillsLoader } from '../src/createPolyfillsLoader.js';
 import { noModuleSupportTest, fileTypes } from '../src/utils.js';
 
+import * as url from 'node:url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
 interface TestSnapshotArgs {

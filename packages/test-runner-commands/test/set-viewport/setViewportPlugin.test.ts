@@ -6,6 +6,9 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { setViewportPlugin } from '../../src/setViewportPlugin.js';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 describe('setViewportPlugin', function test() {
   this.timeout(20000);
 

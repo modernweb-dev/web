@@ -2,6 +2,8 @@ import { createTestServer, expectNotIncludes } from '@web/dev-server-core/test-h
 import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
 
 import { importMapsPlugin } from '../src/importMapsPlugin.js';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 it('can inject an import map into any page', async () => {
   const { server, host } = await createTestServer({

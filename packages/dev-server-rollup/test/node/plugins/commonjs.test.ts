@@ -10,6 +10,9 @@ import { nodeResolvePlugin } from '@web/dev-server';
 
 const commonjs = fromRollup(rollupCommonjs);
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 describe('@rollup/plugin-commonjs', () => {
   it('can transform a commonjs module with a default export', async () => {
     const { server, host } = await createTestServer({

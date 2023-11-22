@@ -18,6 +18,7 @@
     "web-test-runner": "./dist/bin.js",
     "wtr": "./dist/bin.js"
   },
+  "type": "module",
   "exports": {
     ".": {
       "import": {

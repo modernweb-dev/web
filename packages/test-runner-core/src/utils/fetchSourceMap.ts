@@ -1,4 +1,6 @@
-import { mapFileCommentRegex, fromSource, SourceMapConverter, fromJSON } from 'convert-source-map';
+import { SourceMapConverter } from 'convert-source-map';
+import pkg from 'convert-source-map';
+const { mapFileCommentRegex, fromSource, fromJSON } = pkg;
 import path from 'path';
 import { RequestOptions } from 'http';
 

@@ -1,9 +1,9 @@
-const fs = require('fs').promises;
+import fs from 'fs/promises';
 
 /**
  * @param {string} path
  */
-async function fileExists(path) {
+export async function fileExists(path) {
   try {
     await fs.access(path);
     return true;
@@ -11,5 +11,3 @@ async function fileExists(path) {
     return false;
   }
 }
-
-module.exports = { fileExists };

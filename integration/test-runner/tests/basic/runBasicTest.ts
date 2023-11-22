@@ -4,6 +4,9 @@ import { legacyPlugin } from '@web/dev-server-legacy';
 import { resolve } from 'path';
 import { expect } from 'chai';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 export function runBasicTest(
   config: Partial<TestRunnerCoreConfig> & { browsers: BrowserLauncher[] },
 ) {

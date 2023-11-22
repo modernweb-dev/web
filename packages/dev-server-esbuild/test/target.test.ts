@@ -2,6 +2,8 @@ import { expect } from 'chai';
 import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
 
 import { esbuildPlugin } from '../src/index.js';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const modernJs = `
 class MyClass {

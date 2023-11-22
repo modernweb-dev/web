@@ -10,6 +10,9 @@ import { Logger } from '../../../src/logger/Logger.js';
 import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus.js';
 import { TestRunnerGroupConfig } from '../../../src/index.js';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 interface BrowserStubs {
   stop: hanbi.Stub<Exclude<BrowserLauncher['stop'], undefined>>;
   startDebugSession: hanbi.Stub<BrowserLauncher['startDebugSession']>;

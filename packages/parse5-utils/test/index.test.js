@@ -1,7 +1,7 @@
-const { expect } = require('chai');
-const { parse, serialize } = require('parse5');
-const { getAttribute, getTextContent, findElement } = require('../src/index');
-const utils = require('../src/index');
+import { expect } from 'chai';
+import { parse, serialize } from 'parse5';
+import { getAttribute, getTextContent, findElement } from '../src/index.js';
+import * as utils from '../src/index.js';
 
 describe('parse5-utils', () => {
   describe('createElement', () => {

@@ -1,7 +1,9 @@
-const path = require('path');
-const { expect } = require('chai');
+import path from 'path';
+import { expect } from 'chai';
+import * as url from 'node:url';
 
-const { patternsToFiles } = require('../src/patternsToFiles.js');
+import { patternsToFiles } from '../src/patternsToFiles.js';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('patternsToFiles', () => {
   it('works with a string', async () => {

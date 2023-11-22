@@ -18,6 +18,7 @@
     "build-storybook": "dist/build/cli.js"
   },
   "type": "module",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/serve/storybookPlugin.js",
