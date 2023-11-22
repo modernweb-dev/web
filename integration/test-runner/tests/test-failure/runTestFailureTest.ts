@@ -10,20 +10,20 @@ const ERROR_NOT_IMPORTABLE = {
   message:
     'Could not import your test module. Check the browser logs or open the browser in debug mode for more information.',
 };
-// const FAILED_TO_FETCH_MESSAGES = [
-//   // chromium
-//   'Failed to fetch dynamically imported module',
-//   // firefox
-//   'error loading dynamically imported module',
-//   // safari
-//   'Importing a module script failed',
-// ];
-//
-// function expectFetchModuleFailed(msg: string) {
-//   if (!FAILED_TO_FETCH_MESSAGES.some(m => msg.includes(m))) {
-//     throw new Error(`Expected a failed to fetch module message, but got error message: ${msg}`);
-//   }
-// }
+const FAILED_TO_FETCH_MESSAGES = [
+  // chromium
+  'Failed to fetch dynamically imported module',
+  // firefox
+  'error loading dynamically imported module',
+  // safari
+  'Importing a module script failed',
+];
+
+function expectFetchModuleFailed(msg: string) {
+  if (!FAILED_TO_FETCH_MESSAGES.some(m => msg.includes(m))) {
+    throw new Error(`Expected a failed to fetch module message, but got error message: ${msg}`);
+  }
+}
 
 export function runTestFailureTest(
   config: Partial<TestRunnerCoreConfig> & { browsers: BrowserLauncher[] },
@@ -57,8 +57,8 @@ export function runTestFailureTest(
           'integration/test-runner/tests/test-failure/browser-tests/non-existing.js',
         ]);
         expect(session.errors).to.eql([ERROR_NOT_IMPORTABLE]);
-        //expect(session.logs.length).to.equal(1);
-        //expectFetchModuleFailed((session.logs[0] as any)[0]);
+        expect(session.logs.length).to.equal(1);
+        expectFetchModuleFailed((session.logs[0] as any)[0]);
       }
     });
 
@@ -168,7 +168,7 @@ export function runTestFailureTest(
         expect(session.testResults!.suites.length).to.equal(0);
         expect(session.testResults!.tests.length).to.equal(0);
         expect(session.errors).to.eql([ERROR_NOT_IMPORTABLE]);
-        //expect(session.logs[0][0]).to.include('This is thrown before running tests');
+        expect(session.logs[0][0]).to.include('This is thrown before running tests');
       }
     });
 
