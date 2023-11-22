@@ -1,6 +1,10 @@
+# Web Test Runner Intercept
+
+Web test runner plugin that allows the interception of modules during test runs. Often, while creating tests, there is the need to change the behavior of a dependency of the code under test. This is needed to cover all branches of the code under test, for performance reasons or sometimes because the dependency cannot operate correctly in the test environment. Dependencies that are on the global window object are easy to change with a mock or a stub. ES Modules, however, and specifically their exports cannot be altered. This plugin introduces a hook that enables the interception of modules and allows altering its exports.
+
 ## Usage
 
-Setup
+### Setup
 
 ```js
 // web-test-runner.config.mjs
@@ -10,6 +14,8 @@ export default {
   plugins: [interceptModulePlugin()],
 };
 ```
+
+### Simple test scenario
 
 ```js
 // src/getTimeOfDay.js
@@ -23,8 +29,6 @@ export function getTimeOfDay() {
   return 'day';
 }
 ```
-
-Simple test scenario:
 
 ```js
 // test/getTimeOfDay.test.js
@@ -44,7 +48,9 @@ describe('getTimeOfDay', () => {
 });
 ```
 
-More extended test scenario with common helper libraries:
+### Extended test scenario
+
+This scenario showcases how to use `@web/test-runner-intercept` together with `chai` and `sinon`.
 
 ```js
 // test/getTimeOfDay.test.js
