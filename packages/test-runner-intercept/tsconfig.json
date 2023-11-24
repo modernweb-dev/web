@@ -30,39 +30,6 @@
     },
     {
       "path": "../test-runner-chrome/tsconfig.json"
-    },
-    {
-      "path": "../config-loader/tsconfig.json"
-    },
-    {
-      "path": "../dev-server-rollup/tsconfig.json"
-    },
-    {
-      "path": "../test-runner-playwright/tsconfig.json"
-    },
-    {
-      "path": "../test-runner-webdriver/tsconfig.json"
-    },
-    {
-      "path": "../polyfills-loader/tsconfig.json"
-    },
-    {
-      "path": "../dev-server-esbuild/tsconfig.json"
-    },
-    {
-      "path": "../dev-server-legacy/tsconfig.json"
-    },
-    {
-      "path": "../dev-server/tsconfig.json"
-    },
-    {
-      "path": "../test-runner-commands/tsconfig.json"
-    },
-    {
-      "path": "../test-runner-saucelabs/tsconfig.json"
-    },
-    {
-      "path": "../test-runner/tsconfig.json"
     }
   ],
   "include": [
