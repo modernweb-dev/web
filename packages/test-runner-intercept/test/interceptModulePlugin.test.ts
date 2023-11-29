@@ -1,29 +1,32 @@
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { nodeResolvePlugin } from '@web/dev-server';
 
-import { interceptModulePlugin } from '../src/interceptModulePlugin';
+import { interceptModulePlugin } from '../src/interceptModulePlugin.js';
 import { expect } from 'chai';
+
+const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('interceptModulePlugin', function test() {
   this.timeout(20000);
 
   it('can intercept server relative modules', async () => {
     await runTests({
-      files: [path.join(__dirname, 'fixtures', 'server-relative', 'browser-test.js')],
+      files: [path.join(dirname, 'fixtures', 'server-relative', 'browser-test.js')],
       browsers: [chromeLauncher()],
       plugins: [interceptModulePlugin(), nodeResolvePlugin('', false, {})],
     });
   });
 
   it('can intercept bare modules', async () => {
-    const rootDir = path.resolve(__dirname, 'fixtures', 'bare', 'fixture');
+    const rootDir = path.resolve(dirname, 'fixtures', 'bare', 'fixture');
     // Define the bare module as duped to force nodeResolve to use the passed rootDir instead of the cwd
     const dedupe = (importee: string) => importee === 'time-library/hour';
 
     await runTests({
-      files: [path.join(__dirname, 'fixtures', 'bare', 'browser-test.js')],
+      files: [path.join(dirname, 'fixtures', 'bare', 'browser-test.js')],
       browsers: [chromeLauncher()],
       plugins: [interceptModulePlugin(), nodeResolvePlugin(rootDir, false, { dedupe })],
     });
@@ -32,7 +35,7 @@ describe('interceptModulePlugin', function test() {
   it('throws when trying to intercept without the plugin', async () => {
     const { sessions } = await runTests(
       {
-        files: [path.join(__dirname, 'fixtures', 'server-relative', 'browser-test.js')],
+        files: [path.join(dirname, 'fixtures', 'server-relative', 'browser-test.js')],
         browsers: [chromeLauncher()],
         plugins: [nodeResolvePlugin('', false, {})],
       },
@@ -50,7 +53,7 @@ describe('interceptModulePlugin', function test() {
   it('throws when trying to intercept an inexistent module', async () => {
     const { sessions } = await runTests(
       {
-        files: [path.join(__dirname, 'fixtures', 'inexistent', 'browser-test.js')],
+        files: [path.join(dirname, 'fixtures', 'inexistent', 'browser-test.js')],
         browsers: [chromeLauncher()],
         plugins: [interceptModulePlugin(), nodeResolvePlugin('', false, {})],
       },
@@ -68,7 +71,7 @@ describe('interceptModulePlugin', function test() {
   it('throws when trying to intercept a relative module', async () => {
     const { sessions } = await runTests(
       {
-        files: [path.join(__dirname, 'fixtures', 'relative', 'browser-test.js')],
+        files: [path.join(dirname, 'fixtures', 'relative', 'browser-test.js')],
         browsers: [chromeLauncher()],
         plugins: [interceptModulePlugin(), nodeResolvePlugin('', false, {})],
       },

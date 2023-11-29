@@ -65,7 +65,7 @@ await interceptModule(new URL(import.meta.resolve('../src/library-to-intercept.j
 
 ```js
 // web-test-runner.config.mjs
-import { interceptModulePlugin } from '@web/test-runner-intercept/plugin';
+import { interceptModulePlugin } from '@web/test-runner-intercept/plugin.js';
 
 export default {
   plugins: [interceptModulePlugin()],

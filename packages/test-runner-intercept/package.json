@@ -14,15 +14,15 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-intercept",
   "main": "browser/index.js",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./browser/index.d.ts",
-      "default": "./browser/index.mjs"
+      "import": "./browser/index.js"
     },
-    "./plugin": {
-      "types": "./plugin.d.ts",
-      "import": "./plugin.mjs",
-      "require": "./dist/interceptModulePlugin.js"
+    "./plugin.js": {
+      "types": "./dist/interceptModulePlugin.d.ts",
+      "import": "./dist/interceptModulePlugin.js"
     }
   },
   "engines": {
@@ -30,8 +30,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.ts --require ts-node/register",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+    "test": "mocha test/**/*.test.ts --loader=ts-node/esm",
+    "test:watch": "mocha test/**/*.test.ts --loader ts-node/esm --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -57,8 +57,6 @@
   },
   "devDependencies": {
     "@web/test-runner-chrome": "^0.15.0",
-    "@web/test-runner-core": "^0.13.0",
-    "chai": "^4.2.0",
-    "mocha": "^10.2.0"
+    "@web/test-runner-core": "^0.13.0"
   }
 }

@@ -1,5 +1,5 @@
 import { expect } from '../chai.js';
-import { interceptModule } from '../../../browser/index.mjs';
+import { interceptModule } from '../../../browser/index.js';
 
 const path = new URL(import.meta.resolve('./fixture/time-library.js')).pathname;
 const timeLibrary = await interceptModule(path);

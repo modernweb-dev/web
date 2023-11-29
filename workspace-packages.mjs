@@ -28,7 +28,7 @@ const packages = [
   { name: 'test-runner-browserstack', type: 'ts', environment: 'node' },
   { name: 'test-runner-coverage-v8', type: 'ts', environment: 'node' },
   { name: 'test-runner-commands', type: 'ts', environment: 'node' },
-  { name: 'test-runner-intercept', type: 'ts', environment: 'node' },
+  { name: 'test-runner-intercept', ignoreTsConfig: true },
   { name: 'test-runner-junit-reporter', type: 'ts', environment: 'node' },
   { name: 'test-runner-mocha', type: 'ts', environment: 'browser' },
   { name: 'test-runner-saucelabs', type: 'ts', environment: 'node' },
