@@ -1,7 +1,7 @@
 import { Plugin } from '@web/dev-server-core';
 import { parse } from 'es-module-lexer';
-import { createResolveImport, ResolveImport } from './createResolveImport';
-import { stripColor } from './stripColor';
+import { createResolveImport, ResolveImport } from './createResolveImport.js';
+import { stripColor } from './stripColor.js';
 
 /**
  * Plugin that allows the interception of modules

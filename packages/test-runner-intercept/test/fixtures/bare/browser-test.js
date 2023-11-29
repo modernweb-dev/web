@@ -1,5 +1,5 @@
 import { expect } from '../chai.js';
-import { interceptModule } from '../../../browser/index.mjs';
+import { interceptModule } from '../../../browser/index.js';
 
 const timeLibrary = await interceptModule('time-library/hour');
 const { getTimeOfDay } = await import('./fixture/getTimeOfDay.js');

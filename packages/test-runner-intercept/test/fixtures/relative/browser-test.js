@@ -1,3 +1,3 @@
-import { interceptModule } from '../../../browser/index.mjs';
+import { interceptModule } from '../../../browser/index.js';
 
 await interceptModule('./file.js');
