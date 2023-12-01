@@ -1,18 +1,18 @@
 {
-  "name": "@web/test-runner-intercept",
+  "name": "@web/test-runner-module-mocking",
   "version": "0.1.0",
   "publishConfig": {
     "access": "public"
   },
-  "description": "Plugin for intercepting modules in @web/test-runner",
+  "description": "Package to enable mocking modules in @web/test-runner",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/modernweb-dev/web.git",
-    "directory": "packages/test-runner-intercept"
+    "directory": "packages/test-runner-module-mocking"
   },
   "author": "modern-web",
-  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-intercept",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-module-mocking",
   "main": "browser/index.js",
   "type": "module",
   "exports": {
@@ -48,8 +48,10 @@
     "runner",
     "testrunner",
     "module",
-    "interception",
-    "intercept"
+    "intercept",
+    "mock",
+    "stub",
+    "spy"
   ],
   "dependencies": {
     "@web/dev-server-core": "^0.7.0",

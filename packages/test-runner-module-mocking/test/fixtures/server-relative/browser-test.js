@@ -1,7 +1,8 @@
 import { expect } from '../chai.js';
-import { interceptModule } from '../../../browser/index.js';
+import { importMockable } from '../../../browser/index.js';
 
-const timeLibrary = await interceptModule('time-library/hour');
+const path = new URL(import.meta.resolve('./fixture/time-library.js')).pathname;
+const timeLibrary = await importMockable(path);
 const { getTimeOfDay } = await import('./fixture/getTimeOfDay.js');
 
 let backup;
