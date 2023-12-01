@@ -1,5 +1,5 @@
 ---
-'@web/test-runner-intercept': patch
+'@web/test-runner-module-mocking': patch
 ---
 
-initial commit of @web/test-runner-intercept
+initial commit of @web/test-runner-module-mocking

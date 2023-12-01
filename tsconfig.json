@@ -101,7 +101,7 @@
       "path": "./packages/test-runner-browserstack/tsconfig.json"
     },
     {
-      "path": "./packages/test-runner-intercept/tsconfig.json"
+      "path": "./packages/test-runner-module-mocking/tsconfig.json"
     },
     {
       "path": "./packages/test-runner-junit-reporter/tsconfig.json"
