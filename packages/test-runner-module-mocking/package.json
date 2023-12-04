@@ -21,8 +21,8 @@
       "import": "./browser/index.js"
     },
     "./plugin.js": {
-      "types": "./dist/interceptModulePlugin.d.ts",
-      "import": "./dist/interceptModulePlugin.js"
+      "types": "./dist/moduleMockingPlugin.d.ts",
+      "import": "./dist/moduleMockingPlugin.js"
     }
   },
   "engines": {

@@ -31,10 +31,10 @@ externalFunction; // () => console.log('hello world')
 
 ```js
 // web-test-runner.config.mjs
-import { interceptModulePlugin } from '@web/test-runner-module-mocking/plugin.js';
+import { moduleMockingPlugin } from '@web/test-runner-module-mocking/plugin.js';
 
 export default {
-  plugins: [interceptModulePlugin()],
+  plugins: [moduleMockingPlugin()],
 };
 ```
 

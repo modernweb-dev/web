@@ -1,1 +1,1 @@
-export { interceptModulePlugin } from './interceptModulePlugin.js';
+export { moduleMockingPlugin } from './moduleMockingPlugin.js';
