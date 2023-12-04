@@ -4,7 +4,7 @@
     "module": "node16",
     "moduleResolution": "node16",
     "outDir": "./dist",
-    "rootDir": "./",
+    "rootDir": "./src",
     "composite": true,
     "allowJs": true
   },
@@ -33,6 +33,9 @@
   ],
   "include": [
     "src",
-    "test/**/*.ts"
   ],
+  "exclude": [
+    "browser",
+    "test"
+  ]
 }
