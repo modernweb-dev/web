@@ -4,19 +4,19 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { nodeResolvePlugin } from '@web/dev-server';
 
-import { interceptModulePlugin } from '../src/interceptModulePlugin.js';
+import { moduleMockingPlugin } from '../src/moduleMockingPlugin.js';
 import { expect } from 'chai';
 
 const dirname = fileURLToPath(new URL('.', import.meta.url));
 
-describe('interceptModulePlugin', function test() {
+describe('moduleMockingPlugin', function test() {
   this.timeout(20000);
 
   it('can intercept server relative modules', async () => {
     await runTests({
       files: [path.join(dirname, 'fixtures', 'server-relative', 'browser-test.js')],
       browsers: [chromeLauncher()],
-      plugins: [interceptModulePlugin(), nodeResolvePlugin('', false, {})],
+      plugins: [moduleMockingPlugin(), nodeResolvePlugin('', false, {})],
     });
   });
 
@@ -28,7 +28,7 @@ describe('interceptModulePlugin', function test() {
     await runTests({
       files: [path.join(dirname, 'fixtures', 'bare', 'browser-test.js')],
       browsers: [chromeLauncher()],
-      plugins: [interceptModulePlugin(), nodeResolvePlugin(rootDir, false, { dedupe })],
+      plugins: [moduleMockingPlugin(), nodeResolvePlugin(rootDir, false, { dedupe })],
     });
   });
 
@@ -55,7 +55,7 @@ describe('interceptModulePlugin', function test() {
       {
         files: [path.join(dirname, 'fixtures', 'inexistent', 'browser-test.js')],
         browsers: [chromeLauncher()],
-        plugins: [interceptModulePlugin(), nodeResolvePlugin('', false, {})],
+        plugins: [moduleMockingPlugin(), nodeResolvePlugin('', false, {})],
       },
       [],
       { allowFailure: true, reportErrors: false },
@@ -73,7 +73,7 @@ describe('interceptModulePlugin', function test() {
       {
         files: [path.join(dirname, 'fixtures', 'relative', 'browser-test.js')],
         browsers: [chromeLauncher()],
-        plugins: [interceptModulePlugin(), nodeResolvePlugin('', false, {})],
+        plugins: [moduleMockingPlugin(), nodeResolvePlugin('', false, {})],
       },
       [],
       { allowFailure: true, reportErrors: false },

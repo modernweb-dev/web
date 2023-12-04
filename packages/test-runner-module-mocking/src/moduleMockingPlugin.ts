@@ -4,14 +4,14 @@ import { createResolveImport, ResolveImport } from './createResolveImport.js';
 import { stripColor } from './stripColor.js';
 
 /**
- * Plugin that allows the interception of modules
+ * Plugin that enables mocking of modules
  */
-export function interceptModulePlugin(): Plugin {
+export function moduleMockingPlugin(): Plugin {
   const absolutePaths: string[] = [];
 
   let resolveImport: ResolveImport;
   return {
-    name: 'intercept-module',
+    name: 'module-mocking',
 
     serverStart(params) {
       resolveImport = createResolveImport(params, this);

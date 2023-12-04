@@ -16,7 +16,7 @@ export async function importMockable(moduleSpecifier) {
     module = await import(`/__intercept-module__?${moduleSpecifier}`);
   } catch (e) {
     throw new Error(
-      `Module interception is not active. Make sure the \`interceptModulePlugin\` of \`@web/test-runner-module-mocking\` is added to the Test Runner config.`,
+      `Module interception is not active. Make sure the \`moduleMockingPlugin\` of \`@web/test-runner-module-mocking\` is added to the Test Runner config.`,
     );
   }
   if (module.__wtr_error__) {
