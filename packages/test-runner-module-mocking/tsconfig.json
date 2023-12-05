@@ -33,9 +33,5 @@
   ],
   "include": [
     "src",
-  ],
-  "exclude": [
-    "browser",
-    "test"
   ]
 }
