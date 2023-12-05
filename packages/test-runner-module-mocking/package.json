@@ -16,14 +16,8 @@
   "main": "browser/index.js",
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./browser/index.d.ts",
-      "import": "./browser/index.js"
-    },
-    "./plugin.js": {
-      "types": "./dist/moduleMockingPlugin.d.ts",
-      "import": "./dist/moduleMockingPlugin.js"
-    }
+    ".": "./browser/index.js",
+    "./plugin.js": "./dist/moduleMockingPlugin.js"
   },
   "engines": {
     "node": ">=18.0.0"
