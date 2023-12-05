@@ -108,6 +108,17 @@ describe('getTimeOfDay', () => {
 
 ## Caveats
 
+When designing the approach to allow modules to be mockable, a number of alternatives were considered:
+
+- [Import Attributes](https://github.com/tc39/proposal-import-attributes)  
+  eg. `import externalLibrary from "external-library" with { type: "module-mockable" };`  
+  This alternative was dismissed because Import Attributes is not yet widely implemented. This could be reconsidered in a future iteration.
+- Custom URL scheme  
+  eg. `import externalLibrary from "module-mockable:external-library"`  
+  This alternative was dismissed as the use of a unknown specifier was deemed magic.
+
+In the end a combination of an async function (using an internal dynamic `import()`) and a top-level await was chosen. This choice, however, has a number of caveats.
+
 ### Order of imports
 
 In order to intercept a module, the module should not be referenced yet. (Once a module is loaded, the module loader also loads all its dependent modules) This means the module containing the system under test should be loaded _after_ the module interception. As interception is achieved using a function, this also means the system under test should _always_ be loaded using a dynamic import in order to be done after the interception.
@@ -118,7 +129,7 @@ import { importMockable } from '@web/test-runner-module-mocking';
 // First, intercept
 const externalLibrary = await importMockable('external-library');
 
-// Second, load the system under test.
+// Second, load the system under test
 const systemUnderTest = await import('../../src/system-under-test.js');
 
 // Run tests
