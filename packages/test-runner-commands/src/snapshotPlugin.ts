@@ -91,9 +91,7 @@ class SnapshotStore {
     const nameStr = JSON.stringify(name);
     const startMarker = `snapshots[${nameStr}]`;
     const endMarker = `/* end snapshot ${name} */\n\n`;
-    const replacement = updatedSnapshot
-      ? `${startMarker} = \n\`${updatedSnapshot}\`;\n${endMarker}`
-      : '';
+    const replacement = `${startMarker} = \n\`${updatedSnapshot}\`;\n${endMarker}`;
 
     const content = await this.get(testFilePath);
     let updatedContent: string;
