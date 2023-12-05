@@ -1,7 +1,7 @@
 <html><head>
             
-<link rel="preload" href="./entrypoint-b.js" as="script" />
 <link rel="preload" href="./entrypoint-a.js" as="script" />
+<link rel="preload" href="./entrypoint-b.js" as="script" />
 </head><body><script>(function () {
   function loadScript(src, type, attributes) {
     return new Promise(function (resolve) {
@@ -31,9 +31,9 @@
   polyfills.push(loadScript('./polyfills/systemjs.dabf4e8006a3be11acd4b6981abd9943.js'));
   function loadFiles() {
     [function () {
-      return System.import('./entrypoint-b.js');
-    }, function () {
       return System.import('./entrypoint-a.js');
+    }, function () {
+      return System.import('./entrypoint-b.js');
     }].reduce(function (a, c) {
       return a.then(c);
     }, Promise.resolve());

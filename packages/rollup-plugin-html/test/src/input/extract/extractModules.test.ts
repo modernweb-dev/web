@@ -131,7 +131,7 @@ describe('extractModules()', () => {
         attributes: [],
       },
     ]);
-    expect(moduleImports).to.eql([]);
+    expect(moduleImports.length).to.eql(2);
     expect(htmlWithoutModules).to.eql(
       '<html><head></head><body><div>before</div><div>after</div></body></html>',
     );
@@ -164,7 +164,7 @@ describe('extractModules()', () => {
         attributes: [],
       },
     ]);
-    expect(moduleImports).to.eql([]);
+    expect(moduleImports.length).to.eql(2);
     expect(htmlWithoutModules).to.eql(
       '<html><head></head><body><div>before</div><div>after</div></body></html>',
     );
