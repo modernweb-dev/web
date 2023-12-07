@@ -16,8 +16,8 @@ describe('rollup-plugin-copy', () => {
     expect(output.map(x => x.fileName).filter(x => x.endsWith('.svg'))).to.have.members([
       'a.svg',
       'b.svg',
-      'sub/sub-a.svg',
-      'sub/sub-b.mark.svg',
+      `sub${path.sep}sub-a.svg`,
+      `sub${path.sep}sub-b.mark.svg`,
     ]);
   });
 });
