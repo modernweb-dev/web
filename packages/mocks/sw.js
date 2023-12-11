@@ -1,15 +1,14 @@
 /* eslint-disable */
 /* tslint:disable */
-// @ts-nocheck
 
 /**
- * Mock Service Worker (0.0.0-fetch.rc-23).
+ * Mock Service Worker (2.0.10).
  * @see https://github.com/mswjs/msw
  * - Please do NOT modify this file.
  * - Please do NOT serve this file on production.
  */
 
-const INTEGRITY_CHECKSUM = '0877fcdc026242810f5bfde0d7178db4';
+const INTEGRITY_CHECKSUM = 'c5f7f8e188b673ea4e677df7ea3c5a39';
 const IS_MOCKED_RESPONSE = Symbol('isMockedResponse');
 const activeClientIds = new Set();
 
@@ -122,11 +121,6 @@ async function handleRequest(event, requestId) {
   if (client && activeClientIds.has(client.id)) {
     (async function () {
       const responseClone = response.clone();
-      // When performing original requests, response body will
-      // always be a ReadableStream, even for 204 responses.
-      // But when creating a new Response instance on the client,
-      // the body for a 204 response must be null.
-      const responseBody = response.status === 204 ? null : responseClone.body;
 
       sendToClient(
         client,
@@ -138,11 +132,11 @@ async function handleRequest(event, requestId) {
             type: responseClone.type,
             status: responseClone.status,
             statusText: responseClone.statusText,
-            body: responseBody,
+            body: responseClone.body,
             headers: Object.fromEntries(responseClone.headers.entries()),
           },
         },
-        [responseBody],
+        [responseClone.body],
       );
     })();
   }
