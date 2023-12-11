@@ -1,10 +1,10 @@
 // @ts-nocheck
 
 import fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const require = createRequire(import.meta.url);
 
 export function mockRollupPlugin(
   { interceptor } = {
@@ -14,7 +14,7 @@ export function mockRollupPlugin(
   return {
     name: 'rollup-plugin-msw',
     writeBundle(opts) {
-      const serviceWorkerPath = path.resolve(__dirname, './sw.js');
+      const serviceWorkerPath = require.resolve('msw/mockServiceWorker.js');
       const sw = fs.readFileSync(serviceWorkerPath, 'utf8');
       const outPath = path.join(opts.dir, '__msw_sw__.js');
       fs.writeFileSync(outPath, sw);
