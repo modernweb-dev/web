@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 1.1.0
+
+### Minor Changes
+
+- a42c4fcf: feat: remove local sw.js, use the service worker as exported by msw instead so the integrity checksums of the SW and browser code are always aligned
+
 ## 1.0.1
 
 ### Patch Changes
