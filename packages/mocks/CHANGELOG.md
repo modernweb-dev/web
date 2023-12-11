@@ -1,5 +1,12 @@
 # @web/mocks
 
+## 1.0.1
+
+### Patch Changes
+
+- dee9a56b: fix: sw ts
+- 01bd7c45: fix: sw integrity checksum
+
 ## 1.0.0
 
 ### Major Changes
