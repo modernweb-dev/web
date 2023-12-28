@@ -65,7 +65,7 @@
     "@types/whatwg-url": "^11.0.0",
     "@web/test-runner-chrome": "^0.15.0",
     "@web/test-runner-core": "^0.13.0",
-    "chai": "^4.2.0",
+    "chai": "^5.0.0",
     "mocha": "^10.2.0",
     "postcss": "^8.4.31",
     "rollup-plugin-postcss": "^4.0.2"
