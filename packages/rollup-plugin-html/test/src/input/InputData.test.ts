@@ -21,6 +21,11 @@ function cleanupResult(result: InputData[]) {
 describe('getInputData()', () => {
   it('supports setting input as string', () => {
     const result = getInputData({ input: 'index.html', rootDir });
+    console.log(1111111, result);
+    console.log(2222222, cleanupResult(result));
+    console.log(3333333, {
+      filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
+    });
     expect(cleanupResult(result)).to.eql([
       {
         filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
