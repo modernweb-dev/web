@@ -29,7 +29,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "test": "mocha test/**/*.test.js --reporter dot",
+    "test:node": "mocha test/**/*.test.js --reporter dot",
     "test:watch": "mocha test/**/*.test.js --watch --watch-files src,test --reporter dot"
   },
   "files": [

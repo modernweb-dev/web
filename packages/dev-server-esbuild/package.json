@@ -28,7 +28,7 @@
     "build": "tsc",
     "start:demo:jsx": "es-dev-server --config demo/jsx/server.config.js",
     "start:demo:ts": "es-dev-server --config demo/ts/server.config.js",
-    "test": "mocha \"test/**/*.test.ts\" --require ts-node/register",
+    "test:node": "mocha \"test/**/*.test.ts\" --require ts-node/register",
     "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
