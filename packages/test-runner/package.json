@@ -38,7 +38,6 @@
     "test": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\"",
     "test:babel-coverage": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/babel-coverage.config.mjs",
     "test:bare": "node dist/bin.js",
-    "test:ci": "npm run test",
     "test:coverage": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --coverage",
     "test:coverage-babel": "node dist/bin.js --config demo/coverage-babel/config.mjs",
     "test:custom-html": "node dist/bin.js \"demo/test/pass-*.test.{js,html}\" --config demo/customhtml.config.mjs",
