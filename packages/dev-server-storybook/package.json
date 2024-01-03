@@ -31,9 +31,7 @@
     "build:wc": "node dist/build/cli.js -c demo/wc/.storybook",
     "start:build": "wds --root-dir storybook-static --open",
     "start:preact": "wds --config demo/preact/web-dev-server.config.mjs",
-    "start:wc": "wds --config demo/wc/web-dev-server.config.mjs",
-    "test": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --reporter dot",
-    "test:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
+    "start:wc": "wds --config demo/wc/web-dev-server.config.mjs"
   },
   "files": [
     "*.d.ts",

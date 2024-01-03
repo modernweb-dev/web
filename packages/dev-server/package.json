@@ -37,7 +37,7 @@
     "start:plugin-serve": "node dist/bin.js --config demo/plugin-serve/config.mjs --open",
     "start:static": "node dist/bin.js --config demo/static/config.mjs --open demo/static/",
     "start:syntax": "node dist/bin.js --config demo/syntax/config.mjs --open demo/syntax/",
-    "test": "mocha \"test/**/*.test.mjs\" --reporter dot",
+    "test:node": "mocha \"test/**/*.test.mjs\" --reporter dot",
     "test:watch": "mocha \"test/**/*.test.mjs\" --watch --watch-files src,test --reporter dot"
   },
   "files": [

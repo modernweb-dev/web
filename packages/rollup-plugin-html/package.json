@@ -28,7 +28,7 @@
     "demo:mpa": "rm -rf demo/dist && rollup -c demo/mpa/rollup.config.js --watch & npm run serve-demo",
     "demo:spa": "rm -rf demo/dist && rollup -c demo/spa/rollup.config.js --watch & npm run serve-demo",
     "serve-demo": "node ../dev-server/dist/bin.js --watch --root-dir demo/dist --app-index index.html --compatibility none --open",
-    "test": "mocha test/**/*.test.ts --require ts-node/register",
+    "test:node": "mocha test/**/*.test.ts --require ts-node/register",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
