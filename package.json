@@ -31,7 +31,7 @@
     "search": "rocket search",
     "start": "rocket start",
     "start:build": "node packages/dev-server/dist/bin.js --root-dir _site --open",
-    "test": "npm run test:node && npm run test:browser && node scripts/workspaces-scripts-bin.mjs test:ci",
+    "test": "npm run test:node && npm run test:browser",
     "test:browser": "npm run test:browser --workspaces --if-present",
     "test:node": "npm run test:node --workspaces --if-present",
     "types": "wireit",

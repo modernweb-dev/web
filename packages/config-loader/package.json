@@ -20,7 +20,6 @@
   "scripts": {
     "build": "tsc",
     "test:node": "mocha test/**/*.test.js --reporter dot",
-    "test:ci": "npm run test",
     "test:watch": "mocha test/**/*.test.js --watch --watch-files .,src,test --reporter dot"
   },
   "files": [
