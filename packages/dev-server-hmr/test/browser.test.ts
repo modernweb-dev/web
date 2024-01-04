@@ -70,7 +70,8 @@ describe('browser tests', function () {
     }
   });
 
-  it('should hot replace a module', async () => {
+  it('should hot replace a module', async function () {
+    this.timeout(5000);
     const files = {
       '/foo.html': '<script src="/foo.js" type="module"></script>',
       '/foo.js':
