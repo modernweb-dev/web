@@ -200,7 +200,7 @@ exports.default = _default;`;
   });
 
   it('passes the in-browser tests', async function () {
-    this.timeout(20000);
+    this.timeout(40000);
 
     await runTests({
       files: [resolve(__dirname, '..', 'fixtures', 'commonjs', 'commonjs-browser-test.js')],

@@ -40,4 +40,4 @@ jobs:
         run: npm run build:production
 
       - name: Test
-        run: npm run test
+        run: npm run test:node

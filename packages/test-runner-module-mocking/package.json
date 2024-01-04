@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.ts --loader=ts-node/esm",
+    "test:node": "mocha test/**/*.test.ts --loader=ts-node/esm --reporter dot",
     "test:watch": "mocha test/**/*.test.ts --loader ts-node/esm --watch --watch-files src,test"
   },
   "files": [

@@ -28,7 +28,7 @@ describe('visualRegressionPlugin', function test() {
           },
         },
         visualRegressionPlugin({
-          baseDir: 'packages/test-runner-visual-regression/screenshots',
+          baseDir: 'screenshots',
           update: process.argv.includes('--update-visual-diffs'),
         }),
       ],
@@ -54,7 +54,7 @@ describe('visualRegressionPlugin', function test() {
             },
           },
           visualRegressionPlugin({
-            baseDir: 'packages/test-runner-visual-regression/screenshots',
+            baseDir: 'screenshots',
             update: process.argv.includes('--update-visual-diffs'),
           }),
         ],

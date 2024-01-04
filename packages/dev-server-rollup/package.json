@@ -25,7 +25,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "test": "mocha \"test/node/**/*.test.ts\" --require ts-node/register",
+    "test:node": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --exit --reporter dot",
     "test:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
