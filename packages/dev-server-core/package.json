@@ -39,7 +39,7 @@
     "start:event-stream": "node demo/event-stream/start-server.js",
     "start:http2": "node demo/http2/start-server.js",
     "start:import-asset": "node demo/import-asset/start-server.js",
-    "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --exit",
+    "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --exit --reporter dot",
     "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
