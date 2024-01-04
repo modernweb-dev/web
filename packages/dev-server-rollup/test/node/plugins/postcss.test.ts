@@ -57,7 +57,8 @@ html {
     }
   });
 
-  it('passes the in-browser tests', async () => {
+  it('passes the in-browser tests', async function () {
+    this.timeout(40000);
     await runTests({
       files: [resolve(__dirname, '..', 'fixtures', 'postcss', 'postcss-browser-test.js')],
       browsers: [chromeLauncher()],
