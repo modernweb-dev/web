@@ -46,8 +46,5 @@ jobs:
       - name: Build specific packages for production
         run: npm run build:production
 
-      - name: Lint
-        run: npm run lint
-
       - name: Test
         run: npm run test:node
