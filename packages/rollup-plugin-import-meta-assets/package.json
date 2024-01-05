@@ -48,10 +48,5 @@
     "globby": "^13.2.2",
     "magic-string": "^0.30.0"
   },
-  "types": "dist/index",
-  "mocha": {
-    "loader": "ts-node/esm",
-    "exit": true,
-    "retries": 3
-  }
+  "types": "dist/index"
 }
