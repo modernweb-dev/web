@@ -1,11 +1,11 @@
-name: Verify Windows
+name: Windows tests
 
 on: pull_request
 
 jobs:
   verify-windows:
     timeout-minutes: 30
-    name: Verify windows
+    name: Windows tests
     runs-on: windows-2022
     steps:
       - name: Set git to use LF
