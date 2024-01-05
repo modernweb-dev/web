@@ -51,5 +51,10 @@
   "devDependencies": {
     "@web/rollup-plugin-html": "^2.1.2",
     "rollup": "^4.4.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

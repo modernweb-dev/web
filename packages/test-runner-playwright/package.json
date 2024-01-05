@@ -54,5 +54,10 @@
   "devDependencies": {
     "@web/test-runner-mocha": "^0.9.0",
     "portfinder": "^1.0.32"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

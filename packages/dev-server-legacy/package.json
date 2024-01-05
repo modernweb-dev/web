@@ -73,5 +73,10 @@
     "@types/browserslist-useragent": "^3.0.2",
     "@types/caniuse-api": "^3.0.1",
     "@types/valid-url": "^1.0.3"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

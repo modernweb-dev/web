@@ -55,5 +55,10 @@
     "@types/selenium-standalone": "^7.0.1",
     "@types/selenium-webdriver": "^4.0.11",
     "selenium-standalone": "^8.0.4"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

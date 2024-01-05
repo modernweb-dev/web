@@ -82,5 +82,10 @@
   },
   "devDependencies": {
     "portfinder": "^1.0.32"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

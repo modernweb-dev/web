@@ -58,5 +58,10 @@
     "@web/test-runner-playwright": "^0.11.0",
     "@web/test-runner-webdriver": "^0.8.0",
     "mocha": "^10.2.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

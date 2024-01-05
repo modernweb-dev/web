@@ -63,5 +63,10 @@
     "@web/dev-server-rollup": "^0.6.1",
     "lit-element": "^3.0.0 || ^4.0.1",
     "preact": "^10.5.9"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

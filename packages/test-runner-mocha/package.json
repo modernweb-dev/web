@@ -42,5 +42,10 @@
     "@types/mocha": "^10.0.1",
     "deepmerge": "^4.2.2",
     "mocha": "^10.2.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

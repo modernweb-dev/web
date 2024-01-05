@@ -53,5 +53,10 @@
   "devDependencies": {
     "@types/html-minifier-terser": "^7.0.0",
     "rollup": "^4.4.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

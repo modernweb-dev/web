@@ -54,5 +54,10 @@
   "devDependencies": {
     "@web/test-runner-mocha": "^0.9.0",
     "puppeteer-core": "^20.0.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

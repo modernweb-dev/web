@@ -102,5 +102,10 @@
     "@web/test-runner-saucelabs": "^0.11.0",
     "babel-plugin-istanbul": "^6.0.0",
     "concurrently": "^8.0.1"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

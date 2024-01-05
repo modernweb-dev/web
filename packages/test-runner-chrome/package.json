@@ -56,5 +56,10 @@
   "devDependencies": {
     "@types/istanbul-reports": "^3.0.0",
     "@web/test-runner-mocha": "^0.9.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

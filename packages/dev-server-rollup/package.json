@@ -70,5 +70,10 @@
     "mocha": "^10.2.0",
     "postcss": "^8.4.31",
     "rollup-plugin-postcss": "^4.0.2"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

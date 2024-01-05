@@ -51,5 +51,10 @@
   "devDependencies": {
     "@types/glob": "^8.1.0"
   },
-  "types": "dist/copy.d.ts"
+  "types": "dist/copy.d.ts",
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
+  }
 }

@@ -40,5 +40,10 @@
   "contributors": [
     "Pascal Schilp <pascalschilp@gmail.com>",
     "Benny Powers <web@bennypowers.com>"
-  ]
+  ],
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
+  }
 }

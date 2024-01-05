@@ -53,5 +53,10 @@
   "devDependencies": {
     "@types/istanbul-lib-coverage": "^2.0.3",
     "@types/picomatch": "^2.2.1"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

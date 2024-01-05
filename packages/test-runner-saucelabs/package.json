@@ -59,5 +59,10 @@
     "@web/dev-server-esbuild": "^1.0.0",
     "@web/dev-server-legacy": "^2.1.0",
     "portfinder": "^1.0.32"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

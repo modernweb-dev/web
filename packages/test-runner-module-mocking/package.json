@@ -54,5 +54,10 @@
   "devDependencies": {
     "@web/test-runner-chrome": "^0.15.0",
     "@web/test-runner-core": "^0.13.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

@@ -55,5 +55,10 @@
   "devDependencies": {
     "@types/selenium-standalone": "^7.0.1",
     "selenium-standalone": "^8.0.4"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }
