@@ -2,8 +2,13 @@ import { expect } from 'chai';
 import puppeteer, { Browser, Page } from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 
 import { deserialize } from '../src/deserialize.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
 
 const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
 const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };
