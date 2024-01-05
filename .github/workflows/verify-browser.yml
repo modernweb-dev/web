@@ -10,20 +10,16 @@ jobs:
     timeout-minutes: 30
     name: Browser tests
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version:
-          - '18'
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node ${{ matrix.node-version }}
+      - name: Setup Node 20
         uses: actions/setup-node@v3
         env:
           FORCE_COLOR: 0
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20
           cache: npm
 
       - name: Install Dependencies
