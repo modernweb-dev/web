@@ -8,7 +8,7 @@ env:
 jobs:
   verify-linux:
     timeout-minutes: 30
-    name: Node tests
+    name: Linux
     runs-on: ubuntu-latest
     strategy:
       matrix:
