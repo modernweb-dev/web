@@ -13,10 +13,10 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.eol lf
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node '20'
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         env:
           FORCE_COLOR: 0
         with:
