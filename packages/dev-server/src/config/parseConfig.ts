@@ -16,6 +16,7 @@ const defaultConfig: Partial<DevServerConfig> = {
   clearTerminalOnReload: true,
   middleware: [],
   plugins: [],
+  chokidarOptions: {},
 };
 
 function validate(config: Record<string, unknown>, key: string, type: string) {
