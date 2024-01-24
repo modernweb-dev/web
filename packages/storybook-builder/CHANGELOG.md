@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.6
+
+### Patch Changes
+
+- 010eed69: fix: import both globals and globalsNameReferenceMap from @storybook/preview/globals and use the one that is set. This fixes issue https://github.com/modernweb-dev/web/issues/2619
+
 ## 0.1.5
 
 ### Patch Changes
