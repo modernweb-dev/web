@@ -4,7 +4,7 @@ import { _registerMockRoutes } from './registerMockRoutes.js';
 
 const bypassServiceWorker = new URL(window.location.href).searchParams.has('bypass-sw');
 const worker = setupWorker();
-worker
+const workerPromise = worker
   .start({
     serviceWorker: {
       url: '__msw_sw__.js',
@@ -19,7 +19,20 @@ worker
     console.error(`[MOCKS]: Failed to load Service Worker.
   
 Did you forget to use the mockPlugin in the dev server?`);
+    return Promise.resolve();
   });
+
+/**
+ * It's unfortunate to override native `fetch`, and you should never do it, and please don't take this
+ * code as an example. We have to do this here because MSW removed this behavior which was released as
+ * a breaking change in a minor version https://github.com/mswjs/msw/issues/1981
+ */
+const originalFetch = window.fetch;
+window.fetch = async (...args) => {
+  await workerPromise;
+  window.fetch = originalFetch;
+  return window.fetch(...args);
+};
 
 /**
  * Mock the given mocked routes using a Service Worker.
