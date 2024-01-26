@@ -47,8 +47,8 @@
     }
   },
   "scripts": {
-    "prepare": "npm run build",
     "build": "rm -rf msw/dist/ && node build.js",
+    "prepare": "npm run build",
     "start": "wireit",
     "test:browser": "wireit",
     "types": "wireit"
