@@ -1,5 +1,5 @@
 import './polyfills.js';
-import { setupWorker } from 'msw/browser';
+import { setupWorker } from './msw/msw.js';
 import { _registerMockRoutes } from './registerMockRoutes.js';
 
 const bypassServiceWorker = new URL(window.location.href).searchParams.has('bypass-sw');

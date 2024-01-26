@@ -11,7 +11,7 @@ export function mockPlugin() {
      */
     serve(context) {
       if (context.request.url === '/__msw_sw__.js') {
-        const serviceWorkerPath = require.resolve('msw/mockServiceWorker.js');
+        const serviceWorkerPath = require.resolve('./msw/dist/mockServiceWorker.js');
         return readFileSync(serviceWorkerPath, 'utf8');
       }
     },
