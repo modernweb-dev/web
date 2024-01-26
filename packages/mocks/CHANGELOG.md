@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 1.1.1
+
+### Patch Changes
+
+- 17906853: workaround for MSW breaking change
+
 ## 1.1.0
 
 ### Minor Changes
