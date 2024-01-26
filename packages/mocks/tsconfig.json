@@ -5,5 +5,5 @@
     "rootDir": "."
   },
   "include": ["**/*.js", "**/*.ts"],
-  "exclude": ["dist-types", "test-browser"]
+  "exclude": ["dist-types", "msw/dist", "test-browser"]
 }
