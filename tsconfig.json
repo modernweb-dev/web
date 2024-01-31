@@ -11,9 +11,6 @@
       "path": "./packages/polyfills-loader/tsconfig.json"
     },
     {
-      "path": "./packages/rollup-plugin-html/tsconfig.json"
-    },
-    {
       "path": "./packages/browser-logs/tsconfig.json"
     },
     {
@@ -47,9 +44,6 @@
       "path": "./packages/test-runner-webdriver/tsconfig.json"
     },
     {
-      "path": "./packages/dev-server-esbuild/tsconfig.json"
-    },
-    {
       "path": "./packages/dev-server-legacy/tsconfig.json"
     },
     {
@@ -65,31 +59,7 @@
       "path": "./packages/storybook-builder/tsconfig.json"
     },
     {
-      "path": "./packages/rollup-plugin-polyfills-loader/tsconfig.json"
-    },
-    {
-      "path": "./packages/rollup-plugin-copy/tsconfig.json"
-    },
-    {
-      "path": "./packages/rollup-plugin-workbox/tsconfig.json"
-    },
-    {
-      "path": "./packages/rollup-plugin-import-meta-assets/tsconfig.json"
-    },
-    {
-      "path": "./packages/dev-server-hmr/tsconfig.json"
-    },
-    {
-      "path": "./packages/dev-server-polyfill/tsconfig.json"
-    },
-    {
       "path": "./packages/dev-server-import-maps/tsconfig.json"
-    },
-    {
-      "path": "./packages/storybook-framework-web-components/tsconfig.json"
-    },
-    {
-      "path": "./packages/storybook-utils/tsconfig.json"
     },
     {
       "path": "./packages/test-runner-puppeteer/tsconfig.json"
@@ -108,9 +78,6 @@
     },
     {
       "path": "./packages/test-runner-visual-regression/tsconfig.json"
-    },
-    {
-      "path": "./packages/dev-server-storybook/tsconfig.json"
     }
   ]
 }
