@@ -39,9 +39,6 @@
     },
     {
       "path": "../dev-server/tsconfig.json"
-    },
-    {
-      "path": "../rollup-plugin-html/tsconfig.json"
     }
   ],
   "include": [
