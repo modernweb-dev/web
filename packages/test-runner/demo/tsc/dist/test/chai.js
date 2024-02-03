@@ -1,2 +1,2 @@
-export { expect } from '@esm-bundle/chai';
+export { expect } from 'chai';
 //# sourceMappingURL=chai.js.map

@@ -24,7 +24,7 @@ Now that we know what we want we need to place this file somewhere and run a too
 1. Install the necessary packages
 
    ```
-   npm i --save-dev @web/test-runner @esm-bundle/chai
+   npm i --save-dev @web/test-runner chai
    ```
 
 2. Add a script to your `package.json`
@@ -56,7 +56,7 @@ fair enough - we didn't create a test file yet.
 1. Take the spec/test from above and create a test file `test/sum.test.js`.
 
    ```js
-   import { expect } from '@esm-bundle/chai';
+   import { expect } from 'chai';
    import { sum } from '../src/sum.js';
 
    it('sums up 2 numbers', () => {

@@ -13,7 +13,7 @@ export default {
             'chai/': '/node_modules/chai/',
             hanbi: '/node_modules/hanbi/lib/main.js',
             '@web/test-runner-mocha': '/packages/test-runner-mocha/dist/standalone.js',
-            '@esm-bundle/chai': '/node_modules/@esm-bundle/chai/esm/chai.js',
+            'chai': '/node_modules/chai/chai.js',
           },
         },
       },

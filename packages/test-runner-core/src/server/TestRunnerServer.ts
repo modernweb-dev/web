@@ -12,7 +12,7 @@ import { TestRunner } from '../runner/TestRunner';
 
 const CACHED_PATTERNS = [
   'node_modules/@web/test-runner-',
-  'node_modules/@esm-bundle/chai',
+  'node_modules/chai',
   'node_modules/mocha/',
   'node_modules/chai/',
 ];

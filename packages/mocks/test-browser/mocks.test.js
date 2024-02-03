@@ -1,5 +1,5 @@
 import { http } from '../http.js';
-import { expect } from '@esm-bundle/chai';
+import { expect } from 'chai';
 import { registerMockRoutes } from '../browser.js';
 
 it('mocks a request', async () => {

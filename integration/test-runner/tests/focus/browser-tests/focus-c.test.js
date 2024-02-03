@@ -1,4 +1,4 @@
-import { expect } from '../../../../../node_modules/@esm-bundle/chai/esm/chai.js';
+import { expect } from '../../../../../node_modules/chai/chai.js';
 
 it('can run a test with focus c', async () => {
   const input = document.createElement('input');

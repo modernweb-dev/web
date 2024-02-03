@@ -9,7 +9,7 @@ With mocha, you need to define your tests inside the `runTests` function:
   <body>
     <script type="module">
       import { runTests } from '@web/test-runner-mocha';
-      import { expect } from '@esm-bundle/chai';
+      import { expect } from 'chai';
 
       runTests(async () => {
         // write your tests inline

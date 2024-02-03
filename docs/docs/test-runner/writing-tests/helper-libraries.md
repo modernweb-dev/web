@@ -8,10 +8,10 @@ Not all helper libraries ship es modules which are usable in the browser. On thi
 
 ## Assertions
 
-[chai](https://www.npmjs.com/package/chai) is a popular assertion library. It doesn't ship an es module, but you can use [@esm-bundle/chai](https://www.npmjs.com/package/@esm-bundle/chai) for that.
+[chai](https://www.npmjs.com/package/chai) is a popular assertion library.
 
 ```js
-import { expect } from '@esm-bundle/chai';
+import { expect } from 'chai';
 
 expect(undefined).to.not.be.a('function');
 ```
