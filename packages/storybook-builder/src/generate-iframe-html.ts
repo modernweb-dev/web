@@ -1,7 +1,10 @@
+import { readFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import { normalizeStories } from '@storybook/core-common';
 import type { CoreConfig, Options } from '@storybook/types';
-import { readFile } from 'fs-extra';
 import { virtualAppFilename } from './virtual-file-names.js';
+
+const require = createRequire(import.meta.url);
 
 export type PreviewHtml = string | undefined;
 

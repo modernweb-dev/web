@@ -1,8 +1,11 @@
+import { createRequire } from 'node:module';
+import { join } from 'node:path';
 import { stringifyProcessEnvs } from '@storybook/core-common';
 import { build } from 'esbuild';
-import { join } from 'path';
 import type { Plugin } from 'rollup';
 import { getNodeModuleDir } from './get-node-module-dir.js';
+
+const require = createRequire(import.meta.url);
 
 export const PREBUNDLED_MODULES_DIR = 'node_modules/.prebundled_modules';
 
