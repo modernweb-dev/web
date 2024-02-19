@@ -38,6 +38,8 @@ export default {
 };
 ```
 
+Take care of the plugins order, some plugins can modify path of imported modules and moduleMockingPlugin may be not able to retreive them correctly, so it's advise to use it first in the list.
+
 ### Simple test scenario
 
 ```js
