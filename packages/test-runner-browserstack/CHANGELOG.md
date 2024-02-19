@@ -1,5 +1,15 @@
 # @web/test-runner-browserstack
 
+## 0.7.1
+
+### Patch Changes
+
+- e657791f: Vulnerability fix in `ip` package.
+  For more info, see:
+
+  - https://github.com/advisories/GHSA-78xj-cgh5-2h22
+  - https://github.com/indutny/node-ip/issues/136#issuecomment-1952083593
+
 ## 0.7.0
 
 ### Minor Changes
