@@ -6,24 +6,20 @@ env:
   FORCE_COLOR: true
 
 jobs:
-  verify-linux:
+  linux:
     timeout-minutes: 30
-    name: Verify linux
+    name: Linux
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version:
-          - '18'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
         env:
           FORCE_COLOR: 0
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20
           cache: npm
 
       - name: Install Dependencies

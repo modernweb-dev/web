@@ -1,6 +1,7 @@
 import { Middleware } from 'koa';
 import { Plugin } from '../plugins/Plugin';
 import { Server } from 'net';
+import chokidar from 'chokidar';
 
 export type MimeTypeMappings = Record<string, string>;
 
@@ -67,4 +68,9 @@ export interface DevServerCoreConfig {
    * Useful when you want more control over when files are build (e.g. when doing a test run using @web/test-runner).
    */
   disableFileWatcher?: boolean;
+
+  /**
+   * Additional options you want to provide to chokidar file watcher
+   */
+  chokidarOptions?: chokidar.WatchOptions;
 }

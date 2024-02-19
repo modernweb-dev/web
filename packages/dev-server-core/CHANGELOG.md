@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.7.1
+
+### Patch Changes
+
+- 649edc2b: Add option to modify chokidar watchOptions with @web/dev-server
+
 ## 0.7.0
 
 ### Minor Changes

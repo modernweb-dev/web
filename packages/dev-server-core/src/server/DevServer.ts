@@ -18,7 +18,7 @@ export class DevServer {
   constructor(
     public config: DevServerCoreConfig,
     public logger: Logger,
-    public fileWatcher = chokidar.watch([]),
+    public fileWatcher = chokidar.watch([], config.chokidarOptions),
   ) {
     if (!config) throw new Error('Missing config.');
     if (!logger) throw new Error('Missing logger.');
