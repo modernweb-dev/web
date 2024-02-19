@@ -14,6 +14,7 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/dev-server-hmr",
   "main": "dist/index.js",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -45,5 +46,10 @@
   "devDependencies": {
     "lit-html": "^2.7.3 || ^3.0.0",
     "puppeteer": "^20.0.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

@@ -18,6 +18,7 @@
     "build-storybook": "dist/build/cli.js"
   },
   "type": "module",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/serve/storybookPlugin.js",
@@ -76,5 +77,10 @@
     "@types/path-is-inside": "^1.0.0",
     "@web/dev-server": "^0.4.0",
     "htm": "^3.1.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

@@ -1,17 +1,15 @@
+import { cp } from 'node:fs/promises';
+import { join, parse, resolve } from 'node:path';
 import rollupPluginNodeResolve from '@rollup/plugin-node-resolve';
 import { getBuilderOptions } from '@storybook/core-common';
 import { logger } from '@storybook/node-logger';
-// Import both globals and globalsNameReferenceMap to prevent retrocompatibility.
-// @ts-ignore
-import { globals, globalsNameReferenceMap } from '@storybook/preview/globals';
+import { globalsNameReferenceMap } from '@storybook/preview/globals';
 import type { Builder, Options, StorybookConfig as StorybookConfigBase } from '@storybook/types';
 import { DevServerConfig, mergeConfigs, startDevServer } from '@web/dev-server';
 import type { DevServer } from '@web/dev-server-core';
 import { fromRollup } from '@web/dev-server-rollup';
 import { rollupPluginHTML } from '@web/rollup-plugin-html';
 import express from 'express';
-import * as fs from 'fs-extra';
-import { join, parse, resolve } from 'path';
 import { OutputOptions, RollupBuild, RollupOptions, rollup } from 'rollup';
 import rollupPluginExternalGlobals from 'rollup-plugin-external-globals';
 import { generateIframeHtml } from './generate-iframe-html.js';
@@ -76,7 +74,7 @@ export const start: WdsBuilder['start'] = async ({ startTime, options, router, s
       },
       wdsPluginPrebundleModules(env),
       wdsPluginStorybookBuilder(options),
-      wdsPluginExternalGlobals(globalsNameReferenceMap || globals),
+      wdsPluginExternalGlobals(globalsNameReferenceMap),
     ],
   };
 
@@ -148,7 +146,7 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
       rollupPluginNodeResolve(),
       rollupPluginPrebundleModules(env),
       rollupPluginStorybookBuilder(options),
-      rollupPluginExternalGlobals(globalsNameReferenceMap || globals),
+      rollupPluginExternalGlobals(globalsNameReferenceMap),
     ],
   };
 
@@ -181,7 +179,8 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
 
   const previewDirOrigin = join(getNodeModuleDir('@storybook/preview'), 'dist');
   const previewDirTarget = join(options.outputDir || '', `sb-preview`);
-  const previewFiles = fs.copy(previewDirOrigin, previewDirTarget, {
+  const previewFiles = cp(previewDirOrigin, previewDirTarget, {
+    recursive: true,
     filter: src => {
       const { ext } = parse(src);
       if (ext) {

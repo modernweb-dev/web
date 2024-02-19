@@ -14,6 +14,7 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha",
   "main": "dist/standalone.js",
+  "type": "module",
   "engines": {
     "node": ">=18.0.0"
   },
@@ -41,5 +42,10 @@
     "@types/mocha": "^10.0.1",
     "deepmerge": "^4.2.2",
     "mocha": "^10.2.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

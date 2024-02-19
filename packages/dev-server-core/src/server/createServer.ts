@@ -11,6 +11,9 @@ import { createMiddleware } from './createMiddleware.js';
 import { Logger } from '../logger/Logger.js';
 import { addPlugins } from './addPlugins.js';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 /**
  * A request handler that returns a 301 HTTP Redirect to the same location as the original
  * request but using the https protocol

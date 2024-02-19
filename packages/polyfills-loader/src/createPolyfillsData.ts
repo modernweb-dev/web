@@ -1,8 +1,11 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 import { minify } from 'terser';
 import { PolyfillsLoaderConfig, PolyfillConfig, PolyfillFile } from './types.js';
 import { createContentHash, noModuleSupportTest, hasFileOfType, fileTypes } from './utils.js';
+
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
 
 export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<PolyfillFile[]> {
   const { polyfills = {} } = cfg;

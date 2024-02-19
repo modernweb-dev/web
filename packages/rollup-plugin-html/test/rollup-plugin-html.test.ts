@@ -2,6 +2,11 @@ import { rollup, OutputChunk, OutputAsset, OutputOptions, Plugin } from 'rollup'
 import { expect } from 'chai';
 import path from 'path';
 import { rollupPluginHTML } from '../src/index.js';
+import * as url from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 type Output = (OutputChunk | OutputAsset)[];
 

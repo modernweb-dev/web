@@ -24,6 +24,9 @@ import { playwrightLauncher, puppeteerLauncher } from './loadLauncher.js';
 import { defaultReporter } from '../reporter/defaultReporter.js';
 import { TestRunnerLogger } from '../logger/TestRunnerLogger.js';
 
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+
 const secondMs = 1000;
 const minuteMs = secondMs * 60;
 

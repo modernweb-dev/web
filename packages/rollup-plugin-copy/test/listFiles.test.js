@@ -1,7 +1,10 @@
-const path = require('path');
-const { expect } = require('chai');
+import path from 'path';
+import { expect } from 'chai';
 
-const { listFiles } = require('../src/listFiles.js');
+import { listFiles } from '../src/listFiles.js';
+
+import * as url from 'node:url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('listFiles', () => {
   it('gives a list of files', async () => {

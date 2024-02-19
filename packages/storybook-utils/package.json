@@ -47,5 +47,10 @@
   },
   "devDependencies": {
     "react": "^18.0.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

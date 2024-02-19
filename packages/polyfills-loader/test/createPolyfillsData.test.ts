@@ -5,6 +5,9 @@ import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.js';
 import { createPolyfillsData } from '../src/createPolyfillsData.js';
 import { noModuleSupportTest, fileTypes } from '../src/utils.js';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 function cleanupPolyfill(polyfill: PolyfillFile) {
   if (!polyfill) {
     return;

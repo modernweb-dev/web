@@ -6,6 +6,8 @@ import { Plugin as RollupPlugin } from 'rollup';
 import { fromRollup } from '@web/dev-server-rollup';
 
 import { esbuildPlugin } from '../src/index.js';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 describe('esbuildPlugin TS', function () {
   this.timeout(5000);

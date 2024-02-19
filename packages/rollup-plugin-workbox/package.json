@@ -15,6 +15,7 @@
   },
   "main": "dist/index.js",
   "module": "index.mjs",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -39,5 +40,10 @@
   "contributors": [
     "Pascal Schilp <pascalschilp@gmail.com>",
     "Benny Powers <web@bennypowers.com>"
-  ]
+  ],
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
+  }
 }

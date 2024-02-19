@@ -3,6 +3,8 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';
 import { resolve, sep } from 'path';
 import { expect } from 'chai';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const ERROR_NOT_IMPORTABLE = {
   message:

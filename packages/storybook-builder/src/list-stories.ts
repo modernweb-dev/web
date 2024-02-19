@@ -1,9 +1,9 @@
 // based on https://github.com/storybookjs/storybook/blob/v7.0.9/code/lib/builder-vite/src/list-stories.ts
 
+import * as path from 'node:path';
 import { normalizeStories } from '@storybook/core-common';
 import type { Options } from '@storybook/types';
 import { promise as glob } from 'glob-promise';
-import * as path from 'path';
 
 export async function listStories(options: Options) {
   const slash = (await import('slash')).default; // for CJS compatibility

@@ -40,5 +40,10 @@
   "dependencies": {
     "@web/dev-server": "^0.4.0",
     "@web/polyfills-loader": "^2.2.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }

@@ -1,5 +1,1 @@
-import cjsEntrypoint from './src/copy.js';
-
-const { copy } = cjsEntrypoint;
-
-export { copy };
+export { copy } from './dist/copy.js';

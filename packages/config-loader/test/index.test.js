@@ -1,6 +1,10 @@
-const path = require('path');
-const { expect } = require('chai');
-const { readConfig } = require('../src/index');
+import path from 'path';
+import { expect } from 'chai';
+import * as url from 'url';
+
+import { readConfig } from '../src/index.js';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const configName = 'my-project.config';
 const packageCjsPath = path.resolve(__dirname, 'fixtures', 'package-cjs');

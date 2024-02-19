@@ -1,1 +1,1 @@
-module.exports = class ConfigLoaderError extends Error {};
+export default class ConfigLoaderError extends Error {};

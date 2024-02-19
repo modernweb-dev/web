@@ -18,6 +18,7 @@
   },
   "main": "src/copy.js",
   "module": "index.mjs",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./index.d.ts",

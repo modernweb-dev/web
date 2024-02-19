@@ -1,9 +1,9 @@
 // based on https://github.com/storybookjs/storybook/blob/v7.0.9/code/lib/builder-vite/src/codegen-importfn-script.ts
 
+import * as path from 'node:path';
 import { normalizePath } from '@rollup/pluginutils';
 import { logger } from '@storybook/node-logger';
 import type { Options } from '@storybook/types';
-import * as path from 'path';
 import { listStories } from './list-stories.js';
 
 /**

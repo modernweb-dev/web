@@ -6,6 +6,8 @@ import path from 'path';
 
 import { importMapsPlugin } from '../src/importMapsPlugin.js';
 import { IMPORT_MAP_PARAM } from '../src/utils.js';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 function createHtml(importMap: Record<string, unknown>) {
   return `

@@ -4,6 +4,9 @@ import path from 'path';
 import { getInputData } from '../../../src/input/getInputData.js';
 import { InputData } from '../../../src/input/InputData.js';
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 const rootDir = path.join(__dirname, '..', '..', 'fixtures', 'basic');
 
 function cleanupHtml(str: string) {

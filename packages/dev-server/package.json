@@ -18,6 +18,7 @@
     "web-dev-server": "./dist/bin.js",
     "wds": "./dist/bin.js"
   },
+  "type": "module",
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -74,5 +75,10 @@
     "@types/command-line-usage": "^5.0.1",
     "lit-html": "^2.7.3 || ^3.0.0",
     "puppeteer": "^20.0.0"
+  },
+  "mocha": {
+    "loader": "ts-node/esm",
+    "exit": true,
+    "retries": 3
   }
 }
