@@ -33,9 +33,6 @@
       "path": "./dev-server/tsconfig.json"
     },
     {
-      "path": "./dev-server-esbuild/tsconfig.json"
-    },
-    {
       "path": "./test-runner/tsconfig.json"
     },
     {
