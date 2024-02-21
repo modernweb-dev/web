@@ -80,7 +80,7 @@ export class ChromeLauncher implements BrowserLauncher {
 
   launchBrowser(options: PuppeteerNodeLaunchOptions = {}) {
     const mergedOptions: PuppeteerNodeLaunchOptions = {
-      headless: 'new',
+      headless: true,
       ...this.launchOptions,
       ...options,
     };

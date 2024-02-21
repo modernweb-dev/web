@@ -51,6 +51,6 @@
   },
   "devDependencies": {
     "@esm-bundle/chai": "^4.1.5",
-    "puppeteer": "^20.0.0"
+    "puppeteer": "^22.0.0"
   }
 }

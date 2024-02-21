@@ -13,11 +13,27 @@ function trackErrors(page: Page) {
     errors.push(error);
   });
   page.on('console', e => {
-    if (e.type() === 'error' || e.type() === 'warning') {
+    if (e.type() === 'error' || e.type() === 'warn') {
       errors.push(e.text());
     }
   });
   return errors;
+}
+
+async function mockFaviconRequests(page: Page) {
+  await page.setRequestInterception(true);
+  page.on('request', request => {
+    if (request.isInterceptResolutionHandled()) {
+      return;
+    }
+
+    if (request.url().endsWith('favicon.ico')) {
+      request.respond({ status: 200 });
+      return;
+    }
+
+    request.continue();
+  });
 }
 
 describe('browser tests', function () {
@@ -82,6 +98,7 @@ describe('browser tests', function () {
     });
     const page = await browser.newPage();
     const errors = trackErrors(page);
+    await mockFaviconRequests(page);
 
     try {
       await page.goto(`${host}/foo.html`);
@@ -114,6 +131,7 @@ describe('browser tests', function () {
     });
     const page = await browser.newPage();
     const errors = trackErrors(page);
+    await mockFaviconRequests(page);
 
     try {
       await page.goto(`${host}/foo.html`);
@@ -192,6 +210,7 @@ describe('browser tests', function () {
     });
     const page = await browser.newPage();
     const errors = trackErrors(page);
+    await mockFaviconRequests(page);
 
     try {
       await page.goto(`${host}/foo.html`);
