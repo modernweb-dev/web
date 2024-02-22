@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@web/test-runner-chrome": "^0.15.0",
-    "@web/test-runner-core": "^0.13.0"
+    "@web/test-runner-core": "^0.13.0",
+    "sinon": "^17.0.1"
   }
 }

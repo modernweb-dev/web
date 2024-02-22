@@ -11,10 +11,18 @@ const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('moduleMockingPlugin', function test() {
   this.timeout(20000);
-
+  
   it('can intercept server relative modules', async () => {
     await runTests({
       files: [path.join(dirname, 'fixtures', 'server-relative', 'browser-test.js')],
+      browsers: [chromeLauncher()],
+      plugins: [moduleMockingPlugin(), nodeResolvePlugin('', false, {})],
+    });
+  });
+
+  it('can intercept server relative modules with stub', async () => {
+    await runTests({
+      files: [path.join(dirname, 'fixtures', 'server-relative-with-stub', 'test', 'step', 'browser-test.js')],
       browsers: [chromeLauncher()],
       plugins: [moduleMockingPlugin(), nodeResolvePlugin('', false, {})],
     });

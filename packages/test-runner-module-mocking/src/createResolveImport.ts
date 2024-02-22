@@ -15,7 +15,7 @@ export type ResolveImport = (
 ) => ResolveResult | Promise<ResolveResult>;
 
 /**
- * TODO: check if `resolveImport()` can be provied by `@web/dev-server-core`'s API
+ * TODO: check if `resolveImport()` can be provided by `@web/dev-server-core`'s API
  * @param args start param args
  * @param thisPlugin plugin to exclude
  */

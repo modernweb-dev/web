@@ -37,38 +37,7 @@ export function moduleMockingPlugin(): Plugin {
           const namedExports = exports.map(e => e.n).filter(n => n !== 'default');
           const hasDefaultExport = exports.some(e => e.n === 'default');
 
-          body = `
-          import * as original from '${url.pathname}';
-          const newOriginal = {...original};
-
-          ${namedExports.map(x => `export let ${x} = newOriginal['${x}'];`).join('\n')}
-
-          ${
-            hasDefaultExport
-              ? `
-          function computeDefault() {
-            if(typeof newOriginal.default === 'function'){
-              return (...args) => newOriginal.default.call(undefined, ...args);
-            }
-            return newOriginal.default;
-          }
-
-          export default computeDefault()
-          `
-              : ''
-          }
-
-          export const __wtr_intercepted_module__ = new Proxy(newOriginal, {
-            set: function(obj, prop, value) {
-              ${namedExports.map(x => `if (prop === '${x}') { ${x} = value;}`).join('\n')}
-              return Reflect.set(obj, prop, value);
-            },
-            defineProperty(target, key, descriptor) {
-              ${namedExports.map(x => `if (key === '${x}') { ${x} = descriptor.value;}`).join('\n')}
-              return Reflect.defineProperty(target, key, descriptor);
-            },
-          });
-        `;
+          body = generateInterceptedModuleBody(body, url, namedExports, hasDefaultExport);
         }
       } catch (error) {
         // Server side errors might contain ANSI color escape sequences.
@@ -89,4 +58,38 @@ export function moduleMockingPlugin(): Plugin {
       return undefined;
     },
   };
+
+  function generateInterceptedModuleBody(body: any, url: URL, namedExports: string[], hasDefaultExport: boolean) {
+    body = `
+          import * as original from '${url.pathname}';
+          const newOriginal = {...original};
+
+          ${namedExports.map(x => `export let ${x} = newOriginal['${x}'];`).join('\n')}
+
+          ${hasDefaultExport
+        ? `
+          function computeDefault() {
+            if(typeof newOriginal.default === 'function'){
+              return (...args) => newOriginal.default.call(undefined, ...args);
+            }
+            return newOriginal.default;
+          }
+
+          export default computeDefault()
+          `
+        : ''}
+
+          export const __wtr_intercepted_module__ = new Proxy(newOriginal, {
+            set: function(obj, prop, value) {
+              ${namedExports.map(x => `if (prop === '${x}') { ${x} = value;}`).join('\n')}
+              return Reflect.set(obj, prop, value);
+            },
+            defineProperty(target, key, descriptor) {
+              ${namedExports.map(x => `if (key === '${x}') { ${x} = descriptor.value;}`).join('\n')}
+              return Reflect.defineProperty(target, key, descriptor);
+            },
+          });
+        `;
+    return body;
+  }
 }
