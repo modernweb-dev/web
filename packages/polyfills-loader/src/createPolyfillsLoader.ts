@@ -21,6 +21,7 @@ const loadScriptFunction = `
   function loadScript(src, type, attributes) {
     return new Promise(function (resolve) {
       var script = document.createElement('script');
+      script.fetchPriority = 'high';
       function onLoaded() {
         if (script.parentElement) {
           script.parentElement.removeChild(script);
@@ -221,6 +222,7 @@ export async function createPolyfillsLoader(
 
       if (${coreJs.test}) {
         var s = document.createElement('script');
+        s.fetchPriority = 'high';
         function onLoaded() {
           document.head.removeChild(s);
           polyfillsLoader();
