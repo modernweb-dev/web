@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 2.3.0
+
+### Minor Changes
+
+- 74b3e1bd: Set fetchPriority of polyfill scripts to `high`
+
 ## 2.2.0
 
 ### Minor Changes
