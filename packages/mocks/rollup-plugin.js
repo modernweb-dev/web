@@ -14,7 +14,7 @@ export function mockRollupPlugin(
   return {
     name: 'rollup-plugin-msw',
     writeBundle(opts) {
-      const serviceWorkerPath = require.resolve('msw/mockServiceWorker.js');
+      const serviceWorkerPath = require.resolve('./msw/dist/mockServiceWorker.js');
       const sw = fs.readFileSync(serviceWorkerPath, 'utf8');
       const outPath = path.join(opts.dir, '__msw_sw__.js');
       fs.writeFileSync(outPath, sw);

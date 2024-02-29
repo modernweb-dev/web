@@ -47,8 +47,10 @@
     }
   },
   "scripts": {
-    "start": "wds --config demo/wc/web-dev-server.config.mjs",
-    "test:browser": "node ../test-runner/dist/bin.js test-browser/*.test.js --config test-browser/web-test-runner.config.js",
+    "build": "rm -rf msw/dist/ && node build.js",
+    "prepare": "npm run build",
+    "start": "wireit",
+    "test:browser": "wireit",
     "types": "wireit"
   },
   "files": [
@@ -66,13 +68,26 @@
     "@web/storybook-prebuilt": "^0.1.37",
     "@web/storybook-utils": "^1.0.0",
     "lit": "^2.7.5 || ^3.0.0",
-    "msw": "^2.0.11"
+    "msw": "^2.1.4"
   },
   "devDependencies": {
     "@web/dev-server": "^0.4.0",
-    "@web/dev-server-storybook": "^2.0.0"
+    "@web/dev-server-storybook": "^2.0.0",
+    "esbuild": "^0.19.12"
   },
   "wireit": {
+    "start": {
+      "command": "wds --config demo/wc/web-dev-server.config.mjs",
+      "dependencies": [
+        "build"
+      ]
+    },
+    "test:browser": {
+      "command": "node ../test-runner/dist/bin.js test-browser/*.test.js --config test-browser/web-test-runner.config.js",
+      "dependencies": [
+        "build"
+      ]
+    },
     "types": {
       "command": "tsc --build --pretty",
       "files": [
