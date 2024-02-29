@@ -49,7 +49,9 @@
       // We do this so that "module && module.hot" etc. in Storybook source code
       // doesn't fail (it will simply be disabled)
       window.module = undefined;
+
       window.global = window;
+      window.process = { env: '[PROCESS_ENV HERE]' };
     </script>
     <!-- [HEAD HTML SNIPPET HERE] -->
   </head>
