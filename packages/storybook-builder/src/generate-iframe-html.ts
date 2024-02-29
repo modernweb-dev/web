@@ -11,6 +11,7 @@ export async function generateIframeHtml(options: Options): Promise<string> {
     'utf-8',
   );
   const { configType, features, presets, serverChannelUrl } = options;
+  const env = await presets.apply<Record<string, string>>('env');
   const frameworkOptions = await presets.apply<Record<string, any> | null>('frameworkOptions');
   const headHtmlSnippet = await presets.apply<PreviewHtml>('previewHead');
   const bodyHtmlSnippet = await presets.apply<PreviewHtml>('previewBody');
@@ -26,6 +27,14 @@ export async function generateIframeHtml(options: Options): Promise<string> {
   }));
   return (
     iframeHtmlTemplate
+      .replace(
+        `'[PROCESS_ENV HERE]'`,
+        JSON.stringify({
+          // IMPORTANT!!!
+          // please do not include the entire "env" to prevent bundling and deploying of sensitive data
+          NODE_ENV: env.NODE_ENV,
+        }),
+      )
       .replace('[CONFIG_TYPE HERE]', configType || '')
       .replace('[LOGLEVEL HERE]', logLevel || '')
       .replace(`'[FRAMEWORK_OPTIONS HERE]'`, JSON.stringify(frameworkOptions))

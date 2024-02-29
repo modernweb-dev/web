@@ -1,4 +1,3 @@
-import { stringifyProcessEnvs } from '@storybook/core-common';
 import { build } from 'esbuild';
 import { join } from 'path';
 import type { Plugin } from 'rollup';
@@ -6,7 +5,7 @@ import { getNodeModuleDir } from './get-node-module-dir.js';
 
 export const PREBUNDLED_MODULES_DIR = 'node_modules/.prebundled_modules';
 
-export function rollupPluginPrebundleModules(env: Record<string, string>): Plugin {
+export function rollupPluginPrebundleModules(): Plugin {
   const modulePaths: Record<string, string> = {};
 
   return {
@@ -37,9 +36,6 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
           lodash: getNodeModuleDir('lodash-es'), // more optimal, but also solves esbuild incorrectly compiling lodash/_nodeUtil
           path: require.resolve('path-browserify'),
         },
-        define: {
-          ...stringifyProcessEnvs(env),
-        },
         plugins: [esbuildCommonjsPlugin()],
       });
     },
@@ -64,7 +60,7 @@ function getModules() {
 
 // this is different to https://github.com/storybookjs/storybook/blob/v7.0.0/code/lib/builder-vite/src/optimizeDeps.ts#L7
 // builder-vite bundles different dependencies for performance reasons
-// we aim only at browserifying NodeJS dependencies (CommonJS/process.env/...)
+// we aim only at browserifying dependencies which are CommonJS, or sometimes ESM with issues
 export const CANDIDATES = [
   // @testing-library has ESM, but imports/exports are not working correctly between packages
   // specifically "@testing-library/user-event" has "dist/esm/utils/misc/getWindow.js" (see https://cdn.jsdelivr.net/npm/@testing-library/user-event@14.4.3/dist/esm/utils/misc/getWindow.js)
@@ -82,7 +78,4 @@ export const CANDIDATES = [
 
   // CommonJS module used in Storybook MJS files
   'lodash/mapValues.js',
-
-  // ESM, but uses `process.env.NODE_ENV`
-  'tiny-invariant',
 ];

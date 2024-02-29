@@ -60,8 +60,6 @@ export const start: WdsBuilder['start'] = async ({ startTime, options, router, s
   router.use('/sb-preview', express.static(previewDirOrigin, { immutable: true, maxAge: '5m' }));
   router.use(`/${PREBUNDLED_MODULES_DIR}`, express.static(resolve(`./${PREBUNDLED_MODULES_DIR}`)));
 
-  const env = await options.presets.apply<Record<string, string>>('env');
-
   const wdsStorybookConfig: DevServerConfig = {
     nodeResolve: true,
     plugins: [
@@ -74,7 +72,7 @@ export const start: WdsBuilder['start'] = async ({ startTime, options, router, s
           }
         },
       },
-      wdsPluginPrebundleModules(env),
+      wdsPluginPrebundleModules(),
       wdsPluginStorybookBuilder(options),
       wdsPluginExternalGlobals(globalsNameReferenceMap || globals),
     ],
@@ -130,8 +128,6 @@ export const start: WdsBuilder['start'] = async ({ startTime, options, router, s
 };
 
 export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
-  const env = await options.presets.apply<Record<string, string>>('env');
-
   const rollupDefaultOutputOptions: OutputOptions = {
     dir: options.outputDir,
   };
@@ -146,7 +142,7 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
         extractAssets: false,
       }),
       rollupPluginNodeResolve(),
-      rollupPluginPrebundleModules(env),
+      rollupPluginPrebundleModules(),
       rollupPluginStorybookBuilder(options),
       rollupPluginExternalGlobals(globalsNameReferenceMap || globals),
     ],
