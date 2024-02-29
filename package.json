@@ -33,7 +33,7 @@
     "start:build": "node packages/dev-server/dist/bin.js --root-dir _site --open",
     "test": "npm run test:node && npm run test:browser",
     "test:browser": "npm run test:browser --workspaces --if-present",
-    "test:node": "npm run test:node --workspaces --if-present",
+    "test:node": "turbo run test:node",
     "types": "wireit",
     "update": "npm run update:mjs-dts-entrypoints && npm run update:tsconfigs",
     "update-dependency": "node scripts/update-dependency.js",
@@ -74,6 +74,7 @@
     "rimraf": "^4.4.1",
     "rollup": "^4.4.0",
     "ts-node": "^10.4.0",
+    "turbo": "^1.12.2",
     "typescript": "~5.0.4",
     "wireit": "^0.10.0"
   },
