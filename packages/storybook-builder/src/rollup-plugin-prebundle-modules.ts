@@ -80,6 +80,15 @@ export const CANDIDATES = [
   '@testing-library/user-event',
 
   /* for @storybook/addon-docs */
+  'color-convert',
   'doctrine',
+  'lodash/cloneDeep.js',
   'lodash/mapValues.js',
+  'lodash/pickBy.js',
+  'lodash/throttle.js',
+  'lodash/uniq.js',
+  'memoizerific',
+  'react',
+  'react-dom',
+  'tocbot',
 ];
