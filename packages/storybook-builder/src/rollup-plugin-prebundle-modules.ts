@@ -66,6 +66,11 @@ function getModules() {
 // builder-vite bundles different dependencies for performance reasons
 // we aim only at browserifying NodeJS dependencies (CommonJS/process.env/...)
 export const CANDIDATES = [
+  /* for different packages */
+  'tiny-invariant',
+
+  /* for @storybook/addon-interactions */
+  'jest-mock',
   // @testing-library has ESM, but imports/exports are not working correctly between packages
   // specifically "@testing-library/user-event" has "dist/esm/utils/misc/getWindow.js" (see https://cdn.jsdelivr.net/npm/@testing-library/user-event@14.4.3/dist/esm/utils/misc/getWindow.js)
   // which uses "@testing-library/dom" in `import { getWindowFromNode } from '@testing-library/dom/dist/helpers.js';`
@@ -74,15 +79,7 @@ export const CANDIDATES = [
   '@testing-library/dom',
   '@testing-library/user-event',
 
-  // CommonJS module used in Storybook MJS files
+  /* for @storybook/addon-docs */
   'doctrine',
-
-  // CommonJS module used in Storybook MJS files
-  'jest-mock',
-
-  // CommonJS module used in Storybook MJS files
   'lodash/mapValues.js',
-
-  // ESM, but uses `process.env.NODE_ENV`
-  'tiny-invariant',
 ];
