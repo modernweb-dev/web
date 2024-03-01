@@ -1,5 +1,13 @@
 # @web/storybook-builder
 
+## 0.1.7
+
+### Patch Changes
+
+- cbcc56f2: fix tocbot exports for addon-docs
+- 5a428555: prebundle required CommonJS modules for addon-docs
+- 916da5f0: resolve @storybook/react-dom-shim for addon-docs
+
 ## 0.1.6
 
 ### Patch Changes
