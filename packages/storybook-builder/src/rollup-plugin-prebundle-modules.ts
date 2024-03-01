@@ -16,7 +16,7 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
     async buildStart() {
       const esbuildPluginCommonjs = (await import('@chialab/esbuild-plugin-commonjs')).default; // for CJS compatibility
 
-      const modules = getModules();
+      const modules = CANDIDATES.filter(moduleExists);
 
       for (const module of modules) {
         modulePaths[module] = join(
@@ -37,6 +37,11 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
           assert: require.resolve('browser-assert'),
           lodash: getNodeModuleDir('lodash-es'), // more optimal, but also solves esbuild incorrectly compiling lodash/_nodeUtil
           path: require.resolve('path-browserify'),
+
+          /* for @storybook/addon-docs */
+          ...(moduleExists('@storybook/react-dom-shim') && {
+            '@storybook/react-dom-shim': getReactDomShimAlias(),
+          }),
         },
         define: {
           ...stringifyProcessEnvs(env),
@@ -58,18 +63,6 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
   };
 }
 
-function getModules() {
-  const include = CANDIDATES.filter(id => {
-    try {
-      require.resolve(id, { paths: [process.cwd()] });
-      return true;
-    } catch (e) {
-      return false;
-    }
-  });
-  return include;
-}
-
 // this is different to https://github.com/storybookjs/storybook/blob/v7.0.0/code/lib/builder-vite/src/optimizeDeps.ts#L7
 // builder-vite bundles different dependencies for performance reasons
 // we aim only at browserifying NodeJS dependencies (CommonJS/process.env/...)
@@ -88,6 +81,7 @@ export const CANDIDATES = [
   '@testing-library/user-event',
 
   /* for @storybook/addon-docs */
+  '@storybook/react-dom-shim', // needs special resolution
   'color-convert',
   'doctrine',
   'lodash/cloneDeep.js',
@@ -100,3 +94,19 @@ export const CANDIDATES = [
   'react-dom',
   'tocbot',
 ];
+
+function getReactDomShimAlias() {
+  const { version } = require('react-dom');
+  return version.startsWith('18')
+    ? require.resolve('@storybook/react-dom-shim/dist/react-18').replace(/\.js$/, '.mjs')
+    : require.resolve('@storybook/react-dom-shim').replace(/\.js$/, '.mjs');
+}
+
+function moduleExists(moduleName: string) {
+  try {
+    require.resolve(moduleName, { paths: [process.cwd()] });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
