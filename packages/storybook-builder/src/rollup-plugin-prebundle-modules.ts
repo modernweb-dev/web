@@ -2,6 +2,7 @@ import { stringifyProcessEnvs } from '@storybook/core-common';
 import { build } from 'esbuild';
 import { join } from 'path';
 import type { Plugin } from 'rollup';
+import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-named-exports.js';
 import { getNodeModuleDir } from './get-node-module-dir.js';
 
 export const PREBUNDLED_MODULES_DIR = 'node_modules/.prebundled_modules';
@@ -13,7 +14,7 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
     name: 'rollup-plugin-prebundle-modules',
 
     async buildStart() {
-      const esbuildCommonjsPlugin = (await import('@chialab/esbuild-plugin-commonjs')).default; // for CJS compatibility
+      const esbuildPluginCommonjs = (await import('@chialab/esbuild-plugin-commonjs')).default; // for CJS compatibility
 
       const modules = getModules();
 
@@ -40,7 +41,14 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
         define: {
           ...stringifyProcessEnvs(env),
         },
-        plugins: [esbuildCommonjsPlugin()],
+        plugins: [
+          /* for @storybook/addon-docs */
+          // tocbot can't be automatically transformed by @chialab/esbuild-plugin-commonjs
+          // so we need a manual wrapper
+          esbuildPluginCommonjsNamedExports('tocbot', ['init', 'destroy']),
+
+          esbuildPluginCommonjs(),
+        ],
       });
     },
 
