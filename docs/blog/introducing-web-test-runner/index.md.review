@@ -33,7 +33,7 @@ This is the minimal instruction on how to start using the web test runner.
 1. Install the necessary packages
 
    ```
-   npm i --save-dev @web/test-runner @esm-bundle/chai
+   npm i --save-dev @web/test-runner chai
    ```
 
 2. Add a script to your `package.json`
@@ -50,7 +50,7 @@ This is the minimal instruction on how to start using the web test runner.
 3. Create a test file `test/sum.test.js`.
 
    ```js
-   import { expect } from '@esm-bundle/chai';
+   import { expect } from 'chai';
    import { sum } from '../src/sum.js';
 
    it('sums up 2 numbers', () => {
@@ -189,7 +189,7 @@ npm i --save-dev @web/test-runner-commands
 With that, we get a `setViewport` method which we can use.
 
 ```js
-import { expect } from '@esm-bundle/chai';
+import { expect } from 'chai';
 import { setViewport } from '@web/test-runner-commands';
 import { isMobile } from '../src/isMobile';
 
@@ -236,7 +236,7 @@ See more instructions in the [Code Coverage Guide](../../guides/test-runner/code
 First, we need to install the required dependencies:
 
 ```
-npm i --save-dev @web/test-runner @esm-bundle/chai @types/mocha typescript
+npm i --save-dev @web/test-runner chai @types/mocha typescript
 ```
 
 Add the `src/sum.ts` file:
@@ -254,7 +254,7 @@ export function sum(...numbers: number[]) {
 Add the `test/sum.test.ts` file:
 
 ```ts
-import { expect } from '@esm-bundle/chai';
+import { expect } from 'chai';
 import { sum } from '../src/sum.js';
 
 it('sums up 2 numbers', () => {

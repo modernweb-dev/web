@@ -1,4 +1,4 @@
-import { expect } from '../../../../../node_modules/@esm-bundle/chai/esm/chai.js';
+import { expect } from '../../../../../node_modules/chai/chai.js';
 
 throw new Error('This is thrown before running tests');
 

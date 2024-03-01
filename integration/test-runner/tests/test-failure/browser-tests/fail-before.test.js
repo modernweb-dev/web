@@ -1,4 +1,4 @@
-import { expect } from '../../../../../node_modules/@esm-bundle/chai/esm/chai.js';
+import { expect } from '../../../../../node_modules/chai/chai.js';
 
 before(() => {
   throw new Error('error thrown in before hook');

@@ -65,7 +65,7 @@ When the plugin is installed any import maps found in HTML files are used to res
     <script type="importmap">
       {
         "imports": {
-          "chai": "/node_modules/@esm-bundle/chai/chai.js",
+          "chai": "/node_modules/chai/chai.js",
           "./app.js": "./mocked-app.js"
         }
       }
@@ -74,7 +74,7 @@ When the plugin is installed any import maps found in HTML files are used to res
 
   <body>
     <script type="module">
-      // mapped to /node_modules/@esm-bundle/chai/chai.js
+      // mapped to /node_modules/chai/chai.js
       import chai from 'chai';
       // mapped to ./mocked-app.js
       import app from './app.js';
