@@ -1,5 +1,16 @@
 # @web/test-runner-puppeteer
 
+## 0.16.0
+
+### Minor Changes
+
+- 4cc90648: Update Puppeteer to version 22. Remove Puppeteer KnownDevices, before the update named devices, export.
+
+### Patch Changes
+
+- Updated dependencies [4cc90648]
+  - @web/test-runner-chrome@0.16.0
+
 ## 0.15.0
 
 ### Minor Changes
