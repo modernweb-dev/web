@@ -81,14 +81,15 @@ Some examples:
 ### Emulate mobile browser
 
 ```js
-import { chromeLauncher, devices } from '@web/test-runner-chrome';
+import { chromeLauncher } from '@web/test-runner-chrome';
+import { KnownDevices } from 'puppeteer';
 
 export default {
   browsers: [
     chromeLauncher({
       async createPage({ context }) {
         const page = await context.newPage();
-        page.emulate(devices['Pixel 2']);
+        page.emulate(KnownDevices['Pixel 2']);
         return page;
       },
     }),

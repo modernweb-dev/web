@@ -14,7 +14,7 @@ describe('serialize deserialize', function () {
   let browser: Browser;
   let page: Page;
   before(async () => {
-    browser = await puppeteer.launch({ headless: 'new' });
+    browser = await puppeteer.launch({ headless: true });
     page = await browser.newPage();
     await page.goto('about:blank');
     await page.evaluate(
