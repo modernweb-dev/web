@@ -1,5 +1,6 @@
 import { PluginContext } from 'rollup';
 import path from 'path';
+import CleanCSS from 'clean-css';
 
 import { InputAsset, InputData } from '../input/InputData';
 import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions';
@@ -43,6 +44,18 @@ export async function emitAssets(
   const allAssets = [...hashedAssets, ...staticAssets];
 
   for (const asset of allAssets) {
+    if (asset.filePath.endsWith('.css')) {
+      // TODO: try css bundlers like https://lightningcss.dev/bundling.html or esbuild
+      // TODO: question: do we need to recursively analyze all assets that are referenced inside the first css file?
+      // TODO: make a flag to enable this behavior, "false" by default
+      const { styles } = await new CleanCSS({
+        rebaseTo: path.dirname(asset.filePath),
+        returnPromise: true,
+      }).minify([asset.filePath]);
+      console.log('emitEsset.ts styles', styles);
+      asset.content = Buffer.from(styles, 'utf-8');
+    }
+
     const map = asset.hashed ? emittedHashedAssets : emittedStaticAssets;
     if (!map.has(asset.filePath)) {
       let source: Buffer = asset.content;

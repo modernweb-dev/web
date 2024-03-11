@@ -1041,4 +1041,29 @@ describe('rollup-plugin-html', () => {
       ].join(''),
     );
   });
+
+  it.only('includes referenced assets in the bundle', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: {
+            html: `<html>
+<head>
+<link rel="stylesheet" href="./styles-with-fonts.css" />
+</head>
+<body>
+</body>
+</html>`,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    // TODO: how to test it, e.g. how to check if "output" contains "font-normal.woff2" and "font-bold.woff2"?
+    console.log('output', output);
+  });
 });

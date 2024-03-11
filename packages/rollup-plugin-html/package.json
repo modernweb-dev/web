@@ -45,11 +45,13 @@
   ],
   "dependencies": {
     "@web/parse5-utils": "^2.1.0",
+    "clean-css": "^5.3.3",
     "glob": "^10.0.0",
     "html-minifier-terser": "^7.1.0",
     "parse5": "^6.0.1"
   },
   "devDependencies": {
+    "@types/clean-css": "^4.2.11",
     "@types/html-minifier-terser": "^7.0.0",
     "rollup": "^4.4.0"
   }

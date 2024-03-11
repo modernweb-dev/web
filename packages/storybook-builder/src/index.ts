@@ -9,6 +9,7 @@ import { DevServerConfig, mergeConfigs, startDevServer } from '@web/dev-server';
 import type { DevServer } from '@web/dev-server-core';
 import { fromRollup } from '@web/dev-server-rollup';
 import { rollupPluginHTML } from '@web/rollup-plugin-html';
+import { rollupPluginHTML } from '@web/rollup-plugin-import-meta-assets';
 import express from 'express';
 import * as fs from 'fs-extra';
 import { join, parse, resolve } from 'path';
