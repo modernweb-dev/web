@@ -1042,18 +1042,20 @@ describe('rollup-plugin-html', () => {
     );
   });
 
-  it.only('includes referenced assets in the bundle', async () => {
+  it('handles fonts linked from css files', async () => {
     const config = {
       plugins: [
         rollupPluginHTML({
           input: {
-            html: `<html>
-<head>
-<link rel="stylesheet" href="./styles-with-fonts.css" />
-</head>
-<body>
-</body>
-</html>`,
+            html: `
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles-with-fonts.css" />
+                </head>
+                <body>
+                </body>
+              </html>
+            `,
           },
           rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles'),
         }),
@@ -1063,7 +1065,85 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
-    // TODO: how to test it, e.g. how to check if "output" contains "font-normal.woff2" and "font-bold.woff2"?
-    console.log('output', output);
+    const fontNormal = output.find(o => o.name === 'font-normal.woff2');
+    const fontBold = output.find(o => o.name === 'font-normal.woff2');
+    const style = output.find(o => o.name === 'styles-with-fonts.css');
+    // It has emitted the font
+    expect(!!fontBold).to.equal(true);
+    expect(!!fontNormal).to.equal(true);
+    // e.g. "font-normal-f0mNRiTD.woff2"
+    const regex = /assets\/font-normal-\w+\.woff2/;
+    // It outputs the font to the assets folder
+    expect(regex.test(fontNormal!.fileName)).to.equal(true);
+
+    // The source of the style includes the font
+    const source = (style as OutputAsset)?.source.toString();
+    expect(source.includes(fontNormal!.fileName));
+  });
+
+  it('handles fonts linked from css files in node_modules', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: {
+            html: `
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./node_modules/foo/node_modules-styles-with-fonts.css" />
+                </head>
+                <body>
+                </body>
+              </html>
+            `,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles-node-modules'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    const font = output.find(o => o.name === 'font-normal.woff2');
+    const style = output.find(o => o.name === 'node_modules-styles-with-fonts.css');
+
+    // It has emitted the font
+    expect(!!font).to.equal(true);
+    // e.g. "font-normal-f0mNRiTD.woff2"
+    const regex = /assets\/font-normal-\w+\.woff2/;
+    // It outputs the font to the assets folder
+    expect(regex.test(font!.fileName)).to.equal(true);
+
+    // The source of the style includes the font
+    const source = (style as OutputAsset)?.source.toString();
+    expect(source.includes(font!.fileName));
+  });
+
+  it('handles duplicate fonts correctly', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: {
+            html: `
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles-a.css" />
+                  <link rel="stylesheet" href="./styles-b.css" />
+                </head>
+                <body>
+                </body>
+              </html>
+            `,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles-duplicates'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    const fonts = output.filter(o => o.name === 'font-normal.woff2');
+    expect(fonts.length).to.equal(1);
   });
 });

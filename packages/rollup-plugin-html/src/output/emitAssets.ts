@@ -1,6 +1,7 @@
 import { PluginContext } from 'rollup';
 import path from 'path';
-import CleanCSS from 'clean-css';
+import { transform } from 'lightningcss';
+import fs from 'fs';
 
 import { InputAsset, InputData } from '../input/InputData';
 import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions';
@@ -8,6 +9,16 @@ import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPlugin
 export interface EmittedAssets {
   static: Map<string, string>;
   hashed: Map<string, string>;
+}
+
+function shouldHandleFontFile(url: string) {
+  return (
+    (url.endsWith('.woff2') || url.endsWith('.woff')) &&
+    !url.startsWith('http') &&
+    !url.startsWith('data') &&
+    !url.startsWith('#') &&
+    !url.startsWith('/')
+  );
 }
 
 export async function emitAssets(
@@ -44,18 +55,6 @@ export async function emitAssets(
   const allAssets = [...hashedAssets, ...staticAssets];
 
   for (const asset of allAssets) {
-    if (asset.filePath.endsWith('.css')) {
-      // TODO: try css bundlers like https://lightningcss.dev/bundling.html or esbuild
-      // TODO: question: do we need to recursively analyze all assets that are referenced inside the first css file?
-      // TODO: make a flag to enable this behavior, "false" by default
-      const { styles } = await new CleanCSS({
-        rebaseTo: path.dirname(asset.filePath),
-        returnPromise: true,
-      }).minify([asset.filePath]);
-      console.log('emitEsset.ts styles', styles);
-      asset.content = Buffer.from(styles, 'utf-8');
-    }
-
     const map = asset.hashed ? emittedHashedAssets : emittedStaticAssets;
     if (!map.has(asset.filePath)) {
       let source: Buffer = asset.content;
@@ -70,7 +69,46 @@ export async function emitAssets(
 
       let ref: string;
       let basename = path.basename(asset.filePath);
+      const emittedFonts = new Map();
       if (asset.hashed) {
+        if (basename.endsWith('.css')) {
+          let updatedCssSource = false;
+          const { code } = await transform({
+            filename: basename,
+            code: asset.content,
+            minify: false,
+            visitor: {
+              Url: url => {
+                if (shouldHandleFontFile(url.url)) {
+                  // Read the font file, get the font from the source location on the FS using asset.filePath
+                  const fontLocation = path.resolve(path.dirname(asset.filePath), url.url);
+                  const fontContent = fs.readFileSync(fontLocation);
+
+                  // Avoid duplicates
+                  if (!emittedFonts.has(fontLocation)) {
+                    const fontFileRef = this.emitFile({
+                      type: 'asset',
+                      name: path.basename(url.url),
+                      source: fontContent,
+                    });
+                    const emittedFontFilePath = path.basename(this.getFileName(fontFileRef));
+                    emittedFonts.set(fontLocation, emittedFontFilePath);
+                    // Update the URL in the original CSS file to point to the emitted font file
+                    url.url = emittedFontFilePath;
+                  } else {
+                    url.url = emittedFonts.get(fontLocation);
+                  }
+                }
+                updatedCssSource = true;
+                return url;
+              },
+            },
+          });
+          if (updatedCssSource) {
+            source = Buffer.from(code);
+          }
+        }
+
         ref = this.emitFile({ type: 'asset', name: basename, source });
       } else {
         // ensure the output filename is unique
