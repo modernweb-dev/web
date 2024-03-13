@@ -11,9 +11,22 @@ export interface EmittedAssets {
   hashed: Map<string, string>;
 }
 
-function shouldHandleFontFile(url: string) {
+const allowedFileExtensions = [
+  // https://www.w3.org/TR/html4/types.html#:~:text=ID%20and%20NAME%20tokens%20must,tokens%20defined%20by%20other%20attributes.
+  /.*\.svg(#[A-Za-z][A-Za-z0-9\-_:.]*)?/,
+  /.*\.png/,
+  /.*\.jpg/,
+  /.*\.jpeg/,
+  /.*\.webp/,
+  /.*\.gif/,
+  /.*\.avif/,
+  /.*\.woff2/,
+  /.*\.woff/,
+];
+
+function shouldHandleAsset(url: string) {
   return (
-    (url.endsWith('.woff2') || url.endsWith('.woff')) &&
+    allowedFileExtensions.some(f => f.test(url)) &&
     !url.startsWith('http') &&
     !url.startsWith('data') &&
     !url.startsWith('#') &&
@@ -69,9 +82,9 @@ export async function emitAssets(
 
       let ref: string;
       let basename = path.basename(asset.filePath);
-      const emittedFonts = new Map();
+      const emittedExternalAssets = new Map();
       if (asset.hashed) {
-        if (basename.endsWith('.css')) {
+        if (basename.endsWith('.css') && options.bundleAssetsFromCss) {
           let updatedCssSource = false;
           const { code } = await transform({
             filename: basename,
@@ -79,24 +92,32 @@ export async function emitAssets(
             minify: false,
             visitor: {
               Url: url => {
-                if (shouldHandleFontFile(url.url)) {
+                // Support foo.svg#bar
+                const [filePath, idRef] = url.url.split('#');
+
+                if (shouldHandleAsset(url.url)) {
                   // Read the font file, get the font from the source location on the FS using asset.filePath
-                  const fontLocation = path.resolve(path.dirname(asset.filePath), url.url);
-                  const fontContent = fs.readFileSync(fontLocation);
+                  const assetLocation = path.resolve(path.dirname(asset.filePath), filePath);
+                  const assetContent = fs.readFileSync(assetLocation);
 
                   // Avoid duplicates
-                  if (!emittedFonts.has(fontLocation)) {
+                  if (!emittedExternalAssets.has(assetLocation)) {
                     const fontFileRef = this.emitFile({
                       type: 'asset',
-                      name: path.basename(url.url),
-                      source: fontContent,
+                      name: path.basename(filePath),
+                      source: assetContent,
                     });
                     const emittedFontFilePath = path.basename(this.getFileName(fontFileRef));
-                    emittedFonts.set(fontLocation, emittedFontFilePath);
+                    emittedExternalAssets.set(assetLocation, emittedFontFilePath);
                     // Update the URL in the original CSS file to point to the emitted font file
-                    url.url = emittedFontFilePath;
+                    url.url = `assets/${
+                      idRef ? `${emittedFontFilePath}#${idRef}` : emittedFontFilePath
+                    }`;
                   } else {
-                    url.url = emittedFonts.get(fontLocation);
+                    const emittedFontFilePath = emittedExternalAssets.get(assetLocation);
+                    url.url = `assets/${
+                      idRef ? `${emittedFontFilePath}#${idRef}` : emittedFontFilePath
+                    }`;
                   }
                 }
                 updatedCssSource = true;

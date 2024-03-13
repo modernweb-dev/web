@@ -1046,6 +1046,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          bundleAssetsFromCss: true,
           input: {
             html: `
               <html>
@@ -1069,8 +1070,8 @@ describe('rollup-plugin-html', () => {
     const fontBold = output.find(o => o.name === 'font-normal.woff2');
     const style = output.find(o => o.name === 'styles-with-fonts.css');
     // It has emitted the font
-    expect(!!fontBold).to.equal(true);
-    expect(!!fontNormal).to.equal(true);
+    expect(fontBold).to.exist;
+    expect(fontNormal).to.exist;
     // e.g. "font-normal-f0mNRiTD.woff2"
     const regex = /assets\/font-normal-\w+\.woff2/;
     // It outputs the font to the assets folder
@@ -1085,6 +1086,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          bundleAssetsFromCss: true,
           input: {
             html: `
               <html>
@@ -1108,7 +1110,7 @@ describe('rollup-plugin-html', () => {
     const style = output.find(o => o.name === 'node_modules-styles-with-fonts.css');
 
     // It has emitted the font
-    expect(!!font).to.equal(true);
+    expect(font).to.exist;
     // e.g. "font-normal-f0mNRiTD.woff2"
     const regex = /assets\/font-normal-\w+\.woff2/;
     // It outputs the font to the assets folder
@@ -1123,6 +1125,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          bundleAssetsFromCss: true,
           input: {
             html: `
               <html>
@@ -1145,5 +1148,75 @@ describe('rollup-plugin-html', () => {
 
     const fonts = output.filter(o => o.name === 'font-normal.woff2');
     expect(fonts.length).to.equal(1);
+  });
+
+  it('handles images referenced from css', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          bundleAssetsFromCss: true,
+          input: {
+            html: `
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles.css" />
+                </head>
+                <body>
+                </body>
+              </html>
+            `,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles-images'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(output.find(o => o.name === 'star.avif')).to.exist;
+    expect(output.find(o => o.name === 'star.gif')).to.exist;
+    expect(output.find(o => o.name === 'star.jpeg')).to.exist;
+    expect(output.find(o => o.name === 'star.jpg')).to.exist;
+    expect(output.find(o => o.name === 'star.png')).to.exist;
+    expect(output.find(o => o.name === 'star.svg')).to.exist;
+    expect(output.find(o => o.name === 'star.webp')).to.exist;
+
+    const rewrittenCss = (output.find(o => o.name === 'styles.css') as OutputAsset).source
+      .toString()
+      .trim();
+    expect(rewrittenCss).to.equal(
+      `#a {
+  background-image: url("assets/star-mrrzn5BV.svg");
+}
+
+#b {
+  background-image: url("assets/star-mrrzn5BV.svg#foo");
+}
+
+#c {
+  background-image: url("assets/star-eErsO14u.png");
+}
+
+#d {
+  background-image: url("assets/star-yqfHyXQC.jpg");
+}
+
+#e {
+  background-image: url("assets/star-G_i5Rpoh.jpeg");
+}
+
+#f {
+  background-image: url("assets/star-l7b58t3m.webp");
+}
+
+#g {
+  background-image: url("assets/star-P4TYRBwL.gif");
+}
+
+#h {
+  background-image: url("assets/star-H06WHrYy.avif");
+}`.trim(),
+    );
   });
 });
