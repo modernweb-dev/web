@@ -1,0 +1,24 @@
+#a {
+  background-image: url("images/star.svg");
+}
+#b {
+  background-image: url("images/star.svg#foo");
+}
+#c {
+  background-image: url("images/star.png");
+}
+#d {
+  background-image: url("images/star.jpg");
+}
+#e {
+  background-image: url("images/star.jpeg");
+}
+#f {
+  background-image: url("images/star.webp");
+}
+#g {
+  background-image: url("images/star.gif");
+}
+#h {
+  background-image: url("images/star.avif");
+}
