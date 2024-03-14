@@ -12,8 +12,7 @@ export interface EmittedAssets {
 }
 
 const allowedFileExtensions = [
-  // https://www.w3.org/TR/html4/types.html#:~:text=ID%20and%20NAME%20tokens%20must,tokens%20defined%20by%20other%20attributes.
-  /.*\.svg(#[A-Za-z][A-Za-z0-9\-_:.]*)?/,
+  /.*\.svg/,
   /.*\.png/,
   /.*\.jpg/,
   /.*\.jpeg/,
@@ -93,9 +92,10 @@ export async function emitAssets(
             visitor: {
               Url: url => {
                 // Support foo.svg#bar
+                // https://www.w3.org/TR/html4/types.html#:~:text=ID%20and%20NAME%20tokens%20must,tokens%20defined%20by%20other%20attributes.
                 const [filePath, idRef] = url.url.split('#');
 
-                if (shouldHandleAsset(url.url)) {
+                if (shouldHandleAsset(filePath)) {
                   // Read the font file, get the font from the source location on the FS using asset.filePath
                   const assetLocation = path.resolve(path.dirname(asset.filePath), filePath);
                   const assetContent = fs.readFileSync(assetLocation);
