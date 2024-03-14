@@ -104,7 +104,7 @@ export async function emitAssets(
                   if (!emittedExternalAssets.has(assetLocation)) {
                     const fontFileRef = this.emitFile({
                       type: 'asset',
-                      name: path.basename(filePath),
+                      name: path.join('assets', path.basename(filePath)),
                       source: assetContent,
                     });
                     const emittedFontFilePath = path.basename(this.getFileName(fontFileRef));

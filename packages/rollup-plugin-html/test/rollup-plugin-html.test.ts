@@ -1066,9 +1066,9 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
-    const fontNormal = output.find(o => o.name === 'font-normal.woff2');
-    const fontBold = output.find(o => o.name === 'font-normal.woff2');
-    const style = output.find(o => o.name === 'styles-with-fonts.css');
+    const fontNormal = output.find(o => o.name?.endsWith('font-normal.woff2'));
+    const fontBold = output.find(o => o.name?.endsWith('font-normal.woff2'));
+    const style = output.find(o => o.name?.endsWith('styles-with-fonts.css'));
     // It has emitted the font
     expect(fontBold).to.exist;
     expect(fontNormal).to.exist;
@@ -1106,8 +1106,8 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
-    const font = output.find(o => o.name === 'font-normal.woff2');
-    const style = output.find(o => o.name === 'node_modules-styles-with-fonts.css');
+    const font = output.find(o => o.name?.endsWith('font-normal.woff2'));
+    const style = output.find(o => o.name?.endsWith('node_modules-styles-with-fonts.css'));
 
     // It has emitted the font
     expect(font).to.exist;
@@ -1146,7 +1146,7 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
-    const fonts = output.filter(o => o.name === 'font-normal.woff2');
+    const fonts = output.filter(o => o.name?.endsWith('font-normal.woff2'));
     expect(fonts.length).to.equal(1);
   });
 
@@ -1174,13 +1174,13 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
-    expect(output.find(o => o.name === 'star.avif')).to.exist;
-    expect(output.find(o => o.name === 'star.gif')).to.exist;
-    expect(output.find(o => o.name === 'star.jpeg')).to.exist;
-    expect(output.find(o => o.name === 'star.jpg')).to.exist;
-    expect(output.find(o => o.name === 'star.png')).to.exist;
-    expect(output.find(o => o.name === 'star.svg')).to.exist;
-    expect(output.find(o => o.name === 'star.webp')).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.avif'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.gif'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.jpeg'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.jpg'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.png'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.svg'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.webp'))).to.exist;
 
     const rewrittenCss = (output.find(o => o.name === 'styles.css') as OutputAsset).source
       .toString()
