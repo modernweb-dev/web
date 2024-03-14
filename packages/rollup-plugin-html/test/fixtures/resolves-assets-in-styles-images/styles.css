@@ -1,5 +1,5 @@
 #a {
-background-image: url("images/star.svg");
+  background-image: url("images/star.svg");
 }
 #b {
   background-image: url("images/star.svg#foo");
