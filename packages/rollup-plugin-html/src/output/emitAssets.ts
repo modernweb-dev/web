@@ -96,7 +96,7 @@ export async function emitAssets(
                 const [filePath, idRef] = url.url.split('#');
 
                 if (shouldHandleAsset(filePath)) {
-                  // Read the font file, get the font from the source location on the FS using asset.filePath
+                  // Read the asset file, get the asset from the source location on the FS using asset.filePath
                   const assetLocation = path.resolve(path.dirname(asset.filePath), filePath);
                   const assetContent = fs.readFileSync(assetLocation);
 
@@ -107,16 +107,16 @@ export async function emitAssets(
                       name: path.join('assets', path.basename(filePath)),
                       source: assetContent,
                     });
-                    const emittedFontFilePath = path.basename(this.getFileName(fontFileRef));
-                    emittedExternalAssets.set(assetLocation, emittedFontFilePath);
-                    // Update the URL in the original CSS file to point to the emitted font file
+                    const emittedAssetFilePath = path.basename(this.getFileName(fontFileRef));
+                    emittedExternalAssets.set(assetLocation, emittedAssetFilePath);
+                    // Update the URL in the original CSS file to point to the emitted asset file
                     url.url = `assets/${
-                      idRef ? `${emittedFontFilePath}#${idRef}` : emittedFontFilePath
+                      idRef ? `${emittedAssetFilePath}#${idRef}` : emittedAssetFilePath
                     }`;
                   } else {
-                    const emittedFontFilePath = emittedExternalAssets.get(assetLocation);
+                    const emittedAssetFilePath = emittedExternalAssets.get(assetLocation);
                     url.url = `assets/${
-                      idRef ? `${emittedFontFilePath}#${idRef}` : emittedFontFilePath
+                      idRef ? `${emittedAssetFilePath}#${idRef}` : emittedAssetFilePath
                     }`;
                   }
                 }
