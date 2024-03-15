@@ -1,6 +1,7 @@
 import { getAttribute, setAttribute } from '@web/parse5-utils';
 import { Document } from 'parse5';
 import path from 'path';
+import picomatch from 'picomatch';
 
 import {
   findAssets,
@@ -20,6 +21,7 @@ export interface InjectUpdatedAssetPathsArgs {
   outputDir: string;
   rootDir: string;
   emittedAssets: EmittedAssets;
+  externalAssets?: string | string[];
   publicPath?: string;
   absolutePathPrefix?: string;
 }
@@ -42,6 +44,7 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
     outputDir,
     rootDir,
     emittedAssets,
+    externalAssets,
     publicPath = './',
     absolutePathPrefix,
   } = args;
@@ -50,6 +53,9 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
   for (const node of assetNodes) {
     const sourcePaths = getSourcePaths(node);
     for (const sourcePath of sourcePaths) {
+      const isExternal = picomatch(externalAssets || []);
+      if (isExternal(sourcePath)) continue;
+
       const htmlFilePath = input.filePath ? input.filePath : path.join(rootDir, input.name);
       const htmlDir = path.dirname(htmlFilePath);
       const filePath = resolveAssetFilePath(sourcePath, htmlDir, rootDir, absolutePathPrefix);

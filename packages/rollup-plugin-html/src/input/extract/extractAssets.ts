@@ -1,6 +1,7 @@
 import { Document, serialize } from 'parse5';
 import fs from 'fs';
 import path from 'path';
+import picomatch from 'picomatch';
 import { InputAsset } from '../InputData.js';
 import {
   findAssets,
@@ -14,6 +15,7 @@ export interface ExtractAssetsParams {
   htmlFilePath: string;
   htmlDir: string;
   rootDir: string;
+  externalAssets?: string | string[];
   absolutePathPrefix?: string;
 }
 
@@ -24,6 +26,9 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
   for (const node of assetNodes) {
     const sourcePaths = getSourcePaths(node);
     for (const sourcePath of sourcePaths) {
+      const isExternal = picomatch(params.externalAssets || []);
+      if (isExternal(sourcePath)) continue;
+
       const filePath = resolveAssetFilePath(
         sourcePath,
         params.htmlDir,
