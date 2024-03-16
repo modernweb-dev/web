@@ -54,10 +54,10 @@
     "esm"
   ],
   "dependencies": {
-    "@storybook/web-components": "^7.0.0",
+    "@storybook/web-components": "^8.0.0",
     "@web/storybook-builder": "^0.1.0"
   },
   "devDependencies": {
-    "@storybook/types": "^7.0.0"
+    "@storybook/types": "^8.0.0"
   }
 }
