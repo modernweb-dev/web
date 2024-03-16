@@ -125,6 +125,45 @@ export default {
 };
 ```
 
+#### Including assets referenced from css
+
+If your css files reference other assets via `url`, like for example:
+
+```css
+body {
+  background-image: url('images/star.gif');
+}
+
+/* or */
+@font-face {
+  src: url('fonts/font-bold.woff2') format('woff2');
+  /* ...etc */
+}
+```
+
+You can enable the `bundleAssetsFromCss` option:
+
+```js
+rollupPluginHTML({
+  bundleAssetsFromCss: true,
+  // ...etc
+});
+```
+
+And those assets will get output to the `assets/` dir, and the source css file will get updated with the output locations of those assets, e.g.:
+
+```css
+body {
+  background-image: url('assets/star-P4TYRBwL.gif');
+}
+
+/* or */
+@font-face {
+  src: url('assets/font-bold-f0mNRiTD.woff2') format('woff2');
+  /* ...etc */
+}
+```
+
 ### Handling absolute paths
 
 If your HTML file contains any absolute paths they will be resolved against the current working directory. You can set a different root directory in the config. Input paths will be resolved relative to this root directory as well.

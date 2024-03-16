@@ -1,5 +1,17 @@
 # @web/rollup-plugin-html
 
+## 2.2.1
+
+### Patch Changes
+
+- a1f09793: fix: output assets locations
+
+## 2.2.0
+
+### Minor Changes
+
+- c3dc21aa: feat(rollup-plugin-html): resolves assets in styles
+
 ## 2.1.2
 
 ### Patch Changes

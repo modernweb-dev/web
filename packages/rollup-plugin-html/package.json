@@ -1,6 +1,6 @@
 {
   "name": "@web/rollup-plugin-html",
-  "version": "2.1.2",
+  "version": "2.2.1",
   "publishConfig": {
     "access": "public"
   },
@@ -47,6 +47,7 @@
     "@web/parse5-utils": "^2.1.0",
     "glob": "^10.0.0",
     "html-minifier-terser": "^7.1.0",
+    "lightningcss": "^1.24.0",
     "parse5": "^6.0.1"
   },
   "devDependencies": {

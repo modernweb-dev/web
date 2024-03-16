@@ -1041,4 +1041,182 @@ describe('rollup-plugin-html', () => {
       ].join(''),
     );
   });
+
+  it('handles fonts linked from css files', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          bundleAssetsFromCss: true,
+          input: {
+            html: `
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles-with-fonts.css" />
+                </head>
+                <body>
+                </body>
+              </html>
+            `,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    const fontNormal = output.find(o => o.name?.endsWith('font-normal.woff2'));
+    const fontBold = output.find(o => o.name?.endsWith('font-normal.woff2'));
+    const style = output.find(o => o.name?.endsWith('styles-with-fonts.css'));
+    // It has emitted the font
+    expect(fontBold).to.exist;
+    expect(fontNormal).to.exist;
+    // e.g. "font-normal-f0mNRiTD.woff2"
+    const regex = /assets\/font-normal-\w+\.woff2/;
+    // It outputs the font to the assets folder
+    expect(regex.test(fontNormal!.fileName)).to.equal(true);
+
+    // The source of the style includes the font
+    const source = (style as OutputAsset)?.source.toString();
+    expect(source.includes(fontNormal!.fileName));
+  });
+
+  it('handles fonts linked from css files in node_modules', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          bundleAssetsFromCss: true,
+          input: {
+            html: `
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./node_modules/foo/node_modules-styles-with-fonts.css" />
+                </head>
+                <body>
+                </body>
+              </html>
+            `,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles-node-modules'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    const font = output.find(o => o.name?.endsWith('font-normal.woff2'));
+    const style = output.find(o => o.name?.endsWith('node_modules-styles-with-fonts.css'));
+
+    // It has emitted the font
+    expect(font).to.exist;
+    // e.g. "font-normal-f0mNRiTD.woff2"
+    const regex = /assets\/font-normal-\w+\.woff2/;
+    // It outputs the font to the assets folder
+    expect(regex.test(font!.fileName)).to.equal(true);
+
+    // The source of the style includes the font
+    const source = (style as OutputAsset)?.source.toString();
+    expect(source.includes(font!.fileName));
+  });
+
+  it('handles duplicate fonts correctly', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          bundleAssetsFromCss: true,
+          input: {
+            html: `
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles-a.css" />
+                  <link rel="stylesheet" href="./styles-b.css" />
+                </head>
+                <body>
+                </body>
+              </html>
+            `,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles-duplicates'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    const fonts = output.filter(o => o.name?.endsWith('font-normal.woff2'));
+    expect(fonts.length).to.equal(1);
+  });
+
+  it('handles images referenced from css', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          bundleAssetsFromCss: true,
+          input: {
+            html: `
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles.css" />
+                </head>
+                <body>
+                </body>
+              </html>
+            `,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles-images'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(output.find(o => o.name?.endsWith('star.avif'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.gif'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.jpeg'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.jpg'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.png'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.svg'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.webp'))).to.exist;
+
+    const rewrittenCss = (output.find(o => o.name === 'styles.css') as OutputAsset).source
+      .toString()
+      .trim();
+    expect(rewrittenCss).to.equal(
+      `#a {
+  background-image: url("assets/star-mrrzn5BV.svg");
+}
+
+#b {
+  background-image: url("assets/star-mrrzn5BV.svg#foo");
+}
+
+#c {
+  background-image: url("assets/star-eErsO14u.png");
+}
+
+#d {
+  background-image: url("assets/star-yqfHyXQC.jpg");
+}
+
+#e {
+  background-image: url("assets/star-G_i5Rpoh.jpeg");
+}
+
+#f {
+  background-image: url("assets/star-l7b58t3m.webp");
+}
+
+#g {
+  background-image: url("assets/star-P4TYRBwL.gif");
+}
+
+#h {
+  background-image: url("assets/star-H06WHrYy.avif");
+}`.trim(),
+    );
+  });
 });
