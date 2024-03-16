@@ -50,9 +50,9 @@
     "@chialab/esbuild-plugin-commonjs": "^0.17.2",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/pluginutils": "^5.0.2",
-    "@storybook/core-common": "^7.0.0",
-    "@storybook/node-logger": "^7.0.0",
-    "@storybook/preview": "^7.0.0",
+    "@storybook/core-common": "^8.0.0",
+    "@storybook/node-logger": "^8.0.0",
+    "@storybook/preview": "^8.0.0",
     "@web/dev-server": "^0.4.0",
     "@web/dev-server-core": "^0.7.0",
     "@web/dev-server-rollup": "^0.6.1",
@@ -70,6 +70,6 @@
     "slash": "^5.1.0"
   },
   "devDependencies": {
-    "@storybook/types": "^7.0.0"
+    "@storybook/types": "^8.0.0"
   }
 }
