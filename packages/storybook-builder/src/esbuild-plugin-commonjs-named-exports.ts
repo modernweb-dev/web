@@ -19,7 +19,13 @@ export function esbuildPluginCommonjsNamedExports(module: string, namedExports: 
           contents: `
             import { default as commonjsExports } from '${module}?force-original';
             ${namedExports
-              .map(name => `export const ${name} = commonjsExports.${name};`)
+              .map(name => {
+                if (name === 'default') {
+                  return `export default commonjsExports;`;
+                } else {
+                  return `export const ${name} = commonjsExports.${name};`;
+                }
+              })
               .join('\n')}
           `,
         };

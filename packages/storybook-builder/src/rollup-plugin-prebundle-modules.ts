@@ -50,7 +50,7 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
           /* for @storybook/addon-docs */
           // tocbot can't be automatically transformed by @chialab/esbuild-plugin-commonjs
           // so we need a manual wrapper
-          esbuildPluginCommonjsNamedExports('tocbot', ['init', 'destroy']),
+          esbuildPluginCommonjsNamedExports('tocbot', ['default', 'init', 'destroy']),
 
           esbuildPluginCommonjs(),
         ],
