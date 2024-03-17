@@ -1,6 +1,6 @@
 ---
-'@web/storybook-builder': major
-'@web/storybook-framerwork-web-components': major
+'@web/storybook-builder': minor
+'@web/storybook-framerwork-web-components': minor
 ---
 
 Upgrade to Storybook 8
