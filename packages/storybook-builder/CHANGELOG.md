@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.8
+
+### Patch Changes
+
+- 331e6215: fix tocbot default import by @storybook/blocks
+
 ## 0.1.7
 
 ### Patch Changes
