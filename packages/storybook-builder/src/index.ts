@@ -142,8 +142,9 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
     plugins: [
       rollupPluginHTML({
         input: { html: await generateIframeHtml(options), name: 'iframe.html' },
-        // default assets behavior of the plugin breaks, sb-common-assets are shared between manager and preview and copied separately
-        extractAssets: false,
+        extractAssets: true,
+        bundleAssetsFromCss: true,
+        externalAssets: 'sb-common-assets/**',
       }),
       rollupPluginNodeResolve(),
       rollupPluginPrebundleModules(env),
