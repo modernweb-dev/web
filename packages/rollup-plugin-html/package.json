@@ -49,11 +49,11 @@
     "html-minifier-terser": "^7.1.0",
     "lightningcss": "^1.24.0",
     "parse5": "^6.0.1",
-    "picomatch": "^4.0.1"
+    "picomatch": "^2.2.2"
   },
   "devDependencies": {
     "@types/html-minifier-terser": "^7.0.0",
-    "rollup": "^4.4.0",
-    "@types/picomatch": "^2.3.3"
+    "@types/picomatch": "^2.2.1",
+    "rollup": "^4.4.0"
   }
 }
