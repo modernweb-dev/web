@@ -4,6 +4,7 @@ import { transform } from 'lightningcss';
 import fs from 'fs';
 
 import { InputAsset, InputData } from '../input/InputData';
+import { createAssetPicomatchMatcher } from '../assets/utils.js';
 import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions';
 
 export interface EmittedAssets {
@@ -81,6 +82,7 @@ export async function emitAssets(
 
       let ref: string;
       let basename = path.basename(asset.filePath);
+      const isExternal = createAssetPicomatchMatcher(options.externalAssets);
       const emittedExternalAssets = new Map();
       if (asset.hashed) {
         if (basename.endsWith('.css') && options.bundleAssetsFromCss) {
@@ -95,7 +97,7 @@ export async function emitAssets(
                 // https://www.w3.org/TR/html4/types.html#:~:text=ID%20and%20NAME%20tokens%20must,tokens%20defined%20by%20other%20attributes.
                 const [filePath, idRef] = url.url.split('#');
 
-                if (shouldHandleAsset(filePath)) {
+                if (shouldHandleAsset(filePath) && !isExternal(filePath)) {
                   // Read the asset file, get the asset from the source location on the FS using asset.filePath
                   const assetLocation = path.resolve(path.dirname(asset.filePath), filePath);
                   const assetContent = fs.readFileSync(assetLocation);
