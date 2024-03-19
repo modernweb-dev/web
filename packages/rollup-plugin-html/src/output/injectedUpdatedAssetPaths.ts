@@ -1,7 +1,6 @@
 import { getAttribute, setAttribute } from '@web/parse5-utils';
 import { Document } from 'parse5';
 import path from 'path';
-import picomatch from 'picomatch';
 
 import {
   findAssets,
@@ -9,6 +8,7 @@ import {
   getSourcePaths,
   isHashedAsset,
   resolveAssetFilePath,
+  createAssetPicomatchMatcher,
 } from '../assets/utils.js';
 import { InputData } from '../input/InputData.js';
 import { createError } from '../utils.js';
@@ -49,7 +49,7 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
     absolutePathPrefix,
   } = args;
   const assetNodes = findAssets(document);
-  const isExternal = picomatch(externalAssets || []);
+  const isExternal = createAssetPicomatchMatcher(externalAssets);
 
   for (const node of assetNodes) {
     const sourcePaths = getSourcePaths(node);

@@ -1,13 +1,13 @@
 import { Document, serialize } from 'parse5';
 import fs from 'fs';
 import path from 'path';
-import picomatch from 'picomatch';
 import { InputAsset } from '../InputData.js';
 import {
   findAssets,
   getSourcePaths,
   isHashedAsset,
   resolveAssetFilePath,
+  createAssetPicomatchMatcher,
 } from '../../assets/utils.js';
 
 export interface ExtractAssetsParams {
@@ -22,7 +22,7 @@ export interface ExtractAssetsParams {
 export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
   const assetNodes = findAssets(params.document);
   const allAssets: InputAsset[] = [];
-  const isExternal = picomatch(params.externalAssets || []);
+  const isExternal = createAssetPicomatchMatcher(params.externalAssets);
 
   for (const node of assetNodes) {
     const sourcePaths = getSourcePaths(node);
