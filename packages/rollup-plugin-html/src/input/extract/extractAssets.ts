@@ -22,11 +22,11 @@ export interface ExtractAssetsParams {
 export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
   const assetNodes = findAssets(params.document);
   const allAssets: InputAsset[] = [];
+  const isExternal = picomatch(params.externalAssets || []);
 
   for (const node of assetNodes) {
     const sourcePaths = getSourcePaths(node);
     for (const sourcePath of sourcePaths) {
-      const isExternal = picomatch(params.externalAssets || []);
       if (isExternal(sourcePath)) continue;
 
       const filePath = resolveAssetFilePath(

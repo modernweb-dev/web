@@ -49,11 +49,11 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
     absolutePathPrefix,
   } = args;
   const assetNodes = findAssets(document);
+  const isExternal = picomatch(externalAssets || []);
 
   for (const node of assetNodes) {
     const sourcePaths = getSourcePaths(node);
     for (const sourcePath of sourcePaths) {
-      const isExternal = picomatch(externalAssets || []);
       if (isExternal(sourcePath)) continue;
 
       const htmlFilePath = input.filePath ? input.filePath : path.join(rootDir, input.name);
