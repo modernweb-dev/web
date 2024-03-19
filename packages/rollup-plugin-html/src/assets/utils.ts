@@ -1,5 +1,6 @@
 import { Document, Element } from 'parse5';
 import path from 'path';
+import picomatch from 'picomatch';
 import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
 import { createError } from '../utils.js';
 import { serialize } from 'v8';
@@ -142,4 +143,12 @@ export function getSourcePaths(node: Element) {
 
 export function findAssets(document: Document) {
   return findElements(document, isAsset);
+}
+
+// picomatch follows glob spec and requires "./" to be removed for the matcher to work
+// it is safe, because with or without it resolves to the same file
+// read more: https://github.com/micromatch/picomatch/issues/77
+const removeLeadingSlash = (str: string) => (str.startsWith('./') ? str.slice(2) : str);
+export function createAssetPicomatchMatcher(glob?: string | string[]) {
+  return picomatch(glob || [], { format: removeLeadingSlash });
 }
