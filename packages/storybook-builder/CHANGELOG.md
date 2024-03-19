@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.9
+
+### Patch Changes
+
+- f29dbce3: bundle preview assets
+
 ## 0.1.8
 
 ### Patch Changes
