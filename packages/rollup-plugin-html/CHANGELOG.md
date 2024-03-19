@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 2.3.0
+
+### Minor Changes
+
+- 6207e413: glob patterns exclusion for external assets
+
 ## 2.2.1
 
 ### Patch Changes
