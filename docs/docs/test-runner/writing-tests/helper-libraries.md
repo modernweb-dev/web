@@ -18,7 +18,7 @@ expect(undefined).to.not.be.a('function');
 
 ## Chai plugins
 
-- [@open-wc/chai-dom-equals](https://www.npmjs.com/package/@open-wc/chai-dom-equals) for diffing HTML
+- [@open-wc/semantic-dom-diff](https://www.npmjs.com/package/@open-wc/semantic-dom-diff) for diffing HTML
 - [chai-a11y-axe](https://www.npmjs.com/package/chai-a11y-axe) for testing accessibility
 
 ## Testing helpers
