@@ -5,6 +5,7 @@ const config = {
     '@storybook/addon-essentials',
     '@storybook/addon-links',
     '@storybook/addon-interactions',
+    '@storybook/addon-a11y',
   ],
   framework: {
     name: '@web/storybook-framework-web-components',
