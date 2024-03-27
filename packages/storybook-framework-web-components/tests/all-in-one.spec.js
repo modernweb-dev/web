@@ -43,6 +43,10 @@ test.describe('all in one', () => {
     await expect(manager.toolbarItemByTitle('Apply outlines to the preview')).toBeVisible();
   });
 
+  test('renders @storybook/addon-a11y toolbar', async () => {
+    await expect(manager.toolbarItemByTitle('Vision simulator')).toBeVisible();
+  });
+
   test('renders @storybook/addon-controls panel', async () => {
     const panelButton = manager.panelButtonByText('Controls');
     await panelButton.click();
@@ -57,6 +61,12 @@ test.describe('all in one', () => {
 
   test('renders @storybook/addon-interactions panel', async () => {
     const panelButton = manager.panelButtonByText('Interactions');
+    await panelButton.click();
+    await expect(panelButton).toHaveClass(/tabbutton-active/);
+  });
+
+  test('renders @storybook/addon-a11y panel', async () => {
+    const panelButton = manager.panelButtonByText('Accessibility');
     await panelButton.click();
     await expect(panelButton).toHaveClass(/tabbutton-active/);
   });

@@ -93,6 +93,9 @@ export const CANDIDATES = [
   'react',
   'react-dom',
   'tocbot',
+
+  /* for @storybook/addon-a11y */
+  'axe-core',
 ];
 
 function getReactDomShimAlias() {
