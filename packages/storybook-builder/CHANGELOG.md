@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.10
+
+### Patch Changes
+
+- 1ef0c676: support @storybook/addon-a11y
+
 ## 0.1.9
 
 ### Patch Changes
