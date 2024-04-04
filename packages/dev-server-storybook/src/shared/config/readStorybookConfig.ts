@@ -70,7 +70,7 @@ export async function readStorybookConfig(
   }
 
   const mainJs = commonJsMainExists
-    ? validateMainJs((await import(commonJsMainPath)).default)
+    ? validateMainJs((await import(pathToFileURL(commonJsMainPath).href)).default)
     : validateMainJs((await import(pathToFileURL(mainJsPath).href)).default);
 
   return {
