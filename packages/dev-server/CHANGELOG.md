@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.4.4
+
+### Patch Changes
+
+- d2dbb7b1: fix: sb windows path
+
 ## 0.4.3
 
 ### Patch Changes
