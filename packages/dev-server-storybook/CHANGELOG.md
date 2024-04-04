@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 2.0.2
+
+### Patch Changes
+
+- d2dbb7b1: fix: sb windows path
+
 ## 2.0.1
 
 ### Patch Changes
