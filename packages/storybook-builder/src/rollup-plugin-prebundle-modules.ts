@@ -14,21 +14,20 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
     name: 'rollup-plugin-prebundle-modules',
 
     async buildStart() {
-      const esbuildPluginCommonjs = (await import('@chialab/esbuild-plugin-commonjs')).default; // for CJS compatibility
-
       const modules = CANDIDATES.filter(moduleExists);
 
       for (const module of modules) {
         modulePaths[module] = join(
           process.cwd(),
           PREBUNDLED_MODULES_DIR,
-          module.endsWith('.js') ? module : `${module}.js`,
+          module.endsWith('.js') ? module.replace(/\.js$/, '.mjs') : `${module}.mjs`,
         );
       }
 
       await build({
         entryPoints: modules,
         outdir: PREBUNDLED_MODULES_DIR,
+        outExtension: { '.js': '.mjs' },
         bundle: true,
         format: 'esm',
         splitting: true,
@@ -47,12 +46,15 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
           ...stringifyProcessEnvs(env),
         },
         plugins: [
-          /* for @storybook/addon-docs */
-          // tocbot can't be automatically transformed by @chialab/esbuild-plugin-commonjs
-          // so we need a manual wrapper
-          esbuildPluginCommonjsNamedExports('tocbot', ['default', 'init', 'destroy']),
-
-          esbuildPluginCommonjs(),
+          esbuildPluginCommonjsNamedExports(
+            modules.filter(
+              module =>
+                // lodash is solved by the lodash-es alias
+                !module.startsWith('lodash/') &&
+                // @storybook/react-dom-shim is just an alias to an ESM module
+                module !== '@storybook/react-dom-shim',
+            ),
+          ),
         ],
       });
     },
