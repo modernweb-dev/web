@@ -69,6 +69,7 @@
     "@storybook/addon-essentials": "^7.0.0",
     "@storybook/addon-interactions": "^7.0.0",
     "@storybook/addon-links": "^7.0.0",
+    "@storybook/blocks": "^7.0.0",
     "@storybook/types": "^7.0.0",
     "@web/dev-server": "^0.4.0",
     "storybook": "^7.0.0"

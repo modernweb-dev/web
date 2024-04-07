@@ -1,0 +1,15 @@
+import { Canvas, Meta } from '@storybook/blocks';
+
+import * as MyComponentStories from './my-component.stories.js';
+
+<Meta title="My page" />
+
+# My page header
+
+This is an MDX-based documentation page.
+
+## Story inside my page
+
+Below is a story rendered in MDX.
+
+<Canvas of={MyComponentStories.DefaultStory} />

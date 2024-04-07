@@ -33,7 +33,13 @@ async function toImportFn(stories: string[]) {
       logger.warn(`Cannot process ${ext} file with storyStoreV7: ${relativePath}`);
     }
 
-    return `  '${toImportPath(relativePath)}': () => import('${process.cwd()}/${relativePath}')`;
+    const importPath = toImportPath(relativePath);
+    let actualPath = `${process.cwd()}/${relativePath}`;
+    if (actualPath.endsWith('.mdx')) {
+      actualPath = `${actualPath}.js`;
+    }
+
+    return `  '${importPath}': () => import('${actualPath}')`;
   });
 
   return `

@@ -17,6 +17,7 @@ import rollupPluginExternalGlobals from 'rollup-plugin-external-globals';
 import { generateIframeHtml } from './generate-iframe-html.js';
 import { getNodeModuleDir } from './get-node-module-dir.js';
 import { readFileConfig } from './read-file-config.js';
+import { rollupPluginMdx } from './rollup-plugin-mdx.js';
 import {
   PREBUNDLED_MODULES_DIR,
   rollupPluginPrebundleModules,
@@ -24,6 +25,7 @@ import {
 import { rollupPluginStorybookBuilder } from './rollup-plugin-storybook-builder.js';
 
 const wdsPluginExternalGlobals = fromRollup(rollupPluginExternalGlobals);
+const wdsPluginMdx = fromRollup(rollupPluginMdx);
 const wdsPluginPrebundleModules = fromRollup(rollupPluginPrebundleModules);
 const wdsPluginStorybookBuilder = fromRollup(rollupPluginStorybookBuilder);
 
@@ -76,6 +78,7 @@ export const start: WdsBuilder['start'] = async ({ startTime, options, router, s
       },
       wdsPluginPrebundleModules(env),
       wdsPluginStorybookBuilder(options),
+      wdsPluginMdx(options),
       wdsPluginExternalGlobals(globalsNameReferenceMap || globals),
     ],
   };
@@ -149,6 +152,7 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
       rollupPluginNodeResolve(),
       rollupPluginPrebundleModules(env),
       rollupPluginStorybookBuilder(options),
+      rollupPluginMdx(options),
       rollupPluginExternalGlobals(globalsNameReferenceMap || globals),
     ],
   };

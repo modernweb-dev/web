@@ -50,6 +50,7 @@
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/pluginutils": "^5.0.2",
     "@storybook/core-common": "^7.0.0",
+    "@storybook/mdx2-csf": "^1.0.0",
     "@storybook/node-logger": "^7.0.0",
     "@storybook/preview": "^7.0.0",
     "@web/dev-server": "^0.4.0",
@@ -65,6 +66,8 @@
     "glob-promise": "^6.0.3",
     "lodash-es": "^4.17.21",
     "path-browserify": "^1.0.1",
+    "remark-external-links": "^8.0.0",
+    "remark-slug": "^6.0.0",
     "rollup": "^4.4.1",
     "rollup-plugin-external-globals": "^0.9.0",
     "slash": "^5.1.0"
