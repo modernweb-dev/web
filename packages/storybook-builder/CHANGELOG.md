@@ -1,5 +1,12 @@
 # @web/storybook-builder
 
+## 0.1.11
+
+### Patch Changes
+
+- c98a2798: simplify and speed up the CommonJS to ESM transformation
+  make React conditional reexports work in production
+
 ## 0.1.10
 
 ### Patch Changes
