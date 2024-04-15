@@ -42,9 +42,15 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
             '@storybook/react-dom-shim': getReactDomShimAlias(),
           }),
         },
-        define: {
-          ...stringifyProcessEnvs(env),
-        },
+        define: (() => {
+          const define = stringifyProcessEnvs(env);
+
+          // "NODE_PATH" pollutes the output, it's not used by prebundled modules and is not recommended in general
+          // see more https://github.com/nodejs/node/issues/38128#issuecomment-814969356
+          delete define['process.env.NODE_PATH'];
+
+          return define;
+        })(),
         plugins: [
           esbuildPluginCommonjsNamedExports(
             modules.filter(
