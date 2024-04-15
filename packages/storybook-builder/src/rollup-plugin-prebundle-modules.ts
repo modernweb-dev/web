@@ -1,5 +1,6 @@
 import { stringifyProcessEnvs } from '@storybook/core-common';
 import { build } from 'esbuild';
+import { remove } from 'fs-extra';
 import { join } from 'path';
 import type { Plugin } from 'rollup';
 import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-named-exports.js';
@@ -16,10 +17,12 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
     async buildStart() {
       const modules = CANDIDATES.filter(moduleExists);
 
+      const modulesDir = join(process.cwd(), PREBUNDLED_MODULES_DIR);
+      await remove(modulesDir);
+
       for (const module of modules) {
         modulePaths[module] = join(
-          process.cwd(),
-          PREBUNDLED_MODULES_DIR,
+          modulesDir,
           module.endsWith('.js') ? module.replace(/\.js$/, '.mjs') : `${module}.mjs`,
         );
       }
