@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.13
+
+### Patch Changes
+
+- a506c352: clean up `.prebundled_modules` before creating new bundles
+
 ## 0.1.12
 
 ### Patch Changes
