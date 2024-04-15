@@ -1,4 +1,4 @@
-/** @type { import('@web/storybook-framework-web-components').StorybookConfig } */
+/** @type { import('../../../../index.d.ts').StorybookConfig } */
 const config = {
   stories: ['../stories/**/*.stories.js'],
   addons: [
