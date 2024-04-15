@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.12
+
+### Patch Changes
+
+- 9118c648: clean up NODE_PATH from bundled modules output
+
 ## 0.1.11
 
 ### Patch Changes
