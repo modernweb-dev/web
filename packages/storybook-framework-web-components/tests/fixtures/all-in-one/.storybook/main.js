@@ -1,6 +1,6 @@
 /** @type { import('../../../../index.d.ts').StorybookConfig } */
 const config = {
-  stories: ['../stories/**/*.stories.js'],
+  stories: ['../stories/**/*.stories.js', '../stories/**/*.mdx'],
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-links',

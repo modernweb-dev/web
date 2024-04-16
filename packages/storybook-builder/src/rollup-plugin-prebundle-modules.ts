@@ -78,6 +78,12 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
 // builder-vite bundles different dependencies for performance reasons
 // we aim only at browserifying NodeJS dependencies (CommonJS/process.env/...)
 export const CANDIDATES = [
+  /* for different addons built with React and for MDX */
+  '@storybook/react-dom-shim', // needs special resolution
+  'react',
+  process.env.NODE_ENV === 'production' ? 'react/jsx-runtime' : 'react/jsx-dev-runtime',
+  'react-dom',
+
   /* for different packages */
   'tiny-invariant',
 
@@ -92,7 +98,6 @@ export const CANDIDATES = [
   '@testing-library/user-event',
 
   /* for @storybook/addon-docs */
-  '@storybook/react-dom-shim', // needs special resolution
   'color-convert',
   'doctrine',
   'lodash/cloneDeep.js',
@@ -101,8 +106,6 @@ export const CANDIDATES = [
   'lodash/throttle.js',
   'lodash/uniq.js',
   'memoizerific',
-  'react',
-  'react-dom',
   'tocbot',
 
   /* for @storybook/addon-a11y */
