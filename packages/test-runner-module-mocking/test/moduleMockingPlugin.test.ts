@@ -20,6 +20,17 @@ describe('moduleMockingPlugin', function test() {
     });
   });
 
+  it('can intercept server relative modules after previous test loaded them normally', async () => {
+    await runTests({
+      files: [
+        path.join(dirname, 'fixtures', 'bug-cache', 'browser-test-1.js'),
+        path.join(dirname, 'fixtures', 'bug-cache', 'browser-test-2.js'),
+      ],
+      browsers: [chromeLauncher()],
+      plugins: [moduleMockingPlugin(), nodeResolvePlugin('', false, {})],
+    });
+  });
+
   it('can intercept bare modules', async () => {
     const rootDir = path.resolve(dirname, 'fixtures', 'bare', 'fixture');
     // Define the bare module as duped to force nodeResolve to use the passed rootDir instead of the cwd
