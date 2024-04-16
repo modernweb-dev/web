@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.14
+
+### Patch Changes
+
+- e30da4a0: support MDX and autodocs
+
 ## 0.1.13
 
 ### Patch Changes
