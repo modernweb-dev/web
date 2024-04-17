@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.15
+
+### Patch Changes
+
+- 7b110644: fix providerImportSource extension when using @storybook/addon-essentials
+
 ## 0.1.14
 
 ### Patch Changes
