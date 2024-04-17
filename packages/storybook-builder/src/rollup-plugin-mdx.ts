@@ -1,6 +1,7 @@
 import { compile } from '@storybook/mdx2-csf';
 import type { Options } from '@storybook/types';
-import { readFile } from 'fs-extra';
+import { exists, readFile } from 'fs-extra';
+import { isAbsolute } from 'path';
 import remarkExternalLinks from 'remark-external-links';
 import remarkSlug from 'remark-slug';
 import type { Plugin } from 'rollup';
@@ -43,7 +44,16 @@ export function rollupPluginMdx(storybookOptions: Options): Plugin {
         jsxOptions,
       });
 
-      const jsCode = compile(mdxCode, {
+      // workaround for https://github.com/storybookjs/storybook/blob/v7.6.17/code/addons/essentials/src/docs/preset.ts#L10
+      const { providerImportSource } = mdxLoaderOptions.mdxCompileOptions;
+      if (isAbsolute(providerImportSource)) {
+        const providerImportSourceWithExt = providerImportSource + '.mjs';
+        if (await exists(providerImportSourceWithExt)) {
+          mdxLoaderOptions.mdxCompileOptions.providerImportSource = providerImportSourceWithExt;
+        }
+      }
+
+      const jsCode = await compile(mdxCode, {
         skipCsf: true,
         ...mdxLoaderOptions,
       });
