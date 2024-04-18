@@ -12,7 +12,7 @@ Install the package:
 npm i --save-dev @web/test-runner-browserstack
 ```
 
-Add the browser launcher to your `web-test-runner.confg.mjs`:
+Add the browser launcher to your `web-test-runner.config.mjs`:
 
 ```js
 import { browserstackLauncher } from '@web/test-runner-browserstack';

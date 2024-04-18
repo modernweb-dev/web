@@ -334,7 +334,7 @@ it('natively holds and then releases a key', async () => {
 
 ### Select option
 
-The `selectOption` command allows you to select an option in a `<select>` tag by either a single value, a label string or as multiple values, depending on the specific implementations of the browser laucher you're using. Once selected, the native `change` and `input` events are dispatched automatically. The `selectOption` command needs the CSS selector to locate the `<select>` by and the value, label, or values to select. The function is async and should be awaited.
+The `selectOption` command allows you to select an option in a `<select>` tag by either a single value, a label string or as multiple values, depending on the specific implementations of the browser launcher you're using. Once selected, the native `change` and `input` events are dispatched automatically. The `selectOption` command needs the CSS selector to locate the `<select>` by and the value, label, or values to select. The function is async and should be awaited.
 
 The three major launchers all have different support for selecting options, and the `selectOption` takes this into account.Attempting to select an option via a method that is not implemented in the provided launcher will produce errors. Each supported launcher's option selection support is documented below.
 

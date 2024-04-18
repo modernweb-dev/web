@@ -44,7 +44,7 @@ For your application code, we recommend using `preload` (or `modulepreload` when
 ```html
 <head>
   <link rel="preload" href="./app.js" />
-  <!-- for module scripts, add a corrs attribute -->
+  <!-- for module scripts, add a cors attribute -->
   <link rel="preload" href="./app.js" crossorigin="anonymous" />
 </head>
 ```
@@ -141,7 +141,7 @@ const config = {
 
 ## polyfills
 
-The polyfills config controls which polyills are injected onto the page. These are the possible polyfills:
+The polyfills config controls which polyfills are injected onto the page. These are the possible polyfills:
 
 - [coreJs](https://github.com/zloirock/core-js)
 - [regeneratorRuntime](https://github.com/facebook/regenerator/tree/master/packages/regenerator-runtime)

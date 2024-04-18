@@ -12,7 +12,7 @@ Install the package:
 npm i --save-dev @web/test-runner-saucelabs
 ```
 
-Add the browser launcher to your `web-test-runner.confg.mjs`. To set up a local proxy to sauce labs, you first need to create the browser launcher which will share a common connection between all browsers:
+Add the browser launcher to your `web-test-runner.config.mjs`. To set up a local proxy to sauce labs, you first need to create the browser launcher which will share a common connection between all browsers:
 
 ```js
 import { createSauceLabsLauncher } from '@web/test-runner-saucelabs';
