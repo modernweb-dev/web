@@ -90,17 +90,27 @@ http.get('/api/foo', ({ request, cookies, params }) => {
 - `cookies` an object based on the request cookies
 - `params` an object based on the request params
 
-## `@web/dev-server`/`@web/dev-server-storybook`
+## `@web/dev-server`/`@web/dev-server-storybook`/`@web/storybook-builder`
 
 `feature-a/web-dev-server.config.mjs`:
 
-```js
+```diff
++// for Storybook 7+ (@web/storybook-builder)
++// no need to do anything here
++// this file is not even needed for "@web/storybook-builder"
+
 import { storybookPlugin } from '@web/dev-server-storybook';
-import { mockPlugin } from '@web/mocks/plugins.js';
+
++// for Storybook 6 (@web/dev-server-storybook)
++import { mockPlugin } from '@web/mocks/plugins.js';
 
 export default {
   nodeResolve: true,
-  plugins: [mockPlugin(), storybookPlugin({ type: 'web-components' })],
+  plugins: [
++    // for Storybook 6 (@web/dev-server-storybook)
++    mockPlugin(),
+    storybookPlugin({ type: 'web-components' })
+  ],
 };
 ```
 
@@ -111,6 +121,10 @@ You can also add the `mockRollupPlugin` to your `.storybook/main.cjs` config for
 ```diff
 module.exports = {
   stories: ['../stories/**/*.stories.{js,md,mdx}'],
++  // for Storybook 7+ (@web/storybook-builder)
++  // no need to do anything here
+
++  // for Storybook 6 (@web/dev-server-storybook)
 +  rollupConfig: async config => {
 +    const { mockRollupPlugin } = await import('@web/mocks/plugins.js');
 +    config.plugins.push(mockRollupPlugin());
@@ -161,6 +175,26 @@ mockRollupPlugin({
 
 This can be used to avoid CORS issues when deploying your Storybooks.
 
+In the Storybook 7+ (@web/storybook-builder) you can achieve the same by using native Storybook API [previewHead](https://storybook.js.org/docs/api/main-config-preview-head):
+
+```js
+// .storybook/main.js
+/** @type { import('@web/storybook-framework-web-components').StorybookConfig } */
+const config = {
+  framework: {
+    name: '@web/storybook-framework-web-components',
+  },
+  // ...
+  previewHead(head) {
+    return `
+      ${process.env.NODE_ENV === 'production' ? `<script>${interceptor}</script>` : ''}
+      ${head}
+    `;
+  },
+};
+export default config;
+```
+
 </details>
 <br/>
 
@@ -170,9 +204,10 @@ And add the addon:
 ```diff
 module.exports = {
   stories: ['../stories/**/*.stories.{js,md,mdx}'],
-  // for Storybook 7 (@web/storybook-builder)
-+  addons: ['@web/mocks/storybook/addon/manager.js'],
-  // for Storybook 6 (@web/dev-server-storybook)
++  // for Storybook 7+ (@web/storybook-builder)
++  addons: ['@web/mocks/storybook-addon'],
+
++  // for Storybook 6 (@web/dev-server-storybook)
 +  addons: ['@web/mocks/storybook/addon.js'],
   rollupConfig: async config => {
     const { mockRollupPlugin } = await import('@web/mocks/plugins.js');
@@ -184,13 +219,13 @@ module.exports = {
 
 `feature-a/.storybook/preview.js`:
 
-```js
-// for Storybook 7 (@web/storybook-builder)
-import { withMocks } from '@web/mocks/storybook/addon/decorator.js';
-// for Storybook 6 (@web/dev-server-storybook)
-import { withMocks } from '@web/mocks/storybook/decorator.js';
+```diff
++// for Storybook 7+ (@web/storybook-builder)
++// no need to do anything here
 
-export const decorators = [withMocks];
++// for Storybook 6 (@web/dev-server-storybook)
++ import { withMocks } from '@web/mocks/storybook/decorator.js';
++ export const decorators = [withMocks];
 ```
 
 `feature-a/stories/default.stories.js`:
