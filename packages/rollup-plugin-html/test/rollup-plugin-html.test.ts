@@ -1073,6 +1073,7 @@ describe('rollup-plugin-html', () => {
     expect(fontBold).to.exist;
     expect(fontNormal).to.exist;
     // e.g. "font-normal-f0mNRiTD.woff2"
+    // eslint-disable-next-line no-useless-escape
     const regex = /assets[\/\\]font-normal-\w+\.woff2/;
     // It outputs the font to the assets folder
     expect(regex.test(fontNormal!.fileName)).to.equal(true);
@@ -1112,6 +1113,7 @@ describe('rollup-plugin-html', () => {
     // It has emitted the font
     expect(font).to.exist;
     // e.g. "font-normal-f0mNRiTD.woff2"
+    // eslint-disable-next-line no-useless-escape
     const regex = /assets[\/\\]font-normal-\w+\.woff2/;
     // It outputs the font to the assets folder
     expect(regex.test(font!.fileName)).to.equal(true);
