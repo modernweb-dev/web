@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 1.2.0
+
+### Minor Changes
+
+- 59d53861: improve addon setup for storybook-builder
+
 ## 1.1.2
 
 ### Patch Changes
