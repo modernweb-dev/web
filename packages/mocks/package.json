@@ -23,6 +23,9 @@
       "types": "./dist-types/browser.d.ts",
       "default": "./browser.js"
     },
+    "./storybook-addon/manager": "./storybook-addon/manager.js",
+    "./storybook-addon/preset": "./storybook-addon/preset.js",
+    "./storybook-addon/preview": "./storybook-addon/preview.js",
     "./storybook/addon/decorator.js": {
       "types": "./dist-types/storybook/addon/decorator.d.ts",
       "default": "./storybook/addon/decorator.js"
