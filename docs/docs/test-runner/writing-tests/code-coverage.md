@@ -35,7 +35,7 @@ Web Test Runner uses [`v8-to-istanbul`](https://github.com/istanbuljs/v8-to-ista
 /* c8 ignore next [line count] */
 ```
 
-This is somewhat different than other tools where you might have specifically targetted `if` / `else` branches of logic with an ignore statement. Particularly, V8 does not create phantom `else` statements when calculating coverage, so it is likely that you will be able to use less of these statements than in the past.
+This is somewhat different than other tools where you might have specifically targeted `if` / `else` branches of logic with an ignore statement. Particularly, V8 does not create phantom `else` statements when calculating coverage, so it is likely that you will be able to use less of these statements than in the past.
 
 In this way, you can skip the rest of a line:
 

@@ -242,7 +242,7 @@ export default {
 
 ### Minification
 
-Set the minify option to do default HTML minificiation. If you need custom options, you can implement your own minifier using the `transformHtml` option.
+Set the minify option to do default HTML minification. If you need custom options, you can implement your own minifier using the `transformHtml` option.
 
 ```js
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
