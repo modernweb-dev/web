@@ -72,6 +72,8 @@ export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig
             return path;
           } else if (path.startsWith('./')) {
             return path;
+          } else if (path.startsWith('http')) {
+            return path;
           } else if (path.startsWith('/')) {
             return '.' + path;
           } else {
