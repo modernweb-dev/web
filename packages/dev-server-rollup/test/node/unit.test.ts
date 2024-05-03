@@ -104,6 +104,46 @@ describe('@web/dev-server-rollup', () => {
     });
   });
 
+  it('files inside root directory imported by files inside or outside are resolved to be deduped in the browser', async () => {
+    const rootDir = path.resolve(
+      __dirname,
+      'fixtures',
+      'monorepo-import-inside-from-outside',
+      'src',
+      'packages',
+      'subpackage',
+    );
+    const { server, host } = await createTestServer({
+      rootDir,
+      plugins: [
+        fromRollup(() => {
+          return {
+            name: 'prebundle-modules',
+            async resolveId(source) {
+              if (source === 'react') {
+                return path.join(rootDir, 'node_modules', '.prebundled_modules', 'react.mjs');
+              }
+            },
+          };
+        })(),
+      ],
+    });
+
+    try {
+      const responseTextInside = await fetchText(`${host}/app.js`);
+      expectIncludes(responseTextInside, "import './node_modules/.prebundled_modules/react.mjs'");
+      const responseTextOutside = await fetchText(
+        `${host}/__wds-outside-root__/3/node_modules/storybook/index.js`,
+      );
+      expectIncludes(
+        responseTextOutside,
+        "import './../../../../node_modules/.prebundled_modules/react.mjs'",
+      );
+    } finally {
+      server.stop();
+    }
+  });
+
   describe('load', () => {
     it('can serve files', async () => {
       const plugin: RollupPlugin = {
