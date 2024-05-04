@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.6.2
+
+### Patch Changes
+
+- 8552a4a4: dedupe imports from outside root
+
 ## 0.6.1
 
 ### Patch Changes
