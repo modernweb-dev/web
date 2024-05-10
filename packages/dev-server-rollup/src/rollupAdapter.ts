@@ -253,8 +253,8 @@ export function rollupAdapter(
           // if the resolve import path is outside our normal root, fully resolve the file path for rollup
           const matches = resolvedImportPath.match(OUTSIDE_ROOT_REGEXP);
           if (matches) {
-            const upDirs = new Array(parseInt(matches[1], 10) + 1).join(`..${path.sep}`);
-            resolvedImportPath = `\0${path.resolve(`${upDirs}${matches[2]}`)}`;
+            const upDirs = new Array(parseInt(matches[1], 10)).fill('..');
+            resolvedImportPath = `\0${path.resolve(rootDir, ...upDirs, matches[2])}`;
           }
           const urlParam = encodeURIComponent(resolvedImportPath);
           return `${VIRTUAL_FILE_PREFIX}/${filename}?${NULL_BYTE_PARAM}=${urlParam}`;
