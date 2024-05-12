@@ -40,7 +40,8 @@ export function webSocketsPlugin(): Plugin {
         }
 
         export function stable (obj, replacer, spacer) {
-          var tmp = deterministicDecirc(obj, '', [], undefined) || obj
+          var target = structuredClone(obj)
+          var tmp = deterministicDecirc(target, '', [], undefined) || target
           var res
           if (replacerStack.length === 0) {
             res = JSON.stringify(tmp, replacer, spacer)
