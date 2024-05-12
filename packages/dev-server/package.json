@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "publishConfig": {
     "access": "public"
   },
@@ -58,7 +58,7 @@
     "@babel/code-frame": "^7.12.11",
     "@types/command-line-args": "^5.0.0",
     "@web/config-loader": "^0.3.0",
-    "@web/dev-server-core": "^0.7.1",
+    "@web/dev-server-core": "^0.7.2",
     "@web/dev-server-rollup": "^0.6.1",
     "camelcase": "^6.2.0",
     "command-line-args": "^5.1.1",

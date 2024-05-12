@@ -1,5 +1,11 @@
 # @web/dev-server-storybook
 
+## 2.0.3
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
 ## 2.0.2
 
 ### Patch Changes

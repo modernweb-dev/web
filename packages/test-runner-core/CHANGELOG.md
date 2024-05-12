@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.13.2
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
 ## 0.13.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.7.2
+
+### Patch Changes
+
+- 4a4b6995: Fix readonly object serialization
+
 ## 0.7.1
 
 ### Patch Changes
