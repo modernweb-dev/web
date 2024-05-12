@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.16
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
 ## 0.1.15
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.4.5
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
 ## 0.4.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.18.2
+
+### Patch Changes
+
+- 6a97a691: Unify visual-written representation of skipped tests.
+
 ## 0.18.1
 
 ### Patch Changes

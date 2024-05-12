@@ -1,5 +1,11 @@
 # @web/dev-server-legacy
 
+## 2.1.1
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
 ## 2.1.0
 
 ### Minor Changes

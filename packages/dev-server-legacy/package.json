@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-legacy",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "publishConfig": {
     "access": "public"
   },
@@ -59,7 +59,7 @@
     "@babel/plugin-transform-modules-systemjs": "^7.12.1",
     "@babel/plugin-transform-template-literals": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
-    "@web/dev-server-core": "^0.7.0",
+    "@web/dev-server-core": "^0.7.2",
     "@web/polyfills-loader": "^2.2.0",
     "browserslist": "^4.16.0",
     "browserslist-useragent": "^4.0.0",
