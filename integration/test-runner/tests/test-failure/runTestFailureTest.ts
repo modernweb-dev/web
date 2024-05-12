@@ -208,5 +208,17 @@ export function runTestFailureTest(
         expect(session.errors).to.eql([ERROR_NOT_IMPORTABLE]);
       }
     });
+
+    it('handles tests that error with a readonly actual', () => {
+      const sessions = allSessions.filter(s => s.testFile.endsWith('fail-readonly-actual.test.js'));
+      expect(sessions.length === browserCount).to.equal(true);
+      for (const session of sessions) {
+        expect(session.testResults!.tests.map(t => t.name)).to.eql(['readonly actual']);
+        expect(session.passed).to.be.false;
+        expect(session.testResults!.tests![0].error!.message).to.equal(
+          'expected { x: {} } to equal null',
+        );
+      }
+    });
   });
 }
