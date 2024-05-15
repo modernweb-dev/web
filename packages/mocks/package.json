@@ -75,6 +75,12 @@
     "@web/dev-server": "^0.4.0",
     "@web/dev-server-storybook": "^2.0.0"
   },
+  "imports": {
+    "#sw-path": {
+      "development": "./sw-path/dev.js",
+      "default": "./sw-path/build.js"
+    }
+  },
   "wireit": {
     "types": {
       "command": "tsc --build --pretty",
