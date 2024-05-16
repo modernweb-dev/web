@@ -1,5 +1,11 @@
 # @web/storybook-framework-web-components
 
+## 0.1.2
+
+### Patch Changes
+
+- 589bad6c: watch code changes and auto-reload by default
+
 ## 0.1.1
 
 ### Patch Changes
