@@ -27,9 +27,6 @@ jobs:
       - name: Symlink built packages binaries (e.g. "wds")
         run: npm ci
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
       - name: Run tests
         run: npm run test:storybook-builder
 
@@ -63,9 +60,6 @@ jobs:
 
       - name: Symlink built packages binaries (e.g. "wds")
         run: npm ci
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
 
       - name: Run tests
         run: npm run test:storybook-builder
