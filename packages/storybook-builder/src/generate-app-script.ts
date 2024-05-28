@@ -23,7 +23,7 @@ export async function generateAppScript(options: Options) {
   const getPreviewAnnotationsFunction = `
 const getProjectAnnotations = async () => {
   const configs = await Promise.all([
-${previewAnnotationURLs.map(previewAnnotation => `    import('${previewAnnotation}')`).join(',\n')}
+${previewAnnotationURLs.map(previewAnnotation => `    import('${previewAnnotation.replace(/\\/g, '/')}')`).join(',\n')}
   ]);
   return composeConfigs(configs);
 }

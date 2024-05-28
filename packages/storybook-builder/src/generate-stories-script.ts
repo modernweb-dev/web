@@ -39,7 +39,7 @@ async function toImportFn(stories: string[]) {
     }
 
     const importPath = toImportPath(relativePath);
-    let actualPath = path.join(process.cwd(), relativePath);
+    let actualPath = path.join(process.cwd(), relativePath).replace(/\\/g, '/');
     if (actualPath.endsWith('.mdx')) {
       actualPath = `${actualPath}.js`;
     }
