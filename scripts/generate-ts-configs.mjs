@@ -12,7 +12,9 @@ const packagesRoot = path.join(__dirname, '..', 'packages');
 const packageJSONMap = new Map();
 const packageDirnameMap = new Map();
 const internalDependencyMap = new Map();
-
+const internalDependencyMap = new Map();
+const internalDependencyMap = new Map();
+const internalDependencyMap = new Map(); const internalDependencyMap = new Map();
 // collect package json for all packages
 packages.forEach(pkg => {
   const packageJSONPath = path.join(packagesRoot, pkg.name, 'package.json');
