@@ -87,7 +87,7 @@ export function registerAddon(addons, React, createAddon) {
             <table class=${this.editing ? 'editing' : ''}>
               <thead>
                 <tr>
-                  <th>Overridde</th>
+                  <th>Override</th>
                   <th>Method</th>
                   <th>Endpoint</th>
                   ${when(
