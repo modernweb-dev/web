@@ -188,8 +188,10 @@ export async function parseConfig(
       // we can improve this by relying only on groups inside the test runner itself
       if (groupConfig.files == null) {
         groupConfig.files = finalConfig.files;
+        groupConfig.allowPassWithoutTests = finalConfig.allowPassWithoutTests;
       }
       finalConfig.files = undefined;
+      finalConfig.allowPassWithoutTests = undefined;
 
       groupConfigs = [groupConfig];
     }

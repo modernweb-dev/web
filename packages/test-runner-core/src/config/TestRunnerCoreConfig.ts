@@ -27,6 +27,7 @@ export interface CoverageConfig {
 export interface TestRunnerCoreConfig {
   rootDir: string;
   files?: string | string[];
+  allowPassWithoutTests?: boolean;
   concurrentBrowsers: number;
   concurrency: number;
 
