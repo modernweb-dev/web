@@ -114,6 +114,8 @@ interface TestRunnerGroupConfig {
   name: string;
   // globs of files to test in this group, if unset it will be inherited from the main config
   files?: string | string[];
+  // allow tests to pass even if there are no test files found
+  allowPassWithoutTests?: boolean;
   // browsers to test in this group, if unset it will be inherited from the main config
   browsers?: BrowserLauncher[];
   // HTML used for running HTML tests for this group
@@ -127,6 +129,8 @@ interface TestRunnerGroupConfig {
 interface TestRunnerConfig {
   // globs of files to test
   files: string | string[];
+  // allow tests to pass even if there are no test files found
+  allowPassWithoutTests?: boolean;
   // test group configs, can be an array of configs or a string or string array of glob patterns
   // which specify where to find the configs
   groups?: string | string[] | TestRunnerGroupConfig[];
