@@ -1,11 +1,13 @@
 import type { Plugin } from 'esbuild';
 import { readFile } from 'fs-extra';
-import { dirname } from 'path';
+import { dirname, relative } from 'path';
 
 export function esbuildPluginCommonjsNamedExports(modules: string[]): Plugin {
   return {
     name: 'commonjs-named-exports',
     async setup(build) {
+      const slash = (await import('slash')).default;
+
       const { init, parse } = await import('cjs-module-lexer');
       await init();
 
@@ -56,7 +58,9 @@ export function esbuildPluginCommonjsNamedExports(modules: string[]): Plugin {
 
         return {
           resolveDir,
-          contents: `export { ${finalExports.join(',')} } from '${resolvedPath}';`,
+          contents: `export { ${finalExports.join(',')} } from '${slash(
+            relative(resolveDir, resolvedPath),
+          )}';`,
         };
       });
 

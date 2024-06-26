@@ -21,7 +21,7 @@ const config = {
         }
 
         // ignore warning about eval in telejson
-        if (log.code === 'EVAL' && log.id?.includes('node_modules/telejson')) {
+        if (log.code === 'EVAL' && log.id?.replace(/\\/g, '/')?.includes('node_modules/telejson')) {
           defaultHandler('warn', log);
           return;
         }

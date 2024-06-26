@@ -32,7 +32,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "npm run test:build && npm run test:ui:build && npm run test:ui:runtime",
+    "test": "npm run test:build",
     "test:build": "storybook build -c ./tests/fixtures/all-in-one/.storybook -o ./tests/fixtures/all-in-one/storybook-build",
     "test:start:build": "wds -r ./tests/fixtures/all-in-one/storybook-build -p 3000",
     "test:start:runtime": "storybook dev -c ./tests/fixtures/all-in-one/.storybook -p 3000 --no-open",

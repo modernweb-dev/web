@@ -1,12 +1,13 @@
 import { stringifyProcessEnvs } from '@storybook/core-common';
 import { build } from 'esbuild';
 import { remove } from 'fs-extra';
-import { join } from 'path';
+import { join, normalize } from 'path';
 import type { Plugin } from 'rollup';
 import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-named-exports.js';
 import { getNodeModuleDir } from './get-node-module-dir.js';
 
-export const PREBUNDLED_MODULES_DIR = 'node_modules/.prebundled_modules';
+export const PREBUNDLED_MODULES_DIR = normalize('node_modules/.prebundled_modules');
+console.log('PREBUNDLED_MODULES_DIR', PREBUNDLED_MODULES_DIR);
 
 export function rollupPluginPrebundleModules(env: Record<string, string>): Plugin {
   const modulePaths: Record<string, string> = {};
