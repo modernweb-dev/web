@@ -4,7 +4,7 @@ import SaucelabsAPI, {
   SauceConnectOptions,
   SauceConnectInstance,
 } from 'saucelabs';
-import ip from 'ip';
+import internalIp from 'internal-ip';
 
 /**
  * Wraps a Promise with a timeout, rejecing the promise with the timeout.
@@ -53,7 +53,7 @@ export class SauceLabsLauncherManager {
     this.connectionPromise = withTimeout(
       this.api.startSauceConnect({
         ...this.connectOptions,
-        noSslBumpDomains: `127.0.0.1,localhost,${ip.address()}`,
+        noSslBumpDomains: `127.0.0.1,localhost,${internalIp.v4.sync()}`,
       }),
       '[Saucelabs] Timed out setting up Sauce Connect proxy after 5 minutes.',
     );

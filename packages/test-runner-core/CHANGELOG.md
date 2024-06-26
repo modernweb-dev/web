@@ -1,5 +1,11 @@
 # @web/test-runner-core
 
+## 0.13.3
+
+### Patch Changes
+
+- 39ff6ffb: replace ip dependency due to security bug CVE-2024-29415
+
 ## 0.13.2
 
 ### Patch Changes
