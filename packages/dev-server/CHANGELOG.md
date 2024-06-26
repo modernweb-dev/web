@@ -1,5 +1,11 @@
 # @web/dev-server
 
+## 0.4.6
+
+### Patch Changes
+
+- 39ff6ffb: replace ip dependency due to security bug CVE-2024-29415
+
 ## 0.4.5
 
 ### Patch Changes
