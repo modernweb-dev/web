@@ -1,5 +1,11 @@
 # @web/dev-server-rollup
 
+## 0.6.4
+
+### Patch Changes
+
+- 2031b9e9: Bumping the version of whatwg-url in order to resolve an issue with a dependency.
+
 ## 0.6.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-rollup",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "publishConfig": {
     "access": "public"
   },
@@ -53,7 +53,7 @@
     "nanocolors": "^0.2.1",
     "parse5": "^6.0.1",
     "rollup": "^4.4.0",
-    "whatwg-url": "^11.0.0"
+    "whatwg-url": "^14.0.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-template-literals": "^7.12.1",
