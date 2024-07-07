@@ -255,7 +255,7 @@ describe('parse5-utils', () => {
 
       const found = utils.findElement(doc, el => utils.getAttribute(el, 'id') === 'foo');
       if (!found) {
-        throw new Error('No elemen found.');
+        throw new Error('No element found.');
       }
       expect(found).to.exist;
     });
