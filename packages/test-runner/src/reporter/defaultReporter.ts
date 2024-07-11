@@ -4,6 +4,7 @@ import { reportTestFileResults } from './reportTestFileResults.js';
 import { getTestProgressReport } from './getTestProgress.js';
 
 export interface DefaultReporterArgs {
+  reportResultsAtEnd?: boolean;
   reportTestResults?: boolean;
   reportTestProgress?: boolean;
 }
@@ -16,6 +17,7 @@ function isBufferedLogger(logger: Logger): logger is BufferedLogger {
 }
 
 export function defaultReporter({
+  reportResultsAtEnd = false,
   reportTestResults = true,
   reportTestProgress = true,
 }: DefaultReporterArgs = {}): Reporter {
@@ -51,8 +53,15 @@ export function defaultReporter({
     },
 
     getTestProgress({ testRun, focusedTestFile, testCoverage }) {
-      if (!reportTestProgress) {
+      if (!reportTestProgress && !reportResultsAtEnd) {
         return [];
+      }
+
+      if (reportResultsAtEnd) {
+        const atEnd = sessions.every(session => session.status === 'FINISHED');
+        if (!atEnd) {
+          return [];
+        }
       }
 
       return getTestProgressReport(args.config, {
