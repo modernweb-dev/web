@@ -52,7 +52,7 @@ export function defaultReporter({
       );
     },
 
-    getTestProgress({ testRun, focusedTestFile, testCoverage }) {
+    getTestProgress({ sessions, testRun, focusedTestFile, testCoverage }) {
       if (!reportTestProgress && !reportResultsAtEnd) {
         return [];
       }
