@@ -221,7 +221,8 @@ For example to expose the global `process` variable:
 ```js
 export default {
   testRunnerHtml: testFramework =>
-    `<html>
+    `<!DOCTYPE html>
+    <html>
       <body>
         <script>window.process = { env: { NODE_ENV: "development" } }</script>
         <script type="module" src="${testFramework}"></script>
@@ -322,7 +323,8 @@ export default {
     {
       name: 'polyfills-a',
       testRunnerHtml: testFramework =>
-        `<html>
+        `<!DOCTYPE html>
+        <html>
           <body>
             <script src="./polyfills-a.js"></script>
             <script type="module" src="${testFramework}"></script>
@@ -332,7 +334,8 @@ export default {
     {
       name: 'polyfills-b',
       testRunnerHtml: testFramework =>
-        `<html>
+        `<!DOCTYPE html>
+        <html>
           <body>
             <script src="./polyfills-b.js"></script>
             <script type="module" src="${testFramework}"></script>
