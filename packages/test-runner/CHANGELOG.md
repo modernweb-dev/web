@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.18.3
+
+### Patch Changes
+
+- 6914f3b6: Show suites names for `summaryReporter` when `flatten` option is true
+
 ## 0.18.2
 
 ### Patch Changes
