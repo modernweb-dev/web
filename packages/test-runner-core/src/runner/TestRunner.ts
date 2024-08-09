@@ -128,6 +128,7 @@ export class TestRunner extends EventEmitter<EventMap> {
     this.pendingSessions.clear();
 
     if (sessionsToRun.length === 0) {
+      this.stop();
       return;
     }
 
