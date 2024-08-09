@@ -51,7 +51,14 @@ export function summaryReporter(opts: Options): Reporter {
   ) {
     const browserName = browser?.name ? ` ${dim(`[${browser.name}]`)}` : '';
     for (const result of results?.tests ?? []) {
-      log(logger, result.name, result.passed, result.skipped, prefix, browserName);
+      log(
+        logger,
+        flatten ? `${prefix ?? ''} ${result.name}` : result.name,
+        result.passed,
+        result.skipped,
+        prefix,
+        browserName,
+      );
     }
 
     for (const suite of results?.suites ?? []) {
