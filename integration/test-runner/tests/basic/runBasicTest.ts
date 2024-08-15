@@ -11,6 +11,37 @@ export function runBasicTest(
     const browserCount = config.browsers.length;
     let allSessions: TestSession[];
 
+    describe('coverage', () => {
+      before(async () => {
+        const result = await runTests({
+          ...config,
+          coverageConfig: {
+            nativeInstrumentation: false,
+          },
+          files: [...(config.files ?? []), resolve(__dirname, 'browser-tests', 'coverage.test.js')],
+          plugins: [...(config.plugins ?? []), legacyPlugin()],
+        });
+        allSessions = result.sessions;
+
+        expect(allSessions.every(s => s.passed)).to.equal(true, 'All sessions should have passed');
+      });
+
+      it('passes coverage test', () => {
+        const sessions = allSessions.filter(s => s.testFile.endsWith('coverage.test.js'));
+        expect(sessions.length === browserCount).to.equal(
+          true,
+          'Each browser should run coverage.test.js',
+        );
+        for (const session of sessions) {
+          expect(session.testCoverage).to.equal('something');
+          expect(session.testResults!.tests.length).to.equal(0);
+          expect(session.testResults!.suites.length).to.equal(1);
+          expect(session.testResults!.suites[0].tests.length).to.equal(1);
+          expect(session.testResults!.suites[0].tests.map(t => t.name)).to.eql(['works']);
+        }
+      });
+    });
+
     before(async () => {
       const result = await runTests({
         ...config,
