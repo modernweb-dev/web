@@ -88,17 +88,23 @@ test.describe('all in one', () => {
       await sbPage.waitUntilLoaded();
 
       await expect(page).toHaveTitle(/^My page - Docs/);
-      await expect(sbPage.docParent().locator('h1')).toContainText('My page header');
+      await expect(sbPage.docParent().locator('h1').nth(0)).toContainText('My page header');
       await expect(
         sbPage.docParent().getByText('This is an MDX-based documentation page.'),
       ).toBeAttached();
-      await expect(sbPage.docParent().locator('h2')).toContainText('Story inside my page');
+      await expect(sbPage.docParent().locator('h2').nth(0)).toContainText('Story inside my page');
       await expect(
         sbPage.docParent().getByText('Below is a story rendered in MDX.'),
       ).toBeAttached();
       expect(await sbPage.docParent().locator('#root-inner').innerHTML()).toContain(
         '<div>My component works</div>',
       );
+      await expect(sbPage.docParent().locator('h2').nth(1)).toContainText('MDXFileLoader');
+      await expect(
+        sbPage.docParent().getByText('Below is a content loaded from a separate Markdown file.'),
+      ).toBeAttached();
+      await expect(sbPage.docParent().locator('h1').nth(1)).toContainText('My readme');
+      await expect(sbPage.docParent().getByText('My readme works.')).toBeAttached();
     });
 
     test('renders autodocs page', async ({ page }) => {
