@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha test/**/*.test.js --reporter dot",
+    "test:node": "mocha test/**/*.test.js --reporter dot --no-experimental-detect-module",
     "test:watch": "mocha test/**/*.test.js --watch --watch-files .,src,test --reporter dot"
   },
   "files": [
