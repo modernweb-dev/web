@@ -16,7 +16,7 @@ declare global {
 export class ChromeLauncherPage {
   private config: TestRunnerCoreConfig;
   private testFiles: string[];
-  private product: string;
+  private browser: string;
   public puppeteerPage: Page;
   private nativeInstrumentationEnabledOnPage = false;
   private patchAdded = false;
@@ -30,7 +30,7 @@ export class ChromeLauncherPage {
   ) {
     this.config = config;
     this.testFiles = testFiles;
-    this.product = product;
+    this.browser = product;
     this.puppeteerPage = puppeteerPage;
   }
 
@@ -38,7 +38,7 @@ export class ChromeLauncherPage {
     if (
       coverage &&
       this.config.coverageConfig?.nativeInstrumentation !== false &&
-      this.product === 'chromium'
+      this.browser === 'chromium'
     ) {
       if (this.nativeInstrumentationEnabledOnPage) {
         await this.puppeteerPage.coverage.stopJSCoverage();

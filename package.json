@@ -19,7 +19,7 @@
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint --ext .ts,.js,.mjs,.cjs . --fix",
     "format:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
-    "install-puppeteer-firefox": "cd node_modules/puppeteer && PUPPETEER_PRODUCT=firefox node install.js",
+    "install-puppeteer-firefox": "cd node_modules/puppeteer && PUPPETEER_BROWSER=firefox node install.js",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --ext .ts,.js,.mjs,.cjs .",
     "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
