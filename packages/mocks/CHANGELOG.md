@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 1.2.3
+
+### Patch Changes
+
+- 0568abd3: Pin msw version because it broke again
+
 ## 1.2.2
 
 ### Patch Changes
