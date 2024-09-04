@@ -1,4 +1,4 @@
-import { http } from 'msw';
+import { http } from 'msw/core/http';
 
 const SUPPORTED_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'options', 'head'];
 
