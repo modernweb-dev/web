@@ -1,5 +1,11 @@
 # @web/test-runner-saucelabs
 
+## 0.11.2
+
+### Patch Changes
+
+- 39ff6ffb: replace ip dependency due to security bug CVE-2024-29415
+
 ## 0.11.1
 
 ### Patch Changes

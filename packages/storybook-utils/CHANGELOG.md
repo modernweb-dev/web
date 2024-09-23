@@ -1,5 +1,12 @@
 # @web/storybook-utils
 
+## 1.0.2
+
+### Patch Changes
+
+- 4b262dbd: add MDXFileLoader to load and render non-JS files in MDX
+- 0323441a: fix exports
+
 ## 1.0.1
 
 ### Patch Changes

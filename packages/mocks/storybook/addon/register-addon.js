@@ -18,16 +18,22 @@ export function registerAddon(addons, React, createAddon) {
     static styles = css`
       table {
         width: 100%;
+        margin-bottom: 10px;
         border-collapse: collapse;
       }
 
+      tr {
+        border-bottom: 1px solid hsla(203, 50%, 30%, 0.2);
+      }
+
       thead {
-        background-color: #f2f2f2;
+        background-color: hsla(203, 50%, 30%, 0.1);
       }
 
       tr th:first-child {
         width: 9ch;
       }
+
       tr th:nth-child(2) {
         width: 9ch;
       }
@@ -37,13 +43,14 @@ export function registerAddon(addons, React, createAddon) {
         text-align: left;
       }
 
-      tbody tr:nth-child(0) {
-        background-color: #e8e8e8;
-      }
-
       tbody td {
         padding: 10px;
-        border-top: 1px solid #ddd;
+      }
+
+      .message {
+        padding: 30px;
+        text-align: center;
+        font-weight: bold;
       }
     `;
 
@@ -67,11 +74,11 @@ export function registerAddon(addons, React, createAddon) {
 
     render() {
       if (this.state === 'PENDING') {
-        return html`Loading...`;
+        return html`<div class="message">Loading...</div>`;
       }
 
       if (!this.mocks.length) {
-        return html`No mocks configured.`;
+        return html`<div class="message">No mocks configured.</div>`;
       }
 
       return html`
@@ -80,7 +87,7 @@ export function registerAddon(addons, React, createAddon) {
             <table class=${this.editing ? 'editing' : ''}>
               <thead>
                 <tr>
-                  <th>Overridde</th>
+                  <th>Override</th>
                   <th>Method</th>
                   <th>Endpoint</th>
                   ${when(

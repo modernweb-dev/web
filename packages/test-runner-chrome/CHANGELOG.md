@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.17.0
+
+### Minor Changes
+
+- b546e8b5: Upgrade puppeteer-core and puppeteer to v23
+
 ## 0.16.0
 
 ### Minor Changes

@@ -1,3 +1,5 @@
+import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
+
 /** @type { import('../../../../index.d.ts').StorybookConfig } */
 const config = {
   stories: ['../stories/**/*.stories.js', '../stories/**/*.mdx'],
@@ -13,6 +15,7 @@ const config = {
   rollupFinal(config) {
     return {
       ...config,
+      plugins: [...config.plugins, importMetaAssets()],
       onLog(level, log, defaultHandler) {
         // we are only interested in warnings
         if (level !== 'warn') {

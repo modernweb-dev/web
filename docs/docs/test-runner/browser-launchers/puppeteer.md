@@ -124,7 +124,7 @@ Testing Firefox with Puppeteer is still experimental. There is currently no offi
 ```json
 {
   "scripts": {
-    "postinstall": "cd node_modules/puppeteer && PUPPETEER_PRODUCT=firefox node install.js"
+    "postinstall": "cd node_modules/puppeteer && PUPPETEER_BROWSER=firefox node install.js"
   }
 }
 ```
