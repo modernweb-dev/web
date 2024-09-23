@@ -4,7 +4,6 @@ import { normalizePath } from '@rollup/pluginutils';
 import { logger } from '@storybook/node-logger';
 import type { Options } from '@storybook/types';
 import * as path from 'path';
-import { pathToFileURL } from 'url';
 import { listStories } from './list-stories.js';
 
 /**
@@ -16,11 +15,7 @@ export async function generateStoriesScript(options: Options) {
   const stories = await listStories(options);
 
   // We can then call toImportFn to create a function that can be used to load each story dynamically.
-  const code = (await toImportFn(stories)).trim();
-
-  console.log('generateStoriesScript', code);
-
-  return code;
+  return (await toImportFn(stories)).trim();
 }
 
 /**

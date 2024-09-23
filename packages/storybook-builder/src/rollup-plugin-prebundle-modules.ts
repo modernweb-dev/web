@@ -7,7 +7,6 @@ import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-nam
 import { getNodeModuleDir } from './get-node-module-dir.js';
 
 export const PREBUNDLED_MODULES_DIR = normalize('node_modules/.prebundled_modules');
-console.log('PREBUNDLED_MODULES_DIR', PREBUNDLED_MODULES_DIR);
 
 export function rollupPluginPrebundleModules(env: Record<string, string>): Plugin {
   const modulePaths: Record<string, string> = {};
