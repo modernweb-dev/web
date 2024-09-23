@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.17
+
+### Patch Changes
+
+- c0fefb04: fix storybook-builder on Windows
+
 ## 0.1.16
 
 ### Patch Changes
