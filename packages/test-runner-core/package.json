@@ -61,7 +61,7 @@
     "@types/istanbul-reports": "^3.0.0",
     "@web/browser-logs": "^0.4.0",
     "@web/dev-server-core": "^0.7.2",
-    "chokidar": "^3.4.3",
+    "chokidar": "^4.0.1",
     "cli-cursor": "^3.1.0",
     "co-body": "^6.1.0",
     "convert-source-map": "^2.0.0",
