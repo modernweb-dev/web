@@ -1,7 +1,7 @@
 import { compile } from '@storybook/mdx2-csf';
 import type { Options } from '@storybook/types';
 import { exists, readFile } from 'fs-extra';
-import { isAbsolute } from 'path';
+import { isAbsolute, sep } from 'path';
 import remarkExternalLinks from 'remark-external-links';
 import remarkSlug from 'remark-slug';
 import type { Plugin } from 'rollup';
@@ -30,7 +30,7 @@ export function rollupPluginMdx(storybookOptions: Options): Plugin {
       if (!id.endsWith('.mdx.js')) return;
 
       const mdxPath = id.replace(/\.js$/, '');
-      const mdxCode = await readFile(mdxPath, 'utf8');
+      const mdxCode = await readFile(mdxPath.split('/').join(sep), 'utf8');
 
       const mdxLoaderOptions = await storybookOptions.presets.apply('mdxLoaderOptions', {
         ...mdxPluginOptions,
