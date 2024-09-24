@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.18
+
+### Patch Changes
+
+- 75747976: fix relative path by starting with ./
+
 ## 0.1.17
 
 ### Patch Changes
