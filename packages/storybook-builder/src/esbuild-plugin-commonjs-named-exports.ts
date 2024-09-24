@@ -58,7 +58,7 @@ export function esbuildPluginCommonjsNamedExports(modules: string[]): Plugin {
 
         return {
           resolveDir,
-          contents: `export { ${finalExports.join(',')} } from '${slash(
+          contents: `export { ${finalExports.join(',')} } from './${slash(
             relative(resolveDir, resolvedPath),
           )}';`,
         };
