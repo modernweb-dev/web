@@ -1,7 +1,7 @@
 import { Middleware } from 'koa';
 import { Plugin } from '../plugins/Plugin';
 import { Server } from 'net';
-import chokidar from 'chokidar';
+import type { ChokidarOptions } from 'chokidar';
 
 export type MimeTypeMappings = Record<string, string>;
 
@@ -72,5 +72,5 @@ export interface DevServerCoreConfig {
   /**
    * Additional options you want to provide to chokidar file watcher
    */
-  chokidarOptions?: chokidar.WatchOptions;
+  chokidarOptions?: ChokidarOptions;
 }
