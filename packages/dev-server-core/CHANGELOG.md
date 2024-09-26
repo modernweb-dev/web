@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.7.3
+
+### Patch Changes
+
+- 3aec4aa6: bump chokidar to v4
+
 ## 0.7.2
 
 ### Patch Changes
