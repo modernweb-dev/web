@@ -53,6 +53,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
       outputDir,
       rootDir,
       emittedAssets,
+      externalAssets: pluginOptions.externalAssets,
       absolutePathPrefix,
       publicPath: pluginOptions.publicPath,
     });

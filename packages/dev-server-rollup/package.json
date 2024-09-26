@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-rollup",
-  "version": "0.6.1",
+  "version": "0.6.4",
   "publishConfig": {
     "access": "public"
   },
@@ -49,11 +49,11 @@
   ],
   "dependencies": {
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@web/dev-server-core": "^0.7.0",
+    "@web/dev-server-core": "^0.7.2",
     "nanocolors": "^0.2.1",
     "parse5": "^6.0.1",
     "rollup": "^4.4.0",
-    "whatwg-url": "^11.0.0"
+    "whatwg-url": "^14.0.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-template-literals": "^7.12.1",
@@ -63,7 +63,7 @@
     "@rollup/plugin-replace": "^5.0.5",
     "@types/parse5": "^6.0.1",
     "@types/whatwg-url": "^11.0.0",
-    "@web/test-runner-chrome": "^0.16.0",
+    "@web/test-runner-chrome": "^0.17.0",
     "@web/test-runner-core": "^0.13.0",
     "chai": "^4.2.0",
     "mocha": "^10.2.0",

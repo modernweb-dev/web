@@ -1,5 +1,23 @@
 # @web/dev-server
 
+## 0.4.6
+
+### Patch Changes
+
+- 39ff6ffb: replace ip dependency due to security bug CVE-2024-29415
+
+## 0.4.5
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
+## 0.4.4
+
+### Patch Changes
+
+- d2dbb7b1: fix: sb windows path
+
 ## 0.4.3
 
 ### Patch Changes

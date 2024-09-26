@@ -2,6 +2,35 @@
 
 Utilities for Storybook.
 
+## MDXFileLoader
+
+Loads a non-JS file content in MDX and allows to render it.
+
+This is needed for 2 reasons:
+
+- to workaround the limitation of MDX 2 where top-level await is not supported
+- to work in browsers where non-standard ESM imports (e.g. imports of text files, CSS and such) are not possible
+
+> In MDX 3 you can just [use the top-level await.](https://mdxjs.com/blog/v3/#await-in-mdx)
+
+### Use-case: render external Markdown file using Storybook `Markdown` block.
+
+Given a Storybook MDX file `docs/my-page.mdx` and a Markdown file `README.md` in the root, use the following MDX code:
+
+```mdx
+import { Markdown } from '@storybook/blocks';
+import { MDXFileLoader } from '@web/storybook-utils';
+
+<MDXFileLoader
+  url={new URL('../README.md', import.meta.url).href}
+  render={content => {
+    return <Markdown>{content}</Markdown>;
+  }}
+/>
+```
+
+> Make sure to use `@web/rollup-plugin-import-meta-assets` or another alternative to correctly bundle the assets resolved with the help of `import.meta.url`.
+
 ## createAddon
 
 Storybook addons are React components.

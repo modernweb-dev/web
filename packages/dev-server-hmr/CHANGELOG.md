@@ -1,5 +1,11 @@
 # @web/dev-server-hmr
 
+## 0.4.1
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
 ## 0.4.0
 
 ### Minor Changes

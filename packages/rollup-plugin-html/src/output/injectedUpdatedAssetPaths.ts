@@ -8,6 +8,7 @@ import {
   getSourcePaths,
   isHashedAsset,
   resolveAssetFilePath,
+  createAssetPicomatchMatcher,
 } from '../assets/utils.js';
 import { InputData } from '../input/InputData.js';
 import { createError } from '../utils.js';
@@ -20,6 +21,7 @@ export interface InjectUpdatedAssetPathsArgs {
   outputDir: string;
   rootDir: string;
   emittedAssets: EmittedAssets;
+  externalAssets?: string | string[];
   publicPath?: string;
   absolutePathPrefix?: string;
 }
@@ -42,14 +44,18 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
     outputDir,
     rootDir,
     emittedAssets,
+    externalAssets,
     publicPath = './',
     absolutePathPrefix,
   } = args;
   const assetNodes = findAssets(document);
+  const isExternal = createAssetPicomatchMatcher(externalAssets);
 
   for (const node of assetNodes) {
     const sourcePaths = getSourcePaths(node);
     for (const sourcePath of sourcePaths) {
+      if (isExternal(sourcePath)) continue;
+
       const htmlFilePath = input.filePath ? input.filePath : path.join(rootDir, input.name);
       const htmlDir = path.dirname(htmlFilePath);
       const filePath = resolveAssetFilePath(sourcePath, htmlDir, rootDir, absolutePathPrefix);

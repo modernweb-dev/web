@@ -1,6 +1,6 @@
 {
   "name": "@web/mocks",
-  "version": "1.1.1",
+  "version": "1.2.3",
   "publishConfig": {
     "access": "public"
   },
@@ -23,6 +23,9 @@
       "types": "./dist-types/browser.d.ts",
       "default": "./browser.js"
     },
+    "./storybook-addon/manager": "./storybook-addon/manager.js",
+    "./storybook-addon/preset": "./storybook-addon/preset.js",
+    "./storybook-addon/preview": "./storybook-addon/preview.js",
     "./storybook/addon/decorator.js": {
       "types": "./dist-types/storybook/addon/decorator.d.ts",
       "default": "./storybook/addon/decorator.js"
@@ -66,11 +69,17 @@
     "@web/storybook-prebuilt": "^0.1.37",
     "@web/storybook-utils": "^1.0.0",
     "lit": "^2.7.5 || ^3.0.0",
-    "msw": "^2.0.11"
+    "msw": "2.4.1"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.4.0",
+    "@web/dev-server": "^0.4.6",
     "@web/dev-server-storybook": "^2.0.0"
+  },
+  "imports": {
+    "#sw-path": {
+      "development": "./sw-path/dev.js",
+      "default": "./sw-path/build.js"
+    }
   },
   "wireit": {
     "types": {

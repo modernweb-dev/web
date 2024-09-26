@@ -31,17 +31,20 @@ export interface CreateInputDataParams {
   rootDir: string;
   filePath?: string;
   extractAssets: boolean;
+  externalAssets?: string | string[];
   absolutePathPrefix?: string;
 }
 
 function createInputData(params: CreateInputDataParams): InputData {
-  const { name, html, rootDir, filePath, extractAssets, absolutePathPrefix } = params;
+  const { name, html, rootDir, filePath, extractAssets, externalAssets, absolutePathPrefix } =
+    params;
   const htmlFilePath = filePath ? filePath : path.resolve(rootDir, name);
   const result = extractModulesAndAssets({
     html,
     htmlFilePath,
     rootDir,
     extractAssets,
+    externalAssets,
     absolutePathPrefix,
   });
 
@@ -63,6 +66,7 @@ export function getInputData(
     rootDir = process.cwd(),
     flattenOutput,
     extractAssets = true,
+    externalAssets,
     absolutePathPrefix,
     exclude: ignore,
   } = pluginOptions;
@@ -77,6 +81,7 @@ export function getInputData(
         html: input.html,
         rootDir,
         extractAssets,
+        externalAssets,
         absolutePathPrefix,
       });
       result.push(data);
@@ -97,6 +102,7 @@ export function getInputData(
           rootDir,
           filePath,
           extractAssets,
+          externalAssets,
           absolutePathPrefix,
         });
         result.push(data);

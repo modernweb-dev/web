@@ -1,5 +1,11 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 2.1.2
+
+### Patch Changes
+
+- e08bbddc: Don't add ./ for http urls
+
 ## 2.1.1
 
 ### Patch Changes

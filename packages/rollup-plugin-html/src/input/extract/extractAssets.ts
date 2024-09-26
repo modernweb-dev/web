@@ -7,6 +7,7 @@ import {
   getSourcePaths,
   isHashedAsset,
   resolveAssetFilePath,
+  createAssetPicomatchMatcher,
 } from '../../assets/utils.js';
 
 export interface ExtractAssetsParams {
@@ -14,16 +15,20 @@ export interface ExtractAssetsParams {
   htmlFilePath: string;
   htmlDir: string;
   rootDir: string;
+  externalAssets?: string | string[];
   absolutePathPrefix?: string;
 }
 
 export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
   const assetNodes = findAssets(params.document);
   const allAssets: InputAsset[] = [];
+  const isExternal = createAssetPicomatchMatcher(params.externalAssets);
 
   for (const node of assetNodes) {
     const sourcePaths = getSourcePaths(node);
     for (const sourcePath of sourcePaths) {
+      if (isExternal(sourcePath)) continue;
+
       const filePath = resolveAssetFilePath(
         sourcePath,
         params.htmlDir,

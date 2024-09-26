@@ -1,5 +1,11 @@
 # @web/test-runner-visual-regression
 
+## 0.10.0
+
+### Minor Changes
+
+- b546e8b5: Upgrade puppeteer-core and puppeteer to v23
+
 ## 0.9.0
 
 ### Minor Changes

@@ -242,7 +242,7 @@ export default {
 
 ### Minification
 
-Set the minify option to do default HTML minificiation. If you need custom options, you can implement your own minifier using the `transformHtml` option.
+Set the minify option to do default HTML minification. If you need custom options, you can implement your own minifier using the `transformHtml` option.
 
 ```js
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
@@ -362,6 +362,8 @@ export interface RollupPluginHTMLOptions {
   transformHtml?: TransformHtmlFunction | TransformHtmlFunction[];
   /** Whether to extract and bundle assets referenced in HTML. Defaults to true. */
   extractAssets?: boolean;
+  /** Whether to ignore assets referenced in HTML and CSS with glob patterns. */
+  externalAssets?: string | string[];
   /** Define a full absolute url to your site (e.g. https://domain.com) */
   absoluteBaseUrl?: string;
   /** Whether to set full absolute urls for ['meta[property=og:image]', 'link[rel=canonical]', 'meta[property=og:url]'] or not. Requires a absoluteBaseUrl to be set. Default to true. */

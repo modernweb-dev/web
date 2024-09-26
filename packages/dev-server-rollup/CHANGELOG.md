@@ -1,5 +1,23 @@
 # @web/dev-server-rollup
 
+## 0.6.4
+
+### Patch Changes
+
+- 2031b9e9: Bumping the version of whatwg-url in order to resolve an issue with a dependency.
+
+## 0.6.3
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
+## 0.6.2
+
+### Patch Changes
+
+- 8552a4a4: dedupe imports from outside root
+
 ## 0.6.1
 
 ### Patch Changes

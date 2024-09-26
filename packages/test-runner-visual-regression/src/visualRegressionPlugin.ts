@@ -76,8 +76,8 @@ export function visualRegressionPlugin(
               );
             }
 
-            const screenshot = (await element.screenshot({ encoding: 'binary' })) as Buffer;
-            return visualDiffCommand(mergedOptions, screenshot, payload.name, context);
+            const screenshot = await element.screenshot({ encoding: 'binary' });
+            return visualDiffCommand(mergedOptions, Buffer.from(screenshot), payload.name, context);
           }
 
           if (session.browser.type === 'playwright') {

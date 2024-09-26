@@ -1,0 +1,27 @@
+import { Canvas, Markdown, Meta } from '@storybook/blocks';
+import { MDXFileLoader } from '@web/storybook-utils';
+
+import * as MyComponentStories from './my-component.stories.js';
+
+<Meta title="My page" />
+
+# My page header
+
+This is an MDX-based documentation page.
+
+## Story inside my page
+
+Below is a story rendered in MDX.
+
+<Canvas of={MyComponentStories.DefaultStory} />
+
+## MDXFileLoader
+
+Below is a content loaded from a separate Markdown file.
+
+<MDXFileLoader
+  url={new URL('../README.md', import.meta.url).href}
+  render={content => {
+    return <Markdown>{content}</Markdown>;
+  }}
+/>

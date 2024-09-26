@@ -1,11 +1,12 @@
 import { stringifyProcessEnvs } from '@storybook/core-common';
 import { build } from 'esbuild';
-import { join } from 'path';
+import { remove } from 'fs-extra';
+import { join, normalize } from 'path';
 import type { Plugin } from 'rollup';
 import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-named-exports.js';
 import { getNodeModuleDir } from './get-node-module-dir.js';
 
-export const PREBUNDLED_MODULES_DIR = 'node_modules/.prebundled_modules';
+export const PREBUNDLED_MODULES_DIR = normalize('node_modules/.prebundled_modules');
 
 export function rollupPluginPrebundleModules(env: Record<string, string>): Plugin {
   const modulePaths: Record<string, string> = {};
@@ -14,21 +15,22 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
     name: 'rollup-plugin-prebundle-modules',
 
     async buildStart() {
-      const esbuildPluginCommonjs = (await import('@chialab/esbuild-plugin-commonjs')).default; // for CJS compatibility
-
       const modules = CANDIDATES.filter(moduleExists);
+
+      const modulesDir = join(process.cwd(), PREBUNDLED_MODULES_DIR);
+      await remove(modulesDir);
 
       for (const module of modules) {
         modulePaths[module] = join(
-          process.cwd(),
-          PREBUNDLED_MODULES_DIR,
-          module.endsWith('.js') ? module : `${module}.js`,
+          modulesDir,
+          module.endsWith('.js') ? module.replace(/\.js$/, '.mjs') : `${module}.mjs`,
         );
       }
 
       await build({
         entryPoints: modules,
         outdir: PREBUNDLED_MODULES_DIR,
+        outExtension: { '.js': '.mjs' },
         bundle: true,
         format: 'esm',
         splitting: true,
@@ -38,16 +40,25 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
           lodash: getNodeModuleDir('lodash-es'), // more optimal, but also solves esbuild incorrectly compiling lodash/_nodeUtil
           path: require.resolve('path-browserify'),
         },
-        define: {
-          ...stringifyProcessEnvs(env),
-        },
-        plugins: [
-          /* for @storybook/addon-docs */
-          // tocbot can't be automatically transformed by @chialab/esbuild-plugin-commonjs
-          // so we need a manual wrapper
-          esbuildPluginCommonjsNamedExports('tocbot', ['default', 'init', 'destroy']),
+        define: (() => {
+          const define = stringifyProcessEnvs(env);
 
-          esbuildPluginCommonjs(),
+          // "NODE_PATH" pollutes the output, it's not used by prebundled modules and is not recommended in general
+          // see more https://github.com/nodejs/node/issues/38128#issuecomment-814969356
+          delete define['process.env.NODE_PATH'];
+
+          return define;
+        })(),
+        plugins: [
+          esbuildPluginCommonjsNamedExports(
+            modules.filter(
+              module =>
+                // lodash is solved by the lodash-es alias
+                !module.startsWith('lodash/') &&
+                // @storybook/react-dom-shim is just an alias to an ESM module
+                module !== '@storybook/react-dom-shim',
+            ),
+          ),
         ],
       });
     },
@@ -62,6 +73,12 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
 // builder-vite bundles different dependencies for performance reasons
 // we aim only at browserifying NodeJS dependencies (CommonJS/process.env/...)
 export const CANDIDATES = [
+  /* for different addons built with React and for MDX */
+  '@storybook/react-dom-shim', // needs special resolution
+  'react',
+  process.env.NODE_ENV === 'production' ? 'react/jsx-runtime' : 'react/jsx-dev-runtime',
+  'react-dom',
+
   /* for different packages */
   'tiny-invariant',
 
@@ -76,7 +93,6 @@ export const CANDIDATES = [
   '@testing-library/user-event',
 
   /* for @storybook/addon-docs */
-  '@storybook/react-dom-shim', // needs special resolution
   'color-convert',
   'doctrine',
   'lodash/cloneDeep.js',
@@ -85,9 +101,10 @@ export const CANDIDATES = [
   'lodash/throttle.js',
   'lodash/uniq.js',
   'memoizerific',
-  'react',
-  'react-dom',
   'tocbot',
+
+  /* for @storybook/addon-a11y */
+  'axe-core',
 ];
 
 function moduleExists(moduleName: string) {

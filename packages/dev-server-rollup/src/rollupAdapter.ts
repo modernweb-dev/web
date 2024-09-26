@@ -289,9 +289,9 @@ export function rollupAdapter(
 
         // append a path separator to rootDir so we are actually testing containment
         // of the normalized path within the rootDir folder
-        const checkRootDir = rootDir.endsWith(path.sep) ? rootDir : rootDir + path.sep;
+        const normalizedRootDir = rootDir.endsWith(path.sep) ? rootDir : rootDir + path.sep;
 
-        if (!normalizedPath.startsWith(checkRootDir)) {
+        if (!normalizedPath.startsWith(normalizedRootDir)) {
           const relativePath = path.relative(rootDir, normalizedPath);
           const dirUp = `..${path.sep}`;
           const lastDirUpIndex = relativePath.lastIndexOf(dirUp) + 3;
@@ -317,8 +317,17 @@ export function rollupAdapter(
           const importPath = toBrowserPath(relativePath.substring(lastDirUpIndex));
           resolvedImportPath = `/__wds-outside-root__/${dirUpStrings.length - 1}/${importPath}`;
         } else {
-          const resolveRelativeTo = path.dirname(filePath);
-          const relativeImportFilePath = path.relative(resolveRelativeTo, resolvedImportPath);
+          let relativeImportFilePath = '';
+
+          if (context.url.match(OUTSIDE_ROOT_REGEXP)) {
+            const pathInsideRootDir = `/${normalizedPath.replace(normalizedRootDir, '')}`;
+            const resolveRelativeTo = path.dirname(context.url);
+            relativeImportFilePath = path.relative(resolveRelativeTo, pathInsideRootDir);
+          } else {
+            const resolveRelativeTo = path.dirname(filePath);
+            relativeImportFilePath = path.relative(resolveRelativeTo, resolvedImportPath);
+          }
+
           resolvedImportPath = `./${toBrowserPath(relativeImportFilePath)}`;
         }
 

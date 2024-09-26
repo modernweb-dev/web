@@ -1,6 +1,6 @@
 {
   "name": "@web/storybook-framework-web-components",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "publishConfig": {
     "access": "public"
   },
@@ -18,13 +18,9 @@
     ".": {
       "require": "./dist/index.js",
       "import": "./index.mjs",
-      "types": "./index.d.ts"
+      "types": "./dist/index.d.ts"
     },
-    "./preset": {
-      "require": "./dist/preset.js",
-      "import": "./preset.mjs",
-      "types": "./preset.d.ts"
-    },
+    "./preset": "./preset.js",
     "./package.json": "./package.json"
   },
   "engines": {
@@ -69,7 +65,13 @@
     "@storybook/addon-interactions": "^8.0.0",
     "@storybook/addon-links": "^8.0.0",
     "@storybook/types": "^8.0.0",
+    "storybook": "^8.0.0",
+    "@storybook/web-components": "^8.3.3",
+    "@web/storybook-builder": "^0.1.17",
+    "@storybook/addon-a11y": "^8.3.3",
+    "@storybook/blocks": "^8.3.3",
     "@web/dev-server": "^0.4.0",
-    "storybook": "^8.0.0"
+    "@web/rollup-plugin-import-meta-assets": "^2.2.1",
+    "@web/storybook-utils": "^1.0.1"
   }
 }

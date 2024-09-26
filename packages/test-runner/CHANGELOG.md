@@ -1,5 +1,28 @@
 # @web/test-runner
 
+## 0.19.0
+
+### Minor Changes
+
+- b546e8b5: Upgrade puppeteer-core and puppeteer to v23
+
+### Patch Changes
+
+- Updated dependencies [b546e8b5]
+  - @web/test-runner-chrome@0.17.0
+
+## 0.18.3
+
+### Patch Changes
+
+- 6914f3b6: Show suites names for `summaryReporter` when `flatten` option is true
+
+## 0.18.2
+
+### Patch Changes
+
+- 6a97a691: Unify visual-written representation of skipped tests.
+
 ## 0.18.1
 
 ### Patch Changes

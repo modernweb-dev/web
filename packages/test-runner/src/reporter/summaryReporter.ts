@@ -30,8 +30,15 @@ export function summaryReporter(opts: Options): Reporter {
   let args: ReporterArgs;
   let favoriteBrowser: string;
 
-  function log(logger: Logger, name: string, passed: boolean, prefix = '  ', postfix = '') {
-    const sign = passed ? green('✓') : red('𐄂');
+  function log(
+    logger: Logger,
+    name: string,
+    passed: boolean,
+    skipped: boolean,
+    prefix = '  ',
+    postfix = '',
+  ) {
+    const sign = skipped ? dim('-') : passed ? green('✓') : red('𐄂');
     if (flatten) logger.log(`${sign} ${name}${postfix}`);
     else logger.log(`${prefix}  ${sign} ${name}`);
   }
@@ -44,7 +51,14 @@ export function summaryReporter(opts: Options): Reporter {
   ) {
     const browserName = browser?.name ? ` ${dim(`[${browser.name}]`)}` : '';
     for (const result of results?.tests ?? []) {
-      log(logger, result.name, result.passed, prefix, browserName);
+      log(
+        logger,
+        flatten ? `${prefix ?? ''} ${result.name}` : result.name,
+        result.passed,
+        result.skipped,
+        prefix,
+        browserName,
+      );
     }
 
     for (const suite of results?.suites ?? []) {

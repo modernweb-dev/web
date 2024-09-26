@@ -19,7 +19,7 @@ npm install @storybook/builder-vite@0.4 @storybook/web-components@6 --save-dev
 Then proceed with the `upgrade` script and follow it's interactive process:
 
 ```bash
-npx storybook@latest upgrade
+npx storybook@7 upgrade
 ```
 
 Then [configure the builder and framework](./configuration.md#configuring-builder-and-framework) in the main Storybook configuration.
@@ -38,7 +38,7 @@ In the new setup you'll need to install and configure them explicitly.
 We recommend to install the following addons:
 
 ```bash
-npm install @storybook/addon-essentials @storybook/addon-links --save-dev
+npm install @storybook/addon-essentials@7 @storybook/addon-links@7 --save-dev
 ```
 
 Then register them in the Storybook main configuration file:

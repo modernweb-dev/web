@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 1.0.2
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
 ## 1.0.1
 
 ### Patch Changes

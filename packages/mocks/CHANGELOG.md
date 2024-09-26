@@ -1,5 +1,36 @@
 # @web/mocks
 
+## 1.2.3
+
+### Patch Changes
+
+- 0568abd3: Pin msw version because it broke again
+
+## 1.2.2
+
+### Patch Changes
+
+- b3cdb501: Fix typo in mocks addon
+- f977f5cc: Update mocks addon styles to support dark mode
+
+## 1.2.1
+
+### Patch Changes
+
+- 7d60d72e: differentiate service worker url between dev and build
+
+## 1.2.0
+
+### Minor Changes
+
+- 59d53861: improve addon setup for storybook-builder
+
+## 1.1.2
+
+### Patch Changes
+
+- 8a010d7f: fix: sw path
+
 ## 1.1.1
 
 ### Patch Changes

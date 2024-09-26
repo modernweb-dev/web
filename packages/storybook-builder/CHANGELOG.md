@@ -1,5 +1,66 @@
 # @web/storybook-builder
 
+## 0.1.18
+
+### Patch Changes
+
+- 75747976: fix relative path by starting with ./
+
+## 0.1.17
+
+### Patch Changes
+
+- c0fefb04: fix storybook-builder on Windows
+
+## 0.1.16
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
+## 0.1.15
+
+### Patch Changes
+
+- 7b110644: fix providerImportSource extension when using @storybook/addon-essentials
+
+## 0.1.14
+
+### Patch Changes
+
+- e30da4a0: support MDX and autodocs
+
+## 0.1.13
+
+### Patch Changes
+
+- a506c352: clean up `.prebundled_modules` before creating new bundles
+
+## 0.1.12
+
+### Patch Changes
+
+- 9118c648: clean up NODE_PATH from bundled modules output
+
+## 0.1.11
+
+### Patch Changes
+
+- c98a2798: simplify and speed up the CommonJS to ESM transformation
+  make React conditional reexports work in production
+
+## 0.1.10
+
+### Patch Changes
+
+- 1ef0c676: support @storybook/addon-a11y
+
+## 0.1.9
+
+### Patch Changes
+
+- f29dbce3: bundle preview assets
+
 ## 0.1.8
 
 ### Patch Changes

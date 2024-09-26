@@ -103,7 +103,7 @@ export default {
 
 ## Babel
 
-When doing buildless development you want compilers to be as fast as possible. That's why we recommend esbuild for common transformatons like TS, JSX, and modern JS. [See our guide](./typescript-and-jsx.md) to learn more about how to set this up.
+When doing buildless development you want compilers to be as fast as possible. That's why we recommend esbuild for common transformations like TS, JSX, and modern JS. [See our guide](./typescript-and-jsx.md) to learn more about how to set this up.
 
 If you need to use babel because of a specific plugin, you can use `@rollup/plugin-babel`. In this example we use babel with the JSX plugin for preact:
 

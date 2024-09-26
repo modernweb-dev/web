@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-core",
-  "version": "0.13.1",
+  "version": "0.13.3",
   "publishConfig": {
     "access": "public"
   },
@@ -60,7 +60,7 @@
     "@types/istanbul-lib-coverage": "^2.0.3",
     "@types/istanbul-reports": "^3.0.0",
     "@web/browser-logs": "^0.4.0",
-    "@web/dev-server-core": "^0.7.0",
+    "@web/dev-server-core": "^0.7.2",
     "chokidar": "^3.4.3",
     "cli-cursor": "^3.1.0",
     "co-body": "^6.1.0",
@@ -68,7 +68,7 @@
     "debounce": "^1.2.0",
     "dependency-graph": "^0.11.0",
     "globby": "^11.0.1",
-    "ip": "^2.0.1",
+    "internal-ip": "^6.2.0",
     "istanbul-lib-coverage": "^3.0.0",
     "istanbul-lib-report": "^3.0.1",
     "istanbul-reports": "^3.0.2",
