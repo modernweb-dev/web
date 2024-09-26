@@ -59,7 +59,7 @@
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-terser": "^0.4.4",
-    "@storybook/csf-tools": "^6.4.9",
+    "@storybook/csf-tools": "^8.3.3",
     "@web/dev-server-core": "^0.7.2",
     "@web/rollup-plugin-html": "^2.1.2",
     "@web/rollup-plugin-polyfills-loader": "^2.1.1",
