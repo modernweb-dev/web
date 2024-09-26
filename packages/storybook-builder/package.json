@@ -49,10 +49,11 @@
   "dependencies": {
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/pluginutils": "^5.0.2",
+    "@storybook/channels": "^8.3.3",
     "@storybook/core-common": "^8.0.0",
+    "@storybook/mdx2-csf": "^1.0.0",
     "@storybook/node-logger": "^8.0.0",
     "@storybook/preview": "^8.0.0",
-    "@storybook/mdx2-csf": "^1.0.0",
     "@web/dev-server": "^0.4.0",
     "@web/dev-server-core": "^0.7.2",
     "@web/dev-server-rollup": "^0.6.1",
@@ -70,9 +71,10 @@
     "remark-slug": "^6.0.0",
     "rollup": "^4.4.1",
     "rollup-plugin-external-globals": "^0.9.0",
-    "slash": "^5.1.0"
+    "slash": "^5.1.0",
+    "storybook": "^8.3.3"
   },
   "devDependencies": {
-    "@storybook/types": "^8.0.0"
+    "@storybook/types": "^8.3.3"
   }
 }

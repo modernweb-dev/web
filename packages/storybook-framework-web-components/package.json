@@ -57,7 +57,7 @@
   ],
   "dependencies": {
     "@storybook/preview": "^8.3.3",
-    "@storybook/web-components": "^8.0.0",
+    "@storybook/web-components": "^8.3.3",
     "@web/storybook-builder": "^0.1.0"
   },
   "devDependencies": {
@@ -68,7 +68,6 @@
     "@storybook/addon-links": "^8.0.0",
     "@storybook/blocks": "^8.3.3",
     "@storybook/types": "^8.0.0",
-    "@storybook/web-components": "^8.3.3",
     "@web/dev-server": "^0.4.0",
     "@web/rollup-plugin-import-meta-assets": "^2.2.1",
     "@web/storybook-builder": "^0.1.17",

@@ -58,7 +58,7 @@ export const bail: WdsBuilder['bail'] = async () => {
 };
 
 export const start: WdsBuilder['start'] = async ({ startTime, options, router, server }) => {
-  const previewDirOrigin = join(getNodeModuleDir('@storybook/preview'), 'dist');
+  const previewDirOrigin = getNodeModuleDir('@storybook/preview/globals');
   router.use('/sb-preview', express.static(previewDirOrigin, { immutable: true, maxAge: '5m' }));
   router.use(`/${PREBUNDLED_MODULES_DIR}`, express.static(resolve(`./${PREBUNDLED_MODULES_DIR}`)));
 
@@ -184,7 +184,7 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
     logger.trace({ message: '=> Preview built', time: process.hrtime(startTime) });
   })();
 
-  const previewDirOrigin = join(getNodeModuleDir('@storybook/preview'), 'dist');
+  const previewDirOrigin = getNodeModuleDir('@storybook/preview/globals');
   const previewDirTarget = join(options.outputDir || '', `sb-preview`);
   const previewFiles = fs.copy(previewDirOrigin, previewDirTarget, {
     filter: src => {
