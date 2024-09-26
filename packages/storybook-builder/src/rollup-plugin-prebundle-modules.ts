@@ -37,7 +37,7 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
         sourcemap: true,
         alias: {
           assert: require.resolve('browser-assert'),
-          lodash: getNodeModuleDir('lodash-es'), // more optimal, but also solves esbuild incorrectly compiling lodash/_nodeUtil
+          lodash: getNodeModuleDir(`lodash-es/package.json`), // more optimal, but also solves esbuild incorrectly compiling lodash/_nodeUtil
           path: require.resolve('path-browserify'),
         },
         define: (() => {
