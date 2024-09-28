@@ -1,5 +1,13 @@
 # @web/test-runner-core
 
+## 0.13.4
+
+### Patch Changes
+
+- 3aec4aa6: bump chokidar to v4
+- Updated dependencies [3aec4aa6]
+  - @web/dev-server-core@0.7.3
+
 ## 0.13.3
 
 ### Patch Changes
