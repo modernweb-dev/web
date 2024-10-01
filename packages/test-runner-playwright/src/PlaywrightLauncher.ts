@@ -1,4 +1,10 @@
-import playwright, { Browser, Page, LaunchOptions, BrowserContext } from 'playwright';
+import playwright, {
+  Browser as RegularBrowser,
+  Page,
+  LaunchOptions,
+  BrowserContext,
+  ElectronApplication,
+} from 'playwright';
 import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
 import { PlaywrightLauncherPage } from './PlaywrightLauncherPage.js';
 
@@ -6,7 +12,9 @@ function capitalize(str: string) {
   return `${str[0].toUpperCase()}${str.substring(1)}`;
 }
 
-export type ProductType = 'chromium' | 'firefox' | 'webkit';
+export type ProductType = 'chromium' | 'firefox' | 'webkit' | '_electron';
+
+export type Browser = RegularBrowser | ElectronApplication;
 
 interface CreateArgs {
   browser: Browser;
@@ -47,7 +55,8 @@ export class PlaywrightLauncher implements BrowserLauncher {
     this.createBrowserContextFn = createBrowserContextFn;
     this.createPageFn = createPageFn;
     this.concurrency = concurrency;
-    this.name = capitalize(product);
+    this.name = capitalize(product.startsWith('_') ? product.replace('_', '') : product);
+    this.name = product.startsWith('_') ? '_' + this.name : this.name;
     this.__experimentalWindowFocus__ = !!__experimentalWindowFocus__;
   }
 
@@ -57,12 +66,16 @@ export class PlaywrightLauncher implements BrowserLauncher {
   }
 
   async stop() {
-    if (this.browser?.isConnected()) {
-      await this.browser.close();
+    if (this.browser) {
+      if (!('isConnected' in this.browser) || this.browser.isConnected()) {
+        await this.browser.close();
+      }
     }
 
-    if (this.debugBrowser?.isConnected()) {
-      await this.debugBrowser.close();
+    if (this.debugBrowser) {
+      if (!('isConnected' in this.debugBrowser) || this.debugBrowser.isConnected()) {
+        await this.debugBrowser.close();
+      }
     }
   }
 
@@ -87,12 +100,15 @@ export class PlaywrightLauncher implements BrowserLauncher {
 
   async startDebugSession(sessionId: string, url: string) {
     if (!this.debugBrowser) {
-      this.debugBrowser = await playwright[this.product].launch({
-        ...this.launchOptions,
-        // devtools is only supported on chromium
-        devtools: this.product === 'chromium',
-        headless: false,
-      });
+      this.debugBrowser = await playwright[this.product].launch(
+        // @ts-expect-error electron launch options differ slightly, causing a type error.
+        {
+          ...this.launchOptions,
+          // devtools is only supported on chromium
+          devtools: this.product === 'chromium', // _electron too?
+          headless: false,
+        },
+      );
     }
 
     const page = await this.createNewPage(this.debugBrowser);
@@ -138,9 +154,12 @@ export class PlaywrightLauncher implements BrowserLauncher {
       return this.__launchBrowserPromise;
     }
 
-    if (!this.browser || !this.browser?.isConnected()) {
+    if (!this.browser || ('isConnected' in this.browser && !this.browser.isConnected())) {
       this.__launchBrowserPromise = (async () => {
-        const browser = await playwright[this.product].launch(this.launchOptions);
+        const browser = await playwright[this.product].launch(
+          // @ts-expect-error electron launch options differ slightly, causing a type error.
+          this.launchOptions,
+        );
         return browser;
       })();
       const browser = await this.__launchBrowserPromise;
