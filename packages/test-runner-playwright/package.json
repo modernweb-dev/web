@@ -52,6 +52,7 @@
   },
   "devDependencies": {
     "@web/test-runner-mocha": "^0.9.0",
+    "electron": "^32.1.2",
     "portfinder": "^1.0.32"
   }
 }
