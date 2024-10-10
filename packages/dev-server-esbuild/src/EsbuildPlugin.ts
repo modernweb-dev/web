@@ -11,6 +11,7 @@ import { Loader, Message, transform } from 'esbuild';
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs';
+import child_process from 'child_process';
 import {
   queryAll,
   predicates,
@@ -61,7 +62,15 @@ export class EsbuildPlugin implements Plugin {
     this.config = config;
     this.logger = logger;
     if (this.esbuildConfig.tsconfig) {
-      this.tsconfigRaw = await promisify(fs.readFile)(this.esbuildConfig.tsconfig, 'utf8');
+      try {
+        const { stderr, stdout } = await promisify(child_process.exec)(
+          `tsc --project ${this.esbuildConfig.tsconfig} --showConfig`,
+        );
+        if (stderr) throw stderr;
+        this.tsconfigRaw = stdout;
+      } catch (e) {
+        console.error(e);
+      }
     }
   }
 
