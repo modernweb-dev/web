@@ -237,7 +237,9 @@ describe('rollup-plugin-import-meta-assets', () => {
       error = e;
     }
 
-    expect(error.message).to.match(/no such file or directory/);
+    expect(error.message).to.eq(
+      `Unable to resolve "/absolute-path.svg" from "/home/loic/git/web/packages/rollup-plugin-import-meta-assets/test/fixtures/bad-url-entrypoint.js"`,
+    );
   });
 
   it('bad URL example with warnOnError: true', async () => {
@@ -251,10 +253,10 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     expect(consoleStub.callCount).to.equal(2);
     expect(consoleStub.getCall(0).args[0]).to.match(
-      /ENOENT: no such file or directory, open '.*[/\\]absolute-path\.svg'/,
+      /\(rollup-plugin-import-meta-assets plugin\) test[/\\]fixtures[/\\]bad-url-entrypoint\.js \(1:26\) Unable to resolve "[/\\]absolute-path\.svg" from ".*bad-url-entrypoint\.js"/,
     );
     expect(consoleStub.getCall(1).args[0]).to.match(
-      /ENOENT: no such file or directory, open '.*[/\\]missing-relative-path\.svg'/,
+      /\(rollup-plugin-import-meta-assets plugin\) test[/\\]fixtures[/\\]bad-url-entrypoint\.js \(2:26\) Unable to resolve "..[/\\]..[/\\]missing-relative-path.svg" from ".*bad-url-entrypoint\.js"/,
     );
   });
 
