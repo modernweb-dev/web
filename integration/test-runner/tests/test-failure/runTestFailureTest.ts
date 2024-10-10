@@ -210,7 +210,9 @@ export function runTestFailureTest(
     });
 
     it('handles tests that error with an immutable or unserializable actual', () => {
-      const sessions = allSessions.filter(s => s.testFile.endsWith('fail-unserializable-actual.test.js'));
+      const sessions = allSessions.filter(s =>
+        s.testFile.endsWith('fail-unserializable-actual.test.js'),
+      );
       expect(sessions.length === browserCount).to.equal(true);
       for (const session of sessions) {
         expect(session.testResults!.tests.map(t => t.name)).to.eql(['unserializable actual']);
