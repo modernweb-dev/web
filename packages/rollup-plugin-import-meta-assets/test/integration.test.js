@@ -237,8 +237,8 @@ describe('rollup-plugin-import-meta-assets', () => {
       error = e;
     }
 
-    expect(error.message).to.eq(
-      `Unable to resolve "/absolute-path.svg" from "/home/loic/git/web/packages/rollup-plugin-import-meta-assets/test/fixtures/bad-url-entrypoint.js"`,
+    expect(error.message).to.match(
+      /Unable to resolve "[/\\]absolute-path.svg" from ".*[/\\]bad-url-entrypoint.js"/,
     );
   });
 
@@ -294,6 +294,43 @@ describe('rollup-plugin-import-meta-assets', () => {
       expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two--yckvrYd.svg'),
       expectAsset(output, 'snapshots/three.svg', 'three.svg', 'assets/three-CDdgprDC.svg'),
       expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-lJVunLww.svg'),
+    ]);
+  });
+
+  it('respects the rollup resolution', async () => {
+    const config = {
+      input: { 'simple-bundle-switched': require.resolve('./fixtures/simple-entrypoint.js') },
+      plugins: [
+        importMetaAssets(),
+        {
+          resolveId(source, importer) {
+            if (source == './one.svg') {
+              return path.resolve(path.dirname(importer), 'two.svg');
+            }
+            if (source == './two.svg') {
+              return path.resolve(path.dirname(importer), 'one.svg');
+            }
+            if (source === './three.svg') {
+              return {
+                id: source,
+                external: true,
+              };
+            }
+            return undefined;
+          },
+        },
+      ],
+    };
+
+    const bundle = await rollup.rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(output.length).to.equal(5);
+    expectChunk(output, 'snapshots/simple-bundle-switched.js', 'simple-bundle-switched.js', [
+      expectAsset(output, 'snapshots/two.svg', 'two.svg', 'assets/two--yckvrYd.svg'),
+      expectAsset(output, 'snapshots/one.svg', 'one.svg', 'assets/one-ZInu4dBJ.svg'),
+      expectAsset(output, 'snapshots/four.svg', 'four.svg', 'assets/four-lJVunLww.svg'),
+      expectAsset(output, 'snapshots/five', 'five', 'assets/five-Z74_0e9C'),
     ]);
   });
 });
