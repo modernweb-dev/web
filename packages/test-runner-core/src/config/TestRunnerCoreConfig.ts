@@ -25,7 +25,7 @@ export interface CoverageConfig {
   reporters?: ReportType[];
   watermarks?: Partial<Watermarks>;
   reportOptions?: ReportOptions;
-  defaultSummarizer: Summarizers;
+  defaultSummarizer?: Summarizers;
 }
 
 export interface TestRunnerCoreConfig {
