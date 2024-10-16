@@ -5,7 +5,8 @@ import { TestSession } from '../test-session/TestSession.js';
 import { Reporter } from '../reporter/Reporter.js';
 import { Logger } from '../logger/Logger.js';
 import { TestRunnerPlugin } from '../server/TestRunnerPlugin.js';
-import { ReportType } from 'istanbul-reports';
+import { ReportType, ReportOptions } from 'istanbul-reports';
+import { Watermarks, Summarizers } from 'istanbul-lib-report';
 
 export interface CoverageThresholdConfig {
   statements: number;
@@ -22,6 +23,9 @@ export interface CoverageConfig {
   report?: boolean;
   reportDir?: string;
   reporters?: ReportType[];
+  watermarks?: Partial<Watermarks>;
+  reportOptions?: ReportOptions;
+  defaultSummarizer: Summarizers;
 }
 
 export interface TestRunnerCoreConfig {
