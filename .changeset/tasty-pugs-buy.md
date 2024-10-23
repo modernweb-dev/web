@@ -4,4 +4,4 @@
 '@web/storybook-builder': patch
 ---
 
-Upgrade esbuild to 0.20.x
+Upgrade esbuild to 0.24.x
