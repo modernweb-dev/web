@@ -37,13 +37,8 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
         sourcemap: true,
         alias: {
           assert: require.resolve('browser-assert'),
-          lodash: getNodeModuleDir('lodash-es'), // more optimal, but also solves esbuild incorrectly compiling lodash/_nodeUtil
+          lodash: getNodeModuleDir(`lodash-es/package.json`), // more optimal, but also solves esbuild incorrectly compiling lodash/_nodeUtil
           path: require.resolve('path-browserify'),
-
-          /* for @storybook/addon-docs */
-          ...(moduleExists('@storybook/react-dom-shim') && {
-            '@storybook/react-dom-shim': getReactDomShimAlias(),
-          }),
         },
         define: (() => {
           const define = stringifyProcessEnvs(env);
@@ -111,13 +106,6 @@ export const CANDIDATES = [
   /* for @storybook/addon-a11y */
   'axe-core',
 ];
-
-function getReactDomShimAlias() {
-  const { version } = require('react-dom');
-  return version.startsWith('18')
-    ? require.resolve('@storybook/react-dom-shim/dist/react-18').replace(/\.js$/, '.mjs')
-    : require.resolve('@storybook/react-dom-shim').replace(/\.js$/, '.mjs');
-}
 
 function moduleExists(moduleName: string) {
   try {
