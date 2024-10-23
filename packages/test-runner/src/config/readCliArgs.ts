@@ -9,6 +9,7 @@ export interface TestRunnerCliArgs
     Pick<
       TestRunnerConfig,
       | 'files'
+      | 'allowPassWithoutTests'
       | 'rootDir'
       | 'watch'
       | 'coverage'
@@ -40,6 +41,11 @@ const options: OptionDefinition[] = [
     multiple: true,
     defaultOption: true,
     description: 'Test files to run',
+  },
+  {
+    name: 'allowPassWithoutTests',
+    type: Boolean,
+    description: 'Allow pass without any tests',
   },
   {
     name: 'root-dir',

@@ -17,6 +17,9 @@ coverage/
 npm-debug.log
 yarn-error.log
 
+## environment
+.env*
+
 ## temp folders
 /.tmp/
 

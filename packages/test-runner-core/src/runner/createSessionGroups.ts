@@ -26,6 +26,7 @@ export function createTestSessions(
     groups.push({
       name: 'default',
       files: config.files,
+      allowPassWithoutTests: config.allowPassWithoutTests,
       browsers: config.browsers,
     });
   }
@@ -52,6 +53,10 @@ export function createTestSessions(
       mergedGroupConfig.files = groupConfig.files;
     }
 
+    if (groupConfig.allowPassWithoutTests != null) {
+        mergedGroupConfig.allowPassWithoutTests = groupConfig.allowPassWithoutTests;
+    }
+
     if (groupConfig.testRunnerHtml != null) {
       mergedGroupConfig.testRunnerHtml = groupConfig.testRunnerHtml;
     }
@@ -71,7 +76,7 @@ export function createTestSessions(
       // C:/foo/bar -> C:\foo\bar
       .map(testFile => path.normalize(testFile));
 
-    if (testFilesForGroup.length === 0) {
+    if (testFilesForGroup.length === 0 && !group.allowPassWithoutTests) {
       throw new Error(`Could not find any test files with pattern(s): ${group.files}`);
     }
 
@@ -112,7 +117,7 @@ export function createTestSessions(
     }
   }
 
-  if (testFiles.size === 0 || testSessions.length === 0) {
+  if ((testFiles.size === 0 || testSessions.length === 0) && !config.allowPassWithoutTests) {
     throw new Error('Did not find any tests to run.');
   }
 

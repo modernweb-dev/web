@@ -5,6 +5,7 @@ export interface TestRunnerGroupConfig {
   name: string;
   configFilePath?: string;
   files?: string | string[];
+  allowPassWithoutTests?: boolean;
   browsers?: BrowserLauncher[];
   testRunnerHtml?: (
     testRunnerImport: string,
