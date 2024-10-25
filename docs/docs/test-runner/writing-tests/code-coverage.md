@@ -11,10 +11,10 @@ Additionally, your config file has a `coverage` boolean to toggle coverage on an
 ## Basic configuration
 
 Code coverage is measured using four metrics: statements, branches, functions, and lines.
-The test runner measures these metrics for each file.
+The test runner measures these metrics across all files combined.
 
 In `coverageConfig`, you need to define your desired code coverage thresholds for each metric.
-The test run fails if you drop below this level for any metric in any file.
+The test run fails if you drop below this level for any metric.
 The default setting is 0 for each metric.
 
 **Example minimum to require code coverage:**
