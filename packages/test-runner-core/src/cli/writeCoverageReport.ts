@@ -8,21 +8,19 @@ export function writeCoverageReport(testCoverage: TestCoverage, config: Coverage
   // create a context for report generation
   const context = libReport.createContext({
     dir: config.reportDir,
-    watermarks: {
-      statements: [50, 80],
-      functions: [50, 80],
-      branches: [50, 80],
-      lines: [50, 80],
-    },
+    watermarks: config.watermarks,
     coverageMap: testCoverage.coverageMap,
-  });
+    defaultSummarizer: config.defaultSummarizer,
+  } as libReport.ContextOptions);
 
   const reporters = config.reporters || [];
 
   for (const reporter of reporters) {
+    const options = config.reportOptions?.[reporter] || {};
     const report = reports.create(reporter, {
       projectRoot: process.cwd(),
       maxCols: process.stdout.columns || 100,
+      ...options
     });
     (report as any).execute(context);
   }
