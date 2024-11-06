@@ -1,5 +1,14 @@
 # @web/storybook-builder
 
+## 0.1.19
+
+### Patch Changes
+
+- fb33d75c: bump "express" from 4.18.2 to 4.21.1 to use updated "cookie" with vulnerability fixes
+- f506af31: Upgrade esbuild to 0.24.x
+- Updated dependencies [fb33d75c]
+  - @web/dev-server-core@0.7.4
+
 ## 0.1.18
 
 ### Patch Changes

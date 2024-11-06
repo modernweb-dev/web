@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.7.4
+
+### Patch Changes
+
+- fb33d75c: bump "express" from 4.18.2 to 4.21.1 to use updated "cookie" with vulnerability fixes
+
 ## 0.7.3
 
 ### Patch Changes

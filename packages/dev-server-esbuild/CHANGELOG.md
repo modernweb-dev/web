@@ -1,5 +1,13 @@
 # @web/dev-server-esbuild
 
+## 1.0.3
+
+### Patch Changes
+
+- f506af31: Upgrade esbuild to 0.24.x
+- Updated dependencies [fb33d75c]
+  - @web/dev-server-core@0.7.4
+
 ## 1.0.2
 
 ### Patch Changes
