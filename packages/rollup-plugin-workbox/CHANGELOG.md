@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 8.1.1
+
+### Patch Changes
+
+- f506af31: Upgrade esbuild to 0.24.x
+
 ## 8.1.0
 
 ### Minor Changes
