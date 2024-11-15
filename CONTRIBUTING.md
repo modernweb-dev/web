@@ -24,7 +24,7 @@ git remote add upstream git@github.com:modernweb-dev/web.git
 Now that you have cloned the repository, ensure you have node 18+ installed, then run the following command to set up the development environment.
 
 ```sh
-npm install
+npm clean-install
 npm run build
 ```
 

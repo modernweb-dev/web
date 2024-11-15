@@ -7,7 +7,7 @@ import {
   CreatePageFn,
 } from './PlaywrightLauncher.js';
 
-const validProductTypes: ProductType[] = ['chromium', 'firefox', 'webkit'];
+const validProductTypes: ProductType[] = ['chromium', 'firefox', 'webkit', '_electron'];
 
 export { ProductType, playwright };
 
@@ -26,8 +26,20 @@ export function playwrightLauncher(args: PlaywrightLauncherArgs = {}) {
   const {
     product = 'chromium',
     launchOptions = {},
-    createBrowserContext = ({ browser }) => browser.newContext(),
-    createPage = ({ context }) => context.newPage(),
+    createBrowserContext = ({ browser }) => {
+      if ('browserWindow' in browser) {
+        return browser.context();
+      } else {
+        return browser.newContext();
+      }
+    },
+    createPage = ({ context, browser }) => {
+      if ('browserWindow' in browser) {
+        return browser.firstWindow();
+      } else {
+        return context.newPage();
+      }
+    },
     __experimentalWindowFocus__ = false,
     concurrency,
   } = args;
