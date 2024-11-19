@@ -796,6 +796,43 @@ describe('rollup-plugin-html', () => {
     );
   });
 
+  it('deduplicates preloaded assets in template tags', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: {
+            html: `<html>
+<head>
+  <link rel="preload" as="fetch" href="markdown.md">
+</head>
+<body>
+<template>
+  <link rel="stylesheet" href="styles.css">
+  <hypo-thetical>
+    <script type="text/markdown" src="markdown.md"></script>
+  </hypo-thetical>
+</template>
+</body>
+</html>`,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
+      '<html><head>' +
+        '  <link rel="preload" as="fetch" href="assets/markdown-95681c30.md"></head><body><template>' +
+        '  <link rel="stylesheet" href="assets/styles-ed723e17.css">' +
+        '  <hypo-thetical>' +
+        '    <script type="text/markdown" src="assets/markdown-95681c30.md"></script>' +
+        '  </hypo-thetical></template></body></html>',
+    );
+  });
+
   it('deduplicates common assets across HTML files', async () => {
     const config = {
       plugins: [
