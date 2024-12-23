@@ -80,6 +80,10 @@ export class SessionManager {
     return { testCoverage: this.config.coverage ? testCoverage : undefined };
   }
 
+  async setWindowSize(_: string, width: number, height: number) {
+    return this.driver.setWindowSize(width, height);
+  }
+
   async performActions(_: string, actions: object[]) {
     return this.driver.performActions(actions);
   }
