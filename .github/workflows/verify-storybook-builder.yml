@@ -6,7 +6,7 @@ jobs:
   verify-storybook-builder-linux:
     timeout-minutes: 60
     name: Linux
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
 
