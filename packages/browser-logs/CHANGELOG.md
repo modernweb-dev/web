@@ -1,5 +1,11 @@
 # @web/browser-logs
 
+## 0.4.1
+
+### Patch Changes
+
+- de4eda2d: Update errorstacks dependency to 2.4.1
+
 ## 0.4.0
 
 ### Minor Changes
