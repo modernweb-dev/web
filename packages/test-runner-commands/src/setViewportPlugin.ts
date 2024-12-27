@@ -1,6 +1,7 @@
 import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
+import type { WebdriverLauncher } from '@web/test-runner-webdriver';
 
 export interface Viewport {
   width: number;
@@ -47,6 +48,12 @@ export function setViewportPlugin(): TestRunnerPlugin {
         if (session.browser.type === 'playwright') {
           const page = (session.browser as PlaywrightLauncher).getPage(session.id);
           await page.setViewportSize(payload);
+          return true;
+        }
+
+        if (session.browser.type === 'webdriver') {
+          const browser = session.browser as WebdriverLauncher;
+          await browser.setWindowSize(session.id, payload.width, payload.height);
           return true;
         }
 

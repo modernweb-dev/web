@@ -229,6 +229,13 @@ export class WebdriverLauncher implements BrowserLauncher {
     return this.driverManager.sendKeys(sessionId, keys);
   }
 
+  setWindowSize(sessionId: string, width: number, height: number) {
+    if (!this.driverManager) {
+      throw new Error('Not initialized');
+    }
+    return this.driverManager.setWindowSize(sessionId, width, height);
+  }
+
   takeScreenshot(sessionId: string, locator: string) {
     if (!this.driverManager) {
       throw new Error('Not initialized');

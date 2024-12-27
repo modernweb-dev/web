@@ -156,6 +156,13 @@ export class IFrameManager {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async setWindowSize(_: string, _width: number, _height: number) {
+    throw new Error(
+      'Unsupported operation. In order to set window size in Webdriver, set "concurrency" to 1.',
+    );
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async performActions(_: string, _actions: object[]) {
     throw new Error(
       'Unsupported operation. In order to use device actions in Webdriver, set "concurrency" to 1.',
