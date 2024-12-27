@@ -83,7 +83,7 @@
     "@types/koa-static": "^4.0.1",
     "@types/parse5": "^6.0.1",
     "abort-controller": "^3.0.0",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "nanoid": "^3.1.25",
     "portfinder": "^1.0.32"
   }

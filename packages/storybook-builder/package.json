@@ -61,7 +61,7 @@
     "cjs-module-lexer": "^1.2.3",
     "es-module-lexer": "^1.2.1",
     "esbuild": "^0.24.0",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "fs-extra": "^11.1.1",
     "glob-promise": "^6.0.3",
     "lodash-es": "^4.17.21",
