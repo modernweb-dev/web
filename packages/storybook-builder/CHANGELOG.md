@@ -1,5 +1,13 @@
 # @web/storybook-builder
 
+## 0.1.20
+
+### Patch Changes
+
+- b99a0915: Bump express to 4.21.2 to include path-to-regexp fix
+- Updated dependencies [b99a0915]
+  - @web/dev-server-core@0.7.5
+
 ## 0.1.19
 
 ### Patch Changes

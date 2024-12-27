@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 0.7.5
+
+### Patch Changes
+
+- b99a0915: Bump express to 4.21.2 to include path-to-regexp fix
+
 ## 0.7.4
 
 ### Patch Changes
