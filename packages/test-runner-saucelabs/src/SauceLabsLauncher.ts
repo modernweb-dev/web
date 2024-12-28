@@ -1,5 +1,5 @@
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { RemoteOptions } from 'webdriverio';
+import { Capabilities } from '@wdio/types';
 import { WebdriverLauncher } from '@web/test-runner-webdriver';
 import internalIp from 'internal-ip';
 import { SauceLabsLauncherManager } from './SauceLabsLauncherManager.js';
@@ -13,7 +13,7 @@ export class SauceLabsLauncher extends WebdriverLauncher {
   constructor(
     private manager: SauceLabsLauncherManager,
     public name: string,
-    options: RemoteOptions,
+    options: Capabilities.WebdriverIOConfig,
   ) {
     super(options);
   }

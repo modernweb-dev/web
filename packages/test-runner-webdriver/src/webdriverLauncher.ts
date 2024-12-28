@@ -1,5 +1,6 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { Browser, remote, RemoteOptions } from 'webdriverio';
+import { Browser, remote } from 'webdriverio';
+import { Capabilities } from '@wdio/types';
 import { IFrameManager } from './IFrameManager.js';
 import { SessionManager } from './SessionManager.js';
 import { getBrowserLabel } from './utils.js';
@@ -28,12 +29,12 @@ export class WebdriverLauncher implements BrowserLauncher {
   private isIE = false;
   private pendingHeartbeat?: ReturnType<typeof setInterval>;
 
-  constructor(private options: RemoteOptions) {}
+  constructor(private options: Capabilities.WebdriverIOConfig) {}
 
   async initialize(config: TestRunnerCoreConfig) {
     this.config = config;
 
-    const cap = this.options.capabilities as WebDriver.DesiredCapabilities;
+    const cap = this.options.capabilities as WebdriverIO.Capabilities;
     this.name = getBrowserLabel(cap);
     const browserName = cap.browserName?.toLowerCase().replace(/_/g, ' ') || '';
     this.isIE =
@@ -103,7 +104,7 @@ export class WebdriverLauncher implements BrowserLauncher {
 
   private async createDriverManager() {
     if (!this.config) throw new Error('Not initialized');
-    const options: RemoteOptions = { logLevel: 'error', ...this.options };
+    const options: Capabilities.WebdriverIOConfig = { logLevel: 'error', ...this.options };
 
     try {
       this.driver = (await remote(options)) as Browser;
@@ -237,7 +238,7 @@ export class WebdriverLauncher implements BrowserLauncher {
   }
 }
 
-export function webdriverLauncher(options: RemoteOptions) {
+export function webdriverLauncher(options: Capabilities.WebdriverIOConfig) {
   if (!options?.capabilities) {
     throw new Error(`Webdriver launcher requires a capabilities property.`);
   }

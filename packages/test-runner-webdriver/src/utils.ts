@@ -1,17 +1,15 @@
-import WebDriver from 'webdriver';
-
-function getPlatform(c: WebDriver.DesiredCapabilities): string | undefined {
-  return c.platformName || c.platform;
+function getPlatform(c: WebdriverIO.Capabilities): string | undefined {
+  return c.platformName;
 }
 
-export function getBrowserName(c: WebDriver.DesiredCapabilities): string | undefined {
+export function getBrowserName(c: WebdriverIO.Capabilities): string | undefined {
   return c.browserName;
 }
 
-function getBrowserVersion(c: WebDriver.DesiredCapabilities): string | undefined {
-  return c.browserVersion || c.version;
+function getBrowserVersion(c: WebdriverIO.Capabilities): string | undefined {
+  return c.browserVersion;
 }
 
-export function getBrowserLabel(c: WebDriver.DesiredCapabilities): string {
+export function getBrowserLabel(c: WebdriverIO.Capabilities): string {
   return [getPlatform(c), getBrowserName(c), getBrowserVersion(c)].filter(_ => _).join(' ');
 }
