@@ -1,4 +1,5 @@
 ---
+'@web/test-runner-browserstack': minor
 '@web/test-runner-saucelabs': minor
 '@web/test-runner-webdriver': minor
 ---
