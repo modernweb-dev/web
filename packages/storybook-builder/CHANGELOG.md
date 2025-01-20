@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.1.21
+
+### Patch Changes
+
+- a82925e: include missing dependency on @web/config-loader
+
 ## 0.1.20
 
 ### Patch Changes
