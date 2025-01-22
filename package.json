@@ -127,7 +127,8 @@
     "@lion/overlays": "^0.33.2",
     "@mdjs/core": "^0.9.0",
     "@mdjs/mdjs-preview": "^0.5.5",
-    "@rocket/drawer": "^0.1.4"
+    "@rocket/drawer": "^0.1.4",
+    "sharp": "^0.30.7"
   },
   "prettier": {
     "singleQuote": true,
