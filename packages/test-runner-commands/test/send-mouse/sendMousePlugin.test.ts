@@ -57,6 +57,8 @@ describe('sendMousePlugin', function test() {
         browsers: [
           webdriverLauncher({
             automationProtocol: 'webdriver',
+            hostname: 'localhost',
+            port: 4444,
             path: '/wd/hub/',
             capabilities: {
               browserName: 'chrome',
@@ -67,6 +69,8 @@ describe('sendMousePlugin', function test() {
           }),
           webdriverLauncher({
             automationProtocol: 'webdriver',
+            hostname: 'localhost',
+            port: 4444,
             path: '/wd/hub/',
             capabilities: {
               browserName: 'firefox',

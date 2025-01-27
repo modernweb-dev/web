@@ -53,6 +53,8 @@ describe('test-runner-webdriver', function testRunnerWebdriver() {
       browsers: [
         webdriverLauncher({
           automationProtocol: 'webdriver',
+          hostname: 'localhost',
+          port: 4444,
           path: '/wd/hub/',
           capabilities: {
             browserName: 'chrome',
@@ -63,6 +65,8 @@ describe('test-runner-webdriver', function testRunnerWebdriver() {
         }),
         webdriverLauncher({
           automationProtocol: 'webdriver',
+          hostname: 'localhost',
+          port: 4444,
           path: '/wd/hub/',
           capabilities: {
             browserName: 'firefox',

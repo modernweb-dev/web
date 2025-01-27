@@ -1,5 +1,5 @@
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { Browser, Element } from 'webdriverio';
+import { Browser } from 'webdriverio';
 import { validateBrowserResult } from './coverage.js';
 
 /**
@@ -89,9 +89,9 @@ export class SessionManager {
   }
 
   async takeScreenshot(_: string, locator: string): Promise<Buffer> {
-    const elementData = (await this.driver.execute(locator, [])) as Element;
+    const elementData = (await this.driver.execute(locator, [])) as WebdriverIO.Element;
 
-    const element = await this.driver.$(elementData);
+    const element = await this.driver.$(elementData).getElement();
 
     let base64 = '';
 
