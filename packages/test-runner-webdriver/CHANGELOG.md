@@ -1,5 +1,11 @@
 # @web/test-runner-webdriver
 
+## 0.9.0
+
+### Minor Changes
+
+- e755f6b: Upgrade WebdriverIO to v9, drop JWP capabilities
+
 ## 0.8.0
 
 ### Minor Changes
