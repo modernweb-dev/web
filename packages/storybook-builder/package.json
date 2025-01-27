@@ -49,10 +49,10 @@
   "dependencies": {
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/pluginutils": "^5.0.2",
-    "@storybook/core-common": "^7.0.0",
+    "@storybook/core-common": "^8.5.0",
     "@storybook/mdx2-csf": "^1.0.0",
-    "@storybook/node-logger": "^7.0.0",
-    "@storybook/preview": "^7.0.0",
+    "@storybook/node-logger": "^8.5.0",
+    "@storybook/preview": "^8.5.0",
     "@web/config-loader": "^0.3.2",
     "@web/dev-server": "^0.4.0",
     "@web/dev-server-core": "^0.7.5",
@@ -74,6 +74,6 @@
     "slash": "^5.1.0"
   },
   "devDependencies": {
-    "@storybook/types": "^7.0.0"
+    "@storybook/types": "^8.5.0"
   }
 }

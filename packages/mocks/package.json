@@ -64,8 +64,8 @@
     "msw"
   ],
   "dependencies": {
-    "@storybook/manager-api": "^7.0.0",
-    "@storybook/preview-api": "^7.0.0",
+    "@storybook/manager-api": "^8.5.0",
+    "@storybook/preview-api": "^8.5.0",
     "@web/storybook-prebuilt": "^0.1.37",
     "@web/storybook-utils": "^1.0.0",
     "lit": "^2.7.5 || ^3.0.0",
