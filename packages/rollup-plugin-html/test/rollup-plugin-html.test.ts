@@ -705,11 +705,11 @@ describe('rollup-plugin-html', () => {
     expect(outputHtml).to.include(
       '<link rel="mask-icon" href="assets/image-a.svg" color="#3f93ce">',
     );
-    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/styles-hdiMuZ9V.css">');
-    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/x-wxoPDuod.css">');
-    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/y-yU65zx9z.css">');
-    expect(outputHtml).to.include('<img src="assets/image-c-Mr5Lb2jQ.png">');
-    expect(outputHtml).to.include('<img src="assets/image-b-yrDWczn5.svg">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/styles-CF2Iy5n1.css">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/x-DDGg8O6h.css">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/y-DJTrnPH3.css">');
+    expect(outputHtml).to.include('<img src="assets/image-c-yvktvaNB.png">');
+    expect(outputHtml).to.include('<img src="assets/image-b-DKsNZzOf.svg">');
   });
 
   it('deduplicates static assets with similar names', async () => {
@@ -762,7 +762,7 @@ describe('rollup-plugin-html', () => {
 
     expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
       '<html><head><link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg"></head>' +
-        '<body><img src="assets/foo-WjgrfMGT.svg"></body></html>',
+        '<body><img src="assets/foo-BaOCt8wZ.svg"></body></html>',
     );
   });
 
@@ -789,9 +789,9 @@ describe('rollup-plugin-html', () => {
 
     expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
       '<html><head></head><body>' +
-        '<link rel="stylesheet" href="assets/image-a-Mr5Lb2jQ.png">' +
-        '<img src="assets/image-a-Mr5Lb2jQ.png">' +
-        '<img src="assets/image-a-Mr5Lb2jQ.png">' +
+        '<link rel="stylesheet" href="assets/image-a-yvktvaNB.png">' +
+        '<img src="assets/image-a-yvktvaNB.png">' +
+        '<img src="assets/image-a-yvktvaNB.png">' +
         '</body></html>',
     );
   });
@@ -837,20 +837,20 @@ describe('rollup-plugin-html', () => {
 
     expect(stripNewlines(getAsset(output, 'page-a.html').source)).to.equal(
       '<html><head></head><body>' +
-        '  <img src="assets/image-a-Mr5Lb2jQ.png">' +
+        '  <img src="assets/image-a-yvktvaNB.png">' +
         '    </body></html>',
     );
 
     expect(stripNewlines(getAsset(output, 'page-b.html').source)).to.equal(
       '<html><head></head><body>' +
-        '  <link rel="stylesheet" href="assets/image-a-Mr5Lb2jQ.png">' +
+        '  <link rel="stylesheet" href="assets/image-a-yvktvaNB.png">' +
         '    </body></html>',
     );
 
     expect(stripNewlines(getAsset(output, 'page-c.html').source)).to.equal(
       '<html><head></head><body>' +
-        '  <link rel="stylesheet" href="assets/image-a-Mr5Lb2jQ.png">' +
-        '  <img src="assets/image-a-Mr5Lb2jQ.png">' +
+        '  <link rel="stylesheet" href="assets/image-a-yvktvaNB.png">' +
+        '  <img src="assets/image-a-yvktvaNB.png">' +
         '    </body></html>',
     );
   });
@@ -1034,9 +1034,9 @@ describe('rollup-plugin-html', () => {
     expect(stripNewlines(getAsset(output, 'x/index.html').source)).to.equal(
       [
         '<html><head></head><body>',
-        '<img src="../assets/foo-ACZ5M5Wv.svg">',
-        '<link rel="stylesheet" href="../assets/styles-hdiMuZ9V.css">',
-        '<img src="../assets/image-b-yrDWczn5.svg">',
+        '<img src="../assets/foo-AJnkzla8.svg">',
+        '<link rel="stylesheet" href="../assets/styles-CF2Iy5n1.css">',
+        '<img src="../assets/image-b-DKsNZzOf.svg">',
         '</body></html>',
       ].join(''),
     );
@@ -1189,35 +1189,35 @@ describe('rollup-plugin-html', () => {
       .trim();
     expect(rewrittenCss).to.equal(
       `#a {
-  background-image: url("assets/star-mrrzn5BV.svg");
+  background-image: url("assets/star-CauvOfkF.svg");
 }
 
 #b {
-  background-image: url("assets/star-mrrzn5BV.svg#foo");
+  background-image: url("assets/star-CauvOfkF.svg#foo");
 }
 
 #c {
-  background-image: url("assets/star-eErsO14u.png");
+  background-image: url("assets/star-B4Suw7Xi.png");
 }
 
 #d {
-  background-image: url("assets/star-yqfHyXQC.jpg");
+  background-image: url("assets/star-DKp8fJdA.jpg");
 }
 
 #e {
-  background-image: url("assets/star-G_i5Rpoh.jpeg");
+  background-image: url("assets/star-b-LlGmiF.jpeg");
 }
 
 #f {
-  background-image: url("assets/star-l7b58t3m.webp");
+  background-image: url("assets/star-CXtvny3e.webp");
 }
 
 #g {
-  background-image: url("assets/star-P4TYRBwL.gif");
+  background-image: url("assets/star-_hNhEHAt.gif");
 }
 
 #h {
-  background-image: url("assets/star-H06WHrYy.avif");
+  background-image: url("assets/star-fTpYetjL.avif");
 }`.trim(),
     );
   });
@@ -1284,11 +1284,11 @@ describe('rollup-plugin-html', () => {
     expect(outputHtml).to.include('<link rel="mask-icon" href="./image-a.svg" color="#3f93ce">');
     expect(outputHtml).to.include('<link rel="mask-icon" href="image-d.svg" color="#3f93ce">');
     expect(outputHtml).to.include(
-      '<link rel="stylesheet" href="assets/styles-with-referenced-assets-NuwIw8gN.css">',
+      '<link rel="stylesheet" href="assets/styles-with-referenced-assets-C5klO55x.css">',
     );
     expect(outputHtml).to.include('<link rel="stylesheet" href="./foo/x.css">');
     expect(outputHtml).to.include('<link rel="stylesheet" href="foo/bar/y.css">');
-    expect(outputHtml).to.include('<img src="assets/assets/image-d-y8_AQMDl.png">');
+    expect(outputHtml).to.include('<img src="assets/assets/image-d-DLz8BAwO.png">');
     expect(outputHtml).to.include('<img src="./image-d.svg">');
 
     const rewrittenCss = getAsset(output, 'styles-with-referenced-assets.css')
@@ -1296,7 +1296,7 @@ describe('rollup-plugin-html', () => {
       .trim();
     expect(rewrittenCss).to.equal(
       `#a1 {
-  background-image: url("assets/image-a-Mr5Lb2jQ.png");
+  background-image: url("assets/image-a-yvktvaNB.png");
 }
 
 #a2 {
@@ -1304,7 +1304,7 @@ describe('rollup-plugin-html', () => {
 }
 
 #d1 {
-  background-image: url("assets/image-d-y8_AQMDl.png");
+  background-image: url("assets/image-d-DLz8BAwO.png");
 }
 
 #d2 {
