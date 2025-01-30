@@ -53,7 +53,7 @@ export class SauceLabsLauncherManager {
     this.connectionPromise = withTimeout(
       this.api.startSauceConnect({
         ...this.connectOptions,
-        noSslBumpDomains: `127.0.0.1,localhost,${internalIp.v4.sync()}`,
+        tlsPassthroughDomains: `^(127\\.0\\.0\\.1|localhost|${internalIp.v4.sync()?.replace(/\./g, '\\.')})$`,
       }),
       '[Saucelabs] Timed out setting up Sauce Connect proxy after 5 minutes.',
     );
