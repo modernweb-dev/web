@@ -7,7 +7,7 @@ import { SauceLabsLauncherManager } from './SauceLabsLauncherManager.js';
 
 export function createSauceLabsLauncher(
   saucelabsOptions: SauceLabsOptions,
-  saucelabsCapabilities?: WebdriverIO.Capabilities,
+  saucelabsCapabilities?: WebdriverIO.Capabilities['sauce:options'],
   sauceConnectOptions?: SauceConnectOptions,
 ) {
   if (saucelabsOptions == null) {
