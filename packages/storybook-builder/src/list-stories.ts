@@ -3,7 +3,7 @@
 import { normalizeStories } from '@storybook/core-common';
 import type { Options } from '@storybook/types';
 import { promise as glob } from 'glob-promise';
-import * as path from 'path';
+import { isAbsolute, join } from 'node:path';
 
 export async function listStories(options: Options) {
   const slash = (await import('slash')).default; // for CJS compatibility
@@ -14,10 +14,8 @@ export async function listStories(options: Options) {
         configDir: options.configDir,
         workingDir: options.configDir,
       }).map(({ directory, files }) => {
-        const pattern = path.join(directory, files);
-        const absolutePattern = path.isAbsolute(pattern)
-          ? pattern
-          : path.join(options.configDir, pattern);
+        const pattern = join(directory, files);
+        const absolutePattern = isAbsolute(pattern) ? pattern : join(options.configDir, pattern);
 
         return glob(slash(absolutePattern), { follow: true });
       }),

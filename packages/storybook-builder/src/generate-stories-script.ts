@@ -3,7 +3,7 @@
 import { normalizePath } from '@rollup/pluginutils';
 import { logger } from '@storybook/node-logger';
 import type { Options } from '@storybook/types';
-import * as path from 'path';
+import { extname, relative } from 'node:path';
 import { listStories } from './list-stories.js';
 
 /**
@@ -27,8 +27,8 @@ export async function generateStoriesScript(options: Options) {
  */
 async function toImportFn(stories: string[]) {
   const objectEntries = stories.map(file => {
-    const ext = path.extname(file);
-    const relativePath = normalizePath(path.relative(process.cwd(), file));
+    const ext = extname(file);
+    const relativePath = normalizePath(relative(process.cwd(), file));
     if (!['.js', '.jsx', '.ts', '.tsx', '.mdx', '.svelte', '.vue'].includes(ext)) {
       logger.warn(`Cannot process ${ext} file with storyStoreV7: ${relativePath}`);
     }

@@ -33,16 +33,18 @@ ${previewAnnotationURLs
   `.trim();
 
   return `
-import { composeConfigs, PreviewWeb, ClientApi } from '@storybook/preview-api';
+import { setup } from '@storybook/core/preview/runtime';
 import '${virtualSetupAddonsFilename}';
+
+setup();
+
+import { composeConfigs, PreviewWeb, ClientApi } from '@storybook/preview-api';
 import { importFn } from '${virtualStoriesFilename}';
 
 ${getPreviewAnnotationsFunction}
 
-window.__STORYBOOK_PREVIEW__ = window.__STORYBOOK_PREVIEW__ || new PreviewWeb();
+window.__STORYBOOK_PREVIEW__ = window.__STORYBOOK_PREVIEW__ || new PreviewWeb(importFn, getProjectAnnotations);
 
 window.__STORYBOOK_STORY_STORE__ = window.__STORYBOOK_STORY_STORE__ || window.__STORYBOOK_PREVIEW__.storyStore;
-window.__STORYBOOK_CLIENT_API__ = window.__STORYBOOK_CLIENT_API__ || new ClientApi({ storyStore: window.__STORYBOOK_PREVIEW__.storyStore });
-window.__STORYBOOK_PREVIEW__.initialize({ importFn, getProjectAnnotations });
   `.trim();
 }

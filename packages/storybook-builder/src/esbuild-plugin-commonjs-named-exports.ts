@@ -1,6 +1,6 @@
 import type { Plugin } from 'esbuild';
-import { readFile } from 'fs-extra';
-import { dirname, relative } from 'path';
+import { readFile } from 'node:fs/promises';
+import { dirname, relative } from 'node:path';
 
 export function esbuildPluginCommonjsNamedExports(modules: string[]): Plugin {
   return {
@@ -65,7 +65,7 @@ export function esbuildPluginCommonjsNamedExports(modules: string[]): Plugin {
       });
 
       async function getNamedExports(path: string): Promise<string[]> {
-        const source = await readFile(path, 'utf8');
+        const source = await readFile(path, { encoding: 'utf8' });
 
         let exports: string[] = [];
         let reexports: string[] = [];

@@ -1,9 +1,9 @@
-import { compile } from '@storybook/mdx2-csf';
 import type { Options } from '@storybook/types';
-import { exists, readFile } from 'fs-extra';
-import { isAbsolute, sep } from 'path';
-import remarkExternalLinks from 'remark-external-links';
-import remarkSlug from 'remark-slug';
+import { compile } from '@mdx-js/mdx';
+import { readFile } from 'node:fs/promises';
+import { dirname, join, sep } from 'node:path';
+import rehypeExternalLinks from 'rehype-external-links';
+import rehypeSlug from 'rehype-slug';
 import type { Plugin } from 'rollup';
 
 export function rollupPluginMdx(storybookOptions: Options): Plugin {
@@ -26,39 +26,37 @@ export function rollupPluginMdx(storybookOptions: Options): Plugin {
       }
     },
 
-    async load(id) {
+    async load(id: string) {
       if (!id.endsWith('.mdx.js')) return;
 
       const mdxPath = id.replace(/\.js$/, '');
-      const mdxCode = await readFile(mdxPath.split('/').join(sep), 'utf8');
+      const mdxCode = await readFile(mdxPath.split('/').join(sep), { encoding: 'utf8' });
 
       const mdxLoaderOptions = await storybookOptions.presets.apply('mdxLoaderOptions', {
         ...mdxPluginOptions,
         mdxCompileOptions: {
-          providerImportSource: '@mdx-js/react',
-          ...mdxPluginOptions?.mdxCompileOptions,
-          remarkPlugins: [remarkSlug, remarkExternalLinks].concat(
-            mdxPluginOptions?.mdxCompileOptions?.remarkPlugins ?? [],
+          // TODO(storybook): this is done by Storybook in 3 different places:
+          // 1. addon-essential preset (so not always working for all users who install plugins individually)
+          // 2. addon-docs vite plugin (so not applicable to our builder)
+          // 3. addon-docs webpack loader (also no applicable for us)
+          // so we need to do this here too, for people who individually include addon-docs
+          providerImportSource: join(
+            dirname(require.resolve('@storybook/addon-docs/package.json')),
+            '/dist/shims/mdx-react-shim.mjs',
           ),
+          ...mdxPluginOptions?.mdxCompileOptions,
+          rehypePlugins: [
+            ...(mdxPluginOptions?.mdxCompileOptions?.rehypePlugins ?? []),
+            rehypeSlug,
+            rehypeExternalLinks,
+          ],
         },
         jsxOptions,
       });
 
-      // workaround for https://github.com/storybookjs/storybook/blob/v7.6.17/code/addons/essentials/src/docs/preset.ts#L10
-      const { providerImportSource } = mdxLoaderOptions.mdxCompileOptions;
-      if (isAbsolute(providerImportSource)) {
-        const providerImportSourceWithExt = providerImportSource + '.mjs';
-        if (await exists(providerImportSourceWithExt)) {
-          mdxLoaderOptions.mdxCompileOptions.providerImportSource = providerImportSourceWithExt;
-        }
-      }
+      const mdxResult = await compile(mdxCode, mdxLoaderOptions.mdxCompileOptions);
 
-      const jsCode = await compile(mdxCode, {
-        skipCsf: true,
-        ...mdxLoaderOptions,
-      });
-
-      return jsCode;
+      return mdxResult.toString();
     },
   };
 }

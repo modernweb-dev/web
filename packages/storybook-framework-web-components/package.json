@@ -16,9 +16,9 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
-      "import": "./index.mjs",
-      "types": "./dist/index.d.ts"
+      "import": "./index.mjs"
     },
     "./preset": "./preset.js",
     "./package.json": "./package.json"

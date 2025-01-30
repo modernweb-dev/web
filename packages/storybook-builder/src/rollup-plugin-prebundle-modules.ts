@@ -1,7 +1,8 @@
+import type { Options } from '@storybook/types';
 import { stringifyProcessEnvs } from '@storybook/core-common';
 import { build } from 'esbuild';
-import { remove } from 'fs-extra';
-import { join, normalize } from 'path';
+import { rm, readFile } from 'node:fs/promises';
+import { join, normalize, isAbsolute, dirname } from 'node:path';
 import type { Plugin } from 'rollup';
 import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-named-exports.js';
 import { getNodeModuleDir } from './get-node-module-dir.js';
@@ -18,7 +19,7 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
       const modules = CANDIDATES.filter(moduleExists);
 
       const modulesDir = join(process.cwd(), PREBUNDLED_MODULES_DIR);
-      await remove(modulesDir);
+      await rm(modulesDir, { recursive: true, force: true });
 
       for (const module of modules) {
         modulePaths[module] = join(
@@ -37,14 +38,14 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
         sourcemap: true,
         alias: {
           assert: require.resolve('browser-assert'),
-          lodash: getNodeModuleDir('lodash-es'), // more optimal, but also solves esbuild incorrectly compiling lodash/_nodeUtil
           path: require.resolve('path-browserify'),
 
           /* for @storybook/addon-docs */
           ...(moduleExists('@storybook/react-dom-shim') && {
-            '@storybook/react-dom-shim': getReactDomShimAlias(),
+            '@storybook/react-dom-shim': await getReactDomShimAlias(),
           }),
         },
+        // TODO(storybook): mark React module as external to prevent bundling and duplicates in runtime
         define: (() => {
           const define = stringifyProcessEnvs(env);
 
@@ -59,9 +60,7 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
             modules.filter(
               module =>
                 // lodash is solved by the lodash-es alias
-                !module.startsWith('lodash/') &&
-                // @storybook/react-dom-shim is just an alias to an ESM module
-                module !== '@storybook/react-dom-shim',
+                !module.startsWith('lodash/'),
             ),
           ),
         ],
@@ -74,6 +73,8 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
   };
 }
 
+// TODO(storybook): update the CANDIDATES list
+
 // this is different to https://github.com/storybookjs/storybook/blob/v7.0.0/code/lib/builder-vite/src/optimizeDeps.ts#L7
 // builder-vite bundles different dependencies for performance reasons
 // we aim only at browserifying NodeJS dependencies (CommonJS/process.env/...)
@@ -85,38 +86,55 @@ export const CANDIDATES = [
   'react-dom',
 
   /* for different packages */
+  '@storybook/components',
+  '@storybook/test',
+  'memoizerific',
   'tiny-invariant',
 
-  /* for @storybook/addon-interactions */
-  'jest-mock',
-  // @testing-library has ESM, but imports/exports are not working correctly between packages
-  // specifically "@testing-library/user-event" has "dist/esm/utils/misc/getWindow.js" (see https://cdn.jsdelivr.net/npm/@testing-library/user-event@14.4.3/dist/esm/utils/misc/getWindow.js)
-  // which uses "@testing-library/dom" in `import { getWindowFromNode } from '@testing-library/dom/dist/helpers.js';`
-  // which doesn't get resolved to "@testing-library/dom" ESM "dom.esm.js" (see https://cdn.jsdelivr.net/npm/@testing-library/dom@9.3.1/dist/@testing-library/dom.esm.js)
-  // and instead gets resolved to "@testing-library/dom" CommonJS "dist/helpers.js" (see https://cdn.jsdelivr.net/npm/@testing-library/dom@9.3.1/dist/helpers.js)
-  '@testing-library/dom',
-  '@testing-library/user-event',
-
-  /* for @storybook/addon-docs */
-  'color-convert',
-  'doctrine',
-  'lodash/cloneDeep.js',
-  'lodash/mapValues.js',
-  'lodash/pickBy.js',
-  'lodash/throttle.js',
-  'lodash/uniq.js',
-  'memoizerific',
-  'tocbot',
+  /* for @storybook/core */
+  'jsdoc-type-pratt-parser', // TODO: Remove this once it's converted to ESM: https://github.com/jsdoc-type-pratt-parser/jsdoc-type-pratt-parser/issues/173
 
   /* for @storybook/addon-a11y */
   'axe-core',
+  'vitest-axe/matchers',
+
+  /* for @storybook/addon-docs */
+  'color-convert',
 ];
 
-function getReactDomShimAlias() {
-  const { version } = require('react-dom');
-  return version.startsWith('18')
-    ? require.resolve('@storybook/react-dom-shim/dist/react-18').replace(/\.js$/, '.mjs')
-    : require.resolve('@storybook/react-dom-shim').replace(/\.js$/, '.mjs');
+/**
+ * Get react-dom version from the resolvedReact preset, which points to either a root react-dom
+ * dependency or the react-dom dependency shipped with addon-docs
+ */
+// async function getIsReactVersion18or19(options: Options) {
+async function getIsReactVersion18or19() {
+  // TODO(storybook): find a solution to have "options" here and fix the implementation
+
+  // const { legacyRootApi } =
+  //   (await options.presets.apply<{ legacyRootApi?: boolean } | null>('frameworkOptions')) || {};
+
+  // if (legacyRootApi) {
+  //   return false;
+  // }
+
+  // const resolvedReact = await options.presets.apply<{ reactDom?: string }>('resolvedReact', {});
+  // const reactDom = resolvedReact.reactDom || dirname(require.resolve('react-dom/package.json'));
+  const reactDom = dirname(require.resolve('react-dom/package.json'));
+
+  if (!isAbsolute(reactDom)) {
+    // if react-dom is not resolved to a file we can't be sure if the version in package.json is correct or even if package.json exists
+    // this happens when react-dom is resolved to 'preact/compat' for example
+    return false;
+  }
+
+  const { version } = JSON.parse(await readFile(join(reactDom, 'package.json'), 'utf-8'));
+  return version.startsWith('18') || version.startsWith('19') || version.startsWith('0.0.0');
+}
+
+async function getReactDomShimAlias() {
+  return (await getIsReactVersion18or19())
+    ? require.resolve('@storybook/react-dom-shim')
+    : require.resolve('@storybook/react-dom-shim/dist/react-16');
 }
 
 function moduleExists(moduleName: string) {
