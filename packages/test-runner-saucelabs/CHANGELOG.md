@@ -1,5 +1,11 @@
 # @web/test-runner-saucelabs
 
+## 0.12.1
+
+### Patch Changes
+
+- 736e669: Use correct type for providing SauceLabsCapabilities object in createSauceLabsLauncher
+
 ## 0.12.0
 
 ### Minor Changes
