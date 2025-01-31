@@ -10,7 +10,7 @@ type LegacySauceConnectOptions = {
    * @deprecated Use `tunnelName` instead.
    */
   tunnelIdentifier?: string;
-}
+};
 
 export function createSauceLabsLauncher(
   saucelabsOptions: SauceLabsOptions,
@@ -34,7 +34,9 @@ export function createSauceLabsLauncher(
     finalSauceLabsOptions.region = 'us';
   }
 
-  const finalConnectOptions: SauceConnectOptions & LegacySauceConnectOptions = { ...sauceConnectOptions };
+  const finalConnectOptions: SauceConnectOptions & LegacySauceConnectOptions = {
+    ...sauceConnectOptions,
+  };
   if (finalConnectOptions?.tunnelIdentifier) {
     console.warn('The `tunnelIdentifier` option is deprecated. Use `tunnelName` instead.');
     finalConnectOptions.tunnelName = finalConnectOptions.tunnelIdentifier;
