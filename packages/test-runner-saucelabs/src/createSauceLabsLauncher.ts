@@ -5,17 +5,10 @@ import { nanoid } from 'nanoid';
 import { SauceLabsLauncher } from './SauceLabsLauncher.js';
 import { SauceLabsLauncherManager } from './SauceLabsLauncherManager.js';
 
-type LegacySauceConnectOptions = {
-  /**
-   * @deprecated Use `tunnelName` instead.
-   */
-  tunnelIdentifier?: string;
-};
-
 export function createSauceLabsLauncher(
   saucelabsOptions: SauceLabsOptions,
   saucelabsCapabilities?: WebdriverIO.Capabilities['sauce:options'],
-  sauceConnectOptions?: SauceConnectOptions & LegacySauceConnectOptions,
+  sauceConnectOptions?: SauceConnectOptions,
 ) {
   if (saucelabsOptions == null) {
     throw new Error('Options are required to set user and key.');
@@ -34,14 +27,7 @@ export function createSauceLabsLauncher(
     finalSauceLabsOptions.region = 'us';
   }
 
-  const finalConnectOptions: SauceConnectOptions & LegacySauceConnectOptions = {
-    ...sauceConnectOptions,
-  };
-  if (finalConnectOptions?.tunnelIdentifier) {
-    console.warn('The `tunnelIdentifier` option is deprecated. Use `tunnelName` instead.');
-    finalConnectOptions.tunnelName = finalConnectOptions.tunnelIdentifier;
-    delete finalConnectOptions.tunnelIdentifier;
-  }
+  const finalConnectOptions: SauceConnectOptions = { ...sauceConnectOptions };
   if (typeof finalConnectOptions.tunnelName !== 'string') {
     finalConnectOptions.tunnelName = `web-test-runner-${nanoid()}`;
   }
