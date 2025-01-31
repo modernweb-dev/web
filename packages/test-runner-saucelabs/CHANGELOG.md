@@ -1,5 +1,12 @@
 # @web/test-runner-saucelabs
 
+## 0.13.0
+
+### Minor Changes
+
+- 64e873c: Bump saucelabs to 9.0.0 and update test-runner-saucelabs to changes in the new version.
+  The new version contains breaking changes, see the migration guide for more information: https://docs.saucelabs.com/secure-connections/sauce-connect-5/migrating/.
+
 ## 0.12.1
 
 ### Patch Changes
