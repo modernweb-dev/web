@@ -23,15 +23,10 @@ const config = {
           return;
         }
 
-        // ignore warning about eval which comes from bundled telejson
+        // ignore warning about eval used by the storybook internals
         if (log.code === 'EVAL') {
           const logId = log.id?.replace(/\\/g, '/');
-          if (
-            // TODO(storybook): looks like '@storybook/test' bundles too much, including the "@storybook/core"
-            // TODO(storybook): exact eval seems to be from get-intrinsic, not from telejson which is weird given telejson is still used
-            logId?.includes('node_modules/.prebundled_modules/@storybook/test.mjs') ||
-            logId?.includes('node_modules/@storybook/core/dist/preview/runtime.js')
-          ) {
+          if (logId?.includes('node_modules/@storybook/core/dist/preview/runtime.js')) {
             defaultHandler('warn', log);
             return;
           }

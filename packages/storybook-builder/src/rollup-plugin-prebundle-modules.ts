@@ -45,7 +45,7 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
             '@storybook/react-dom-shim': await getReactDomShimAlias(),
           }),
         },
-        // TODO(storybook): mark React module as external to prevent bundling and duplicates in runtime
+        external: [...modules],
         define: (() => {
           const define = stringifyProcessEnvs(env);
 
@@ -72,14 +72,13 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
 // we aim only at browserifying NodeJS dependencies (CommonJS/process.env/...)
 export const CANDIDATES = [
   /* for different addons built with React and for MDX */
-  '@storybook/react-dom-shim', // needs special resolution
   'react',
-  process.env.NODE_ENV === 'production' ? 'react/jsx-runtime' : 'react/jsx-dev-runtime',
+  'react/jsx-runtime',
+  'react/jsx-dev-runtime',
   'react-dom',
+  'react-dom/client',
 
   /* for different packages */
-  '@storybook/components',
-  '@storybook/test',
   'memoizerific',
   'tiny-invariant',
 

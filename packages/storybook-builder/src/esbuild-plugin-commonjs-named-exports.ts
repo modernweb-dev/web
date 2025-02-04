@@ -15,6 +15,9 @@ export function esbuildPluginCommonjsNamedExports(modules: string[]): Plugin {
         if (args.pluginData?.preventInfiniteRecursion) return;
 
         const { path, ...rest } = args;
+        rest.kind = 'entry-point'; // forces resolution to the file path, because we need names for external modules too
+        rest.importer = '';
+        rest.namespace = '';
         rest.pluginData = { preventInfiniteRecursion: true };
         const resolveResult = await build.resolve(path, rest);
         const resolvedPath = resolveResult.path;
