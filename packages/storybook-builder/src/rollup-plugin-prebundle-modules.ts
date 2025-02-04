@@ -55,15 +55,7 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
 
           return define;
         })(),
-        plugins: [
-          esbuildPluginCommonjsNamedExports(
-            modules.filter(
-              module =>
-                // lodash is solved by the lodash-es alias
-                !module.startsWith('lodash/'),
-            ),
-          ),
-        ],
+        plugins: [esbuildPluginCommonjsNamedExports(modules)],
       });
     },
 
