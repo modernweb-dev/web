@@ -37,9 +37,6 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
         splitting: true,
         sourcemap: true,
         alias: {
-          assert: require.resolve('browser-assert'),
-          path: require.resolve('path-browserify'),
-
           /* for @storybook/addon-docs */
           ...(moduleExists('@storybook/react-dom-shim') && {
             '@storybook/react-dom-shim': await getReactDomShimAlias(),
