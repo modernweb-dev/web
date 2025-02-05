@@ -1,4 +1,4 @@
-// based on https://github.com/storybookjs/storybook/blob/v7.0.9/code/lib/builder-vite/src/codegen-set-addon-channel.ts
+// based on https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/codegen-set-addon-channel.ts
 
 export async function generateSetupAddonsScript() {
   return `

@@ -1,4 +1,4 @@
-// based on https://github.com/storybookjs/storybook/blob/v7.0.9/code/lib/builder-vite/src/list-stories.ts
+// based on https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/list-stories.ts
 
 import { normalizeStories } from '@storybook/core-common';
 import type { Options } from '@storybook/types';

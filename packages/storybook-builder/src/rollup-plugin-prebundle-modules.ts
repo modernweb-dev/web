@@ -65,9 +65,7 @@ export function rollupPluginPrebundleModules(
   };
 }
 
-// TODO(storybook): update the CANDIDATES list
-
-// this is different to https://github.com/storybookjs/storybook/blob/v7.0.0/code/lib/builder-vite/src/optimizeDeps.ts#L7
+// this is different to https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/optimizeDeps.ts
 // builder-vite bundles different dependencies for performance reasons
 // we aim only at browserifying NodeJS dependencies (CommonJS/process.env/...)
 export const CANDIDATES = [
