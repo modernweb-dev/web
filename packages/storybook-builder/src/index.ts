@@ -1,4 +1,5 @@
 import rollupPluginNodeResolve from '@rollup/plugin-node-resolve';
+import rollupPluginReplace from '@rollup/plugin-replace';
 import { getBuilderOptions } from '@storybook/core-common';
 import { logger } from '@storybook/node-logger';
 // Import both globals and globalsNameReferenceMap to prevent retrocompatibility.
@@ -23,10 +24,12 @@ import {
   rollupPluginPrebundleModules,
 } from './rollup-plugin-prebundle-modules.js';
 import { rollupPluginStorybookBuilder } from './rollup-plugin-storybook-builder.js';
+import { stringifyProcessEnvs } from './stringify-process-envs.js';
 
 const wdsPluginExternalGlobals = fromRollup(rollupPluginExternalGlobals);
 const wdsPluginMdx = fromRollup(rollupPluginMdx);
 const wdsPluginPrebundleModules = fromRollup(rollupPluginPrebundleModules);
+const wdsPluginReplace = fromRollup(rollupPluginReplace);
 const wdsPluginStorybookBuilder = fromRollup(rollupPluginStorybookBuilder);
 
 export type StorybookConfigWds = StorybookConfigBase & {
@@ -90,6 +93,11 @@ export const start: WdsBuilder['start'] = async ({ startTime, options, router, s
       wdsPluginStorybookBuilder(options),
       wdsPluginMdx(options),
       wdsPluginExternalGlobals(globalsNameReferenceMap || globals),
+      wdsPluginReplace({
+        ...stringifyProcessEnvs(env),
+        include: ['**/node_modules/@storybook/**/*'],
+        preventAssignment: true,
+      }),
     ],
   };
 
@@ -164,6 +172,11 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
       rollupPluginStorybookBuilder(options),
       rollupPluginMdx(options),
       rollupPluginExternalGlobals(globalsNameReferenceMap || globals),
+      rollupPluginReplace({
+        ...stringifyProcessEnvs(env),
+        include: ['**/node_modules/@storybook/**/*'],
+        preventAssignment: true,
+      }),
     ],
   };
 

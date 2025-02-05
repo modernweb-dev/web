@@ -1,11 +1,10 @@
 import type { Options } from '@storybook/types';
-import { stringifyProcessEnvs } from '@storybook/core-common';
 import { build } from 'esbuild';
 import { rm, readFile } from 'node:fs/promises';
 import { join, normalize, isAbsolute, dirname } from 'node:path';
 import type { Plugin } from 'rollup';
 import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-named-exports.js';
-import { getNodeModuleDir } from './get-node-module-dir.js';
+import { stringifyProcessEnvs } from './stringify-process-envs.js';
 
 export const PREBUNDLED_MODULES_DIR = normalize('node_modules/.prebundled_modules');
 
@@ -46,15 +45,7 @@ export function rollupPluginPrebundleModules(
           }),
         },
         external: [...modules],
-        define: (() => {
-          const define = stringifyProcessEnvs(env);
-
-          // "NODE_PATH" pollutes the output, it's not used by prebundled modules and is not recommended in general
-          // see more https://github.com/nodejs/node/issues/38128#issuecomment-814969356
-          delete define['process.env.NODE_PATH'];
-
-          return define;
-        })(),
+        define: stringifyProcessEnvs(env),
         plugins: [esbuildPluginCommonjsNamedExports(modules)],
       });
     },

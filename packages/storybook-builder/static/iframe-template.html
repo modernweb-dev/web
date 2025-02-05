@@ -57,12 +57,6 @@
       // doesn't fail (it will simply be disabled)
       window.module = undefined;
       window.global = window;
-      window.process = {
-        env: {
-          // TODO(storybook): unlikely this works properly in the rollup build, but somehow it wasn't failing either
-          NODE_ENV: 'development',
-        },
-      };
     </script>
     <!-- [HEAD HTML SNIPPET HERE] -->
   </head>
