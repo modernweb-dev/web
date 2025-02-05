@@ -1,5 +1,5 @@
-import type { Options } from '@storybook/types';
 import { compile } from '@mdx-js/mdx';
+import type { Options } from '@storybook/types';
 import { readFile } from 'node:fs/promises';
 import { dirname, join, sep } from 'node:path';
 import rehypeExternalLinks from 'rehype-external-links';

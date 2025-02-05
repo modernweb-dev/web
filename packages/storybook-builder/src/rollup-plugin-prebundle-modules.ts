@@ -1,7 +1,7 @@
 import type { Options } from '@storybook/types';
 import { build } from 'esbuild';
-import { rm, readFile } from 'node:fs/promises';
-import { join, normalize, isAbsolute, dirname } from 'node:path';
+import { readFile, rm } from 'node:fs/promises';
+import { dirname, isAbsolute, join, normalize } from 'node:path';
 import type { Plugin } from 'rollup';
 import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-named-exports.js';
 import { stringifyProcessEnvs } from './stringify-process-envs.js';
