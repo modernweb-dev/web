@@ -91,6 +91,15 @@ export const CANDIDATES = [
   'color-convert',
 ];
 
+function moduleExists(moduleName: string) {
+  try {
+    require.resolve(moduleName, { paths: [process.cwd()] });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 /**
  * Get react-dom version from the resolvedReact preset, which points to either a root react-dom
  * dependency or the react-dom dependency shipped with addon-docs
@@ -120,13 +129,4 @@ async function getReactDomShimAlias(options: Options) {
   return (await getIsReactVersion18or19(options))
     ? require.resolve('@storybook/react-dom-shim')
     : require.resolve('@storybook/react-dom-shim/dist/react-16');
-}
-
-function moduleExists(moduleName: string) {
-  try {
-    require.resolve(moduleName, { paths: [process.cwd()] });
-    return true;
-  } catch (e) {
-    return false;
-  }
 }
