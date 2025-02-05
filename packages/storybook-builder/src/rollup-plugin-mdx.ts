@@ -6,7 +6,7 @@ import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSlug from 'rehype-slug';
 import type { Plugin } from 'rollup';
 
-export function rollupPluginMdx(storybookOptions: Options): Plugin {
+export function rollupPluginMdx(options: Options): Plugin {
   let mdxPluginOptions: Record<string, any>;
   let jsxOptions: Record<string, any>;
 
@@ -14,7 +14,7 @@ export function rollupPluginMdx(storybookOptions: Options): Plugin {
     name: 'rollup-plugin-mdx',
 
     async buildStart() {
-      ({ mdxPluginOptions, jsxOptions } = await storybookOptions.presets.apply<Record<string, any>>(
+      ({ mdxPluginOptions, jsxOptions } = await options.presets.apply<Record<string, any>>(
         'options',
         {},
       ));
@@ -32,7 +32,7 @@ export function rollupPluginMdx(storybookOptions: Options): Plugin {
       const mdxPath = id.replace(/\.js$/, '');
       const mdxCode = await readFile(mdxPath.split('/').join(sep), { encoding: 'utf8' });
 
-      const mdxLoaderOptions = await storybookOptions.presets.apply('mdxLoaderOptions', {
+      const mdxLoaderOptions = await options.presets.apply('mdxLoaderOptions', {
         ...mdxPluginOptions,
         mdxCompileOptions: {
           // TODO(storybook): this is done by Storybook in 3 different places:

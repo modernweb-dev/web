@@ -86,7 +86,7 @@ export const start: WdsBuilder['start'] = async ({ startTime, options, router, s
           }
         },
       },
-      wdsPluginPrebundleModules(env),
+      wdsPluginPrebundleModules(env, options),
       wdsPluginStorybookBuilder(options),
       wdsPluginMdx(options),
       wdsPluginExternalGlobals(globalsNameReferenceMap || globals),
@@ -160,7 +160,7 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
         externalAssets: 'sb-common-assets/**',
       }),
       rollupPluginNodeResolve(),
-      rollupPluginPrebundleModules(env),
+      rollupPluginPrebundleModules(env, options),
       rollupPluginStorybookBuilder(options),
       rollupPluginMdx(options),
       rollupPluginExternalGlobals(globalsNameReferenceMap || globals),

@@ -9,7 +9,10 @@ import { getNodeModuleDir } from './get-node-module-dir.js';
 
 export const PREBUNDLED_MODULES_DIR = normalize('node_modules/.prebundled_modules');
 
-export function rollupPluginPrebundleModules(env: Record<string, string>): Plugin {
+export function rollupPluginPrebundleModules(
+  env: Record<string, string>,
+  options: Options,
+): Plugin {
   const modulePaths: Record<string, string> = {};
 
   return {
@@ -39,7 +42,7 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
         alias: {
           /* for @storybook/addon-docs */
           ...(moduleExists('@storybook/react-dom-shim') && {
-            '@storybook/react-dom-shim': await getReactDomShimAlias(),
+            '@storybook/react-dom-shim': await getReactDomShimAlias(options),
           }),
         },
         external: [...modules],
@@ -94,20 +97,16 @@ export const CANDIDATES = [
  * Get react-dom version from the resolvedReact preset, which points to either a root react-dom
  * dependency or the react-dom dependency shipped with addon-docs
  */
-// async function getIsReactVersion18or19(options: Options) {
-async function getIsReactVersion18or19() {
-  // TODO(storybook): find a solution to have "options" here and fix the implementation
+async function getIsReactVersion18or19(options: Options) {
+  const { legacyRootApi } =
+    (await options.presets.apply<{ legacyRootApi?: boolean } | null>('frameworkOptions')) || {};
 
-  // const { legacyRootApi } =
-  //   (await options.presets.apply<{ legacyRootApi?: boolean } | null>('frameworkOptions')) || {};
+  if (legacyRootApi) {
+    return false;
+  }
 
-  // if (legacyRootApi) {
-  //   return false;
-  // }
-
-  // const resolvedReact = await options.presets.apply<{ reactDom?: string }>('resolvedReact', {});
-  // const reactDom = resolvedReact.reactDom || dirname(require.resolve('react-dom/package.json'));
-  const reactDom = dirname(require.resolve('react-dom/package.json'));
+  const resolvedReact = await options.presets.apply<{ reactDom?: string }>('resolvedReact', {});
+  const reactDom = resolvedReact.reactDom || dirname(require.resolve('react-dom/package.json'));
 
   if (!isAbsolute(reactDom)) {
     // if react-dom is not resolved to a file we can't be sure if the version in package.json is correct or even if package.json exists
@@ -119,8 +118,8 @@ async function getIsReactVersion18or19() {
   return version.startsWith('18') || version.startsWith('19') || version.startsWith('0.0.0');
 }
 
-async function getReactDomShimAlias() {
-  return (await getIsReactVersion18or19())
+async function getReactDomShimAlias(options: Options) {
+  return (await getIsReactVersion18or19(options))
     ? require.resolve('@storybook/react-dom-shim')
     : require.resolve('@storybook/react-dom-shim/dist/react-16');
 }

@@ -11,14 +11,14 @@ import {
   virtualStoriesFilename,
 } from './virtual-file-names.js';
 
-export function rollupPluginStorybookBuilder(storybookOptions: Options): Plugin {
+export function rollupPluginStorybookBuilder(options: Options): Plugin {
   let storyFilePaths: string[];
 
   return {
     name: 'rollup-plugin-storybook-builder',
 
     async buildStart() {
-      storyFilePaths = await listStories(storybookOptions);
+      storyFilePaths = await listStories(options);
     },
 
     async resolveId(source) {
@@ -37,7 +37,7 @@ export function rollupPluginStorybookBuilder(storybookOptions: Options): Plugin 
 
     async load(id) {
       if (id.endsWith(virtualAppFilename)) {
-        return generateAppScript(storybookOptions);
+        return generateAppScript(options);
       }
 
       if (id.endsWith(virtualSetupAddonsFilename)) {
@@ -45,7 +45,7 @@ export function rollupPluginStorybookBuilder(storybookOptions: Options): Plugin 
       }
 
       if (id.endsWith(virtualStoriesFilename)) {
-        return generateStoriesScript(storybookOptions);
+        return generateStoriesScript(options);
       }
     },
 
