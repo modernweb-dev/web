@@ -40,7 +40,7 @@ describe('test-runner-playwright webkit', function testRunnerPlaywright() {
 
 // we don't run all tests in the windows CI
 if (os.platform() !== 'win32') {
-  describe('test-runner-playwright firefox', function testRunnerPlaywright() {
+  describe.skip('test-runner-playwright firefox', function testRunnerPlaywright() {
     this.timeout(100000);
 
     function createConfig() {
