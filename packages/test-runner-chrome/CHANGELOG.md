@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 0.18.0
+
+### Minor Changes
+
+- 86eaa21: Upgrade puppeteer version to v24
+
 ## 0.17.0
 
 ### Minor Changes
