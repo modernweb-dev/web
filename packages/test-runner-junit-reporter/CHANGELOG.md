@@ -1,5 +1,16 @@
 # @web/test-runner-junit-reporter
 
+## 0.8.0
+
+### Minor Changes
+
+- 86eaa21: Upgrade puppeteer version to v24
+
+### Patch Changes
+
+- Updated dependencies [86eaa21]
+  - @web/test-runner-chrome@0.18.0
+
 ## 0.7.2
 
 ### Patch Changes
