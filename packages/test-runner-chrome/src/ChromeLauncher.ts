@@ -2,7 +2,7 @@ import * as puppeteerCore from 'puppeteer-core';
 import {
   Browser,
   Page,
-  PuppeteerNodeLaunchOptions,
+  LaunchOptions,
   launch as puppeteerCoreLaunch,
   BrowserContext,
 } from 'puppeteer-core';
@@ -31,7 +31,7 @@ export class ChromeLauncher implements BrowserLauncher {
   public name: string;
   public type = 'puppeteer';
   public concurrency?: number;
-  private launchOptions: PuppeteerNodeLaunchOptions;
+  private launchOptions: LaunchOptions;
   private customPuppeteer?: typeof puppeteerCore;
   private createBrowserContextFn: CreateBrowserContextFn;
   private createPageFn: CreatePageFn;
@@ -48,7 +48,7 @@ export class ChromeLauncher implements BrowserLauncher {
   private __startBrowserPromise?: Promise<{ browser: Browser; context: BrowserContext }>;
 
   constructor(
-    launchOptions: PuppeteerNodeLaunchOptions,
+    launchOptions: LaunchOptions,
     createBrowserContextFn: CreateBrowserContextFn,
     createPageFn: CreatePageFn,
     customPuppeteer?: typeof puppeteerCore,
@@ -78,8 +78,8 @@ export class ChromeLauncher implements BrowserLauncher {
     this.testFiles = testFiles;
   }
 
-  launchBrowser(options: PuppeteerNodeLaunchOptions = {}) {
-    const mergedOptions: PuppeteerNodeLaunchOptions = {
+  launchBrowser(options: LaunchOptions = {}) {
+    const mergedOptions: LaunchOptions = {
       headless: true,
       ...this.launchOptions,
       ...options,
@@ -116,7 +116,7 @@ export class ChromeLauncher implements BrowserLauncher {
     });
   }
 
-  async startBrowser(options: PuppeteerNodeLaunchOptions = {}) {
+  async startBrowser(options: LaunchOptions = {}) {
     const browser = await this.launchBrowser(options);
     const context = await this.createBrowserContextFn({ config: this.config!, browser });
     return { browser, context };
