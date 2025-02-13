@@ -1,6 +1,6 @@
 # Storybook Builder >> Frameworks ||3
 
-Storybook supports different technologies via [frameworks](https://storybook.js.org/docs/web-components/api/new-frameworks).
+Storybook supports different technologies via [frameworks](https://storybook.js.org/docs/api/new-frameworks).
 Frameworks simplify the configuration of the Storybook for a specific builder like `@web/storybook-builder`.
 
 Currently we support only Web Components.

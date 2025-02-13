@@ -3,7 +3,7 @@
 import { addons, makeDecorator } from '@storybook/preview-api';
 import { createDecorator } from './create-decorator.js';
 
-// Storybook 7
+// Storybook 7+
 /**
  * @type {ReturnType<typeof makeDecorator>}
  */

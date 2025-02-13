@@ -1,4 +1,5 @@
 import rollupPluginNodeResolve from '@rollup/plugin-node-resolve';
+import rollupPluginReplace from '@rollup/plugin-replace';
 import { getBuilderOptions } from '@storybook/core-common';
 import { logger } from '@storybook/node-logger';
 // Import both globals and globalsNameReferenceMap to prevent retrocompatibility.
@@ -9,11 +10,11 @@ import { DevServerConfig, mergeConfigs, startDevServer } from '@web/dev-server';
 import type { DevServer } from '@web/dev-server-core';
 import { fromRollup } from '@web/dev-server-rollup';
 import { rollupPluginHTML } from '@web/rollup-plugin-html';
-import express from 'express';
-import * as fs from 'fs-extra';
-import { join, parse, resolve } from 'path';
+import { cp } from 'node:fs/promises';
+import { join, parse, resolve } from 'node:path';
 import { OutputOptions, RollupBuild, RollupOptions, rollup } from 'rollup';
 import rollupPluginExternalGlobals from 'rollup-plugin-external-globals';
+import sirv from 'sirv';
 import { generateIframeHtml } from './generate-iframe-html.js';
 import { getNodeModuleDir } from './get-node-module-dir.js';
 import { readFileConfig } from './read-file-config.js';
@@ -23,10 +24,12 @@ import {
   rollupPluginPrebundleModules,
 } from './rollup-plugin-prebundle-modules.js';
 import { rollupPluginStorybookBuilder } from './rollup-plugin-storybook-builder.js';
+import { stringifyProcessEnvs } from './stringify-process-envs.js';
 
 const wdsPluginExternalGlobals = fromRollup(rollupPluginExternalGlobals);
 const wdsPluginMdx = fromRollup(rollupPluginMdx);
 const wdsPluginPrebundleModules = fromRollup(rollupPluginPrebundleModules);
+const wdsPluginReplace = fromRollup(rollupPluginReplace);
 const wdsPluginStorybookBuilder = fromRollup(rollupPluginStorybookBuilder);
 
 export type StorybookConfigWds = StorybookConfigBase & {
@@ -58,9 +61,19 @@ export const bail: WdsBuilder['bail'] = async () => {
 };
 
 export const start: WdsBuilder['start'] = async ({ startTime, options, router, server }) => {
-  const previewDirOrigin = join(getNodeModuleDir('@storybook/preview'), 'dist');
-  router.use('/sb-preview', express.static(previewDirOrigin, { immutable: true, maxAge: '5m' }));
-  router.use(`/${PREBUNDLED_MODULES_DIR}`, express.static(resolve(`./${PREBUNDLED_MODULES_DIR}`)));
+  const previewDirOrigin = join(getNodeModuleDir('@storybook/core'), 'dist', 'preview');
+  router.use(
+    '/sb-preview',
+    sirv(previewDirOrigin, {
+      maxAge: 300000,
+      dev: true,
+      immutable: true,
+    }),
+  );
+  router.use(
+    `/${PREBUNDLED_MODULES_DIR}`,
+    sirv(resolve(`./${PREBUNDLED_MODULES_DIR}`), { dev: true }),
+  );
 
   const env = await options.presets.apply<Record<string, string>>('env');
 
@@ -76,10 +89,15 @@ export const start: WdsBuilder['start'] = async ({ startTime, options, router, s
           }
         },
       },
-      wdsPluginPrebundleModules(env),
+      wdsPluginPrebundleModules(env, options),
       wdsPluginStorybookBuilder(options),
       wdsPluginMdx(options),
       wdsPluginExternalGlobals(globalsNameReferenceMap || globals),
+      wdsPluginReplace({
+        ...stringifyProcessEnvs(env),
+        include: ['**/node_modules/@storybook/**/*'],
+        preventAssignment: true,
+      }),
     ],
   };
 
@@ -150,10 +168,15 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
         externalAssets: 'sb-common-assets/**',
       }),
       rollupPluginNodeResolve(),
-      rollupPluginPrebundleModules(env),
+      rollupPluginPrebundleModules(env, options),
       rollupPluginStorybookBuilder(options),
       rollupPluginMdx(options),
       rollupPluginExternalGlobals(globalsNameReferenceMap || globals),
+      rollupPluginReplace({
+        ...stringifyProcessEnvs(env),
+        include: ['**/node_modules/@storybook/**/*'],
+        preventAssignment: true,
+      }),
     ],
   };
 
@@ -184,9 +207,9 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
     logger.trace({ message: '=> Preview built', time: process.hrtime(startTime) });
   })();
 
-  const previewDirOrigin = join(getNodeModuleDir('@storybook/preview'), 'dist');
+  const previewDirOrigin = join(getNodeModuleDir('@storybook/core'), 'dist', 'preview');
   const previewDirTarget = join(options.outputDir || '', `sb-preview`);
-  const previewFiles = fs.copy(previewDirOrigin, previewDirTarget, {
+  const previewFiles = cp(previewDirOrigin, previewDirTarget, {
     filter: src => {
       const { ext } = parse(src);
       if (ext) {
@@ -194,6 +217,7 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
       }
       return true;
     },
+    recursive: true,
   });
 
   await Promise.all([rollupBuild, previewFiles]);

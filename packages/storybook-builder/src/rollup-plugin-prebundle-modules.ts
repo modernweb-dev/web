@@ -1,14 +1,17 @@
-import { stringifyProcessEnvs } from '@storybook/core-common';
+import type { Options } from '@storybook/types';
 import { build } from 'esbuild';
-import { remove } from 'fs-extra';
-import { join, normalize } from 'path';
+import { readFile, rm } from 'node:fs/promises';
+import { dirname, isAbsolute, join, normalize } from 'node:path';
 import type { Plugin } from 'rollup';
 import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-named-exports.js';
-import { getNodeModuleDir } from './get-node-module-dir.js';
+import { stringifyProcessEnvs } from './stringify-process-envs.js';
 
 export const PREBUNDLED_MODULES_DIR = normalize('node_modules/.prebundled_modules');
 
-export function rollupPluginPrebundleModules(env: Record<string, string>): Plugin {
+export function rollupPluginPrebundleModules(
+  env: Record<string, string>,
+  options: Options,
+): Plugin {
   const modulePaths: Record<string, string> = {};
 
   return {
@@ -18,7 +21,7 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
       const modules = CANDIDATES.filter(moduleExists);
 
       const modulesDir = join(process.cwd(), PREBUNDLED_MODULES_DIR);
-      await remove(modulesDir);
+      await rm(modulesDir, { recursive: true, force: true });
 
       for (const module of modules) {
         modulePaths[module] = join(
@@ -36,35 +39,14 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
         splitting: true,
         sourcemap: true,
         alias: {
-          assert: require.resolve('browser-assert'),
-          lodash: getNodeModuleDir('lodash-es'), // more optimal, but also solves esbuild incorrectly compiling lodash/_nodeUtil
-          path: require.resolve('path-browserify'),
-
           /* for @storybook/addon-docs */
           ...(moduleExists('@storybook/react-dom-shim') && {
-            '@storybook/react-dom-shim': getReactDomShimAlias(),
+            '@storybook/react-dom-shim': await getReactDomShimAlias(options),
           }),
         },
-        define: (() => {
-          const define = stringifyProcessEnvs(env);
-
-          // "NODE_PATH" pollutes the output, it's not used by prebundled modules and is not recommended in general
-          // see more https://github.com/nodejs/node/issues/38128#issuecomment-814969356
-          delete define['process.env.NODE_PATH'];
-
-          return define;
-        })(),
-        plugins: [
-          esbuildPluginCommonjsNamedExports(
-            modules.filter(
-              module =>
-                // lodash is solved by the lodash-es alias
-                !module.startsWith('lodash/') &&
-                // @storybook/react-dom-shim is just an alias to an ESM module
-                module !== '@storybook/react-dom-shim',
-            ),
-          ),
-        ],
+        external: [...modules],
+        define: stringifyProcessEnvs(env),
+        plugins: [esbuildPluginCommonjsNamedExports(modules)],
       });
     },
 
@@ -74,50 +56,31 @@ export function rollupPluginPrebundleModules(env: Record<string, string>): Plugi
   };
 }
 
-// this is different to https://github.com/storybookjs/storybook/blob/v7.0.0/code/lib/builder-vite/src/optimizeDeps.ts#L7
+// this is different to https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/optimizeDeps.ts
 // builder-vite bundles different dependencies for performance reasons
 // we aim only at browserifying NodeJS dependencies (CommonJS/process.env/...)
 export const CANDIDATES = [
   /* for different addons built with React and for MDX */
-  '@storybook/react-dom-shim', // needs special resolution
   'react',
-  process.env.NODE_ENV === 'production' ? 'react/jsx-runtime' : 'react/jsx-dev-runtime',
+  'react/jsx-runtime',
+  'react/jsx-dev-runtime',
   'react-dom',
+  'react-dom/client',
 
   /* for different packages */
+  'memoizerific',
   'tiny-invariant',
 
-  /* for @storybook/addon-interactions */
-  'jest-mock',
-  // @testing-library has ESM, but imports/exports are not working correctly between packages
-  // specifically "@testing-library/user-event" has "dist/esm/utils/misc/getWindow.js" (see https://cdn.jsdelivr.net/npm/@testing-library/user-event@14.4.3/dist/esm/utils/misc/getWindow.js)
-  // which uses "@testing-library/dom" in `import { getWindowFromNode } from '@testing-library/dom/dist/helpers.js';`
-  // which doesn't get resolved to "@testing-library/dom" ESM "dom.esm.js" (see https://cdn.jsdelivr.net/npm/@testing-library/dom@9.3.1/dist/@testing-library/dom.esm.js)
-  // and instead gets resolved to "@testing-library/dom" CommonJS "dist/helpers.js" (see https://cdn.jsdelivr.net/npm/@testing-library/dom@9.3.1/dist/helpers.js)
-  '@testing-library/dom',
-  '@testing-library/user-event',
-
-  /* for @storybook/addon-docs */
-  'color-convert',
-  'doctrine',
-  'lodash/cloneDeep.js',
-  'lodash/mapValues.js',
-  'lodash/pickBy.js',
-  'lodash/throttle.js',
-  'lodash/uniq.js',
-  'memoizerific',
-  'tocbot',
+  /* for @storybook/core */
+  'jsdoc-type-pratt-parser', // TODO: Remove this once it's converted to ESM: https://github.com/jsdoc-type-pratt-parser/jsdoc-type-pratt-parser/issues/173
 
   /* for @storybook/addon-a11y */
   'axe-core',
-];
+  'vitest-axe/matchers',
 
-function getReactDomShimAlias() {
-  const { version } = require('react-dom');
-  return version.startsWith('18')
-    ? require.resolve('@storybook/react-dom-shim/dist/react-18').replace(/\.js$/, '.mjs')
-    : require.resolve('@storybook/react-dom-shim').replace(/\.js$/, '.mjs');
-}
+  /* for @storybook/addon-docs */
+  'color-convert',
+];
 
 function moduleExists(moduleName: string) {
   try {
@@ -126,4 +89,35 @@ function moduleExists(moduleName: string) {
   } catch (e) {
     return false;
   }
+}
+
+/**
+ * Get react-dom version from the resolvedReact preset, which points to either a root react-dom
+ * dependency or the react-dom dependency shipped with addon-docs
+ */
+async function getIsReactVersion18or19(options: Options) {
+  const { legacyRootApi } =
+    (await options.presets.apply<{ legacyRootApi?: boolean } | null>('frameworkOptions')) || {};
+
+  if (legacyRootApi) {
+    return false;
+  }
+
+  const resolvedReact = await options.presets.apply<{ reactDom?: string }>('resolvedReact', {});
+  const reactDom = resolvedReact.reactDom || dirname(require.resolve('react-dom/package.json'));
+
+  if (!isAbsolute(reactDom)) {
+    // if react-dom is not resolved to a file we can't be sure if the version in package.json is correct or even if package.json exists
+    // this happens when react-dom is resolved to 'preact/compat' for example
+    return false;
+  }
+
+  const { version } = JSON.parse(await readFile(join(reactDom, 'package.json'), 'utf-8'));
+  return version.startsWith('18') || version.startsWith('19') || version.startsWith('0.0.0');
+}
+
+async function getReactDomShimAlias(options: Options) {
+  return (await getIsReactVersion18or19(options))
+    ? require.resolve('@storybook/react-dom-shim')
+    : require.resolve('@storybook/react-dom-shim/dist/react-16');
 }

@@ -1,8 +1,8 @@
-# Storybook Builder >> Migration to Storybook 7 ||4
+# Storybook Builder >> Migration to Storybook 7 ||5
 
 This guide explains how to migrate from [`@web/dev-server-storybook` plugin](../dev-server/plugins/storybook.md) (that used opinionated Storybook 6 bundle `@web/storybook-prebuilt`) to Storybook 7 and new `@web/storybook-builder`.
 
-Most of the [official migration guide for Storybook 7](https://storybook.js.org/docs/web-components/migration-guide) applies to this migration too, with a few additions and exceptions.
+Most of the [official migration guide for Storybook 7](https://storybook.js.org/docs/7/migration-guide) applies to this migration too, with a few additions and exceptions.
 Please check the official guide, but before running the `upgrade` command read the sections below.
 
 ## Prepare to run upgrade CLI
@@ -70,7 +70,7 @@ If you use `rollupConfig`, rename it to `rollupFinal`.
 
 `@web/dev-server-storybook` was a plugin of `@web/dev-server`, therefore you used to run Storybook via [`@web/dev-server` CLI](../dev-server/cli-and-configuration.md).
 
-With the introduction of [builders](https://storybook.js.org/docs/web-components/builders/overview) in Storybook 7 this is no longer the case and you can make use of [Storybook CLI](https://storybook.js.org/docs/web-components/api/cli-options).
+With the introduction of [builders](https://storybook.js.org/docs/7/builders) in Storybook 7 this is no longer the case and you can make use of [Storybook CLI](https://storybook.js.org/docs/7/api/cli-options).
 
 Typically you'll use `storybook dev` and `storybook build` to start the dev server and create a static build for deployment.
 

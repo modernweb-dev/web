@@ -23,21 +23,13 @@ const config = {
           return;
         }
 
-        // ignore warning about eval in telejson
-        if (log.code === 'EVAL' && log.id?.replace(/\\/g, '/')?.includes('node_modules/telejson')) {
-          defaultHandler('warn', log);
-          return;
-        }
-
-        // TODO: fix tocbot
-        // ignore warning about tocbot
-        if (
-          log.code === 'MISSING_EXPORT' &&
-          (log.binding === 'init' || log.binding === 'destroy') &&
-          log.exporter?.includes('tocbot')
-        ) {
-          defaultHandler('warn', log);
-          return;
+        // ignore warning about eval used by the storybook internals
+        if (log.code === 'EVAL') {
+          const logId = log.id?.replace(/\\/g, '/');
+          if (logId?.includes('node_modules/@storybook/core/dist/preview/runtime.js')) {
+            defaultHandler('warn', log);
+            return;
+          }
         }
 
         // log all other warnings as errors
