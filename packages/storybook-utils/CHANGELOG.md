@@ -1,5 +1,11 @@
 # @web/storybook-utils
 
+## 1.1.0
+
+### Minor Changes
+
+- a10a0bd: add backwards compatible support for Storybook 8
+
 ## 1.0.2
 
 ### Patch Changes

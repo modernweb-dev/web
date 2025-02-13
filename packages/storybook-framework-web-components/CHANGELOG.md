@@ -1,5 +1,16 @@
 # @web/storybook-framework-web-components
 
+## 0.2.0
+
+### Minor Changes
+
+- 0fd9659: migrate to Storybook 8
+
+### Patch Changes
+
+- Updated dependencies [0fd9659]
+  - @web/storybook-builder@0.2.0
+
 ## 0.1.3
 
 ### Patch Changes
