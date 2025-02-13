@@ -1,8 +1,8 @@
 import type {
-  BrowserLauncher,
   Logger,
   Reporter,
   ReporterArgs,
+  TestSession,
   TestSuiteResult,
 } from '@web/test-runner-core';
 
@@ -17,8 +17,8 @@ interface Options {
 
 const color =
   ([x, y]: [number, number]) =>
-  (z: string) =>
-    `\x1b[${x}m${z}\x1b[${y}m${reset}`;
+    (z: string) =>
+      `\x1b[${x}m${z}\x1b[${y}m${reset}`;
 const reset = `\x1b[0m\x1b[0m`;
 const green = color([32, 89]);
 const red = color([31, 89]);
@@ -30,54 +30,60 @@ export function summaryReporter(opts: Options): Reporter {
   let args: ReporterArgs;
   let favoriteBrowser: string;
 
-  function log(
+  function logTest(
     logger: Logger,
     name: string,
     passed: boolean,
     skipped: boolean,
-    prefix = '  ',
+    prefix: string,
     postfix = '',
   ) {
     const sign = skipped ? dim('-') : passed ? green('✓') : red('𐄂');
     if (flatten) logger.log(`${sign} ${name}${postfix}`);
-    else logger.log(`${prefix}  ${sign} ${name}`);
-  }
-
-  function logResults(
-    logger: Logger,
-    results?: TestSuiteResult,
-    prefix?: string,
-    browser?: BrowserLauncher,
-  ) {
-    const browserName = browser?.name ? ` ${dim(`[${browser.name}]`)}` : '';
-    for (const result of results?.tests ?? []) {
-      log(
-        logger,
-        flatten ? `${prefix ?? ''} ${result.name}` : result.name,
-        result.passed,
-        result.skipped,
-        prefix,
-        browserName,
-      );
-    }
-
-    for (const suite of results?.suites ?? []) {
-      logSuite(logger, suite, prefix, browser);
-    }
+    else logger.log(`${prefix} ${sign} ${name}`);
   }
 
   function logSuite(
     logger: Logger,
     suite: TestSuiteResult,
-    parent?: string,
-    browser?: BrowserLauncher,
+    parent: string,
+    browserName: string,
   ) {
-    const browserName = browser?.name ? ` ${dim(`[${browser.name}]`)}` : '';
-    let pref = parent ? `${parent} ` : ' ';
-    if (flatten) pref += `${suite.name}`;
-    else logger.log(`${pref}${suite.name}${browserName}`);
+    let prefix = parent ?? '';
+    if (flatten) prefix += `${suite.name}`;
+    else logger.log(`${prefix}${suite.name}${!parent ? browserName : ''}`);
 
-    logResults(logger, suite, pref, browser);
+    for (const test of suite.tests ?? []) {
+      logTest(
+        logger,
+        flatten && prefix ? `${prefix} ${test.name}` : test.name,
+        test.passed,
+        test.skipped,
+        prefix,
+        browserName,
+      );
+    }
+
+    if (!flatten || prefix) prefix += ' '
+    for (const childSuite of suite.suites ?? []) {
+      logSuite(logger, childSuite, prefix, browserName);
+    }
+  }
+
+  function logResults(
+    logger: Logger,
+    session: TestSession,
+  ) {
+    if (session.testResults) {
+      const browserName = session.browser?.name ? ` ${dim(`[${session.browser.name}]`)}` : '';
+      const suite = session.testResults;
+
+      if (suite.suites.length || suite.tests.length) {
+        logSuite(logger, suite, '', browserName);
+      } else {
+        logger.log(`No tests on ${session.testFile}${browserName}`);
+      }
+    }
   }
 
   let cachedLogger: Logger;
@@ -94,7 +100,7 @@ export function summaryReporter(opts: Options): Reporter {
     reportTestFileResults({ logger, sessionsForTestFile }) {
       cachedLogger = logger;
       for (const session of sessionsForTestFile) {
-        logResults(logger, session.testResults, '', session.browser);
+        logResults(logger, session);
         logger.log('');
       }
       reportBrowserLogs(logger, sessionsForTestFile);
