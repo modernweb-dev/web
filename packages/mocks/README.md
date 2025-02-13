@@ -175,7 +175,7 @@ mockRollupPlugin({
 
 This can be used to avoid CORS issues when deploying your Storybooks.
 
-In the Storybook 7+ (@web/storybook-builder) you can achieve the same by using native Storybook API [previewHead](https://storybook.js.org/docs/api/main-config-preview-head):
+In the Storybook 7+ (@web/storybook-builder) you can achieve the same by using native Storybook API [previewHead](https://storybook.js.org/docs/api/main-config/main-config-preview-head):
 
 ```js
 // .storybook/main.js

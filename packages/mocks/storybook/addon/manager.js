@@ -5,5 +5,5 @@ import React from 'react';
 import { addons } from '@storybook/manager-api';
 import { registerAddon } from './register-addon.js';
 
-// Storybook 7
+// Storybook 7+
 registerAddon(addons, React, createAddon);
