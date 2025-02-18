@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.2.1
+
+### Patch Changes
+
+- d826727: upgrade esbuild to 0.25.x
+
 ## 0.2.0
 
 ### Minor Changes
