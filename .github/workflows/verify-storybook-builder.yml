@@ -11,6 +11,8 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     name: ${{ matrix.runs-on }}
     timeout-minutes: 60
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: true # prevent failures due to puppeteer downloading issues, since it's not used here anyway
     steps:
       - uses: actions/checkout@v4
 
