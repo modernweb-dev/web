@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 1.0.4
+
+### Patch Changes
+
+- d826727: upgrade esbuild to 0.25.x
+
 ## 1.0.3
 
 ### Patch Changes

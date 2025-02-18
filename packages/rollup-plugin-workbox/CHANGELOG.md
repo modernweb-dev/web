@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 8.1.2
+
+### Patch Changes
+
+- d826727: upgrade esbuild to 0.25.x
+
 ## 8.1.1
 
 ### Patch Changes
