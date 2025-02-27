@@ -1,5 +1,11 @@
 # @web/polyfills-loader
 
+## 2.3.1
+
+### Patch Changes
+
+- f3a2359: update version of SCER polyfill
+
 ## 2.3.0
 
 ### Minor Changes
