@@ -39,6 +39,6 @@
   ],
   "dependencies": {
     "@web/dev-server": "^0.4.0",
-    "@web/polyfills-loader": "^2.2.0"
+    "@web/polyfills-loader": "^2.3.1"
   }
 }
