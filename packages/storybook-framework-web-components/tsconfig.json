@@ -45,6 +45,12 @@
     },
     {
       "path": "../storybook-builder/tsconfig.json"
+    },
+    {
+      "path": "../rollup-plugin-import-meta-assets/tsconfig.json"
+    },
+    {
+      "path": "../storybook-utils/tsconfig.json"
     }
   ],
   "include": [
