@@ -1,5 +1,11 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 2.1.3
+
+### Patch Changes
+
+- b3f7313: dont path.join on external urls, it breaks them
+
 ## 2.1.2
 
 ### Patch Changes
