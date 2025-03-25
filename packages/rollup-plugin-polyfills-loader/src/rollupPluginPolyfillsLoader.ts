@@ -88,7 +88,9 @@ export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig
           // js files (incl. chunks) will always be in the root directory
           const pathToRoot = path.posix.dirname(importPath);
           for (const chunkPath of entrypoint.chunk.imports) {
-            const relativeChunkPath = normalize(path.posix.join(pathToRoot, chunkPath));
+            const relativeChunkPath = normalize(
+              chunkPath.startsWith('http') ? chunkPath : path.posix.join(pathToRoot, chunkPath),
+            );
             preloaded.push(relativeChunkPath);
           }
         }
