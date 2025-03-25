@@ -55,7 +55,7 @@ If you need to test on browsers that don't support es modules and modern javascr
 Install the plugin:
 
 ```
-npm i --save-dev @web/dev-server @web/dev-server-esbuild
+npm i --save-dev @web/dev-server @web/dev-server-legacy
 ```
 
 Add a `web-dev-server.config.mjs`:
