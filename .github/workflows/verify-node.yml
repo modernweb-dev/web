@@ -9,7 +9,7 @@ jobs:
   verify-linux:
     timeout-minutes: 30
     name: Linux
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -21,6 +21,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      # TODO: remove when GitHub fixes this https://github.com/actions/runner-images/issues/10015
+      # (this workaround is practically the same what Playwright did in https://github.com/microsoft/playwright/pull/34238/files)
+      - name: Workaround for Chrome sandbox issue in Ubuntu 24.04
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
