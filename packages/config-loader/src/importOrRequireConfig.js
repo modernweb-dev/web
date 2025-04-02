@@ -17,7 +17,6 @@ function importConfig(configPath) {
  * @param {string} basedir
  */
 async function importOrRequireConfig(configPath, basedir) {
-  const packageType = await getPackageType(basedir);
   const ext = path.extname(configPath);
 
   switch (ext) {
@@ -26,6 +25,7 @@ async function importOrRequireConfig(configPath, basedir) {
     case '.cjs':
       return requireConfig(configPath);
     default:
+      const packageType = await getPackageType(basedir);
       return packageType === 'module' ? importConfig(configPath) : requireConfig(configPath);
   }
 }
