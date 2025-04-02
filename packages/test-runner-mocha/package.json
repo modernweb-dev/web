@@ -40,6 +40,6 @@
   "devDependencies": {
     "@types/mocha": "^10.0.1",
     "deepmerge": "^4.2.2",
-    "mocha": "^10.2.0"
+    "mocha": "^10.8.2"
   }
 }
