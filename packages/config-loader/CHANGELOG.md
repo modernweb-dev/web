@@ -1,5 +1,15 @@
 # @web/config-loader
 
+## 0.3.3
+
+### Patch Changes
+
+- d432f57: Optimizes config loading to not look for `package.json` in file system if the
+  config extension is already informing whether CommonJS or ESM is used.
+
+  Currently config loading did unnecessarily traverse the file system. This could
+  be unnecessary slowness, or cause issues in sandbox environments (like Bazel)
+
 ## 0.3.2
 
 ### Patch Changes
