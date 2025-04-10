@@ -1,5 +1,19 @@
 # @web/test-runner
 
+## 0.20.1
+
+### Patch Changes
+
+- 24e3290: Improve debug message for test runner uncaught exceptions
+
+  This should make debugging easier. It wasn't very easy to figure out
+  where the errors originated from (because of how the actual uncaught
+  exception only happened with many concurrent builds inside a sandbox
+  environment that is hard to debug).
+
+- Updated dependencies [79b0ba4]
+  - @web/test-runner-chrome@0.18.1
+
 ## 0.20.0
 
 ### Minor Changes
