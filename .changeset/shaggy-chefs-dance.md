@@ -1,5 +1,5 @@
 ---
-'@web/test-runner-core': patch
+'@web/test-runner': patch
 ---
 
 Improve debug message for test runner uncaught exceptions
