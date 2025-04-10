@@ -73,7 +73,7 @@ export async function startTestRunner(options: StartTestRunnerParams = {}) {
     if (autoExitProcess) {
       process.on('uncaughtException', error => {
         /* eslint-disable-next-line no-console */
-        console.error(error);
+        console.error(`Uncaught exception, stopping test runner..\n`, error);
         stop();
       });
     }
