@@ -42,12 +42,12 @@ export function collectTestResults(mocha: BrowserMocha) {
         ...(test.duration !== undefined && { duration: test.duration }),
         error: err
           ? {
-              name: err.name,
-              message: err.message,
-              stack: err.stack,
-              expected: err.expected,
-              actual: err.actual,
-            }
+            name: err.name,
+            message: err.message,
+            stack: err.stack,
+            expected: err.expected,
+            actual: err.actual,
+          }
           : undefined,
       });
     }
@@ -65,8 +65,16 @@ export function collectTestResults(mocha: BrowserMocha) {
 
     return { name: suite.title, suites, tests };
   }
-
-  const testResults = getSuiteResults(mocha.suite);
+  let testResults;
+  if (mocha.suite.suites.length == 1 && mocha.suite.tests.length == 0) {
+    collectHooks((mocha.suite as any)._beforeAll as Hook[]);
+    collectHooks((mocha.suite as any)._afterAll as Hook[]);
+    collectHooks((mocha.suite as any)._beforeEach as Hook[]);
+    collectHooks((mocha.suite as any)._afterEach as Hook[]);
+    testResults = getSuiteResults(mocha.suite.suites[0]);
+  } else {
+    testResults = getSuiteResults(mocha.suite);
+  }
 
   return { testResults, hookErrors, passed };
 }
