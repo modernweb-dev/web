@@ -1,5 +1,8 @@
-import { Document, Element } from 'parse5';
+import type { DefaultTreeAdapterMap } from 'parse5';
 import { findElements, getTagName, getAttribute, setAttribute } from '@web/parse5-utils';
+
+type Element = DefaultTreeAdapterMap['element'];
+type Document = DefaultTreeAdapterMap['document'];
 
 function isAbsoluteableNode(node: Element) {
   const metaAttributes = ['og:url', 'og:image'];

@@ -57,7 +57,7 @@
     "dynamic-import-polyfill": "^0.1.1",
     "es-module-shims": "^1.4.1",
     "intersection-observer": "^0.12.0",
-    "parse5": "^6.0.1",
+    "parse5": "^7.3.0",
     "regenerator-runtime": "^0.14.0",
     "resize-observer-polyfill": "^1.5.1",
     "shady-css-scoped-element": "^0.0.2",
@@ -68,7 +68,6 @@
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.12",
-    "@types/parse5": "^6.0.1",
     "@types/valid-url": "^1.0.3"
   }
 }

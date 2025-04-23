@@ -1,4 +1,4 @@
-import { Document, serialize } from 'parse5';
+import { type DefaultTreeAdapterMap, serialize } from 'parse5';
 import fs from 'fs';
 import path from 'path';
 import { InputAsset } from '../InputData.js';
@@ -9,6 +9,8 @@ import {
   resolveAssetFilePath,
   createAssetPicomatchMatcher,
 } from '../../assets/utils.js';
+
+type Document = DefaultTreeAdapterMap['document'];
 
 export interface ExtractAssetsParams {
   document: Document;

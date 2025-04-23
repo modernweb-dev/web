@@ -1,7 +1,9 @@
-import { Element } from 'parse5';
+import { DefaultTreeAdapterMap } from 'parse5';
 import { getAttribute } from '@web/parse5-utils';
 import crypto from 'crypto';
 import { FileType, PolyfillsLoaderConfig } from './types.js';
+
+type Element = DefaultTreeAdapterMap['element'];
 
 export const noModuleSupportTest = "!('noModule' in HTMLScriptElement.prototype)";
 

@@ -6,7 +6,7 @@ import {
   resolve,
 } from '@import-maps/resolve';
 import { getHtmlPath } from '@web/dev-server-core';
-import { parse as parseHtml, serialize as serializeHtml, Element as ElementAst } from 'parse5';
+import { parse as parseHtml, serialize as serializeHtml, type DefaultTreeAdapterMap } from 'parse5';
 import path from 'path';
 
 import {
@@ -31,6 +31,8 @@ import {
   setAttribute,
   setTextContent,
 } from '@web/parse5-utils';
+
+type ElementAst = DefaultTreeAdapterMap['element'];
 
 export interface ImportMapData {
   htmlPath: string;

@@ -1,9 +1,12 @@
-import { Document, Element } from 'parse5';
+import type { DefaultTreeAdapterMap } from 'parse5';
 import path from 'path';
 import picomatch from 'picomatch';
 import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
 import { createError } from '../utils.js';
 import { serialize } from 'v8';
+
+type Document = DefaultTreeAdapterMap['document'];
+type Element = DefaultTreeAdapterMap['element'];
 
 const hashedLinkRels = ['stylesheet'];
 const linkRels = [...hashedLinkRels, 'icon', 'manifest', 'apple-touch-icon', 'mask-icon'];

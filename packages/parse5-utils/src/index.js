@@ -1,14 +1,16 @@
-/** @typedef {import('parse5').TreeAdapter} TreeAdapter */
-/** @typedef {import('parse5').Element} Element */
-/** @typedef {import('parse5').Attribute} Attribute */
-/** @typedef {import('parse5').Node} Node */
-/** @typedef {import('parse5').ParentNode} ParentNode */
-/** @typedef {import('parse5').ChildNode} ChildNode */
-/** @typedef {import('parse5').CommentNode} CommentNode */
-/** @typedef {import('parse5').TextNode} TextNode */
+/** @typedef {import('parse5').DefaultTreeAdapterMap} DefaultTreeAdapterMap */
+/** @typedef {DefaultTreeAdapterMap['element']} Element */
+/** @typedef {DefaultTreeAdapterMap['template']} Template */
+/** @typedef {import('parse5').Token.Attribute} Attribute */
+/** @typedef {DefaultTreeAdapterMap['node']} Node */
+/** @typedef {DefaultTreeAdapterMap['parentNode']} ParentNode */
+/** @typedef {DefaultTreeAdapterMap['childNode']} ChildNode */
+/** @typedef {DefaultTreeAdapterMap['commentNode']} CommentNode */
+/** @typedef {DefaultTreeAdapterMap['textNode']} TextNode */
+/** @typedef {import('parse5').html.NS} NS */
 
 const parse5 = require('parse5');
-const adapter = require('parse5/lib/tree-adapters/default');
+const adapter = parse5.defaultTreeAdapter;
 
 const DEFAULT_NAMESPACE = 'http://www.w3.org/1999/xhtml';
 const REGEXP_IS_HTML_DOCUMENT = /^\s*<(!doctype|html|head|body)\b/i;
@@ -23,7 +25,7 @@ const REGEXP_IS_HTML_DOCUMENT = /^\s*<(!doctype|html|head|body)\b/i;
  */
 function createElement(tagName, attrs = {}, namespaceURI = DEFAULT_NAMESPACE) {
   const attrsArray = Object.entries(attrs).map(([name, value]) => ({ name, value }));
-  return adapter.createElement(tagName, namespaceURI, attrsArray);
+  return adapter.createElement(tagName, /** @type {NS} */ (namespaceURI), attrsArray);
 }
 
 /**
@@ -220,7 +222,7 @@ function findNodes(nodes, test) {
     let children = [];
 
     if (adapter.isElementNode(node) && adapter.getTagName(node) === 'template') {
-      const content = adapter.getTemplateContent(node);
+      const content = adapter.getTemplateContent(/** @type {Template} */ (node));
       if (content) {
         children = adapter.getChildNodes(content);
       }

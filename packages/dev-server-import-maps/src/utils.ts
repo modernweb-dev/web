@@ -1,10 +1,12 @@
 import picoMatch from 'picomatch';
 import { Context, getHtmlPath } from '@web/dev-server-core';
-import { Element as ElementAst } from 'parse5';
+import type { DefaultTreeAdapterMap } from 'parse5';
 import { getAttribute } from '@web/parse5-utils';
 import { ParsedImportMap } from '@import-maps/resolve';
 
 import { NormalizedInjectSetting, InjectSetting } from './importMapsPlugin.js';
+
+type ElementAst = DefaultTreeAdapterMap['element'];
 
 export const IMPORT_MAP_PARAM = 'wds-import-map';
 

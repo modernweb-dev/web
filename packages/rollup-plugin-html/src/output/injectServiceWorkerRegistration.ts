@@ -1,5 +1,5 @@
 import path from 'path';
-import { Document } from 'parse5';
+import type { DefaultTreeAdapterMap } from 'parse5';
 import {
   findElement,
   getTagName,
@@ -7,6 +7,8 @@ import {
   createScript,
   setAttribute,
 } from '@web/parse5-utils';
+
+type Document = DefaultTreeAdapterMap['document'];
 
 export interface injectServiceWorkerRegistrationArgs {
   document: Document;

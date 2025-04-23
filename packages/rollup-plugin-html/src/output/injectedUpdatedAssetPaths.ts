@@ -1,5 +1,5 @@
 import { getAttribute, setAttribute } from '@web/parse5-utils';
-import { Document } from 'parse5';
+import type { DefaultTreeAdapterMap } from 'parse5';
 import path from 'path';
 
 import {
@@ -14,6 +14,8 @@ import { InputData } from '../input/InputData.js';
 import { createError } from '../utils.js';
 import { EmittedAssets } from './emitAssets.js';
 import { toBrowserPath } from './utils.js';
+
+type Document = DefaultTreeAdapterMap['document'];
 
 export interface InjectUpdatedAssetPathsArgs {
   document: Document;
