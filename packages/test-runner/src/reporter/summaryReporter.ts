@@ -1,5 +1,6 @@
 import type {
   BrowserLauncher,
+  BufferedLogger,
   Logger,
   Reporter,
   ReporterArgs,
@@ -80,7 +81,7 @@ export function summaryReporter(opts: Options): Reporter {
     logResults(logger, suite, pref, browser);
   }
 
-  let cachedLogger: Logger;
+  let cachedLogger: BufferedLogger;
   return {
     start(_args) {
       args = _args;
@@ -92,7 +93,7 @@ export function summaryReporter(opts: Options): Reporter {
     },
 
     reportTestFileResults({ logger, sessionsForTestFile }) {
-      cachedLogger = logger;
+      cachedLogger = logger as BufferedLogger;
       for (const session of sessionsForTestFile) {
         logResults(logger, session.testResults, '', session.browser);
         logger.log('');
@@ -112,6 +113,7 @@ export function summaryReporter(opts: Options): Reporter {
           failedSessions,
           true,
         );
+        cachedLogger.logBufferedMessages();
       }
     },
   };
