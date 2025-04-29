@@ -77,7 +77,7 @@
     "rollup": "^4.4.0",
     "ts-node": "^10.4.0",
     "typescript": "~5.0.4",
-    "wireit": "^0.10.0"
+    "wireit": "^0.14.12"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
