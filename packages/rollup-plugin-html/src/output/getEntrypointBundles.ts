@@ -1,4 +1,4 @@
-import { Attribute } from 'parse5';
+import type { Token } from 'parse5';
 import path from 'path';
 import { OutputChunk } from 'rollup';
 
@@ -10,6 +10,8 @@ import {
 } from '../RollupPluginHTMLOptions';
 import { createError, NOOP_IMPORT } from '../utils.js';
 import { toBrowserPath } from './utils.js';
+
+type Attribute = Token.Attribute;
 
 export interface CreateImportPathParams {
   publicPath?: string;

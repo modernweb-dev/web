@@ -1,4 +1,4 @@
-import { Document, Node, ParentNode, parse, serialize } from 'parse5';
+import { type DefaultTreeAdapterMap, parse, serialize } from 'parse5';
 import {
   findElements,
   getAttribute,
@@ -16,7 +16,11 @@ import { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile } from './types.j
 import { createPolyfillsLoader } from './createPolyfillsLoader.js';
 import { hasFileOfType, fileTypes } from './utils.js';
 
-function injectImportMapPolyfill(headAst: ParentNode, originalScript: Node, type: string) {
+type Document = DefaultTreeAdapterMap['document'];
+type ParentNode = DefaultTreeAdapterMap['parentNode'];
+type ChildNode = DefaultTreeAdapterMap['childNode'];
+
+function injectImportMapPolyfill(headAst: ParentNode, originalScript: ChildNode, type: string) {
   const systemJsScript = createScript({ type }, getTextContent(originalScript));
   insertBefore(headAst, systemJsScript, originalScript);
 }
@@ -24,8 +28,8 @@ function injectImportMapPolyfill(headAst: ParentNode, originalScript: Node, type
 function findImportMapScripts(document: Document) {
   const scripts = findElements(document, script => getAttribute(script, 'type') === 'importmap');
 
-  const inline: Node[] = [];
-  const external: Node[] = [];
+  const inline: ChildNode[] = [];
+  const external: ChildNode[] = [];
   for (const script of scripts) {
     if (getAttribute(script, 'src')) {
       external.push(script);

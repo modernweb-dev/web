@@ -1,4 +1,4 @@
-import { Document, Element, ParentNode } from 'parse5';
+import type { DefaultTreeAdapterMap } from 'parse5';
 import {
   findElement,
   findElements,
@@ -12,6 +12,10 @@ import {
   setAttribute,
 } from '@web/parse5-utils';
 import crypto from 'crypto';
+
+type Document = DefaultTreeAdapterMap['document'];
+type Element = DefaultTreeAdapterMap['element'];
+type ParentNode = DefaultTreeAdapterMap['parentNode'];
 
 function isMetaCSPTag(node: Element) {
   if (
