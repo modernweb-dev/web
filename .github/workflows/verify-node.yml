@@ -34,7 +34,7 @@ jobs:
         run: npx playwright install --with-deps
 
       # Set up GitHub Actions caching for Wireit.
-      - uses: google/wireit@setup-github-actions-caching/v1
+      - uses: google/wireit@setup-github-actions-caching/v2
 
       - name: Install Dependencies
         run: npm ci
@@ -76,7 +76,7 @@ jobs:
         run: npx playwright install --with-deps
 
       # Set up GitHub Actions caching for Wireit.
-      - uses: google/wireit@setup-github-actions-caching/v1
+      - uses: google/wireit@setup-github-actions-caching/v2
 
       - name: Install Dependencies
         run: npm ci
