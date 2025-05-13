@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.2.2
+
+### Patch Changes
+
+- 7e0af43: bump storybook packages to 8.6.12
+
 ## 0.2.1
 
 ### Patch Changes
