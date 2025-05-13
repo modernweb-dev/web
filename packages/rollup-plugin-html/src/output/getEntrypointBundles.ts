@@ -53,6 +53,10 @@ interface Entrypoint {
   attributes?: Attribute[];
 }
 
+interface EntrypointsUnsorted {
+  [key: string]: Entrypoint;
+}
+
 export function getEntrypointBundles(params: GetEntrypointBundlesParams) {
   const { pluginOptions, generatedBundles, inputModuleIds, outputDir, htmlFileName } = params;
   const entrypointBundles: Record<string, EntrypointBundle> = {};
@@ -63,6 +67,7 @@ export function getEntrypointBundles(params: GetEntrypointBundlesParams) {
     }
 
     const entrypoints: Entrypoint[] = [];
+    const entrypointsUnsorted: EntrypointsUnsorted = {};
     for (const chunkOrAsset of Object.values(bundle)) {
       if (chunkOrAsset.type === 'chunk') {
         const chunk = chunkOrAsset;
@@ -76,11 +81,21 @@ export function getEntrypointBundles(params: GetEntrypointBundlesParams) {
               htmlFileName,
               fileName: chunkOrAsset.fileName,
             });
-            entrypoints.push({ importPath, chunk: chunkOrAsset, attributes: found.attributes });
+            entrypointsUnsorted[chunk.facadeModuleId] = {
+              importPath,
+              chunk: chunkOrAsset,
+              attributes: found.attributes,
+            };
           }
         }
       }
     }
+
+    for (const mod of inputModuleIds) {
+      if (!entrypointsUnsorted[mod.importPath]) continue;
+      entrypoints.push(entrypointsUnsorted[mod.importPath]);
+    }
+
     entrypointBundles[name] = { name, options, bundle, entrypoints };
   }
 
