@@ -1,6 +1,6 @@
 {
   "name": "@web/storybook-framework-web-components",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publishConfig": {
     "access": "public"
   },
@@ -57,7 +57,7 @@
   ],
   "dependencies": {
     "@storybook/web-components": "^8.6.12",
-    "@web/storybook-builder": "^0.2.0"
+    "@web/storybook-builder": "^0.2.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.22.2",
