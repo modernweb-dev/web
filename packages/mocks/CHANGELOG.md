@@ -1,5 +1,11 @@
 # @web/mocks
 
+## 1.3.2
+
+### Patch Changes
+
+- 805e58c: fix Storybook 8 compatibility
+
 ## 1.3.1
 
 ### Patch Changes
