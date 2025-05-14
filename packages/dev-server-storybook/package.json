@@ -69,7 +69,7 @@
     "es-module-lexer": "^1.0.2",
     "globby": "^11.0.1",
     "path-is-inside": "^1.0.2",
-    "rollup": "^4.4.0",
+    "rollup": "^4.34.3",
     "storybook-addon-markdown-docs": "^2.0.0"
   },
   "devDependencies": {
