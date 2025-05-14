@@ -3,7 +3,7 @@
 import { LitElement, html, css } from 'lit';
 import { when } from 'lit/directives/when.js';
 
-export function registerAddon(addons, React, createAddon) {
+export function registerAddon(addons, types, React, createAddon) {
   const { createElement } = React;
 
   class MocksAddonElement extends LitElement {
@@ -242,7 +242,8 @@ export function registerAddon(addons, React, createAddon) {
   });
 
   addons.register('web/mocks', api => {
-    addons.addPanel('web/mocks/panel', {
+    addons.add('web/mocks/panel', {
+      type: types.PANEL,
       title: 'Mocks',
       paramKey: 'mocks',
       render: ({ active }) => createElement(MocksAddon, { api, active }),

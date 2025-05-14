@@ -79,6 +79,12 @@ test.describe('all in one', () => {
       await panelButton.click();
       await expect(panelButton).toHaveClass(/tabbutton-active/);
     });
+
+    test('renders @web/mocks/storybook-addon panel', async () => {
+      const panelButton = sbPage.panelButtonByText('Mocks');
+      await panelButton.click();
+      await expect(panelButton).toHaveClass(/tabbutton-active/);
+    });
   });
 
   test.describe('docs', () => {

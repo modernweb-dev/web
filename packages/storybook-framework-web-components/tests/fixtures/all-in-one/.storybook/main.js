@@ -8,6 +8,7 @@ const config = {
     '@storybook/addon-links',
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
+    '@web/mocks/storybook-addon',
   ],
   framework: {
     name: '@web/storybook-framework-web-components',
