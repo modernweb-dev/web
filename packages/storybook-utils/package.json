@@ -40,12 +40,12 @@
     "utils"
   ],
   "peerDependencies": {
-    "react": "^18.0.0"
+    "react": "^18.0.0 || ^19.0.0"
   },
   "dependencies": {
     "@storybook/core-events": "^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
-    "react": "^18.0.0"
+    "react": "^19.0.0"
   }
 }
