@@ -1,5 +1,11 @@
 # @web/storybook-utils
 
+## 1.1.2
+
+### Patch Changes
+
+- 1b53424: allow React 19 and test with it
+
 ## 1.1.1
 
 ### Patch Changes
