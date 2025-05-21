@@ -9,10 +9,13 @@ import type {
 import { reportTestsErrors } from './reportTestsErrors.js';
 import { reportTestFileErrors } from './reportTestFileErrors.js';
 
+import { TestRunnerLogger } from '../logger/TestRunnerLogger.js';
 import { reportBrowserLogs } from './reportBrowserLogs.js';
 
 interface Options {
   flatten?: boolean;
+  reportTestLogs?: boolean;
+  reportTestErrors?: boolean;
 }
 
 const color =
@@ -26,9 +29,11 @@ const dim = color([2, 0]);
 
 /** Test reporter that summarizes all test for a given run */
 export function summaryReporter(opts: Options): Reporter {
-  const { flatten = false } = opts ?? {};
+  const { flatten = false, reportTestLogs = true, reportTestErrors = true } = opts ?? {};
   let args: ReporterArgs;
   let favoriteBrowser: string;
+
+  const testLogger = new TestRunnerLogger();
 
   function log(
     logger: Logger,
@@ -80,7 +85,6 @@ export function summaryReporter(opts: Options): Reporter {
     logResults(logger, suite, pref, browser);
   }
 
-  let cachedLogger: Logger;
   return {
     start(_args) {
       args = _args;
@@ -92,26 +96,27 @@ export function summaryReporter(opts: Options): Reporter {
     },
 
     reportTestFileResults({ logger, sessionsForTestFile }) {
-      cachedLogger = logger;
       for (const session of sessionsForTestFile) {
         logResults(logger, session.testResults, '', session.browser);
         logger.log('');
       }
-      reportBrowserLogs(logger, sessionsForTestFile);
+      if (reportTestLogs) reportBrowserLogs(logger, sessionsForTestFile);
     },
 
     onTestRunFinished({ sessions }) {
-      const failedSessions = sessions.filter(s => !s.passed);
-      if (failedSessions.length > 0) {
-        cachedLogger.log('\n\nErrors Reported in Tests:\n\n');
-        reportTestsErrors(cachedLogger, args.browserNames, favoriteBrowser, failedSessions);
-        reportTestFileErrors(
-          cachedLogger,
-          args.browserNames,
-          favoriteBrowser,
-          failedSessions,
-          true,
-        );
+      if (reportTestErrors) {
+        const failedSessions = sessions.filter(s => !s.passed);
+        if (failedSessions.length > 0) {
+          testLogger.log('\n\nErrors Reported in Tests:\n\n');
+          reportTestsErrors(testLogger, args.browserNames, favoriteBrowser, failedSessions);
+          reportTestFileErrors(
+            testLogger,
+            args.browserNames,
+            favoriteBrowser,
+            failedSessions,
+            true,
+          );
+        }
       }
     },
   };
