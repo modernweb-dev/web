@@ -1,5 +1,11 @@
 # @web/test-runner
 
+## 0.20.2
+
+### Patch Changes
+
+- 7aedbaa: Summary Reporter - re-enabled error reporting and made option to disable browser logs and error reporting in this reporter
+
 ## 0.20.1
 
 ### Patch Changes
