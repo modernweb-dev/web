@@ -29,7 +29,7 @@ const dim = color([2, 0]);
 
 /** Test reporter that summarizes all test for a given run */
 export function summaryReporter(opts: Options): Reporter {
-  const { flatten = false, reportTestLogs = true, reportTestErrors = false } = opts ?? {};
+  const { flatten = false, reportTestLogs = true, reportTestErrors = true } = opts ?? {};
   let args: ReporterArgs;
   let favoriteBrowser: string;
 
