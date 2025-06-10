@@ -1,5 +1,45 @@
 # @web/test-runner-mocha
 
+## 0.9.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-core@0.13.0
+
+## 0.8.2
+
+### Patch Changes
+
+- 60dda46f: Remove `@types/mocha` from dependencies so its global types don't leak into user code.
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+
+## 0.8.1
+
+### Patch Changes
+
+- c26d3730: Update TypeScript
+- Updated dependencies [c26d3730]
+  - @web/test-runner-core@0.11.1
+
+## 0.8.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- b7d8ee66: Update mocha from version 8.2.0 to version 10.2.0
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-core@0.11.0
+
 ## 0.7.5
 
 ### Patch Changes

@@ -1,18 +1,19 @@
 import path from 'path';
 import { parse, serialize } from 'parse5';
-import { extractModules } from './extractModules';
-import { extractAssets } from './extractAssets';
+import { extractModules } from './extractModules.js';
+import { extractAssets } from './extractAssets.js';
 
 export interface ExtractParams {
   html: string;
   htmlFilePath: string;
   rootDir: string;
   extractAssets: boolean;
+  externalAssets?: string | string[];
   absolutePathPrefix?: string;
 }
 
 export function extractModulesAndAssets(params: ExtractParams) {
-  const { html, htmlFilePath, rootDir, absolutePathPrefix } = params;
+  const { html, htmlFilePath, rootDir, externalAssets, absolutePathPrefix } = params;
   const htmlDir = path.dirname(htmlFilePath);
   const document = parse(html);
 
@@ -24,7 +25,14 @@ export function extractModulesAndAssets(params: ExtractParams) {
     absolutePathPrefix,
   });
   const assets = params.extractAssets
-    ? extractAssets({ document, htmlDir, htmlFilePath, rootDir, absolutePathPrefix })
+    ? extractAssets({
+        document,
+        htmlDir,
+        htmlFilePath,
+        rootDir,
+        externalAssets,
+        absolutePathPrefix,
+      })
     : [];
 
   // turn mutated AST back to a string

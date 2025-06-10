@@ -1,0 +1,98 @@
+{
+  "name": "@web/mocks",
+  "version": "1.3.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "MSW integration for @web tooling",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/mocks"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/mocks",
+  "type": "module",
+  "exports": {
+    "./http.js": {
+      "types": "./dist-types/http.d.ts",
+      "default": "./http.js"
+    },
+    "./browser.js": {
+      "types": "./dist-types/browser.d.ts",
+      "default": "./browser.js"
+    },
+    "./storybook-addon/manager": "./storybook-addon/manager.js",
+    "./storybook-addon/preset": "./storybook-addon/preset.js",
+    "./storybook-addon/preview": "./storybook-addon/preview.js",
+    "./storybook/addon/decorator.js": {
+      "types": "./dist-types/storybook/addon/decorator.d.ts",
+      "default": "./storybook/addon/decorator.js"
+    },
+    "./storybook/addon/manager.js": "./storybook/addon/manager.js",
+    "./storybook/decorator.js": {
+      "types": "./dist-types/storybook/decorator.d.ts",
+      "default": "./storybook/decorator.js"
+    },
+    "./storybook/addon.js": "./storybook/addon.js",
+    "./plugins.js": {
+      "types": "./dist-types/plugins.d.ts",
+      "default": "./plugins.js"
+    },
+    "./node.js": {
+      "types": "./dist-types/node.d.ts",
+      "default": "./node.js"
+    },
+    "./types.js": {
+      "types": "./dist-types/types.d.ts",
+      "default": "./types.js"
+    }
+  },
+  "scripts": {
+    "start": "wds --config demo/wc/web-dev-server.config.mjs",
+    "test:browser": "node ../test-runner/dist/bin.js test-browser/*.test.js --config test-browser/web-test-runner.config.js",
+    "types": "wireit"
+  },
+  "files": [
+    "**/*.js",
+    "dist-types",
+    "README.md"
+  ],
+  "keywords": [
+    "mocks",
+    "msw"
+  ],
+  "dependencies": {
+    "@storybook/manager-api": "^7.0.0 || ^8.0.0",
+    "@storybook/preview-api": "^7.0.0 || ^8.0.0",
+    "@web/storybook-prebuilt": "^0.1.37",
+    "@web/storybook-utils": "^1.1.1",
+    "lit": "^2.7.5 || ^3.0.0",
+    "msw": "2.4.1"
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.4.6",
+    "@web/dev-server-storybook": "^2.0.0"
+  },
+  "imports": {
+    "#sw-path": {
+      "development": "./sw-path/dev.js",
+      "default": "./sw-path/build.js"
+    }
+  },
+  "wireit": {
+    "types": {
+      "command": "tsc --build --pretty",
+      "files": [
+        "**/*.js",
+        "**/*.ts",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist-types/**"
+      ],
+      "dependencies": []
+    }
+  }
+}

@@ -1,5 +1,135 @@
 # @web/dev-server-rollup
 
+## 0.6.4
+
+### Patch Changes
+
+- 2031b9e9: Bumping the version of whatwg-url in order to resolve an issue with a dependency.
+
+## 0.6.3
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
+## 0.6.2
+
+### Patch Changes
+
+- 8552a4a4: dedupe imports from outside root
+
+## 0.6.1
+
+### Patch Changes
+
+- 1c0088de: Update Rollup to version 4.
+
+## 0.6.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/dev-server-core@0.7.0
+
+## 0.5.4
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/dev-server-core@0.6.2
+
+## 0.5.3
+
+### Patch Changes
+
+- Updated dependencies [7f0f4315]
+  - @web/dev-server-core@0.6.0
+
+## 0.5.2
+
+### Patch Changes
+
+- 6b359149: fix: await buildStart in serverStart
+
+## 0.5.1
+
+### Patch Changes
+
+- 6ab3ee55: fix: ensure imports are resolved correctly in pages without extension
+
+## 0.5.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- b7d8ee66: Update mocha from version 8.2.0 to version 10.2.0
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+
+## 0.4.1
+
+### Patch Changes
+
+- fa2c1779: Update @rollup/plugin-babel
+- 1113fa09: Update `@rollup/pluginutils`
+- 817d674b: Update `browserslist-useragent`
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+  - @web/dev-server-core@0.4.1
+
+## 0.4.0
+
+### Minor Changes
+
+- acc0a84c: Expand support for Rollup plugins with child plugins, specifically the Node Resolve plugin.
+
+### Patch Changes
+
+- a2198172: fix rollup adapter resolution for virtual modules on Windows
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
+## 0.3.21
+
+### Patch Changes
+
+- bd06b8cd: revert change #2078
+
+## 0.3.20
+
+### Patch Changes
+
+- ab27e502: fix rollup adapter virtual modules resolution for windows environments
+
+## 0.3.19
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+- Updated dependencies [00da4255]
+  - @web/dev-server-core@0.3.19
+
+## 0.3.18
+
+### Patch Changes
+
+- 78d610d1: Update Rollup, use moduleSideEffects flag
+- Updated dependencies [39610b4c]
+  - @web/dev-server-core@0.3.18
+
 ## 0.3.17
 
 ### Patch Changes

@@ -1,5 +1,5 @@
-/* eslint-disable */
-const { readdirSync, existsSync, readFileSync } = require('fs');
+#!/usr/bin/env node
+const { readdirSync, existsSync, readFileSync, writeFileSync } = require('fs');
 
 const getDirectories = source =>
   readdirSync(source, { withFileTypes: true })
@@ -32,11 +32,11 @@ function readPackageJsonNameVersion(filePath) {
 }
 
 function compareVersions(versionsA, versionsB) {
-  let output = '';
+  let output = {};
   const newVersions = { ...versionsA };
   Object.keys(versionsB).forEach(dep => {
     if (versionsA[dep] && versionsB[dep] && versionsA[dep] !== versionsB[dep]) {
-      output += `  - "${dep}" should be "${versionsA[dep]}" but is "${versionsB[dep]}"\n`;
+      output[dep] = [versionsA[dep], versionsB[dep]];
     }
     if (!newVersions[dep]) {
       newVersions[dep] = versionsB[dep];
@@ -53,28 +53,48 @@ let currentVersions = readPackageJsonDeps('./package.json');
 let endReturn = 0;
 
 // find all versions in the monorepo
-['./packages', './demo/projects'].forEach(rootDir => {
-  getDirectories(rootDir).forEach(subPackage => {
-    const filePath = `${rootDir}/${subPackage}/package.json`;
-    currentVersions = { ...currentVersions, ...readPackageJsonNameVersion(filePath) };
-  });
-});
+for (const subPackage of getDirectories('./packages')) {
+  const filePath = `./packages/${subPackage}/package.json`;
+  currentVersions = { ...currentVersions, ...readPackageJsonNameVersion(filePath) };
+}
+
+const fixes = new Map();
 
 // lint all versions in packages
-['./packages', './demo/projects'].forEach(rootDir => {
-  getDirectories(rootDir).forEach(subPackage => {
-    const filePath = `${rootDir}/${subPackage}/package.json`;
-    const subPackageVersions = readPackageJsonDeps(filePath);
-    const { output, newVersions } = compareVersions(currentVersions, subPackageVersions);
-    currentVersions = { ...newVersions };
-    if (output) {
-      console.log(`Version mismatches found in "${filePath}":`);
-      console.log(output);
-      console.log();
-      endReturn = 1;
-    }
-  });
-});
+for (const subPackage of getDirectories('./packages')) {
+  const filePath = `./packages/${subPackage}/package.json`;
+  const subPackageVersions = readPackageJsonDeps(filePath);
+  const { output, newVersions } = compareVersions(currentVersions, subPackageVersions);
+  currentVersions = { ...newVersions };
+  const entries = Object.entries(output);
+  if (entries.length) {
+    fixes.set(filePath, output);
+    console.log(`Version mismatches found in "${filePath}":`);
+    console.log(
+      entries.reduce(
+        (acc, [dep, [should, is]]) => `${acc}  - "${dep}" should be "${should}" but is "${is}"\n`,
+        '',
+      ),
+    );
+    console.log();
+    endReturn = 1;
+  }
+}
+
+function fixJSON(filePath, changes) {
+  const json = JSON.parse(readFileSync(filePath, 'utf8'));
+  for (const [dep, [should]] of Object.entries(changes)) {
+    json.dependencies[dep] = should;
+  }
+  writeFileSync(filePath, JSON.stringify(json, null, 2));
+}
+
+if (fixes.size && process.argv.includes('--fix')) {
+  for (const [filePath, changes] of fixes) {
+    fixJSON(filePath, changes);
+  }
+  console.log('package.json files updated, run `npm install`');
+}
 
 if (endReturn === 0) {
   console.log('All versions are aligned 💪');

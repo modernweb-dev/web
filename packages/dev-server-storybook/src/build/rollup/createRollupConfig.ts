@@ -1,14 +1,17 @@
-import { Plugin, RollupOptions, RollupWarning } from 'rollup';
+import { createRequire } from 'node:module';
+import { Plugin, RollupOptions, RollupLog } from 'rollup';
 
-import resolve from '@rollup/plugin-node-resolve';
-import babel from '@rollup/plugin-babel';
-import html from '@web/rollup-plugin-html';
-import polyfillsLoader from '@web/rollup-plugin-polyfills-loader';
+import { nodeResolve as resolve } from '@rollup/plugin-node-resolve';
+import { babel } from '@rollup/plugin-babel';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
+import { polyfillsLoader } from '@web/rollup-plugin-polyfills-loader';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
-import { terser } from 'rollup-plugin-terser';
-import { mdxPlugin } from './mdxPlugin';
-import { mdjsPlugin } from './mdjsPlugin';
-import { injectExportsOrderPlugin } from './injectExportsOrderPlugin';
+import terser from '@rollup/plugin-terser';
+import { mdxPlugin } from './mdxPlugin.js';
+import { mdjsPlugin } from './mdjsPlugin.js';
+import { injectExportsOrderPlugin } from './injectExportsOrderPlugin.js';
+
+const require = createRequire(import.meta.url);
 
 const prebuiltDir = require
   .resolve('@web/storybook-prebuilt/package.json')
@@ -16,7 +19,7 @@ const prebuiltDir = require
 
 const ignoredWarnings = ['EVAL', 'THIS_IS_UNDEFINED'];
 
-function onwarn(warning: RollupWarning, warn: (msg: RollupWarning) => void) {
+function onwarn(warning: RollupLog, warn: (msg: RollupLog) => void) {
   if (ignoredWarnings.includes(warning.code!)) {
     return;
   }
@@ -54,6 +57,9 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
         configFile: false,
         extensions: [...DEFAULT_EXTENSIONS, 'md', 'mdx'],
         exclude: `${prebuiltDir}/**`,
+        sourceMaps: true,
+        // @ts-ignore The provided types are wrong. See https://babeljs.io/docs/options#inputsourcemap
+        inputSourceMap: false,
         presets: [
           [
             require.resolve('@babel/preset-env'),
@@ -120,11 +126,12 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
           resizeObserver: true,
         },
       }) as Plugin,
+      // @ts-ignore the provided type is wrong
       terser({ format: { comments: false } }) as Plugin,
     ],
   };
 
-  if (storyFilePaths && storyFilePaths.length > 0) {
+  if (storyFilePaths && storyFilePaths.length > 0 && Array.isArray(options.plugins)) {
     // plugins we need to inject only in the preview
     options.plugins!.unshift(injectExportsOrderPlugin(storyFilePaths));
     options.plugins!.unshift(mdxPlugin());

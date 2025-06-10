@@ -13,9 +13,11 @@ describe('rollup-plugin-copy', () => {
     const { output } = await bundle.generate({ format: 'es' });
 
     expect(output.length).to.equal(5);
-    expect(output[1].fileName).to.equal('a.svg');
-    expect(output[2].fileName).to.equal('b.svg');
-    expect(output[3].fileName).to.equal(`sub${path.sep}sub-a.svg`);
-    expect(output[4].fileName).to.equal(`sub${path.sep}sub-b.mark.svg`);
+    expect(output.map(x => x.fileName).filter(x => x.endsWith('.svg'))).to.have.members([
+      'a.svg',
+      'b.svg',
+      `sub${path.sep}sub-a.svg`,
+      `sub${path.sep}sub-b.mark.svg`,
+    ]);
   });
 });

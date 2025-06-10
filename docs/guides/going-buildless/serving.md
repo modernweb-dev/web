@@ -12,13 +12,13 @@ the [HyperText Transfer Protocol](https://developer.mozilla.org/en-US/docs/Web/H
 
 Now that your `GET` request has reached the web server, the server has to parse the URL to determine what to include in the response.
 
-So when the request for `GET https://my-domain.dev/` comes in, the web server parses it into three major parts,
+So when the request for `GET https://my-domain.com/` comes in, the web server parses it into three major parts,
 
 1. the protocol `https://`,
-2. the domain name `my-domain.dev`
+2. the domain name `my-domain.com`
 3. the path `/`
 
-So this particular request is asking for the entire web root directory since the path part of the URL didn't include any specific file in the request. How does the web server know how to respond? Most web servers when given a request for a directory will look for a special file in that directory named `index.html` and serve that. It's as if the user actually typed `https://my-domain.dev/index.html` into their browser.
+So this particular request is asking for the entire web root directory since the path part of the URL didn't include any specific file in the request. How does the web server know how to respond? Most web servers when given a request for a directory will look for a special file in that directory named `index.html` and serve that. It's as if the user actually typed `https://my-domain.com/index.html` into their browser.
 
 The simplest kinds of web servers retrieve the file located at the path specified in the URL, relative to the web root. The web root is the directory which that web server is configured to look in for files. For example, the [Apache](https://httpd.apache.org/) web server running on Ubuntu Linux 14.04 looks in `/var/www/html/` by default, whereas the nginx server by some default configurations looks in `/usr/share/nginx/html/`.
 

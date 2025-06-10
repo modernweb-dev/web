@@ -6,7 +6,7 @@ import {
   DevServerCoreConfig,
   getRequestFilePath,
 } from '@web/dev-server-core';
-import type { TransformOptions } from 'esbuild';
+import type { TransformOptions, BuildFailure } from 'esbuild';
 import { Loader, Message, transform } from 'esbuild';
 import { promisify } from 'util';
 import path from 'path';
@@ -19,7 +19,7 @@ import {
 } from '@web/dev-server-core/dist/dom5';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
 
-import { getEsbuildTarget } from './getEsbuildTarget';
+import { getEsbuildTarget } from './getEsbuildTarget.js';
 
 const filteredWarnings = ['Unsupported source map comment'];
 
@@ -41,6 +41,8 @@ export interface EsbuildConfig {
   jsxFragment?: string;
   define?: { [key: string]: string };
   tsconfig?: string;
+  banner?: string;
+  footer?: string;
 }
 
 export class EsbuildPlugin implements Plugin {
@@ -181,6 +183,8 @@ export class EsbuildPlugin implements Plugin {
         jsxFragment: this.esbuildConfig.jsxFragment,
         define: this.esbuildConfig.define,
         tsconfigRaw: this.tsconfigRaw,
+        banner: this.esbuildConfig.banner,
+        footer: this.esbuildConfig.footer,
       };
 
       const { code: transformedCode, warnings } = await transform(code, transformOptions);
@@ -199,8 +203,8 @@ export class EsbuildPlugin implements Plugin {
 
       return transformedCode;
     } catch (e) {
-      if (Array.isArray(e.errors)) {
-        const msg = e.errors[0] as Message;
+      if (Array.isArray((e as BuildFailure).errors)) {
+        const msg = (e as BuildFailure).errors[0] as Message;
 
         if (msg.location) {
           throw new PluginSyntaxError(

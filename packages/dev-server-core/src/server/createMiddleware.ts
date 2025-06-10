@@ -2,17 +2,17 @@ import { Middleware } from 'koa';
 import koaEtag from 'koa-etag';
 import { FSWatcher } from 'chokidar';
 
-import { DevServerCoreConfig } from './DevServerCoreConfig';
-import { basePathMiddleware } from '../middleware/basePathMiddleware';
-import { etagCacheMiddleware } from '../middleware/etagCacheMiddleware';
-import { historyApiFallbackMiddleware } from '../middleware/historyApiFallbackMiddleware';
-import { pluginMimeTypeMiddleware } from '../middleware/pluginMimeTypeMiddleware';
-import { pluginServeMiddleware } from '../middleware/pluginServeMiddleware';
-import { pluginTransformMiddleware } from '../middleware/pluginTransformMiddleware';
-import { Logger } from '../logger/Logger';
-import { watchServedFilesMiddleware } from '../middleware/watchServedFilesMiddleware';
-import { pluginFileParsedMiddleware } from '../middleware/pluginFileParsedMiddleware';
-import { serveFilesMiddleware } from '../middleware/serveFilesMiddleware';
+import { DevServerCoreConfig } from './DevServerCoreConfig.js';
+import { basePathMiddleware } from '../middleware/basePathMiddleware.js';
+import { etagCacheMiddleware } from '../middleware/etagCacheMiddleware.js';
+import { historyApiFallbackMiddleware } from '../middleware/historyApiFallbackMiddleware.js';
+import { pluginMimeTypeMiddleware } from '../middleware/pluginMimeTypeMiddleware.js';
+import { pluginServeMiddleware } from '../middleware/pluginServeMiddleware.js';
+import { pluginTransformMiddleware } from '../middleware/pluginTransformMiddleware.js';
+import { Logger } from '../logger/Logger.js';
+import { watchServedFilesMiddleware } from '../middleware/watchServedFilesMiddleware.js';
+import { pluginFileParsedMiddleware } from '../middleware/pluginFileParsedMiddleware.js';
+import { serveFilesMiddleware } from '../middleware/serveFilesMiddleware.js';
 
 /**
  * Creates middlewares based on the given configuration. The middlewares can be
@@ -41,8 +41,10 @@ export function createMiddleware(
     middlewares.push(m);
   }
 
-  // watch files that are served
-  middlewares.push(watchServedFilesMiddleware(fileWatcher, config.rootDir));
+  if (!config.disableFileWatcher) {
+    // watch files that are served
+    middlewares.push(watchServedFilesMiddleware(fileWatcher, config.rootDir));
+  }
 
   // serves 304 responses if resource hasn't changed
   middlewares.push(etagCacheMiddleware());

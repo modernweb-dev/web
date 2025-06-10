@@ -1,5 +1,80 @@
 # rollup-plugin-workbox
 
+## 8.1.2
+
+### Patch Changes
+
+- d826727: upgrade esbuild to 0.25.x
+
+## 8.1.1
+
+### Patch Changes
+
+- f506af31: Upgrade esbuild to 0.24.x
+
+## 8.1.0
+
+### Minor Changes
+
+- 8218a0a5: Update ESBuild to latest version
+
+## 8.0.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+
+## 8.0.1
+
+### Patch Changes
+
+- 9ae9c2e7: fix: generate sw arg
+
+## 8.0.0
+
+### Major Changes
+
+- f7927b81: feat: update workbox v7
+
+  - Update workbox to v7
+  - Removed the mode option in favour of just always bundling/removing process.env for the service worker when using injectManifest
+
+### Patch Changes
+
+- 85647c10: Update `lit-html`
+- 5acaf838: Update `@typescript-eslint/parser`
+- d56f6bb0: fix: esbuild options shouldnt override swsrc and swdest
+- ab4720fa: fix: terser import
+
+## 7.0.1
+
+### Patch Changes
+
+- 1109ec37: Replace `rollup-plugin-terser` with `@rollup/plugin-terser`
+
+## 7.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+## 6.2.2
+
+### Patch Changes
+
+- f7ddc726: Revert back to non-ESM version of `pretty-bytes`
+
+## 6.2.1
+
+### Patch Changes
+
+- 7b35551b: Update `pretty-bytes`
+- 1113fa09: Update `@rollup/pluginutils`
+- 817d674b: Update `browserslist-useragent`
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+
 ## 6.2.0
 
 ### Minor Changes

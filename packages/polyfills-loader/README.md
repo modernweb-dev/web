@@ -78,7 +78,9 @@ const config = {
     webcomponents: true,
     intersectionObserver: true,
     constructibleStylesheets: true,
+    URLPattern: true,
     resizeObserver: true,
+    scopedCustomElementRegistry: true,
   },
   minify: true,
 };
@@ -154,7 +156,9 @@ The polyfills config controls which polyills are injected onto the page. These a
 - [dynamicImport](https://github.com/GoogleChromeLabs/dynamic-import-polyfill)
 - [esModuleShims](https://github.com/guybedford/es-module-shims)
 - [constructibleStylesheets](https://github.com/calebdwilliams/construct-style-sheets)
+- [URLPattern](https://github.com/kenchris/urlpattern-polyfill)
 - [shadyCssCustomStyle](https://github.com/webcomponents/polyfills/blob/master/packages/shadycss/custom-style-interface.html) (you must also include webcomponents)
+- [scopedCustomElementRegistry](https://github.com/webcomponents/polyfills/tree/master/packages/scoped-custom-element-registry)
 
 They can be turned on using booleans. When using the polyfills loader directly, these are default false. Other tools may turn on different defaults.
 

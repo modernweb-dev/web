@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["webworker"],
-    "types": ["workbox-build"]
+    "lib": ["webworker"]
   },
   "exclude": ["dist", "demo"]
 }

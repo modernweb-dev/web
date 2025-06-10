@@ -1,5 +1,173 @@
 # @web/test-runner-chrome
 
+## 0.18.1
+
+### Patch Changes
+
+- 79b0ba4: This changeset removes the Puppeteer/Chrome focus browser patches that shouldn't
+  be needed anymore, and can cause instability.
+
+  The patches were added quite a while ago, and the upstream issues should
+  be resolved in Chromium. See: https://issues.chromium.org/issues/40272146.
+
+  Also see:
+  https://github.com/puppeteer/puppeteer/issues/10350#issuecomment-1586858101.
+
+  The patches are currently also resulting some instability of web test
+  runner. That is because the patch calls an exposed function from inside
+  the browser, while navigation later on during `stopSession` can happen;
+  breaking the handle for retrieving function call arguments passed to the
+  exposed function.
+
+  Puppeteer team found this issue and also landed a fix to improve the
+  failure mode here. See:
+  https://github.com/puppeteer/puppeteer/pull/13759
+
+## 0.18.0
+
+### Minor Changes
+
+- 86eaa21: Upgrade puppeteer version to v24
+
+## 0.17.0
+
+### Minor Changes
+
+- b546e8b5: Upgrade puppeteer-core and puppeteer to v23
+
+## 0.16.0
+
+### Minor Changes
+
+- 4cc90648: Update Puppeteer to version 22. Remove Puppeteer KnownDevices, before the update named devices, export.
+
+## 0.15.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-coverage-v8@0.8.0
+  - @web/test-runner-core@0.13.0
+
+## 0.14.4
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+  - @web/test-runner-coverage-v8@0.7.3
+
+## 0.14.3
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-coverage-v8@0.7.2
+  - @web/test-runner-core@0.11.6
+
+## 0.14.2
+
+### Patch Changes
+
+- 165c8134: return inner timer result
+  - @web/test-runner-core@0.11.5
+
+## 0.14.1
+
+### Patch Changes
+
+- be105a69: Fix debug mode
+
+## 0.14.0
+
+### Minor Changes
+
+- 0c87f59e: feat/various fixes
+
+  - Update puppeteer to `20.0.0`, fixes #2282
+  - Use puppeteer's new `page.mouse.reset()` in sendMousePlugin, fixes #2262
+  - Use `development` export condition by default
+
+## 0.13.4
+
+### Patch Changes
+
+- 5c02eca2: fix(test-runner-chrome): add mutex when bringing tabs to front
+
+## 0.13.3
+
+### Patch Changes
+
+- 18d4a631: fix: add workaround for headless issue
+
+  This will patch `window.requestAnimationFrame` and `window.requestIdleCallback` and make sure that the tab running the test code is brought back to the front.
+
+## 0.13.2
+
+### Patch Changes
+
+- 015766e9: Use new headless chrome mode
+- Updated dependencies [015766e9]
+  - @web/test-runner-core@0.11.2
+
+## 0.13.1
+
+### Patch Changes
+
+- 9ae77c47: Acquire raw v8 coverage via puppeteer API rather than CDP calls
+- Updated dependencies [3c33d74a]
+  - @web/test-runner-coverage-v8@0.7.0
+
+## 0.13.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-coverage-v8@0.6.0
+  - @web/test-runner-core@0.11.0
+
+## 0.12.1
+
+### Patch Changes
+
+- 77e413d9: fix(test-runner-chrome): fix broken test coverage. fixes #2186
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [cdeafe4a]
+- Updated dependencies [1113fa09]
+- Updated dependencies [817d674b]
+- Updated dependencies [445b20e6]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/test-runner-core@0.10.29
+
+## 0.12.0
+
+### Minor Changes
+
+- 0e198dcc: Update `puppeteer-core` dependency to v18
+
+## 0.11.0
+
+### Minor Changes
+
+- acca5d51: Update dependency v8-to-istanbul to v9
+
+### Patch Changes
+
+- Updated dependencies [acca5d51]
+  - @web/test-runner-coverage-v8@0.5.0
+
 ## 0.10.7
 
 ### Patch Changes

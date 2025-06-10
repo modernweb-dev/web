@@ -1,16 +1,8 @@
 import { generateSW as _generateSw, injectManifest as _injectManifest } from 'workbox-build';
 import type { GenerateSWOptions, InjectManifestOptions } from 'workbox-build';
 import * as prettyBytes from 'pretty-bytes';
-import * as rollup from 'rollup';
-import replace from '@rollup/plugin-replace';
-import { terser } from 'rollup-plugin-terser';
-import resolve from '@rollup/plugin-node-resolve';
-
-interface RollupPartial {
-  mode?: string | null;
-}
-
-type RollupInjectManifestOptions = InjectManifestOptions & RollupPartial;
+import * as esbuild from 'esbuild';
+import type { BuildOptions } from 'esbuild';
 
 const name = 'workbox';
 
@@ -21,7 +13,7 @@ const report = ({ swDest, count, size }: { swDest: string; count: number; size: 
   console.log(`The service worker will precache ${count} URLs, totaling ${prettySize}.\n`);
 };
 
-export function generateSW(generateSWConfig: GenerateSWOptions, render = report) {
+export function generateSW(generateSWConfig: GenerateSWOptions, { render = report } = {}) {
   const { swDest, globDirectory } = generateSWConfig;
 
   if (!swDest) throw new Error('No service worker destination specified');
@@ -46,8 +38,11 @@ export function generateSW(generateSWConfig: GenerateSWOptions, render = report)
 }
 
 export function injectManifest(
-  { mode, ...injectManifestConfig }: RollupInjectManifestOptions,
-  render = report,
+  injectManifestConfig: InjectManifestOptions,
+  {
+    render = report,
+    esbuild: esbuildOptions,
+  }: { render?: typeof report; esbuild?: BuildOptions } = {},
 ) {
   const { swSrc, swDest, globDirectory } = injectManifestConfig;
 
@@ -67,32 +62,18 @@ export function injectManifest(
 
   return {
     name,
-    writeBundle() {
-      return _injectManifest(injectManifestConfig)
-        .then(doRender)
-        .then(async () => mode === 'production' && (await processBundle({ swDest })))
-        .catch(console.error);
+    async writeBundle() {
+      await esbuild.build({
+        bundle: true,
+        minify: true,
+        format: 'iife',
+        ...esbuildOptions,
+        entryPoints: [swSrc],
+        outfile: swDest,
+      });
+
+      injectManifestConfig.swSrc = swDest;
+      return _injectManifest(injectManifestConfig).then(doRender).catch(console.error);
     },
   };
 }
-
-/**
- * @TODO
- * This is a hack to be able to support the `mode` property for `injectManifest` until Workbox decides to support it.
- * Feature is tracked here: https://github.com/GoogleChrome/workbox/issues/2588
- * Once Workbox's `injectManifest` supports this out of the box, we should remove this.
- */
-const processBundle = async ({ swDest }: { swDest: string }) => {
-  const bundle = await rollup.rollup({
-    input: swDest,
-    plugins: [
-      replace({ 'process.env.NODE_ENV': '"production"' }) as rollup.Plugin,
-      resolve(),
-      terser({ output: { comments: false } }),
-    ],
-  });
-  await bundle.write({
-    file: swDest,
-    format: 'iife',
-  });
-};

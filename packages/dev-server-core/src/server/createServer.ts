@@ -6,10 +6,10 @@ import http2Server from 'http2';
 import fs from 'fs';
 import net, { Server, Socket, ListenOptions } from 'net';
 
-import { DevServerCoreConfig } from './DevServerCoreConfig';
-import { createMiddleware } from './createMiddleware';
-import { Logger } from '../logger/Logger';
-import { addPlugins } from './addPlugins';
+import { DevServerCoreConfig } from './DevServerCoreConfig.js';
+import { createMiddleware } from './createMiddleware.js';
+import { Logger } from '../logger/Logger.js';
+import { addPlugins } from './addPlugins.js';
 
 /**
  * A request handler that returns a 301 HTTP Redirect to the same location as the original
@@ -25,7 +25,12 @@ function httpsRedirect(req: IncomingMessage, res: ServerResponse) {
  * Creates a koa server with middlewares, but does not start it. Returns the koa app and
  * http server instances.
  */
-export function createServer(logger: Logger, cfg: DevServerCoreConfig, fileWatcher: FSWatcher) {
+export function createServer(
+  logger: Logger,
+  cfg: DevServerCoreConfig,
+  fileWatcher: FSWatcher,
+  middlewareMode = false,
+) {
   const app = new Koa();
   app.silent = true;
   app.on('error', error => {
@@ -55,6 +60,10 @@ export function createServer(logger: Logger, cfg: DevServerCoreConfig, fileWatch
     app.use(m);
   }
 
+  if (middlewareMode) {
+    return { app };
+  }
+
   let server: Server;
   if (cfg.http2) {
     const dir = path.join(__dirname, '..');
@@ -70,6 +79,7 @@ export function createServer(logger: Logger, cfg: DevServerCoreConfig, fileWatch
           : path.join(dir, '..', '.self-signed-dev-server-ssl.cert'),
       ),
       allowHTTP1: true,
+      maxSessionMemory: 20,
     };
 
     const httpsRedirectServer = httpServer.createServer(httpsRedirect);

@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs';
-import Terser from 'terser';
-import { PolyfillsLoaderConfig, PolyfillConfig, PolyfillFile } from './types';
-import { createContentHash, noModuleSupportTest, hasFileOfType, fileTypes } from './utils';
+import { minify } from 'terser';
+import { PolyfillsLoaderConfig, PolyfillConfig, PolyfillFile } from './types.js';
+import { createContentHash, noModuleSupportTest, hasFileOfType, fileTypes } from './utils.js';
 
 export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<PolyfillFile[]> {
   const { polyfills = {} } = cfg;
@@ -13,7 +13,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     try {
       polyfillConfigs.push(polyfillConfig);
     } catch (error) {
-      if (error.code === 'MODULE_NOT_FOUND') {
+      if ((error as NodeJS.ErrnoException).code === 'MODULE_NOT_FOUND') {
         throw new Error(
           `[Polyfills loader]: Error resolving polyfill ${polyfillConfig.name}` +
             ' Are dependencies installed correctly?',
@@ -32,18 +32,27 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     });
   }
 
+  if (polyfills.URLPattern) {
+    addPolyfillConfig({
+      name: 'urlpattern-polyfill',
+      test: '"URLPattern" in window',
+      path: require.resolve('urlpattern-polyfill'),
+    });
+  }
+
   if (polyfills.esModuleShims) {
     addPolyfillConfig({
       name: 'es-module-shims',
       test: polyfills.esModuleShims !== 'always' ? '1' : undefined,
       path: require.resolve('es-module-shims'),
+      minify: true,
     });
   }
 
   if (polyfills.constructibleStylesheets) {
     addPolyfillConfig({
       name: 'constructible-style-sheets-polyfill',
-      test: '"adoptedStyleSheets" in document',
+      test: '!("adoptedStyleSheets" in document)',
       path: require.resolve('construct-style-sheets-polyfill'),
     });
   }
@@ -145,6 +154,16 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     });
   }
 
+  if (polyfills.scopedCustomElementRegistry) {
+    addPolyfillConfig({
+      name: 'scoped-custom-element-registry',
+      test: "!('createElement' in ShadowRoot.prototype)",
+      path: require.resolve(
+        '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js',
+      ),
+    });
+  }
+
   if (polyfills.webcomponents && !polyfills.shadyCssCustomStyle) {
     addPolyfillConfig({
       name: 'webcomponents',
@@ -208,7 +227,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
       content = readPolyfillFileContents(polyfillConfig.path);
     }
     if (polyfillConfig.minify) {
-      const minifyResult = await Terser.minify(content, { sourceMap: false });
+      const minifyResult = await minify(content, { sourceMap: false });
       // @ts-ignore
       content = minifyResult.code;
     }

@@ -1,8 +1,9 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { Browser, remote, RemoteOptions } from 'webdriverio';
-import { IFrameManager } from './IFrameManager';
-import { SessionManager } from './SessionManager';
-import { getBrowserLabel } from './utils';
+import { Browser, remote } from 'webdriverio';
+import { Capabilities } from '@wdio/types';
+import { IFrameManager } from './IFrameManager.js';
+import { SessionManager } from './SessionManager.js';
+import { getBrowserLabel } from './utils.js';
 
 type MouseButton = 'left' | 'middle' | 'right';
 
@@ -21,19 +22,19 @@ export class WebdriverLauncher implements BrowserLauncher {
   public name = 'Initializing...';
   public type = 'webdriver';
   private config?: TestRunnerCoreConfig;
-  private driver?: Browser<'async'>;
-  private debugDriver: undefined | Browser<'async'> = undefined;
+  private driver?: Browser;
+  private debugDriver: undefined | Browser = undefined;
   private driverManager?: IFrameManager | SessionManager;
   private __managerPromise?: Promise<IFrameManager | SessionManager>;
   private isIE = false;
   private pendingHeartbeat?: ReturnType<typeof setInterval>;
 
-  constructor(private options: RemoteOptions) {}
+  constructor(private options: Capabilities.WebdriverIOConfig) {}
 
   async initialize(config: TestRunnerCoreConfig) {
     this.config = config;
 
-    const cap = this.options.capabilities as WebDriver.DesiredCapabilities;
+    const cap = this.options.capabilities as WebdriverIO.Capabilities;
     this.name = getBrowserLabel(cap);
     const browserName = cap.browserName?.toLowerCase().replace(/_/g, ' ') || '';
     this.isIE =
@@ -82,7 +83,7 @@ export class WebdriverLauncher implements BrowserLauncher {
     if (this.debugDriver) {
       await this.debugDriver.deleteSession();
     }
-    this.debugDriver = (await remote(this.options)) as Browser<'async'>;
+    this.debugDriver = (await remote(this.options)) as Browser;
     await this.debugDriver.navigateTo(url);
   }
 
@@ -103,10 +104,10 @@ export class WebdriverLauncher implements BrowserLauncher {
 
   private async createDriverManager() {
     if (!this.config) throw new Error('Not initialized');
-    const options: RemoteOptions = { logLevel: 'error', ...this.options };
+    const options: Capabilities.WebdriverIOConfig = { logLevel: 'error', ...this.options };
 
     try {
-      this.driver = (await remote(options)) as Browser<'async'>;
+      this.driver = (await remote(options)) as Browser;
       this.driverManager =
         this.config.concurrency === 1
           ? new SessionManager(this.config, this.driver, this.isIE)
@@ -237,7 +238,7 @@ export class WebdriverLauncher implements BrowserLauncher {
   }
 }
 
-export function webdriverLauncher(options: RemoteOptions) {
+export function webdriverLauncher(options: Capabilities.WebdriverIOConfig) {
   if (!options?.capabilities) {
     throw new Error(`Webdriver launcher requires a capabilities property.`);
   }

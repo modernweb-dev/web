@@ -1,0 +1,75 @@
+{
+  "name": "@web/storybook-framework-web-components",
+  "version": "0.2.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Storybook framework for `@web/storybook-builder` + Web Components",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/storybook-framework-web-components"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/storybook-framework-web-components",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./index.mjs"
+    },
+    "./preset": "./preset.js",
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run test:build && npm run test:ui:build && npm run test:ui:runtime",
+    "test:build": "storybook build -c ./tests/fixtures/all-in-one/.storybook -o ./tests/fixtures/all-in-one/storybook-build",
+    "test:start:build": "wds -r ./tests/fixtures/all-in-one/storybook-build -p 3000",
+    "test:start:runtime": "storybook dev -c ./tests/fixtures/all-in-one/.storybook -p 3000 --no-open",
+    "test:ui:build": "npx playwright test -c playwright.build.config.ts",
+    "test:ui:runtime": "npx playwright test -c playwright.runtime.config.ts"
+  },
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "*.mjs",
+    "CHANGELOG.md",
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "storybook",
+    "builder",
+    "framework",
+    "web",
+    "dev",
+    "server",
+    "web components",
+    "es modules",
+    "modules",
+    "esm"
+  ],
+  "dependencies": {
+    "@storybook/web-components": "^8.6.12",
+    "@web/storybook-builder": "^0.2.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.22.2",
+    "@storybook/addon-a11y": "^8.6.12",
+    "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/addon-interactions": "^8.6.12",
+    "@storybook/addon-links": "^8.6.12",
+    "@storybook/blocks": "^8.6.12",
+    "@storybook/types": "^8.6.12",
+    "@web/dev-server": "^0.4.0",
+    "@web/rollup-plugin-import-meta-assets": "^2.2.1",
+    "@web/storybook-utils": "^1.1.0",
+    "storybook": "^8.6.12"
+  }
+}

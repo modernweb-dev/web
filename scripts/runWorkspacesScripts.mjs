@@ -33,10 +33,11 @@ export function runWorkspacesScripts({ script, concurrency, filteredPackages = [
 
   const commands = packagesWithScript.map(pkgPath => ({
     name: basename(pkgPath),
-    command: `cd ${pkgPath} && yarn ${script}`,
+    command: `cd ${pkgPath} && npm run ${script}`,
   }));
 
-  concurrently(commands, { maxProcesses: concurrency })
+  const { result } = concurrently(commands, { maxProcesses: concurrency });
+  result
     .then(() => {
       console.log(
         green(

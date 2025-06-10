@@ -2,6 +2,7 @@
 import cjsEntrypoint from './dist/index.js';
 
 const {
+  createPolyfillsData,
   createPolyfillsLoader,
   injectPolyfillsLoader,
   hasFileOfType,
@@ -10,6 +11,7 @@ const {
 } = cjsEntrypoint;
 
 export {
+  createPolyfillsData,
   createPolyfillsLoader,
   injectPolyfillsLoader,
   hasFileOfType,

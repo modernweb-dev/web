@@ -1,6 +1,6 @@
 import { Plugin } from '@web/dev-server-core';
 import { Loader } from 'esbuild';
-import { EsbuildPlugin } from './EsbuildPlugin';
+import { EsbuildPlugin } from './EsbuildPlugin.js';
 
 export interface EsBuildPluginArgs {
   target?: string | string[];
@@ -14,6 +14,8 @@ export interface EsBuildPluginArgs {
   loaders?: Record<string, Loader>;
   define?: { [key: string]: string };
   tsconfig?: string;
+  banner?: string;
+  footer?: string;
 }
 
 export function esbuildPlugin(args: EsBuildPluginArgs = {}): Plugin {
@@ -61,5 +63,7 @@ export function esbuildPlugin(args: EsBuildPluginArgs = {}): Plugin {
     jsxFragment: args.jsxFragment,
     define: args.define,
     tsconfig: args.tsconfig,
+    banner: args.banner,
+    footer: args.footer,
   });
 }

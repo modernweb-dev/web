@@ -73,6 +73,7 @@ The following rollup plugins have been tested to work correctly:
 - [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve)
 - [@rollup/plugin-replace](https://github.com/rollup/plugins/tree/master/packages/replace)
 - [@rollup/plugin-sucrase](https://github.com/rollup/plugins/tree/master/packages/sucrase)
+- [rollup-plugin-typescript-paths](https://github.com/simonhaenisch/rollup-plugin-typescript-paths)
 
 The following rollup plugins don't work correctly at the moment:
 

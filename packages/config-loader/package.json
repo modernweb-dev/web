@@ -1,6 +1,6 @@
 {
   "name": "@web/config-loader",
-  "version": "0.1.3",
+  "version": "0.3.3",
   "publishConfig": {
     "access": "public"
   },
@@ -14,13 +14,13 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/config-loader",
   "main": "src/index.js",
+  "type": "commonjs",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.js --reporter dot",
-    "test:ci": "yarn test",
+    "test:node": "mocha test/**/*.test.js --reporter dot",
     "test:watch": "mocha test/**/*.test.js --watch --watch-files .,src,test --reporter dot"
   },
   "files": [
@@ -38,12 +38,11 @@
     "esm",
     "es module"
   ],
-  "dependencies": {
-    "semver": "^7.3.4"
-  },
+  "dependencies": {},
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./src/index.js"
     }

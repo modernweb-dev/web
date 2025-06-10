@@ -1,9 +1,9 @@
-import { Plugin as RollupPlugin, AcornNode } from 'rollup';
+import { Plugin as RollupPlugin, AstNode } from 'rollup';
 import { expect } from 'chai';
 import path from 'path';
 
-import { createTestServer, fetchText, expectIncludes } from './test-helpers';
-import { fromRollup } from '../../src/index';
+import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
+import { fromRollup } from '../../src/index.js';
 
 describe('@web/dev-server-rollup', () => {
   describe('resolveId', () => {
@@ -104,6 +104,46 @@ describe('@web/dev-server-rollup', () => {
     });
   });
 
+  it('files inside root directory imported by files inside or outside are resolved to be deduped in the browser', async () => {
+    const rootDir = path.resolve(
+      __dirname,
+      'fixtures',
+      'monorepo-import-inside-from-outside',
+      'src',
+      'packages',
+      'subpackage',
+    );
+    const { server, host } = await createTestServer({
+      rootDir,
+      plugins: [
+        fromRollup(() => {
+          return {
+            name: 'prebundle-modules',
+            async resolveId(source) {
+              if (source === 'react') {
+                return path.join(rootDir, 'node_modules', '.prebundled_modules', 'react.mjs');
+              }
+            },
+          };
+        })(),
+      ],
+    });
+
+    try {
+      const responseTextInside = await fetchText(`${host}/app.js`);
+      expectIncludes(responseTextInside, "import './node_modules/.prebundled_modules/react.mjs'");
+      const responseTextOutside = await fetchText(
+        `${host}/__wds-outside-root__/3/node_modules/storybook/index.js`,
+      );
+      expectIncludes(
+        responseTextOutside,
+        "import './../../../../node_modules/.prebundled_modules/react.mjs'",
+      );
+    } finally {
+      server.stop();
+    }
+  });
+
   describe('load', () => {
     it('can serve files', async () => {
       const plugin: RollupPlugin = {
@@ -193,7 +233,7 @@ describe('@web/dev-server-rollup', () => {
   });
 
   it('rollup plugins can use this.parse', async () => {
-    let parsed: AcornNode | undefined = undefined;
+    let parsed: AstNode | undefined = undefined;
     const plugin: RollupPlugin = {
       name: 'my-plugin',
       transform(code, id) {

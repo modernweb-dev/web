@@ -44,7 +44,7 @@ export function calc(type, a, b) {
 ```
 
 And while we are at it we can also add `minus`, I'm sure that will come in handy that at some point as well.
-And if we provide a wrong type we should throw an error - better let the user know whats up.
+And if we provide a wrong type we should throw an error - better let the user know what's up.
 
 👉 `src/calc.js`
 
@@ -63,7 +63,7 @@ export function calc(type, a, b) {
 So let's run our test
 
 ```
-$ yarn test
+$ npm run test
 $ web-test-runner "test/**/*.test.js" --node-resolve --coverage
 
 Chrome: |██████████████████████████████| 1/1 test files | 1 passed, 0 failed
@@ -74,7 +74,7 @@ View full coverage report at coverage/lcov-report/index.html
 Finished running tests in 1s, all tests passed! 🎉
 ```
 
-As you can see, our test passed but our `Code coverage` is a bit on the low side.
+As you can see, our test passed but our code coverage is a bit on the low side.
 
 ## What to test
 
@@ -103,7 +103,7 @@ Adding a test for throwing an error will bring it to `100%`.
 ## Adding more features
 
 Let's add the possibility to `multiply`.
-While implementing `Lea` said it's time for a meeting so we put `return; // finish later` for now.
+While implementing, Lea said it's time for a meeting so we put `return; // finish later` for now.
 
 👉 `src/calc.js`
 
@@ -138,7 +138,7 @@ it('does multiply for 2 numbers', () => {
 Run it
 
 ```
-$ yarn test
+$ npm run test
 $ web-test-runner "test/**/*.test.js" --node-resolve --coverage
 
 Chrome: |██████████████████████████████| 1/1 test files | 4 passed, 0 failed
@@ -149,11 +149,12 @@ View full coverage report at coverage/lcov-report/index.html
 Finished running tests in 1s, all tests passed! 🎉
 ```
 
-uh nice `100%` - but it feels fishy? didn't we have a `finish later` somewhere?
+Uh, nice `100%` - but it feels fishy? Didn't we have a `finish later` somewhere?
 
 ## How come we have 100% code coverage?
 
-Lets first try to understand how code coverage works
+Let's first try to understand how code coverage works.
+
 The way code coverage gets measured is by applying a form of instrumentation. In short, before our code is executed it gets changed (instrumented) and it behaves something like this:
 
 ```js
@@ -162,7 +163,7 @@ if (this.value === 'cat') {
   console.log('We like cats too :)');
 }
 
-// becomes something like this (psoido code)
+// becomes something like this (pseudo code)
 __instrumented['functionUpdate'] += 1;
 if (this.value === 'cat') {
   __instrumented['functionUpdateBranch1yes'] += 1;
@@ -208,7 +209,7 @@ You should, therefore, see code coverage as a tool that only gives you guidance 
 
 ## Ignoring uncovered lines
 
-In more complex applications, it is likely that you will find yourself creating difficult, if not impossible, to test branches of functionality. While this can absolutely be a pointer to logic that is worth breaking down into more approachable parts, there will be cases where this is not feasible. If so, you may chose to ignore a line of code by using the `/* c8 ignore next */` custom comment. Using this, or more advanced forms of [ignoring uncovered lines](../../../docs/test-runner/writing-tests/code-coverage.md#ignoring-uncovered-lines) while computing code coverage can go a long way in preparing your project for long term maintanence.
+In more complex applications, it is likely that you will find yourself creating difficult, if not impossible, to test branches of functionality. While this can absolutely be a pointer to logic that is worth breaking down into more approachable parts, there will be cases where this is not feasible. If so, you may chose to ignore a line of code by using the `/* c8 ignore next */` custom comment. Using this, or more advanced forms of [ignoring uncovered lines](../../../docs/test-runner/writing-tests/code-coverage.md#ignoring-uncovered-lines) while computing code coverage can go a long way in preparing your project for long term maintenance.
 
 ## Coverage browser support
 

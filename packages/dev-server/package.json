@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server",
-  "version": "0.1.31",
+  "version": "0.4.6",
   "publishConfig": {
     "access": "public"
   },
@@ -20,15 +20,16 @@
   },
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
-    "start": "yarn start:syntax",
+    "start": "npm run start:syntax",
     "start:base-path": "node dist/bin.js --config demo/base-path/config.mjs --open",
     "start:http2": "node dist/bin.js --config demo/http2/config.mjs --open demo/http2/",
     "start:index-rewrite": "node dist/bin.js --config demo/index-rewrite/config.mjs --open",
@@ -36,12 +37,11 @@
     "start:plugin-serve": "node dist/bin.js --config demo/plugin-serve/config.mjs --open",
     "start:static": "node dist/bin.js --config demo/static/config.mjs --open demo/static/",
     "start:syntax": "node dist/bin.js --config demo/syntax/config.mjs --open demo/syntax/",
-    "test": "mocha \"test/**/*.test.mjs\" --reporter dot",
+    "test:node": "mocha \"test/**/*.test.mjs\" --reporter dot",
     "test:watch": "mocha \"test/**/*.test.mjs\" --watch --watch-files src,test --reporter dot"
   },
   "files": [
     "*.d.ts",
-    "*.js",
     "*.mjs",
     "dist",
     "src"
@@ -57,22 +57,22 @@
   "dependencies": {
     "@babel/code-frame": "^7.12.11",
     "@types/command-line-args": "^5.0.0",
-    "@web/config-loader": "^0.1.3",
-    "@web/dev-server-core": "^0.3.17",
-    "@web/dev-server-rollup": "^0.3.16",
+    "@web/config-loader": "^0.3.0",
+    "@web/dev-server-core": "^0.7.2",
+    "@web/dev-server-rollup": "^0.6.1",
     "camelcase": "^6.2.0",
     "command-line-args": "^5.1.1",
-    "command-line-usage": "^6.1.1",
+    "command-line-usage": "^7.0.1",
     "debounce": "^1.2.0",
     "deepmerge": "^4.2.2",
-    "ip": "^1.1.5",
+    "internal-ip": "^6.2.0",
     "nanocolors": "^0.2.1",
     "open": "^8.0.2",
-    "portfinder": "^1.0.28"
+    "portfinder": "^1.0.32"
   },
   "devDependencies": {
     "@types/command-line-usage": "^5.0.1",
-    "lit-html": "^2.0.0",
-    "puppeteer": "^13.1.2"
+    "lit-html": "^2.7.3 || ^3.0.0",
+    "puppeteer": "^24.0.0"
   }
 }

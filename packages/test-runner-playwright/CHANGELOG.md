@@ -1,5 +1,71 @@
 # @web/test-runner-playwright
 
+## 0.11.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-coverage-v8@0.8.0
+  - @web/test-runner-core@0.13.0
+
+## 0.10.3
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+  - @web/test-runner-coverage-v8@0.7.3
+
+## 0.10.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-coverage-v8@0.7.2
+  - @web/test-runner-core@0.11.6
+
+## 0.10.1
+
+### Patch Changes
+
+- Updated dependencies [3c33d74a]
+  - @web/test-runner-coverage-v8@0.7.0
+
+## 0.10.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-coverage-v8@0.6.0
+  - @web/test-runner-core@0.11.0
+
+## 0.9.0
+
+### Minor Changes
+
+- acca5d51: Update dependency v8-to-istanbul to v9
+
+### Patch Changes
+
+- Updated dependencies [acca5d51]
+  - @web/test-runner-coverage-v8@0.5.0
+
+## 0.8.10
+
+### Patch Changes
+
+- 07e87287: Fixes playwright memory leak
+
 ## 0.8.9
 
 ### Patch Changes

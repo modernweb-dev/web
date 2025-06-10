@@ -1,9 +1,10 @@
 import path from 'path';
 import fs from 'fs';
+import { pathToFileURL } from 'url';
 
-import { StorybookPluginConfig } from './StorybookPluginConfig';
-import { createError } from '../utils';
-import { MainJs, StorybookConfig } from './StorybookConfig';
+import { StorybookPluginConfig } from './StorybookPluginConfig.js';
+import { createError } from '../utils.js';
+import { MainJs, StorybookConfig } from './StorybookConfig.js';
 
 const defaultConfigDir = path.join(process.cwd(), '.storybook');
 
@@ -30,11 +31,16 @@ function validateMainJs(mainJs: MainJs): MainJs {
   return mainJs;
 }
 
-export function readStorybookConfig(pluginConfig: StorybookPluginConfig): StorybookConfig {
+export async function readStorybookConfig(
+  pluginConfig: StorybookPluginConfig,
+): Promise<StorybookConfig> {
   const configDir = pluginConfig.configDir
     ? path.resolve(pluginConfig.configDir)
     : defaultConfigDir;
+
+  const commonJsMainPath = path.join(configDir, 'main.cjs');
   const mainJsPath = path.join(configDir, 'main.js');
+
   const managerJsPath = path.join(configDir, 'manager.js');
   const previewJsPath = path.join(configDir, 'preview.js');
   const managerHeadPath = path.join(configDir, 'manager-head.html');
@@ -44,9 +50,12 @@ export function readStorybookConfig(pluginConfig: StorybookPluginConfig): Storyb
   let previewHead: string | undefined = undefined;
   let previewBody: string | undefined = undefined;
 
-  if (!fs.existsSync(mainJsPath)) {
+  const mainJsExists = fs.existsSync(mainJsPath);
+  const commonJsMainExists = fs.existsSync(commonJsMainPath);
+
+  if (!mainJsExists && !commonJsMainExists) {
     throw createError(
-      `Could not find any storybook configuration at ${mainJsPath}. You can change the storybook config directory using the configDir option.`,
+      `Could not find any storybook configuration at ${mainJsPath} or ${commonJsMainPath}. You can change the storybook config directory using the configDir option.`,
     );
   }
 
@@ -60,7 +69,9 @@ export function readStorybookConfig(pluginConfig: StorybookPluginConfig): Storyb
     previewBody = fs.readFileSync(previewBodyPath, 'utf-8');
   }
 
-  const mainJs = validateMainJs(require(mainJsPath));
+  const mainJs = commonJsMainExists
+    ? validateMainJs((await import(pathToFileURL(commonJsMainPath).href)).default)
+    : validateMainJs((await import(pathToFileURL(mainJsPath).href)).default);
 
   return {
     mainJs,

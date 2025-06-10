@@ -1,8 +1,8 @@
 import logUpdate from 'log-update';
 import cliCursor from 'cli-cursor';
 
-import { BufferedConsole } from './BufferedConsole';
-import { EventEmitter } from '../../utils/EventEmitter';
+import { BufferedConsole } from './BufferedConsole.js';
+import { EventEmitter } from '../../utils/EventEmitter.js';
 
 const CLEAR_COMMAND = process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[3J\x1B[H';
 
@@ -11,7 +11,7 @@ interface EventMap {
 }
 
 export class DynamicTerminal extends EventEmitter<EventMap> {
-  private originalFunctions: Partial<Record<keyof Console, (...args: any[]) => any>> = {};
+  private originalFunctions: Partial<Console> = {};
   private previousDynamic: string[] = [];
   private started = false;
   private bufferedConsole = new BufferedConsole();
@@ -62,7 +62,8 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
     logUpdate.done();
 
     for (const [key, fn] of Object.entries(this.originalFunctions)) {
-      console[key as keyof Console] = fn;
+      // @ts-ignore
+      console[key] = fn;
     }
     this.started = false;
     process.stdin.pause();
@@ -109,11 +110,11 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
   private interceptConsoleOutput() {
     for (const key of Object.keys(console) as (keyof Console)[]) {
       if (typeof console[key] === 'function') {
-        this.originalFunctions[key] = console[key];
+        this.originalFunctions[key] = console[key] as any;
 
         console[key] = new Proxy(console[key], {
           apply: (target, thisArg, argArray) => {
-            this.bufferedConsole.console[key](...argArray);
+            (this.bufferedConsole.console[key] as any)(...argArray);
             if (this.pendingConsoleFlush) {
               return;
             }
@@ -123,7 +124,7 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
               this.flushConsoleOutput();
             }, 0);
           },
-        });
+        }) as any;
       }
     }
   }

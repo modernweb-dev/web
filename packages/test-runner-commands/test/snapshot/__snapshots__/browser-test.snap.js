@@ -1,5 +1,4 @@
 /* @web/test-runner snapshot v1 */
-
 export const snapshots = {};
 
 snapshots['persistent-a'] = `this is snapshot A`;

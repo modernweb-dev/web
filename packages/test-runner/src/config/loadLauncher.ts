@@ -1,4 +1,4 @@
-import { TestRunnerStartError } from '../TestRunnerStartError';
+import { TestRunnerStartError } from '../TestRunnerStartError.js';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const puppeteerBrowsers = ['chrome', 'firefox'];
@@ -10,7 +10,7 @@ function loadLauncher(name: string) {
     const path = require.resolve(pkg, { paths: [__dirname, process.cwd()] });
     return require(path);
   } catch (error) {
-    if (error.code === 'MODULE_NOT_FOUND') {
+    if ((error as NodeJS.ErrnoException).code === 'MODULE_NOT_FOUND') {
       throw new TestRunnerStartError(
         `You need to add ${pkg} as a dependency of your project to use the --${name} flag.`,
       );

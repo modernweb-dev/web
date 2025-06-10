@@ -20,10 +20,16 @@ export type ResolveMimeTypeResult = void | string | { type?: string };
 export interface ServerStartParams {
   config: DevServerCoreConfig;
   app: Koa;
-  server: Server;
+  server?: Server;
   fileWatcher: FSWatcher;
   logger: Logger;
   webSockets?: WebSocketsManager;
+}
+
+export interface ResolveOptions {
+  isEntry?: boolean;
+  skipSelf?: boolean;
+  [key: string]: unknown;
 }
 
 export interface Plugin {
@@ -40,7 +46,9 @@ export interface Plugin {
     code?: string;
     column?: number;
     line?: number;
+    resolveOptions?: ResolveOptions;
   }): ResolveResult | Promise<ResolveResult>;
+  resolveImportSkip?(context: Context, source: string, importer: string): void;
   transformImport?(args: {
     source: string;
     context: Context;

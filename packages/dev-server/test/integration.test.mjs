@@ -17,7 +17,13 @@ const testCases = [
   },
   {
     name: 'node-resolve',
-    tests: ['inlineNodeResolve', 'nodeResolve', 'noExtension', 'extensionPriority'],
+    tests: [
+      'developmentExportCondition',
+      'inlineNodeResolve',
+      'nodeResolve',
+      'noExtension',
+      'extensionPriority',
+    ],
   },
   {
     name: 'static',
@@ -27,6 +33,10 @@ const testCases = [
     name: 'syntax',
     tests: ['stage4', 'inlineStage4', 'importMeta', 'staticImports', 'dynamicImports'],
   },
+  {
+    name: 'export-conditions',
+    tests: ['prodExport'],
+  },
 ];
 
 describe('integration tests', () => {
@@ -34,7 +44,7 @@ describe('integration tests', () => {
 
   before(async () => {
     browser = await puppeteer.launch({
-      // devtools: true,
+      headless: 'new',
     });
   });
 

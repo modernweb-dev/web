@@ -1,6 +1,7 @@
 import { Middleware } from '@web/dev-server-core';
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
 import { TestFramework } from '../test-framework/TestFramework.js';
+import { TestSession } from '../test-session/TestSession.js';
 import { Reporter } from '../reporter/Reporter.js';
 import { Logger } from '../logger/Logger.js';
 import { TestRunnerPlugin } from '../server/TestRunnerPlugin.js';
@@ -46,7 +47,10 @@ export interface TestRunnerCoreConfig {
   watch: boolean;
 
   browserLogs?: boolean;
-  filterBrowserLogs?: (log: { type: string; args: any[] }) => boolean;
+  filterBrowserLogs?: (
+    log: { type: string; args: any[] },
+    session?: Partial<TestSession>,
+  ) => boolean;
   coverage?: boolean;
   coverageConfig: CoverageConfig;
 

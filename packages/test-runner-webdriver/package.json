@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-webdriver",
-  "version": "0.5.0",
+  "version": "0.9.0",
   "publishConfig": {
     "access": "public"
   },
@@ -16,16 +16,17 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.ts --require ts-node/register",
+    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
@@ -47,8 +48,8 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-core": "^0.10.20",
-    "webdriverio": "^7.16.0"
+    "@web/test-runner-core": "^0.13.0",
+    "webdriverio": "^9.0.0"
   },
   "devDependencies": {
     "@types/selenium-standalone": "^7.0.1",

@@ -1,8 +1,11 @@
+import { createRequire } from 'node:module';
 import mdx from '@mdx-js/mdx';
 import { transformAsync } from '@babel/core';
-import { createCompiler } from '@storybook/csf-tools/mdx';
-import { createError } from '../utils';
+// @ts-ignore
+import { createCompiler } from '@storybook/csf-tools/mdx.js';
+import { createError } from '../utils.js';
 
+const require = createRequire(import.meta.url);
 const compilers = [createCompiler({})];
 
 export async function transformMdxToCsf(body: string, filePath: string): Promise<string> {

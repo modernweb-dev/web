@@ -44,7 +44,7 @@ For your application code, we recommend using `preload` (or `modulepreload` when
 ```html
 <head>
   <link rel="preload" href="./app.js" />
-  <!-- for module scripts, add a corrs attribute -->
+  <!-- for module scripts, add a cors attribute -->
   <link rel="preload" href="./app.js" crossorigin="anonymous" />
 </head>
 ```
@@ -141,19 +141,20 @@ const config = {
 
 ## polyfills
 
-The polyfills config controls which polyills are injected onto the page. These are the possible polyfills:
+The polyfills config controls which polyfills are injected onto the page. These are the possible polyfills:
 
 - [coreJs](https://github.com/zloirock/core-js)
 - [regeneratorRuntime](https://github.com/facebook/regenerator/tree/master/packages/regenerator-runtime)
 - [webcomponents](https://github.com/webcomponents/webcomponentsjs)
 - [fetch](https://github.com/github/fetch)
-- [abortController](https://github.com/github/fetch)
-- [intersectionObserver](https://github.com/mo/abortcontroller-polyfill)
+- [abortController](https://github.com/mo/abortcontroller-polyfill)
+- [intersectionObserver](https://github.com/GoogleChromeLabs/intersection-observer)
 - [resizeObserver](https://github.com/que-etc/resize-observer-polyfill)
 - [systemjs](https://github.com/systemjs/systemjs) (also injected when one of the files is systemjs)
 - [dynamicImport](https://github.com/GoogleChromeLabs/dynamic-import-polyfill)
 - [esModuleShims](https://github.com/guybedford/es-module-shims)
 - [shadyCssCustomStyle](https://github.com/webcomponents/polyfills/blob/master/packages/shadycss/custom-style-interface.html) (you must also include webcomponents)
+- [scopedCustomElementRegistry](https://github.com/webcomponents/polyfills/tree/master/packages/scoped-custom-element-registry)
 
 They can be turned on using booleans. When using the polyfills loader directly, these are default false. Other tools may turn on different defaults.
 

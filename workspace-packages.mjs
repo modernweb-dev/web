@@ -12,10 +12,13 @@ const packages = [
   { name: 'dev-server-core', type: 'ts', environment: 'node' },
   { name: 'dev-server-esbuild', type: 'ts', environment: 'node' },
   { name: 'dev-server-hmr', type: 'ts', environment: 'node' },
+  { name: 'dev-server-polyfill', type: 'ts', environment: 'node' },
   { name: 'dev-server-rollup', type: 'ts', environment: 'node' },
   { name: 'dev-server-legacy', type: 'ts', environment: 'node' },
   { name: 'dev-server-import-maps', type: 'ts', environment: 'node' },
-  { name: 'dev-server-storybook', type: 'ts', environment: 'node' },
+  { name: 'storybook-builder', type: 'ts', environment: 'node' },
+  { name: 'storybook-framework-web-components', type: 'ts', environment: 'node' },
+  { name: 'storybook-utils', type: 'js', environment: 'browser' },
   { name: 'test-runner', type: 'ts', environment: 'node' },
   { name: 'test-runner-core', type: 'ts', environment: 'node' },
   { name: 'test-runner-chrome', type: 'ts', environment: 'node' },
@@ -25,11 +28,13 @@ const packages = [
   { name: 'test-runner-browserstack', type: 'ts', environment: 'node' },
   { name: 'test-runner-coverage-v8', type: 'ts', environment: 'node' },
   { name: 'test-runner-commands', type: 'ts', environment: 'node' },
+  { name: 'test-runner-module-mocking', ignoreTsConfig: true },
   { name: 'test-runner-junit-reporter', type: 'ts', environment: 'node' },
   { name: 'test-runner-mocha', type: 'ts', environment: 'browser' },
   { name: 'test-runner-saucelabs', type: 'ts', environment: 'node' },
   { name: 'test-runner-visual-regression', type: 'ts', environment: 'node' },
   { name: 'test-runner-webdriver', type: 'ts', environment: 'node' },
+  { name: 'dev-server-storybook', ignoreTsConfig: true },
 ];
 
 export { packages };

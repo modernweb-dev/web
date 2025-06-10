@@ -1,4 +1,4 @@
-import { rollupPluginHTML, RollupPluginHtml } from './rollupPluginHTML';
+import { rollupPluginHTML, RollupPluginHtml } from './rollupPluginHTML.js';
 
 export {
   InputHTMLOptions,
@@ -8,7 +8,7 @@ export {
   TransformHtmlArgs,
   TransformHtmlFunction,
   TransformAssetFunction,
-} from './RollupPluginHTMLOptions';
+} from './RollupPluginHTMLOptions.js';
 
 export { rollupPluginHTML, RollupPluginHtml };
 export default rollupPluginHTML;

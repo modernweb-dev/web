@@ -1,18 +1,18 @@
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { Browser, Element } from 'webdriverio';
-import { validateBrowserResult } from './coverage';
+import { Browser } from 'webdriverio';
+import { validateBrowserResult } from './coverage.js';
 
 /**
  * Manages tests to be executed in one session (concurrency: 1).
  */
 export class SessionManager {
   private config: TestRunnerCoreConfig;
-  private driver: Browser<'async'>;
+  private driver: Browser;
   private locked?: Promise<unknown>;
   private isIE: boolean;
   private urlMap = new Map<string, string>();
 
-  constructor(config: TestRunnerCoreConfig, driver: Browser<'async'>, isIE: boolean) {
+  constructor(config: TestRunnerCoreConfig, driver: Browser, isIE: boolean) {
     this.config = config;
     this.driver = driver;
     this.isIE = isIE;
@@ -73,7 +73,7 @@ export class SessionManager {
     const { testCoverage } = returnValue;
 
     // navigate to an empty page to kill any running code on the page
-    await this.driver.navigateTo('data:,');
+    await this.driver.navigateTo('about:blank');
 
     this.urlMap.delete(id);
 
@@ -89,9 +89,9 @@ export class SessionManager {
   }
 
   async takeScreenshot(_: string, locator: string): Promise<Buffer> {
-    const elementData = (await this.driver.execute(locator, [])) as Element<'async'>;
+    const elementData = (await this.driver.execute(locator, [])) as WebdriverIO.Element;
 
-    const element = await this.driver.$(elementData);
+    const element = await this.driver.$(elementData).getElement();
 
     let base64 = '';
 

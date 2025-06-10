@@ -2,12 +2,12 @@
 import { TestRunner, TestRunnerCli } from '@web/test-runner-core';
 import { red } from 'nanocolors';
 
-import { TestRunnerConfig } from './config/TestRunnerConfig';
-import { mergeConfigs } from './config/mergeConfigs';
-import { parseConfig } from './config/parseConfig';
-import { readCliArgs } from './config/readCliArgs';
-import { readFileConfig } from './config/readFileConfig';
-import { TestRunnerStartError } from './TestRunnerStartError';
+import { TestRunnerConfig } from './config/TestRunnerConfig.js';
+import { mergeConfigs } from './config/mergeConfigs.js';
+import { parseConfig } from './config/parseConfig.js';
+import { readCliArgs } from './config/readCliArgs.js';
+import { readFileConfig } from './config/readFileConfig.js';
+import { TestRunnerStartError } from './TestRunnerStartError.js';
 
 export interface StartTestRunnerParams {
   /**
@@ -73,7 +73,7 @@ export async function startTestRunner(options: StartTestRunnerParams = {}) {
     if (autoExitProcess) {
       process.on('uncaughtException', error => {
         /* eslint-disable-next-line no-console */
-        console.error(error);
+        console.error(`Uncaught exception, stopping test runner..\n`, error);
         stop();
       });
     }

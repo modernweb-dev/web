@@ -1,29 +1,34 @@
 import { Document, serialize } from 'parse5';
 import fs from 'fs';
 import path from 'path';
-import { InputAsset } from '../InputData';
+import { InputAsset } from '../InputData.js';
 import {
   findAssets,
   getSourcePaths,
   isHashedAsset,
   resolveAssetFilePath,
-} from '../../assets/utils';
+  createAssetPicomatchMatcher,
+} from '../../assets/utils.js';
 
 export interface ExtractAssetsParams {
   document: Document;
   htmlFilePath: string;
   htmlDir: string;
   rootDir: string;
+  externalAssets?: string | string[];
   absolutePathPrefix?: string;
 }
 
 export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
   const assetNodes = findAssets(params.document);
   const allAssets: InputAsset[] = [];
+  const isExternal = createAssetPicomatchMatcher(params.externalAssets);
 
   for (const node of assetNodes) {
     const sourcePaths = getSourcePaths(node);
     for (const sourcePath of sourcePaths) {
+      if (isExternal(sourcePath)) continue;
+
       const filePath = resolveAssetFilePath(
         sourcePath,
         params.htmlDir,

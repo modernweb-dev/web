@@ -1,5 +1,35 @@
 # @web/parse5-utils
 
+## 2.1.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+## 2.0.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+
+## 2.0.1
+
+### Patch Changes
+
+- d5da0e4a: Adds support for traversing <template> elements
+
+## 2.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+## 1.3.1
+
+### Patch Changes
+
+- 18a16bb0: Update `html-minifier-terser`
+
 ## 1.3.0
 
 ### Minor Changes

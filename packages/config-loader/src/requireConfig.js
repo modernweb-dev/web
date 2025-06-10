@@ -14,7 +14,7 @@ function requireConfig(path) {
   try {
     return require(path);
   } catch (e) {
-    if (ESM_ERRORS.some(msg => e.stack.includes(msg))) {
+    if (ESM_ERRORS.some(msg => /** @type {Error} **/(e).stack?.includes(msg))) {
       throw new ConfigLoaderError(
         'You are using es module syntax in a config loaded as CommonJS module. ' +
           'Use require/module.exports syntax, or load the file as es module by using the .mjs ' +

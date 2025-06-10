@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import * as hanbi from 'hanbi';
 
-import { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher';
+import { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher.js';
 
-import { TestRunnerCoreConfig } from '../../../src/config/TestRunnerCoreConfig';
-import { TestScheduler } from '../../../src/runner/TestScheduler';
-import { TestSession } from '../../../src/test-session/TestSession';
-import { TestSessionManager } from '../../../src/test-session/TestSessionManager';
-import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus';
+import { TestRunnerCoreConfig } from '../../../src/config/TestRunnerCoreConfig.js';
+import { TestScheduler } from '../../../src/runner/TestScheduler.js';
+import { TestSession } from '../../../src/test-session/TestSession.js';
+import { TestSessionManager } from '../../../src/test-session/TestSessionManager.js';
+import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus.js';
 
 function timeout(ms = 0): Promise<void> {
   return new Promise(r => setTimeout(r, ms));
@@ -276,7 +276,7 @@ describe('TestScheduler', () => {
       const [scheduler, sessions, [session1]] = createTestFixture('1');
       scheduler.schedule(1, [session1]);
 
-      await timeout(8);
+      await timeout(20);
 
       const finalSession1 = sessions.get(session1.id)!;
       expect(finalSession1.status).to.equal(SESSION_STATUS.FINISHED);

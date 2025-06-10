@@ -13,7 +13,7 @@ In the config you can define code coverage thresholds, the test run fails if you
 ```js
 // web-test-runner.config.mjs
 
-module.exports = {
+export default {
   coverageConfig: {
     report: true,
     reportDir: 'test-coverage',
@@ -35,7 +35,7 @@ Web Test Runner uses [`v8-to-istanbul`](https://github.com/istanbuljs/v8-to-ista
 /* c8 ignore next [line count] */
 ```
 
-This is somewhat different than other tools where you might have specifically targetted `if` / `else` branches of logic with an ignore statement. Particularly, V8 does not create phantom `else` statements when calculating coverage, so it is likely that you will be able to use less of these statements than in the past.
+This is somewhat different than other tools where you might have specifically targeted `if` / `else` branches of logic with an ignore statement. Particularly, V8 does not create phantom `else` statements when calculating coverage, so it is likely that you will be able to use less of these statements than in the past.
 
 In this way, you can skip the rest of a line:
 
@@ -92,5 +92,29 @@ export default {
       plugins: ['babel-plugin-istanbul'],
     }),
   ],
+};
+```
+
+## Coverage reporting
+
+By default coverage reporting uses the lcov reporter. Should you want to use additional reporters, for example, cobertura, then the `reporter` config element should be modified.
+
+**Example config:**
+
+```js
+// web-test-runner.config.mjs
+
+export default {
+  coverageConfig: {
+    report: true,
+    reportDir: 'test-coverage',
+    reporters: ['cobertura', 'lcov']
+    threshold: {
+      statements: 70,
+      branches: 70,
+      functions: 70,
+      lines: 70,
+    },
+  },
 };
 ```

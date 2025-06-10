@@ -1,4 +1,4 @@
-name: Verify Node
+name: Node tests
 
 on: pull_request
 
@@ -7,41 +7,86 @@ env:
 
 jobs:
   verify-linux:
-    name: Verify linux
-    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    name: Linux
+    runs-on: ubuntu-22.04
     strategy:
+      fail-fast: false
       matrix:
         node-version:
-          - '14'
-          - '16'
           - '18'
+          - '20'
+          - '22'
+          - 'latest'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         env:
           FORCE_COLOR: 0
         with:
           node-version: ${{ matrix.node-version }}
-          cache: yarn
+          cache: npm
 
       - name: Install Playwright dependencies
-        run: npx playwright install-deps
+        run: npx playwright install --with-deps
 
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+      # Set up GitHub Actions caching for Wireit.
+      - uses: google/wireit@setup-github-actions-caching/v2
+
+      - name: Install Dependencies
+        run: npm ci
 
       - name: Build packages
-        run: yarn build
+        run: npm run build
+
+      - name: Build types for js packages
+        run: npm run types
 
       # build for production in CI to make sure tests can run with production build
-      - name: Build for production
-        run: yarn build:production
-
-      - name: Lint
-        run: yarn lint
+      - name: Build specific packages for production
+        run: npm run build:production
 
       - name: Test
-        run: yarn test
+        run: npm run test:node
+
+  verify-windows:
+    timeout-minutes: 30
+    name: Windows
+    runs-on: windows-2022
+    steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - uses: actions/checkout@v4
+
+      - name: Setup Node '20'
+        uses: actions/setup-node@v4
+        env:
+          FORCE_COLOR: 0
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Playwright dependencies
+        run: npx playwright install --with-deps
+
+      # Set up GitHub Actions caching for Wireit.
+      - uses: google/wireit@setup-github-actions-caching/v2
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # build for production in CI to make sure tests can run with production build
+      - name: Build specific packages for production
+        run: npm run build:production
+
+      - name: Test
+        run: npm run test:node

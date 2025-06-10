@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import path from 'path';
 import { parse, serialize } from 'parse5';
-import { InputData } from '../../../src/input/InputData';
+import { InputData } from '../../../src/input/InputData.js';
 
-import { injectedUpdatedAssetPaths } from '../../../src/output/injectedUpdatedAssetPaths';
+import { injectedUpdatedAssetPaths } from '../../../src/output/injectedUpdatedAssetPaths.js';
 
 describe('injectedUpdatedAssetPaths()', () => {
   it('injects updated asset paths', () => {
@@ -116,6 +116,50 @@ describe('injectedUpdatedAssetPaths()', () => {
       '  <source type="image/jpeg" srcset="eb26e6ca-30-xxx.jpeg 30w, eb26e6ca-60-xxx.jpeg 60w" sizes="30px">',
       '  <img alt="My Image Alternative Text" rocket-image="responsive" src="eb26e6ca-30-xxx.jpeg" width="30" height="15" loading="lazy" decoding="async">',
       '</picture>  </body></html>',
+    ].join('\n');
+    expect(serialize(document).replace(/ {4}/g, '\n')).to.eql(expected);
+  });
+
+  it('handles video tag using source tags with src', () => {
+    const document = parse(
+      [
+        '<html>',
+        '  <body>',
+        '    <video controls>',
+        '      <source src="./videos/typer-hydration.mp4" type="video/mp4">',
+        '    </video>',
+        '  </body>',
+        '</html>',
+      ].join(''),
+    );
+
+    const input: InputData = {
+      html: '',
+      name: 'index.html',
+      moduleImports: [],
+      inlineModules: [],
+      assets: [],
+      filePath: '/root/index.html',
+    };
+    const hashed = new Map<string, string>();
+    hashed.set(
+      path.join(path.sep, 'root', 'videos', 'typer-hydration.mp4'),
+      'typer-hydration-xxx.mp4',
+    );
+
+    injectedUpdatedAssetPaths({
+      document,
+      input,
+      outputDir: '/root/dist/',
+      rootDir: '/root/',
+      emittedAssets: { static: new Map(), hashed },
+    });
+
+    const expected = [
+      '<html><head></head><body>',
+      '<video controls="">',
+      '  <source src="typer-hydration-xxx.mp4" type="video/mp4">',
+      '</video>  </body></html>',
     ].join('\n');
     expect(serialize(document).replace(/ {4}/g, '\n')).to.eql(expected);
   });

@@ -1,17 +1,17 @@
 import { Context, getRequestFilePath, ServerStartParams, WebSocket } from '@web/dev-server-core';
-import { MapBrowserUrl } from '@web/browser-logs/src/parseStackTrace';
+import { MapBrowserUrl } from '@web/browser-logs';
 import parse from 'co-body';
 
-import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
-import { TestSessionManager } from '../../../test-session/TestSessionManager';
-import { PARAM_SESSION_ID } from '../../../utils/constants';
-import { TestRunnerPlugin } from '../../TestRunnerPlugin';
-import { SESSION_STATUS } from '../../../test-session/TestSessionStatus';
-import { TestSession } from '../../../test-session/TestSession';
-import { parseBrowserResult } from './parseBrowserResult';
-import { TestRunner } from '../../../runner/TestRunner';
-import { createSourceMapFunction, SourceMapFunction } from './createSourceMapFunction';
-import { DebugTestSession } from '../../../test-session/DebugTestSession';
+import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.js';
+import { TestSessionManager } from '../../../test-session/TestSessionManager.js';
+import { PARAM_SESSION_ID } from '../../../utils/constants.js';
+import { TestRunnerPlugin } from '../../TestRunnerPlugin.js';
+import { SESSION_STATUS } from '../../../test-session/TestSessionStatus.js';
+import { TestSession } from '../../../test-session/TestSession.js';
+import { parseBrowserResult } from './parseBrowserResult.js';
+import { TestRunner } from '../../../runner/TestRunner.js';
+import { createSourceMapFunction, SourceMapFunction } from './createSourceMapFunction.js';
+import { DebugTestSession } from '../../../test-session/DebugTestSession.js';
 
 interface SessionMessage extends Record<string, unknown> {
   sessionId: string;
@@ -217,7 +217,9 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
         }
       } catch (error) {
         this.config.logger.error(error);
-        webSocket.send(JSON.stringify({ type: 'message-response', id, error: error.message }));
+        webSocket.send(
+          JSON.stringify({ type: 'message-response', id, error: (error as Error).message }),
+        );
         return;
       }
     }

@@ -1,2 +1,1 @@
-export { puppeteerLauncher } from './puppeteerLauncher';
-export { devices } from 'puppeteer';
+export { puppeteerLauncher } from './puppeteerLauncher.js';

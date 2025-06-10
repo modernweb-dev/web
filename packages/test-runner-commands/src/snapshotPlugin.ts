@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { TestRunnerPlugin } from '@web/test-runner-core';
+import { ServerStartParams } from '@web/dev-server-core';
 import path from 'path';
 import fs from 'fs';
 import { promisify } from 'util';
@@ -46,6 +47,7 @@ function getSnapshotPath(testFile: string) {
 
 class SnapshotStore {
   private snapshots = new Map<string, string>();
+  private sessionToSnapshotPath = new Map<string, string>();
   private readOperations = new Map<string, { promise: Promise<void>; resolve: () => void }>();
 
   async get(testFilePath: string): Promise<string> {
@@ -56,9 +58,10 @@ class SnapshotStore {
       await this.readOperations.get(snapshotPath)?.promise;
     }
 
-    if (this.snapshots.has(testFilePath)) {
+    const cachedContent = this.snapshots.get(snapshotPath);
+    if (cachedContent) {
       // return from cache
-      return this.snapshots.get(testFilePath)!;
+      return cachedContent;
     }
 
     const promiseObj = { resolve: () => {}, promise: Promise.resolve() };
@@ -66,7 +69,6 @@ class SnapshotStore {
       promiseObj.resolve = resolve;
     });
     this.readOperations.set(testFilePath, promiseObj);
-
     // store in cache
     const content = (await fileExists(snapshotPath))
       ? await readFile(snapshotPath, 'utf-8')
@@ -79,7 +81,12 @@ class SnapshotStore {
     return content;
   }
 
-  async saveSnapshot(testFilePath: string, name: string, updatedSnapshot: string) {
+  async saveSnapshot(
+    sessionId: string,
+    testFilePath: string,
+    name: string,
+    updatedSnapshot: string,
+  ) {
     const snapshotPath = getSnapshotPath(testFilePath);
     const nameStr = JSON.stringify(name);
     const startMarker = `snapshots[${nameStr}]`;
@@ -88,7 +95,7 @@ class SnapshotStore {
       ? `${startMarker} = \n\`${updatedSnapshot}\`;\n${endMarker}`
       : '';
 
-    const content = await this.get(snapshotPath);
+    const content = await this.get(testFilePath);
     let updatedContent: string;
 
     const startIndex = content.indexOf(startMarker);
@@ -107,8 +114,24 @@ class SnapshotStore {
       // add new snapshot
       updatedContent = `${content}${replacement}`;
     }
+    if (updatedContent === content) {
+      // snapshot did not actually change, avoid marking snapshot as dirty
+      return;
+    }
 
+    this.sessionToSnapshotPath.set(sessionId, snapshotPath);
     this.snapshots.set(snapshotPath, updatedContent);
+  }
+
+  getSnapshotPathForSession(sessionId: string) {
+    return this.sessionToSnapshotPath.get(sessionId);
+  }
+
+  async writeSnapshot(snapshotPath: string) {
+    const updatedContent = this.snapshots.get(snapshotPath);
+    if (!updatedContent) {
+      throw new Error('Unexpected error while writing snapshots, could not find snapshot content.');
+    }
     if (updatedContent.includes('/* end snapshot')) {
       // update or create snapshot
       const fileDir = path.dirname(snapshotPath);
@@ -130,9 +153,34 @@ export interface SnapshotPluginConfig {
 export function snapshotPlugin(config?: SnapshotPluginConfig): TestRunnerPlugin {
   const updateSnapshots = config && config.updateSnapshots;
   const snapshots = new SnapshotStore();
+  const writePromises = new Set<Promise<void>>();
 
   return {
     name: 'file-commands',
+
+    serverStart({ webSockets }: ServerStartParams) {
+      webSockets!.on('message', async ({ data }) => {
+        const { type, sessionId } = data;
+        if (type === 'wtr-session-finished') {
+          if (typeof sessionId !== 'string') {
+            throw new Error('Missing session id in wtr-session-finished event');
+          }
+          const snapshotPath = snapshots.getSnapshotPathForSession(sessionId);
+          if (!snapshotPath) {
+            return;
+          }
+          const writePromise = snapshots.writeSnapshot(snapshotPath);
+          writePromises.add(writePromise);
+          await writePromise;
+          writePromises.delete(writePromise);
+        }
+      });
+    },
+
+    async serverStop() {
+      // ensure all write operations are finished
+      await Promise.all([...writePromises]);
+    },
 
     async executeCommand({ command, payload, session }) {
       if (command === 'get-snapshot-config') {
@@ -149,7 +197,7 @@ export function snapshotPlugin(config?: SnapshotPluginConfig): TestRunnerPlugin 
           throw new Error('Invalid save snapshot payload');
         }
 
-        await snapshots.saveSnapshot(session.testFile, payload.name, payload.content);
+        await snapshots.saveSnapshot(session.id, session.testFile, payload.name, payload.content);
         return true;
       }
     },

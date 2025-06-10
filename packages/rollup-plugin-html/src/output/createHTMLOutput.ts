@@ -1,14 +1,14 @@
-import { getEntrypointBundles } from './getEntrypointBundles';
-import { getOutputHTML } from './getOutputHTML';
-import { createError } from '../utils';
+import { getEntrypointBundles } from './getEntrypointBundles.js';
+import { getOutputHTML } from './getOutputHTML.js';
+import { createError } from '../utils.js';
 import {
   GeneratedBundle,
   RollupPluginHTMLOptions,
   TransformHtmlFunction,
-} from '../RollupPluginHTMLOptions';
+} from '../RollupPluginHTMLOptions.js';
 import { EmittedFile } from 'rollup';
-import { InputData } from '../input/InputData';
-import { EmittedAssets } from './emitAssets';
+import { InputData } from '../input/InputData.js';
+import { EmittedAssets } from './emitAssets.js';
 
 export interface CreateHTMLAssetParams {
   outputDir: string;

@@ -1,5 +1,141 @@
 # @web/test-runner-puppeteer
 
+## 0.18.0
+
+### Minor Changes
+
+- 86eaa21: Upgrade puppeteer version to v24
+
+### Patch Changes
+
+- Updated dependencies [86eaa21]
+  - @web/test-runner-chrome@0.18.0
+
+## 0.17.0
+
+### Minor Changes
+
+- b546e8b5: Upgrade puppeteer-core and puppeteer to v23
+
+### Patch Changes
+
+- Updated dependencies [b546e8b5]
+  - @web/test-runner-chrome@0.17.0
+
+## 0.16.0
+
+### Minor Changes
+
+- 4cc90648: Update Puppeteer to version 22. Remove Puppeteer KnownDevices, before the update named devices, export.
+
+### Patch Changes
+
+- Updated dependencies [4cc90648]
+  - @web/test-runner-chrome@0.16.0
+
+## 0.15.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-chrome@0.15.0
+  - @web/test-runner-core@0.13.0
+
+## 0.14.2
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+  - @web/test-runner-chrome@0.14.4
+
+## 0.14.1
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-chrome@0.14.3
+  - @web/test-runner-core@0.11.6
+
+## 0.14.0
+
+### Minor Changes
+
+- 0c87f59e: feat/various fixes
+
+  - Update puppeteer to `20.0.0`, fixes #2282
+  - Use puppeteer's new `page.mouse.reset()` in sendMousePlugin, fixes #2262
+  - Use `development` export condition by default
+
+### Patch Changes
+
+- Updated dependencies [0c87f59e]
+  - @web/test-runner-chrome@0.14.0
+
+## 0.13.1
+
+### Patch Changes
+
+- 0cd3a2f8: chore(deps): bump puppeteer from 19.8.2 to 19.9.0
+- Updated dependencies [c26d3730]
+  - @web/test-runner-core@0.11.1
+
+## 0.13.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-chrome@0.13.0
+  - @web/test-runner-core@0.11.0
+
+## 0.12.1
+
+### Patch Changes
+
+- 9b83280e: Update puppeteer
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [77e413d9]
+- Updated dependencies [cdeafe4a]
+- Updated dependencies [1113fa09]
+- Updated dependencies [817d674b]
+- Updated dependencies [445b20e6]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/test-runner-chrome@0.12.1
+  - @web/test-runner-core@0.10.29
+
+## 0.12.0
+
+### Minor Changes
+
+- 0e198dcc: Update `puppeteer-core` dependency to v18
+
+### Patch Changes
+
+- Updated dependencies [0e198dcc]
+  - @web/test-runner-chrome@0.12.0
+
+## 0.11.0
+
+### Minor Changes
+
+- acca5d51: Update dependency v8-to-istanbul to v9
+
+### Patch Changes
+
+- Updated dependencies [acca5d51]
+  - @web/test-runner-chrome@0.11.0
+
 ## 0.10.5
 
 ### Patch Changes

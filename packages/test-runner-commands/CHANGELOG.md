@@ -1,5 +1,95 @@
 # @web/test-runner-commands
 
+## 0.9.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-core@0.13.0
+
+## 0.8.3
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+
+## 0.8.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-core@0.11.6
+
+## 0.8.1
+
+### Patch Changes
+
+- d07fc49c: Add the selectOption plugin's exports and types correctly
+
+## 0.8.0
+
+### Minor Changes
+
+- 0c87f59e: feat/various fixes
+
+  - Update puppeteer to `20.0.0`, fixes #2282
+  - Use puppeteer's new `page.mouse.reset()` in sendMousePlugin, fixes #2262
+  - Use `development` export condition by default
+
+## 0.7.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- b7d8ee66: Update mocha from version 8.2.0 to version 10.2.0
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-core@0.11.0
+
+## 0.6.6
+
+### Patch Changes
+
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [cdeafe4a]
+- Updated dependencies [1113fa09]
+- Updated dependencies [817d674b]
+- Updated dependencies [445b20e6]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/test-runner-core@0.10.29
+
+## 0.6.5
+
+### Patch Changes
+
+- e65aedfe: Add selectOption command to select options by value, label, or multiple values and automatically emit native change/input events
+
+## 0.6.4
+
+### Patch Changes
+
+- b25d3fd3: Update `@web/test-runner-webdriver` dependency to `^0.5.1`.
+
+## 0.6.3
+
+### Patch Changes
+
+- 570cdf70: - improve caching of snapshots in-memory
+  - don't block browser command on writing snapshot to disk
+  - don't write snapshot to disk for each change, batch write per file
+- Updated dependencies [570cdf70]
+  - @web/test-runner-core@0.10.27
+
 ## 0.6.2
 
 ### Patch Changes

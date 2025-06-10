@@ -1,6 +1,6 @@
 import os from 'os';
-import { runIntegrationTests } from '../../../integration/test-runner';
-import { playwrightLauncher } from '../src/index';
+import { runIntegrationTests } from '../../../integration/test-runner/index.js';
+import { playwrightLauncher } from '../src/index.js';
 
 describe('test-runner-playwright chromium', function testRunnerPlaywright() {
   this.timeout(100000);

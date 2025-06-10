@@ -139,7 +139,7 @@ export class IFrameManager {
       }
 
       // set src after retreiving values to avoid the iframe from navigating away
-      iframe.src = "data:,";
+      iframe.src = "about:blank";
       return { testCoverage: testCoverage };
     `);
 

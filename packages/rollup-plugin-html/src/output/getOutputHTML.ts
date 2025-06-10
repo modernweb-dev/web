@@ -1,4 +1,4 @@
-import { injectBundles } from './injectBundles';
+import { injectBundles } from './injectBundles.js';
 import { InputData } from '../input/InputData';
 import {
   EntrypointBundle,
@@ -7,11 +7,11 @@ import {
 } from '../RollupPluginHTMLOptions';
 import { parse, serialize } from 'parse5';
 import { minify as minifyHTMLFunc } from 'html-minifier-terser';
-import { injectedUpdatedAssetPaths } from './injectedUpdatedAssetPaths';
-import { EmittedAssets } from './emitAssets';
-import { injectAbsoluteBaseUrl } from './injectAbsoluteBaseUrl';
-import { hashInlineScripts } from './hashInlineScripts';
-import { injectServiceWorkerRegistration } from './injectServiceWorkerRegistration';
+import { injectedUpdatedAssetPaths } from './injectedUpdatedAssetPaths.js';
+import { EmittedAssets } from './emitAssets.js';
+import { injectAbsoluteBaseUrl } from './injectAbsoluteBaseUrl.js';
+import { hashInlineScripts } from './hashInlineScripts.js';
+import { injectServiceWorkerRegistration } from './injectServiceWorkerRegistration.js';
 
 export interface GetOutputHTMLParams {
   input: InputData;
@@ -53,6 +53,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
       outputDir,
       rootDir,
       emittedAssets,
+      externalAssets: pluginOptions.externalAssets,
       absolutePathPrefix,
       publicPath: pluginOptions.publicPath,
     });

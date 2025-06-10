@@ -1,5 +1,147 @@
 # @web/test-runner-core
 
+## 0.13.4
+
+### Patch Changes
+
+- 3aec4aa6: bump chokidar to v4
+- Updated dependencies [3aec4aa6]
+  - @web/dev-server-core@0.7.3
+
+## 0.13.3
+
+### Patch Changes
+
+- 39ff6ffb: replace ip dependency due to security bug CVE-2024-29415
+
+## 0.13.2
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
+## 0.13.1
+
+### Patch Changes
+
+- e657791f: Vulnerability fix in `ip` package.
+  For more info, see:
+
+  - https://github.com/advisories/GHSA-78xj-cgh5-2h22
+  - https://github.com/indutny/node-ip/issues/136#issuecomment-1952083593
+
+## 0.13.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/dev-server-core@0.7.0
+  - @web/browser-logs@0.4.0
+
+## 0.12.0
+
+### Minor Changes
+
+- 43be7391: Add TestSession to filterBrowserLogs args so logs can be filtered on session result
+
+## 0.11.6
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/dev-server-core@0.6.2
+  - @web/browser-logs@0.3.4
+
+## 0.11.5
+
+### Patch Changes
+
+- Updated dependencies [7f0f4315]
+  - @web/dev-server-core@0.6.0
+
+## 0.11.4
+
+### Patch Changes
+
+- c69e3fcc: Destroy consumer when it is used and refactor the caching code for readability
+
+## 0.11.3
+
+### Patch Changes
+
+- 860fca0e: Fixes security vulnerability in make-dir < v4.0.0.
+
+## 0.11.2
+
+### Patch Changes
+
+- 015766e9: Use new headless chrome mode
+- Updated dependencies [015766e9]
+  - @web/browser-logs@0.3.2
+
+## 0.11.1
+
+### Patch Changes
+
+- c26d3730: Update TypeScript
+- Updated dependencies [0cd3a2f8]
+- Updated dependencies [c26d3730]
+  - @web/browser-logs@0.3.1
+  - @web/dev-server-core@0.5.1
+
+## 0.11.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+  - @web/browser-logs@0.3.0
+
+## 0.10.29
+
+### Patch Changes
+
+- cdeafe4a: fix: enable file watcher in manual mode
+- 1113fa09: Update `@rollup/pluginutils`
+- 817d674b: Update `browserslist-useragent`
+- 445b20e6: Update `convert-source-map`
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+- Updated dependencies [9b83280e]
+  - @web/dev-server-core@0.4.1
+  - @web/browser-logs@0.2.6
+
+## 0.10.28
+
+### Patch Changes
+
+- ac05ca5d: Add option to disable the fileWatcher in the dev server, to allow the test-runner to run once without files added to the watcher.
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
+## 0.10.27
+
+### Patch Changes
+
+- 570cdf70: - improve caching of snapshots in-memory
+  - don't block browser command on writing snapshot to disk
+  - don't write snapshot to disk for each change, batch write per file
+- Updated dependencies [39610b4c]
+  - @web/dev-server-core@0.3.18
+
 ## 0.10.26
 
 ### Patch Changes

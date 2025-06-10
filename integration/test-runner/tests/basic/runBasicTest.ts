@@ -69,5 +69,24 @@ export function runBasicTest(
         ]);
       }
     });
+
+    it('passes timers test', () => {
+      const sessions = allSessions.filter(s => s.testFile.endsWith('timers.test.js'));
+      expect(sessions.length === browserCount).to.equal(
+        true,
+        'Each browser should run timers.test.js',
+      );
+      for (const session of sessions) {
+        expect(session.testResults!.tests.length).to.equal(0);
+        expect(session.testResults!.suites.length).to.equal(1);
+        expect(session.testResults!.suites[0].tests.map(t => t.name)).to.eql([
+          'can call setTimeout',
+          'can cancel setTimeout',
+          'can call and cancel setInterval',
+          'can call requestAnimationFrame',
+          'can cancel requestAnimationFrame',
+        ]);
+      }
+    });
   });
 }

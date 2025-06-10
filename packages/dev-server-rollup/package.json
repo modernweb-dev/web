@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-rollup",
-  "version": "0.3.17",
+  "version": "0.6.4",
   "publishConfig": {
     "access": "public"
   },
@@ -16,15 +16,16 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
-    "test": "mocha \"test/node/**/*.test.ts\" --require ts-node/register",
+    "test:node": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --exit --reporter dot",
     "test:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
@@ -47,26 +48,26 @@
     "transform"
   ],
   "dependencies": {
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "@web/dev-server-core": "^0.3.16",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@web/dev-server-core": "^0.7.2",
     "nanocolors": "^0.2.1",
     "parse5": "^6.0.1",
-    "rollup": "^2.66.1",
-    "whatwg-url": "^11.0.0"
+    "rollup": "^4.4.0",
+    "whatwg-url": "^14.0.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-template-literals": "^7.12.1",
-    "@rollup/plugin-alias": "^3.1.1",
-    "@rollup/plugin-babel": "^5.2.2",
-    "@rollup/plugin-commonjs": "^18.0.0",
-    "@rollup/plugin-replace": "^3.0.0",
+    "@rollup/plugin-alias": "^5.0.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "25.0.7",
+    "@rollup/plugin-replace": "^5.0.5",
     "@types/parse5": "^6.0.1",
-    "@types/whatwg-url": "^8.0.0",
-    "@web/test-runner-chrome": "^0.10.0",
-    "@web/test-runner-core": "^0.10.21",
+    "@types/whatwg-url": "^11.0.0",
+    "@web/test-runner-chrome": "^0.18.0",
+    "@web/test-runner-core": "^0.13.0",
     "chai": "^4.2.0",
-    "node-fetch": "3.0.0-beta.9",
-    "postcss": "^8.0.0",
-    "rollup-plugin-postcss": "^4.0.0"
+    "mocha": "^10.2.0",
+    "postcss": "^8.4.31",
+    "rollup-plugin-postcss": "^4.0.2"
   }
 }

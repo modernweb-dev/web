@@ -86,7 +86,7 @@ interface DevServerConfig {
   open?: 'string' | boolean;
   // index HTML to use for SPA routing / history API fallback
   appIndex?: string;
-  // run in watch mode, reloading when files change
+  // reload the browser on file changes.
   watch?: boolean;
   // resolve bare module imports
   nodeResolve?: boolean | RollupNodeResolveOptions;
@@ -124,6 +124,10 @@ interface DevServerConfig {
   sslKey?: string;
   // path to SSL certificate
   sslCert?: string;
+
+  // Whether to watch and rebuild served files.
+  // Useful when you want more control over when files are build (e.g. when doing a test run using @web/test-runner).
+  disableFileWatcher?: boolean;
 }
 ```
 

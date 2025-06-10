@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Font2';
+  src: url('fonts/font-normal.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

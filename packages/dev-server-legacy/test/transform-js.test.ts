@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 
-import { legacyPlugin } from '../src/legacyPlugin';
-import { modernUserAgents, legacyUserAgents } from './userAgents';
+import { legacyPlugin } from '../src/legacyPlugin.js';
+import { modernUserAgents, legacyUserAgents } from './userAgents.js';
 
 const modernCode = `
 class Foo {
@@ -71,7 +71,7 @@ describe('legacyPlugin - transform js', function () {
       expectIncludes(text, '_asyncToGenerator');
       expectIncludes(
         text,
-        'console.log((_window = window) === null || _window === void 0 ? void 0 : (_window$foo = _window.foo) === null || _window$foo === void 0 ? void 0 : _window$foo.bar);',
+        'console.log((_window = window) === null || _window === void 0 || (_window = _window.foo) === null || _window === void 0 ? void 0 : _window.bar);',
       );
       server.stop();
     });
@@ -102,7 +102,7 @@ describe('legacyPlugin - transform js', function () {
       expectIncludes(text, '_asyncToGenerator');
       expectIncludes(
         text,
-        'console.log((_window = window) === null || _window === void 0 ? void 0 : (_window$foo = _window.foo) === null || _window$foo === void 0 ? void 0 : _window$foo.bar);',
+        'console.log((_window = window) === null || _window === void 0 || (_window = _window.foo) === null || _window === void 0 ? void 0 : _window.bar);',
       );
       server.stop();
     });

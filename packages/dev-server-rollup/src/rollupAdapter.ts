@@ -21,9 +21,9 @@ import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } f
 import { InputOptions } from 'rollup';
 import { red, cyan } from 'nanocolors';
 
-import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils';
-import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter';
-import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts';
+import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils.js';
+import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter.js';
+import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts.js';
 
 const NULL_BYTE_PARAM = 'web-dev-server-rollup-null-byte';
 const VIRTUAL_FILE_PREFIX = '/__web-dev-server__/rollup';
@@ -55,6 +55,8 @@ export interface RollupAdapterOptions {
   throwOnUnresolvedImport?: boolean;
 }
 
+const resolverCache = new WeakMap<Context, WeakMap<WdsPlugin, Set<string>>>();
+
 export function rollupAdapter(
   rollupPlugin: RollupPlugin,
   rollupInputOptions: Partial<InputOptions> = {},
@@ -70,6 +72,7 @@ export function rollupAdapter(
   let fileWatcher: FSWatcher;
   let config: DevServerCoreConfig;
   let rootDir: string;
+  let idResolvers: Array<Required<RollupPlugin>['resolveId']> = [];
 
   function savePluginMeta(
     id: string,
@@ -89,16 +92,58 @@ export function rollupAdapter(
       ({ rootDir } = config);
       rollupPluginContexts = await createRollupPluginContexts(rollupInputOptions);
 
+      idResolvers = [];
+
       // call the options and buildStart hooks
-      rollupPlugin.options?.call(rollupPluginContexts.minimalPluginContext, rollupInputOptions) ??
-        rollupInputOptions;
-      rollupPlugin.buildStart?.call(
-        rollupPluginContexts.pluginContext,
-        rollupPluginContexts.normalizedInputOptions,
-      );
+      let transformedOptions;
+      if (typeof rollupPlugin.options === 'function') {
+        transformedOptions =
+          (await rollupPlugin.options?.call(
+            rollupPluginContexts.minimalPluginContext,
+            rollupInputOptions,
+          )) ?? rollupInputOptions;
+      } else {
+        transformedOptions = rollupInputOptions;
+      }
+      if (typeof rollupPlugin.buildStart === 'function') {
+        await rollupPlugin.buildStart?.call(
+          rollupPluginContexts.pluginContext,
+          rollupPluginContexts.normalizedInputOptions,
+        );
+      }
+
+      if (
+        transformedOptions &&
+        transformedOptions.plugins &&
+        Array.isArray(transformedOptions.plugins)
+      ) {
+        for (const subPlugin of transformedOptions.plugins) {
+          if (subPlugin && !Array.isArray(subPlugin)) {
+            const resolveId = (subPlugin as RollupPlugin).resolveId;
+
+            if (resolveId) {
+              idResolvers.push(resolveId);
+            }
+          }
+        }
+      }
+
+      if (rollupPlugin.resolveId) {
+        idResolvers.push(rollupPlugin.resolveId);
+      }
     },
 
-    async resolveImport({ source, context, code, column, line }) {
+    resolveImportSkip(context: Context, source: string, importer: string) {
+      const resolverCacheForContext =
+        resolverCache.get(context) ?? new WeakMap<WdsPlugin, Set<string>>();
+      resolverCache.set(context, resolverCacheForContext);
+      const resolverCacheForPlugin = resolverCacheForContext.get(wdsPlugin) ?? new Set<string>();
+      resolverCacheForContext.set(wdsPlugin, resolverCacheForPlugin);
+
+      resolverCacheForPlugin.add(`${source}:${importer}`);
+    },
+
+    async resolveImport({ source, context, code, column, line, resolveOptions }) {
       if (context.response.is('html') && source.startsWith('�')) {
         // when serving HTML a null byte gets parsed as an unknown character
         // we remap it to a null byte here so that it is handled properly downstream
@@ -109,11 +154,17 @@ export function rollupAdapter(
       // if we just transformed this file and the import is an absolute file path
       // we need to rewrite it to a browser path
       const injectedFilePath = path.normalize(source).startsWith(rootDir);
-      if (!injectedFilePath && !rollupPlugin.resolveId) {
+      if (!injectedFilePath && idResolvers.length === 0) {
         return;
       }
 
-      if (!injectedFilePath && !path.isAbsolute(source) && whatwgUrl.parseURL(source) != null) {
+      const isVirtualModule = source.startsWith('\0');
+      if (
+        !injectedFilePath &&
+        !path.isAbsolute(source) &&
+        whatwgUrl.parseURL(source) != null &&
+        !isVirtualModule
+      ) {
         // don't resolve relative and valid urls
         return source;
       }
@@ -146,12 +197,33 @@ export function rollupAdapter(
           }
         }
 
-        let result = await rollupPlugin.resolveId?.call(
-          rollupPluginContext,
-          resolvableImport,
-          filePath,
-          { isEntry: false },
-        );
+        let result = null;
+
+        const resolverCacheForContext =
+          resolverCache.get(context) ?? new WeakMap<WdsPlugin, Set<string>>();
+        resolverCache.set(context, resolverCacheForContext);
+        const resolverCacheForPlugin = resolverCacheForContext.get(wdsPlugin) ?? new Set<string>();
+        resolverCacheForContext.set(wdsPlugin, resolverCacheForPlugin);
+
+        if (resolverCacheForPlugin.has(`${source}:${filePath}`)) {
+          return undefined;
+        }
+
+        for (const idResolver of idResolvers) {
+          const idResolverHandler =
+            typeof idResolver === 'function' ? idResolver : idResolver.handler;
+          result = await idResolverHandler.call(rollupPluginContext, resolvableImport, filePath, {
+            ...resolveOptions,
+            attributes: {
+              ...((resolveOptions?.assertions as Record<string, string>) ?? {}),
+            },
+            isEntry: false,
+          });
+
+          if (result) {
+            break;
+          }
+        }
 
         if (!result && injectedFilePath) {
           // the import is a file path but it was not resolved by this plugin
@@ -217,9 +289,9 @@ export function rollupAdapter(
 
         // append a path separator to rootDir so we are actually testing containment
         // of the normalized path within the rootDir folder
-        const checkRootDir = rootDir.endsWith(path.sep) ? rootDir : rootDir + path.sep;
+        const normalizedRootDir = rootDir.endsWith(path.sep) ? rootDir : rootDir + path.sep;
 
-        if (!normalizedPath.startsWith(checkRootDir)) {
+        if (!normalizedPath.startsWith(normalizedRootDir)) {
           const relativePath = path.relative(rootDir, normalizedPath);
           const dirUp = `..${path.sep}`;
           const lastDirUpIndex = relativePath.lastIndexOf(dirUp) + 3;
@@ -245,8 +317,17 @@ export function rollupAdapter(
           const importPath = toBrowserPath(relativePath.substring(lastDirUpIndex));
           resolvedImportPath = `/__wds-outside-root__/${dirUpStrings.length - 1}/${importPath}`;
         } else {
-          const resolveRelativeTo = path.extname(filePath) ? path.dirname(filePath) : filePath;
-          const relativeImportFilePath = path.relative(resolveRelativeTo, resolvedImportPath);
+          let relativeImportFilePath = '';
+
+          if (context.url.match(OUTSIDE_ROOT_REGEXP)) {
+            const pathInsideRootDir = `/${normalizedPath.replace(normalizedRootDir, '')}`;
+            const resolveRelativeTo = path.dirname(context.url);
+            relativeImportFilePath = path.relative(resolveRelativeTo, pathInsideRootDir);
+          } else {
+            const resolveRelativeTo = path.dirname(filePath);
+            relativeImportFilePath = path.relative(resolveRelativeTo, resolvedImportPath);
+          }
+
           resolvedImportPath = `./${toBrowserPath(relativeImportFilePath)}`;
         }
 
@@ -290,12 +371,15 @@ export function rollupAdapter(
           pluginMetaPerModule,
         );
 
-        const result = await rollupPlugin.load?.call(rollupPluginContext, filePath);
+        let result;
+        if (typeof rollupPlugin.load === 'function') {
+          result = await rollupPlugin.load?.call(rollupPluginContext, filePath);
+        }
 
         if (typeof result === 'string') {
           return { body: result, type: 'js' };
         }
-        if (typeof result?.code === 'string') {
+        if (result != null && typeof result?.code === 'string') {
           savePluginMeta(filePath, result);
           return { body: result.code, type: 'js' };
         }
@@ -327,11 +411,14 @@ export function rollupAdapter(
             pluginMetaPerModule,
           );
 
-          const result = await rollupPlugin.transform?.call(
-            rollupPluginContext as TransformPluginContext,
-            context.body as string,
-            filePath,
-          );
+          let result;
+          if (typeof rollupPlugin.transform === 'function') {
+            result = await rollupPlugin.transform?.call(
+              rollupPluginContext as TransformPluginContext,
+              context.body as string,
+              filePath,
+            );
+          }
 
           let transformedCode: string | undefined = undefined;
           if (typeof result === 'string') {
@@ -379,11 +466,14 @@ export function rollupAdapter(
               pluginMetaPerModule,
             );
 
-            const result = await rollupPlugin.transform?.call(
-              rollupPluginContext as TransformPluginContext,
-              code,
-              filePath,
-            );
+            let result;
+            if (typeof rollupPlugin.transform === 'function') {
+              result = await rollupPlugin.transform?.call(
+                rollupPluginContext as TransformPluginContext,
+                code,
+                filePath,
+              );
+            }
 
             let transformedCode: string | undefined = undefined;
             if (typeof result === 'string') {
@@ -427,7 +517,9 @@ export function rollupAdapter(
       const filePath = getRequestFilePath(context.url, rootDir);
       const info = rollupPluginContext.getModuleInfo(filePath);
       if (!info) throw new Error(`Missing info for module ${filePath}`);
-      rollupPlugin.moduleParsed?.call(rollupPluginContext as TransformPluginContext, info);
+      if (typeof rollupPlugin.moduleParsed === 'function') {
+        rollupPlugin.moduleParsed?.call(rollupPluginContext as TransformPluginContext, info);
+      }
     },
   };
 

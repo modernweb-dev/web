@@ -1,0 +1,37 @@
+{
+  "extends": "../../tsconfig.node-base.json",
+  "compilerOptions": {
+    "module": "node16",
+    "moduleResolution": "node16",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true,
+    "allowJs": true
+  },
+  "references": [
+    {
+      "path": "../parse5-utils/tsconfig.json"
+    },
+    {
+      "path": "../browser-logs/tsconfig.json"
+    },
+    {
+      "path": "../dev-server-core/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-core/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-coverage-v8/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-mocha/tsconfig.json"
+    },
+    {
+      "path": "../test-runner-chrome/tsconfig.json"
+    }
+  ],
+  "include": [
+    "src",
+  ]
+}

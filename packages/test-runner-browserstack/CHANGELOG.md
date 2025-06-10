@@ -1,5 +1,75 @@
 # @web/test-runner-browserstack
 
+## 0.8.0
+
+### Minor Changes
+
+- e755f6b: Upgrade WebdriverIO to v9, drop JWP capabilities
+
+### Patch Changes
+
+- Updated dependencies [e755f6b]
+  - @web/test-runner-webdriver@0.9.0
+
+## 0.7.2
+
+### Patch Changes
+
+- 39ff6ffb: replace ip dependency due to security bug CVE-2024-29415
+
+## 0.7.1
+
+### Patch Changes
+
+- e657791f: Vulnerability fix in `ip` package.
+  For more info, see:
+
+  - https://github.com/advisories/GHSA-78xj-cgh5-2h22
+  - https://github.com/indutny/node-ip/issues/136#issuecomment-1952083593
+
+## 0.7.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-webdriver@0.8.0
+
+## 0.6.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-webdriver@0.7.1
+
+## 0.6.1
+
+### Patch Changes
+
+- Updated dependencies [812400a3]
+  - @web/test-runner-webdriver@0.7.0
+
+## 0.6.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-webdriver@0.6.0
+
+## 0.5.1
+
+### Patch Changes
+
+- b25d3fd3: Update `@web/test-runner-webdriver` dependency to `^0.5.1`.
+
 ## 0.5.0
 
 ### Minor Changes

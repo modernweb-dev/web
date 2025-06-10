@@ -21,11 +21,11 @@ git remote add upstream git@github.com:modernweb-dev/web.git
 
 ## Preparing Your Local Environment for Development
 
-Now that you have cloned the repository, ensure you have [yarn](https://classic.yarnpkg.com/lang/en/) installed, then run the following command to set up the development environment.
+Now that you have cloned the repository, ensure you have node 18+ installed, then run the following command to set up the development environment.
 
 ```sh
-yarn install
-yarn build
+npm install
+npm run build
 ```
 
 This will download and install all packages needed.
@@ -46,11 +46,11 @@ Commits are linted using precommit hooks, meaning that any code that raises a li
 
 ### Running Tests
 
-To run the tests of a package, it's recommended to `cd` into the package directory and then using `yarn test` to run them. This way you're only running tests of that specific package. The project needs to have been built at least once with `yarn build` for the tests to run.
+To run the tests of a package, it's recommended to `cd` into the package directory and then using `npm run test` to run them. This way you're only running tests of that specific package. The project needs to have been built at least once with `npm run build` for the tests to run.
 
 ### Adding New Packages
 
-For all projects, the tsconfig/jsconfig configuration files are auto-generated. You need to add an entry to the [./workspace-packages.mjs](./workspace-packages.mjs) to let it generate a config for you. After adding an entry, run `yarn update-package-configs` to generate the files for you.
+For all projects, the tsconfig/jsconfig configuration files are auto-generated. You need to add an entry to the [./workspace-packages.mjs](./workspace-packages.mjs) to let it generate a config for you. After adding an entry, run `npm run update:tsconfigs` to generate the files for you.
 
 ### Creating a Changeset
 
@@ -62,7 +62,7 @@ This documents your intent to release and allows you to specify a message that w
 To create a changeset, run:
 
 ```sh
-yarn changeset
+npx changeset
 ```
 
 Use the menu to select for which packages you need a release, and then select what kind of release. For the release type, we follow [Semantic Versioning](https://semver.org/), so please take a look if you're unfamiliar.

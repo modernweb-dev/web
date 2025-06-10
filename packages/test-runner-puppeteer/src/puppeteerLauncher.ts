@@ -1,11 +1,11 @@
 import * as puppeteer from 'puppeteer';
 import * as puppeteerCore from 'puppeteer-core';
-import { Browser, Page, PuppeteerNodeLaunchOptions } from 'puppeteer-core';
+import { Browser, Page, LaunchOptions } from 'puppeteer-core';
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { chromeLauncher } from '@web/test-runner-chrome';
 
 export interface PuppeteerLauncherConfig {
-  launchOptions?: PuppeteerNodeLaunchOptions;
+  launchOptions?: LaunchOptions;
   createPage?: (args: { config: TestRunnerCoreConfig; browser: Browser }) => Promise<Page>;
   concurrency?: number;
 }

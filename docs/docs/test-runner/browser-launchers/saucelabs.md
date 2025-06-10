@@ -12,7 +12,7 @@ Install the package:
 npm i --save-dev @web/test-runner-saucelabs
 ```
 
-Add the browser launcher to your `web-test-runner.confg.mjs`. To set up a local proxy to sauce labs, you first need to create the browser launcher which will share a common connection between all browsers:
+Add the browser launcher to your `web-test-runner.config.mjs`. To set up a local proxy to sauce labs, you first need to create the browser launcher which will share a common connection between all browsers:
 
 ```js
 import { createSauceLabsLauncher } from '@web/test-runner-saucelabs';
@@ -67,12 +67,6 @@ export default {
       browserName: 'internet explorer',
       browserVersion: '11.0',
       platformName: 'Windows 7',
-    }),
-
-    sauceLabsLauncher({
-      browserName: 'iphone',
-      platform: 'iPhone X Simulator',
-      version: '13.0',
     }),
   ],
 };
@@ -137,27 +131,6 @@ export default {
       browserName: 'chrome',
       browserVersion: 'latest',
       platformName: 'Windows 10',
-    }),
-  ],
-};
-```
-
-### JWP Capabilities
-
-W3C webdriver capabilities are not yet fully implemented for Sauce Labs simulators. If you need to run the tests on iPhone Simulator, you need to use JWP capabilities.
-
-The following steps are required to use JWP capabilities with Sauce Labs launcher:
-
-- Use `version` instead of `browserVersion`,
-- Do not set a `sauce:options` property.
-
-```js
-export default {
-  browsers: [
-    sauceLabsLauncher({
-      browserName: 'iphone',
-      platform: 'iPhone X Simulator',
-      version: '13.0',
     }),
   ],
 };

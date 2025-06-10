@@ -1,5 +1,52 @@
 # @web/rollup-plugin-polyfills-loader
 
+## 2.1.3
+
+### Patch Changes
+
+- b3f7313: dont path.join on external urls, it breaks them
+
+## 2.1.2
+
+### Patch Changes
+
+- e08bbddc: Don't add ./ for http urls
+
+## 2.1.1
+
+### Patch Changes
+
+- 1c0088de: Update Rollup to version 4.
+
+## 2.1.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/polyfills-loader@2.2.0
+
+## 2.0.1
+
+### Patch Changes
+
+- f6ba53f0: Export types with package
+
+## 2.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/polyfills-loader@2.0.0
+
 ## 1.3.1
 
 ### Patch Changes

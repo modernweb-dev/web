@@ -4,13 +4,13 @@ import { Context } from 'koa';
 // @ts-ignore
 import { parse, ParsedImport } from 'es-module-lexer';
 
-import { queryAll, predicates, getTextContent, setTextContent } from '../dom5';
+import { queryAll, predicates, getTextContent, setTextContent } from '../dom5/index.js';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
-import { Plugin } from './Plugin';
-import { PluginSyntaxError } from '../logger/PluginSyntaxError';
-import { toFilePath } from '../utils';
-import { Logger } from '../logger/Logger';
-import { parseDynamicImport } from './parseDynamicImport';
+import { Plugin } from './Plugin.js';
+import { PluginSyntaxError } from '../logger/PluginSyntaxError.js';
+import { toFilePath } from '../utils.js';
+import { Logger } from '../logger/Logger.js';
+import { parseDynamicImport } from './parseDynamicImport.js';
 
 export type ResolveImport = (
   source: string,
@@ -117,13 +117,14 @@ export async function transformImports(
     const parseResult = await parse(code, filePath);
     imports = parseResult[0] as any as ParsedImport[];
   } catch (error) {
-    if (typeof error.idx === 'number') {
+    if (typeof (error as Error & { idx: number }).idx === 'number') {
+      const lexerError = error as Error & { idx: number };
       throw new PluginSyntaxError(
         'Syntax error',
         filePath,
         code,
-        code.slice(0, error.idx).split('\n').length,
-        error.idx - code.lastIndexOf('\n', error.idx - 1),
+        code.slice(0, lexerError.idx).split('\n').length,
+        lexerError.idx - code.lastIndexOf('\n', lexerError.idx - 1),
       );
     }
     throw error;

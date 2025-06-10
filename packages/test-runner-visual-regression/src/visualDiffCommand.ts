@@ -1,7 +1,7 @@
 import path from 'path';
 
-import { VisualRegressionPluginOptions } from './config';
-import { VisualRegressionError } from './VisualRegressionError';
+import { VisualRegressionPluginOptions, DiffResult } from './config.js';
+import { VisualRegressionError } from './VisualRegressionError.js';
 
 function resolveImagePath(baseDir: string, name: string) {
   const finalName = path.extname(name) ? name : `${name}.png`;
@@ -20,6 +20,30 @@ export interface VisualDiffCommandResult {
 export interface VisualDiffCommandContext {
   browser: string;
   testFile: string;
+}
+
+function passesFailureThreshold(
+  { diffPercentage, diffPixels }: DiffResult,
+  { failureThresholdType, failureThreshold }: VisualRegressionPluginOptions,
+): { passed: boolean; message?: string } {
+  if (failureThresholdType === 'percent') {
+    return diffPercentage <= failureThreshold
+      ? { passed: true }
+      : {
+          passed: false,
+          // if diff is suitably small, output raw value, otherwise to two decimal points.
+          // this avoids outputting a failure value of "0.00%"
+          message: `${diffPercentage < 0.005 ? diffPercentage : diffPercentage.toFixed(2)}%`,
+        };
+  }
+
+  if (failureThresholdType === 'pixel') {
+    return diffPixels <= failureThreshold
+      ? { passed: true }
+      : { passed: false, message: `${diffPixels} pixels` };
+  }
+
+  throw new VisualRegressionError(`Unrecognized failureThresholdType: ${failureThresholdType}`);
 }
 
 export async function visualDiffCommand(
@@ -79,22 +103,28 @@ export async function visualDiffCommand(
     };
   }
 
-  const { diffImage, diffPercentage, error } = await options.getImageDiff({
+  const result = await options.getImageDiff({
     name,
     baselineImage,
     image,
     options: options.diffOptions,
   });
 
+  const { error, diffImage } = result;
+
   if (error) {
     // The diff has failed, be sure to save the new image.
     await saveFailed();
     await saveDiff();
 
-    throw new VisualRegressionError(error);
+    return {
+      passed: false,
+      errorMessage: error,
+      diffPercentage: -1,
+    };
   }
 
-  const passed = diffPercentage === 0;
+  const { passed, message } = passesFailureThreshold(result, options);
 
   if (!passed) {
     await saveDiff();
@@ -104,14 +134,9 @@ export async function visualDiffCommand(
     await saveFailed();
   }
 
-  // if diff is suitably small, output raw value, otherwise to two decimal points.
-  // this avoids outputting a message like "New screenshot is 0.00% different"
-  const diffPercentageToDisplay =
-    diffPercentage < 0.005 ? diffPercentage : diffPercentage.toFixed(2);
-
   return {
     errorMessage: !passed
-      ? `Visual diff failed. New screenshot is ${diffPercentageToDisplay}% different.\nSee diff for details: ${diffFilePath}`
+      ? `Visual diff failed. New screenshot is ${message} different.\nSee diff for details: ${diffFilePath}`
       : undefined,
     diffPercentage: -1,
     passed,

@@ -1,5 +1,48 @@
 # @web/test-runner-selenium
 
+## 0.7.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-core@0.13.0
+
+## 0.6.2
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+
+## 0.6.1
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-core@0.11.6
+
+## 0.6.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-core@0.11.0
+
+## 0.5.4
+
+### Patch Changes
+
+- 8a813171: Navigations to blank pages now use `about:blank` instead of `data:,`.
+
 ## 0.5.3
 
 ### Patch Changes

@@ -1,11 +1,14 @@
+import express from 'express';
+import http from 'http';
 import Koa from 'koa';
 import { Server } from 'net';
 import { FSWatcher } from 'chokidar';
 import { expect } from 'chai';
-import fetch from 'node-fetch';
-import { ServerStartParams } from '../../src/plugins/Plugin';
-import { DevServer } from '../../src/server/DevServer';
-import { createTestServer } from '../helpers';
+import portfinder from 'portfinder';
+import { Stub, stubMethod } from 'hanbi';
+import { ServerStartParams } from '../../src/plugins/Plugin.js';
+import { DevServer } from '../../src/server/DevServer.js';
+import { createTestServer } from '../helpers.js';
 
 describe('basic', () => {
   let host: string;
@@ -65,6 +68,59 @@ it('can configure the hostname', async () => {
   expect(response.status).to.equal(200);
   expect(responseText).to.include('<title>My app</title>');
   server.stop();
+});
+
+describe('http2', () => {
+  before(() => {
+    // Turn off the TLS authorized check in node.js so that we don't reject the network response
+    // based off the fact it has a self-signed certificate.
+    //
+    // A better way to achive this might be to _somehow_ load up the certificate used into the
+    // testing process so that we aren't just turning off the TLS/SSL certificate validation.
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  });
+
+  after(() => {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';
+  });
+
+  it('serves a website', async () => {
+    const { server, host } = await createTestServer({ hostname: 'localhost', http2: true });
+    const response = await fetch(`${host}/index.html`);
+    const responseText = await response.text();
+
+    // It's a bit of a shame that we can't verify that the response was delivered with a http/2
+    // protocol. It would be good to have a extra assertion here. Something like:
+    //
+    // expect(response.protocol).to.equal('http2');
+    expect(response.status).to.equal(200);
+    expect(responseText).to.include('<title>My app</title>');
+    server.stop();
+  });
+});
+
+it('can run in middleware mode', async () => {
+  const { server: wdsServer } = await createTestServer({ middlewareMode: true });
+  expect(wdsServer.server).to.equal(undefined);
+
+  const app = express();
+  let httpServer: http.Server;
+  const port = await portfinder.getPortPromise({ port: 9000 });
+  await new Promise(
+    resolve =>
+      (httpServer = app.listen(port, 'localhost', () => {
+        resolve(undefined);
+      })),
+  );
+  app.use(wdsServer.koaApp.callback());
+
+  const response = await fetch(`http://localhost:${port}/index.html`);
+  const responseText = await response.text();
+
+  expect(response.status).to.equal(200);
+  expect(responseText).to.include('<title>My app</title>');
+
+  httpServer!.close();
 });
 
 it('can run multiple servers in parallel', async () => {
@@ -179,4 +235,49 @@ it('waits on server start hooks before starting', async () => {
   expect(aFinished).to.be.true;
   expect(bFinished).to.be.true;
   server.stop();
+});
+
+describe('disableFileWatcher', () => {
+  /**
+   * Extracted setup to ensure `fileWatcher.add` is called when
+   * `disableFileWatch = false`. Only then there is confidence that the
+   * `disableFileWatch = true` actually works.
+   * */
+  const setupDisableFileWatch = async (config: { disableFileWatcher: boolean }) => {
+    let fileWatchStub: Stub<FSWatcher['add']>;
+    const { host, server } = await createTestServer({
+      disableFileWatcher: config.disableFileWatcher,
+      plugins: [
+        {
+          name: 'watcher-stub',
+          serverStart({ fileWatcher }) {
+            fileWatchStub = stubMethod(fileWatcher, 'add');
+          },
+        },
+      ],
+    });
+    // @ts-ignore
+    if (!fileWatchStub) {
+      throw new Error('Something went wrong with stubbing the file watcher');
+    }
+
+    // Ensure something is fetched to trigger all the middlewares
+    await fetch(`${host}/index.html`);
+
+    return { fileWatchStub, host, server };
+  };
+
+  it('disables file watch when true', async () => {
+    const { fileWatchStub, server } = await setupDisableFileWatch({ disableFileWatcher: true });
+
+    expect(fileWatchStub.callCount).to.equal(0);
+    server.stop();
+  });
+
+  it('leaves file watch in tact when false', async () => {
+    const { fileWatchStub, server } = await setupDisableFileWatch({ disableFileWatcher: false });
+
+    expect(fileWatchStub.callCount).to.gt(0);
+    server.stop();
+  });
 });

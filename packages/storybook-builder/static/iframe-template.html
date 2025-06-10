@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Storybook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-regular.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: italic;
+        font-weight: 400;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-italic.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-bold.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: italic;
+        font-weight: 700;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-bold-italic.woff2') format('woff2');
+      }
+    </style>
+
+    <script>
+      window.CONFIG_TYPE = '[CONFIG_TYPE HERE]';
+      window.LOGLEVEL = '[LOGLEVEL HERE]';
+      window.FRAMEWORK_OPTIONS = '[FRAMEWORK_OPTIONS HERE]';
+      window.CHANNEL_OPTIONS = '[CHANNEL_OPTIONS HERE]';
+      window.FEATURES = '[FEATURES HERE]';
+      window.STORIES = '[STORIES HERE]';
+      window.DOCS_OPTIONS = '[DOCS_OPTIONS HERE]';
+      window.TAGS_OPTIONS = '[TAGS_OPTIONS HERE]';
+
+      ('OTHER_GLOBLALS HERE');
+    </script>
+    <!-- [HEAD HTML SNIPPET HERE] -->
+  </head>
+
+  <body>
+    <!-- [BODY HTML SNIPPET HERE] -->
+    <div id="storybook-root"></div>
+    <div id="storybook-docs"></div>
+    <script type="module">
+      // must be inside a script to be externalized
+      import './sb-preview/runtime.js';
+
+      // must be inside a script to be resolved
+      import '[APP MODULE SRC HERE]';
+    </script>
+  </body>
+</html>

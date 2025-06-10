@@ -1,8 +1,9 @@
 import { styles } from './styles.js';
 
-const mocha = (window as any).mocha as BrowserMocha;
-const BaseReporter = (mocha as any).Mocha.reporters.Base;
-class SilentReporter extends BaseReporter {}
+const mocha = (window as any).mocha;
+const mochaExports = (window as any).Mocha;
+
+class SilentReporter extends mochaExports.reporters.Base {}
 
 export function setupMocha(debug: boolean, testFrameworkConfig?: unknown) {
   const userOptions = typeof testFrameworkConfig === 'object' ? testFrameworkConfig : {};

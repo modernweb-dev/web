@@ -1,12 +1,11 @@
 import path from 'path';
 import { expect } from 'chai';
-import fetch from 'node-fetch';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 import { Plugin as RollupPlugin } from 'rollup';
 import { fromRollup } from '@web/dev-server-rollup';
 
-import { esbuildPlugin } from '../src/index';
+import { esbuildPlugin } from '../src/index.js';
 
 describe('esbuildPlugin TS', function () {
   this.timeout(5000);
@@ -71,7 +70,10 @@ class Bar {
             }
           },
         },
-        esbuildPlugin({ ts: true }),
+        esbuildPlugin({
+          ts: true,
+          tsconfig: path.join(__dirname, 'fixture', 'tsconfig-with-experimental-decorators.json'),
+        }),
       ],
     });
 
@@ -84,7 +86,7 @@ class Bar {
         'application/javascript; charset=utf-8',
       );
       expectIncludes(text, '__decorate');
-      expectIncludes(text, 'this.x = "y";');
+      expectIncludes(text, '__publicField(this, "x", "y");');
       expectIncludes(
         text,
         `__decorateClass([

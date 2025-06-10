@@ -1,5 +1,252 @@
 # @web/test-runner
 
+## 0.20.2
+
+### Patch Changes
+
+- 7aedbaa: Summary Reporter - re-enabled error reporting and made option to disable browser logs and error reporting in this reporter
+
+## 0.20.1
+
+### Patch Changes
+
+- 24e3290: Improve debug message for test runner uncaught exceptions
+
+  This should make debugging easier. It wasn't very easy to figure out
+  where the errors originated from (because of how the actual uncaught
+  exception only happened with many concurrent builds inside a sandbox
+  environment that is hard to debug).
+
+- Updated dependencies [79b0ba4]
+  - @web/test-runner-chrome@0.18.1
+
+## 0.20.0
+
+### Minor Changes
+
+- 86eaa21: Upgrade puppeteer version to v24
+
+### Patch Changes
+
+- Updated dependencies [86eaa21]
+  - @web/test-runner-chrome@0.18.0
+
+## 0.19.0
+
+### Minor Changes
+
+- b546e8b5: Upgrade puppeteer-core and puppeteer to v23
+
+### Patch Changes
+
+- Updated dependencies [b546e8b5]
+  - @web/test-runner-chrome@0.17.0
+
+## 0.18.3
+
+### Patch Changes
+
+- 6914f3b6: Show suites names for `summaryReporter` when `flatten` option is true
+
+## 0.18.2
+
+### Patch Changes
+
+- 6a97a691: Unify visual-written representation of skipped tests.
+
+## 0.18.1
+
+### Patch Changes
+
+- Updated dependencies [4cc90648]
+  - @web/test-runner-chrome@0.16.0
+
+## 0.18.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-commands@0.9.0
+  - @web/test-runner-chrome@0.15.0
+  - @web/test-runner-mocha@0.9.0
+  - @web/test-runner-core@0.13.0
+  - @web/config-loader@0.3.0
+  - @web/browser-logs@0.4.0
+  - @web/dev-server@0.4.0
+
+## 0.17.3
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+- Updated dependencies [60dda46f]
+  - @web/test-runner-core@0.12.0
+  - @web/test-runner-mocha@0.8.2
+  - @web/test-runner-chrome@0.14.4
+  - @web/test-runner-commands@0.8.3
+
+## 0.17.2
+
+### Patch Changes
+
+- d07fc49c: Add the selectOption plugin's exports and types correctly
+- Updated dependencies [d07fc49c]
+- Updated dependencies [d9996d2d]
+  - @web/test-runner-commands@0.8.1
+  - @web/dev-server@0.3.3
+
+## 0.17.1
+
+### Patch Changes
+
+- 72d31ec6: update mjs entrypoint with formatError
+- Updated dependencies [5470b5b9]
+  - @web/dev-server@0.3.1
+
+## 0.17.0
+
+### Minor Changes
+
+- 0c87f59e: feat/various fixes
+
+  - Update puppeteer to `20.0.0`, fixes #2282
+  - Use puppeteer's new `page.mouse.reset()` in sendMousePlugin, fixes #2262
+  - Use `development` export condition by default
+
+### Patch Changes
+
+- Updated dependencies [0c87f59e]
+  - @web/browser-logs@0.3.3
+  - @web/dev-server@0.3.0
+  - @web/test-runner-chrome@0.14.0
+  - @web/test-runner-commands@0.8.0
+
+## 0.16.1
+
+### Patch Changes
+
+- 0cd3a2f8: chore(deps): bump puppeteer from 19.8.2 to 19.9.0
+- c26d3730: Update TypeScript
+- Updated dependencies [0cd3a2f8]
+- Updated dependencies [c26d3730]
+  - @web/browser-logs@0.3.1
+  - @web/dev-server@0.2.1
+  - @web/test-runner-mocha@0.8.1
+  - @web/test-runner-core@0.11.1
+  - @web/config-loader@0.2.1
+
+## 0.16.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+- Updated dependencies [b7d8ee66]
+- Updated dependencies [72c63bc5]
+  - @web/browser-logs@0.3.0
+  - @web/config-loader@0.2.0
+  - @web/dev-server@0.2.0
+  - @web/test-runner-chrome@0.13.0
+  - @web/test-runner-commands@0.7.0
+  - @web/test-runner-core@0.11.0
+  - @web/test-runner-mocha@0.8.0
+
+## 0.15.3
+
+### Patch Changes
+
+- c103f166: Update `isbinaryfile`
+- 18a16bb0: Update `html-minifier-terser`
+- d8579f15: Update `command-line-usage`
+- 445b20e6: Update `convert-source-map`
+- 6188c8ff: chore(deps): update dependency concurrently to v8
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [77e413d9]
+- Updated dependencies [cdeafe4a]
+- Updated dependencies [c103f166]
+- Updated dependencies [18a16bb0]
+- Updated dependencies [1113fa09]
+- Updated dependencies [d8579f15]
+- Updated dependencies [817d674b]
+- Updated dependencies [445b20e6]
+- Updated dependencies [9b83280e]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/test-runner-chrome@0.12.1
+  - @web/test-runner-core@0.10.29
+  - @web/dev-server@0.1.38
+  - @web/browser-logs@0.2.6
+  - @web/test-runner-commands@0.6.6
+
+## 0.15.2
+
+### Patch Changes
+
+- b8198d19: Report browsers logs when using summary reporter
+- bf82ccf1: Indent nested suites in summaryReporter output
+- 57fd96c4: Export formatError from `@web/test-runner`
+- Updated dependencies [0f5631d0]
+- Updated dependencies [0e198dcc]
+  - @web/dev-server@0.1.37
+  - @web/test-runner-chrome@0.12.0
+
+## 0.15.1
+
+### Patch Changes
+
+- b2c85736: Report browsers logs when using summary reporter
+
+## 0.15.0
+
+### Minor Changes
+
+- acca5d51: Update dependency v8-to-istanbul to v9
+
+### Patch Changes
+
+- Updated dependencies [acca5d51]
+  - @web/test-runner-chrome@0.11.0
+
+## 0.14.1
+
+### Patch Changes
+
+- 04e2fa7d: Update portfinder dependency to 1.0.32
+- Updated dependencies [04e2fa7d]
+  - @web/dev-server@0.1.35
+
+## 0.14.0
+
+### Minor Changes
+
+- 13b75cf3: Add browser name to summaryReporter output
+
+### Patch Changes
+
+- Updated dependencies [00da4255]
+  - @web/dev-server@0.1.33
+
+## 0.13.31
+
+### Patch Changes
+
+- 570cdf70: - improve caching of snapshots in-memory
+  - don't block browser command on writing snapshot to disk
+  - don't write snapshot to disk for each change, batch write per file
+- Updated dependencies [78d610d1]
+- Updated dependencies [570cdf70]
+  - @web/dev-server@0.1.32
+  - @web/test-runner-commands@0.6.3
+  - @web/test-runner-core@0.10.27
+
 ## 0.13.30
 
 ### Patch Changes

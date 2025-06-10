@@ -8,44 +8,51 @@ on:
 
 jobs:
   release:
+    timeout-minutes: 30
     # Prevents changesets action from creating a PR on forks
     if: github.repository == 'modernweb-dev/web'
     name: Pre-release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
-      - name: Setup Node.js 12
-        uses: actions/setup-node@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         env:
           FORCE_COLOR: 0
         with:
-          node-version: 12.x
+          node-version: '20'
+          cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
-          cache: 'yarn'
+
+      # Set up GitHub Actions caching for Wireit.
+      - uses: google/wireit@setup-github-actions-caching/v2
 
       - name: Install Dependencies
-        run: yarn --frozen-lockfile
+        run: npm ci
 
       - name: Build packages
-        run: yarn build
+        run: npm run build
 
-      - name: Build for production
-        run: yarn build:production
+      - name: Build types for js packages
+        run: npm run types
+
+      - name: Build specific packages for production
+        run: npm run build:production
 
       - name: Version canary release
-        run: yarn changeset version --snapshot canary
+        run: npx changeset version --snapshot canary
 
       - name: Release canary snapshots
         id: changesets
         uses: changesets/action@master
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: yarn changeset publish --tag canary
+          publish: npx changeset publish --tag canary
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -3,13 +3,13 @@ import type { ChromeLauncher } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 import type { WebdriverLauncher } from '@web/test-runner-webdriver';
 
-import { defaultOptions, VisualRegressionPluginOptions } from './config';
+import { defaultOptions, VisualRegressionPluginOptions } from './config.js';
 import {
   visualDiffCommand,
   VisualDiffCommandContext,
   VisualDiffCommandResult,
-} from './visualDiffCommand';
-import { VisualRegressionError } from './VisualRegressionError';
+} from './visualDiffCommand.js';
+import { VisualRegressionError } from './VisualRegressionError.js';
 
 interface Payload {
   id: string;
@@ -68,6 +68,7 @@ export function visualRegressionPlugin(
                 (window as any).__WTR_VISUAL_REGRESSION__[elementId]
               );
             }, payload.id);
+            // @ts-ignore
             const element = handle.asElement();
             if (!element) {
               throw new VisualRegressionError(
@@ -75,8 +76,8 @@ export function visualRegressionPlugin(
               );
             }
 
-            const screenshot = (await element.screenshot({ encoding: 'binary' })) as Buffer;
-            return visualDiffCommand(mergedOptions, screenshot, payload.name, context);
+            const screenshot = await element.screenshot({ encoding: 'binary' });
+            return visualDiffCommand(mergedOptions, Buffer.from(screenshot), payload.name, context);
           }
 
           if (session.browser.type === 'playwright') {

@@ -26,6 +26,8 @@
         nodeResolve: window.__nodeResolve || false,
         noExtension: window.__noExtension || false,
         extensionPriority: window.__extensionPriority || false,
+        // lit-html only adds this global in development mode
+        developmentExportCondition: window.litIssuedWarnings || false,
       };
       document.getElementById('test').innerHTML = `<pre>${JSON.stringify(
         window.__tests,

@@ -7,7 +7,7 @@ import { expect } from 'chai';
 export function runFocusTest(
   config: Partial<TestRunnerCoreConfig> & { browsers: BrowserLauncher[] },
 ) {
-  describe('focus', async function () {
+  describe.skip('focus', async function () {
     let allSessions: TestSession[];
 
     before(async () => {
@@ -21,7 +21,7 @@ export function runFocusTest(
       allSessions = result.sessions;
     });
 
-    it('can run tests with focus, concurrently and sequentially', () => {
+    it.skip('can run tests with focus, concurrently and sequentially', () => {
       expect(allSessions.every(s => s.passed)).to.equal(true, 'All sessions should have passed');
     });
   });

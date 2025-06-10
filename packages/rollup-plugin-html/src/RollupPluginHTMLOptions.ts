@@ -29,6 +29,8 @@ export interface RollupPluginHTMLOptions {
   transformHtml?: TransformHtmlFunction | TransformHtmlFunction[];
   /** Whether to extract and bundle assets referenced in HTML. Defaults to true. */
   extractAssets?: boolean;
+  /** Whether to ignore assets referenced in HTML and CSS with glob patterns. */
+  externalAssets?: string | string[];
   /** Define a full absolute url to your site (e.g. https://domain.com) */
   absoluteBaseUrl?: string;
   /** Whether to set full absolute urls for ['meta[property=og:image]', 'link[rel=canonical]', 'meta[property=og:url]'] or not. Requires a absoluteBaseUrl to be set. Default to true. */
@@ -41,6 +43,8 @@ export interface RollupPluginHTMLOptions {
   absolutePathPrefix?: string;
   /** When set to true, will insert meta tags for CSP and add script-src values for inline scripts by sha256-hashing the contents */
   strictCSPInlineScripts?: boolean;
+  /** Bundle assets reference from CSS via `url` */
+  bundleAssetsFromCss?: boolean;
 }
 
 export interface GeneratedBundle {

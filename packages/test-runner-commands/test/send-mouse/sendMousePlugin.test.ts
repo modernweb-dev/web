@@ -4,8 +4,8 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { webdriverLauncher } from '@web/test-runner-webdriver';
 import { playwrightLauncher } from '@web/test-runner-playwright';
-import { sendMousePlugin } from '../../src/sendMousePlugin';
-import { startSeleniumServer } from '../selenium-server';
+import { sendMousePlugin } from '../../src/sendMousePlugin.js';
+import { startSeleniumServer } from '../selenium-server.js';
 
 describe('sendMousePlugin', function test() {
   this.timeout(50000);
@@ -31,8 +31,8 @@ describe('sendMousePlugin', function test() {
   });
 
   /**
-   * TODO: Test is skipped because webdriver requires Chrome v100 which is not available in
-   * CI. Unskip later when it is supported.
+   * Temporarily disabled until webdriver selenium-standalone issues are fixed
+   * https://github.com/webdriverio/selenium-standalone/issues/788
    */
   describe.skip('webdriver', () => {
     let seleniumServer!: selenium.ChildProcess;
@@ -57,6 +57,8 @@ describe('sendMousePlugin', function test() {
         browsers: [
           webdriverLauncher({
             automationProtocol: 'webdriver',
+            hostname: 'localhost',
+            port: 4444,
             path: '/wd/hub/',
             capabilities: {
               browserName: 'chrome',
@@ -67,6 +69,8 @@ describe('sendMousePlugin', function test() {
           }),
           webdriverLauncher({
             automationProtocol: 'webdriver',
+            hostname: 'localhost',
+            port: 4444,
             path: '/wd/hub/',
             capabilities: {
               browserName: 'firefox',

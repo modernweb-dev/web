@@ -2,13 +2,13 @@ import * as puppeteerCore from 'puppeteer-core';
 import {
   Browser,
   Page,
-  PuppeteerNodeLaunchOptions,
+  LaunchOptions,
   launch as puppeteerCoreLaunch,
   BrowserContext,
 } from 'puppeteer-core';
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { findExecutablePath } from './findExecutablePath';
-import { ChromeLauncherPage } from './ChromeLauncherPage';
+import { findExecutablePath } from './findExecutablePath.js';
+import { ChromeLauncherPage } from './ChromeLauncherPage.js';
 
 function capitalize(str: string) {
   return `${str[0].toUpperCase()}${str.substring(1)}`;
@@ -31,7 +31,7 @@ export class ChromeLauncher implements BrowserLauncher {
   public name: string;
   public type = 'puppeteer';
   public concurrency?: number;
-  private launchOptions: PuppeteerNodeLaunchOptions;
+  private launchOptions: LaunchOptions;
   private customPuppeteer?: typeof puppeteerCore;
   private createBrowserContextFn: CreateBrowserContextFn;
   private createPageFn: CreatePageFn;
@@ -48,7 +48,7 @@ export class ChromeLauncher implements BrowserLauncher {
   private __startBrowserPromise?: Promise<{ browser: Browser; context: BrowserContext }>;
 
   constructor(
-    launchOptions: PuppeteerNodeLaunchOptions,
+    launchOptions: LaunchOptions,
     createBrowserContextFn: CreateBrowserContextFn,
     createPageFn: CreatePageFn,
     customPuppeteer?: typeof puppeteerCore,
@@ -63,13 +63,13 @@ export class ChromeLauncher implements BrowserLauncher {
     if (!customPuppeteer) {
       // without a custom puppeteer, we use the locally installed chrome
       this.name = 'Chrome';
-    } else if (!this.launchOptions?.product || this.launchOptions.product === 'chrome') {
+    } else if (!this.launchOptions?.browser || this.launchOptions.browser === 'chrome') {
       // with puppeteer we use the a packaged chromium, puppeteer calls it chrome but we
       // should call it chromium to avoid confusion
       this.name = 'Chromium';
     } else {
-      // otherwise take the product name directly
-      this.name = capitalize(this.launchOptions.product);
+      // otherwise take the browser name directly
+      this.name = capitalize(this.launchOptions.browser);
     }
   }
 
@@ -78,12 +78,16 @@ export class ChromeLauncher implements BrowserLauncher {
     this.testFiles = testFiles;
   }
 
-  launchBrowser(options: PuppeteerNodeLaunchOptions = {}) {
+  launchBrowser(options: LaunchOptions = {}) {
+    const mergedOptions: LaunchOptions = {
+      headless: true,
+      ...this.launchOptions,
+      ...options,
+    };
     if (this.customPuppeteer) {
-      const mergedOptions = { ...this.launchOptions, ...options };
       // launch using a custom puppeteer instance
       return this.customPuppeteer.launch(mergedOptions).catch(error => {
-        if (mergedOptions.product === 'firefox') {
+        if (mergedOptions.browser === 'firefox') {
           console.warn(
             '\nUsing puppeteer with firefox is experimental.\n' +
               'Check the docs at https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer' +
@@ -95,8 +99,6 @@ export class ChromeLauncher implements BrowserLauncher {
     }
 
     // launch using puppeteer-core, connecting to an installed browser
-    const mergedOptions = { ...this.launchOptions, ...options };
-
     // add a default executable path if the user did not provide any
     if (!mergedOptions.executablePath) {
       if (!this.cachedExecutablePath) {
@@ -114,7 +116,7 @@ export class ChromeLauncher implements BrowserLauncher {
     });
   }
 
-  async startBrowser(options: PuppeteerNodeLaunchOptions = {}) {
+  async startBrowser(options: LaunchOptions = {}) {
     const browser = await this.launchBrowser(options);
     const context = await this.createBrowserContextFn({ config: this.config!, browser });
     return { browser, context };
@@ -153,7 +155,7 @@ export class ChromeLauncher implements BrowserLauncher {
 
   async startDebugSession(sessionId: string, url: string) {
     if (!this.debugBrowser || !this.debugBrowserContext) {
-      this.debugBrowser = await this.launchBrowser({ devtools: true });
+      this.debugBrowser = await this.launchBrowser({ devtools: true, headless: false });
       this.debugBrowserContext = await this.createBrowserContextFn({
         config: this.config!,
         browser: this.debugBrowser,
@@ -183,7 +185,7 @@ export class ChromeLauncher implements BrowserLauncher {
     return new ChromeLauncherPage(
       this.config!,
       this.testFiles!,
-      this.launchOptions?.product ?? 'chromium',
+      this.launchOptions?.browser ?? 'chromium',
       await puppeteerPagePromise,
     );
   }

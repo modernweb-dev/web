@@ -1,8 +1,7 @@
-import fetch from 'node-fetch';
 import { expect } from 'chai';
 
-import { createTestServer } from '../helpers';
-import { webSocketScript } from '../../src/web-sockets/webSocketsPlugin';
+import { createTestServer } from '../helpers.js';
+import { webSocketScript } from '../../src/web-sockets/webSocketsPlugin.js';
 
 describe('webSocketsPlugin', () => {
   it('injects an event stream script if a plugin has inject set and event stream is enabled', async () => {

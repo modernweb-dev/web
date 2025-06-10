@@ -19,6 +19,9 @@ export function nodeResolvePlugin(
     userOptionsObject,
   );
 
+  // use user config exportConditions if present. otherwise use ['development']
+  options.exportConditions = userOptionsObject.exportConditions || ['development'];
+
   return rollupAdapter(
     nodeResolve(options),
     { preserveSymlinks },

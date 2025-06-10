@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-core",
-  "version": "0.10.26",
+  "version": "0.13.4",
   "publishConfig": {
     "access": "public"
   },
@@ -17,21 +17,23 @@
   "module": "./index.mjs",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./dist/index.js"
     },
     "./test-helpers": {
+      "types": "./dist/test-helpers.d.ts",
       "import": "./test-helpers.mjs",
       "require": "./dist/test-helpers.js"
     },
     "./browser/session.js": "./browser/session.js"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.ts --require ts-node/register",
+    "test:node": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
     "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
@@ -53,22 +55,22 @@
     "@babel/code-frame": "^7.12.11",
     "@types/babel__code-frame": "^7.0.2",
     "@types/co-body": "^6.1.0",
-    "@types/convert-source-map": "^1.5.1",
+    "@types/convert-source-map": "^2.0.0",
     "@types/debounce": "^1.2.0",
     "@types/istanbul-lib-coverage": "^2.0.3",
     "@types/istanbul-reports": "^3.0.0",
-    "@web/browser-logs": "^0.2.1",
-    "@web/dev-server-core": "^0.3.16",
-    "chokidar": "^3.4.3",
+    "@web/browser-logs": "^0.4.0",
+    "@web/dev-server-core": "^0.7.3",
+    "chokidar": "^4.0.1",
     "cli-cursor": "^3.1.0",
     "co-body": "^6.1.0",
-    "convert-source-map": "^1.7.0",
+    "convert-source-map": "^2.0.0",
     "debounce": "^1.2.0",
     "dependency-graph": "^0.11.0",
     "globby": "^11.0.1",
-    "ip": "^1.1.5",
+    "internal-ip": "^6.2.0",
     "istanbul-lib-coverage": "^3.0.0",
-    "istanbul-lib-report": "^3.0.0",
+    "istanbul-lib-report": "^3.0.1",
     "istanbul-reports": "^3.0.2",
     "log-update": "^4.0.0",
     "nanocolors": "^0.2.1",
@@ -78,6 +80,6 @@
     "source-map": "^0.7.3"
   },
   "devDependencies": {
-    "portfinder": "^1.0.28"
+    "portfinder": "^1.0.32"
   }
 }

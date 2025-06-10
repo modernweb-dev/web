@@ -1,5 +1,147 @@
 # @web/dev-server-esbuild
 
+## 1.0.4
+
+### Patch Changes
+
+- d826727: upgrade esbuild to 0.25.x
+
+## 1.0.3
+
+### Patch Changes
+
+- f506af31: Upgrade esbuild to 0.24.x
+- Updated dependencies [fb33d75c]
+  - @web/dev-server-core@0.7.4
+
+## 1.0.2
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
+## 1.0.1
+
+### Patch Changes
+
+- e31de569: Update `@web/dev-server-rollup` to latest version
+
+## 1.0.0
+
+### Major Changes
+
+- 8218a0a5: Update ESBuild to latest version.
+
+  ESBuild has changed how TypeScript decorators are enabled in preparation for JavaScript decorators to land in browsers. ESBuild now requires the `experimentalDecorators` key to be set to `true` in the `tsconfig.json` for TypeScript decorators to be enabled.
+
+  If you are having issues with decorators after updating to this version, try setting the `experimentalDecorators` key in your `tsconfig.json`.
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/dev-server-core@0.7.0
+
+## 0.4.4
+
+### Patch Changes
+
+- ef6b2543: Use split versions for all lit dependencies
+
+## 0.4.3
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/dev-server-core@0.6.2
+
+## 0.4.2
+
+### Patch Changes
+
+- Updated dependencies [7f0f4315]
+  - @web/dev-server-core@0.6.0
+
+## 0.4.1
+
+### Patch Changes
+
+- c26d3730: Update TypeScript
+- Updated dependencies [c26d3730]
+  - @web/dev-server-core@0.5.1
+
+## 0.4.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+
+## 0.3.6
+
+### Patch Changes
+
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [c103f166]
+  - @web/dev-server-core@0.4.1
+
+## 0.3.5
+
+### Patch Changes
+
+- 0f5631d0: chore(deps): bump ua-parser-js from 1.0.32 to 1.0.33
+
+## 0.3.4
+
+### Patch Changes
+
+- 1b2ae08c: Bump the `esbuild` version to `^0.16 || ^0.17` fix a decorator bug in 0.14
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
+## 0.3.3
+
+### Patch Changes
+
+- cfc2aa1e: Expose banner/footer as a pass-through to esbuild transform
+
+## 0.3.2
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+- Updated dependencies [00da4255]
+  - @web/dev-server-core@0.3.19
+
+## 0.3.1
+
+### Patch Changes
+
+- d0e5e3f0: Add a `tsconfig` option which can be pointed towards your tsconfig.json to keep esbuild and typescript in sync.
+
+  Usage example:
+
+  ```js
+  import { fileURLToPath } from 'url';
+  esbuildPlugin({
+    ts: true,
+    tsconfig: fileURLToPath(new URL('./tsconfig.json', import.meta.url)),
+  });
+  ```
+
+  Note: Without the above code the `tsconfig.json` file will not be used.
+
 ## 0.3.0
 
 ### Minor Changes

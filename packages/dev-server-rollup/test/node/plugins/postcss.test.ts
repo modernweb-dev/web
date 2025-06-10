@@ -4,8 +4,8 @@ import { chromeLauncher } from '@web/test-runner-chrome';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { resolve } from 'path';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { fromRollup } from '../../../src/index';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
+import { fromRollup } from '../../../src/index.js';
 
 const postcss = fromRollup(rollupPostcss);
 
@@ -57,7 +57,8 @@ html {
     }
   });
 
-  it('passes the in-browser tests', async () => {
+  it('passes the in-browser tests', async function () {
+    this.timeout(40000);
     await runTests({
       files: [resolve(__dirname, '..', 'fixtures', 'postcss', 'postcss-browser-test.js')],
       browsers: [chromeLauncher()],

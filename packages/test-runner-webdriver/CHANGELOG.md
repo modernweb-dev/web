@@ -1,5 +1,65 @@
 # @web/test-runner-webdriver
 
+## 0.9.0
+
+### Minor Changes
+
+- e755f6b: Upgrade WebdriverIO to v9, drop JWP capabilities
+
+## 0.8.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-core@0.13.0
+
+## 0.7.2
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+
+## 0.7.1
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-core@0.11.6
+
+## 0.7.0
+
+### Minor Changes
+
+- 812400a3: Update `webdriver` to version 8
+
+### Patch Changes
+
+- Updated dependencies [c26d3730]
+  - @web/test-runner-core@0.11.1
+
+## 0.6.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-core@0.11.0
+
+## 0.5.1
+
+### Patch Changes
+
+- 8a813171: Navigations to blank pages now use `about:blank` instead of `data:,`.
+
 ## 0.5.0
 
 ### Minor Changes

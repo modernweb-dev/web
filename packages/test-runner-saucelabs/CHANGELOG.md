@@ -1,5 +1,92 @@
 # @web/test-runner-saucelabs
 
+## 0.13.0
+
+### Minor Changes
+
+- 64e873c: Bump saucelabs to 9.0.0 and update test-runner-saucelabs to changes in the new version.
+  The new version contains breaking changes, see the migration guide for more information: https://docs.saucelabs.com/secure-connections/sauce-connect-5/migrating/.
+
+## 0.12.1
+
+### Patch Changes
+
+- 736e669: Use correct type for providing SauceLabsCapabilities object in createSauceLabsLauncher
+
+## 0.12.0
+
+### Minor Changes
+
+- e755f6b: Upgrade WebdriverIO to v9, drop JWP capabilities
+
+### Patch Changes
+
+- Updated dependencies [e755f6b]
+  - @web/test-runner-webdriver@0.9.0
+
+## 0.11.2
+
+### Patch Changes
+
+- 39ff6ffb: replace ip dependency due to security bug CVE-2024-29415
+
+## 0.11.1
+
+### Patch Changes
+
+- e657791f: Vulnerability fix in `ip` package.
+  For more info, see:
+
+  - https://github.com/advisories/GHSA-78xj-cgh5-2h22
+  - https://github.com/indutny/node-ip/issues/136#issuecomment-1952083593
+
+## 0.11.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-webdriver@0.8.0
+
+## 0.10.1
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-webdriver@0.7.1
+
+## 0.10.0
+
+### Minor Changes
+
+- 812400a3: Update `webdriver` to version 8
+
+### Patch Changes
+
+- Updated dependencies [812400a3]
+  - @web/test-runner-webdriver@0.7.0
+
+## 0.9.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-webdriver@0.6.0
+
+## 0.8.1
+
+### Patch Changes
+
+- b25d3fd3: Update `@web/test-runner-webdriver` dependency to `^0.5.1`.
+
 ## 0.8.0
 
 ### Minor Changes

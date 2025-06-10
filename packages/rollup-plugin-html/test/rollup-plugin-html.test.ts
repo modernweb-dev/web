@@ -1,7 +1,7 @@
 import { rollup, OutputChunk, OutputAsset, OutputOptions, Plugin } from 'rollup';
 import { expect } from 'chai';
 import path from 'path';
-import { rollupPluginHTML } from '../src/index';
+import { rollupPluginHTML } from '../src/index.js';
 
 type Output = (OutputChunk | OutputAsset)[];
 
@@ -705,11 +705,11 @@ describe('rollup-plugin-html', () => {
     expect(outputHtml).to.include(
       '<link rel="mask-icon" href="assets/image-a.svg" color="#3f93ce">',
     );
-    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/styles-ed723e17.css">');
-    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/x-58ef5070.css">');
-    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/y-4f2d398e.css">');
-    expect(outputHtml).to.include('<img src="assets/image-c-23edadf6.png">');
-    expect(outputHtml).to.include('<img src="assets/image-b-ee32b49e.svg">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/styles-CF2Iy5n1.css">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/x-DDGg8O6h.css">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="assets/y-DJTrnPH3.css">');
+    expect(outputHtml).to.include('<img src="assets/image-c-yvktvaNB.png">');
+    expect(outputHtml).to.include('<img src="assets/image-b-DKsNZzOf.svg">');
   });
 
   it('deduplicates static assets with similar names', async () => {
@@ -762,7 +762,7 @@ describe('rollup-plugin-html', () => {
 
     expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
       '<html><head><link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg"></head>' +
-        '<body><img src="assets/foo-81034cb4.svg"></body></html>',
+        '<body><img src="assets/foo-BaOCt8wZ.svg"></body></html>',
     );
   });
 
@@ -789,9 +789,9 @@ describe('rollup-plugin-html', () => {
 
     expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
       '<html><head></head><body>' +
-        '<link rel="stylesheet" href="assets/image-a-9c3a45f9.png">' +
-        '<img src="assets/image-a-9c3a45f9.png">' +
-        '<img src="assets/image-a-9c3a45f9.png">' +
+        '<link rel="stylesheet" href="assets/image-a-yvktvaNB.png">' +
+        '<img src="assets/image-a-yvktvaNB.png">' +
+        '<img src="assets/image-a-yvktvaNB.png">' +
         '</body></html>',
     );
   });
@@ -837,20 +837,20 @@ describe('rollup-plugin-html', () => {
 
     expect(stripNewlines(getAsset(output, 'page-a.html').source)).to.equal(
       '<html><head></head><body>' +
-        '  <img src="assets/image-a-9c3a45f9.png">' +
+        '  <img src="assets/image-a-yvktvaNB.png">' +
         '    </body></html>',
     );
 
     expect(stripNewlines(getAsset(output, 'page-b.html').source)).to.equal(
       '<html><head></head><body>' +
-        '  <link rel="stylesheet" href="assets/image-a-9c3a45f9.png">' +
+        '  <link rel="stylesheet" href="assets/image-a-yvktvaNB.png">' +
         '    </body></html>',
     );
 
     expect(stripNewlines(getAsset(output, 'page-c.html').source)).to.equal(
       '<html><head></head><body>' +
-        '  <link rel="stylesheet" href="assets/image-a-9c3a45f9.png">' +
-        '  <img src="assets/image-a-9c3a45f9.png">' +
+        '  <link rel="stylesheet" href="assets/image-a-yvktvaNB.png">' +
+        '  <img src="assets/image-a-yvktvaNB.png">' +
         '    </body></html>',
     );
   });
@@ -1034,11 +1034,282 @@ describe('rollup-plugin-html', () => {
     expect(stripNewlines(getAsset(output, 'x/index.html').source)).to.equal(
       [
         '<html><head></head><body>',
-        '<img src="../assets/foo-c9db7cc0.svg">',
-        '<link rel="stylesheet" href="../assets/styles-ed723e17.css">',
-        '<img src="../assets/image-b-ee32b49e.svg">',
+        '<img src="../assets/foo-AJnkzla8.svg">',
+        '<link rel="stylesheet" href="../assets/styles-CF2Iy5n1.css">',
+        '<img src="../assets/image-b-DKsNZzOf.svg">',
         '</body></html>',
       ].join(''),
+    );
+  });
+
+  it('handles fonts linked from css files', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          bundleAssetsFromCss: true,
+          input: {
+            html: `
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles-with-fonts.css" />
+                </head>
+                <body>
+                </body>
+              </html>
+            `,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    const fontNormal = output.find(o => o.name?.endsWith('font-normal.woff2'));
+    const fontBold = output.find(o => o.name?.endsWith('font-normal.woff2'));
+    const style = output.find(o => o.name?.endsWith('styles-with-fonts.css'));
+    // It has emitted the font
+    expect(fontBold).to.exist;
+    expect(fontNormal).to.exist;
+    // e.g. "font-normal-f0mNRiTD.woff2"
+    // eslint-disable-next-line no-useless-escape
+    const regex = /assets[\/\\]font-normal-\w+\.woff2/;
+    // It outputs the font to the assets folder
+    expect(regex.test(fontNormal!.fileName)).to.equal(true);
+
+    // The source of the style includes the font
+    const source = (style as OutputAsset)?.source.toString();
+    expect(source.includes(fontNormal!.fileName));
+  });
+
+  it('handles fonts linked from css files in node_modules', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          bundleAssetsFromCss: true,
+          input: {
+            html: `
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./node_modules/foo/node_modules-styles-with-fonts.css" />
+                </head>
+                <body>
+                </body>
+              </html>
+            `,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles-node-modules'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    const font = output.find(o => o.name?.endsWith('font-normal.woff2'));
+    const style = output.find(o => o.name?.endsWith('node_modules-styles-with-fonts.css'));
+
+    // It has emitted the font
+    expect(font).to.exist;
+    // e.g. "font-normal-f0mNRiTD.woff2"
+    // eslint-disable-next-line no-useless-escape
+    const regex = /assets[\/\\]font-normal-\w+\.woff2/;
+    // It outputs the font to the assets folder
+    expect(regex.test(font!.fileName)).to.equal(true);
+
+    // The source of the style includes the font
+    const source = (style as OutputAsset)?.source.toString();
+    expect(source.includes(font!.fileName));
+  });
+
+  it('handles duplicate fonts correctly', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          bundleAssetsFromCss: true,
+          input: {
+            html: `
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles-a.css" />
+                  <link rel="stylesheet" href="./styles-b.css" />
+                </head>
+                <body>
+                </body>
+              </html>
+            `,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles-duplicates'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    const fonts = output.filter(o => o.name?.endsWith('font-normal.woff2'));
+    expect(fonts.length).to.equal(1);
+  });
+
+  it('handles images referenced from css', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          bundleAssetsFromCss: true,
+          input: {
+            html: `
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles.css" />
+                </head>
+                <body>
+                </body>
+              </html>
+            `,
+          },
+          rootDir: path.join(__dirname, 'fixtures', 'resolves-assets-in-styles-images'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(output.find(o => o.name?.endsWith('star.avif'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.gif'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.jpeg'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.jpg'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.png'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.svg'))).to.exist;
+    expect(output.find(o => o.name?.endsWith('star.webp'))).to.exist;
+
+    const rewrittenCss = (output.find(o => o.name === 'styles.css') as OutputAsset).source
+      .toString()
+      .trim();
+    expect(rewrittenCss).to.equal(
+      `#a {
+  background-image: url("assets/star-CauvOfkF.svg");
+}
+
+#b {
+  background-image: url("assets/star-CauvOfkF.svg#foo");
+}
+
+#c {
+  background-image: url("assets/star-B4Suw7Xi.png");
+}
+
+#d {
+  background-image: url("assets/star-DKp8fJdA.jpg");
+}
+
+#e {
+  background-image: url("assets/star-b-LlGmiF.jpeg");
+}
+
+#f {
+  background-image: url("assets/star-CXtvny3e.webp");
+}
+
+#g {
+  background-image: url("assets/star-_hNhEHAt.gif");
+}
+
+#h {
+  background-image: url("assets/star-fTpYetjL.avif");
+}`.trim(),
+    );
+  });
+
+  it('allows to exclude external assets usign a glob pattern', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          input: {
+            html: `<html>
+<head>
+<link rel="apple-touch-icon" sizes="180x180" href="./image-a.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="image-d.png" />
+<link rel="manifest" href="./webmanifest.json" />
+<link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
+<link rel="mask-icon" href="image-d.svg" color="#3f93ce" />
+<link rel="stylesheet" href="./styles-with-referenced-assets.css" />
+<link rel="stylesheet" href="./foo/x.css" />
+<link rel="stylesheet" href="foo/bar/y.css" />
+</head>
+<body>
+<img src="./image-d.png" />
+<div>
+<img src="./image-d.svg" />
+</div>
+</body>
+</html>`,
+          },
+          bundleAssetsFromCss: true,
+          externalAssets: ['**/foo/**/*', '*.svg'],
+          rootDir: path.join(__dirname, 'fixtures', 'assets'),
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+
+    expect(output.length).to.equal(8);
+
+    const expectedAssets = [
+      'image-a.png',
+      'image-d.png',
+      'styles-with-referenced-assets.css',
+      'image-a.png',
+      'image-d.png',
+      'webmanifest.json',
+    ];
+
+    for (const name of expectedAssets) {
+      const asset = getAsset(output, name);
+      expect(asset).to.exist;
+      expect(asset.source).to.exist;
+    }
+
+    const outputHtml = getAsset(output, 'index.html').source;
+    expect(outputHtml).to.include(
+      '<link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png">',
+    );
+    expect(outputHtml).to.include(
+      '<link rel="icon" type="image/png" sizes="32x32" href="assets/image-d.png">',
+    );
+    expect(outputHtml).to.include('<link rel="manifest" href="assets/webmanifest.json">');
+    expect(outputHtml).to.include('<link rel="mask-icon" href="./image-a.svg" color="#3f93ce">');
+    expect(outputHtml).to.include('<link rel="mask-icon" href="image-d.svg" color="#3f93ce">');
+    expect(outputHtml).to.include(
+      '<link rel="stylesheet" href="assets/styles-with-referenced-assets-C5klO55x.css">',
+    );
+    expect(outputHtml).to.include('<link rel="stylesheet" href="./foo/x.css">');
+    expect(outputHtml).to.include('<link rel="stylesheet" href="foo/bar/y.css">');
+    expect(outputHtml).to.include('<img src="assets/assets/image-d-DLz8BAwO.png">');
+    expect(outputHtml).to.include('<img src="./image-d.svg">');
+
+    const rewrittenCss = getAsset(output, 'styles-with-referenced-assets.css')
+      .source.toString()
+      .trim();
+    expect(rewrittenCss).to.equal(
+      `#a1 {
+  background-image: url("assets/image-a-yvktvaNB.png");
+}
+
+#a2 {
+  background-image: url("image-a.svg");
+}
+
+#d1 {
+  background-image: url("assets/image-d-DLz8BAwO.png");
+}
+
+#d2 {
+  background-image: url("./image-d.svg");
+}`.trim(),
     );
   });
 });

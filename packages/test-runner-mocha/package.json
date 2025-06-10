@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-mocha",
-  "version": "0.7.5",
+  "version": "0.9.0",
   "publishConfig": {
     "access": "public"
   },
@@ -15,12 +15,12 @@
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha",
   "main": "dist/standalone.js",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "build:production": "rimraf dist && rollup -c rollup.config.js",
-    "test": "mocha test/**/*.test.js",
+    "build:production": "rimraf dist && rollup -c ./rollup.config.mjs",
+    "test": "mocha test/**/*.test.js --reporter dot",
     "test:watch": "mocha test/**/*.test.js --watch --watch-files src,test"
   },
   "files": [
@@ -35,11 +35,11 @@
     "framework"
   ],
   "dependencies": {
-    "@types/mocha": "^8.2.0",
-    "@web/test-runner-core": "^0.10.20"
+    "@web/test-runner-core": "^0.13.0"
   },
   "devDependencies": {
+    "@types/mocha": "^10.0.1",
     "deepmerge": "^4.2.2",
-    "mocha": "^8.2.1"
+    "mocha": "^10.2.0"
   }
 }

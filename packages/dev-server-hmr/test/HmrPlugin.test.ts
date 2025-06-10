@@ -1,12 +1,11 @@
 import { expect } from 'chai';
-import fetch from 'node-fetch';
 import { stubMethod, restore as restoreStubs } from 'hanbi';
 import { createTestServer, fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
 import { posix as pathUtil } from 'path';
 
-import { hmrPlugin } from '../src/index';
-import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin';
-import { mockFile, mockFiles } from './utils';
+import { hmrPlugin } from '../src/index.js';
+import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin.js';
+import { mockFile, mockFiles } from './utils.js';
 
 describe('HmrPlugin', () => {
   afterEach(async () => {
@@ -27,7 +26,7 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets, 'send');
+    const stub = stubMethod(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
       fileWatcher.emit('change', pathUtil.join(__dirname, '/foo.js'));
@@ -56,7 +55,7 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets, 'send');
+    const stub = stubMethod(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
       await fetch(`${host}/bar.js`);
@@ -83,7 +82,7 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets, 'send');
+    const stub = stubMethod(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
       await fetch(`${host}/bar.js`);
@@ -111,7 +110,7 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets, 'send');
+    const stub = stubMethod(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
       await fetch(`${host}/bar.js`);
@@ -141,7 +140,7 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets, 'send');
+    const stub = stubMethod(webSockets!, 'send');
     try {
       await fetch(`${host}/root/foo.js`);
       await fetch(`${host}/root/bar.js`);
@@ -171,7 +170,7 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets, 'send');
+    const stub = stubMethod(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
       await fetch(`${host}/bar.js`);
@@ -291,7 +290,7 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets, 'send');
+    const stub = stubMethod(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
       await fetch(`${host}/bar.js`);
@@ -322,7 +321,7 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets, 'send');
+    const stub = stubMethod(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
       fileWatcher.emit('change', pathUtil.join(__dirname, '/foo.js'));

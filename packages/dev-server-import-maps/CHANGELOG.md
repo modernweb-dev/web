@@ -1,5 +1,77 @@
 # @web/dev-server-import-maps
 
+## 0.2.1
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
+## 0.2.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/dev-server-core@0.7.0
+  - @web/parse5-utils@2.1.0
+
+## 0.1.3
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/dev-server-core@0.6.2
+  - @web/parse5-utils@2.0.2
+
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [7f0f4315]
+  - @web/dev-server-core@0.6.0
+
+## 0.1.1
+
+### Patch Changes
+
+- c26d3730: Update TypeScript
+- Updated dependencies [c26d3730]
+  - @web/dev-server-core@0.5.1
+
+## 0.1.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+  - @web/dev-server-core@0.5.0
+  - @web/parse5-utils@2.0.0
+
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+  - @web/dev-server-core@0.4.0
+
+## 0.0.7
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+- Updated dependencies [00da4255]
+  - @web/dev-server-core@0.3.19
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,13 +1,13 @@
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { Browser, Element } from 'webdriverio';
-import { validateBrowserResult } from './coverage';
+import { Browser } from 'webdriverio';
+import { validateBrowserResult } from './coverage.js';
 
 /**
  * Manages tests to be executed in iframes on a page.
  */
 export class IFrameManager {
   private config: TestRunnerCoreConfig;
-  private driver: Browser<'async'>;
+  private driver: Browser;
   private framePerSession = new Map<string, string>();
   private inactiveFrames: string[] = [];
   private frameCount = 0;
@@ -16,7 +16,7 @@ export class IFrameManager {
   private locked?: Promise<unknown>;
   private isIE: boolean;
 
-  constructor(config: TestRunnerCoreConfig, driver: Browser<'async'>, isIE: boolean) {
+  constructor(config: TestRunnerCoreConfig, driver: Browser, isIE: boolean) {
     this.config = config;
     this.driver = driver;
     this.isIE = isIE;
@@ -134,7 +134,7 @@ export class IFrameManager {
       iframe.addEventListener('load', loaded);
       iframe.addEventListener('error', loaded);
       // set src after retrieving values to avoid the iframe from navigating away
-      iframe.src = "data:,";
+      iframe.src = "about:blank";
     `);
 
     if (!validateBrowserResult(returnValue)) {
@@ -169,9 +169,9 @@ export class IFrameManager {
 
     await this.driver.switchToFrame(frame);
 
-    const elementData = (await this.driver.execute(locator, [])) as Element<'async'>;
+    const elementData = (await this.driver.execute(locator, [])) as WebdriverIO.Element;
 
-    const element = await this.driver.$(elementData);
+    const element = await this.driver.$(elementData).getElement();
 
     let base64 = '';
 

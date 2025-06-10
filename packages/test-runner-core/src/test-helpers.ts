@@ -1,11 +1,11 @@
 /* eslint-disable no-async-promise-executor, no-inner-declarations */
 import { getPortPromise } from 'portfinder';
 import path from 'path';
-import { TestRunner, TestRunnerCoreConfig } from './index';
-import { Logger } from './logger/Logger';
-import { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession';
-import { SESSION_STATUS } from './test-session/TestSessionStatus';
-import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig';
+import { TestRunner, TestRunnerCoreConfig } from './index.js';
+import { Logger } from './logger/Logger.js';
+import { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession.js';
+import { SESSION_STATUS } from './test-session/TestSessionStatus.js';
+import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.js';
 
 const logger: Logger = {
   ...console,
@@ -59,10 +59,6 @@ export async function runTests(
     } as TestRunnerCoreConfig;
 
     const runner = new TestRunner(finalConfig, groupConfigs);
-
-    // runner.sessions.on('session-status-updated', session => {
-    //   console.log(session.browser.name, session.id, session.status);
-    // });
 
     let finished = false;
 

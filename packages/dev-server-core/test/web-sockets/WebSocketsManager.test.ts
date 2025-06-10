@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import WebSocket from 'ws';
-import { NAME_WEB_SOCKET_API } from '../../src/web-sockets/WebSocketsManager';
+import { NAME_WEB_SOCKET_API } from '../../src/web-sockets/WebSocketsManager.js';
 
-import { createTestServer } from '../helpers';
+import { createTestServer } from '../helpers.js';
 
 function waitFor(fn: (resolve: () => void) => void, msg: string) {
   return new Promise<void>((resolve, reject) => {
@@ -61,7 +61,7 @@ describe('WebSocketManager', () => {
         });
       }, 'expected a message event');
 
-      server.webSockets.send('hello world');
+      server.webSockets!.send('hello world');
       await waitForMessage;
     } finally {
       server.stop();
@@ -102,7 +102,7 @@ describe('WebSocketManager', () => {
         });
       }, 'expected message');
 
-      server.webSockets.send('hello world');
+      server.webSockets!.send('hello world');
       await Promise.all([waitForMessage1, waitForMessage2]);
     } finally {
       server.stop();
@@ -125,7 +125,7 @@ describe('WebSocketManager', () => {
       }, 'expected web socket to open');
 
       const waitForMessage = waitFor(resolve => {
-        server.webSockets.on('message', ({ webSocket, data }) => {
+        server.webSockets!.on('message', ({ webSocket, data }) => {
           expect(webSocket).to.be.an.instanceOf(WebSocket);
           expect(data).to.eql({ type: 'foo' });
           resolve();
@@ -167,7 +167,7 @@ describe('WebSocketManager', () => {
         });
       }, 'expected a message event');
 
-      server.webSockets.sendConsoleLog('hello world');
+      server.webSockets!.sendConsoleLog('hello world');
       await waitForMessage;
     } finally {
       server.stop();
@@ -202,7 +202,7 @@ describe('WebSocketManager', () => {
         });
       }, 'expected a message event');
 
-      server.webSockets.sendImport('/foo.js');
+      server.webSockets!.sendImport('/foo.js');
       await waitForMessage;
     } finally {
       server.stop();

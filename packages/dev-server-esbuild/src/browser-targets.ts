@@ -29,7 +29,9 @@ function createModernTarget() {
     ];
   } catch (error) {
     throw new Error(
-      `Error while initializing default browser targets for @web/dev-server-esbuild: ${error.message}`,
+      `Error while initializing default browser targets for @web/dev-server-esbuild: ${
+        (error as Error).message
+      }`,
     );
   }
 }

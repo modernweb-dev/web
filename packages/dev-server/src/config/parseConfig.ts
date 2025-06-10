@@ -1,13 +1,13 @@
 import { getPortPromise } from 'portfinder';
 import path from 'path';
 
-import { DevServerCliArgs } from './readCliArgs';
-import { mergeConfigs } from './mergeConfigs';
-import { DevServerConfig } from './DevServerConfig';
-import { esbuildPlugin } from '../plugins/esbuildPlugin';
-import { watchPlugin } from '../plugins/watchPlugin';
-import { nodeResolvePlugin } from '../plugins/nodeResolvePlugin';
-import { DevServerStartError } from '../DevServerStartError';
+import { DevServerCliArgs } from './readCliArgs.js';
+import { mergeConfigs } from './mergeConfigs.js';
+import { DevServerConfig } from './DevServerConfig.js';
+import { esbuildPlugin } from '../plugins/esbuildPlugin.js';
+import { watchPlugin } from '../plugins/watchPlugin.js';
+import { nodeResolvePlugin } from '../plugins/nodeResolvePlugin.js';
+import { DevServerStartError } from '../DevServerStartError.js';
 
 const defaultConfig: Partial<DevServerConfig> = {
   rootDir: process.cwd(),
@@ -16,6 +16,7 @@ const defaultConfig: Partial<DevServerConfig> = {
   clearTerminalOnReload: true,
   middleware: [],
   plugins: [],
+  chokidarOptions: {},
 };
 
 function validate(config: Record<string, unknown>, key: string, type: string) {

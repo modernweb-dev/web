@@ -43,6 +43,7 @@ export interface PolyfillsConfig {
   intersectionObserver?: boolean;
   resizeObserver?: boolean;
   dynamicImport?: boolean;
+  URLPattern?: boolean;
   // systemjs s.js
   systemjs?: boolean;
   // systemjs extended version with import maps
@@ -51,6 +52,7 @@ export interface PolyfillsConfig {
   constructibleStylesheets?: boolean;
   // shady-css-custom-style and shady-css-scoped-element
   shadyCssCustomStyle?: boolean;
+  scopedCustomElementRegistry?: boolean;
 }
 
 export interface PolyfillConfig {

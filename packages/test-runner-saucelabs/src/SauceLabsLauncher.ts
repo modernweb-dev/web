@@ -1,22 +1,25 @@
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { RemoteOptions } from 'webdriverio';
+import { Capabilities } from '@wdio/types';
 import { WebdriverLauncher } from '@web/test-runner-webdriver';
-import ip from 'ip';
-import { SauceLabsLauncherManager } from './SauceLabsLauncherManager';
+import internalIp from 'internal-ip';
+import { SauceLabsLauncherManager } from './SauceLabsLauncherManager.js';
 
-const networkAddress = ip.address();
+const localIp = internalIp.v4.sync() as string;
+if (!localIp) {
+  throw new Error('Can not determine the local IP.');
+}
 
 export class SauceLabsLauncher extends WebdriverLauncher {
   constructor(
     private manager: SauceLabsLauncherManager,
     public name: string,
-    options: RemoteOptions,
+    options: Capabilities.WebdriverIOConfig,
   ) {
     super(options);
   }
 
   startSession(sessionId: string, url: string) {
-    return super.startSession(sessionId, url.replace(/(localhost|127\.0\.0\.1)/, networkAddress));
+    return super.startSession(sessionId, url.replace(/(localhost|127\.0\.0\.1)/, localIp));
   }
 
   async startDebugSession() {

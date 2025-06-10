@@ -2,8 +2,8 @@ import path from 'path';
 import mkdirp from 'mkdirp';
 import pixelmatch from 'pixelmatch';
 
-import { readFile, writeFile, fileExists } from './fs';
-import { pixelMatchDiff } from './pixelMatchDiff';
+import { readFile, writeFile, fileExists } from './fs.js';
+import { pixelMatchDiff } from './pixelMatchDiff.js';
 
 type PixelMatchParams = Parameters<typeof pixelmatch>;
 type PixelMatchOptions = PixelMatchParams[5];
@@ -28,6 +28,7 @@ export type OptionalImage = Buffer | undefined | Promise<Buffer | undefined>;
 
 export interface DiffResult {
   diffPercentage: number;
+  diffPixels: number;
   diffImage: Buffer;
   error: string;
 }
@@ -59,6 +60,18 @@ export interface VisualRegressionPluginOptions {
    * Options to use when diffing images.
    */
   diffOptions: PixelMatchOptions;
+
+  /**
+   * The threshold after which a diff is considered a failure, depending on the failureThresholdType.
+   * For `failureThresholdType` of "percentage", this should be a number between 0-100.
+   * For `failureThresholdType` of "pixels", this should be a positive integer.
+   */
+  failureThreshold: number;
+
+  /**
+   * The type of threshold that would trigger a failure.
+   */
+  failureThresholdType: 'percent' | 'pixel';
 
   /**
    * Returns the name of the baseline image file. The name
@@ -118,6 +131,9 @@ export const defaultOptions: VisualRegressionPluginOptions = {
   buildCache: false,
   baseDir: 'screenshots',
   diffOptions: {},
+
+  failureThreshold: 0,
+  failureThresholdType: 'percent',
 
   getBaselineName: ({ browser, name }) => path.join(browser, 'baseline', name),
   getDiffName: ({ browser, name }) => path.join(browser, 'failed', `${name}-diff`),

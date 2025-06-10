@@ -1,10 +1,9 @@
 import path from 'path';
 import rollupNodeResolve from '@rollup/plugin-node-resolve';
 import rollupCommonjs from '@rollup/plugin-commonjs';
-import fetch from 'node-fetch';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers';
-import { fromRollup } from '../../../src/index';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
+import { fromRollup } from '../../../src/index.js';
 import { expect } from 'chai';
 
 const nodeResolve = fromRollup(rollupNodeResolve, {}, { throwOnUnresolvedImport: true });
@@ -19,6 +18,29 @@ describe('@rollup/plugin-node-resolve', () => {
     try {
       const text = await fetchText(`${host}/app.js`);
       expectIncludes(text, "import moduleA from './node_modules/module-a/index.js'");
+    } finally {
+      server.stop();
+    }
+  });
+
+  it('can resolve imports in extensionless pages', async () => {
+    const { server, host } = await createTestServer({
+      plugins: [
+        nodeResolve(),
+        {
+          name: 'test',
+          serve(ctx) {
+            if (ctx.path === '/index') {
+              return { body: '<script type="module">import \'module-a\';</script>', type: 'html' };
+            }
+          },
+        },
+      ],
+    });
+
+    try {
+      const text = await fetchText(`${host}/index`);
+      expectIncludes(text, "import './node_modules/module-a/index.js'");
     } finally {
       server.stop();
     }
@@ -146,8 +168,7 @@ describe('@rollup/plugin-node-resolve', () => {
     }
   });
 
-  // works with @rollup/plugin-commonjs 22.x but that breaks other tests
-  it.skip('node modules resolved outside root directory are rewritten with commonjs', async () => {
+  it('node modules resolved outside root directory are rewritten with commonjs', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
       plugins: [commonjs(), nodeResolve()],

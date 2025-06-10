@@ -1,12 +1,12 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { WebdriverLauncher } from '@web/test-runner-webdriver';
 import browserstack from 'browserstack-local';
-import ip from 'ip';
+import internalIp from 'internal-ip';
 import {
   registerBrowserstackLocal,
   unregisterBrowserstackLocal,
   localId,
-} from './browserstackManager';
+} from './browserstackManager.js';
 
 export interface BrowserstackLauncherArgs {
   capabilities: Record<string, unknown>;
@@ -14,7 +14,10 @@ export interface BrowserstackLauncherArgs {
 }
 
 const REQUIRED_CAPABILITIES = ['name', 'browserstack.user', 'browserstack.key', 'project', 'build'];
-const localIp = ip.address();
+const localIp = internalIp.v4.sync() as string;
+if (!localIp) {
+  throw new Error('Can not determine the local IP.');
+}
 
 export class BrowserstackLauncher extends WebdriverLauncher {
   constructor(

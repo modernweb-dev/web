@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-hmr",
-  "version": "0.1.9",
+  "version": "0.4.1",
   "publishConfig": {
     "access": "public"
   },
@@ -16,18 +16,19 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
     "start:lit-html": "wds --config demo/lit-html/server.config.mjs",
     "start:vanilla": "wds --config demo/vanilla/server.config.mjs",
-    "test": "mocha \"test/**/*.test.ts\" --require ts-node/register",
+    "test:node": "mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
     "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
@@ -39,10 +40,10 @@
     "src"
   ],
   "dependencies": {
-    "@web/dev-server-core": "^0.3.0"
+    "@web/dev-server-core": "^0.7.2"
   },
   "devDependencies": {
-    "lit-html": "^2.0.0",
-    "puppeteer": "^13.1.2"
+    "lit-html": "^2.7.3 || ^3.0.0",
+    "puppeteer": "^24.0.0"
   }
 }

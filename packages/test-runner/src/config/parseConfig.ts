@@ -2,6 +2,7 @@ import { CoverageConfig, TestRunnerCoreConfig, TestRunnerGroupConfig } from '@we
 import { chromeLauncher } from '@web/test-runner-chrome';
 import {
   emulateMediaPlugin,
+  selectOptionPlugin,
   setUserAgentPlugin,
   setViewportPlugin,
   sendKeysPlugin,
@@ -13,15 +14,15 @@ import { getPortPromise } from 'portfinder';
 import path from 'path';
 import { cpus } from 'os';
 
-import { TestRunnerCliArgs } from './readCliArgs';
-import { mergeConfigs } from './mergeConfigs';
-import { TestRunnerConfig } from './TestRunnerConfig';
+import { TestRunnerCliArgs } from './readCliArgs.js';
+import { mergeConfigs } from './mergeConfigs.js';
+import { TestRunnerConfig } from './TestRunnerConfig.js';
 import { esbuildPlugin, nodeResolvePlugin } from '@web/dev-server';
-import { TestRunnerStartError } from '../TestRunnerStartError';
-import { collectGroupConfigs } from './collectGroupConfigs';
-import { playwrightLauncher, puppeteerLauncher } from './loadLauncher';
-import { defaultReporter } from '../reporter/defaultReporter';
-import { TestRunnerLogger } from '../logger/TestRunnerLogger';
+import { TestRunnerStartError } from '../TestRunnerStartError.js';
+import { collectGroupConfigs } from './collectGroupConfigs.js';
+import { playwrightLauncher, puppeteerLauncher } from './loadLauncher.js';
+import { defaultReporter } from '../reporter/defaultReporter.js';
+import { TestRunnerLogger } from '../logger/TestRunnerLogger.js';
 
 const secondMs = 1000;
 const minuteMs = secondMs * 60;
@@ -251,6 +252,7 @@ export async function parseConfig(
     setViewportPlugin(),
     emulateMediaPlugin(),
     setUserAgentPlugin(),
+    selectOptionPlugin(),
     filePlugin(),
     sendKeysPlugin(),
     sendMousePlugin(),

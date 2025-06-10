@@ -1,16 +1,16 @@
 import fs from 'fs';
 import path from 'path';
-import glob from 'glob';
+import { globSync, GlobOptionsWithFileTypesFalse } from 'glob';
 
-import { createError } from '../utils';
-import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions';
-import { InputData } from './InputData';
-import { normalizeInputOptions } from './normalizeInputOptions';
-import { extractModulesAndAssets } from './extract/extractModulesAndAssets';
+import { createError } from '../utils.js';
+import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions.js';
+import { InputData } from './InputData.js';
+import { normalizeInputOptions } from './normalizeInputOptions.js';
+import { extractModulesAndAssets } from './extract/extractModulesAndAssets.js';
 import { InputOption } from 'rollup';
 
-function resolveGlob(fromGlob: string, opts: glob.IOptions) {
-  const files = glob.sync(fromGlob, { ...opts, absolute: true });
+function resolveGlob(fromGlob: string, opts: GlobOptionsWithFileTypesFalse) {
+  const files = globSync(fromGlob, { ...opts, absolute: true });
   return (
     files
       // filter out directories
@@ -31,17 +31,20 @@ export interface CreateInputDataParams {
   rootDir: string;
   filePath?: string;
   extractAssets: boolean;
+  externalAssets?: string | string[];
   absolutePathPrefix?: string;
 }
 
 function createInputData(params: CreateInputDataParams): InputData {
-  const { name, html, rootDir, filePath, extractAssets, absolutePathPrefix } = params;
+  const { name, html, rootDir, filePath, extractAssets, externalAssets, absolutePathPrefix } =
+    params;
   const htmlFilePath = filePath ? filePath : path.resolve(rootDir, name);
   const result = extractModulesAndAssets({
     html,
     htmlFilePath,
     rootDir,
     extractAssets,
+    externalAssets,
     absolutePathPrefix,
   });
 
@@ -63,6 +66,7 @@ export function getInputData(
     rootDir = process.cwd(),
     flattenOutput,
     extractAssets = true,
+    externalAssets,
     absolutePathPrefix,
     exclude: ignore,
   } = pluginOptions;
@@ -77,6 +81,7 @@ export function getInputData(
         html: input.html,
         rootDir,
         extractAssets,
+        externalAssets,
         absolutePathPrefix,
       });
       result.push(data);
@@ -97,6 +102,7 @@ export function getInputData(
           rootDir,
           filePath,
           extractAssets,
+          externalAssets,
           absolutePathPrefix,
         });
         result.push(data);

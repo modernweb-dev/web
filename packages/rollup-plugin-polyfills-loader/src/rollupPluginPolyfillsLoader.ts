@@ -4,8 +4,8 @@ import { GeneratedFile, injectPolyfillsLoader, File, fileTypes } from '@web/poly
 import path from 'path';
 
 import { RollupPluginPolyfillsLoaderConfig } from './types';
-import { createError, shouldInjectLoader } from './utils';
-import { createPolyfillsLoaderConfig, formatToFileType } from './createPolyfillsLoaderConfig';
+import { createError, shouldInjectLoader } from './utils.js';
+import { createPolyfillsLoaderConfig, formatToFileType } from './createPolyfillsLoaderConfig.js';
 
 export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig = {}): Plugin {
   let generatedFiles: GeneratedFile[] | undefined;
@@ -67,15 +67,34 @@ export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig
             : bundle;
 
         let preloaded = [];
-        for (const entrypoint of entrypoints) {
-          preloaded.push(entrypoint.importPath);
-
-          // js files (incl. chunks) will always be in the root directory
-          const pathToRoot = path.posix.dirname(entrypoint.importPath);
-          for (const chunkPath of entrypoint.chunk.imports) {
-            preloaded.push(path.posix.join(pathToRoot, chunkPath));
+        function normalize(path: string) {
+          if (path.startsWith('../')) {
+            return path;
+          } else if (path.startsWith('./')) {
+            return path;
+          } else if (path.startsWith('http')) {
+            return path;
+          } else if (path.startsWith('/')) {
+            return '.' + path;
+          } else {
+            return './' + path;
           }
         }
+
+        for (const entrypoint of entrypoints) {
+          const importPath = normalize(path.posix.relative('', entrypoint.importPath));
+          preloaded.push(importPath);
+
+          // js files (incl. chunks) will always be in the root directory
+          const pathToRoot = path.posix.dirname(importPath);
+          for (const chunkPath of entrypoint.chunk.imports) {
+            const relativeChunkPath = normalize(
+              chunkPath.startsWith('http') ? chunkPath : path.posix.join(pathToRoot, chunkPath),
+            );
+            preloaded.push(relativeChunkPath);
+          }
+        }
+
         preloaded = [...new Set(preloaded)];
 
         const type =

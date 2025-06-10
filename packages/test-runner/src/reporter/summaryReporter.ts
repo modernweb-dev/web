@@ -1,12 +1,21 @@
-import type { Reporter, ReporterArgs, TestSuiteResult } from '@web/test-runner-core';
+import type {
+  BrowserLauncher,
+  Logger,
+  Reporter,
+  ReporterArgs,
+  TestSuiteResult,
+} from '@web/test-runner-core';
 
 import { reportTestsErrors } from './reportTestsErrors.js';
 import { reportTestFileErrors } from './reportTestFileErrors.js';
 
 import { TestRunnerLogger } from '../logger/TestRunnerLogger.js';
+import { reportBrowserLogs } from './reportBrowserLogs.js';
 
 interface Options {
   flatten?: boolean;
+  reportTestLogs?: boolean;
+  reportTestErrors?: boolean;
 }
 
 const color =
@@ -16,38 +25,64 @@ const color =
 const reset = `\x1b[0m\x1b[0m`;
 const green = color([32, 89]);
 const red = color([31, 89]);
+const dim = color([2, 0]);
 
 /** Test reporter that summarizes all test for a given run */
 export function summaryReporter(opts: Options): Reporter {
-  const { flatten = false } = opts ?? {};
+  const { flatten = false, reportTestLogs = true, reportTestErrors = true } = opts ?? {};
   let args: ReporterArgs;
   let favoriteBrowser: string;
 
-  const logger = new TestRunnerLogger();
+  const testLogger = new TestRunnerLogger();
 
-  function log(name: string, passed: boolean, prefix = '  ') {
-    const sign = passed ? green('✓') : red('𐄂');
-    logger.log(flatten ? `${sign} ${prefix} ${name}` : `${prefix}  ${sign} ${name}`);
+  function log(
+    logger: Logger,
+    name: string,
+    passed: boolean,
+    skipped: boolean,
+    prefix = '  ',
+    postfix = '',
+  ) {
+    const sign = skipped ? dim('-') : passed ? green('✓') : red('𐄂');
+    if (flatten) logger.log(`${sign} ${name}${postfix}`);
+    else logger.log(`${prefix}  ${sign} ${name}`);
   }
 
-  function logResults(results?: TestSuiteResult, prefix?: string) {
+  function logResults(
+    logger: Logger,
+    results?: TestSuiteResult,
+    prefix?: string,
+    browser?: BrowserLauncher,
+  ) {
+    const browserName = browser?.name ? ` ${dim(`[${browser.name}]`)}` : '';
     for (const result of results?.tests ?? []) {
-      log(result.name, result.passed, prefix);
+      log(
+        logger,
+        flatten ? `${prefix ?? ''} ${result.name}` : result.name,
+        result.passed,
+        result.skipped,
+        prefix,
+        browserName,
+      );
     }
 
     for (const suite of results?.suites ?? []) {
-      logSuite(suite, prefix);
+      logSuite(logger, suite, prefix, browser);
     }
   }
 
-  function logSuite(suite: TestSuiteResult, parent?: string) {
-    const pref = flatten ? `${parent ? `${parent}` : ''} ${suite.name}` : `${parent ?? ''} `;
+  function logSuite(
+    logger: Logger,
+    suite: TestSuiteResult,
+    parent?: string,
+    browser?: BrowserLauncher,
+  ) {
+    const browserName = browser?.name ? ` ${dim(`[${browser.name}]`)}` : '';
+    let pref = parent ? `${parent} ` : ' ';
+    if (flatten) pref += `${suite.name}`;
+    else logger.log(`${pref}${suite.name}${browserName}`);
 
-    if (!flatten) {
-      logger.log(`${pref}${suite.name}`);
-    }
-
-    logResults(suite, pref);
+    logResults(logger, suite, pref, browser);
   }
 
   return {
@@ -60,19 +95,28 @@ export function summaryReporter(opts: Options): Reporter {
         }) ?? args.browserNames[0];
     },
 
-    reportTestFileResults({ sessionsForTestFile: sessions }) {
-      for (const session of sessions) {
-        logResults(session.testResults);
+    reportTestFileResults({ logger, sessionsForTestFile }) {
+      for (const session of sessionsForTestFile) {
+        logResults(logger, session.testResults, '', session.browser);
         logger.log('');
       }
+      if (reportTestLogs) reportBrowserLogs(logger, sessionsForTestFile);
     },
 
     onTestRunFinished({ sessions }) {
-      const failedSessions = sessions.filter(s => !s.passed);
-      if (failedSessions.length > 0) {
-        logger.log('\n\nErrors Reported in Tests:\n\n');
-        reportTestsErrors(logger, args.browserNames, favoriteBrowser, failedSessions);
-        reportTestFileErrors(logger, args.browserNames, favoriteBrowser, failedSessions, true);
+      if (reportTestErrors) {
+        const failedSessions = sessions.filter(s => !s.passed);
+        if (failedSessions.length > 0) {
+          testLogger.log('\n\nErrors Reported in Tests:\n\n');
+          reportTestsErrors(testLogger, args.browserNames, favoriteBrowser, failedSessions);
+          reportTestFileErrors(
+            testLogger,
+            args.browserNames,
+            favoriteBrowser,
+            failedSessions,
+            true,
+          );
+        }
       }
     },
   };

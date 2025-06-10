@@ -1,5 +1,242 @@
 # @web/dev-server
 
+## 0.4.6
+
+### Patch Changes
+
+- 39ff6ffb: replace ip dependency due to security bug CVE-2024-29415
+
+## 0.4.5
+
+### Patch Changes
+
+- fix: update @web/dev-server-core
+
+## 0.4.4
+
+### Patch Changes
+
+- d2dbb7b1: fix: sb windows path
+
+## 0.4.3
+
+### Patch Changes
+
+- e657791f: Vulnerability fix in `ip` package.
+  For more info, see:
+
+  - https://github.com/advisories/GHSA-78xj-cgh5-2h22
+  - https://github.com/indutny/node-ip/issues/136#issuecomment-1952083593
+
+## 0.4.2
+
+### Patch Changes
+
+- 649edc2b: Add option to modify chokidar watchOptions with @web/dev-server
+- Updated dependencies [649edc2b]
+  - @web/dev-server-core@0.7.1
+
+## 0.4.1
+
+### Patch Changes
+
+- e31de569: Update `@web/dev-server-rollup` to latest version
+
+## 0.4.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/dev-server-rollup@0.6.0
+  - @web/dev-server-core@0.7.0
+  - @web/config-loader@0.3.0
+
+## 0.3.7
+
+### Patch Changes
+
+- ef6b2543: Use split versions for all lit dependencies
+
+## 0.3.6
+
+### Patch Changes
+
+- 615db977: cleanup exports
+- Updated dependencies [27493246]
+  - @web/dev-server-core@0.6.3
+
+## 0.3.5
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/dev-server-rollup@0.5.4
+  - @web/dev-server-core@0.6.2
+  - @web/config-loader@0.2.2
+
+## 0.3.4
+
+### Patch Changes
+
+- Updated dependencies [7f0f4315]
+  - @web/dev-server-core@0.6.0
+  - @web/dev-server-rollup@0.5.3
+
+## 0.3.3
+
+### Patch Changes
+
+- d9996d2d: Fix an issue where the nodeResolve plugin wasn't accepting user configuration correctly
+
+## 0.3.2
+
+### Patch Changes
+
+- 7ae27f3c: fix: storybook import for windows
+
+## 0.3.1
+
+### Patch Changes
+
+- 5470b5b9: generate types entrypoint
+
+## 0.3.0
+
+### Minor Changes
+
+- 0c87f59e: feat/various fixes
+
+  - Update puppeteer to `20.0.0`, fixes #2282
+  - Use puppeteer's new `page.mouse.reset()` in sendMousePlugin, fixes #2262
+  - Use `development` export condition by default
+
+## 0.2.5
+
+### Patch Changes
+
+- f2362bbf: Trigger pipeline
+
+## 0.2.4
+
+### Patch Changes
+
+- e9c77e06: Version Packages
+
+## 0.2.3
+
+### Patch Changes
+
+- 015766e9: Use new headless chrome mode
+
+## 0.2.2
+
+### Patch Changes
+
+- 85647c10: Update `lit-html`
+- ab4720fa: fix: terser import
+- Updated dependencies [6ab3ee55]
+  - @web/dev-server-rollup@0.5.1
+
+## 0.2.1
+
+### Patch Changes
+
+- 0cd3a2f8: chore(deps): bump puppeteer from 19.8.2 to 19.9.0
+- c26d3730: Update TypeScript
+- Updated dependencies [c26d3730]
+  - @web/dev-server-core@0.5.1
+  - @web/config-loader@0.2.1
+
+## 0.2.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [ca715faf]
+- Updated dependencies [febd9d9d]
+- Updated dependencies [b7d8ee66]
+- Updated dependencies [72c63bc5]
+  - @web/dev-server-core@0.5.0
+  - @web/config-loader@0.2.0
+  - @web/dev-server-rollup@0.5.0
+
+## 0.1.38
+
+### Patch Changes
+
+- c103f166: Update `isbinaryfile`
+- 18a16bb0: Update `html-minifier-terser`
+- d8579f15: Update `command-line-usage`
+- 9b83280e: Update puppeteer
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [fa2c1779]
+- Updated dependencies [c103f166]
+- Updated dependencies [1113fa09]
+- Updated dependencies [817d674b]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/dev-server-rollup@0.4.1
+  - @web/dev-server-core@0.4.1
+
+## 0.1.37
+
+### Patch Changes
+
+- 0f5631d0: chore(deps): bump ua-parser-js from 1.0.32 to 1.0.33
+
+## 0.1.36
+
+### Patch Changes
+
+- 737fbcb1: Fix the typings file name for the main entrypoint
+- 81db401b: Generate longer self signed keys Closes #2122
+- Updated dependencies [ac05ca5d]
+- Updated dependencies [acc0a84c]
+- Updated dependencies [81db401b]
+- Updated dependencies [a2198172]
+  - @web/dev-server-core@0.4.0
+  - @web/dev-server-rollup@0.4.0
+
+## 0.1.35
+
+### Patch Changes
+
+- 04e2fa7d: Update portfinder dependency to 1.0.32
+
+## 0.1.34
+
+### Patch Changes
+
+- 93b36337: Keep "Default" stories when building Storybook instance
+
+## 0.1.33
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+- Updated dependencies [00da4255]
+  - @web/dev-server-core@0.3.19
+  - @web/dev-server-rollup@0.3.19
+
+## 0.1.32
+
+### Patch Changes
+
+- 78d610d1: Update Rollup, use moduleSideEffects flag
+- Updated dependencies [78d610d1]
+- Updated dependencies [39610b4c]
+  - @web/dev-server-rollup@0.3.18
+  - @web/dev-server-core@0.3.18
+
 ## 0.1.31
 
 ### Patch Changes

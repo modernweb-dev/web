@@ -1,16 +1,16 @@
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { createTestSessions } from './createSessionGroups';
-import { TestSession } from '../test-session/TestSession';
-import { getTestCoverage, TestCoverage } from '../coverage/getTestCoverage';
-import { TestScheduler } from './TestScheduler';
-import { TestSessionManager } from '../test-session/TestSessionManager';
-import { SESSION_STATUS } from '../test-session/TestSessionStatus';
-import { EventEmitter } from '../utils/EventEmitter';
-import { createSessionUrl } from './createSessionUrl';
-import { createDebugSessions } from './createDebugSessions';
-import { TestRunnerServer } from '../server/TestRunnerServer';
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
-import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
+import { createTestSessions } from './createSessionGroups.js';
+import { TestSession } from '../test-session/TestSession.js';
+import { getTestCoverage, TestCoverage } from '../coverage/getTestCoverage.js';
+import { TestScheduler } from './TestScheduler.js';
+import { TestSessionManager } from '../test-session/TestSessionManager.js';
+import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
+import { EventEmitter } from '../utils/EventEmitter.js';
+import { createSessionUrl } from './createSessionUrl.js';
+import { createDebugSessions } from './createDebugSessions.js';
+import { TestRunnerServer } from '../server/TestRunnerServer.js';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
+import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.js';
 
 interface EventMap {
   'test-run-started': { testRun: number };
@@ -156,9 +156,12 @@ export class TestRunner extends EventEmitter<EventMap> {
 
     this.stopped = true;
     await this.scheduler.stop();
-    this.server.stop().catch(error => {
+
+    const stopActions = [];
+    const stopServerAction = this.server.stop().catch(error => {
       console.error(error);
     });
+    stopActions.push(stopServerAction);
 
     if (this.config.watch) {
       // we only need to stop the browsers in watch mode, in non-watch
@@ -173,8 +176,8 @@ export class TestRunner extends EventEmitter<EventMap> {
           );
         }
       }
-      await Promise.all(stopActions);
     }
+    await Promise.all(stopActions);
     this.emit('stopped', this.passed);
   }
 

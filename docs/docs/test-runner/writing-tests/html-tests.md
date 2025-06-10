@@ -27,7 +27,7 @@ With mocha, you need to define your tests inside the `runTests` function:
 </html>
 ```
 
-You can also go completely barebones and not use any test framework. In this case you are responsible for pinging back to the test runner yourself:
+You can also go completely bare bones and not use any test framework. In this case you are responsible for pinging back to the test runner yourself:
 
 ```html
 <html>

@@ -5,7 +5,7 @@ const path = require('path');
 /**
  * Script to update a single dependency on the monorepo. Example:
  *
- * yarn update-dependency rollup ^1.2.3
+ * npm run update-dependency rollup ^1.2.3
  */
 
 const isDefined = _ => !!_;
@@ -15,7 +15,7 @@ const [, , pkg, version] = process.argv;
 
 if (!pkg || !version) {
   throw new Error(
-    'Package and version must be specified. For example: yarn update-dependency rollup ^1.2.3',
+    'Package and version must be specified. For example: npm run update-dependency rollup ^1.2.3',
   );
 }
 

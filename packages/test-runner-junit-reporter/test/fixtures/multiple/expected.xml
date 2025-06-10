@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Chrome_puppeteer_/packages/test-runner-junit-reporter/test/fixtures/multiple/nested-test.js" id="0" tests="1" skipped="0" errors="0" failures="0" time="0.001">
+  <testsuite name="Chrome_puppeteer_/packages/test-runner-junit-reporter/test/fixtures/multiple/nested-test.js" id="0" tests="1" skipped="0" errors="0" failures="0" time="<<computed>>">
     <properties>
       <property name="test.fileName" value="packages/test-runner-junit-reporter/test/fixtures/multiple/nested-test.js"/>
       <property name="browser.name" value="Chrome"/>
@@ -8,21 +8,21 @@
     </properties>
     <testcase name="is equivalent to map (f.g) f a" time="<<computed>>" classname="given a functor f and a function a -&gt; b map f map g f a" file="packages/test-runner-junit-reporter/test/fixtures/multiple/nested-test.js"/>
   </testsuite>
-  <testsuite name="Chrome_puppeteer_/packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js" id="0" tests="5" skipped="1" errors="1" failures="1" time="0.001">
+  <testsuite name="Chrome_puppeteer_/packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js" id="0" tests="5" skipped="1" errors="1" failures="1" time="<<computed>>">
     <properties>
       <property name="test.fileName" value="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js"/>
       <property name="browser.name" value="Chrome"/>
       <property name="browser.launcher" value="puppeteer"/>
     </properties>
-    <testcase name="under addition" time="0.001" classname="real numbers forming a monoid" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js"/>
-    <testcase name="null hypothesis" time="0.001" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js"/>
-    <testcase name="asserts error" time="0.001" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js" line="15">
+    <testcase name="under addition" time="<<computed>>" classname="real numbers forming a monoid" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js"/>
+    <testcase name="null hypothesis" time="<<computed>>" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js"/>
+    <testcase name="asserts error" time="<<computed>>" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js" line="15">
       <failure message="expected false to be true" type="AssertionError"><![CDATA[AssertionError: expected false to be true
-  at o.<anonymous> (packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js:15:29)]]></failure>
+  at <<anonymous>> (packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js:15:29)]]></failure>
     </testcase>
-    <testcase name="tbd: confirm true positive" time="0" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js">
+    <testcase name="tbd: confirm true positive" time="<<computed>>" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js">
       <skipped/>
     </testcase>
-    <testcase name="reports logs to JUnit" time="0.001" classname="logging during a test" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js"/>
+    <testcase name="reports logs to JUnit" time="<<computed>>" classname="logging during a test" file="packages/test-runner-junit-reporter/test/fixtures/multiple/simple-test.js"/>
   </testsuite>
 </testsuites>

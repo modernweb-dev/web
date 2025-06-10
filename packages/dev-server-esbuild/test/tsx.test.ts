@@ -1,9 +1,8 @@
 import { expect } from 'chai';
-import fetch from 'node-fetch';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index';
+import { esbuildPlugin } from '../src/index.js';
 
 describe('esbuildPlugin TSX', function () {
   this.timeout(5000);

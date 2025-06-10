@@ -1,5 +1,67 @@
 # @web/test-runner-coverage-v8
 
+## 0.8.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-core@0.13.0
+
+## 0.7.3
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+
+## 0.7.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/test-runner-core@0.11.6
+
+## 0.7.1
+
+### Patch Changes
+
+- 8040495d: fix: ensure the size of source files is calculcated correctly when caching them
+
+## 0.7.0
+
+### Minor Changes
+
+- 3c33d74a: Cache sourcemap resolution across v8-to-istanbul calls to avoid heavy FS reads
+
+## 0.6.1
+
+### Patch Changes
+
+- 58b560ae: fix: reset coverage result converters between Chrome session runs
+
+## 0.6.0
+
+### Minor Changes
+
+- ca715faf: Upgrade lru-cache dependency & add a file cache for v8-to-istanbul conversions
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/test-runner-core@0.11.0
+
+## 0.5.0
+
+### Minor Changes
+
+- acca5d51: Update dependency v8-to-istanbul to v9
+
 ## 0.4.9
 
 ### Patch Changes

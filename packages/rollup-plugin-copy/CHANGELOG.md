@@ -1,5 +1,29 @@
 # @web/rollup-plugin-copy
 
+## 0.5.1
+
+### Patch Changes
+
+- b6d8bcf2: Update the `glob` dependency
+
+## 0.5.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+## 0.4.1
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+
+## 0.4.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
 ## 0.3.0
 
 ### Minor Changes

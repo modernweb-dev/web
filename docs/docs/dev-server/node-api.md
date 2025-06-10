@@ -152,6 +152,29 @@ wss.on('connection', ws => {
 });
 ```
 
+## Middleware mode
+
+If you need to connect to an existing running web server with a compatible node middleware API (e.g. `express`), you can use `@web/dev-server` in middleware mode.
+
+```js
+import { startDevServer } from '@web/dev-server';
+
+async function main() {
+  const expressApp = express();
+  expressApp.listen(1234);
+  const { koaApp } = await startDevServer({
+    config: {
+      middlewareMode: true,
+    },
+  });
+  expressApp.use(koaApp.callback());
+}
+
+main();
+```
+
+In this mode it will not start a new HTTP server, but rather allow you to use it's callback `koaApp.callback()` as a middleware in a parent server.
+
 ## Advanced
 
 If you need more control than what `startDevServer` gives you, you can also use the individual pieces that make up the dev server directly.

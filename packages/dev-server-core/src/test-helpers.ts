@@ -1,12 +1,11 @@
 import portfinder from 'portfinder';
 import { expect } from 'chai';
 import { green, red, yellow } from 'nanocolors';
-import fetch, { RequestInit } from 'node-fetch';
 
-import { DevServer } from './server/DevServer';
-import { DevServerCoreConfig } from './server/DevServerCoreConfig';
-import { Logger } from './logger/Logger';
-import { Plugin } from './plugins/Plugin';
+import { DevServer } from './server/DevServer.js';
+import { DevServerCoreConfig } from './server/DevServerCoreConfig.js';
+import { Logger } from './logger/Logger.js';
+import { Plugin } from './plugins/Plugin.js';
 
 const defaultConfig: Omit<DevServerCoreConfig, 'port' | 'rootDir'> = {
   hostname: 'localhost',
@@ -52,7 +51,11 @@ export async function createTestServer(
     _mockLogger,
   );
   await server.start();
-  return { server, port, host: `http://localhost:${port}` };
+
+  const url = new URL('http://localhost');
+  url.protocol = config.http2 ? 'https' : 'http';
+  url.port = port.toString();
+  return { server, port, host: url.toString().slice(0, -1) };
 }
 
 export const timeout = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));

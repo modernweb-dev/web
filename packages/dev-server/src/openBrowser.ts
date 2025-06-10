@@ -1,6 +1,6 @@
 import openBrowserWindow from 'open';
 import path from 'path';
-import { DevServerConfig } from './config/DevServerConfig';
+import { DevServerConfig } from './config/DevServerConfig.js';
 
 function isValidURL(str: string) {
   try {

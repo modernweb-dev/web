@@ -1,5 +1,57 @@
 # @web/browser-logs
 
+## 0.4.1
+
+### Patch Changes
+
+- de4eda2d: Update errorstacks dependency to 2.4.1
+
+## 0.4.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+## 0.3.4
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+
+## 0.3.3
+
+### Patch Changes
+
+- 0c87f59e: feat/various fixes
+
+  - Update puppeteer to `20.0.0`, fixes #2282
+  - Use puppeteer's new `page.mouse.reset()` in sendMousePlugin, fixes #2262
+  - Use `development` export condition by default
+
+## 0.3.2
+
+### Patch Changes
+
+- 015766e9: Use new headless chrome mode
+
+## 0.3.1
+
+### Patch Changes
+
+- 0cd3a2f8: chore(deps): bump puppeteer from 19.8.2 to 19.9.0
+
+## 0.3.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+## 0.2.6
+
+### Patch Changes
+
+- 9b83280e: Update puppeteer
+
 ## 0.2.5
 
 ### Patch Changes

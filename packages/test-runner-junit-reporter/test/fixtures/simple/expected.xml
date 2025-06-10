@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Chrome_puppeteer_/packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js" id="0" tests="6" skipped="1" errors="2" failures="2" time="0.001">
+  <testsuite name="Chrome_puppeteer_/packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js" id="0" tests="6" skipped="1" errors="2" failures="2" time="<<computed>>">
     <properties>
       <property name="test.fileName" value="packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js"/>
       <property name="browser.name" value="Chrome"/>
       <property name="browser.launcher" value="puppeteer"/>
     </properties>
-    <testcase name="under addition" time="0.001" classname="real numbers forming a monoid" file="packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js"/>
-    <testcase name="null hypothesis" time="0.001" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js"/>
-    <testcase name="asserts error" time="0.001" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js" line="17">
+    <testcase name="under addition" time="<<computed>>" classname="real numbers forming a monoid" file="packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js"/>
+    <testcase name="null hypothesis" time="<<computed>>" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js"/>
+    <testcase name="asserts error" time="<<computed>>" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js" line="17">
       <failure message="expected false to be true" type="AssertionError"><![CDATA[AssertionError: expected false to be true
-  at o.<anonymous> (packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js:17:29)]]></failure>
+  at <<anonymous>> (packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js:17:29)]]></failure>
     </testcase>
-    <testcase name="tbd: confirm true positive" time="0" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js">
+    <testcase name="tbd: confirm true positive" time="<<computed>>" classname="off-by-one boolean logic errors" file="packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js">
       <skipped/>
     </testcase>
-    <testcase name="reports logs to JUnit" time="0.001" classname="logging during a test" file="packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js"/>
+    <testcase name="reports logs to JUnit" time="<<computed>>" classname="logging during a test" file="packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js"/>
     <testcase name="fails with source trace" time="<<computed>>" classname="logging during a test" file="packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js" line="2">
       <failure message="failed" type="Error"><![CDATA[Error: failed
   at fail (packages/test-runner-junit-reporter/test/fixtures/simple/simple-source.js:2:9)
-  at o.<anonymous> (packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js:33:17)]]></failure>
+  at <<anonymous>> (packages/test-runner-junit-reporter/test/fixtures/simple/simple-test.js:33:17)]]></failure>
     </testcase>
   </testsuite>
 </testsuites>

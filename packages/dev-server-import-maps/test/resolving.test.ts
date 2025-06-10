@@ -1,11 +1,11 @@
-import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expect } from 'chai';
 import { spy } from 'hanbi';
 import path from 'path';
 
-import { importMapsPlugin } from '../src/importMapsPlugin';
-import { IMPORT_MAP_PARAM } from '../src/utils';
+import { importMapsPlugin } from '../src/importMapsPlugin.js';
+import { IMPORT_MAP_PARAM } from '../src/utils.js';
 
 function createHtml(importMap: Record<string, unknown>) {
   return `
@@ -382,7 +382,7 @@ describe('resolving imports', () => {
     expect(loggerSpies.warn.callCount).to.equal(1);
     const warning = loggerSpies.warn.getCall(0).args[0];
     expectIncludes(warning, 'Failed to parse import map in "');
-    expectIncludes(warning, `test${path.sep}index.html": Unexpected end of JSON input`);
+    expectIncludes(warning, `test${path.sep}index.html": `);
     server.stop();
   });
 

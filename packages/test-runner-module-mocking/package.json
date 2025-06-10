@@ -1,0 +1,58 @@
+{
+  "name": "@web/test-runner-module-mocking",
+  "version": "0.1.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Package to enable mocking modules in @web/test-runner",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-module-mocking"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-module-mocking",
+  "main": "browser/index.js",
+  "type": "module",
+  "exports": {
+    ".": "./browser/index.js",
+    "./plugin.js": "./dist/moduleMockingPlugin.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test:node": "mocha test/**/*.test.ts --loader=ts-node/esm --reporter dot",
+    "test:watch": "mocha test/**/*.test.ts --loader ts-node/esm --watch --watch-files src,test"
+  },
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "*.mjs",
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "web",
+    "dev",
+    "server",
+    "test",
+    "runner",
+    "testrunner",
+    "module",
+    "intercept",
+    "mock",
+    "stub",
+    "spy"
+  ],
+  "dependencies": {
+    "@web/dev-server-core": "^0.7.2",
+    "es-module-lexer": "^1.3.1"
+  },
+  "devDependencies": {
+    "@web/test-runner-chrome": "^0.18.0",
+    "@web/test-runner-core": "^0.13.0"
+  }
+}

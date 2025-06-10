@@ -75,14 +75,15 @@ Some examples:
 ### Emulate mobile browser
 
 ```js
-import { puppeteerLauncher, devices } from '@web/test-runner-puppeteer';
+import { puppeteerLauncher } from '@web/test-runner-puppeteer';
+import { KnownDevices } from 'puppeteer';
 
 export default {
   browsers: [
     puppeteerLauncher({
       async createPage({ context }) {
         const page = await context.newPage();
-        page.emulate(devices['Pixel 2']);
+        page.emulate(KnownDevices['Pixel 2']);
         return page;
       },
     }),
@@ -123,7 +124,7 @@ Testing Firefox with Puppeteer is still experimental. There is currently no offi
 ```json
 {
   "scripts": {
-    "postinstall": "cd node_modules/puppeteer && PUPPETEER_PRODUCT=firefox node install.js"
+    "postinstall": "cd node_modules/puppeteer && PUPPETEER_BROWSER=firefox node install.js"
   }
 }
 ```

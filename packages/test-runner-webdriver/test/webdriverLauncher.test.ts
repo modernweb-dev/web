@@ -34,11 +34,7 @@ async function startSeleniumServer() {
 
 let seleniumServer: selenium.ChildProcess;
 
-/**
- * TODO: Test is skipped because webdriver requires Chrome v100 which is not available in
- * CI. Unskip later when it is supported.
- */
-describe.skip('test-runner-webdriver', function testRunnerWebdriver() {
+describe('test-runner-webdriver', function testRunnerWebdriver() {
   this.timeout(50000);
 
   before(async function () {
@@ -57,6 +53,8 @@ describe.skip('test-runner-webdriver', function testRunnerWebdriver() {
       browsers: [
         webdriverLauncher({
           automationProtocol: 'webdriver',
+          hostname: 'localhost',
+          port: 4444,
           path: '/wd/hub/',
           capabilities: {
             browserName: 'chrome',
@@ -67,6 +65,8 @@ describe.skip('test-runner-webdriver', function testRunnerWebdriver() {
         }),
         webdriverLauncher({
           automationProtocol: 'webdriver',
+          hostname: 'localhost',
+          port: 4444,
           path: '/wd/hub/',
           capabilities: {
             browserName: 'firefox',

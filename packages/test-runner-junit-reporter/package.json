@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-junit-reporter",
-  "version": "0.4.11",
+  "version": "0.8.0",
   "publishConfig": {
     "access": "public"
   },
@@ -16,12 +16,13 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -44,13 +45,13 @@
     "reporter"
   ],
   "dependencies": {
-    "@web/test-runner-chrome": "^0.10.6",
-    "@web/test-runner-core": "^0.10.23",
+    "@web/test-runner-chrome": "^0.18.0",
+    "@web/test-runner-core": "^0.13.0",
     "array-flat-polyfill": "^1.0.1",
     "xml": "^1.0.1"
   },
   "devDependencies": {
-    "@types/xml": "^1.0.5",
-    "@web/test-runner-playwright": "^0.8.7"
+    "@types/xml": "^1.0.11",
+    "@web/test-runner-playwright": "^0.11.0"
   }
 }

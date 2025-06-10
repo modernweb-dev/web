@@ -1,5 +1,132 @@
 # @web/dev-server-core
 
+## 0.7.5
+
+### Patch Changes
+
+- b99a0915: Bump express to 4.21.2 to include path-to-regexp fix
+
+## 0.7.4
+
+### Patch Changes
+
+- fb33d75c: bump "express" from 4.18.2 to 4.21.1 to use updated "cookie" with vulnerability fixes
+
+## 0.7.3
+
+### Patch Changes
+
+- 3aec4aa6: bump chokidar to v4
+
+## 0.7.2
+
+### Patch Changes
+
+- 4a4b6995: Fix readonly object serialization
+
+## 0.7.1
+
+### Patch Changes
+
+- 649edc2b: Add option to modify chokidar watchOptions with @web/dev-server
+
+## 0.7.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/parse5-utils@2.1.0
+
+## 0.6.3
+
+### Patch Changes
+
+- 27493246: add types for remaining exports
+
+## 0.6.2
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/parse5-utils@2.0.2
+
+## 0.6.1
+
+### Patch Changes
+
+- 95715f9b: Allow web socket based refresh in middleware mode, by accepting the source `server` as an option for the `middlewareMode` config property
+
+## 0.6.0
+
+### Minor Changes
+
+- 7f0f4315: Raise-up the maxSessionMemory of the http2 server to avoid network errors when a large number of files are served
+
+## 0.5.2
+
+### Patch Changes
+
+- ce57936c: support middleware mode
+
+  BREAKING CHANGE
+
+  Theoretically it's a breaking change for Plugin API since now `serverStart` hook might not have a param `server`.
+  The breaking change shouldnt impact your codebase immediately since you need to first activate `middlewareMode` to actually break stuff if any plugin depends on the existence of the `server` arg that gets passed to the plugin, but type wise it might break compilation of such plugins right away. Considering that `@web/dev-server` is still on semver 0.x.x, and since the impact of this breaking change should be very minimal, we decided to make the breaking change in this patch version.
+
+## 0.5.1
+
+### Patch Changes
+
+- c26d3730: Update TypeScript
+
+## 0.5.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- ca715faf: Upgrade lru-cache dependency & add a file cache for v8-to-istanbul conversions
+- Updated dependencies [febd9d9d]
+  - @web/parse5-utils@2.0.0
+
+## 0.4.1
+
+### Patch Changes
+
+- c103f166: Update `isbinaryfile`
+- Updated dependencies [18a16bb0]
+  - @web/parse5-utils@1.3.1
+
+## 0.4.0
+
+### Minor Changes
+
+- ac05ca5d: Add option to disable the fileWatcher in the dev server, to allow the test-runner to run once without files added to the watcher.
+- acc0a84c: Expand support for Rollup plugins with child plugins, specifically the Node Resolve plugin.
+
+### Patch Changes
+
+- 81db401b: Generate longer self signed keys Closes #2122
+
+## 0.3.19
+
+### Patch Changes
+
+- 00da4255: Update es-module-lexer to 1.0.0
+
+## 0.3.18
+
+### Patch Changes
+
+- 39610b4c: Handle 'upgrade' requests only for matched url.
+
 ## 0.3.17
 
 ### Patch Changes

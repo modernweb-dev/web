@@ -1,5 +1,88 @@
 # @web/test-runner-visual-regression
 
+## 0.10.0
+
+### Minor Changes
+
+- b546e8b5: Upgrade puppeteer-core and puppeteer to v23
+
+## 0.9.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/test-runner-commands@0.9.0
+  - @web/test-runner-core@0.13.0
+
+## 0.8.3
+
+### Patch Changes
+
+- Updated dependencies [43be7391]
+  - @web/test-runner-core@0.12.0
+  - @web/test-runner-commands@0.8.3
+
+## 0.8.2
+
+### Patch Changes
+
+- 048fe6ff: Added types to exports in package.json
+- be17bde1: Update pngjs
+
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependencies [0c87f59e]
+  - @web/test-runner-commands@0.8.0
+
+## 0.8.0
+
+### Minor Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- b7d8ee66: Update mocha from version 8.2.0 to version 10.2.0
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+- Updated dependencies [b7d8ee66]
+  - @web/test-runner-commands@0.7.0
+  - @web/test-runner-core@0.11.0
+
+## 0.7.1
+
+### Patch Changes
+
+- bd12ff9b: Update `rollup/plugin-replace`
+- 8128ca53: Update @rollup/plugin-replace
+- Updated dependencies [cdeafe4a]
+- Updated dependencies [1113fa09]
+- Updated dependencies [817d674b]
+- Updated dependencies [445b20e6]
+- Updated dependencies [bd12ff9b]
+- Updated dependencies [8128ca53]
+  - @web/test-runner-core@0.10.29
+  - @web/test-runner-commands@0.6.6
+
+## 0.7.0
+
+### Minor Changes
+
+- e98d97f2: Add visual regression config option to set a failure threshold in pixels or percent
+
+## 0.6.6
+
+### Patch Changes
+
+- b25d3fd3: Update `@web/test-runner-webdriver` dependency to `^0.5.1`.
+- Updated dependencies [b25d3fd3]
+  - @web/test-runner-commands@0.6.4
+
 ## 0.6.5
 
 ### Patch Changes

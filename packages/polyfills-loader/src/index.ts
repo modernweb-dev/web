@@ -1,6 +1,7 @@
-export { createPolyfillsLoader } from './createPolyfillsLoader';
-export { injectPolyfillsLoader } from './injectPolyfillsLoader';
-export { hasFileOfType, fileTypes, getScriptFileType } from './utils';
+export { createPolyfillsData } from './createPolyfillsData.js';
+export { createPolyfillsLoader } from './createPolyfillsLoader.js';
+export { injectPolyfillsLoader } from './injectPolyfillsLoader.js';
+export { hasFileOfType, fileTypes, getScriptFileType } from './utils.js';
 export {
   PolyfillsLoaderConfig,
   PolyfillsConfig,
@@ -12,4 +13,4 @@ export {
   GeneratedFile,
   PolyfillFile,
   PolyfillsLoader,
-} from './types';
+} from './types.js';

@@ -8,8 +8,9 @@ import {
   RemoveFilePayload,
   SnapshotPluginConfig,
   SaveSnapshotPayload,
+  SelectOptionPayload,
   SendMousePayload,
-} from '../dist/index';
+} from '../dist/index.js';
 
 /**
  * Executes a command on the server. If this is a custom command, you need to implement a plugin
@@ -134,6 +135,23 @@ export function sendKeys(payload: SendKeysPayload): Promise<void>;
  *
  **/
 export function sendMouse(payload: SendMousePayload): Promise<void>;
+
+/**
+ * Selects an option in a <select> element by value or label
+ *
+ * @example
+ * ```
+ * it('natively selects an option by value', async () => {
+ *  const valueToSelect = 'first';
+ *  const select = document.querySelector('#testSelect');
+ *
+ *  await selectOption({ selector: '#testSelect', value: valueToSelect });
+ *
+ *  expect(select.value).to.equal(valueToSelect);
+ *});
+ *```
+ */
+export function selectOption(payload: SelectOptionPayload): Promise<void>;
 
 /**
  * Resets the mouse position to (0, 0) and releases mouse buttons.

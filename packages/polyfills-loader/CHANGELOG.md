@@ -1,5 +1,102 @@
 # @web/polyfills-loader
 
+## 2.3.1
+
+### Patch Changes
+
+- f3a2359: update version of SCER polyfill
+
+## 2.3.0
+
+### Minor Changes
+
+- 74b3e1bd: Set fetchPriority of polyfill scripts to `high`
+
+## 2.2.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/parse5-utils@2.1.0
+
+## 2.1.5
+
+### Patch Changes
+
+- 76a2f86f: update entrypoints
+
+## 2.1.4
+
+### Patch Changes
+
+- 55d9ea1b: fix: export polyfills data
+
+## 2.1.3
+
+### Patch Changes
+
+- 640ba85f: added types for main entry point
+- Updated dependencies [640ba85f]
+  - @web/parse5-utils@2.0.2
+
+## 2.1.2
+
+### Patch Changes
+
+- cb5da085: Minify `es-modules-shims`
+
+## 2.1.1
+
+### Patch Changes
+
+- 85647c10: Update `lit-html`
+- 5acaf838: Update `@typescript-eslint/parser`
+
+## 2.1.0
+
+### Minor Changes
+
+- 6a8a7648: add support for the Scoped CustomElementRegistry polyfill (this is a prototype polyfill)
+
+## 2.0.1
+
+### Patch Changes
+
+- c26d3730: Update TypeScript
+
+## 2.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/parse5-utils@2.0.0
+
+## 1.4.1
+
+### Patch Changes
+
+- f80b22ed: fix(polyfills-loader): reverse condition to load the polyfill for constructable stylesheets
+
+## 1.4.0
+
+### Minor Changes
+
+- ab5abe10: feat(polyfills-loader): add URLPattern polyfill
+
+## 1.3.5
+
+### Patch Changes
+
+- ca516a01: Update terser to 5.14.2
+
 ## 1.3.4
 
 ### Patch Changes

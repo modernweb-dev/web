@@ -1,6 +1,6 @@
 import { readConfig, ConfigLoaderError } from '@web/config-loader';
 
-import { TestRunnerStartError } from '../TestRunnerStartError';
+import { TestRunnerStartError } from '../TestRunnerStartError.js';
 
 export interface ReadFileConfigParams {
   /**

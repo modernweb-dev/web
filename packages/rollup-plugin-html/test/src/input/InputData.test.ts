@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import path from 'path';
 
-import { getInputData } from '../../../src/input/getInputData';
-import { InputData } from '../../../src/input/InputData';
+import { getInputData } from '../../../src/input/getInputData.js';
+import { InputData } from '../../../src/input/InputData.js';
 
 const rootDir = path.join(__dirname, '..', '..', 'fixtures', 'basic');
 
@@ -23,7 +23,7 @@ describe('getInputData()', () => {
     const result = getInputData({ input: 'index.html', rootDir });
     expect(cleanupResult(result)).to.eql([
       {
-        filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [{ importPath: path.join(rootDir, 'app.js'), attributes: [] }],
@@ -37,7 +37,7 @@ describe('getInputData()', () => {
     const result = getInputData({ input: { path: 'index.html' }, rootDir });
     expect(cleanupResult(result)).to.eql([
       {
-        filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [{ importPath: path.join(rootDir, 'app.js'), attributes: [] }],
@@ -51,7 +51,7 @@ describe('getInputData()', () => {
     const result = getInputData({ input: { path: 'index.html', name: 'foo.html' }, rootDir });
     expect(cleanupResult(result)).to.eql([
       {
-        filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [{ importPath: path.join(rootDir, 'app.js'), attributes: [] }],
@@ -68,7 +68,7 @@ describe('getInputData()', () => {
     });
     expect(cleanupResult(result)).to.eql([
       {
-        filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [{ importPath: path.join(rootDir, 'app.js'), attributes: [] }],
@@ -76,7 +76,7 @@ describe('getInputData()', () => {
         name: 'index.html',
       },
       {
-        filePath: path.join(rootDir, 'not-index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'not-index.html'),
         html: '<html><head></head><body><p>not-index.html</p></body></html>',
         inlineModules: [],
         moduleImports: [],
@@ -90,7 +90,7 @@ describe('getInputData()', () => {
     const result = getInputData({ input: 'src/index.html', rootDir });
     expect(cleanupResult(result)).to.eql([
       {
-        filePath: path.join(rootDir, 'src/index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'src/index.html'),
         html: '<html><head></head><body><p>Foo</p></body></html>',
         inlineModules: [],
         moduleImports: [{ importPath: path.join(rootDir, 'src', 'foo.js'), attributes: [] }],
@@ -104,7 +104,7 @@ describe('getInputData()', () => {
     const result = getInputData({ rootDir }, 'index.html');
     expect(cleanupResult(result)).to.eql([
       {
-        filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [{ importPath: path.join(rootDir, 'app.js'), attributes: [] }],
@@ -118,7 +118,7 @@ describe('getInputData()', () => {
     const result = getInputData({ rootDir }, ['index.html']);
     expect(cleanupResult(result)).to.eql([
       {
-        filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [{ importPath: path.join(rootDir, 'app.js'), attributes: [] }],
@@ -132,7 +132,7 @@ describe('getInputData()', () => {
     const result = getInputData({ rootDir }, ['index.html', 'not-index.html']);
     expect(cleanupResult(result)).to.eql([
       {
-        filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [{ importPath: path.join(rootDir, 'app.js'), attributes: [] }],
@@ -140,7 +140,7 @@ describe('getInputData()', () => {
         name: 'index.html',
       },
       {
-        filePath: path.join(rootDir, 'not-index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'not-index.html'),
         html: '<html><head></head><body><p>not-index.html</p></body></html>',
         inlineModules: [],
         moduleImports: [],
@@ -157,7 +157,7 @@ describe('getInputData()', () => {
     );
     expect(cleanupResult(result)).to.eql([
       {
-        filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [{ importPath: path.join(rootDir, 'app.js'), attributes: [] }],
@@ -165,7 +165,7 @@ describe('getInputData()', () => {
         name: 'a.html',
       },
       {
-        filePath: path.join(rootDir, 'not-index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'not-index.html'),
         html: '<html><head></head><body><p>not-index.html</p></body></html>',
         inlineModules: [],
         moduleImports: [],
@@ -179,7 +179,7 @@ describe('getInputData()', () => {
     const result = getInputData({ input: 'index.html', rootDir }, 'not-index.html');
     expect(cleanupResult(result)).to.eql([
       {
-        filePath: path.join(rootDir, 'index.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
         moduleImports: [{ importPath: path.join(rootDir, 'app.js'), attributes: [] }],
@@ -258,18 +258,18 @@ describe('getInputData()', () => {
     const result = getInputData({ input: 'pages/**/*.html', rootDir });
     expect(cleanupResult(result)).to.eql([
       {
-        filePath: path.join(rootDir, 'pages', 'page-a.html').split(path.sep).join('/'),
-        html: '<html><head></head><body><p>page-a.html</p></body></html>',
+        filePath: path.join(rootDir, 'pages', 'page-c.html'),
+        html: '<html><head></head><body><p>page-c.html</p></body></html>',
         inlineModules: [],
         moduleImports: [
-          { importPath: path.join(rootDir, 'pages', 'page-a.js'), attributes: [] },
+          { importPath: path.join(rootDir, 'pages', 'page-c.js'), attributes: [] },
           { importPath: path.join(rootDir, 'pages', 'shared.js'), attributes: [] },
         ],
         assets: [],
-        name: 'page-a.html',
+        name: 'page-c.html',
       },
       {
-        filePath: path.join(rootDir, 'pages', 'page-b.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'pages', 'page-b.html'),
         html: '<html><head></head><body><p>page-b.html</p></body></html>',
         inlineModules: [],
         moduleImports: [
@@ -280,15 +280,15 @@ describe('getInputData()', () => {
         name: 'page-b.html',
       },
       {
-        filePath: path.join(rootDir, 'pages', 'page-c.html').split(path.sep).join('/'),
-        html: '<html><head></head><body><p>page-c.html</p></body></html>',
+        filePath: path.join(rootDir, 'pages', 'page-a.html'),
+        html: '<html><head></head><body><p>page-a.html</p></body></html>',
         inlineModules: [],
         moduleImports: [
-          { importPath: path.join(rootDir, 'pages', 'page-c.js'), attributes: [] },
+          { importPath: path.join(rootDir, 'pages', 'page-a.js'), attributes: [] },
           { importPath: path.join(rootDir, 'pages', 'shared.js'), attributes: [] },
         ],
         assets: [],
-        name: 'page-c.html',
+        name: 'page-a.html',
       },
     ]);
   });
@@ -297,18 +297,18 @@ describe('getInputData()', () => {
     const result = getInputData({ input: 'pages/**/*.html', flattenOutput: false, rootDir });
     expect(cleanupResult(result)).to.eql([
       {
-        filePath: path.join(rootDir, 'pages', 'page-a.html').split(path.sep).join('/'),
-        html: '<html><head></head><body><p>page-a.html</p></body></html>',
+        filePath: path.join(rootDir, 'pages', 'page-c.html'),
+        html: '<html><head></head><body><p>page-c.html</p></body></html>',
         inlineModules: [],
         moduleImports: [
-          { importPath: path.join(rootDir, 'pages', 'page-a.js'), attributes: [] },
+          { importPath: path.join(rootDir, 'pages', 'page-c.js'), attributes: [] },
           { importPath: path.join(rootDir, 'pages', 'shared.js'), attributes: [] },
         ],
         assets: [],
-        name: `pages${path.sep}page-a.html`,
+        name: `pages${path.sep}page-c.html`,
       },
       {
-        filePath: path.join(rootDir, 'pages', 'page-b.html').split(path.sep).join('/'),
+        filePath: path.join(rootDir, 'pages', 'page-b.html'),
         html: '<html><head></head><body><p>page-b.html</p></body></html>',
         inlineModules: [],
         moduleImports: [
@@ -319,15 +319,15 @@ describe('getInputData()', () => {
         name: `pages${path.sep}page-b.html`,
       },
       {
-        filePath: path.join(rootDir, 'pages', 'page-c.html').split(path.sep).join('/'),
-        html: '<html><head></head><body><p>page-c.html</p></body></html>',
+        filePath: path.join(rootDir, 'pages', 'page-a.html'),
+        html: '<html><head></head><body><p>page-a.html</p></body></html>',
         inlineModules: [],
         moduleImports: [
-          { importPath: path.join(rootDir, 'pages', 'page-c.js'), attributes: [] },
+          { importPath: path.join(rootDir, 'pages', 'page-a.js'), attributes: [] },
           { importPath: path.join(rootDir, 'pages', 'shared.js'), attributes: [] },
         ],
         assets: [],
-        name: `pages${path.sep}page-c.html`,
+        name: `pages${path.sep}page-a.html`,
       },
     ]);
   });

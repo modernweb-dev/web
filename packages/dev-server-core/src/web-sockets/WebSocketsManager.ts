@@ -1,6 +1,6 @@
 import { Server } from 'net';
 import WebSocket from 'ws';
-import { EventEmitter } from './EventEmitter';
+import { EventEmitter } from './EventEmitter.js';
 
 export const NAME_WEB_SOCKET_IMPORT = '/__web-dev-server__web-socket.js';
 export const NAME_WEB_SOCKET_API = 'wds';
@@ -48,9 +48,11 @@ export class WebSocketsManager extends EventEmitter<Events> {
     });
 
     server.on('upgrade', (request, socket, head) => {
-      this.webSocketServer.handleUpgrade(request, socket, head, ws => {
-        this.webSocketServer.emit('connection', ws, request);
-      });
+      if (request.url === this.webSocketServer.options.path) {
+        this.webSocketServer.handleUpgrade(request, socket, head, ws => {
+          this.webSocketServer.emit('connection', ws, request);
+        });
+      }
     });
   }
 

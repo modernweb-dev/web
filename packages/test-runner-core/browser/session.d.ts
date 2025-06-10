@@ -1,4 +1,4 @@
-import { TestSession, TestResultError, TestSuiteResult, TestResult } from '../dist/index';
+import { TestSession, TestResultError, TestSuiteResult, TestResult } from '../dist/index.js';
 
 export interface RuntimeConfig {
   testFile: string;

@@ -1,9 +1,9 @@
 import path from 'path';
 import { expect } from 'chai';
 
-import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types';
-import { createPolyfillsData } from '../src/createPolyfillsData';
-import { noModuleSupportTest, fileTypes } from '../src/utils';
+import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.js';
+import { createPolyfillsData } from '../src/createPolyfillsData.js';
+import { noModuleSupportTest, fileTypes } from '../src/utils.js';
 
 function cleanupPolyfill(polyfill: PolyfillFile) {
   if (!polyfill) {
@@ -33,6 +33,8 @@ describe('polyfills', () => {
         dynamicImport: true,
         esModuleShims: true,
         constructibleStylesheets: true,
+        URLPattern: true,
+        scopedCustomElementRegistry: true,
       },
     };
 
@@ -52,6 +54,13 @@ describe('polyfills', () => {
       },
       {
         content: '',
+        name: 'urlpattern-polyfill',
+        path: 'polyfills/urlpattern-polyfill.js',
+        test: '"URLPattern" in window',
+        type: 'script',
+      },
+      {
+        content: '',
         name: 'es-module-shims',
         path: 'polyfills/es-module-shims.js',
         test: '1',
@@ -61,7 +70,7 @@ describe('polyfills', () => {
         content: '',
         name: 'constructible-style-sheets-polyfill',
         path: 'polyfills/constructible-style-sheets-polyfill.js',
-        test: '"adoptedStyleSheets" in document',
+        test: '!("adoptedStyleSheets" in document)',
         type: 'script',
       },
       {
@@ -91,6 +100,13 @@ describe('polyfills', () => {
         name: 'resize-observer',
         path: 'polyfills/resize-observer.js',
         test: "!('ResizeObserver' in window)",
+        content: '',
+        type: 'script',
+      },
+      {
+        name: 'scoped-custom-element-registry',
+        path: 'polyfills/scoped-custom-element-registry.js',
+        test: "!('createElement' in ShadowRoot.prototype)",
         content: '',
         type: 'script',
       },

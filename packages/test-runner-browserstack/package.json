@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-browserstack",
-  "version": "0.5.0",
+  "version": "0.8.0",
   "publishConfig": {
     "access": "public"
   },
@@ -16,16 +16,17 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test-remote/**/*.test.ts --require ts-node/register",
+    "test": "mocha test-remote/**/*.test.ts --require ts-node/register --reporter dot",
     "test:watch": "mocha test-remote/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
@@ -45,14 +46,14 @@
     "launcher"
   ],
   "dependencies": {
-    "@web/test-runner-webdriver": "^0.5.0",
+    "@web/test-runner-webdriver": "^0.9.0",
     "browserstack-local": "^1.4.8",
-    "ip": "^1.1.5",
+    "internal-ip": "^6.2.0",
     "nanoid": "^3.1.25"
   },
   "devDependencies": {
     "@types/ip": "^1.1.0",
-    "@web/dev-server-legacy": "^1.0.0",
-    "portfinder": "^1.0.28"
+    "@web/dev-server-legacy": "^2.1.0",
+    "portfinder": "^1.0.32"
   }
 }

@@ -1,17 +1,12 @@
 import playwright, { Browser, Page, LaunchOptions, BrowserContext } from 'playwright';
 import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
-import { PlaywrightLauncherPage } from './PlaywrightLauncherPage';
+import { PlaywrightLauncherPage } from './PlaywrightLauncherPage.js';
 
 function capitalize(str: string) {
   return `${str[0].toUpperCase()}${str.substring(1)}`;
 }
 
 export type ProductType = 'chromium' | 'firefox' | 'webkit';
-
-interface BrowserAndContext {
-  browser: Browser;
-  context: BrowserContext;
-}
 
 interface CreateArgs {
   browser: Browser;
@@ -32,14 +27,11 @@ export class PlaywrightLauncher implements BrowserLauncher {
   private config?: TestRunnerCoreConfig;
   private testFiles?: string[];
   private browser?: Browser;
-  private browserContext?: BrowserContext;
   private debugBrowser?: Browser;
-  private debugBrowserContext?: BrowserContext;
   private activePages = new Map<string, PlaywrightLauncherPage>();
   private activeDebugPages = new Map<string, PlaywrightLauncherPage>();
-  private inactivePages: PlaywrightLauncherPage[] = [];
   private testCoveragePerSession = new Map<string, CoverageMapData>();
-  private __launchBrowserPromise?: Promise<BrowserAndContext>;
+  private __launchBrowserPromise?: Promise<Browser>;
   public __experimentalWindowFocus__: boolean;
 
   constructor(
@@ -75,14 +67,9 @@ export class PlaywrightLauncher implements BrowserLauncher {
   }
 
   async startSession(sessionId: string, url: string) {
-    const { browser, context } = await this.getOrStartBrowser();
+    const browser = await this.getOrStartBrowser();
 
-    let page: PlaywrightLauncherPage;
-    if (this.inactivePages.length === 0) {
-      page = await this.createNewPage(browser, context);
-    } else {
-      page = this.inactivePages.pop()!;
-    }
+    const page = await this.createNewPage(browser);
 
     this.activePages.set(sessionId, page);
     this.testCoveragePerSession.delete(sessionId);
@@ -99,20 +86,16 @@ export class PlaywrightLauncher implements BrowserLauncher {
   }
 
   async startDebugSession(sessionId: string, url: string) {
-    if (!this.debugBrowser || !this.debugBrowserContext) {
+    if (!this.debugBrowser) {
       this.debugBrowser = await playwright[this.product].launch({
         ...this.launchOptions,
         // devtools is only supported on chromium
         devtools: this.product === 'chromium',
         headless: false,
       });
-      this.debugBrowserContext = await this.createBrowserContextFn({
-        config: this.config!,
-        browser: this.debugBrowser,
-      });
     }
 
-    const page = await this.createNewPage(this.debugBrowser, this.debugBrowserContext);
+    const page = await this.createNewPage(this.debugBrowser);
     this.activeDebugPages.set(sessionId, page);
     page.playwrightPage.on('close', () => {
       this.activeDebugPages.delete(sessionId);
@@ -120,9 +103,20 @@ export class PlaywrightLauncher implements BrowserLauncher {
     await page.runSession(url, false);
   }
 
-  async createNewPage(browser: Browser, context: BrowserContext) {
-    const playwrightPage = await this.createPageFn({ config: this.config!, browser, context });
-    return new PlaywrightLauncherPage(this.config!, this.product, this.testFiles!, playwrightPage);
+  async createNewPage(browser: Browser) {
+    const playwrightContext = await this.createBrowserContextFn({ config: this.config!, browser });
+    const playwrightPage = await this.createPageFn({
+      config: this.config!,
+      browser,
+      context: playwrightContext,
+    });
+    return new PlaywrightLauncherPage(
+      this.config!,
+      this.product,
+      this.testFiles!,
+      playwrightContext,
+      playwrightPage,
+    );
   }
 
   async stopSession(sessionId: string) {
@@ -136,27 +130,24 @@ export class PlaywrightLauncher implements BrowserLauncher {
 
     const result = await page.stopSession();
     this.activePages.delete(sessionId);
-    this.inactivePages.push(page);
     return result;
   }
 
-  private async getOrStartBrowser(): Promise<BrowserAndContext> {
+  private async getOrStartBrowser(): Promise<Browser> {
     if (this.__launchBrowserPromise) {
       return this.__launchBrowserPromise;
     }
 
-    if (!this.browser || !this.browserContext || !this.browser?.isConnected()) {
+    if (!this.browser || !this.browser?.isConnected()) {
       this.__launchBrowserPromise = (async () => {
         const browser = await playwright[this.product].launch(this.launchOptions);
-        const context = await this.createBrowserContextFn({ config: this.config!, browser });
-        return { browser, context };
+        return browser;
       })();
-      const { browser, context } = await this.__launchBrowserPromise;
+      const browser = await this.__launchBrowserPromise;
       this.browser = browser;
-      this.browserContext = context;
       this.__launchBrowserPromise = undefined;
     }
-    return { browser: this.browser, context: this.browserContext };
+    return this.browser;
   }
 
   getPage(sessionId: string) {

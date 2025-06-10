@@ -140,7 +140,7 @@ Many libraries are already shipping es module variants, but you need to do some 
 import foo from 'foo/dist/foo.mjs';
 ```
 
-Inspect your `node_modules` folder to see if you can find it, or check the docs if thas been documented.
+Inspect your `node_modules` folder to see if you can find it, or check the docs if that's been documented.
 
 ### Ask the author to distribute an ESM distribution
 

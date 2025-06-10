@@ -1,13 +1,14 @@
-import { Page } from 'playwright';
+import { Page, BrowserContext } from 'playwright';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { V8Coverage, v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { SessionResult } from '@web/test-runner-core';
-import { ProductType } from './PlaywrightLauncher';
+import { ProductType } from './PlaywrightLauncher.js';
 
 export class PlaywrightLauncherPage {
   private config: TestRunnerCoreConfig;
   private testFiles: string[];
   private product: ProductType;
+  public playwrightContext: BrowserContext;
   public playwrightPage: Page;
   private nativeInstrumentationEnabledOnPage = false;
 
@@ -15,11 +16,13 @@ export class PlaywrightLauncherPage {
     config: TestRunnerCoreConfig,
     product: ProductType,
     testFiles: string[],
+    playwrightContext: BrowserContext,
     playwrightPage: Page,
   ) {
     this.config = config;
     this.product = product;
     this.testFiles = testFiles;
+    this.playwrightContext = playwrightContext;
     this.playwrightPage = playwrightPage;
   }
 
@@ -48,6 +51,7 @@ export class PlaywrightLauncherPage {
     // navigate to an empty page to kill any running code on the page, stopping timers and
     // breaking a potential endless reload loop
     await this.playwrightPage.goto('about:blank');
+    await this.playwrightContext.close();
 
     return { testCoverage };
   }

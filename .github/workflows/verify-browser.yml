@@ -1,0 +1,36 @@
+name: Browser tests
+
+on: pull_request
+
+env:
+  FORCE_COLOR: true
+
+jobs:
+  verify-linux:
+    timeout-minutes: 30
+    name: Linux
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        env:
+          FORCE_COLOR: 0
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build packages
+        run: npm run build
+
+      # build for production in CI to make sure tests can run with production build
+      - name: Build specific packages for production
+        run: npm run build:production
+
+      - name: Test
+        run: npm run test:browser

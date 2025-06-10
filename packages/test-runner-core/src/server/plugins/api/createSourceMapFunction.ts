@@ -2,19 +2,13 @@ import path from 'path';
 import { SourceMapConverter } from 'convert-source-map';
 import { SourceMapConsumer } from 'source-map';
 
-import { fetchSourceMap } from '../../../utils/fetchSourceMap';
+import { fetchSourceMap } from '../../../utils/fetchSourceMap.js';
 import { StackLocation } from '@web/browser-logs';
 
 export type SourceMapFunction = (
   loc: StackLocation,
   userAgent: string,
 ) => Promise<StackLocation | null>;
-
-interface CachedSourceMap {
-  sourceMap?: SourceMapConverter;
-  consumer?: SourceMapConsumer;
-  loadingPromise?: Promise<void>;
-}
 
 function resolveRelativeTo(relativeTo: string, filePath: string): string {
   if (path.isAbsolute(filePath)) {
@@ -36,57 +30,32 @@ export function createSourceMapFunction(
   host: string,
   port: number,
 ): SourceMapFunction {
-  const cachedSourceMaps = new Map<string, CachedSourceMap | null>();
+  const cachedSourceMaps = new Map<string, Promise<SourceMapConverter | undefined>>();
 
   return async ({ browserUrl, filePath, line, column }, userAgent) => {
+    const cacheKey = `${filePath}${userAgent}`;
+
+    if (!cachedSourceMaps.has(cacheKey)) {
+      cachedSourceMaps.set(
+        cacheKey,
+        fetchSourceMap({
+          protocol,
+          host,
+          port,
+          browserUrl,
+          userAgent,
+        })
+          .then(({ sourceMap }) => sourceMap)
+          .catch(() => undefined),
+      );
+    }
+
+    const sourceMap = await cachedSourceMaps.get(cacheKey);
+    if (!sourceMap) {
+      return null;
+    }
+
     try {
-      const cacheKey = `${filePath}${userAgent}`;
-      let cached = cachedSourceMaps.get(cacheKey);
-      if (cached) {
-        if (cached.loadingPromise) {
-          // a request for this source map is already being done in parallel, wait for it to finish
-          await cached.loadingPromise;
-        }
-
-        if (!cached.sourceMap) {
-          // we know there is no source map for this file
-          return null;
-        }
-      } else {
-        cached = {};
-      }
-      cachedSourceMaps.set(cacheKey, cached);
-
-      // get the raw source map, from cache or new
-      let sourceMap: SourceMapConverter | undefined;
-      if (cached.sourceMap) {
-        sourceMap = cached?.sourceMap;
-      } else {
-        // fetch source map, maintain a loading boolean for parallel calls to wait before resolving
-        let resolveLoading: () => void;
-        const loadingPromise = new Promise<void>(resolve => {
-          resolveLoading = resolve;
-        });
-        cached.loadingPromise = loadingPromise;
-
-        try {
-          const result = await fetchSourceMap({
-            protocol,
-            host,
-            port,
-            browserUrl,
-            userAgent,
-          });
-          sourceMap = result.sourceMap;
-          cached.sourceMap = sourceMap;
-        } finally {
-          resolveLoading!();
-        }
-      }
-      if (!sourceMap) {
-        return null;
-      }
-
       // if there is no line and column we're looking for just the associated file, for example
       // the test file itself has source maps. if this is a single file source map, we can return
       // that.
@@ -104,13 +73,7 @@ export function createSourceMapFunction(
       }
 
       // do the actual source mapping
-      let consumer: SourceMapConsumer;
-      if (cached?.consumer) {
-        consumer = cached.consumer;
-      } else {
-        consumer = await new SourceMapConsumer(sourceMap.sourcemap);
-        cachedSourceMaps.get(cacheKey)!.consumer = consumer;
-      }
+      const consumer: SourceMapConsumer = await new SourceMapConsumer(sourceMap.sourcemap);
 
       let originalPosition = consumer.originalPositionFor({
         line: line ?? 0,
@@ -125,6 +88,8 @@ export function createSourceMapFunction(
           bias: SourceMapConsumer.LEAST_UPPER_BOUND,
         });
       }
+
+      consumer.destroy();
 
       if (originalPosition.line == null) {
         return null;

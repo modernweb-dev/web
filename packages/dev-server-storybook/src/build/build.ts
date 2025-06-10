@@ -1,13 +1,13 @@
-import { readStorybookConfig } from '../shared/config/readStorybookConfig';
-import { validatePluginConfig } from '../shared/config/validatePluginConfig';
+import { readStorybookConfig } from '../shared/config/readStorybookConfig.js';
+import { validatePluginConfig } from '../shared/config/validatePluginConfig.js';
 
-import { createRollupConfig } from './rollup/createRollupConfig';
-import { buildAndWrite } from './rollup/buildAndWrite';
-import { createManagerHtml } from '../shared/html/createManagerHtml';
-import { createPreviewHtml } from '../shared/html/createPreviewHtml';
-import { findStories } from '../shared/stories/findStories';
-import { StorybookPluginConfig } from '../shared/config/StorybookPluginConfig';
-import { StorybookConfig } from '../shared/config/StorybookConfig';
+import { createRollupConfig } from './rollup/createRollupConfig.js';
+import { buildAndWrite } from './rollup/buildAndWrite.js';
+import { createManagerHtml } from '../shared/html/createManagerHtml.js';
+import { createPreviewHtml } from '../shared/html/createPreviewHtml.js';
+import { findStories } from '../shared/stories/findStories.js';
+import { StorybookPluginConfig } from '../shared/config/StorybookPluginConfig.js';
+import { StorybookConfig } from '../shared/config/StorybookConfig.js';
 
 interface BuildPreviewParams {
   type: string;
@@ -71,7 +71,7 @@ export async function build(params: BuildParams) {
   const rootDir = process.cwd();
   validatePluginConfig(params);
 
-  const storybookConfig = readStorybookConfig(params);
+  const storybookConfig = await readStorybookConfig(params);
   await buildManager({ type, outputDir, storybookConfig, rootDir });
   await buildPreview({ type, storybookConfig, pluginConfig: params, outputDir, rootDir });
 }

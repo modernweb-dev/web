@@ -1,5 +1,84 @@
 # @web/rollup-plugin-html
 
+## 2.3.0
+
+### Minor Changes
+
+- 6207e413: glob patterns exclusion for external assets
+
+## 2.2.1
+
+### Patch Changes
+
+- a1f09793: fix: output assets locations
+
+## 2.2.0
+
+### Minor Changes
+
+- c3dc21aa: feat(rollup-plugin-html): resolves assets in styles
+
+## 2.1.2
+
+### Patch Changes
+
+- 1c0088de: Update Rollup to version 4.
+
+## 2.1.1
+
+### Patch Changes
+
+- b6d8bcf2: Update the `glob` dependency
+
+## 2.1.0
+
+### Minor Changes
+
+- c185cbaa: Set minimum node version to 18
+
+### Patch Changes
+
+- Updated dependencies [c185cbaa]
+  - @web/parse5-utils@2.1.0
+
+## 2.0.1
+
+### Patch Changes
+
+- f6ba53f0: Export types with package
+
+## 2.0.0
+
+### Major Changes
+
+- febd9d9d: Set node 16 as the minimum version.
+- 72c63bc5: Require Rollup@v3.x and update all Rollup related dependencies to latest.
+
+### Patch Changes
+
+- Updated dependencies [febd9d9d]
+  - @web/parse5-utils@2.0.0
+
+## 1.11.1
+
+### Patch Changes
+
+- 18a16bb0: Update `html-minifier-terser`
+- Updated dependencies [18a16bb0]
+  - @web/parse5-utils@1.3.1
+
+## 1.11.0
+
+### Minor Changes
+
+- ab5295e9: Detect `<source src="*">` tags as assets which means videos get copied and hashed.
+
+  ```html
+  <video controls>
+    <source src="./my-video.mp4" type="video/mp4" />
+  </video>
+  ```
+
 ## 1.10.3
 
 ### Patch Changes

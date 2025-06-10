@@ -17,3 +17,6 @@ demo
 CHANGELOG.md
 .changeset
 _site
+_site-dev
+dist-types
+/docs/_merged_data

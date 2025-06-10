@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-core",
-  "version": "0.3.17",
+  "version": "0.7.5",
   "publishConfig": {
     "access": "public"
   },
@@ -16,19 +16,22 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./dist/index.js"
     },
     "./dist/dom5": {
+      "types": "./dist/dom5/index.d.ts",
       "require": "./dist/dom5/index.js"
     },
     "./test-helpers": {
+      "types": "./test-helpers.d.ts",
       "import": "./test-helpers.mjs",
       "require": "./dist/test-helpers.js"
     }
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -36,14 +39,13 @@
     "start:event-stream": "node demo/event-stream/start-server.js",
     "start:http2": "node demo/http2/start-server.js",
     "start:import-asset": "node demo/import-asset/start-server.js",
-    "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register",
+    "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --exit --reporter dot",
     "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     ".self-signed-dev-server-ssl.cert",
     ".self-signed-dev-server-ssl.key",
     "*.d.ts",
-    "*.js",
     "*.mjs",
     "dist",
     "src"
@@ -58,32 +60,31 @@
   "dependencies": {
     "@types/koa": "^2.11.6",
     "@types/ws": "^7.4.0",
-    "@web/parse5-utils": "^1.2.0",
-    "chokidar": "^3.4.3",
+    "@web/parse5-utils": "^2.1.0",
+    "chokidar": "^4.0.1",
     "clone": "^2.1.2",
-    "es-module-lexer": "^0.9.0",
+    "es-module-lexer": "^1.0.0",
     "get-stream": "^6.0.0",
     "is-stream": "^2.0.0",
-    "isbinaryfile": "^4.0.6",
-    "koa": "^2.13.0",
+    "isbinaryfile": "^5.0.0",
+    "koa": "^2.16.1",
     "koa-etag": "^4.0.0",
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0",
-    "lru-cache": "^6.0.0",
+    "lru-cache": "^8.0.4",
     "mime-types": "^2.1.27",
     "parse5": "^6.0.1",
     "picomatch": "^2.2.2",
-    "ws": "^7.4.2"
+    "ws": "^7.5.10"
   },
   "devDependencies": {
     "@types/clone": "^2.1.0",
     "@types/koa-etag": "^3.0.0",
     "@types/koa-static": "^4.0.1",
-    "@types/lru-cache": "^5.1.0",
     "@types/parse5": "^6.0.1",
     "abort-controller": "^3.0.0",
+    "express": "^4.21.2",
     "nanoid": "^3.1.25",
-    "node-fetch": "3.0.0-beta.9",
-    "portfinder": "^1.0.28"
+    "portfinder": "^1.0.32"
   }
 }

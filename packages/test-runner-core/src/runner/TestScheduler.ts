@@ -1,11 +1,11 @@
-import { createSessionUrl } from './createSessionUrl';
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { TestSessionManager } from '../test-session/TestSessionManager';
-import { TestSession, TestResultError } from '../test-session/TestSession';
-import { SESSION_STATUS } from '../test-session/TestSessionStatus';
-import { withTimeout } from '../utils/async';
-import { TestSessionTimeoutHandler } from './TestSessionTimeoutHandler';
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
+import { createSessionUrl } from './createSessionUrl.js';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
+import { TestSessionManager } from '../test-session/TestSessionManager.js';
+import { TestSession, TestResultError } from '../test-session/TestSession.js';
+import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
+import { withTimeout } from '../utils/async.js';
+import { TestSessionTimeoutHandler } from './TestSessionTimeoutHandler.js';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
 
 export class TestScheduler {
   private config: TestRunnerCoreConfig;
@@ -142,7 +142,8 @@ export class TestScheduler {
 
       // when the browser started, wait for session to ping back on time
       this.timeoutHandler.waitForTestsStarted(updatedSession.testRun, updatedSession.id);
-    } catch (error) {
+    } catch (e) {
+      const error = e as Error;
       if (this.timeoutHandler.isStale(updatedSession)) {
         // something else has changed the test session, such as a the browser timeout
         // or a re-run in watch mode. in that was we just log the error
@@ -179,7 +180,7 @@ export class TestScheduler {
         updatedSession.testCoverage = testCoverage;
       }
     } catch (error) {
-      sessionErrors.push(error);
+      sessionErrors.push(error as Error);
     } finally {
       if (sessionErrors.length > 0) {
         // merge with existing erors

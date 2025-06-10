@@ -18,6 +18,16 @@ This doesn't work in the browser without transformation. This plugin makes it po
 const myImg = new URL('./assets/my-img.png', import.meta.url);
 ```
 
+### Dynamic variables
+
+You can also use dynamic variables like so:
+
+```js
+const myImg = new URL(`./assets/${myImg}.png`, import.meta.url);
+```
+
+Please consult the [dynamic-import-vars plugin](https://github.com/rollup/plugins/blob/master/packages/dynamic-import-vars) documentation for options and limitations.
+
 ## Install
 
 Using npm:
@@ -78,7 +88,7 @@ Default: `null`
 By default, referenced assets detected by this plugin are just copied as is to the output directory, according to your configuration.
 
 When `transform` is defined, this function will be called for each asset with two parameters, the content of the asset as a [Buffer](https://nodejs.org/api/buffer.html) and the absolute path.
-This allows you to conditionnaly match on the absolute path and maybe transform the content.
+This allows you to conditionally match on the absolute path and maybe transform the content.
 
 When `transform` returns `null`, the asset is skipped from being processed.
 

@@ -76,7 +76,7 @@ The `auto-always` option looks at the user agent, but doesn't skip the latest ve
 
 ### Browser and language target
 
-The target option can be set to one or more browser or language targetversions, for example `chrome80` or `es2020`. The property can be an array, so you can set multiple browser targets. While the auto target options are specific to this plugin, the browser and language target come directly from esbuild. [Check the docs](https://github.com/evanw/esbuild) for more information.
+The target option can be set to one or more browser or language target versions, for example `chrome80` or `es2020`. The property can be an array, so you can set multiple browser targets. While the auto target options are specific to this plugin, the browser and language target come directly from esbuild. [Check the docs](https://github.com/evanw/esbuild) for more information.
 
 ### No target
 
