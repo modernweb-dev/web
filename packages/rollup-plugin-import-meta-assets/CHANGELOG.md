@@ -1,5 +1,11 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 2.3.0
+
+### Minor Changes
+
+- 25bdafb: Change output to avoid import.meta.url in non-ESM builds
+
 ## 2.2.1
 
 ### Patch Changes
