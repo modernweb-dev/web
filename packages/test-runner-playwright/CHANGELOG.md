@@ -1,5 +1,11 @@
 # @web/test-runner-playwright
 
+## 0.11.1
+
+### Patch Changes
+
+- dbd6f47: bump playwright
+
 ## 0.11.0
 
 ### Minor Changes
