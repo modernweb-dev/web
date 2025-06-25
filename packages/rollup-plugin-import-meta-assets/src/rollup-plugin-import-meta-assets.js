@@ -161,21 +161,35 @@ ${`    default: return new Promise(function(resolve, reject) {
           if (importMetaUrlType === 'static') {
             const absoluteScriptDir = path.dirname(id);
             const relativeAssetPath = getRelativeAssetPath(node);
-            const absoluteAssetPath = path.resolve(absoluteScriptDir, relativeAssetPath);
-            const assetName = path.basename(absoluteAssetPath);
 
             try {
-              const assetContents = await fs.promises.readFile(absoluteAssetPath);
+              const resolved = await this.resolve(relativeAssetPath, id);
+              if (resolved == null) {
+                // Do not process directories, just skip
+                const absoluteAssetPath = path.resolve(absoluteScriptDir, relativeAssetPath);
+                try {
+                  if (fs.lstatSync(absoluteAssetPath).isDirectory()) {
+                    return;
+                  }
+                } catch (error) {
+                  // ignore, the file probably doesn't exists
+                }
+                this.error(`Unable to resolve "${relativeAssetPath}" from "${id}"`);
+                return;
+              }
+              if (resolved.external) {
+                return;
+              }
+
+              const assetContents = await fs.promises.readFile(resolved.id);
               const transformedAssetContents =
-                transform != null
-                  ? await transform(assetContents, absoluteAssetPath)
-                  : assetContents;
+                transform != null ? await transform(assetContents, resolved.id) : assetContents;
               if (transformedAssetContents === null) {
                 return;
               }
               const ref = this.emitFile({
                 type: 'asset',
-                name: assetName,
+                name: path.basename(resolved.id),
                 source: transformedAssetContents,
               });
               magicString.overwrite(
@@ -185,13 +199,10 @@ ${`    default: return new Promise(function(resolve, reject) {
               );
               modifiedCode = true;
             } catch (error) {
-              // Do not process directories, just skip
-              if (error.code !== 'EISDIR') {
-                if (warnOnError) {
-                  this.warn(error, node.arguments[0].start);
-                } else {
-                  this.error(error, node.arguments[0].start);
-                }
+              if (warnOnError) {
+                this.warn(error, node.arguments[0].start);
+              } else {
+                this.error(error, node.arguments[0].start);
               }
             }
           }
