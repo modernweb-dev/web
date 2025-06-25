@@ -1,6 +1,7 @@
 ## editors
 /.idea
 /.vscode
+*~
 
 # @11ty/eleventy-cache-assets
 .cache
@@ -29,6 +30,7 @@ dist-types
 .wireit
 /dist
 /packages/*/dist
+/packages/*/demo/dist
 tsconfig.tsbuildinfo
 _site
 _site-dev

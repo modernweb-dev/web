@@ -195,6 +195,36 @@ describe('rollup-plugin-html', () => {
     );
   });
 
+  it('resolves modules in original order', async () => {
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          rootDir,
+          input: {
+            name: 'index.html',
+            html:
+              '<h1>Hello world</h1>' +
+              '<script type="module">import "./entrypoint-a.js";</script>' +
+              '<script type="module" src="./entrypoint-b.js"></script>',
+          },
+        }),
+      ],
+    };
+
+    const bundle = await rollup(config);
+    const { output } = await bundle.generate(outputConfig);
+    expect(output.length).to.equal(4);
+    const hash = '5ec680a4efbb48ae254268ab1defe610';
+    const { code: appCode } = getChunk(output, `inline-module-${hash}.js`);
+    expect(appCode).to.include("console.log('entrypoint-a.js');");
+    expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
+      '<html><head></head><body><h1>Hello world</h1>' +
+        `<script type="module" src="./inline-module-${hash}.js"></script>` +
+        '<script type="module" src="./entrypoint-b.js"></script>' +
+        '</body></html>',
+    );
+  });
+
   it('resolves inline module imports relative to the HTML file', async () => {
     const config = {
       plugins: [
