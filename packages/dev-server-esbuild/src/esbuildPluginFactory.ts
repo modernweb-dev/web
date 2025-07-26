@@ -62,8 +62,16 @@ export function esbuildPlugin(args: EsBuildPluginArgs = {}): Plugin {
     jsxFactory: args.jsxFactory,
     jsxFragment: args.jsxFragment,
     define: args.define,
-    tsconfig: args.tsconfig,
+    tsconfig: getTsconfig(args),
     banner: args.banner,
     footer: args.footer,
   });
+}
+
+function getTsconfig (args: EsBuildPluginArgs): string | undefined {
+  if (args.tsconfig) {
+    return args.tsconfig
+  }
+
+  return args.ts ? 'tsconfig.json' : undefined;
 }
