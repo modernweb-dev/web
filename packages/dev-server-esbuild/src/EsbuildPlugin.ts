@@ -18,7 +18,7 @@ import {
   setTextContent,
 } from '@web/dev-server-core/dist/dom5';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
-
+import { parseTsconfig } from 'get-tsconfig';
 import { getEsbuildTarget } from './getEsbuildTarget.js';
 
 const filteredWarnings = ['Unsupported source map comment'];
@@ -61,7 +61,8 @@ export class EsbuildPlugin implements Plugin {
     this.config = config;
     this.logger = logger;
     if (this.esbuildConfig.tsconfig) {
-      this.tsconfigRaw = await promisify(fs.readFile)(this.esbuildConfig.tsconfig, 'utf8');
+      const parsedTsconfig = await parseTsconfig(this.esbuildConfig.tsconfig);
+      this.tsconfigRaw = JSON.stringify(parsedTsconfig);
     }
   }
 
