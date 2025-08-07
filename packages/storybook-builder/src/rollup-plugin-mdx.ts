@@ -1,4 +1,3 @@
-import { compile } from '@mdx-js/mdx';
 import type { Options } from '@storybook/types';
 import { readFile } from 'node:fs/promises';
 import { dirname, join, sep } from 'node:path';
@@ -54,6 +53,7 @@ export function rollupPluginMdx(options: Options): Plugin {
         jsxOptions,
       });
 
+      const { compile } = await import('@mdx-js/mdx'); // for CJS compatibility
       const mdxResult = await compile(mdxCode, mdxLoaderOptions.mdxCompileOptions);
 
       return mdxResult.toString();
