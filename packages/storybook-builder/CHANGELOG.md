@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.2.3
+
+### Patch Changes
+
+- cfcea9d: fix Node 22.18
+
 ## 0.2.2
 
 ### Patch Changes
