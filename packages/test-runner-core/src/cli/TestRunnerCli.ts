@@ -369,7 +369,9 @@ export class TestRunnerCli {
   }
 
   private writeCoverageReport(testCoverage: TestCoverage) {
-    writeCoverageReport(testCoverage, this.config.coverageConfig);
+    if (this.config.coverageConfig.report) {
+      writeCoverageReport(testCoverage, this.config.coverageConfig);
+    }
   }
 
   private switchMenu(menu: MenuType) {
