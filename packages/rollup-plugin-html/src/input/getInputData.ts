@@ -52,7 +52,7 @@ function createInputData(params: CreateInputDataParams): InputData {
     html: result.htmlWithoutModules,
     name,
     inlineModules: result.inlineModules,
-    moduleImports: [...result.moduleImports, ...result.inlineModules],
+    moduleImports: result.moduleImports,
     assets: result.assets,
     filePath,
   };

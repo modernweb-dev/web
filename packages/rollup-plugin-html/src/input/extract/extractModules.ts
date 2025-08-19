@@ -59,6 +59,10 @@ export function extractModules(params: ExtractModulesParams) {
           attributes,
           code,
         });
+        moduleImports.push({
+          importPath,
+          attributes,
+        });
       }
       remove(scriptNode);
     } else {
