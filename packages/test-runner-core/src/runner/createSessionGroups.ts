@@ -10,7 +10,6 @@ import { collectTestFiles } from './collectTestFiles.js';
 
 interface GroupConfigWithoutOptionals extends TestRunnerGroupConfig {
   name: string;
-  configFilePath?: string;
   files: string | string[];
   browsers: BrowserLauncher[];
 }
@@ -33,7 +32,6 @@ export function createTestSessions(
     // merge group with config defaults
     const mergedGroupConfig: GroupConfigWithoutOptionals = {
       name: groupConfig.name,
-      configFilePath: groupConfig.configFilePath,
       testRunnerHtml: config.testRunnerHtml,
       browsers: config.browsers,
       files: config.files ?? [],
@@ -63,8 +61,7 @@ export function createTestSessions(
   const browsers = new Set<BrowserLauncher>();
 
   for (const group of groups) {
-    const baseDir = group.configFilePath ? path.dirname(group.configFilePath) : process.cwd();
-    const testFilesForGroup = collectTestFiles(group.files, baseDir)
+    const testFilesForGroup = collectTestFiles(group.files)
       // Normalize file path because glob returns windows paths with forward slashes:
       // C:/foo/bar -> C:\foo\bar
       .map(testFile => path.normalize(testFile));
