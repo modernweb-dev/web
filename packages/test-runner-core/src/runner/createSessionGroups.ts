@@ -70,11 +70,14 @@ export function createTestSessions(
       throw new Error(`Could not find any test files with pattern(s): ${group.files}`);
     }
 
+    for (const browser of browsers) {
+      browsers.add(browser);
+    }
+
     for (const testFile of testFilesForGroup) {
       testFiles.add(testFile);
 
       for (const browser of group.browsers) {
-        browsers.add(browser);
         testSessions.push({
           id: nanoid(),
           group,
