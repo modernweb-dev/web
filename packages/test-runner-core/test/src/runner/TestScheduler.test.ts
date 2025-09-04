@@ -95,7 +95,7 @@ describe('TestScheduler', () => {
       const session = createSession({ id, browser });
       sessions.push(session);
     }
-    const sessionManager = new TestSessionManager([], sessions);
+    const sessionManager = new TestSessionManager(sessions);
     const scheduler = new TestScheduler(mockConfig, sessionManager, [browser]);
     return [scheduler, sessionManager, sessions, browserStubs];
   }
@@ -323,7 +323,7 @@ describe('TestScheduler', () => {
         }
       }
 
-      const sessionManager = new TestSessionManager([], sessions);
+      const sessionManager = new TestSessionManager(sessions);
       const scheduler = new TestScheduler(
         mockConfig,
         sessionManager,

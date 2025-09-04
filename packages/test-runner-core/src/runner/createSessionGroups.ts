@@ -7,7 +7,6 @@ import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
 import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.js';
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
 import { collectTestFiles } from './collectTestFiles.js';
-import { TestSessionGroup } from '../test-session/TestSessionGroup.js';
 
 interface GroupConfigWithoutOptionals extends TestRunnerGroupConfig {
   name: string;
@@ -59,7 +58,6 @@ export function createTestSessions(
     groups.push(mergedGroupConfig);
   }
 
-  const sessionGroups: TestSessionGroup[] = [];
   const testSessions: TestSession[] = [];
   const testFiles = new Set<string>();
   const browsers = new Set<BrowserLauncher>();
@@ -75,27 +73,14 @@ export function createTestSessions(
       throw new Error(`Could not find any test files with pattern(s): ${group.files}`);
     }
 
-    for (const file of testFilesForGroup) {
-      testFiles.add(file);
-    }
-
-    const sessionGroup: TestSessionGroup = {
-      name: group.name,
-      browsers: group.browsers,
-      testFiles: testFilesForGroup,
-      testRunnerHtml: group.testRunnerHtml,
-      sessionIds: [],
-    };
-
-    for (const browser of group.browsers) {
-      browsers.add(browser);
-    }
-
     for (const testFile of testFilesForGroup) {
+      testFiles.add(testFile);
+
       for (const browser of group.browsers) {
-        const session: TestSession = {
+        browsers.add(browser);
+        testSessions.push({
           id: nanoid(),
-          group: sessionGroup,
+          group,
           debug: false,
           testRun: -1,
           browser,
@@ -104,10 +89,7 @@ export function createTestSessions(
           errors: [],
           logs: [],
           request404s: [],
-        };
-
-        testSessions.push(session);
-        sessionGroup.sessionIds.push(session.id);
+        });
       }
     }
   }
@@ -117,7 +99,6 @@ export function createTestSessions(
   }
 
   return {
-    sessionGroups,
     testSessions,
     testFiles: Array.from(testFiles),
     browsers: Array.from(browsers),
