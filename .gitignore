@@ -43,3 +43,6 @@ local.log
 docs/_merged_data/
 docs/_merged_assets/
 docs/_merged_includes/
+
+## temp
+.tmp

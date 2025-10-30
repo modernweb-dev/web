@@ -28,8 +28,8 @@
     "demo:mpa": "rm -rf demo/dist && rollup -c demo/mpa/rollup.config.js --watch & npm run serve-demo",
     "demo:spa": "rm -rf demo/dist && rollup -c demo/spa/rollup.config.js --watch & npm run serve-demo",
     "serve-demo": "node ../dev-server/dist/bin.js --watch --root-dir demo/dist --app-index index.html --compatibility none --open",
-    "test:node": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+    "test:node": "mocha test-new/**/*.test.ts --require ts-node/register --reporter dot",
+    "test:watch": "mocha test-new/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.js",
@@ -49,11 +49,14 @@
     "html-minifier-terser": "^7.1.0",
     "lightningcss": "^1.24.0",
     "parse5": "^6.0.1",
-    "picomatch": "^2.2.2"
+    "picomatch": "^2.2.2",
+    "prettier": "^3.6.2"
   },
   "devDependencies": {
+    "@prettier/sync": "^0.6.1",
     "@types/html-minifier-terser": "^7.0.0",
     "@types/picomatch": "^2.2.1",
+    "@types/prettier": "^3.0.0",
     "rollup": "^4.4.0"
   }
 }
