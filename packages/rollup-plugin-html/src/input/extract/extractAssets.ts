@@ -36,7 +36,9 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
         params.absolutePathPrefix,
       );
       const hashed = isHashedAsset(node);
-      const alreadyHandled = allAssets.find(a => a.filePath === filePath && a.hashed === hashed);
+      const alreadyHandled = allAssets.find(
+        a => a.filePath === filePath && a.legacyHashed === hashed,
+      );
       if (!alreadyHandled) {
         try {
           fs.accessSync(filePath);
@@ -49,7 +51,7 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
         }
 
         const content = fs.readFileSync(filePath);
-        allAssets.push({ filePath, hashed, content });
+        allAssets.push({ filePath, legacyHashed: hashed, content });
       }
     }
   }

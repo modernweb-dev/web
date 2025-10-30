@@ -4,12 +4,13 @@ import { transform } from 'lightningcss';
 import fs from 'fs';
 
 import { InputAsset, InputData } from '../input/InputData';
+import { toBrowserPath } from './utils.js';
 import { createAssetPicomatchMatcher } from '../assets/utils.js';
 import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions';
 
 export interface EmittedAssets {
   static: Map<string, string>;
-  hashed: Map<string, string>;
+  legacyHashed: Map<string, string>;
 }
 
 const allowedFileExtensions = [
@@ -39,6 +40,11 @@ export async function emitAssets(
   inputs: InputData[],
   options: RollupPluginHTMLOptions,
 ) {
+  console.log('emitAssets this', this);
+  console.log('emitAssets inputs', inputs);
+  console.log('emitAssets options', options);
+  const extractAssets = options.extractAssets ?? true;
+  const extractAssetsLegacyCss = options.extractAssets === 'legacy-html-and-css';
   const emittedStaticAssets = new Map<string, string>();
   const emittedHashedAssets = new Map<string, string>();
   const emittedStaticAssetNames = new Set();
@@ -52,12 +58,12 @@ export async function emitAssets(
     }
   }
   const staticAssets: InputAsset[] = [];
-  const hashedAssets: InputAsset[] = [];
+  const legacyHashedAssets: InputAsset[] = [];
 
   for (const input of inputs) {
     for (const asset of input.assets) {
-      if (asset.hashed) {
-        hashedAssets.push(asset);
+      if (asset.legacyHashed) {
+        legacyHashedAssets.push(asset);
       } else {
         staticAssets.push(asset);
       }
@@ -65,10 +71,10 @@ export async function emitAssets(
   }
 
   // ensure static assets are last because of https://github.com/rollup/rollup/issues/3853
-  const allAssets = [...hashedAssets, ...staticAssets];
+  const allAssets = [...legacyHashedAssets, ...staticAssets];
 
   for (const asset of allAssets) {
-    const map = asset.hashed ? emittedHashedAssets : emittedStaticAssets;
+    const map = asset.legacyHashed ? emittedHashedAssets : emittedStaticAssets;
     if (!map.has(asset.filePath)) {
       let source: Buffer = asset.content;
 
@@ -84,8 +90,9 @@ export async function emitAssets(
       let basename = path.basename(asset.filePath);
       const isExternal = createAssetPicomatchMatcher(options.externalAssets);
       const emittedExternalAssets = new Map();
-      if (asset.hashed) {
-        if (basename.endsWith('.css') && options.bundleAssetsFromCss) {
+      if (asset.legacyHashed) {
+        console.log('asset', asset);
+        if (basename.endsWith('.css') && extractAssets) {
           let updatedCssSource = false;
           const { code } = await transform({
             filename: basename,
@@ -104,22 +111,48 @@ export async function emitAssets(
 
                   // Avoid duplicates
                   if (!emittedExternalAssets.has(assetLocation)) {
-                    const fontFileRef = this.emitFile({
+                    const basename = path.basename(filePath);
+                    const fileRef = this.emitFile({
                       type: 'asset',
-                      name: path.join('assets', path.basename(filePath)),
+                      name: extractAssetsLegacyCss ? path.join('assets', basename) : basename,
                       source: assetContent,
                     });
-                    const emittedAssetFilePath = path.basename(this.getFileName(fontFileRef));
-                    emittedExternalAssets.set(assetLocation, emittedAssetFilePath);
+                    const emittedAssetFilepath = this.getFileName(fileRef);
+                    const emittedAssetBasename = path.basename(emittedAssetFilepath);
+                    console.log('1', emittedAssetBasename);
+                    emittedExternalAssets.set(assetLocation, emittedAssetFilepath);
                     // Update the URL in the original CSS file to point to the emitted asset file
-                    url.url = `assets/${
-                      idRef ? `${emittedAssetFilePath}#${idRef}` : emittedAssetFilePath
-                    }`;
+                    if (extractAssetsLegacyCss) {
+                      url.url = `assets/${emittedAssetBasename}`;
+                    } else {
+                      if (options.publicPath) {
+                        url.url = toBrowserPath(
+                          path.join(options.publicPath, emittedAssetFilepath),
+                        );
+                      } else {
+                        url.url = emittedAssetBasename;
+                      }
+                    }
+                    if (idRef) {
+                      url.url = `${url.url}#${idRef}`;
+                    }
                   } else {
-                    const emittedAssetFilePath = emittedExternalAssets.get(assetLocation);
-                    url.url = `assets/${
-                      idRef ? `${emittedAssetFilePath}#${idRef}` : emittedAssetFilePath
-                    }`;
+                    const emittedAssetFilepath = emittedExternalAssets.get(assetLocation);
+                    const emittedAssetBasename = path.basename(emittedAssetFilepath);
+                    if (extractAssetsLegacyCss) {
+                      url.url = `assets/${emittedAssetBasename}`;
+                    } else {
+                      if (options.publicPath) {
+                        url.url = toBrowserPath(
+                          path.join(options.publicPath, emittedAssetFilepath),
+                        );
+                      } else {
+                        url.url = emittedAssetBasename;
+                      }
+                    }
+                    if (idRef) {
+                      url.url = `${url.url}#${idRef}`;
+                    }
                   }
                 }
                 updatedCssSource = true;
@@ -132,6 +165,7 @@ export async function emitAssets(
           }
         }
 
+        console.log('2', basename);
         ref = this.emitFile({ type: 'asset', name: basename, source });
       } else {
         // ensure the output filename is unique
@@ -142,7 +176,9 @@ export async function emitAssets(
           i += 1;
         }
         emittedStaticAssetNames.add(basename);
+        // TODO: not sure what to do with this one yet
         const fileName = `assets/${basename}`;
+        console.log('3', basename, fileName);
         ref = this.emitFile({ type: 'asset', name: basename, fileName, source });
       }
 
@@ -150,5 +186,5 @@ export async function emitAssets(
     }
   }
 
-  return { static: emittedStaticAssets, hashed: emittedHashedAssets };
+  return { static: emittedStaticAssets, legacyHashed: emittedHashedAssets };
 }

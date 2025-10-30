@@ -5,8 +5,21 @@ import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
 import { createError } from '../utils.js';
 import { serialize } from 'v8';
 
-const hashedLinkRels = ['stylesheet'];
-const linkRels = [...hashedLinkRels, 'icon', 'manifest', 'apple-touch-icon', 'mask-icon'];
+const assetLinkRels: Record<string, boolean | ((node: Element) => boolean)> = {
+  icon: true,
+  'apple-touch-icon': true,
+  'mask-icon': true,
+  stylesheet: true,
+  manifest: true,
+  // TODO: write a separate tests for these
+  preload: (node: Element) => {
+    return ['font', 'image', 'style'].includes(getAttribute(node, 'as') || '');
+  },
+  prefetch: true,
+  modulepreload: true,
+};
+const legacyHashedLinkRels = ['stylesheet'];
+const assetMetaProperties = ['og:image'];
 
 function getSrcSetUrls(srcset: string) {
   if (!srcset) {
@@ -42,12 +55,14 @@ function isAsset(node: Element) {
       }
       break;
     case 'link':
-      if (linkRels.includes(getAttribute(node, 'rel') ?? '')) {
+      // eslint-disable-next-line no-case-declarations
+      const linkCheck = assetLinkRels[getAttribute(node, 'rel') ?? ''] || false;
+      if (typeof linkCheck === 'function' ? linkCheck(node) : linkCheck) {
         path = getAttribute(node, 'href') ?? '';
       }
       break;
     case 'meta':
-      if (getAttribute(node, 'property') === 'og:image' && getAttribute(node, 'content')) {
+      if (assetMetaProperties.includes(getAttribute(node, 'property') ?? '')) {
         path = getAttribute(node, 'content') ?? '';
       }
       break;
@@ -70,7 +85,7 @@ function isAsset(node: Element) {
   }
 }
 
-export function isHashedAsset(node: Element) {
+export function isHashedAsset(node: Element, legacy = false) {
   switch (getTagName(node)) {
     case 'img':
       return true;
@@ -79,7 +94,7 @@ export function isHashedAsset(node: Element) {
     case 'script':
       return true;
     case 'link':
-      return hashedLinkRels.includes(getAttribute(node, 'rel')!);
+      return (legacy ? legacyHashedLinkRels : assetLinkRels).includes(getAttribute(node, 'rel')!);
     case 'meta':
       return true;
     default:
