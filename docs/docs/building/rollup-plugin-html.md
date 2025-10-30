@@ -127,7 +127,9 @@ export default {
 
 #### Including assets referenced from css
 
-If your css files reference other assets via `url`, like for example:
+TODO: update
+
+Your css files reference other assets via `url`, like for example:
 
 ```css
 body {
@@ -139,15 +141,6 @@ body {
   src: url('fonts/font-bold.woff2') format('woff2');
   /* ...etc */
 }
-```
-
-You can enable the `bundleAssetsFromCss` option:
-
-```js
-rollupPluginHTML({
-  bundleAssetsFromCss: true,
-  // ...etc
-});
 ```
 
 And those assets will get output to the `assets/` dir, and the source css file will get updated with the output locations of those assets, e.g.:

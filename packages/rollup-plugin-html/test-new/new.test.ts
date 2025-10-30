@@ -8,6 +8,9 @@ import { rollupPluginHTML } from '../src/index.js';
 
 // TODO: test output "fileName" too, like the real output name, not always it's properly checked besides checking the index.html source
 
+// TODO: write tests for 'legacy-html' (this is when for CSS they are not extracted) and 'legacy-html-and-css' separately
+// TODO: write a test for 'shortcut icon'
+
 function collapseWhitespaceAll(str: string) {
   return (
     str &&
@@ -1427,7 +1430,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  // TODO: this will probably go away
+  // TODO: this will probably go away (or rewrite this test to a test of a filter for which files to hash and which not)
   it('static and hashed asset nodes can reference the same files', async () => {
     const rootDir = createApp({
       'foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
@@ -1947,7 +1950,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  it('handles fonts linked from css files', async () => {
+  it('[new] handles fonts linked from css files', async () => {
     const rootDir = createApp({
       'fonts/font-bold.woff2': 'font-bold',
       'fonts/font-normal.woff2': 'font-normal',
@@ -1973,7 +1976,6 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
-          bundleAssetsFromCss: true,
           rootDir,
           input: {
             html: html`
@@ -1992,8 +1994,86 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { assets } = await generateTestBundle(build, outputConfig);
 
-    // TODO: this looks to be adding extra "/assets/" folder layer
-    // TODO: actually totally unclear why the names are not hashed here, but the folder has changed, like half-baked
+    expect(assets).to.have.keys([
+      'assets/font-normal-Cht9ZB76.woff2',
+      'assets/font-bold-eQjSonqH.woff2',
+      'assets/styles-Dhs3ufep.css',
+      'index.html',
+    ]);
+
+    expect(assets['assets/styles-Dhs3ufep.css']).to.equal(css`
+      @font-face {
+        font-family: Font;
+        src: url('font-normal-Cht9ZB76.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Font;
+        src: url('font-bold-eQjSonqH.woff2') format('woff2');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+    `);
+
+    expect(assets['index.html']).to.equal(html`
+      <html>
+        <head>
+          <link rel="stylesheet" href="assets/styles-Dhs3ufep.css" />
+        </head>
+        <body></body>
+      </html>
+    `);
+  });
+
+  it('[legacy] handles fonts linked from css files', async () => {
+    const rootDir = createApp({
+      'fonts/font-bold.woff2': 'font-bold',
+      'fonts/font-normal.woff2': 'font-normal',
+      'styles.css': css`
+        @font-face {
+          font-family: Font;
+          src: url('fonts/font-normal.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
+
+        @font-face {
+          font-family: Font;
+          src: url('fonts/font-bold.woff2') format('woff2');
+          font-weight: bold;
+          font-style: normal;
+          font-display: swap;
+        }
+      `,
+    });
+
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          rootDir,
+          extractAssets: 'legacy-html-and-css',
+          input: {
+            html: html`
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles.css" />
+                </head>
+                <body></body>
+              </html>
+            `,
+          },
+        }),
+      ],
+    };
+
+    const build = await rollup(config);
+    const { assets } = await generateTestBundle(build, outputConfig);
+
     expect(assets).to.have.keys([
       'assets/assets/font-normal-Cht9ZB76.woff2',
       'assets/assets/font-bold-eQjSonqH.woff2',
@@ -2029,7 +2109,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  it('handles fonts linked from css files in node_modules', async () => {
+  it('[new] handles fonts linked from css files in node_modules', async () => {
     const rootDir = createApp({
       'node_modules/foo/fonts/font-bold.woff2': 'font-bold',
       'node_modules/foo/fonts/font-normal.woff2': 'font-normal',
@@ -2055,7 +2135,6 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
-          bundleAssetsFromCss: true,
           rootDir,
           input: {
             html: html`
@@ -2074,8 +2153,86 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { assets } = await generateTestBundle(build, outputConfig);
 
-    // TODO: this looks to be adding extra "/assets/" folder layer
-    // TODO: actually totally unclear why the names are not hashed here, but the folder has changed, like half-baked
+    expect(assets).to.have.keys([
+      'assets/font-normal-Cht9ZB76.woff2',
+      'assets/font-bold-eQjSonqH.woff2',
+      'assets/styles-Dhs3ufep.css',
+      'index.html',
+    ]);
+
+    expect(assets['assets/styles-Dhs3ufep.css']).to.equal(css`
+      @font-face {
+        font-family: Font;
+        src: url('font-normal-Cht9ZB76.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Font;
+        src: url('font-bold-eQjSonqH.woff2') format('woff2');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+    `);
+
+    expect(assets['index.html']).to.equal(html`
+      <html>
+        <head>
+          <link rel="stylesheet" href="assets/styles-Dhs3ufep.css" />
+        </head>
+        <body></body>
+      </html>
+    `);
+  });
+
+  it('[legacy] handles fonts linked from css files in node_modules', async () => {
+    const rootDir = createApp({
+      'node_modules/foo/fonts/font-bold.woff2': 'font-bold',
+      'node_modules/foo/fonts/font-normal.woff2': 'font-normal',
+      'node_modules/foo/styles.css': css`
+        @font-face {
+          font-family: Font;
+          src: url('fonts/font-normal.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
+
+        @font-face {
+          font-family: Font;
+          src: url('fonts/font-bold.woff2') format('woff2');
+          font-weight: bold;
+          font-style: normal;
+          font-display: swap;
+        }
+      `,
+    });
+
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          rootDir,
+          extractAssets: 'legacy-html-and-css',
+          input: {
+            html: html`
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./node_modules/foo/styles.css" />
+                </head>
+                <body></body>
+              </html>
+            `,
+          },
+        }),
+      ],
+    };
+
+    const build = await rollup(config);
+    const { assets } = await generateTestBundle(build, outputConfig);
+
     expect(assets).to.have.keys([
       'assets/assets/font-normal-Cht9ZB76.woff2',
       'assets/assets/font-bold-eQjSonqH.woff2',
@@ -2138,7 +2295,6 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
-          bundleAssetsFromCss: true,
           rootDir,
           input: {
             html: html`
@@ -2162,7 +2318,7 @@ describe('rollup-plugin-html', () => {
     expect(fonts.length).to.equal(1);
   });
 
-  it('handles images referenced from css', async () => {
+  it('[new] handles images referenced from css', async () => {
     const rootDir = createApp({
       'images/star.avif': 'star.avif',
       'images/star.gif': 'star.gif',
@@ -2209,7 +2365,6 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
-          bundleAssetsFromCss: true,
           rootDir,
           input: {
             html: html`
@@ -2228,8 +2383,119 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { assets } = await generateTestBundle(build, outputConfig);
 
-    // TODO: this looks to be adding extra "/assets/" folder layer
-    // TODO: actually totally unclear why the names are not hashed here, but the folder has changed, like half-baked
+    expect(assets).to.have.keys([
+      'assets/star-D_LO5feX.avif',
+      'assets/star-BKg9qmmf.gif',
+      'assets/star-BZWqL7hS.jpeg',
+      'assets/star-Df0JryvN.jpg',
+      'assets/star-CXig10q7.png',
+      'assets/star-CwhgM_z4.svg',
+      'assets/star-CKbh5mKn.webp',
+      'assets/styles-mywkihBc.css',
+      'index.html',
+    ]);
+
+    expect(assets['assets/styles-mywkihBc.css']).to.equal(css`
+      #a {
+        background-image: url('star-D_LO5feX.avif');
+      }
+
+      #b {
+        background-image: url('star-BKg9qmmf.gif');
+      }
+
+      #c {
+        background-image: url('star-BZWqL7hS.jpeg');
+      }
+
+      #d {
+        background-image: url('star-Df0JryvN.jpg');
+      }
+
+      #e {
+        background-image: url('star-CXig10q7.png');
+      }
+
+      #f {
+        background-image: url('star-CwhgM_z4.svg');
+      }
+
+      #g {
+        background-image: url('star-CwhgM_z4.svg#foo');
+      }
+
+      #h {
+        background-image: url('star-CKbh5mKn.webp');
+      }
+    `);
+  });
+
+  it('[legacy] handles images referenced from css', async () => {
+    const rootDir = createApp({
+      'images/star.avif': 'star.avif',
+      'images/star.gif': 'star.gif',
+      'images/star.jpeg': 'star.jpeg',
+      'images/star.jpg': 'star.jpg',
+      'images/star.png': 'star.png',
+      'images/star.svg': 'star.svg',
+      'images/star.webp': 'star.webp',
+      'styles.css': css`
+        #a {
+          background-image: url('images/star.avif');
+        }
+
+        #b {
+          background-image: url('images/star.gif');
+        }
+
+        #c {
+          background-image: url('images/star.jpeg');
+        }
+
+        #d {
+          background-image: url('images/star.jpg');
+        }
+
+        #e {
+          background-image: url('images/star.png');
+        }
+
+        #f {
+          background-image: url('images/star.svg');
+        }
+
+        #g {
+          background-image: url('images/star.svg#foo');
+        }
+
+        #h {
+          background-image: url('images/star.webp');
+        }
+      `,
+    });
+
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          rootDir,
+          extractAssets: 'legacy-html-and-css',
+          input: {
+            html: html`
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles.css" />
+                </head>
+                <body></body>
+              </html>
+            `,
+          },
+        }),
+      ],
+    };
+
+    const build = await rollup(config);
+    const { assets } = await generateTestBundle(build, outputConfig);
+
     expect(assets).to.have.keys([
       'assets/assets/star-D_LO5feX.avif',
       'assets/assets/star-BKg9qmmf.gif',
@@ -2316,7 +2582,6 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
-          bundleAssetsFromCss: true,
           externalAssets: ['**/foo/**/*', '*.svg'],
           rootDir,
           input: {
@@ -2348,14 +2613,12 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { assets } = await generateTestBundle(build, outputConfig);
 
-    // TODO: this looks to be adding extra "/assets/" folder layer
-    // TODO: actually totally unclear why the names are not hashed here, but the folder has changed, like half-baked
     expect(assets).to.have.keys([
-      'assets/assets/image-a-XOCPHCrV.png',
-      'assets/assets/image-b-BgQHKcRn.png',
+      'assets/image-a-XOCPHCrV.png',
+      'assets/image-b-BgQHKcRn.png',
       'assets/image-a.png',
       'assets/image-b.png',
-      'assets/styles-DFIb0lB5.css',
+      'assets/styles-Bv-4gk2N.css',
       'assets/webmanifest.json',
       'index.html',
     ]);
@@ -2368,12 +2631,12 @@ describe('rollup-plugin-html', () => {
           <link rel="manifest" href="assets/webmanifest.json" />
           <link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
           <link rel="mask-icon" href="image-b.svg" color="#3f93ce" />
-          <link rel="stylesheet" href="assets/styles-DFIb0lB5.css" />
+          <link rel="stylesheet" href="assets/styles-Bv-4gk2N.css" />
           <link rel="stylesheet" href="./foo/x.css" />
           <link rel="stylesheet" href="foo/bar/y.css" />
         </head>
         <body>
-          <img src="assets/assets/image-b-BgQHKcRn.png" />
+          <img src="assets/image-b-BgQHKcRn.png" />
           <div>
             <img src="./image-b.svg" />
           </div>
@@ -2381,9 +2644,9 @@ describe('rollup-plugin-html', () => {
       </html>
     `);
 
-    expect(assets['assets/styles-DFIb0lB5.css']).to.equal(css`
+    expect(assets['assets/styles-Bv-4gk2N.css']).to.equal(css`
       #a1 {
-        background-image: url('assets/image-a-XOCPHCrV.png');
+        background-image: url('image-a-XOCPHCrV.png');
       }
 
       #a2 {
@@ -2391,7 +2654,7 @@ describe('rollup-plugin-html', () => {
       }
 
       #d1 {
-        background-image: url('assets/image-b-BgQHKcRn.png');
+        background-image: url('image-b-BgQHKcRn.png');
       }
 
       #d2 {
