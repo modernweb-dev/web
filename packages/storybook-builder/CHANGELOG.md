@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.2.4
+
+### Patch Changes
+
+- 0dd56f2: replace glob-promise with glob due to security findings
+
 ## 0.2.3
 
 ### Patch Changes
