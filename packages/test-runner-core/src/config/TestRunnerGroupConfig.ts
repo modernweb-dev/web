@@ -3,7 +3,6 @@ import { TestRunnerCoreConfig } from './TestRunnerCoreConfig.js';
 
 export interface TestRunnerGroupConfig {
   name: string;
-  configFilePath?: string;
   files?: string | string[];
   browsers?: BrowserLauncher[];
   testRunnerHtml?: (
