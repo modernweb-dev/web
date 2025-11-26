@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 2.4.0
+
+### Minor Changes
+
+- 44fff34: support transform on input html
+
 ## 2.3.0
 
 ### Minor Changes
