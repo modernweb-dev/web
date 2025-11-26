@@ -18,7 +18,10 @@ import { emitAssets } from './output/emitAssets.js';
 export interface RollupPluginHtml extends Plugin {
   api: {
     getInputs(): InputData[];
-    addHtmlTransformer(transformHtmlFunction: TransformHtmlFunction): void;
+    addHtmlTransformer(
+      transformHtmlFunction: TransformHtmlFunction,
+      transformStage?: 'input' | 'output',
+    ): void;
     disableDefaultInject(): void;
     addOutput(name: string): Plugin;
   };
@@ -28,7 +31,8 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
   const multiOutputNames: string[] = [];
   let inputs: InputData[] = [];
   let generatedBundles: GeneratedBundle[] = [];
-  let externalTransformHtmlFns: TransformHtmlFunction[] = [];
+  let inputExternalTransformHtmlFns: TransformHtmlFunction[] = [];
+  let outputExternalTransformHtmlFns: TransformHtmlFunction[] = [];
   let defaultInjectDisabled = false;
   let serviceWorkerPath = '';
   let injectServiceWorker = false;
@@ -38,7 +42,8 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
   function reset() {
     inputs = [];
     generatedBundles = [];
-    externalTransformHtmlFns = [];
+    inputExternalTransformHtmlFns = [];
+    outputExternalTransformHtmlFns = [];
   }
 
   return {
@@ -146,7 +151,8 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
         inputs,
         emittedAssets,
         generatedBundles,
-        externalTransformHtmlFns,
+        inputExternalTransformHtmlFns,
+        outputExternalTransformHtmlFns,
         pluginOptions,
         defaultInjectDisabled,
         serviceWorkerPath,
@@ -165,8 +171,15 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
         return inputs;
       },
 
-      addHtmlTransformer(transformHtmlFunction: TransformHtmlFunction) {
-        externalTransformHtmlFns.push(transformHtmlFunction);
+      addHtmlTransformer(
+        transformHtmlFunction: TransformHtmlFunction,
+        transformStage: 'input' | 'output' = 'output',
+      ) {
+        if (transformStage === 'input') {
+          inputExternalTransformHtmlFns.push(transformHtmlFunction);
+        } else {
+          outputExternalTransformHtmlFns.push(transformHtmlFunction);
+        }
       },
 
       disableDefaultInject() {
@@ -205,7 +218,8 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
                 inputs,
                 emittedAssets,
                 generatedBundles,
-                externalTransformHtmlFns,
+                inputExternalTransformHtmlFns,
+                outputExternalTransformHtmlFns,
                 pluginOptions,
                 defaultInjectDisabled,
                 serviceWorkerPath,
