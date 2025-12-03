@@ -15,8 +15,7 @@ export interface CreateHTMLAssetParams {
   input: InputData;
   emittedAssets: EmittedAssets;
   generatedBundles: GeneratedBundle[];
-  inputExternalTransformHtmlFns: TransformHtmlFunction[];
-  outputExternalTransformHtmlFns: TransformHtmlFunction[];
+  externalTransformHtmlFns: TransformHtmlFunction[];
   pluginOptions: RollupPluginHTMLOptions;
   defaultInjectDisabled: boolean;
   serviceWorkerPath: string;
@@ -31,8 +30,7 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     input,
     emittedAssets,
     generatedBundles,
-    inputExternalTransformHtmlFns,
-    outputExternalTransformHtmlFns,
+    externalTransformHtmlFns,
     pluginOptions,
     defaultInjectDisabled,
     serviceWorkerPath,
@@ -59,8 +57,7 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     input,
     outputDir,
     emittedAssets,
-    inputExternalTransformHtmlFns,
-    outputExternalTransformHtmlFns,
+    externalTransformHtmlFns,
     defaultInjectDisabled,
     serviceWorkerPath,
     injectServiceWorker,
@@ -76,8 +73,7 @@ export interface CreateHTMLAssetsParams {
   inputs: InputData[];
   emittedAssets: EmittedAssets;
   generatedBundles: GeneratedBundle[];
-  inputExternalTransformHtmlFns: TransformHtmlFunction[];
-  outputExternalTransformHtmlFns: TransformHtmlFunction[];
+  externalTransformHtmlFns: TransformHtmlFunction[];
   pluginOptions: RollupPluginHTMLOptions;
   defaultInjectDisabled: boolean;
   serviceWorkerPath: string;
