@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 2.4.1
+
+### Patch Changes
+
+- bd12d3c: revert support transform on input html
+
 ## 2.4.0
 
 ### Minor Changes
