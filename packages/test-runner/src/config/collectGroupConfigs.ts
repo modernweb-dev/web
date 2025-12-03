@@ -3,7 +3,10 @@ import { readConfig, ConfigLoaderError } from '@web/config-loader';
 import globby from 'globby';
 import { TestRunnerStartError } from '../TestRunnerStartError.js';
 
-function validateGroupConfig(configFilePath: string, config: Partial<TestRunnerGroupConfig>) {
+function validateGroupConfig(
+  configFilePath: string,
+  config: Partial<TestRunnerGroupConfig>,
+): TestRunnerGroupConfig {
   if (config.browsers != null && !Array.isArray(config.browsers)) {
     throw new TestRunnerStartError(
       `Group config at ${configFilePath} has invalid browsers option. It should be an array.`,
@@ -16,7 +19,7 @@ function validateGroupConfig(configFilePath: string, config: Partial<TestRunnerG
     );
   }
 
-  return { name: configFilePath, configFilePath, ...config } as TestRunnerGroupConfig;
+  return { name: configFilePath, ...config };
 }
 
 export async function collectGroupConfigs(patterns: string[]) {
