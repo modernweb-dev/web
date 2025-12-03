@@ -105,14 +105,14 @@ describe('getOutputHTML()', () => {
     );
   });
 
-  it('can combine external and regular output transform functions', async () => {
+  it('can combine external and regular transform functions', async () => {
     const output = await getOutputHTML({
       ...defaultOptions,
       pluginOptions: {
         ...defaultOptions.pluginOptions,
         transformHtml: html => html.replace('Input HTML', 'Transformed Input HTML'),
       },
-      outputExternalTransformHtmlFns: [html => html.replace(/h1/g, 'h2')],
+      externalTransformHtmlFns: [html => html.replace(/h1/g, 'h2')],
     });
 
     expect(output).to.equal(

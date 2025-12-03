@@ -19,8 +19,7 @@ export interface GetOutputHTMLParams {
   emittedAssets: EmittedAssets;
   pluginOptions: RollupPluginHTMLOptions;
   entrypointBundles: Record<string, EntrypointBundle>;
-  inputExternalTransformHtmlFns?: TransformHtmlFunction[];
-  outputExternalTransformHtmlFns?: TransformHtmlFunction[];
+  externalTransformHtmlFns?: TransformHtmlFunction[];
   defaultInjectDisabled: boolean;
   serviceWorkerPath: string;
   injectServiceWorker: boolean;
@@ -32,8 +31,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
   const {
     pluginOptions,
     entrypointBundles,
-    inputExternalTransformHtmlFns,
-    outputExternalTransformHtmlFns,
+    externalTransformHtmlFns,
     input,
     outputDir,
     emittedAssets,
@@ -46,20 +44,8 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
   const { default: defaultBundle, ...multiBundles } = entrypointBundles;
   const { absoluteSocialMediaUrls = true, rootDir = process.cwd() } = pluginOptions;
 
-  let inputHtml = input.html;
-
-  // run transform functions on input HTML
-  const inputTransforms = [...(inputExternalTransformHtmlFns ?? [])];
-  for (const transform of inputTransforms) {
-    inputHtml = await transform(inputHtml, {
-      bundle: defaultBundle,
-      bundles: multiBundles,
-      htmlFileName: input.name,
-    });
-  }
-
   // inject rollup output into HTML
-  let document = parse(inputHtml);
+  let document = parse(input.html);
   if (pluginOptions.extractAssets !== false) {
     injectedUpdatedAssetPaths({
       document,
@@ -89,17 +75,17 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
 
   let outputHtml = serialize(document);
 
-  const outputTransforms = [...(outputExternalTransformHtmlFns ?? [])];
+  const transforms = [...(externalTransformHtmlFns ?? [])];
   if (pluginOptions.transformHtml) {
     if (Array.isArray(pluginOptions.transformHtml)) {
-      outputTransforms.push(...pluginOptions.transformHtml);
+      transforms.push(...pluginOptions.transformHtml);
     } else {
-      outputTransforms.push(pluginOptions.transformHtml);
+      transforms.push(pluginOptions.transformHtml);
     }
   }
 
   // run transform functions on output HTML
-  for (const transform of outputTransforms) {
+  for (const transform of transforms) {
     outputHtml = await transform(outputHtml, {
       bundle: defaultBundle,
       bundles: multiBundles,

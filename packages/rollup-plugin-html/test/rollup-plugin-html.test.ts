@@ -626,16 +626,7 @@ describe('rollup-plugin-html', () => {
               return false;
             });
             plugin!.api.addHtmlTransformer((html: string) =>
-              html.replace('</body>', '<!-- injected to output --></body>'),
-            );
-            plugin!.api.addHtmlTransformer(
-              (html: string) =>
-                html.replace('<!-- injected to output -->', '<!-- injected to output 2 -->'),
-              'output',
-            );
-            plugin!.api.addHtmlTransformer(
-              (html: string) => html.replace('</body>', '<!-- injected to input --></body>'),
-              'input',
+              html.replace('</body>', '<!-- injected --></body>'),
             );
           },
         } as Plugin,
@@ -650,10 +641,9 @@ describe('rollup-plugin-html', () => {
     expect(entryB).to.include("console.log('entrypoint-b.js');");
     expect(stripNewlines(getAsset(output, 'index.html').source)).to.equal(
       '<html><head></head><body><h1>hello world</h1>' +
-        '<!-- injected to input -->' +
         '<script type="module" src="./entrypoint-a.js"></script>' +
         '<script type="module" src="./entrypoint-b.js"></script>' +
-        '<!-- injected to output 2 --></body></html>',
+        '<!-- injected --></body></html>',
     );
   });
 
