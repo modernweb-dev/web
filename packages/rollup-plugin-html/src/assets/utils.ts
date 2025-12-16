@@ -12,6 +12,8 @@ const assetLinkRels: Record<string, boolean | ((node: Element) => boolean)> = {
   stylesheet: true,
   manifest: true,
   // TODO: write a separate tests for these
+  // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/preload
+  // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/prefetch
   preload: (node: Element) => {
     return ['font', 'image', 'style'].includes(getAttribute(node, 'as') || '');
   },
@@ -54,13 +56,13 @@ function isAsset(node: Element) {
         path = extractFirstUrlOfSrcSet(node) ?? '';
       }
       break;
-    case 'link':
-      // eslint-disable-next-line no-case-declarations
+    case 'link': {
       const linkCheck = assetLinkRels[getAttribute(node, 'rel') ?? ''] || false;
       if (typeof linkCheck === 'function' ? linkCheck(node) : linkCheck) {
         path = getAttribute(node, 'href') ?? '';
       }
       break;
+    }
     case 'meta':
       if (assetMetaProperties.includes(getAttribute(node, 'property') ?? '')) {
         path = getAttribute(node, 'content') ?? '';
@@ -85,7 +87,10 @@ function isAsset(node: Element) {
   }
 }
 
-export function isHashedAsset(node: Element, legacy = false) {
+export function isHashedAsset(
+  node: Element,
+  extractAssets: boolean | 'legacy-html' | 'legacy-html-and-css',
+) {
   switch (getTagName(node)) {
     case 'img':
       return true;
@@ -93,8 +98,13 @@ export function isHashedAsset(node: Element, legacy = false) {
       return true;
     case 'script':
       return true;
-    case 'link':
-      return (legacy ? legacyHashedLinkRels : assetLinkRels).includes(getAttribute(node, 'rel')!);
+    case 'link': {
+      if (extractAssets === 'legacy-html' || extractAssets === 'legacy-html-and-css') {
+        return legacyHashedLinkRels.includes(getAttribute(node, 'rel') ?? '');
+      } else {
+        return true;
+      }
+    }
     case 'meta':
       return true;
     default:

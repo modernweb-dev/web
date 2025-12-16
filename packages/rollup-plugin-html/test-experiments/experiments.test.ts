@@ -1,6 +1,6 @@
 import synchronizedPrettier from '@prettier/sync';
 import * as prettier from 'prettier';
-import { rollup, OutputChunk, OutputOptions, Plugin, RollupBuild } from 'rollup';
+import { rollup, OutputOptions, RollupBuild } from 'rollup';
 import { expect } from 'chai';
 import path from 'path';
 import fs from 'fs';
@@ -45,9 +45,6 @@ const css = (strings: TemplateStringsArray, ...values: string[]) =>
 
 const js = (strings: TemplateStringsArray, ...values: string[]) =>
   extnameToFormatter['.js'](merge(strings, ...values));
-
-const svg = (strings: TemplateStringsArray, ...values: string[]) =>
-  extnameToFormatter['.svg'](merge(strings, ...values));
 
 const outputConfig: OutputOptions = {
   format: 'es',
@@ -165,7 +162,7 @@ describe('rollup-plugin-html', () => {
     };
 
     const build = await rollup(config);
-    const { output, assets } = await generateTestBundle(build, {
+    const { assets } = await generateTestBundle(build, {
       ...outputConfig,
       assetFileNames: 'static/[name].immutable.[hash][extname]',
     });
@@ -264,7 +261,7 @@ describe('rollup-plugin-html', () => {
     };
 
     const build = await rollup(config);
-    const { output, assets } = await generateTestBundle(build, {
+    const { assets } = await generateTestBundle(build, {
       ...outputConfig,
       assetFileNames: assetInfo => {
         const name = assetInfo.names[0] || '';

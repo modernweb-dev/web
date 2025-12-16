@@ -60,9 +60,6 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
         moduleImports.push(NOOP_IMPORT);
       }
 
-      if (pluginOptions.extractAssets) {
-      }
-
       if (pluginOptions.serviceWorkerPath) {
         serviceWorkerPath = pluginOptions.serviceWorkerPath;
       }

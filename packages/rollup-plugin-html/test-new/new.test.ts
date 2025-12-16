@@ -1300,7 +1300,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  it('includes referenced assets in the bundle', async () => {
+  it('[new] includes referenced assets in the bundle', async () => {
     const rootDir = createApp({
       'image-a.png': 'image-a.png',
       'image-b.png': 'image-b.png',
@@ -1329,6 +1329,99 @@ describe('rollup-plugin-html', () => {
       plugins: [
         rollupPluginHTML({
           rootDir,
+          input: {
+            html: html`
+              <html>
+                <head>
+                  <link rel="apple-touch-icon" sizes="180x180" href="./image-a.png" />
+                  <link rel="icon" type="image/png" sizes="32x32" href="./image-b.png" />
+                  <link rel="manifest" href="./webmanifest.json" />
+                  <link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
+                  <link rel="stylesheet" href="./styles.css" />
+                  <link rel="stylesheet" href="./foo/x.css" />
+                  <link rel="stylesheet" href="./foo/bar/y.css" />
+                </head>
+                <body>
+                  <img src="./image-c.png" />
+                  <div>
+                    <img src="./image-b.svg" />
+                  </div>
+                </body>
+              </html>
+            `,
+          },
+        }),
+      ],
+    };
+
+    const build = await rollup(config);
+    const { chunks, assets } = await generateTestBundle(build, outputConfig);
+
+    expect(Object.keys(chunks)).to.have.lengthOf(1);
+    expect(assets).to.have.keys([
+      'assets/image-a-XOCPHCrV.png',
+      'assets/image-b-BgQHKcRn.png',
+      'assets/image-c-C4yLPiIL.png',
+      'assets/image-a-BCCvKrTe.svg',
+      'assets/image-b-C4stzVZW.svg',
+      'assets/styles-CF2Iy5n1.css',
+      'assets/x-DDGg8O6h.css',
+      'assets/y-DJTrnPH3.css',
+      'assets/webmanifest-BkrOR1WG.json',
+      'index.html',
+    ]);
+
+    expect(assets['index.html']).to.equal(html`
+      <html>
+        <head>
+          <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a-XOCPHCrV.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b-BgQHKcRn.png" />
+          <link rel="manifest" href="assets/webmanifest-BkrOR1WG.json" />
+          <link rel="mask-icon" href="assets/image-a-BCCvKrTe.svg" color="#3f93ce" />
+          <link rel="stylesheet" href="assets/styles-CF2Iy5n1.css" />
+          <link rel="stylesheet" href="assets/x-DDGg8O6h.css" />
+          <link rel="stylesheet" href="assets/y-DJTrnPH3.css" />
+        </head>
+        <body>
+          <img src="assets/image-c-C4yLPiIL.png" />
+          <div>
+            <img src="assets/image-b-C4stzVZW.svg" />
+          </div>
+        </body>
+      </html>
+    `);
+  });
+
+  it('[legacy] includes referenced assets in the bundle', async () => {
+    const rootDir = createApp({
+      'image-a.png': 'image-a.png',
+      'image-b.png': 'image-b.png',
+      'image-c.png': 'image-c.png',
+      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      'image-b.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      'styles.css': css`
+        :root {
+          color: blue;
+        }
+      `,
+      'foo/x.css': css`
+        :root {
+          color: x;
+        }
+      `,
+      'foo/bar/y.css': css`
+        :root {
+          color: y;
+        }
+      `,
+      'webmanifest.json': { message: 'hello world' },
+    });
+
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          rootDir,
+          extractAssets: 'legacy-html-and-css',
           input: {
             html: html`
               <html>
@@ -1392,7 +1485,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  it('deduplicates static assets with similar names', async () => {
+  it('[new] does not deduplicate static assets with similar names', async () => {
     const rootDir = createApp({
       'foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
       'x/foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
@@ -1422,6 +1515,45 @@ describe('rollup-plugin-html', () => {
     expect(assets['index.html']).to.equal(html`
       <html>
         <head>
+          <link rel="icon" type="image/png" sizes="32x32" href="assets/foo-BCCvKrTe.svg" />
+          <link rel="mask-icon" href="assets/foo-C4stzVZW.svg" color="#3f93ce" />
+        </head>
+        <body></body>
+      </html>
+    `);
+  });
+
+  it('[legacy] deduplicates static assets with similar names', async () => {
+    const rootDir = createApp({
+      'foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      'x/foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+    });
+
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          rootDir,
+          extractAssets: 'legacy-html-and-css',
+          input: {
+            html: html`
+              <html>
+                <head>
+                  <link rel="icon" type="image/png" sizes="32x32" href="./foo.svg" />
+                  <link rel="mask-icon" href="./x/foo.svg" color="#3f93ce" />
+                </head>
+              </html>
+            `,
+          },
+        }),
+      ],
+    };
+
+    const build = await rollup(config);
+    const { assets } = await generateTestBundle(build, outputConfig);
+
+    expect(assets['index.html']).to.equal(html`
+      <html>
+        <head>
           <link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg" />
           <link rel="mask-icon" href="assets/foo1.svg" color="#3f93ce" />
         </head>
@@ -1430,8 +1562,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  // TODO: this will probably go away (or rewrite this test to a test of a filter for which files to hash and which not)
-  it('static and hashed asset nodes can reference the same files', async () => {
+  it('[legacy] static and hashed asset nodes can reference the same files', async () => {
     const rootDir = createApp({
       'foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
     });
@@ -1440,6 +1571,7 @@ describe('rollup-plugin-html', () => {
       plugins: [
         rollupPluginHTML({
           rootDir,
+          extractAssets: 'legacy-html-and-css',
           input: {
             html: html`
               <html>
@@ -2543,7 +2675,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  it('allows to exclude external assets usign a glob pattern', async () => {
+  it('[new] allows to exclude external assets usign a glob pattern', async () => {
     const rootDir = createApp({
       'image-a.png': 'image-a.png',
       'image-b.png': 'image-b.png',
@@ -2616,19 +2748,17 @@ describe('rollup-plugin-html', () => {
     expect(assets).to.have.keys([
       'assets/image-a-XOCPHCrV.png',
       'assets/image-b-BgQHKcRn.png',
-      'assets/image-a.png',
-      'assets/image-b.png',
       'assets/styles-Bv-4gk2N.css',
-      'assets/webmanifest.json',
+      'assets/webmanifest-BkrOR1WG.json',
       'index.html',
     ]);
 
     expect(assets['index.html']).to.equal(html`
       <html>
         <head>
-          <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b.png" />
-          <link rel="manifest" href="assets/webmanifest.json" />
+          <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a-XOCPHCrV.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b-BgQHKcRn.png" />
+          <link rel="manifest" href="assets/webmanifest-BkrOR1WG.json" />
           <link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
           <link rel="mask-icon" href="image-b.svg" color="#3f93ce" />
           <link rel="stylesheet" href="assets/styles-Bv-4gk2N.css" />
@@ -2655,6 +2785,127 @@ describe('rollup-plugin-html', () => {
 
       #d1 {
         background-image: url('image-b-BgQHKcRn.png');
+      }
+
+      #d2 {
+        background-image: url('./image-b.svg');
+      }
+    `);
+  });
+
+  it('[legacy] allows to exclude external assets usign a glob pattern', async () => {
+    const rootDir = createApp({
+      'image-a.png': 'image-a.png',
+      'image-b.png': 'image-b.png',
+      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      'image-b.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      'styles.css': css`
+        #a1 {
+          background-image: url('image-a.png');
+        }
+
+        #a2 {
+          background-image: url('image-a.svg');
+        }
+
+        #d1 {
+          background-image: url('./image-b.png');
+        }
+
+        #d2 {
+          background-image: url('./image-b.svg');
+        }
+      `,
+      'foo/x.css': css`
+        :root {
+          color: x;
+        }
+      `,
+      'foo/bar/y.css': css`
+        :root {
+          color: y;
+        }
+      `,
+      'webmanifest.json': { message: 'hello world' },
+    });
+
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          externalAssets: ['**/foo/**/*', '*.svg'],
+          rootDir,
+          extractAssets: 'legacy-html-and-css',
+          input: {
+            html: html`
+              <html>
+                <head>
+                  <link rel="apple-touch-icon" sizes="180x180" href="./image-a.png" />
+                  <link rel="icon" type="image/png" sizes="32x32" href="image-b.png" />
+                  <link rel="manifest" href="./webmanifest.json" />
+                  <link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
+                  <link rel="mask-icon" href="image-b.svg" color="#3f93ce" />
+                  <link rel="stylesheet" href="./styles.css" />
+                  <link rel="stylesheet" href="./foo/x.css" />
+                  <link rel="stylesheet" href="foo/bar/y.css" />
+                </head>
+                <body>
+                  <img src="./image-b.png" />
+                  <div>
+                    <img src="./image-b.svg" />
+                  </div>
+                </body>
+              </html>
+            `,
+          },
+        }),
+      ],
+    };
+
+    const build = await rollup(config);
+    const { assets } = await generateTestBundle(build, outputConfig);
+
+    expect(assets).to.have.keys([
+      'assets/assets/image-a-XOCPHCrV.png',
+      'assets/assets/image-b-BgQHKcRn.png',
+      'assets/image-a.png',
+      'assets/image-b.png',
+      'assets/styles-DFIb0lB5.css',
+      'assets/webmanifest.json',
+      'index.html',
+    ]);
+
+    expect(assets['index.html']).to.equal(html`
+      <html>
+        <head>
+          <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b.png" />
+          <link rel="manifest" href="assets/webmanifest.json" />
+          <link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
+          <link rel="mask-icon" href="image-b.svg" color="#3f93ce" />
+          <link rel="stylesheet" href="assets/styles-DFIb0lB5.css" />
+          <link rel="stylesheet" href="./foo/x.css" />
+          <link rel="stylesheet" href="foo/bar/y.css" />
+        </head>
+        <body>
+          <img src="assets/assets/image-b-BgQHKcRn.png" />
+          <div>
+            <img src="./image-b.svg" />
+          </div>
+        </body>
+      </html>
+    `);
+
+    expect(assets['assets/styles-DFIb0lB5.css']).to.equal(css`
+      #a1 {
+        background-image: url('assets/image-a-XOCPHCrV.png');
+      }
+
+      #a2 {
+        background-image: url('image-a.svg');
+      }
+
+      #d1 {
+        background-image: url('assets/image-b-BgQHKcRn.png');
       }
 
       #d2 {

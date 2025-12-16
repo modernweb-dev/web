@@ -40,9 +40,6 @@ export async function emitAssets(
   inputs: InputData[],
   options: RollupPluginHTMLOptions,
 ) {
-  console.log('emitAssets this', this);
-  console.log('emitAssets inputs', inputs);
-  console.log('emitAssets options', options);
   const extractAssets = options.extractAssets ?? true;
   const extractAssetsLegacyCss = options.extractAssets === 'legacy-html-and-css';
   const emittedStaticAssets = new Map<string, string>();
@@ -91,7 +88,6 @@ export async function emitAssets(
       const isExternal = createAssetPicomatchMatcher(options.externalAssets);
       const emittedExternalAssets = new Map();
       if (asset.legacyHashed) {
-        console.log('asset', asset);
         if (basename.endsWith('.css') && extractAssets) {
           let updatedCssSource = false;
           const { code } = await transform({
@@ -119,7 +115,6 @@ export async function emitAssets(
                     });
                     const emittedAssetFilepath = this.getFileName(fileRef);
                     const emittedAssetBasename = path.basename(emittedAssetFilepath);
-                    console.log('1', emittedAssetBasename);
                     emittedExternalAssets.set(assetLocation, emittedAssetFilepath);
                     // Update the URL in the original CSS file to point to the emitted asset file
                     if (extractAssetsLegacyCss) {
@@ -165,7 +160,6 @@ export async function emitAssets(
           }
         }
 
-        console.log('2', basename);
         ref = this.emitFile({ type: 'asset', name: basename, source });
       } else {
         // ensure the output filename is unique
@@ -178,7 +172,6 @@ export async function emitAssets(
         emittedStaticAssetNames.add(basename);
         // TODO: not sure what to do with this one yet
         const fileName = `assets/${basename}`;
-        console.log('3', basename, fileName);
         ref = this.emitFile({ type: 'asset', name: basename, fileName, source });
       }
 
