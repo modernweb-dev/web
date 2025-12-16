@@ -24,7 +24,7 @@
     "lint:eslint": "eslint --ext .ts,.js,.mjs,.cjs .",
     "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
     "prepare": "husky",
-    "reinstall-workspace": "rimraf --glob packages/*/node_modules && rimraf node_modules && npm run install && npm run build",
+    "reinstall-workspace": "rimraf --glob packages/*/node_modules && rimraf node_modules && npm install && npm run build",
     "release": "changeset publish && npm run format",
     "release:enter-pre": "[ ! -f .changeset/pre.json ] && npx changeset pre enter next || echo 'Already in pre mode'",
     "review-content": "alex 'docs/**/*.md'",
