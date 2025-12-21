@@ -5,8 +5,11 @@ import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
 import { createError } from '../utils.js';
 import { serialize } from 'v8';
 
-const hashedLinkRels = ['stylesheet'];
+const hashedLinkRels = ['stylesheet', 'preload'];
 const linkRels = [...hashedLinkRels, 'icon', 'manifest', 'apple-touch-icon', 'mask-icon'];
+/** @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#textjavascript */
+const JS_MIME_TYPE_RE =
+  /(module)|(application\/(x-)?(java|ecma)script)|text\/(x-)?(j(ava)?|ecma|live)script(1\.[0-5])?/;
 
 function getSrcSetUrls(srcset: string) {
   if (!srcset) {
@@ -51,11 +54,14 @@ function isAsset(node: Element) {
         path = getAttribute(node, 'content') ?? '';
       }
       break;
-    case 'script':
-      if (getAttribute(node, 'type') !== 'module' && getAttribute(node, 'src')) {
-        path = getAttribute(node, 'src') ?? '';
+    case 'script': {
+      const type = getAttribute(node, 'type');
+      const src = getAttribute(node, 'src');
+      if (type && !type.match(JS_MIME_TYPE_RE) && src) {
+        path = src ?? '';
       }
       break;
+    }
     default:
       return false;
   }
@@ -142,7 +148,12 @@ export function getSourcePaths(node: Element) {
 }
 
 export function findAssets(document: Document) {
-  return findElements(document, isAsset);
+  const documentElements = findElements(document, isAsset);
+  // @ts-expect-error: parse5 types need some help
+  const templates = findElements(document, x => x.tagName === 'template');
+  // @ts-expect-error: parse5 types need some help
+  const templateAssets = templates.flatMap(x => findElements(x.content, isAsset));
+  return [...documentElements, ...templateAssets];
 }
 
 // picomatch follows glob spec and requires "./" to be removed for the matcher to work
