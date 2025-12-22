@@ -9,7 +9,6 @@ import { rollupPluginHTML } from '../src/index.js';
 // TODO: test output "fileName" too, like the real output name, not always it's properly checked besides checking the index.html source
 
 // TODO: write tests for 'legacy-html' (this is when for CSS they are not extracted) and 'legacy-html-and-css' separately
-// TODO: write a test for 'shortcut icon'
 
 function collapseWhitespaceAll(str: string) {
   return (
@@ -2402,7 +2401,6 @@ describe('rollup-plugin-html', () => {
 
   it('handles duplicate fonts correctly', async () => {
     const rootDir = createApp({
-      'fonts/font-bold.woff2': 'font-bold',
       'fonts/font-normal.woff2': 'font-normal',
       'styles-a.css': css`
         @font-face {
@@ -2415,9 +2413,9 @@ describe('rollup-plugin-html', () => {
       `,
       'styles-b.css': css`
         @font-face {
-          font-family: Font;
-          src: url('fonts/font-bold.woff2') format('woff2');
-          font-weight: bold;
+          font-family: Font2;
+          src: url('fonts/font-normal.woff2') format('woff2');
+          font-weight: normal;
           font-style: normal;
           font-display: swap;
         }
@@ -2444,10 +2442,44 @@ describe('rollup-plugin-html', () => {
     };
 
     const build = await rollup(config);
-    const { output } = await generateTestBundle(build, outputConfig);
+    const { assets } = await generateTestBundle(build, outputConfig);
 
-    const fonts = output.filter(o => o.name?.endsWith('font-normal.woff2'));
-    expect(fonts.length).to.equal(1);
+    expect(assets).to.have.keys([
+      'assets/font-normal-Cht9ZB76.woff2',
+      'assets/styles-a-jFIfrzm8.css',
+      'assets/styles-b-B-8m1N7T.css',
+      'index.html',
+    ]);
+
+    expect(assets['index.html']).to.equal(html`
+      <html>
+        <head>
+          <link rel="stylesheet" href="assets/styles-a-jFIfrzm8.css" />
+          <link rel="stylesheet" href="assets/styles-b-B-8m1N7T.css" />
+        </head>
+        <body></body>
+      </html>
+    `);
+
+    expect(assets['assets/styles-a-jFIfrzm8.css']).to.equal(css`
+      @font-face {
+        font-family: Font;
+        src: url('font-normal-Cht9ZB76.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+    `);
+
+    expect(assets['assets/styles-b-B-8m1N7T.css']).to.equal(css`
+      @font-face {
+        font-family: Font2;
+        src: url('font-normal-Cht9ZB76.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+    `);
   });
 
   it('[new] handles images referenced from css', async () => {
