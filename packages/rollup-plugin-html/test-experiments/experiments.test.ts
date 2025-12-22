@@ -162,10 +162,13 @@ describe('rollup-plugin-html', () => {
     };
 
     const build = await rollup(config);
-    const { assets } = await generateTestBundle(build, {
+    const { chunks, assets } = await generateTestBundle(build, {
       ...outputConfig,
       assetFileNames: 'static/[name].immutable.[hash][extname]',
     });
+
+    expect(Object.keys(chunks)).to.have.lengthOf(1);
+    expect(Object.keys(assets)).to.have.lengthOf(5);
 
     expect(assets).to.have.keys([
       'static/font.immutable.C5MNjX-h.woff2',
@@ -261,7 +264,7 @@ describe('rollup-plugin-html', () => {
     };
 
     const build = await rollup(config);
-    const { assets } = await generateTestBundle(build, {
+    const { chunks, assets } = await generateTestBundle(build, {
       ...outputConfig,
       assetFileNames: assetInfo => {
         const name = assetInfo.names[0] || '';
@@ -275,6 +278,9 @@ describe('rollup-plugin-html', () => {
         return '[name].immutable.[hash][extname]';
       },
     });
+
+    expect(Object.keys(chunks)).to.have.lengthOf(1);
+    expect(Object.keys(assets)).to.have.lengthOf(5);
 
     expect(assets).to.have.keys([
       'fonts/font.immutable.C5MNjX-h.woff2',
