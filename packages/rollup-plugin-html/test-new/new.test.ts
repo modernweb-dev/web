@@ -1318,7 +1318,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  it('[new] includes referenced assets in the bundle', async () => {
+  it('includes referenced assets in the bundle', async () => {
     const rootDir = createApp({
       'image-a.png': 'image-a.png',
       'image-b.png': 'image-b.png',
@@ -1507,7 +1507,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  it('[new] does not deduplicate static assets with similar names', async () => {
+  it('does not deduplicate static assets with similar names', async () => {
     const rootDir = createApp({
       'foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
       'x/foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
@@ -2160,7 +2160,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  it('[new] handles fonts linked from css files', async () => {
+  it('handles fonts linked from css files', async () => {
     const rootDir = createApp({
       'fonts/font-bold.woff2': 'font-bold',
       'fonts/font-normal.woff2': 'font-normal',
@@ -2325,7 +2325,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  it('[new] handles fonts linked from css files in node_modules', async () => {
+  it('handles fonts linked from css files in node_modules', async () => {
     const rootDir = createApp({
       'node_modules/foo/fonts/font-bold.woff2': 'font-bold',
       'node_modules/foo/fonts/font-normal.woff2': 'font-normal',
@@ -2576,7 +2576,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  it('[new] handles images referenced from css', async () => {
+  it('handles images referenced from css', async () => {
     const rootDir = createApp({
       'images/star.avif': 'star.avif',
       'images/star.gif': 'star.gif',
@@ -2825,7 +2825,7 @@ describe('rollup-plugin-html', () => {
     `);
   });
 
-  it('[new] allows to exclude external assets usign a glob pattern', async () => {
+  it('allows to exclude external assets usign a glob pattern', async () => {
     const rootDir = createApp({
       'image-a.png': 'image-a.png',
       'image-b.png': 'image-b.png',
