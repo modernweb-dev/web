@@ -6,8 +6,6 @@ import path from 'path';
 import fs from 'fs';
 import { rollupPluginHTML } from '../src/index.js';
 
-// TODO: write tests for 'legacy-html' (this is when for CSS they are not extracted) and 'legacy-html-and-css' separately
-
 function collapseWhitespaceAll(str: string) {
   return (
     str &&
@@ -1443,7 +1441,7 @@ describe('rollup-plugin-html', () => {
       plugins: [
         rollupPluginHTML({
           rootDir,
-          extractAssets: 'legacy-html-and-css',
+          extractAssets: 'legacy-html',
           input: {
             html: html`
               <html>
@@ -1566,7 +1564,7 @@ describe('rollup-plugin-html', () => {
       plugins: [
         rollupPluginHTML({
           rootDir,
-          extractAssets: 'legacy-html-and-css',
+          extractAssets: 'legacy-html',
           input: {
             html: html`
               <html>
@@ -1609,7 +1607,7 @@ describe('rollup-plugin-html', () => {
       plugins: [
         rollupPluginHTML({
           rootDir,
-          extractAssets: 'legacy-html-and-css',
+          extractAssets: 'legacy-html',
           input: {
             html: html`
               <html>
