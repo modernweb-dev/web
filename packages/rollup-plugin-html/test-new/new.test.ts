@@ -6,8 +6,6 @@ import path from 'path';
 import fs from 'fs';
 import { rollupPluginHTML } from '../src/index.js';
 
-// TODO: test output "fileName" too, like the real output name, not always it's properly checked besides checking the index.html source
-
 // TODO: write tests for 'legacy-html' (this is when for CSS they are not extracted) and 'legacy-html-and-css' separately
 
 function collapseWhitespaceAll(str: string) {
@@ -3095,30 +3093,31 @@ describe('rollup-plugin-html', () => {
       'src/main.js': js`
         const imageUrl = new URL('../assets/images/image.png', import.meta.url).href;
       `,
-      'index.html': html`
-        <html>
-          <head>
-            <link rel="stylesheet" href="./node_modules/ing-web/global.css" />
-            <link rel="stylesheet" href="./assets/styles.css" />
-            <link
-              rel="preload"
-              href="./node_modules/ing-web/fonts/font.woff2"
-              as="font"
-              type="font/woff2"
-            />
-          </head>
-          <body>
-            <img src="./assets/images/image.png" />
-          </body>
-        </html>
-      `,
     });
 
     const config = {
       plugins: [
         rollupPluginHTML({
           rootDir,
-          input: './index.html',
+          input: {
+            html: html`
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./node_modules/ing-web/global.css" />
+                  <link rel="stylesheet" href="./assets/styles.css" />
+                  <link
+                    rel="preload"
+                    href="./node_modules/ing-web/fonts/font.woff2"
+                    as="font"
+                    type="font/woff2"
+                  />
+                </head>
+                <body>
+                  <img src="./assets/images/image.png" />
+                </body>
+              </html>
+            `,
+          },
         }),
       ],
     };
@@ -3196,31 +3195,32 @@ describe('rollup-plugin-html', () => {
       'src/main.js': js`
         const imageUrl = new URL('../assets/images/image.png', import.meta.url).href;
       `,
-      'index.html': html`
-        <html>
-          <head>
-            <link rel="stylesheet" href="./node_modules/ing-web/global.css" />
-            <link rel="stylesheet" href="./assets/styles.css" />
-            <link
-              rel="preload"
-              href="./node_modules/ing-web/fonts/font.woff2"
-              as="font"
-              type="font/woff2"
-            />
-          </head>
-          <body>
-            <img src="./assets/images/image.png" />
-          </body>
-        </html>
-      `,
     });
 
     const config = {
       plugins: [
         rollupPluginHTML({
           rootDir,
-          input: './index.html',
           publicPath: '/static/',
+          input: {
+            html: html`
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./node_modules/ing-web/global.css" />
+                  <link rel="stylesheet" href="./assets/styles.css" />
+                  <link
+                    rel="preload"
+                    href="./node_modules/ing-web/fonts/font.woff2"
+                    as="font"
+                    type="font/woff2"
+                  />
+                </head>
+                <body>
+                  <img src="./assets/images/image.png" />
+                </body>
+              </html>
+            `,
+          },
         }),
       ],
     };
