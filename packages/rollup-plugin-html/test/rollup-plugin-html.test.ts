@@ -569,10 +569,10 @@ describe('rollup-plugin-html', () => {
       plugins: [
         rollupPluginHTML({
           rootDir,
+          publicPath: '/static/',
           input: {
             html: `<script type="module" src="./app.js"></script>`,
           },
-          publicPath: '/static/',
         }),
       ],
     };
@@ -604,11 +604,11 @@ describe('rollup-plugin-html', () => {
       plugins: [
         rollupPluginHTML({
           rootDir,
+          publicPath: '/static/',
           input: {
             name: 'nested/index.html',
             html: `<script type="module" src="../app.js"></script>`,
           },
-          publicPath: '/static/',
         }),
       ],
     };
@@ -642,10 +642,10 @@ describe('rollup-plugin-html', () => {
 
     const plugin = rollupPluginHTML({
       rootDir,
+      publicPath: '/static/',
       input: {
         html: `<script type="module" src="./app.js"></script>`,
       },
-      publicPath: '/static/',
     });
 
     const config = {
@@ -2117,6 +2117,7 @@ describe('rollup-plugin-html', () => {
           absolutePathPrefix: '/my-prefix/',
           rootDir,
           input: {
+            name: 'x/index.html',
             html: html`
               <html>
                 <head>
@@ -2128,7 +2129,6 @@ describe('rollup-plugin-html', () => {
                 </body>
               </html>
             `,
-            name: 'x/index.html',
           },
         }),
       ],
