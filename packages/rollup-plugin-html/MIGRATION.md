@@ -2,6 +2,8 @@
 
 ## From version 2.x.x to 3.x.x
 
+Remove `bundleAssetsFromCss` configuration option, now we bundle assets referenced in CSS by default.
+
 Check all output assets since now we handle all link `rel` types, specifically:
 
 - icon

@@ -170,7 +170,6 @@ export async function emitAssets(
           i += 1;
         }
         emittedStaticAssetNames.add(basename);
-        // TODO: not sure what to do with this one yet
         const fileName = `assets/${basename}`;
         ref = this.emitFile({ type: 'asset', name: basename, fileName, source });
       }
