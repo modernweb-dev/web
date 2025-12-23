@@ -105,9 +105,70 @@ export default {
 
 ### Bundling assets
 
-The HTML plugin will bundle assets referenced from `img` and `link` and social media tag elements in your HTML. The assets are emitted as rollup assets, and the paths are updated to the rollup output paths.
+The HTML plugin will bundle assets referenced in `img` and `link` and social media tag elements in your HTML:
 
-By default rollup will hash the asset filenames, enabling long term caching. You can customize the filename pattern using the [assetFileNames option](https://rollupjs.org/guide/en/#outputassetfilenames) in your rollup config.
+```html
+<html>
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="./image-a.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./image-b.png" />
+    <link rel="manifest" href="./webmanifest.json" />
+    <link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <img src="./image-c.png" />
+  </body>
+</html>
+```
+
+And the assets referenced in CSS via `url`:
+
+```css
+body {
+  background-image: url('images/star.gif');
+}
+
+/* or */
+@font-face {
+  src: url('fonts/font-bold.woff2') format('woff2');
+  /* ...etc */
+}
+```
+
+The assets are emitted as rollup assets, and the paths are updated to the rollup output paths:
+
+```html
+<html>
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a-XOCPHCrV.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b-BgQHKcRn.png" />
+    <link rel="manifest" href="assets/webmanifest-BkrOR1WG.json" />
+    <link rel="mask-icon" href="assets/image-a-BCCvKrTe.svg" color="#3f93ce" />
+    <link rel="stylesheet" href="assets/styles-CF2Iy5n1.css" />
+  </head>
+  <body>
+    <img src="assets/image-c-C4yLPiIL.png" />
+  </body>
+</html>
+```
+
+```css
+body {
+  background-image: url('assets/star-P4TYRBwL.gif');
+}
+
+/* or */
+@font-face {
+  src: url('assets/font-bold-f0mNRiTD.woff2') format('woff2');
+  /* ...etc */
+}
+```
+
+You can configure the output paths via [assetFileNames option](https://rollupjs.org/guide/en/#outputassetfilenames) (by default `assets/[name]-[hash][extname]` at the time of writing).
+The hash in the asset filenames enables long term caching.
+
+#### Disable assets bundling
 
 To turn off bundling assets completely, set the `extractAssets` option to false:
 
@@ -125,37 +186,16 @@ export default {
 };
 ```
 
-#### Including assets referenced from css
+#### Enable legacy behavior
 
-TODO: update
+For smooth migration we added legacy modes:
 
-Your css files reference other assets via `url`, like for example:
+- `extractAssets: 'legacy-html'` is the same as 2.x.x behavior when `bundleAssetsFromCss: false`
+- `extractAssets: 'legacy-html-and-css'` is the same as 2.x.x behavior when `bundleAssetsFromCss: true`
 
-```css
-body {
-  background-image: url('images/star.gif');
-}
+The 2.x.x behavior was limited to `<link rel="stylesheet" href="..." />` only and the assets referenced in the CSS files were hardcoded to be put into the nested `assets/` dir.
 
-/* or */
-@font-face {
-  src: url('fonts/font-bold.woff2') format('woff2');
-  /* ...etc */
-}
-```
-
-And those assets will get output to the `assets/` dir, and the source css file will get updated with the output locations of those assets, e.g.:
-
-```css
-body {
-  background-image: url('assets/star-P4TYRBwL.gif');
-}
-
-/* or */
-@font-face {
-  src: url('assets/font-bold-f0mNRiTD.woff2') format('woff2');
-  /* ...etc */
-}
-```
+We recommend to use legacy modes only during the migration of large multi-project codebases to 3.x.x in order to temporarily keep the old behavior until all projects can reliably use the new behavior, while at the same time upgrading tools centrally to the new version of `@web/rollup-plugin-html`.
 
 ### Handling absolute paths
 
@@ -354,7 +394,7 @@ export interface RollupPluginHTMLOptions {
   /** Transform HTML file before output. */
   transformHtml?: TransformHtmlFunction | TransformHtmlFunction[];
   /** Whether to extract and bundle assets referenced in HTML. Defaults to true. */
-  extractAssets?: boolean;
+  extractAssets?: boolean | 'legacy-html' | 'legacy-html-and-css';
   /** Whether to ignore assets referenced in HTML and CSS with glob patterns. */
   externalAssets?: string | string[];
   /** Define a full absolute url to your site (e.g. https://domain.com) */
