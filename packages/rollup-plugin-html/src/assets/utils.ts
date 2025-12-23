@@ -5,21 +5,16 @@ import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
 import { createError } from '../utils.js';
 import { serialize } from 'v8';
 
-const assetLinkRels: Record<string, boolean | ((node: Element) => boolean)> = {
-  icon: true,
-  'apple-touch-icon': true,
-  'mask-icon': true,
-  stylesheet: true,
-  manifest: true,
-  // TODO: write a separate tests for these
-  // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/preload
-  // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/prefetch
-  preload: (node: Element) => {
-    return ['font', 'image', 'style'].includes(getAttribute(node, 'as') || '');
-  },
-  prefetch: true,
-  modulepreload: true,
-};
+const assetLinkRels = [
+  'icon',
+  'apple-touch-icon',
+  'mask-icon',
+  'stylesheet',
+  'manifest',
+  'preload',
+  'prefetch',
+  'modulepreload',
+];
 const legacyHashedLinkRels = ['stylesheet'];
 const assetMetaProperties = ['og:image'];
 
@@ -57,8 +52,7 @@ function isAsset(node: Element) {
       }
       break;
     case 'link': {
-      const linkCheck = assetLinkRels[getAttribute(node, 'rel') ?? ''] || false;
-      if (typeof linkCheck === 'function' ? linkCheck(node) : linkCheck) {
+      if (assetLinkRels.includes(getAttribute(node, 'rel') ?? '')) {
         path = getAttribute(node, 'href') ?? '';
       }
       break;
