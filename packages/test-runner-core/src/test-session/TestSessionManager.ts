@@ -2,7 +2,6 @@ import { TestSession } from './TestSession.js';
 import { TestSessionStatus } from './TestSessionStatus.js';
 import { EventEmitter } from '../utils/EventEmitter.js';
 import { DebugTestSession } from './DebugTestSession.js';
-import { TestSessionGroup } from './TestSessionGroup.js';
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
 
 interface EventMap {
@@ -19,13 +18,11 @@ function* filtered<T>(it: Iterator<T>, filter: (value: T) => unknown) {
 }
 
 export class TestSessionManager extends EventEmitter<EventMap> {
-  private _groups: TestSessionGroup[];
   private sessionsMap = new Map<string, TestSession>();
   private debugSessions = new Map<string, DebugTestSession>();
 
-  constructor(groups: TestSessionGroup[], sessions: TestSession[]) {
+  constructor(sessions: TestSession[]) {
     super();
-    this._groups = groups;
     for (const session of sessions) {
       this.sessionsMap.set(session.id, session);
     }
@@ -49,10 +46,6 @@ export class TestSessionManager extends EventEmitter<EventMap> {
     }
     this.sessionsMap.set(session.id, session);
     this.emit('session-updated', undefined);
-  }
-
-  groups() {
-    return this._groups;
   }
 
   get(id: string) {
