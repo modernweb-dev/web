@@ -50,7 +50,7 @@
     }
   },
   "scripts": {
-    "start": "wds --config demo/wc/web-dev-server.config.mjs",
+    "start": "storybook dev -c ./demo/wc/.storybook",
     "test:browser": "node ../test-runner/dist/bin.js test-browser/*.test.js --config test-browser/web-test-runner.config.js",
     "types": "wireit"
   },
@@ -72,8 +72,8 @@
     "msw": "2.4.1"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.4.6",
-    "@web/dev-server-storybook": "^2.0.0"
+    "@web/storybook-builder": "^0.2.2",
+    "@web/storybook-framework-web-components": "^0.2.1"
   },
   "imports": {
     "#sw-path": {
