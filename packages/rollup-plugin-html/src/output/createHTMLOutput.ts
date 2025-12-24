@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { getEntrypointBundles } from './getEntrypointBundles.js';
 import { getOutputHTML } from './getOutputHTML.js';
 import { createError } from '../utils.js';
@@ -65,7 +66,14 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     strictCSPInlineScripts,
   });
 
-  return { fileName: input.name, name: input.name, source: outputHtml, type: 'asset' };
+  const normalizedInputName = input.name.split(path.sep).join('/');
+
+  return {
+    fileName: normalizedInputName,
+    name: normalizedInputName,
+    source: outputHtml,
+    type: 'asset',
+  };
 }
 
 export interface CreateHTMLAssetsParams {
