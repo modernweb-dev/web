@@ -1,5 +1,12 @@
 # @web/storybook-builder
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies [9781c19]
+  - @web/rollup-plugin-html@3.0.0
+
 ## 0.2.4
 
 ### Patch Changes
