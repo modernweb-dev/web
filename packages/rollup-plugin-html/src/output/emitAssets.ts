@@ -4,6 +4,7 @@ import { transform } from 'lightningcss';
 import fs from 'fs';
 
 import { InputAsset, InputData } from '../input/InputData';
+import { toBrowserPath } from './utils.js';
 import { createAssetPicomatchMatcher } from '../assets/utils.js';
 import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions';
 
@@ -39,6 +40,8 @@ export async function emitAssets(
   inputs: InputData[],
   options: RollupPluginHTMLOptions,
 ) {
+  const extractAssets = options.extractAssets ?? true;
+  const extractAssetsLegacyCss = options.extractAssets === 'legacy-html-and-css';
   const emittedStaticAssets = new Map<string, string>();
   const emittedHashedAssets = new Map<string, string>();
   const emittedStaticAssetNames = new Set();
@@ -85,7 +88,7 @@ export async function emitAssets(
       const isExternal = createAssetPicomatchMatcher(options.externalAssets);
       const emittedExternalAssets = new Map();
       if (asset.hashed) {
-        if (basename.endsWith('.css') && options.bundleAssetsFromCss) {
+        if (basename.endsWith('.css') && extractAssets) {
           let updatedCssSource = false;
           const { code } = await transform({
             filename: basename,
@@ -104,22 +107,47 @@ export async function emitAssets(
 
                   // Avoid duplicates
                   if (!emittedExternalAssets.has(assetLocation)) {
-                    const fontFileRef = this.emitFile({
+                    const basename = path.basename(filePath);
+                    const fileRef = this.emitFile({
                       type: 'asset',
-                      name: path.join('assets', path.basename(filePath)),
+                      name: extractAssetsLegacyCss ? `assets/${basename}` : basename,
                       source: assetContent,
                     });
-                    const emittedAssetFilePath = path.basename(this.getFileName(fontFileRef));
-                    emittedExternalAssets.set(assetLocation, emittedAssetFilePath);
+                    const emittedAssetFilepath = this.getFileName(fileRef);
+                    const emittedAssetBasename = path.basename(emittedAssetFilepath);
+                    emittedExternalAssets.set(assetLocation, emittedAssetFilepath);
                     // Update the URL in the original CSS file to point to the emitted asset file
-                    url.url = `assets/${
-                      idRef ? `${emittedAssetFilePath}#${idRef}` : emittedAssetFilePath
-                    }`;
+                    if (extractAssetsLegacyCss) {
+                      url.url = `assets/${emittedAssetBasename}`;
+                    } else {
+                      if (options.publicPath) {
+                        url.url = toBrowserPath(
+                          path.join(options.publicPath, emittedAssetFilepath),
+                        );
+                      } else {
+                        url.url = emittedAssetBasename;
+                      }
+                    }
+                    if (idRef) {
+                      url.url = `${url.url}#${idRef}`;
+                    }
                   } else {
-                    const emittedAssetFilePath = emittedExternalAssets.get(assetLocation);
-                    url.url = `assets/${
-                      idRef ? `${emittedAssetFilePath}#${idRef}` : emittedAssetFilePath
-                    }`;
+                    const emittedAssetFilepath = emittedExternalAssets.get(assetLocation);
+                    const emittedAssetBasename = path.basename(emittedAssetFilepath);
+                    if (extractAssetsLegacyCss) {
+                      url.url = `assets/${emittedAssetBasename}`;
+                    } else {
+                      if (options.publicPath) {
+                        url.url = toBrowserPath(
+                          path.join(options.publicPath, emittedAssetFilepath),
+                        );
+                      } else {
+                        url.url = emittedAssetBasename;
+                      }
+                    }
+                    if (idRef) {
+                      url.url = `${url.url}#${idRef}`;
+                    }
                   }
                 }
                 updatedCssSource = true;

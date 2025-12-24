@@ -15,6 +15,7 @@ export interface ExtractAssetsParams {
   htmlFilePath: string;
   htmlDir: string;
   rootDir: string;
+  extractAssets: boolean | 'legacy-html' | 'legacy-html-and-css';
   externalAssets?: string | string[];
   absolutePathPrefix?: string;
 }
@@ -35,7 +36,7 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
         params.rootDir,
         params.absolutePathPrefix,
       );
-      const hashed = isHashedAsset(node);
+      const hashed = isHashedAsset(node, params.extractAssets);
       const alreadyHandled = allAssets.find(a => a.filePath === filePath && a.hashed === hashed);
       if (!alreadyHandled) {
         try {
@@ -49,7 +50,7 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
         }
 
         const content = fs.readFileSync(filePath);
-        allAssets.push({ filePath, hashed, content });
+        allAssets.push({ filePath, hashed: hashed, content });
       }
     }
   }

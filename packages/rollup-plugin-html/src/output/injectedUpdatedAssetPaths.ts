@@ -21,6 +21,7 @@ export interface InjectUpdatedAssetPathsArgs {
   outputDir: string;
   rootDir: string;
   emittedAssets: EmittedAssets;
+  extractAssets?: boolean | 'legacy-html' | 'legacy-html-and-css';
   externalAssets?: string | string[];
   publicPath?: string;
   absolutePathPrefix?: string;
@@ -44,6 +45,7 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
     outputDir,
     rootDir,
     emittedAssets,
+    extractAssets = true,
     externalAssets,
     publicPath = './',
     absolutePathPrefix,
@@ -59,7 +61,9 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
       const htmlFilePath = input.filePath ? input.filePath : path.join(rootDir, input.name);
       const htmlDir = path.dirname(htmlFilePath);
       const filePath = resolveAssetFilePath(sourcePath, htmlDir, rootDir, absolutePathPrefix);
-      const assetPaths = isHashedAsset(node) ? emittedAssets.hashed : emittedAssets.static;
+      const assetPaths = isHashedAsset(node, extractAssets)
+        ? emittedAssets.hashed
+        : emittedAssets.static;
       const relativeOutputPath = assetPaths.get(filePath);
 
       if (!relativeOutputPath) {

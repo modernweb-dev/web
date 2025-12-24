@@ -105,9 +105,70 @@ export default {
 
 ### Bundling assets
 
-The HTML plugin will bundle assets referenced from `img` and `link` and social media tag elements in your HTML. The assets are emitted as rollup assets, and the paths are updated to the rollup output paths.
+The HTML plugin will bundle assets referenced in `img` and `link` and social media tag elements in your HTML:
 
-By default rollup will hash the asset filenames, enabling long term caching. You can customize the filename pattern using the [assetFileNames option](https://rollupjs.org/guide/en/#outputassetfilenames) in your rollup config.
+```html
+<html>
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/icon-a.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/icon-b.png" />
+    <link rel="mask-icon" href="./images/icon-c.svg" color="#3f93ce" />
+    <link rel="manifest" href="./webmanifest.json" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preload" href="./fonts/font.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <img src="./images/image.png" />
+  </body>
+</html>
+```
+
+And the assets referenced in CSS via `url`:
+
+```css
+body {
+  background-image: url('images/image.png');
+}
+
+@font-face {
+  src: url('fonts/font.woff2') format('woff2');
+}
+```
+
+The assets are emitted as rollup assets, and the paths are updated to the rollup output paths:
+
+```html
+<html>
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-a-XOCPHCrV.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-b-BgQHKcRn.png" />
+    <link rel="mask-icon" href="assets/icon-c-BCCvKrTe.svg" color="#3f93ce" />
+    <link rel="manifest" href="assets/webmanifest-BkrOR1WG.json" />
+    <link rel="stylesheet" href="assets/styles-CF2Iy5n1.css" />
+    <link rel="preload" href="assets/font-f0mNRiTD.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <img src="assets/image-C4yLPiIL.png" />
+  </body>
+</html>
+```
+
+```css
+body {
+  background-image: url('assets/image-C4yLPiIL.png');
+}
+
+@font-face {
+  src: url('assets/font-f0mNRiTD.woff2') format('woff2');
+}
+```
+
+The images are deduped when same ones are referenced in different tags and files.
+
+You can configure the output paths via [assetFileNames option](https://rollupjs.org/guide/en/#outputassetfilenames) (by default `assets/[name]-[hash][extname]` at the time of writing).
+The hash in the asset filenames enables long term caching.
+
+#### Disable assets bundling
 
 To turn off bundling assets completely, set the `extractAssets` option to false:
 
@@ -125,44 +186,16 @@ export default {
 };
 ```
 
-#### Including assets referenced from css
+#### Enable legacy behavior
 
-If your css files reference other assets via `url`, like for example:
+For smooth migration we added legacy modes:
 
-```css
-body {
-  background-image: url('images/star.gif');
-}
+- `extractAssets: 'legacy-html'` is the same as 2.x.x behavior when `bundleAssetsFromCss: false`
+- `extractAssets: 'legacy-html-and-css'` is the same as 2.x.x behavior when `bundleAssetsFromCss: true`
 
-/* or */
-@font-face {
-  src: url('fonts/font-bold.woff2') format('woff2');
-  /* ...etc */
-}
-```
+The 2.x.x behavior was limited to `<link rel="stylesheet" href="..." />` only and the assets referenced in the CSS files were hardcoded to be put into the nested `assets/` dir.
 
-You can enable the `bundleAssetsFromCss` option:
-
-```js
-rollupPluginHTML({
-  bundleAssetsFromCss: true,
-  // ...etc
-});
-```
-
-And those assets will get output to the `assets/` dir, and the source css file will get updated with the output locations of those assets, e.g.:
-
-```css
-body {
-  background-image: url('assets/star-P4TYRBwL.gif');
-}
-
-/* or */
-@font-face {
-  src: url('assets/font-bold-f0mNRiTD.woff2') format('woff2');
-  /* ...etc */
-}
-```
+We recommend to use legacy modes only during the migration of large multi-project codebases to 3.x.x in order to temporarily keep the old behavior until all projects can reliably use the new behavior, while at the same time upgrading tools centrally to the new version of `@web/rollup-plugin-html`.
 
 ### Handling absolute paths
 
@@ -361,7 +394,7 @@ export interface RollupPluginHTMLOptions {
   /** Transform HTML file before output. */
   transformHtml?: TransformHtmlFunction | TransformHtmlFunction[];
   /** Whether to extract and bundle assets referenced in HTML. Defaults to true. */
-  extractAssets?: boolean;
+  extractAssets?: boolean | 'legacy-html' | 'legacy-html-and-css';
   /** Whether to ignore assets referenced in HTML and CSS with glob patterns. */
   externalAssets?: string | string[];
   /** Define a full absolute url to your site (e.g. https://domain.com) */

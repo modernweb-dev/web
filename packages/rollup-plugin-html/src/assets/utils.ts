@@ -5,8 +5,18 @@ import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
 import { createError } from '../utils.js';
 import { serialize } from 'v8';
 
-const hashedLinkRels = ['stylesheet'];
-const linkRels = [...hashedLinkRels, 'icon', 'manifest', 'apple-touch-icon', 'mask-icon'];
+const assetLinkRels = [
+  'icon',
+  'apple-touch-icon',
+  'mask-icon',
+  'stylesheet',
+  'manifest',
+  'preload',
+  'prefetch',
+  'modulepreload',
+];
+const legacyHashedLinkRels = ['stylesheet'];
+const assetMetaProperties = ['og:image'];
 
 function getSrcSetUrls(srcset: string) {
   if (!srcset) {
@@ -41,13 +51,14 @@ function isAsset(node: Element) {
         path = extractFirstUrlOfSrcSet(node) ?? '';
       }
       break;
-    case 'link':
-      if (linkRels.includes(getAttribute(node, 'rel') ?? '')) {
+    case 'link': {
+      if (assetLinkRels.includes(getAttribute(node, 'rel') ?? '')) {
         path = getAttribute(node, 'href') ?? '';
       }
       break;
+    }
     case 'meta':
-      if (getAttribute(node, 'property') === 'og:image' && getAttribute(node, 'content')) {
+      if (assetMetaProperties.includes(getAttribute(node, 'property') ?? '')) {
         path = getAttribute(node, 'content') ?? '';
       }
       break;
@@ -70,7 +81,10 @@ function isAsset(node: Element) {
   }
 }
 
-export function isHashedAsset(node: Element) {
+export function isHashedAsset(
+  node: Element,
+  extractAssets: boolean | 'legacy-html' | 'legacy-html-and-css',
+) {
   switch (getTagName(node)) {
     case 'img':
       return true;
@@ -78,8 +92,13 @@ export function isHashedAsset(node: Element) {
       return true;
     case 'script':
       return true;
-    case 'link':
-      return hashedLinkRels.includes(getAttribute(node, 'rel')!);
+    case 'link': {
+      if (extractAssets === 'legacy-html' || extractAssets === 'legacy-html-and-css') {
+        return legacyHashedLinkRels.includes(getAttribute(node, 'rel') ?? '');
+      } else {
+        return true;
+      }
+    }
     case 'meta':
       return true;
     default:

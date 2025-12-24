@@ -1,6 +1,7 @@
 import { getTextContent } from '@web/parse5-utils';
 import { expect } from 'chai';
 import { parse, serialize } from 'parse5';
+import { html } from '../../utils.js';
 
 import { injectBundles, createLoadScript } from '../../../src/output/injectBundles.js';
 
@@ -37,17 +38,14 @@ describe('createLoadScript()', () => {
 
 describe('injectBundles()', () => {
   it('can inject a single bundle', () => {
-    const document = parse(
-      [
-        //
-        '<html>',
-        '<head></head>',
-        '<body>',
-        '<h1>Hello world</h1>',
-        '</body>',
-        '</html>',
-      ].join(''),
-    );
+    const document = parse(html`
+      <html>
+        <head></head>
+        <body>
+          <h1>Hello world</h1>
+        </body>
+      </html>
+    `);
 
     injectBundles(document, [
       {
@@ -61,32 +59,29 @@ describe('injectBundles()', () => {
         ],
       },
     ]);
-    const expected = [
-      //
-      '<html>',
-      '<head></head>',
-      '<body>',
-      '<h1>Hello world</h1>',
-      '<script type="module" src="app.js"></script>',
-      '</body>',
-      '</html>',
-    ].join('');
 
-    expect(serialize(document)).to.eql(expected);
+    const htmlWithBundles = serialize(document);
+
+    expect(html`${htmlWithBundles}`).to.eql(html`
+      <html>
+        <head></head>
+        <body>
+          <h1>Hello world</h1>
+          <script type="module" src="app.js"></script>
+        </body>
+      </html>
+    `);
   });
 
   it('can inject multiple bundles', () => {
-    const document = parse(
-      [
-        //
-        '<html>',
-        '<head></head>',
-        '<body>',
-        '<h1>Hello world</h1>',
-        '</body>',
-        '</html>',
-      ].join(''),
-    );
+    const document = parse(html`
+      <html>
+        <head></head>
+        <body>
+          <h1>Hello world</h1>
+        </body>
+      </html>
+    `);
 
     injectBundles(document, [
       // @ts-ignore
@@ -112,18 +107,18 @@ describe('injectBundles()', () => {
         ],
       },
     ]);
-    const expected = [
-      //
-      '<html>',
-      '<head></head>',
-      '<body>',
-      '<h1>Hello world</h1>',
-      '<script type="module" src="./app.js"></script>',
-      '<script src="/scripts/script.js" defer=""></script>',
-      '</body>',
-      '</html>',
-    ].join('');
 
-    expect(serialize(document)).to.eql(expected);
+    const htmlWithBundles = serialize(document);
+
+    expect(html`${htmlWithBundles}`).to.eql(html`
+      <html>
+        <head></head>
+        <body>
+          <h1>Hello world</h1>
+          <script type="module" src="./app.js"></script>
+          <script src="/scripts/script.js" defer=""></script>
+        </body>
+      </html>
+    `);
   });
 });

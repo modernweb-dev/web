@@ -72,7 +72,6 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
       if (pluginOptions.strictCSPInlineScripts) {
         strictCSPInlineScripts = pluginOptions.strictCSPInlineScripts;
       }
-      pluginOptions.bundleAssetsFromCss = !!pluginOptions.bundleAssetsFromCss;
 
       if (pluginOptions.input == null) {
         // we are reading rollup input, so replace whatever was there

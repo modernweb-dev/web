@@ -30,14 +30,21 @@ export interface CreateInputDataParams {
   html: string;
   rootDir: string;
   filePath?: string;
-  extractAssets: boolean;
+  extractAssets: boolean | 'legacy-html' | 'legacy-html-and-css';
   externalAssets?: string | string[];
   absolutePathPrefix?: string;
 }
 
 function createInputData(params: CreateInputDataParams): InputData {
-  const { name, html, rootDir, filePath, extractAssets, externalAssets, absolutePathPrefix } =
-    params;
+  const {
+    name,
+    html,
+    rootDir,
+    filePath,
+    extractAssets = true,
+    externalAssets,
+    absolutePathPrefix,
+  } = params;
   const htmlFilePath = filePath ? filePath : path.resolve(rootDir, name);
   const result = extractModulesAndAssets({
     html,
