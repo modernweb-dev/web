@@ -110,7 +110,7 @@ export async function emitAssets(
                     const basename = path.basename(filePath);
                     const fileRef = this.emitFile({
                       type: 'asset',
-                      name: extractAssetsLegacyCss ? path.join('assets', basename) : basename,
+                      name: extractAssetsLegacyCss ? `assets/${basename}` : basename,
                       source: assetContent,
                     });
                     const emittedAssetFilepath = this.getFileName(fileRef);
