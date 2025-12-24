@@ -48,7 +48,7 @@
     "@web/polyfills-loader": "^2.2.0"
   },
   "devDependencies": {
-    "@web/rollup-plugin-html": "^2.1.2",
+    "@web/rollup-plugin-html": "^3.0.0",
     "rollup": "^4.4.0"
   }
 }

@@ -62,7 +62,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@storybook/csf-tools": "^6.4.9",
     "@web/dev-server-core": "^0.7.2",
-    "@web/rollup-plugin-html": "^2.1.2",
+    "@web/rollup-plugin-html": "^3.0.0",
     "@web/rollup-plugin-polyfills-loader": "^2.1.1",
     "@web/storybook-prebuilt": "^0.1.37",
     "babel-plugin-bundled-import-meta": "^0.3.2",
