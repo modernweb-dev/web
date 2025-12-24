@@ -10,7 +10,7 @@ import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPlugin
 
 export interface EmittedAssets {
   static: Map<string, string>;
-  legacyHashed: Map<string, string>;
+  hashed: Map<string, string>;
 }
 
 const allowedFileExtensions = [
@@ -55,12 +55,12 @@ export async function emitAssets(
     }
   }
   const staticAssets: InputAsset[] = [];
-  const legacyHashedAssets: InputAsset[] = [];
+  const hashedAssets: InputAsset[] = [];
 
   for (const input of inputs) {
     for (const asset of input.assets) {
-      if (asset.legacyHashed) {
-        legacyHashedAssets.push(asset);
+      if (asset.hashed) {
+        hashedAssets.push(asset);
       } else {
         staticAssets.push(asset);
       }
@@ -68,10 +68,10 @@ export async function emitAssets(
   }
 
   // ensure static assets are last because of https://github.com/rollup/rollup/issues/3853
-  const allAssets = [...legacyHashedAssets, ...staticAssets];
+  const allAssets = [...hashedAssets, ...staticAssets];
 
   for (const asset of allAssets) {
-    const map = asset.legacyHashed ? emittedHashedAssets : emittedStaticAssets;
+    const map = asset.hashed ? emittedHashedAssets : emittedStaticAssets;
     if (!map.has(asset.filePath)) {
       let source: Buffer = asset.content;
 
@@ -87,7 +87,7 @@ export async function emitAssets(
       let basename = path.basename(asset.filePath);
       const isExternal = createAssetPicomatchMatcher(options.externalAssets);
       const emittedExternalAssets = new Map();
-      if (asset.legacyHashed) {
+      if (asset.hashed) {
         if (basename.endsWith('.css') && extractAssets) {
           let updatedCssSource = false;
           const { code } = await transform({
@@ -178,5 +178,5 @@ export async function emitAssets(
     }
   }
 
-  return { static: emittedStaticAssets, legacyHashed: emittedHashedAssets };
+  return { static: emittedStaticAssets, hashed: emittedHashedAssets };
 }

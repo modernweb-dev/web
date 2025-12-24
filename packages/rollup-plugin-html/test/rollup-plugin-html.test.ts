@@ -1,112 +1,13 @@
-import synchronizedPrettier from '@prettier/sync';
-import * as prettier from 'prettier';
-import { rollup, OutputChunk, OutputOptions, Plugin, RollupBuild } from 'rollup';
+import { rollup, OutputChunk, OutputOptions, Plugin } from 'rollup';
 import { expect } from 'chai';
 import path from 'path';
-import fs from 'fs';
 import { rollupPluginHTML } from '../src/index.js';
-
-function collapseWhitespaceAll(str: string) {
-  return (
-    str &&
-    str.replace(/[ \n\r\t\f\xA0]+/g, spaces => {
-      return spaces === '\t' ? '\t' : spaces.replace(/(^|\xA0+)[^\xA0]+/g, '$1 ');
-    })
-  );
-}
-
-function format(str: string, parser: prettier.BuiltInParserName) {
-  return synchronizedPrettier.format(str, { parser, semi: true, singleQuote: true });
-}
-
-function merge(strings: TemplateStringsArray, ...values: string[]): string {
-  return strings.reduce((acc, str, i) => acc + str + (values[i] || ''), '');
-}
-
-const extnameToFormatter: Record<string, (str: string) => string> = {
-  '.html': (str: string) => format(collapseWhitespaceAll(str), 'html'),
-  '.css': (str: string) => format(str, 'css'),
-  '.js': (str: string) => format(str, 'typescript'),
-  '.json': (str: string) => format(str, 'json'),
-  '.svg': (str: string) => format(collapseWhitespaceAll(str), 'html'),
-};
-
-function getFormatterFromFilename(name: string): undefined | ((str: string) => string) {
-  return extnameToFormatter[path.extname(name)];
-}
-
-const html = (strings: TemplateStringsArray, ...values: string[]) =>
-  extnameToFormatter['.html'](merge(strings, ...values));
-
-const css = (strings: TemplateStringsArray, ...values: string[]) =>
-  extnameToFormatter['.css'](merge(strings, ...values));
-
-const js = (strings: TemplateStringsArray, ...values: string[]) =>
-  extnameToFormatter['.js'](merge(strings, ...values));
-
-const svg = (strings: TemplateStringsArray, ...values: string[]) =>
-  extnameToFormatter['.svg'](merge(strings, ...values));
+import { html, css, js, svg, generateTestBundle, createApp, cleanApp } from './utils.js';
 
 const outputConfig: OutputOptions = {
   format: 'es',
   dir: 'dist',
 };
-
-async function generateTestBundle(build: RollupBuild, outputConfig: OutputOptions) {
-  const { output } = await build.generate(outputConfig);
-  const chunks: Record<string, string> = {};
-  const assets: Record<string, string | Uint8Array> = {};
-
-  for (const file of output) {
-    const filename = file.fileName;
-    const formatter = getFormatterFromFilename(filename);
-    if (file.type === 'chunk') {
-      chunks[filename] = formatter ? formatter(file.code) : file.code;
-    } else if (file.type === 'asset') {
-      let code = file.source;
-      if (typeof code !== 'string' && filename.endsWith('.css')) {
-        code = Buffer.from(code).toString('utf8');
-      }
-      if (typeof code === 'string' && formatter) {
-        code = formatter(code);
-      }
-      assets[filename] = code;
-    }
-  }
-
-  return { output, chunks, assets };
-}
-
-function createApp(structure: Record<string, string | Buffer | object>) {
-  const timestamp = Date.now();
-  const rootDir = path.join(__dirname, `./.tmp/app-${timestamp}`);
-  if (!fs.existsSync(rootDir)) {
-    fs.mkdirSync(rootDir, { recursive: true });
-  }
-  Object.keys(structure).forEach(filePath => {
-    const fullPath = path.join(rootDir, filePath);
-    const dir = path.dirname(fullPath);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    if (!fs.existsSync(fullPath)) {
-      const content = structure[filePath];
-      const contentForWrite =
-        typeof content === 'object' && !(content instanceof Buffer)
-          ? JSON.stringify(content)
-          : content;
-      fs.writeFileSync(fullPath, contentForWrite);
-    }
-  });
-  return rootDir;
-}
-
-function cleanApp() {
-  const tmpDir = path.join(__dirname, './.tmp');
-  if (fs.existsSync(tmpDir)) {
-    fs.rmSync(tmpDir, { recursive: true });
-  }
-}
 
 describe('rollup-plugin-html', () => {
   afterEach(() => {
@@ -1325,6 +1226,7 @@ describe('rollup-plugin-html', () => {
       'image-c.png': 'image-c.png',
       'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
       'image-b.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      'image-c.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
       'styles.css': css`
         :root {
           color: blue;
@@ -1358,6 +1260,7 @@ describe('rollup-plugin-html', () => {
                   <link rel="stylesheet" href="./styles.css" />
                   <link rel="stylesheet" href="./foo/x.css" />
                   <link rel="stylesheet" href="./foo/bar/y.css" />
+                  <meta property="og:image" content="/image-c.svg" />
                 </head>
                 <body>
                   <img src="./image-c.png" />
@@ -1376,7 +1279,7 @@ describe('rollup-plugin-html', () => {
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
     expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(10);
+    expect(Object.keys(assets)).to.have.lengthOf(11);
 
     expect(assets).to.have.keys([
       'assets/image-a-XOCPHCrV.png',
@@ -1384,6 +1287,7 @@ describe('rollup-plugin-html', () => {
       'assets/image-c-C4yLPiIL.png',
       'assets/image-a-BCCvKrTe.svg',
       'assets/image-b-C4stzVZW.svg',
+      'assets/image-c-DPeYetg3.svg',
       'assets/styles-CF2Iy5n1.css',
       'assets/x-DDGg8O6h.css',
       'assets/y-DJTrnPH3.css',
@@ -1401,6 +1305,7 @@ describe('rollup-plugin-html', () => {
           <link rel="stylesheet" href="assets/styles-CF2Iy5n1.css" />
           <link rel="stylesheet" href="assets/x-DDGg8O6h.css" />
           <link rel="stylesheet" href="assets/y-DJTrnPH3.css" />
+          <meta property="og:image" content="assets/image-c-DPeYetg3.svg" />
         </head>
         <body>
           <img src="assets/image-c-C4yLPiIL.png" />
@@ -1655,7 +1560,7 @@ describe('rollup-plugin-html', () => {
             html: html`
               <html>
                 <body>
-                  <link rel="stylesheet" href="./image-a.png" />
+                  <link rel="apple-touch-icon" sizes="180x180" href="./image-a.png" />
                   <img src="./image-a.png" />
                   <img src="./image-a.png" />
                 </body>
@@ -1678,7 +1583,7 @@ describe('rollup-plugin-html', () => {
       <html>
         <head></head>
         <body>
-          <link rel="stylesheet" href="assets/image-a-XOCPHCrV.png" />
+          <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a-XOCPHCrV.png" />
           <img src="assets/image-a-XOCPHCrV.png" />
           <img src="assets/image-a-XOCPHCrV.png" />
         </body>

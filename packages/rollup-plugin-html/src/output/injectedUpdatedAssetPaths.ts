@@ -62,7 +62,7 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
       const htmlDir = path.dirname(htmlFilePath);
       const filePath = resolveAssetFilePath(sourcePath, htmlDir, rootDir, absolutePathPrefix);
       const assetPaths = isHashedAsset(node, extractAssets)
-        ? emittedAssets.legacyHashed
+        ? emittedAssets.hashed
         : emittedAssets.static;
       const relativeOutputPath = assetPaths.get(filePath);
 

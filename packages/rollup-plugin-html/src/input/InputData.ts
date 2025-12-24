@@ -2,7 +2,7 @@ import { ScriptModuleTag } from '../RollupPluginHTMLOptions';
 
 export interface InputAsset {
   filePath: string;
-  legacyHashed: boolean;
+  hashed: boolean;
   content: Buffer;
 }
 
