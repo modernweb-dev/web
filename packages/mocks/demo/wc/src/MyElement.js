@@ -2,7 +2,7 @@
 
 import { LitElement, html } from 'lit';
 
-class MyElement extends LitElement {
+export class MyElement extends LitElement {
   static properties = {
     transactions: { type: Array },
     state: { type: String },
@@ -34,5 +34,3 @@ class MyElement extends LitElement {
     }
   }
 }
-
-customElements.define('my-element', MyElement);
