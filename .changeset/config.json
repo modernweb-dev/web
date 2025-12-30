@@ -6,5 +6,6 @@
   "ignore": ["@web/dev-server-storybook", "@web/test-runner-integration-tests"],
   "access": "public",
   "baseBranch": "master",
-  "updateInternalDependencies": "patch"
+  "updateInternalDependencies": "patch",
+  "provenance": true
 }
