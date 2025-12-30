@@ -25,7 +25,7 @@
     "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
     "prepare": "husky",
     "reinstall-workspace": "rimraf --glob packages/*/node_modules && rimraf node_modules && npm install && npm run build",
-    "release": "changeset publish && npm run format",
+    "release": "NODE_AUTH_TOKEN=\"\" changeset publish && npm run format",
     "release:enter-pre": "[ ! -f .changeset/pre.json ] && npx changeset pre enter next || echo 'Already in pre mode'",
     "review-content": "alex 'docs/**/*.md'",
     "search": "rocket search",
