@@ -1,5 +1,13 @@
 # @web/parse5-utils
 
+## 2.1.1
+
+### Patch Changes
+
+- 2da292c: fix MJS exports
+  fix export of updateNodeSourceCodeLocation
+  fix docs about exported utils
+
 ## 2.1.0
 
 ### Minor Changes
