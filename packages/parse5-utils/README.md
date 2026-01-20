@@ -91,6 +91,7 @@ const htmlWithInjectedScript = appendToDocument(
 - isElementNode
 - setNodeSourceCodeLocation
 - getNodeSourceCodeLocation
+- updateNodeSourceCodeLocation
 - isHtmlFragment
 - hasAttribute
 - getAttribute
