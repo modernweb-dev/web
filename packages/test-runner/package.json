@@ -89,7 +89,7 @@
     "command-line-args": "^5.1.1",
     "command-line-usage": "^7.0.1",
     "convert-source-map": "^2.0.0",
-    "diff": "^5.0.0",
+    "diff": "^5.2.2",
     "globby": "^11.0.1",
     "nanocolors": "^0.2.1",
     "portfinder": "^1.0.32",
