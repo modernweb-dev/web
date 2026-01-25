@@ -63,7 +63,7 @@
     "cjs-module-lexer": "^1.2.3",
     "es-module-lexer": "^1.2.1",
     "esbuild": "^0.25.0",
-    "glob": "^12.0.0",
+    "glob": "^10.5.0",
     "lodash-es": "^4.17.21",
     "path-browserify": "^1.0.1",
     "rehype-external-links": "^3.0.0",
