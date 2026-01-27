@@ -209,7 +209,7 @@ You should, therefore, see code coverage as a tool that only gives you guidance 
 
 ## Ignoring uncovered lines
 
-In more complex applications, it is likely that you will find yourself creating difficult, if not impossible, to test branches of functionality. While this can absolutely be a pointer to logic that is worth breaking down into more approachable parts, there will be cases where this is not feasible. If so, you may chose to ignore a line of code by using the `/* c8 ignore next */` custom comment. Using this, or more advanced forms of [ignoring uncovered lines](../../../docs/test-runner/writing-tests/code-coverage.md#ignoring-uncovered-lines) while computing code coverage can go a long way in preparing your project for long term maintenance.
+In more complex applications, it is likely that you will find yourself creating difficult, if not impossible, to test branches of functionality. While this can absolutely be a pointer to logic that is worth breaking down into more approachable parts, there will be cases where this is not feasible. If so, you may choose to ignore a line of code by using the `/* c8 ignore next */` custom comment. Using this, or more advanced forms of [ignoring uncovered lines](../../../docs/test-runner/writing-tests/code-coverage.md#ignoring-uncovered-lines) while computing code coverage can go a long way in preparing your project for long term maintenance.
 
 ## Coverage browser support
 
