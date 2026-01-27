@@ -336,6 +336,46 @@ describe('serialize deserialize', function () {
     expect(deserialized.x).to.equal('[Circular]');
   });
 
+  it('handles complex circular references', async () => {
+    const serialized = await page.evaluate(() => {
+      interface ChipNode {
+        idx: number;
+        next?: ChipNode;
+        prev?: ChipNode;
+        val: unknown;
+      }
+      class MatChip {
+        viewRef: { nodes: ChipNode[] } = { nodes: [] };
+
+        constructor() {
+          let prevNode: ChipNode | null = null;
+          for (let i = 0; i < 1000; i++) {
+            const newNode: ChipNode = {
+              idx: i,
+              val: this,
+              next: this.viewRef.nodes[0],
+            };
+
+            this.viewRef.nodes.push(newNode);
+
+            if (prevNode) {
+              prevNode.next = newNode;
+              newNode.prev = prevNode;
+            }
+
+            prevNode = newNode;
+          }
+        }
+      }
+      return (window as any)._serialize(new MatChip());
+    });
+
+    await deserialize(serialized);
+
+    // No assertion. Simply expect this to pass and not crash.
+    expect(true).to.eq(true);
+  });
+
   it('handles errors', async () => {
     const serialized = await page.evaluate(() => {
       const c = () => new Error('my error msg');
