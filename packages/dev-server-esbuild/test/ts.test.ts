@@ -104,6 +104,61 @@ class Bar {
     }
   });
 
+  it('transforms TS decorators with parent tsconfig', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: __dirname,
+      plugins: [
+        {
+          name: 'test',
+          serve(context) {
+            if (context.path === '/foo.ts') {
+              return `
+@foo
+class Bar {
+  @prop
+  x = 'y';
+}`;
+            }
+          },
+        },
+        esbuildPlugin({
+          ts: true,
+          tsconfig: path.join(
+            __dirname,
+            'fixture',
+            'tsconfig-with-experimental-decorators-parent.json',
+          ),
+        }),
+      ],
+    });
+
+    try {
+      const response = await fetch(`${host}/foo.ts`);
+      const text = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(response.headers.get('content-type')).to.equal(
+        'application/javascript; charset=utf-8',
+      );
+      expectIncludes(text, '__decorate');
+      expectIncludes(text, '__publicField(this, "x", "y");');
+      expectIncludes(
+        text,
+        `__decorateClass([
+  prop
+], Bar.prototype, "x", 2);`,
+      );
+      expectIncludes(
+        text,
+        `Bar = __decorateClass([
+  foo
+], Bar);`,
+      );
+    } finally {
+      server.stop();
+    }
+  });
+
   it('resolves relative ending with .js to .ts files', async () => {
     const { server, host } = await createTestServer({
       rootDir: path.join(__dirname, 'fixture'),
