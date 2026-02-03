@@ -1288,7 +1288,7 @@ describe('rollup-plugin-html', () => {
       'assets/image-a-BCCvKrTe.svg',
       'assets/image-b-C4stzVZW.svg',
       'assets/image-c-DPeYetg3.svg',
-      'assets/styles-CF2Iy5n1.css',
+      'assets/styles-Bh7Pnjui.css',
       'assets/x-DDGg8O6h.css',
       'assets/y-DJTrnPH3.css',
       'assets/webmanifest-BkrOR1WG.json',
@@ -1302,7 +1302,7 @@ describe('rollup-plugin-html', () => {
           <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b-BgQHKcRn.png" />
           <link rel="manifest" href="assets/webmanifest-BkrOR1WG.json" />
           <link rel="mask-icon" href="assets/image-a-BCCvKrTe.svg" color="#3f93ce" />
-          <link rel="stylesheet" href="assets/styles-CF2Iy5n1.css" />
+          <link rel="stylesheet" href="assets/styles-Bh7Pnjui.css" />
           <link rel="stylesheet" href="assets/x-DDGg8O6h.css" />
           <link rel="stylesheet" href="assets/y-DJTrnPH3.css" />
           <meta property="og:image" content="assets/image-c-DPeYetg3.svg" />
@@ -1384,7 +1384,7 @@ describe('rollup-plugin-html', () => {
       'assets/image-c-C4yLPiIL.png',
       'assets/image-a.svg',
       'assets/image-b-C4stzVZW.svg',
-      'assets/styles-CF2Iy5n1.css',
+      'assets/styles-Bh7Pnjui.css',
       'assets/x-DDGg8O6h.css',
       'assets/y-DJTrnPH3.css',
       'assets/webmanifest.json',
@@ -1398,7 +1398,7 @@ describe('rollup-plugin-html', () => {
           <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b.png" />
           <link rel="manifest" href="assets/webmanifest.json" />
           <link rel="mask-icon" href="assets/image-a.svg" color="#3f93ce" />
-          <link rel="stylesheet" href="assets/styles-CF2Iy5n1.css" />
+          <link rel="stylesheet" href="assets/styles-Bh7Pnjui.css" />
           <link rel="stylesheet" href="assets/x-DDGg8O6h.css" />
           <link rel="stylesheet" href="assets/y-DJTrnPH3.css" />
         </head>
@@ -2046,7 +2046,7 @@ describe('rollup-plugin-html', () => {
     expect(Object.keys(assets)).to.have.lengthOf(4);
 
     expect(assets).to.have.keys([
-      'assets/styles-CF2Iy5n1.css',
+      'assets/styles-Bh7Pnjui.css',
       'assets/foo-CxmWeBHm.svg',
       'assets/image-b-C4stzVZW.svg',
       'x/index.html',
@@ -2055,7 +2055,7 @@ describe('rollup-plugin-html', () => {
     expect(assets['x/index.html']).to.equal(html`
       <html>
         <head>
-          <link rel="stylesheet" href="../assets/styles-CF2Iy5n1.css" />
+          <link rel="stylesheet" href="../assets/styles-Bh7Pnjui.css" />
         </head>
         <body>
           <img src="../assets/foo-CxmWeBHm.svg" />
@@ -3186,6 +3186,123 @@ describe('rollup-plugin-html', () => {
     expect(assets['styles/styles.immutable.C3Z0Fs2-.css']).to.equal(css`
       #a {
         background-image: url('/static/images/image.immutable.7xJLr_7N.png');
+      }
+    `);
+  });
+
+  it('can minify extracted CSS', async () => {
+    const rootDir = createApp({
+      'styles.css': css`
+        p {
+          font-weight: bold;
+        }
+      `,
+    });
+
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          rootDir,
+          input: {
+            html: html`
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles.css" />
+                </head>
+                <body></body>
+              </html>
+            `,
+          },
+          minifyCss: true,
+        }),
+      ],
+    };
+
+    const build = await rollup(config);
+    const { chunks, assets, assetsUnformatted } = await generateTestBundle(build, outputConfig);
+
+    expect(Object.keys(chunks)).to.have.lengthOf(1);
+    expect(Object.keys(assets)).to.have.lengthOf(2);
+
+    expect(assets).to.have.keys(['assets/styles-DPU2l-t7.css', 'index.html']);
+
+    expect(assets['index.html']).to.equal(html`
+      <html>
+        <head>
+          <link rel="stylesheet" href="assets/styles-DPU2l-t7.css" />
+        </head>
+        <body></body>
+      </html>
+    `);
+
+    expect(assetsUnformatted['assets/styles-DPU2l-t7.css']).to.equal('p{font-weight:700}');
+  });
+
+  it('can bundle extracted CSS', async () => {
+    const rootDir = createApp({
+      'themes/theme-light.css': css`
+        body {
+          background-color: #fff;
+        }
+      `,
+      'themes/theme-dark.css': css`
+        @media (prefers-color-scheme: dark) {
+          body {
+            background-color: #000;
+          }
+        }
+      `,
+      'styles.css': css`
+        @import './themes/theme-light.css';
+        @import './themes/theme-dark.css';
+      `,
+    });
+
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          rootDir,
+          input: {
+            html: html`
+              <html>
+                <head>
+                  <link rel="stylesheet" href="./styles.css" />
+                </head>
+                <body></body>
+              </html>
+            `,
+          },
+          bundleCss: true,
+        }),
+      ],
+    };
+
+    const build = await rollup(config);
+    const { chunks, assets } = await generateTestBundle(build, outputConfig);
+
+    expect(Object.keys(chunks)).to.have.lengthOf(1);
+    expect(Object.keys(assets)).to.have.lengthOf(2);
+
+    expect(assets).to.have.keys(['assets/styles-Dc1pq4Qu.css', 'index.html']);
+
+    expect(assets['index.html']).to.equal(html`
+      <html>
+        <head>
+          <link rel="stylesheet" href="assets/styles-Dc1pq4Qu.css" />
+        </head>
+        <body></body>
+      </html>
+    `);
+
+    expect(assets['assets/styles-Dc1pq4Qu.css']).to.equal(css`
+      body {
+        background-color: #fff;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #000;
+        }
       }
     `);
   });
