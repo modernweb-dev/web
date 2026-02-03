@@ -1,5 +1,11 @@
 # @web/rollup-plugin-html
 
+## 3.1.0
+
+### Minor Changes
+
+- 3a9c97b: add CSS bundling and minification
+
 ## 3.0.0
 
 ### Major Changes
