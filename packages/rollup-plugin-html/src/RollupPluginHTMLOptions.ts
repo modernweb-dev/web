@@ -15,9 +15,9 @@ export interface RollupPluginHTMLOptions {
   input?: string | InputHTMLOptions | (string | InputHTMLOptions)[];
   /** HTML file glob pattern or patterns to ignore */
   exclude?: string | string[];
-  /** Whether to minify the output HTML. */
+  /** Whether to minify the output HTML. Defaults to false. */
   minify?: boolean;
-  /** Whether to preserve or flatten the directory structure of the HTML file. */
+  /** Whether to preserve or flatten the directory structure of the HTML file. Defaults to true. */
   flattenOutput?: boolean;
   /** Directory to resolve absolute paths relative to, and to use as base for non-flatted filename output. */
   rootDir?: string;
@@ -29,11 +29,15 @@ export interface RollupPluginHTMLOptions {
   transformHtml?: TransformHtmlFunction | TransformHtmlFunction[];
   /** Whether to extract and bundle assets referenced in HTML and CSS. Defaults to true. */
   extractAssets?: boolean | 'legacy-html' | 'legacy-html-and-css';
+  /** Whether to bundle extracted CSS assets. Bundling is done via Lightning CSS. Defaults to true. */
+  bundleCss?: boolean;
+  /** Whether to minify extracted CSS assets. Minificaiton is done via Lightning CSS. Defaults to false. */
+  minifyCss?: boolean;
   /** Whether to ignore assets referenced in HTML and CSS with glob patterns. */
   externalAssets?: string | string[];
   /** Define a full absolute url to your site (e.g. https://domain.com) */
   absoluteBaseUrl?: string;
-  /** Whether to set full absolute urls for ['meta[property=og:image]', 'link[rel=canonical]', 'meta[property=og:url]'] or not. Requires a absoluteBaseUrl to be set. Default to true. */
+  /** Whether to set full absolute urls for ['meta[property=og:image]', 'link[rel=canonical]', 'meta[property=og:url]'] or not. Requires a absoluteBaseUrl to be set. Defaults to true. */
   absoluteSocialMediaUrls?: boolean;
   /** Should a service worker registration script be injected. Defaults to false. */
   injectServiceWorker?: boolean;

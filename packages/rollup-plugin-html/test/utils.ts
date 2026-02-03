@@ -49,6 +49,7 @@ export async function generateTestBundle(build: RollupBuild, outputConfig: Outpu
   const { output } = await build.generate(outputConfig);
   const chunks: Record<string, string> = {};
   const assets: Record<string, string | Uint8Array> = {};
+  const assetsUnformatted: Record<string, string | Uint8Array> = {};
 
   for (const file of output) {
     const filename = file.fileName;
@@ -57,17 +58,20 @@ export async function generateTestBundle(build: RollupBuild, outputConfig: Outpu
       chunks[filename] = formatter ? formatter(file.code) : file.code;
     } else if (file.type === 'asset') {
       let code = file.source;
+      let codeUnformatted = file.source;
       if (typeof code !== 'string' && filename.endsWith('.css')) {
         code = Buffer.from(code).toString('utf8');
+        codeUnformatted = Buffer.from(codeUnformatted).toString('utf8');
       }
       if (typeof code === 'string' && formatter) {
         code = formatter(code);
       }
       assets[filename] = code;
+      assetsUnformatted[filename] = codeUnformatted;
     }
   }
 
-  return { output, chunks, assets };
+  return { output, chunks, assets, assetsUnformatted };
 }
 
 export function createApp(structure: Record<string, string | Buffer | object>) {

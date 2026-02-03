@@ -1,6 +1,6 @@
 import { PluginContext } from 'rollup';
 import path from 'path';
-import { transform } from 'lightningcss';
+import { bundleAsync, transform } from 'lightningcss';
 import fs from 'fs';
 
 import { InputAsset, InputData } from '../input/InputData';
@@ -41,6 +41,8 @@ export async function emitAssets(
   options: RollupPluginHTMLOptions,
 ) {
   const extractAssets = options.extractAssets ?? true;
+  const bundleCss = options.bundleCss ?? true;
+  const minifyCss = options.minifyCss ?? false;
   const extractAssetsLegacyCss = options.extractAssets === 'legacy-html-and-css';
   const emittedStaticAssets = new Map<string, string>();
   const emittedHashedAssets = new Map<string, string>();
@@ -89,11 +91,10 @@ export async function emitAssets(
       const emittedExternalAssets = new Map();
       if (asset.hashed) {
         if (basename.endsWith('.css') && extractAssets) {
-          let updatedCssSource = false;
-          const { code } = await transform({
-            filename: basename,
+          const { code } = await (bundleCss ? bundleAsync : transform)({
+            filename: asset.filePath,
             code: asset.content,
-            minify: false,
+            minify: minifyCss,
             visitor: {
               Url: url => {
                 // Support foo.svg#bar
@@ -150,13 +151,13 @@ export async function emitAssets(
                     }
                   }
                 }
-                updatedCssSource = true;
                 return url;
               },
             },
           });
-          if (updatedCssSource) {
-            source = Buffer.from(code);
+          const codeBuffer = Buffer.from(code);
+          if (!asset.content.equals(codeBuffer)) {
+            source = codeBuffer;
           }
         }
 
