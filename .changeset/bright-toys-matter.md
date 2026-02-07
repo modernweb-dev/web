@@ -4,4 +4,4 @@
 '@web/storybook-builder': patch
 ---
 
-Expand esbuild semver to allow 0.26.0 and 0.27.0
+Bump esbuild version to 0.27.0
