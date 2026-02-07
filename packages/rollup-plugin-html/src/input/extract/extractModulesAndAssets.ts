@@ -24,6 +24,9 @@ export function extractModulesAndAssets(params: ExtractParams) {
     rootDir,
     absolutePathPrefix,
   });
+
+  const moduleImportPaths = moduleImports.map(mod => mod.importPath);
+
   const assets = params.extractAssets
     ? extractAssets({
         document,
@@ -33,6 +36,7 @@ export function extractModulesAndAssets(params: ExtractParams) {
         extractAssets: params.extractAssets,
         externalAssets,
         absolutePathPrefix,
+        moduleImportPaths,
       })
     : [];
 

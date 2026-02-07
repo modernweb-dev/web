@@ -18,6 +18,8 @@ const assetLinkRels = [
 const legacyHashedLinkRels = ['stylesheet'];
 const assetMetaProperties = ['og:image'];
 
+const potentialEntrypointLinkRels = ['preload', 'prefetch', 'modulepreload'];
+
 function getSrcSetUrls(srcset: string) {
   if (!srcset) {
     return [];
@@ -104,6 +106,16 @@ export function isHashedAsset(
     default:
       return false;
   }
+}
+
+export function isEntrypointLink(
+  node: Element,
+  filePath: string,
+  moduleImportPaths: string[],
+): boolean {
+  if (getTagName(node) !== 'link') return false;
+  const rel = getAttribute(node, 'rel') || '';
+  return potentialEntrypointLinkRels.includes(rel) && moduleImportPaths.includes(filePath);
 }
 
 export function resolveAssetFilePath(

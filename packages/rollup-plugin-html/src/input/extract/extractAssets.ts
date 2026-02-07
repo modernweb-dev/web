@@ -6,6 +6,7 @@ import {
   findAssets,
   getSourcePaths,
   isHashedAsset,
+  isEntrypointLink,
   resolveAssetFilePath,
   createAssetPicomatchMatcher,
 } from '../../assets/utils.js';
@@ -18,12 +19,14 @@ export interface ExtractAssetsParams {
   extractAssets: boolean | 'legacy-html' | 'legacy-html-and-css';
   externalAssets?: string | string[];
   absolutePathPrefix?: string;
+  moduleImportPaths?: string[];
 }
 
 export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
   const assetNodes = findAssets(params.document);
   const allAssets: InputAsset[] = [];
   const isExternal = createAssetPicomatchMatcher(params.externalAssets);
+  const moduleImportPaths = params.moduleImportPaths ?? [];
 
   for (const node of assetNodes) {
     const sourcePaths = getSourcePaths(node);
@@ -36,6 +39,9 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
         params.rootDir,
         params.absolutePathPrefix,
       );
+
+      if (isEntrypointLink(node, filePath, moduleImportPaths)) continue;
+
       const hashed = isHashedAsset(node, params.extractAssets);
       const alreadyHandled = allAssets.find(a => a.filePath === filePath && a.hashed === hashed);
       if (!alreadyHandled) {

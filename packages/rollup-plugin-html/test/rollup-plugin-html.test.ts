@@ -3017,6 +3017,7 @@ describe('rollup-plugin-html', () => {
                 </head>
                 <body>
                   <img src="./assets/images/image.png" />
+                  <script type="module" src="./src/main.js"></script>
                 </body>
               </html>
             `,
@@ -3028,6 +3029,7 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, {
       ...outputConfig,
+      entryFileNames: '[name].immutable.[hash].js',
       assetFileNames: 'static/[name].immutable.[hash][extname]',
     });
 
@@ -3056,6 +3058,7 @@ describe('rollup-plugin-html', () => {
         </head>
         <body>
           <img src="static/image.immutable.7xJLr_7N.png" />
+          <script type="module" src="./main.immutable.Bs4p9D3c.js"></script>
         </body>
       </html>
     `);
@@ -3131,6 +3134,7 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, {
       ...outputConfig,
+      entryFileNames: '[name].immutable.[hash].js',
       assetFileNames: assetInfo => {
         const name = assetInfo.names[0] || '';
         if (name.endsWith('.woff2')) {
@@ -3187,6 +3191,116 @@ describe('rollup-plugin-html', () => {
       #a {
         background-image: url('/static/images/image.immutable.7xJLr_7N.png');
       }
+    `);
+  });
+
+  it('handles entrypoints in prefetch/preload/modulepreload links', async () => {
+    const rootDir = createApp({
+      'src/main.js': js`
+        console.log('app code');
+      `,
+    });
+
+    const config = {
+      plugins: [
+        rollupPluginHTML({
+          rootDir,
+          input: [
+            {
+              name: 'index-prefetch.html',
+              html: html`
+                <html>
+                  <head>
+                    <link rel="prefetch" href="./src/main.js" />
+                  </head>
+                  <body>
+                    <script type="module" src="./src/main.js"></script>
+                  </body>
+                </html>
+              `,
+            },
+            {
+              name: 'index-preload.html',
+              html: html`
+                <html>
+                  <head>
+                    <link rel="preload" href="./src/main.js" as="script" />
+                  </head>
+                  <body>
+                    <script type="module" src="./src/main.js"></script>
+                  </body>
+                </html>
+              `,
+            },
+            {
+              name: 'index-modulepreload.html',
+              html: html`
+                <html>
+                  <head>
+                    <link rel="modulepreload" href="./src/main.js" />
+                  </head>
+                  <body>
+                    <script type="module" src="./src/main.js"></script>
+                  </body>
+                </html>
+              `,
+            },
+          ],
+        }),
+      ],
+    };
+
+    const build = await rollup(config);
+    const { chunks, assets } = await generateTestBundle(build, {
+      ...outputConfig,
+      entryFileNames: '[name].immutable.[hash].js',
+    });
+
+    expect(Object.keys(chunks)).to.have.lengthOf(1);
+    expect(Object.keys(assets)).to.have.lengthOf(3);
+
+    expect(chunks).to.have.keys(['main.immutable.DujI8DMG.js']);
+    expect(assets).to.have.keys([
+      'index-prefetch.html',
+      'index-preload.html',
+      'index-modulepreload.html',
+    ]);
+
+    expect(assets['index-prefetch.html']).to.equal(html`
+      <html>
+        <head>
+          <link rel="prefetch" href="./main.immutable.DujI8DMG.js" />
+        </head>
+        <body>
+          <script type="module" src="./main.immutable.DujI8DMG.js"></script>
+        </body>
+      </html>
+    `);
+
+    expect(assets['index-preload.html']).to.equal(html`
+      <html>
+        <head>
+          <link rel="preload" href="./main.immutable.DujI8DMG.js" as="script" />
+        </head>
+        <body>
+          <script type="module" src="./main.immutable.DujI8DMG.js"></script>
+        </body>
+      </html>
+    `);
+
+    expect(assets['index-modulepreload.html']).to.equal(html`
+      <html>
+        <head>
+          <link rel="modulepreload" href="./main.immutable.DujI8DMG.js" />
+        </head>
+        <body>
+          <script type="module" src="./main.immutable.DujI8DMG.js"></script>
+        </body>
+      </html>
+    `);
+
+    expect(chunks['main.immutable.DujI8DMG.js']).to.equal(js`
+      console.log('app code');
     `);
   });
 

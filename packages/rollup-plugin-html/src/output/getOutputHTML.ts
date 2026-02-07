@@ -7,11 +7,12 @@ import {
 } from '../RollupPluginHTMLOptions';
 import { parse, serialize } from 'parse5';
 import { minify as minifyHTMLFunc } from 'html-minifier-terser';
-import { injectedUpdatedAssetPaths } from './injectedUpdatedAssetPaths.js';
+import { injectUpdatedAssetPaths } from './injectUpdatedAssetPaths.js';
 import { EmittedAssets } from './emitAssets.js';
 import { injectAbsoluteBaseUrl } from './injectAbsoluteBaseUrl.js';
 import { hashInlineScripts } from './hashInlineScripts.js';
 import { injectServiceWorkerRegistration } from './injectServiceWorkerRegistration.js';
+import { injectUpdatedEntrypointLinkPaths } from './injectUpdatedEntrypointLinkPaths.js';
 
 export interface GetOutputHTMLParams {
   input: InputData;
@@ -47,7 +48,7 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
   // inject rollup output into HTML
   let document = parse(input.html);
   if (pluginOptions.extractAssets !== false) {
-    injectedUpdatedAssetPaths({
+    injectUpdatedAssetPaths({
       document,
       input,
       outputDir,
@@ -62,6 +63,15 @@ export async function getOutputHTML(params: GetOutputHTMLParams) {
   if (!defaultInjectDisabled) {
     injectBundles(document, entrypointBundles);
   }
+
+  injectUpdatedEntrypointLinkPaths({
+    document,
+    input,
+    rootDir,
+    entrypointBundles,
+    absolutePathPrefix,
+  });
+
   if (absoluteSocialMediaUrls && pluginOptions.absoluteBaseUrl) {
     injectAbsoluteBaseUrl(document, pluginOptions.absoluteBaseUrl);
   }

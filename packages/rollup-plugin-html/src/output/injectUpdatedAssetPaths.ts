@@ -6,6 +6,7 @@ import {
   findAssets,
   getSourceAttribute,
   getSourcePaths,
+  isEntrypointLink,
   isHashedAsset,
   resolveAssetFilePath,
   createAssetPicomatchMatcher,
@@ -38,7 +39,7 @@ function getSrcSetUrlWidthPairs(srcset: string) {
   return urls;
 }
 
-export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
+export function injectUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
   const {
     document,
     input,
@@ -53,6 +54,8 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
   const assetNodes = findAssets(document);
   const isExternal = createAssetPicomatchMatcher(externalAssets);
 
+  const moduleImportPaths = input.moduleImports.map(mod => mod.importPath);
+
   for (const node of assetNodes) {
     const sourcePaths = getSourcePaths(node);
     for (const sourcePath of sourcePaths) {
@@ -61,6 +64,9 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
       const htmlFilePath = input.filePath ? input.filePath : path.join(rootDir, input.name);
       const htmlDir = path.dirname(htmlFilePath);
       const filePath = resolveAssetFilePath(sourcePath, htmlDir, rootDir, absolutePathPrefix);
+
+      if (isEntrypointLink(node, filePath, moduleImportPaths)) continue;
+
       const assetPaths = isHashedAsset(node, extractAssets)
         ? emittedAssets.hashed
         : emittedAssets.static;

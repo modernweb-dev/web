@@ -4,9 +4,9 @@ import { parse, serialize } from 'parse5';
 import { html } from '../../utils.js';
 import { InputData } from '../../../src/input/InputData.js';
 
-import { injectedUpdatedAssetPaths } from '../../../src/output/injectedUpdatedAssetPaths.js';
+import { injectUpdatedAssetPaths } from '../../../src/output/injectUpdatedAssetPaths.js';
 
-describe('injectedUpdatedAssetPaths()', () => {
+describe('injectUpdatedAssetPaths()', () => {
   it('injects updated asset paths', () => {
     const document = parse(html`
       <html>
@@ -35,7 +35,7 @@ describe('injectedUpdatedAssetPaths()', () => {
     hashed.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
     hashed.set(path.join(path.sep, 'root', 'no-module.js'), 'no-module-xxx.js');
 
-    injectedUpdatedAssetPaths({
+    injectUpdatedAssetPaths({
       document,
       input,
       outputDir: '/root/dist/',
@@ -102,7 +102,7 @@ describe('injectedUpdatedAssetPaths()', () => {
     hashed.set(path.join(path.sep, 'root', 'images', 'eb26e6ca-30.jpeg'), 'eb26e6ca-30-xxx.jpeg');
     hashed.set(path.join(path.sep, 'root', 'images', 'eb26e6ca-60.jpeg'), 'eb26e6ca-60-xxx.jpeg');
 
-    injectedUpdatedAssetPaths({
+    injectUpdatedAssetPaths({
       document,
       input,
       outputDir: '/root/dist/',
@@ -167,7 +167,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       'typer-hydration-xxx.mp4',
     );
 
-    injectedUpdatedAssetPaths({
+    injectUpdatedAssetPaths({
       document,
       input,
       outputDir: '/root/dist/',
@@ -214,7 +214,7 @@ describe('injectedUpdatedAssetPaths()', () => {
     hashed.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
     hashed.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
-    injectedUpdatedAssetPaths({
+    injectUpdatedAssetPaths({
       document,
       input,
       outputDir: '/root/dist/',
@@ -263,7 +263,7 @@ describe('injectedUpdatedAssetPaths()', () => {
     hashed.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
     hashed.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
-    injectedUpdatedAssetPaths({
+    injectUpdatedAssetPaths({
       document,
       input,
       outputDir: '/root/dist/',
@@ -311,7 +311,7 @@ describe('injectedUpdatedAssetPaths()', () => {
     hashed.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
     hashed.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
-    injectedUpdatedAssetPaths({
+    injectUpdatedAssetPaths({
       document,
       input,
       outputDir: '/root/dist/',
@@ -360,7 +360,7 @@ describe('injectedUpdatedAssetPaths()', () => {
     hashed.set(path.join(path.sep, 'root', 'foo', 'image-a.png'), 'image-a-xxx.png');
     hashed.set(path.join(path.sep, 'root', 'image-b.png'), 'image-b-xxx.png');
 
-    injectedUpdatedAssetPaths({
+    injectUpdatedAssetPaths({
       document,
       input,
       outputDir: '/root/dist/',
