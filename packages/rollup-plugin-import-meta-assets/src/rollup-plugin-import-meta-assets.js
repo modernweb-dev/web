@@ -176,6 +176,7 @@ ${`    default: return new Promise(function(resolve, reject) {
               const ref = this.emitFile({
                 type: 'asset',
                 name: assetName,
+                originalFileName: absoluteAssetPath,
                 source: transformedAssetContents,
               });
               magicString.overwrite(
