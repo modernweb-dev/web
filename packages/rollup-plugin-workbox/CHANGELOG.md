@@ -1,5 +1,11 @@
 # rollup-plugin-workbox
 
+## 8.1.3
+
+### Patch Changes
+
+- d304459: Bump esbuild version to 0.27.0
+
 ## 8.1.2
 
 ### Patch Changes
