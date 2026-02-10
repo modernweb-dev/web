@@ -1,5 +1,11 @@
 # @web/dev-server-esbuild
 
+## 1.0.5
+
+### Patch Changes
+
+- d304459: Bump esbuild version to 0.27.0
+
 ## 1.0.4
 
 ### Patch Changes

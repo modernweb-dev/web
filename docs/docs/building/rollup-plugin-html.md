@@ -273,7 +273,7 @@ export default {
 };
 ```
 
-### Minification
+### HTML minification
 
 Set the minify option to do default HTML minification. If you need custom options, you can implement your own minifier using the `transformHtml` option.
 
@@ -287,6 +287,31 @@ export default {
     // add HTML plugin
     html({
       minify: true,
+    }),
+  ],
+};
+```
+
+### CSS bundling and minification
+
+It's implemented via [Lightning CSS](https://lightningcss.dev/).
+It works when `extractAssets: true` and CSS files are extracted.
+
+CSS bundling is enabled by default.
+Set `bundleCss: false` to disable it.
+
+CSS minification can be enabled by setting `minifyCss: true`.
+
+```js
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
+
+export default {
+  input: 'index.html',
+  output: { dir: 'dist' },
+  plugins: [
+    // add HTML plugin
+    html({
+      minifyCss: true,
     }),
   ],
 };
@@ -379,11 +404,11 @@ export interface InputHTMLOptions {
 export interface RollupPluginHTMLOptions {
   /** HTML file(s) to use as input. If not set, uses rollup input option. */
   input?: string | InputHTMLOptions | (string | InputHTMLOptions)[];
-  /** HTML file glob patterns or patterns to ignore */
+  /** HTML file glob pattern or patterns to ignore */
   exclude?: string | string[];
-  /** Whether to minify the output HTML. */
+  /** Whether to minify the output HTML. Defaults to false. */
   minify?: boolean;
-  /** Whether to preserve or flatten the directory structure of the HTML file. */
+  /** Whether to preserve or flatten the directory structure of the HTML file. Defaults to true. */
   flattenOutput?: boolean;
   /** Directory to resolve absolute paths relative to, and to use as base for non-flatted filename output. */
   rootDir?: string;
@@ -393,13 +418,17 @@ export interface RollupPluginHTMLOptions {
   transformAsset?: TransformAssetFunction | TransformAssetFunction[];
   /** Transform HTML file before output. */
   transformHtml?: TransformHtmlFunction | TransformHtmlFunction[];
-  /** Whether to extract and bundle assets referenced in HTML. Defaults to true. */
+  /** Whether to extract and bundle assets referenced in HTML and CSS. Defaults to true. */
   extractAssets?: boolean | 'legacy-html' | 'legacy-html-and-css';
+  /** Whether to bundle extracted CSS assets. Bundling is done via Lightning CSS. Defaults to true. */
+  bundleCss?: boolean;
+  /** Whether to minify extracted CSS assets. Minificaiton is done via Lightning CSS. Defaults to false. */
+  minifyCss?: boolean;
   /** Whether to ignore assets referenced in HTML and CSS with glob patterns. */
   externalAssets?: string | string[];
   /** Define a full absolute url to your site (e.g. https://domain.com) */
   absoluteBaseUrl?: string;
-  /** Whether to set full absolute urls for ['meta[property=og:image]', 'link[rel=canonical]', 'meta[property=og:url]'] or not. Requires a absoluteBaseUrl to be set. Default to true. */
+  /** Whether to set full absolute urls for ['meta[property=og:image]', 'link[rel=canonical]', 'meta[property=og:url]'] or not. Requires a absoluteBaseUrl to be set. Defaults to true. */
   absoluteSocialMediaUrls?: boolean;
   /** Should a service worker registration script be injected. Defaults to false. */
   injectServiceWorker?: boolean;

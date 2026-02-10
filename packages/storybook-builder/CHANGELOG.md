@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 0.2.6
+
+### Patch Changes
+
+- d304459: Bump esbuild version to 0.27.0
+
 ## 0.2.5
 
 ### Patch Changes
