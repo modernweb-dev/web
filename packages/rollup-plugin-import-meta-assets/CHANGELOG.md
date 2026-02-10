@@ -1,5 +1,11 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 2.3.1
+
+### Patch Changes
+
+- ef0641b: add originalFileName to emitFile
+
 ## 2.3.0
 
 ### Minor Changes
