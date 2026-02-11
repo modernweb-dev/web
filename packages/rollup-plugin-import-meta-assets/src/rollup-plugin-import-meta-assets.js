@@ -105,9 +105,9 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
             const { globby } = await import('globby');
             // execute the glob
             const result = await globby(glob, { cwd: path.dirname(id) });
-            const paths = result.map(r =>
-              r.startsWith('./') || r.startsWith('../') ? r : `./${r}`,
-            );
+            const paths = result
+              .sort()
+              .map(r => (r.startsWith('./') || r.startsWith('../') ? r : `./${r}`));
 
             // create magic string if it wasn't created already
             ms = ms || new MagicString(code);
