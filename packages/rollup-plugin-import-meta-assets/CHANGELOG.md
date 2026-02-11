@@ -1,5 +1,11 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 2.3.2
+
+### Patch Changes
+
+- 2c2f92e: sort glob to ensure the order of switch cases and consistent build output for same files
+
 ## 2.3.1
 
 ### Patch Changes
