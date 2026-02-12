@@ -51,10 +51,7 @@ export class TestRunner extends EventEmitter<EventMap> {
       throw new Error('The open option requires the manual option to be set.');
     }
 
-    const { sessionGroups, testFiles, testSessions, browsers } = createTestSessions(
-      config,
-      groupConfigs,
-    );
+    const { testFiles, testSessions, browsers } = createTestSessions(config, groupConfigs);
     this.config = config;
 
     this.testFiles = testFiles;
@@ -65,7 +62,7 @@ export class TestRunner extends EventEmitter<EventMap> {
         this.browsers.findIndex(br => br.name === a) - this.browsers.findIndex(br => br.name === b),
     );
 
-    this.sessions = new TestSessionManager(sessionGroups, testSessions);
+    this.sessions = new TestSessionManager(testSessions);
     this.scheduler = new TestScheduler(config, this.sessions, browsers);
     this.server = new TestRunnerServer(
       this.config,
