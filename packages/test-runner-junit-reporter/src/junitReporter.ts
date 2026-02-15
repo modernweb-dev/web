@@ -69,7 +69,7 @@ interface TestSuiteXMLAttributes {
 const assignSessionAndSuitePropertiesToTests = ({
   testResults,
   ...rest
-}: TestSession): TestResultWithMetadata[] => {
+}: TestSession, rootDir: string): TestResultWithMetadata[] => {
   const assignToTest =
     (parentSuiteName: string) =>
     (test: TestResult): TestResultWithMetadata => {
@@ -87,7 +87,11 @@ const assignSessionAndSuitePropertiesToTests = ({
 
   const suites = testResults?.suites ?? [];
 
-  return suites.flatMap(assignToSuite(''));
+  const testsWithoutSuite = testResults?.tests ?? [];
+
+  const suiteName = `${rest.browser.name}_${rest.browser.type}_${rest.testFile.replace(rootDir, '')}`;
+
+  return [...suites.flatMap(assignToSuite('')), ...testsWithoutSuite.flatMap(assignToTest(suiteName))];
 };
 
 const toResultsWithMetadataByBrowserTestFileName = (
@@ -291,7 +295,7 @@ function getTestRunXML({
 }): string {
   const testsuites = Object.entries(
     sessions
-      .flatMap(assignSessionAndSuitePropertiesToTests)
+      .flatMap(s => assignSessionAndSuitePropertiesToTests(s, rootDir))
       .reduce(
         toResultsWithMetadataByBrowserTestFileName,
         {} as TestResultsWithMetadataByBrowserTestFileName,
