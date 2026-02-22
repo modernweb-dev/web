@@ -35,10 +35,6 @@ export function historyApiFallbackMiddleware(
       return next();
     }
 
-    if (!ctx.url.startsWith(appIndexBrowserPathPrefix)) {
-      return next();
-    }
-
     // rewrite url and let static serve take it further
     logger.debug(`Rewriting ${ctx.url} to app index ${appIndexBrowserPath}`);
     ctx.url = appIndexBrowserPath;
