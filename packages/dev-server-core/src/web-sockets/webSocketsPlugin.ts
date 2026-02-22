@@ -5,7 +5,7 @@ import { appendToDocument, isHtmlFragment } from '@web/parse5-utils';
 export const webSocketScript = `<!-- injected by web-dev-server -->
 <script type="module" src="${NAME_WEB_SOCKET_IMPORT}"></script>`;
 
-export function webSocketsPlugin(): Plugin {
+export function webSocketsPlugin(basePath?: string): Plugin {
   return {
     name: 'web-sockets',
 
@@ -129,7 +129,7 @@ export function webSocketsPlugin(): Plugin {
 
 
 const { protocol, host } = new URL(import.meta.url);
-const webSocketUrl = \`ws\${protocol === 'https:' ? 's' : ''}://\${host}/${NAME_WEB_SOCKET_API}\`;
+const webSocketUrl = \`ws\${protocol === 'https:' ? 's' : ''}://\${host}/${basePath ? basePath + '/' : ''}${NAME_WEB_SOCKET_API}\`;
 
 export let webSocket;
 export let webSocketOpened;
