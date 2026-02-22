@@ -271,4 +271,33 @@ class Bar {
       server.stop();
     }
   });
+
+  it('reads an extended tsconfig.json file', async () => {
+    const { server, host } = await createTestServer({
+      rootDir: path.join(__dirname, 'fixture'),
+      plugins: [
+        {
+          name: 'test',
+        },
+        esbuildPlugin({
+          ts: true,
+          tsconfig: path.join(__dirname, 'fixture', 'tsconfig.extended.json'),
+        }),
+      ],
+    });
+
+    try {
+      const response = await fetch(`${host}/a/b/foo.ts`);
+      const text = await response.text();
+
+      expect(response.status).to.equal(200);
+      expect(response.headers.get('content-type')).to.equal(
+        'application/javascript; charset=utf-8',
+      );
+
+      expectIncludes(text, '__publicField(this, "prop");');
+    } finally {
+      server.stop();
+    }
+  });
 });
