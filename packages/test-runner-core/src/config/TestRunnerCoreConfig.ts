@@ -22,6 +22,7 @@ export interface CoverageConfig {
   report?: boolean;
   reportDir?: string;
   reporters?: ReportType[];
+  all?: boolean;
 }
 
 export interface TestRunnerCoreConfig {

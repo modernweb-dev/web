@@ -104,6 +104,8 @@ interface CoverageConfig {
   report: boolean;
   reportDir: string;
   reporters?: ReportType[];
+  // whether to measure coverage of untested files
+  all?: boolean;
 }
 
 type MimeTypeMappings = Record<string, string>;
