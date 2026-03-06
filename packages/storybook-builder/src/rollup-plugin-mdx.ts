@@ -1,4 +1,4 @@
-import type { Options } from '@storybook/types';
+import type { Options } from 'storybook/internal/types';
 import { readFile } from 'node:fs/promises';
 import { dirname, join, sep } from 'node:path';
 import rehypeExternalLinks from 'rehype-external-links';

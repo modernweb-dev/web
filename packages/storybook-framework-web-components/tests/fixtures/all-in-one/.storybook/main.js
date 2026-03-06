@@ -4,11 +4,10 @@ import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 const config = {
   stories: ['../stories/**/*.stories.js', '../stories/**/*.mdx'],
   addons: [
-    '@storybook/addon-essentials',
     '@storybook/addon-links',
-    '@storybook/addon-interactions',
     '@storybook/addon-a11y',
     '@web/mocks/storybook-addon',
+    '@storybook/addon-docs',
   ],
   framework: {
     name: '@web/storybook-framework-web-components',
@@ -27,7 +26,7 @@ const config = {
         // ignore warning about eval used by the storybook internals
         if (log.code === 'EVAL') {
           const logId = log.id?.replace(/\\/g, '/');
-          if (logId?.includes('node_modules/@storybook/core/dist/preview/runtime.js')) {
+          if (logId?.includes('node_modules/storybook/dist/preview/runtime.js')) {
             defaultHandler('warn', log);
             return;
           }

@@ -1,8 +1,8 @@
 // based on https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/codegen-modern-iframe-script.ts
 
 import { normalizePath } from '@rollup/pluginutils';
-import { loadPreviewOrConfigFile } from '@storybook/core-common';
-import type { Options, PreviewAnnotation } from '@storybook/types';
+import { loadPreviewOrConfigFile } from 'storybook/internal/common';
+import type { Options, PreviewAnnotation } from 'storybook/internal/types';
 import { virtualSetupAddonsFilename, virtualStoriesFilename } from './virtual-file-names.js';
 
 export async function generateAppScript(options: Options) {
@@ -14,6 +14,7 @@ export async function generateAppScript(options: Options) {
     [],
     options,
   );
+
   const previewAnnotationURLs = [...previewAnnotations, previewOrConfigFile]
     .filter((path): path is PreviewAnnotation => !!path)
     .map((path: PreviewAnnotation) => (typeof path === 'object' ? path.bare : path));
@@ -33,12 +34,12 @@ ${previewAnnotationURLs
   `.trim();
 
   return `
-import { setup } from '@storybook/core/preview/runtime';
+import { setup } from 'storybook/internal/preview/runtime';
 import '${virtualSetupAddonsFilename}';
 
 setup();
 
-import { composeConfigs, PreviewWeb, ClientApi } from '@storybook/preview-api';
+import { composeConfigs, PreviewWeb, ClientApi } from 'storybook/internal/preview-api';
 import { importFn } from '${virtualStoriesFilename}';
 
 ${getPreviewAnnotationsFunction}

@@ -1,4 +1,4 @@
-import type { Options } from '@storybook/types';
+import type { Options } from 'storybook/internal/types';
 import { build } from 'esbuild';
 import { readFile, rm } from 'node:fs/promises';
 import { dirname, isAbsolute, join, normalize } from 'node:path';

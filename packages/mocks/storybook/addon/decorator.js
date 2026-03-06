@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { addons, makeDecorator } from '@storybook/preview-api';
+import { addons, makeDecorator } from 'storybook/internal/preview-api';
 import { createDecorator } from './create-decorator.js';
 
 // Storybook 7+
