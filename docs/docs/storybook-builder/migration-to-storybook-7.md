@@ -1,4 +1,4 @@
-# Storybook Builder >> Migration to Storybook 7 ||5
+# Storybook Builder >> Migration to Storybook 7 ||6
 
 This guide explains how to migrate from [`@web/dev-server-storybook` plugin](../dev-server/plugins/storybook.md) (that used opinionated Storybook 6 bundle `@web/storybook-prebuilt`) to Storybook 7 and new `@web/storybook-builder`.
 
