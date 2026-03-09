@@ -178,12 +178,6 @@ A test session is a combination of a combination of a browser and a testfile. Fo
 
 The `TestSession` data structure represents these individual combinations, and contains information about the status and test results. The status property is updated over time as the test session executed. It's implemented as a regular javascript object, and should be treated as immutable.
 
-### TestSessionGroup
-
-A test group is a way to group together related tests which share the same configuration options. A user can do this from the config, using the `groups` entry. For example to execute a group of tests only on a certain browser, or to execute tests in a different HTML environment.
-
-A default group is always created as well, this contains all the default options from the top level config.
-
 ### TestScheduler
 
 The scheduler is created by the test runner, and is not exposed as a public property. It manages the actual execution of a test session, and communicates with the browser launcher.
