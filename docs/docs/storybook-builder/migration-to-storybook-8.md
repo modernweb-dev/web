@@ -11,7 +11,7 @@ You need to:
 
 ## General migration guide
 
-Make sure to follow the [Storybook's own migration guide](https://storybook.js.org/docs/migration-guide).
+Make sure to follow the [Storybook's own migration guide](https://storybook.js.org/docs/8/migration-guide).
 We recommend to read it carefully, even though big part of it is not directly related to `@web/storybook-builder` or `@web/storybook-framework-web-components`, many small details are too easy to miss, so go through it step by step.
 
 ## Specific migration notes
