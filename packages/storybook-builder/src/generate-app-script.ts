@@ -39,7 +39,7 @@ import '${virtualSetupAddonsFilename}';
 
 setup();
 
-import { composeConfigs, PreviewWeb, ClientApi } from 'storybook/internal/preview-api';
+import { composeConfigs, PreviewWeb, ClientApi } from 'storybook/preview-api';
 import { importFn } from '${virtualStoriesFilename}';
 
 ${getPreviewAnnotationsFunction}
