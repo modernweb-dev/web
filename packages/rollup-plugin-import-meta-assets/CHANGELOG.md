@@ -1,5 +1,11 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 2.3.3
+
+### Patch Changes
+
+- 89d66fb: fix source map when path has a dynamic var
+
 ## 2.3.2
 
 ### Patch Changes
