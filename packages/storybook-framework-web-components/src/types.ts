@@ -1,4 +1,4 @@
-import type { StorybookConfig as StorybookConfigBase } from '@storybook/types';
+import type { StorybookConfig as StorybookConfigBase } from 'storybook/internal/types';
 import type { BuilderOptions, StorybookConfigWds } from '@web/storybook-builder';
 
 type FrameworkName = '@web/storybook-framework-web-components';

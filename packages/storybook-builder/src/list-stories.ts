@@ -1,7 +1,7 @@
 // based on https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/list-stories.ts
 
-import { normalizeStories } from '@storybook/core-common';
-import type { Options } from '@storybook/types';
+import { normalizeStories } from 'storybook/internal/common';
+import type { Options } from 'storybook/internal/types';
 import { glob } from 'glob';
 import { isAbsolute, join } from 'node:path';
 
