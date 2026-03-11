@@ -9,10 +9,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/modernweb-dev/web.git",
-    "directory": "packages/mocks"
+    "directory": "packages/storybook-addon-mocks"
   },
   "author": "modern-web",
-  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/mocks",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/storybook-addon-mocks",
   "type": "module",
   "exports": {
     "./http.js": {
