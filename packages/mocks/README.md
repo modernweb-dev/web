@@ -1,5 +1,7 @@
 # @web/mocks
 
+## Deprecation notice: `@web/mocks` is compatible only up to Storybook 8. For Storybook 9, please use `@web/storybook-addons-mocks` instead.
+
 [`MSW`](https://mswjs.io/) integration layer for usage with [`@web/dev-server`](https://modern-web.dev/docs/dev-server/overview/), [`@web/test-runner`](https://modern-web.dev/docs/test-runner/overview/) and [`@web/dev-server-storybook`](https://modern-web.dev/docs/dev-server/plugins/storybook/#mainjs-and-previewjs).
 
 ## Defining mocks
