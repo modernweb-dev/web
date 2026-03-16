@@ -1,9 +1,55 @@
+<<<<<<< HEAD
 import { expect } from 'chai';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
+||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { createTestServer } from '@web/dev-server-core/test-helpers.js';
+import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers.js';
+=======
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+<<<<<<< HEAD
+import { createTestServer } from '@web/dev-server-core/test-helpers.js';
+import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers.js';
+||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { createTestServer } from '@web/dev-server-core/test-helpers.ts';
+import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers.ts';
+=======
+import { createTestServer } from '@web/dev-server-core/test-helpers';
+import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
+>>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
+<<<<<<< HEAD
 import { legacyPlugin } from '../src/legacyPlugin.ts';
 import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
+||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { legacyPlugin } from '../src/legacyPlugin.js';
+import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+=======
+<<<<<<< HEAD
+import { legacyPlugin } from '../src/legacyPlugin.js';
+import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { legacyPlugin } from '../src/legacyPlugin.ts';
+import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
+=======
+<<<<<<< HEAD
+import { legacyPlugin } from '../src/legacyPlugin.ts';
+import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
+||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { legacyPlugin } from '../src/legacyPlugin.js';
+import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+=======
+import { legacyPlugin } from '../src/legacyPlugin.ts';
+import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
+
+const __dirname = import.meta.dirname;
+>>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const htmlBody = `
 <html>
@@ -25,9 +71,7 @@ const inlineScriptHtmlBody = `
 </body>
 </html>`;
 
-describe('legacyPlugin - transform html', function () {
-  this.timeout(10000);
-
+describe('legacyPlugin - transform html', { timeout: 10000 }, () => {
   it(`does not do any work on a modern browser`, async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
@@ -48,7 +92,7 @@ describe('legacyPlugin - transform html', function () {
       headers: { 'user-agent': modernUserAgents['Chrome 78'] },
     });
 
-    expect(text.trim()).to.equal(htmlBody.trim());
+    assert.equal(text.trim(), htmlBody.trim());
     server.stop();
   });
 

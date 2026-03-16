@@ -1,6 +1,5 @@
 {
   "name": "@web/test-runner-junit-reporter",
-  "type": "module",
   "version": "0.8.0",
   "publishConfig": {
     "access": "public"
@@ -18,20 +17,22 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "default": "./dist/index.js"
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
+    "test": "node --test test/**/*.test.ts",
+    "test:watch": "node --test --watch test/**/*.test.ts"
   },
   "files": [
     "*.d.ts",
     "*.js",
+    "*.mjs",
     "dist",
     "src"
   ],

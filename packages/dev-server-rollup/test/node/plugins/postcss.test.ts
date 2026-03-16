@@ -1,4 +1,5 @@
 /// <reference types="../../../types/rollup-plugin-postcss" />
+import { describe, it } from 'node:test';
 import rollupPostcss from 'rollup-plugin-postcss';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { runTests } from '@web/test-runner-core/test-helpers';
@@ -7,6 +8,7 @@ import { resolve } from 'path';
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../src/index.ts';
 
+const __dirname = import.meta.dirname;
 const postcss = fromRollup(rollupPostcss);
 
 describe('@rollup/plugin-postcss', () => {
@@ -57,8 +59,7 @@ html {
     }
   });
 
-  it('passes the in-browser tests', async function () {
-    this.timeout(40000);
+  it('passes the in-browser tests', { timeout: 40000 }, async () => {
     await runTests({
       files: [resolve(__dirname, '..', 'fixtures', 'postcss', 'postcss-browser-test.js')],
       browsers: [chromeLauncher()],

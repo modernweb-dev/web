@@ -1,6 +1,8 @@
 /* eslint-disable no-await-in-loop */
-import { OutputChunk, rollup, OutputAsset, RollupOptions, OutputOptions } from 'rollup';
-import { expect } from 'chai';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { rollup } from 'rollup';
+import type { OutputChunk, OutputAsset, RollupOptions, OutputOptions } from 'rollup';
 import fs from 'fs';
 import path from 'path';
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
@@ -8,6 +10,7 @@ import polyfillsLoader from '../../src/index.ts';
 
 type Output = (OutputChunk | OutputAsset)[];
 
+const __dirname = import.meta.dirname;
 const relativeUrl = `./${path.relative(process.cwd(), path.join(__dirname, '..'))}`;
 
 const updateSnapshots = process.argv.includes('--update-snapshots');
@@ -42,8 +45,8 @@ async function testSnapshot({ name, fileName, inputOptions, outputOptions }: Sna
     fs.writeFileSync(snapshotPath, file.source, 'utf-8');
   } else {
     const snapshot = fs.readFileSync(snapshotPath, 'utf-8');
-    expect(file.source.trim()).to.equal(snapshot.trim());
-    // expect(file.source.replace(/\s/g, '')).to.equal(snapshot.replace(/\s/g, ''));
+    assert.equal(file.source.trim(), snapshot.trim());
+    // assert.equal(file.source.replace(/\s/g, ''), snapshot.replace(/\s/g, ''));
   }
   return output;
 }
@@ -55,9 +58,8 @@ const defaultOutputOptions: OutputOptions[] = [
   },
 ];
 
-describe('rollup-plugin-polyfills-loader', function describe() {
+describe('rollup-plugin-polyfills-loader', { timeout: 10000 }, () => {
   // bootup of the first test can take a long time in CI to load all the polyfills
-  this.timeout(5000);
 
   it('can inject a polyfills loader with a single output', async () => {
     const inputOptions: RollupOptions = {
@@ -167,7 +169,7 @@ describe('rollup-plugin-polyfills-loader', function describe() {
 
     await testSnapshot({
       name: 'non-flattened',
-      fileName: 'non-flat/index.html',
+      fileName: path.normalize(`non-flat/index.html`),
       inputOptions,
       outputOptions: defaultOutputOptions,
     });
@@ -225,8 +227,8 @@ describe('rollup-plugin-polyfills-loader', function describe() {
       outputOptions: defaultOutputOptions,
     });
 
-    expect(output.find(o => o.fileName.startsWith('polyfills/webcomponents'))).to.exist;
-    expect(output.find(o => o.fileName.startsWith('polyfills/fetch'))).to.exist;
+    assert(output.find(o => o.fileName.startsWith('polyfills/webcomponents')));
+    assert(output.find(o => o.fileName.startsWith('polyfills/fetch')));
   });
 
   it('can inject with multiple build outputs', async () => {

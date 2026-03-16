@@ -1,13 +1,52 @@
-import { expect } from 'chai';
+import { describe, it, after } from 'node:test';
+import assert from 'node:assert/strict';
 import { promises as fs } from 'fs';
 import path from 'path';
 import globby from 'globby';
 
+<<<<<<< HEAD
+import { chromeLauncher } from '@web/test-runner-chrome.js';
+import type { TestRunnerCoreConfig } from '@web/test-runner-core.js';
+import { runTests } from '@web/test-runner-core/test-helpers.js';
+||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { chromeLauncher } from '@web/test-runner-chrome.ts';
+import type { TestRunnerCoreConfig } from '@web/test-runner-core.ts';
+import { runTests } from '@web/test-runner-core/test-helpers.ts';
+=======
 import { chromeLauncher } from '@web/test-runner-chrome';
+<<<<<<< HEAD
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
+||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import type { TestRunnerCoreConfig } from '@web/test-runner-core';
+import { runTests } from '@web/test-runner-core/test-helpers.ts';
+=======
+import type { TestRunnerCoreConfig } from '@web/test-runner-core';
+import { runTests } from '@web/test-runner-core/test-helpers';
+<<<<<<< HEAD
+import { junitReporter } from '../src/junitReporter.js';
+||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { junitReporter } from '../src/junitReporter.ts';
+=======
+<<<<<<< HEAD
+import { junitReporter } from '../src/junitReporter.ts';
+||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { junitReporter } from '../src/junitReporter.js';
+=======
+>>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import { junitReporter } from '../src/junitReporter.ts';
 
+<<<<<<< HEAD
+||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
+const __dirname = import.meta.dirname;
+
+=======
+const __dirname = import.meta.dirname;
+>>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
+
+>>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 const NON_ZERO_TIME_VALUE_REGEX = /time="((\d\.\d+)|(\d))"/g;
 
 const USER_AGENT_STRING_REGEX = /"Mozilla\/5\.0 (.*)"/g;
@@ -69,30 +108,30 @@ async function cleanupFixtures() {
     await fs.unlink(file);
 }
 
-describe('junitReporter', function () {
+describe('junitReporter', { timeout: 60000 }, () => {
   after(cleanupFixtures);
 
-  describe('for a simple case', function () {
+  describe('for a simple case', () => {
     const fixtureDir = path.join(__dirname, 'fixtures/simple');
-    it('produces expected results', async function () {
+    it('produces expected results', { timeout: 30000 }, async () => {
       const { actual, expected } = await run(fixtureDir);
-      expect(actual).to.equal(expected);
+      assert.equal(actual, expected);
     });
   });
 
-  describe('for a nested suite', function () {
+  describe('for a nested suite', () => {
     const fixtureDir = path.join(__dirname, 'fixtures/nested');
-    it('produces expected results', async function () {
+    it('produces expected results', { timeout: 30000 }, async () => {
       const { actual, expected } = await run(fixtureDir);
-      expect(actual).to.equal(expected);
+      assert.equal(actual, expected);
     });
   });
 
-  describe('for multiple test files', function () {
+  describe('for multiple test files', () => {
     const fixtureDir = path.join(__dirname, 'fixtures/multiple');
-    it('produces expected results', async function () {
+    it('produces expected results', { timeout: 30000 }, async () => {
       const { actual, expected } = await run(fixtureDir);
-      expect(actual).to.equal(expected);
+      assert.equal(actual, expected);
     });
   });
 });

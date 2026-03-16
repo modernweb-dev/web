@@ -1,6 +1,5 @@
 {
   "name": "@web/test-runner-core",
-  "type": "module",
   "version": "0.13.4",
   "publishConfig": {
     "access": "public"
@@ -19,25 +18,28 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "default": "./dist/index.js"
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
     },
     "./test-helpers": {
       "types": "./dist/test-helpers.d.ts",
-      "default": "./dist/test-helpers.js"
+      "import": "./test-helpers.mjs",
+      "require": "./dist/test-helpers.js"
     },
     "./browser/session.js": "./browser/session.js"
   },
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+    "test:node": "tsx --test 'test/**/*.test.ts'",
+    "test:watch": "tsx --test --watch 'test/**/*.test.ts'"
   },
   "files": [
     "*.d.ts",
     "*.js",
+    "*.mjs",
     "browser",
     "dist",
     "src"
@@ -65,19 +67,20 @@
     "convert-source-map": "^2.0.0",
     "debounce": "^1.2.0",
     "dependency-graph": "^0.11.0",
-    "globby": "^11.1.0",
+    "globby": "^11.0.1",
     "internal-ip": "^6.2.0",
     "istanbul-lib-coverage": "^3.0.0",
     "istanbul-lib-report": "^3.0.1",
     "istanbul-reports": "^3.0.2",
     "log-update": "^4.0.0",
-    "nanocolors": "^0.2.13",
+    "nanocolors": "^0.2.1",
     "nanoid": "^3.1.25",
-    "open": "^8.4.2",
+    "open": "^8.0.2",
     "picomatch": "^2.2.2",
     "source-map": "^0.7.3"
   },
   "devDependencies": {
-    "portfinder": "^1.0.32"
+    "portfinder": "^1.0.32",
+    "tsx": "^4.21.0"
   }
 }
