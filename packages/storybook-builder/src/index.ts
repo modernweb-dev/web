@@ -15,16 +15,16 @@ import { join, parse, resolve } from 'node:path';
 import { OutputOptions, RollupBuild, RollupOptions, rollup } from 'rollup';
 import rollupPluginExternalGlobals from 'rollup-plugin-external-globals';
 import sirv from 'sirv';
-import { generateIframeHtml } from './generate-iframe-html.js';
-import { getNodeModuleDir } from './get-node-module-dir.js';
-import { readFileConfig } from './read-file-config.js';
-import { rollupPluginMdx } from './rollup-plugin-mdx.js';
+import { generateIframeHtml } from './generate-iframe-html.ts';
+import { getNodeModuleDir } from './get-node-module-dir.ts';
+import { readFileConfig } from './read-file-config.ts';
+import { rollupPluginMdx } from './rollup-plugin-mdx.ts';
 import {
   PREBUNDLED_MODULES_DIR,
   rollupPluginPrebundleModules,
-} from './rollup-plugin-prebundle-modules.js';
-import { rollupPluginStorybookBuilder } from './rollup-plugin-storybook-builder.js';
-import { stringifyProcessEnvs } from './stringify-process-envs.js';
+} from './rollup-plugin-prebundle-modules.ts';
+import { rollupPluginStorybookBuilder } from './rollup-plugin-storybook-builder.ts';
+import { stringifyProcessEnvs } from './stringify-process-envs.ts';
 
 const wdsPluginExternalGlobals = fromRollup(rollupPluginExternalGlobals);
 const wdsPluginMdx = fromRollup(rollupPluginMdx);

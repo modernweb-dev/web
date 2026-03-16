@@ -1,6 +1,6 @@
-import { Server } from 'net';
+import type { Server } from 'net';
 import WebSocket from 'ws';
-import { EventEmitter } from './EventEmitter.js';
+import { EventEmitter } from './EventEmitter.ts';
 
 export const NAME_WEB_SOCKET_IMPORT = '/__web-dev-server__web-socket.js';
 export const NAME_WEB_SOCKET_API = 'wds';

@@ -1,4 +1,4 @@
-import { DevServerConfig } from './DevServerConfig.js';
+import { DevServerConfig } from './DevServerConfig.ts';
 
 const arrayKeys = ['plugins', 'middleware'];
 

@@ -3,7 +3,7 @@ import mdx from '@mdx-js/mdx';
 import { transformAsync } from '@babel/core';
 // @ts-ignore
 import { createCompiler } from '@storybook/csf-tools/mdx.js';
-import { createError } from '../utils.js';
+import { createError } from '../utils.ts';
 
 const require = createRequire(import.meta.url);
 const compilers = [createCompiler({})];

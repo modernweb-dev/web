@@ -1,4 +1,4 @@
-import { TestRunnerConfig } from './TestRunnerConfig.js';
+import { TestRunnerConfig } from './TestRunnerConfig.ts';
 
 const arrayKeys = ['plugins', 'middleware'];
 

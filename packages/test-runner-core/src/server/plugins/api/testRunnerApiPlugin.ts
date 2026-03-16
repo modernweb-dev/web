@@ -2,16 +2,16 @@ import { Context, getRequestFilePath, ServerStartParams, WebSocket } from '@web/
 import { MapBrowserUrl } from '@web/browser-logs';
 import parse from 'co-body';
 
-import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.js';
-import { TestSessionManager } from '../../../test-session/TestSessionManager.js';
-import { PARAM_SESSION_ID } from '../../../utils/constants.js';
-import { TestRunnerPlugin } from '../../TestRunnerPlugin.js';
-import { SESSION_STATUS } from '../../../test-session/TestSessionStatus.js';
-import { TestSession } from '../../../test-session/TestSession.js';
-import { parseBrowserResult } from './parseBrowserResult.js';
-import { TestRunner } from '../../../runner/TestRunner.js';
-import { createSourceMapFunction, SourceMapFunction } from './createSourceMapFunction.js';
-import { DebugTestSession } from '../../../test-session/DebugTestSession.js';
+import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.ts';
+import { TestSessionManager } from '../../../test-session/TestSessionManager.ts';
+import { PARAM_SESSION_ID } from '../../../utils/constants.ts';
+import { TestRunnerPlugin } from '../../TestRunnerPlugin.ts';
+import { SESSION_STATUS } from '../../../test-session/TestSessionStatus.ts';
+import { TestSession } from '../../../test-session/TestSession.ts';
+import { parseBrowserResult } from './parseBrowserResult.ts';
+import { TestRunner } from '../../../runner/TestRunner.ts';
+import { createSourceMapFunction, SourceMapFunction } from './createSourceMapFunction.ts';
+import { DebugTestSession } from '../../../test-session/DebugTestSession.ts';
 
 interface SessionMessage extends Record<string, unknown> {
   sessionId: string;

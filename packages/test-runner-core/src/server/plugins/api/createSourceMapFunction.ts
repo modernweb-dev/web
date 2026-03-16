@@ -1,8 +1,8 @@
 import path from 'path';
-import { SourceMapConverter } from 'convert-source-map';
+import type { SourceMapConverter } from 'convert-source-map';
 import { SourceMapConsumer } from 'source-map';
 
-import { fetchSourceMap } from '../../../utils/fetchSourceMap.js';
+import { fetchSourceMap } from '../../../utils/fetchSourceMap.ts';
 import { StackLocation } from '@web/browser-logs';
 
 export type SourceMapFunction = (

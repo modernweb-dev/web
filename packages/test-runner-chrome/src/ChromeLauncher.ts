@@ -7,8 +7,8 @@ import {
   BrowserContext,
 } from 'puppeteer-core';
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { findExecutablePath } from './findExecutablePath.js';
-import { ChromeLauncherPage } from './ChromeLauncherPage.js';
+import { findExecutablePath } from './findExecutablePath.ts';
+import { ChromeLauncherPage } from './ChromeLauncherPage.ts';
 
 function capitalize(str: string) {
   return `${str[0].toUpperCase()}${str.substring(1)}`;

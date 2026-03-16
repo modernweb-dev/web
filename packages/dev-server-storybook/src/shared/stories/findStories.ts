@@ -1,7 +1,7 @@
 import globby from 'globby';
 import path from 'path';
 
-import { createBrowserImport, createError } from '../utils.js';
+import { createBrowserImport, createError } from '../utils.ts';
 
 export async function findStories(
   rootDir: string,

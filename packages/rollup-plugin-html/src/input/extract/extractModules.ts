@@ -2,9 +2,9 @@ import { findElements, getAttribute, getTagName, getTextContent, remove } from '
 import { Document, Attribute } from 'parse5';
 import path from 'path';
 import crypto from 'crypto';
-import { resolveAssetFilePath } from '../../assets/utils.js';
+import { resolveAssetFilePath } from '../../assets/utils.ts';
 import { getAttributes } from '@web/parse5-utils';
-import { ScriptModuleTag } from '../../RollupPluginHTMLOptions.js';
+import { ScriptModuleTag } from '../../RollupPluginHTMLOptions.ts';
 
 export interface ExtractModulesParams {
   document: Document;

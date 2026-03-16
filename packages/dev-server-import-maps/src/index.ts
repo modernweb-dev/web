@@ -1,1 +1,1 @@
-export { importMapsPlugin } from './importMapsPlugin.js';
+export { importMapsPlugin } from './importMapsPlugin.ts';

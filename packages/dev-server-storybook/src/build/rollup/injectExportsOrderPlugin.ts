@@ -1,5 +1,5 @@
 import { Plugin } from 'rollup';
-import { injectExportsOrder } from '../../shared/stories/injectExportsOrder.js';
+import { injectExportsOrder } from '../../shared/stories/injectExportsOrder.ts';
 
 export function injectExportsOrderPlugin(storyFilePaths: string[]): Plugin {
   return {

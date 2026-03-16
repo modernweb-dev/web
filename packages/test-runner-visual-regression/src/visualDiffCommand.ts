@@ -1,7 +1,7 @@
 import path from 'path';
 
-import { VisualRegressionPluginOptions, DiffResult } from './config.js';
-import { VisualRegressionError } from './VisualRegressionError.js';
+import { VisualRegressionPluginOptions, DiffResult } from './config.ts';
+import { VisualRegressionError } from './VisualRegressionError.ts';
 
 function resolveImagePath(baseDir: string, name: string) {
   const finalName = path.extname(name) ? name : `${name}.png`;

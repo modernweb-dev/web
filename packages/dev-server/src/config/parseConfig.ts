@@ -1,13 +1,15 @@
-import { getPortPromise } from 'portfinder';
+import portfinder from 'portfinder';
+
+const { getPortPromise } = portfinder;
 import path from 'path';
 
-import { DevServerCliArgs } from './readCliArgs.js';
-import { mergeConfigs } from './mergeConfigs.js';
-import { DevServerConfig } from './DevServerConfig.js';
-import { esbuildPlugin } from '../plugins/esbuildPlugin.js';
-import { watchPlugin } from '../plugins/watchPlugin.js';
-import { nodeResolvePlugin } from '../plugins/nodeResolvePlugin.js';
-import { DevServerStartError } from '../DevServerStartError.js';
+import { DevServerCliArgs } from './readCliArgs.ts';
+import { mergeConfigs } from './mergeConfigs.ts';
+import { DevServerConfig } from './DevServerConfig.ts';
+import { esbuildPlugin } from '../plugins/esbuildPlugin.ts';
+import { watchPlugin } from '../plugins/watchPlugin.ts';
+import { nodeResolvePlugin } from '../plugins/nodeResolvePlugin.ts';
+import { DevServerStartError } from '../DevServerStartError.ts';
 
 const defaultConfig: Partial<DevServerConfig> = {
   rootDir: process.cwd(),

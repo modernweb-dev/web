@@ -1,11 +1,11 @@
 import { FSWatcher } from 'chokidar';
-import { Middleware } from 'koa';
+import type { Middleware } from 'koa';
 
-import { DevServerCoreConfig } from '../server/DevServerCoreConfig.js';
-import { PluginTransformCache } from './PluginTransformCache.js';
-import { getRequestFilePath, getResponseBody, RequestCancelledError } from '../utils.js';
-import { Logger } from '../logger/Logger.js';
-import type { PluginSyntaxError } from '../logger/PluginSyntaxError.js';
+import type { DevServerCoreConfig } from '../server/DevServerCoreConfig.ts';
+import { PluginTransformCache } from './PluginTransformCache.ts';
+import { getRequestFilePath, getResponseBody, RequestCancelledError } from '../utils.ts';
+import type { Logger } from '../logger/Logger.ts';
+import type { PluginSyntaxError } from '../logger/PluginSyntaxError.ts';
 
 /**
  * Sets up a middleware which allows plugins to transform files before they are served to the browser.

@@ -1,25 +1,31 @@
 import Koa from 'koa';
-import { ListenOptions, Server, Socket } from 'net';
-import chokidar from 'chokidar';
+import type { ListenOptions, Server, Socket } from 'net';
+import chokidar, { FSWatcher } from 'chokidar';
 import { promisify } from 'util';
 
-import { DevServerCoreConfig } from './DevServerCoreConfig.js';
-import { createServer } from './createServer.js';
-import { Logger } from '../logger/Logger.js';
-import { WebSocketsManager } from '../web-sockets/WebSocketsManager.js';
+import type { DevServerCoreConfig } from './DevServerCoreConfig.ts';
+import { createServer } from './createServer.ts';
+import type { Logger } from '../logger/Logger.ts';
+import { WebSocketsManager } from '../web-sockets/WebSocketsManager.ts';
 
 export class DevServer {
   public koaApp: Koa;
   public server?: Server;
   public webSockets?: WebSocketsManager;
+  public config: DevServerCoreConfig;
+  public logger: Logger;
+  public fileWatcher: FSWatcher;
   private started = false;
   private connections = new Set<Socket>();
 
   constructor(
-    public config: DevServerCoreConfig,
-    public logger: Logger,
-    public fileWatcher = chokidar.watch([], config.chokidarOptions),
+    config: DevServerCoreConfig,
+    logger: Logger,
+    fileWatcher = chokidar.watch([], config.chokidarOptions),
   ) {
+    this.config = config;
+    this.logger = logger;
+    this.fileWatcher = fileWatcher;
     if (!config) throw new Error('Missing config.');
     if (!logger) throw new Error('Missing logger.');
 

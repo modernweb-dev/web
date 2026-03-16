@@ -1,7 +1,9 @@
+import { describe, it, beforeEach, afterEach } from 'node:test';
+import assert from 'node:assert/strict';
 import * as hanbi from 'hanbi';
-import { expect } from 'chai';
 import portfinder from 'portfinder';
 import path from 'path';
+const __dirname = import.meta.dirname;
 
 import { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher.js';
 import { TestRunnerCoreConfig } from '../../../src/config/TestRunnerCoreConfig.js';
@@ -102,11 +104,11 @@ describe('TestRunner', function () {
     const { runner, browserStubs } = await createTestRunner();
 
     await runner.start();
-    expect(runner.started).to.equal(true, 'runner is started');
-    expect(browserStubs.startSession.callCount).to.equal(1);
+    assert.equal(runner.started, true, 'runner is started');
+    assert.equal(browserStubs.startSession.callCount, 1);
 
     const sessions = Array.from(runner.sessions.all());
-    expect(sessions.length).to.equal(1, 'one session is created');
+    assert.equal(sessions.length, 1, 'one session is created');
     await runner.stop();
   });
 
@@ -130,9 +132,9 @@ describe('TestRunner', function () {
 
     const passed = await stopped;
 
-    expect(browserStubs.stopSession.callCount).to.equal(1, 'browser session is stopped');
-    expect(browserStubs.stop.callCount).to.equal(1, 'browser is stopped');
-    expect(passed).to.equal(true, 'test runner quits with true');
+    assert.equal(browserStubs.stopSession.callCount, 1, 'browser session is stopped');
+    assert.equal(browserStubs.stop.callCount, 1, 'browser is stopped');
+    assert.equal(passed, true, 'test runner quits with true');
   });
 
   it('closes test runner for a failed test', async () => {
@@ -154,9 +156,9 @@ describe('TestRunner', function () {
     runner.sessions.updateStatus({ ...sessions[0], passed: false }, SESSION_STATUS.TEST_FINISHED);
     const passed = await stopped;
 
-    expect(browserStubs.stopSession.callCount).to.equal(1, 'browser session is stopped');
-    expect(browserStubs.stop.callCount).to.equal(1, 'browser is stopped');
-    expect(passed).to.equal(false, 'test runner quits with false');
+    assert.equal(browserStubs.stopSession.callCount, 1, 'browser session is stopped');
+    assert.equal(browserStubs.stop.callCount, 1, 'browser is stopped');
+    assert.equal(passed, false, 'test runner quits with false');
   });
 
   describe('groups', () => {
@@ -169,9 +171,9 @@ describe('TestRunner', function () {
       ]);
 
       const sessions = Array.from(runner.sessions.all());
-      expect(sessions.length).to.equal(3);
-      expect(sessions.filter(s => s.group.name === 'default').length).to.equal(1);
-      expect(sessions.filter(s => s.group.name === 'a').length).to.equal(2);
+      assert.equal(sessions.length, 3);
+      assert.equal(sessions.filter(s => s.group.name === 'default').length, 1);
+      assert.equal(sessions.filter(s => s.group.name === 'a').length, 2);
     });
 
     it('can create a group with a custom browser, inheriting test files', async () => {
@@ -184,15 +186,15 @@ describe('TestRunner', function () {
       ]);
 
       const sessions = Array.from(runner.sessions.all());
-      expect(sessions.length).to.equal(2);
-      expect(sessions.filter(s => s.group.name === 'default').length).to.equal(1);
-      expect(sessions.filter(s => s.group.name === 'a').length).to.equal(1);
+      assert.equal(sessions.length, 2);
+      assert.equal(sessions.filter(s => s.group.name === 'default').length, 1);
+      assert.equal(sessions.filter(s => s.group.name === 'a').length, 1);
 
       const sessionDefault = sessions.find(s => s.group.name === 'default')!;
       const sessionA = sessions.find(s => s.group.name === 'a')!;
-      expect(sessionDefault.testFile).to.equal(sessionA.testFile);
-      expect(sessionDefault.browser).to.equal(browser);
-      expect(sessionA.browser).to.equal(groupBrowser);
+      assert.equal(sessionDefault.testFile, sessionA.testFile);
+      assert.equal(sessionDefault.browser, browser);
+      assert.equal(sessionA.browser, groupBrowser);
     });
 
     it('can create test groups inheriting browser', async () => {
@@ -217,10 +219,10 @@ describe('TestRunner', function () {
       );
 
       const sessions = Array.from(runner.sessions.all());
-      expect(sessions.length).to.equal(6);
-      expect(sessions.filter(s => s.group.name === 'a').length).to.equal(2);
-      expect(sessions.filter(s => s.group.name === 'b').length).to.equal(2);
-      expect(sessions.filter(s => s.group.name === 'c').length).to.equal(2);
+      assert.equal(sessions.length, 6);
+      assert.equal(sessions.filter(s => s.group.name === 'a').length, 2);
+      assert.equal(sessions.filter(s => s.group.name === 'b').length, 2);
+      assert.equal(sessions.filter(s => s.group.name === 'c').length, 2);
     });
 
     it('can create test groups with custom browsers', async () => {
@@ -243,9 +245,9 @@ describe('TestRunner', function () {
       );
 
       const sessions = Array.from(runner.sessions.all());
-      expect(sessions.length).to.equal(2);
-      expect(sessions.find(s => s.group.name === 'a')!.browser).to.equal(browser);
-      expect(sessions.find(s => s.group.name === 'b')!.browser).to.equal(browserB);
+      assert.equal(sessions.length, 2);
+      assert.equal(sessions.find(s => s.group.name === 'a')!.browser, browser);
+      assert.equal(sessions.find(s => s.group.name === 'b')!.browser, browserB);
     });
 
     it('can ignore files via string[] globs', async () => {
@@ -256,7 +258,8 @@ describe('TestRunner', function () {
 
       const sessions = Array.from(runner.sessions.all());
       const allFiles = sessions.flatMap(x => path.relative(__dirname, x.testFile));
-      expect(allFiles).to.deep.equal(
+      assert.deepEqual(
+        allFiles,
         [
           '../../fixtures/a.test.js',
           '../../fixtures/group-a/a-1.test.js',

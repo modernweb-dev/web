@@ -2,9 +2,9 @@ import path from 'path';
 import fs from 'fs';
 import { pathToFileURL } from 'url';
 
-import { StorybookPluginConfig } from './StorybookPluginConfig.js';
-import { createError } from '../utils.js';
-import { MainJs, StorybookConfig } from './StorybookConfig.js';
+import { StorybookPluginConfig } from './StorybookPluginConfig.ts';
+import { createError } from '../utils.ts';
+import { MainJs, StorybookConfig } from './StorybookConfig.ts';
 
 const defaultConfigDir = path.join(process.cwd(), '.storybook');
 
