@@ -7,9 +7,9 @@ import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 import { polyfillsLoader } from '@web/rollup-plugin-polyfills-loader';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import terser from '@rollup/plugin-terser';
-import { mdxPlugin } from './mdxPlugin.js';
-import { mdjsPlugin } from './mdjsPlugin.js';
-import { injectExportsOrderPlugin } from './injectExportsOrderPlugin.js';
+import { mdxPlugin } from './mdxPlugin.ts';
+import { mdjsPlugin } from './mdjsPlugin.ts';
+import { injectExportsOrderPlugin } from './injectExportsOrderPlugin.ts';
 
 const require = createRequire(import.meta.url);
 

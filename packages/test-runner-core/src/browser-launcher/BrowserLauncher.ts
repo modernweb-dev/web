@@ -1,7 +1,6 @@
 import type { CoverageMapData } from 'istanbul-lib-coverage';
 import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { type TestResultError } from '../test-session/TestSession';
-
 export interface SessionResult {
   testCoverage?: CoverageMapData;
   errors?: TestResultError[];

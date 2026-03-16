@@ -1,5 +1,5 @@
 import type { PresetProperty } from '@storybook/types';
-import type { StorybookConfig } from './types.js';
+import type { StorybookConfig } from './types.ts';
 
 export const core: PresetProperty<'core', StorybookConfig> = {
   builder: '@web/storybook-builder',

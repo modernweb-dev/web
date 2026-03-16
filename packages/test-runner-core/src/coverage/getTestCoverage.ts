@@ -10,7 +10,6 @@ import {
 } from 'istanbul-lib-coverage';
 import { type TestSession } from '../test-session/TestSession';
 import { type CoverageConfig } from '../config/TestRunnerCoreConfig';
-
 export const coverageTypes: (keyof CoverageSummaryData)[] = [
   'lines',
   'statements',

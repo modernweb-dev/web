@@ -1,9 +1,8 @@
-import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
-import { type TestSessionManager } from '../test-session/TestSessionManager.js';
-import { type TestSession, type TestResultError } from '../test-session/TestSession.js';
-import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
-import { TestScheduler } from './TestScheduler.js';
-
+import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
+import { type TestSessionManager } from '../test-session/TestSessionManager.ts';
+import { type TestSession, type TestResultError } from '../test-session/TestSession.ts';
+import { SESSION_STATUS } from '../test-session/TestSessionStatus.ts';
+import { TestScheduler } from './TestScheduler.ts';
 export class TestSessionTimeoutHandler {
   private timeoutIdsPerSession = new Map<string, NodeJS.Timeout[]>();
   private config: TestRunnerCoreConfig;

@@ -5,8 +5,8 @@ import {
   type BufferedLogger,
 } from '@web/test-runner-core';
 
-import { reportTestFileResults } from './reportTestFileResults.js';
-import { getTestProgressReport } from './getTestProgress.js';
+import { reportTestFileResults } from './reportTestFileResults.ts';
+import { getTestProgressReport } from './getTestProgress.ts';
 
 export interface DefaultReporterArgs {
   reportTestResults?: boolean;

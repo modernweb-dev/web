@@ -2,7 +2,7 @@ import LRUCache from 'lru-cache';
 import { FSWatcher } from 'chokidar';
 import fs from 'fs';
 import { promisify } from 'util';
-import { RequestCancelledError } from '../utils.js';
+import { RequestCancelledError } from '../utils.ts';
 
 const fsStat = promisify(fs.stat);
 
@@ -29,7 +29,12 @@ export class PluginTransformCache {
 
   private lruCache: LRUCache<string, CacheEntry>;
 
-  constructor(private fileWatcher: FSWatcher, private rootDir: string) {
+  private fileWatcher: FSWatcher;
+  private rootDir: string;
+
+  constructor(fileWatcher: FSWatcher, rootDir: string) {
+    this.fileWatcher = fileWatcher;
+    this.rootDir = rootDir;
     this.lruCache = new LRUCache<string, CacheEntry>({
       sizeCalculation: (e, key) => e.body.length + (key ? key.length : 0),
       maxSize: 52428800,

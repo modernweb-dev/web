@@ -5,7 +5,6 @@ import { type Server } from 'net';
 import type { DevServerCoreConfig } from '../server/DevServerCoreConfig';
 import type { Logger } from '../logger/Logger';
 import { WebSocketsManager } from '../web-sockets/WebSocketsManager';
-
 export type ServeResult =
   | void
   | string

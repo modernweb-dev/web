@@ -4,13 +4,13 @@ import { Context } from 'koa';
 // @ts-ignore
 import { parse, ParsedImport } from 'es-module-lexer';
 
-import { queryAll, predicates, getTextContent, setTextContent } from '../dom5/index.js';
+import { queryAll, predicates, getTextContent, setTextContent } from '../dom5/index.ts';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
-import { Plugin } from './Plugin.js';
-import { PluginSyntaxError } from '../logger/PluginSyntaxError.js';
-import { toFilePath } from '../utils.js';
-import { Logger } from '../logger/Logger.js';
-import { parseDynamicImport } from './parseDynamicImport.js';
+import { Plugin } from './Plugin.ts';
+import { PluginSyntaxError } from '../logger/PluginSyntaxError.ts';
+import { toFilePath } from '../utils.ts';
+import { Logger } from '../logger/Logger.ts';
+import { parseDynamicImport } from './parseDynamicImport.ts';
 
 export type ResolveImport = (
   source: string,

@@ -4,7 +4,6 @@ import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { type TestCoverage } from '../coverage/getTestCoverage';
 import { type Logger } from '../logger/Logger';
 import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher';
-
 export interface ReporterArgs {
   config: TestRunnerCoreConfig;
   sessions: TestSessionManager;

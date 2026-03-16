@@ -3,7 +3,7 @@
 import { normalizePath } from '@rollup/pluginutils';
 import type { Options } from '@storybook/types';
 import { relative } from 'node:path';
-import { listStories } from './list-stories';
+import { listStories } from './list-stories.ts';
 
 export async function generateStoriesScript(options: Options): Promise<string> {
   // First we need to get an array of stories and their absolute paths.

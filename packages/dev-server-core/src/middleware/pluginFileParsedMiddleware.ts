@@ -1,5 +1,5 @@
-import { Middleware } from 'koa';
-import { Plugin } from '../plugins/Plugin';
+import type { Middleware } from 'koa';
+import type { Plugin } from '../plugins/Plugin.ts';
 
 /**
  * Calls fileParsed hook on plugins.

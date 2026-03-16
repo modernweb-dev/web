@@ -12,15 +12,15 @@
  * http://polymer.github.io/PATENTS.txt
  */
 
-import { constructors } from './modification.js';
+import { constructors } from './modification.ts';
 import {
   isCommentNode,
   isDocument,
   isDocumentFragment,
   isElement,
   isTextNode,
-} from './predicates.js';
-import { nodeWalkAll } from './walking.js';
+} from './predicates.ts';
+import { nodeWalkAll } from './walking.ts';
 
 /**
  * Return the text value of a node or element

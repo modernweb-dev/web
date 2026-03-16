@@ -6,7 +6,7 @@ import {
   registerBrowserstackLocal,
   unregisterBrowserstackLocal,
   localId,
-} from './browserstackManager.js';
+} from './browserstackManager.ts';
 
 export interface BrowserstackLauncherArgs {
   capabilities: Record<string, unknown>;

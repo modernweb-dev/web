@@ -2,7 +2,6 @@ import { cyan, gray } from 'nanocolors';
 import internalIp from 'internal-ip';
 
 import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-
 export function getManualDebugMenu(config: TestRunnerCoreConfig): string[] {
   const localAddress = `${config.protocol}//${config.hostname}:${config.port}/`;
   const networkAddress = `${config.protocol}//${internalIp.v4.sync()}:${config.port}/`;

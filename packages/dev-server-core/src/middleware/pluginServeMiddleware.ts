@@ -1,7 +1,7 @@
-import { Middleware } from 'koa';
+import type { Middleware } from 'koa';
 import path from 'path';
-import { Logger } from '../logger/Logger';
-import { Plugin } from '../plugins/Plugin';
+import type { Logger } from '../logger/Logger.ts';
+import type { Plugin } from '../plugins/Plugin.ts';
 
 /**
  * Sets up a middleware which allows plugins to serve files instead of looking it up in the file system.
@@ -33,7 +33,10 @@ export function pluginServeMiddleware(logger: Logger, plugins: Plugin[]): Middle
 
         if (response.headers) {
           for (const [k, v] of Object.entries(response.headers)) {
-            context.response.set(k, v);
+            // Koa v3 is stricter and doesn't allow undefined header values
+            if (v !== undefined) {
+              context.response.set(k, v);
+            }
           }
         }
 

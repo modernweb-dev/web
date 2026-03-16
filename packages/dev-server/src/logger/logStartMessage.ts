@@ -1,14 +1,13 @@
 import { type DevServerConfig } from '../config/DevServerConfig';
 import { type Logger } from '@web/dev-server-core';
-import internalIp from 'internal-ip';
-import { bold, cyan, white } from 'nanocolors';
+import internalIp from 'internal-ip';import { bold, cyan, white } from 'nanocolors';
 
 const createAddress = (config: DevServerConfig, host: string, path: string) =>
   `http${config.http2 ? 's' : ''}://${host}:${config.port}${path}`;
 
 function logNetworkAddress(config: DevServerConfig, logger: Logger, openPath: string) {
   try {
-    const address = internalIp.v4.sync();
+    const address = internalIpV4Sync();
     if (typeof address === 'string') {
       logger.log(`${white('Network:')}  ${cyan(createAddress(config, address, openPath))}`);
     }

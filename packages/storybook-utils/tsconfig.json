@@ -3,7 +3,6 @@
 {
   "extends": "../../tsconfig.browser-base.json",
   "compilerOptions": {
-    "module": "ESNext",
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,

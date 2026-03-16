@@ -1,5 +1,4 @@
-import { type TestRunnerConfig } from './TestRunnerConfig.js';
-
+import { type TestRunnerConfig } from './TestRunnerConfig.ts';
 const arrayKeys = ['plugins', 'middleware'];
 
 export function mergeConfigs(...configs: Partial<TestRunnerConfig | undefined>[]) {

@@ -1,7 +1,6 @@
 import fs from 'fs';
-import { type StorybookConfig } from '../config/StorybookConfig.js';
-import { createBrowserImport } from '../utils.js';
-
+import { type StorybookConfig } from '../config/StorybookConfig.ts';
+import { createBrowserImport } from '../utils.ts';
 function createManagerImport(rootDir: string, managerJsPath: string) {
   if (!fs.existsSync(managerJsPath)) {
     return '';

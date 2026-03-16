@@ -7,9 +7,9 @@ import {
   GeneratedBundle,
   RollupPluginHTMLOptions,
   ScriptModuleTag,
-} from '../RollupPluginHTMLOptions';
-import { createError, NOOP_IMPORT } from '../utils.js';
-import { toBrowserPath } from './utils.js';
+} from '../RollupPluginHTMLOptions.ts';
+import { createError, NOOP_IMPORT } from '../utils.ts';
+import { toBrowserPath } from './utils.ts';
 
 export interface CreateImportPathParams {
   publicPath?: string;

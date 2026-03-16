@@ -1,7 +1,7 @@
 import { type TestRunnerGroupConfig } from '@web/test-runner-core';
 import { readConfig, ConfigLoaderError } from '@web/config-loader';
 import globby from 'globby';
-import { TestRunnerStartError } from '../TestRunnerStartError.js';
+import { TestRunnerStartError } from '../TestRunnerStartError.ts';
 
 function validateGroupConfig(configFilePath: string, config: Partial<TestRunnerGroupConfig>) {
   if (config.browsers != null && !Array.isArray(config.browsers)) {

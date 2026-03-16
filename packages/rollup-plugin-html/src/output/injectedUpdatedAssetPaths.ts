@@ -9,12 +9,11 @@ import {
   isHashedAsset,
   resolveAssetFilePath,
   createAssetPicomatchMatcher,
-} from '../assets/utils.js';
-import { type InputData } from '../input/InputData.js';
-import { createError } from '../utils.js';
-import { type EmittedAssets } from './emitAssets.js';
-import { toBrowserPath } from './utils.js';
-
+} from '../assets/utils.ts';
+import { type InputData } from '../input/InputData.ts';
+import { createError } from '../utils.ts';
+import { type EmittedAssets } from './emitAssets.ts';
+import { toBrowserPath } from './utils.ts';
 export interface InjectUpdatedAssetPathsArgs {
   document: Document;
   input: InputData;
