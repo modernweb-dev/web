@@ -1,12 +1,37 @@
-import { expect } from 'chai';
+import { describe, it, before, after } from 'node:test';
+import assert from 'node:assert/strict';
 import { stubMethod } from 'hanbi';
+<<<<<<< HEAD
 import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers.js';
+||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers.ts';
+=======
+import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
+>>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import type { Browser, HTTPResponse, Page } from 'puppeteer';
 import { launch as launchPuppeteer } from 'puppeteer';
 import { posix as pathUtil } from 'path';
 
+<<<<<<< HEAD
 import { hmrPlugin } from '../src/index.js';
 import { mockFiles } from './utils.js';
+||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { hmrPlugin } from '../src/index.ts';
+import { mockFiles } from './utils.ts';
+=======
+<<<<<<< HEAD
+import { hmrPlugin } from '../src/index.ts';
+import { mockFiles } from './utils.ts';
+||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { hmrPlugin } from '../src/index.js';
+import { mockFiles } from './utils.js';
+=======
+import { hmrPlugin } from '../src/index.ts';
+import { mockFiles } from './utils.ts';
+
+const __dirname = import.meta.dirname;
+>>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 function trackErrors(page: Page) {
   const errors: any[] = [];
@@ -37,15 +62,14 @@ async function mockFaviconRequests(page: Page) {
   });
 }
 
-describe('browser tests', function () {
-  this.timeout(5000);
+describe('browser tests', { timeout: 10000 }, () => {
   let browser: Browser;
 
-  before(async () => {
+  before(async function () {
     browser = await launchPuppeteer();
   });
 
-  after(async () => {
+  after(async function () {
     await browser.close();
   });
 
@@ -68,14 +92,16 @@ describe('browser tests', function () {
       await page.goto(`${host}/foo.html`, { waitUntil: 'networkidle0' });
       fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
 
-      expect(stub.callCount).to.equal(2);
-      expect(stub.getCall(0)!.args[0]).to.equal(
+      assert.equal(stub.callCount, 2);
+      assert.equal(
+        stub.getCall(0)!.args[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/bar.js',
         }),
       );
-      expect(stub.getCall(1)!.args[0]).to.equal(
+      assert.equal(
+        stub.getCall(1)!.args[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -119,7 +145,7 @@ describe('browser tests', function () {
     }
   });
 
-  it('should hot replace a bubbled module', async () => {
+  it('should hot replace a bubbled module', async function () {
     const files = {
       '/foo.html': '<script src="/foo.js" type="module"></script>',
       '/foo.js':
@@ -155,7 +181,7 @@ describe('browser tests', function () {
   /**
    * Times out in CI because it's too slow
    */
-  it.skip('hot replaces multiple bubbled modules', async () => {
+  it.skip('hot replaces multiple bubbled modules', async function () {
     const files = {
       '/foo.html': '<script type="module">import "/foo.js"; import "/bar.js";</script>',
       '/foo.js':
@@ -196,7 +222,7 @@ describe('browser tests', function () {
     }
   });
 
-  it('reloads the page when a module has no hot replacable parent', async () => {
+  it('reloads the page when a module has no hot replacable parent', async function () {
     const files = {
       '/foo.html':
         '<script src="/foo.js" type="module"></script><script src="/baz.js" type="module"></script>',

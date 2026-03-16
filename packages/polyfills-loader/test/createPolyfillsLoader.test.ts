@@ -1,10 +1,32 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import fs from 'fs';
 import path from 'path';
+<<<<<<< HEAD
 import { PolyfillsLoaderConfig } from '../src/types.js';
 import { createPolyfillsLoader } from '../src/createPolyfillsLoader.js';
 import { noModuleSupportTest, fileTypes } from '../src/utils.js';
+||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { PolyfillsLoaderConfig } from '../src/types.ts';
+import { createPolyfillsLoader } from '../src/createPolyfillsLoader.ts';
+import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
+=======
+<<<<<<< HEAD
+import { PolyfillsLoaderConfig } from '../src/types.ts';
+import { createPolyfillsLoader } from '../src/createPolyfillsLoader.ts';
+import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
+||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { PolyfillsLoaderConfig } from '../src/types.js';
+import { createPolyfillsLoader } from '../src/createPolyfillsLoader.js';
+import { noModuleSupportTest, fileTypes } from '../src/utils.js';
+=======
+import type { PolyfillsLoaderConfig } from '../src/types.ts';
+import { createPolyfillsLoader } from '../src/createPolyfillsLoader.ts';
+import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
+>>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
+const __dirname = import.meta.dirname;
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
 interface TestSnapshotArgs {
@@ -20,19 +42,17 @@ async function testSnapshot({ name, config, expectedFiles = [] }: TestSnapshotAr
     throw new Error('No loader was generated');
   }
 
-  expect(loader.polyfillFiles.map(f => f.path)).to.eql(expectedFiles);
+  assert.deepStrictEqual(loader.polyfillFiles.map(f => f.path), expectedFiles);
 
   if (updateSnapshots) {
     fs.writeFileSync(snapshotPath, loader.code, 'utf-8');
   } else {
     const snapshot = fs.readFileSync(snapshotPath, 'utf-8');
-    expect(loader.code.trim()).to.equal(snapshot.trim());
+    assert.strictEqual(loader.code.trim(), snapshot.trim());
   }
 }
 
 describe('createPolyfillsLoader', function describe() {
-  // bootup of the first test can take a long time in CI to load all the polyfills
-  this.timeout(5000);
 
   it('generates a loader script with one module resource', async () => {
     await testSnapshot({

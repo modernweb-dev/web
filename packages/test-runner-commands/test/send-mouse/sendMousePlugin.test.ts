@@ -1,14 +1,46 @@
+import { describe, it, before, after } from 'node:test';
 import path from 'path';
 import selenium from 'selenium-standalone';
-import { runTests } from '@web/test-runner-core/test-helpers.ts';
+<<<<<<< HEAD
+import { runTests } from '@web/test-runner-core/test-helpers.js';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { webdriverLauncher } from '@web/test-runner-webdriver';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { sendMousePlugin } from '../../dist/sendMousePlugin.ts';
+||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { runTests } from '@web/test-runner-core/test-helpers.ts';
+import { chromeLauncher } from '@web/test-runner-chrome.ts';
+import { webdriverLauncher } from '@web/test-runner-webdriver.ts';
+import { playwrightLauncher } from '@web/test-runner-playwright.ts';
+import { sendMousePlugin } from '../../dist/sendMousePlugin.ts';
+=======
+import { runTests } from '@web/test-runner-core/test-helpers';
+import { chromeLauncher } from '@web/test-runner-chrome';
+import { webdriverLauncher } from '@web/test-runner-webdriver';
+import { playwrightLauncher } from '@web/test-runner-playwright';
+<<<<<<< HEAD
+import { sendMousePlugin } from '../../src/sendMousePlugin.js';
+import { startSeleniumServer } from '../selenium-server.js';
+||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { sendMousePlugin } from '../../src/sendMousePlugin.ts';
+>>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import { startSeleniumServer } from '../selenium-server.ts';
+=======
+<<<<<<< HEAD
+import { sendMousePlugin } from '../../src/sendMousePlugin.ts';
+import { startSeleniumServer } from '../selenium-server.ts';
+||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { sendMousePlugin } from '../../src/sendMousePlugin.js';
+import { startSeleniumServer } from '../selenium-server.js';
+=======
+import { sendMousePlugin } from '../../dist/sendMousePlugin.js';
+import { startSeleniumServer } from '../selenium-server.js';
+>>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-describe('sendMousePlugin', function test() {
-  this.timeout(50000);
+const __dirname = import.meta.dirname;
+
+describe('sendMousePlugin', { timeout: 50000 }, () => {
 
   it('can send mouse on puppeteer', async () => {
     await runTests({

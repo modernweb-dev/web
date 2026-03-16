@@ -1,6 +1,5 @@
 {
   "name": "@web/parse5-utils",
-  "type": "module",
   "version": "2.1.1",
   "publishConfig": {
     "access": "public"
@@ -23,12 +22,12 @@
     }
   },
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch"
+    "test:node": "node --test 'test/**/*.test.mjs'",
+    "test:watch": "npm run test:node -- --watch"
   },
   "files": [
     "*.d.ts",
@@ -43,6 +42,7 @@
     "utils"
   ],
   "dependencies": {
+    "@types/parse5": "^6.0.1",
     "parse5": "^6.0.1"
   },
   "devDependencies": {

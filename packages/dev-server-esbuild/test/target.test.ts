@@ -1,9 +1,29 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
+<<<<<<< HEAD
 import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers.js';
+||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers.ts';
+=======
+import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
+>>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
+<<<<<<< HEAD
 import { esbuildPlugin } from '../src/index.js';
+||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { esbuildPlugin } from '../src/index.ts';
+=======
+<<<<<<< HEAD
+import { esbuildPlugin } from '../src/index.ts';
+||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { esbuildPlugin } from '../src/index.js';
+=======
+import { esbuildPlugin } from '../src/index.ts';
+
+const __dirname = import.meta.dirname;
+>>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const modernJs = `
 class MyClass {
@@ -81,9 +101,10 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/foo.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
+        'text/javascript; charset=utf-8',
       );
 
       expectIncludes(text, syntax.classes);
@@ -123,9 +144,10 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/foo.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
+        'text/javascript; charset=utf-8',
       );
 
       expectIncludes(text, syntax.classes);
@@ -165,9 +187,10 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/foo.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
+        'text/javascript; charset=utf-8',
       );
 
       expectIncludes(text, syntax.classes);
@@ -207,9 +230,10 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/foo.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
+        'text/javascript; charset=utf-8',
       );
 
       expectIncludes(text, syntax.classes);
@@ -249,9 +273,10 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/foo.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
+        'text/javascript; charset=utf-8',
       );
 
       expectIncludes(text, syntax.classes);
@@ -289,9 +314,10 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/foo.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
+        'text/javascript; charset=utf-8',
       );
 
       expectIncludes(text, syntax.classes);
@@ -333,8 +359,8 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/index.html`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal('text/html; charset=utf-8');
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(response.headers.get('content-type'), 'text/html; charset=utf-8');
 
       expectIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
@@ -378,10 +404,10 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/index.html`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal('text/html; charset=utf-8');
-      expect(text).to.include(importmapString);
-      expect(text).to.include(jsonString);
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(response.headers.get('content-type'), 'text/html; charset=utf-8');
+      assert.ok(text.includes(importmapString));
+      assert.ok(text.includes(jsonString));
     } finally {
       server.stop();
     }
