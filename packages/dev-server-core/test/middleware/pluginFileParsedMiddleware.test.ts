@@ -1,5 +1,6 @@
-import { expect } from 'chai';
-import { Context } from 'koa';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import type { Context } from 'koa';
 
 import { createTestServer } from '../helpers.ts';
 
@@ -44,11 +45,11 @@ describe('plugin-file-parsed middleware', () => {
     try {
       const response = await fetch(`${host}/foo.js`);
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.include('application/javascript');
-      expect(order[order.length - 1]).to.equal('fileParsed');
-      expect(context).to.exist;
-      expect(context!.path).to.equal('/foo.js');
+      assert.strictEqual(response.status, 200);
+      assert.ok(response.headers.get('content-type')?.includes('application/javascript'));
+      assert.strictEqual(order[order.length - 1], 'fileParsed');
+      assert.ok(context !== undefined);
+      assert.strictEqual(context!.path, '/foo.js');
     } finally {
       server.stop();
     }

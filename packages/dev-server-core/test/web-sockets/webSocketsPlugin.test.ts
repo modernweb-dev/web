@@ -1,4 +1,5 @@
-import { expect } from 'chai';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 
 import { createTestServer } from '../helpers.ts';
 import { webSocketScript } from '../../src/web-sockets/webSocketsPlugin.ts';
@@ -19,8 +20,8 @@ describe('webSocketsPlugin', () => {
       const response = await fetch(`${host}/index.html`);
       const body = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(body).to.include(webSocketScript);
+      assert.strictEqual(response.status, 200);
+      assert.ok(body.includes(webSocketScript));
     } finally {
       server.stop();
     }
@@ -41,8 +42,8 @@ describe('webSocketsPlugin', () => {
       const response = await fetch(`${host}/index.html`);
       const body = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(body).to.not.include(webSocketScript);
+      assert.strictEqual(response.status, 200);
+      assert.ok(!body.includes(webSocketScript));
     } finally {
       server.stop();
     }
@@ -54,8 +55,8 @@ describe('webSocketsPlugin', () => {
       const response = await fetch(`${host}/index.html`);
       const body = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(body).to.not.include(webSocketScript);
+      assert.strictEqual(response.status, 200);
+      assert.ok(!body.includes(webSocketScript));
     } finally {
       server.stop();
     }
@@ -77,10 +78,10 @@ describe('webSocketsPlugin', () => {
       const bodyA = await responseA.text();
       const bodyB = await responseB.text();
 
-      expect(responseA.status).to.equal(200);
-      expect(responseB.status).to.equal(200);
-      expect(bodyA).to.not.include(webSocketScript);
-      expect(bodyB).to.not.include(webSocketScript);
+      assert.strictEqual(responseA.status, 200);
+      assert.strictEqual(responseB.status, 200);
+      assert.ok(!bodyA.includes(webSocketScript));
+      assert.ok(!bodyB.includes(webSocketScript));
     } finally {
       server.stop();
     }

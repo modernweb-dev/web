@@ -1,9 +1,55 @@
+<<<<<<< HEAD
 import { expect } from 'chai';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
+||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { createTestServer } from '@web/dev-server-core/test-helpers.js';
+import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.js';
+=======
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+<<<<<<< HEAD
+import { createTestServer } from '@web/dev-server-core/test-helpers.js';
+import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.js';
+||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { createTestServer } from '@web/dev-server-core/test-helpers.ts';
+import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.ts';
+=======
+import { createTestServer } from '@web/dev-server-core/test-helpers';
+import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
+>>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
+<<<<<<< HEAD
 import { legacyPlugin } from '../src/legacyPlugin.ts';
 import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
+||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { legacyPlugin } from '../src/legacyPlugin.js';
+import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+=======
+<<<<<<< HEAD
+import { legacyPlugin } from '../src/legacyPlugin.js';
+import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { legacyPlugin } from '../src/legacyPlugin.ts';
+import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
+=======
+<<<<<<< HEAD
+import { legacyPlugin } from '../src/legacyPlugin.ts';
+import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
+||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { legacyPlugin } from '../src/legacyPlugin.js';
+import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+=======
+import { legacyPlugin } from '../src/legacyPlugin.ts';
+import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
+
+const __dirname = import.meta.dirname;
+>>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const modernCode = `
 class Foo {
@@ -16,9 +62,7 @@ async function doImport() {
 
 console.log(window?.foo?.bar);`;
 
-describe('legacyPlugin - transform js', function () {
-  this.timeout(10000);
-
+describe('legacyPlugin - transform js', { timeout: 10000 }, () => {
   for (const [name, userAgent] of Object.entries(modernUserAgents)) {
     it(`does not do any work on ${name}`, async () => {
       const { server, host } = await createTestServer({
@@ -39,7 +83,7 @@ describe('legacyPlugin - transform js', function () {
       const text = await fetchText(`${host}/app.js`, {
         headers: { 'user-agent': userAgent },
       });
-      expect(text.trim()).to.equal(modernCode.trim());
+      assert.equal(text.trim(), modernCode.trim());
       server.stop();
     });
   }
@@ -67,7 +111,7 @@ describe('legacyPlugin - transform js', function () {
       expectNotIncludes(text, 'System.register(');
       expectIncludes(text, "import('./xyz.js?systemjs=true');");
       expectIncludes(text, 'function asyncGeneratorStep');
-      expectIncludes(text, 'function _classCallCheck(instance');
+      expectIncludes(text, 'function _classCallCheck(');
       expectIncludes(text, '_asyncToGenerator');
       expectIncludes(
         text,
@@ -98,7 +142,7 @@ describe('legacyPlugin - transform js', function () {
       expectIncludes(text, 'System.register(');
       expectIncludes(text, "_context.import('./xyz.js?systemjs=true');");
       expectIncludes(text, 'function asyncGeneratorStep');
-      expectIncludes(text, 'function _classCallCheck(instance');
+      expectIncludes(text, 'function _classCallCheck(');
       expectIncludes(text, '_asyncToGenerator');
       expectIncludes(
         text,

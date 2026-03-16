@@ -1,4 +1,4 @@
-import { Context } from 'koa';
+import type { Context } from 'koa';
 
 export const mockFile = (path: string, source: string) => ({
   name: `test-file:${path}`,

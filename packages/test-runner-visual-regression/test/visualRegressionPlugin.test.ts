@@ -1,14 +1,41 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import path from 'path';
+<<<<<<< HEAD
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { expect } from 'chai';
+||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { runTests } from '@web/test-runner-core/test-helpers.js';
+=======
+<<<<<<< HEAD
+import { runTests } from '@web/test-runner-core/test-helpers.js';
+import { chromeLauncher } from '@web/test-runner-chrome.js';
+||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { runTests } from '@web/test-runner-core/test-helpers.ts';
+import { chromeLauncher } from '@web/test-runner-chrome.ts';
+=======
+import { runTests } from '@web/test-runner-core/test-helpers';
+>>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import { chromeLauncher } from '@web/test-runner-chrome';
+>>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
+<<<<<<< HEAD
 import { visualRegressionPlugin } from '../src/visualRegressionPlugin.ts';
 import { fileExists } from '../src/fs.ts';
+import { playwrightLauncher } from '@web/test-runner-playwright.js';
+||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { visualRegressionPlugin } from '../src/visualRegressionPlugin.ts';
+import { fileExists } from '../src/fs.ts';
+import { playwrightLauncher } from '@web/test-runner-playwright.ts';
+=======
+import { visualRegressionPlugin } from '../src/visualRegressionPlugin.js';
+import { fileExists } from '../src/fs.js';
 import { playwrightLauncher } from '@web/test-runner-playwright';
+>>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-describe('visualRegressionPlugin', function test() {
-  this.timeout(20000);
+const __dirname = import.meta.dirname;
+
+describe('visualRegressionPlugin', { timeout: 30000 }, () => {
 
   it('can run a passing test', async () => {
     await runTests({
@@ -63,15 +90,15 @@ describe('visualRegressionPlugin', function test() {
       { allowFailure: true, reportErrors: false },
     );
 
-    expect(sessions.length).to.equal(3);
+    assert.equal(sessions.length, 3);
 
     for (const session of sessions) {
-      expect(session.passed).to.equal(false);
-      expect(session.testResults!.tests.length).to.equal(1);
-      expect(session.testResults!.tests[0].error!.message).to.include(
+      assert.equal(session.passed, false);
+      assert.equal(session.testResults!.tests.length, 1);
+      assert(session.testResults!.tests[0].error!.message.includes(
         'Visual diff failed. New screenshot is ',
-      );
-      expect(
+      ));
+      assert.equal(
         await fileExists(
           path.resolve(
             __dirname,
@@ -82,8 +109,9 @@ describe('visualRegressionPlugin', function test() {
             'my-failed-element.png',
           ),
         ),
-      ).to.equal(true);
-      expect(
+        true,
+      );
+      assert.equal(
         await fileExists(
           path.resolve(
             __dirname,
@@ -94,7 +122,8 @@ describe('visualRegressionPlugin', function test() {
             'my-failed-element-diff.png',
           ),
         ),
-      ).to.equal(true);
+        true,
+      );
     }
   });
 });

@@ -1,12 +1,48 @@
+import { describe, it } from 'node:test';
 import path from 'path';
+<<<<<<< HEAD
 import { runTests } from '@web/test-runner-core/test-helpers';
+||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { runTests } from '@web/test-runner-core/test-helpers.js';
+=======
+<<<<<<< HEAD
+import { runTests } from '@web/test-runner-core/test-helpers.js';
+import { chromeLauncher } from '@web/test-runner-chrome.js';
+import { playwrightLauncher } from '@web/test-runner-playwright.js';
+||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { runTests } from '@web/test-runner-core/test-helpers.ts';
+import { chromeLauncher } from '@web/test-runner-chrome.ts';
+import { playwrightLauncher } from '@web/test-runner-playwright.ts';
+=======
+import { runTests } from '@web/test-runner-core/test-helpers';
+>>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { playwrightLauncher } from '@web/test-runner-playwright';
+>>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
+<<<<<<< HEAD
 import { a11ySnapshotPlugin } from '../../src/a11ySnapshotPlugin.ts';
+||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { a11ySnapshotPlugin } from '../../dist/a11ySnapshotPlugin.ts';
+=======
+<<<<<<< HEAD
+import { a11ySnapshotPlugin } from '../../src/a11ySnapshotPlugin.js';
+||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { a11ySnapshotPlugin } from '../../src/a11ySnapshotPlugin.ts';
+=======
+<<<<<<< HEAD
+import { a11ySnapshotPlugin } from '../../src/a11ySnapshotPlugin.ts';
+||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { a11ySnapshotPlugin } from '../../src/a11ySnapshotPlugin.js';
+=======
+import { a11ySnapshotPlugin } from '../../dist/a11ySnapshotPlugin.js';
+>>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-describe('a11ySnapshotPlugin', function test() {
-  this.timeout(20000);
+const __dirname = import.meta.dirname;
+
+describe('a11ySnapshotPlugin', { timeout: 20000 }, () => {
 
   it('can find accessibility nodes in the returned accessibility tree on puppeteer', async () => {
     await runTests({

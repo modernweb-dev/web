@@ -1,6 +1,5 @@
 {
   "name": "@web/test-runner-commands",
-  "type": "module",
   "version": "0.9.0",
   "publishConfig": {
     "access": "public"
@@ -14,7 +13,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-commands",
-  "main": "dist/index.js",
+  "main": "browser/commands.mjs",
   "exports": {
     ".": {
       "types": "./browser/commands.d.ts",
@@ -22,20 +21,22 @@
     },
     "./plugins": {
       "types": "./plugins.d.ts",
-      "default": "./dist/index.js"
+      "import": "./plugins.mjs",
+      "require": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --watch-ignore **/*.snap.js"
+    "test:node": "node --test 'test/**/*.test.ts'",
+    "test:watch": "node --test --watch 'test/**/*.test.ts'"
   },
   "files": [
     "*.d.ts",
     "*.js",
+    "*.mjs",
     "browser",
     "dist",
     "src"
@@ -54,6 +55,7 @@
   "devDependencies": {
     "@web/test-runner-chrome": "^0.18.0",
     "@web/test-runner-playwright": "^0.11.0",
-    "@web/test-runner-webdriver": "^0.9.0"
+    "@web/test-runner-webdriver": "^0.9.0",
+    "mocha": "^10.8.2"
   }
 }

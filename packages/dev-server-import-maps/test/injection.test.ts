@@ -1,11 +1,29 @@
+<<<<<<< HEAD
 import { createTestServer, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
+||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { it } from 'node:test';
+import { createTestServer, expectNotIncludes } from '@web/dev-server-core/test-helpers.js';
+import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers.js';
+=======
+import { it } from 'node:test';
+<<<<<<< HEAD
+import { createTestServer, expectNotIncludes } from '@web/dev-server-core/test-helpers.js';
+import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers.js';
+||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+import { createTestServer, expectNotIncludes } from '@web/dev-server-core/test-helpers.ts';
+import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers.ts';
+=======
+import { createTestServer, expectNotIncludes } from '@web/dev-server-core/test-helpers';
+import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
+>>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
+>>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-import { importMapsPlugin } from '../src/importMapsPlugin.ts';
+import { importMapsPlugin } from '../src/importMapsPlugin.js';
 
 it('can inject an import map into any page', async () => {
   const { server, host } = await createTestServer({
-    rootDir: __dirname,
+    rootDir: import.meta.dirname,
     plugins: [
       virtualFilesPlugin({
         '/index.html': '<html><body></body></html>',
@@ -28,7 +46,7 @@ it('can inject an import map into any page', async () => {
 
 it('can use an include pattern', async () => {
   const { server, host } = await createTestServer({
-    rootDir: __dirname,
+    rootDir: import.meta.dirname,
     plugins: [
       virtualFilesPlugin({
         '/foo/a.html': '<html><body></body></html>',
@@ -58,7 +76,7 @@ it('can use an include pattern', async () => {
 
 it('can use an exclude pattern', async () => {
   const { server, host } = await createTestServer({
-    rootDir: __dirname,
+    rootDir: import.meta.dirname,
     plugins: [
       virtualFilesPlugin({
         '/foo/a.html': '<html><body></body></html>',
@@ -86,7 +104,7 @@ it('can use an exclude pattern', async () => {
 
 it('treats directory paths with an implicit index.html file', async () => {
   const { server, host } = await createTestServer({
-    rootDir: __dirname,
+    rootDir: import.meta.dirname,
     plugins: [
       {
         name: 'test',
@@ -116,7 +134,7 @@ it('treats directory paths with an implicit index.html file', async () => {
 
 it('merges with an existing import map', async () => {
   const { server, host } = await createTestServer({
-    rootDir: __dirname,
+    rootDir: import.meta.dirname,
     plugins: [
       virtualFilesPlugin({
         '/index.html':
@@ -146,7 +164,7 @@ it('merges with an existing import map', async () => {
 
 it('merges import map scopes', async () => {
   const { server, host } = await createTestServer({
-    rootDir: __dirname,
+    rootDir: import.meta.dirname,
     plugins: [
       virtualFilesPlugin({
         '/index.html':
@@ -176,7 +194,7 @@ it('merges import map scopes', async () => {
 
 it('the import map in the HTML file takes priority over the injected import map', async () => {
   const { server, host } = await createTestServer({
-    rootDir: __dirname,
+    rootDir: import.meta.dirname,
     plugins: [
       virtualFilesPlugin({
         '/index.html':

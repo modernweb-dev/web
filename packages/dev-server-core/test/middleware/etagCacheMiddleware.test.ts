@@ -1,4 +1,5 @@
-import { expect } from 'chai';
+import { describe, it, beforeEach, afterEach } from 'node:test';
+import assert from 'node:assert/strict';
 import path from 'path';
 import fs from 'fs';
 import { nanoid } from 'nanoid';
@@ -6,6 +7,7 @@ import { nanoid } from 'nanoid';
 import { createTestServer, timeout } from '../helpers.ts';
 import { DevServer } from '../../src/server/DevServer.ts';
 
+const __dirname = import.meta.dirname;
 const fixtureDir = path.resolve(__dirname, '..', 'fixtures', 'basic');
 const testFileAName = '/cached-file-a.js';
 const testFileBName = '/cached-file-b.js';
@@ -24,7 +26,7 @@ describe('etag cache middleware', () => {
     server.stop();
   });
 
-  context('', () => {
+  describe('', () => {
     beforeEach(() => {
       fs.writeFileSync(testFileAPath, '// this file is cached', 'utf-8');
     });
@@ -37,21 +39,21 @@ describe('etag cache middleware', () => {
       const initialResponse = await fetch(`${host}${testFileAName}`);
       const etag = initialResponse.headers.get('etag')!;
 
-      expect(initialResponse.status).to.equal(200);
-      expect(await initialResponse.text()).to.equal('// this file is cached');
+      assert.strictEqual(initialResponse.status, 200);
+      assert.strictEqual(await initialResponse.text(), '// this file is cached');
 
-      expect(etag).to.be.a('string');
+      assert.strictEqual(typeof etag, 'string');
 
       const cachedResponse = await fetch(`${host}${testFileAName}`, {
         headers: { 'If-None-Match': etag, 'Cache-Control': 'max-age=3600' },
       });
 
-      expect(cachedResponse.status).to.equal(304);
-      expect(await cachedResponse.text()).to.equal('');
+      assert.strictEqual(cachedResponse.status, 304);
+      assert.strictEqual(await cachedResponse.text(), '');
     });
   });
 
-  context('', () => {
+  describe('', () => {
     beforeEach(() => {
       fs.writeFileSync(testFileBPath, '// this file is cached', 'utf-8');
     });
@@ -66,9 +68,9 @@ describe('etag cache middleware', () => {
       const initialResponse = await fetch(`${host}${testFileBName}`);
       const etag = initialResponse.headers.get('etag');
 
-      expect(initialResponse.status).to.equal(200);
-      expect(await initialResponse.text()).to.equal('// this file is cached');
-      expect(etag).to.be.a('string');
+      assert.strictEqual(initialResponse.status, 200);
+      assert.strictEqual(await initialResponse.text(), '// this file is cached');
+      assert.strictEqual(typeof etag, 'string');
 
       await timeout(10);
       const fileContent = `// the cache is busted${nanoid()}`;
@@ -78,8 +80,8 @@ describe('etag cache middleware', () => {
       const headers = { headers: { 'if-none-match': etag } as Record<string, string> };
       const cachedResponse = await fetch(`${host}${testFileBName}`, headers);
 
-      expect(cachedResponse.status).to.equal(200);
-      expect(await cachedResponse.text()).to.equal(fileContent);
+      assert.strictEqual(cachedResponse.status, 200);
+      assert.strictEqual(await cachedResponse.text(), fileContent);
     });
   });
 });
