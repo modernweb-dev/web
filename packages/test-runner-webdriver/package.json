@@ -17,12 +17,11 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -32,7 +31,6 @@
   "files": [
     "*.d.ts",
     "*.js",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -54,5 +52,6 @@
   "devDependencies": {
     "@types/selenium-standalone": "^7.0.1",
     "selenium-standalone": "^8.0.4"
-  }
+  },
+  "type": "module"
 }

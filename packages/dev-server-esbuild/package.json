@@ -17,12 +17,11 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -34,7 +33,6 @@
   "files": [
     "*.d.ts",
     "*.js",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -53,8 +51,8 @@
   "dependencies": {
     "@mdn/browser-compat-data": "^4.0.0",
     "@web/dev-server-core": "^0.7.4",
-    "esbuild": "^0.27.0",
-    "parse5": "^6.0.1",
+    "esbuild": "^0.25.0",
+    "parse5": "^7.0.0 || ^8.0.0",
     "ua-parser-js": "^1.0.33"
   },
   "devDependencies": {
@@ -62,5 +60,6 @@
     "@web/dev-server-rollup": "^0.6.1",
     "lit-element": "^3.0.0 || ^4.0.1",
     "preact": "^10.5.9"
-  }
+  },
+  "type": "module"
 }

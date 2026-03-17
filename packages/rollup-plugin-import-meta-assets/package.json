@@ -16,12 +16,11 @@
   "main": "src/index.js",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./src/index.js"
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "test": "npm run test:node",
@@ -31,7 +30,6 @@
   },
   "files": [
     "*.js",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -48,5 +46,6 @@
     "globby": "^13.2.2",
     "magic-string": "^0.30.0"
   },
-  "types": "dist/index"
+  "types": "dist/index",
+  "type": "module"
 }

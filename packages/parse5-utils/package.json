@@ -16,13 +16,12 @@
   "main": "src/index.js",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./src/index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -31,7 +30,6 @@
   },
   "files": [
     "*.d.ts",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -43,9 +41,10 @@
   ],
   "dependencies": {
     "@types/parse5": "^6.0.1",
-    "parse5": "^6.0.1"
+    "parse5": "^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
     "@types/html-minifier-terser": "^7.0.0"
-  }
+  },
+  "type": "module"
 }
