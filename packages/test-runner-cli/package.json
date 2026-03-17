@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner-cli",
+  "type": "module",
   "version": "0.11.0",
   "publishConfig": {
     "access": "public"
@@ -41,6 +42,5 @@
     "terminal",
     "console",
     "CLI"
-  ],
-  "type": "module"
+  ]
 }

@@ -1,5 +1,5 @@
-import {
-  rollup,
+import { rollup } from 'rollup';
+import type {
   InputOptions,
   NormalizedInputOptions,
   PluginContext,

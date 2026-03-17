@@ -1,4 +1,4 @@
-export { CoverageMapData } from 'istanbul-lib-coverage';
+export type { CoverageMapData } from 'istanbul-lib-coverage';
 
 import * as constants from './utils/constants.ts';
 export { constants };

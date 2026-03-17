@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner-visual-regression",
+  "type": "module",
   "version": "0.10.0",
   "publishConfig": {
     "access": "public"
@@ -13,7 +14,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-visual-regression",
-  "main": "browser/commands.mjs",
+  "main": "dist/index.js",
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -59,8 +60,6 @@
   "devDependencies": {
     "@web/test-runner-chrome": "^0.18.0",
     "@web/test-runner-playwright": "^0.11.0",
-    "@web/test-runner-webdriver": "^0.9.0",
-    "mocha": "^10.8.2"
-  },
-  "type": "module"
+    "@web/test-runner-webdriver": "^0.9.0"
+  }
 }

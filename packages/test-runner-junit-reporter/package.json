@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner-junit-reporter",
+  "type": "module",
   "version": "0.8.0",
   "publishConfig": {
     "access": "public"
@@ -51,6 +52,5 @@
   "devDependencies": {
     "@types/xml": "^1.0.11",
     "@web/test-runner-playwright": "^0.11.0"
-  },
-  "type": "module"
+  }
 }

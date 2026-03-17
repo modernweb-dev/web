@@ -1,0 +1,15 @@
+#a1 {
+  background-image: url('image-a.png');
+}
+
+#a2 {
+  background-image: url('image-a.svg');
+}
+
+#d1 {
+  background-image: url('./image-d.png');
+}
+
+#d2 {
+  background-image: url('./image-d.svg');
+}

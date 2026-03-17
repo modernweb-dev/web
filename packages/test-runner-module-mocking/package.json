@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner-module-mocking",
+  "type": "module",
   "version": "0.1.1",
   "publishConfig": {
     "access": "public"
@@ -14,7 +15,6 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-module-mocking",
   "main": "browser/index.js",
-  "type": "module",
   "exports": {
     ".": "./browser/index.js",
     "./plugin.js": "./dist/moduleMockingPlugin.js"

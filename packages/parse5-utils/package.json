@@ -1,5 +1,6 @@
 {
   "name": "@web/parse5-utils",
+  "type": "module",
   "version": "2.1.1",
   "publishConfig": {
     "access": "public"
@@ -43,6 +44,5 @@
   },
   "devDependencies": {
     "@types/html-minifier-terser": "^7.0.0"
-  },
-  "type": "module"
+  }
 }

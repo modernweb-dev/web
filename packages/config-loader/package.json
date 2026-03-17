@@ -1,5 +1,6 @@
 {
   "name": "@web/config-loader",
+  "type": "module",
   "version": "0.3.3",
   "publishConfig": {
     "access": "public"
@@ -13,8 +14,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/config-loader",
-  "main": "src/index.js",
-  "type": "module",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=24.0.0"
   },

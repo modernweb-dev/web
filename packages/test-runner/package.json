@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner",
+  "type": "module",
   "version": "0.20.2",
   "publishConfig": {
     "access": "public"
@@ -96,6 +97,5 @@
     "@web/test-runner-saucelabs": "^0.13.0",
     "babel-plugin-istanbul": "^6.0.0",
     "concurrently": "^8.0.1"
-  },
-  "type": "module"
+  }
 }

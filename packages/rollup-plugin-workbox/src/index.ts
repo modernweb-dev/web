@@ -1,4 +1,6 @@
-import { generateSW as _generateSw, injectManifest as _injectManifest } from 'workbox-build';
+import workboxBuild from 'workbox-build';
+
+const { generateSW: _generateSw, injectManifest: _injectManifest } = workboxBuild;
 import type { GenerateSWOptions, InjectManifestOptions } from 'workbox-build';
 import * as prettyBytes from 'pretty-bytes';
 import * as esbuild from 'esbuild';

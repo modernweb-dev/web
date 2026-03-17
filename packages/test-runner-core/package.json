@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner-core",
+  "type": "module",
   "version": "0.13.4",
   "publishConfig": {
     "access": "public"
@@ -79,6 +80,5 @@
   "devDependencies": {
     "portfinder": "^1.0.32",
     "tsx": "^4.21.0"
-  },
-  "type": "module"
+  }
 }

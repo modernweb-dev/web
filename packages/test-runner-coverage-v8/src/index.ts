@@ -1,5 +1,5 @@
 import { extname, join, isAbsolute, sep, posix } from 'path';
-import { CoverageMapData } from 'istanbul-lib-coverage';
+import type { CoverageMapData } from 'istanbul-lib-coverage';
 import v8toIstanbulLib from 'v8-to-istanbul';
 import { TestRunnerCoreConfig, fetchSourceMap } from '@web/test-runner-core';
 import { Profiler } from 'inspector';

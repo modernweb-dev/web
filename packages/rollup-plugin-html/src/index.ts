@@ -1,6 +1,7 @@
-import { rollupPluginHTML, RollupPluginHtml } from './rollupPluginHTML.ts';
+import { rollupPluginHTML } from './rollupPluginHTML.ts';
+import type { RollupPluginHtml } from './rollupPluginHTML.ts';
 
-export {
+export type {
   InputHTMLOptions,
   RollupPluginHTMLOptions,
   GeneratedBundle,
@@ -10,5 +11,6 @@ export {
   TransformAssetFunction,
 } from './RollupPluginHTMLOptions.ts';
 
-export { rollupPluginHTML, RollupPluginHtml };
+export { rollupPluginHTML };
+export type { RollupPluginHtml };
 export default rollupPluginHTML;
