@@ -17,12 +17,11 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -34,7 +33,6 @@
   "files": [
     "*.d.ts",
     "*.js",
-    "*.mjs",
     "dist",
     "scripts",
     "src"
@@ -45,5 +43,6 @@
   "devDependencies": {
     "lit-html": "^2.7.3 || ^3.0.0",
     "puppeteer": "^24.0.0"
-  }
+  },
+  "type": "module"
 }

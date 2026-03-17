@@ -21,12 +21,11 @@
     },
     "./plugins": {
       "types": "./plugins.d.ts",
-      "import": "./plugins.mjs",
-      "require": "./dist/index.js"
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -36,7 +35,6 @@
   "files": [
     "*.d.ts",
     "*.js",
-    "*.mjs",
     "browser",
     "dist",
     "src"
@@ -57,5 +55,6 @@
     "@web/test-runner-playwright": "^0.11.0",
     "@web/test-runner-webdriver": "^0.9.0",
     "mocha": "^10.8.2"
-  }
+  },
+  "type": "module"
 }

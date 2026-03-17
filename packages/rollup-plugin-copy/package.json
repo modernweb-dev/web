@@ -20,13 +20,12 @@
   "module": "index.mjs",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./src/copy.js"
+      "types": "./dist/copy.d.ts",
+      "default": "./dist/copy.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
@@ -35,7 +34,6 @@
   "files": [
     "*.d.ts",
     "*.js",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -50,5 +48,6 @@
   "devDependencies": {
     "@types/glob": "^8.1.0"
   },
-  "types": "dist/copy.d.ts"
+  "types": "dist/copy.d.ts",
+  "type": "module"
 }

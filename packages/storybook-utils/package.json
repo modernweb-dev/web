@@ -17,18 +17,17 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./index.mjs"
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc"
   },
   "files": [
     "*.d.ts",
-    "*.mjs",
     "CHANGELOG.md",
     "dist",
     "src",
