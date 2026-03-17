@@ -1,7 +1,7 @@
 import rollupAlias from '@rollup/plugin-alias';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/fromRollup.js';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
+import { fromRollup } from '../../../src/fromRollup.ts';
 
 const alias = fromRollup(rollupAlias);
 
@@ -19,7 +19,7 @@ describe('@rollup/plugin-alias', () => {
 
     try {
       const text = await fetchText(`${host}/app.js`);
-      expectIncludes(text, "import moduleA from './module-a-stub.js'");
+      expectIncludes(text, "import moduleA from './module-a-stub.ts'");
     } finally {
       server.stop();
     }

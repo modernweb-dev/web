@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
-import { createTestServer } from '../helpers.js';
-import { webSocketScript } from '../../src/web-sockets/webSocketsPlugin.js';
+import { createTestServer } from '../helpers.ts';
+import { webSocketScript } from '../../src/web-sockets/webSocketsPlugin.ts';
 
 describe('webSocketsPlugin', () => {
   it('injects an event stream script if a plugin has inject set and event stream is enabled', async () => {

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index.js';
+import { esbuildPlugin } from '../src/index.ts';
 
 describe('esbuildPlugin TSX', function () {
   this.timeout(5000);
