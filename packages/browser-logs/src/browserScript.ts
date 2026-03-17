@@ -11,8 +11,10 @@ const logUncaughtErrorsScript = fs
   .replace(REGEXP_SOURCE_MAP, '');
 
 /**
- * Create the browser script as an IIFE wrapper.
- * It can't be ESM because it should work on older browsers as well.
+ * Create the browser script. This project is compiled as CJS because it also needs to run in node, so
+ * we create a small wrapper.
+ *
+ * It can't be ESM anyway, because it should work on older browsers as well.
  */
 export const browserScript =
   '(function () { var module={};var exports={};\n' +

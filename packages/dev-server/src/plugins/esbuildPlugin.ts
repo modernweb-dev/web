@@ -1,10 +1,6 @@
-import { createRequire } from 'node:module';
-
-const require = createRequire(import.meta.url);
-
 function requirePlugin() {
   try {
-    const path = require.resolve('@web/dev-server-esbuild');
+    const path = require.resolve('@web/dev-server-esbuild', { paths: [__dirname, process.cwd()] });
     return require(path);
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'MODULE_NOT_FOUND') {

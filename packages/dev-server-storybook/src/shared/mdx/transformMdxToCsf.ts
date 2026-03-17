@@ -1,9 +1,11 @@
-import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 import mdx from '@mdx-js/mdx';
 import { transformAsync } from '@babel/core';
 // @ts-ignore
 import { createCompiler } from '@storybook/csf-tools/mdx.js';
 import { createError } from '../utils.ts';
+
+const require = createRequire(import.meta.url);
 const compilers = [createCompiler({})];
 
 export async function transformMdxToCsf(body: string, filePath: string): Promise<string> {
@@ -18,7 +20,7 @@ export async function transformMdxToCsf(body: string, filePath: string): Promise
   const babelResult = await transformAsync(jsx, {
     filename: filePath,
     sourceMaps: true,
-    plugins: [fileURLToPath(import.meta.resolve('@babel/plugin-transform-react-jsx'))],
+    plugins: [require.resolve('@babel/plugin-transform-react-jsx')],
   });
 
   if (!babelResult?.code) {

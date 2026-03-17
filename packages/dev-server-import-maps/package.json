@@ -26,9 +26,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "node --test test/**/*.test.ts",
+    "test": "mocha \"test/**/*.test.ts\" --require ts-node/register",
     "test:browser": "node ../test-runner/dist/bin.js test-browser/test/**/*.test.{js,html} --config test-browser/web-test-runner.config.mjs",
-    "test:watch": "node --test --watch test/**/*.test.ts"
+    "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",

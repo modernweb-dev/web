@@ -1,6 +1,4 @@
-import type { DefaultTreeAdapterTypes } from 'parse5';
-type Document = DefaultTreeAdapterTypes.Document;
-type Element = DefaultTreeAdapterTypes.Element;
+import { Document, Element } from 'parse5';
 import { findElements, getTagName, getAttribute, setAttribute } from '@web/parse5-utils';
 
 function isAbsoluteableNode(node: Element) {

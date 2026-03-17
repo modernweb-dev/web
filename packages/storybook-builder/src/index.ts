@@ -167,7 +167,6 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
       rollupPluginHTML({
         input: { html: await generateIframeHtml(options), name: 'iframe.html' },
         extractAssets: true,
-        bundleAssetsFromCss: true,
         externalAssets: 'sb-common-assets/**',
       }),
       rollupPluginNodeResolve(),

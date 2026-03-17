@@ -1,16 +1,14 @@
 import Koa from 'koa';
 import path from 'path';
 import { FSWatcher } from 'chokidar';
-import httpServer from 'http';
-import type { IncomingMessage, ServerResponse } from 'http';
+import httpServer, { IncomingMessage, ServerResponse } from 'http';
 import http2Server from 'http2';
 import fs from 'fs';
-import net from 'net';
-import type { Server, Socket, ListenOptions } from 'net';
+import net, { Server, Socket, ListenOptions } from 'net';
 
-import type { DevServerCoreConfig } from './DevServerCoreConfig.ts';
+import { DevServerCoreConfig } from './DevServerCoreConfig.ts';
 import { createMiddleware } from './createMiddleware.ts';
-import type { Logger } from '../logger/Logger.ts';
+import { Logger } from '../logger/Logger.ts';
 import { addPlugins } from './addPlugins.ts';
 
 /**

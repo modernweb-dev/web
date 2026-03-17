@@ -1,6 +1,5 @@
 import type { OutputChunk, OutputOptions, OutputBundle } from 'rollup';
-import type { Token } from 'parse5';
-type Attribute = Token.Attribute;
+import type { Attribute } from 'parse5';
 
 
 export interface InputHTMLOptions {

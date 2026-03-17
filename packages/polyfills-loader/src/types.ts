@@ -1,5 +1,4 @@
-import type { Token } from 'parse5';
-type Attribute = Token.Attribute;
+import type { Attribute } from 'parse5';
 
 export interface PolyfillsLoaderConfig {
   // files to load on modern browsers. loaded when there are no

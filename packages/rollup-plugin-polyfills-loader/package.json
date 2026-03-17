@@ -25,9 +25,9 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "test:node": "node --test \"test/**/*.test.ts\"",
-    "test:update-snapshots": "node --test \"test/**/*.test.ts\" -- --update-snapshots",
-    "test:watch": "node --test --watch \"test/**/*.test.ts\""
+    "test:node": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
+    "test:update-snapshots": "mocha test/**/*.test.ts --require ts-node/register --update-snapshots",
+    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",

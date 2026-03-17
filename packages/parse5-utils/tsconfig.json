@@ -6,14 +6,17 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
-    "declaration": true,
-    "skipLibCheck": true
+    "allowJs": true,
+    "checkJs": true,
+    "emitDeclarationOnly": true
   },
   "references": [],
   "include": [
-    "src"
+    "src",
+    "types"
   ],
   "exclude": [
+    "src/browser",
     "tests",
     "dist"
   ]

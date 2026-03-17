@@ -20,8 +20,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "node --test 'test/**/*.test.mjs'",
-    "test:watch": "node --test --watch 'test/**/*.test.mjs'"
+    "test:node": "mocha test/**/*.test.js --reporter dot",
+    "test:watch": "mocha test/**/*.test.js --watch --watch-files .,src,test --reporter dot"
   },
   "files": [
     "*.d.ts",

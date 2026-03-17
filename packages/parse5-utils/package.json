@@ -26,8 +26,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "node --test 'test/**/*.test.mjs'",
-    "test:watch": "npm run test:node -- --watch"
+    "test:node": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot",
+    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch"
   },
   "files": [
     "dist",
