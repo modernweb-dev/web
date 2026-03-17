@@ -1,13 +1,15 @@
-import { type Plugin, type Logger, getRequestFilePath } from '@web/dev-server-core';
+import { getRequestFilePath } from '@web/dev-server-core';
+import type { Plugin, Logger } from '@web/dev-server-core';
 import {
-  type ParsedImportMap,
   parse as parseFromObject,
   parseFromString,
   resolve,
 } from '@import-maps/resolve';
+import type { ParsedImportMap, ImportMap } from '@import-maps/resolve';
 import { getHtmlPath } from '@web/dev-server-core';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
-import type { Element as ElementAst } from 'parse5';
+import type { DefaultTreeAdapterTypes } from 'parse5';
+type ElementAst = DefaultTreeAdapterTypes.Element;
 import path from 'path';
 
 import {
@@ -19,7 +21,6 @@ import {
   mergeImportMaps,
   getDocumentBaseUrl,
 } from './utils.ts';
-import { type ImportMap } from '@import-maps/resolve';
 import {
   createElement,
   findElement,

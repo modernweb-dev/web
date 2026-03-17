@@ -1,17 +1,22 @@
-const { glob } = require('glob');
-const fs = require('fs');
-const path = require('path');
+import { glob } from 'glob';
+import fs from 'fs';
+import path from 'path';
 
 /**
  * Lists all files using the specified glob, starting from the given root directory.
  *
  * Will return all matching file paths fully resolved.
  *
- * @param {string} fromGlob
- * @param {string} rootDir
- * @param {string|string[]} [ignore]
+ * @param fromGlob - The glob pattern to match files
+ * @param rootDir - The root directory to search from
+ * @param ignore - Optional glob pattern(s) to ignore
+ * @returns Array of fully resolved file paths
  */
-async function listFiles(fromGlob, rootDir, ignore) {
+async function listFiles(
+  fromGlob: string,
+  rootDir: string,
+  ignore?: string | string[]
+): Promise<string[]> {
   // remember, each filepath returned is relative to rootDir
   return (
     (await glob(fromGlob, { cwd: rootDir, dot: true, ignore }))
@@ -22,4 +27,4 @@ async function listFiles(fromGlob, rootDir, ignore) {
   );
 }
 
-module.exports = { listFiles };
+export { listFiles };

@@ -1,5 +1,6 @@
 import path from 'path';
-import type { Document } from 'parse5';
+import type { DefaultTreeAdapterTypes } from 'parse5';
+type Document = DefaultTreeAdapterTypes.Document;
 import {
   findElement,
   getTagName,

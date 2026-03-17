@@ -1,5 +1,9 @@
-import { isUri } from 'valid-url';
-import type { Document as DocumentAst, Node as NodeAst } from 'parse5';
+import validUrl from 'valid-url';
+
+const { isUri } = validUrl;
+import type { DefaultTreeAdapterTypes } from 'parse5';
+type DocumentAst = DefaultTreeAdapterTypes.Document;
+type NodeAst = DefaultTreeAdapterTypes.Node;
 import { queryAll, predicates, getAttribute, hasAttribute } from '@web/dev-server-core/dist/dom5';
 
 function isDeferred(script: NodeAst) {

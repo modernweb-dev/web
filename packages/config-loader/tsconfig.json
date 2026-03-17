@@ -5,14 +5,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "composite": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "rewriteRelativeImportExtensions": false,
-    "strict": false,
-    "allowJs": true,
-    "checkJs": true,
-    "emitDeclarationOnly": true
+    "composite": true
   },
   "references": [],
   "include": [

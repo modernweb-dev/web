@@ -1,6 +1,7 @@
 {
   "name": "@web/parse5-utils",
-  "version": "2.1.1",
+  "type": "module",
+  "version": "2.1.0",
   "publishConfig": {
     "access": "public"
   },
@@ -13,7 +14,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/parse5-utils",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -30,7 +31,6 @@
     "test:watch": "npm run test:node -- --watch"
   },
   "files": [
-    "*.d.ts",
     "dist",
     "src"
   ],
@@ -41,8 +41,7 @@
     "utils"
   ],
   "dependencies": {
-    "@types/parse5": "^6.0.1",
-    "parse5": "^6.0.1"
+    "parse5": "^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
     "@types/html-minifier-terser": "^7.0.0"

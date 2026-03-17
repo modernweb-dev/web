@@ -1,5 +1,5 @@
-const { pathToFileURL } = require('url');
-const ConfigLoaderError = require('./ConfigLoaderError');
+import { pathToFileURL } from 'url';
+import ConfigLoaderError from './ConfigLoaderError.ts';
 
 // These strings may be node-version dependent and need updating over time
 // They're just to display a helpful error message
@@ -9,10 +9,7 @@ const CJS_ERRORS = [
   'ReferenceError: exports is not defined',
 ];
 
-/**
- * @param {string} path
- */
-async function importConfig(path) {
+async function importConfig(path: string): Promise<object> {
   try {
     const config = await import(pathToFileURL(path).href);
 
@@ -24,7 +21,7 @@ async function importConfig(path) {
 
     return config.default;
   } catch (e) {
-    if (CJS_ERRORS.some(msg => /** @type {Error} */(e).stack?.includes(msg))) {
+    if (CJS_ERRORS.some(msg => (e as Error).stack?.includes(msg))) {
       throw new ConfigLoaderError(
         'You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module. ' +
           'Use import/export syntax, or load the file as a CommonJS module by ' +
@@ -35,4 +32,4 @@ async function importConfig(path) {
   }
 }
 
-module.exports = importConfig;
+export default importConfig;
