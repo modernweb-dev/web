@@ -1,5 +1,6 @@
 {
   "name": "@web/dev-server-hmr",
+  "type": "module",
   "version": "0.4.1",
   "publishConfig": {
     "access": "public"
@@ -43,6 +44,5 @@
   "devDependencies": {
     "lit-html": "^2.7.3 || ^3.0.0",
     "puppeteer": "^24.0.0"
-  },
-  "type": "module"
+  }
 }

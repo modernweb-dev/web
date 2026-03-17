@@ -1,10 +1,10 @@
-import {
-  type PolyfillsLoaderConfig,
-  type File,
-  type GeneratedFile,
-  type PolyfillFile,
-  type PolyfillsLoader,
-  type LegacyEntrypoint,
+import type {
+  PolyfillsLoaderConfig,
+  File,
+  GeneratedFile,
+  PolyfillFile,
+  PolyfillsLoader,
+  LegacyEntrypoint,
 } from './types.ts';
 
 import { transformAsync } from '@babel/core';

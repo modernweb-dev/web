@@ -3,9 +3,9 @@ import { expect } from 'chai';
 import { green, red, yellow } from 'nanocolors';
 
 import { DevServer } from './server/DevServer.ts';
-import { type DevServerCoreConfig } from './server/DevServerCoreConfig.ts';
-import { type Logger } from './logger/Logger.ts';
-import { type Plugin } from './plugins/Plugin.ts';
+import type { DevServerCoreConfig } from './server/DevServerCoreConfig.ts';
+import type { Logger } from './logger/Logger.ts';
+import type { Plugin } from './plugins/Plugin.ts';
 
 const defaultConfig: Omit<DevServerCoreConfig, 'port' | 'rootDir'> = {
   hostname: 'localhost',

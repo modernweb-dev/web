@@ -1,5 +1,6 @@
 {
   "name": "@web/rollup-plugin-copy",
+  "type": "module",
   "version": "0.5.1",
   "publishConfig": {
     "access": "public"
@@ -16,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/modernweb-dev/web/issues"
   },
-  "main": "src/copy.js",
+  "main": "dist/copy.js",
   "module": "index.mjs",
   "exports": {
     ".": {

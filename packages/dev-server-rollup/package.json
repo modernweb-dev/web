@@ -1,5 +1,6 @@
 {
   "name": "@web/dev-server-rollup",
+  "type": "module",
   "version": "0.6.4",
   "publishConfig": {
     "access": "public"
@@ -59,14 +60,11 @@
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "25.0.7",
     "@rollup/plugin-replace": "^5.0.5",
-    "@types/parse5": "^6.0.1",
     "@types/whatwg-url": "^11.0.0",
     "@web/test-runner-chrome": "^0.18.0",
     "@web/test-runner-core": "^0.13.0",
     "chai": "^4.2.0",
-    "mocha": "^10.8.2",
     "postcss": "^8.4.31",
     "rollup-plugin-postcss": "^4.0.2"
-  },
-  "type": "module"
+  }
 }

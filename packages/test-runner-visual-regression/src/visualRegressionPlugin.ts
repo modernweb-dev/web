@@ -1,14 +1,12 @@
-import { type TestRunnerPlugin } from '@web/test-runner-core';
+import type { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher } from '@web/test-runner-chrome';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 import type { WebdriverLauncher } from '@web/test-runner-webdriver';
 
-import { defaultOptions, type VisualRegressionPluginOptions } from './config.ts';
-import {
-  visualDiffCommand,
-  type VisualDiffCommandContext,
-  type VisualDiffCommandResult,
-} from './visualDiffCommand.ts';
+import { defaultOptions } from './config.ts';
+import type { VisualRegressionPluginOptions } from './config.ts';
+import { visualDiffCommand } from './visualDiffCommand.ts';
+import type { VisualDiffCommandContext, VisualDiffCommandResult } from './visualDiffCommand.ts';
 import { VisualRegressionError } from './VisualRegressionError.ts';
 
 interface Payload {

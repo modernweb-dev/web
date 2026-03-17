@@ -1,5 +1,6 @@
 {
   "name": "@web/rollup-plugin-import-meta-assets",
+  "type": "module",
   "version": "2.3.3",
   "publishConfig": {
     "access": "public"
@@ -13,7 +14,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/rollup-plugin-import-meta-assets",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "exports": {
     ".": {
       "default": "./src/index.js"

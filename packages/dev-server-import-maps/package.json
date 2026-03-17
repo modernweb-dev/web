@@ -1,5 +1,6 @@
 {
   "name": "@web/dev-server-import-maps",
+  "type": "module",
   "version": "0.2.1",
   "publishConfig": {
     "access": "public"
@@ -56,6 +57,5 @@
   },
   "devDependencies": {
     "@web/test-runner": "^0.20.0"
-  },
-  "type": "module"
+  }
 }
