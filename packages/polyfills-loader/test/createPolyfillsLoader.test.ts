@@ -2,29 +2,9 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import fs from 'fs';
 import path from 'path';
-<<<<<<< HEAD
-import { PolyfillsLoaderConfig } from '../src/types.js';
-import { createPolyfillsLoader } from '../src/createPolyfillsLoader.js';
-import { noModuleSupportTest, fileTypes } from '../src/utils.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { PolyfillsLoaderConfig } from '../src/types.ts';
-import { createPolyfillsLoader } from '../src/createPolyfillsLoader.ts';
-import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
-=======
-<<<<<<< HEAD
-import { PolyfillsLoaderConfig } from '../src/types.ts';
-import { createPolyfillsLoader } from '../src/createPolyfillsLoader.ts';
-import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { PolyfillsLoaderConfig } from '../src/types.js';
-import { createPolyfillsLoader } from '../src/createPolyfillsLoader.js';
-import { noModuleSupportTest, fileTypes } from '../src/utils.js';
-=======
 import type { PolyfillsLoaderConfig } from '../src/types.ts';
 import { createPolyfillsLoader } from '../src/createPolyfillsLoader.ts';
 import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const __dirname = import.meta.dirname;
 const updateSnapshots = process.argv.includes('--update-snapshots');

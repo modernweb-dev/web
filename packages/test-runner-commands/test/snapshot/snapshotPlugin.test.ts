@@ -11,19 +11,7 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 >>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-<<<<<<< HEAD
-import { snapshotPlugin } from '../../src/snapshotPlugin.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { snapshotPlugin } from '../../src/snapshotPlugin.ts';
-=======
-<<<<<<< HEAD
-import { snapshotPlugin } from '../../src/snapshotPlugin.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { snapshotPlugin } from '../../src/snapshotPlugin.js';
-=======
 import { snapshotPlugin } from '../../dist/snapshotPlugin.js';
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const __dirname = import.meta.dirname;
 

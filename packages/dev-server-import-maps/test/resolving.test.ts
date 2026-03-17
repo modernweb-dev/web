@@ -13,26 +13,10 @@ import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { spy } from 'hanbi';
 import path from 'path';
 
-<<<<<<< HEAD
-import { importMapsPlugin } from '../src/importMapsPlugin.js';
-import { IMPORT_MAP_PARAM } from '../src/utils.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { importMapsPlugin } from '../src/importMapsPlugin.ts';
-import { IMPORT_MAP_PARAM } from '../src/utils.ts';
-=======
-<<<<<<< HEAD
-import { importMapsPlugin } from '../src/importMapsPlugin.ts';
-import { IMPORT_MAP_PARAM } from '../src/utils.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { importMapsPlugin } from '../src/importMapsPlugin.js';
-import { IMPORT_MAP_PARAM } from '../src/utils.js';
-=======
 import { importMapsPlugin } from '../src/importMapsPlugin.ts';
 import { IMPORT_MAP_PARAM } from '../src/utils.ts';
 
 const __dirname = import.meta.dirname;
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 function createHtml(importMap: Record<string, unknown>) {
   return `

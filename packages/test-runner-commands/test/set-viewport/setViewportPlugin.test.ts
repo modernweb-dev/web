@@ -15,19 +15,7 @@ import { chromeLauncher } from '@web/test-runner-chrome';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 >>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-<<<<<<< HEAD
-import { setViewportPlugin } from '../../src/setViewportPlugin.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { setViewportPlugin } from '../../src/setViewportPlugin.ts';
-=======
-<<<<<<< HEAD
-import { setViewportPlugin } from '../../src/setViewportPlugin.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { setViewportPlugin } from '../../src/setViewportPlugin.js';
-=======
 import { setViewportPlugin } from '../../dist/setViewportPlugin.js';
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const __dirname = import.meta.dirname;
 

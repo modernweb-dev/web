@@ -14,19 +14,7 @@ import { chromeLauncher } from '@web/test-runner-chrome';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 >>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-<<<<<<< HEAD
-import { sendKeysPlugin } from '../../src/sendKeysPlugin.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { sendKeysPlugin } from '../../src/sendKeysPlugin.ts';
-=======
-<<<<<<< HEAD
-import { sendKeysPlugin } from '../../src/sendKeysPlugin.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { sendKeysPlugin } from '../../src/sendKeysPlugin.js';
-=======
 import { sendKeysPlugin } from '../../dist/sendKeysPlugin.js';
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const __dirname = import.meta.dirname;
 

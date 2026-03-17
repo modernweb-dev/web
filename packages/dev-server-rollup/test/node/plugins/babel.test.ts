@@ -3,26 +3,8 @@ import { describe, it } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import rollupBabel from '@rollup/plugin-babel';
 
-<<<<<<< HEAD
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../src/index.ts';
-=======
-<<<<<<< HEAD
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
-import { fromRollup } from '../../../src/index.ts';
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
-
-=======
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
-import { fromRollup } from '../../../src/index.ts';
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
 const babel = fromRollup(rollupBabel);
 
 describe('@rollup/plugin-alias', () => {

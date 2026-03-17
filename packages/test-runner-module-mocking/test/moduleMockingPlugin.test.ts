@@ -16,21 +16,7 @@ import { chromeLauncher } from '@web/test-runner-chrome';
 import { nodeResolvePlugin } from '@web/dev-server';
 >>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-<<<<<<< HEAD
-import { moduleMockingPlugin } from '../src/moduleMockingPlugin.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { moduleMockingPlugin } from '../src/moduleMockingPlugin.ts';
-=======
-<<<<<<< HEAD
-import { moduleMockingPlugin } from '../src/moduleMockingPlugin.ts';
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { expect } from 'chai';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { moduleMockingPlugin } from '../src/moduleMockingPlugin.js';
-import { expect } from 'chai';
-=======
 import { moduleMockingPlugin } from '../dist/moduleMockingPlugin.js';
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const dirname = fileURLToPath(new URL('.', import.meta.url));
 

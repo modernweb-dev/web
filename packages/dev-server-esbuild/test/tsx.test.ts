@@ -12,21 +12,9 @@ import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 >>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-<<<<<<< HEAD
-import { esbuildPlugin } from '../src/index.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import { esbuildPlugin } from '../src/index.ts';
-=======
-<<<<<<< HEAD
-import { esbuildPlugin } from '../src/index.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { esbuildPlugin } from '../src/index.js';
-=======
-import { esbuildPlugin } from '../src/index.ts';
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const __dirname = import.meta.dirname;
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 describe('esbuildPlugin TSX', function () {
   it('transforms .tsx files', async () => {
