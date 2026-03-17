@@ -14,12 +14,9 @@ import {
   snapshotPlugin,
   sendMousePlugin,
 } from '@web/test-runner-commands/plugins';
-import portfinder from 'portfinder';
-
-const { getPortPromise } = portfinder;
+import { getPortPromise } from 'portfinder';
 import path from 'path';
 import { cpus } from 'os';
-import { fileURLToPath } from 'node:url';
 
 import { type TestRunnerCliArgs } from './readCliArgs.ts';
 import { mergeConfigs } from './mergeConfigs.ts';
@@ -230,7 +227,7 @@ export async function parseConfig(
   }
 
   finalConfig.testFramework = {
-    path: fileURLToPath(import.meta.resolve('@web/test-runner-mocha/dist/autorun.js')),
+    path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
     ...(finalConfig.testFramework ?? {}),
   };
 

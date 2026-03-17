@@ -1,9 +1,6 @@
 import { type BrowserLauncher } from '@web/test-runner-core';
 import * as _SaucelabsModule from 'saucelabs';
-const SaucelabsAPI =
-  (_SaucelabsModule as any).default?.default ??
-  (_SaucelabsModule as any).default ??
-  _SaucelabsModule;
+const SaucelabsAPI = (_SaucelabsModule as any).default?.default ?? (_SaucelabsModule as any).default ?? _SaucelabsModule;
 type SauceLabsOptions = import('saucelabs').SauceLabsOptions;
 type SauceConnectOptions = import('saucelabs').SauceConnectOptions;
 type SauceConnectInstance = import('saucelabs').SauceConnectInstance;
@@ -15,12 +12,9 @@ const { internalIpV4Sync } = (_internalIpModule as any).default ?? _internalIpMo
  */
 export function withTimeout<T>(promise: Promise<T>, message: string): Promise<T> {
   return new Promise<T>((resolve, reject) => {
-    const timeoutId = setTimeout(
-      () => {
-        reject(new Error(message));
-      },
-      5 * 60 * 1000,
-    );
+    const timeoutId = setTimeout(() => {
+      reject(new Error(message));
+    }, 5 * 60 * 1000);
 
     promise
       .then(val => resolve(val))
@@ -60,10 +54,8 @@ export class SauceLabsLauncherManager {
     this.connectionPromise = withTimeout(
       this.api.startSauceConnect({
         ...this.connectOptions,
-        tlsPassthroughDomains: `^(127\\.0\\.0\\.1|localhost|${internalIpV4Sync()?.replace(
-          /\./g,
-          '\\.',
-        )})$`,
+        tlsPassthroughDomains: `^(127\\.0\\.0\\.1|localhost|${internalIpV4Sync()
+          ?.replace(/\./g, '\\.')})$`,
       }),
       '[Saucelabs] Timed out setting up Sauce Connect proxy after 5 minutes.',
     );

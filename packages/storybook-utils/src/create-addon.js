@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from 'react';
 import { STORY_SPECIFIED, STORY_CHANGED, STORY_RENDERED } from '@storybook/core-events';
 
@@ -5,49 +7,35 @@ import { STORY_SPECIFIED, STORY_CHANGED, STORY_RENDERED } from '@storybook/core-
 // needs additional events (either Storybook or custom events), they can be passed via the options.
 const storybookEvents = [STORY_SPECIFIED, STORY_CHANGED, STORY_RENDERED];
 const { Component, createRef, createElement } = React;
-
-interface CreateAddonOptions {
-  events?: string[];
-}
-
-interface AddonProps {
-  api: any;
-  active: boolean;
-}
-
-interface AddonState {}
-
-export function createAddon(
-  customElementName: string,
-  options: CreateAddonOptions = {}
-): typeof Component {
-  return class extends Component<AddonProps, AddonState> {
-    ref: React.RefObject<HTMLDivElement | null>;
-    addonElement?: HTMLElement;
-
-    constructor(props: AddonProps) {
+/**
+ * @param {String} customElementName
+ * @param {{ events?: string[] }} [options]
+ */
+export function createAddon(customElementName, options = {}) {
+  return class extends Component {
+    constructor(props) {
       super(props);
-      this.ref = createRef<HTMLDivElement | null>();
+      this.ref = createRef();
     }
 
-    componentDidMount(): void {
+    componentDidMount() {
       const customEvents = options.events ?? [];
       const uniqueEvents = Array.from(new Set([...storybookEvents, ...customEvents]));
       uniqueEvents.forEach(event => {
-        this.props.api.getChannel().on(event, (detail: any) => {
+        this.props.api.getChannel().on(event, detail => {
           if (!this.addonElement) {
             this.updateAddon(event);
           }
-          this.addonElement!.dispatchEvent(new CustomEvent(event, { detail }));
+          this.addonElement.dispatchEvent(new CustomEvent(event, { detail }));
         });
       });
     }
 
-    componentDidUpdate(): void {
+    componentDidUpdate() {
       this.updateAddon();
     }
 
-    updateAddon(event?: string): void {
+    updateAddon() {
       if (!this.addonElement) {
         this.addonElement = document.createElement(customElementName);
       }
@@ -56,16 +44,16 @@ export function createAddon(
       Object.assign(this.addonElement, { api, active });
 
       // Here, the element could get added for the first time, or re-added after a switch between addons.
-      if (this.shouldAddonBeInDom() && !this.ref.current!.firstChild) {
-        this.ref.current!.appendChild(this.addonElement);
+      if (this.shouldAddonBeInDom() && !this.ref.current.firstChild) {
+        this.ref.current.appendChild(this.addonElement);
       }
     }
 
-    shouldAddonBeInDom(): boolean {
-      return this.ref.current !== null && this.props.active;
+    shouldAddonBeInDom() {
+      return this.ref.current && this.props.active;
     }
 
-    render(): React.ReactElement | null {
+    render() {
       if (!this.props.active) {
         return null;
       }

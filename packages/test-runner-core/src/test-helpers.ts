@@ -1,18 +1,11 @@
 /* eslint-disable no-async-promise-executor, no-inner-declarations */
-import portfinder from 'portfinder';
-
-const { getPortPromise } = portfinder;
+import { getPortPromise } from 'portfinder';
 import path from 'path';
-import { fileURLToPath } from 'node:url';
-import { TestRunner, type TestRunnerCoreConfig } from './index.ts';
-import { type Logger } from './logger/Logger.ts';
-import {
-  type TestResult,
-  type TestSession,
-  type TestSuiteResult,
-} from './test-session/TestSession.ts';
+import { TestRunner, TestRunnerCoreConfig } from './index.ts';
+import { Logger } from './logger/Logger.ts';
+import { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession.ts';
 import { SESSION_STATUS } from './test-session/TestSessionStatus.ts';
-import { type TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.ts';
+import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.ts';
 
 const logger: Logger = {
   ...console,
@@ -29,9 +22,9 @@ const minuteMs = secondMs * 60;
 
 const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   watch: false,
-  rootDir: path.join(import.meta.dirname, '..', '..', '..'),
+  rootDir: path.join(__dirname, '..', '..', '..'),
   testFramework: {
-    path: fileURLToPath(import.meta.resolve('@web/test-runner-mocha/dist/autorun.js')),
+    path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
   },
   protocol: 'http:',
   hostname: 'localhost',

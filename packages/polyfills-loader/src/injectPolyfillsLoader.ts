@@ -1,8 +1,4 @@
-import type { DefaultTreeAdapterTypes } from 'parse5';
-type Document = DefaultTreeAdapterTypes.Document;
-type Node = DefaultTreeAdapterTypes.Node;
-type ParentNode = DefaultTreeAdapterTypes.ParentNode;
-import { parse, serialize } from 'parse5';
+import { Document, Node, ParentNode, parse, serialize } from 'parse5';
 import {
   findElements,
   getAttribute,
@@ -13,16 +9,16 @@ import {
   createElement,
   findElement,
   getTagName,
+  Element,
 } from '@web/parse5-utils';
-import type { Element } from '@web/parse5-utils';
 
-import type { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile } from './types.ts';
-import { createPolyfillsLoader } from './createPolyfillsLoader.ts';
-import { hasFileOfType, fileTypes } from './utils.ts';
+import { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile } from './types.js';
+import { createPolyfillsLoader } from './createPolyfillsLoader.js';
+import { hasFileOfType, fileTypes } from './utils.js';
 
 function injectImportMapPolyfill(headAst: ParentNode, originalScript: Node, type: string) {
   const systemJsScript = createScript({ type }, getTextContent(originalScript));
-  insertBefore(headAst, systemJsScript, originalScript as any);
+  insertBefore(headAst, systemJsScript, originalScript);
 }
 
 function findImportMapScripts(document: Document) {

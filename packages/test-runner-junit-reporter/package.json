@@ -26,8 +26,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 test/**/*.test.ts",
-    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch test/**/*.test.ts"
+    "test": "node --test test/**/*.test.ts",
+    "test:watch": "node --test --watch test/**/*.test.ts"
   },
   "files": [
     "*.d.ts",

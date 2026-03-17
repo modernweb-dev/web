@@ -54,8 +54,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   }
 
   if (polyfills.constructibleStylesheets) {
-    const constructibleStylesheetsPath = await import.meta
-      .resolve('construct-style-sheets-polyfill');
+    const constructibleStylesheetsPath = await import.meta.resolve('construct-style-sheets-polyfill');
     addPolyfillConfig({
       name: 'constructible-style-sheets-polyfill',
       test: '!("adoptedStyleSheets" in document)',
@@ -130,8 +129,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   }
 
   if (polyfills.dynamicImport) {
-    const dynamicImportPath = await import.meta
-      .resolve('dynamic-import-polyfill/dist/dynamic-import-polyfill.umd.js');
+    const dynamicImportPath = await import.meta.resolve('dynamic-import-polyfill/dist/dynamic-import-polyfill.umd.js');
     addPolyfillConfig({
       name: 'dynamic-import',
       /**
@@ -151,8 +149,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   }
 
   if (polyfills.intersectionObserver) {
-    const intersectionObserverPath = await import.meta
-      .resolve('intersection-observer/intersection-observer.js');
+    const intersectionObserverPath = await import.meta.resolve('intersection-observer/intersection-observer.js');
     addPolyfillConfig({
       name: 'intersection-observer',
       test: "!('IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype)",
@@ -162,8 +159,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   }
 
   if (polyfills.resizeObserver) {
-    const resizeObserverPath = await import.meta
-      .resolve('resize-observer-polyfill/dist/ResizeObserver.global.js');
+    const resizeObserverPath = await import.meta.resolve('resize-observer-polyfill/dist/ResizeObserver.global.js');
     addPolyfillConfig({
       name: 'resize-observer',
       test: "!('ResizeObserver' in window)",
@@ -173,8 +169,9 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   }
 
   if (polyfills.scopedCustomElementRegistry) {
-    const scopedRegistryPath = await import.meta
-      .resolve('@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js');
+    const scopedRegistryPath = await import.meta.resolve(
+      '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js',
+    );
     addPolyfillConfig({
       name: 'scoped-custom-element-registry',
       test: "!('createElement' in ShadowRoot.prototype)",
@@ -183,8 +180,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   }
 
   if (polyfills.webcomponents && !polyfills.shadyCssCustomStyle) {
-    const webcomponentsPath = await import.meta
-      .resolve('@webcomponents/webcomponentsjs/webcomponents-bundle.js');
+    const webcomponentsPath = await import.meta.resolve('@webcomponents/webcomponentsjs/webcomponents-bundle.js');
     addPolyfillConfig({
       name: 'webcomponents',
       test: "!('attachShadow' in Element.prototype) || !('getRootNode' in Element.prototype) || (window.ShadyDOM && window.ShadyDOM.force)",
@@ -193,8 +189,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
 
     // If a browser does not support nomodule attribute, but does support custom elements, we need
     // to load the custom elements es5 adapter. This is the case for Safari 10.1
-    const es5AdapterPath = await import.meta
-      .resolve('@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js');
+    const es5AdapterPath = await import.meta.resolve('@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js');
     addPolyfillConfig({
       name: 'custom-elements-es5-adapter',
       test: "!('noModule' in HTMLScriptElement.prototype) && 'getRootNode' in Element.prototype",
@@ -206,12 +201,9 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     // shadycss/custom-style-interface polyfill *must* load after the webcomponents polyfill or it doesn't work.
     // to get around that, concat the two together.
 
-    const webcomponentsBundlePath = await import.meta
-      .resolve('@webcomponents/webcomponentsjs/webcomponents-bundle.js');
-    const customStylePath = await import.meta
-      .resolve('@webcomponents/shadycss/custom-style-interface.min.js');
-    const shadyCssScopedPath = await import.meta
-      .resolve('shady-css-scoped-element/shady-css-scoped-element.min.js');
+    const webcomponentsBundlePath = await import.meta.resolve('@webcomponents/webcomponentsjs/webcomponents-bundle.js');
+    const customStylePath = await import.meta.resolve('@webcomponents/shadycss/custom-style-interface.min.js');
+    const shadyCssScopedPath = await import.meta.resolve('shady-css-scoped-element/shady-css-scoped-element.min.js');
 
     addPolyfillConfig({
       name: 'webcomponents-shady-css-custom-style',

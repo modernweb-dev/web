@@ -1,12 +1,14 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { fileExists } from './utils.ts';
+const fs = require('fs').promises;
+const path = require('path');
+const { fileExists } = require('./utils');
 
 /**
  * Gets the package type for a given directory. Walks up the file system, looking
  * for a package.json file and returns the package type.
+ * @param {string} basedir
+ * @returns {Promise<string>}
  */
-async function getPackageType(basedir: string): Promise<string> {
+async function getPackageType(basedir) {
   let currentPath = basedir;
   try {
     while (await fileExists(currentPath)) {
@@ -26,4 +28,4 @@ async function getPackageType(basedir: string): Promise<string> {
   return 'commonjs';
 }
 
-export default getPackageType;
+module.exports = getPackageType;

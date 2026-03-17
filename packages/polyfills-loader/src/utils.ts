@@ -1,8 +1,7 @@
-import type { DefaultTreeAdapterTypes } from 'parse5';
-type Element = DefaultTreeAdapterTypes.Element;
+import { Element } from 'parse5';
 import { getAttribute } from '@web/parse5-utils';
 import crypto from 'crypto';
-import type { FileType, PolyfillsLoaderConfig } from './types.ts';
+import { FileType, PolyfillsLoaderConfig } from './types.js';
 
 export const noModuleSupportTest = "!('noModule' in HTMLScriptElement.prototype)";
 

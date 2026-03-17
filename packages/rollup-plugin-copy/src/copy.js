@@ -1,25 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import type { Plugin } from 'rollup';
-import { patternsToFiles } from './patternsToFiles.ts';
-
-/**
- * Options for the copy plugin.
- */
-interface CopyOptions {
-  /**
-   * Single glob or an array of globs
-   */
-  patterns: string | string[];
-  /**
-   * Single glob or an array of globs to exclude
-   */
-  exclude?: string | string[];
-  /**
-   * Root directory (defaults to current working directory)
-   */
-  rootDir?: string;
-}
+const fs = require('fs');
+const path = require('path');
+const { patternsToFiles } = require('./patternsToFiles.js');
 
 /**
  * Copies all files from the given patterns retaining relative paths relative to the root directory.
@@ -34,12 +15,16 @@ interface CopyOptions {
  * // you can combine it with path.resolve
  * copy({ patterns: '**\/*.svg', rootDir: path.resolve('./my-path/')  })
  *
- * @param options - Configuration options for the plugin
- * @returns A Rollup Plugin
+ * @param {object} options
+ * @param {string|string[]} options.patterns Single glob or an array of globs
+ * @param {string|string[]} options.exclude Single glob or an array of globs
+ * @param {string} [options.rootDir] Defaults to current working directory
+ * @return {import('rollup').Plugin} A Rollup Plugin
  */
-function copy({ patterns = [], rootDir = process.cwd(), exclude }: CopyOptions): Plugin {
+function copy({ patterns = [], rootDir = process.cwd(), exclude }) {
   const resolvedRootDir = path.resolve(rootDir);
-  let filesToCopy: string[] = [];
+  /** @type {string[]} */
+  let filesToCopy = [];
   return {
     name: '@web/rollup-plugin-copy',
     async buildStart() {
@@ -61,4 +46,4 @@ function copy({ patterns = [], rootDir = process.cwd(), exclude }: CopyOptions):
   };
 }
 
-export { copy };
+module.exports = { copy };
