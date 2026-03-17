@@ -3,8 +3,8 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { expect } from 'chai';
 import { chromeLauncher } from '@web/test-runner-chrome';
 
-import { visualRegressionPlugin } from '../src/visualRegressionPlugin.js';
-import { fileExists } from '../src/fs.js';
+import { visualRegressionPlugin } from '../src/visualRegressionPlugin.ts';
+import { fileExists } from '../src/fs.ts';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
 describe('visualRegressionPlugin', function test() {

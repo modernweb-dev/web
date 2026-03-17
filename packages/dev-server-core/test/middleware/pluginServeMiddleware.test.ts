@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { createTestServer } from '../helpers.js';
+import { createTestServer } from '../helpers.ts';
 
 describe('plugin-serve middleware', () => {
   it('can serve non-existing files', async () => {

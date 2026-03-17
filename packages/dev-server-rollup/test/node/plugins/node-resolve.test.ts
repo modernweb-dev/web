@@ -2,8 +2,8 @@ import path from 'path';
 import rollupNodeResolve from '@rollup/plugin-node-resolve';
 import rollupCommonjs from '@rollup/plugin-commonjs';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
+import { fromRollup } from '../../../src/index.ts';
 import { expect } from 'chai';
 
 const nodeResolve = fromRollup(rollupNodeResolve, {}, { throwOnUnresolvedImport: true });
@@ -17,7 +17,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const text = await fetchText(`${host}/app.js`);
-      expectIncludes(text, "import moduleA from './node_modules/module-a/index.js'");
+      expectIncludes(text, "import moduleA from './node_modules/module-a/index.ts'");
     } finally {
       server.stop();
     }

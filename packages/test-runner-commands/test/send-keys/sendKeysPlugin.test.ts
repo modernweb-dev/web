@@ -3,7 +3,7 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
-import { sendKeysPlugin } from '../../src/sendKeysPlugin.js';
+import { sendKeysPlugin } from '../../src/sendKeysPlugin.ts';
 
 describe('sendKeysPlugin', function test() {
   this.timeout(20000);

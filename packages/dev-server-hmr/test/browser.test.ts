@@ -4,8 +4,8 @@ import { createTestServer, expectIncludes } from '@web/dev-server-core/test-help
 import { Browser, HTTPResponse, launch as launchPuppeteer, Page } from 'puppeteer';
 import { posix as pathUtil } from 'path';
 
-import { hmrPlugin } from '../src/index.js';
-import { mockFiles } from './utils.js';
+import { hmrPlugin } from '../src/index.ts';
+import { mockFiles } from './utils.ts';
 
 function trackErrors(page: Page) {
   const errors: any[] = [];

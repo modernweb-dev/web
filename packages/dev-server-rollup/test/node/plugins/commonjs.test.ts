@@ -4,8 +4,8 @@ import { resolve } from 'path';
 import { chromeLauncher } from '@web/test-runner-chrome';
 
 import * as path from 'path';
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
+import { fromRollup } from '../../../src/index.ts';
 import { nodeResolvePlugin } from '@web/dev-server';
 
 const commonjs = fromRollup(rollupCommonjs);
