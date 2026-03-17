@@ -1,13 +1,14 @@
 import {
-  Context,
-  Plugin,
+  type Context,
+  type Plugin,
   PluginSyntaxError,
-  Logger,
-  DevServerCoreConfig,
+  type Logger,
+  type DevServerCoreConfig,
   getRequestFilePath,
 } from '@web/dev-server-core';
-import type { TransformOptions, BuildFailure } from 'esbuild';
-import { Loader, Message, transform } from 'esbuild';
+import type { TransformOptions, BuildFailure, Loader, Message } from 'esbuild';
+import esbuildModule from 'esbuild';
+const { transform } = esbuildModule;
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs';
