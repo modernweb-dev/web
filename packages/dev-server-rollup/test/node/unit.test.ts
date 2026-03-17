@@ -77,7 +77,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, "import moduleA from './src/foo.ts'");
+        expectIncludes(text, "import moduleA from './src/foo.js'");
       } finally {
         server.stop();
       }
