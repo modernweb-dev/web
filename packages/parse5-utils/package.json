@@ -1,5 +1,6 @@
 {
   "name": "@web/parse5-utils",
+  "type": "module",
   "version": "2.1.1",
   "publishConfig": {
     "access": "public"
@@ -13,25 +14,22 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/parse5-utils",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./src/index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "TS_NODE_COMPILER_OPTIONS='{\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot",
-    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch"
+    "test:node": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot",
+    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch"
   },
   "files": [
-    "*.d.ts",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -42,8 +40,7 @@
     "utils"
   ],
   "dependencies": {
-    "@types/parse5": "^6.0.1",
-    "parse5": "^6.0.1"
+    "parse5": "^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
     "@types/html-minifier-terser": "^7.0.0"
