@@ -32,8 +32,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "tsx --test 'test/**/*.test.ts'",
-    "test:watch": "tsx --test --watch 'test/**/*.test.ts'"
+    "test:node": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha test/**/*.test.ts --require ts-node/register --reporter dot",
+    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -78,7 +78,6 @@
     "source-map": "^0.7.3"
   },
   "devDependencies": {
-    "portfinder": "^1.0.32",
-    "tsx": "^4.21.0"
+    "portfinder": "^1.0.32"
   }
 }

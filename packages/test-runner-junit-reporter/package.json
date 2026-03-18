@@ -26,8 +26,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "node --test test/**/*.test.ts",
-    "test:watch": "node --test --watch test/**/*.test.ts"
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha test/**/*.test.ts --require ts-node/register --reporter dot",
+    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
   "files": [
     "*.d.ts",
