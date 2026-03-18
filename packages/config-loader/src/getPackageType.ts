@@ -1,0 +1,29 @@
+import fs from 'fs/promises';
+import path from 'path';
+import { fileExists } from './utils.ts';
+
+/**
+ * Gets the package type for a given directory. Walks up the file system, looking
+ * for a package.json file and returns the package type.
+ */
+async function getPackageType(basedir: string): Promise<string> {
+  let currentPath = basedir;
+  try {
+    while (await fileExists(currentPath)) {
+      const pkgJsonPath = path.join(currentPath, 'package.json');
+
+      if (await fileExists(pkgJsonPath)) {
+        const pkgJsonString = await fs.readFile(pkgJsonPath, { encoding: 'utf-8' });
+        const pkgJson = JSON.parse(pkgJsonString);
+        return pkgJson.type || 'commonjs';
+      }
+
+      currentPath = path.resolve(currentPath, '..');
+    }
+  } catch (e) {
+    // don't log any error
+  }
+  return 'commonjs';
+}
+
+export default getPackageType;

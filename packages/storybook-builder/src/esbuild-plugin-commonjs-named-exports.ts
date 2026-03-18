@@ -1,5 +1,6 @@
 import type { Plugin } from 'esbuild';
 import { readFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import { dirname, relative } from 'node:path';
 
 export function esbuildPluginCommonjsNamedExports(modules: string[]): Plugin {
@@ -79,7 +80,7 @@ export function esbuildPluginCommonjsNamedExports(modules: string[]): Plugin {
         }
 
         for (const reexport of reexports) {
-          const reexportPath = require.resolve(reexport, { paths: [dirname(path)] });
+          const reexportPath = createRequire(`${dirname(path)}/noop.js`).resolve(reexport);
           const deepExports = await getNamedExports(reexportPath);
           for (const deepExport of deepExports) {
             exports.push(deepExport);

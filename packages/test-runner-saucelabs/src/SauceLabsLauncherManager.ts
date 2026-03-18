@@ -1,12 +1,11 @@
 import { BrowserLauncher } from '@web/test-runner-core';
 import * as _SaucelabsModule from 'saucelabs';
-const SaucelabsAPI = (_SaucelabsModule as any).default ?? _SaucelabsModule;
-type SauceLabsOptions = _SaucelabsModule.SauceLabsOptions;
-type SauceConnectOptions = _SaucelabsModule.SauceConnectOptions;
-type SauceConnectInstance = _SaucelabsModule.SauceConnectInstance;
+const SaucelabsAPI = (_SaucelabsModule as any).default?.default ?? (_SaucelabsModule as any).default ?? _SaucelabsModule;
+type SauceLabsOptions = import('saucelabs').SauceLabsOptions;
+type SauceConnectOptions = import('saucelabs').SauceConnectOptions;
+type SauceConnectInstance = import('saucelabs').SauceConnectInstance;
 import * as _internalIpModule from 'internal-ip';
-const _internalIp = (_internalIpModule as any).default ?? _internalIpModule;
-const { internalIpV4Sync } = _internalIp;
+const { internalIpV4Sync } = (_internalIpModule as any).default ?? _internalIpModule;
 
 /**
  * Wraps a Promise with a timeout, rejecing the promise with the timeout.
