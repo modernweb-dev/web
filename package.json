@@ -10,7 +10,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "build": "node scripts/fix-jridgewell-dcts.js && npm run build:clean && tsc --build",
+    "build": "node scripts/fix-jridgewell-dcts.js && rm -rf packages/dev-server-core/node_modules/@types/koa packages/dev-server-core/node_modules/@types/ws packages/dev-server-core/node_modules/ws && npm run build:clean && tsc --build",
     "build:clean": "rimraf --glob packages/*/tsconfig.tsbuildinfo && rimraf --glob packages/*/dist",
     "build:production": "node scripts/workspaces-scripts-bin.mjs build:production",
     "build:site": "npm run build && rocket build",
@@ -77,7 +77,9 @@
     "rollup": "^4.4.0",
     "ts-node": "^10.4.0",
     "typescript": "^5.9.3",
-    "wireit": "^0.14.2"
+    "wireit": "^0.14.2",
+    "@types/koa": "^3.0.1",
+    "@types/ws": "^8.5.13"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -100,7 +102,12 @@
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-empty-interface": "off",
-      "@typescript-eslint/no-unused-vars": ["error", { "caughtErrors": "none" }],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "caughtErrors": "none"
+        }
+      ],
       "@typescript-eslint/no-var-requires": "off",
       "@typescript-eslint/no-require-imports": "off",
       "@typescript-eslint/no-unused-expressions": "off",
@@ -124,15 +131,8 @@
     "retries": 3
   },
   "overrides": {
-    "@lion/accordion": "^0.11.1",
-    "@lion/combobox": "^0.11.1",
-    "@lion/core": "^0.24.0",
-    "@lion/form-core": "^0.18.3",
-    "@lion/overlays": "^0.33.2",
-    "@mdjs/core": "^0.9.0",
-    "@mdjs/mdjs-preview": "^0.5.5",
-    "@rocket/drawer": "^0.1.4",
-    "sharp": "^0.30.7"
+    "@types/koa": "^3.0.1",
+    "@types/ws": "^8.5.13"
   },
   "prettier": {
     "singleQuote": true,
