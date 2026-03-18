@@ -1,16 +1,21 @@
-import { Context } from '@web/dev-server-core';
+import type { Context } from '@web/dev-server-core';
 import { getAttribute, getTextContent, remove } from '@web/dev-server-core/dist/dom5';
-import { parse, serialize, Document as DocumentAst, Node as NodeAst } from 'parse5';
+import { parse, serialize } from 'parse5';
+import type { DefaultTreeAdapterTypes } from 'parse5';
+type DocumentAst = DefaultTreeAdapterTypes.Document;
+type NodeAst = DefaultTreeAdapterTypes.Node;
 import {
   injectPolyfillsLoader as originalInjectPolyfillsLoader,
-  PolyfillsConfig,
   fileTypes,
   getScriptFileType,
+} from '@web/polyfills-loader';
+import type {
+  PolyfillsConfig,
   GeneratedFile,
   File,
 } from '@web/polyfills-loader';
-import { PARAM_TRANSFORM_SYSTEMJS } from './constants.js';
-import { findJsScripts } from './findJsScripts.js';
+import { PARAM_TRANSFORM_SYSTEMJS } from './constants.ts';
+import { findJsScripts } from './findJsScripts.ts';
 
 function findScripts(indexUrl: string, documentAst: DocumentAst) {
   const scriptNodes = findJsScripts(documentAst);
