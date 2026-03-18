@@ -1,6 +1,7 @@
 import type { Options } from '@storybook/types';
 import { readFile } from 'node:fs/promises';
 import { dirname, join, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSlug from 'rehype-slug';
 import type { Plugin } from 'rollup';
@@ -40,7 +41,7 @@ export function rollupPluginMdx(options: Options): Plugin {
           // 3. addon-docs webpack loader (not run for our builder, because it's in the builder-webpack hook)
           // so we need to duplicate same logic here
           providerImportSource: join(
-            dirname(require.resolve('@storybook/addon-docs/package.json')),
+            dirname(fileURLToPath(import.meta.resolve('@storybook/addon-docs/package.json'))),
             '/dist/shims/mdx-react-shim.mjs',
           ),
           ...mdxPluginOptions?.mdxCompileOptions,
