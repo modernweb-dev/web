@@ -25,8 +25,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
+    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
   "files": [
     "*.d.ts",
