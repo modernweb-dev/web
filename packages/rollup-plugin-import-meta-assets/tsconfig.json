@@ -3,7 +3,10 @@
 {
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
-    "moduleResolution": "node16",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rewriteRelativeImportExtensions": false,
+    "skipLibCheck": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,

@@ -6,6 +6,9 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rewriteRelativeImportExtensions": false,
     "allowJs": true,
     "checkJs": true,
     "emitDeclarationOnly": true
