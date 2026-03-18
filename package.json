@@ -10,7 +10,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "build": "npm run build:clean && tsc --build",
+    "build": "node scripts/fix-jridgewell-dcts.js && npm run build:clean && tsc --build",
     "build:clean": "rimraf --glob packages/*/tsconfig.tsbuildinfo && rimraf --glob packages/*/dist",
     "build:production": "node scripts/workspaces-scripts-bin.mjs build:production",
     "build:site": "npm run build && rocket build",
