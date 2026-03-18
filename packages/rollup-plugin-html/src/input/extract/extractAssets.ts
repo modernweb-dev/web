@@ -1,21 +1,22 @@
-import { Document, serialize } from 'parse5';
+import type { DefaultTreeAdapterTypes } from 'parse5';
+type Document = DefaultTreeAdapterTypes.Document;
+import { serialize } from 'parse5';
 import fs from 'fs';
 import path from 'path';
-import { InputAsset } from '../InputData.js';
+import type { InputAsset } from '../InputData.ts';
 import {
   findAssets,
   getSourcePaths,
   isHashedAsset,
   resolveAssetFilePath,
   createAssetPicomatchMatcher,
-} from '../../assets/utils.js';
+} from '../../assets/utils.ts';
 
 export interface ExtractAssetsParams {
   document: Document;
   htmlFilePath: string;
   htmlDir: string;
   rootDir: string;
-  extractAssets: boolean | 'legacy-html' | 'legacy-html-and-css';
   externalAssets?: string | string[];
   absolutePathPrefix?: string;
 }
@@ -36,7 +37,7 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
         params.rootDir,
         params.absolutePathPrefix,
       );
-      const hashed = isHashedAsset(node, params.extractAssets);
+      const hashed = isHashedAsset(node);
       const alreadyHandled = allAssets.find(a => a.filePath === filePath && a.hashed === hashed);
       if (!alreadyHandled) {
         try {
@@ -50,7 +51,7 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
         }
 
         const content = fs.readFileSync(filePath);
-        allAssets.push({ filePath, hashed: hashed, content });
+        allAssets.push({ filePath, hashed, content });
       }
     }
   }

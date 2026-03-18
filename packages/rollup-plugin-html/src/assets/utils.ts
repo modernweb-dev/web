@@ -1,22 +1,14 @@
-import { Document, Element } from 'parse5';
+import type { DefaultTreeAdapterTypes } from 'parse5';
+type Document = DefaultTreeAdapterTypes.Document;
+type Element = DefaultTreeAdapterTypes.Element;
 import path from 'path';
 import picomatch from 'picomatch';
 import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
-import { createError } from '../utils.js';
+import { createError } from '../utils.ts';
 import { serialize } from 'v8';
 
-const assetLinkRels = [
-  'icon',
-  'apple-touch-icon',
-  'mask-icon',
-  'stylesheet',
-  'manifest',
-  'preload',
-  'prefetch',
-  'modulepreload',
-];
-const legacyHashedLinkRels = ['stylesheet'];
-const assetMetaProperties = ['og:image'];
+const hashedLinkRels = ['stylesheet'];
+const linkRels = [...hashedLinkRels, 'icon', 'manifest', 'apple-touch-icon', 'mask-icon'];
 
 function getSrcSetUrls(srcset: string) {
   if (!srcset) {
@@ -51,14 +43,13 @@ function isAsset(node: Element) {
         path = extractFirstUrlOfSrcSet(node) ?? '';
       }
       break;
-    case 'link': {
-      if (assetLinkRels.includes(getAttribute(node, 'rel') ?? '')) {
+    case 'link':
+      if (linkRels.includes(getAttribute(node, 'rel') ?? '')) {
         path = getAttribute(node, 'href') ?? '';
       }
       break;
-    }
     case 'meta':
-      if (assetMetaProperties.includes(getAttribute(node, 'property') ?? '')) {
+      if (getAttribute(node, 'property') === 'og:image' && getAttribute(node, 'content')) {
         path = getAttribute(node, 'content') ?? '';
       }
       break;
@@ -81,10 +72,7 @@ function isAsset(node: Element) {
   }
 }
 
-export function isHashedAsset(
-  node: Element,
-  extractAssets: boolean | 'legacy-html' | 'legacy-html-and-css',
-) {
+export function isHashedAsset(node: Element) {
   switch (getTagName(node)) {
     case 'img':
       return true;
@@ -92,13 +80,8 @@ export function isHashedAsset(
       return true;
     case 'script':
       return true;
-    case 'link': {
-      if (extractAssets === 'legacy-html' || extractAssets === 'legacy-html-and-css') {
-        return legacyHashedLinkRels.includes(getAttribute(node, 'rel') ?? '');
-      } else {
-        return true;
-      }
-    }
+    case 'link':
+      return hashedLinkRels.includes(getAttribute(node, 'rel')!);
     case 'meta':
       return true;
     default:
@@ -160,7 +143,7 @@ export function getSourcePaths(node: Element) {
   return paths;
 }
 
-export function findAssets(document: Document) {
+export function findAssets(document: Document): Element[] {
   return findElements(document, isAsset);
 }
 
