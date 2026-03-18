@@ -1,5 +1,5 @@
-import { Server } from 'net';
-import WebSocket from 'ws';
+import type { Server } from 'net';
+import WebSocket, { WebSocketServer } from 'ws';
 import { EventEmitter } from './EventEmitter.ts';
 
 export const NAME_WEB_SOCKET_IMPORT = '/__web-dev-server__web-socket.js';
@@ -17,13 +17,13 @@ export interface Events {
  */
 export class WebSocketsManager extends EventEmitter<Events> {
   public webSocketImport = NAME_WEB_SOCKET_IMPORT;
-  public webSocketServer: WebSocket.Server;
+  public webSocketServer: WebSocketServer;
   private openSockets = new Set<WebSocket>();
 
   constructor(server: Server) {
     super();
 
-    this.webSocketServer = new WebSocket.Server({
+    this.webSocketServer = new WebSocketServer({
       noServer: true,
       path: `/${NAME_WEB_SOCKET_API}`,
     });
