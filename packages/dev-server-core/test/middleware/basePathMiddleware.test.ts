@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
-import { DevServer } from '../../src/server/DevServer.ts';
-import { createTestServer } from '../helpers.ts';
+import { DevServer } from '../../src/server/DevServer.js';
+import { createTestServer } from '../helpers.js';
 
 describe('base path middleware', () => {
   describe('without a trailing /', () => {

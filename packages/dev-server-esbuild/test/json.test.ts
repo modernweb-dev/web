@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index.ts';
+import { esbuildPlugin } from '../src/index.js';
 
 describe('esbuildPlugin JSON', function () {
   it('transforms .json files', async () => {

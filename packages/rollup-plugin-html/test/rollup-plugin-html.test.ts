@@ -1,8 +1,8 @@
 import { rollup, OutputChunk, OutputOptions, Plugin } from 'rollup';
 import { expect } from 'chai';
 import path from 'path';
-import { rollupPluginHTML } from '../src/index.ts';
-import { html, css, js, svg, generateTestBundle, createApp, cleanApp } from './utils.ts';
+import { rollupPluginHTML } from '../src/index.js';
+import { html, css, js, svg, generateTestBundle, createApp, cleanApp } from './utils.js';
 
 const outputConfig: OutputOptions = {
   format: 'es',

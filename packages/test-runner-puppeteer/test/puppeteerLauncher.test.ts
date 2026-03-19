@@ -1,5 +1,5 @@
-import { runIntegrationTests } from '../../../integration/test-runner/index.ts';
-import { puppeteerLauncher } from '../src/index.ts';
+import { runIntegrationTests } from '../../../integration/test-runner/index.js';
+import { puppeteerLauncher } from '../src/index.js';
 
 describe('test-runner-puppeteer', function testRunnerPuppeteer() {
   this.timeout(20000);

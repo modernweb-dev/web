@@ -4,8 +4,8 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { webdriverLauncher } from '@web/test-runner-webdriver';
 import { playwrightLauncher } from '@web/test-runner-playwright';
-import { sendMousePlugin } from '../../src/sendMousePlugin.ts';
-import { startSeleniumServer } from '../selenium-server.ts';
+import { sendMousePlugin } from '../../src/sendMousePlugin.js';
+import { startSeleniumServer } from '../selenium-server.js';
 
 describe('sendMousePlugin', function test() {
   this.timeout(50000);
