@@ -1,6 +1,6 @@
 import path from 'path';
 import selenium from 'selenium-standalone';
-import { runTests } from '@web/test-runner-core/test-helpers.js';
+import { runTests } from '@web/test-runner-core/test-helpers.ts';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { webdriverLauncher } from '@web/test-runner-webdriver';
 import { playwrightLauncher } from '@web/test-runner-playwright';
