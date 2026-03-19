@@ -27,8 +27,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\",\"rewriteRelativeImportExtensions\":false}' mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot",
-    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\",\"rewriteRelativeImportExtensions\":false}' mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch"
+    "test:node": "TS_NODE_SKIP_PROJECT=true TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"target\":\"ES2020\"}' mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot",
+    "test:watch": "TS_NODE_SKIP_PROJECT=true TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"target\":\"ES2020\"}' mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch"
   },
   "files": [
     "*.d.ts",
