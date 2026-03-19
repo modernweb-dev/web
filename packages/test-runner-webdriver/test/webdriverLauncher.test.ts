@@ -1,6 +1,6 @@
 import selenium from 'selenium-standalone';
-import { runIntegrationTests } from '../../../integration/test-runner';
-import { webdriverLauncher } from '../src/webdriverLauncher';
+import { runIntegrationTests } from '../../../integration/test-runner.ts';
+import { webdriverLauncher } from '../src/webdriverLauncher.ts';
 
 async function startSeleniumServer() {
   let server;

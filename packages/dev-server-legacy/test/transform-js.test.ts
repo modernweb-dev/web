@@ -1,6 +1,7 @@
-import { expect } from 'chai';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { createTestServer } from '@web/dev-server-core/test-helpers.ts';
+import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.ts';
 
 import { legacyPlugin } from '../src/legacyPlugin.js';
 import { modernUserAgents, legacyUserAgents } from './userAgents.js';

@@ -1,8 +1,8 @@
 import path from 'path';
-import { runTests } from '@web/test-runner-core/test-helpers';
-import { playwrightLauncher } from '@web/test-runner-playwright';
+import { runTests } from '@web/test-runner-core/test-helpers.ts';
+import { playwrightLauncher } from '@web/test-runner-playwright.ts';
 
-import { snapshotPlugin } from '../../src/snapshotPlugin.js';
+import { snapshotPlugin } from '../../dist/snapshotPlugin.ts';
 
 describe('snapshotPlugin', function test() {
   this.timeout(20000);

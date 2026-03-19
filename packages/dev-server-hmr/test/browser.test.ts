@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import { stubMethod } from 'hanbi';
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
-import { Browser, HTTPResponse, launch as launchPuppeteer, Page } from 'puppeteer';
+import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers.ts';
+import type { Browser, HTTPResponse, Page } from 'puppeteer';
+import { launch as launchPuppeteer } from 'puppeteer';
 import { posix as pathUtil } from 'path';
 
 import { hmrPlugin } from '../src/index.js';
