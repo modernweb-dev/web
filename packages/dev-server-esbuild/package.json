@@ -28,8 +28,8 @@
     "build": "tsc",
     "start:demo:jsx": "es-dev-server --config demo/jsx/server.config.js",
     "start:demo:ts": "es-dev-server --config demo/ts/server.config.js",
-    "test:node": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
-    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
+    "test:node": "TS_NODE_TRANSPILE_ONLY=true mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
+    "test:watch": "TS_NODE_TRANSPILE_ONLY=true mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",

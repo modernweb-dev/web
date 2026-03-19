@@ -11,7 +11,7 @@ interface EventMap {
 }
 
 export class DynamicTerminal extends EventEmitter<EventMap> {
-  private originalFunctions: Partial<Console> = {};
+  private originalFunctions: Record<string, any> = {};
   private previousDynamic: string[] = [];
   private started = false;
   private bufferedConsole = new BufferedConsole();
@@ -112,7 +112,7 @@ export class DynamicTerminal extends EventEmitter<EventMap> {
       if (typeof console[key] === 'function') {
         this.originalFunctions[key] = console[key] as any;
 
-        console[key] = new Proxy(console[key], {
+        (console as any)[key] = new Proxy(console[key], {
           apply: (target, thisArg, argArray) => {
             (this.bufferedConsole.console[key] as any)(...argArray);
             if (this.pendingConsoleFlush) {

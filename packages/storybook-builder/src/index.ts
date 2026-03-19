@@ -15,8 +15,8 @@ import { rollupPluginHTML } from '@web/rollup-plugin-html';
 import { cp } from 'node:fs/promises';
 import { join, parse, resolve } from 'node:path';
 import { OutputOptions, RollupBuild, RollupOptions, rollup } from 'rollup';
-import * as _rollupPluginExternalGlobals from 'rollup-plugin-external-globals';
-const rollupPluginExternalGlobals = (_rollupPluginExternalGlobals as any).default ?? _rollupPluginExternalGlobals;
+// @ts-ignore CJS module with export= syntax
+import rollupPluginExternalGlobals from 'rollup-plugin-external-globals';
 import sirv from 'sirv';
 import { generateIframeHtml } from './generate-iframe-html.ts';
 import { getNodeModuleDir } from './get-node-module-dir.ts';
