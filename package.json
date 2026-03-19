@@ -10,7 +10,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "build": "node scripts/fix-jridgewell-dcts.js && rm -rf packages/dev-server-core/node_modules/@types/koa packages/dev-server-core/node_modules/@types/ws packages/dev-server-core/node_modules/ws && npm run build:clean && tsc --build",
+    "build": "node scripts/fix-jridgewell-dcts.js && rm -rf packages/dev-server-core/node_modules/@types/koa packages/dev-server-core/node_modules/@types/ws && npm run build:clean && tsc --build",
     "build:clean": "rimraf --glob packages/*/tsconfig.tsbuildinfo && rimraf --glob packages/*/dist",
     "build:production": "node scripts/workspaces-scripts-bin.mjs build:production",
     "build:site": "npm run build && rocket build",
