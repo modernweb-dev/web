@@ -6,6 +6,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "rewriteRelativeImportExtensions": false,
+    "strict": false,
     "skipLibCheck": true,
     "outDir": "./dist",
     "rootDir": "./src",
