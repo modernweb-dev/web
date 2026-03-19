@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import path from 'path';
-import { cleanApp, createApp, html, js } from '../../utils.ts';
+import { cleanApp, createApp, html, js } from '../../utils.js';
 
-import { getInputData } from '../../../src/input/getInputData.ts';
-import { InputData } from '../../../src/input/InputData.ts';
+import { getInputData } from '../../../src/input/getInputData.js';
+import { InputData } from '../../../src/input/InputData.js';
 
 function cleanupHtml(str: string) {
   return str.replace(/(\r\n|\n|\r| )/gm, '');

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { createPolyfillsLoaderConfig } from '../../src/createPolyfillsLoaderConfig.ts';
+import { createPolyfillsLoaderConfig } from '../../src/createPolyfillsLoaderConfig.js';
 
 describe('createPolyfillsLoaderConfig()', () => {
   it('creates a config for a single module build', () => {

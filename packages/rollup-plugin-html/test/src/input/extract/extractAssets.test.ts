@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import { parse } from 'parse5';
 import path from 'path';
-import { extractAssets } from '../../../../src/input/extract/extractAssets.ts';
-import { html, css, js, svg, createApp, cleanApp } from '../../../utils.ts';
+import { extractAssets } from '../../../../src/input/extract/extractAssets.js';
+import { html, css, js, svg, createApp, cleanApp } from '../../../utils.js';
 
 describe('extractAssets', () => {
   afterEach(() => {
