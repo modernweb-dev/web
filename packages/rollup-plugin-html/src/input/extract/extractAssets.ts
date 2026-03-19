@@ -8,7 +8,7 @@ import {
   isHashedAsset,
   resolveAssetFilePath,
   createAssetPicomatchMatcher,
-} from '../../assets/utils.ts';
+} from '../../assets/utils.js';
 
 export interface ExtractAssetsParams {
   document: Document;

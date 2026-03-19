@@ -1,4 +1,11 @@
 {
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "rewriteRelativeImportExtensions": false
+    }
+  },
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
     "moduleResolution": "node16",

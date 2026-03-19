@@ -19,5 +19,12 @@
   "exclude": [
     "dist",
     "demo"
-  ]
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "rewriteRelativeImportExtensions": false
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { Attribute } from 'parse5';
+import type { Attribute } from 'parse5';
 import path from 'path';
 import type { OutputAsset, OutputChunk } from 'rollup';
 
