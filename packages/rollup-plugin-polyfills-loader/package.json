@@ -25,9 +25,9 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "test:node": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:update-snapshots": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha test/**/*.test.ts --require ts-node/register --update-snapshots",
-    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+    "test:node": "TS_NODE_TRANSPILE_ONLY=true mocha test/**/*.test.ts --loader ts-node/esm --reporter dot",
+    "test:update-snapshots": "TS_NODE_TRANSPILE_ONLY=true mocha test/**/*.test.ts --loader ts-node/esm --update-snapshots",
+    "test:watch": "TS_NODE_TRANSPILE_ONLY=true mocha test/**/*.test.ts --loader ts-node/esm --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",

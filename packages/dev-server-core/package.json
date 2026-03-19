@@ -38,8 +38,8 @@
     "start:event-stream": "node demo/event-stream/start-server.js",
     "start:http2": "node demo/http2/start-server.js",
     "start:import-asset": "node demo/import-asset/start-server.js",
-    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --exit --reporter dot",
-    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch --watch-files src,test"
+    "test": "TS_NODE_TRANSPILE_ONLY=true mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --loader ts-node/esm --exit --reporter dot",
+    "test:watch": "TS_NODE_TRANSPILE_ONLY=true mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --loader ts-node/esm --watch --watch-files src,test"
   },
   "files": [
     ".self-signed-dev-server-ssl.cert",
