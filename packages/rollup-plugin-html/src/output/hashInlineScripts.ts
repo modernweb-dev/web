@@ -126,7 +126,7 @@ function injectCSPMetaTag(document: Document, hashes: string[]) {
     'http-equiv': 'Content-Security-Policy',
     content: `script-src 'self' ${hashes.join(' ')};`,
   });
-  const head = findNode(document, node => (node as any).nodeName === 'head');
+  const head = findNode(document, node => node.nodeName === 'head');
   if (head) {
     prepend(head as ParentNode, metaTag);
   }
@@ -137,8 +137,8 @@ export function hashInlineScripts(document: Document) {
   const inlineScripts = findElements(document, isInlineScript);
   const hashes: string[] = [];
   inlineScripts.forEach(node => {
-    if ((node as any).childNodes[0]) {
-      const scriptContent = getTextContent((node as any).childNodes[0]);
+    if (node.childNodes[0]) {
+      const scriptContent = getTextContent(node.childNodes[0]);
       const hash = crypto.createHash('sha256').update(scriptContent).digest('base64');
       hashes.push(`'sha256-${hash}'`);
     }

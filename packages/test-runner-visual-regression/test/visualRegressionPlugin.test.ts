@@ -1,10 +1,10 @@
 import path from 'path';
-import { runTests } from '@web/test-runner-core/test-helpers.ts';
-import { chromeLauncher } from '@web/test-runner-chrome.ts';
+import { runTests } from '@web/test-runner-core/test-helpers.js';
+import { chromeLauncher } from '@web/test-runner-chrome.js';
 
 import { visualRegressionPlugin } from '../src/visualRegressionPlugin.ts';
 import { fileExists } from '../src/fs.ts';
-import { playwrightLauncher } from '@web/test-runner-playwright.ts';
+import { playwrightLauncher } from '@web/test-runner-playwright.js';
 
 describe('visualRegressionPlugin', function test() {
   this.timeout(20000);

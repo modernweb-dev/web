@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { fileTypes } from '@web/polyfills-loader.ts';
+import { fileTypes } from '@web/polyfills-loader.js';
 import { shouldInjectLoader } from '../../src/utils.ts';
 
 describe('shouldInjectLoader', () => {

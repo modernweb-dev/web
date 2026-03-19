@@ -1,6 +1,6 @@
 import path from 'path';
-import { runTests } from '@web/test-runner-core/test-helpers.ts';
-import { playwrightLauncher } from '@web/test-runner-playwright.ts';
+import { runTests } from '@web/test-runner-core/test-helpers.js';
+import { playwrightLauncher } from '@web/test-runner-playwright.js';
 
 import { snapshotPlugin } from '../../dist/snapshotPlugin.ts';
 

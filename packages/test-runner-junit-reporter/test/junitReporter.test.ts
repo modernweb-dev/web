@@ -3,9 +3,9 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import globby from 'globby';
 
-import { chromeLauncher } from '@web/test-runner-chrome.ts';
-import type { TestRunnerCoreConfig } from '@web/test-runner-core.ts';
-import { runTests } from '@web/test-runner-core/test-helpers.ts';
+import { chromeLauncher } from '@web/test-runner-chrome.js';
+import type { TestRunnerCoreConfig } from '@web/test-runner-core.js';
+import { runTests } from '@web/test-runner-core/test-helpers.js';
 import { junitReporter } from '../src/junitReporter.ts';
 
 const __dirname = import.meta.dirname;

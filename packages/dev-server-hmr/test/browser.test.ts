@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { stubMethod } from 'hanbi';
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers.ts';
+import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers.js';
 import type { Browser, HTTPResponse, Page } from 'puppeteer';
 import { launch as launchPuppeteer } from 'puppeteer';
 import { posix as pathUtil } from 'path';

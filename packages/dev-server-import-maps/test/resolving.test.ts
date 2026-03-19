@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers.ts';
-import { createTestServer } from '@web/dev-server-core/test-helpers.ts';
+import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers.js';
+import { createTestServer } from '@web/dev-server-core/test-helpers.js';
 import { spy } from 'hanbi';
 import path from 'path';
 

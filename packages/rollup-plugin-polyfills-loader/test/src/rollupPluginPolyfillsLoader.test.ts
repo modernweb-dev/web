@@ -3,7 +3,7 @@ import { OutputChunk, rollup, OutputAsset, RollupOptions, OutputOptions } from '
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { rollupPluginHTML as html } from '@web/rollup-plugin-html.ts';
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html.js';
 import polyfillsLoader from '../../src/index.ts';
 
 type Output = (OutputChunk | OutputAsset)[];

@@ -1,8 +1,8 @@
 import path from 'path';
-import { createTestServer } from '@web/dev-server-core/test-helpers.ts';
-import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.ts';
+import { createTestServer } from '@web/dev-server-core/test-helpers.js';
+import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.js';
 import type { Plugin as RollupPlugin } from 'rollup';
-import { fromRollup } from '@web/dev-server-rollup.ts';
+import { fromRollup } from '@web/dev-server-rollup.js';
 
 import { esbuildPlugin } from '../src/index.js';
 

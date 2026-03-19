@@ -1,8 +1,8 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { runTests } from '@web/test-runner-core/test-helpers.ts';
-import { chromeLauncher } from '@web/test-runner-chrome.ts';
-import { nodeResolvePlugin } from '@web/dev-server.ts';
+import { runTests } from '@web/test-runner-core/test-helpers.js';
+import { chromeLauncher } from '@web/test-runner-chrome.js';
+import { nodeResolvePlugin } from '@web/dev-server.js';
 
 import { moduleMockingPlugin } from '../dist/moduleMockingPlugin.ts';
 

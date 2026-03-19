@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
-import { createTestServer } from '@web/dev-server-core/test-helpers.ts';
-import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.ts';
+import { createTestServer } from '@web/dev-server-core/test-helpers.js';
+import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.js';
 
 import { esbuildPlugin } from '../src/index.js';
 
