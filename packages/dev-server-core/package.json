@@ -27,6 +27,10 @@
     "./test-helpers": {
       "types": "./test-helpers.d.ts",
       "default": "./dist/test-helpers.js"
+    },
+    "./test-helpers.js": {
+      "types": "./test-helpers.d.ts",
+      "default": "./dist/test-helpers.js"
     }
   },
   "engines": {

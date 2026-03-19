@@ -1,9 +1,9 @@
 import path from 'path';
 import selenium from 'selenium-standalone';
 import { runTests } from '@web/test-runner-core/test-helpers.js';
-import { chromeLauncher } from '@web/test-runner-chrome.js';
-import { webdriverLauncher } from '@web/test-runner-webdriver.js';
-import { playwrightLauncher } from '@web/test-runner-playwright.js';
+import { chromeLauncher } from '@web/test-runner-chrome';
+import { webdriverLauncher } from '@web/test-runner-webdriver';
+import { playwrightLauncher } from '@web/test-runner-playwright';
 import { sendMousePlugin } from '../../dist/sendMousePlugin.ts';
 import { startSeleniumServer } from '../selenium-server.ts';
 

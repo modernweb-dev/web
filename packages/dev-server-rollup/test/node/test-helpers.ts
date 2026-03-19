@@ -5,7 +5,7 @@ import {
   fetchText,
   expectIncludes,
 } from '@web/dev-server-core/test-helpers';
-import type { DevServerCoreConfig, Logger } from '@web/dev-server-core.js';
+import type { DevServerCoreConfig, Logger } from '@web/dev-server-core';
 
 const __dirname = import.meta.dirname;
 
