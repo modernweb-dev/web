@@ -1,13 +1,7 @@
 import { describe, it, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { stubMethod } from 'hanbi';
-<<<<<<< HEAD
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers.js';
-||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers.ts';
-=======
 import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
->>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import type { Browser, HTTPResponse, Page } from 'puppeteer';
 import { launch as launchPuppeteer } from 'puppeteer';
 import { posix as pathUtil } from 'path';

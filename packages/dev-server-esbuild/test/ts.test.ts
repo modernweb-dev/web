@@ -1,24 +1,10 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
-<<<<<<< HEAD
-import { createTestServer } from '@web/dev-server-core/test-helpers.js';
-import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.js';
-||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer } from '@web/dev-server-core/test-helpers.ts';
-import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.ts';
-=======
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
->>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import type { Plugin as RollupPlugin } from 'rollup';
-<<<<<<< HEAD
-import { fromRollup } from '@web/dev-server-rollup.js';
-||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { fromRollup } from '@web/dev-server-rollup.ts';
-=======
 import { fromRollup } from '@web/dev-server-rollup';
->>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 import { esbuildPlugin } from '../src/index.ts';
 

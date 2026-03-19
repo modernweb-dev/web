@@ -5,12 +5,12 @@ import portfinder from 'portfinder';
 import path from 'path';
 const __dirname = import.meta.dirname;
 
-import { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher.js';
-import { TestRunnerCoreConfig } from '../../../src/config/TestRunnerCoreConfig.js';
-import { TestRunner } from '../../../src/runner/TestRunner.js';
-import { Logger } from '../../../src/logger/Logger.js';
-import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus.js';
-import { TestRunnerGroupConfig } from '../../../src/index.js';
+import { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher.ts';
+import { TestRunnerCoreConfig } from '../../../src/config/TestRunnerCoreConfig.ts';
+import { TestRunner } from '../../../src/runner/TestRunner.ts';
+import { Logger } from '../../../src/logger/Logger.ts';
+import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus.ts';
+import { TestRunnerGroupConfig } from '../../../src/index.ts';
 
 interface BrowserStubs {
   stop: hanbi.Stub<Exclude<BrowserLauncher['stop'], undefined>>;

@@ -647,15 +647,15 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
 <<<<<<< HEAD:packages/rollup-plugin-html/test/src/input/InputData.test.ts
-import { cleanApp, createApp, html, js } from '../../utils.js';
+import { cleanApp, createApp, html, js } from '../../utils.ts';
 ||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/src/input/InputData.test.ts
 import { cleanApp, createApp, html, js } from '../../utils.ts';
 =======
 >>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/input/InputData.test.ts
 
 <<<<<<< HEAD:packages/rollup-plugin-html/test/src/input/InputData.test.ts
-import { getInputData } from '../../../src/input/getInputData.js';
-import { InputData } from '../../../src/input/InputData.js';
+import { getInputData } from '../../../src/input/getInputData.ts';
+import { InputData } from '../../../src/input/InputData.ts';
 ||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/src/input/InputData.test.ts
 import { getInputData } from '../../../src/input/getInputData.ts';
 import { InputData } from '../../../src/input/InputData.ts';

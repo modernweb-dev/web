@@ -375,7 +375,7 @@ import {
   createImportPath,
 <<<<<<< HEAD:packages/rollup-plugin-html/test/src/output/getEntrypointBundles.test.ts
 } from '../../../src/output/getEntrypointBundles.js';
-import { GeneratedBundle, ScriptModuleTag } from '../../../src/RollupPluginHTMLOptions.js';
+import { GeneratedBundle, ScriptModuleTag } from '../../../src/RollupPluginHTMLOptions.ts';
 ||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/src/output/getEntrypointBundles.test.ts
 } from '../../../src/output/getEntrypointBundles.ts';
 import { GeneratedBundle, ScriptModuleTag } from '../../../src/RollupPluginHTMLOptions.ts';
