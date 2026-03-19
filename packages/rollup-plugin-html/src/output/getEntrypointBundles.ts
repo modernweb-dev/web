@@ -1,5 +1,4 @@
-import type { Token } from 'parse5';
-type Attribute = Token.Attribute;
+import type { Attribute } from 'parse5';
 import path from 'path';
 import type { OutputChunk } from 'rollup';
 

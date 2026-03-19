@@ -1,7 +1,4 @@
-import type { DefaultTreeAdapterTypes } from 'parse5';
-type Document = DefaultTreeAdapterTypes.Document;
-type Element = DefaultTreeAdapterTypes.Element;
-type ParentNode = DefaultTreeAdapterTypes.ParentNode;
+import { Document, Element, ParentNode } from 'parse5';
 import {
   findElement,
   findElements,
