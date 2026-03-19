@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
+import path from 'path';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes } from '@web/dev-server-core/test-helpers';
 

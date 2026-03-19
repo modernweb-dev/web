@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import browserCompatData from '@mdn/browser-compat-data';
+import browserCompatData from '@mdn/browser-compat-data.ts';
 const { browsers } = browserCompatData;
 import { isLatestModernBrowser, getLatestStableMajor } from '../src/browser-targets.ts';
 
