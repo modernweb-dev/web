@@ -1,6 +1,5 @@
 import { getAttribute, setAttribute } from '@web/parse5-utils';
-import type { DefaultTreeAdapterTypes } from 'parse5';
-type Document = DefaultTreeAdapterTypes.Document;
+import { Document } from 'parse5';
 import path from 'path';
 
 import {
@@ -10,10 +9,10 @@ import {
   isHashedAsset,
   resolveAssetFilePath,
   createAssetPicomatchMatcher,
-} from '../assets/utils.ts';
-import type { InputData } from '../input/InputData.ts';
+} from '../assets/utils.js';
+import { InputData } from '../input/InputData.ts';
 import { createError } from '../utils.ts';
-import type { EmittedAssets } from './emitAssets.ts';
+import { EmittedAssets } from './emitAssets.ts';
 import { toBrowserPath } from './utils.ts';
 
 export interface InjectUpdatedAssetPathsArgs {
@@ -22,6 +21,7 @@ export interface InjectUpdatedAssetPathsArgs {
   outputDir: string;
   rootDir: string;
   emittedAssets: EmittedAssets;
+  extractAssets?: boolean | 'legacy-html' | 'legacy-html-and-css';
   externalAssets?: string | string[];
   publicPath?: string;
   absolutePathPrefix?: string;
@@ -45,6 +45,7 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
     outputDir,
     rootDir,
     emittedAssets,
+    extractAssets = true,
     externalAssets,
     publicPath = './',
     absolutePathPrefix,
@@ -60,7 +61,9 @@ export function injectedUpdatedAssetPaths(args: InjectUpdatedAssetPathsArgs) {
       const htmlFilePath = input.filePath ? input.filePath : path.join(rootDir, input.name);
       const htmlDir = path.dirname(htmlFilePath);
       const filePath = resolveAssetFilePath(sourcePath, htmlDir, rootDir, absolutePathPrefix);
-      const assetPaths = isHashedAsset(node) ? emittedAssets.hashed : emittedAssets.static;
+      const assetPaths = isHashedAsset(node, extractAssets)
+        ? emittedAssets.hashed
+        : emittedAssets.static;
       const relativeOutputPath = assetPaths.get(filePath);
 
       if (!relativeOutputPath) {

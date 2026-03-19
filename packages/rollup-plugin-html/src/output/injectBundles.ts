@@ -1,12 +1,10 @@
-import type { DefaultTreeAdapterTypes, Token } from 'parse5';
-type Document = DefaultTreeAdapterTypes.Document;
-type Attribute = Token.Attribute;
+import { Document, Attribute } from 'parse5';
 import { createScript, findElement, getTagName, appendChild } from '@web/parse5-utils';
 
-import type { EntrypointBundle } from '../RollupPluginHTMLOptions.ts';
+import { EntrypointBundle } from '../RollupPluginHTMLOptions.ts';
 import { createError } from '../utils.ts';
 
-export function createLoadScript(src: string, format: string, attributes?: Attribute[]): DefaultTreeAdapterTypes.Element {
+export function createLoadScript(src: string, format: string, attributes?: Attribute[]) {
   const attributesObject: Record<string, string> = {};
   if (attributes) {
     for (const attribute of attributes) {
