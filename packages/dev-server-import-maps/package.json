@@ -26,9 +26,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "TS_NODE_SKIP_PROJECT=true TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"target\":\"ES2020\"}' mocha \"test/**/*.test.ts\" --require ts-node/register",
+    "test": "mocha \"test/**/*.test.ts\" --require ts-node/register",
     "test:browser": "node ../test-runner/dist/bin.js test-browser/test/**/*.test.{js,html} --config test-browser/web-test-runner.config.mjs",
-    "test:watch": "TS_NODE_SKIP_PROJECT=true TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"target\":\"ES2020\"}' mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
+    "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
