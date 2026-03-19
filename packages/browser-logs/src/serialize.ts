@@ -103,7 +103,7 @@ function createReplacer() {
     }
 
     if (type === 'symbol') {
-      return (value as Symbol).toString();
+      return (value as symbol).toString();
     }
 
     if (type === 'object') {

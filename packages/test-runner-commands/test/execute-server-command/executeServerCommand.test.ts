@@ -1,7 +1,7 @@
 import path from 'path';
 import { runTests } from '@web/test-runner-core/test-helpers.js';
-import { chromeLauncher } from '@web/test-runner-chrome.js';
-import { Logger } from '@web/dev-server-core.js';
+import { chromeLauncher } from '@web/test-runner-chrome';
+import { Logger } from '@web/dev-server-core';
 
 describe('executeServerCommand', function test() {
   this.timeout(20000);

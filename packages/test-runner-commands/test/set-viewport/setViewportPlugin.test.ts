@@ -1,8 +1,8 @@
 import path from 'path';
 
 import { runTests } from '@web/test-runner-core/test-helpers.js';
-import { chromeLauncher } from '@web/test-runner-chrome.js';
-import { playwrightLauncher } from '@web/test-runner-playwright.js';
+import { chromeLauncher } from '@web/test-runner-chrome';
+import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { setViewportPlugin } from '../../dist/setViewportPlugin.ts';
 
