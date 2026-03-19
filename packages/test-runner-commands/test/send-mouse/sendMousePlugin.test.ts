@@ -2,9 +2,9 @@ import { describe, it, before, after } from 'node:test';
 import path from 'path';
 import selenium from 'selenium-standalone';
 import { runTests } from '@web/test-runner-core/test-helpers.ts';
-import { chromeLauncher } from '@web/test-runner-chrome.ts';
-import { webdriverLauncher } from '@web/test-runner-webdriver.ts';
-import { playwrightLauncher } from '@web/test-runner-playwright.ts';
+import { chromeLauncher } from '@web/test-runner-chrome';
+import { webdriverLauncher } from '@web/test-runner-webdriver';
+import { playwrightLauncher } from '@web/test-runner-playwright';
 import { sendMousePlugin } from '../../dist/sendMousePlugin.ts';
 import { startSeleniumServer } from '../selenium-server.ts';
 

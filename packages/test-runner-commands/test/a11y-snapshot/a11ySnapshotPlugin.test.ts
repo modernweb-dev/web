@@ -4,7 +4,7 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
-import { a11ySnapshotPlugin } from '../../dist/a11ySnapshotPlugin.js';
+import { a11ySnapshotPlugin } from '../../dist/a11ySnapshotPlugin.ts';
 
 const __dirname = import.meta.dirname;
 
