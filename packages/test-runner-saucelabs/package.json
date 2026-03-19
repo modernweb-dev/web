@@ -26,8 +26,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "TS_NODE_TRANSPILE_ONLY=true mocha test-remote/**/*.test.ts --loader ts-node/esm --reporter dot",
-    "test:watch": "TS_NODE_TRANSPILE_ONLY=true mocha test-remote/**/*.test.ts --loader ts-node/esm --watch --watch-files src,test"
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\",\"rewriteRelativeImportExtensions\":false}' mocha test-remote/**/*.test.ts --require ts-node/register --reporter dot",
+    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\",\"rewriteRelativeImportExtensions\":false}' mocha test-remote/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
