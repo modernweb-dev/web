@@ -1,13 +1,13 @@
 import { describe, it } from 'node:test';
 import rollupCommonjs from '@rollup/plugin-commonjs.ts';
-import { runTests } from '@web/test-runner-core/test-helpers.ts';
+import { runTests } from '@web/test-runner-core/test-helpers.js';
 import { resolve } from 'path';
-import { chromeLauncher } from '@web/test-runner-chrome.ts';
+import { chromeLauncher } from '@web/test-runner-chrome.js';
 
 import * as path from 'path';
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../src/index.ts';
-import { nodeResolvePlugin } from '@web/dev-server.ts';
+import { nodeResolvePlugin } from '@web/dev-server.js';
 
 const commonjs = fromRollup(rollupCommonjs);
 

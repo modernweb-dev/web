@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { stubMethod, restore as restoreStubs } from 'hanbi';
-import { createTestServer, fetchText, expectIncludes } from '@web/dev-server-core/test-helpers.ts';
+import { createTestServer, fetchText, expectIncludes } from '@web/dev-server-core/test-helpers.js';
 import { posix as pathUtil } from 'path';
 
 import { hmrPlugin } from '../src/index.js';

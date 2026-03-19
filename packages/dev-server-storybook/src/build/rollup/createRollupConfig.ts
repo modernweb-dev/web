@@ -1,4 +1,4 @@
-import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 import { Plugin, RollupOptions, RollupLog } from 'rollup';
 
 import { nodeResolve as resolve } from '@rollup/plugin-node-resolve';
@@ -11,10 +11,9 @@ import { mdxPlugin } from './mdxPlugin.ts';
 import { mdjsPlugin } from './mdjsPlugin.ts';
 import { injectExportsOrderPlugin } from './injectExportsOrderPlugin.ts';
 
-const require = createRequire(import.meta.url);
+const resolveFile = (specifier: string) => fileURLToPath(import.meta.resolve(specifier));
 
-const prebuiltDir = require
-  .resolve('@web/storybook-prebuilt/package.json')
+const prebuiltDir = resolveFile('@web/storybook-prebuilt/package.json')
   .replace('/package.json', '');
 
 const ignoredWarnings = ['EVAL', 'THIS_IS_UNDEFINED'];
@@ -62,7 +61,7 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
         inputSourceMap: false,
         presets: [
           [
-            require.resolve('@babel/preset-env'),
+            resolveFile('@babel/preset-env'),
             {
               targets: [
                 'last 3 Chrome major versions',
@@ -81,9 +80,9 @@ export function createRollupConfig(params: CreateRollupConfigParams): RollupOpti
           ],
         ],
         plugins: [
-          [require.resolve('babel-plugin-bundled-import-meta'), { importStyle: 'baseURI' }],
+          [resolveFile('babel-plugin-bundled-import-meta'), { importStyle: 'baseURI' }],
           [
-            require.resolve('babel-plugin-template-html-minifier'),
+            resolveFile('babel-plugin-template-html-minifier'),
             {
               modules: {
                 // this is web component specific, but has no effect on other project styles

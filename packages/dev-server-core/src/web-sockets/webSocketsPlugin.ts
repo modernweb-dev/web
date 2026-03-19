@@ -1,4 +1,4 @@
-import { Plugin } from '../plugins/Plugin.ts';
+import type { Plugin } from '../plugins/Plugin.ts';
 import { NAME_WEB_SOCKET_IMPORT, NAME_WEB_SOCKET_API } from './WebSocketsManager.ts';
 import { appendToDocument, isHtmlFragment } from '@web/parse5-utils';
 

@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import path from 'path';
-import { Context } from 'koa';
+import type { Context } from 'koa';
 // @ts-ignore
-import { parse, ParsedImport } from 'es-module-lexer';
+import { parse } from 'es-module-lexer';
 
 import { queryAll, predicates, getTextContent, setTextContent } from '../dom5/index.ts';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
-import { Plugin } from './Plugin.ts';
+import type { Plugin } from './Plugin.ts';
 import { PluginSyntaxError } from '../logger/PluginSyntaxError.ts';
 import { toFilePath } from '../utils.ts';
-import { Logger } from '../logger/Logger.ts';
+import type { Logger } from '../logger/Logger.ts';
 import { parseDynamicImport } from './parseDynamicImport.ts';
 
 export type ResolveImport = (

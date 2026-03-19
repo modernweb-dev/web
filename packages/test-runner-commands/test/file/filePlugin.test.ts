@@ -1,6 +1,6 @@
 import path from 'path';
-import { runTests } from '@web/test-runner-core/test-helpers.ts';
-import { chromeLauncher } from '@web/test-runner-chrome.ts';
+import { runTests } from '@web/test-runner-core/test-helpers.js';
+import { chromeLauncher } from '@web/test-runner-chrome.js';
 
 import { filePlugin } from '../../dist/filePlugin.ts';
 

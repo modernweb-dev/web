@@ -1,8 +1,8 @@
 import type { Attribute } from 'parse5';
 import path from 'path';
-import type { OutputAsset, OutputChunk } from 'rollup';
+import type { OutputChunk } from 'rollup';
 
-import {
+import type {
   EntrypointBundle,
   GeneratedBundle,
   RollupPluginHTMLOptions,
@@ -63,7 +63,7 @@ export function getEntrypointBundles(params: GetEntrypointBundlesParams) {
     }
 
     const entrypoints: Entrypoint[] = [];
-    for (const chunkOrAsset of Object.values(bundle) as (OutputAsset | OutputChunk)[]) {
+    for (const chunkOrAsset of Object.values(bundle)) {
       if (chunkOrAsset.type === 'chunk') {
         const chunk = chunkOrAsset;
         if (chunk.isEntry && chunk.facadeModuleId !== NOOP_IMPORT.importPath) {

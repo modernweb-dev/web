@@ -1,22 +1,22 @@
-import * as path from 'path';
 import { getEntrypointBundles } from './getEntrypointBundles.ts';
 import { getOutputHTML } from './getOutputHTML.ts';
 import { createError } from '../utils.ts';
-import {
+import type {
   GeneratedBundle,
   RollupPluginHTMLOptions,
   TransformHtmlFunction,
 } from '../RollupPluginHTMLOptions.ts';
-import { EmittedFile } from 'rollup';
-import { InputData } from '../input/InputData.ts';
-import { EmittedAssets } from './emitAssets.ts';
+import type { EmittedFile } from 'rollup';
+import type { InputData } from '../input/InputData.ts';
+import type { EmittedAssets } from './emitAssets.ts';
 
 export interface CreateHTMLAssetParams {
   outputDir: string;
   input: InputData;
   emittedAssets: EmittedAssets;
   generatedBundles: GeneratedBundle[];
-  externalTransformHtmlFns: TransformHtmlFunction[];
+  inputExternalTransformHtmlFns: TransformHtmlFunction[];
+  outputExternalTransformHtmlFns: TransformHtmlFunction[];
   pluginOptions: RollupPluginHTMLOptions;
   defaultInjectDisabled: boolean;
   serviceWorkerPath: string;
@@ -31,7 +31,8 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     input,
     emittedAssets,
     generatedBundles,
-    externalTransformHtmlFns,
+    inputExternalTransformHtmlFns,
+    outputExternalTransformHtmlFns,
     pluginOptions,
     defaultInjectDisabled,
     serviceWorkerPath,
@@ -58,7 +59,8 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     input,
     outputDir,
     emittedAssets,
-    externalTransformHtmlFns,
+    inputExternalTransformHtmlFns,
+    outputExternalTransformHtmlFns,
     defaultInjectDisabled,
     serviceWorkerPath,
     injectServiceWorker,
@@ -66,14 +68,7 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     strictCSPInlineScripts,
   });
 
-  const normalizedInputName = input.name.split(path.sep).join('/');
-
-  return {
-    fileName: normalizedInputName,
-    name: normalizedInputName,
-    source: outputHtml,
-    type: 'asset',
-  };
+  return { fileName: input.name, name: input.name, source: outputHtml, type: 'asset' };
 }
 
 export interface CreateHTMLAssetsParams {
@@ -81,7 +76,8 @@ export interface CreateHTMLAssetsParams {
   inputs: InputData[];
   emittedAssets: EmittedAssets;
   generatedBundles: GeneratedBundle[];
-  externalTransformHtmlFns: TransformHtmlFunction[];
+  inputExternalTransformHtmlFns: TransformHtmlFunction[];
+  outputExternalTransformHtmlFns: TransformHtmlFunction[];
   pluginOptions: RollupPluginHTMLOptions;
   defaultInjectDisabled: boolean;
   serviceWorkerPath: string;
