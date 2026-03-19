@@ -1,6 +1,8 @@
-import { expect } from 'chai';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
+import path from 'path';
+import { createTestServer } from '@web/dev-server-core/test-helpers.ts';
+import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.ts';
 
 import { esbuildPlugin } from '../src/index.js';
 

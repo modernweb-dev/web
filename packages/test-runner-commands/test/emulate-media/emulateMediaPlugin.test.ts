@@ -1,9 +1,9 @@
 import path from 'path';
-import { runTests } from '@web/test-runner-core/test-helpers';
-import { chromeLauncher } from '@web/test-runner-chrome';
-import { playwrightLauncher } from '@web/test-runner-playwright';
+import { runTests } from '@web/test-runner-core/test-helpers.ts';
+import { chromeLauncher } from '@web/test-runner-chrome.ts';
+import { playwrightLauncher } from '@web/test-runner-playwright.ts';
 
-import { emulateMediaPlugin } from '../../src/emulateMediaPlugin.js';
+import { emulateMediaPlugin } from '../../dist/emulateMediaPlugin.ts';
 
 describe('emulateMediaPlugin', function test() {
   this.timeout(20000);

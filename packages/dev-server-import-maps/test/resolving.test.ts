@@ -1,6 +1,7 @@
-import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expect } from 'chai';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers.ts';
+import { createTestServer } from '@web/dev-server-core/test-helpers.ts';
 import { spy } from 'hanbi';
 import path from 'path';
 

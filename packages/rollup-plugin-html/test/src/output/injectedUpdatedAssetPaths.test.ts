@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import path from 'path';
 import { parse, serialize } from 'parse5';
-import { html } from '../../utils.js';
-import { InputData } from '../../../src/input/InputData.js';
+import { html } from '../../utils.ts';
+import { InputData } from '../../../src/input/InputData.ts';
 
-import { injectedUpdatedAssetPaths } from '../../../src/output/injectedUpdatedAssetPaths.js';
+import { injectedUpdatedAssetPaths } from '../../../src/output/injectedUpdatedAssetPaths.ts';
 
 describe('injectedUpdatedAssetPaths()', () => {
   it('injects updated asset paths', () => {

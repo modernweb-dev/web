@@ -1,8 +1,20 @@
 import { expect } from 'chai';
 import path from 'path';
-import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.js';
-import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.js';
-import { html } from '../../utils.js';
+<<<<<<< HEAD:packages/rollup-plugin-html/test/src/output/getOutputHTML.test.ts
+import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.ts';
+import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.ts';
+import { html } from '../../utils.ts';
+||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/src/output/getOutputHTML.test.ts
+import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.ts';
+import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.ts';
+import { html } from '../../utils.ts';
+=======
+import type { GetOutputHTMLParams } from '../../src/output/getOutputHTML.ts';
+import { getOutputHTML } from '../../src/output/getOutputHTML.ts';
+import type { EntrypointBundle } from '../../src/RollupPluginHTMLOptions.ts';
+
+const __dirname = import.meta.dirname;
+>>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/output/getOutputHTML.test.ts
 
 describe('getOutputHTML()', () => {
   const defaultEntrypointBundles: Record<string, EntrypointBundle> = {

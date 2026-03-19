@@ -1,6 +1,6 @@
 import path from 'path';
-import rollupNodeResolve from '@rollup/plugin-node-resolve';
-import rollupCommonjs from '@rollup/plugin-commonjs';
+import rollupNodeResolve from '@rollup/plugin-node-resolve.ts';
+import rollupCommonjs from '@rollup/plugin-commonjs.ts';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
 import { fromRollup } from '../../../src/index.js';

@@ -1,10 +1,10 @@
 import path from 'path';
 
-import { runTests } from '@web/test-runner-core/test-helpers';
-import { chromeLauncher } from '@web/test-runner-chrome';
-import { playwrightLauncher } from '@web/test-runner-playwright';
+import { runTests } from '@web/test-runner-core/test-helpers.ts';
+import { chromeLauncher } from '@web/test-runner-chrome.ts';
+import { playwrightLauncher } from '@web/test-runner-playwright.ts';
 
-import { setViewportPlugin } from '../../src/setViewportPlugin.js';
+import { setViewportPlugin } from '../../dist/setViewportPlugin.ts';
 
 describe('setViewportPlugin', function test() {
   this.timeout(20000);

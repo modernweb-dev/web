@@ -1,9 +1,8 @@
 import path from 'path';
-import { expect } from 'chai';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
-import { Plugin as RollupPlugin } from 'rollup';
-import { fromRollup } from '@web/dev-server-rollup';
+import { createTestServer } from '@web/dev-server-core/test-helpers.ts';
+import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.ts';
+import type { Plugin as RollupPlugin } from 'rollup';
+import { fromRollup } from '@web/dev-server-rollup.ts';
 
 import { esbuildPlugin } from '../src/index.js';
 

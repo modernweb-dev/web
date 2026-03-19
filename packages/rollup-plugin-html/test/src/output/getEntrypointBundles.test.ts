@@ -3,7 +3,14 @@ import {
   getEntrypointBundles,
   createImportPath,
 } from '../../../src/output/getEntrypointBundles.js';
-import { GeneratedBundle, ScriptModuleTag } from '../../../src/RollupPluginHTMLOptions.js';
+import { GeneratedBundle, ScriptModuleTag } from '../../../src/RollupPluginHTMLOptions.ts';
+||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/src/output/getEntrypointBundles.test.ts
+} from '../../../src/output/getEntrypointBundles.ts';
+import { GeneratedBundle, ScriptModuleTag } from '../../../src/RollupPluginHTMLOptions.ts';
+=======
+} from '../../src/output/getEntrypointBundles.ts';
+import type { GeneratedBundle, ScriptModuleTag } from '../../src/RollupPluginHTMLOptions.ts';
+>>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/output/getEntrypointBundles.test.ts
 
 describe('createImportPath()', () => {
   it('creates a relative import path', () => {

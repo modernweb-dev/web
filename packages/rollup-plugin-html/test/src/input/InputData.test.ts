@@ -1,9 +1,25 @@
 import { expect } from 'chai';
 import path from 'path';
-import { cleanApp, createApp, html, js } from '../../utils.js';
+<<<<<<< HEAD:packages/rollup-plugin-html/test/src/input/InputData.test.ts
+import { cleanApp, createApp, html, js } from '../../utils.ts';
+||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/src/input/InputData.test.ts
+import { cleanApp, createApp, html, js } from '../../utils.ts';
+=======
+>>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/input/InputData.test.ts
 
-import { getInputData } from '../../../src/input/getInputData.js';
-import { InputData } from '../../../src/input/InputData.js';
+<<<<<<< HEAD:packages/rollup-plugin-html/test/src/input/InputData.test.ts
+import { getInputData } from '../../../src/input/getInputData.ts';
+import { InputData } from '../../../src/input/InputData.ts';
+||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/src/input/InputData.test.ts
+import { getInputData } from '../../../src/input/getInputData.ts';
+import { InputData } from '../../../src/input/InputData.ts';
+=======
+import { getInputData } from '../../src/input/getInputData.ts';
+import type { InputData } from '../../src/input/InputData.ts';
+
+const __dirname = import.meta.dirname;
+const rootDir = path.join(__dirname, '..', 'fixtures', 'basic');
+>>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/input/InputData.test.ts
 
 function cleanupHtml(str: string) {
   return str.replace(/(\r\n|\n|\r| )/gm, '');
