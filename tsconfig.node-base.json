@@ -1,6 +1,11 @@
 {
   "ts-node": {
-    "experimentalResolver": true
+    "experimentalResolver": true,
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "rewriteRelativeImportExtensions": false
+    }
   },
   "compilerOptions": {
     /* Basic Options */
