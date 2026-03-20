@@ -1,6 +1,5 @@
 /**
  * @param {import('@web/dev-server').DevServerConfig} config
- * @returns {Promise<import('@web/dev-server').DevServerConfig>}
  */
 export async function wdsFinal(config) {
   const { mockPlugin } = await import('@web/mocks/plugins.js');

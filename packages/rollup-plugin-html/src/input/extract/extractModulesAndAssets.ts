@@ -7,7 +7,7 @@ export interface ExtractParams {
   html: string;
   htmlFilePath: string;
   rootDir: string;
-  extractAssets: boolean | 'legacy-html' | 'legacy-html-and-css';
+  extractAssets: boolean;
   externalAssets?: string | string[];
   absolutePathPrefix?: string;
 }

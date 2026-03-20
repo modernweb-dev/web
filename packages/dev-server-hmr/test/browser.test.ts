@@ -1,37 +1,15 @@
 import { describe, it, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { stubMethod } from 'hanbi';
-<<<<<<< HEAD
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers.js';
-||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers.ts';
-=======
 import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
->>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import type { Browser, HTTPResponse, Page } from 'puppeteer';
 import { launch as launchPuppeteer } from 'puppeteer';
 import { posix as pathUtil } from 'path';
 
-<<<<<<< HEAD
-import { hmrPlugin } from '../src/index.js';
-import { mockFiles } from './utils.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { hmrPlugin } from '../src/index.ts';
-import { mockFiles } from './utils.ts';
-=======
-<<<<<<< HEAD
-import { hmrPlugin } from '../src/index.ts';
-import { mockFiles } from './utils.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { hmrPlugin } from '../src/index.js';
-import { mockFiles } from './utils.js';
-=======
 import { hmrPlugin } from '../src/index.ts';
 import { mockFiles } from './utils.ts';
 
 const __dirname = import.meta.dirname;
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 function trackErrors(page: Page) {
   const errors: any[] = [];

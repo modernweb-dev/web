@@ -1,5 +1,6 @@
 {
   "name": "@web/rollup-plugin-polyfills-loader",
+  "type": "module",
   "version": "2.1.3",
   "publishConfig": {
     "access": "public"
@@ -24,9 +25,9 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "test:node": "node --test \"test/**/*.test.ts\"",
-    "test:update-snapshots": "node --test \"test/**/*.test.ts\" -- --update-snapshots",
-    "test:watch": "node --test --watch \"test/**/*.test.ts\""
+    "test:node": "TS_NODE_TRANSPILE_ONLY=true mocha test/**/*.test.ts --loader ts-node/esm --reporter dot",
+    "test:update-snapshots": "TS_NODE_TRANSPILE_ONLY=true mocha test/**/*.test.ts --loader ts-node/esm --update-snapshots",
+    "test:watch": "TS_NODE_TRANSPILE_ONLY=true mocha test/**/*.test.ts --loader ts-node/esm --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -48,6 +49,5 @@
   "devDependencies": {
     "@web/rollup-plugin-html": "^3.0.0",
     "rollup": "^4.4.0"
-  },
-  "type": "module"
+  }
 }

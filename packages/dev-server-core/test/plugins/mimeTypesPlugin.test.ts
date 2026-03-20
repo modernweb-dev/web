@@ -2,21 +2,9 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'path';
 
-<<<<<<< HEAD
-import { createTestServer } from '../helpers.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer } from '../helpers.ts';
-=======
-<<<<<<< HEAD
-import { createTestServer } from '../helpers.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer } from '../helpers.js';
-=======
 import { createTestServer } from '../helpers.ts';
 
 const __dirname = import.meta.dirname;
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 describe('mimeTypesPLugin', () => {
   it('can configure mime types for files', async () => {

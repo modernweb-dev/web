@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner-core",
+  "type": "module",
   "version": "0.13.4",
   "publishConfig": {
     "access": "public"
@@ -31,8 +32,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "tsx --test 'test/**/*.test.ts'",
-    "test:watch": "tsx --test --watch 'test/**/*.test.ts'"
+    "test:node": "TS_NODE_TRANSPILE_ONLY=true mocha test/**/*.test.ts --loader ts-node/esm --reporter dot",
+    "test:watch": "TS_NODE_TRANSPILE_ONLY=true mocha test/**/*.test.ts --loader ts-node/esm --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -77,8 +78,6 @@
     "source-map": "^0.7.3"
   },
   "devDependencies": {
-    "portfinder": "^1.0.32",
-    "tsx": "^4.21.0"
-  },
-  "type": "module"
+    "portfinder": "^1.0.32"
+  }
 }

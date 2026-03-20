@@ -1,24 +1,8 @@
-<<<<<<< HEAD
-import { expect } from 'chai';
-import { browsers } from '@mdn/browser-compat-data';
-<<<<<<< HEAD
-import { isLatestModernBrowser, getLatestStableMajor } from '../src/browser-targets.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { isLatestModernBrowser, getLatestStableMajor } from '../src/browser-targets.ts';
-=======
-import { isLatestModernBrowser, getLatestStableMajor } from '../src/browser-targets.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { expect } from 'chai';
-import { browsers } from '@mdn/browser-compat-data';
-import { isLatestModernBrowser, getLatestStableMajor } from '../src/browser-targets.js';
-=======
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import browserCompatData from '@mdn/browser-compat-data';
+import browserCompatData from '@mdn/browser-compat-data.ts';
 const { browsers } = browserCompatData;
 import { isLatestModernBrowser, getLatestStableMajor } from '../src/browser-targets.ts';
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 describe('isLatestModernBrowser', () => {
   it('returns true for latest Chrome', async () => {

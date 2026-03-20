@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner-playwright",
+  "type": "module",
   "version": "0.11.1",
   "publishConfig": {
     "access": "public"
@@ -51,6 +52,5 @@
   "devDependencies": {
     "@web/test-runner-mocha": "^0.9.0",
     "portfinder": "^1.0.32"
-  },
-  "type": "module"
+  }
 }

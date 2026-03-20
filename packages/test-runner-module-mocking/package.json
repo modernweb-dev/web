@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner-module-mocking",
+  "type": "module",
   "version": "0.1.1",
   "publishConfig": {
     "access": "public"
@@ -14,7 +15,6 @@
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-module-mocking",
   "main": "browser/index.js",
-  "type": "module",
   "exports": {
     ".": "./browser/index.js",
     "./plugin.js": "./dist/moduleMockingPlugin.js"
@@ -24,8 +24,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "node --test 'test/**/*.test.ts'",
-    "test:watch": "node --test --watch 'test/**/*.test.ts'"
+    "test:node": "TS_NODE_TRANSPILE_ONLY=true mocha test/**/*.test.ts --loader=ts-node/esm --reporter dot",
+    "test:watch": "TS_NODE_TRANSPILE_ONLY=true mocha test/**/*.test.ts --loader ts-node/esm --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",

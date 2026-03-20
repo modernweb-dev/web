@@ -1,16 +1,16 @@
-import { getTextContent } from '@web/parse5-utils';
+import { getTextContent } from '@web/parse5-utils.ts';
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { parse, serialize } from 'parse5';
 <<<<<<< HEAD:packages/rollup-plugin-html/test/src/output/injectBundles.test.ts
-import { html } from '../../utils.js';
+import { html } from '../../utils.ts';
 ||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/src/output/injectBundles.test.ts
 import { html } from '../../utils.ts';
 =======
 >>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/output/injectBundles.test.ts
 
 <<<<<<< HEAD:packages/rollup-plugin-html/test/src/output/injectBundles.test.ts
-import { injectBundles, createLoadScript } from '../../../src/output/injectBundles.js';
+import { injectBundles, createLoadScript } from '../../../src/output/injectBundles.ts';
 ||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/src/output/injectBundles.test.ts
 import { injectBundles, createLoadScript } from '../../../src/output/injectBundles.ts';
 =======

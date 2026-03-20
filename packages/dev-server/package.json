@@ -1,5 +1,6 @@
 {
   "name": "@web/dev-server",
+  "type": "module",
   "version": "0.4.6",
   "publishConfig": {
     "access": "public"
@@ -36,8 +37,8 @@
     "start:plugin-serve": "node dist/bin.js --config demo/plugin-serve/config.mjs --open",
     "start:static": "node dist/bin.js --config demo/static/config.mjs --open demo/static/",
     "start:syntax": "node dist/bin.js --config demo/syntax/config.mjs --open demo/syntax/",
-    "test:node": "node --test 'test/**/*.test.mjs'",
-    "test:watch": "node --test --watch 'test/**/*.test.mjs'"
+    "test:node": "mocha \"test/**/*.test.mjs\" --reporter dot",
+    "test:watch": "mocha \"test/**/*.test.mjs\" --watch --watch-files src,test --reporter dot"
   },
   "files": [
     "*.d.ts",
@@ -72,6 +73,5 @@
     "@types/command-line-usage": "^5.0.1",
     "lit-html": "^2.7.3 || ^3.0.0",
     "puppeteer": "^24.0.0"
-  },
-  "type": "module"
+  }
 }

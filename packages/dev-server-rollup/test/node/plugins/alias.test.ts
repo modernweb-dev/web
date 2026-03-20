@@ -1,8 +1,8 @@
 import { describe, it } from 'node:test';
-import rollupAlias from '@rollup/plugin-alias';
+import rollupAlias from '@rollup/plugin-alias.ts';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/fromRollup.js';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
+import { fromRollup } from '../../../src/fromRollup.ts';
 
 const alias = fromRollup(rollupAlias);
 

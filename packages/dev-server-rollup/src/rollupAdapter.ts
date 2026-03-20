@@ -1,14 +1,12 @@
 /* eslint-disable no-control-regex */
 import path from 'path';
 import whatwgUrl from 'whatwg-url';
-import {
+import { getRequestFilePath, PluginSyntaxError, PluginError } from '@web/dev-server-core';
+import type {
   Plugin as WdsPlugin,
   DevServerCoreConfig,
   FSWatcher,
-  PluginError,
-  PluginSyntaxError,
   Context,
-  getRequestFilePath,
 } from '@web/dev-server-core';
 import {
   queryAll,
@@ -17,13 +15,14 @@ import {
   setTextContent,
 } from '@web/dev-server-core/dist/dom5';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
-import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
-import { InputOptions } from 'rollup';
+import type { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
+import type { InputOptions } from 'rollup';
 import { red, cyan } from 'nanocolors';
 
 import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils.ts';
 import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter.ts';
-import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts.ts';
+import { createRollupPluginContexts } from './createRollupPluginContexts.ts';
+import type { RollupPluginContexts } from './createRollupPluginContexts.ts';
 
 const NULL_BYTE_PARAM = 'web-dev-server-rollup-null-byte';
 const VIRTUAL_FILE_PREFIX = '/__web-dev-server__/rollup';

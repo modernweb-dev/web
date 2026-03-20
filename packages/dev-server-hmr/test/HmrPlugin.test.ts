@@ -4,31 +4,11 @@ import { stubMethod, restore as restoreStubs } from 'hanbi';
 import { createTestServer, fetchText, expectIncludes } from '@web/dev-server-core/test-helpers.js';
 import { posix as pathUtil } from 'path';
 
-<<<<<<< HEAD
-import { hmrPlugin } from '../src/index.js';
-import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin.js';
-import { mockFile, mockFiles } from './utils.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { hmrPlugin } from '../src/index.ts';
-import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin.ts';
-import { mockFile, mockFiles } from './utils.ts';
-=======
-<<<<<<< HEAD
-import { hmrPlugin } from '../src/index.ts';
-import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin.ts';
-import { mockFile, mockFiles } from './utils.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { hmrPlugin } from '../src/index.js';
-import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin.js';
-import { mockFile, mockFiles } from './utils.js';
-=======
 import { hmrPlugin } from '../src/index.ts';
 import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin.ts';
 import { mockFile, mockFiles } from './utils.ts';
 
 const __dirname = import.meta.dirname;
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 describe('HmrPlugin', () => {
   afterEach(async () => {

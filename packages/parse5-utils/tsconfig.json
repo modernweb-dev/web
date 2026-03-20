@@ -18,11 +18,9 @@
   },
   "references": [],
   "include": [
-    "src",
-    "types"
+    "src"
   ],
   "exclude": [
-    "src/browser",
     "tests",
     "dist"
   ],

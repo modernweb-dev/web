@@ -1,5 +1,6 @@
 {
   "name": "@web/rollup-plugin-import-meta-assets",
+  "type": "module",
   "version": "2.3.3",
   "publishConfig": {
     "access": "public"
@@ -13,7 +14,7 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/rollup-plugin-import-meta-assets",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "exports": {
     ".": {
       "default": "./dist/index.js"
@@ -24,8 +25,8 @@
   },
   "scripts": {
     "test": "npm run test:node",
-    "test:node": "node --test 'test/**/*.test.mjs'",
-    "test:update-snapshots": "node --test 'test/**/*.test.mjs'",
+    "test:node": "mocha test/**/*.test.js test/*.test.js --reporter dot",
+    "test:update-snapshots": "mocha test/**/*.test.js test/*.test.js --update-snapshots",
     "test:watch": "npm run test:node -- --watch"
   },
   "files": [
@@ -46,6 +47,5 @@
     "globby": "^13.2.2",
     "magic-string": "^0.30.0"
   },
-  "types": "dist/index",
-  "type": "module"
+  "types": "dist/index"
 }

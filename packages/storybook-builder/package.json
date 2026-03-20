@@ -1,5 +1,6 @@
 {
   "name": "@web/storybook-builder",
+  "type": "module",
   "version": "0.2.6",
   "publishConfig": {
     "access": "public"
@@ -73,6 +74,5 @@
   },
   "devDependencies": {
     "@storybook/types": "^8.6.12"
-  },
-  "type": "module"
+  }
 }

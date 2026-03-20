@@ -1,5 +1,6 @@
 {
   "name": "@web/mocks",
+  "type": "module",
   "version": "1.3.2",
   "publishConfig": {
     "access": "public"
@@ -13,7 +14,6 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/mocks",
-  "type": "module",
   "exports": {
     "./http.js": {
       "types": "./dist-types/http.d.ts",

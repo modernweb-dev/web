@@ -263,9 +263,9 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
 <<<<<<< HEAD:packages/rollup-plugin-html/test/src/output/getOutputHTML.test.ts
-import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.js';
-import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.js';
-import { html } from '../../utils.js';
+import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.ts';
+import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.ts';
+import { html } from '../../utils.ts';
 ||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert):packages/rollup-plugin-html/test/src/output/getOutputHTML.test.ts
 import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.ts';
 import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.ts';

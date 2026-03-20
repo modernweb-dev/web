@@ -1,7 +1,7 @@
 import 'array-flat-polyfill';
 import path from 'path';
 import fs from 'fs';
-import { Reporter, TestResult, TestSession, TestSuiteResult } from '@web/test-runner-core';
+import type { Reporter, TestResult, TestSession, TestSuiteResult } from '@web/test-runner-core';
 
 import XML from 'xml';
 

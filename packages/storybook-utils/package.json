@@ -1,5 +1,6 @@
 {
   "name": "@web/storybook-utils",
+  "type": "module",
   "version": "1.1.2",
   "publishConfig": {
     "access": "public"
@@ -13,7 +14,6 @@
   },
   "author": "modern-web",
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/storybook-utils",
-  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -45,6 +45,7 @@
     "@storybook/core-events": "^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
+    "@types/react": "^19.0.0",
     "react": "^19.0.0"
   }
 }
