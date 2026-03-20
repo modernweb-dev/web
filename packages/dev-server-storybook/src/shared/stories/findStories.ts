@@ -6,7 +6,7 @@ import { createBrowserImport, createError } from '../utils.ts';
 export async function findStories(
   rootDir: string,
   mainJsPath: string,
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   stories: string[] | Function,
 ) {
   const mainJsDir = path.dirname(mainJsPath);

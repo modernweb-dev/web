@@ -1,5 +1,4 @@
-import { describe, it } from 'node:test';
-import assert from 'node:assert/strict';
+import { expect } from 'chai';
 import { fileTypes } from '@web/polyfills-loader';
 import { shouldInjectLoader } from '../../src/utils.ts';
 

@@ -1,12 +1,11 @@
 import { expect } from 'chai';
 import { stubMethod } from 'hanbi';
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers.js';
-import type { Browser, HTTPResponse, Page } from 'puppeteer';
-import { launch as launchPuppeteer } from 'puppeteer';
+import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
+import { Browser, HTTPResponse, launch as launchPuppeteer, Page } from 'puppeteer';
 import { posix as pathUtil } from 'path';
 
-import { hmrPlugin } from '../src/index.js';
-import { mockFiles } from './utils.js';
+import { hmrPlugin } from '../src/index.ts';
+import { mockFiles } from './utils.ts';
 
 function trackErrors(page: Page) {
   const errors: any[] = [];

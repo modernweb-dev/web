@@ -2,7 +2,7 @@
 var KEY_WTR_TYPE = '__WTR_TYPE__';
 var KEY_CONSTRUCTOR_NAME = '__WTR_CONSTRUCTOR_NAME__';
 
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 function catchFallback<T>(fn: (...args: any[]) => T, fallback = null) {
   try {
     return fn();

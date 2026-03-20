@@ -1,5 +1,4 @@
-import { describe, it } from 'node:test';
-import rollupReplace from '@rollup/plugin-replace.ts';
+import rollupReplace from '@rollup/plugin-replace';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../src/index.ts';

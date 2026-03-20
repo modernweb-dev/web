@@ -1,10 +1,9 @@
-import { describe, it } from 'node:test';
-import assert from 'node:assert/strict';
-import { createTestServer } from '@web/dev-server-core/test-helpers.js';
-import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers.js';
+import { expect } from 'chai';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
+import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
 
-import { legacyPlugin } from '../src/legacyPlugin.js';
-import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+import { legacyPlugin } from '../src/legacyPlugin.ts';
+import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
 
 const htmlBody = `
 <html>
