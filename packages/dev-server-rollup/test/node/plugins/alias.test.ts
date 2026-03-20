@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-import rollupAlias from '@rollup/plugin-alias';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { describe, it } from 'node:test';
-import rollupAlias from '@rollup/plugin-alias.ts';
-=======
 import { describe, it } from 'node:test';
 import rollupAlias from '@rollup/plugin-alias';
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/fromRollup.js';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
+import { fromRollup } from '../../../src/fromRollup.ts';
 
 const alias = fromRollup(rollupAlias);
 

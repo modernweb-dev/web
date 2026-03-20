@@ -1,57 +1,14 @@
-<<<<<<< HEAD
-import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expect } from 'chai';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers.js';
-import { createTestServer } from '@web/dev-server-core/test-helpers.js';
-=======
-import { describe, it } from 'node:test';
-import assert from 'node:assert/strict';
-<<<<<<< HEAD
-import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers.js';
-import { createTestServer } from '@web/dev-server-core/test-helpers.js';
-||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers.ts';
-import { createTestServer } from '@web/dev-server-core/test-helpers.ts';
-=======
 import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
->>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import { spy } from 'hanbi';
 import path from 'path';
 
-<<<<<<< HEAD
-import { importMapsPlugin } from '../src/importMapsPlugin.ts';
-import { IMPORT_MAP_PARAM } from '../src/utils.ts';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { importMapsPlugin } from '../src/importMapsPlugin.js';
-import { IMPORT_MAP_PARAM } from '../src/utils.js';
-=======
-<<<<<<< HEAD
-import { importMapsPlugin } from '../src/importMapsPlugin.js';
-import { IMPORT_MAP_PARAM } from '../src/utils.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { importMapsPlugin } from '../src/importMapsPlugin.ts';
-import { IMPORT_MAP_PARAM } from '../src/utils.ts';
-=======
-<<<<<<< HEAD
-import { importMapsPlugin } from '../src/importMapsPlugin.ts';
-import { IMPORT_MAP_PARAM } from '../src/utils.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { importMapsPlugin } from '../src/importMapsPlugin.js';
-import { IMPORT_MAP_PARAM } from '../src/utils.js';
-=======
 import { importMapsPlugin } from '../src/importMapsPlugin.ts';
 import { IMPORT_MAP_PARAM } from '../src/utils.ts';
 
 const __dirname = import.meta.dirname;
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 function createHtml(importMap: Record<string, unknown>) {
   return `

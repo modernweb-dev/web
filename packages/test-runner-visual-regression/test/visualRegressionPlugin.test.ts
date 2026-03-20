@@ -1,37 +1,12 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'path';
-<<<<<<< HEAD
 import { runTests } from '@web/test-runner-core/test-helpers';
-import { expect } from 'chai';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { runTests } from '@web/test-runner-core/test-helpers.js';
-=======
-<<<<<<< HEAD
-import { runTests } from '@web/test-runner-core/test-helpers.js';
-import { chromeLauncher } from '@web/test-runner-chrome.js';
-||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { runTests } from '@web/test-runner-core/test-helpers.ts';
-import { chromeLauncher } from '@web/test-runner-chrome.ts';
-=======
-import { runTests } from '@web/test-runner-core/test-helpers';
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import { chromeLauncher } from '@web/test-runner-chrome';
->>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-<<<<<<< HEAD
 import { visualRegressionPlugin } from '../src/visualRegressionPlugin.ts';
 import { fileExists } from '../src/fs.ts';
-import { playwrightLauncher } from '@web/test-runner-playwright.js';
-||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { visualRegressionPlugin } from '../src/visualRegressionPlugin.ts';
-import { fileExists } from '../src/fs.ts';
-import { playwrightLauncher } from '@web/test-runner-playwright.ts';
-=======
-import { visualRegressionPlugin } from '../src/visualRegressionPlugin.js';
-import { fileExists } from '../src/fs.js';
 import { playwrightLauncher } from '@web/test-runner-playwright';
->>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const __dirname = import.meta.dirname;
 

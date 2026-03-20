@@ -2,27 +2,6 @@ import { rollup, type Plugin, type OutputChunk, type OutputAsset, type OutputOpt
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
-<<<<<<< HEAD
-import { rollupPluginHTML } from '../src/index.ts';
-import { html, css, js, svg, generateTestBundle, createApp, cleanApp } from './utils.ts';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { rollupPluginHTML } from '../src/index.js';
-import { html, css, js, svg, generateTestBundle, createApp, cleanApp } from './utils.js';
-=======
-<<<<<<< HEAD
-import { rollupPluginHTML } from '../src/index.js';
-import { html, css, js, svg, generateTestBundle, createApp, cleanApp } from './utils.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { rollupPluginHTML } from '../src/index.ts';
-import { html, css, js, svg, generateTestBundle, createApp, cleanApp } from './utils.ts';
-=======
-<<<<<<< HEAD
-import { rollupPluginHTML } from '../src/index.ts';
-import { html, css, js, svg, generateTestBundle, createApp, cleanApp } from './utils.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { rollupPluginHTML } from '../src/index.js';
-import { html, css, js, svg, generateTestBundle, createApp, cleanApp } from './utils.js';
-=======
 import { rollupPluginHTML } from '../src/index.ts';
 
 const __dirname = import.meta.dirname;
@@ -38,9 +17,6 @@ function getAsset(output: Output, name: string) {
     source: string;
   };
 }
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const outputConfig: OutputOptions = {
   format: 'es',

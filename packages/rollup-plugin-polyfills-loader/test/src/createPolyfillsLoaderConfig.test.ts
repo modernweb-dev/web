@@ -1,26 +1,6 @@
-<<<<<<< HEAD
-import { expect } from 'chai';
-<<<<<<< HEAD
-import { createPolyfillsLoaderConfig } from '../../src/createPolyfillsLoaderConfig.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createPolyfillsLoaderConfig } from '../../src/createPolyfillsLoaderConfig.ts';
-=======
-import { createPolyfillsLoaderConfig } from '../../src/createPolyfillsLoaderConfig.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { expect } from 'chai';
-<<<<<<< HEAD
-import { createPolyfillsLoaderConfig } from '../../src/createPolyfillsLoaderConfig.ts';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createPolyfillsLoaderConfig } from '../../src/createPolyfillsLoaderConfig.js';
-=======
-import { createPolyfillsLoaderConfig } from '../../src/createPolyfillsLoaderConfig.js';
-=======
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { createPolyfillsLoaderConfig } from '../../src/createPolyfillsLoaderConfig.ts';
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 describe('createPolyfillsLoaderConfig()', () => {
   it('creates a config for a single module build', () => {

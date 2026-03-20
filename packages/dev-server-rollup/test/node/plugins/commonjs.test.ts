@@ -1,48 +1,15 @@
-<<<<<<< HEAD
+import { describe, it } from 'node:test';
 import rollupCommonjs from '@rollup/plugin-commonjs';
 import { runTests } from '@web/test-runner-core/test-helpers';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { describe, it } from 'node:test';
-import rollupCommonjs from '@rollup/plugin-commonjs.ts';
-import { runTests } from '@web/test-runner-core/test-helpers.js';
-=======
-import { describe, it } from 'node:test';
-<<<<<<< HEAD
-import rollupCommonjs from '@rollup/plugin-commonjs.ts';
-import { runTests } from '@web/test-runner-core/test-helpers.js';
-||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import rollupCommonjs from '@rollup/plugin-commonjs.ts';
-import { runTests } from '@web/test-runner-core/test-helpers.ts';
-=======
-import rollupCommonjs from '@rollup/plugin-commonjs';
-import { runTests } from '@web/test-runner-core/test-helpers';
->>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import { resolve } from 'path';
-<<<<<<< HEAD
-import { chromeLauncher } from '@web/test-runner-chrome.js';
-||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { chromeLauncher } from '@web/test-runner-chrome.ts';
-=======
 import { chromeLauncher } from '@web/test-runner-chrome';
->>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 import * as path from 'path';
-<<<<<<< HEAD
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../src/index.ts';
-import { nodeResolvePlugin } from '@web/dev-server.js';
-||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
-import { fromRollup } from '../../../src/index.ts';
-import { nodeResolvePlugin } from '@web/dev-server.ts';
-=======
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
 import { nodeResolvePlugin } from '@web/dev-server';
 
 const __dirname = import.meta.dirname;
->>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const commonjs = fromRollup(rollupCommonjs);
 

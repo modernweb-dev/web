@@ -3,34 +3,10 @@ import assert from 'node:assert/strict';
 import type { Plugin as RollupPlugin, AstNode } from 'rollup';
 import path from 'path';
 
-<<<<<<< HEAD
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.ts';
-import { fromRollup } from '../../src/index.ts';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
-import { fromRollup } from '../../src/index.js';
-=======
-<<<<<<< HEAD
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
-import { fromRollup } from '../../src/index.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.ts';
-import { fromRollup } from '../../src/index.ts';
-=======
-<<<<<<< HEAD
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.ts';
-import { fromRollup } from '../../src/index.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
-import { fromRollup } from '../../src/index.js';
-=======
 import { createTestServer, fetchText, expectIncludes } from './test-helpers.ts';
 import { fromRollup } from '../../src/index.ts';
 
 const __dirname = import.meta.dirname;
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 describe('@web/dev-server-rollup', () => {
   describe('resolveId', () => {

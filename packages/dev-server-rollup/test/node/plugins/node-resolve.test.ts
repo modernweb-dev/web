@@ -4,34 +4,8 @@ import path from 'path';
 import rollupNodeResolve from '@rollup/plugin-node-resolve';
 import rollupCommonjs from '@rollup/plugin-commonjs';
 
-<<<<<<< HEAD
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../src/index.ts';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
-=======
-<<<<<<< HEAD
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
-import { fromRollup } from '../../../src/index.ts';
-=======
-<<<<<<< HEAD
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
-import { fromRollup } from '../../../src/index.ts';
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { expect } from 'chai';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { expect } from 'chai';
-=======
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
-import { fromRollup } from '../../../src/index.ts';
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const __dirname = import.meta.dirname;
 const nodeResolve = fromRollup(rollupNodeResolve, {}, { throwOnUnresolvedImport: true });

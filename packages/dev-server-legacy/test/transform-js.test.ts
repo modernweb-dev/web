@@ -1,55 +1,12 @@
-<<<<<<< HEAD
-import { expect } from 'chai';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { createTestServer } from '@web/dev-server-core/test-helpers.js';
-import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.js';
-=======
-import { describe, it } from 'node:test';
-import assert from 'node:assert/strict';
-<<<<<<< HEAD
-import { createTestServer } from '@web/dev-server-core/test-helpers.js';
-import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.js';
-||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer } from '@web/dev-server-core/test-helpers.ts';
-import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers.ts';
-=======
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
->>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-<<<<<<< HEAD
-import { legacyPlugin } from '../src/legacyPlugin.ts';
-import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { legacyPlugin } from '../src/legacyPlugin.js';
-import { modernUserAgents, legacyUserAgents } from './userAgents.js';
-=======
-<<<<<<< HEAD
-import { legacyPlugin } from '../src/legacyPlugin.js';
-import { modernUserAgents, legacyUserAgents } from './userAgents.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { legacyPlugin } from '../src/legacyPlugin.ts';
-import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
-=======
-<<<<<<< HEAD
-import { legacyPlugin } from '../src/legacyPlugin.ts';
-import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { legacyPlugin } from '../src/legacyPlugin.js';
-import { modernUserAgents, legacyUserAgents } from './userAgents.js';
-=======
 import { legacyPlugin } from '../src/legacyPlugin.ts';
 import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
 
 const __dirname = import.meta.dirname;
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 const modernCode = `
 class Foo {

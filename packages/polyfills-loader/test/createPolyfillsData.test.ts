@@ -2,41 +2,11 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
 
-<<<<<<< HEAD
-import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.ts';
-import { createPolyfillsData } from '../src/createPolyfillsData.ts';
-import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.js';
-import { createPolyfillsData } from '../src/createPolyfillsData.js';
-import { noModuleSupportTest, fileTypes } from '../src/utils.js';
-=======
-<<<<<<< HEAD
-import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.js';
-import { createPolyfillsData } from '../src/createPolyfillsData.js';
-import { noModuleSupportTest, fileTypes } from '../src/utils.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.ts';
-import { createPolyfillsData } from '../src/createPolyfillsData.ts';
-import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
-=======
-<<<<<<< HEAD
-import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.ts';
-import { createPolyfillsData } from '../src/createPolyfillsData.ts';
-import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.js';
-import { createPolyfillsData } from '../src/createPolyfillsData.js';
-import { noModuleSupportTest, fileTypes } from '../src/utils.js';
-=======
 import type { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.ts';
 import { createPolyfillsData } from '../src/createPolyfillsData.ts';
 import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
 
 const __dirname = import.meta.dirname;
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 function cleanupPolyfill(polyfill: PolyfillFile) {
   if (!polyfill) {
