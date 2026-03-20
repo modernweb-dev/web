@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-import rollupReplace from '@rollup/plugin-replace';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { describe, it } from 'node:test';
-import rollupReplace from '@rollup/plugin-replace.ts';
-=======
 import { describe, it } from 'node:test';
 import rollupReplace from '@rollup/plugin-replace';
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
+import { fromRollup } from '../../../src/index.ts';
 
 const replace = fromRollup(rollupReplace as any);
 

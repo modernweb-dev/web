@@ -1,45 +1,10 @@
-<<<<<<< HEAD
-import { expect } from 'chai';
-import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import path from 'path';
-import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers.js';
-=======
-import assert from 'node:assert/strict';
-import { describe, it } from 'node:test';
-import path from 'path';
-<<<<<<< HEAD
-import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers.js';
-||||||| parent of 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers.ts';
-=======
 import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
->>>>>>> 9007e014 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
-<<<<<<< HEAD
-import { esbuildPlugin } from '../src/index.ts';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { esbuildPlugin } from '../src/index.js';
-=======
-<<<<<<< HEAD
-import { esbuildPlugin } from '../src/index.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { esbuildPlugin } from '../src/index.ts';
-=======
-<<<<<<< HEAD
-import { esbuildPlugin } from '../src/index.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { esbuildPlugin } from '../src/index.js';
-=======
 import { esbuildPlugin } from '../src/index.ts';
 
 const __dirname = import.meta.dirname;
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 describe('esbuildPlugin JSX', function () {
   it('transforms .jsx files', async () => {

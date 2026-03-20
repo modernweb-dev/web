@@ -2,34 +2,10 @@ import { describe, it, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'path';
 
-<<<<<<< HEAD
-import { createTestServer } from '../helpers.ts';
-import { DevServer } from '../../src/server/DevServer.ts';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer } from '../helpers.js';
-import { DevServer } from '../../src/server/DevServer.js';
-=======
-<<<<<<< HEAD
-import { createTestServer } from '../helpers.js';
-import { DevServer } from '../../src/server/DevServer.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer } from '../helpers.ts';
-import { DevServer } from '../../src/server/DevServer.ts';
-=======
-<<<<<<< HEAD
-import { createTestServer } from '../helpers.ts';
-import { DevServer } from '../../src/server/DevServer.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer } from '../helpers.js';
-import { DevServer } from '../../src/server/DevServer.js';
-=======
 import { createTestServer } from '../helpers.ts';
 import { DevServer } from '../../src/server/DevServer.ts';
 
 const __dirname = import.meta.dirname;
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 describe('history api fallback middleware', () => {
   describe('index in root', () => {

@@ -1,45 +1,9 @@
-<<<<<<< HEAD
-import { rollupBundlePlugin } from '../../src/rollupBundlePlugin.ts';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { rollupBundlePlugin } from '../../src/rollupBundlePlugin.js';
-=======
-<<<<<<< HEAD
-import { rollupBundlePlugin } from '../../src/rollupBundlePlugin.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { rollupBundlePlugin } from '../../src/rollupBundlePlugin.ts';
-=======
-<<<<<<< HEAD
-import { rollupBundlePlugin } from '../../src/rollupBundlePlugin.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { rollupBundlePlugin } from '../../src/rollupBundlePlugin.js';
-=======
 import { describe, it } from 'node:test';
 import { rollupBundlePlugin } from '../../src/rollupBundlePlugin.ts';
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 import path from 'path';
-<<<<<<< HEAD
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.ts';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
-=======
-<<<<<<< HEAD
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.ts';
-=======
-<<<<<<< HEAD
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
-=======
 import { createTestServer, fetchText, expectIncludes } from './test-helpers.ts';
 
 const __dirname = import.meta.dirname;
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 describe('rollupBundlePlugin', () => {
   it('can bundle a single entrypoint', async () => {

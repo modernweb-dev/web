@@ -1,26 +1,6 @@
-<<<<<<< HEAD
-import { expect } from 'chai';
-<<<<<<< HEAD
-import { parseDynamicImport } from '../../src/plugins/parseDynamicImport.js';
-||||||| parent of c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { parseDynamicImport } from '../../src/plugins/parseDynamicImport.ts';
-=======
-import { parseDynamicImport } from '../../src/plugins/parseDynamicImport.ts';
-||||||| parent of 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { expect } from 'chai';
-<<<<<<< HEAD
-import { parseDynamicImport } from '../../src/plugins/parseDynamicImport.ts';
-||||||| parent of aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
-import { parseDynamicImport } from '../../src/plugins/parseDynamicImport.js';
-=======
-import { parseDynamicImport } from '../../src/plugins/parseDynamicImport.js';
-=======
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { parseDynamicImport } from '../../src/plugins/parseDynamicImport.ts';
->>>>>>> 61bf92a0 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> c37bb778 (chore: migrate tests from mocha/chai to node:test + node:assert)
->>>>>>> aecfa949 (chore: migrate tests from mocha/chai to node:test + node:assert)
 
 describe('parseDynamicImport', () => {
   function testParseDynamicImport(specifier: string) {
