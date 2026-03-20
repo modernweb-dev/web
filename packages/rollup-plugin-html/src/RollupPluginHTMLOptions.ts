@@ -1,8 +1,6 @@
 import type { OutputChunk, OutputOptions, OutputBundle } from 'rollup';
 import type { Attribute } from 'parse5';
 
-// Ensure this file is evaluated as an ES module
-export const __esModule = true;
 
 export interface InputHTMLOptions {
   /** The html source code. If set, overwrites path. */
