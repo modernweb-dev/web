@@ -18,8 +18,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "default": "./dist/index.js"
     }
   },
   "scripts": {
@@ -32,12 +31,13 @@
     "workbox"
   ],
   "dependencies": {
-    "esbuild": "^0.27.0",
+    "esbuild": "^0.25.0",
     "pretty-bytes": "^5.5.0",
     "workbox-build": "^7.0.0"
   },
   "contributors": [
     "Pascal Schilp <pascalschilp@gmail.com>",
     "Benny Powers <web@bennypowers.com>"
-  ]
+  ],
+  "type": "module"
 }

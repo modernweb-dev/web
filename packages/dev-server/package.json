@@ -21,12 +21,11 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "start": "npm run start:syntax",
@@ -42,7 +41,6 @@
   },
   "files": [
     "*.d.ts",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -60,19 +58,20 @@
     "@web/config-loader": "^0.3.0",
     "@web/dev-server-core": "^0.7.2",
     "@web/dev-server-rollup": "^0.6.1",
-    "camelcase": "^6.2.0",
+    "camelcase": "^6.3.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^7.0.1",
     "debounce": "^1.2.0",
     "deepmerge": "^4.2.2",
-    "internal-ip": "^6.2.0",
-    "nanocolors": "^0.2.1",
-    "open": "^8.0.2",
-    "portfinder": "^1.0.32"
+    "internal-ip": "^8.0.1",
+    "nanocolors": "^0.2.13",
+    "open": "^8.4.2",
+    "portfinder": "^1.0.38"
   },
   "devDependencies": {
     "@types/command-line-usage": "^5.0.1",
     "lit-html": "^2.7.3 || ^3.0.0",
     "puppeteer": "^24.0.0"
-  }
+  },
+  "type": "module"
 }

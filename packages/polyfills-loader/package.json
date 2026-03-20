@@ -17,12 +17,11 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -33,7 +32,6 @@
   "files": [
     "*.d.ts",
     "*.js",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -57,7 +55,7 @@
     "dynamic-import-polyfill": "^0.1.1",
     "es-module-shims": "^1.4.1",
     "intersection-observer": "^0.12.0",
-    "parse5": "^6.0.1",
+    "parse5": "^7.0.0 || ^8.0.0",
     "regenerator-runtime": "^0.14.0",
     "resize-observer-polyfill": "^1.5.1",
     "shady-css-scoped-element": "^0.0.2",
@@ -70,5 +68,6 @@
     "@types/babel__core": "^7.1.12",
     "@types/parse5": "^6.0.1",
     "@types/valid-url": "^1.0.3"
-  }
+  },
+  "type": "module"
 }

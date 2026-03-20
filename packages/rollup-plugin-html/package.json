@@ -16,13 +16,12 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "demo:mpa": "rm -rf demo/dist && rollup -c demo/mpa/rollup.config.js --watch & npm run serve-demo",
@@ -33,7 +32,6 @@
   },
   "files": [
     "*.js",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -48,7 +46,7 @@
     "glob": "^10.0.0",
     "html-minifier-terser": "^7.1.0",
     "lightningcss": "^1.24.0",
-    "parse5": "^6.0.1",
+    "parse5": "^7.0.0 || ^8.0.0",
     "picomatch": "^2.2.2"
   },
   "devDependencies": {
@@ -58,5 +56,6 @@
     "@types/prettier": "^3.0.0",
     "prettier": "^3.6.2",
     "rollup": "^4.4.0"
-  }
+  },
+  "type": "module"
 }

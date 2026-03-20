@@ -21,12 +21,12 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/serve/storybookPlugin.js",
-      "types": "./dist/serve/storybookPlugin.d.ts"
+      "types": "./dist/serve/storybookPlugin.d.ts",
+      "default": "./dist/serve/storybookPlugin.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build:wc": "node dist/build/cli.js -c demo/wc/.storybook",
@@ -37,7 +37,6 @@
   "files": [
     "*.d.ts",
     "*.js",
-    "*.mjs",
     "CHANGELOG.md",
     "dist",
     "src"
@@ -62,7 +61,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@storybook/csf-tools": "^6.4.9",
     "@web/dev-server-core": "^0.7.2",
-    "@web/rollup-plugin-html": "^3.1.0",
+    "@web/rollup-plugin-html": "^2.1.2",
     "@web/rollup-plugin-polyfills-loader": "^2.1.1",
     "@web/storybook-prebuilt": "^0.1.37",
     "babel-plugin-bundled-import-meta": "^0.3.2",

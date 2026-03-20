@@ -16,13 +16,12 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "test:node": "node --test \"test/**/*.test.ts\"",
@@ -32,7 +31,6 @@
   "files": [
     "*.d.ts",
     "*.js",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -50,5 +48,6 @@
   "devDependencies": {
     "@web/rollup-plugin-html": "^3.0.0",
     "rollup": "^4.4.0"
-  }
+  },
+  "type": "module"
 }

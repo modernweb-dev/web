@@ -17,14 +17,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./index.mjs"
+      "default": "./dist/index.js"
     },
     "./preset": "./preset.js",
     "./package.json": "./package.json"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -38,7 +37,6 @@
   "files": [
     "*.d.ts",
     "*.js",
-    "*.mjs",
     "CHANGELOG.md",
     "dist",
     "README.md"
@@ -71,5 +69,6 @@
     "@web/rollup-plugin-import-meta-assets": "^2.2.1",
     "@web/storybook-utils": "^1.1.0",
     "storybook": "^8.6.15"
-  }
+  },
+  "type": "module"
 }
