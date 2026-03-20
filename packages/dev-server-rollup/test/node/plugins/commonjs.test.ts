@@ -1,6 +1,5 @@
-import { describe, it } from 'node:test';
-import rollupCommonjs from '@rollup/plugin-commonjs.ts';
-import { runTests } from '@web/test-runner-core/test-helpers.js';
+import rollupCommonjs from '@rollup/plugin-commonjs';
+import { runTests } from '@web/test-runner-core/test-helpers';
 import { resolve } from 'path';
 import { chromeLauncher } from '@web/test-runner-chrome';
 

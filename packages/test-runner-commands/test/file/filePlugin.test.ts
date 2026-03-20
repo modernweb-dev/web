@@ -1,8 +1,8 @@
 import path from 'path';
-import { runTests } from '@web/test-runner-core/test-helpers.js';
+import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 
-import { filePlugin } from '../../dist/filePlugin.ts';
+import { filePlugin } from '../../src/filePlugin.ts';
 
 describe('filePlugin', function test() {
   this.timeout(20000);

@@ -4,11 +4,9 @@ import path from 'path';
 import globby from 'globby';
 
 import { chromeLauncher } from '@web/test-runner-chrome';
-import type { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { runTests } from '@web/test-runner-core/test-helpers.ts';
+import { TestRunnerCoreConfig } from '@web/test-runner-core';
+import { runTests } from '@web/test-runner-core/test-helpers';
 import { junitReporter } from '../src/junitReporter.ts';
-
-const __dirname = import.meta.dirname;
 
 const NON_ZERO_TIME_VALUE_REGEX = /time="((\d\.\d+)|(\d))"/g;
 

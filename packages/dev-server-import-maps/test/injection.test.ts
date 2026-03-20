@@ -1,6 +1,5 @@
-import { it } from 'node:test';
-import { createTestServer, expectNotIncludes } from '@web/dev-server-core/test-helpers.js';
-import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers.js';
+import { createTestServer, expectNotIncludes } from '@web/dev-server-core/test-helpers';
+import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
 
 import { importMapsPlugin } from '../src/importMapsPlugin.ts';
 

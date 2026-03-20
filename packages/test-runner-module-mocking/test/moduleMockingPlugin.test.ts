@@ -1,10 +1,11 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { runTests } from '@web/test-runner-core/test-helpers.js';
+import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { nodeResolvePlugin } from '@web/dev-server';
 
-import { moduleMockingPlugin } from '../dist/moduleMockingPlugin.ts';
+import { moduleMockingPlugin } from '../src/moduleMockingPlugin.ts';
+import { expect } from 'chai';
 
 const dirname = fileURLToPath(new URL('.', import.meta.url));
 

@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import path from 'path';
 
-import { createTestServer } from '../helpers.js';
-import { DevServer } from '../../src/server/DevServer.js';
+import { createTestServer } from '../helpers.ts';
+import { DevServer } from '../../src/server/DevServer.ts';
 
 describe('history api fallback middleware', () => {
   describe('index in root', () => {

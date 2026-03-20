@@ -1,10 +1,8 @@
-import assert from 'node:assert/strict';
-import { describe, it } from 'node:test';
-import path from 'path';
-import { createTestServer } from '@web/dev-server-core/test-helpers.js';
-import { expectIncludes } from '@web/dev-server-core/test-helpers.js';
+import { expect } from 'chai';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
+import { expectIncludes } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index.js';
+import { esbuildPlugin } from '../src/index.ts';
 
 describe('esbuildPlugin banner/footers', function () {
   this.timeout(5000);
