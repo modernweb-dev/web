@@ -2,7 +2,7 @@ import { Page, BrowserContext } from 'playwright';
 import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { V8Coverage, v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { SessionResult } from '@web/test-runner-core';
-import { ProductType } from './PlaywrightLauncher.js';
+import { ProductType } from './PlaywrightLauncher.ts';
 
 export class PlaywrightLauncherPage {
   private config: TestRunnerCoreConfig;

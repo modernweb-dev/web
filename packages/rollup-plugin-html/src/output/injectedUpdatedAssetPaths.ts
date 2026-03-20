@@ -10,10 +10,10 @@ import {
   resolveAssetFilePath,
   createAssetPicomatchMatcher,
 } from '../assets/utils.js';
-import { InputData } from '../input/InputData.js';
-import { createError } from '../utils.js';
-import { EmittedAssets } from './emitAssets.js';
-import { toBrowserPath } from './utils.js';
+import { InputData } from '../input/InputData.ts';
+import { createError } from '../utils.ts';
+import { EmittedAssets } from './emitAssets.ts';
+import { toBrowserPath } from './utils.ts';
 
 export interface InjectUpdatedAssetPathsArgs {
   document: Document;

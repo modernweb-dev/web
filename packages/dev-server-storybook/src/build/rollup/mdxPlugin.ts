@@ -1,5 +1,5 @@
 import { Plugin } from 'rollup';
-import { transformMdxToCsf } from '../../shared/mdx/transformMdxToCsf.js';
+import { transformMdxToCsf } from '../../shared/mdx/transformMdxToCsf.ts';
 
 export function mdxPlugin(): Plugin {
   return {

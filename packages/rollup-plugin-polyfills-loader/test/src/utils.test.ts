@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { fileTypes } from '@web/polyfills-loader';
-import { shouldInjectLoader } from '../../src/utils.js';
+import { shouldInjectLoader } from '../../src/utils.ts';
 
 describe('shouldInjectLoader', () => {
   it('returns true when modern contains non-module or script', () => {

@@ -2,7 +2,7 @@ import commandLineArgs from 'command-line-args';
 import commandLineUsage, { OptionDefinition } from 'command-line-usage';
 import camelCase from 'camelcase';
 
-import { TestRunnerConfig } from './TestRunnerConfig.js';
+import { TestRunnerConfig } from './TestRunnerConfig.ts';
 
 export interface TestRunnerCliArgs
   extends Partial<

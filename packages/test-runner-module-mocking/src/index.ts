@@ -1,1 +1,1 @@
-export { moduleMockingPlugin } from './moduleMockingPlugin.js';
+export { moduleMockingPlugin } from './moduleMockingPlugin.ts';

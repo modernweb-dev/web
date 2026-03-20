@@ -1,6 +1,6 @@
-import { CoverageMapData } from 'istanbul-lib-coverage';
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { TestResultError } from '../test-session/TestSession';
+import type { CoverageMapData } from 'istanbul-lib-coverage';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
+import { TestResultError } from '../test-session/TestSession.ts';
 
 export interface SessionResult {
   testCoverage?: CoverageMapData;

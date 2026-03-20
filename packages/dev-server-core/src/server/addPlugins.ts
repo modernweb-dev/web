@@ -1,8 +1,8 @@
-import { DevServerCoreConfig } from './DevServerCoreConfig.js';
-import { transformModuleImportsPlugin } from '../plugins/transformModuleImportsPlugin.js';
-import { webSocketsPlugin } from '../web-sockets/webSocketsPlugin.js';
-import { mimeTypesPlugin } from '../plugins/mimeTypesPlugin.js';
-import { Logger } from '../logger/Logger.js';
+import type { DevServerCoreConfig } from './DevServerCoreConfig.ts';
+import { transformModuleImportsPlugin } from '../plugins/transformModuleImportsPlugin.ts';
+import { webSocketsPlugin } from '../web-sockets/webSocketsPlugin.ts';
+import { mimeTypesPlugin } from '../plugins/mimeTypesPlugin.ts';
+import type { Logger } from '../logger/Logger.ts';
 
 export function addPlugins(logger: Logger, config: DevServerCoreConfig) {
   if (!config.plugins) {

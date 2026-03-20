@@ -3,7 +3,7 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
-import { emulateMediaPlugin } from '../../src/emulateMediaPlugin.js';
+import { emulateMediaPlugin } from '../../src/emulateMediaPlugin.ts';
 
 describe('emulateMediaPlugin', function test() {
   this.timeout(20000);

@@ -1,6 +1,6 @@
 import { Plugin } from '@web/dev-server-core';
-import { DevServerLogger } from './DevServerLogger.js';
-import { logStartMessage } from './logStartMessage.js';
+import { DevServerLogger } from './DevServerLogger.ts';
+import { logStartMessage } from './logStartMessage.ts';
 
 const CLEAR_COMMAND = process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[H';
 

@@ -1,4 +1,4 @@
-import { Middleware } from 'koa';
+import type { Middleware } from 'koa';
 
 /**
  * Returns 304 response for cacheable requests if etag matches

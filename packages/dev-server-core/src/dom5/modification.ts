@@ -13,8 +13,8 @@
  */
 import cloneObject from 'clone';
 
-import { isDocumentFragment, predicates as p } from './predicates.js';
-import { queryAll } from './walking.js';
+import { isDocumentFragment, predicates as p } from './predicates.ts';
+import { queryAll } from './walking.ts';
 
 function newTextNode(value: string): any {
   return {
@@ -22,7 +22,7 @@ function newTextNode(value: string): any {
     value: value,
     parentNode: undefined,
     attrs: [],
-    __location: <any>undefined,
+    __location: undefined as any,
   };
 }
 
@@ -32,7 +32,7 @@ function newCommentNode(comment: string): any {
     data: comment,
     parentNode: undefined,
     attrs: [],
-    __location: <any>undefined,
+    __location: undefined as any,
   };
 }
 
@@ -44,7 +44,7 @@ function newElement(tagName: string, namespace?: string): any {
     namespaceURI: namespace || 'http://www.w3.org/1999/xhtml',
     attrs: [],
     parentNode: undefined,
-    __location: <any>undefined,
+    __location: undefined as any,
   };
 }
 
@@ -99,7 +99,7 @@ function insertNode(parent: any, index: number, newNode: any, replace?: boolean)
     removedNode = parent.childNodes[index];
   }
 
-  Array.prototype.splice.apply(parent.childNodes, (<any>[index, replace ? 1 : 0]).concat(newNodes));
+  Array.prototype.splice.apply(parent.childNodes, ([index, replace ? 1 : 0] as any).concat(newNodes));
 
   newNodes.forEach(function (n) {
     n.parentNode = parent;

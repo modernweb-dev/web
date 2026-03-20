@@ -1,18 +1,18 @@
-import { Middleware } from 'koa';
+import type { Middleware } from 'koa';
 import koaEtag from 'koa-etag';
 import { FSWatcher } from 'chokidar';
 
-import { DevServerCoreConfig } from './DevServerCoreConfig.js';
-import { basePathMiddleware } from '../middleware/basePathMiddleware.js';
-import { etagCacheMiddleware } from '../middleware/etagCacheMiddleware.js';
-import { historyApiFallbackMiddleware } from '../middleware/historyApiFallbackMiddleware.js';
-import { pluginMimeTypeMiddleware } from '../middleware/pluginMimeTypeMiddleware.js';
-import { pluginServeMiddleware } from '../middleware/pluginServeMiddleware.js';
-import { pluginTransformMiddleware } from '../middleware/pluginTransformMiddleware.js';
-import { Logger } from '../logger/Logger.js';
-import { watchServedFilesMiddleware } from '../middleware/watchServedFilesMiddleware.js';
-import { pluginFileParsedMiddleware } from '../middleware/pluginFileParsedMiddleware.js';
-import { serveFilesMiddleware } from '../middleware/serveFilesMiddleware.js';
+import type { DevServerCoreConfig } from './DevServerCoreConfig.ts';
+import { basePathMiddleware } from '../middleware/basePathMiddleware.ts';
+import { etagCacheMiddleware } from '../middleware/etagCacheMiddleware.ts';
+import { historyApiFallbackMiddleware } from '../middleware/historyApiFallbackMiddleware.ts';
+import { pluginMimeTypeMiddleware } from '../middleware/pluginMimeTypeMiddleware.ts';
+import { pluginServeMiddleware } from '../middleware/pluginServeMiddleware.ts';
+import { pluginTransformMiddleware } from '../middleware/pluginTransformMiddleware.ts';
+import type { Logger } from '../logger/Logger.ts';
+import { watchServedFilesMiddleware } from '../middleware/watchServedFilesMiddleware.ts';
+import { pluginFileParsedMiddleware } from '../middleware/pluginFileParsedMiddleware.ts';
+import { serveFilesMiddleware } from '../middleware/serveFilesMiddleware.ts';
 
 /**
  * Creates middlewares based on the given configuration. The middlewares can be

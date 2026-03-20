@@ -1,5 +1,6 @@
 {
   "name": "@web/parse5-utils",
+  "type": "module",
   "version": "2.1.1",
   "publishConfig": {
     "access": "public"
@@ -22,7 +23,7 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -42,7 +43,6 @@
     "utils"
   ],
   "dependencies": {
-    "@types/parse5": "^6.0.1",
     "parse5": "^6.0.1"
   },
   "devDependencies": {

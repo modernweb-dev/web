@@ -1,15 +1,17 @@
 import Koa from 'koa';
 import path from 'path';
 import { FSWatcher } from 'chokidar';
-import httpServer, { IncomingMessage, ServerResponse } from 'http';
+import httpServer from 'http';
+import type { IncomingMessage, ServerResponse } from 'http';
 import http2Server from 'http2';
 import fs from 'fs';
-import net, { Server, Socket, ListenOptions } from 'net';
+import net from 'net';
+import type { Server, Socket, ListenOptions } from 'net';
 
-import { DevServerCoreConfig } from './DevServerCoreConfig.js';
-import { createMiddleware } from './createMiddleware.js';
-import { Logger } from '../logger/Logger.js';
-import { addPlugins } from './addPlugins.js';
+import type { DevServerCoreConfig } from './DevServerCoreConfig.ts';
+import { createMiddleware } from './createMiddleware.ts';
+import type { Logger } from '../logger/Logger.ts';
+import { addPlugins } from './addPlugins.ts';
 
 /**
  * A request handler that returns a 301 HTTP Redirect to the same location as the original

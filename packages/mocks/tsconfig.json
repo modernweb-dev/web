@@ -4,6 +4,19 @@
     "outDir": "./dist-types",
     "rootDir": "."
   },
-  "include": ["**/*.js", "**/*.ts"],
-  "exclude": ["dist-types", "test-browser"]
+  "include": [
+    "**/*.js",
+    "**/*.ts"
+  ],
+  "exclude": [
+    "dist-types",
+    "test-browser"
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "rewriteRelativeImportExtensions": false
+    }
+  }
 }

@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
-    "module": "node16",
     "moduleResolution": "node16",
     "outDir": "./dist",
     "rootDir": "./src",
@@ -57,5 +56,12 @@
     "src/browser",
     "tests",
     "dist"
-  ]
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "rewriteRelativeImportExtensions": false
+    }
+  }
 }

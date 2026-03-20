@@ -1,15 +1,15 @@
-import { Attribute } from 'parse5';
+import type { Attribute } from 'parse5';
 import path from 'path';
-import { OutputChunk } from 'rollup';
+import type { OutputChunk } from 'rollup';
 
-import {
+import type {
   EntrypointBundle,
   GeneratedBundle,
   RollupPluginHTMLOptions,
   ScriptModuleTag,
-} from '../RollupPluginHTMLOptions';
-import { createError, NOOP_IMPORT } from '../utils.js';
-import { toBrowserPath } from './utils.js';
+} from '../RollupPluginHTMLOptions.ts';
+import { createError, NOOP_IMPORT } from '../utils.ts';
+import { toBrowserPath } from './utils.ts';
 
 export interface CreateImportPathParams {
   publicPath?: string;

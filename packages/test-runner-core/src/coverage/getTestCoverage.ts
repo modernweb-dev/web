@@ -1,5 +1,5 @@
-import {
-  createCoverageMap,
+import istanbulCoverage from 'istanbul-lib-coverage';
+import type {
   CoverageSummaryData,
   CoverageMap,
   CoverageMapData,
@@ -8,8 +8,10 @@ import {
   Location,
   Range,
 } from 'istanbul-lib-coverage';
-import { TestSession } from '../test-session/TestSession';
-import { CoverageConfig } from '../config/TestRunnerCoreConfig';
+
+const { createCoverageMap } = istanbulCoverage;
+import { TestSession } from '../test-session/TestSession.ts';
+import { CoverageConfig } from '../config/TestRunnerCoreConfig.ts';
 
 export const coverageTypes: (keyof CoverageSummaryData)[] = [
   'lines',

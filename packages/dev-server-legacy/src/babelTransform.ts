@@ -1,4 +1,5 @@
-import { transformAsync, TransformOptions } from '@babel/core';
+import { transformAsync } from '@babel/core';
+import type { TransformOptions } from '@babel/core';
 
 export const es5Config: TransformOptions = {
   caller: {

@@ -1,6 +1,9 @@
-import { DevServerConfig } from '../config/DevServerConfig';
+import { DevServerConfig } from '../config/DevServerConfig.ts';
 import { Logger } from '@web/dev-server-core';
-import internalIp from 'internal-ip';
+import * as internalIpModule from 'internal-ip';
+
+const _internalIp = (internalIpModule as any).default ?? internalIpModule;
+const { internalIpV4Sync } = _internalIp;
 import { bold, cyan, white } from 'nanocolors';
 
 const createAddress = (config: DevServerConfig, host: string, path: string) =>
@@ -8,7 +11,7 @@ const createAddress = (config: DevServerConfig, host: string, path: string) =>
 
 function logNetworkAddress(config: DevServerConfig, logger: Logger, openPath: string) {
   try {
-    const address = internalIp.v4.sync();
+    const address = internalIpV4Sync();
     if (typeof address === 'string') {
       logger.log(`${white('Network:')}  ${cyan(createAddress(config, address, openPath))}`);
     }

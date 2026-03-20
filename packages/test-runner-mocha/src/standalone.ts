@@ -3,10 +3,10 @@ import {
   sessionFinished as testRunnerOnSessionFinished,
   sessionFailed,
   getConfig,
-} from '../../test-runner-core/browser/session.js';
+} from '../../test-runner-core/browser/session.ts';
 import '../../../node_modules/mocha/mocha.js';
-import { collectTestResults } from './collectTestResults.js';
-import { setupMocha } from './mochaSetup.js';
+import { collectTestResults } from './collectTestResults.ts';
+import { setupMocha } from './mochaSetup.ts';
 
 const mocha = (window as any).mocha as BrowserMocha;
 

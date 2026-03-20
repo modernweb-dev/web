@@ -1,4 +1,4 @@
-import { Middleware } from 'koa';
+import type { Middleware } from 'koa';
 
 /**
  * Creates middleware which strips a base path from each request

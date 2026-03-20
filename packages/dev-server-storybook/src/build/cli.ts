@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import commandLineArgs from 'command-line-args';
 import path from 'path';
-import { build } from './build.js';
+import { build } from './build.ts';
 
 async function main() {
   const args = commandLineArgs([

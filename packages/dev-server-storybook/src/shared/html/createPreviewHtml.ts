@@ -1,8 +1,8 @@
 import fs from 'fs';
-import { StorybookConfig } from '../config/StorybookConfig.js';
+import { StorybookConfig } from '../config/StorybookConfig.ts';
 
-import { StorybookPluginConfig } from '../config/StorybookPluginConfig.js';
-import { createBrowserImport } from '../utils.js';
+import { StorybookPluginConfig } from '../config/StorybookPluginConfig.ts';
+import { createBrowserImport } from '../utils.ts';
 
 function createPreviewImport(rootDir: string, previewJsPath: string) {
   if (!fs.existsSync(previewJsPath)) {

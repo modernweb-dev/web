@@ -3,7 +3,7 @@
 import { normalizeStories } from '@storybook/core-common';
 import type { DocsOptions, Options, TagsOptions } from '@storybook/types';
 import { readFile } from 'node:fs/promises';
-import { virtualAppFilename } from './virtual-file-names.js';
+import { virtualAppFilename } from './virtual-file-names.ts';
 
 export type PreviewHtml = string | undefined;
 

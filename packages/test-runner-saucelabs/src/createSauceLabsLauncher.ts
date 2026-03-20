@@ -2,8 +2,8 @@ import { BrowserLauncher } from '@web/test-runner-core';
 import { SauceLabsOptions, SauceConnectOptions } from 'saucelabs';
 import { Capabilities, Options } from '@wdio/types';
 import { nanoid } from 'nanoid';
-import { SauceLabsLauncher } from './SauceLabsLauncher.js';
-import { SauceLabsLauncherManager } from './SauceLabsLauncherManager.js';
+import { SauceLabsLauncher } from './SauceLabsLauncher.ts';
+import { SauceLabsLauncherManager } from './SauceLabsLauncherManager.ts';
 
 export function createSauceLabsLauncher(
   saucelabsOptions: SauceLabsOptions,

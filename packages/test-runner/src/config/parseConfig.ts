@@ -14,15 +14,15 @@ import { getPortPromise } from 'portfinder';
 import path from 'path';
 import { cpus } from 'os';
 
-import { TestRunnerCliArgs } from './readCliArgs.js';
-import { mergeConfigs } from './mergeConfigs.js';
-import { TestRunnerConfig } from './TestRunnerConfig.js';
+import { TestRunnerCliArgs } from './readCliArgs.ts';
+import { mergeConfigs } from './mergeConfigs.ts';
+import { TestRunnerConfig } from './TestRunnerConfig.ts';
 import { esbuildPlugin, nodeResolvePlugin } from '@web/dev-server';
-import { TestRunnerStartError } from '../TestRunnerStartError.js';
-import { collectGroupConfigs } from './collectGroupConfigs.js';
-import { playwrightLauncher, puppeteerLauncher } from './loadLauncher.js';
-import { defaultReporter } from '../reporter/defaultReporter.js';
-import { TestRunnerLogger } from '../logger/TestRunnerLogger.js';
+import { TestRunnerStartError } from '../TestRunnerStartError.ts';
+import { collectGroupConfigs } from './collectGroupConfigs.ts';
+import { playwrightLauncher, puppeteerLauncher } from './loadLauncher.ts';
+import { defaultReporter } from '../reporter/defaultReporter.ts';
+import { TestRunnerLogger } from '../logger/TestRunnerLogger.ts';
 
 const secondMs = 1000;
 const minuteMs = secondMs * 60;

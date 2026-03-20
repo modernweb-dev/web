@@ -1,12 +1,11 @@
-import { PluginContext } from 'rollup';
+import type { PluginContext } from 'rollup';
 import path from 'path';
-import { bundleAsync, transform } from 'lightningcss';
+import { transform } from 'lightningcss';
 import fs from 'fs';
 
-import { InputAsset, InputData } from '../input/InputData';
-import { toBrowserPath } from './utils.js';
-import { createAssetPicomatchMatcher } from '../assets/utils.js';
-import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions';
+import type { InputAsset, InputData } from '../input/InputData.ts';
+import { createAssetPicomatchMatcher } from '../assets/utils.ts';
+import type { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions.ts';
 
 export interface EmittedAssets {
   static: Map<string, string>;
@@ -40,10 +39,6 @@ export async function emitAssets(
   inputs: InputData[],
   options: RollupPluginHTMLOptions,
 ) {
-  const extractAssets = options.extractAssets ?? true;
-  const bundleCss = options.bundleCss ?? true;
-  const minifyCss = options.minifyCss ?? false;
-  const extractAssetsLegacyCss = options.extractAssets === 'legacy-html-and-css';
   const emittedStaticAssets = new Map<string, string>();
   const emittedHashedAssets = new Map<string, string>();
   const emittedStaticAssetNames = new Set();
@@ -90,11 +85,12 @@ export async function emitAssets(
       const isExternal = createAssetPicomatchMatcher(options.externalAssets);
       const emittedExternalAssets = new Map();
       if (asset.hashed) {
-        if (basename.endsWith('.css') && extractAssets) {
-          const { code } = await (bundleCss ? bundleAsync : transform)({
-            filename: asset.filePath,
+        if (basename.endsWith('.css') && options.bundleAssetsFromCss) {
+          let updatedCssSource = false;
+          const { code } = await transform({
+            filename: basename,
             code: asset.content,
-            minify: minifyCss,
+            minify: false,
             visitor: {
               Url: url => {
                 // Support foo.svg#bar
@@ -108,56 +104,27 @@ export async function emitAssets(
 
                   // Avoid duplicates
                   if (!emittedExternalAssets.has(assetLocation)) {
-                    const basename = path.basename(filePath);
-                    const fileRef = this.emitFile({
+                    const fontFileRef = this.emitFile({
                       type: 'asset',
-                      name: extractAssetsLegacyCss ? `assets/${basename}` : basename,
+                      name: path.basename(filePath),
                       source: assetContent,
                     });
-                    const emittedAssetFilepath = this.getFileName(fileRef);
-                    const emittedAssetBasename = path.basename(emittedAssetFilepath);
-                    emittedExternalAssets.set(assetLocation, emittedAssetFilepath);
+                    const emittedAssetFilePath = this.getFileName(fontFileRef);
+                    emittedExternalAssets.set(assetLocation, emittedAssetFilePath);
                     // Update the URL in the original CSS file to point to the emitted asset file
-                    if (extractAssetsLegacyCss) {
-                      url.url = `assets/${emittedAssetBasename}`;
-                    } else {
-                      if (options.publicPath) {
-                        url.url = toBrowserPath(
-                          path.join(options.publicPath, emittedAssetFilepath),
-                        );
-                      } else {
-                        url.url = emittedAssetBasename;
-                      }
-                    }
-                    if (idRef) {
-                      url.url = `${url.url}#${idRef}`;
-                    }
+                    url.url = idRef ? `${emittedAssetFilePath}#${idRef}` : emittedAssetFilePath;
                   } else {
-                    const emittedAssetFilepath = emittedExternalAssets.get(assetLocation);
-                    const emittedAssetBasename = path.basename(emittedAssetFilepath);
-                    if (extractAssetsLegacyCss) {
-                      url.url = `assets/${emittedAssetBasename}`;
-                    } else {
-                      if (options.publicPath) {
-                        url.url = toBrowserPath(
-                          path.join(options.publicPath, emittedAssetFilepath),
-                        );
-                      } else {
-                        url.url = emittedAssetBasename;
-                      }
-                    }
-                    if (idRef) {
-                      url.url = `${url.url}#${idRef}`;
-                    }
+                    const emittedAssetFilePath = emittedExternalAssets.get(assetLocation);
+                    url.url = idRef ? `${emittedAssetFilePath}#${idRef}` : emittedAssetFilePath;
                   }
                 }
+                updatedCssSource = true;
                 return url;
               },
             },
           });
-          const codeBuffer = Buffer.from(code);
-          if (!asset.content.equals(codeBuffer)) {
-            source = codeBuffer;
+          if (updatedCssSource) {
+            source = Buffer.from(code);
           }
         }
 

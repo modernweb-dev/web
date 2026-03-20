@@ -3,7 +3,7 @@
 import { normalizePath } from '@rollup/pluginutils';
 import { loadPreviewOrConfigFile } from '@storybook/core-common';
 import type { Options, PreviewAnnotation } from '@storybook/types';
-import { virtualSetupAddonsFilename, virtualStoriesFilename } from './virtual-file-names.js';
+import { virtualSetupAddonsFilename, virtualStoriesFilename } from './virtual-file-names.ts';
 
 export async function generateAppScript(options: Options) {
   const { presets, configDir } = options;

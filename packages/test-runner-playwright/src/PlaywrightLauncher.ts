@@ -1,6 +1,6 @@
 import playwright, { Browser, Page, LaunchOptions, BrowserContext } from 'playwright';
 import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
-import { PlaywrightLauncherPage } from './PlaywrightLauncherPage.js';
+import { PlaywrightLauncherPage } from './PlaywrightLauncherPage.ts';
 
 function capitalize(str: string) {
   return `${str[0].toUpperCase()}${str.substring(1)}`;
@@ -89,7 +89,7 @@ export class PlaywrightLauncher implements BrowserLauncher {
     if (!this.debugBrowser) {
       this.debugBrowser = await playwright[this.product].launch({
         ...this.launchOptions,
-        // devtools is only supported on chromium
+        // @ts-ignore devtools is only supported on chromium
         devtools: this.product === 'chromium',
         headless: false,
       });

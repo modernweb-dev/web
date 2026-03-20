@@ -16,12 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node 22
+      - name: Setup Node 24
         uses: actions/setup-node@v4
         env:
           FORCE_COLOR: 0
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
 
       - name: Install Dependencies
