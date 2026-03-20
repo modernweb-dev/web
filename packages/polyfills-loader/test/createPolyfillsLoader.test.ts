@@ -1,10 +1,12 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import fs from 'fs';
 import path from 'path';
-import { PolyfillsLoaderConfig } from '../src/types.ts';
+import type { PolyfillsLoaderConfig } from '../src/types.ts';
 import { createPolyfillsLoader } from '../src/createPolyfillsLoader.ts';
 import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
 
+const __dirname = import.meta.dirname;
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
 interface TestSnapshotArgs {
@@ -20,19 +22,17 @@ async function testSnapshot({ name, config, expectedFiles = [] }: TestSnapshotAr
     throw new Error('No loader was generated');
   }
 
-  expect(loader.polyfillFiles.map(f => f.path)).to.eql(expectedFiles);
+  assert.deepStrictEqual(loader.polyfillFiles.map(f => f.path), expectedFiles);
 
   if (updateSnapshots) {
     fs.writeFileSync(snapshotPath, loader.code, 'utf-8');
   } else {
     const snapshot = fs.readFileSync(snapshotPath, 'utf-8');
-    expect(loader.code.trim()).to.equal(snapshot.trim());
+    assert.strictEqual(loader.code.trim(), snapshot.trim());
   }
 }
 
 describe('createPolyfillsLoader', function describe() {
-  // bootup of the first test can take a long time in CI to load all the polyfills
-  this.timeout(5000);
 
   it('generates a loader script with one module resource', async () => {
     await testSnapshot({

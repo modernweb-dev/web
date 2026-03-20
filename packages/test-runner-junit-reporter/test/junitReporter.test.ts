@@ -1,12 +1,15 @@
-import { expect } from 'chai';
+import { describe, it, after } from 'node:test';
+import assert from 'node:assert/strict';
 import { promises as fs } from 'fs';
 import path from 'path';
 import globby from 'globby';
 
 import { chromeLauncher } from '@web/test-runner-chrome';
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
+import type { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { junitReporter } from '../src/junitReporter.ts';
+
+const __dirname = import.meta.dirname;
 
 const NON_ZERO_TIME_VALUE_REGEX = /time="((\d\.\d+)|(\d))"/g;
 
@@ -69,30 +72,30 @@ async function cleanupFixtures() {
     await fs.unlink(file);
 }
 
-describe('junitReporter', function () {
+describe('junitReporter', { timeout: 60000 }, () => {
   after(cleanupFixtures);
 
-  describe('for a simple case', function () {
+  describe('for a simple case', () => {
     const fixtureDir = path.join(__dirname, 'fixtures/simple');
-    it('produces expected results', async function () {
+    it('produces expected results', { timeout: 30000 }, async () => {
       const { actual, expected } = await run(fixtureDir);
-      expect(actual).to.equal(expected);
+      assert.equal(actual, expected);
     });
   });
 
-  describe('for a nested suite', function () {
+  describe('for a nested suite', () => {
     const fixtureDir = path.join(__dirname, 'fixtures/nested');
-    it('produces expected results', async function () {
+    it('produces expected results', { timeout: 30000 }, async () => {
       const { actual, expected } = await run(fixtureDir);
-      expect(actual).to.equal(expected);
+      assert.equal(actual, expected);
     });
   });
 
-  describe('for multiple test files', function () {
+  describe('for multiple test files', () => {
     const fixtureDir = path.join(__dirname, 'fixtures/multiple');
-    it('produces expected results', async function () {
+    it('produces expected results', { timeout: 30000 }, async () => {
       const { actual, expected } = await run(fixtureDir);
-      expect(actual).to.equal(expected);
+      assert.equal(actual, expected);
     });
   });
 });

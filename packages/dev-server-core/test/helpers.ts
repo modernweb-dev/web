@@ -5,8 +5,10 @@ import {
   fetchText,
   expectIncludes,
   virtualFilesPlugin,
-} from '../src/test-helpers.js';
-import { DevServerCoreConfig } from '../src/server/DevServerCoreConfig.ts';
+} from '../src/test-helpers.ts';
+import type { DevServerCoreConfig } from '../src/server/DevServerCoreConfig.ts';
+
+const __dirname = import.meta.dirname;
 
 export function createTestServer(config: Partial<DevServerCoreConfig> = {}) {
   return originalCreateTestServer({

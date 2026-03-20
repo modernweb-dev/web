@@ -1,12 +1,13 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes } from '@web/dev-server-core/test-helpers';
 
 import { esbuildPlugin } from '../src/index.ts';
 
-describe('esbuildPlugin banner/footers', function () {
-  this.timeout(5000);
+const __dirname = import.meta.dirname;
 
+describe('esbuildPlugin banner/footers', function () {
   it('prepends custom banner', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
@@ -31,7 +32,7 @@ describe('esbuildPlugin banner/footers', function () {
       const indexOfBanner = text.indexOf('/* hello there */');
 
       expectIncludes(text, '/* hello there */');
-      expect(indexOfExpr).to.be.greaterThan(indexOfBanner);
+      assert.ok(indexOfExpr > indexOfBanner);
     } finally {
       server.stop();
     }
@@ -61,7 +62,7 @@ describe('esbuildPlugin banner/footers', function () {
       const indexOfFooter = text.indexOf('/* hello there */');
 
       expectIncludes(text, '/* hello there */');
-      expect(indexOfFooter).to.be.greaterThan(indexOfExpr);
+      assert.ok(indexOfFooter > indexOfExpr);
     } finally {
       server.stop();
     }

@@ -1,11 +1,13 @@
+import { describe, it } from 'node:test';
 import path from 'path';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 
-import { filePlugin } from '../../src/filePlugin.ts';
+import { filePlugin } from '../../dist/filePlugin.js';
 
-describe('filePlugin', function test() {
-  this.timeout(20000);
+const __dirname = import.meta.dirname;
+
+describe('filePlugin', { timeout: 20000 }, () => {
 
   it('passes file plugin tests', async () => {
     await runTests({

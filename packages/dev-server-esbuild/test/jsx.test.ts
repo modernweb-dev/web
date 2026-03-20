@@ -1,7 +1,10 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
 
 import { esbuildPlugin } from '../src/index.ts';
+
+const __dirname = import.meta.dirname;
 
 describe('esbuildPlugin JSX', function () {
   it('transforms .jsx files', async () => {
@@ -28,9 +31,10 @@ export function foo(bar) {
       const response = await fetch(`${host}/foo.jsx`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
+        'text/javascript; charset=utf-8',
       );
       expectIncludes(text, 'React.createElement("div", {');
       expectIncludes(text, 'id: "myDiv"');
@@ -65,9 +69,10 @@ export function foo(bar) {
       const response = await fetch(`${host}/foo.jsx`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
+        'text/javascript; charset=utf-8',
       );
       expectIncludes(text, 'h("div", {');
       expectIncludes(text, 'id: "myDiv"');

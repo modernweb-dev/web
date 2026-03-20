@@ -1,4 +1,5 @@
-import { expect } from 'chai';
+import { describe, it, afterEach } from 'node:test';
+import assert from 'node:assert/strict';
 import { stubMethod, restore as restoreStubs } from 'hanbi';
 import { createTestServer, fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
 import { posix as pathUtil } from 'path';
@@ -6,6 +7,8 @@ import { posix as pathUtil } from 'path';
 import { hmrPlugin } from '../src/index.ts';
 import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin.ts';
 import { mockFile, mockFiles } from './utils.ts';
+
+const __dirname = import.meta.dirname;
 
 describe('HmrPlugin', () => {
   afterEach(async () => {
@@ -31,7 +34,8 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/foo.js`);
       fileWatcher.emit('change', pathUtil.join(__dirname, '/foo.js'));
 
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(
+        stub.firstCall!.args[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -61,7 +65,8 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/bar.js`);
       fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
 
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(
+        stub.firstCall!.args[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -88,8 +93,9 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/bar.js`);
       fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
 
-      expect(stub.callCount).to.equal(1);
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(stub.callCount, 1);
+      assert.equal(
+        stub.firstCall!.args[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -116,8 +122,9 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/bar.js`);
       fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
 
-      expect(stub.callCount).to.equal(1);
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(stub.callCount, 1);
+      assert.equal(
+        stub.firstCall!.args[0],
         JSON.stringify({
           type: 'hmr:reload',
         }),
@@ -146,7 +153,8 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/root/bar.js`);
       fileWatcher.emit('change', pathUtil.join(__dirname, '/root/bar.js'));
 
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(
+        stub.firstCall!.args[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/root/foo.js',
@@ -176,7 +184,8 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/bar.js`);
       fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
 
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(
+        stub.firstCall!.args[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -208,7 +217,7 @@ describe('HmrPlugin', () => {
 
       const updatedA = await fetchText(`${host}/a.js?m=1234567890123`);
       await fetchText(`${host}/b.js?m=1234567890123`);
-      expect(/import '\/b\.js\?m=\d{13}';/.test(updatedA)).to.equal(true);
+      assert.equal(/import '\/b\.js\?m=\d{13}';/.test(updatedA), true);
       expectIncludes(updatedA, "import '/c.js';");
     } finally {
       await server.stop();
@@ -237,8 +246,8 @@ describe('HmrPlugin', () => {
       const updatedA = await fetchText(`${host}/a.js?m=1234567890123`);
       const updatedB = await fetchText(`${host}/b.js?m=1234567890123`);
       await fetchText(`${host}/c.js?m=1234567890123`);
-      expect(/import '\/b\.js\?m=\d{13}';/.test(updatedA)).to.equal(true);
-      expect(/import '\/c\.js\?m=\d{13}';/.test(updatedB)).to.equal(true);
+      assert.equal(/import '\/b\.js\?m=\d{13}';/.test(updatedA), true);
+      assert.equal(/import '\/c\.js\?m=\d{13}';/.test(updatedB), true);
     } finally {
       await server.stop();
     }
@@ -270,8 +279,8 @@ describe('HmrPlugin', () => {
       const updatedA2 = await fetchText(`${host}/a2.js?m=1234567890123`);
       await fetchText(`${host}/b.js?m=1234567890123`);
       await fetchText(`${host}/c.js?m=1234567890123`);
-      expect(/import '\/b\.js\?m=\d{13}';/.test(updatedA1)).to.equal(true);
-      expect(/import '\/b\.js\?m=\d{13}';/.test(updatedA2)).to.equal(true);
+      assert.equal(/import '\/b\.js\?m=\d{13}';/.test(updatedA1), true);
+      assert.equal(/import '\/b\.js\?m=\d{13}';/.test(updatedA2), true);
     } finally {
       await server.stop();
     }
@@ -296,7 +305,8 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/bar.js`);
       fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
 
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(
+        stub.firstCall!.args[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -326,7 +336,8 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/foo.js`);
       fileWatcher.emit('change', pathUtil.join(__dirname, '/foo.js'));
 
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(
+        stub.firstCall!.args[0],
         JSON.stringify({
           type: 'hmr:reload',
         }),
@@ -345,7 +356,7 @@ describe('HmrPlugin', () => {
     try {
       const response = await fetch(`${host}${NAME_HMR_CLIENT_IMPORT}`);
       const body = await response.text();
-      expect(body.includes('class HotModule')).to.equal(true);
+      assert.equal(body.includes('class HotModule'), true);
     } finally {
       await server.stop();
     }
@@ -369,7 +380,7 @@ describe('HmrPlugin', () => {
       const response = await fetch(`${host}/foo.js`);
       const body = await response.text();
 
-      expect(body.includes('__WDS_HMR__')).to.equal(true);
+      assert.equal(body.includes('__WDS_HMR__'), true);
     } finally {
       await server.stop();
     }
@@ -385,7 +396,7 @@ describe('HmrPlugin', () => {
       const response = await fetch(`${host}/foo.js`);
       const body = await response.text();
 
-      expect(body.includes('__WDS_HMR__')).to.equal(false);
+      assert.equal(body.includes('__WDS_HMR__'), false);
     } finally {
       await server.stop();
     }

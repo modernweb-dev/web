@@ -1,9 +1,10 @@
 /// <reference types="../../../types/rollup__plugin-babel" />
+import { describe, it } from 'node:test';
+import { fileURLToPath } from 'node:url';
 import rollupBabel from '@rollup/plugin-babel';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../src/index.ts';
-
 const babel = fromRollup(rollupBabel);
 
 describe('@rollup/plugin-alias', () => {
@@ -20,7 +21,7 @@ describe('@rollup/plugin-alias', () => {
         },
         babel({
           babelHelpers: 'inline',
-          plugins: [require.resolve('@babel/plugin-transform-template-literals')],
+          plugins: [fileURLToPath(import.meta.resolve('@babel/plugin-transform-template-literals'))],
         }),
       ],
     });

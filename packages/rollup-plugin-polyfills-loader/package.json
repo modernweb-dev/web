@@ -1,6 +1,5 @@
 {
   "name": "@web/rollup-plugin-polyfills-loader",
-  "type": "module",
   "version": "2.1.3",
   "publishConfig": {
     "access": "public"
@@ -17,21 +16,23 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "import": "./index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
-    "test:node": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:update-snapshots": "mocha test/**/*.test.ts --require ts-node/register --update-snapshots",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+    "test:node": "node --test \"test/**/*.test.ts\"",
+    "test:update-snapshots": "node --test \"test/**/*.test.ts\" -- --update-snapshots",
+    "test:watch": "node --test --watch \"test/**/*.test.ts\""
   },
   "files": [
     "*.d.ts",
     "*.js",
+    "*.mjs",
     "dist",
     "src"
   ],

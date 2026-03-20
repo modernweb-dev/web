@@ -1,11 +1,14 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expect } from 'chai';
 import { spy } from 'hanbi';
 import path from 'path';
 
 import { importMapsPlugin } from '../src/importMapsPlugin.ts';
 import { IMPORT_MAP_PARAM } from '../src/utils.ts';
+
+const __dirname = import.meta.dirname;
 
 function createHtml(importMap: Record<string, unknown>) {
   return `
@@ -201,8 +204,7 @@ describe('resolving imports', () => {
 
   it(`leaves unmapped bare imports untouched`, async () => {
     const files = {
-      '/index.html': createHtml({ './bar.js': './mocked-bar.js' }),
-      '/x/y/app.js': 'import "x";',
+      '/index.html': createHtml({ './bar.js': './mocked-bar.js' }), '/x/y/app.js': 'import "x";',
     };
     const { server, host } = await createTestServer({
       rootDir: __dirname,
@@ -379,7 +381,7 @@ describe('resolving imports', () => {
 
     const text = await fetchText(`${host}/index.html`);
     expectIncludes(text, '<script type="importmap">{</script>');
-    expect(loggerSpies.warn.callCount).to.equal(1);
+    assert.equal(loggerSpies.warn.callCount, 1);
     const warning = loggerSpies.warn.getCall(0).args[0];
     expectIncludes(warning, 'Failed to parse import map in "');
     expectIncludes(warning, `test${path.sep}index.html": `);

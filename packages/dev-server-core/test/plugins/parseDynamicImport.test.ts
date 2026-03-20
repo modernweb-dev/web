@@ -1,4 +1,5 @@
-import { expect } from 'chai';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { parseDynamicImport } from '../../src/plugins/parseDynamicImport.ts';
 
 describe('parseDynamicImport', () => {
@@ -9,7 +10,7 @@ describe('parseDynamicImport', () => {
 
   it('works for " string literals', () => {
     const importStringA = '"./a.js"';
-    expect(testParseDynamicImport(importStringA)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importStringA), {
       importString: importStringA,
       importSpecifier: './a.js',
       concatenatedString: false,
@@ -19,7 +20,7 @@ describe('parseDynamicImport', () => {
     });
 
     const importStringB = '"./a/b/c.js"';
-    expect(testParseDynamicImport(importStringB)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importStringB), {
       importString: importStringB,
       importSpecifier: './a/b/c.js',
       concatenatedString: false,
@@ -29,7 +30,7 @@ describe('parseDynamicImport', () => {
     });
 
     const importStringC = '"/a/b.js"';
-    expect(testParseDynamicImport(importStringC)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importStringC), {
       importString: importStringC,
       importSpecifier: '/a/b.js',
       concatenatedString: false,
@@ -41,7 +42,7 @@ describe('parseDynamicImport', () => {
 
   it("works for ' string literals", () => {
     const importString = "'./a.js'";
-    expect(testParseDynamicImport(importString)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importString), {
       importString,
       importSpecifier: './a.js',
       concatenatedString: false,
@@ -53,7 +54,7 @@ describe('parseDynamicImport', () => {
 
   it('works for singlecharacter string literals', () => {
     const importString = "'a.js'";
-    expect(testParseDynamicImport(importString)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importString), {
       importString,
       importSpecifier: 'a.js',
       concatenatedString: false,
@@ -65,7 +66,7 @@ describe('parseDynamicImport', () => {
 
   it('works for ` string literals', () => {
     const importString = '`./a/b.js`';
-    expect(testParseDynamicImport(importString)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importString), {
       importString,
       importSpecifier: './a/b.js',
       concatenatedString: true,
@@ -77,7 +78,7 @@ describe('parseDynamicImport', () => {
 
   it('works for concatenated strings', () => {
     const importStringA = "'./a' + '.js'";
-    expect(testParseDynamicImport(importStringA)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importStringA), {
       importString: importStringA,
       importSpecifier: "./a' + '.js",
       concatenatedString: true,
@@ -87,7 +88,7 @@ describe('parseDynamicImport', () => {
     });
 
     const importStringB = '"./a" + "/b/" + "c.js"';
-    expect(testParseDynamicImport(importStringB)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importStringB), {
       importString: importStringB,
       importSpecifier: './a" + "/b/" + "c.js',
       concatenatedString: true,
@@ -99,7 +100,7 @@ describe('parseDynamicImport', () => {
 
   it('works for interpolated string literals', () => {
     const importString = '`./a/${file}.js`';
-    expect(testParseDynamicImport(importString)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importString), {
       importString,
       importSpecifier: './a/${file}.js',
       concatenatedString: true,
@@ -111,7 +112,7 @@ describe('parseDynamicImport', () => {
 
   it('works for variables', () => {
     const importString = 'foo';
-    expect(testParseDynamicImport(importString)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importString), {
       importString,
       importSpecifier: 'foo',
       concatenatedString: false,
@@ -123,7 +124,7 @@ describe('parseDynamicImport', () => {
 
   it('works for single character variables', () => {
     const importString = 'a';
-    expect(testParseDynamicImport(importString)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importString), {
       importString,
       importSpecifier: 'a',
       concatenatedString: false,
@@ -135,7 +136,7 @@ describe('parseDynamicImport', () => {
 
   it('works for variables with concatenation', () => {
     const importString = 'foo + "x.js"';
-    expect(testParseDynamicImport(importString)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importString), {
       importString,
       importSpecifier: 'foo + "x.js"',
       concatenatedString: true,
@@ -147,7 +148,7 @@ describe('parseDynamicImport', () => {
 
   it('works for string literals with spaces or newlines', () => {
     const importStringA = ' "./a.js" ';
-    expect(testParseDynamicImport(importStringA)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importStringA), {
       importString: '"./a.js"',
       importSpecifier: './a.js',
       concatenatedString: false,
@@ -157,7 +158,7 @@ describe('parseDynamicImport', () => {
     });
 
     const importStringB = '\n  "./a.js"\n  ';
-    expect(testParseDynamicImport(importStringB)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importStringB), {
       importString: '"./a.js"',
       importSpecifier: './a.js',
       concatenatedString: false,
@@ -169,7 +170,7 @@ describe('parseDynamicImport', () => {
 
   it('works for template strings with spaces or newlines', () => {
     const importStringA = '\n  `./x/${file}.js`\n   ';
-    expect(testParseDynamicImport(importStringA)).to.eql({
+    assert.deepStrictEqual(testParseDynamicImport(importStringA), {
       importString: '`./x/${file}.js`',
       importSpecifier: './x/${file}.js',
       concatenatedString: true,

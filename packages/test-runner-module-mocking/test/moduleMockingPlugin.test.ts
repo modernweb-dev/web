@@ -1,16 +1,16 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { nodeResolvePlugin } from '@web/dev-server';
 
-import { moduleMockingPlugin } from '../src/moduleMockingPlugin.ts';
-import { expect } from 'chai';
+import { moduleMockingPlugin } from '../dist/moduleMockingPlugin.js';
 
 const dirname = fileURLToPath(new URL('.', import.meta.url));
 
-describe('moduleMockingPlugin', function test() {
-  this.timeout(20000);
+describe('moduleMockingPlugin', { timeout: 20000 }, () => {
 
   it('can intercept server relative modules', async () => {
     await runTests({
@@ -43,11 +43,11 @@ describe('moduleMockingPlugin', function test() {
       { allowFailure: true, reportErrors: false },
     );
 
-    expect(sessions.length).to.equal(1);
-    expect(sessions[0].passed).to.equal(false);
-    expect(sessions[0].errors.length).to.equal(1);
-    expect(sessions[0].logs[0][0]).to.match(/Error: Module interception is not active./);
-    expect(sessions[0].errors[0].message).to.match(/Could not import your test module./);
+    assert.equal(sessions.length, 1);
+    assert.equal(sessions[0].passed, false);
+    assert.equal(sessions[0].errors.length, 1);
+    assert.match(sessions[0].logs[0][0], /Error: Module interception is not active./);
+    assert.match(sessions[0].errors[0].message, /Could not import your test module./);
   });
 
   it('throws when trying to intercept an inexistent module', async () => {
@@ -61,11 +61,11 @@ describe('moduleMockingPlugin', function test() {
       { allowFailure: true, reportErrors: false },
     );
 
-    expect(sessions.length).to.equal(1);
-    expect(sessions[0].passed).to.equal(false);
-    expect(sessions[0].errors.length).to.equal(1);
-    expect(sessions[0].logs[0][0]).to.match(/Error: Could not resolve "\/inexistent-module.js"./);
-    expect(sessions[0].errors[0].message).to.match(/Could not import your test module./);
+    assert.equal(sessions.length, 1);
+    assert.equal(sessions[0].passed, false);
+    assert.equal(sessions[0].errors.length, 1);
+    assert.match(sessions[0].logs[0][0], /Error: Could not resolve "\/inexistent-module.js"./);
+    assert.match(sessions[0].errors[0].message, /Could not import your test module./);
   });
 
   it('throws when trying to intercept a relative module', async () => {
@@ -79,12 +79,13 @@ describe('moduleMockingPlugin', function test() {
       { allowFailure: true, reportErrors: false },
     );
 
-    expect(sessions.length).to.equal(1);
-    expect(sessions[0].passed).to.equal(false);
-    expect(sessions[0].errors.length).to.equal(1);
-    expect(sessions[0].logs[0][0]).to.match(
+    assert.equal(sessions.length, 1);
+    assert.equal(sessions[0].passed, false);
+    assert.equal(sessions[0].errors.length, 1);
+    assert.match(
+      sessions[0].logs[0][0],
       /Error: Parameter `moduleName` \('.\/file\.js'\) contains a relative reference./,
     );
-    expect(sessions[0].errors[0].message).to.match(/Could not import your test module./);
+    assert.match(sessions[0].errors[0].message, /Could not import your test module./);
   });
 });
