@@ -30,7 +30,6 @@ export function extractModulesAndAssets(params: ExtractParams) {
         htmlDir,
         htmlFilePath,
         rootDir,
-        extractAssets: params.extractAssets,
         externalAssets,
         absolutePathPrefix,
       })

@@ -47,7 +47,7 @@ export function createAddon(
       this.updateAddon();
     }
 
-    updateAddon(event?: string): void {
+    updateAddon(_event?: string): void {
       if (!this.addonElement) {
         this.addonElement = document.createElement(customElementName);
       }
