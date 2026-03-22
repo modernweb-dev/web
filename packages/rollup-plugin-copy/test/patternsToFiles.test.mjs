@@ -2,7 +2,7 @@ import path from 'path';
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { patternsToFiles } from '../src/patternsToFiles.ts';
+import { patternsToFiles } from '../src/patternsToFiles.js';
 
 const __dirname = import.meta.dirname;
 

@@ -4,7 +4,7 @@ import { rollup } from 'rollup';
 import assert from 'node:assert/strict';
 import { describe, it, beforeEach, afterEach, mock } from 'node:test';
 
-import { importMetaAssets } from '../src/rollup-plugin-import-meta-assets.ts';
+import { importMetaAssets } from '../src/rollup-plugin-import-meta-assets.js';
 
 const __dirname = import.meta.dirname;
 

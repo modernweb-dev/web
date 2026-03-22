@@ -17,17 +17,19 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./dist/dom5": {
       "types": "./dist/dom5/index.d.ts",
-      "require": "./dist/dom5/index.js"
+      "default": "./dist/dom5/index.js"
     },
     "./test-helpers": {
       "types": "./test-helpers.d.ts",
-      "import": "./test-helpers.mjs",
-      "require": "./dist/test-helpers.js"
+      "default": "./dist/test-helpers.js"
+    },
+    "./test-helpers.js": {
+      "types": "./test-helpers.d.ts",
+      "default": "./dist/test-helpers.js"
     }
   },
   "engines": {

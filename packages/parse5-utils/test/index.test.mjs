@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { parse, serialize } from 'parse5';
-import { getAttribute, getTextContent, findElement } from '../dist/index.js';
-import * as utils from '../dist/index.js';
+import { getAttribute, getTextContent, findElement } from '../src/index.js';
+import * as utils from '../src/index.js';
 
 describe('parse5-utils', () => {
   describe('createElement', () => {
