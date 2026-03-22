@@ -17,19 +17,21 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "default": "./dist/index.js"
+      "import": "./index.mjs",
+      "require": "./dist/index.js"
     },
     "./dist/dom5": {
       "types": "./dist/dom5/index.d.ts",
-      "default": "./dist/dom5/index.js"
+      "require": "./dist/dom5/index.js"
     },
     "./test-helpers": {
       "types": "./test-helpers.d.ts",
-      "default": "./dist/test-helpers.js"
+      "import": "./test-helpers.mjs",
+      "require": "./dist/test-helpers.js"
     }
   },
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -37,13 +39,14 @@
     "start:event-stream": "node demo/event-stream/start-server.js",
     "start:http2": "node demo/http2/start-server.js",
     "start:import-asset": "node demo/import-asset/start-server.js",
-    "test": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 \"test/**/*.test.ts\"",
-    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch \"test/**/*.test.ts\""
+    "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --exit --reporter dot",
+    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     ".self-signed-dev-server-ssl.cert",
     ".self-signed-dev-server-ssl.key",
     "*.d.ts",
+    "*.mjs",
     "dist",
     "src"
   ],
@@ -55,8 +58,8 @@
     "core"
   ],
   "dependencies": {
-    "@types/koa": "^3.0.1",
-    "@types/ws": "^8.5.13",
+    "@types/koa": "^2.11.6",
+    "@types/ws": "^7.4.0",
     "@web/parse5-utils": "^2.1.0",
     "chokidar": "^4.0.1",
     "clone": "^2.1.2",
@@ -64,15 +67,15 @@
     "get-stream": "^6.0.0",
     "is-stream": "^2.0.0",
     "isbinaryfile": "^5.0.0",
-    "koa": "^3.1.1",
+    "koa": "^2.16.1",
     "koa-etag": "^4.0.0",
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0",
     "lru-cache": "^8.0.4",
     "mime-types": "^2.1.27",
-    "parse5": "^7.0.0 || ^8.0.0",
+    "parse5": "^6.0.1",
     "picomatch": "^2.2.2",
-    "ws": "^8.18.3"
+    "ws": "^7.5.10"
   },
   "devDependencies": {
     "@types/clone": "^2.1.0",
@@ -83,6 +86,5 @@
     "express": "^4.21.2",
     "nanoid": "^3.1.25",
     "portfinder": "^1.0.32"
-  },
-  "type": "module"
+  }
 }

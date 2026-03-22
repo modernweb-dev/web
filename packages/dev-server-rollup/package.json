@@ -49,7 +49,7 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@web/dev-server-core": "^0.7.2",
     "nanocolors": "^0.2.13",
-    "parse5": "^7.0.0 || ^8.0.0",
+    "parse5": "^6.0.1",
     "rollup": "^4.4.0",
     "whatwg-url": "^14.0.0"
   },

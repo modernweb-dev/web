@@ -30,6 +30,7 @@ import {
 import { rollupPluginStorybookBuilder } from './rollup-plugin-storybook-builder.ts';
 import { stringifyProcessEnvs } from './stringify-process-envs.ts';
 
+// @ts-ignore CJS interop
 const wdsPluginExternalGlobals = fromRollup(rollupPluginExternalGlobals);
 const wdsPluginMdx = fromRollup(rollupPluginMdx);
 const wdsPluginPrebundleModules = fromRollup(rollupPluginPrebundleModules);
@@ -174,6 +175,7 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
       rollupPluginPrebundleModules(env, options),
       rollupPluginStorybookBuilder(options),
       rollupPluginMdx(options),
+      // @ts-ignore CJS interop
       rollupPluginExternalGlobals(globalsNameReferenceMap || globals),
       rollupPluginReplace({
         ...stringifyProcessEnvs(env),
