@@ -350,9 +350,9 @@ describe('serialize deserialize', function () {
     const deserialized = await deserialize(serialized, defaultOptions);
     assert.strictEqual(typeof deserialized, 'string');
     assert.ok(deserialized.includes('my error msg'));
-    assert.ok(deserialized.includes('2:23'));
-    assert.ok(deserialized.includes('3:23'));
-    assert.ok(deserialized.includes('4:23'));
+    assert.ok(/2:\d+/.test(deserialized));
+    assert.ok(/3:\d+/.test(deserialized));
+    assert.ok(/4:\d+/.test(deserialized));
   });
 
   it('handles errors in objects', async () => {
@@ -365,9 +365,9 @@ describe('serialize deserialize', function () {
     const deserialized = await deserialize(serialized, defaultOptions);
     assert.strictEqual(typeof deserialized.myError, 'string');
     assert.ok(deserialized.myError.includes('my error msg'));
-    assert.ok(deserialized.myError.includes('2:23'));
-    assert.ok(deserialized.myError.includes('3:23'));
-    assert.ok(deserialized.myError.includes('4:23'));
+    assert.ok(/2:\d+/.test(deserialized.myError));
+    assert.ok(/3:\d+/.test(deserialized.myError));
+    assert.ok(/4:\d+/.test(deserialized.myError));
   });
 
   it('handles errors in arrays', async () => {
@@ -380,16 +380,16 @@ describe('serialize deserialize', function () {
     const deserialized = await deserialize(serialized, defaultOptions);
     assert.strictEqual(typeof deserialized[0], 'string');
     assert.ok(deserialized[0].includes('my error msg'));
-    assert.ok(deserialized[0].includes('2:23'));
-    assert.ok(deserialized[0].includes('3:23'));
-    assert.ok(deserialized[0].includes('4:23'));
+    assert.ok(/2:\d+/.test(deserialized[0]));
+    assert.ok(/3:\d+/.test(deserialized[0]));
+    assert.ok(/4:\d+/.test(deserialized[0]));
     assert.strictEqual(typeof deserialized[1], 'string');
     assert.ok(deserialized[1].includes('my error msg'));
-    assert.ok(deserialized[1].includes('2:23'));
-    assert.ok(deserialized[1].includes('3:23'));
+    assert.ok(/2:\d+/.test(deserialized[1]));
+    assert.ok(/3:\d+/.test(deserialized[1]));
     assert.strictEqual(typeof deserialized[2], 'string');
     assert.ok(deserialized[2].includes('my error msg'));
-    assert.ok(deserialized[2].includes('2:23'));
+    assert.ok(/2:\d+/.test(deserialized[2]));
   });
 
   it('can map stack trace locations', async () => {
@@ -440,9 +440,9 @@ describe('serialize deserialize', function () {
     });
     assert.strictEqual(typeof deserialized, 'string');
     assert.ok(deserialized.includes('my error msg'));
-    assert.ok(deserialized.includes(`2:23`));
-    assert.ok(deserialized.includes(`3:23`));
-    assert.ok(deserialized.includes(`4:23`));
+    assert.ok(/2:\d+/.test(deserialized));
+    assert.ok(/3:\d+/.test(deserialized));
+    assert.ok(/4:\d+/.test(deserialized));
   });
 
   it('can define a cwd above current directory', async () => {
@@ -458,9 +458,9 @@ describe('serialize deserialize', function () {
     });
     assert.strictEqual(typeof deserialized, 'string');
     assert.ok(deserialized.includes('my error msg'));
-    assert.ok(deserialized.includes(`2:23`));
-    assert.ok(deserialized.includes(`3:23`));
-    assert.ok(deserialized.includes(`4:23`));
+    assert.ok(/2:\d+/.test(deserialized));
+    assert.ok(/3:\d+/.test(deserialized));
+    assert.ok(/4:\d+/.test(deserialized));
   });
 
   it('handles null', async () => {

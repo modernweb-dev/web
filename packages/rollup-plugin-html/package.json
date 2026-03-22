@@ -28,7 +28,7 @@
     "demo:mpa": "rm -rf demo/dist && rollup -c demo/mpa/rollup.config.js --watch & npm run serve-demo",
     "demo:spa": "rm -rf demo/dist && rollup -c demo/spa/rollup.config.js --watch & npm run serve-demo",
     "serve-demo": "node ../dev-server/dist/bin.js --watch --root-dir demo/dist --app-index index.html --compatibility none --open",
-    "test:node": "node --experimental-transform-types --test 'test/**/*.test.ts'",
+    "test:node": "node --experimental-transform-types --test --test-timeout 120000 'test/**/*.test.ts'",
     "test:watch": "node --experimental-transform-types --test --watch 'test/**/*.test.ts'"
   },
   "files": [

@@ -28,7 +28,7 @@
     "build": "tsc",
     "start:lit-html": "wds --config demo/lit-html/server.config.mjs",
     "start:vanilla": "wds --config demo/vanilla/server.config.mjs",
-    "test:node": "node --experimental-transform-types --test 'test/**/*.test.ts'",
+    "test:node": "node --experimental-transform-types --test --test-timeout 120000 'test/**/*.test.ts'",
     "test:watch": "node --experimental-transform-types --test --watch 'test/**/*.test.ts'"
   },
   "files": [

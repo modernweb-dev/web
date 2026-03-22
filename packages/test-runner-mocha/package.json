@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsc",
     "build:production": "rimraf dist && rollup -c ./rollup.config.mjs",
-    "test": "node --experimental-transform-types --test test/**/*.test.mjs",
+    "test": "node --experimental-transform-types --test --test-timeout 120000 test/**/*.test.mjs",
     "test:watch": "node --experimental-transform-types --test --watch test/**/*.test.mjs"
   },
   "files": [

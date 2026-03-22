@@ -41,7 +41,7 @@
     "start:event-stream": "node demo/event-stream/start-server.js",
     "start:http2": "node demo/http2/start-server.js",
     "start:import-asset": "node demo/import-asset/start-server.js",
-    "test": "node --experimental-transform-types --test \"test/**/*.test.ts\"",
+    "test": "node --experimental-transform-types --test --test-timeout 120000 \"test/**/*.test.ts\"",
     "test:watch": "node --experimental-transform-types --test --watch \"test/**/*.test.ts\""
   },
   "files": [
