@@ -1,5 +1,5 @@
-import { Plugin } from '@web/dev-server-core';
-import { Loader } from 'esbuild';
+import { type Plugin } from '@web/dev-server-core';
+import type { Loader } from 'esbuild';
 import { EsbuildPlugin } from './EsbuildPlugin.ts';
 
 export interface EsBuildPluginArgs {

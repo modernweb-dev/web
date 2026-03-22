@@ -25,9 +25,9 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "test:node": "node --test \"test/**/*.test.ts\"",
-    "test:update-snapshots": "node --test \"test/**/*.test.ts\" -- --update-snapshots",
-    "test:watch": "node --test --watch \"test/**/*.test.ts\""
+    "test:node": "node --experimental-transform-types --test \"test/**/*.test.ts\"",
+    "test:update-snapshots": "node --experimental-transform-types --test \"test/**/*.test.ts\" -- --update-snapshots",
+    "test:watch": "node --experimental-transform-types --test --watch \"test/**/*.test.ts\""
   },
   "files": [
     "*.d.ts",

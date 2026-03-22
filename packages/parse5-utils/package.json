@@ -26,7 +26,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "node --test 'test/**/*.test.mjs'",
+    "test:node": "node --experimental-transform-types --test 'test/**/*.test.mjs'",
     "test:watch": "npm run test:node -- --watch"
   },
   "files": [

@@ -28,8 +28,8 @@
     "build": "tsc",
     "start:demo:jsx": "es-dev-server --config demo/jsx/server.config.js",
     "start:demo:ts": "es-dev-server --config demo/ts/server.config.js",
-    "test:node": "node --test test/**/*.test.ts",
-    "test:watch": "node --test --watch test/**/*.test.ts"
+    "test:node": "node --experimental-transform-types --test test/**/*.test.ts",
+    "test:watch": "node --experimental-transform-types --test --watch test/**/*.test.ts"
   },
   "files": [
     "*.d.ts",

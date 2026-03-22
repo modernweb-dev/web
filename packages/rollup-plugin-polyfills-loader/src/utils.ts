@@ -1,4 +1,5 @@
-import { fileTypes, PolyfillsLoaderConfig, File } from '@web/polyfills-loader';
+import { fileTypes } from '@web/polyfills-loader';
+import type { PolyfillsLoaderConfig, File } from '@web/polyfills-loader';
 
 const PLUGIN = '[rollup-plugin-polyfills-loader]';
 

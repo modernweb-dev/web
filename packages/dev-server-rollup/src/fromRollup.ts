@@ -1,4 +1,4 @@
-import { InputOptions, Plugin as RollupPlugin } from 'rollup';
+import type { InputOptions, Plugin as RollupPlugin } from 'rollup';
 import { rollupAdapter } from './rollupAdapter.ts';
 
 type FnArgs = readonly unknown[];

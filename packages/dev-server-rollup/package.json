@@ -25,8 +25,8 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "test:node": "node --test \"test/node/**/*.test.ts\"",
-    "test:watch": "node --test --watch \"test/node/**/*.test.ts\""
+    "test:node": "node --experimental-transform-types --test \"test/node/**/*.test.ts\"",
+    "test:watch": "node --experimental-transform-types --test --watch \"test/node/**/*.test.ts\""
   },
   "files": [
     "*.d.ts",

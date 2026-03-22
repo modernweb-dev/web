@@ -26,9 +26,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "node --test test/**/*.test.ts",
+    "test": "node --experimental-transform-types --test test/**/*.test.ts",
     "test:browser": "node ../test-runner/dist/bin.js test-browser/test/**/*.test.{js,html} --config test-browser/web-test-runner.config.mjs",
-    "test:watch": "node --test --watch test/**/*.test.ts"
+    "test:watch": "node --experimental-transform-types --test --watch test/**/*.test.ts"
   },
   "files": [
     "*.d.ts",
