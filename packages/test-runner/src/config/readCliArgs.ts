@@ -22,8 +22,7 @@ export interface TestRunnerCliArgs
       | 'debug'
       | 'esbuildTarget'
     >
-  > {
-  config?: string;
+  > {  config?: string;
   groups?: string;
   group?: string;
   puppeteer?: boolean;

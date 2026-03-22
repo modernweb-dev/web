@@ -12,8 +12,10 @@ import { injectExportsOrderPlugin } from './injectExportsOrderPlugin.ts';
 
 const resolveFile = (specifier: string) => fileURLToPath(import.meta.resolve(specifier));
 
-const prebuiltDir = resolveFile('@web/storybook-prebuilt/package.json')
-  .replace('/package.json', '');
+const prebuiltDir = resolveFile('@web/storybook-prebuilt/package.json').replace(
+  '/package.json',
+  '',
+);
 
 const ignoredWarnings = ['EVAL', 'THIS_IS_UNDEFINED'];
 

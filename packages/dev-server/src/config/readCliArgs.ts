@@ -14,8 +14,7 @@ export interface DevServerCliArgs
       | 'watch'
       | 'esbuildTarget'
     >
-  > {
-  config?: string;
+  > {  config?: string;
 }
 
 const options: (OptionDefinition & { description: string })[] = [

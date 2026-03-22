@@ -79,11 +79,10 @@ const assignSessionAndSuitePropertiesToTests = ({
 
   const assignToSuite =
     (parentSuiteName: string) =>
-    (suite: TestSuiteResult): TestResultWithMetadata[] =>
-      [
-        ...suite.tests.map(assignToTest(`${parentSuiteName} ${suite.name}`)),
-        ...(suite.suites?.flatMap?.(assignToSuite(`${parentSuiteName} ${suite.name}`)) ?? []),
-      ];
+    (suite: TestSuiteResult): TestResultWithMetadata[] => [
+      ...suite.tests.map(assignToTest(`${parentSuiteName} ${suite.name}`)),
+      ...(suite.suites?.flatMap?.(assignToSuite(`${parentSuiteName} ${suite.name}`)) ?? []),
+    ];
 
   const suites = testResults?.suites ?? [];
 

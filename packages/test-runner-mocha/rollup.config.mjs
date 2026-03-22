@@ -84,7 +84,12 @@ export default [
         'wds-socket': '/__web-dev-server__web-socket.js',
       },
     },
-    plugins: [resolveMochaPlugin, rewriteDtsPlugin, rewriteWebSocketImportPlugin, stripRewriteImportExtensionPlugin],
+    plugins: [
+      resolveMochaPlugin,
+      rewriteDtsPlugin,
+      rewriteWebSocketImportPlugin,
+      stripRewriteImportExtensionPlugin,
+    ],
   }),
   deepmerge(createConfig('src/standalone.ts'), {
     output: {
@@ -94,6 +99,11 @@ export default [
         'wds-socket': '/__web-dev-server__web-socket.js',
       },
     },
-    plugins: [resolveMochaPlugin, rewriteDtsPlugin, rewriteWebSocketImportPlugin, stripRewriteImportExtensionPlugin],
+    plugins: [
+      resolveMochaPlugin,
+      rewriteDtsPlugin,
+      rewriteWebSocketImportPlugin,
+      stripRewriteImportExtensionPlugin,
+    ],
   }),
 ];
