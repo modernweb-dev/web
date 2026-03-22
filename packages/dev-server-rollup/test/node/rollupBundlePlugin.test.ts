@@ -47,17 +47,17 @@ describe('rollupBundlePlugin', () => {
 
     try {
       const textA1 = await fetchText(`${host}/a1.js`);
-      expectIncludes(textA1, "import { b as bc, d } from './__rollup-generated__d.js';");
+      expectIncludes(textA1, "import { b as bc, d } from './__rollup-generated__d.ts';");
       expectIncludes(textA1, 'var a1 = `a ${bc} ${d}`;');
       expectIncludes(textA1, 'export { a1 as default };');
 
       const textA2 = await fetchText(`${host}/a2.js`);
-      expectIncludes(textA2, "import { b as bc, d } from './__rollup-generated__d.js';");
+      expectIncludes(textA2, "import { b as bc, d } from './__rollup-generated__d.ts';");
       expectIncludes(textA2, 'var a2 = `a ${bc} ${d}`;');
       expectIncludes(textA2, 'export { a2 as default };');
 
       const textA3 = await fetchText(`${host}/a3.js`);
-      expectIncludes(textA3, "import { b as bc, d } from './__rollup-generated__d.js';");
+      expectIncludes(textA3, "import { b as bc, d } from './__rollup-generated__d.ts';");
       expectIncludes(textA3, 'var a3 = `a ${bc} ${d}`;');
       expectIncludes(textA3, 'export { a3 as default };');
 
@@ -85,7 +85,7 @@ describe('rollupBundlePlugin', () => {
 
     try {
       const text = await fetchText(`${host}/not-bundled.js`);
-      expectIncludes(text, "import a from './a.js';");
+      expectIncludes(text, "import a from './a.ts';");
       expectIncludes(text, 'export default `not bundled ${a}`;');
     } finally {
       server.stop();

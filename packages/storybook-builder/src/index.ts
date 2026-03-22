@@ -25,7 +25,7 @@ import { rollupPluginMdx } from './rollup-plugin-mdx.ts';
 import {
   PREBUNDLED_MODULES_DIR,
   rollupPluginPrebundleModules,
-} from './rollup-plugin-prebundle-modules.js';
+} from './rollup-plugin-prebundle-modules.ts';
 import { rollupPluginStorybookBuilder } from './rollup-plugin-storybook-builder.ts';
 import { stringifyProcessEnvs } from './stringify-process-envs.ts';
 

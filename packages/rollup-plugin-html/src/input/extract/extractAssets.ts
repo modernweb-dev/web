@@ -7,7 +7,7 @@ import { type InputAsset } from '../InputData.ts';import {
   isHashedAsset,
   resolveAssetFilePath,
   createAssetPicomatchMatcher,
-} from '../../assets/utils.js';
+} from '../../assets/utils.ts';
 
 export interface ExtractAssetsParams {
   document: Document;
