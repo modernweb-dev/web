@@ -3,19 +3,12 @@ import commandLineUsage, { OptionDefinition } from 'command-line-usage';
 import camelCase from 'camelcase';
 import { DevServerConfig } from './DevServerConfig.ts';
 
-export interface DevServerCliArgs
-  extends Partial<
-    Pick<
-      DevServerConfig,
-      | 'rootDir'
-      | 'open'
-      | 'appIndex'
-      | 'preserveSymlinks'
-      | 'nodeResolve'
-      | 'watch'
-      | 'esbuildTarget'
-    >
-  > {
+export interface DevServerCliArgs extends Partial<
+  Pick<
+    DevServerConfig,
+    'rootDir' | 'open' | 'appIndex' | 'preserveSymlinks' | 'nodeResolve' | 'watch' | 'esbuildTarget'
+  >
+> {
   config?: string;
 }
 

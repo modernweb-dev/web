@@ -5,7 +5,10 @@ import fs from 'fs';
 
 import type { InputAsset, InputData } from '../input/InputData.ts';
 import { createAssetPicomatchMatcher } from '../assets/utils.ts';
-import type { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions.ts';
+import type {
+  RollupPluginHTMLOptions,
+  TransformAssetFunction,
+} from '../RollupPluginHTMLOptions.ts';
 
 export interface EmittedAssets {
   static: Map<string, string>;

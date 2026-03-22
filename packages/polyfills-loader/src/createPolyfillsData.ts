@@ -158,9 +158,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     addPolyfillConfig({
       name: 'scoped-custom-element-registry',
       test: "!('createElement' in ShadowRoot.prototype)",
-      path: require.resolve(
-        '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js',
-      ),
+      path: require.resolve('@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js'),
     });
   }
 

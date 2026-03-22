@@ -1,7 +1,6 @@
 import type { OutputChunk, OutputOptions, OutputBundle } from 'rollup';
 import type { Attribute } from 'parse5';
 
-
 export interface InputHTMLOptions {
   /** The html source code. If set, overwrites path. */
   html?: string;

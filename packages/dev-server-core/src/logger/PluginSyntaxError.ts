@@ -5,13 +5,7 @@ export class PluginSyntaxError extends Error {
   public line: number;
   public column: number;
 
-  constructor(
-    message: string,
-    filePath: string,
-    code: string,
-    line: number,
-    column: number,
-  ) {
+  constructor(message: string, filePath: string, code: string, line: number, column: number) {
     super(message);
     this.message = message;
     this.filePath = filePath;

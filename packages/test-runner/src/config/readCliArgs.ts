@@ -4,26 +4,25 @@ import camelCase from 'camelcase';
 
 import { TestRunnerConfig } from './TestRunnerConfig.ts';
 
-export interface TestRunnerCliArgs
-  extends Partial<
-    Pick<
-      TestRunnerConfig,
-      | 'files'
-      | 'rootDir'
-      | 'watch'
-      | 'coverage'
-      | 'concurrentBrowsers'
-      | 'concurrency'
-      | 'staticLogging'
-      | 'manual'
-      | 'open'
-      | 'port'
-      | 'preserveSymlinks'
-      | 'nodeResolve'
-      | 'debug'
-      | 'esbuildTarget'
-    >
-  > {
+export interface TestRunnerCliArgs extends Partial<
+  Pick<
+    TestRunnerConfig,
+    | 'files'
+    | 'rootDir'
+    | 'watch'
+    | 'coverage'
+    | 'concurrentBrowsers'
+    | 'concurrency'
+    | 'staticLogging'
+    | 'manual'
+    | 'open'
+    | 'port'
+    | 'preserveSymlinks'
+    | 'nodeResolve'
+    | 'debug'
+    | 'esbuildTarget'
+  >
+> {
   config?: string;
   groups?: string;
   group?: string;

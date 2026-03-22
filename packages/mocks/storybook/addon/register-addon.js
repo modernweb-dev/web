@@ -116,13 +116,13 @@ export function registerAddon(addons, types, React, createAddon) {
                           </td>
                           <td>
                             <textarea aria-label="Response" name="response-${i}" .value=${
-                          JSON.stringify(data) ?? ''
-                        }></textarea>
+                              JSON.stringify(data) ?? ''
+                            }></textarea>
                           </td>
                           <td>
                             <input type="number" aria-label="Status code" name="status-${i}" .value=${
-                          status ?? ''
-                        }></input>
+                              status ?? ''
+                            }></input>
                           </td>
                         `,
                         () => html`

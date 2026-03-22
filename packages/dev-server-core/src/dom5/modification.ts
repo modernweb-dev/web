@@ -99,7 +99,10 @@ function insertNode(parent: any, index: number, newNode: any, replace?: boolean)
     removedNode = parent.childNodes[index];
   }
 
-  Array.prototype.splice.apply(parent.childNodes, ([index, replace ? 1 : 0] as any).concat(newNodes));
+  Array.prototype.splice.apply(
+    parent.childNodes,
+    ([index, replace ? 1 : 0] as any).concat(newNodes),
+  );
 
   newNodes.forEach(function (n) {
     n.parentNode = parent;

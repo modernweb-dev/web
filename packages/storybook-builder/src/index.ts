@@ -1,5 +1,6 @@
 import * as _rollupPluginNodeResolve from '@rollup/plugin-node-resolve';
-const rollupPluginNodeResolve = (_rollupPluginNodeResolve as any).default ?? _rollupPluginNodeResolve;
+const rollupPluginNodeResolve =
+  (_rollupPluginNodeResolve as any).default ?? _rollupPluginNodeResolve;
 import * as _rollupPluginReplace from '@rollup/plugin-replace';
 const rollupPluginReplace = (_rollupPluginReplace as any).default ?? _rollupPluginReplace;
 import { getBuilderOptions } from '@storybook/core-common';
