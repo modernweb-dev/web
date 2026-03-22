@@ -19,7 +19,7 @@ interface AddonState {}
 
 export function createAddon(
   customElementName: string,
-  options: CreateAddonOptions = {}
+  options: CreateAddonOptions = {},
 ): typeof Component {
   return class extends Component<AddonProps, AddonState> {
     ref: React.RefObject<HTMLDivElement | null>;

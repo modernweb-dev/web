@@ -19,7 +19,8 @@ import {
  */
 function getRelativeAssetPath(node: Node): string {
   // either normal string expression or else it would be Template Literal with a single quasi
-  const browserPath = (node as any).arguments[0].value ?? (node as any).arguments[0].quasis[0].value.cooked;
+  const browserPath =
+    (node as any).arguments[0].value ?? (node as any).arguments[0].quasis[0].value.cooked;
   return browserPath.split('/').join(path.sep);
 }
 
@@ -48,7 +49,10 @@ function getImportMetaUrlType(node: Node): undefined | 'static' | 'dynamic' {
     return undefined;
   }
 
-  if ((node as any).arguments[0].type === 'TemplateLiteral' && (node as any).arguments[0].expressions.length > 0) {
+  if (
+    (node as any).arguments[0].type === 'TemplateLiteral' &&
+    (node as any).arguments[0].expressions.length > 0
+  ) {
     return 'dynamic';
   }
 
@@ -71,7 +75,10 @@ export interface ImportMetaAssetsOptions {
   /**
    * A function to transform assets.
    */
-  transform?: (assetContents: Buffer, absoluteAssetPath: string) => Promise<Buffer | null> | Buffer | null;
+  transform?: (
+    assetContents: Buffer,
+    absoluteAssetPath: string,
+  ) => Promise<Buffer | null> | Buffer | null;
 }
 
 /**
@@ -110,7 +117,10 @@ function importMetaAssets(options: ImportMetaAssetsOptions = {}): Plugin {
 
           try {
             // see if this is a Template Literal with expressions inside, and generate a glob expression
-            const glob = dynamicURLToGlob((node as any).arguments[0], code.substring((node as any).start, (node as any).end));
+            const glob = dynamicURLToGlob(
+              (node as any).arguments[0],
+              code.substring((node as any).start, (node as any).end),
+            );
 
             if (!glob) {
               // this was not a variable dynamic url

@@ -11,7 +11,7 @@ import { listFiles } from './listFiles.ts';
 async function patternsToFiles(
   inPatterns: string | string[],
   rootDir: string,
-  exclude?: string | string[]
+  exclude?: string | string[],
 ): Promise<string[]> {
   const patterns = typeof inPatterns === 'string' ? [inPatterns] : inPatterns;
   const listFilesPromises = patterns.map(pattern => listFiles(pattern, rootDir, exclude));

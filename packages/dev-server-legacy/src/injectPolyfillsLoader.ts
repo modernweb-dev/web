@@ -9,11 +9,7 @@ import {
   fileTypes,
   getScriptFileType,
 } from '@web/polyfills-loader';
-import type {
-  PolyfillsConfig,
-  GeneratedFile,
-  File,
-} from '@web/polyfills-loader';
+import type { PolyfillsConfig, GeneratedFile, File } from '@web/polyfills-loader';
 import { PARAM_TRANSFORM_SYSTEMJS } from './constants.ts';
 import { findJsScripts } from './findJsScripts.ts';
 

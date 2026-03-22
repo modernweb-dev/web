@@ -15,7 +15,7 @@ import path from 'path';
 async function listFiles(
   fromGlob: string,
   rootDir: string,
-  ignore?: string | string[]
+  ignore?: string | string[],
 ): Promise<string[]> {
   // remember, each filepath returned is relative to rootDir
   return (

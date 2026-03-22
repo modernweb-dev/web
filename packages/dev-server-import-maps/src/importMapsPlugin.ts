@@ -1,10 +1,6 @@
 import { getRequestFilePath } from '@web/dev-server-core';
 import type { Plugin, Logger } from '@web/dev-server-core';
-import {
-  parse as parseFromObject,
-  parseFromString,
-  resolve,
-} from '@import-maps/resolve';
+import { parse as parseFromObject, parseFromString, resolve } from '@import-maps/resolve';
 import type { ParsedImportMap, ImportMap } from '@import-maps/resolve';
 import { getHtmlPath } from '@web/dev-server-core';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
