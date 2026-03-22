@@ -22,7 +22,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    assert.deepStrictEqual(result.split('\n'),[
+    assert.deepStrictEqual(result.split('\n'), [
       'import "RESOLVED__my-module";',
       'import foo from "RESOLVED__my-module";',
       'import { bar } from "RESOLVED__my-module";',
@@ -42,7 +42,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    assert.deepStrictEqual(result.split('\n'),[
+    assert.deepStrictEqual(result.split('\n'), [
       //
       "export * from 'RESOLVED__my-module';",
       "export { foo } from 'RESOLVED__my-module';",
@@ -71,7 +71,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    assert.deepStrictEqual(result.split('\n'),[
+    assert.deepStrictEqual(result.split('\n'), [
       'import("RESOLVED__/bar.js");',
       // 'function lazyLoad() { return import("RESOLVED__my-module-2"); }',
       // 'import("RESOLVED__my-module");',
@@ -90,7 +90,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    assert.deepStrictEqual(result.split('\n'),[
+    assert.deepStrictEqual(result.split('\n'), [
       'console.log(import.meta.url);',
       "import 'RESOLVED__my-module';",
     ]);
@@ -107,7 +107,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    assert.deepStrictEqual(result.split('\n'),[
+    assert.deepStrictEqual(result.split('\n'), [
       "import 'RESOLVED__my-module';",
       "// Example: import('my-module');",
     ]);
@@ -126,7 +126,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    assert.deepStrictEqual(result.split('\n'),[
+    assert.deepStrictEqual(result.split('\n'), [
       'function myimport() { }',
       'function my_import() { }',
       'function importShim() { }',
@@ -148,7 +148,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    assert.deepStrictEqual(result.split('\n'),[
+    assert.deepStrictEqual(result.split('\n'), [
       'import(`RESOLVED__@namespace/my-module-3/dynamic-files/${file}.js`);',
       'import(`RESOLVED__my-module/dynamic-files/${file}.js`);',
       'import("RESOLVED__my-module/dynamic-files" + "/" + file + ".js");',
@@ -168,7 +168,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    assert.deepStrictEqual(result.split('\n'),[
+    assert.deepStrictEqual(result.split('\n'), [
       'import("RESOLVED__./a.js");',
       "import('RESOLVED__./b.js');",
     ]);
@@ -188,7 +188,7 @@ describe('transformImports()', () => {
       defaultFilePath,
       defaultResolveImport,
     );
-    assert.deepStrictEqual(result.split('\n'),[
+    assert.deepStrictEqual(result.split('\n'), [
       'import( "RESOLVED__./a.js" );',
       'import(   "RESOLVED__./b.js"   );',
       'import(   "./c"   +    ".js"   );',
@@ -241,7 +241,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    assert.deepStrictEqual(result.split('\n'),[
+    assert.deepStrictEqual(result.split('\n'), [
       'import(`./foo/${file}.js`);',
       'import(`/${file}.js`);',
       'import("./foo" + "/" + file + ".js");',
@@ -422,9 +422,9 @@ describe('transformImport', () => {
       const responseText = await response.text();
 
       assert.strictEqual(response.status, 200);
-      assert.ok(responseText.includes(
-        "import { message } from 'my-module?transformed-1&transformed-2';",
-      ));
+      assert.ok(
+        responseText.includes("import { message } from 'my-module?transformed-1&transformed-2';"),
+      );
       assert.ok(responseText.includes('./src/local-module.js?transformed-1&transformed-2'));
     } finally {
       server.stop();
@@ -460,9 +460,9 @@ describe('transformImport', () => {
       const responseText = await response.text();
 
       assert.strictEqual(response.status, 200);
-      assert.ok(responseText.includes(
-        "import { message } from 'my-module?transformed-1&transformed-2';",
-      ));
+      assert.ok(
+        responseText.includes("import { message } from 'my-module?transformed-1&transformed-2';"),
+      );
       assert.ok(responseText.includes('./src/local-module.js?transformed-1&transformed-2'));
     } finally {
       server.stop();
@@ -491,7 +491,10 @@ describe('transformImport', () => {
     try {
       await fetch(`${host}/src/app.js`);
 
-      assert.deepStrictEqual(receivedImports, ['RESOLVED__my-module', 'RESOLVED__./src/local-module.js']);
+      assert.deepStrictEqual(receivedImports, [
+        'RESOLVED__my-module',
+        'RESOLVED__./src/local-module.js',
+      ]);
     } finally {
       server.stop();
     }

@@ -11,7 +11,6 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 const __dirname = import.meta.dirname;
 
 describe('visualRegressionPlugin', { timeout: 30000 }, () => {
-
   it('can run a passing test', async () => {
     await runTests({
       files: [path.join(__dirname, 'diff-pass-test.js')],
@@ -70,9 +69,11 @@ describe('visualRegressionPlugin', { timeout: 30000 }, () => {
     for (const session of sessions) {
       assert.equal(session.passed, false);
       assert.equal(session.testResults!.tests.length, 1);
-      assert(session.testResults!.tests[0].error!.message.includes(
-        'Visual diff failed. New screenshot is ',
-      ));
+      assert(
+        session.testResults!.tests[0].error!.message.includes(
+          'Visual diff failed. New screenshot is ',
+        ),
+      );
       assert.equal(
         await fileExists(
           path.resolve(

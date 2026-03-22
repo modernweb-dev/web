@@ -1,4 +1,10 @@
-import { rollup, type Plugin, type OutputChunk, type OutputAsset, type OutputOptions } from 'rollup';
+import {
+  rollup,
+  type Plugin,
+  type OutputChunk,
+  type OutputAsset,
+  type OutputOptions,
+} from 'rollup';
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
@@ -46,7 +52,8 @@ describe('rollup-plugin-html', () => {
     const { code: entryB } = getChunk(output, 'entrypoint-b.js');
     assert.ok(entryA.includes("console.log('entrypoint-a.js');"));
     assert.ok(entryB.includes("console.log('entrypoint-b.js');"));
-    assert.strictEqual(stripNewlines(getAsset(output, 'index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'index.html').source),
       '<html><head></head><body><h1>hello world</h1>' +
         '<script type="module" src="./entrypoint-a.js"></script>' +
         '<script type="module" src="./entrypoint-b.js"></script>' +
@@ -66,7 +73,8 @@ describe('rollup-plugin-html', () => {
     const { code: entryB } = getChunk(output, 'entrypoint-b.js');
     assert.ok(entryA.includes("console.log('entrypoint-a.js');"));
     assert.ok(entryB.includes("console.log('entrypoint-b.js');"));
-    assert.strictEqual(stripNewlines(getAsset(output, 'index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'index.html').source),
       '<html><head></head><body><h1>hello world</h1>' +
         '<script type="module" src="./entrypoint-a.js"></script>' +
         '<script type="module" src="./entrypoint-b.js"></script>' +
@@ -86,7 +94,8 @@ describe('rollup-plugin-html', () => {
     const { code: entryB } = getChunk(output, 'entrypoint-b.js');
     assert.ok(entryA.includes("console.log('entrypoint-a.js');"));
     assert.ok(entryB.includes("console.log('entrypoint-b.js');"));
-    assert.strictEqual(stripNewlines(getAsset(output, 'retain-attributes.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'retain-attributes.html').source),
       '<html><head></head><body><h1>hello world</h1>' +
         '<script type="module" src="./entrypoint-a.js" keep-this-attribute=""></script>' +
         '<script type="module" src="./entrypoint-b.js"></script>' +
@@ -101,7 +110,8 @@ describe('rollup-plugin-html', () => {
     };
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
-    assert.strictEqual(stripNewlines(getAsset(output, 'pure-index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'pure-index.html').source),
       '<html><head></head><body><h1>hello world</h1></body></html>',
     );
   });
@@ -120,10 +130,12 @@ describe('rollup-plugin-html', () => {
     };
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
-    assert.strictEqual(stripNewlines(getAsset(output, 'pure-index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'pure-index.html').source),
       '<html><head></head><body><h1>hello world</h1></body></html>',
     );
-    assert.strictEqual(stripNewlines(getAsset(output, 'pure-index2.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'pure-index2.html').source),
       '<html><head></head><body><h1>hey there</h1></body></html>',
     );
   });
@@ -144,7 +156,8 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
     assert.strictEqual(output.length, 2);
-    assert.strictEqual(stripNewlines(getAsset(output, 'index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'index.html').source),
       '<html><head></head><body><h1>Hello world</h1>' +
         '<script type="module" src="./entrypoint-a.js"></script></body></html>',
     );
@@ -166,7 +179,8 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
     assert.strictEqual(output.length, 2);
-    assert.strictEqual(stripNewlines(getAsset(output, 'pages/index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'pages/index.html').source),
       '<html><head></head><body><h1>Hello world</h1>' +
         '<script type="module" src="../entrypoint-a.js"></script></body></html>',
     );
@@ -191,7 +205,8 @@ describe('rollup-plugin-html', () => {
     const hash = '5ec680a4efbb48ae254268ab1defe610';
     const { code: appCode } = getChunk(output, `inline-module-${hash}.js`);
     assert.ok(appCode.includes("console.log('entrypoint-a.js');"));
-    assert.strictEqual(stripNewlines(getAsset(output, 'index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'index.html').source),
       '<html><head></head><body><h1>Hello world</h1>' +
         `<script type="module" src="./inline-module-${hash}.js"></script>` +
         '</body></html>',
@@ -232,7 +247,8 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
     assert.strictEqual(output.length, 2);
-    assert.strictEqual(getAsset(output, 'index.html').source,
+    assert.strictEqual(
+      getAsset(output, 'index.html').source,
       '<html><head></head><body><h1>Goodbye world</h1>' +
         '<script type="module" src="./entrypoint-a.js"></script></body></html>',
     );
@@ -254,7 +270,8 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
     assert.strictEqual(output.length, 2);
-    assert.strictEqual(getAsset(output, 'index.html').source,
+    assert.strictEqual(
+      getAsset(output, 'index.html').source,
       '<html><head></head><body><h1>Hello world</h1>' +
         '<script type="module" src="/static/entrypoint-a.js"></script></body></html>',
     );
@@ -277,7 +294,8 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
     assert.strictEqual(output.length, 2);
-    assert.strictEqual(getAsset(output, 'pages/index.html').source,
+    assert.strictEqual(
+      getAsset(output, 'pages/index.html').source,
       '<html><head></head><body><h1>Hello world</h1>' +
         '<script type="module" src="/static/entrypoint-a.js"></script></body></html>',
     );
@@ -317,7 +335,8 @@ describe('rollup-plugin-html', () => {
     assert.ok(entrypointA2.includes("console.log('entrypoint-a.js');"));
     assert.ok(entrypointA2.includes("console.log('module-a.js');"));
     assert.strictEqual(getAsset(outputA, 'index.html'), undefined);
-    assert.strictEqual(getAsset(outputB, 'index.html').source,
+    assert.strictEqual(
+      getAsset(outputB, 'index.html').source,
       '<html><head></head><body><h1>Hello world</h1>' +
         '<script>System.import("/static/entrypoint-a.js");</script>' +
         '<script type="module" src="/static/entrypoint-a.js"></script></body></html>',
@@ -346,11 +365,13 @@ describe('rollup-plugin-html', () => {
     const { output } = await bundle.generate(outputConfig);
     assert.strictEqual(output.length, 4);
     assert.ok(getChunk(output, 'entrypoint-a.js'));
-    assert.strictEqual(getAsset(output, 'index.html').source,
+    assert.strictEqual(
+      getAsset(output, 'index.html').source,
       '<html><head></head><body><h1>Hello world</h1>' +
         '<script type="module" src="./entrypoint-a.js"></script></body></html>',
     );
-    assert.strictEqual(getAsset(output, 'foo.html').source,
+    assert.strictEqual(
+      getAsset(output, 'foo.html').source,
       '<html><head></head><body><h1>foo.html</h1></body></html>',
     );
   });
@@ -383,13 +404,16 @@ describe('rollup-plugin-html', () => {
     assert.ok(getChunk(output, 'entrypoint-a.js'));
     assert.ok(getChunk(output, 'entrypoint-b.js'));
     assert.ok(getChunk(output, 'entrypoint-c.js'));
-    assert.strictEqual(getAsset(output, 'page-a.html').source,
+    assert.strictEqual(
+      getAsset(output, 'page-a.html').source,
       '<html><head></head><body><h1>Page A</h1><script type="module" src="./entrypoint-a.js"></script></body></html>',
     );
-    assert.strictEqual(getAsset(output, 'page-b.html').source,
+    assert.strictEqual(
+      getAsset(output, 'page-b.html').source,
       '<html><head></head><body><h1>Page B</h1><script type="module" src="./entrypoint-b.js"></script></body></html>',
     );
-    assert.strictEqual(getAsset(output, 'page-c.html').source,
+    assert.strictEqual(
+      getAsset(output, 'page-c.html').source,
       '<html><head></head><body><h1>Page C</h1><script type="module" src="./entrypoint-c.js"></script></body></html>',
     );
   });
@@ -468,13 +492,16 @@ describe('rollup-plugin-html', () => {
     assert.ok(getChunk(output, 'inline-module-b8667c926d8a16ee8b4499492c1726ed.js'));
     assert.ok(getChunk(output, 'inline-module-c91911481b66e7483731d4de5df616a6.js'));
     assert.ok(getChunk(output, 'inline-module-fbf0242ebea027b7392472c19328791d.js'));
-    assert.strictEqual(getAsset(output, 'foo/index.html').source,
+    assert.strictEqual(
+      getAsset(output, 'foo/index.html').source,
       '<html><head></head><body><h1>Page A</h1><script type="module" src="../inline-module-b8667c926d8a16ee8b4499492c1726ed.js"></script></body></html>',
     );
-    assert.strictEqual(getAsset(output, 'bar/index.html').source,
+    assert.strictEqual(
+      getAsset(output, 'bar/index.html').source,
       '<html><head></head><body><h1>Page B</h1><script type="module" src="../inline-module-c91911481b66e7483731d4de5df616a6.js"></script></body></html>',
     );
-    assert.strictEqual(getAsset(output, 'x.html').source,
+    assert.strictEqual(
+      getAsset(output, 'x.html').source,
       '<html><head></head><body><h1>Page C</h1><script type="module" src="./inline-module-fbf0242ebea027b7392472c19328791d.js"></script></body></html>',
     );
   });
@@ -505,13 +532,16 @@ describe('rollup-plugin-html', () => {
     const { output } = await bundle.generate(outputConfig);
     assert.strictEqual(output.length, 4);
     assert.ok(getChunk(output, 'inline-module-b8667c926d8a16ee8b4499492c1726ed.js'));
-    assert.strictEqual(getAsset(output, 'a.html').source,
+    assert.strictEqual(
+      getAsset(output, 'a.html').source,
       '<html><head></head><body><h1>Page A</h1><script type="module" src="./inline-module-b8667c926d8a16ee8b4499492c1726ed.js"></script></body></html>',
     );
-    assert.strictEqual(getAsset(output, 'b.html').source,
+    assert.strictEqual(
+      getAsset(output, 'b.html').source,
       '<html><head></head><body><h1>Page B</h1><script type="module" src="./inline-module-b8667c926d8a16ee8b4499492c1726ed.js"></script></body></html>',
     );
-    assert.strictEqual(getAsset(output, 'c.html').source,
+    assert.strictEqual(
+      getAsset(output, 'c.html').source,
       '<html><head></head><body><h1>Page C</h1><script type="module" src="./inline-module-b8667c926d8a16ee8b4499492c1726ed.js"></script></body></html>',
     );
   });
@@ -541,7 +571,8 @@ describe('rollup-plugin-html', () => {
     // ensure it's actually hashed
     assert.notStrictEqual(entrypoint.fileName, 'entrypoint-a.js');
     // get hashed name dynamically
-    assert.strictEqual(getAsset(output, 'index.html').source,
+    assert.strictEqual(
+      getAsset(output, 'index.html').source,
       `<html><head></head><body><h1>Hello world</h1><script type="module" src="./${entrypoint.fileName}"></script></body></html>`,
     );
   });
@@ -561,7 +592,8 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
     assert.strictEqual(output.length, 2);
-    assert.strictEqual(getAsset(output, 'pages/index.html').source,
+    assert.strictEqual(
+      getAsset(output, 'pages/index.html').source,
       '<html><head></head><body><h1>Hello world</h1><script type="module" src="../entrypoint-a.js"></script></body></html>',
     );
   });
@@ -581,7 +613,8 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
     assert.strictEqual(output.length, 2);
-    assert.strictEqual(getAsset(output, 'rollup-plugin-html/pages/index.html').source,
+    assert.strictEqual(
+      getAsset(output, 'rollup-plugin-html/pages/index.html').source,
       '<html><head></head><body><h1>Hello world</h1><script type="module" src="../../entrypoint-a.js"></script></body></html>',
     );
   });
@@ -651,7 +684,8 @@ describe('rollup-plugin-html', () => {
     const { code: entryB } = getChunk(output, 'entrypoint-b.js');
     assert.ok(entryA.includes("console.log('entrypoint-a.js');"));
     assert.ok(entryB.includes("console.log('entrypoint-b.js');"));
-    assert.strictEqual(stripNewlines(getAsset(output, 'index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'index.html').source),
       '<html><head></head><body><h1>hello world</h1>' +
         '<!-- injected to input -->' +
         '<script type="module" src="./entrypoint-a.js"></script>' +
@@ -708,16 +742,20 @@ describe('rollup-plugin-html', () => {
     }
 
     const outputHtml = getAsset(output, 'index.html').source;
-    assert.ok(outputHtml.includes(
-      '<link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png">',
-    ));
-    assert.ok(outputHtml.includes(
-      '<link rel="icon" type="image/png" sizes="32x32" href="assets/image-b.png">',
-    ));
+    assert.ok(
+      outputHtml.includes(
+        '<link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png">',
+      ),
+    );
+    assert.ok(
+      outputHtml.includes(
+        '<link rel="icon" type="image/png" sizes="32x32" href="assets/image-b.png">',
+      ),
+    );
     assert.ok(outputHtml.includes('<link rel="manifest" href="assets/webmanifest.json">'));
-    assert.ok(outputHtml.includes(
-      '<link rel="mask-icon" href="assets/image-a.svg" color="#3f93ce">',
-    ));
+    assert.ok(
+      outputHtml.includes('<link rel="mask-icon" href="assets/image-a.svg" color="#3f93ce">'),
+    );
     assert.ok(outputHtml.includes('<link rel="stylesheet" href="assets/styles-CF2Iy5n1.css">'));
     assert.ok(outputHtml.includes('<link rel="stylesheet" href="assets/x-DDGg8O6h.css">'));
     assert.ok(outputHtml.includes('<link rel="stylesheet" href="assets/y-DJTrnPH3.css">'));
@@ -745,7 +783,8 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
-    assert.strictEqual(stripNewlines(getAsset(output, 'index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'index.html').source),
       '<html><head>' +
         '<link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg">' +
         '<link rel="mask-icon" href="assets/foo1.svg" color="#3f93ce">' +
@@ -773,7 +812,8 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
-    assert.strictEqual(stripNewlines(getAsset(output, 'index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'index.html').source),
       '<html><head><link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg"></head>' +
         '<body><img src="assets/foo-BaOCt8wZ.svg"></body></html>',
     );
@@ -800,7 +840,8 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
-    assert.strictEqual(stripNewlines(getAsset(output, 'index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'index.html').source),
       '<html><head></head><body>' +
         '<link rel="stylesheet" href="assets/image-a-yvktvaNB.png">' +
         '<img src="assets/image-a-yvktvaNB.png">' +
@@ -848,19 +889,22 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
-    assert.strictEqual(stripNewlines(getAsset(output, 'page-a.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'page-a.html').source),
       '<html><head></head><body>' +
         '  <img src="assets/image-a-yvktvaNB.png">' +
         '    </body></html>',
     );
 
-    assert.strictEqual(stripNewlines(getAsset(output, 'page-b.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'page-b.html').source),
       '<html><head></head><body>' +
         '  <link rel="stylesheet" href="assets/image-a-yvktvaNB.png">' +
         '    </body></html>',
     );
 
-    assert.strictEqual(stripNewlines(getAsset(output, 'page-c.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'page-c.html').source),
       '<html><head></head><body>' +
         '  <link rel="stylesheet" href="assets/image-a-yvktvaNB.png">' +
         '  <img src="assets/image-a-yvktvaNB.png">' +
@@ -891,7 +935,8 @@ describe('rollup-plugin-html', () => {
     const { output } = await bundle.generate(outputConfig);
 
     assert.strictEqual(output.length, 2);
-    assert.strictEqual(stripNewlines(getAsset(output, 'index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'index.html').source),
       '<html><head></head><body><img src="./image-c.png"><link rel="stylesheet" href="./styles.css"><img src="./image-b.svg"></body></html>',
     );
   });
@@ -913,7 +958,8 @@ describe('rollup-plugin-html', () => {
     const { code: entryB } = getChunk(output, 'entrypoint-b.js');
     assert.ok(entryA.includes("console.log('entrypoint-a.js');"));
     assert.ok(entryB.includes("console.log('entrypoint-b.js');"));
-    assert.strictEqual(stripNewlines(getAsset(output, 'csp-page-a.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'csp-page-a.html').source),
       '<html><head>' +
         "<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'self' 'sha256-k0fj3IHUtZNziFbz6LL40uxkFlr28beNcMKKtp5+EwE=' 'sha256-UJadfRwzUCb1ajAJFfAPl8NTvtyiHtltKG/12veER70=';\">" +
         '</head><body><h1>hello world</h1>' +
@@ -942,7 +988,8 @@ describe('rollup-plugin-html', () => {
     const { code: entryB } = getChunk(output, 'entrypoint-b.js');
     assert.ok(entryA.includes("console.log('entrypoint-a.js');"));
     assert.ok(entryB.includes("console.log('entrypoint-b.js');"));
-    assert.strictEqual(stripNewlines(getAsset(output, 'csp-page-b.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'csp-page-b.html').source),
       '<html><head>' +
         "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; prefetch-src 'self'; upgrade-insecure-requests; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-k0fj3IHUtZNziFbz6LL40uxkFlr28beNcMKKtp5+EwE=' 'sha256-UJadfRwzUCb1ajAJFfAPl8NTvtyiHtltKG/12veER70=';\">" +
         '</head><body><h1>hello world</h1>' +
@@ -971,7 +1018,8 @@ describe('rollup-plugin-html', () => {
     const { code: entryB } = getChunk(output, 'entrypoint-b.js');
     assert.ok(entryA.includes("console.log('entrypoint-a.js');"));
     assert.ok(entryB.includes("console.log('entrypoint-b.js');"));
-    assert.strictEqual(stripNewlines(getAsset(output, 'csp-page-c.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'csp-page-c.html').source),
       '<html><head>' +
         "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; prefetch-src 'self'; upgrade-insecure-requests; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-k0fj3IHUtZNziFbz6LL40uxkFlr28beNcMKKtp5+EwE=' 'sha256-UJadfRwzUCb1ajAJFfAPl8NTvtyiHtltKG/12veER70=';\">" +
         '</head><body><h1>hello world</h1>' +
@@ -1010,15 +1058,18 @@ describe('rollup-plugin-html', () => {
       return src.substring(registerOpen + 11, registerClose);
     }
 
-    assert.strictEqual(extractServiceWorkerPath(getAsset(output, 'index.html').source),
+    assert.strictEqual(
+      extractServiceWorkerPath(getAsset(output, 'index.html').source),
       'service-worker.js',
     );
     assert.strictEqual(
       extractServiceWorkerPath(getAsset(output, path.join('sub-with-js', 'index.html')).source),
-      `../service-worker.js`);
+      `../service-worker.js`,
+    );
     assert.strictEqual(
       extractServiceWorkerPath(getAsset(output, path.join('sub-pure-html', 'index.html')).source),
-      `../service-worker.js`);
+      `../service-worker.js`,
+    );
   });
 
   it('does support a absolutePathPrefix to allow for sub folder deployments', async () => {
@@ -1044,7 +1095,8 @@ describe('rollup-plugin-html', () => {
     const bundle = await rollup(config);
     const { output } = await bundle.generate(outputConfig);
 
-    assert.strictEqual(stripNewlines(getAsset(output, 'x/index.html').source),
+    assert.strictEqual(
+      stripNewlines(getAsset(output, 'x/index.html').source),
       [
         '<html><head></head><body>',
         '<img src="../assets/foo-AJnkzla8.svg">',
@@ -1200,7 +1252,8 @@ describe('rollup-plugin-html', () => {
     const rewrittenCss = (output.find(o => o.name === 'styles.css') as OutputAsset).source
       .toString()
       .trim();
-    assert.strictEqual(rewrittenCss,
+    assert.strictEqual(
+      rewrittenCss,
       `#a {
   background-image: url("assets/star-CauvOfkF.svg");
 }
@@ -1287,18 +1340,24 @@ describe('rollup-plugin-html', () => {
     }
 
     const outputHtml = getAsset(output, 'index.html').source;
-    assert.ok(outputHtml.includes(
-      '<link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png">',
-    ));
-    assert.ok(outputHtml.includes(
-      '<link rel="icon" type="image/png" sizes="32x32" href="assets/image-d.png">',
-    ));
+    assert.ok(
+      outputHtml.includes(
+        '<link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png">',
+      ),
+    );
+    assert.ok(
+      outputHtml.includes(
+        '<link rel="icon" type="image/png" sizes="32x32" href="assets/image-d.png">',
+      ),
+    );
     assert.ok(outputHtml.includes('<link rel="manifest" href="assets/webmanifest.json">'));
     assert.ok(outputHtml.includes('<link rel="mask-icon" href="./image-a.svg" color="#3f93ce">'));
     assert.ok(outputHtml.includes('<link rel="mask-icon" href="image-d.svg" color="#3f93ce">'));
-    assert.ok(outputHtml.includes(
-      '<link rel="stylesheet" href="assets/styles-with-referenced-assets-C5klO55x.css">',
-    ));
+    assert.ok(
+      outputHtml.includes(
+        '<link rel="stylesheet" href="assets/styles-with-referenced-assets-C5klO55x.css">',
+      ),
+    );
     assert.ok(outputHtml.includes('<link rel="stylesheet" href="./foo/x.css">'));
     assert.ok(outputHtml.includes('<link rel="stylesheet" href="foo/bar/y.css">'));
     assert.ok(outputHtml.includes('<img src="assets/image-d-DLz8BAwO.png">'));
@@ -1307,7 +1366,8 @@ describe('rollup-plugin-html', () => {
     const rewrittenCss = getAsset(output, 'styles-with-referenced-assets.css')
       .source.toString()
       .trim();
-    assert.strictEqual(rewrittenCss,
+    assert.strictEqual(
+      rewrittenCss,
       `#a1 {
   background-image: url("assets/image-a-yvktvaNB.png");
 }

@@ -8,7 +8,6 @@ import { setUserAgentPlugin } from '../../dist/setUserAgentPlugin.ts';
 const __dirname = import.meta.dirname;
 
 describe('setUserAgentPlugin', { timeout: 20000 }, () => {
-
   it('can set the user agent on puppeteer', async () => {
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],

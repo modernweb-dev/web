@@ -32,7 +32,10 @@ describe('parse5-utils', () => {
       const doc = parse('');
       const el = utils.createScript();
       utils.appendChild(doc, el);
-      assert.strictEqual(serialize(doc), '<html><head></head><body></body></html><script></script>');
+      assert.strictEqual(
+        serialize(doc),
+        '<html><head></head><body></body></html><script></script>',
+      );
     });
 
     it('create a script with attributes', () => {
@@ -373,7 +376,10 @@ describe('parse5-utils', () => {
       const document = '<html><head><script>A</script></head></html>';
       const result = utils.appendToDocument(document, '<div>Hello world</div>');
       if (!result) throw new Error();
-      assert.strictEqual(result, '<html><head><script>A</script><div>Hello world</div></head></html>');
+      assert.strictEqual(
+        result,
+        '<html><head><script>A</script><div>Hello world</div></head></html>',
+      );
     });
 
     it('returns null if there is no head or body', () => {

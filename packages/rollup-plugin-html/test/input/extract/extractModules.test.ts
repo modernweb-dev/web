@@ -28,7 +28,8 @@ describe('extractModules()', () => {
       { importPath: `${sep}foo.js`, attributes: [] },
       { importPath: `${sep}bar.js`, attributes: [] },
     ]);
-    assert.strictEqual(htmlWithoutModules,
+    assert.strictEqual(
+      htmlWithoutModules,
       '<html><head></head><body><div>before</div><div>after</div></body></html>',
     );
   });
@@ -50,7 +51,8 @@ describe('extractModules()', () => {
 
     assert.strictEqual(inlineModules.length, 0);
     assert.deepStrictEqual(moduleImports, []);
-    assert.strictEqual(htmlWithoutModules,
+    assert.strictEqual(
+      htmlWithoutModules,
       '<html><head></head><body><div>before</div><script src="./foo.js"></script><script></script><div>after</div></body></html>',
     );
   });
@@ -75,7 +77,8 @@ describe('extractModules()', () => {
       { importPath: `${sep}foo.js`, attributes: [] },
       { importPath: `${sep}base${sep}bar.js`, attributes: [] },
     ]);
-    assert.strictEqual(htmlWithoutModules,
+    assert.strictEqual(
+      htmlWithoutModules,
       '<html><head></head><body><div>before</div><div>after</div></body></html>',
     );
   });
@@ -100,7 +103,8 @@ describe('extractModules()', () => {
       { importPath: `${sep}base-1${sep}base-2${sep}foo.js`, attributes: [] },
       { importPath: `${sep}base-1${sep}bar.js`, attributes: [] },
     ]);
-    assert.strictEqual(htmlWithoutModules,
+    assert.strictEqual(
+      htmlWithoutModules,
       '<html><head></head><body><div>before</div><div>after</div></body></html>',
     );
   });
@@ -133,7 +137,8 @@ describe('extractModules()', () => {
       },
     ]);
     assert.deepStrictEqual(moduleImports, []);
-    assert.strictEqual(htmlWithoutModules,
+    assert.strictEqual(
+      htmlWithoutModules,
       '<html><head></head><body><div>before</div><div>after</div></body></html>',
     );
   });
@@ -166,7 +171,8 @@ describe('extractModules()', () => {
       },
     ]);
     assert.deepStrictEqual(moduleImports, []);
-    assert.strictEqual(htmlWithoutModules,
+    assert.strictEqual(
+      htmlWithoutModules,
       '<html><head></head><body><div>before</div><div>after</div></body></html>',
     );
   });
@@ -188,7 +194,8 @@ describe('extractModules()', () => {
 
     assert.strictEqual(inlineModules.length, 0);
     assert.deepStrictEqual(moduleImports, [{ importPath: `${sep}bar.js`, attributes: [] }]);
-    assert.strictEqual(htmlWithoutModules,
+    assert.strictEqual(
+      htmlWithoutModules,
       '<html><head></head><body><div>before</div><script type="module" src="https://www.my-cdn.com/foo.js"></script><div>after</div></body></html>',
     );
   });

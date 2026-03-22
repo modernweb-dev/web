@@ -118,7 +118,10 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(element);
     });
     const deserialized = await deserialize(serialized);
-    assert.strictEqual(deserialized, 'HTMLDivElement: <div><h1><span>Hello world</span></h1></div>');
+    assert.strictEqual(
+      deserialized,
+      'HTMLDivElement: <div><h1><span>Hello world</span></h1></div>',
+    );
   });
 
   it('handles ShadowRoot', async () => {

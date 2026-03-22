@@ -9,7 +9,6 @@ import { selectOptionPlugin } from '../../dist/selectOptionPlugin.ts';
 const __dirname = import.meta.dirname;
 
 describe('selectOptionPlugin', { timeout: 20000 }, () => {
-
   it('can send keys on puppeteer', async () => {
     await runTests({
       files: [path.join(__dirname, 'puppeteer-test.js')],

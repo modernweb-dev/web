@@ -21,7 +21,9 @@ describe('@rollup/plugin-alias', () => {
         },
         babel({
           babelHelpers: 'inline',
-          plugins: [fileURLToPath(import.meta.resolve('@babel/plugin-transform-template-literals'))],
+          plugins: [
+            fileURLToPath(import.meta.resolve('@babel/plugin-transform-template-literals')),
+          ],
         }),
       ],
     });

@@ -22,7 +22,10 @@ async function testSnapshot({ name, config, expectedFiles = [] }: TestSnapshotAr
     throw new Error('No loader was generated');
   }
 
-  assert.deepStrictEqual(loader.polyfillFiles.map(f => f.path), expectedFiles);
+  assert.deepStrictEqual(
+    loader.polyfillFiles.map(f => f.path),
+    expectedFiles,
+  );
 
   if (updateSnapshots) {
     fs.writeFileSync(snapshotPath, loader.code, 'utf-8');
@@ -33,7 +36,6 @@ async function testSnapshot({ name, config, expectedFiles = [] }: TestSnapshotAr
 }
 
 describe('createPolyfillsLoader', function describe() {
-
   it('generates a loader script with one module resource', async () => {
     await testSnapshot({
       name: 'module-resource',

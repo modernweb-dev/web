@@ -7,7 +7,6 @@ import { Logger } from '@web/dev-server-core';
 const __dirname = import.meta.dirname;
 
 describe('executeServerCommand', { timeout: 20000 }, () => {
-
   it('can execute commands', async () => {
     const logger: Logger = {
       ...console,

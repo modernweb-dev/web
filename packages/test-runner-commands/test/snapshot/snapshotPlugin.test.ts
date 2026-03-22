@@ -8,7 +8,6 @@ import { snapshotPlugin } from '../../dist/snapshotPlugin.ts';
 const __dirname = import.meta.dirname;
 
 describe('snapshotPlugin', { timeout: 20000 }, () => {
-
   it('passes snapshot tests', async () => {
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],

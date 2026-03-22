@@ -16,7 +16,10 @@ describe('rollup-plugin-copy', () => {
     const { output } = await bundle.generate({ format: 'es' });
 
     assert.strictEqual(output.length, 5);
-    const svgFiles = output.map(x => x.fileName).filter(x => x.endsWith('.svg')).sort();
+    const svgFiles = output
+      .map(x => x.fileName)
+      .filter(x => x.endsWith('.svg'))
+      .sort();
     const expectedFiles = [
       'a.svg',
       'b.svg',

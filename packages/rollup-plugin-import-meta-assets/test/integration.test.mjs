@@ -92,7 +92,9 @@ describe('rollup-plugin-import-meta-assets', () => {
 
   it('simple bundle with ignored assets', async () => {
     const config = {
-      input: { 'transform-bundle-ignored': path.resolve(__dirname, './fixtures/transform-entrypoint.js') },
+      input: {
+        'transform-bundle-ignored': path.resolve(__dirname, './fixtures/transform-entrypoint.js'),
+      },
       plugins: [
         importMetaAssets({
           transform: async (assetBuffer, assetPath) => {
@@ -120,7 +122,9 @@ describe('rollup-plugin-import-meta-assets', () => {
 
   it('multiple level bundle (downward modules)', async () => {
     const config = {
-      input: { 'multi-level-bundle': path.resolve(__dirname, './fixtures/multi-level-entrypoint.js') },
+      input: {
+        'multi-level-bundle': path.resolve(__dirname, './fixtures/multi-level-entrypoint.js'),
+      },
       plugins: [importMetaAssets()],
     };
 
@@ -284,7 +288,10 @@ describe('rollup-plugin-import-meta-assets', () => {
   it('ignores patterns that reference a directory', async () => {
     const config = {
       input: {
-        'directories-ignored': path.resolve(__dirname, './fixtures/directories-and-simple-entrypoint.js'),
+        'directories-ignored': path.resolve(
+          __dirname,
+          './fixtures/directories-and-simple-entrypoint.js',
+        ),
       },
       plugins: [importMetaAssets()],
     };

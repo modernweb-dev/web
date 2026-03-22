@@ -32,10 +32,7 @@ export function foo(bar) {
       const text = await response.text();
 
       assert.strictEqual(response.status, 200);
-      assert.strictEqual(
-        response.headers.get('content-type'),
-        'text/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
       expectIncludes(text, 'React.createElement("div", {');
       expectIncludes(text, 'id: "myDiv"');
       expectIncludes(text, 'React.createElement(MyElement, {');
@@ -70,10 +67,7 @@ export function foo(bar) {
       const text = await response.text();
 
       assert.strictEqual(response.status, 200);
-      assert.strictEqual(
-        response.headers.get('content-type'),
-        'text/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
       expectIncludes(text, 'h("div", {');
       expectIncludes(text, 'id: "myDiv"');
       expectIncludes(text, 'h(MyElement, {');

@@ -83,10 +83,7 @@ describe('esbuildPlugin target', function () {
       const text = await response.text();
 
       assert.strictEqual(response.status, 200);
-      assert.strictEqual(
-        response.headers.get('content-type'),
-        'text/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
 
       expectIncludes(text, syntax.classes);
       for (const e of syntax.classFields) {
@@ -126,10 +123,7 @@ describe('esbuildPlugin target', function () {
       const text = await response.text();
 
       assert.strictEqual(response.status, 200);
-      assert.strictEqual(
-        response.headers.get('content-type'),
-        'text/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
 
       expectIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
@@ -169,10 +163,7 @@ describe('esbuildPlugin target', function () {
       const text = await response.text();
 
       assert.strictEqual(response.status, 200);
-      assert.strictEqual(
-        response.headers.get('content-type'),
-        'text/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
 
       expectIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
@@ -212,10 +203,7 @@ describe('esbuildPlugin target', function () {
       const text = await response.text();
 
       assert.strictEqual(response.status, 200);
-      assert.strictEqual(
-        response.headers.get('content-type'),
-        'text/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
 
       expectIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
@@ -255,10 +243,7 @@ describe('esbuildPlugin target', function () {
       const text = await response.text();
 
       assert.strictEqual(response.status, 200);
-      assert.strictEqual(
-        response.headers.get('content-type'),
-        'text/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
 
       expectIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
@@ -296,10 +281,7 @@ describe('esbuildPlugin target', function () {
       const text = await response.text();
 
       assert.strictEqual(response.status, 200);
-      assert.strictEqual(
-        response.headers.get('content-type'),
-        'text/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
 
       expectIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {

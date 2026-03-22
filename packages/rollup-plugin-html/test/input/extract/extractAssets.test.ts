@@ -175,7 +175,10 @@ describe('extractAssets', () => {
     assert.strictEqual(assets[0].filePath, path.join(rootDir, 'foo', 'x.css'));
     assert.strictEqual(assets[1].filePath, path.join(rootDir, 'styles.css'));
     assert.strictEqual(assets[0].content.toString('utf-8').replace(/\s/g, ''), ':root{color:x;}');
-    assert.strictEqual(assets[1].content.toString('utf-8').replace(/\s/g, ''), ':root{color:blue;}');
+    assert.strictEqual(
+      assets[1].content.toString('utf-8').replace(/\s/g, ''),
+      ':root{color:blue;}',
+    );
   });
 
   it('resolves absolute paths relative to root dir', () => {
@@ -198,7 +201,10 @@ describe('extractAssets', () => {
     assert.strictEqual(assets[0].filePath, path.join(rootDir, 'foo', 'x.css'));
     assert.strictEqual(assets[1].filePath, path.join(rootDir, 'styles.css'));
     assert.strictEqual(assets[0].content.toString('utf-8').replace(/\s/g, ''), ':root{color:x;}');
-    assert.strictEqual(assets[1].content.toString('utf-8').replace(/\s/g, ''), ':root{color:blue;}');
+    assert.strictEqual(
+      assets[1].content.toString('utf-8').replace(/\s/g, ''),
+      ':root{color:blue;}',
+    );
   });
 
   it('can reference the same asset with a hashed and non-hashed node', () => {

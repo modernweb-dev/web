@@ -37,7 +37,8 @@ describe('getOutputHTML()', () => {
 
   it('injects output into the input HTML', async () => {
     const output = await getOutputHTML(defaultOptions);
-    assert.strictEqual(output,
+    assert.strictEqual(
+      output,
       '<html><head></head><body><h1>Input HTML</h1>' +
         '<script type="module" src="/app.js"></script>' +
         '<script type="module" src="/module.js"></script>' +
@@ -62,7 +63,8 @@ describe('getOutputHTML()', () => {
     };
 
     const output = await getOutputHTML({ ...defaultOptions, entrypointBundles });
-    assert.strictEqual(output,
+    assert.strictEqual(
+      output,
       '<html><head></head><body><h1>Input HTML</h1>' +
         '<script type="module" src="/app.js"></script>' +
         '<script type="module" src="/module.js"></script>' +
@@ -81,7 +83,8 @@ describe('getOutputHTML()', () => {
       },
     });
 
-    assert.strictEqual(output,
+    assert.strictEqual(
+      output,
       '<html><head></head><body><h1>Transformed Input HTML</h1>' +
         '<script type="module" src="/app.js"></script>' +
         '<script type="module" src="/module.js"></script>' +
@@ -101,7 +104,8 @@ describe('getOutputHTML()', () => {
       },
     });
 
-    assert.strictEqual(output,
+    assert.strictEqual(
+      output,
       '<html><head></head><body><h2>Transformed Input HTML</h2>' +
         '<script type="module" src="/app.js"></script>' +
         '<script type="module" src="/module.js"></script>' +
@@ -119,7 +123,8 @@ describe('getOutputHTML()', () => {
       outputExternalTransformHtmlFns: [html => html.replace(/h1/g, 'h2')],
     });
 
-    assert.strictEqual(output,
+    assert.strictEqual(
+      output,
       '<html><head></head><body><h2>Transformed Input HTML</h2>' +
         '<script type="module" src="/app.js"></script>' +
         '<script type="module" src="/module.js"></script>' +
@@ -164,7 +169,8 @@ describe('getOutputHTML()', () => {
       },
     });
 
-    assert.strictEqual(output,
+    assert.strictEqual(
+      output,
       [
         '<html><head>',
         '<meta property="og:image" content="http://test.com/image-social-xxx.png">',
@@ -207,7 +213,8 @@ describe('getOutputHTML()', () => {
       },
     });
 
-    assert.strictEqual(output,
+    assert.strictEqual(
+      output,
       '<html><head></head><body><script>console.log("x")</script><script type="module" src="/app.js"></script><script type="module" src="/module.js"></script></body></html>',
     );
   });

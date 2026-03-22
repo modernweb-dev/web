@@ -8,7 +8,6 @@ import { filePlugin } from '../../dist/filePlugin.ts';
 const __dirname = import.meta.dirname;
 
 describe('filePlugin', { timeout: 20000 }, () => {
-
   it('passes file plugin tests', async () => {
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],

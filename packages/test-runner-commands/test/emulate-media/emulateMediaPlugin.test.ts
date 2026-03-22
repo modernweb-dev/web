@@ -9,7 +9,6 @@ import { emulateMediaPlugin } from '../../dist/emulateMediaPlugin.ts';
 const __dirname = import.meta.dirname;
 
 describe('emulateMediaPlugin', { timeout: 20000 }, () => {
-
   it('can emulate media on puppeteer', async () => {
     await runTests({
       files: [

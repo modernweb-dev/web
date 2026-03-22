@@ -204,7 +204,8 @@ describe('resolving imports', () => {
 
   it(`leaves unmapped bare imports untouched`, async () => {
     const files = {
-      '/index.html': createHtml({ './bar.js': './mocked-bar.js' }), '/x/y/app.js': 'import "x";',
+      '/index.html': createHtml({ './bar.js': './mocked-bar.js' }),
+      '/x/y/app.js': 'import "x";',
     };
     const { server, host } = await createTestServer({
       rootDir: __dirname,

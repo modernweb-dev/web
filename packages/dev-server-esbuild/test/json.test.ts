@@ -28,10 +28,7 @@ describe('esbuildPlugin JSON', function () {
       const text = await response.text();
 
       assert.strictEqual(response.status, 200);
-      assert.strictEqual(
-        response.headers.get('content-type'),
-        'text/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
       expectIncludes(text, 'var foo = "bar";');
       expectIncludes(text, 'var foo_default = { foo };');
       expectIncludes(text, 'export {');

@@ -9,7 +9,6 @@ import { sendKeysPlugin } from '../../dist/sendKeysPlugin.ts';
 const __dirname = import.meta.dirname;
 
 describe('sendKeysPlugin', { timeout: 20000 }, () => {
-
   it('can send keys on puppeteer', async () => {
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],

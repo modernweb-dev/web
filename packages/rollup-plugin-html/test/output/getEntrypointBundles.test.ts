@@ -1,9 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import {
-  getEntrypointBundles,
-  createImportPath,
-} from '../../src/output/getEntrypointBundles.ts';
+import { getEntrypointBundles, createImportPath } from '../../src/output/getEntrypointBundles.ts';
 import type { GeneratedBundle, ScriptModuleTag } from '../../src/RollupPluginHTMLOptions.ts';
 
 describe('createImportPath()', () => {
@@ -15,7 +12,8 @@ describe('createImportPath()', () => {
         htmlFileName: 'index.html',
         fileName: 'foo.js',
       }),
-      './foo.js');
+      './foo.js',
+    );
   });
 
   it('handles files output in a different directory', () => {
@@ -26,7 +24,8 @@ describe('createImportPath()', () => {
         htmlFileName: 'index.html',
         fileName: 'foo.js',
       }),
-      './legacy/foo.js');
+      './legacy/foo.js',
+    );
   });
 
   it('handles directory in filename', () => {
@@ -37,7 +36,8 @@ describe('createImportPath()', () => {
         htmlFileName: 'index.html',
         fileName: 'legacy/foo.js',
       }),
-      './legacy/foo.js');
+      './legacy/foo.js',
+    );
   });
 
   it('allows configuring a public path', () => {
@@ -49,7 +49,8 @@ describe('createImportPath()', () => {
         htmlFileName: 'index.html',
         fileName: 'foo.js',
       }),
-      './static/foo.js');
+      './static/foo.js',
+    );
   });
 
   it('allows configuring an absolute public path', () => {
@@ -61,7 +62,8 @@ describe('createImportPath()', () => {
         htmlFileName: 'index.html',
         fileName: 'foo.js',
       }),
-      '/static/foo.js');
+      '/static/foo.js',
+    );
   });
 
   it('allows configuring an absolute public path with just a /', () => {
@@ -73,7 +75,8 @@ describe('createImportPath()', () => {
         htmlFileName: 'index.html',
         fileName: 'foo.js',
       }),
-      '/foo.js');
+      '/foo.js',
+    );
   });
 
   it('allows configuring an absolute public path with a trailing /', () => {
@@ -85,7 +88,8 @@ describe('createImportPath()', () => {
         htmlFileName: 'index.html',
         fileName: 'foo.js',
       }),
-      '/static/public/foo.js');
+      '/static/public/foo.js',
+    );
   });
 
   it('respects a different output dir when configuring a public path', () => {
@@ -97,7 +101,8 @@ describe('createImportPath()', () => {
         htmlFileName: 'index.html',
         fileName: 'foo.js',
       }),
-      '/static/legacy/foo.js');
+      '/static/legacy/foo.js',
+    );
   });
 
   it('when html is output in a directory, creates a relative path from the html file to the js file', () => {
@@ -108,7 +113,8 @@ describe('createImportPath()', () => {
         htmlFileName: 'pages/index.html',
         fileName: 'foo.js',
       }),
-      '../foo.js');
+      '../foo.js',
+    );
   });
 
   it('when html is output in a directory and absolute path is set, creates a direct path from the root to the js file', () => {
@@ -120,7 +126,8 @@ describe('createImportPath()', () => {
         htmlFileName: 'pages/index.html',
         fileName: 'foo.js',
       }),
-      '/static/foo.js');
+      '/static/foo.js',
+    );
   });
 });
 
@@ -161,7 +168,10 @@ describe('getEntrypointBundles()', () => {
     assert.strictEqual(output.default.bundle, defaultBundles[0].bundle);
     assert.strictEqual(output.default.entrypoints.length, 1);
     assert.strictEqual(output.default.entrypoints[0].chunk, defaultBundles[0].bundle['app.js']);
-    assert.deepStrictEqual(output.default.entrypoints.map(e => e.importPath), ['./app.js']);
+    assert.deepStrictEqual(
+      output.default.entrypoints.map(e => e.importPath),
+      ['./app.js'],
+    );
   });
 
   it('does not output non-entrypoints', async () => {
@@ -193,7 +203,10 @@ describe('getEntrypointBundles()', () => {
     });
     assert.strictEqual(Object.keys(output).length, 1);
     assert.strictEqual(output.default.entrypoints.length, 1);
-    assert.deepStrictEqual(output.default.entrypoints.map(e => e.importPath), ['./app.js']);
+    assert.deepStrictEqual(
+      output.default.entrypoints.map(e => e.importPath),
+      ['./app.js'],
+    );
   });
 
   it('does not output non-chunks', async () => {
@@ -226,7 +239,10 @@ describe('getEntrypointBundles()', () => {
     });
     assert.strictEqual(Object.keys(output).length, 1);
     assert.strictEqual(output.default.entrypoints.length, 1);
-    assert.deepStrictEqual(output.default.entrypoints.map(e => e.importPath), ['./app.js']);
+    assert.deepStrictEqual(
+      output.default.entrypoints.map(e => e.importPath),
+      ['./app.js'],
+    );
   });
 
   it('matches on facadeModuleId', async () => {
@@ -258,7 +274,10 @@ describe('getEntrypointBundles()', () => {
     });
     assert.strictEqual(Object.keys(output).length, 1);
     assert.strictEqual(output.default.entrypoints.length, 1);
-    assert.deepStrictEqual(output.default.entrypoints.map(e => e.importPath), ['./app.js']);
+    assert.deepStrictEqual(
+      output.default.entrypoints.map(e => e.importPath),
+      ['./app.js'],
+    );
   });
 
   it('returns all entrypoints when no input module ids are given', async () => {
@@ -297,7 +316,10 @@ describe('getEntrypointBundles()', () => {
     });
     assert.strictEqual(Object.keys(output).length, 1);
     assert.strictEqual(output.default.entrypoints.length, 2);
-    assert.deepStrictEqual(output.default.entrypoints.map(e => e.importPath), ['./app.js', './not-app.js']);
+    assert.deepStrictEqual(
+      output.default.entrypoints.map(e => e.importPath),
+      ['./app.js', './not-app.js'],
+    );
   });
 
   it('generates entrypoint for multiple bundles', async () => {
@@ -342,10 +364,16 @@ describe('getEntrypointBundles()', () => {
     assert.strictEqual(output.legacy.bundle, generatedBundles[1].bundle);
     assert.strictEqual(output.modern.entrypoints.length, 1);
     assert.strictEqual(output.modern.entrypoints[0].chunk, generatedBundles[0].bundle['app.js']);
-    assert.deepStrictEqual(output.modern.entrypoints.map(e => e.importPath), ['./app.js']);
+    assert.deepStrictEqual(
+      output.modern.entrypoints.map(e => e.importPath),
+      ['./app.js'],
+    );
     assert.strictEqual(output.legacy.entrypoints.length, 1);
     assert.strictEqual(output.legacy.entrypoints[0].chunk, generatedBundles[1].bundle['app.js']);
-    assert.deepStrictEqual(output.legacy.entrypoints.map(e => e.importPath), ['./legacy/app.js']);
+    assert.deepStrictEqual(
+      output.legacy.entrypoints.map(e => e.importPath),
+      ['./legacy/app.js'],
+    );
   });
 
   it('allows configuring a public path', async () => {
@@ -356,6 +384,9 @@ describe('getEntrypointBundles()', () => {
 
     assert.strictEqual(Object.keys(output).length, 1);
     assert.strictEqual(output.default.entrypoints.length, 1);
-    assert.deepStrictEqual(output.default.entrypoints.map(e => e.importPath), ['/static/app.js']);
+    assert.deepStrictEqual(
+      output.default.entrypoints.map(e => e.importPath),
+      ['/static/app.js'],
+    );
   });
 });

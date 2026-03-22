@@ -11,7 +11,6 @@ import { moduleMockingPlugin } from '../dist/moduleMockingPlugin.ts';
 const dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('moduleMockingPlugin', { timeout: 20000 }, () => {
-
   it('can intercept server relative modules', async () => {
     await runTests({
       files: [path.join(dirname, 'fixtures', 'server-relative', 'browser-test.js')],
