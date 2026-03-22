@@ -9,7 +9,7 @@ import {
   isHashedAsset,
   resolveAssetFilePath,
   createAssetPicomatchMatcher,
-} from '../assets/utils.js';
+} from '../assets/utils.ts';
 import { InputData } from '../input/InputData.ts';
 import { createError } from '../utils.ts';
 import { EmittedAssets } from './emitAssets.ts';
