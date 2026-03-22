@@ -108,7 +108,8 @@ async function getIsReactVersion18or19(options: Options) {
   }
 
   const resolvedReact = await options.presets.apply<{ reactDom?: string }>('resolvedReact', {});
-  const reactDom = resolvedReact.reactDom || dirname(fileURLToPath(import.meta.resolve('react-dom/package.json')));
+  const reactDom =
+    resolvedReact.reactDom || dirname(fileURLToPath(import.meta.resolve('react-dom/package.json')));
 
   if (!isAbsolute(reactDom)) {
     // if react-dom is not resolved to a file we can't be sure if the version in package.json is correct or even if package.json exists

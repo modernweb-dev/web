@@ -1,6 +1,9 @@
 import { BrowserLauncher } from '@web/test-runner-core';
 import * as _SaucelabsModule from 'saucelabs';
-const SaucelabsAPI = (_SaucelabsModule as any).default?.default ?? (_SaucelabsModule as any).default ?? _SaucelabsModule;
+const SaucelabsAPI =
+  (_SaucelabsModule as any).default?.default ??
+  (_SaucelabsModule as any).default ??
+  _SaucelabsModule;
 type SauceLabsOptions = import('saucelabs').SauceLabsOptions;
 type SauceConnectOptions = import('saucelabs').SauceConnectOptions;
 type SauceConnectInstance = import('saucelabs').SauceConnectInstance;
