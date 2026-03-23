@@ -1,5 +1,5 @@
 import { findElements, getAttribute, getTagName, getTextContent, remove } from '@web/parse5-utils';
-import { Document, Attribute } from 'parse5';
+import type { Document, Attribute } from 'parse5';
 import path from 'path';
 import crypto from 'crypto';
 import { resolveAssetFilePath } from '../../assets/utils.ts';

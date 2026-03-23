@@ -1,4 +1,5 @@
-import { Document, Node, ParentNode, parse, serialize } from 'parse5';
+import { parse, serialize } from 'parse5';
+import type { Document, Node, ParentNode } from 'parse5';
 import {
   findElements,
   getAttribute,
