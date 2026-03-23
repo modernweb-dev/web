@@ -68,8 +68,7 @@ export function createServer(
 
   let server: Server;
   if (cfg.http2) {
-    // @ts-ignore import.meta.dirname works at runtime on Node 24; CJS output fixed in PR3
-    const dir = path.join(import.meta.dirname, '..');
+    const dir = path.join(__dirname, '..');
     const options = {
       key: fs.readFileSync(
         cfg.sslKey

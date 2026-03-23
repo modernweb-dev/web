@@ -1,5 +1,4 @@
 import path from 'path';
-import { fileURLToPath } from 'node:url';
 import fs from 'fs';
 import { minify } from 'terser';
 import type { PolyfillsLoaderConfig, PolyfillConfig, PolyfillFile } from './types.ts';
@@ -26,68 +25,47 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   }
 
   if (polyfills.coreJs) {
-    // @ts-ignore import.meta works at runtime on Node 24
-    const coreJsPath = await import.meta.resolve('core-js-bundle/minified.js');
     addPolyfillConfig({
       name: 'core-js',
-      path: fileURLToPath(coreJsPath),
+      path: require.resolve('core-js-bundle/minified.js'),
       test: noModuleSupportTest,
     });
   }
 
   if (polyfills.URLPattern) {
-    // @ts-ignore import.meta works at runtime on Node 24
-    const urlPatternPath = await import.meta.resolve('urlpattern-polyfill');
     addPolyfillConfig({
       name: 'urlpattern-polyfill',
       test: '"URLPattern" in window',
-      path: fileURLToPath(urlPatternPath),
+      path: require.resolve('urlpattern-polyfill'),
     });
   }
 
   if (polyfills.esModuleShims) {
-    // @ts-ignore import.meta works at runtime on Node 24
-    const esModuleShimsPath = await import.meta.resolve('es-module-shims');
     addPolyfillConfig({
       name: 'es-module-shims',
       test: polyfills.esModuleShims !== 'always' ? '1' : undefined,
-      path: fileURLToPath(esModuleShimsPath),
+      path: require.resolve('es-module-shims'),
       minify: true,
     });
   }
 
   if (polyfills.constructibleStylesheets) {
-    // @ts-ignore import.meta works at runtime on Node 24
-    const constructibleStylesheetsPath = await import.meta
-      .resolve('construct-style-sheets-polyfill');
     addPolyfillConfig({
       name: 'constructible-style-sheets-polyfill',
       test: '!("adoptedStyleSheets" in document)',
-      path: fileURLToPath(constructibleStylesheetsPath),
+      path: require.resolve('construct-style-sheets-polyfill'),
     });
   }
 
   if (polyfills.regeneratorRuntime) {
-    // @ts-ignore import.meta works at runtime on Node 24
-    const regeneratorRuntimePath = await import.meta.resolve('regenerator-runtime/runtime');
     addPolyfillConfig({
       name: 'regenerator-runtime',
       test: polyfills.regeneratorRuntime !== 'always' ? noModuleSupportTest : undefined,
-      path: fileURLToPath(regeneratorRuntimePath),
+      path: require.resolve('regenerator-runtime/runtime'),
     });
   }
 
   if (polyfills.fetch) {
-    // @ts-ignore import.meta works at runtime on Node 24
-    const fetchPath = await import.meta.resolve('whatwg-fetch/dist/fetch.umd.js');
-    const paths = [fileURLToPath(fetchPath)];
-
-    if (polyfills.abortController) {
-      // @ts-ignore import.meta works at runtime on Node 24
-      const abortPath = await import.meta.resolve('abortcontroller-polyfill/dist/umd-polyfill.js');
-      paths.push(fileURLToPath(abortPath));
-    }
-
     addPolyfillConfig({
       name: 'fetch',
       test: `!('fetch' in window)${
@@ -95,7 +73,12 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
           ? " || !('Request' in window) || !('signal' in window.Request.prototype)"
           : ''
       }`,
-      path: paths,
+      path: polyfills.abortController
+        ? [
+            require.resolve('whatwg-fetch/dist/fetch.umd.js'),
+            require.resolve('abortcontroller-polyfill/dist/umd-polyfill.js'),
+          ]
+        : [require.resolve('whatwg-fetch/dist/fetch.umd.js')],
       minify: true,
     });
   }
@@ -119,29 +102,22 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
 
     if (polyfills.systemjsExtended) {
       // full systemjs, including import maps polyfill
-      // @ts-ignore import.meta works at runtime on Node 24
-      const systemjsPath = await import.meta.resolve('systemjs/dist/system.min.js');
       addPolyfillConfig({
         name,
         test,
-        path: fileURLToPath(systemjsPath),
+        path: require.resolve('systemjs/dist/system.min.js'),
       });
     } else {
       // plain systemjs as es module polyfill
-      // @ts-ignore import.meta works at runtime on Node 24
-      const systemjsPath = await import.meta.resolve('systemjs/dist/s.min.js');
       addPolyfillConfig({
         name,
         test,
-        path: fileURLToPath(systemjsPath),
+        path: require.resolve('systemjs/dist/s.min.js'),
       });
     }
   }
 
   if (polyfills.dynamicImport) {
-    // @ts-ignore import.meta works at runtime on Node 24
-    const dynamicImportPath = await import.meta
-      .resolve('dynamic-import-polyfill/dist/dynamic-import-polyfill.umd.js');
     addPolyfillConfig({
       name: 'dynamic-import',
       /**
@@ -155,65 +131,50 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
       test:
         "'noModule' in HTMLScriptElement.prototype && " +
         "(function () { try { Function('window.importShim = s => import(s);').call(); return false; } catch (_) { return true; } })()",
-      path: fileURLToPath(dynamicImportPath),
+      path: require.resolve('dynamic-import-polyfill/dist/dynamic-import-polyfill.umd.js'),
       initializer: "window.dynamicImportPolyfill.initialize({ importFunctionName: 'importShim' });",
     });
   }
 
   if (polyfills.intersectionObserver) {
-    // @ts-ignore import.meta works at runtime on Node 24
-    const intersectionObserverPath = await import.meta
-      .resolve('intersection-observer/intersection-observer.js');
     addPolyfillConfig({
       name: 'intersection-observer',
       test: "!('IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype)",
-      path: fileURLToPath(intersectionObserverPath),
+      path: require.resolve('intersection-observer/intersection-observer.js'),
       minify: true,
     });
   }
 
   if (polyfills.resizeObserver) {
-    // @ts-ignore import.meta works at runtime on Node 24
-    const resizeObserverPath = await import.meta
-      .resolve('resize-observer-polyfill/dist/ResizeObserver.global.js');
     addPolyfillConfig({
       name: 'resize-observer',
       test: "!('ResizeObserver' in window)",
-      path: fileURLToPath(resizeObserverPath),
+      path: require.resolve('resize-observer-polyfill/dist/ResizeObserver.global.js'),
       minify: true,
     });
   }
 
   if (polyfills.scopedCustomElementRegistry) {
-    // @ts-ignore import.meta works at runtime on Node 24
-    const scopedRegistryPath = await import.meta
-      .resolve('@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js');
     addPolyfillConfig({
       name: 'scoped-custom-element-registry',
       test: "!('createElement' in ShadowRoot.prototype)",
-      path: fileURLToPath(scopedRegistryPath),
+      path: require.resolve('@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js'),
     });
   }
 
   if (polyfills.webcomponents && !polyfills.shadyCssCustomStyle) {
-    // @ts-ignore import.meta works at runtime on Node 24
-    const webcomponentsPath = await import.meta
-      .resolve('@webcomponents/webcomponentsjs/webcomponents-bundle.js');
     addPolyfillConfig({
       name: 'webcomponents',
       test: "!('attachShadow' in Element.prototype) || !('getRootNode' in Element.prototype) || (window.ShadyDOM && window.ShadyDOM.force)",
-      path: fileURLToPath(webcomponentsPath),
+      path: require.resolve('@webcomponents/webcomponentsjs/webcomponents-bundle.js'),
     });
 
     // If a browser does not support nomodule attribute, but does support custom elements, we need
     // to load the custom elements es5 adapter. This is the case for Safari 10.1
-    // @ts-ignore import.meta works at runtime on Node 24
-    const es5AdapterPath = await import.meta
-      .resolve('@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js');
     addPolyfillConfig({
       name: 'custom-elements-es5-adapter',
       test: "!('noModule' in HTMLScriptElement.prototype) && 'getRootNode' in Element.prototype",
-      path: fileURLToPath(es5AdapterPath),
+      path: require.resolve('@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js'),
     });
   }
 
@@ -221,23 +182,13 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     // shadycss/custom-style-interface polyfill *must* load after the webcomponents polyfill or it doesn't work.
     // to get around that, concat the two together.
 
-    // @ts-ignore import.meta works at runtime on Node 24
-    const webcomponentsBundlePath = await import.meta
-      .resolve('@webcomponents/webcomponentsjs/webcomponents-bundle.js');
-    // @ts-ignore import.meta works at runtime on Node 24
-    const customStylePath = await import.meta
-      .resolve('@webcomponents/shadycss/custom-style-interface.min.js');
-    // @ts-ignore import.meta works at runtime on Node 24
-    const shadyCssScopedPath = await import.meta
-      .resolve('shady-css-scoped-element/shady-css-scoped-element.min.js');
-
     addPolyfillConfig({
       name: 'webcomponents-shady-css-custom-style',
       test: "!('attachShadow' in Element.prototype) || !('getRootNode' in Element.prototype)",
       path: [
-        fileURLToPath(webcomponentsBundlePath),
-        fileURLToPath(customStylePath),
-        fileURLToPath(shadyCssScopedPath),
+        require.resolve('@webcomponents/webcomponentsjs/webcomponents-bundle.js'),
+        require.resolve('@webcomponents/shadycss/custom-style-interface.min.js'),
+        require.resolve('shady-css-scoped-element/shady-css-scoped-element.min.js'),
       ],
     });
   }
