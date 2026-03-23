@@ -6,15 +6,8 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "rewriteRelativeImportExtensions": false,
-    "strict": false,
-    "allowJs": true,
-    "checkJs": false,
     "declaration": true,
-    "skipLibCheck": true,
-    "emitDeclarationOnly": true
+    "skipLibCheck": true
   },
   "references": [],
   "include": [
@@ -23,12 +16,5 @@
   "exclude": [
     "tests",
     "dist"
-  ],
-  "ts-node": {
-    "compilerOptions": {
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "rewriteRelativeImportExtensions": false
-    }
-  }
+  ]
 }
