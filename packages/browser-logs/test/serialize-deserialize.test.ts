@@ -7,7 +7,9 @@ import path from 'path';
 import { deserialize } from '../src/deserialize.ts';
 
 const __dirname = import.meta.dirname;
-const serializeScript = fs.readFileSync(new URL('../dist/serialize.js', import.meta.url), 'utf-8');
+const serializeScript = fs
+  .readFileSync(new URL('../dist/serialize.js', import.meta.url), 'utf-8')
+  .replace(/^export /gm, '');
 const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };
 
 describe('serialize deserialize', function () {
