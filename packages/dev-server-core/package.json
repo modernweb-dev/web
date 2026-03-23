@@ -17,21 +17,19 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./dist/dom5": {
       "types": "./dist/dom5/index.d.ts",
-      "require": "./dist/dom5/index.js"
+      "default": "./dist/dom5/index.js"
     },
     "./test-helpers": {
       "types": "./test-helpers.d.ts",
-      "import": "./test-helpers.mjs",
-      "require": "./dist/test-helpers.js"
+      "default": "./dist/test-helpers.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -46,7 +44,6 @@
     ".self-signed-dev-server-ssl.cert",
     ".self-signed-dev-server-ssl.key",
     "*.d.ts",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -86,5 +83,6 @@
     "express": "^4.21.2",
     "nanoid": "^3.1.25",
     "portfinder": "^1.0.32"
-  }
+  },
+  "type": "module"
 }

@@ -16,8 +16,9 @@
   "main": "src/index.js",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "types": "./index.d.ts",
+      "import": "./index.mjs",
+      "default": "./src/index.js"
     }
   },
   "engines": {
@@ -45,6 +46,5 @@
   },
   "devDependencies": {
     "@types/html-minifier-terser": "^7.0.0"
-  },
-  "type": "module"
+  }
 }
