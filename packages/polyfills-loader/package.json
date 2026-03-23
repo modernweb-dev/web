@@ -26,9 +26,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "node --experimental-transform-types --test --test-timeout 120000 test/**/*.test.ts",
-    "test:update-snapshots": "node --experimental-transform-types --test --test-timeout 120000 test/**/*.test.ts",
-    "test:watch": "node --experimental-transform-types --test --watch test/**/*.test.ts"
+    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 test/**/*.test.ts",
+    "test:update-snapshots": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 test/**/*.test.ts",
+    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch test/**/*.test.ts"
   },
   "files": [
     "*.d.ts",

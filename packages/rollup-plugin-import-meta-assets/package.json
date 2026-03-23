@@ -25,8 +25,8 @@
   },
   "scripts": {
     "test": "npm run test:node",
-    "test:node": "node --experimental-transform-types --test --test-timeout 120000 'test/**/*.test.mjs'",
-    "test:update-snapshots": "node --experimental-transform-types --test --test-timeout 120000 'test/**/*.test.mjs'",
+    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
+    "test:update-snapshots": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
     "test:watch": "npm run test:node -- --watch"
   },
   "files": [

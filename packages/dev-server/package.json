@@ -37,8 +37,8 @@
     "start:plugin-serve": "node dist/bin.js --config demo/plugin-serve/config.mjs --open",
     "start:static": "node dist/bin.js --config demo/static/config.mjs --open demo/static/",
     "start:syntax": "node dist/bin.js --config demo/syntax/config.mjs --open demo/syntax/",
-    "test:node": "node --experimental-transform-types --test --test-timeout 120000 'test/**/*.test.mjs'",
-    "test:watch": "node --experimental-transform-types --test --watch 'test/**/*.test.mjs'"
+    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
+    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch 'test/**/*.test.mjs'"
   },
   "files": [
     "*.d.ts",
