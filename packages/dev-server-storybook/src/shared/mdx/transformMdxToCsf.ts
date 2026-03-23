@@ -18,6 +18,7 @@ export async function transformMdxToCsf(body: string, filePath: string): Promise
   const babelResult = await transformAsync(jsx, {
     filename: filePath,
     sourceMaps: true,
+    // @ts-ignore import.meta works at runtime on Node 24; CJS output fixed in PR3
     plugins: [fileURLToPath(import.meta.resolve('@babel/plugin-transform-react-jsx'))],
   });
 

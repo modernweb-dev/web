@@ -11,6 +11,7 @@ import { mdxPlugin } from './mdxPlugin.ts';
 import { mdjsPlugin } from './mdjsPlugin.ts';
 import { injectExportsOrderPlugin } from './injectExportsOrderPlugin.ts';
 
+// @ts-ignore import.meta works at runtime on Node 24
 const resolveFile = (specifier: string) => fileURLToPath(import.meta.resolve(specifier));
 
 const prebuiltDir = resolveFile('@web/storybook-prebuilt/package.json').replace(

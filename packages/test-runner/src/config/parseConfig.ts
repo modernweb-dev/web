@@ -10,9 +10,12 @@ import {
   snapshotPlugin,
   sendMousePlugin,
 } from '@web/test-runner-commands/plugins';
-import { getPortPromise } from 'portfinder';
+import portfinder from 'portfinder';
+
+const { getPortPromise } = portfinder;
 import path from 'path';
 import { cpus } from 'os';
+import { fileURLToPath } from 'node:url';
 
 import { TestRunnerCliArgs } from './readCliArgs.ts';
 import { mergeConfigs } from './mergeConfigs.ts';
@@ -223,7 +226,8 @@ export async function parseConfig(
   }
 
   finalConfig.testFramework = {
-    path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
+    // @ts-ignore import.meta works at runtime on Node 24; CJS output fixed in PR3
+    path: fileURLToPath(import.meta.resolve('@web/test-runner-mocha/dist/autorun.js')),
     ...(finalConfig.testFramework ?? {}),
   };
 

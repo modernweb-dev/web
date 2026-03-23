@@ -1,6 +1,9 @@
 /* eslint-disable no-async-promise-executor, no-inner-declarations */
-import { getPortPromise } from 'portfinder';
+import portfinder from 'portfinder';
+
+const { getPortPromise } = portfinder;
 import path from 'path';
+import { fileURLToPath } from 'node:url';
 import { TestRunner, TestRunnerCoreConfig } from './index.ts';
 import { Logger } from './logger/Logger.ts';
 import { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession.ts';
@@ -20,11 +23,16 @@ const logger: Logger = {
 const secondMs = 1000;
 const minuteMs = secondMs * 60;
 
+// @ts-ignore import.meta works at runtime on Node 24; CJS output fixed in PR3
+const __dir = import.meta.dirname;
+// @ts-ignore
+const __mochaPath = fileURLToPath(import.meta.resolve('@web/test-runner-mocha/dist/autorun.js'));
+
 const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   watch: false,
-  rootDir: path.join(__dirname, '..', '..', '..'),
+  rootDir: path.join(__dir, '..', '..', '..'),
   testFramework: {
-    path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
+    path: __mochaPath,
   },
   protocol: 'http:',
   hostname: 'localhost',

@@ -1,5 +1,9 @@
+import { fileURLToPath } from 'node:url';
 import { transformAsync } from '@babel/core';
 import type { TransformOptions } from '@babel/core';
+
+// @ts-ignore import.meta works at runtime on Node 24
+const resolve = (specifier: string) => fileURLToPath(import.meta.resolve(specifier));
 
 export const es5Config: TransformOptions = {
   caller: {
@@ -11,7 +15,7 @@ export const es5Config: TransformOptions = {
   configFile: false,
   presets: [
     [
-      require.resolve('@babel/preset-env'),
+      resolve('@babel/preset-env'),
       {
         targets: ['defaults', 'ie 10'],
         useBuiltIns: false,
@@ -26,10 +30,10 @@ export const es5Config: TransformOptions = {
    * it only ensures that babel does not crash when you're using them.
    */
   plugins: [
-    require.resolve('@babel/plugin-syntax-import-meta'),
-    require.resolve('@babel/plugin-syntax-class-properties'),
-    require.resolve('@babel/plugin-syntax-numeric-separator'),
-    require.resolve('@babel/plugin-syntax-dynamic-import'),
+    resolve('@babel/plugin-syntax-import-meta'),
+    resolve('@babel/plugin-syntax-class-properties'),
+    resolve('@babel/plugin-syntax-numeric-separator'),
+    resolve('@babel/plugin-syntax-dynamic-import'),
   ],
 };
 
@@ -37,11 +41,11 @@ export const systemJsConfig: TransformOptions = {
   ...es5Config,
   plugins: [
     ...(es5Config.plugins ?? []),
-    require.resolve('@babel/plugin-proposal-dynamic-import'),
-    require.resolve('@babel/plugin-transform-modules-systemjs'),
+    resolve('@babel/plugin-proposal-dynamic-import'),
+    resolve('@babel/plugin-transform-modules-systemjs'),
     // systemjs adds template literals, we do systemjs after (potential)
     // es5 compilation so we need to ensure it stays es5
-    require.resolve('@babel/plugin-transform-template-literals'),
+    resolve('@babel/plugin-transform-template-literals'),
   ],
 };
 
