@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
 
-import type { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.ts';
-import { createPolyfillsData } from '../src/createPolyfillsData.ts';
-import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
+import type { PolyfillsLoaderConfig, PolyfillFile } from '../dist/types.js';
+import { createPolyfillsData } from '../dist/createPolyfillsData.js';
+import { noModuleSupportTest, fileTypes } from '../dist/utils.js';
 
 const __dirname = import.meta.dirname;
 

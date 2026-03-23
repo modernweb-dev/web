@@ -4,8 +4,8 @@ import { stubMethod, restore as restoreStubs } from 'hanbi';
 import { createTestServer, fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
 import { posix as pathUtil } from 'path';
 
-import { hmrPlugin } from '../src/index.ts';
-import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin.ts';
+import { hmrPlugin } from '../dist/index.js';
+import { NAME_HMR_CLIENT_IMPORT } from '../dist/HmrPlugin.js';
 import { mockFile, mockFiles } from './utils.ts';
 
 const __dirname = import.meta.dirname;

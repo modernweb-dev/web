@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
 import fs from 'fs';
-import { injectPolyfillsLoader } from '../src/injectPolyfillsLoader.ts';
-import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
-import type { PolyfillsLoaderConfig } from '../src/types.ts';
+import { injectPolyfillsLoader } from '../dist/injectPolyfillsLoader.js';
+import { noModuleSupportTest, fileTypes } from '../dist/utils.js';
+import type { PolyfillsLoaderConfig } from '../dist/types.js';
 
 const __dirname = import.meta.dirname;
 const updateSnapshots = process.argv.includes('--update-snapshots');

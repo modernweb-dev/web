@@ -6,7 +6,7 @@ import type { Browser, HTTPResponse, Page } from 'puppeteer';
 import { launch as launchPuppeteer } from 'puppeteer';
 import { posix as pathUtil } from 'path';
 
-import { hmrPlugin } from '../src/index.ts';
+import { hmrPlugin } from '../dist/index.js';
 import { mockFiles } from './utils.ts';
 
 const __dirname = import.meta.dirname;

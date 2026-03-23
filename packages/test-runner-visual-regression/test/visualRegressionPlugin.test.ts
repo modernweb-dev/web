@@ -4,8 +4,8 @@ import path from 'path';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 
-import { visualRegressionPlugin } from '../src/visualRegressionPlugin.ts';
-import { fileExists } from '../src/fs.ts';
+import { visualRegressionPlugin } from '../dist/visualRegressionPlugin.js';
+import { fileExists } from '../dist/fs.js';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
 const __dirname = import.meta.dirname;

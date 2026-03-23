@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 
-import { legacyPlugin } from '../src/legacyPlugin.ts';
+import { legacyPlugin } from '../dist/legacyPlugin.js';
 import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
 
 const __dirname = import.meta.dirname;
