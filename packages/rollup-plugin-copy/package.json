@@ -21,7 +21,7 @@
   "exports": {
     ".": {
       "types": "./dist/copy.d.ts",
-      "default": "./dist/copy.js"
+      "default": "./src/copy.js"
     }
   },
   "engines": {

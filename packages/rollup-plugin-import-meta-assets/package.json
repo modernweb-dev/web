@@ -16,7 +16,7 @@
   "main": "src/index.js",
   "exports": {
     ".": {
-      "default": "./dist/index.js"
+      "default": "./src/index.js"
     }
   },
   "engines": {
