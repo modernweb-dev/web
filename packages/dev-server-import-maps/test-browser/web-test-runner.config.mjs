@@ -1,6 +1,6 @@
 import { join } from 'path';
 import { fileURLToPath } from 'url';
-import { importMapsPlugin } from '../index.mjs';
+import { importMapsPlugin } from '../dist/index.js';
 
 export default {
   rootDir: fileURLToPath(join(import.meta.url, '..', '..', '..', '..')),
