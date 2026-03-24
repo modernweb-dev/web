@@ -1,6 +1,6 @@
 import {
   type TestRunnerCoreConfig,
-  type TestSessionManager,
+  TestSessionManager,
   SESSION_STATUS,
   type TestCoverage,
   type CoverageConfig,

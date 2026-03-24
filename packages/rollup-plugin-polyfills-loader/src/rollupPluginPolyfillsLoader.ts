@@ -1,9 +1,10 @@
-import { RollupPluginHtml } from '@web/rollup-plugin-html';
-import { Plugin } from 'rollup';
-import { GeneratedFile, injectPolyfillsLoader, File, fileTypes } from '@web/polyfills-loader';
+import type { RollupPluginHtml } from '@web/rollup-plugin-html';
+import type { Plugin } from 'rollup';
+import { injectPolyfillsLoader, fileTypes } from '@web/polyfills-loader';
+import type { GeneratedFile, File } from '@web/polyfills-loader';
 import path from 'path';
 
-import { RollupPluginPolyfillsLoaderConfig } from './types.ts';
+import type { RollupPluginPolyfillsLoaderConfig } from './types.ts';
 import { createError, shouldInjectLoader } from './utils.ts';
 import { createPolyfillsLoaderConfig, formatToFileType } from './createPolyfillsLoaderConfig.ts';
 

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import path from 'path';
 import { parse, serialize } from 'parse5';
 import { html } from '../../utils.ts';
-import { InputData } from '../../../src/input/InputData.ts';
+import type { InputData } from '../../../src/input/InputData.ts';
 
 import { injectedUpdatedAssetPaths } from '../../../src/output/injectedUpdatedAssetPaths.ts';
 

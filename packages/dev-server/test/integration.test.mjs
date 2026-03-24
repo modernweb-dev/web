@@ -1,10 +1,10 @@
+import { describe, it, before, after, beforeEach, afterEach } from 'node:test';
 import puppeteer from 'puppeteer';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-import { startDevServer } from '../index.mjs';
+import { startDevServer } from '../dist/index.js';
 
-const dirname = path.dirname(fileURLToPath(import.meta.url));
+const dirname = import.meta.dirname;
 
 const testCases = [
   {
@@ -53,8 +53,7 @@ describe('integration tests', () => {
   });
 
   for (const testCase of testCases) {
-    describe(`testcase ${testCase.name}`, function test() {
-      this.timeout(30000);
+    describe(`testcase ${testCase.name}`, { timeout: 30000 }, () => {
       let server;
 
       beforeEach(async () => {
@@ -69,7 +68,7 @@ describe('integration tests', () => {
         await server.stop();
       });
 
-      it('passes the in-browser tests', async function it() {
+      it('passes the in-browser tests', async () => {
         const openPath = `/demo/${testCase.name}/`;
         const browserPath = `http://${server.config.hostname}:${server.config.port}${openPath}`;
         const page = await browser.newPage();

@@ -4,7 +4,8 @@ import { type TestFramework } from '../test-framework/TestFramework.ts';
 import { type TestSession } from '../test-session/TestSession.ts';
 import { type Reporter } from '../reporter/Reporter.ts';
 import { type Logger } from '../logger/Logger.ts';
-import { type TestRunnerPlugin } from '../server/TestRunnerPlugin.ts';import type { ReportType } from 'istanbul-reports';
+import { type TestRunnerPlugin } from '../server/TestRunnerPlugin.ts';
+import type { ReportType } from 'istanbul-reports';
 
 export interface CoverageThresholdConfig {
   statements: number;

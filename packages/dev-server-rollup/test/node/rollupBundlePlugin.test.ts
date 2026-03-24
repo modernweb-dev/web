@@ -1,6 +1,9 @@
+import { describe, it } from 'node:test';
 import { rollupBundlePlugin } from '../../src/rollupBundlePlugin.ts';
 import path from 'path';
 import { createTestServer, fetchText, expectIncludes } from './test-helpers.ts';
+
+const __dirname = import.meta.dirname;
 
 describe('rollupBundlePlugin', () => {
   it('can bundle a single entrypoint', async () => {

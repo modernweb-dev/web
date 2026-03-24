@@ -20,22 +20,20 @@
   "module": "index.mjs",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./src/copy.js"
+      "types": "./dist/copy.d.ts",
+      "default": "./src/copy.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
-    "test:node": "mocha test/**/*.test.js --reporter dot",
-    "test:watch": "mocha test/**/*.test.js --watch --watch-files src,test --reporter dot"
+    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
+    "test:watch": "npm run test:node -- --watch"
   },
   "files": [
     "*.d.ts",
     "*.js",
-    "*.mjs",
     "dist",
     "src"
   ],

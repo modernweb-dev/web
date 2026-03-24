@@ -1,7 +1,9 @@
-import { type Document, serialize } from 'parse5';
+import { serialize } from 'parse5';
+import type { Document } from 'parse5';
 import fs from 'fs';
 import path from 'path';
-import { type InputAsset } from '../InputData.ts';import {
+import { type InputAsset } from '../InputData.ts';
+import {
   findAssets,
   getSourcePaths,
   isHashedAsset,

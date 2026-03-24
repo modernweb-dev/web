@@ -7,7 +7,7 @@
     "url": "https://github.com/modernweb-dev/web.git"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "node scripts/fix-jridgewell-dcts.js && rm -rf packages/dev-server-core/node_modules/@types/koa packages/dev-server-core/node_modules/@types/ws && npm run build:clean && tsc --build",

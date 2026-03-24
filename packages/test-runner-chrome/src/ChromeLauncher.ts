@@ -2,11 +2,11 @@ import * as puppeteerCore from 'puppeteer-core';
 import {
   Browser,
   Page,
-  LaunchOptions,
+  type LaunchOptions,
   launch as puppeteerCoreLaunch,
   BrowserContext,
 } from 'puppeteer-core';
-import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
+import { type BrowserLauncher, type TestRunnerCoreConfig } from '@web/test-runner-core';
 import { findExecutablePath } from './findExecutablePath.ts';
 import { ChromeLauncherPage } from './ChromeLauncherPage.ts';
 

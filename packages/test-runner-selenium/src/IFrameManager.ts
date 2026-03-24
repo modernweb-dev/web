@@ -1,4 +1,4 @@
-import { CoverageMapData, TestRunnerCoreConfig } from '@web/test-runner-core';
+import { type CoverageMapData, type TestRunnerCoreConfig } from '@web/test-runner-core';
 import { WebDriver } from 'selenium-webdriver';
 
 interface BrowserResult {

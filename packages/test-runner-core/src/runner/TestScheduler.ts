@@ -1,11 +1,12 @@
 import { createSessionUrl } from './createSessionUrl.ts';
 import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
-import { type TestSessionManager } from '../test-session/TestSessionManager.ts';
+import { TestSessionManager } from '../test-session/TestSessionManager.ts';
 import { type TestSession, type TestResultError } from '../test-session/TestSession.ts';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus.ts';
 import { withTimeout } from '../utils/async.ts';
 import { TestSessionTimeoutHandler } from './TestSessionTimeoutHandler.ts';
 import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
+
 export class TestScheduler {
   private config: TestRunnerCoreConfig;
   private sessions: TestSessionManager;

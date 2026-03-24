@@ -3,6 +3,7 @@ import libReport from 'istanbul-lib-report';
 
 import { type CoverageConfig } from '../config/TestRunnerCoreConfig.ts';
 import { type TestCoverage } from '../coverage/getTestCoverage.ts';
+
 export function writeCoverageReport(testCoverage: TestCoverage, config: CoverageConfig) {
   // create a context for report generation
   const context = libReport.createContext({

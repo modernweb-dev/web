@@ -9,13 +9,14 @@ import { getWatchCommands } from './getWatchCommands.ts';
 import { DynamicTerminal } from './terminal/DynamicTerminal.ts';
 import { BufferedLogger } from './BufferedLogger.ts';
 import { getManualDebugMenu } from './getManualDebugMenu.ts';
-import { ErrorWithLocation } from '../logger/Logger.ts';
+import { type ErrorWithLocation } from '../logger/Logger.ts';
 import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
-import { type TestSessionManager } from '../test-session/TestSessionManager.ts';
+import { TestSessionManager } from '../test-session/TestSessionManager.ts';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus.ts';
 import { type Logger } from '../logger/Logger.ts';
 import { TestRunner } from '../runner/TestRunner.ts';
 import { type TestCoverage } from '../coverage/getTestCoverage.ts';
+
 export type MenuType = 'none' | 'overview' | 'focus' | 'debug' | 'manual-debug';
 
 export const MENUS = {

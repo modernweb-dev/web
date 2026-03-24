@@ -1,5 +1,5 @@
-import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { Browser, remote } from 'webdriverio';
+import { type BrowserLauncher, type TestRunnerCoreConfig } from '@web/test-runner-core';
+import { type Browser, remote } from 'webdriverio';
 import { Capabilities } from '@wdio/types';
 import { IFrameManager } from './IFrameManager.ts';
 import { SessionManager } from './SessionManager.ts';

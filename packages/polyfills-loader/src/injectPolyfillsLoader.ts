@@ -1,4 +1,5 @@
-import { Document, Node, ParentNode, parse, serialize } from 'parse5';
+import { parse, serialize } from 'parse5';
+import type { Document, Node, ParentNode } from 'parse5';
 import {
   findElements,
   getAttribute,
@@ -9,10 +10,10 @@ import {
   createElement,
   findElement,
   getTagName,
-  Element,
+  type Element,
 } from '@web/parse5-utils';
 
-import { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile } from './types.ts';
+import { type PolyfillsLoaderConfig, type PolyfillsLoader, type GeneratedFile } from './types.ts';
 import { createPolyfillsLoader } from './createPolyfillsLoader.ts';
 import { hasFileOfType, fileTypes } from './utils.ts';
 

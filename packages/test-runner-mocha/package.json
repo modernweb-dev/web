@@ -15,13 +15,13 @@
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-mocha",
   "main": "dist/standalone.js",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
     "build:production": "rimraf dist && rollup -c ./rollup.config.mjs",
-    "test": "mocha test/**/*.test.js --reporter dot",
-    "test:watch": "mocha test/**/*.test.js --watch --watch-files src,test"
+    "test": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 test/**/*.test.mjs",
+    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch test/**/*.test.mjs"
   },
   "files": [
     "dist"
@@ -41,5 +41,6 @@
     "@types/mocha": "^10.0.1",
     "deepmerge": "^4.2.2",
     "mocha": "^10.8.2"
-  }
+  },
+  "type": "module"
 }

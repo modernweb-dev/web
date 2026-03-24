@@ -1,12 +1,12 @@
 import path from 'path';
-import {
+import type {
   DevServerCoreConfig,
   FSWatcher,
   Plugin as WdsPlugin,
   Context,
   ResolveOptions,
 } from '@web/dev-server-core';
-import {
+import type {
   PluginContext,
   MinimalPluginContext,
   TransformPluginContext,

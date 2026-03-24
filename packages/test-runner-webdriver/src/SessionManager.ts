@@ -1,5 +1,5 @@
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { Browser } from 'webdriverio';
+import { type TestRunnerCoreConfig } from '@web/test-runner-core';
+import { type Browser } from 'webdriverio';
 import { validateBrowserResult } from './coverage.ts';
 
 /**

@@ -1,10 +1,10 @@
 import picoMatch from 'picomatch';
-import { Context, getHtmlPath } from '@web/dev-server-core';
-import { Element as ElementAst } from 'parse5';
+import { type Context, getHtmlPath } from '@web/dev-server-core';
+import type { Element as ElementAst } from 'parse5';
 import { getAttribute } from '@web/parse5-utils';
-import { ParsedImportMap } from '@import-maps/resolve';
+import { type ParsedImportMap } from '@import-maps/resolve';
 
-import { NormalizedInjectSetting, InjectSetting } from './importMapsPlugin.ts';
+import { type NormalizedInjectSetting, type InjectSetting } from './importMapsPlugin.ts';
 
 export const IMPORT_MAP_PARAM = 'wds-import-map';
 

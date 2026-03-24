@@ -1,4 +1,4 @@
-import { TestRunnerPlugin } from '@web/test-runner-core';
+import { type TestRunnerPlugin } from '@web/test-runner-core';
 import path from 'path';
 import fs from 'fs';
 import { promisify } from 'util';

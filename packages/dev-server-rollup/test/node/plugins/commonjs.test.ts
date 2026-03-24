@@ -1,3 +1,4 @@
+import { describe, it } from 'node:test';
 import rollupCommonjs from '@rollup/plugin-commonjs';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { resolve } from 'path';
@@ -7,6 +8,8 @@ import * as path from 'path';
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../src/index.ts';
 import { nodeResolvePlugin } from '@web/dev-server';
+
+const __dirname = import.meta.dirname;
 
 const commonjs = fromRollup(rollupCommonjs);
 
@@ -199,9 +202,7 @@ exports.default = _default;`;
     }
   });
 
-  it('passes the in-browser tests', async function () {
-    this.timeout(40000);
-
+  it('passes the in-browser tests', { timeout: 40000 }, async () => {
     await runTests({
       files: [resolve(__dirname, '..', 'fixtures', 'commonjs', 'commonjs-browser-test.js')],
       browsers: [chromeLauncher({ launchOptions: { devtools: false } })],

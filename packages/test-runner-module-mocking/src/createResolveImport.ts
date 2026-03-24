@@ -1,4 +1,9 @@
-import { Plugin, ServerStartParams, ResolveOptions, Context } from '@web/dev-server-core';
+import {
+  type Plugin,
+  type ServerStartParams,
+  type ResolveOptions,
+  type Context,
+} from '@web/dev-server-core';
 
 // Copied from packages/dev-server-core/src/plugins/Plugin.ts as it's not exported
 export type ResolveResult = void | string | { id?: string };

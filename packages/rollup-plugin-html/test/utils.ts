@@ -2,7 +2,7 @@ import synchronizedPrettier from '@prettier/sync';
 import fs from 'fs';
 import path from 'path';
 import * as prettier from 'prettier';
-import { OutputOptions, RollupBuild } from 'rollup';
+import type { OutputOptions, RollupBuild } from 'rollup';
 
 function collapseWhitespaceAll(str: string) {
   return (

@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import { type Plugin, type RollupOptions, type RollupLog } from 'rollup';
+
 import { nodeResolve as resolve } from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
@@ -10,6 +11,7 @@ import { mdxPlugin } from './mdxPlugin.ts';
 import { mdjsPlugin } from './mdjsPlugin.ts';
 import { injectExportsOrderPlugin } from './injectExportsOrderPlugin.ts';
 
+// @ts-ignore import.meta works at runtime on Node 24
 const resolveFile = (specifier: string) => fileURLToPath(import.meta.resolve(specifier));
 
 const prebuiltDir = resolveFile('@web/storybook-prebuilt/package.json').replace(

@@ -1,5 +1,9 @@
 import playwright, { Browser, Page, LaunchOptions, BrowserContext } from 'playwright';
-import { BrowserLauncher, TestRunnerCoreConfig, CoverageMapData } from '@web/test-runner-core';
+import {
+  type BrowserLauncher,
+  type TestRunnerCoreConfig,
+  type CoverageMapData,
+} from '@web/test-runner-core';
 import { PlaywrightLauncherPage } from './PlaywrightLauncherPage.ts';
 
 function capitalize(str: string) {

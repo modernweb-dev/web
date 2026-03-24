@@ -3,7 +3,7 @@ import {
   getEntrypointBundles,
   createImportPath,
 } from '../../../src/output/getEntrypointBundles.ts';
-import { GeneratedBundle, ScriptModuleTag } from '../../../src/RollupPluginHTMLOptions.ts';
+import type { GeneratedBundle, ScriptModuleTag } from '../../../src/RollupPluginHTMLOptions.ts';
 
 describe('createImportPath()', () => {
   it('creates a relative import path', () => {

@@ -5,6 +5,7 @@ import { pathToFileURL } from 'url';
 import { type StorybookPluginConfig } from './StorybookPluginConfig.ts';
 import { createError } from '../utils.ts';
 import { type MainJs, type StorybookConfig } from './StorybookConfig.ts';
+
 const defaultConfigDir = path.join(process.cwd(), '.storybook');
 
 function validateMainJs(mainJs: MainJs): MainJs {

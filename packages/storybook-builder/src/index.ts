@@ -9,13 +9,13 @@ import { logger } from '@storybook/node-logger';
 // @ts-ignore
 import { globals, globalsNameReferenceMap } from '@storybook/preview/globals';
 import type { Builder, Options, StorybookConfig as StorybookConfigBase } from '@storybook/types';
-import { DevServerConfig, mergeConfigs, startDevServer } from '@web/dev-server';
+import { type DevServerConfig, mergeConfigs, startDevServer } from '@web/dev-server';
 import type { DevServer } from '@web/dev-server-core';
 import { fromRollup } from '@web/dev-server-rollup';
 import { rollupPluginHTML } from '@web/rollup-plugin-html';
 import { cp } from 'node:fs/promises';
 import { join, parse, resolve } from 'node:path';
-import { OutputOptions, RollupBuild, RollupOptions, rollup } from 'rollup';
+import { type OutputOptions, type RollupBuild, type RollupOptions, rollup } from 'rollup';
 // @ts-ignore CJS module with export= syntax
 import rollupPluginExternalGlobals from 'rollup-plugin-external-globals';
 import sirv from 'sirv';
@@ -30,6 +30,7 @@ import {
 import { rollupPluginStorybookBuilder } from './rollup-plugin-storybook-builder.ts';
 import { stringifyProcessEnvs } from './stringify-process-envs.ts';
 
+// @ts-ignore CJS interop
 const wdsPluginExternalGlobals = fromRollup(rollupPluginExternalGlobals);
 const wdsPluginMdx = fromRollup(rollupPluginMdx);
 const wdsPluginPrebundleModules = fromRollup(rollupPluginPrebundleModules);
@@ -168,12 +169,14 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
       rollupPluginHTML({
         input: { html: await generateIframeHtml(options), name: 'iframe.html' },
         extractAssets: true,
+        bundleAssetsFromCss: true,
         externalAssets: 'sb-common-assets/**',
       }),
       rollupPluginNodeResolve(),
       rollupPluginPrebundleModules(env, options),
       rollupPluginStorybookBuilder(options),
       rollupPluginMdx(options),
+      // @ts-ignore CJS interop
       rollupPluginExternalGlobals(globalsNameReferenceMap || globals),
       rollupPluginReplace({
         ...stringifyProcessEnvs(env),

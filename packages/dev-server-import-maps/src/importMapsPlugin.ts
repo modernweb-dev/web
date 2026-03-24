@@ -1,12 +1,13 @@
-import { Plugin, Logger, getRequestFilePath } from '@web/dev-server-core';
+import { type Plugin, type Logger, getRequestFilePath } from '@web/dev-server-core';
 import {
-  ParsedImportMap,
+  type ParsedImportMap,
   parse as parseFromObject,
   parseFromString,
   resolve,
 } from '@import-maps/resolve';
 import { getHtmlPath } from '@web/dev-server-core';
-import { parse as parseHtml, serialize as serializeHtml, Element as ElementAst } from 'parse5';
+import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
+import type { Element as ElementAst } from 'parse5';
 import path from 'path';
 
 import {
@@ -18,7 +19,7 @@ import {
   mergeImportMaps,
   getDocumentBaseUrl,
 } from './utils.ts';
-import { ImportMap } from '@import-maps/resolve';
+import { type ImportMap } from '@import-maps/resolve';
 import {
   createElement,
   findElement,

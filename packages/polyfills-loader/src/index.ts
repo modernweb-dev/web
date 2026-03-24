@@ -2,7 +2,7 @@ export { createPolyfillsData } from './createPolyfillsData.ts';
 export { createPolyfillsLoader } from './createPolyfillsLoader.ts';
 export { injectPolyfillsLoader } from './injectPolyfillsLoader.ts';
 export { hasFileOfType, fileTypes, getScriptFileType } from './utils.ts';
-export {
+export type {
   PolyfillsLoaderConfig,
   PolyfillsConfig,
   PolyfillConfig,

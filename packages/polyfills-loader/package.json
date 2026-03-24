@@ -1,6 +1,5 @@
 {
   "name": "@web/polyfills-loader",
-  "type": "module",
   "version": "2.3.1",
   "publishConfig": {
     "access": "public"
@@ -26,9 +25,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot",
-    "test:update-snapshots": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --update-snapshots",
-    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch --watch-files src,test"
+    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 test/**/*.test.ts",
+    "test:update-snapshots": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 test/**/*.test.ts",
+    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch test/**/*.test.ts"
   },
   "files": [
     "*.d.ts",
@@ -67,6 +66,8 @@
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.12",
+    "@types/parse5": "^6.0.1",
     "@types/valid-url": "^1.0.3"
-  }
+  },
+  "type": "module"
 }

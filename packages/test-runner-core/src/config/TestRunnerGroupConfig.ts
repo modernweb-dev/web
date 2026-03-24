@@ -1,5 +1,6 @@
 import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
 import { type TestRunnerCoreConfig } from './TestRunnerCoreConfig.ts';
+
 export interface TestRunnerGroupConfig {
   name: string;
   configFilePath?: string;

@@ -1,6 +1,10 @@
 import * as puppeteerCore from 'puppeteer-core';
-import { ChromeLauncher, CreateBrowserContextFn, CreatePageFn } from './ChromeLauncher.ts';
-import { LaunchOptions } from 'puppeteer-core';
+import {
+  ChromeLauncher,
+  type CreateBrowserContextFn,
+  type CreatePageFn,
+} from './ChromeLauncher.ts';
+import { type LaunchOptions } from 'puppeteer-core';
 
 export interface ChromeLauncherArgs {
   puppeteer?: typeof puppeteerCore;

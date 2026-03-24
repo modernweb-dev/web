@@ -1,10 +1,10 @@
 import path from 'path';
 import { parse, serialize } from 'parse5';
 import { expect } from 'chai';
-import { html, js } from '../../../utils.ts';
+import { html, js } from '../../../utils.js';
 
-import { extractModules } from '../../../../src/input/extract/extractModules.ts';
-import { ScriptModuleTag } from '../../../../src/RollupPluginHTMLOptions.ts';
+import { extractModules } from '../../../../src/input/extract/extractModules.js';
+import type { ScriptModuleTag } from '../../../../src/RollupPluginHTMLOptions.js';
 
 const { sep } = path;
 

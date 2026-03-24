@@ -1,3 +1,4 @@
+import { describe, it } from 'node:test';
 import rollupAlias from '@rollup/plugin-alias';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';

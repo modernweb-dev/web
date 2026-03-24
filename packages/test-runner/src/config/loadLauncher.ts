@@ -1,13 +1,14 @@
+import { createRequire } from 'node:module';
 import { TestRunnerStartError } from '../TestRunnerStartError.ts';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+const require = createRequire(import.meta.url);
 const puppeteerBrowsers = ['chrome', 'firefox'];
 const playwrightBrowsers = ['chromium', 'firefox', 'webkit'];
 
 function loadLauncher(name: string) {
   const pkg = `@web/test-runner-${name}`;
   try {
-    const path = require.resolve(pkg, { paths: [__dirname, process.cwd()] });
+    const path = require.resolve(pkg);
     return require(path);
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'MODULE_NOT_FOUND') {

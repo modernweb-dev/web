@@ -1,4 +1,4 @@
-import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
+import { type BrowserLauncher, type TestRunnerCoreConfig } from '@web/test-runner-core';
 import { WebdriverLauncher } from '@web/test-runner-webdriver';
 import browserstack from 'browserstack-local';
 import internalIp from 'internal-ip';

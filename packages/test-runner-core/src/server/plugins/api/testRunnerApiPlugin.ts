@@ -8,7 +8,7 @@ import { type MapBrowserUrl } from '@web/browser-logs';
 import parse from 'co-body';
 
 import { type TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.ts';
-import { type TestSessionManager } from '../../../test-session/TestSessionManager.ts';
+import { TestSessionManager } from '../../../test-session/TestSessionManager.ts';
 import { PARAM_SESSION_ID } from '../../../utils/constants.ts';
 import { type TestRunnerPlugin } from '../../TestRunnerPlugin.ts';
 import { SESSION_STATUS } from '../../../test-session/TestSessionStatus.ts';
@@ -17,6 +17,7 @@ import { parseBrowserResult } from './parseBrowserResult.ts';
 import { TestRunner } from '../../../runner/TestRunner.ts';
 import { createSourceMapFunction, type SourceMapFunction } from './createSourceMapFunction.ts';
 import { type DebugTestSession } from '../../../test-session/DebugTestSession.ts';
+
 interface SessionMessage extends Record<string, unknown> {
   sessionId: string;
   testFile: string;

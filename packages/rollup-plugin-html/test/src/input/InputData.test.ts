@@ -3,7 +3,7 @@ import path from 'path';
 import { cleanApp, createApp, html, js } from '../../utils.ts';
 
 import { getInputData } from '../../../src/input/getInputData.ts';
-import { InputData } from '../../../src/input/InputData.ts';
+import type { InputData } from '../../../src/input/InputData.ts';
 
 function cleanupHtml(str: string) {
   return str.replace(/(\r\n|\n|\r| )/gm, '');

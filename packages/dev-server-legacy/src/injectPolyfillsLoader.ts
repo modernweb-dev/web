@@ -1,13 +1,14 @@
-import { Context } from '@web/dev-server-core';
+import { type Context } from '@web/dev-server-core';
 import { getAttribute, getTextContent, remove } from '@web/dev-server-core/dist/dom5';
-import { parse, serialize, Document as DocumentAst, Node as NodeAst } from 'parse5';
+import { parse, serialize } from 'parse5';
+import type { Document as DocumentAst, Node as NodeAst } from 'parse5';
 import {
   injectPolyfillsLoader as originalInjectPolyfillsLoader,
-  PolyfillsConfig,
+  type PolyfillsConfig,
   fileTypes,
   getScriptFileType,
-  GeneratedFile,
-  File,
+  type GeneratedFile,
+  type File,
 } from '@web/polyfills-loader';
 import { PARAM_TRANSFORM_SYSTEMJS } from './constants.ts';
 import { findJsScripts } from './findJsScripts.ts';

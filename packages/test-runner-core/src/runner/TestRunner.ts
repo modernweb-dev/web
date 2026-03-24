@@ -11,6 +11,7 @@ import { createDebugSessions } from './createDebugSessions.ts';
 import { TestRunnerServer } from '../server/TestRunnerServer.ts';
 import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
 import { type TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.ts';
+
 interface EventMap {
   'test-run-started': { testRun: number };
   'test-run-finished': { testRun: number; testCoverage?: TestCoverage };

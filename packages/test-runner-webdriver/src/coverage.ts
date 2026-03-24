@@ -1,4 +1,4 @@
-import { CoverageMapData } from '@web/test-runner-core';
+import { type CoverageMapData } from '@web/test-runner-core';
 
 export interface BrowserResult {
   testCoverage?: CoverageMapData;
