@@ -5,9 +5,8 @@ import * as _rollupPluginReplace from '@rollup/plugin-replace';
 const rollupPluginReplace = (_rollupPluginReplace as any).default ?? _rollupPluginReplace;
 import { getBuilderOptions } from '@storybook/core-common';
 import { logger } from '@storybook/node-logger';
-// Import both globals and globalsNameReferenceMap to prevent retrocompatibility.
-// @ts-ignore
-import { globals, globalsNameReferenceMap } from '@storybook/preview/globals';
+// @ts-ignore - globalPackages was previously named globals
+import { globalPackages, globalsNameReferenceMap } from '@storybook/preview/globals';
 import type { Builder, Options, StorybookConfig as StorybookConfigBase } from '@storybook/types';
 import { type DevServerConfig, mergeConfigs, startDevServer } from '@web/dev-server';
 import type { DevServer } from '@web/dev-server-core';
@@ -97,7 +96,7 @@ export const start: WdsBuilder['start'] = async ({ startTime, options, router, s
       wdsPluginPrebundleModules(env, options),
       wdsPluginStorybookBuilder(options),
       wdsPluginMdx(options),
-      wdsPluginExternalGlobals(globalsNameReferenceMap || globals),
+      wdsPluginExternalGlobals(globalsNameReferenceMap || globalPackages),
       wdsPluginReplace({
         ...stringifyProcessEnvs(env),
         include: ['**/node_modules/@storybook/**/*'],
@@ -177,7 +176,7 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
       rollupPluginStorybookBuilder(options),
       rollupPluginMdx(options),
       // @ts-ignore CJS interop
-      rollupPluginExternalGlobals(globalsNameReferenceMap || globals),
+      rollupPluginExternalGlobals(globalsNameReferenceMap || globalPackages),
       rollupPluginReplace({
         ...stringifyProcessEnvs(env),
         include: ['**/node_modules/@storybook/**/*'],
