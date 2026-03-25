@@ -32,6 +32,7 @@ describe('extractAssets', () => {
       htmlFilePath: path.join(rootDir, 'index.html'),
       htmlDir: rootDir,
       rootDir,
+      extractAssets: true,
     });
 
     const assetsWithoutcontent = assets.map(a => ({ ...a, content: undefined }));
@@ -39,22 +40,22 @@ describe('extractAssets', () => {
       {
         content: undefined,
         filePath: path.join(rootDir, 'image-a.png'),
-        hashed: false,
+        hashed: true,
       },
       {
         content: undefined,
         filePath: path.join(rootDir, 'image-b.png'),
-        hashed: false,
+        hashed: true,
       },
       {
         content: undefined,
         filePath: path.join(rootDir, 'webmanifest.json'),
-        hashed: false,
+        hashed: true,
       },
       {
         content: undefined,
         filePath: path.join(rootDir, 'image-a.svg'),
-        hashed: false,
+        hashed: true,
       },
       {
         content: undefined,
@@ -100,6 +101,7 @@ describe('extractAssets', () => {
       htmlFilePath: path.join(rootDir, 'index.html'),
       htmlDir: rootDir,
       rootDir,
+      extractAssets: true,
     });
 
     const transformedAssets = assets.map(asset => ({
@@ -110,13 +112,13 @@ describe('extractAssets', () => {
       {
         content: '{"message":"helloworld"}',
         filePath: path.join(rootDir, 'webmanifest.json'),
-        hashed: false,
+        hashed: true,
       },
       {
         content:
           '<svgxmlns="http://www.w3.org/2000/svg"><pathd="M436124H12c-6.6270-12-5.373-12-12V80c0-6.627"></path></svg>',
         filePath: path.join(rootDir, 'image-a.svg'),
-        hashed: false,
+        hashed: true,
       },
       {
         content: ':root{color:blue;}',
@@ -146,6 +148,7 @@ describe('extractAssets', () => {
       htmlFilePath: path.join(rootDir, 'index.html'),
       htmlDir: rootDir,
       rootDir,
+      extractAssets: true,
     });
 
     assert.strictEqual(assets.length, 2);
@@ -169,6 +172,7 @@ describe('extractAssets', () => {
       htmlFilePath: path.join(rootDir, 'foo', 'index.html'),
       htmlDir: path.join(rootDir, 'foo'),
       rootDir,
+      extractAssets: true,
     });
 
     assert.strictEqual(assets.length, 2);
@@ -195,6 +199,7 @@ describe('extractAssets', () => {
       htmlFilePath: path.join(rootDir, 'foo', 'index.html'),
       htmlDir: path.join(rootDir, 'foo'),
       rootDir,
+      extractAssets: true,
     });
 
     assert.strictEqual(assets.length, 2);
@@ -221,6 +226,7 @@ describe('extractAssets', () => {
       htmlFilePath: path.join(rootDir, 'index.html'),
       htmlDir: rootDir,
       rootDir,
+      extractAssets: 'legacy-html',
     });
 
     assert.strictEqual(assets.length, 2);
@@ -252,6 +258,7 @@ describe('extractAssets', () => {
       htmlFilePath: path.join(rootDir, 'foo', 'index.html'),
       htmlDir: path.join(rootDir, 'foo'),
       rootDir,
+      extractAssets: true,
     });
 
     assert.strictEqual(assets.length, 0);
@@ -270,6 +277,7 @@ describe('extractAssets', () => {
       htmlFilePath: path.join(rootDir, 'index.html'),
       htmlDir: path.join(rootDir),
       rootDir,
+      extractAssets: true,
     });
 
     assert.strictEqual(assets.length, 1);
@@ -310,6 +318,7 @@ describe('extractAssets', () => {
       htmlFilePath: path.join(rootDir, 'index.html'),
       htmlDir: path.join(rootDir),
       rootDir,
+      extractAssets: true,
     });
 
     // the <img> src is not the same as the small jpeg image
