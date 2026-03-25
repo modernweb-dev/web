@@ -1,13 +1,14 @@
+import { describe, it, beforeEach } from 'node:test';
 import { expect } from 'chai';
 import * as hanbi from 'hanbi';
 
-import type { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher.js';
+import type { BrowserLauncher } from '../../../src/browser-launcher/BrowserLauncher.ts';
 
-import { TestRunnerCoreConfig } from '../../../src/config/TestRunnerCoreConfig.js';
-import { TestScheduler } from '../../../src/runner/TestScheduler.js';
-import { TestSession } from '../../../src/test-session/TestSession.js';
-import { TestSessionManager } from '../../../src/test-session/TestSessionManager.js';
-import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus.js';
+import type { TestRunnerCoreConfig } from '../../../src/config/TestRunnerCoreConfig.ts';
+import { TestScheduler } from '../../../src/runner/TestScheduler.ts';
+import type { TestSession } from '../../../src/test-session/TestSession.ts';
+import { TestSessionManager } from '../../../src/test-session/TestSessionManager.ts';
+import { SESSION_STATUS } from '../../../src/test-session/TestSessionStatus.ts';
 
 function timeout(ms = 0): Promise<void> {
   return new Promise(r => setTimeout(r, ms));
