@@ -51,7 +51,7 @@ html {
       expectIncludes(text, 'export default');
       expectIncludes(
         text,
-        "import styleInject from './node_modules/style-inject/dist/style-inject.es.ts';",
+        "import styleInject from './node_modules/style-inject/dist/style-inject.es.js';",
       );
       expectIncludes(text, 'styleInject(css_248z);');
     } finally {

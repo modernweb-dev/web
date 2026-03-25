@@ -20,7 +20,7 @@ describe('@rollup/plugin-alias', () => {
 
     try {
       const text = await fetchText(`${host}/app.js`);
-      expectIncludes(text, "import moduleA from './module-a-stub.ts'");
+      expectIncludes(text, "import moduleA from './module-a-stub.js'");
     } finally {
       server.stop();
     }
