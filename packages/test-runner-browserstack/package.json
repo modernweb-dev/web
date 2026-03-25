@@ -25,8 +25,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test-remote/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test-remote/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+    "test": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 test-remote/**/*.test.ts",
+    "test:watch": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 test-remote/**/*.test.ts --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",

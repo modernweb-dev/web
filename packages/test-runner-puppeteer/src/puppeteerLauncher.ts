@@ -1,6 +1,6 @@
 import * as puppeteer from 'puppeteer';
 import * as puppeteerCore from 'puppeteer-core';
-import { Browser, Page, type LaunchOptions } from 'puppeteer-core';
+import { type Browser, type Page, type LaunchOptions } from 'puppeteer-core';
 import { type BrowserLauncher, type TestRunnerCoreConfig } from '@web/test-runner-core';
 import { chromeLauncher } from '@web/test-runner-chrome';
 

@@ -1,7 +1,7 @@
 import * as puppeteerCore from 'puppeteer-core';
 import {
-  Browser,
-  Page,
+  type Browser,
+  type Page,
   type LaunchOptions,
   launch as puppeteerCoreLaunch,
   BrowserContext,

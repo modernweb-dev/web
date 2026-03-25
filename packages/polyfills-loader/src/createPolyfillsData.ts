@@ -64,7 +64,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
   }
 
   if (polyfills.regeneratorRuntime) {
-    const regeneratorRuntimePath = await import.meta.resolve('regenerator-runtime/runtime');
+    const regeneratorRuntimePath = await import.meta.resolve('regenerator-runtime/runtime.js');
     addPolyfillConfig({
       name: 'regenerator-runtime',
       test: polyfills.regeneratorRuntime !== 'always' ? noModuleSupportTest : undefined,

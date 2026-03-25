@@ -1,4 +1,4 @@
-import { Page, type JSCoverageEntry } from 'puppeteer-core';
+import { type Page, type JSCoverageEntry } from 'puppeteer-core';
 import { type TestRunnerCoreConfig } from '@web/test-runner-core';
 import { v8ToIstanbul } from '@web/test-runner-coverage-v8';
 import { type SessionResult } from '@web/test-runner-core';

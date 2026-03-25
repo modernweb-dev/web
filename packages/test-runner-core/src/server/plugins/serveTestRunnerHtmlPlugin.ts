@@ -4,7 +4,7 @@ import { PARAM_SESSION_ID, PARAM_TEST_FILE } from '../../utils/constants.ts';
 import { type TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig.ts';
 import { createTestFileImportPath } from '../utils.ts';
 import { trackBrowserLogs } from './trackBrowserLogs.ts';
-import { TestSessionManager } from '../../test-session/TestSessionManager.ts';
+import { type TestSessionManager } from '../../test-session/TestSessionManager.ts';
 import { type TestRunnerGroupConfig } from '../../config/TestRunnerGroupConfig.ts';
 
 const iframeModePage = `

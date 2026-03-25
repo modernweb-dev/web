@@ -1,4 +1,4 @@
-import { type TestSession, BufferedLogger } from '@web/test-runner-core';
+import { type TestSession, type BufferedLogger } from '@web/test-runner-core';
 import { bold, cyan } from 'nanocolors';
 import { relative } from 'path';
 

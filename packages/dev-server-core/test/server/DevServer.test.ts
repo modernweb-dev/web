@@ -3,11 +3,11 @@ import assert from 'node:assert/strict';
 import express from 'express';
 import http from 'http';
 import Koa from 'koa';
-import { Server } from 'net';
+import { type Server } from 'net';
 import { FSWatcher } from 'chokidar';
 import portfinder from 'portfinder';
 import { Stub, stubMethod } from 'hanbi';
-import { ServerStartParams } from '../../src/plugins/Plugin.ts';
+import { type ServerStartParams } from '../../src/plugins/Plugin.ts';
 import { DevServer } from '../../src/server/DevServer.ts';
 import { createTestServer } from '../helpers.ts';
 

@@ -2,7 +2,7 @@ import {
   sessionFinished,
   getConfig,
   sessionStarted,
-  TestResultError,
+  type TestResultError,
 } from '../../test-runner-core/browser/session.ts';
 import '../../../node_modules/mocha/mocha.js';
 import { collectTestResults } from './collectTestResults.ts';

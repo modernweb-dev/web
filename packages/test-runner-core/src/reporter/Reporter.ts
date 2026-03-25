@@ -1,5 +1,5 @@
 import { type TestSession } from '../test-session/TestSession.ts';
-import { TestSessionManager } from '../test-session/TestSessionManager.ts';
+import { type TestSessionManager } from '../test-session/TestSessionManager.ts';
 import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
 import { type TestCoverage } from '../coverage/getTestCoverage.ts';
 import { type Logger } from '../logger/Logger.ts';

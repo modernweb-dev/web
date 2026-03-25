@@ -1,4 +1,5 @@
-import playwright, { Browser, Page, LaunchOptions, BrowserContext } from 'playwright';
+import playwright from 'playwright';
+import type { Browser, Page, LaunchOptions, BrowserContext } from 'playwright';
 import {
   type BrowserLauncher,
   type TestRunnerCoreConfig,

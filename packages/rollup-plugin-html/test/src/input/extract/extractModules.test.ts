@@ -1,3 +1,4 @@
+import { describe, it } from 'node:test';
 import path from 'path';
 import { parse, serialize } from 'parse5';
 import { expect } from 'chai';

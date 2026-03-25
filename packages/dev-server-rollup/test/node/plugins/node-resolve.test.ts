@@ -19,7 +19,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const text = await fetchText(`${host}/app.js`);
-      expectIncludes(text, "import moduleA from './node_modules/module-a/index.js'");
+      expectIncludes(text, "import moduleA from './node_modules/module-a/index.ts'");
     } finally {
       server.stop();
     }

@@ -1,3 +1,4 @@
+import { describe, it } from 'node:test';
 import { expect } from 'chai';
 import path from 'path';
 import { cleanApp, createApp, html, js } from '../../utils.ts';
