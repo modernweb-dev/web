@@ -698,6 +698,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          extractAssets: 'legacy-html',
           input: {
             html: `<html>
 <head>
@@ -767,6 +768,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          extractAssets: 'legacy-html',
           input: {
             html: `<html>
 <head>
@@ -796,6 +798,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          extractAssets: 'legacy-html',
           input: {
             html: `<html>
 <head>
@@ -1292,6 +1295,7 @@ describe('rollup-plugin-html', () => {
     const config = {
       plugins: [
         rollupPluginHTML({
+          extractAssets: 'legacy-html',
           input: {
             html: `<html>
 <head>
