@@ -1,12 +1,12 @@
-import { describe, it } from 'node:test';
-import {
-  type BrowserLauncher,
-  type TestRunnerCoreConfig,
-  type TestRunnerGroupConfig,
+import type {
+  BrowserLauncher,
+  TestRunnerCoreConfig,
+  TestRunnerGroupConfig,
 } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';
 import { resolve } from 'path';
+import { expect } from 'chai';
 
 export function runConfigGroupsTest(
   config: Partial<TestRunnerCoreConfig> & { browsers: BrowserLauncher[] },

@@ -1,4 +1,4 @@
-import { describe, it } from 'node:test';
+import { describe, it, afterEach } from 'node:test';
 import { expect } from 'chai';
 import { parse } from 'parse5';
 import path from 'path';

@@ -1,4 +1,5 @@
 import { describe, it } from 'node:test';
+const __dirname = import.meta.dirname;
 import type { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';

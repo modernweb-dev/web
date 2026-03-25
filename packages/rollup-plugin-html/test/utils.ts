@@ -1,3 +1,4 @@
+const __dirname = import.meta.dirname;
 import synchronizedPrettier from '@prettier/sync';
 import fs from 'fs';
 import path from 'path';

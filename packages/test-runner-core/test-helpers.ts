@@ -1,1 +1,1 @@
-export { runTests } from './dist/test-helpers.js';
+export { runTests } from './dist/test-helpers.ts';

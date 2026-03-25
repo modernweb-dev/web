@@ -1,3 +1,4 @@
+const __dirname = import.meta.dirname;
 import { describe, it } from 'node:test';
 import { expect } from 'chai';
 import path from 'path';

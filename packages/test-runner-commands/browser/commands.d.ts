@@ -10,7 +10,7 @@ import {
   SaveSnapshotPayload,
   SelectOptionPayload,
   SendMousePayload,
-} from '../dist/index.js';
+} from '../dist/index.ts';
 
 /**
  * Executes a command on the server. If this is a custom command, you need to implement a plugin

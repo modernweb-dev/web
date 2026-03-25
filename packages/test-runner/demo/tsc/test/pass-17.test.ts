@@ -1,4 +1,4 @@
-import { expect } from './chai.js';
+import { expect } from './chai.ts';
 import './shared-a.js';
 
 it('test 1', () => {
