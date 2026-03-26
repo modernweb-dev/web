@@ -1,4 +1,4 @@
-import { Middleware } from '@web/dev-server-core';
+import { type Middleware } from '@web/dev-server-core';
 import path from 'path';
 
 export function cacheMiddleware(cachedPatterns: string[], watch: boolean): Middleware {

@@ -6,9 +6,9 @@ import http2Server from 'http2';
 import fs from 'fs';
 import net, { Server, Socket, ListenOptions } from 'net';
 
-import { DevServerCoreConfig } from './DevServerCoreConfig.js';
+import type { DevServerCoreConfig } from './DevServerCoreConfig.js';
 import { createMiddleware } from './createMiddleware.js';
-import { Logger } from '../logger/Logger.js';
+import type { Logger } from '../logger/Logger.js';
 import { addPlugins } from './addPlugins.js';
 
 /**

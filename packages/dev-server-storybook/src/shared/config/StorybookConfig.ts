@@ -1,4 +1,4 @@
-import { RollupOptions } from 'rollup';
+import { type RollupOptions } from 'rollup';
 
 export interface MainJs {
   stories: string[];

@@ -1,4 +1,4 @@
-import { Plugin } from 'rollup';
+import { type Plugin } from 'rollup';
 import { mdjsToCsf } from 'storybook-addon-markdown-docs';
 
 export function mdjsPlugin(type: string): Plugin {

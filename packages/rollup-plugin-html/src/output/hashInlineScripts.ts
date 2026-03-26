@@ -1,4 +1,4 @@
-import { Document, Element, ParentNode } from 'parse5';
+import type { Document, Element, ParentNode } from 'parse5';
 import {
   findElement,
   findElements,

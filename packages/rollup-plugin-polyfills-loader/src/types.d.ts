@@ -1,4 +1,4 @@
-import { PolyfillsConfig, FileType } from '@web/polyfills-loader';
+import { PolyfillsConfig, type FileType } from '@web/polyfills-loader';
 
 export interface OutputConfig {
   name: string;

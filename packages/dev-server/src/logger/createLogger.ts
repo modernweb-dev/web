@@ -1,4 +1,4 @@
-import { Plugin } from '@web/dev-server-core';
+import { type Plugin } from '@web/dev-server-core';
 import { DevServerLogger } from './DevServerLogger.js';
 import { logStartMessage } from './logStartMessage.js';
 

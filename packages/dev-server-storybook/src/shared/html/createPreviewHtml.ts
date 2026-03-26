@@ -1,7 +1,7 @@
 import fs from 'fs';
-import { StorybookConfig } from '../config/StorybookConfig.js';
+import { type StorybookConfig } from '../config/StorybookConfig.js';
 
-import { StorybookPluginConfig } from '../config/StorybookPluginConfig.js';
+import { type StorybookPluginConfig } from '../config/StorybookPluginConfig.js';
 import { createBrowserImport } from '../utils.js';
 
 function createPreviewImport(rootDir: string, previewJsPath: string) {

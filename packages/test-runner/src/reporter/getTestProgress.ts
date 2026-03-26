@@ -1,10 +1,10 @@
 import {
-  TestRunnerCoreConfig,
-  TestSessionManager,
+  type TestRunnerCoreConfig,
+  type TestSessionManager,
   SESSION_STATUS,
-  TestCoverage,
-  CoverageConfig,
-  BrowserLauncher,
+  type TestCoverage,
+  type CoverageConfig,
+  type BrowserLauncher,
 } from '@web/test-runner-core';
 import { bold, gray, green, red } from 'nanocolors';
 

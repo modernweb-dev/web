@@ -1,4 +1,4 @@
-import { Logger, PluginSyntaxError } from '@web/dev-server-core';
+import { type Logger, PluginSyntaxError } from '@web/dev-server-core';
 import { codeFrameColumns } from '@babel/code-frame';
 import path from 'path';
 import { red, cyan } from 'nanocolors';

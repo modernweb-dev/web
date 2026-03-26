@@ -1,5 +1,5 @@
 import { getAttribute, setAttribute } from '@web/parse5-utils';
-import { Document } from 'parse5';
+import type { Document } from 'parse5';
 import path from 'path';
 
 import {
@@ -10,9 +10,9 @@ import {
   resolveAssetFilePath,
   createAssetPicomatchMatcher,
 } from '../assets/utils.js';
-import { InputData } from '../input/InputData.js';
+import { type InputData } from '../input/InputData.js';
 import { createError } from '../utils.js';
-import { EmittedAssets } from './emitAssets.js';
+import { type EmittedAssets } from './emitAssets.js';
 import { toBrowserPath } from './utils.js';
 
 export interface InjectUpdatedAssetPathsArgs {

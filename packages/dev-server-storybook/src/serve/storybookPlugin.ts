@@ -1,8 +1,8 @@
 // @ts-ignore
-import { DevServerCoreConfig, getRequestFilePath, Plugin } from '@web/dev-server-core';
+import { type DevServerCoreConfig, getRequestFilePath, type Plugin } from '@web/dev-server-core';
 import { mdjsToCsf } from 'storybook-addon-markdown-docs';
 
-import { StorybookPluginConfig } from '../shared/config/StorybookPluginConfig.js';
+import { type StorybookPluginConfig } from '../shared/config/StorybookPluginConfig.js';
 import { createManagerHtml } from '../shared/html/createManagerHtml.js';
 import { createPreviewHtml } from '../shared/html/createPreviewHtml.js';
 import { readStorybookConfig } from '../shared/config/readStorybookConfig.js';

@@ -1,12 +1,12 @@
-import { Middleware, Context } from '@web/dev-server-core';
+import { type Middleware, type Context } from '@web/dev-server-core';
 import { DepGraph } from 'dependency-graph';
 import debounce from 'debounce';
 import path from 'path';
 import { FSWatcher } from 'chokidar';
 
-import { TestSessionManager } from '../../test-session/TestSessionManager.js';
+import { type TestSessionManager } from '../../test-session/TestSessionManager.js';
 import { constants } from '../../index.js';
-import { TestSession } from '../../test-session/TestSession.js';
+import { type TestSession } from '../../test-session/TestSession.js';
 
 const IGNORED_404s = ['favicon.ico'];
 const { PARAM_SESSION_ID } = constants;

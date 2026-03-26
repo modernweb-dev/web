@@ -1,7 +1,7 @@
-import { Document, serialize } from 'parse5';
+import { type Document, serialize } from 'parse5';
 import fs from 'fs';
 import path from 'path';
-import { InputAsset } from '../InputData.js';
+import { type InputAsset } from '../InputData.js';
 import {
   findAssets,
   getSourcePaths,
