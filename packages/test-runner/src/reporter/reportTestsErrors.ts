@@ -1,4 +1,4 @@
-import { TestResultError, TestSession, Logger } from '@web/test-runner-core';
+import { type TestResultError, type TestSession, type Logger } from '@web/test-runner-core';
 import { gray, green, red } from 'nanocolors';
 import * as diff from 'diff';
 

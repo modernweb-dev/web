@@ -1,4 +1,4 @@
-import { rollup, RollupOptions } from 'rollup';
+import { rollup, type RollupOptions } from 'rollup';
 
 export async function buildAndWrite(options: RollupOptions) {
   const bundle = await rollup(options);

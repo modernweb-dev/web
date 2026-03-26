@@ -10,12 +10,12 @@ import { DynamicTerminal } from './terminal/DynamicTerminal.js';
 import { BufferedLogger } from './BufferedLogger.js';
 import { getManualDebugMenu } from './getManualDebugMenu.js';
 import { ErrorWithLocation } from '../logger/Logger.js';
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
-import { TestSessionManager } from '../test-session/TestSessionManager.js';
+import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
+import { type TestSessionManager } from '../test-session/TestSessionManager.js';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
-import { Logger } from '../logger/Logger.js';
+import { type Logger } from '../logger/Logger.js';
 import { TestRunner } from '../runner/TestRunner.js';
-import { TestCoverage } from '../coverage/getTestCoverage.js';
+import { type TestCoverage } from '../coverage/getTestCoverage.js';
 
 export type MenuType = 'none' | 'overview' | 'focus' | 'debug' | 'manual-debug';
 

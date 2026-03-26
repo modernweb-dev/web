@@ -1,4 +1,4 @@
-import { TestResult, TestSuiteResult } from '@web/test-runner-core';
+import { type TestResult, type TestSuiteResult } from '@web/test-runner-core';
 
 export function getPassedFailedSkippedCount(testResults: TestSuiteResult) {
   let passed = 0;

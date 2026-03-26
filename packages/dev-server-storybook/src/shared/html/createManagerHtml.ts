@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { StorybookConfig } from '../config/StorybookConfig.js';
+import { type StorybookConfig } from '../config/StorybookConfig.js';
 import { createBrowserImport } from '../utils.js';
 
 function createManagerImport(rootDir: string, managerJsPath: string) {

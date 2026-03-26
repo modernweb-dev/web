@@ -1,4 +1,4 @@
-import { TestResult, TestSuiteResult } from '@web/test-runner-core';
+import { type TestResult, type TestSuiteResult } from '@web/test-runner-core';
 
 export function getFlattenedTestResults(testResults: TestSuiteResult) {
   const flattened: TestResult[] = [];

@@ -1,6 +1,6 @@
-import { rollupPluginHTML, RollupPluginHtml } from './rollupPluginHTML.js';
+import { rollupPluginHTML, type RollupPluginHtml } from './rollupPluginHTML.js';
 
-export {
+export type {
   InputHTMLOptions,
   RollupPluginHTMLOptions,
   GeneratedBundle,
@@ -10,5 +10,5 @@ export {
   TransformAssetFunction,
 } from './RollupPluginHTMLOptions.js';
 
-export { rollupPluginHTML, RollupPluginHtml };
+export { rollupPluginHTML, type RollupPluginHtml };
 export default rollupPluginHTML;

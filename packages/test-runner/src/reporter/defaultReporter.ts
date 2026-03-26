@@ -1,4 +1,9 @@
-import { Logger, Reporter, ReporterArgs, BufferedLogger } from '@web/test-runner-core';
+import {
+  type Logger,
+  type Reporter,
+  type ReporterArgs,
+  type BufferedLogger,
+} from '@web/test-runner-core';
 
 import { reportTestFileResults } from './reportTestFileResults.js';
 import { getTestProgressReport } from './getTestProgress.js';

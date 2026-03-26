@@ -1,4 +1,4 @@
-import { Document, Element } from 'parse5';
+import type { Document, Element } from 'parse5';
 import path from 'path';
 import picomatch from 'picomatch';
 import { findElements, getTagName, getAttribute } from '@web/parse5-utils';

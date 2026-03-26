@@ -1,4 +1,4 @@
-import { Plugin } from 'rollup';
+import { type Plugin } from 'rollup';
 import { transformMdxToCsf } from '../../shared/mdx/transformMdxToCsf.js';
 
 export function mdxPlugin(): Plugin {

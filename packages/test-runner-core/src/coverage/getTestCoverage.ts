@@ -1,15 +1,15 @@
 import {
   createCoverageMap,
-  CoverageSummaryData,
-  CoverageMap,
-  CoverageMapData,
-  BranchMapping,
-  FunctionMapping,
-  Location,
-  Range,
+  type CoverageSummaryData,
+  type CoverageMap,
+  type CoverageMapData,
+  type BranchMapping,
+  type FunctionMapping,
+  type Location,
+  type Range,
 } from 'istanbul-lib-coverage';
-import { TestSession } from '../test-session/TestSession';
-import { CoverageConfig } from '../config/TestRunnerCoreConfig';
+import { type TestSession } from '../test-session/TestSession';
+import { type CoverageConfig } from '../config/TestRunnerCoreConfig';
 
 export const coverageTypes: (keyof CoverageSummaryData)[] = [
   'lines',
