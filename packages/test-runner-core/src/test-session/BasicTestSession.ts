@@ -1,4 +1,4 @@
-import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher';
+import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
 import { type TestSessionGroup } from './TestSessionGroup.ts';
 export interface BasicTestSession {
   id: string;

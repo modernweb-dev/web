@@ -6,9 +6,9 @@ import { cacheMiddleware } from './middleware/cacheMiddleware.ts';
 import { serveTestRunnerHtmlPlugin } from './plugins/serveTestRunnerHtmlPlugin.ts';
 import { serveTestFrameworkPlugin } from './plugins/serveTestFrameworkPlugin.ts';
 import { testRunnerApiPlugin } from './plugins/api/testRunnerApiPlugin.ts';
-import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { type TestSessionManager } from '../test-session/TestSessionManager';
-import { TestRunner } from '../runner/TestRunner';
+import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
+import { type TestSessionManager } from '../test-session/TestSessionManager.ts';
+import { TestRunner } from '../runner/TestRunner.ts';
 const CACHED_PATTERNS = [
   'node_modules/@web/test-runner-',
   'node_modules/@esm-bundle/chai',

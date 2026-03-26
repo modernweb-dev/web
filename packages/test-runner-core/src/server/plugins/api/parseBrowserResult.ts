@@ -1,7 +1,7 @@
 import { type MapStackLocation, type StackLocation, type MapBrowserUrl } from '@web/browser-logs';
 
-import { type TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
-import { type TestSession } from '../../../test-session/TestSession';
+import { type TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.ts';
+import { type TestSession } from '../../../test-session/TestSession.ts';
 import { type SourceMapFunction } from './createSourceMapFunction.ts';
 import { parseSessionErrors, parseTestResults } from './parseBrowserErrors.ts';
 import { parseBrowserLogs } from './parseBrowserLogs.ts';

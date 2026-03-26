@@ -1,4 +1,4 @@
-import { type Logger, type ErrorWithLocation } from '../logger/Logger';
+import { type Logger, type ErrorWithLocation } from '../logger/Logger.ts';
 export class BufferedLogger implements Logger {
   public buffer: { method: keyof Logger; args?: any[] }[] = [];
 
