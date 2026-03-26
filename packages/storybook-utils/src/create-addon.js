@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import React from 'react';
-import { STORY_SPECIFIED, STORY_CHANGED, STORY_RENDERED } from '@storybook/core-events';
+import { STORY_SPECIFIED, STORY_CHANGED, STORY_RENDERED } from 'storybook/internal/core-events';
 
 // A default set of Storybook events that are forwarded to the addon as they occur. If an addon
 // needs additional events (either Storybook or custom events), they can be passed via the options.

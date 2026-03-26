@@ -1,7 +1,7 @@
 // based on https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/transform-iframe-html.ts
 
-import { normalizeStories } from '@storybook/core-common';
-import type { DocsOptions, Options, TagsOptions } from '@storybook/types';
+import { normalizeStories } from 'storybook/internal/common';
+import type { DocsOptions, Options, TagsOptions } from 'storybook/internal/types';
 import { readFile } from 'node:fs/promises';
 import { virtualAppFilename } from './virtual-file-names.js';
 
