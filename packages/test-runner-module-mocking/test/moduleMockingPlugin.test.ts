@@ -6,7 +6,7 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { nodeResolvePlugin } from '@web/dev-server';
 
-import { moduleMockingPlugin } from '../src/moduleMockingPlugin.ts';
+import { moduleMockingPlugin } from '../dist/moduleMockingPlugin.js';
 
 const dirname = fileURLToPath(new URL('.', import.meta.url));
 

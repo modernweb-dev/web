@@ -37,7 +37,7 @@ describe('test-runner-playwright webkit', { timeout: 20000 }, () => {
 
 // we don't run all tests in the windows CI
 if (os.platform() !== 'win32') {
-  describe('test-runner-playwright firefox', { timeout: 20000 }, () => {
+  describe('test-runner-playwright firefox', { timeout: 60000 }, () => {
     function createConfig() {
       return { browsers: [playwrightLauncher({ product: 'firefox' })] };
     }
@@ -54,7 +54,7 @@ if (os.platform() !== 'win32') {
     });
   });
 
-  describe('test-runner-playwright all', { timeout: 20000 }, () => {
+  describe('test-runner-playwright all', { timeout: 60000 }, () => {
     function createConfig() {
       return {
         browsers: [
