@@ -1,5 +1,6 @@
 {
   "name": "@web/dev-server-esbuild",
+  "type": "module",
   "version": "1.0.5",
   "publishConfig": {
     "access": "public"
@@ -27,8 +28,8 @@
     "build": "tsc",
     "start:demo:jsx": "es-dev-server --config demo/jsx/server.config.js",
     "start:demo:ts": "es-dev-server --config demo/ts/server.config.js",
-    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 test/**/*.test.ts",
-    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch test/**/*.test.ts"
+    "test:node": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
+    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -60,6 +61,5 @@
     "@web/dev-server-rollup": "^0.6.1",
     "lit-element": "^3.0.0 || ^4.0.1",
     "preact": "^10.5.9"
-  },
-  "type": "module"
+  }
 }

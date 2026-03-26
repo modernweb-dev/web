@@ -1,7 +1,9 @@
-import { type Context } from 'koa';
+import type { Context } from 'koa';
 import isStream from 'is-stream';
 import getStream from 'get-stream';
-import { isBinaryFile } from 'isbinaryfile';
+import isbinaryfile from 'isbinaryfile';
+
+const { isBinaryFile } = isbinaryfile;
 import path from 'path';
 
 const OUTSIDE_ROOT_KEY = '/__wds-outside-root__/';

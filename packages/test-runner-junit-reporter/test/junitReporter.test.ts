@@ -6,7 +6,7 @@ import globby from 'globby';
 
 import { chromeLauncher } from '@web/test-runner-chrome';
 import type { TestRunnerCoreConfig } from '@web/test-runner-core';
-import { runTests } from '@web/test-runner-core/test-helpers';
+import { runTests } from '@web/test-runner-core/test-helpers.ts';
 import { junitReporter } from '../src/junitReporter.ts';
 
 const __dirname = import.meta.dirname;

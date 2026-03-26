@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner-saucelabs",
+  "type": "module",
   "version": "0.13.0",
   "publishConfig": {
     "access": "public"
@@ -56,6 +57,5 @@
     "@web/dev-server-esbuild": "^1.0.0",
     "@web/dev-server-legacy": "^2.1.0",
     "portfinder": "^1.0.32"
-  },
-  "type": "module"
+  }
 }

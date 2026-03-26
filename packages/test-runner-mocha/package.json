@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner-mocha",
+  "type": "module",
   "version": "0.9.0",
   "publishConfig": {
     "access": "public"
@@ -20,8 +21,8 @@
   "scripts": {
     "build": "tsc",
     "build:production": "rimraf dist && rollup -c ./rollup.config.mjs",
-    "test": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 test/**/*.test.mjs",
-    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch test/**/*.test.mjs"
+    "test": "node --test test/**/*.test.mjs",
+    "test:watch": "node --test --watch test/**/*.test.mjs"
   },
   "files": [
     "dist"
@@ -41,6 +42,5 @@
     "@types/mocha": "^10.0.1",
     "deepmerge": "^4.2.2",
     "mocha": "^10.8.2"
-  },
-  "type": "module"
+  }
 }

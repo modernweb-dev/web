@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner-junit-reporter",
+  "type": "module",
   "version": "0.8.0",
   "publishConfig": {
     "access": "public"
@@ -25,8 +26,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 test/**/*.test.ts",
-    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch test/**/*.test.ts"
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha test/**/*.test.ts --require ts-node/register --reporter dot",
+    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
   },
   "files": [
     "*.d.ts",
@@ -51,6 +52,5 @@
   "devDependencies": {
     "@types/xml": "^1.0.11",
     "@web/test-runner-playwright": "^0.11.0"
-  },
-  "type": "module"
+  }
 }

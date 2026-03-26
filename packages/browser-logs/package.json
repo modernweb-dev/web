@@ -1,5 +1,6 @@
 {
   "name": "@web/browser-logs",
+  "type": "module",
   "version": "0.4.1",
   "publishConfig": {
     "access": "public"
@@ -25,8 +26,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 test/**/*.test.ts",
-    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch test/**/*.test.ts"
+    "test:node": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot",
+    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -50,6 +51,5 @@
   "devDependencies": {
     "@esm-bundle/chai": "^4.1.5",
     "puppeteer": "^24.0.0"
-  },
-  "type": "module"
+  }
 }

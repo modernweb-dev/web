@@ -1,5 +1,6 @@
 {
   "name": "@web/rollup-plugin-copy",
+  "type": "module",
   "version": "0.5.1",
   "publishConfig": {
     "access": "public"
@@ -16,19 +17,19 @@
   "bugs": {
     "url": "https://github.com/modernweb-dev/web/issues"
   },
-  "main": "src/copy.js",
+  "main": "dist/copy.js",
   "module": "index.mjs",
   "exports": {
     ".": {
       "types": "./dist/copy.d.ts",
-      "default": "./src/copy.js"
+      "default": "./dist/copy.js"
     }
   },
   "engines": {
     "node": ">=24.0.0"
   },
   "scripts": {
-    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
+    "test:node": "node --test 'test/**/*.test.mjs'",
     "test:watch": "npm run test:node -- --watch"
   },
   "files": [

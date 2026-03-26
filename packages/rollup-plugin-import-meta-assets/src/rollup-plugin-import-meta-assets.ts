@@ -1,59 +1,84 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
-'use strict';
-
-const fs = require('fs');
-const path = require('path');
-const { createFilter } = require('@rollup/pluginutils');
-const { asyncWalk } = require('estree-walker');
-const MagicString = require('magic-string');
-const {
-  dynamicImportToGlob: dynamicURLToGlob,
-  VariableDynamicImportError: VariableURLError,
-} = require('@rollup/plugin-dynamic-import-vars');
+import fs from 'fs';
+import path from 'path';
+import { createFilter, type FilterPattern } from '@rollup/pluginutils';
+// @ts-ignore - estree-walker has types but exports field blocks them
+import { asyncWalk } from 'estree-walker';
+import MagicString from 'magic-string';
+import type { Node } from 'estree';
+import type { Plugin } from 'rollup';
+import {
+  dynamicImportToGlob as dynamicURLToGlob,
+  VariableDynamicImportError as VariableURLError,
+} from '@rollup/plugin-dynamic-import-vars';
 
 /**
  * Extract the relative path from an AST node representing this kind of expression `new URL('./path/to/asset.ext', import.meta.url)`.
  *
- * @param {import('estree').Node} node - The AST node
- * @returns {string} The relative path
+ * @param node - The AST node
+ * @returns The relative path
  */
-function getRelativeAssetPath(node) {
+function getRelativeAssetPath(node: Node): string {
   // either normal string expression or else it would be Template Literal with a single quasi
-  const browserPath = node.arguments[0].value ?? node.arguments[0].quasis[0].value.cooked;
+  const browserPath =
+    (node as any).arguments[0].value ?? (node as any).arguments[0].quasis[0].value.cooked;
   return browserPath.split('/').join(path.sep);
 }
 
 /**
  * Checks if a AST node represents this kind of expression: `new URL('./path/to/asset.ext', import.meta.url)`.
  *
- * @param {import('estree').Node} node - The AST node
- * @returns {undefined | 'static' | 'dynamic'}
+ * @param node - The AST node
+ * @returns undefined | 'static' | 'dynamic'
  */
-function getImportMetaUrlType(node) {
+function getImportMetaUrlType(node: Node): undefined | 'static' | 'dynamic' {
   const isNewURL =
     node.type === 'NewExpression' &&
-    node.callee.type === 'Identifier' &&
-    node.callee.name === 'URL' &&
-    node.arguments.length === 2 &&
-    (node.arguments[0].type === 'Literal' ||
+    (node as any).callee.type === 'Identifier' &&
+    (node as any).callee.name === 'URL' &&
+    (node as any).arguments.length === 2 &&
+    ((node as any).arguments[0].type === 'Literal' ||
       // Allow template literals, reuses @rollup/plugin-dynamic-import-vars logic
-      node.arguments[0].type === 'TemplateLiteral') &&
+      (node as any).arguments[0].type === 'TemplateLiteral') &&
     typeof getRelativeAssetPath(node) === 'string' &&
-    node.arguments[1].type === 'MemberExpression' &&
-    node.arguments[1].object.type === 'MetaProperty' &&
-    node.arguments[1].property.type === 'Identifier' &&
-    node.arguments[1].property.name === 'url';
+    (node as any).arguments[1].type === 'MemberExpression' &&
+    (node as any).arguments[1].object.type === 'MetaProperty' &&
+    (node as any).arguments[1].property.type === 'Identifier' &&
+    (node as any).arguments[1].property.name === 'url';
 
   if (!isNewURL) {
     return undefined;
   }
 
-  if (node.arguments[0].type === 'TemplateLiteral' && node.arguments[0].expressions.length > 0) {
+  if (
+    (node as any).arguments[0].type === 'TemplateLiteral' &&
+    (node as any).arguments[0].expressions.length > 0
+  ) {
     return 'dynamic';
   }
 
   return 'static';
+}
+
+export interface ImportMetaAssetsOptions {
+  /**
+   * A picomatch pattern, or array of patterns, which specifies the files in the build the plugin should operate on. By default all files are targeted.
+   */
+  include?: FilterPattern;
+  /**
+   * A picomatch pattern, or array of patterns, which specifies the files in the build the plugin should _ignore_. By default no files are ignored.
+   */
+  exclude?: FilterPattern;
+  /**
+   * By default, the plugin quits the build process when it encounters an error. If you set this option to true, it will throw a warning instead and leave the code untouched.
+   */
+  warnOnError?: boolean;
+  /**
+   * A function to transform assets.
+   */
+  transform?: (
+    assetContents: Buffer,
+    absoluteAssetPath: string,
+  ) => Promise<Buffer | null> | Buffer | null;
 }
 
 /**
@@ -61,14 +86,11 @@ function getImportMetaUrlType(node) {
  * The assets are added to the rollup pipeline, allowing them to be transformed and hash the filenames.
  * Patterns that represent directories are skipped.
  *
- * @param {object} options
- * @param {string|string[]} [options.include] A picomatch pattern, or array of patterns, which specifies the files in the build the plugin should operate on. By default all files are targeted.
- * @param {string|string[]} [options.exclude] A picomatch pattern, or array of patterns, which specifies the files in the build the plugin should _ignore_. By default no files are ignored.
- * @param {boolean} [options.warnOnError] By default, the plugin quits the build process when it encounters an error. If you set this option to true, it will throw a warning instead and leave the code untouched.
- * @param {function} [options.transform] A function to transform assets.
- * @return {import('rollup').Plugin} A Rollup Plugin
+ * @param options - Plugin options
+ * @returns A Rollup Plugin
  */
-function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
+function importMetaAssets(options: ImportMetaAssetsOptions = {}): Plugin {
+  const { include, exclude, warnOnError, transform } = options;
   const filter = createFilter(include, exclude);
 
   return {
@@ -78,16 +100,14 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
         return null;
       }
 
-      let newCode = code;
-
       // Part 1: resolve dynamic template literal expressions
-      const ast1 = this.parse(newCode);
-      let ms1;
+      const parsed = this.parse(code);
 
       let dynamicURLIndex = -1;
+      let ms: MagicString | undefined;
 
-      await asyncWalk(ast1, {
-        enter: async node => {
+      await asyncWalk(parsed, {
+        enter: async (node: Node) => {
           const importMetaUrlType = getImportMetaUrlType(node);
 
           if (importMetaUrlType !== 'dynamic') {
@@ -98,8 +118,8 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
           try {
             // see if this is a Template Literal with expressions inside, and generate a glob expression
             const glob = dynamicURLToGlob(
-              node.arguments[0],
-              newCode.substring(node.start, node.end),
+              (node as any).arguments[0],
+              code.substring((node as any).start, (node as any).end),
             );
 
             if (!glob) {
@@ -110,18 +130,18 @@ function importMetaAssets({ include, exclude, warnOnError, transform } = {}) {
             const { globby } = await import('globby');
             // execute the glob
             const result = await globby(glob, { cwd: path.dirname(id) });
-            const paths = result
-              .sort()
-              .map(r => (r.startsWith('./') || r.startsWith('../') ? r : `./${r}`));
+            const paths = result.map((r: string) =>
+              r.startsWith('./') || r.startsWith('../') ? r : `./${r}`,
+            );
 
             // create magic string if it wasn't created already
-            ms1 = ms1 || new MagicString(newCode);
+            ms = ms || new MagicString(code);
             // unpack variable dynamic url into a function with url statements per file, rollup
             // will turn these into chunks automatically
-            ms1.prepend(
+            ms.prepend(
               `function __variableDynamicURLRuntime${dynamicURLIndex}__(path) {
   switch (path) {
-${paths.map(p => `    case '${p}': return new URL('${p}', import.meta.url);`).join('\n')}
+${paths.map((p: string) => `    case '${p}': return new URL('${p}', import.meta.url);`).join('\n')}
 ${`    default: return new Promise(function(resolve, reject) {
       (typeof queueMicrotask === 'function' ? queueMicrotask : setTimeout)(
         reject.bind(null, new Error("Unknown variable dynamic new URL statement: " + path))
@@ -131,31 +151,33 @@ ${`    default: return new Promise(function(resolve, reject) {
             );
             // call the runtime function instead of doing a dynamic url, the url specifier will
             // be evaluated at runtime and the correct url will be returned by the injected function
-            ms1.overwrite(
-              node.start,
-              node.start + 7,
+            ms.overwrite(
+              (node as any).start,
+              (node as any).start + 7,
               `__variableDynamicURLRuntime${dynamicURLIndex}__`,
             );
           } catch (error) {
             if (error instanceof VariableURLError && warnOnError) {
               this.warn(error);
             } else {
-              this.error(error);
+              this.error(error as Error);
             }
           }
         },
       });
 
-      if (ms1) {
-        newCode = ms1.toString();
+      let newCode = code;
+      if (ms && dynamicURLIndex !== -1) {
+        newCode = ms.toString();
       }
 
       // Part 2: emit asset files
-      const ast2 = this.parse(newCode);
-      let ms2;
+      const ast = this.parse(newCode);
+      const magicString = new MagicString(newCode);
+      let modifiedCode = false;
 
-      await asyncWalk(ast2, {
-        enter: async node => {
+      await asyncWalk(ast, {
+        enter: async (node: Node) => {
           const importMetaUrlType = getImportMetaUrlType(node);
           if (!importMetaUrlType) {
             return;
@@ -179,22 +201,21 @@ ${`    default: return new Promise(function(resolve, reject) {
               const ref = this.emitFile({
                 type: 'asset',
                 name: assetName,
-                originalFileName: absoluteAssetPath,
                 source: transformedAssetContents,
               });
-              ms2 = ms2 || new MagicString(newCode);
-              ms2.overwrite(
-                node.arguments[0].start,
-                node.arguments[1].end,
+              magicString.overwrite(
+                (node as any).arguments[0].start,
+                (node as any).arguments[1].end,
                 `import.meta.ROLLUP_FILE_URL_${ref}`,
               );
-            } catch (error) {
+              modifiedCode = true;
+            } catch (error: any) {
               // Do not process directories, just skip
               if (error.code !== 'EISDIR') {
                 if (warnOnError) {
-                  this.warn(error, node.arguments[0].start);
+                  this.warn(error, (node as any).arguments[0].start);
                 } else {
-                  this.error(error, node.arguments[0].start);
+                  this.error(error, (node as any).arguments[0].start);
                 }
               }
             }
@@ -202,32 +223,12 @@ ${`    default: return new Promise(function(resolve, reject) {
         },
       });
 
-      if (ms2) {
-        newCode = ms2.toString();
-      }
-
-      if (!ms1 && !ms2) {
-        return null;
-      }
-
-      let map;
-      if (ms1 && ms2) {
-        const map1 = ms1.generateMap({ hires: true, source: id });
-        const map2 = ms2.generateMap({ hires: true, source: id });
-        const remapping = (await import('@jridgewell/remapping')).default;
-        map = remapping([map2, map1], () => null);
-      } else if (ms2) {
-        map = ms2.generateMap({ hires: true });
-      } else if (ms1) {
-        map = ms1.generateMap({ hires: true });
-      }
-
       return {
-        code: newCode,
-        map,
+        code: magicString.toString(),
+        map: modifiedCode ? magicString.generateMap({ hires: true, includeContent: true }) : null,
       };
     },
   };
 }
 
-module.exports = { importMetaAssets };
+export { importMetaAssets };

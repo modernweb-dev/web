@@ -1,5 +1,6 @@
 {
   "name": "@web/dev-server-hmr",
+  "type": "module",
   "version": "0.4.1",
   "publishConfig": {
     "access": "public"
@@ -27,8 +28,8 @@
     "build": "tsc",
     "start:lit-html": "wds --config demo/lit-html/server.config.mjs",
     "start:vanilla": "wds --config demo/vanilla/server.config.mjs",
-    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.ts'",
-    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch 'test/**/*.test.ts'"
+    "test:node": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
+    "test:watch": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"moduleResolution\":\"node\"}' mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -43,6 +44,5 @@
   "devDependencies": {
     "lit-html": "^2.7.3 || ^3.0.0",
     "puppeteer": "^24.0.0"
-  },
-  "type": "module"
+  }
 }

@@ -1,7 +1,7 @@
 /// <reference types="../../../types/rollup__plugin-babel" />
 import { describe, it } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import rollupBabel from '@rollup/plugin-babel';
+import rollupBabel from '@rollup/plugin-babel.ts';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../src/index.ts';

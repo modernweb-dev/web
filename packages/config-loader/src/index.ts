@@ -1,16 +1,11 @@
-const path = require('path');
-const { fileExists } = require('./utils');
-const ConfigLoaderError = require('./ConfigLoaderError.js');
-const importOrRequireConfig = require('./importOrRequireConfig');
+import path from 'path';
+import { fileExists } from './utils.ts';
+import ConfigLoaderError from './ConfigLoaderError.ts';
+import importOrRequireConfig from './importOrRequireConfig.ts';
 
 const EXTENSIONS = ['.mjs', '.cjs', '.js'];
 
-/**
- * @param {string} name
- * @param {string} [customPath]
- * @param {string} [basedir]
- */
-async function readConfig(name, customPath, basedir = process.cwd()) {
+async function readConfig(name: string, customPath?: string, basedir: string = process.cwd()): Promise<any> {
   const resolvedCustomPath = customPath ? path.resolve(basedir, customPath) : undefined;
   if (resolvedCustomPath && !(await fileExists(resolvedCustomPath))) {
     throw new ConfigLoaderError(`Could not find a config file at ${resolvedCustomPath}`);
@@ -32,4 +27,4 @@ async function readConfig(name, customPath, basedir = process.cwd()) {
   return null;
 }
 
-module.exports = { readConfig, ConfigLoaderError };
+export { readConfig, ConfigLoaderError };

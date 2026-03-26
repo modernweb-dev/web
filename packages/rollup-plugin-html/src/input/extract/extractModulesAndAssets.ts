@@ -7,7 +7,7 @@ export interface ExtractParams {
   html: string;
   htmlFilePath: string;
   rootDir: string;
-  extractAssets: boolean | 'legacy-html' | 'legacy-html-and-css';
+  extractAssets: boolean;
   externalAssets?: string | string[];
   absolutePathPrefix?: string;
 }
@@ -30,7 +30,6 @@ export function extractModulesAndAssets(params: ExtractParams) {
         htmlDir,
         htmlFilePath,
         rootDir,
-        extractAssets: params.extractAssets,
         externalAssets,
         absolutePathPrefix,
       })
