@@ -1,4 +1,4 @@
-import { Context } from 'koa';
+import { type Context } from 'koa';
 import isStream from 'is-stream';
 import getStream from 'get-stream';
 import { isBinaryFile } from 'isbinaryfile';

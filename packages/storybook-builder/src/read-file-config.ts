@@ -1,5 +1,5 @@
 import { ConfigLoaderError, readConfig } from '@web/config-loader';
-import { DevServerConfig, DevServerStartError } from '@web/dev-server';
+import { type DevServerConfig, DevServerStartError } from '@web/dev-server';
 
 export async function readFileConfig(customPath?: string): Promise<DevServerConfig> {
   try {

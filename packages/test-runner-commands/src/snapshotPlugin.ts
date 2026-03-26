@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { TestRunnerPlugin } from '@web/test-runner-core';
-import { ServerStartParams } from '@web/dev-server-core';
+import { type TestRunnerPlugin } from '@web/test-runner-core';
+import { type ServerStartParams } from '@web/dev-server-core';
 import path from 'path';
 import fs from 'fs';
 import { promisify } from 'util';

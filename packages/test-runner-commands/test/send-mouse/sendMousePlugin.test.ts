@@ -1,3 +1,4 @@
+import { describe, it, before, after } from 'node:test';
 import path from 'path';
 import selenium from 'selenium-standalone';
 import { runTests } from '@web/test-runner-core/test-helpers';
@@ -7,9 +8,9 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 import { sendMousePlugin } from '../../src/sendMousePlugin.ts';
 import { startSeleniumServer } from '../selenium-server.ts';
 
-describe('sendMousePlugin', function test() {
-  this.timeout(50000);
+const __dirname = import.meta.dirname;
 
+describe('sendMousePlugin', { timeout: 50000 }, () => {
   it('can send mouse on puppeteer', async () => {
     await runTests({
       files: [path.join(__dirname, 'browser-test.js')],

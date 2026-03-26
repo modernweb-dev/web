@@ -17,6 +17,7 @@ import { parseBrowserResult } from './parseBrowserResult.ts';
 import { TestRunner } from '../../../runner/TestRunner.ts';
 import { createSourceMapFunction, type SourceMapFunction } from './createSourceMapFunction.ts';
 import { type DebugTestSession } from '../../../test-session/DebugTestSession.ts';
+
 interface SessionMessage extends Record<string, unknown> {
   sessionId: string;
   testFile: string;

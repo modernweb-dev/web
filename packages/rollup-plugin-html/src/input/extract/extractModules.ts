@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import { resolveAssetFilePath } from '../../assets/utils.ts';
 import { getAttributes } from '@web/parse5-utils';
 import { type ScriptModuleTag } from '../../RollupPluginHTMLOptions.ts';
+
 export interface ExtractModulesParams {
   document: Document;
   htmlDir: string;

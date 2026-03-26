@@ -1,10 +1,12 @@
 import { FSWatcher } from 'chokidar';
-import Koa, { Context } from 'koa';
+import type { Context } from 'koa';
+import Koa from 'koa';
 import { type Server } from 'net';
 
 import type { DevServerCoreConfig } from '../server/DevServerCoreConfig.ts';
 import type { Logger } from '../logger/Logger.ts';
 import { WebSocketsManager } from '../web-sockets/WebSocketsManager.ts';
+
 export type ServeResult =
   | void
   | string

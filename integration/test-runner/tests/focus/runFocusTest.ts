@@ -1,4 +1,6 @@
-import { BrowserLauncher, TestRunnerCoreConfig, TestSession } from '@web/test-runner-core';
+import { describe, it, before } from 'node:test';
+const __dirname = import.meta.dirname;
+import type { BrowserLauncher, TestRunnerCoreConfig, TestSession } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';
 import { resolve } from 'path';

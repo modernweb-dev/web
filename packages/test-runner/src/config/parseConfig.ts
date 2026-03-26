@@ -14,13 +14,17 @@ import {
   snapshotPlugin,
   sendMousePlugin,
 } from '@web/test-runner-commands/plugins';
-import { getPortPromise } from 'portfinder';
+import portfinder from 'portfinder';
+
+const { getPortPromise } = portfinder;
 import path from 'path';
 import { cpus } from 'os';
+import { fileURLToPath } from 'node:url';
 
 import { type TestRunnerCliArgs } from './readCliArgs.ts';
 import { mergeConfigs } from './mergeConfigs.ts';
-import { type TestRunnerConfig } from './TestRunnerConfig.ts';import { esbuildPlugin, nodeResolvePlugin } from '@web/dev-server';
+import { type TestRunnerConfig } from './TestRunnerConfig.ts';
+import { esbuildPlugin, nodeResolvePlugin } from '@web/dev-server';
 import { TestRunnerStartError } from '../TestRunnerStartError.ts';
 import { collectGroupConfigs } from './collectGroupConfigs.ts';
 import { playwrightLauncher, puppeteerLauncher } from './loadLauncher.ts';
@@ -226,7 +230,7 @@ export async function parseConfig(
   }
 
   finalConfig.testFramework = {
-    path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
+    path: fileURLToPath(import.meta.resolve('@web/test-runner-mocha/dist/autorun.js')),
     ...(finalConfig.testFramework ?? {}),
   };
 

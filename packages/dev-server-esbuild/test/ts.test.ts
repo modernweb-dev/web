@@ -1,15 +1,16 @@
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import path from 'path';
-import { expect } from 'chai';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
-import { Plugin as RollupPlugin } from 'rollup';
+import type { Plugin as RollupPlugin } from 'rollup';
 import { fromRollup } from '@web/dev-server-rollup';
 
 import { esbuildPlugin } from '../src/index.ts';
 
-describe('esbuildPlugin TS', function () {
-  this.timeout(5000);
+const __dirname = import.meta.dirname;
 
+describe('esbuildPlugin TS', function () {
   it('transforms .ts files', async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
@@ -39,10 +40,8 @@ describe('esbuildPlugin TS', function () {
     try {
       const response = await fetch(`${host}/foo.ts`);
       const text = await response.text();
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
       expectIncludes(text, 'export function foo(a, b) {');
       expectIncludes(text, 'return a + b;');
       expectIncludes(text, '}');
@@ -81,10 +80,8 @@ class Bar {
       const response = await fetch(`${host}/foo.ts`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
       expectIncludes(text, '__decorate');
       expectIncludes(text, '__publicField(this, "x", "y");');
       expectIncludes(
@@ -119,10 +116,8 @@ class Bar {
       const response = await fetch(`${host}/a/b/foo.ts`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
       expectIncludes(text, 'import "../../x.ts";');
       expectIncludes(text, 'import "../y.ts";');
       expectIncludes(text, 'import "./z.ts";');
@@ -146,10 +141,8 @@ class Bar {
       const response = await fetch(`${host}/a/b/foo.ts`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
       expectIncludes(text, 'import "../../1.js";');
       expectIncludes(text, 'import "../2.js";');
       expectIncludes(text, 'import "./3.js";');
@@ -177,7 +170,7 @@ class Bar {
       const response = await fetch(`${host}/a/b/foo.ts`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
+      assert.strictEqual(response.status, 200);
       expectIncludes(text, "import '../../x.js';");
       expectIncludes(text, "import '../y.js';");
       expectIncludes(text, "import './z.js';");
@@ -201,7 +194,7 @@ class Bar {
       const response = await fetch(`${host}/a/b/bar.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
+      assert.strictEqual(response.status, 200);
       expectIncludes(text, "import '../../x.js';");
       expectIncludes(text, "import '../y.js';");
       expectIncludes(text, "import './z.js';");
@@ -261,10 +254,8 @@ class Bar {
       const response = await fetch(`${host}/a/b/foo.ts`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(response.headers.get('content-type'), 'text/javascript; charset=utf-8');
 
       expectIncludes(text, '__publicField(this, "prop");');
     } finally {

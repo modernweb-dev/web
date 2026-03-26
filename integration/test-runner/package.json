@@ -1,5 +1,6 @@
 {
   "name": "@web/test-runner-integration-tests",
+  "type": "module",
   "version": "0.0.0",
   "private": true,
   "publishConfig": {

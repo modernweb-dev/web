@@ -1,4 +1,6 @@
-import cjsEntrypoint from './src/index.js';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const cjsEntrypoint = require('./src/index.js');
 
 const {
   createDocument,

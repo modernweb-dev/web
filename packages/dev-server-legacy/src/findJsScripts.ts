@@ -1,5 +1,5 @@
 import { isUri } from 'valid-url';
-import { Document as DocumentAst, Node as NodeAst } from 'parse5';
+import type { Document as DocumentAst, Node as NodeAst } from 'parse5';
 import { queryAll, predicates, getAttribute, hasAttribute } from '@web/dev-server-core/dist/dom5';
 
 function isDeferred(script: NodeAst) {

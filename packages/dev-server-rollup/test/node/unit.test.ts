@@ -1,9 +1,12 @@
-import { Plugin as RollupPlugin, AstNode } from 'rollup';
-import { expect } from 'chai';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import type { Plugin as RollupPlugin, AstNode } from 'rollup';
 import path from 'path';
 
 import { createTestServer, fetchText, expectIncludes } from './test-helpers.ts';
 import { fromRollup } from '../../src/index.ts';
+
+const __dirname = import.meta.dirname;
 
 describe('@web/dev-server-rollup', () => {
   describe('resolveId', () => {
@@ -77,7 +80,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, "import moduleA from './src/foo.ts'");
+        expectIncludes(text, "import moduleA from './src/foo.js'");
       } finally {
         server.stop();
       }
@@ -249,7 +252,7 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       await fetchText(`${host}/app.js`);
-      expect(parsed).to.exist;
+      assert(parsed);
     } finally {
       server.stop();
     }
@@ -347,7 +350,8 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       const text = await fetchText(`${host}/foo.html`);
-      expect(text).to.equal(
+      assert.equal(
+        text,
         `<html><head></head><body>\n    <script type="module">\n      console.log("transformed");\n    </script>\n  \n\n</body></html>`,
       );
     } finally {
@@ -371,7 +375,8 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       const text = await fetchText(`${host}/multiple-inline.html`);
-      expect(text).to.equal(
+      assert.equal(
+        text,
         `<html><head></head><body>\n    <script type="module">\n      console.log("asd");\n    </script>\n    <script type="module">\n      console.log("transformed");\n    </script>\n  \n\n</body></html>`,
       );
     } finally {

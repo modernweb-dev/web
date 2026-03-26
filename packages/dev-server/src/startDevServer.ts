@@ -1,5 +1,5 @@
 import { DevServer } from '@web/dev-server-core';
-import { DevServerConfig } from './config/DevServerConfig.ts';
+import { type DevServerConfig } from './config/DevServerConfig.ts';
 import { mergeConfigs } from './config/mergeConfigs.ts';
 import { parseConfig } from './config/parseConfig.ts';
 import { readCliArgs } from './config/readCliArgs.ts';

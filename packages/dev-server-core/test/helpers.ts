@@ -6,7 +6,9 @@ import {
   expectIncludes,
   virtualFilesPlugin,
 } from '../src/test-helpers.ts';
-import { DevServerCoreConfig } from '../src/server/DevServerCoreConfig.ts';
+import type { DevServerCoreConfig } from '../src/server/DevServerCoreConfig.ts';
+
+const __dirname = import.meta.dirname;
 
 export function createTestServer(config: Partial<DevServerCoreConfig> = {}) {
   return originalCreateTestServer({

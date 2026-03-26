@@ -1,4 +1,5 @@
-import { expect } from 'chai';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import WebSocket from 'ws';
 import { NAME_WEB_SOCKET_API } from '../../src/web-sockets/WebSocketsManager.ts';
 
@@ -56,7 +57,7 @@ describe('WebSocketManager', () => {
 
       const waitForMessage = waitFor(resolve => {
         ws.on('message', data => {
-          expect(data).to.equal('hello world');
+          assert.strictEqual(data.toString(), 'hello world');
           resolve();
         });
       }, 'expected a message event');
@@ -91,13 +92,13 @@ describe('WebSocketManager', () => {
 
       const waitForMessage1 = waitFor(resolve => {
         ws1.on('message', data => {
-          expect(data).to.equal('hello world');
+          assert.strictEqual(data.toString(), 'hello world');
           resolve();
         });
       }, 'expected message');
       const waitForMessage2 = waitFor(resolve => {
         ws1.on('message', data => {
-          expect(data).to.equal('hello world');
+          assert.strictEqual(data.toString(), 'hello world');
           resolve();
         });
       }, 'expected message');
@@ -126,8 +127,8 @@ describe('WebSocketManager', () => {
 
       const waitForMessage = waitFor(resolve => {
         server.webSockets!.on('message', ({ webSocket, data }) => {
-          expect(webSocket).to.be.an.instanceOf(WebSocket);
-          expect(data).to.eql({ type: 'foo' });
+          assert.ok(webSocket instanceof WebSocket);
+          assert.deepStrictEqual(data, { type: 'foo' });
           resolve();
         });
       }, 'expected message event fired from manager');
@@ -155,8 +156,8 @@ describe('WebSocketManager', () => {
 
       const waitForMessage = waitFor(resolve => {
         ws.on('message', data => {
-          const parsedData = JSON.parse(data as any);
-          expect(parsedData).to.eql({
+          const parsedData = JSON.parse(data.toString());
+          assert.deepStrictEqual(parsedData, {
             data: {
               args: [],
               importPath: 'data:text/javascript,console.log("hello world");',
@@ -190,8 +191,8 @@ describe('WebSocketManager', () => {
 
       const waitForMessage = waitFor(resolve => {
         ws.on('message', data => {
-          const parsedData = JSON.parse(data as any);
-          expect(parsedData).to.eql({
+          const parsedData = JSON.parse(data.toString());
+          assert.deepStrictEqual(parsedData, {
             data: {
               args: [],
               importPath: '/foo.js',

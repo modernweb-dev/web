@@ -1,4 +1,4 @@
-export { RollupNodeResolveOptions } from '@web/dev-server-rollup';
+export type { RollupNodeResolveOptions } from '@web/dev-server-rollup';
 export { startDevServer } from './startDevServer.ts';
 export { mergeConfigs } from './config/mergeConfigs.ts';
 export { DevServerStartError } from './DevServerStartError.ts';

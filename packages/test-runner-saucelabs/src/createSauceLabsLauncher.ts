@@ -1,5 +1,5 @@
-import { BrowserLauncher } from '@web/test-runner-core';
-import { SauceLabsOptions, SauceConnectOptions } from 'saucelabs';
+import { type BrowserLauncher } from '@web/test-runner-core';
+import { type SauceLabsOptions, type SauceConnectOptions } from 'saucelabs';
 import { Capabilities, Options } from '@wdio/types';
 import { nanoid } from 'nanoid';
 import { SauceLabsLauncher } from './SauceLabsLauncher.ts';

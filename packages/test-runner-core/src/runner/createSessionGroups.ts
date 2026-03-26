@@ -8,6 +8,7 @@ import { type TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.ts';
 import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
 import { collectTestFiles } from './collectTestFiles.ts';
 import { type TestSessionGroup } from '../test-session/TestSessionGroup.ts';
+
 interface GroupConfigWithoutOptionals extends TestRunnerGroupConfig {
   name: string;
   configFilePath?: string;

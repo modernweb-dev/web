@@ -1,12 +1,13 @@
+import { describe, it, beforeEach, afterEach, before, after } from 'node:test';
+import assert from 'node:assert/strict';
 import express from 'express';
 import http from 'http';
 import Koa from 'koa';
-import { Server } from 'net';
+import { type Server } from 'net';
 import { FSWatcher } from 'chokidar';
-import { expect } from 'chai';
 import portfinder from 'portfinder';
 import { Stub, stubMethod } from 'hanbi';
-import { ServerStartParams } from '../../src/plugins/Plugin.ts';
+import { type ServerStartParams } from '../../src/plugins/Plugin.ts';
 import { DevServer } from '../../src/server/DevServer.ts';
 import { createTestServer } from '../helpers.ts';
 
@@ -26,37 +27,37 @@ describe('basic', () => {
     const response = await fetch(`${host}/index.html`);
     const responseText = await response.text();
 
-    expect(response.status).to.equal(200);
-    expect(responseText).to.include('<title>My app</title>');
+    assert.strictEqual(response.status, 200);
+    assert.ok(responseText.includes('<title>My app</title>'));
   });
 
   it('returns hidden files', async () => {
     const response = await fetch(`${host}/.hidden`);
     const responseText = await response.text();
 
-    expect(response.status).to.equal(200);
-    expect(responseText).to.include('this file is hidden');
+    assert.strictEqual(response.status, 200);
+    assert.ok(responseText.includes('this file is hidden'));
   });
 
   it('returns files in a folder', async () => {
     const response = await fetch(`${host}/src/hello-world.txt`);
     const responseText = await response.text();
 
-    expect(response.status).to.equal(200);
-    expect(responseText).to.equal('Hello world!');
+    assert.strictEqual(response.status, 200);
+    assert.strictEqual(responseText, 'Hello world!');
   });
 
   it('returns a 404 for unknown files', async () => {
     const response = await fetch(`${host}/non-existing.js`);
 
-    expect(response.status).to.equal(404);
+    assert.strictEqual(response.status, 404);
   });
 
   it('sets no-cache header', async () => {
     const response = await fetch(`${host}/index.html`);
 
-    expect(response.status).to.equal(200);
-    expect(response.headers.get('cache-control')).to.equal('no-cache');
+    assert.strictEqual(response.status, 200);
+    assert.strictEqual(response.headers.get('cache-control'), 'no-cache');
   });
 });
 
@@ -65,8 +66,8 @@ it('can configure the hostname', async () => {
   const response = await fetch(`${host}/index.html`);
   const responseText = await response.text();
 
-  expect(response.status).to.equal(200);
-  expect(responseText).to.include('<title>My app</title>');
+  assert.strictEqual(response.status, 200);
+  assert.ok(responseText.includes('<title>My app</title>'));
   server.stop();
 });
 
@@ -92,16 +93,16 @@ describe('http2', () => {
     // It's a bit of a shame that we can't verify that the response was delivered with a http/2
     // protocol. It would be good to have a extra assertion here. Something like:
     //
-    // expect(response.protocol).to.equal('http2');
-    expect(response.status).to.equal(200);
-    expect(responseText).to.include('<title>My app</title>');
+    // assert.strictEqual(response.protocol, 'http2');
+    assert.strictEqual(response.status, 200);
+    assert.ok(responseText.includes('<title>My app</title>'));
     server.stop();
   });
 });
 
 it('can run in middleware mode', async () => {
   const { server: wdsServer } = await createTestServer({ middlewareMode: true });
-  expect(wdsServer.server).to.equal(undefined);
+  assert.strictEqual(wdsServer.server, undefined);
 
   const app = express();
   let httpServer: http.Server;
@@ -117,8 +118,8 @@ it('can run in middleware mode', async () => {
   const response = await fetch(`http://localhost:${port}/index.html`);
   const responseText = await response.text();
 
-  expect(response.status).to.equal(200);
-  expect(responseText).to.include('<title>My app</title>');
+  assert.strictEqual(response.status, 200);
+  assert.ok(responseText.includes('<title>My app</title>'));
 
   httpServer!.close();
 });
@@ -136,8 +137,8 @@ it('can run multiple servers in parallel', async () => {
     const response = await fetch(`${result.host}/index.html`);
     const responseText = await response.text();
 
-    expect(response.status).to.equal(200);
-    expect(responseText).to.include('<title>My app</title>');
+    assert.strictEqual(response.status, 200);
+    assert.ok(responseText.includes('<title>My app</title>'));
     result.server.stop();
   }
 });
@@ -157,8 +158,8 @@ it('can add extra middleware', async () => {
   const response = await fetch(`${host}/foo`);
   const responseText = await response.text();
 
-  expect(response.status).to.equal(200);
-  expect(responseText).to.include('response from middleware');
+  assert.strictEqual(response.status, 200);
+  assert.ok(responseText.includes('response from middleware'));
   server.stop();
 });
 
@@ -175,11 +176,11 @@ it('calls serverStart on plugin hook on start', async () => {
     ],
   });
 
-  expect(startArgs!).to.exist;
-  expect(startArgs!.app).to.be.an.instanceOf(Koa);
-  expect(startArgs!.server).to.be.an.instanceOf(Server);
-  expect(startArgs!.fileWatcher).to.be.an.instanceOf(FSWatcher);
-  expect(startArgs!.config).to.be.an('object');
+  assert.ok(startArgs! !== undefined);
+  assert.ok(startArgs!.app instanceof Koa);
+  assert.ok(startArgs!.server instanceof Server);
+  assert.ok(startArgs!.fileWatcher instanceof FSWatcher);
+  assert.strictEqual(typeof startArgs!.config, 'object');
 
   server.stop();
 });
@@ -198,7 +199,7 @@ it('calls serverStop on plugin hook on stop', async () => {
   });
 
   await server.stop();
-  expect(stopCalled).to.be.true;
+  assert.strictEqual(stopCalled, true);
 });
 
 it('waits on server start hooks before starting', async () => {
@@ -232,8 +233,8 @@ it('waits on server start hooks before starting', async () => {
     ],
   });
 
-  expect(aFinished).to.be.true;
-  expect(bFinished).to.be.true;
+  assert.strictEqual(aFinished, true);
+  assert.strictEqual(bFinished, true);
   server.stop();
 });
 
@@ -270,14 +271,14 @@ describe('disableFileWatcher', () => {
   it('disables file watch when true', async () => {
     const { fileWatchStub, server } = await setupDisableFileWatch({ disableFileWatcher: true });
 
-    expect(fileWatchStub.callCount).to.equal(0);
+    assert.strictEqual(fileWatchStub.callCount, 0);
     server.stop();
   });
 
   it('leaves file watch in tact when false', async () => {
     const { fileWatchStub, server } = await setupDisableFileWatch({ disableFileWatcher: false });
 
-    expect(fileWatchStub.callCount).to.gt(0);
+    assert.ok(fileWatchStub.callCount > 0);
     server.stop();
   });
 });

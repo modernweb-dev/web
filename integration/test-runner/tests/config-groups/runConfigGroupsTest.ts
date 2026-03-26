@@ -1,4 +1,6 @@
-import {
+import { describe, it } from 'node:test';
+const __dirname = import.meta.dirname;
+import type {
   BrowserLauncher,
   TestRunnerCoreConfig,
   TestRunnerGroupConfig,

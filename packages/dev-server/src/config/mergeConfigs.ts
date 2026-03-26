@@ -1,4 +1,5 @@
 import { type DevServerConfig } from './DevServerConfig.ts';
+
 const arrayKeys = ['plugins', 'middleware'];
 
 export function mergeConfigs(...configs: Partial<DevServerConfig | undefined>[]) {

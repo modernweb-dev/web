@@ -2,12 +2,12 @@
 import path from 'path';
 import whatwgUrl from 'whatwg-url';
 import {
-  Plugin as WdsPlugin,
-  DevServerCoreConfig,
+  type Plugin as WdsPlugin,
+  type DevServerCoreConfig,
   FSWatcher,
   PluginError,
   PluginSyntaxError,
-  Context,
+  type Context,
   getRequestFilePath,
 } from '@web/dev-server-core';
 import {
@@ -17,13 +17,20 @@ import {
   setTextContent,
 } from '@web/dev-server-core/dist/dom5';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
-import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
-import { InputOptions } from 'rollup';
+import {
+  type CustomPluginOptions,
+  type Plugin as RollupPlugin,
+  type TransformPluginContext,
+} from 'rollup';
+import { type InputOptions } from 'rollup';
 import { red, cyan } from 'nanocolors';
 
 import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils.ts';
 import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter.ts';
-import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts.ts';
+import {
+  createRollupPluginContexts,
+  type RollupPluginContexts,
+} from './createRollupPluginContexts.ts';
 
 const NULL_BYTE_PARAM = 'web-dev-server-rollup-null-byte';
 const VIRTUAL_FILE_PREFIX = '/__web-dev-server__/rollup';

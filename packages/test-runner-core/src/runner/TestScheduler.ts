@@ -6,6 +6,7 @@ import { SESSION_STATUS } from '../test-session/TestSessionStatus.ts';
 import { withTimeout } from '../utils/async.ts';
 import { TestSessionTimeoutHandler } from './TestSessionTimeoutHandler.ts';
 import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
+
 export class TestScheduler {
   private config: TestRunnerCoreConfig;
   private sessions: TestSessionManager;

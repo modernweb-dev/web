@@ -1,9 +1,8 @@
+import { describe } from 'node:test';
 import { runIntegrationTests } from '../../../integration/test-runner/index.ts';
 import { chromeLauncher } from '../src/index.ts';
 
-describe('test-runner-chrome', function testRunnerChrome() {
-  this.timeout(20000);
-
+describe('test-runner-chrome', { timeout: 20000 }, () => {
   function createConfig() {
     return {
       browsers: [chromeLauncher()],

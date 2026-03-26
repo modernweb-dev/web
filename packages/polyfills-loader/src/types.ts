@@ -1,4 +1,4 @@
-import { Attribute } from 'parse5';
+import type { Attribute } from 'parse5';
 
 export interface PolyfillsLoaderConfig {
   // files to load on modern browsers. loaded when there are no

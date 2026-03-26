@@ -20,17 +20,16 @@
     "./plugin.js": "./dist/moduleMockingPlugin.js"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha test/**/*.test.ts --loader=ts-node/esm --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --loader ts-node/esm --watch --watch-files src,test"
+    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.ts'",
+    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch 'test/**/*.test.ts'"
   },
   "files": [
     "*.d.ts",
     "*.js",
-    "*.mjs",
     "dist",
     "src"
   ],

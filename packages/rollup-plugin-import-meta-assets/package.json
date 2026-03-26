@@ -16,22 +16,20 @@
   "main": "src/index.js",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./src/index.js"
+      "default": "./src/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "test": "npm run test:node",
-    "test:node": "mocha test/**/*.test.js test/*.test.js --reporter dot",
-    "test:update-snapshots": "mocha test/**/*.test.js test/*.test.js --update-snapshots",
+    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
+    "test:update-snapshots": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
     "test:watch": "npm run test:node -- --watch"
   },
   "files": [
     "*.js",
-    "*.mjs",
     "dist",
     "src"
   ],

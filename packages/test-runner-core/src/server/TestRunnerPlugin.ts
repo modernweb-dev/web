@@ -1,5 +1,6 @@
 import { type Plugin } from '@web/dev-server-core';
 import { type BasicTestSession } from '../test-session/BasicTestSession.ts';
+
 export type ExecuteCommandResult = void | unknown | Promise<void> | Promise<unknown>;
 
 export interface ExecuteCommandArgs<TPayload> {

@@ -1,9 +1,12 @@
-import { expect } from 'chai';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
 
 import { legacyPlugin } from '../src/legacyPlugin.ts';
 import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
+
+const __dirname = import.meta.dirname;
 
 const htmlBody = `
 <html>
@@ -25,9 +28,7 @@ const inlineScriptHtmlBody = `
 </body>
 </html>`;
 
-describe('legacyPlugin - transform html', function () {
-  this.timeout(10000);
-
+describe('legacyPlugin - transform html', { timeout: 10000 }, () => {
   it(`does not do any work on a modern browser`, async () => {
     const { server, host } = await createTestServer({
       rootDir: __dirname,
@@ -48,7 +49,7 @@ describe('legacyPlugin - transform html', function () {
       headers: { 'user-agent': modernUserAgents['Chrome 78'] },
     });
 
-    expect(text.trim()).to.equal(htmlBody.trim());
+    assert.equal(text.trim(), htmlBody.trim());
     server.stop();
   });
 

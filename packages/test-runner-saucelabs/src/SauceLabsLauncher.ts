@@ -1,4 +1,4 @@
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
+import { type TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Capabilities } from '@wdio/types';
 import { WebdriverLauncher } from '@web/test-runner-webdriver';
 import internalIp from 'internal-ip';

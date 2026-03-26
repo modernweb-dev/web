@@ -1,6 +1,7 @@
-import { Plugin } from '@web/dev-server-core';
+import type { Plugin } from '@web/dev-server-core';
 import path from 'path';
-import { rollup, RollupOptions } from 'rollup';
+import { rollup } from 'rollup';
+import type { RollupOptions } from 'rollup';
 
 export interface RollupPluginOptions {
   rollupConfig: RollupOptions;

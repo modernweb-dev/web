@@ -1,4 +1,5 @@
-import { expect } from 'chai';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 
 import { createTestServer } from '../helpers.ts';
 
@@ -20,8 +21,8 @@ describe('plugin-mime-type middleware', () => {
     try {
       const response = await fetch(`${host}/src/hello-world.txt`);
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.include('application/javascript');
+      assert.strictEqual(response.status, 200);
+      assert.ok(response.headers.get('content-type')?.includes('application/javascript'));
     } finally {
       server.stop();
     }
@@ -44,8 +45,8 @@ describe('plugin-mime-type middleware', () => {
     try {
       const response = await fetch(`${host}/src/hello-world.txt`);
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.include('application/javascript');
+      assert.strictEqual(response.status, 200);
+      assert.ok(response.headers.get('content-type')?.includes('application/javascript'));
     } finally {
       server.stop();
     }

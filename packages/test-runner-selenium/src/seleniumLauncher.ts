@@ -1,4 +1,4 @@
-import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
+import { type BrowserLauncher, type TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Builder, WebDriver } from 'selenium-webdriver';
 import { getBrowserLabel, getBrowserName } from './utils.ts';
 import { IFrameManager } from './IFrameManager.ts';

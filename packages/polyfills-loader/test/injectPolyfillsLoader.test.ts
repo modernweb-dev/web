@@ -1,10 +1,12 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import path from 'path';
 import fs from 'fs';
 import { injectPolyfillsLoader } from '../src/injectPolyfillsLoader.ts';
 import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
-import { PolyfillsLoaderConfig } from '../src/types.ts';
+import type { PolyfillsLoaderConfig } from '../src/types.ts';
 
+const __dirname = import.meta.dirname;
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
 const defaultConfig = {
@@ -22,7 +24,7 @@ async function testSnapshot(name: string, htmlString: string, config: PolyfillsL
     fs.writeFileSync(snapshotPath, result.htmlString, 'utf-8');
   } else {
     const snapshot = fs.readFileSync(snapshotPath, 'utf-8');
-    expect(result.htmlString.trim()).to.equal(snapshot.trim());
+    assert.strictEqual(result.htmlString.trim(), snapshot.trim());
   }
 }
 

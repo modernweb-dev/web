@@ -67,7 +67,7 @@ export function createServer(
 
   let server: Server;
   if (cfg.http2) {
-    const dir = path.join(__dirname, '..');
+    const dir = path.join(import.meta.dirname, '..');
     const options = {
       key: fs.readFileSync(
         cfg.sslKey

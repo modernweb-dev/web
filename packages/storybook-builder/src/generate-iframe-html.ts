@@ -3,14 +3,18 @@
 import { normalizeStories } from '@storybook/core-common';
 import type { DocsOptions, Options, TagsOptions } from '@storybook/types';
 import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
 import { virtualAppFilename } from './virtual-file-names.ts';
 
 export type PreviewHtml = string | undefined;
 
 export async function generateIframeHtml(options: Options): Promise<string> {
-  const iframeHtmlTemplate = await readFile(require.resolve('../static/iframe-template.html'), {
-    encoding: 'utf-8',
-  });
+  const iframeHtmlTemplate = await readFile(
+    fileURLToPath(import.meta.resolve('../static/iframe-template.html')),
+    {
+      encoding: 'utf-8',
+    },
+  );
   const { configType, features, presets } = options;
   const build = await presets.apply('build');
   const frameworkOptions = await presets.apply<Record<string, any> | null>('frameworkOptions');

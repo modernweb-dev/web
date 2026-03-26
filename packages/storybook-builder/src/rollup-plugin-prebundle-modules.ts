@@ -1,7 +1,9 @@
 import type { Options } from '@storybook/types';
 import { build } from 'esbuild';
 import { readFile, rm } from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import { dirname, isAbsolute, join, normalize } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { Plugin } from 'rollup';
 import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-named-exports.ts';
 import { stringifyProcessEnvs } from './stringify-process-envs.ts';
@@ -82,9 +84,11 @@ export const CANDIDATES = [
   'color-convert',
 ];
 
+const cwdRequire = createRequire(join(process.cwd(), 'noop.js'));
+
 function moduleExists(moduleName: string) {
   try {
-    require.resolve(moduleName, { paths: [process.cwd()] });
+    cwdRequire.resolve(moduleName);
     return true;
   } catch (e) {
     return false;
@@ -104,7 +108,8 @@ async function getIsReactVersion18or19(options: Options) {
   }
 
   const resolvedReact = await options.presets.apply<{ reactDom?: string }>('resolvedReact', {});
-  const reactDom = resolvedReact.reactDom || dirname(require.resolve('react-dom/package.json'));
+  const reactDom =
+    resolvedReact.reactDom || dirname(fileURLToPath(import.meta.resolve('react-dom/package.json')));
 
   if (!isAbsolute(reactDom)) {
     // if react-dom is not resolved to a file we can't be sure if the version in package.json is correct or even if package.json exists
@@ -118,6 +123,6 @@ async function getIsReactVersion18or19(options: Options) {
 
 async function getReactDomShimAlias(options: Options) {
   return (await getIsReactVersion18or19(options))
-    ? require.resolve('@storybook/react-dom-shim')
-    : require.resolve('@storybook/react-dom-shim/dist/react-16');
+    ? fileURLToPath(import.meta.resolve('@storybook/react-dom-shim'))
+    : fileURLToPath(import.meta.resolve('@storybook/react-dom-shim/dist/react-16'));
 }

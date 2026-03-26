@@ -1,6 +1,5 @@
 {
   "name": "@web/test-runner-core",
-  "type": "module",
   "version": "0.13.4",
   "publishConfig": {
     "access": "public"
@@ -32,8 +31,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.ts'",
+    "test:watch": "node --experimental-transform-types --test --watch 'test/**/*.test.ts'"
   },
   "files": [
     "*.d.ts",
@@ -78,6 +77,8 @@
     "source-map": "^0.7.3"
   },
   "devDependencies": {
-    "portfinder": "^1.0.32"
-  }
+    "portfinder": "^1.0.32",
+    "tsx": "^4.21.0"
+  },
+  "type": "module"
 }

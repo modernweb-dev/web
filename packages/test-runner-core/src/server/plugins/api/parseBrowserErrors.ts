@@ -1,4 +1,4 @@
-import { MapStackLocation, parseStackTrace } from '@web/browser-logs';
+import { type MapStackLocation, parseStackTrace } from '@web/browser-logs';
 import { type MapBrowserUrl } from '@web/browser-logs';
 
 import { type TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.ts';
@@ -9,6 +9,7 @@ import {
   type TestSuiteResult,
 } from '../../../test-session/TestSession.ts';
 import { forEachAsync } from '../../../utils/async.ts';
+
 export async function replaceErrorStack(
   error: TestResultError,
   mapBrowserUrl: MapBrowserUrl,

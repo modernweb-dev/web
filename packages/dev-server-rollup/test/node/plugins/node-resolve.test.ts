@@ -1,11 +1,13 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import path from 'path';
 import rollupNodeResolve from '@rollup/plugin-node-resolve';
 import rollupCommonjs from '@rollup/plugin-commonjs';
 
 import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../src/index.ts';
-import { expect } from 'chai';
 
+const __dirname = import.meta.dirname;
 const nodeResolve = fromRollup(rollupNodeResolve, {}, { throwOnUnresolvedImport: true });
 const commonjs = fromRollup(rollupCommonjs);
 
@@ -17,7 +19,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const text = await fetchText(`${host}/app.js`);
-      expectIncludes(text, "import moduleA from './node_modules/module-a/index.ts'");
+      expectIncludes(text, "import moduleA from './node_modules/module-a/index.js'");
     } finally {
       server.stop();
     }
@@ -82,7 +84,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const response = await fetch(`${host}/import-private-directly.html`);
-      expect(response.status).to.equal(500);
+      assert.equal(response.status, 500);
     } finally {
       server.stop();
     }
@@ -105,7 +107,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const response = await fetch(`${host}/test-app.js`);
-      expect(response.status).to.equal(500);
+      assert.equal(response.status, 500);
     } finally {
       server.stop();
     }
@@ -128,7 +130,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const text = await fetchText(`${host}/test-app.js`);
-      expect(text).to.equal('import "/non-existing.js"; import "./src/non-existing.js";');
+      assert.equal(text, 'import "/non-existing.js"; import "./src/non-existing.js";');
     } finally {
       server.stop();
     }

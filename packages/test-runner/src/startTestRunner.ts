@@ -2,7 +2,7 @@
 import { TestRunner, TestRunnerCli } from '@web/test-runner-core';
 import { red } from 'nanocolors';
 
-import { TestRunnerConfig } from './config/TestRunnerConfig.ts';
+import { type TestRunnerConfig } from './config/TestRunnerConfig.ts';
 import { mergeConfigs } from './config/mergeConfigs.ts';
 import { parseConfig } from './config/parseConfig.ts';
 import { readCliArgs } from './config/readCliArgs.ts';

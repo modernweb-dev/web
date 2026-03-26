@@ -3,26 +3,27 @@ import commandLineUsage, { OptionDefinition } from 'command-line-usage';
 import camelCase from 'camelcase';
 
 import { type TestRunnerConfig } from './TestRunnerConfig.ts';
-export interface TestRunnerCliArgs
-  extends Partial<
-    Pick<
-      TestRunnerConfig,
-      | 'files'
-      | 'rootDir'
-      | 'watch'
-      | 'coverage'
-      | 'concurrentBrowsers'
-      | 'concurrency'
-      | 'staticLogging'
-      | 'manual'
-      | 'open'
-      | 'port'
-      | 'preserveSymlinks'
-      | 'nodeResolve'
-      | 'debug'
-      | 'esbuildTarget'
-    >
-  > {  config?: string;
+
+export interface TestRunnerCliArgs extends Partial<
+  Pick<
+    TestRunnerConfig,
+    | 'files'
+    | 'rootDir'
+    | 'watch'
+    | 'coverage'
+    | 'concurrentBrowsers'
+    | 'concurrency'
+    | 'staticLogging'
+    | 'manual'
+    | 'open'
+    | 'port'
+    | 'preserveSymlinks'
+    | 'nodeResolve'
+    | 'debug'
+    | 'esbuildTarget'
+  >
+> {
+  config?: string;
   groups?: string;
   group?: string;
   puppeteer?: boolean;

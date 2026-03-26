@@ -2,19 +2,14 @@ import commandLineArgs from 'command-line-args';
 import commandLineUsage, { OptionDefinition } from 'command-line-usage';
 import camelCase from 'camelcase';
 import { type DevServerConfig } from './DevServerConfig.ts';
-export interface DevServerCliArgs
-  extends Partial<
-    Pick<
-      DevServerConfig,
-      | 'rootDir'
-      | 'open'
-      | 'appIndex'
-      | 'preserveSymlinks'
-      | 'nodeResolve'
-      | 'watch'
-      | 'esbuildTarget'
-    >
-  > {  config?: string;
+
+export interface DevServerCliArgs extends Partial<
+  Pick<
+    DevServerConfig,
+    'rootDir' | 'open' | 'appIndex' | 'preserveSymlinks' | 'nodeResolve' | 'watch' | 'esbuildTarget'
+  >
+> {
+  config?: string;
 }
 
 const options: (OptionDefinition & { description: string })[] = [

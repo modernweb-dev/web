@@ -1,5 +1,5 @@
-import { runIntegrationTests } from '../../../integration/test-runner/index.js';
-import { createSauceLabsLauncher } from '../src/index.js';
+import { runIntegrationTests } from '../../../integration/test-runner/index.ts';
+import { createSauceLabsLauncher } from '../src/index.ts';
 
 if (!process.env.SAUCE_USERNAME) {
   throw new Error('Missing env var SAUCE_USERNAME');

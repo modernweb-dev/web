@@ -1,6 +1,5 @@
 {
   "name": "@web/parse5-utils",
-  "type": "module",
   "version": "2.1.1",
   "publishConfig": {
     "access": "public"
@@ -19,7 +18,7 @@
     ".": {
       "types": "./index.d.ts",
       "import": "./index.mjs",
-      "require": "./src/index.js"
+      "default": "./src/index.js"
     }
   },
   "engines": {
@@ -27,12 +26,11 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch"
+    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
+    "test:watch": "npm run test:node -- --watch"
   },
   "files": [
     "*.d.ts",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -43,6 +41,7 @@
     "utils"
   ],
   "dependencies": {
+    "@types/parse5": "^6.0.1",
     "parse5": "^6.0.1"
   },
   "devDependencies": {
