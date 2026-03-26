@@ -21,9 +21,9 @@ import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } f
 import { InputOptions } from 'rollup';
 import { red, cyan } from 'nanocolors';
 
-import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils.js';
-import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter.js';
-import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts.js';
+import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils.ts';
+import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter.ts';
+import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts.ts';
 
 const NULL_BYTE_PARAM = 'web-dev-server-rollup-null-byte';
 const VIRTUAL_FILE_PREFIX = '/__web-dev-server__/rollup';
@@ -34,7 +34,7 @@ const OUTSIDE_ROOT_REGEXP = /\/__wds-outside-root__\/([0-9]+)\/(.*)/;
  * Wraps rollup error in a custom error for web dev server.
  */
 function wrapRollupError(filePath: string, context: Context, error: any) {
-  if (typeof error == null || typeof error !== 'object') {
+  if (error == null || typeof error !== 'object') {
     return error;
   }
 

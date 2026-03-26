@@ -1,11 +1,10 @@
 import { type MapStackLocation, type StackLocation, type MapBrowserUrl } from '@web/browser-logs';
 
-import { type TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
-import { type TestSession } from '../../../test-session/TestSession';
-import { type SourceMapFunction } from './createSourceMapFunction.js';
-import { parseSessionErrors, parseTestResults } from './parseBrowserErrors.js';
-import { parseBrowserLogs } from './parseBrowserLogs.js';
-
+import { type TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.ts';
+import { type TestSession } from '../../../test-session/TestSession.ts';
+import { type SourceMapFunction } from './createSourceMapFunction.ts';
+import { parseSessionErrors, parseTestResults } from './parseBrowserErrors.ts';
+import { parseBrowserLogs } from './parseBrowserLogs.ts';
 function createMapStackLocation(smFn: SourceMapFunction, userAgent: string): MapStackLocation {
   return async function mapStackLocation(originalLoc: StackLocation) {
     const mappedLoc = await smFn(originalLoc, userAgent);

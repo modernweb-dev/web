@@ -1,7 +1,7 @@
 import pixelmatch from 'pixelmatch';
 import { PNG, PNGWithMetadata } from 'pngjs';
 
-import { DiffArgs, DiffResult } from './config.js';
+import { DiffArgs, DiffResult } from './config.ts';
 
 export function pixelMatchDiff({ baselineImage, image, options }: DiffArgs): DiffResult {
   let error = '';

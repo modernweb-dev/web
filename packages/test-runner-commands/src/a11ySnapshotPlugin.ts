@@ -21,6 +21,7 @@ export function a11ySnapshotPlugin(): TestRunnerPlugin<A11ySnapshotPayload> {
               options.root = root;
             }
           }
+          // @ts-ignore - accessibility API exists at runtime but types are outdated
           const snapshot = await page.accessibility.snapshot(options);
           return snapshot;
         }

@@ -2,8 +2,8 @@ import { Plugin as RollupPlugin, AstNode } from 'rollup';
 import { expect } from 'chai';
 import path from 'path';
 
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
-import { fromRollup } from '../../src/index.js';
+import { createTestServer, fetchText, expectIncludes } from './test-helpers.ts';
+import { fromRollup } from '../../src/index.ts';
 
 describe('@web/dev-server-rollup', () => {
   describe('resolveId', () => {
@@ -77,7 +77,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, "import moduleA from './src/foo.js'");
+        expectIncludes(text, "import moduleA from './src/foo.ts'");
       } finally {
         server.stop();
       }

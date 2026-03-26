@@ -1,7 +1,8 @@
-import { Middleware } from 'koa';
+import type { Middleware } from 'koa';
 import send from 'koa-send';
-import koaStatic, { Options as KoaStaticOptions } from 'koa-static';
-import { isOutsideRootDir, resolvePathOutsideRootDir } from '../utils.js';
+import koaStatic from 'koa-static';
+import type { Options as KoaStaticOptions } from 'koa-static';
+import { isOutsideRootDir, resolvePathOutsideRootDir } from '../utils.ts';
 
 /**
  * Creates multiple middleware used for serving files.

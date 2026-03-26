@@ -1,5 +1,6 @@
 {
   "name": "@web/dev-server-core",
+  "type": "module",
   "version": "0.7.5",
   "publishConfig": {
     "access": "public"
@@ -17,21 +18,23 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./dist/dom5": {
       "types": "./dist/dom5/index.d.ts",
-      "require": "./dist/dom5/index.js"
+      "default": "./dist/dom5/index.js"
     },
     "./test-helpers": {
       "types": "./test-helpers.d.ts",
-      "import": "./test-helpers.mjs",
-      "require": "./dist/test-helpers.js"
+      "default": "./dist/test-helpers.js"
+    },
+    "./test-helpers.js": {
+      "types": "./test-helpers.d.ts",
+      "default": "./dist/test-helpers.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -46,7 +49,6 @@
     ".self-signed-dev-server-ssl.cert",
     ".self-signed-dev-server-ssl.key",
     "*.d.ts",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -58,8 +60,8 @@
     "core"
   ],
   "dependencies": {
-    "@types/koa": "^2.11.6",
-    "@types/ws": "^7.4.0",
+    "@types/koa": "^3.0.1",
+    "@types/ws": "^8.5.13",
     "@web/parse5-utils": "^2.1.0",
     "chokidar": "^4.0.1",
     "clone": "^2.1.2",
@@ -67,7 +69,7 @@
     "get-stream": "^6.0.0",
     "is-stream": "^2.0.0",
     "isbinaryfile": "^5.0.0",
-    "koa": "^2.16.1",
+    "koa": "^3.1.1",
     "koa-etag": "^4.0.0",
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0",
@@ -75,13 +77,12 @@
     "mime-types": "^2.1.27",
     "parse5": "^6.0.1",
     "picomatch": "^2.2.2",
-    "ws": "^7.5.10"
+    "ws": "^8.18.3"
   },
   "devDependencies": {
     "@types/clone": "^2.1.0",
-    "@types/koa-etag": "^3.0.0",
-    "@types/koa-static": "^4.0.1",
-    "@types/parse5": "^6.0.1",
+    "@types/koa-etag": "^3.0.4",
+    "@types/koa-static": "^4.0.4",
     "abort-controller": "^3.0.0",
     "express": "^4.21.2",
     "nanoid": "^3.1.25",

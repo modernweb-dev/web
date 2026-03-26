@@ -1,11 +1,10 @@
 import { type Middleware } from '@web/dev-server-core';
-import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
-import { type TestFramework } from '../test-framework/TestFramework.js';
-import { type TestSession } from '../test-session/TestSession.js';
-import { type Reporter } from '../reporter/Reporter.js';
-import { type Logger } from '../logger/Logger.js';
-import { type TestRunnerPlugin } from '../server/TestRunnerPlugin.js';
-import type { ReportType } from 'istanbul-reports';
+import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
+import { type TestFramework } from '../test-framework/TestFramework.ts';
+import { type TestSession } from '../test-session/TestSession.ts';
+import { type Reporter } from '../reporter/Reporter.ts';
+import { type Logger } from '../logger/Logger.ts';
+import { type TestRunnerPlugin } from '../server/TestRunnerPlugin.ts';import type { ReportType } from 'istanbul-reports';
 
 export interface CoverageThresholdConfig {
   statements: number;

@@ -1,5 +1,6 @@
 {
   "name": "@web/rollup-plugin-html",
+  "type": "module",
   "version": "3.1.0",
   "publishConfig": {
     "access": "public"
@@ -16,13 +17,12 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "demo:mpa": "rm -rf demo/dist && rollup -c demo/mpa/rollup.config.js --watch & npm run serve-demo",
@@ -33,7 +33,6 @@
   },
   "files": [
     "*.js",
-    "*.mjs",
     "dist",
     "src"
   ],
@@ -52,11 +51,8 @@
     "picomatch": "^2.2.2"
   },
   "devDependencies": {
-    "@prettier/sync": "^0.6.1",
     "@types/html-minifier-terser": "^7.0.0",
     "@types/picomatch": "^2.2.1",
-    "@types/prettier": "^3.0.0",
-    "prettier": "^3.6.2",
     "rollup": "^4.4.0"
   }
 }

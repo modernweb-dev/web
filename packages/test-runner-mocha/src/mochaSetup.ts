@@ -1,4 +1,4 @@
-import { styles } from './styles.js';
+import { styles } from './styles.ts';
 
 const mocha = (window as any).mocha;
 const mochaExports = (window as any).Mocha;

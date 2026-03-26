@@ -1,7 +1,7 @@
 import { type TestSession, type TestResultError, type Logger } from '@web/test-runner-core';
 import { gray, red } from 'nanocolors';
 
-import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers.js';
+import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers.ts';
 
 function isSameError(a: TestResultError, b: TestResultError) {
   return a.message === b.message && a.stack === b.stack;

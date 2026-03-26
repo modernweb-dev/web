@@ -1,7 +1,7 @@
-import { Middleware } from 'koa';
+import type { Middleware } from 'koa';
 import path from 'path';
-import { toBrowserPath } from '../utils.js';
-import { Logger } from '../logger/Logger.js';
+import { toBrowserPath } from '../utils.ts';
+import type { Logger } from '../logger/Logger.ts';
 
 /**
  * Serves index.html when a non-file request within the scope of the app index is made.

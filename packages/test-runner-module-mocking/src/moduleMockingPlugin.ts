@@ -1,7 +1,7 @@
 import { Plugin } from '@web/dev-server-core';
 import { parse } from 'es-module-lexer';
-import { createResolveImport, ResolveImport } from './createResolveImport.js';
-import { stripColor } from './stripColor.js';
+import { createResolveImport, ResolveImport } from './createResolveImport.ts';
+import { stripColor } from './stripColor.ts';
 
 /**
  * Plugin that enables mocking of modules

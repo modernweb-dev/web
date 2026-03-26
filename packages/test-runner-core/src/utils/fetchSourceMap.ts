@@ -3,11 +3,10 @@ import {
   fromSource,
   type SourceMapConverter,
   fromJSON,
-} from 'convert-source-map';
-import path from 'path';
+} from 'convert-source-map';import path from 'path';
 import { type RequestOptions } from 'http';
 
-import { request } from './request.js';
+import { request } from './request.ts';
 
 function is2xxResponse(status?: number) {
   return typeof status === 'number' && status >= 200 && status < 300;

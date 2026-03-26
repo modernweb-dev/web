@@ -8,9 +8,8 @@ import {
   type Location,
   type Range,
 } from 'istanbul-lib-coverage';
-import { type TestSession } from '../test-session/TestSession';
-import { type CoverageConfig } from '../config/TestRunnerCoreConfig';
-
+import { type TestSession } from '../test-session/TestSession.ts';
+import { type CoverageConfig } from '../config/TestRunnerCoreConfig.ts';
 export const coverageTypes: (keyof CoverageSummaryData)[] = [
   'lines',
   'statements',

@@ -1,6 +1,5 @@
-import { type StorybookPluginConfig } from '../config/StorybookPluginConfig.js';
-import { createError } from '../utils.js';
-
+import { type StorybookPluginConfig } from '../config/StorybookPluginConfig.ts';
+import { createError } from '../utils.ts';
 const types = ['preact', 'web-components'];
 
 export function validatePluginConfig(pluginConfig: StorybookPluginConfig) {

@@ -2,8 +2,8 @@ import { type TestResultError, type TestSession, type Logger } from '@web/test-r
 import { gray, green, red } from 'nanocolors';
 import * as diff from 'diff';
 
-import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers.js';
-import { getFlattenedTestResults } from './utils/getFlattenedTestResults.js';
+import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers.ts';
+import { getFlattenedTestResults } from './utils/getFlattenedTestResults.ts';
 
 function renderDiff(actual: string, expected: string) {
   function cleanUp(line: string) {

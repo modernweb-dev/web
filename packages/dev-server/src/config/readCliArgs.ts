@@ -1,8 +1,7 @@
 import commandLineArgs from 'command-line-args';
 import commandLineUsage, { OptionDefinition } from 'command-line-usage';
 import camelCase from 'camelcase';
-import { type DevServerConfig } from './DevServerConfig.js';
-
+import { type DevServerConfig } from './DevServerConfig.ts';
 export interface DevServerCliArgs
   extends Partial<
     Pick<
@@ -15,8 +14,7 @@ export interface DevServerCliArgs
       | 'watch'
       | 'esbuildTarget'
     >
-  > {
-  config?: string;
+  > {  config?: string;
 }
 
 const options: (OptionDefinition & { description: string })[] = [

@@ -1,17 +1,16 @@
-import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
-import { createTestSessions } from './createSessionGroups.js';
-import { type TestSession } from '../test-session/TestSession.js';
-import { getTestCoverage, type TestCoverage } from '../coverage/getTestCoverage.js';
-import { TestScheduler } from './TestScheduler.js';
-import { TestSessionManager } from '../test-session/TestSessionManager.js';
-import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
-import { EventEmitter } from '../utils/EventEmitter.js';
-import { createSessionUrl } from './createSessionUrl.js';
-import { createDebugSessions } from './createDebugSessions.js';
-import { TestRunnerServer } from '../server/TestRunnerServer.js';
-import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
-import { type TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.js';
-
+import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
+import { createTestSessions } from './createSessionGroups.ts';
+import { type TestSession } from '../test-session/TestSession.ts';
+import { getTestCoverage, type TestCoverage } from '../coverage/getTestCoverage.ts';
+import { TestScheduler } from './TestScheduler.ts';
+import { TestSessionManager } from '../test-session/TestSessionManager.ts';
+import { SESSION_STATUS } from '../test-session/TestSessionStatus.ts';
+import { EventEmitter } from '../utils/EventEmitter.ts';
+import { createSessionUrl } from './createSessionUrl.ts';
+import { createDebugSessions } from './createDebugSessions.ts';
+import { TestRunnerServer } from '../server/TestRunnerServer.ts';
+import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
+import { type TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.ts';
 interface EventMap {
   'test-run-started': { testRun: number };
   'test-run-finished': { testRun: number; testCoverage?: TestCoverage };

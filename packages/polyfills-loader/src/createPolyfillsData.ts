@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs';
 import { minify } from 'terser';
-import { PolyfillsLoaderConfig, PolyfillConfig, PolyfillFile } from './types.js';
-import { createContentHash, noModuleSupportTest, hasFileOfType, fileTypes } from './utils.js';
+import type { PolyfillsLoaderConfig, PolyfillConfig, PolyfillFile } from './types.ts';
+import { createContentHash, noModuleSupportTest, hasFileOfType, fileTypes } from './utils.ts';
 
 export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<PolyfillFile[]> {
   const { polyfills = {} } = cfg;
@@ -158,9 +158,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     addPolyfillConfig({
       name: 'scoped-custom-element-registry',
       test: "!('createElement' in ShadowRoot.prototype)",
-      path: require.resolve(
-        '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js',
-      ),
+      path: require.resolve('@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js'),
     });
   }
 

@@ -137,9 +137,8 @@ describe('rollup-plugin-import-meta-assets', () => {
   it('multiple level bundle (upward modules)', async () => {
     const config = {
       input: {
-        'multi-level-bundle': require.resolve(
-          './fixtures/one/two/three/four/multi-level-entrypoint-deep.js',
-        ),
+        'multi-level-bundle':
+          require.resolve('./fixtures/one/two/three/four/multi-level-entrypoint-deep.js'),
       },
       plugins: [importMetaAssets()],
     };
@@ -159,9 +158,8 @@ describe('rollup-plugin-import-meta-assets', () => {
   it('different asset levels', async () => {
     const config = {
       input: {
-        'different-asset-levels-bundle': require.resolve(
-          './fixtures/one/two/different-asset-levels-entrypoint.js',
-        ),
+        'different-asset-levels-bundle':
+          require.resolve('./fixtures/one/two/different-asset-levels-entrypoint.js'),
       },
       plugins: [importMetaAssets()],
     };

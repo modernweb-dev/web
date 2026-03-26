@@ -3,10 +3,13 @@
 {
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
-    "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rewriteRelativeImportExtensions": false,
+    "strict": false,
     "allowJs": true,
     "checkJs": true,
     "emitDeclarationOnly": true
@@ -20,5 +23,12 @@
     "src/browser",
     "tests",
     "dist"
-  ]
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "rewriteRelativeImportExtensions": false
+    }
+  }
 }

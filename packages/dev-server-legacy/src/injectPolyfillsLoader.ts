@@ -9,8 +9,8 @@ import {
   GeneratedFile,
   File,
 } from '@web/polyfills-loader';
-import { PARAM_TRANSFORM_SYSTEMJS } from './constants.js';
-import { findJsScripts } from './findJsScripts.js';
+import { PARAM_TRANSFORM_SYSTEMJS } from './constants.ts';
+import { findJsScripts } from './findJsScripts.ts';
 
 function findScripts(indexUrl: string, documentAst: DocumentAst) {
   const scriptNodes = findJsScripts(documentAst);

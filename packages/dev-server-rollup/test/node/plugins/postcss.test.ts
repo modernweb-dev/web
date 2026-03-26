@@ -4,8 +4,8 @@ import { chromeLauncher } from '@web/test-runner-chrome';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { resolve } from 'path';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
+import { fromRollup } from '../../../src/index.ts';
 
 const postcss = fromRollup(rollupPostcss);
 
@@ -49,7 +49,7 @@ html {
       expectIncludes(text, 'export default');
       expectIncludes(
         text,
-        "import styleInject from './node_modules/style-inject/dist/style-inject.es.js';",
+        "import styleInject from './node_modules/style-inject/dist/style-inject.es.ts';",
       );
       expectIncludes(text, 'styleInject(css_248z);');
     } finally {

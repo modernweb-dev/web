@@ -1,14 +1,13 @@
-import { readStorybookConfig } from '../shared/config/readStorybookConfig.js';
-import { validatePluginConfig } from '../shared/config/validatePluginConfig.js';
+import { readStorybookConfig } from '../shared/config/readStorybookConfig.ts';
+import { validatePluginConfig } from '../shared/config/validatePluginConfig.ts';
 
-import { createRollupConfig } from './rollup/createRollupConfig.js';
-import { buildAndWrite } from './rollup/buildAndWrite.js';
-import { createManagerHtml } from '../shared/html/createManagerHtml.js';
-import { createPreviewHtml } from '../shared/html/createPreviewHtml.js';
-import { findStories } from '../shared/stories/findStories.js';
-import { type StorybookPluginConfig } from '../shared/config/StorybookPluginConfig.js';
-import { type StorybookConfig } from '../shared/config/StorybookConfig.js';
-
+import { createRollupConfig } from './rollup/createRollupConfig.ts';
+import { buildAndWrite } from './rollup/buildAndWrite.ts';
+import { createManagerHtml } from '../shared/html/createManagerHtml.ts';
+import { createPreviewHtml } from '../shared/html/createPreviewHtml.ts';
+import { findStories } from '../shared/stories/findStories.ts';
+import { type StorybookPluginConfig } from '../shared/config/StorybookPluginConfig.ts';
+import { type StorybookConfig } from '../shared/config/StorybookConfig.ts';
 interface BuildPreviewParams {
   type: string;
   storybookConfig: StorybookConfig;

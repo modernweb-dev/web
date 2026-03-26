@@ -1,1 +1,1 @@
-export { legacyPlugin } from './legacyPlugin.js';
+export { legacyPlugin } from './legacyPlugin.ts';
