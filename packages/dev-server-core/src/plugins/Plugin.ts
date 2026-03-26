@@ -1,9 +1,9 @@
 import { FSWatcher } from 'chokidar';
 import Koa, { Context } from 'koa';
-import { Server } from 'net';
+import { type Server } from 'net';
 
-import { DevServerCoreConfig } from '../server/DevServerCoreConfig';
-import { Logger } from '../logger/Logger';
+import type { DevServerCoreConfig } from '../server/DevServerCoreConfig';
+import type { Logger } from '../logger/Logger';
 import { WebSocketsManager } from '../web-sockets/WebSocketsManager';
 
 export type ServeResult =

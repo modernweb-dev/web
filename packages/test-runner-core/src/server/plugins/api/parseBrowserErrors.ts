@@ -1,12 +1,12 @@
 import { MapStackLocation, parseStackTrace } from '@web/browser-logs';
-import { MapBrowserUrl } from '@web/browser-logs';
+import { type MapBrowserUrl } from '@web/browser-logs';
 
-import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.js';
+import { type TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.js';
 import {
-  TestResult,
-  TestResultError,
-  TestSession,
-  TestSuiteResult,
+  type TestResult,
+  type TestResultError,
+  type TestSession,
+  type TestSuiteResult,
 } from '../../../test-session/TestSession.js';
 import { forEachAsync } from '../../../utils/async.js';
 

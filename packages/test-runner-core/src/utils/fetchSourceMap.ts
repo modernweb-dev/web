@@ -1,6 +1,11 @@
-import { mapFileCommentRegex, fromSource, SourceMapConverter, fromJSON } from 'convert-source-map';
+import {
+  mapFileCommentRegex,
+  fromSource,
+  type SourceMapConverter,
+  fromJSON,
+} from 'convert-source-map';
 import path from 'path';
-import { RequestOptions } from 'http';
+import { type RequestOptions } from 'http';
 
 import { request } from './request.js';
 

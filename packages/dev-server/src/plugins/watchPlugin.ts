@@ -1,4 +1,4 @@
-import { Plugin } from '@web/dev-server-core';
+import { type Plugin } from '@web/dev-server-core';
 import debounce from 'debounce';
 
 export function watchPlugin(): Plugin {
