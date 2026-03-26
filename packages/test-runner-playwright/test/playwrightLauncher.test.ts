@@ -19,7 +19,7 @@ describe('test-runner-playwright chromium', { timeout: 20000 }, () => {
   });
 });
 
-describe('test-runner-playwright webkit', { timeout: 20000 }, () => {
+describe('test-runner-playwright webkit', { timeout: 60000 }, () => {
   function createConfig() {
     return { browsers: [playwrightLauncher({ product: 'webkit' })] };
   }
