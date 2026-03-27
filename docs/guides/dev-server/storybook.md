@@ -1,5 +1,7 @@
 # Dev Server >> Storybook ||70
 
+> `@web/dev-server-storybook` is deprecated. Use [@web/storybook-builder](../../docs/storybook-builder/index.md) instead.
+
 [Storybook](https://storybook.js.org/) is a great tool for developing and demoing components. By default, it is based on Webpack and Webpack dev server.
 
 The [@web/dev-server-storybook](../../docs/dev-server/plugins/storybook.md) plugin uses an [opinionated build](https://github.com/modernweb-dev/storybook-prebuilt) of Storybook, making it possible to use it with Web Dev Server for es modules and buildless workflows.

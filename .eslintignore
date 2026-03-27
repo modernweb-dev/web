@@ -7,7 +7,6 @@
 /packages/*/test/**/snapshots
 /packages/dev-server-rollup/test/browser/**/*
 /integration/test-runner/tests/*/browser-tests
-/packages/dev-server-storybook/storybook-static/**/*
 /packages/dev-server-hmr/scripts/**/*
 /packages/test-runner/demo/
 /node_modules/
