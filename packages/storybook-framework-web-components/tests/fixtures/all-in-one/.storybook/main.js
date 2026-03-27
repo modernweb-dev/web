@@ -7,7 +7,7 @@ const config = {
     '@storybook/addon-docs',
     '@storybook/addon-links',
     '@storybook/addon-a11y',
-    '@web/storybook-addon-mocks/storybook-addon',
+    '@web/mocks/storybook-addon',
   ],
   framework: {
     name: '@web/storybook-framework-web-components',

@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig.new.json",
-  "compilerOptions": {
-    "outDir": "./dist-types",
-    "rootDir": "."
-  },
-  "include": ["**/*.js", "**/*.ts"],
-  "exclude": ["dist-types", "test-browser"]
-}

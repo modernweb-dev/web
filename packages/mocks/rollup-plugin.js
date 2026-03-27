@@ -6,9 +6,6 @@ import path from 'node:path';
 
 const require = createRequire(import.meta.url);
 
-/**
- * @deprecated `@web/mocks` is deprecated and only supports up to Storybook 8. Please migrate to `@web/storybook-addon-mocks` for Storybook 9 support.
- **/
 export function mockRollupPlugin(
   { interceptor } = {
     interceptor: '',
