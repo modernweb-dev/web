@@ -49,7 +49,7 @@
     "html-minifier-terser": "^7.1.0",
     "lightningcss": "^1.24.0",
     "parse5": "^6.0.1",
-    "picomatch": "^2.2.2"
+    "picomatch": "^2.3.2"
   },
   "devDependencies": {
     "@prettier/sync": "^0.6.1",
