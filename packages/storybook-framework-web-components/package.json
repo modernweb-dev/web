@@ -56,17 +56,17 @@
     "esm"
   ],
   "dependencies": {
-    "@storybook/web-components": "^9.1.19",
+    "@storybook/web-components": "^9.1.20",
     "@web/storybook-builder": "^0.2.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.53.0",
-    "@storybook/addon-a11y": "^9.1.19",
-    "@storybook/addon-docs": "^9.1.19",
-    "@storybook/addon-links": "^9.1.19",
+    "@storybook/addon-a11y": "^9.1.20",
+    "@storybook/addon-docs": "^9.1.20",
+    "@storybook/addon-links": "^9.1.20",
     "@web/dev-server": "^0.4.0",
     "@web/rollup-plugin-import-meta-assets": "^2.2.1",
     "@web/storybook-utils": "^1.1.0",
-    "storybook": "^9.1.19"
+    "storybook": "^9.1.20"
   }
 }

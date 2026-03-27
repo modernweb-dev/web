@@ -2,12 +2,12 @@
 
 ## Update dependencies
 
-`@web/storybook-builder` for Storybook 9 is released as version `0.3.x` and expects all Storybook packages to be at least `9.1.19`.
+`@web/storybook-builder` for Storybook 9 is released as version `0.3.x` and expects all Storybook packages to be at least `9.1.20`.
 
 You need to:
 
 - update `@web/storybook-builder` and `@web/storybook-framework-web-components` to `^0.3.0`
-- update dependencies under the namespace `@storybook/*` and the `storybook` itself to `^9.1.19`
+- update dependencies under the namespace `@storybook/*` and the `storybook` itself to `^9.1.20`
 
 ## General migration guide
 
