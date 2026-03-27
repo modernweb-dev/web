@@ -36,7 +36,6 @@ stats.html
 
 local.log
 
-/packages/dev-server-storybook/storybook-static
 /packages/*/screenshots/*/failed
 
 ## Rocket ignore files (need to be the full relative path to the folders)
