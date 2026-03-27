@@ -23,10 +23,10 @@ const config = {
           return;
         }
 
-        // ignore warning about eval used by the storybook internals
-        if (log.code === 'EVAL') {
-          const logId = log.id?.replace(/\\/g, '/');
-          if (logId?.includes('node_modules/storybook/dist/preview/runtime.js')) {
+        // ignore circular dependency warnings in storybook internals
+        if (log.code === 'CIRCULAR_DEPENDENCY') {
+          const logIds = log.ids?.map(id => id?.replace(/\\/g, '/'));
+          if (logIds?.some(id => id?.endsWith('node_modules/storybook/dist/csf/index.js'))) {
             defaultHandler('warn', log);
             return;
           }
