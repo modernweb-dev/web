@@ -80,7 +80,7 @@ test.describe('all in one', () => {
       await expect(panelButton).toHaveClass(/tabbutton-active/);
     });
 
-    test('renders @web/mocks/storybook-addon panel', async () => {
+    test('renders @web/storybook-addon-mocks panel', async () => {
       const panelButton = sbPage.panelButtonByText('Mocks');
       await panelButton.click();
       await expect(panelButton).toHaveClass(/tabbutton-active/);

@@ -1,4 +1,4 @@
-import type { Options } from '@storybook/types';
+import type { Options } from 'storybook/internal/types';
 import type { Plugin } from 'rollup';
 import { generateAppScript } from './generate-app-script.js';
 import { generateSetupAddonsScript } from './generate-setup-addons-script.js';

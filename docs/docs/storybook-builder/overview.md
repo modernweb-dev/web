@@ -31,6 +31,11 @@ Then proceed to the [Configuration](./configuration.md).
 
 ## Storybook versions
 
+Storybook 9 is supported by:
+
+- `@web/storybook-builder@0.3.x`
+- `@web/storybook-framework-web-components@0.3.x`
+
 Storybook 8 is supported by:
 
 - `@web/storybook-builder@0.2.x`

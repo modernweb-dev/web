@@ -43,7 +43,7 @@
     "react": "^18.0.0 || ^19.0.0"
   },
   "dependencies": {
-    "@storybook/core-events": "^7.0.0 || ^8.0.0"
+    "storybook": "^9.1.20"
   },
   "devDependencies": {
     "react": "^19.0.0"
