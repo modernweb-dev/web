@@ -83,13 +83,15 @@ A configuration file accepts most of the command line args camel-cased, with som
 
 ```ts
 import { Plugin, Middleware } from '@web/dev-server';
-import { ReportType } from 'istanbul-reports';
+import { ReportType, ReportOptions } from 'istanbul-reports';
+import { Watermarks, Summarizers } from 'istanbul-lib-report';
 
 interface TestFramework {
   path: string;
   config?: unknown;
 }
 
+// the threshold to reach for each code-coverage metric
 interface CoverageThresholdConfig {
   statements: number;
   branches: number;
@@ -98,12 +100,25 @@ interface CoverageThresholdConfig {
 }
 
 interface CoverageConfig {
+  // globs of files to include in code coverage measurements
   include?: string[];
+  // globs of files to exclude from code coverage measurements
   exclude?: string[];
+  // set to false to turn off native instrumentation, such as when using the babel plugin
+  nativeInstrumentation?: boolean;
+  // the threshold to reach for each code-coverage metric
   threshold?: CoverageThresholdConfig;
-  report: boolean;
-  reportDir: string;
+  report?: boolean;
+  // the output directory for coverage reports
+  reportDir?: string;
+  // which reporters to use for coverage reports
   reporters?: ReportType[];
+  // the display low-water mark and high-water mark for each code-coverage metric
+  watermarks?: Partial<Watermarks>;
+  // additional options for particular reporters, if needed
+  reportOptions?: ReportOptions;
+  // output structure for particular reporters
+  defaultSummarizer?: Summarizers;
 }
 
 type MimeTypeMappings = Record<string, string>;
