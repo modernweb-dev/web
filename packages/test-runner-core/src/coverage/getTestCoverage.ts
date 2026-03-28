@@ -178,11 +178,15 @@ function addingMissingCoverageItems(coverages: CoverageMapData[]) {
 export function getTestCoverage(
   sessions: Iterable<TestSession>,
   config?: CoverageConfig,
+  allFilesCoverage?: CoverageMapData
 ): TestCoverage {
   const coverageMap = createCoverageMap();
   let coverages = Array.from(sessions)
     .map(s => s.testCoverage)
     .filter(c => c) as CoverageMapData[];
+  if (allFilesCoverage) {
+    coverages.unshift(allFilesCoverage);
+  }
   // istanbul mutates the coverage objects, which pollutes coverage in watch mode
   // cloning prevents this. JSON stringify -> parse is faster than a fancy library
   // because we're only working with objects and arrays
