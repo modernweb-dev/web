@@ -1,4 +1,6 @@
-const path = require('path');
+const { describe, it } = require('node:test');
+const path = require('node:path');
+
 const { expect } = require('chai');
 const rollup = require('rollup');
 
