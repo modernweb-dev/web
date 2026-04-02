@@ -71,6 +71,7 @@ function serializeObject(value: any) {
 function createReplacer() {
   // maintain a stack of seen objects to handle circular references
   var objectStack: any[] = [];
+  var objectIterations = 0;
 
   return function replacer(this: any, key: string, value: unknown) {
     if (this[KEY_WTR_TYPE]) {
@@ -112,6 +113,17 @@ function createReplacer() {
         return '[Circular]';
       }
       objectStack.unshift(value);
+
+      // If we are seeing too many object iterations, we know something is off. This can
+      // happen when we are seeing e.g. large linked lists where every element recursively
+      // has access to the full list again. This will not quickly yield circular early bail-outs,
+      // but instead result in the stringification to take LOTS of processing time and results
+      // in browser crashes. We should limit object iterations for this reason, and instead expect
+      // people to inspect such logs in the browser directly.
+      objectIterations++;
+      if (objectIterations > 10_000) {
+        return '[Serialization Limit]';
+      }
 
       if (Array.isArray(value)) {
         return value;
