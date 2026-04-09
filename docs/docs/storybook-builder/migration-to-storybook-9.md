@@ -1,4 +1,4 @@
-# Storybook Builder >> Migration from Storybook 8 to 9 ||5
+# Storybook Builder >> Migration from Storybook 8 to 9 ||4
 
 ## Update dependencies
 
