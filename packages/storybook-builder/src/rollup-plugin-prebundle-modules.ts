@@ -56,7 +56,7 @@ export function rollupPluginPrebundleModules(
   };
 }
 
-// this is different to https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/optimizeDeps.ts
+// this is different to https://github.com/storybookjs/storybook/blob/v9.1.20/code/builders/builder-vite/src/optimizeDeps.ts
 // builder-vite bundles different dependencies for performance reasons
 // we aim only at browserifying NodeJS dependencies (CommonJS/process.env/...)
 export const CANDIDATES = [
@@ -68,18 +68,10 @@ export const CANDIDATES = [
   'react-dom/client',
 
   /* for different packages */
-  'memoizerific',
   'tiny-invariant',
-
-  /* for @storybook/core */
-  'jsdoc-type-pratt-parser', // TODO: Remove this once it's converted to ESM: https://github.com/jsdoc-type-pratt-parser/jsdoc-type-pratt-parser/issues/173
 
   /* for @storybook/addon-a11y */
   'axe-core',
-  'vitest-axe/matchers',
-
-  /* for @storybook/addon-docs */
-  'color-convert',
 ];
 
 function moduleExists(moduleName: string) {
