@@ -21,7 +21,7 @@ export async function rollupFinal(config) {
   const require = createRequire(import.meta.url);
   // @ts-expect-error
   config.plugins.push({
-    name: 'rollup-plugin-msw',
+    name: 'rollup-plugin-storybook-addon-mocks',
     writeBundle(opts) {
       const serviceWorkerPath = require.resolve('msw/mockServiceWorker.js');
       const sw = fs.readFileSync(serviceWorkerPath, 'utf8');

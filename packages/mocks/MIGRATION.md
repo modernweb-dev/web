@@ -17,7 +17,7 @@ For Storybook v9 and later:
 
 ```diff
 // .storybook/main.js
-/** @type { import('../../../../index.d.ts').StorybookConfig } */
+/** @type {import('@web/storybook-framework-web-components').StorybookConfig} */
 const config = {
   stories: ['../stories/**/*.stories.js', '../stories/**/*.mdx'],
   addons: [
@@ -27,6 +27,10 @@ const config = {
 };
 export default config;
 ```
+
+### Removed `mockRollupPlugin`
+
+This plugin was mainly used for bundling Storybook, so it's not very useful on it's own, therefore it was deleted from `@web/mocks`.
 
 ### Update of `msw`
 

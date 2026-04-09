@@ -2,9 +2,7 @@ import rollupPluginNodeResolve from '@rollup/plugin-node-resolve';
 import rollupPluginReplace from '@rollup/plugin-replace';
 import { getBuilderOptions } from 'storybook/internal/common';
 import { logger } from 'storybook/internal/node-logger';
-// Import both globals and globalsNameReferenceMap to prevent retrocompatibility.
-// @ts-ignore
-import { globals, globalsNameReferenceMap } from 'storybook/internal/preview/globals';
+import { globalsNameReferenceMap } from 'storybook/internal/preview/globals';
 import type {
   Builder,
   Options,
@@ -96,7 +94,7 @@ export const start: WdsBuilder['start'] = async ({ startTime, options, router, s
       wdsPluginPrebundleModules(env, options),
       wdsPluginStorybookBuilder(options),
       wdsPluginMdx(options),
-      wdsPluginExternalGlobals(globalsNameReferenceMap || globals),
+      wdsPluginExternalGlobals(globalsNameReferenceMap),
       wdsPluginReplace({
         ...stringifyProcessEnvs(env),
         include: ['**/node_modules/@storybook/**/*'],
@@ -174,7 +172,7 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
       rollupPluginPrebundleModules(env, options),
       rollupPluginStorybookBuilder(options),
       rollupPluginMdx(options),
-      rollupPluginExternalGlobals(globalsNameReferenceMap || globals),
+      rollupPluginExternalGlobals(globalsNameReferenceMap),
       rollupPluginReplace({
         ...stringifyProcessEnvs(env),
         include: ['**/node_modules/@storybook/**/*'],
