@@ -23,19 +23,6 @@
       "types": "./dist-types/browser.d.ts",
       "default": "./browser.js"
     },
-    "./storybook-addon/manager": "./storybook-addon/manager.js",
-    "./storybook-addon/preset": "./storybook-addon/preset.js",
-    "./storybook-addon/preview": "./storybook-addon/preview.js",
-    "./storybook/addon/decorator.js": {
-      "types": "./dist-types/storybook/addon/decorator.d.ts",
-      "default": "./storybook/addon/decorator.js"
-    },
-    "./storybook/addon/manager.js": "./storybook/addon/manager.js",
-    "./storybook/decorator.js": {
-      "types": "./dist-types/storybook/decorator.d.ts",
-      "default": "./storybook/decorator.js"
-    },
-    "./storybook/addon.js": "./storybook/addon.js",
     "./plugins.js": {
       "types": "./dist-types/plugins.d.ts",
       "default": "./plugins.js"
@@ -64,7 +51,7 @@
     "msw"
   ],
   "dependencies": {
-    "msw": "2.4.1"
+    "msw": "2.13.2"
   },
   "devDependencies": {
     "@web/storybook-builder": "^0.2.2",

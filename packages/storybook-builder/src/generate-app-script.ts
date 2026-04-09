@@ -1,11 +1,12 @@
-// based on https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/codegen-modern-iframe-script.ts
+// based on https://github.com/storybookjs/storybook/blob/v9.1.20/code/builders/builder-vite/src/codegen-modern-iframe-script.ts
 
-import { normalizePath } from '@rollup/pluginutils';
 import { loadPreviewOrConfigFile } from 'storybook/internal/common';
 import type { Options, PreviewAnnotation } from 'storybook/internal/types';
 import { virtualSetupAddonsFilename, virtualStoriesFilename } from './virtual-file-names.js';
 
 export async function generateAppScript(options: Options) {
+  const slash = (await import('slash')).default; // for CJS compatibility
+
   const { presets, configDir } = options;
 
   const previewOrConfigFile = loadPreviewOrConfigFile({ configDir });
@@ -26,7 +27,7 @@ export async function generateAppScript(options: Options) {
 const getProjectAnnotations = async () => {
   const configs = await Promise.all([
 ${previewAnnotationURLs
-  .map(previewAnnotation => `    import('${normalizePath(previewAnnotation)}')`)
+  .map(previewAnnotation => `    import('${slash(previewAnnotation)}')`)
   .join(',\n')}
   ]);
   return composeConfigs(configs);

@@ -153,6 +153,12 @@ const r = await fetch('/api/foo').then(r => r.json());
 console.assert(r.foo === 'bar');
 ```
 
+## `@web/storybook-builder`
+
+We created addon `@web/storybook-addon-mocks`.
+
+See [it's documentation](https://github.com/modernweb-dev/web/blob/master/packages/storybook-addon-mocks/README.md) for more details.
+
 ## Rationale
 
 ### Why not use MSW directly?

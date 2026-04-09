@@ -10,10 +10,9 @@ Add `@web/storybook-addon-mocks` to addons in the main Storybook configuration f
 // .storybook/main.js
 /** @type { import('@web/storybook-framework-web-components').StorybookConfig } */
 const config = {
+  // ...
   addons: ['@web/storybook-addon-mocks'],
-  framework: {
-    name: '@web/storybook-framework-web-components',
-  },
+  // ...
 };
 export default config;
 ```

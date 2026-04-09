@@ -4,9 +4,9 @@ import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 const config = {
   stories: ['../stories/**/*.stories.js', '../stories/**/*.mdx'],
   addons: [
+    '@storybook/addon-a11y',
     '@storybook/addon-docs',
     '@storybook/addon-links',
-    '@storybook/addon-a11y',
     '@web/storybook-addon-mocks',
   ],
   framework: {

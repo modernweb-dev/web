@@ -1,12 +1,9 @@
-// based on https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/list-stories.ts
+// based on https://github.com/storybookjs/storybook/blob/v9.1.20/code/builders/builder-vite/src/list-stories.ts
 
-import { normalizeStories } from 'storybook/internal/common';
+import { commonGlobOptions, normalizeStories } from 'storybook/internal/common';
 import type { Options } from 'storybook/internal/types';
 import { glob } from 'glob';
 import { isAbsolute, join } from 'node:path';
-
-const excludeNodeModulesGlobOptions = (glob: string) =>
-  /node_modules/.test(glob) ? {} : { ignore: ['**/node_modules/**'] };
 
 export async function listStories(options: Options) {
   const slash = (await import('slash')).default; // for CJS compatibility
@@ -21,7 +18,7 @@ export async function listStories(options: Options) {
         const absolutePattern = isAbsolute(pattern) ? pattern : join(options.configDir, pattern);
 
         return glob(slash(absolutePattern), {
-          ...excludeNodeModulesGlobOptions(absolutePattern),
+          ...commonGlobOptions(absolutePattern),
           follow: true,
         });
       }),
