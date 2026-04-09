@@ -26,7 +26,13 @@ const config = {
         // ignore circular dependency warnings in storybook internals
         if (log.code === 'CIRCULAR_DEPENDENCY') {
           const logIds = log.ids?.map(id => id?.replace(/\\/g, '/'));
-          if (logIds?.some(id => id?.endsWith('node_modules/storybook/dist/csf/index.js'))) {
+          if (
+            logIds?.some(
+              id =>
+                id?.endsWith('node_modules/storybook/dist/csf/index.js') ||
+                id?.endsWith('node_modules/msw/lib/core/experimental/frames/http-frame.mjs'),
+            )
+          ) {
             defaultHandler('warn', log);
             return;
           }
