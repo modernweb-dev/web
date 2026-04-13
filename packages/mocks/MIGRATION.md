@@ -34,5 +34,5 @@ This plugin was mainly used for bundling Storybook, so it's not very useful on i
 
 ### Update of `msw`
 
-The version of `msw` was bumped to latest.
+The version of `msw` was bumped to the latest, but is still pinned to a specific version because we've experienced a lot of unintentional breaking changes in minor or patch versions of `msw`, which leads to instability.
 We recommend checking the `msw` changelog to ensure a smooth transition for your specific workflows.
