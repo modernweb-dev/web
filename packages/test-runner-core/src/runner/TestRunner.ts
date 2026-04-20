@@ -11,6 +11,7 @@ import { createDebugSessions } from './createDebugSessions.js';
 import { TestRunnerServer } from '../server/TestRunnerServer.js';
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
 import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.js';
+import { generateEmptyReportsForUntouchedFiles } from '@web/test-runner-coverage-v8';
 
 interface EventMap {
   'test-run-started': { testRun: number };
@@ -205,7 +206,11 @@ export class TestRunner extends EventEmitter<EventMap> {
         let passedCoverage = true;
         let testCoverage: TestCoverage | undefined = undefined;
         if (this.config.coverage) {
-          testCoverage = getTestCoverage(this.sessions.all(), this.config.coverageConfig);
+          let allFilesCoverage;
+          if (this.config.coverageConfig?.all) {
+            allFilesCoverage = await generateEmptyReportsForUntouchedFiles(this.config, this.testFiles);
+          }
+          testCoverage = getTestCoverage(this.sessions.all(), this.config.coverageConfig, allFilesCoverage);
           passedCoverage = testCoverage.passed;
         }
 
