@@ -7,11 +7,9 @@ import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
 import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.js';
 import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
 import { collectTestFiles } from './collectTestFiles.js';
-import { TestSessionGroup } from '../test-session/TestSessionGroup.js';
 
 interface GroupConfigWithoutOptionals extends TestRunnerGroupConfig {
   name: string;
-  configFilePath?: string;
   files: string | string[];
   browsers: BrowserLauncher[];
 }
@@ -34,7 +32,6 @@ export function createTestSessions(
     // merge group with config defaults
     const mergedGroupConfig: GroupConfigWithoutOptionals = {
       name: groupConfig.name,
-      configFilePath: groupConfig.configFilePath,
       testRunnerHtml: config.testRunnerHtml,
       browsers: config.browsers,
       files: config.files ?? [],
@@ -59,14 +56,12 @@ export function createTestSessions(
     groups.push(mergedGroupConfig);
   }
 
-  const sessionGroups: TestSessionGroup[] = [];
   const testSessions: TestSession[] = [];
   const testFiles = new Set<string>();
   const browsers = new Set<BrowserLauncher>();
 
   for (const group of groups) {
-    const baseDir = group.configFilePath ? path.dirname(group.configFilePath) : process.cwd();
-    const testFilesForGroup = collectTestFiles(group.files, baseDir)
+    const testFilesForGroup = collectTestFiles(group.files)
       // Normalize file path because glob returns windows paths with forward slashes:
       // C:/foo/bar -> C:\foo\bar
       .map(testFile => path.normalize(testFile));
@@ -75,27 +70,17 @@ export function createTestSessions(
       throw new Error(`Could not find any test files with pattern(s): ${group.files}`);
     }
 
-    for (const file of testFilesForGroup) {
-      testFiles.add(file);
-    }
-
-    const sessionGroup: TestSessionGroup = {
-      name: group.name,
-      browsers: group.browsers,
-      testFiles: testFilesForGroup,
-      testRunnerHtml: group.testRunnerHtml,
-      sessionIds: [],
-    };
-
-    for (const browser of group.browsers) {
+    for (const browser of browsers) {
       browsers.add(browser);
     }
 
     for (const testFile of testFilesForGroup) {
+      testFiles.add(testFile);
+
       for (const browser of group.browsers) {
-        const session: TestSession = {
+        testSessions.push({
           id: nanoid(),
-          group: sessionGroup,
+          group,
           debug: false,
           testRun: -1,
           browser,
@@ -104,10 +89,7 @@ export function createTestSessions(
           errors: [],
           logs: [],
           request404s: [],
-        };
-
-        testSessions.push(session);
-        sessionGroup.sessionIds.push(session.id);
+        });
       }
     }
   }
@@ -117,7 +99,6 @@ export function createTestSessions(
   }
 
   return {
-    sessionGroups,
     testSessions,
     testFiles: Array.from(testFiles),
     browsers: Array.from(browsers),
