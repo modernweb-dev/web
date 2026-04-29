@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import path from 'path';
 import { parse, serialize } from 'parse5';
-import { html } from '../../utils.js';
+import { html } from '../../../../../test-utils/rollup-test-utils.js';
 import { InputData } from '../../../src/input/InputData.js';
 
 import { injectedUpdatedAssetPaths } from '../../../src/output/injectedUpdatedAssetPaths.js';

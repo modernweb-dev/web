@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import path from 'path';
-import { cleanApp, createApp, html, js } from '../../utils.js';
+import { cleanApp, createApp, html, js } from '../../../../../test-utils/rollup-test-utils.js';
 
 import { getInputData } from '../../../src/input/getInputData.js';
 import { InputData } from '../../../src/input/InputData.js';

@@ -4,9 +4,9 @@ import { bundleAsync, transform } from 'lightningcss';
 import fs from 'fs';
 
 import { InputAsset, InputData } from '../input/InputData';
-import { toBrowserPath } from './utils.js';
 import { createAssetPicomatchMatcher } from '../assets/utils.js';
 import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions';
+import { createAssetPlaceholder } from './css.js';
 
 export interface EmittedAssets {
   static: Map<string, string>;
@@ -88,7 +88,7 @@ export async function emitAssets(
       let ref: string;
       let basename = path.basename(asset.filePath);
       const isExternal = createAssetPicomatchMatcher(options.externalAssets);
-      const emittedExternalAssets = new Map();
+      const emittedAssets = new Map<string, { filePath: string; refId: string }>();
       if (asset.hashed) {
         if (basename.endsWith('.css') && extractAssets) {
           const { code } = await (bundleCss ? bundleAsync : transform)({
@@ -106,49 +106,34 @@ export async function emitAssets(
                   const assetLocation = path.resolve(path.dirname(asset.filePath), filePath);
                   const assetContent = fs.readFileSync(assetLocation);
 
-                  // Avoid duplicates
-                  if (!emittedExternalAssets.has(assetLocation)) {
+                  let emittedAsset = emittedAssets.get(assetLocation);
+
+                  if (!emittedAsset) {
+                    // Avoid duplicates
                     const basename = path.basename(filePath);
                     const fileRef = this.emitFile({
                       type: 'asset',
                       name: extractAssetsLegacyCss ? `assets/${basename}` : basename,
+                      originalFileName: assetLocation,
                       source: assetContent,
                     });
                     const emittedAssetFilepath = this.getFileName(fileRef);
-                    const emittedAssetBasename = path.basename(emittedAssetFilepath);
-                    emittedExternalAssets.set(assetLocation, emittedAssetFilepath);
-                    // Update the URL in the original CSS file to point to the emitted asset file
-                    if (extractAssetsLegacyCss) {
-                      url.url = `assets/${emittedAssetBasename}`;
-                    } else {
-                      if (options.publicPath) {
-                        url.url = toBrowserPath(
-                          path.join(options.publicPath, emittedAssetFilepath),
-                        );
-                      } else {
-                        url.url = emittedAssetBasename;
-                      }
-                    }
-                    if (idRef) {
-                      url.url = `${url.url}#${idRef}`;
-                    }
+                    emittedAsset = {
+                      filePath: emittedAssetFilepath,
+                      refId: fileRef,
+                    };
+                    emittedAssets.set(assetLocation, emittedAsset);
+                  }
+
+                  if (extractAssetsLegacyCss) {
+                    const emittedAssetBasename = path.basename(emittedAsset.filePath);
+                    url.url = `assets/${emittedAssetBasename}`;
                   } else {
-                    const emittedAssetFilepath = emittedExternalAssets.get(assetLocation);
-                    const emittedAssetBasename = path.basename(emittedAssetFilepath);
-                    if (extractAssetsLegacyCss) {
-                      url.url = `assets/${emittedAssetBasename}`;
-                    } else {
-                      if (options.publicPath) {
-                        url.url = toBrowserPath(
-                          path.join(options.publicPath, emittedAssetFilepath),
-                        );
-                      } else {
-                        url.url = emittedAssetBasename;
-                      }
-                    }
-                    if (idRef) {
-                      url.url = `${url.url}#${idRef}`;
-                    }
+                    url.url = createAssetPlaceholder(emittedAsset.refId);
+                  }
+
+                  if (idRef) {
+                    url.url = `${url.url}#${idRef}`;
                   }
                 }
                 return url;
@@ -161,7 +146,12 @@ export async function emitAssets(
           }
         }
 
-        ref = this.emitFile({ type: 'asset', name: basename, source });
+        ref = this.emitFile({
+          type: 'asset',
+          name: basename,
+          originalFileName: asset.filePath,
+          source,
+        });
       } else {
         // ensure the output filename is unique
         let i = 1;

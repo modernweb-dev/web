@@ -1,7 +1,7 @@
 import path from 'path';
 import { parse, serialize } from 'parse5';
 import { expect } from 'chai';
-import { html, js } from '../../../utils.js';
+import { html, js } from '../../../../../../test-utils/rollup-test-utils.js';
 
 import { extractModules } from '../../../../src/input/extract/extractModules.js';
 import { ScriptModuleTag } from '../../../../src/RollupPluginHTMLOptions.js';

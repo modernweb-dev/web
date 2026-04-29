@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import path from 'path';
 import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.js';
 import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.js';
-import { html } from '../../utils.js';
+import { html } from '../../../../../test-utils/rollup-test-utils.js';
 
 describe('getOutputHTML()', () => {
   const defaultEntrypointBundles: Record<string, EntrypointBundle> = {

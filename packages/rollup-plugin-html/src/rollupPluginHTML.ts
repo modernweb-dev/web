@@ -14,6 +14,7 @@ import {
 } from './RollupPluginHTMLOptions.js';
 import { createError, NOOP_IMPORT } from './utils.js';
 import { emitAssets } from './output/emitAssets.js';
+import { processCssAssets } from './output/css.js';
 
 export interface RollupPluginHtml extends Plugin {
   api: {
@@ -140,6 +141,9 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
       generatedBundles.push({ name: 'default', options, bundle });
 
       const emittedAssets = await emitAssets.call(this, inputs, pluginOptions);
+
+      processCssAssets(this, bundle, pluginOptions.publicPath);
+
       const outputs = await createHTMLOutput({
         outputDir: path.resolve(options.dir),
         inputs,
@@ -199,6 +203,9 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
               }
 
               const emittedAssets = await emitAssets.call(this, inputs, pluginOptions);
+
+              processCssAssets(this, bundle, pluginOptions.publicPath);
+
               const outputs = await createHTMLOutput({
                 outputDir: path.resolve(options.dir),
                 inputs,
