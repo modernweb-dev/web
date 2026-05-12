@@ -89,8 +89,6 @@ export class PlaywrightLauncher implements BrowserLauncher {
     if (!this.debugBrowser) {
       this.debugBrowser = await playwright[this.product].launch({
         ...this.launchOptions,
-        // devtools is only supported on chromium
-        devtools: this.product === 'chromium',
         headless: false,
       });
     }

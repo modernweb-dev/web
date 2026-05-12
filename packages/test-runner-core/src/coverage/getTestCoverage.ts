@@ -1,5 +1,5 @@
-import {
-  createCoverageMap,
+import istanbulLibCoverage from 'istanbul-lib-coverage';
+import type {
   CoverageSummaryData,
   CoverageMap,
   CoverageMapData,
@@ -8,6 +8,7 @@ import {
   Location,
   Range,
 } from 'istanbul-lib-coverage';
+const { createCoverageMap } = istanbulLibCoverage;
 import { TestSession } from '../test-session/TestSession.ts';
 import { CoverageConfig } from '../config/TestRunnerCoreConfig.ts';
 

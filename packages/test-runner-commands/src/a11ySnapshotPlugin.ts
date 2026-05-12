@@ -1,6 +1,6 @@
 import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher, puppeteerCore } from '@web/test-runner-chrome';
-import type { PlaywrightLauncher, playwright } from '@web/test-runner-playwright';
+import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
 export type A11ySnapshotPayload = { selector?: string };
 
@@ -12,17 +12,11 @@ export function a11ySnapshotPlugin(): TestRunnerPlugin<A11ySnapshotPayload> {
         // handle specific behavior for playwright
         if (session.browser.type === 'playwright') {
           const page = (session.browser as PlaywrightLauncher).getPage(session.id);
-          const options: {
-            root?: playwright.ElementHandle;
-          } = {};
+          // Playwright 1.59+ removed page.accessibility; use ariaSnapshot() on the root element
           if (payload && payload.selector) {
-            const root = await page.$(payload.selector);
-            if (root) {
-              options.root = root;
-            }
+            return page.locator(payload.selector).ariaSnapshot();
           }
-          const snapshot = await page.accessibility.snapshot(options);
-          return snapshot;
+          return page.ariaSnapshot();
         }
 
         // handle specific behavior for puppeteer

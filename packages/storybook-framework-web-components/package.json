@@ -59,7 +59,7 @@
     "@web/storybook-builder": "^0.3.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.53.0",
+    "@playwright/test": "^1.60.0",
     "@storybook/addon-a11y": "^9.1.20",
     "@storybook/addon-docs": "^9.1.20",
     "@storybook/addon-links": "^9.1.20",

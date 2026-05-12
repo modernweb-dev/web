@@ -16,7 +16,7 @@
   "main": "src/index.js",
   "exports": {
     ".": {
-      "import": "./dist/index.js"
+      "import": "./src/index.js"
     }
   },
   "engines": {
@@ -47,6 +47,5 @@
     "globby": "^13.2.2",
     "magic-string": "^0.30.0"
   },
-  "types": "dist/index",
-  "type": "module"
+  "types": "dist/index"
 }
