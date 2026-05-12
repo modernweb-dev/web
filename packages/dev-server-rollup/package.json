@@ -22,11 +22,11 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
-    "test:node": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --exit --reporter dot",
-    "test:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
+    "test:node": "mocha \"test/node/**/*.test.ts\" --require tsx/cjs --exit --reporter dot",
+    "test:watch": "mocha \"test/node/**/*.test.ts\" --require tsx/cjs --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",

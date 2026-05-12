@@ -20,12 +20,12 @@
     "./plugin.js": "./dist/moduleMockingPlugin.js"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha test/**/*.test.ts --loader=ts-node/esm --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --loader ts-node/esm --watch --watch-files src,test"
+    "test:node": "mocha test/**/*.test.ts --import tsx --reporter dot",
+    "test:watch": "mocha test/**/*.test.ts --import tsx --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",

@@ -22,12 +22,12 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test-remote/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test-remote/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+    "test": "mocha test-remote/**/*.test.ts --require tsx/cjs --reporter dot",
+    "test:watch": "mocha test-remote/**/*.test.ts --require tsx/cjs --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",

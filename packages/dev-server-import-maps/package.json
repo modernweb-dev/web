@@ -22,13 +22,13 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha \"test/**/*.test.ts\" --require ts-node/register",
+    "test": "mocha \"test/**/*.test.ts\" --require tsx/cjs",
     "test:browser": "node ../test-runner/dist/bin.js test-browser/test/**/*.test.{js,html} --config test-browser/web-test-runner.config.mjs",
-    "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
+    "test:watch": "mocha \"test/**/*.test.ts\" --require tsx/cjs --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",

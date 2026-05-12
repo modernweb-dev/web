@@ -31,7 +31,7 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "build": "tsc",
@@ -39,8 +39,8 @@
     "start:event-stream": "node demo/event-stream/start-server.js",
     "start:http2": "node demo/http2/start-server.js",
     "start:import-asset": "node demo/import-asset/start-server.js",
-    "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --exit --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch --watch-files src,test"
+    "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require tsx/cjs --exit --reporter dot",
+    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require tsx/cjs --watch --watch-files src,test"
   },
   "files": [
     ".self-signed-dev-server-ssl.cert",
