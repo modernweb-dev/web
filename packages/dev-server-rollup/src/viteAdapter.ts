@@ -191,7 +191,7 @@ function applyTagsToHtml(html: string, tags: ViteHtmlTagDescriptor[]): string {
         if (bodyCloseIdx !== -1) {
           html = html.slice(0, bodyCloseIdx) + serialized + html.slice(bodyCloseIdx);
         } else {
-          html = html + serialized;
+          html = `${html}${serialized}`;
         }
       }
     } else if (inject === 'body-prepend') {
@@ -209,7 +209,7 @@ function applyTagsToHtml(html: string, tags: ViteHtmlTagDescriptor[]): string {
       if (idx !== -1) {
         html = html.slice(0, idx) + serialized + html.slice(idx);
       } else {
-        html = html + serialized;
+        html = `${html}${serialized}`;
       }
     }
   }
@@ -334,7 +334,11 @@ export function viteAdapter(
                 else resolve();
               });
             });
-            if (!ctx.respond) {
+            // If the express-style middleware wrote a response directly,
+            // skip Koa's built-in response handling to avoid double-send.
+            if ((ctx.res as { headersSent?: boolean }).headersSent) {
+              ctx.respond = false;
+            } else {
               return next();
             }
           });
@@ -390,7 +394,6 @@ export function viteAdapter(
         );
 
         let resolvableImport = source;
-        let importSuffix = '';
 
         const resolverCacheForContext =
           resolverCache.get(context) ?? new WeakMap<WdsPlugin, Set<string>>();
@@ -500,7 +503,7 @@ export function viteAdapter(
           resolvedImportPath = `./${toBrowserPath(relativeImportFilePath)}`;
         }
 
-        return `${resolvedImportPath}${importSuffix}`;
+        return `${resolvedImportPath}`;
       } catch (error) {
         throw wrapRollupError(filePath, context, error);
       }
