@@ -3,10 +3,10 @@ import path from 'path';
 import { bundleAsync, transform } from 'lightningcss';
 import fs from 'fs';
 
-import { InputAsset, InputData } from '../input/InputData';
-import { toBrowserPath } from './utils.js';
-import { createAssetPicomatchMatcher } from '../assets/utils.js';
-import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions';
+import { InputAsset, InputData } from '../input/InputData.ts';
+import { toBrowserPath } from './utils.ts';
+import { createAssetPicomatchMatcher } from '../assets/utils.ts';
+import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions.ts';
 
 export interface EmittedAssets {
   static: Map<string, string>;

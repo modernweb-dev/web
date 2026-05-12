@@ -1,4 +1,4 @@
-import { PARAM_MANUAL_SESSION, PARAM_SESSION_ID } from './constants.js';
+import { PARAM_MANUAL_SESSION, PARAM_SESSION_ID } from './constants.ts';
 
 /**
  * Returns where a given path points to a test file. This should be

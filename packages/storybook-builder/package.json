@@ -17,8 +17,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./index.mjs"
+      "import": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -67,5 +66,6 @@
     "sirv": "^3.0.2",
     "slash": "^5.1.0",
     "storybook": "^9.1.20"
-  }
+  },
+  "type": "module"
 }

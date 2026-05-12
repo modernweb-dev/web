@@ -1,9 +1,9 @@
 import picoMatch from 'picomatch';
 import { isAbsolute, posix, sep } from 'path';
 
-import { MimeTypeMappings } from '../server/DevServerCoreConfig';
-import { Plugin } from './Plugin.js';
-import { getRequestFilePath } from '../utils.js';
+import { MimeTypeMappings } from '../server/DevServerCoreConfig.ts';
+import { Plugin } from './Plugin.ts';
+import { getRequestFilePath } from '../utils.ts';
 
 function createMatcher(rootDir: string, pattern: string) {
   const resolvedPattern =

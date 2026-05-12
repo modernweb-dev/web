@@ -26,7 +26,7 @@ describe('executeServerCommand', function test() {
     };
 
     await runTests({
-      files: [path.join(__dirname, 'browser-test.js')],
+      files: [path.join(import.meta.dirname, 'browser-test.js')],
       logger,
       browsers: [chromeLauncher()],
       plugins: [

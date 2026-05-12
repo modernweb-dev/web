@@ -17,8 +17,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -26,9 +25,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require tsx/cjs --reporter dot",
-    "test:update-snapshots": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require tsx/cjs --update-snapshots",
-    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require tsx/cjs --watch --watch-files src,test"
+    "test:node": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --reporter dot",
+    "test:update-snapshots": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --update-snapshots",
+    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -70,5 +69,6 @@
     "@types/babel__core": "^7.1.12",
     "@types/parse5": "^6.0.1",
     "@types/valid-url": "^1.0.3"
-  }
+  },
+  "type": "module"
 }

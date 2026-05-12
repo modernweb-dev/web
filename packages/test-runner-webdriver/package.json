@@ -17,8 +17,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -26,8 +25,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.ts --require tsx/cjs --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require tsx/cjs --watch --watch-files src,test"
+    "test": "mocha test/**/*.test.ts --reporter dot",
+    "test:watch": "mocha test/**/*.test.ts --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -54,5 +53,6 @@
   "devDependencies": {
     "@types/selenium-standalone": "^7.0.1",
     "selenium-standalone": "^8.0.4"
-  }
+  },
+  "type": "module"
 }

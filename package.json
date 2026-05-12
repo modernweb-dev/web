@@ -75,8 +75,6 @@
     "prettier-plugin-package": "^1.3.0",
     "rimraf": "^4.4.1",
     "rollup": "^4.4.0",
-    "ts-node": "^10.4.0",
-    "tsx": "^4.21.0",
     "typescript": "~5.9.3",
     "wireit": "^0.14.2"
   },
@@ -101,10 +99,36 @@
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-empty-object-type": "off",
-      "@typescript-eslint/no-unused-vars": "error",
-      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_",
+          "caughtErrorsIgnorePattern": "^_"
+        }
+      ],
       "@typescript-eslint/ban-ts-comment": "off"
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/*.{js,cjs,mjs}"
+        ],
+        "rules": {
+          "@typescript-eslint/no-require-imports": "off"
+        }
+      },
+      {
+        "files": [
+          "**/*.test.{ts,js}",
+          "**/test/**/*.{ts,js}",
+          "integration/**/*.{ts,js}"
+        ],
+        "rules": {
+          "@typescript-eslint/no-unused-expressions": "off"
+        }
+      }
+    ]
   },
   "lint-staged": {
     "*.js": [
@@ -116,7 +140,6 @@
     ]
   },
   "mocha": {
-    "require": "tsx/cjs",
     "exit": true,
     "retries": 3
   },

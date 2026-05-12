@@ -76,7 +76,7 @@ export async function generateTestBundle(build: RollupBuild, outputConfig: Outpu
 
 export function createApp(structure: Record<string, string | Buffer | object>) {
   const timestamp = Date.now();
-  const rootDir = path.join(__dirname, `./.tmp/app-${timestamp}`);
+  const rootDir = path.join(import.meta.dirname, `./.tmp/app-${timestamp}`);
   if (!fs.existsSync(rootDir)) {
     fs.mkdirSync(rootDir, { recursive: true });
   }
@@ -99,7 +99,7 @@ export function createApp(structure: Record<string, string | Buffer | object>) {
 }
 
 export function cleanApp() {
-  const tmpDir = path.join(__dirname, './.tmp');
+  const tmpDir = path.join(import.meta.dirname, './.tmp');
   if (fs.existsSync(tmpDir)) {
     fs.rmSync(tmpDir, { recursive: true });
   }

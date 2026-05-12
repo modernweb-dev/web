@@ -7,7 +7,7 @@ import picoMatch from 'picomatch';
 import LruCache from 'lru-cache';
 import { readFile } from 'node:fs/promises';
 
-import { toFilePath } from './utils.js';
+import { toFilePath } from './utils.ts';
 
 type V8Coverage = Profiler.ScriptCoverage;
 type Matcher = (test: string) => boolean;

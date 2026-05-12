@@ -3,8 +3,11 @@
 import { normalizeStories } from 'storybook/internal/common';
 import type { DocsOptions, Options, TagsOptions } from 'storybook/internal/types';
 import { readFile } from 'node:fs/promises';
-import { virtualAppFilename } from './virtual-file-names.js';
+import { virtualAppFilename } from './virtual-file-names.ts';
 
+
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 export type PreviewHtml = string | undefined;
 
 export async function generateIframeHtml(options: Options): Promise<string> {

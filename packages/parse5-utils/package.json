@@ -17,8 +17,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./src/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -26,8 +25,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require tsx/cjs --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require tsx/cjs --watch"
+    "test:node": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --reporter dot",
+    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --watch"
   },
   "files": [
     "*.d.ts",
@@ -47,5 +46,6 @@
   },
   "devDependencies": {
     "@types/html-minifier-terser": "^7.0.0"
-  }
+  },
+  "type": "module"
 }

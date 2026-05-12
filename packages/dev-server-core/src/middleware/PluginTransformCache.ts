@@ -2,7 +2,7 @@ import LRUCache from 'lru-cache';
 import { FSWatcher } from 'chokidar';
 import fs from 'fs';
 import { promisify } from 'util';
-import { RequestCancelledError } from '../utils.js';
+import { RequestCancelledError } from '../utils.ts';
 
 const fsStat = promisify(fs.stat);
 

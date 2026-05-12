@@ -17,8 +17,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -26,8 +25,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require tsx/cjs --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require tsx/cjs --watch --watch-files src,test"
+    "test:node": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --reporter dot",
+    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -52,5 +51,6 @@
   "devDependencies": {
     "@esm-bundle/chai": "^4.1.5",
     "puppeteer": "^24.0.0"
-  }
+  },
+  "type": "module"
 }

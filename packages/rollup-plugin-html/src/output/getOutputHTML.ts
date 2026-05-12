@@ -1,17 +1,17 @@
-import { injectBundles } from './injectBundles.js';
-import { InputData } from '../input/InputData';
+import { injectBundles } from './injectBundles.ts';
+import { InputData } from '../input/InputData.ts';
 import {
   EntrypointBundle,
   RollupPluginHTMLOptions,
   TransformHtmlFunction,
-} from '../RollupPluginHTMLOptions';
+} from '../RollupPluginHTMLOptions.ts';
 import { parse, serialize } from 'parse5';
 import { minify as minifyHTMLFunc } from 'html-minifier-terser';
-import { injectedUpdatedAssetPaths } from './injectedUpdatedAssetPaths.js';
-import { EmittedAssets } from './emitAssets.js';
-import { injectAbsoluteBaseUrl } from './injectAbsoluteBaseUrl.js';
-import { hashInlineScripts } from './hashInlineScripts.js';
-import { injectServiceWorkerRegistration } from './injectServiceWorkerRegistration.js';
+import { injectedUpdatedAssetPaths } from './injectedUpdatedAssetPaths.ts';
+import { EmittedAssets } from './emitAssets.ts';
+import { injectAbsoluteBaseUrl } from './injectAbsoluteBaseUrl.ts';
+import { hashInlineScripts } from './hashInlineScripts.ts';
+import { injectServiceWorkerRegistration } from './injectServiceWorkerRegistration.ts';
 
 export interface GetOutputHTMLParams {
   input: InputData;

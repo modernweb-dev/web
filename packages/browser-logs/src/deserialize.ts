@@ -1,4 +1,4 @@
-import { ParseStackTraceOptions, parseStackTrace } from './parseStackTrace.js';
+import { ParseStackTraceOptions, parseStackTrace } from './parseStackTrace.ts';
 
 const KEY_WTR_TYPE = '__WTR_TYPE__';
 const KEY_CONSTRUCTOR_NAME = '__WTR_CONSTRUCTOR_NAME__';

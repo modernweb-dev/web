@@ -17,8 +17,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -28,8 +27,8 @@
     "build": "tsc",
     "start:demo:jsx": "es-dev-server --config demo/jsx/server.config.js",
     "start:demo:ts": "es-dev-server --config demo/ts/server.config.js",
-    "test:node": "mocha \"test/**/*.test.ts\" --require tsx/cjs --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.ts\" --require tsx/cjs --watch --watch-files src,test"
+    "test:node": "mocha \"test/**/*.test.ts\" --reporter dot",
+    "test:watch": "mocha \"test/**/*.test.ts\" --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -62,5 +61,6 @@
     "@web/dev-server-rollup": "^0.6.1",
     "lit-element": "^3.0.0 || ^4.0.1",
     "preact": "^10.5.9"
-  }
+  },
+  "type": "module"
 }

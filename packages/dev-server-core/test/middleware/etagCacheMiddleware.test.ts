@@ -3,10 +3,10 @@ import path from 'path';
 import fs from 'fs';
 import { nanoid } from 'nanoid';
 
-import { createTestServer, timeout } from '../helpers.js';
-import { DevServer } from '../../src/server/DevServer.js';
+import { createTestServer, timeout } from '../helpers.ts';
+import { DevServer } from '../../src/server/DevServer.ts';
 
-const fixtureDir = path.resolve(__dirname, '..', 'fixtures', 'basic');
+const fixtureDir = path.resolve(import.meta.dirname, '..', 'fixtures', 'basic');
 const testFileAName = '/cached-file-a.js';
 const testFileBName = '/cached-file-b.js';
 const testFileAPath = path.join(fixtureDir, testFileAName);

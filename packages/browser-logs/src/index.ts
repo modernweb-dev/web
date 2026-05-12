@@ -1,8 +1,8 @@
-export { deserialize } from './deserialize.js';
-export { browserScript } from './browserScript.js';
+export { deserialize } from './deserialize.ts';
+export { browserScript } from './browserScript.ts';
 export {
   MapBrowserUrl,
   parseStackTrace,
   StackLocation,
   MapStackLocation,
-} from './parseStackTrace.js';
+} from './parseStackTrace.ts';

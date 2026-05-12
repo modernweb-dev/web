@@ -16,24 +16,19 @@
   "type": "module",
   "exports": {
     "./http.js": {
-      "types": "./dist-types/http.d.ts",
-      "default": "./http.js"
+      "types": "./dist-types/http.d.ts"
     },
     "./browser.js": {
-      "types": "./dist-types/browser.d.ts",
-      "default": "./browser.js"
+      "types": "./dist-types/browser.d.ts"
     },
     "./plugins.js": {
-      "types": "./dist-types/plugins.d.ts",
-      "default": "./plugins.js"
+      "types": "./dist-types/plugins.d.ts"
     },
     "./node.js": {
-      "types": "./dist-types/node.d.ts",
-      "default": "./node.js"
+      "types": "./dist-types/node.d.ts"
     },
     "./types.js": {
-      "types": "./dist-types/types.d.ts",
-      "default": "./types.js"
+      "types": "./dist-types/types.d.ts"
     }
   },
   "scripts": {

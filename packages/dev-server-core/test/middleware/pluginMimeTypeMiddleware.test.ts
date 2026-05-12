@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { createTestServer } from '../helpers.js';
+import { createTestServer } from '../helpers.ts';
 
 describe('plugin-mime-type middleware', () => {
   it('can set the mime type of a file with a string', async () => {

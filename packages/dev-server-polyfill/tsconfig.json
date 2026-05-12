@@ -3,7 +3,7 @@
 {
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "node16",
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,

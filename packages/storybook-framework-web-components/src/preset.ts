@@ -1,7 +1,10 @@
 import { dirname, join } from 'node:path';
 import type { PresetProperty } from 'storybook/internal/types';
-import type { StorybookConfig } from './types.js';
+import type { StorybookConfig } from './types.ts';
 
+
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const getAbsolutePath = <I extends string>(input: I): I =>
   dirname(require.resolve(join(input, 'package.json'))) as any;
 

@@ -25,7 +25,7 @@ function normalizeSamsungVersion(browser: string, version: string[]) {
     browserslist(`${browser} ${version}`);
     // browserslist didn't throw, return the valid version
     return version;
-  } catch (error) {
+  } catch (_error) {
     // we gave an invalid version to browserslist, so we try to
     // find the nearest matching major version for samsung browser
     const validVersions = [
@@ -79,7 +79,7 @@ function calculateIsLegacyBrowser(userAgent: string, logger: Logger) {
     const resolvedUA = resolveUserAgent(userAgent);
     const browserTarget = `${getBrowserName(resolvedUA.family)} ${getBrowserVersion(resolvedUA)}`;
     return !getSupportsEsm(browserTarget);
-  } catch (error) {
+  } catch (_error) {
     logger.warn(
       `[@web/dev-server-legacy]: Unknown user agent ${userAgent}, treating it as a legacy browser.`,
     );

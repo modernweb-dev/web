@@ -1,6 +1,6 @@
 import { Middleware } from 'koa';
-import { Logger } from '../logger/Logger';
-import { Plugin } from '../plugins/Plugin';
+import { Logger } from '../logger/Logger.ts';
+import { Plugin } from '../plugins/Plugin.ts';
 
 /**
  * Sets up a middleware which allows plugins to resolve the mime type.

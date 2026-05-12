@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { Context } from 'koa';
 
-import { createTestServer } from '../helpers.js';
+import { createTestServer } from '../helpers.ts';
 
 describe('plugin-file-parsed middleware', () => {
   it('is called after other plugin hooks', async () => {

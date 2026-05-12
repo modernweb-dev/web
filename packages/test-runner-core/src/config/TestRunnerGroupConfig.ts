@@ -1,5 +1,5 @@
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
-import { TestRunnerCoreConfig } from './TestRunnerCoreConfig.js';
+import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
+import { TestRunnerCoreConfig } from './TestRunnerCoreConfig.ts';
 
 export interface TestRunnerGroupConfig {
   name: string;

@@ -1,11 +1,11 @@
-import { parseUserAgent } from './parseUserAgent.js';
+import { parseUserAgent } from './parseUserAgent.ts';
 import {
   TARGET_LATEST_MODERN,
   TARGET_LOWEST_ESM_SUPPORT,
   Browser,
   isLatestModernBrowser,
   isLatestSafari,
-} from './browser-targets.js';
+} from './browser-targets.ts';
 
 const cache = new Map<string, undefined | string | string[]>();
 

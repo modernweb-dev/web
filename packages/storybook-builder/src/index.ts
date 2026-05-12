@@ -17,21 +17,23 @@ import { join, parse, resolve } from 'node:path';
 import { OutputOptions, RollupBuild, RollupOptions, rollup } from 'rollup';
 import rollupPluginExternalGlobals from 'rollup-plugin-external-globals';
 import sirv from 'sirv';
-import { generateIframeHtml } from './generate-iframe-html.js';
-import { getNodeModuleDir } from './get-node-module-dir.js';
-import { readFileConfig } from './read-file-config.js';
-import { rollupPluginMdx } from './rollup-plugin-mdx.js';
+import { generateIframeHtml } from './generate-iframe-html.ts';
+import { getNodeModuleDir } from './get-node-module-dir.ts';
+import { readFileConfig } from './read-file-config.ts';
+import { rollupPluginMdx } from './rollup-plugin-mdx.ts';
 import {
   PREBUNDLED_MODULES_DIR,
   rollupPluginPrebundleModules,
-} from './rollup-plugin-prebundle-modules.js';
-import { rollupPluginStorybookBuilder } from './rollup-plugin-storybook-builder.js';
-import { stringifyProcessEnvs } from './stringify-process-envs.js';
+} from './rollup-plugin-prebundle-modules.ts';
+import { rollupPluginStorybookBuilder } from './rollup-plugin-storybook-builder.ts';
+import { stringifyProcessEnvs } from './stringify-process-envs.ts';
 
-const wdsPluginExternalGlobals = fromRollup(rollupPluginExternalGlobals);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const wdsPluginExternalGlobals = fromRollup(rollupPluginExternalGlobals as any);
 const wdsPluginMdx = fromRollup(rollupPluginMdx);
 const wdsPluginPrebundleModules = fromRollup(rollupPluginPrebundleModules);
-const wdsPluginReplace = fromRollup(rollupPluginReplace);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const wdsPluginReplace = fromRollup(rollupPluginReplace as any);
 const wdsPluginStorybookBuilder = fromRollup(rollupPluginStorybookBuilder);
 
 export type StorybookConfigWds = StorybookConfigBase & {
@@ -168,12 +170,15 @@ export const build: WdsBuilder['build'] = async ({ startTime, options }) => {
         extractAssets: true,
         externalAssets: 'sb-common-assets/**',
       }),
-      rollupPluginNodeResolve(),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (rollupPluginNodeResolve as any)(),
       rollupPluginPrebundleModules(env, options),
       rollupPluginStorybookBuilder(options),
       rollupPluginMdx(options),
-      rollupPluginExternalGlobals(globalsNameReferenceMap),
-      rollupPluginReplace({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (rollupPluginExternalGlobals as any)(globalsNameReferenceMap),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (rollupPluginReplace as any)({
         ...stringifyProcessEnvs(env),
         include: ['**/node_modules/@storybook/**/*'],
         preventAssignment: true,

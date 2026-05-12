@@ -4,11 +4,11 @@ import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
-import polyfillsLoader from '../../src/index.js';
+import polyfillsLoader from '../../src/index.ts';
 
 type Output = (OutputChunk | OutputAsset)[];
 
-const relativeUrl = `./${path.relative(process.cwd(), path.join(__dirname, '..'))}`;
+const relativeUrl = `./${path.relative(process.cwd(), path.join(import.meta.dirname, '..'))}`;
 
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
@@ -26,7 +26,7 @@ interface SnapshotArgs {
 }
 
 async function testSnapshot({ name, fileName, inputOptions, outputOptions }: SnapshotArgs) {
-  const snapshotPath = path.join(__dirname, '..', 'snapshots', `${name}.html`);
+  const snapshotPath = path.join(import.meta.dirname, '..', 'snapshots', `${name}.html`);
   const bundle = await rollup(inputOptions);
   let output;
   for (const outputConfig of outputOptions) {

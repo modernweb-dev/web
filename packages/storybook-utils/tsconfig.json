@@ -9,7 +9,8 @@
     "composite": true,
     "allowJs": true,
     "checkJs": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "allowImportingTsExtensions": true
   },
   "references": [],
   "include": [

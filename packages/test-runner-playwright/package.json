@@ -17,8 +17,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -26,8 +25,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha test/**/*.test.ts --require tsx/cjs --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require tsx/cjs --watch --watch-files src,test"
+    "test:node": "mocha test/**/*.test.ts --reporter dot",
+    "test:watch": "mocha test/**/*.test.ts --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -53,5 +52,6 @@
   "devDependencies": {
     "@web/test-runner-mocha": "^0.9.0",
     "portfinder": "^1.0.32"
-  }
+  },
+  "type": "module"
 }

@@ -16,8 +16,7 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -25,8 +24,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha \"test/**/*.test.ts\" --require tsx/cjs --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.ts\" --require tsx/cjs --watch --watch-files src,test --reporter dot"
+    "test": "mocha \"test/**/*.test.ts\" --reporter dot",
+    "test:watch": "mocha \"test/**/*.test.ts\" --watch --watch-files src,test --reporter dot"
   },
   "files": [
     "*.d.ts",

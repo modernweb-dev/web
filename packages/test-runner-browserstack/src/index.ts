@@ -1,1 +1,1 @@
-export { browserstackLauncher } from './browserstackLauncher.js';
+export { browserstackLauncher } from './browserstackLauncher.ts';

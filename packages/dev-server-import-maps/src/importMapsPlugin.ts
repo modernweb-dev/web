@@ -17,7 +17,7 @@ import {
   shouldInject,
   mergeImportMaps,
   getDocumentBaseUrl,
-} from './utils.js';
+} from './utils.ts';
 import { ImportMap } from '@import-maps/resolve';
 import {
   createElement,

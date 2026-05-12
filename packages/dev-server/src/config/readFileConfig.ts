@@ -1,5 +1,5 @@
 import { readConfig, ConfigLoaderError } from '@web/config-loader';
-import { DevServerStartError } from '../DevServerStartError.js';
+import { DevServerStartError } from '../DevServerStartError.ts';
 
 export interface ReadFileConfigParams {
   /**

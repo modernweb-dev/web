@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 
-import { transformImports } from '../../src/plugins/transformModuleImportsPlugin.js';
-import type { PluginSyntaxError } from '../../src/logger/PluginSyntaxError.js';
-import { createTestServer } from '../helpers.js';
+import { transformImports } from '../../src/plugins/transformModuleImportsPlugin.ts';
+import type { PluginSyntaxError } from '../../src/logger/PluginSyntaxError.ts';
+import { createTestServer } from '../helpers.ts';
 
 const defaultFilePath = '/root/my-file.js';
 const defaultResolveImport = (src: string) => `RESOLVED__${src}`;

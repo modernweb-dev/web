@@ -1,14 +1,14 @@
 import { Document, serialize } from 'parse5';
 import fs from 'fs';
 import path from 'path';
-import { InputAsset } from '../InputData.js';
+import { InputAsset } from '../InputData.ts';
 import {
   findAssets,
   getSourcePaths,
   isHashedAsset,
   resolveAssetFilePath,
   createAssetPicomatchMatcher,
-} from '../../assets/utils.js';
+} from '../../assets/utils.ts';
 
 export interface ExtractAssetsParams {
   document: Document;
@@ -41,7 +41,7 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
       if (!alreadyHandled) {
         try {
           fs.accessSync(filePath);
-        } catch (error) {
+        } catch (_error) {
           const elStr = serialize(node);
           const htmlPath = path.relative(process.cwd(), params.htmlFilePath);
           throw new Error(

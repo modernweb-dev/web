@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-import { startDevServer } from './startDevServer.js';
+import { startDevServer } from './startDevServer.ts';
 
 startDevServer();

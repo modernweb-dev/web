@@ -3,10 +3,13 @@ import puppeteer, { Browser, Page } from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
 
-import { deserialize } from '../src/deserialize.js';
+import { deserialize } from '../src/deserialize.ts';
 
+
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
-const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };
+const defaultOptions = { browserRootDir: import.meta.dirname, cwd: import.meta.dirname };
 
 describe('serialize deserialize', function () {
   this.timeout(10000);
@@ -437,7 +440,7 @@ describe('serialize deserialize', function () {
     });
     const deserialized = await deserialize(serialized, {
       ...defaultOptions,
-      cwd: path.resolve(__dirname, '..'),
+      cwd: path.resolve(import.meta.dirname, '..'),
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
@@ -455,8 +458,8 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(a());
     });
     const deserialized = await deserialize(serialized, {
-      cwd: path.resolve(__dirname, '..', 'foo'),
-      browserRootDir: path.resolve(__dirname, '..'),
+      cwd: path.resolve(import.meta.dirname, '..', 'foo'),
+      browserRootDir: path.resolve(import.meta.dirname, '..'),
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');

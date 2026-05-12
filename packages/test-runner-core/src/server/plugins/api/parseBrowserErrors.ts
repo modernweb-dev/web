@@ -1,14 +1,14 @@
 import { MapStackLocation, parseStackTrace } from '@web/browser-logs';
 import { MapBrowserUrl } from '@web/browser-logs';
 
-import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.js';
+import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.ts';
 import {
   TestResult,
   TestResultError,
   TestSession,
   TestSuiteResult,
-} from '../../../test-session/TestSession.js';
-import { forEachAsync } from '../../../utils/async.js';
+} from '../../../test-session/TestSession.ts';
+import { forEachAsync } from '../../../utils/async.ts';
 
 export async function replaceErrorStack(
   error: TestResultError,

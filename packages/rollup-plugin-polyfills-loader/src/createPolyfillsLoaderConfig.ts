@@ -2,8 +2,8 @@ import { EntrypointBundle } from '@web/rollup-plugin-html';
 import { PolyfillsLoaderConfig, FileType, fileTypes } from '@web/polyfills-loader';
 import { ModuleFormat } from 'rollup';
 
-import { RollupPluginPolyfillsLoaderConfig } from './types';
-import { createError } from './utils.js';
+import { RollupPluginPolyfillsLoaderConfig } from './types.js';
+import { createError } from './utils.ts';
 
 export function formatToFileType(format: ModuleFormat) {
   switch (format) {
@@ -72,7 +72,6 @@ export function createPolyfillsLoaderConfig(
     }
 
     if (!bundles[modernOutput.name]) throw bundleNotFoundError(modernOutput.name);
-    modernOutput.type;
     modern = createEntrypoints(bundles[modernOutput.name], modernOutput.type);
 
     /** @type {LegacyEntrypoint[]} */

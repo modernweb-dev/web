@@ -3,8 +3,8 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { expect } from 'chai';
 import { chromeLauncher } from '@web/test-runner-chrome';
 
-import { visualRegressionPlugin } from '../src/visualRegressionPlugin.js';
-import { fileExists } from '../src/fs.js';
+import { visualRegressionPlugin } from '../src/visualRegressionPlugin.ts';
+import { fileExists } from '../src/fs.ts';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
 describe('visualRegressionPlugin', function test() {
@@ -12,7 +12,7 @@ describe('visualRegressionPlugin', function test() {
 
   it('can run a passing test', async () => {
     await runTests({
-      files: [path.join(__dirname, 'diff-pass-test.js')],
+      files: [path.join(import.meta.dirname, 'diff-pass-test.js')],
       browsers: [
         chromeLauncher(),
         playwrightLauncher({ product: 'firefox' }),
@@ -38,7 +38,7 @@ describe('visualRegressionPlugin', function test() {
   it('can run a failed test', async () => {
     const { sessions } = await runTests(
       {
-        files: [path.join(__dirname, 'diff-fail-test.js')],
+        files: [path.join(import.meta.dirname, 'diff-fail-test.js')],
         browsers: [
           chromeLauncher(),
           playwrightLauncher({ product: 'firefox' }),
@@ -74,7 +74,7 @@ describe('visualRegressionPlugin', function test() {
       expect(
         await fileExists(
           path.resolve(
-            __dirname,
+            import.meta.dirname,
             '..',
             'screenshots',
             session.browser.name,
@@ -86,7 +86,7 @@ describe('visualRegressionPlugin', function test() {
       expect(
         await fileExists(
           path.resolve(
-            __dirname,
+            import.meta.dirname,
             '..',
             'screenshots',
             session.browser.name,

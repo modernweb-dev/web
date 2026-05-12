@@ -22,7 +22,8 @@ export function withTimeout<T>(promise: Promise<T>, message: string): Promise<T>
   });
 }
 export class SauceLabsLauncherManager {
-  private api: SaucelabsAPI;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private api: any;
   private launchers = new Set<BrowserLauncher>();
   private connectionPromise?: Promise<SauceConnectInstance>;
   private connection?: SauceConnectInstance;
@@ -32,7 +33,8 @@ export class SauceLabsLauncherManager {
   constructor(options: SauceLabsOptions, connectOptions?: SauceConnectOptions) {
     this.options = options;
     this.connectOptions = connectOptions;
-    this.api = new SaucelabsAPI(this.options);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.api = new (SaucelabsAPI as any)(this.options);
 
     process.on('SIGINT', this.closeConnection);
     process.on('SIGTERM', this.closeConnection);

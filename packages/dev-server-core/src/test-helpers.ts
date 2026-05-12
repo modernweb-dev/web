@@ -2,10 +2,10 @@ import portfinder from 'portfinder';
 import { expect } from 'chai';
 import { green, red, yellow } from 'nanocolors';
 
-import { DevServer } from './server/DevServer.js';
-import { DevServerCoreConfig } from './server/DevServerCoreConfig.js';
-import { Logger } from './logger/Logger.js';
-import { Plugin } from './plugins/Plugin.js';
+import { DevServer } from './server/DevServer.ts';
+import { DevServerCoreConfig } from './server/DevServerCoreConfig.ts';
+import { Logger } from './logger/Logger.ts';
+import { Plugin } from './plugins/Plugin.ts';
 
 const defaultConfig: Omit<DevServerCoreConfig, 'port' | 'rootDir'> = {
   hostname: 'localhost',

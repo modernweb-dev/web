@@ -3,9 +3,12 @@ import { build } from 'esbuild';
 import { readFile, rm } from 'node:fs/promises';
 import { dirname, isAbsolute, join, normalize } from 'node:path';
 import type { Plugin } from 'rollup';
-import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-named-exports.js';
-import { stringifyProcessEnvs } from './stringify-process-envs.js';
+import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-named-exports.ts';
+import { stringifyProcessEnvs } from './stringify-process-envs.ts';
 
+
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 export const PREBUNDLED_MODULES_DIR = normalize('node_modules/.prebundled_modules');
 
 export function rollupPluginPrebundleModules(
@@ -78,7 +81,7 @@ function moduleExists(moduleName: string) {
   try {
     require.resolve(moduleName, { paths: [process.cwd()] });
     return true;
-  } catch (e) {
+  } catch (_e) {
     return false;
   }
 }

@@ -1,5 +1,5 @@
 import { Middleware } from 'koa';
-import { Plugin } from '../plugins/Plugin';
+import { Plugin } from '../plugins/Plugin.ts';
 import { Server } from 'net';
 import type { ChokidarOptions } from 'chokidar';
 

@@ -2,12 +2,12 @@
 import { TestRunner, TestRunnerCli } from '@web/test-runner-core';
 import { red } from 'nanocolors';
 
-import { TestRunnerConfig } from './config/TestRunnerConfig.js';
-import { mergeConfigs } from './config/mergeConfigs.js';
-import { parseConfig } from './config/parseConfig.js';
-import { readCliArgs } from './config/readCliArgs.js';
-import { readFileConfig } from './config/readFileConfig.js';
-import { TestRunnerStartError } from './TestRunnerStartError.js';
+import { TestRunnerConfig } from './config/TestRunnerConfig.ts';
+import { mergeConfigs } from './config/mergeConfigs.ts';
+import { parseConfig } from './config/parseConfig.ts';
+import { readCliArgs } from './config/readCliArgs.ts';
+import { readFileConfig } from './config/readFileConfig.ts';
+import { TestRunnerStartError } from './TestRunnerStartError.ts';
 
 export interface StartTestRunnerParams {
   /**

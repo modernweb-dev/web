@@ -16,9 +16,8 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -28,8 +27,8 @@
     "demo:mpa": "rm -rf demo/dist && rollup -c demo/mpa/rollup.config.js --watch & npm run serve-demo",
     "demo:spa": "rm -rf demo/dist && rollup -c demo/spa/rollup.config.js --watch & npm run serve-demo",
     "serve-demo": "node ../dev-server/dist/bin.js --watch --root-dir demo/dist --app-index index.html --compatibility none --open",
-    "test:node": "mocha test/**/*.test.ts --require tsx/cjs --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require tsx/cjs --watch --watch-files src,test"
+    "test:node": "mocha test/**/*.test.ts --reporter dot",
+    "test:watch": "mocha test/**/*.test.ts --watch --watch-files src,test"
   },
   "files": [
     "*.js",
@@ -58,5 +57,6 @@
     "@types/prettier": "^3.0.0",
     "prettier": "^3.6.2",
     "rollup": "^4.4.0"
-  }
+  },
+  "type": "module"
 }

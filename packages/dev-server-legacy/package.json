@@ -17,8 +17,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -27,8 +26,8 @@
   "scripts": {
     "build": "tsc",
     "start": "wds --open --config demo/server.config.mjs",
-    "test:node": "mocha \"test/**/*.test.ts\" --require tsx/cjs --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.ts\" --require tsx/cjs --watch --watch-files src,test"
+    "test:node": "mocha \"test/**/*.test.ts\" --reporter dot",
+    "test:watch": "mocha \"test/**/*.test.ts\" --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -72,5 +71,6 @@
     "@types/browserslist-useragent": "^3.0.2",
     "@types/caniuse-api": "^3.0.1",
     "@types/valid-url": "^1.0.3"
-  }
+  },
+  "type": "module"
 }

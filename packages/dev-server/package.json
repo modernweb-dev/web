@@ -21,8 +21,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -74,5 +73,6 @@
     "@types/command-line-usage": "^5.0.1",
     "lit-html": "^2.7.3 || ^3.0.0",
     "puppeteer": "^24.0.0"
-  }
+  },
+  "type": "module"
 }

@@ -1,12 +1,12 @@
 import { DevServer } from '@web/dev-server-core';
-import { DevServerConfig } from './config/DevServerConfig.js';
-import { mergeConfigs } from './config/mergeConfigs.js';
-import { parseConfig } from './config/parseConfig.js';
-import { readCliArgs } from './config/readCliArgs.js';
-import { readFileConfig } from './config/readFileConfig.js';
-import { DevServerStartError } from './DevServerStartError.js';
-import { createLogger } from './logger/createLogger.js';
-import { openBrowser } from './openBrowser.js';
+import { DevServerConfig } from './config/DevServerConfig.ts';
+import { mergeConfigs } from './config/mergeConfigs.ts';
+import { parseConfig } from './config/parseConfig.ts';
+import { readCliArgs } from './config/readCliArgs.ts';
+import { readFileConfig } from './config/readFileConfig.ts';
+import { DevServerStartError } from './DevServerStartError.ts';
+import { createLogger } from './logger/createLogger.ts';
+import { openBrowser } from './openBrowser.ts';
 
 export interface StartDevServerParams {
   /**

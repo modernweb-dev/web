@@ -2,7 +2,7 @@
 
 import { loadPreviewOrConfigFile } from 'storybook/internal/common';
 import type { Options, PreviewAnnotation } from 'storybook/internal/types';
-import { virtualSetupAddonsFilename, virtualStoriesFilename } from './virtual-file-names.js';
+import { virtualSetupAddonsFilename, virtualStoriesFilename } from './virtual-file-names.ts';
 
 export async function generateAppScript(options: Options) {
   const slash = (await import('slash')).default; // for CJS compatibility

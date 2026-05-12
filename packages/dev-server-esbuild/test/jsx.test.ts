@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index.js';
+import { esbuildPlugin } from '../src/index.ts';
 
 describe('esbuildPlugin JSX', function () {
   it('transforms .jsx files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -43,7 +43,7 @@ export function foo(bar) {
 
   it('can set the JSX factory', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',

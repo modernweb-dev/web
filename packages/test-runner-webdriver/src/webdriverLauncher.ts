@@ -1,9 +1,9 @@
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Browser, remote } from 'webdriverio';
 import { Capabilities } from '@wdio/types';
-import { IFrameManager } from './IFrameManager.js';
-import { SessionManager } from './SessionManager.js';
-import { getBrowserLabel } from './utils.js';
+import { IFrameManager } from './IFrameManager.ts';
+import { SessionManager } from './SessionManager.ts';
+import { getBrowserLabel } from './utils.ts';
 
 type MouseButton = 'left' | 'middle' | 'right';
 
@@ -129,7 +129,7 @@ export class WebdriverLauncher implements BrowserLauncher {
       if (!this.driver) return;
       try {
         await this.driver.getTitle();
-      } catch (e) {
+      } catch (_e) {
         // Do nothing, just clear the timeout
         if (this.pendingHeartbeat != null) {
           clearInterval(this.pendingHeartbeat);

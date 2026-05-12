@@ -2,6 +2,9 @@ import type { Plugin } from 'esbuild';
 import { readFile } from 'node:fs/promises';
 import { dirname, relative } from 'node:path';
 
+
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 export function esbuildPluginCommonjsNamedExports(modules: string[]): Plugin {
   return {
     name: 'commonjs-named-exports',
@@ -74,7 +77,7 @@ export function esbuildPluginCommonjsNamedExports(modules: string[]): Plugin {
         let reexports: string[] = [];
         try {
           ({ exports, reexports } = parse(source));
-        } catch (e) {
+        } catch (_e) {
           // good place to start debugging if imports are not working
         }
 

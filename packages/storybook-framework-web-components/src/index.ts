@@ -1,2 +1,2 @@
 export * from '@storybook/web-components';
-export * from './types.js';
+export * from './types.ts';

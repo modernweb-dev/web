@@ -17,16 +17,15 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
     "node": ">=22.0.0"
   },
   "scripts": {
-    "test:node": "mocha \"test/node/**/*.test.ts\" --require tsx/cjs --exit --reporter dot",
-    "test:watch": "mocha \"test/node/**/*.test.ts\" --require tsx/cjs --watch --watch-files src,test"
+    "test:node": "mocha \"test/node/**/*.test.ts\" --exit --reporter dot",
+    "test:watch": "mocha \"test/node/**/*.test.ts\" --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -69,5 +68,6 @@
     "mocha": "^10.8.2",
     "postcss": "^8.4.31",
     "rollup-plugin-postcss": "^4.0.2"
-  }
+  },
+  "type": "module"
 }

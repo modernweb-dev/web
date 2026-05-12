@@ -6,10 +6,10 @@ import http2Server from 'http2';
 import fs from 'fs';
 import net, { Server, Socket, ListenOptions } from 'net';
 
-import { DevServerCoreConfig } from './DevServerCoreConfig.js';
-import { createMiddleware } from './createMiddleware.js';
-import { Logger } from '../logger/Logger.js';
-import { addPlugins } from './addPlugins.js';
+import { DevServerCoreConfig } from './DevServerCoreConfig.ts';
+import { createMiddleware } from './createMiddleware.ts';
+import { Logger } from '../logger/Logger.ts';
+import { addPlugins } from './addPlugins.ts';
 
 /**
  * A request handler that returns a 301 HTTP Redirect to the same location as the original
@@ -66,7 +66,7 @@ export function createServer(
 
   let server: Server;
   if (cfg.http2) {
-    const dir = path.join(__dirname, '..');
+    const dir = path.join(import.meta.dirname, '..');
     const options = {
       key: fs.readFileSync(
         cfg.sslKey

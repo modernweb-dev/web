@@ -1,9 +1,9 @@
 import { getTextContent } from '@web/parse5-utils';
 import { expect } from 'chai';
 import { parse, serialize } from 'parse5';
-import { html } from '../../utils.js';
+import { html } from '../../utils.ts';
 
-import { injectBundles, createLoadScript } from '../../../src/output/injectBundles.js';
+import { injectBundles, createLoadScript } from '../../../src/output/injectBundles.ts';
 
 describe('createLoadScript()', () => {
   it('creates a script for es modules', () => {

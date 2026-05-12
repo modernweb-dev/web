@@ -1,4 +1,5 @@
 import type {
+
   Plugin,
   WebSocketsManager,
   Logger,
@@ -10,6 +11,9 @@ import WebSocket from 'ws';
 import type { Context } from 'koa';
 import path, { posix as pathUtil } from 'path';
 import fs from 'fs';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
 
 const hmrClientScriptPath = require.resolve('../scripts/hmrClientScript.js');
 let hmrClientScript = fs.readFileSync(hmrClientScriptPath, 'utf-8');

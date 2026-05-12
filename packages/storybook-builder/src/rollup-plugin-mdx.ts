@@ -5,6 +5,9 @@ import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSlug from 'rehype-slug';
 import type { Plugin } from 'rollup';
 
+
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 export function rollupPluginMdx(options: Options): Plugin {
   let mdxPluginOptions: Record<string, any>;
   let jsxOptions: Record<string, any>;

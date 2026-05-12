@@ -17,8 +17,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -26,9 +25,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha \"test/**/*.test.ts\" --require tsx/cjs",
+    "test": "mocha \"test/**/*.test.ts\"",
     "test:browser": "node ../test-runner/dist/bin.js test-browser/test/**/*.test.{js,html} --config test-browser/web-test-runner.config.mjs",
-    "test:watch": "mocha \"test/**/*.test.ts\" --require tsx/cjs --watch --watch-files src,test"
+    "test:watch": "mocha \"test/**/*.test.ts\" --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -59,5 +58,6 @@
   },
   "devDependencies": {
     "@web/test-runner": "^0.20.0"
-  }
+  },
+  "type": "module"
 }

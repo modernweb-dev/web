@@ -16,8 +16,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./index.mjs"
+      "types": "./dist/index.d.ts"
     }
   },
   "engines": {

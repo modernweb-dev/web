@@ -4,9 +4,9 @@ import debounce from 'debounce';
 import path from 'path';
 import { FSWatcher } from 'chokidar';
 
-import { TestSessionManager } from '../../test-session/TestSessionManager.js';
-import { constants } from '../../index.js';
-import { TestSession } from '../../test-session/TestSession.js';
+import { TestSessionManager } from '../../test-session/TestSessionManager.ts';
+import { constants } from '../../index.ts';
+import { TestSession } from '../../test-session/TestSession.ts';
 
 const IGNORED_404s = ['favicon.ico'];
 const { PARAM_SESSION_ID } = constants;

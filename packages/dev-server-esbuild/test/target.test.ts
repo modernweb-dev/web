@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index.js';
+import { esbuildPlugin } from '../src/index.ts';
 
 const modernJs = `
 class MyClass {
@@ -61,7 +61,7 @@ const transformedSyntax = {
 describe('esbuildPlugin target', function () {
   it('does not transform anything when set to esnext', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -103,7 +103,7 @@ describe('esbuildPlugin target', function () {
 
   it('can transform to es2020', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -145,7 +145,7 @@ describe('esbuildPlugin target', function () {
 
   it('can transform to es2019', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -187,7 +187,7 @@ describe('esbuildPlugin target', function () {
 
   it('can transform to es2018', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -229,7 +229,7 @@ describe('esbuildPlugin target', function () {
 
   it('can transform to es2017', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -269,7 +269,7 @@ describe('esbuildPlugin target', function () {
 
   it('can transform to es2016', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -309,7 +309,7 @@ describe('esbuildPlugin target', function () {
 
   it('can transform inline scripts', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -353,7 +353,7 @@ describe('esbuildPlugin target', function () {
     const importmapString = '{"imports":{"foo":"./bar.js"}}';
     const jsonString = '{test:1}';
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',

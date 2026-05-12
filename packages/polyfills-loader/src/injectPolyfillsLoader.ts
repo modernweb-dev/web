@@ -12,9 +12,9 @@ import {
   Element,
 } from '@web/parse5-utils';
 
-import { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile } from './types.js';
-import { createPolyfillsLoader } from './createPolyfillsLoader.js';
-import { hasFileOfType, fileTypes } from './utils.js';
+import { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile } from './types.ts';
+import { createPolyfillsLoader } from './createPolyfillsLoader.ts';
+import { hasFileOfType, fileTypes } from './utils.ts';
 
 function injectImportMapPolyfill(headAst: ParentNode, originalScript: Node, type: string) {
   const systemJsScript = createScript({ type }, getTextContent(originalScript));

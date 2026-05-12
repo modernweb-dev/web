@@ -17,17 +17,15 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     },
     "./dist/dom5": {
       "types": "./dist/dom5/index.d.ts",
-      "require": "./dist/dom5/index.js"
+      "import": "./dist/dom5/index.js"
     },
     "./test-helpers": {
       "types": "./test-helpers.d.ts",
-      "import": "./test-helpers.mjs",
-      "require": "./dist/test-helpers.js"
+      "import": "./dist/test-helpers.js"
     }
   },
   "engines": {
@@ -39,8 +37,8 @@
     "start:event-stream": "node demo/event-stream/start-server.js",
     "start:http2": "node demo/http2/start-server.js",
     "start:import-asset": "node demo/import-asset/start-server.js",
-    "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require tsx/cjs --exit --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require tsx/cjs --watch --watch-files src,test"
+    "test": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --exit --reporter dot",
+    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --watch --watch-files src,test"
   },
   "files": [
     ".self-signed-dev-server-ssl.cert",
@@ -86,5 +84,6 @@
     "express": "^4.21.2",
     "nanoid": "^3.1.25",
     "portfinder": "^1.0.32"
-  }
+  },
+  "type": "module"
 }

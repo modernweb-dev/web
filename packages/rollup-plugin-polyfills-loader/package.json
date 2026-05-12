@@ -16,18 +16,17 @@
   "main": "dist/index.js",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "engines": {
     "node": ">=22.0.0"
   },
   "scripts": {
-    "test:node": "mocha test/**/*.test.ts --require tsx/cjs --reporter dot",
-    "test:update-snapshots": "mocha test/**/*.test.ts --require tsx/cjs --update-snapshots",
-    "test:watch": "mocha test/**/*.test.ts --require tsx/cjs --watch --watch-files src,test"
+    "test:node": "mocha test/**/*.test.ts --reporter dot",
+    "test:update-snapshots": "mocha test/**/*.test.ts --update-snapshots",
+    "test:watch": "mocha test/**/*.test.ts --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -50,5 +49,6 @@
   "devDependencies": {
     "@web/rollup-plugin-html": "^3.0.0",
     "rollup": "^4.4.0"
-  }
+  },
+  "type": "module"
 }

@@ -2,7 +2,7 @@ import { Document, Element } from 'parse5';
 import path from 'path';
 import picomatch from 'picomatch';
 import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
-import { createError } from '../utils.js';
+import { createError } from '../utils.ts';
 import { serialize } from 'v8';
 
 const assetLinkRels = [
@@ -76,7 +76,7 @@ function isAsset(node: Element) {
   try {
     new URL(path);
     return false;
-  } catch (e) {
+  } catch (_e) {
     return true;
   }
 }

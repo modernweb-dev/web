@@ -4,15 +4,15 @@ import { chromeLauncher } from '@web/test-runner-chrome';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { resolve } from 'path';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
+import { fromRollup } from '../../../src/index.ts';
 
 const postcss = fromRollup(rollupPostcss);
 
 describe('@rollup/plugin-postcss', () => {
   it('can run postcss on imported css files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: resolve(__dirname, '..', '..', '..', '..', '..'),
+      rootDir: resolve(import.meta.dirname, '..', '..', '..', '..', '..'),
       mimeTypes: {
         '**/*.css': 'js',
       },
@@ -60,7 +60,7 @@ html {
   it('passes the in-browser tests', async function () {
     this.timeout(40000);
     await runTests({
-      files: [resolve(__dirname, '..', 'fixtures', 'postcss', 'postcss-browser-test.js')],
+      files: [resolve(import.meta.dirname, '..', 'fixtures', 'postcss', 'postcss-browser-test.js')],
       browsers: [chromeLauncher()],
       mimeTypes: {
         '**/*.css': 'js',

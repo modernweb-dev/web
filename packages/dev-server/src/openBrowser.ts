@@ -1,11 +1,11 @@
 import openBrowserWindow from 'open';
 import path from 'path';
-import { DevServerConfig } from './config/DevServerConfig.js';
+import { DevServerConfig } from './config/DevServerConfig.ts';
 
 function isValidURL(str: string) {
   try {
     return !!new URL(str);
-  } catch (error) {
+  } catch (_error) {
     return false;
   }
 }

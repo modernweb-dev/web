@@ -5,7 +5,7 @@ import {
   ProductType,
   CreateBrowserContextFn,
   CreatePageFn,
-} from './PlaywrightLauncher.js';
+} from './PlaywrightLauncher.ts';
 
 const validProductTypes: ProductType[] = ['chromium', 'firefox', 'webkit'];
 

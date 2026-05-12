@@ -11,7 +11,7 @@
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-export * from './modification.js';
-export * from './predicates.js';
-export * from './util.js';
-export * from './walking.js';
+export * from './modification.ts';
+export * from './predicates.ts';
+export * from './util.ts';
+export * from './walking.ts';

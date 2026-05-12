@@ -1,9 +1,9 @@
 import type { Reporter, ReporterArgs, TestSuiteResult } from '@web/test-runner-core';
 
-import { reportTestsErrors } from './reportTestsErrors.js';
-import { reportTestFileErrors } from './reportTestFileErrors.js';
+import { reportTestsErrors } from './reportTestsErrors.ts';
+import { reportTestFileErrors } from './reportTestFileErrors.ts';
 
-import { TestRunnerLogger } from '../logger/TestRunnerLogger.js';
+import { TestRunnerLogger } from '../logger/TestRunnerLogger.ts';
 
 const color =
   ([x, y]: [number, number]) =>

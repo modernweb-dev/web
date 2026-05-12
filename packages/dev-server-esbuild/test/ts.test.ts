@@ -5,14 +5,14 @@ import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-hel
 import { Plugin as RollupPlugin } from 'rollup';
 import { fromRollup } from '@web/dev-server-rollup';
 
-import { esbuildPlugin } from '../src/index.js';
+import { esbuildPlugin } from '../src/index.ts';
 
 describe('esbuildPlugin TS', function () {
   this.timeout(5000);
 
   it('transforms .ts files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -55,7 +55,7 @@ describe('esbuildPlugin TS', function () {
 
   it('transforms TS decorators', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -72,7 +72,7 @@ class Bar {
         },
         esbuildPlugin({
           ts: true,
-          tsconfig: path.join(__dirname, 'fixture', 'tsconfig-with-experimental-decorators.json'),
+          tsconfig: path.join(import.meta.dirname, 'fixture', 'tsconfig-with-experimental-decorators.json'),
         }),
       ],
     });
@@ -106,7 +106,7 @@ class Bar {
 
   it('resolves relative ending with .js to .ts files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixture'),
+      rootDir: path.join(import.meta.dirname, 'fixture'),
       plugins: [
         {
           name: 'test',
@@ -133,7 +133,7 @@ class Bar {
 
   it('does not change imports where the TS file does not exist', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixture'),
+      rootDir: path.join(import.meta.dirname, 'fixture'),
       plugins: [
         {
           name: 'test',
@@ -164,7 +164,7 @@ class Bar {
 
   it('does not change imports when ts transform is not enabled', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixture'),
+      rootDir: path.join(import.meta.dirname, 'fixture'),
       plugins: [
         {
           name: 'test',
@@ -188,7 +188,7 @@ class Bar {
 
   it('does not change imports in non-TS files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixture'),
+      rootDir: path.join(import.meta.dirname, 'fixture'),
       plugins: [
         {
           name: 'test',
@@ -214,7 +214,7 @@ class Bar {
     const plugin: RollupPlugin = {
       name: 'my-plugin',
       load(id) {
-        if (id === path.join(__dirname, 'app.js')) {
+        if (id === path.join(import.meta.dirname, 'app.js')) {
           return 'import "\0foo.js";';
         }
       },
@@ -225,7 +225,7 @@ class Bar {
       },
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         fromRollup(() => plugin)(),
         esbuildPlugin({
@@ -248,12 +248,12 @@ class Bar {
 
   it('reads tsconfig.json file', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixture'),
+      rootDir: path.join(import.meta.dirname, 'fixture'),
       plugins: [
         {
           name: 'test',
         },
-        esbuildPlugin({ ts: true, tsconfig: path.join(__dirname, 'fixture', 'tsconfig.json') }),
+        esbuildPlugin({ ts: true, tsconfig: path.join(import.meta.dirname, 'fixture', 'tsconfig.json') }),
       ],
     });
 

@@ -8,9 +8,9 @@ import {
 } from '@web/test-runner-core';
 import { bold, gray, green, red } from 'nanocolors';
 
-import { getPassedFailedSkippedCount } from './utils/getPassedFailedSkippedCount.js';
-import { getCodeCoverage } from './getCodeCoverage.js';
-import { renderProgressBar } from './renderProgressBar.js';
+import { getPassedFailedSkippedCount } from './utils/getPassedFailedSkippedCount.ts';
+import { getCodeCoverage } from './getCodeCoverage.ts';
+import { renderProgressBar } from './renderProgressBar.ts';
 
 export interface TestProgressArgs {
   browsers: BrowserLauncher[];

@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import path from 'path';
 import fs from 'fs';
-import { injectPolyfillsLoader } from '../src/injectPolyfillsLoader.js';
-import { noModuleSupportTest, fileTypes } from '../src/utils.js';
-import { PolyfillsLoaderConfig } from '../src/types.js';
+import { injectPolyfillsLoader } from '../src/injectPolyfillsLoader.ts';
+import { noModuleSupportTest, fileTypes } from '../src/utils.ts';
+import { PolyfillsLoaderConfig } from '../src/types.ts';
 
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
@@ -15,7 +15,7 @@ const defaultConfig = {
 };
 
 async function testSnapshot(name: string, htmlString: string, config: PolyfillsLoaderConfig) {
-  const snapshotPath = path.join(__dirname, 'snapshots', 'injectPolyfillsLoader', `${name}.html`);
+  const snapshotPath = path.join(import.meta.dirname, 'snapshots', 'injectPolyfillsLoader', `${name}.html`);
   const result = await injectPolyfillsLoader(htmlString, config);
 
   if (updateSnapshots) {

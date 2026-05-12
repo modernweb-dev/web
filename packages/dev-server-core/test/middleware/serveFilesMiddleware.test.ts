@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 import path from 'path';
 
-import { createTestServer } from '../helpers.js';
+import { createTestServer } from '../helpers.ts';
 
 describe('serveFilesMiddleware', () => {
   it('can serve files outside of the root directory', async () => {
     const { host, server } = await createTestServer({
       plugins: [{ name: 'test' }],
       rootDir: path.resolve(
-        __dirname,
+        import.meta.dirname,
         '..',
         'fixtures',
         'outside-root-dir',

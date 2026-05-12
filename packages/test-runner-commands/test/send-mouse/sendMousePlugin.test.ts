@@ -4,15 +4,15 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { webdriverLauncher } from '@web/test-runner-webdriver';
 import { playwrightLauncher } from '@web/test-runner-playwright';
-import { sendMousePlugin } from '../../src/sendMousePlugin.js';
-import { startSeleniumServer } from '../selenium-server.js';
+import { sendMousePlugin } from '../../src/sendMousePlugin.ts';
+import { startSeleniumServer } from '../selenium-server.ts';
 
 describe('sendMousePlugin', function test() {
   this.timeout(50000);
 
   it('can send mouse on puppeteer', async () => {
     await runTests({
-      files: [path.join(__dirname, 'browser-test.js')],
+      files: [path.join(import.meta.dirname, 'browser-test.js')],
       browsers: [chromeLauncher()],
       plugins: [sendMousePlugin()],
     });
@@ -20,7 +20,7 @@ describe('sendMousePlugin', function test() {
 
   it('can send mouse on playwright', async () => {
     await runTests({
-      files: [path.join(__dirname, 'browser-test.js')],
+      files: [path.join(import.meta.dirname, 'browser-test.js')],
       browsers: [
         playwrightLauncher({ product: 'chromium' }),
         playwrightLauncher({ product: 'firefox' }),
@@ -52,7 +52,7 @@ describe('sendMousePlugin', function test() {
 
     it('can send mouse on webdriver', async () => {
       await runTests({
-        files: [path.join(__dirname, 'browser-test.js')],
+        files: [path.join(import.meta.dirname, 'browser-test.js')],
         concurrency: 1,
         browsers: [
           webdriverLauncher({

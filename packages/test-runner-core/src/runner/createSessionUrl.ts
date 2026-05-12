@@ -1,7 +1,7 @@
 import path from 'path';
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
-import { PARAM_SESSION_ID } from '../utils/constants.js';
-import { BasicTestSession } from '../test-session/BasicTestSession.js';
+import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
+import { PARAM_SESSION_ID } from '../utils/constants.ts';
+import { BasicTestSession } from '../test-session/BasicTestSession.ts';
 
 const toBrowserPathRegExp = new RegExp(path.sep === '\\' ? '\\\\' : path.sep, 'g');
 

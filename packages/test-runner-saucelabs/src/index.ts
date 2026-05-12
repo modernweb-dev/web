@@ -1,3 +1,3 @@
-export { createSauceLabsLauncher } from './createSauceLabsLauncher.js';
-export type { SauceLabsLauncher } from './SauceLabsLauncher.js';
-export type { SauceLabsLauncherManager } from './SauceLabsLauncherManager.js';
+export { createSauceLabsLauncher } from './createSauceLabsLauncher.ts';
+export type { SauceLabsLauncher } from './SauceLabsLauncher.ts';
+export type { SauceLabsLauncherManager } from './SauceLabsLauncherManager.ts';

@@ -17,8 +17,7 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "engines": {
@@ -26,8 +25,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test-remote/**/*.test.ts --require tsx/cjs --reporter dot",
-    "test:watch": "mocha test-remote/**/*.test.ts --require tsx/cjs --watch --watch-files src,test"
+    "test": "mocha test-remote/**/*.test.ts --reporter dot",
+    "test:watch": "mocha test-remote/**/*.test.ts --watch --watch-files src,test"
   },
   "files": [
     "*.d.ts",
@@ -58,5 +57,6 @@
     "@web/dev-server-esbuild": "^1.0.0",
     "@web/dev-server-legacy": "^2.1.0",
     "portfinder": "^1.0.32"
-  }
+  },
+  "type": "module"
 }

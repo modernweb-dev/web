@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-import { startTestRunner } from './startTestRunner.js';
+import { startTestRunner } from './startTestRunner.ts';
 
 startTestRunner();

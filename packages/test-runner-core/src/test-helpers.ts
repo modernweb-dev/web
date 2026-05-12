@@ -1,12 +1,15 @@
 /* eslint-disable no-async-promise-executor, no-inner-declarations */
 import { getPortPromise } from 'portfinder';
 import path from 'path';
-import { TestRunner, TestRunnerCoreConfig } from './index.js';
-import { Logger } from './logger/Logger.js';
-import { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession.js';
-import { SESSION_STATUS } from './test-session/TestSessionStatus.js';
-import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.js';
+import { TestRunner, TestRunnerCoreConfig } from './index.ts';
+import { Logger } from './logger/Logger.ts';
+import { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession.ts';
+import { SESSION_STATUS } from './test-session/TestSessionStatus.ts';
+import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.ts';
 
+
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const logger: Logger = {
   ...console,
   debug() {
@@ -22,7 +25,7 @@ const minuteMs = secondMs * 60;
 
 const defaultBaseConfig: Partial<TestRunnerCoreConfig> = {
   watch: false,
-  rootDir: path.join(__dirname, '..', '..', '..'),
+  rootDir: path.join(import.meta.dirname, '..', '..', '..'),
   testFramework: {
     path: require.resolve('@web/test-runner-mocha/dist/autorun.js'),
   },

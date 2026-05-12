@@ -16,13 +16,11 @@
   "main": "browser/commands.mjs",
   "exports": {
     ".": {
-      "types": "./browser/commands.d.ts",
-      "default": "./browser/commands.mjs"
+      "types": "./browser/commands.d.ts"
     },
     "./plugins": {
       "types": "./plugins.d.ts",
-      "import": "./plugins.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/plugins.js"
     }
   },
   "engines": {
@@ -30,8 +28,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha test/**/*.test.ts --require tsx/cjs --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require tsx/cjs --watch --watch-files src,test --watch-ignore **/*.snap.js"
+    "test:node": "mocha test/**/*.test.ts --reporter dot",
+    "test:watch": "mocha test/**/*.test.ts --watch --watch-files src,test --watch-ignore **/*.snap.js"
   },
   "files": [
     "*.d.ts",
@@ -57,5 +55,6 @@
     "@web/test-runner-playwright": "^0.11.0",
     "@web/test-runner-webdriver": "^0.9.0",
     "mocha": "^10.8.2"
-  }
+  },
+  "type": "module"
 }

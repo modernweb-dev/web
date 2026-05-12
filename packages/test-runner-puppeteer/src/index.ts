@@ -1,1 +1,1 @@
-export { puppeteerLauncher } from './puppeteerLauncher.js';
+export { puppeteerLauncher } from './puppeteerLauncher.ts';

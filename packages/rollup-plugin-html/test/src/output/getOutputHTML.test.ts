@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import path from 'path';
-import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.js';
-import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.js';
-import { html } from '../../utils.js';
+import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.ts';
+import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.ts';
+import { html } from '../../utils.ts';
 
 describe('getOutputHTML()', () => {
   const defaultEntrypointBundles: Record<string, EntrypointBundle> = {
@@ -165,7 +165,7 @@ describe('getOutputHTML()', () => {
   });
 
   it('can converts absolute urls to full absolute urls', async () => {
-    const rootDir = path.resolve(__dirname, '..', '..', 'fixtures', 'assets');
+    const rootDir = path.resolve(import.meta.dirname, '..', '..', 'fixtures', 'assets');
     const hashed = new Map<string, string>();
     hashed.set(path.join(rootDir, 'image-social.png'), 'image-social-xxx.png');
 
