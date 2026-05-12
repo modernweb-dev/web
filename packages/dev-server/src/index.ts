@@ -1,4 +1,6 @@
 export { RollupNodeResolveOptions } from '@web/dev-server-rollup';
+export { fromRollup, rollupAdapter, fromVite, viteAdapter } from '@web/dev-server-rollup';
+export type { VitePlugin, ViteDevServerLike, ViteHtmlTagDescriptor, ViteHtmlTransformResult } from '@web/dev-server-rollup';
 export { startDevServer } from './startDevServer.js';
 export { mergeConfigs } from './config/mergeConfigs.js';
 export { DevServerStartError } from './DevServerStartError.js';
