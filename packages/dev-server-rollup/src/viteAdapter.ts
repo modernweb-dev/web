@@ -156,7 +156,15 @@ function serializeTag(tag: ViteHtmlTagDescriptor): string {
 }
 
 /**
+ * Case-insensitive string search helper — avoids regex and thus any ReDoS concern.
+ */
+function indexOfCI(haystack: string, needle: string): number {
+  return haystack.toLowerCase().indexOf(needle.toLowerCase());
+}
+
+/**
  * Apply transformIndexHtml tags to an HTML string.
+ * Uses plain string operations (no regex on untrusted input) to avoid ReDoS.
  * Falls back to inserting before </body> when </head> is absent, and
  * appends to the end when </body> is also absent.
  */
@@ -164,30 +172,42 @@ function applyTagsToHtml(html: string, tags: ViteHtmlTagDescriptor[]): string {
   for (const tag of tags) {
     const inject = tag.injectTo ?? 'head';
     const serialized = serializeTag(tag);
+
     if (inject === 'head-prepend') {
-      if (/<head[^>]*>/i.test(html)) {
-        html = html.replace(/(<head[^>]*>)/i, `$1${serialized}`);
+      const idx = indexOfCI(html, '<head');
+      if (idx !== -1) {
+        const closeIdx = html.indexOf('>', idx);
+        const insertAt = closeIdx !== -1 ? closeIdx + 1 : idx + 5;
+        html = html.slice(0, insertAt) + serialized + html.slice(insertAt);
       } else {
         html = serialized + html;
       }
     } else if (inject === 'head') {
-      if (/<\/head>/i.test(html)) {
-        html = html.replace(/<\/head>/i, `${serialized}</head>`);
-      } else if (/<\/body>/i.test(html)) {
-        html = html.replace(/<\/body>/i, `${serialized}</body>`);
+      const idx = indexOfCI(html, '</head>');
+      if (idx !== -1) {
+        html = html.slice(0, idx) + serialized + html.slice(idx);
       } else {
-        html = html + serialized;
+        const bodyCloseIdx = indexOfCI(html, '</body>');
+        if (bodyCloseIdx !== -1) {
+          html = html.slice(0, bodyCloseIdx) + serialized + html.slice(bodyCloseIdx);
+        } else {
+          html = html + serialized;
+        }
       }
     } else if (inject === 'body-prepend') {
-      if (/<body[^>]*>/i.test(html)) {
-        html = html.replace(/(<body[^>]*>)/i, `$1${serialized}`);
+      const idx = indexOfCI(html, '<body');
+      if (idx !== -1) {
+        const closeIdx = html.indexOf('>', idx);
+        const insertAt = closeIdx !== -1 ? closeIdx + 1 : idx + 5;
+        html = html.slice(0, insertAt) + serialized + html.slice(insertAt);
       } else {
         html = serialized + html;
       }
     } else {
       // 'body'
-      if (/<\/body>/i.test(html)) {
-        html = html.replace(/<\/body>/i, `${serialized}</body>`);
+      const idx = indexOfCI(html, '</body>');
+      if (idx !== -1) {
+        html = html.slice(0, idx) + serialized + html.slice(idx);
       } else {
         html = html + serialized;
       }
@@ -416,7 +436,7 @@ export function viteAdapter(
           ) {
             const errorMessage = red(`Could not resolve import ${cyan(`"${source}"`)}.`);
             if (typeof code === 'string' && typeof column === 'number' && typeof line === 'number') {
-              throw new PluginSyntaxError(errorMessage, filePath, code, column, line);
+              throw new PluginSyntaxError(errorMessage, filePath, code, line, column);
             } else {
               throw new PluginError(errorMessage);
             }
@@ -460,7 +480,7 @@ export function viteAdapter(
                 'This path could not be converted to a browser path. Please file an issue with a reproduction.',
               );
             if (typeof code === 'string' && typeof column === 'number' && typeof line === 'number') {
-              throw new PluginSyntaxError(errorMessage, filePath, code, column, line);
+              throw new PluginSyntaxError(errorMessage, filePath, code, line, column);
             } else {
               throw new PluginError(errorMessage);
             }
