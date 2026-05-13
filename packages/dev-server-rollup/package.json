@@ -22,11 +22,11 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
-    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 \"test/node/**/*.test.ts\"",
-    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch \"test/node/**/*.test.ts\""
+    "test:node": "node --test --test-force-exit --test-timeout 120000 \"test/node/**/*.test.ts\"",
+    "test:watch": "node --test --test-force-exit --watch \"test/node/**/*.test.ts\""
   },
   "files": [
     "*.d.ts",

@@ -21,12 +21,12 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "test": "npm run test:node",
-    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
-    "test:update-snapshots": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
+    "test:node": "node --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
+    "test:update-snapshots": "node --test --test-force-exit --test-timeout 120000 'test/**/*.test.mjs'",
     "test:watch": "npm run test:node -- --watch"
   },
   "files": [

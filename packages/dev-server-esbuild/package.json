@@ -22,14 +22,14 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "build": "tsc",
     "start:demo:jsx": "es-dev-server --config demo/jsx/server.config.js",
     "start:demo:ts": "es-dev-server --config demo/ts/server.config.js",
-    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 60000 test/**/*.test.ts",
-    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch test/**/*.test.ts"
+    "test:node": "node --test --test-force-exit --test-timeout 60000 test/**/*.test.ts",
+    "test:watch": "node --test --test-force-exit --watch test/**/*.test.ts"
   },
   "files": [
     "*.d.ts",

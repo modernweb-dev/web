@@ -19,12 +19,12 @@ jobs:
       - name: Workaround for Chrome sandbox issue in Ubuntu 24.04
         run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 
-      - name: Setup Node 24
+      - name: Setup Node 22
         uses: actions/setup-node@v4
         env:
           FORCE_COLOR: 0
         with:
-          node-version: 24
+          node-version: 22
           cache: npm
 
       - name: Install Dependencies

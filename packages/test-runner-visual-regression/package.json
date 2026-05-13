@@ -26,12 +26,12 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "node --experimental-transform-types --test --test-force-exit --test-timeout 120000 \"test/**/*.test.ts\"",
-    "test:watch": "node --experimental-transform-types --test --test-force-exit --watch \"test/**/*.test.ts\""
+    "test:node": "node --test --test-force-exit --test-timeout 120000 \"test/**/*.test.ts\"",
+    "test:watch": "node --test --test-force-exit --watch \"test/**/*.test.ts\""
   },
   "files": [
     "*.d.ts",
