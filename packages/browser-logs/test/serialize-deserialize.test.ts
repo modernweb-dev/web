@@ -8,7 +8,12 @@ import { deserialize } from '../src/deserialize.ts';
 
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
+const REGEXP_ESM_EXPORT = /^export\s+(?:default\s+)?(?:function|class|const|let|var|async\s+function)\s+/gm;
+const REGEXP_ESM_EXPORT_EMPTY = /^export\s*\{\s*\}\s*;?\s*$/gm;
+const rawSerializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
+const serializeScript = rawSerializeScript
+  .replace(REGEXP_ESM_EXPORT_EMPTY, '')
+  .replace(REGEXP_ESM_EXPORT, match => match.replace(/^export\s+/, ''));
 const defaultOptions = { browserRootDir: import.meta.dirname, cwd: import.meta.dirname };
 
 describe('serialize deserialize', function () {
@@ -17,7 +22,7 @@ describe('serialize deserialize', function () {
   let browser: Browser;
   let page: Page;
   before(async () => {
-    browser = await puppeteer.launch({ headless: true });
+    browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
     page = await browser.newPage();
     await page.goto('about:blank');
     await page.evaluate(
@@ -349,10 +354,10 @@ describe('serialize deserialize', function () {
     const deserialized = await deserialize(serialized, defaultOptions);
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include('2:29');
-    expect(deserialized).to.include('3:29');
-    expect(deserialized).to.include('4:29');
-    expect(deserialized).to.include('5:38');
+    expect(deserialized).to.include('2:19');
+    expect(deserialized).to.include('3:19');
+    expect(deserialized).to.include('4:19');
+    expect(deserialized).to.include('5:28');
   });
 
   it('handles errors in objects', async () => {
@@ -365,10 +370,10 @@ describe('serialize deserialize', function () {
     const deserialized = await deserialize(serialized, defaultOptions);
     expect(deserialized.myError).to.be.a('string');
     expect(deserialized.myError).to.include('my error msg');
-    expect(deserialized.myError).to.include('2:29');
-    expect(deserialized.myError).to.include('3:29');
-    expect(deserialized.myError).to.include('4:29');
-    expect(deserialized.myError).to.include('5:49');
+    expect(deserialized.myError).to.include('2:19');
+    expect(deserialized.myError).to.include('3:19');
+    expect(deserialized.myError).to.include('4:19');
+    expect(deserialized.myError).to.include('5:39');
   });
 
   it('handles errors in arrays', async () => {
@@ -381,19 +386,19 @@ describe('serialize deserialize', function () {
     const deserialized = await deserialize(serialized, defaultOptions);
     expect(deserialized[0]).to.be.a('string');
     expect(deserialized[0]).to.include('my error msg');
-    expect(deserialized[0]).to.include('2:29');
-    expect(deserialized[0]).to.include('3:29');
-    expect(deserialized[0]).to.include('4:29');
-    expect(deserialized[0]).to.include('5:39');
+    expect(deserialized[0]).to.include('2:19');
+    expect(deserialized[0]).to.include('3:19');
+    expect(deserialized[0]).to.include('4:19');
+    expect(deserialized[0]).to.include('5:29');
     expect(deserialized[1]).to.be.a('string');
     expect(deserialized[1]).to.include('my error msg');
-    expect(deserialized[1]).to.include('2:29');
-    expect(deserialized[1]).to.include('3:29');
-    expect(deserialized[1]).to.include('5:44');
+    expect(deserialized[1]).to.include('2:19');
+    expect(deserialized[1]).to.include('3:19');
+    expect(deserialized[1]).to.include('5:34');
     expect(deserialized[2]).to.be.a('string');
     expect(deserialized[2]).to.include('my error msg');
-    expect(deserialized[2]).to.include('2:29');
-    expect(deserialized[2]).to.include('5:49');
+    expect(deserialized[2]).to.include('2:19');
+    expect(deserialized[2]).to.include('5:39');
   });
 
   it('can map stack trace locations', async () => {
@@ -444,10 +449,10 @@ describe('serialize deserialize', function () {
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include(`2:29`);
-    expect(deserialized).to.include(`3:29`);
-    expect(deserialized).to.include(`4:29`);
-    expect(deserialized).to.include(`5:38`);
+    expect(deserialized).to.include(`2:19`);
+    expect(deserialized).to.include(`3:19`);
+    expect(deserialized).to.include(`4:19`);
+    expect(deserialized).to.include(`5:28`);
   });
 
   it('can define a cwd above current directory', async () => {
@@ -463,10 +468,10 @@ describe('serialize deserialize', function () {
     });
     expect(deserialized).to.be.a('string');
     expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include(`2:29`);
-    expect(deserialized).to.include(`3:29`);
-    expect(deserialized).to.include(`4:29`);
-    expect(deserialized).to.include(`5:38`);
+    expect(deserialized).to.include(`2:19`);
+    expect(deserialized).to.include(`3:19`);
+    expect(deserialized).to.include(`4:19`);
+    expect(deserialized).to.include(`5:28`);
   });
 
   it('handles null', async () => {
