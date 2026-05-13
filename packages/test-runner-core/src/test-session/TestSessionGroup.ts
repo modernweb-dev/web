@@ -1,6 +1,6 @@
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
-import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.ts';
+import type { BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
+import type { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
+import type { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.ts';
 
 export interface TestSessionGroup {
   name: string;

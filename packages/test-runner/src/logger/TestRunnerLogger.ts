@@ -1,9 +1,12 @@
-import { Logger, ErrorWithLocation } from '@web/test-runner-core';
+import type { Logger, ErrorWithLocation } from '@web/test-runner-core';
 
 export class TestRunnerLogger implements Logger {
   loggedSyntaxErrors = new Map<string, ErrorWithLocation[]>();
+  private debugLogging: boolean;
 
-  constructor(private debugLogging: boolean = false) {}
+  constructor(debugLogging: boolean = false) {
+    this.debugLogging = debugLogging;
+  }
 
   log(...messages: unknown[]) {
     console.log(...messages);

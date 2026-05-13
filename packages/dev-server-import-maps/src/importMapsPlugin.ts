@@ -1,4 +1,5 @@
-import { Plugin, Logger, getRequestFilePath } from '@web/dev-server-core';
+import { getRequestFilePath } from '@web/dev-server-core';
+import type { Plugin, Logger } from '@web/dev-server-core';
 import {
   ParsedImportMap,
   parse as parseFromObject,

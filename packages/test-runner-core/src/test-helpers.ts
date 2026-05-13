@@ -1,11 +1,12 @@
 /* eslint-disable no-async-promise-executor, no-inner-declarations */
 import { getPortPromise } from 'portfinder';
 import path from 'path';
-import { TestRunner, TestRunnerCoreConfig } from './index.ts';
-import { Logger } from './logger/Logger.ts';
-import { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession.ts';
+import { TestRunner } from './index.ts';
+import type { TestRunnerCoreConfig } from './index.ts';
+import type { Logger } from './logger/Logger.ts';
+import type { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession.ts';
 import { SESSION_STATUS } from './test-session/TestSessionStatus.ts';
-import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.ts';
+import type { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.ts';
 
 
 import { createRequire } from 'module';

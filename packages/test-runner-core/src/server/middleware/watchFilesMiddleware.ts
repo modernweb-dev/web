@@ -1,4 +1,4 @@
-import { Middleware, Context } from '@web/dev-server-core';
+import type { Middleware, Context } from '@web/dev-server-core';
 import { DepGraph } from 'dependency-graph';
 import debounce from 'debounce';
 import path from 'path';
@@ -6,7 +6,7 @@ import { FSWatcher } from 'chokidar';
 
 import { TestSessionManager } from '../../test-session/TestSessionManager.ts';
 import { constants } from '../../index.ts';
-import { TestSession } from '../../test-session/TestSession.ts';
+import type { TestSession } from '../../test-session/TestSession.ts';
 
 const IGNORED_404s = ['favicon.ico'];
 const { PARAM_SESSION_ID } = constants;

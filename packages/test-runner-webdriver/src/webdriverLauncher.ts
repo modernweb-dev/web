@@ -29,7 +29,11 @@ export class WebdriverLauncher implements BrowserLauncher {
   private isIE = false;
   private pendingHeartbeat?: ReturnType<typeof setInterval>;
 
-  constructor(private options: Capabilities.WebdriverIOConfig) {}
+  private options: Capabilities.WebdriverIOConfig;
+
+  constructor(options: Capabilities.WebdriverIOConfig) {
+    this.options = options;
+  }
 
   async initialize(config: TestRunnerCoreConfig) {
     this.config = config;

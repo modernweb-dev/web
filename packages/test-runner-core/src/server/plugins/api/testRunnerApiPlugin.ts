@@ -1,17 +1,19 @@
-import { Context, getRequestFilePath, ServerStartParams, WebSocket } from '@web/dev-server-core';
-import { MapBrowserUrl } from '@web/browser-logs';
+import { getRequestFilePath, WebSocket } from '@web/dev-server-core';
+import type { Context, ServerStartParams } from '@web/dev-server-core';
+import type { MapBrowserUrl } from '@web/browser-logs';
 import parse from 'co-body';
 
-import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.ts';
+import type { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.ts';
 import { TestSessionManager } from '../../../test-session/TestSessionManager.ts';
 import { PARAM_SESSION_ID } from '../../../utils/constants.ts';
-import { TestRunnerPlugin } from '../../TestRunnerPlugin.ts';
+import type { TestRunnerPlugin } from '../../TestRunnerPlugin.ts';
 import { SESSION_STATUS } from '../../../test-session/TestSessionStatus.ts';
-import { TestSession } from '../../../test-session/TestSession.ts';
+import type { TestSession } from '../../../test-session/TestSession.ts';
 import { parseBrowserResult } from './parseBrowserResult.ts';
 import { TestRunner } from '../../../runner/TestRunner.ts';
-import { createSourceMapFunction, SourceMapFunction } from './createSourceMapFunction.ts';
-import { DebugTestSession } from '../../../test-session/DebugTestSession.ts';
+import { createSourceMapFunction } from './createSourceMapFunction.ts';
+import type { SourceMapFunction } from './createSourceMapFunction.ts';
+import type { DebugTestSession } from '../../../test-session/DebugTestSession.ts';
 
 interface SessionMessage extends Record<string, unknown> {
   sessionId: string;

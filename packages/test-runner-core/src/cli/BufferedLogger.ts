@@ -1,9 +1,12 @@
-import { Logger, ErrorWithLocation } from '../logger/Logger.ts';
+import type { Logger, ErrorWithLocation } from '../logger/Logger.ts';
 
 export class BufferedLogger implements Logger {
   public buffer: { method: keyof Logger; args?: any[] }[] = [];
+  private parent: Logger;
 
-  constructor(private parent: Logger) {}
+  constructor(parent: Logger) {
+    this.parent = parent;
+  }
 
   log(...messages: unknown[]) {
     this.buffer.push({ method: 'log', args: messages });

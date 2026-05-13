@@ -1,5 +1,5 @@
 import { DevServerConfig } from '../config/DevServerConfig.ts';
-import { Logger } from '@web/dev-server-core';
+import type { Logger } from '@web/dev-server-core';
 import internalIp from 'internal-ip';
 import { bold, cyan, white } from 'nanocolors';
 

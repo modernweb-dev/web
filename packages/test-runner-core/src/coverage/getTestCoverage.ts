@@ -9,8 +9,8 @@ import type {
   Range,
 } from 'istanbul-lib-coverage';
 const { createCoverageMap } = istanbulLibCoverage;
-import { TestSession } from '../test-session/TestSession.ts';
-import { CoverageConfig } from '../config/TestRunnerCoreConfig.ts';
+import type { TestSession } from '../test-session/TestSession.ts';
+import type { CoverageConfig } from '../config/TestRunnerCoreConfig.ts';
 
 export const coverageTypes: (keyof CoverageSummaryData)[] = [
   'lines',

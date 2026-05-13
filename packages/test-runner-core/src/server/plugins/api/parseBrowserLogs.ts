@@ -1,8 +1,9 @@
-import { deserialize, MapStackLocation } from '@web/browser-logs';
-import { MapBrowserUrl } from '@web/browser-logs';
+import { deserialize } from '@web/browser-logs';
+import type { MapStackLocation } from '@web/browser-logs';
+import type { MapBrowserUrl } from '@web/browser-logs';
 
-import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.ts';
-import { TestSession } from '../../../test-session/TestSession.ts';
+import type { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.ts';
+import type { TestSession } from '../../../test-session/TestSession.ts';
 import { mapAsync } from '../../../utils/async.ts';
 
 interface BrowserLog {

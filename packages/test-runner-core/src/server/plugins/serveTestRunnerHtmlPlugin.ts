@@ -1,11 +1,12 @@
-import { Context, getRequestFilePath } from '@web/dev-server-core';
+import { getRequestFilePath } from '@web/dev-server-core';
+import type { Context } from '@web/dev-server-core';
 
 import { PARAM_SESSION_ID, PARAM_TEST_FILE } from '../../utils/constants.ts';
-import { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig.ts';
+import type { TestRunnerCoreConfig } from '../../config/TestRunnerCoreConfig.ts';
 import { createTestFileImportPath } from '../utils.ts';
 import { trackBrowserLogs } from './trackBrowserLogs.ts';
 import { TestSessionManager } from '../../test-session/TestSessionManager.ts';
-import { TestRunnerGroupConfig } from '../../config/TestRunnerGroupConfig.ts';
+import type { TestRunnerGroupConfig } from '../../config/TestRunnerGroupConfig.ts';
 
 const iframeModePage = `
 <!DOCTYPE html>

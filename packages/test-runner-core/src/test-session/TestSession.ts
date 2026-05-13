@@ -1,6 +1,6 @@
-import { CoverageMapData } from 'istanbul-lib-coverage';
-import { TestSessionStatus } from './TestSessionStatus.ts';
-import { BasicTestSession } from './BasicTestSession.ts';
+import type { CoverageMapData } from 'istanbul-lib-coverage';
+import type { TestSessionStatus } from './TestSessionStatus.ts';
+import type { BasicTestSession } from './BasicTestSession.ts';
 
 export interface TestResultError {
   message: string;

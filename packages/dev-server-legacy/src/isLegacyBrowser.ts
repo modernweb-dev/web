@@ -2,7 +2,7 @@
 import { resolveUserAgent, ResolvedUserAgent } from 'browserslist-useragent';
 import browserslist from 'browserslist';
 import * as caniuse from 'caniuse-api';
-import { Logger, Context } from '@web/dev-server-core';
+import type { Logger, Context } from '@web/dev-server-core';
 
 /**
  * We compile to es modules when the browser supports module scripts, dynamic imports

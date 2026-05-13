@@ -15,9 +15,9 @@ import { getPortPromise } from 'portfinder';
 import path from 'path';
 import { cpus } from 'os';
 
-import { TestRunnerCliArgs } from './readCliArgs.ts';
+import type { TestRunnerCliArgs } from './readCliArgs.ts';
 import { mergeConfigs } from './mergeConfigs.ts';
-import { TestRunnerConfig } from './TestRunnerConfig.ts';
+import type { TestRunnerConfig } from './TestRunnerConfig.ts';
 import { esbuildPlugin, nodeResolvePlugin } from '@web/dev-server';
 import { TestRunnerStartError } from '../TestRunnerStartError.ts';
 import { collectGroupConfigs } from './collectGroupConfigs.ts';

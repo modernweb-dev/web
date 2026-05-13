@@ -1,8 +1,9 @@
-import { MapStackLocation, parseStackTrace } from '@web/browser-logs';
-import { MapBrowserUrl } from '@web/browser-logs';
+import { parseStackTrace } from '@web/browser-logs';
+import type { MapStackLocation } from '@web/browser-logs';
+import type { MapBrowserUrl } from '@web/browser-logs';
 
-import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.ts';
-import {
+import type { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.ts';
+import type {
   TestResult,
   TestResultError,
   TestSession,

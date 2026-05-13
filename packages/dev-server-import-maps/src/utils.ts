@@ -1,5 +1,6 @@
 import picoMatch from 'picomatch';
-import { Context, getHtmlPath } from '@web/dev-server-core';
+import { getHtmlPath } from '@web/dev-server-core';
+import type { Context } from '@web/dev-server-core';
 import { Element as ElementAst } from 'parse5';
 import { getAttribute } from '@web/parse5-utils';
 import { ParsedImportMap } from '@import-maps/resolve';

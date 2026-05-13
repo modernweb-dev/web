@@ -18,7 +18,11 @@ export class SeleniumLauncher implements BrowserLauncher {
   private isIE = false;
   private pendingHeartbeat!: ReturnType<typeof setInterval>;
 
-  constructor(private driverBuilder: Builder) {}
+  private driverBuilder: Builder;
+
+  constructor(driverBuilder: Builder) {
+    this.driverBuilder = driverBuilder;
+  }
 
   async initialize(config: TestRunnerCoreConfig) {
     this.config = config;

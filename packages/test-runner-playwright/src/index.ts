@@ -2,14 +2,13 @@ import { LaunchOptions, devices } from 'playwright';
 import * as playwright from 'playwright';
 import {
   PlaywrightLauncher,
-  ProductType,
-  CreateBrowserContextFn,
-  CreatePageFn,
 } from './PlaywrightLauncher.ts';
+import type { ProductType, CreateBrowserContextFn, CreatePageFn } from './PlaywrightLauncher.ts';
 
 const validProductTypes: ProductType[] = ['chromium', 'firefox', 'webkit'];
 
-export { ProductType, playwright };
+export type { ProductType };
+export { playwright };
 
 export interface PlaywrightLauncherArgs {
   product?: ProductType;

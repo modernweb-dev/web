@@ -1,7 +1,8 @@
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
+import type { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
 import { createTestSessions } from './createSessionGroups.ts';
-import { TestSession } from '../test-session/TestSession.ts';
-import { getTestCoverage, TestCoverage } from '../coverage/getTestCoverage.ts';
+import type { TestSession } from '../test-session/TestSession.ts';
+import { getTestCoverage } from '../coverage/getTestCoverage.ts';
+import type { TestCoverage } from '../coverage/getTestCoverage.ts';
 import { TestScheduler } from './TestScheduler.ts';
 import { TestSessionManager } from '../test-session/TestSessionManager.ts';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus.ts';
@@ -9,8 +10,8 @@ import { EventEmitter } from '../utils/EventEmitter.ts';
 import { createSessionUrl } from './createSessionUrl.ts';
 import { createDebugSessions } from './createDebugSessions.ts';
 import { TestRunnerServer } from '../server/TestRunnerServer.ts';
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
-import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.ts';
+import type { BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
+import type { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.ts';
 
 interface EventMap {
   'test-run-started': { testRun: number };

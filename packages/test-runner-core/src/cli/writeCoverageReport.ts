@@ -1,8 +1,8 @@
 import reports from 'istanbul-reports';
 import libReport from 'istanbul-lib-report';
 
-import { CoverageConfig } from '../config/TestRunnerCoreConfig.ts';
-import { TestCoverage } from '../coverage/getTestCoverage.ts';
+import type { CoverageConfig } from '../config/TestRunnerCoreConfig.ts';
+import type { TestCoverage } from '../coverage/getTestCoverage.ts';
 
 export function writeCoverageReport(testCoverage: TestCoverage, config: CoverageConfig) {
   // create a context for report generation

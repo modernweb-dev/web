@@ -1,11 +1,11 @@
-import { Middleware } from '@web/dev-server-core';
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
-import { TestFramework } from '../test-framework/TestFramework.ts';
-import { TestSession } from '../test-session/TestSession.ts';
-import { Reporter } from '../reporter/Reporter.ts';
-import { Logger } from '../logger/Logger.ts';
-import { TestRunnerPlugin } from '../server/TestRunnerPlugin.ts';
-import { ReportType } from 'istanbul-reports';
+import type { Middleware } from '@web/dev-server-core';
+import type { BrowserLauncher } from '../browser-launcher/BrowserLauncher.ts';
+import type { TestFramework } from '../test-framework/TestFramework.ts';
+import type { TestSession } from '../test-session/TestSession.ts';
+import type { Reporter } from '../reporter/Reporter.ts';
+import type { Logger } from '../logger/Logger.ts';
+import type { TestRunnerPlugin } from '../server/TestRunnerPlugin.ts';
+import type { ReportType } from 'istanbul-reports';
 
 export interface CoverageThresholdConfig {
   statements: number;

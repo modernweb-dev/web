@@ -2,7 +2,7 @@ import convertSourceMap from 'convert-source-map';
 import type { SourceMapConverter } from 'convert-source-map';
 const { mapFileCommentRegex, fromSource, fromJSON } = convertSourceMap;
 import path from 'path';
-import { RequestOptions } from 'http';
+import type { RequestOptions } from 'http';
 
 import { request } from './request.ts';
 

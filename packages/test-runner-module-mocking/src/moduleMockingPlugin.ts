@@ -1,6 +1,7 @@
-import { Plugin } from '@web/dev-server-core';
+import type { Plugin } from '@web/dev-server-core';
 import { parse } from 'es-module-lexer';
-import { createResolveImport, ResolveImport } from './createResolveImport.ts';
+import { createResolveImport } from './createResolveImport.ts';
+import type { ResolveImport } from './createResolveImport.ts';
 import { stripColor } from './stripColor.ts';
 
 /**

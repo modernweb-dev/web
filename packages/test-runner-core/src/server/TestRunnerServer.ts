@@ -1,12 +1,14 @@
-import { DevServer, Plugin } from '@web/dev-server-core';
+import { DevServer } from '@web/dev-server-core';
+import type { Plugin } from '@web/dev-server-core';
 import chokidar from 'chokidar';
 
-import { RunSessions, watchFilesMiddleware } from './middleware/watchFilesMiddleware.ts';
+import { watchFilesMiddleware } from './middleware/watchFilesMiddleware.ts';
+import type { RunSessions } from './middleware/watchFilesMiddleware.ts';
 import { cacheMiddleware } from './middleware/cacheMiddleware.ts';
 import { serveTestRunnerHtmlPlugin } from './plugins/serveTestRunnerHtmlPlugin.ts';
 import { serveTestFrameworkPlugin } from './plugins/serveTestFrameworkPlugin.ts';
 import { testRunnerApiPlugin } from './plugins/api/testRunnerApiPlugin.ts';
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
+import type { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.ts';
 import { TestSessionManager } from '../test-session/TestSessionManager.ts';
 import { TestRunner } from '../runner/TestRunner.ts';
 
