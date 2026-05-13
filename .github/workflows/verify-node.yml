@@ -17,7 +17,7 @@ jobs:
           - '18'
           - '20'
           - '22'
-          - 'latest'
+          - '24'
 
     steps:
       - uses: actions/checkout@v4
@@ -56,6 +56,8 @@ jobs:
 
       - name: Test
         run: npm run test:node
+        env:
+          NODE_OPTIONS: ${{ (matrix.node-version != '18' && matrix.node-version != '20') && '--no-experimental-strip-types' || '' }}
 
   verify-windows:
     timeout-minutes: 30
