@@ -29,12 +29,7 @@ export class PluginTransformCache {
 
   private lruCache: LRUCache<string, CacheEntry>;
 
-  private fileWatcher: FSWatcher;
-  private rootDir: string;
-
-  constructor(fileWatcher: FSWatcher, rootDir: string) {
-    this.fileWatcher = fileWatcher;
-    this.rootDir = rootDir;
+  constructor(private fileWatcher: FSWatcher, private rootDir: string) {
     this.lruCache = new LRUCache<string, CacheEntry>({
       sizeCalculation: (e, key) => e.body.length + (key ? key.length : 0),
       maxSize: 52428800,
