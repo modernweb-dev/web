@@ -1,9 +1,9 @@
 import { getPortPromise } from 'portfinder';
 import path from 'path';
 
-import { DevServerCliArgs } from './readCliArgs.js';
+import { type DevServerCliArgs } from './readCliArgs.js';
 import { mergeConfigs } from './mergeConfigs.js';
-import { DevServerConfig } from './DevServerConfig.js';
+import { type DevServerConfig } from './DevServerConfig.js';
 import { esbuildPlugin } from '../plugins/esbuildPlugin.js';
 import { watchPlugin } from '../plugins/watchPlugin.js';
 import { nodeResolvePlugin } from '../plugins/nodeResolvePlugin.js';

@@ -1,6 +1,6 @@
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
-import { TestSessionManager } from '../test-session/TestSessionManager.js';
-import { TestSession, TestResultError } from '../test-session/TestSession.js';
+import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
+import { type TestSessionManager } from '../test-session/TestSessionManager.js';
+import { type TestSession, type TestResultError } from '../test-session/TestSession.js';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
 import { TestScheduler } from './TestScheduler.js';
 

@@ -1,4 +1,8 @@
-import { CoverageConfig, TestRunnerCoreConfig, TestRunnerGroupConfig } from '@web/test-runner-core';
+import {
+  type CoverageConfig,
+  type TestRunnerCoreConfig,
+  type TestRunnerGroupConfig,
+} from '@web/test-runner-core';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import {
   emulateMediaPlugin,
@@ -14,9 +18,9 @@ import { getPortPromise } from 'portfinder';
 import path from 'path';
 import { cpus } from 'os';
 
-import { TestRunnerCliArgs } from './readCliArgs.js';
+import { type TestRunnerCliArgs } from './readCliArgs.js';
 import { mergeConfigs } from './mergeConfigs.js';
-import { TestRunnerConfig } from './TestRunnerConfig.js';
+import { type TestRunnerConfig } from './TestRunnerConfig.js';
 import { esbuildPlugin, nodeResolvePlugin } from '@web/dev-server';
 import { TestRunnerStartError } from '../TestRunnerStartError.js';
 import { collectGroupConfigs } from './collectGroupConfigs.js';

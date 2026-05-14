@@ -1,5 +1,5 @@
 import path from 'path';
-import { Document } from 'parse5';
+import type { Document } from 'parse5';
 import {
   findElement,
   getTagName,

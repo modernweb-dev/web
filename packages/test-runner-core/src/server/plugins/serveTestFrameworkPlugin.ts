@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
-import { Plugin } from '@web/dev-server-core';
-import { TestFramework } from '../../test-framework/TestFramework';
+import { type Plugin } from '@web/dev-server-core';
+import { type TestFramework } from '../../test-framework/TestFramework';
 
 const TEST_FRAMEWORK_IMPORT_ROOT = '/__web-test-runner__/test-framework/';
 
