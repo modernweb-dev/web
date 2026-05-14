@@ -67,7 +67,7 @@
     "@web/test-runner-core": "^0.13.0",
     "chai": "^4.2.0",
     "mocha": "^10.8.2",
-    "postcss": "^8.4.31",
+    "postcss": "^8.5.14",
     "rollup-plugin-postcss": "^4.0.2"
   }
 }
