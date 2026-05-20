@@ -1,5 +1,5 @@
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
-import { TestSessionGroup } from './TestSessionGroup.js';
+import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher';
+import { type TestSessionGroup } from './TestSessionGroup.js';
 
 export interface BasicTestSession {
   id: string;

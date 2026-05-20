@@ -1,9 +1,9 @@
-import { TestSession } from './TestSession.js';
-import { TestSessionStatus } from './TestSessionStatus.js';
+import { type TestSession } from './TestSession.js';
+import { type TestSessionStatus } from './TestSessionStatus.js';
 import { EventEmitter } from '../utils/EventEmitter.js';
-import { DebugTestSession } from './DebugTestSession.js';
-import { TestSessionGroup } from './TestSessionGroup.js';
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
+import { type DebugTestSession } from './DebugTestSession.js';
+import { type TestSessionGroup } from './TestSessionGroup.js';
+import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
 
 interface EventMap {
   'session-status-updated': TestSession;

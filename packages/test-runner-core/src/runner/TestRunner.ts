@@ -1,7 +1,7 @@
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
+import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
 import { createTestSessions } from './createSessionGroups.js';
-import { TestSession } from '../test-session/TestSession.js';
-import { getTestCoverage, TestCoverage } from '../coverage/getTestCoverage.js';
+import { type TestSession } from '../test-session/TestSession.js';
+import { getTestCoverage, type TestCoverage } from '../coverage/getTestCoverage.js';
 import { TestScheduler } from './TestScheduler.js';
 import { TestSessionManager } from '../test-session/TestSessionManager.js';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
@@ -9,8 +9,8 @@ import { EventEmitter } from '../utils/EventEmitter.js';
 import { createSessionUrl } from './createSessionUrl.js';
 import { createDebugSessions } from './createDebugSessions.js';
 import { TestRunnerServer } from '../server/TestRunnerServer.js';
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
-import { TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.js';
+import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
+import { type TestRunnerGroupConfig } from '../config/TestRunnerGroupConfig.js';
 
 interface EventMap {
   'test-run-started': { testRun: number };

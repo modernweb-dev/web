@@ -1,4 +1,4 @@
-import { Logger, ErrorWithLocation } from '@web/test-runner-core';
+import { type Logger, type ErrorWithLocation } from '@web/test-runner-core';
 
 export class TestRunnerLogger implements Logger {
   loggedSyntaxErrors = new Map<string, ErrorWithLocation[]>();

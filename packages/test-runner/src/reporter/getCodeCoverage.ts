@@ -1,4 +1,8 @@
-import { CoverageThresholdConfig, TestCoverage, CoverageConfig } from '@web/test-runner-core';
+import {
+  type CoverageThresholdConfig,
+  type TestCoverage,
+  type CoverageConfig,
+} from '@web/test-runner-core';
 import path from 'path';
 import { bold, green, red, underline } from 'nanocolors';
 
