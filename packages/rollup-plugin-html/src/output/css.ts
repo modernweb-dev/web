@@ -1,5 +1,5 @@
 import path from 'path';
-import { OutputBundle, PluginContext } from 'rollup';
+import type { OutputBundle, PluginContext } from 'rollup';
 import { toBrowserPath } from './utils.js';
 
 /**
