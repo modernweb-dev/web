@@ -17,7 +17,7 @@ describe('getOutputHTML()', () => {
   const defaultOptions: GetOutputHTMLParams = {
     pluginOptions: {},
     outputDir: '/',
-    emittedAssets: { static: new Map(), hashed: new Map() },
+    emittedAssets: { static: new Map(), hashed: new Map(), assetsInCssByHash: {} },
     entrypointBundles: defaultEntrypointBundles,
     input: {
       html: html`<h1>Input HTML</h1>`,
@@ -176,7 +176,7 @@ describe('getOutputHTML()', () => {
         absoluteBaseUrl: 'http://test.com',
         rootDir,
       },
-      emittedAssets: { static: new Map(), hashed },
+      emittedAssets: { static: new Map(), hashed, assetsInCssByHash: {} },
       input: {
         ...defaultOptions.input,
         html: html`

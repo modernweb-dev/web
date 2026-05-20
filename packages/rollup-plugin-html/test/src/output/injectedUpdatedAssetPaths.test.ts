@@ -40,7 +40,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       input,
       outputDir: '/root/dist/',
       rootDir: '/root/',
-      emittedAssets: { static: new Map(), hashed },
+      emittedAssets: { static: new Map(), hashed, assetsInCssByHash: {} },
     });
 
     const result = serialize(document);
@@ -107,7 +107,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       input,
       outputDir: '/root/dist/',
       rootDir: '/root/',
-      emittedAssets: { static: new Map(), hashed },
+      emittedAssets: { static: new Map(), hashed, assetsInCssByHash: {} },
     });
 
     const result = serialize(document);
@@ -172,7 +172,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       input,
       outputDir: '/root/dist/',
       rootDir: '/root/',
-      emittedAssets: { static: new Map(), hashed },
+      emittedAssets: { static: new Map(), hashed, assetsInCssByHash: {} },
     });
 
     const result = serialize(document);
@@ -219,7 +219,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       input,
       outputDir: '/root/dist/',
       rootDir: '/root/',
-      emittedAssets: { static: new Map(), hashed },
+      emittedAssets: { static: new Map(), hashed, assetsInCssByHash: {} },
     });
 
     const result = serialize(document);
@@ -268,7 +268,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       input,
       outputDir: '/root/dist/',
       rootDir: '/root/',
-      emittedAssets: { static: new Map(), hashed },
+      emittedAssets: { static: new Map(), hashed, assetsInCssByHash: {} },
     });
 
     const result = serialize(document);
@@ -316,7 +316,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       input,
       outputDir: '/root/dist/',
       rootDir: '/root/',
-      emittedAssets: { static: new Map(), hashed },
+      emittedAssets: { static: new Map(), hashed, assetsInCssByHash: {} },
     });
 
     const result = serialize(document);
@@ -365,7 +365,7 @@ describe('injectedUpdatedAssetPaths()', () => {
       input,
       outputDir: '/root/dist/',
       rootDir: '/root/',
-      emittedAssets: { static: new Map(), hashed },
+      emittedAssets: { static: new Map(), hashed, assetsInCssByHash: {} },
       publicPath: './public/',
     });
 

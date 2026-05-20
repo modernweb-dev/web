@@ -142,7 +142,7 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
 
       const emittedAssets = await emitAssets.call(this, inputs, pluginOptions);
 
-      processCssAssets(this, bundle, pluginOptions.publicPath);
+      processCssAssets(this, bundle, emittedAssets.assetsInCssByHash, pluginOptions.publicPath);
 
       const outputs = await createHTMLOutput({
         outputDir: path.resolve(options.dir),
@@ -204,7 +204,12 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
 
               const emittedAssets = await emitAssets.call(this, inputs, pluginOptions);
 
-              processCssAssets(this, bundle, pluginOptions.publicPath);
+              processCssAssets(
+                this,
+                bundle,
+                emittedAssets.assetsInCssByHash,
+                pluginOptions.publicPath,
+              );
 
               const outputs = await createHTMLOutput({
                 outputDir: path.resolve(options.dir),
