@@ -29,8 +29,9 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "test:node": "mocha test/**/*.test.js --reporter dot",
-    "test:watch": "mocha test/**/*.test.js --watch --watch-files src,test --reporter dot"
+    "test": "npm run test:node",
+    "test:node": "node --test --test-reporter=dot test/**/*.test.js",
+    "test:watch": "node --test --test-reporter=dot --watch test/**/*.test.js"
   },
   "files": [
     "*.d.ts",
