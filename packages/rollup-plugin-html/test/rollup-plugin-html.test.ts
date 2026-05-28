@@ -2123,20 +2123,20 @@ describe('rollup-plugin-html', () => {
     expect(assets).to.have.keys([
       'assets/font-normal-Cht9ZB76.woff2',
       'assets/font-bold-eQjSonqH.woff2',
-      'assets/styles-CecXjwpw.css',
+      'assets/styles-BRQfqhN6.css',
       'index.html',
     ]);
 
     expect(assets['index.html']).to.equal(html`
       <html>
         <head>
-          <link rel="stylesheet" href="assets/styles-CecXjwpw.css" />
+          <link rel="stylesheet" href="assets/styles-BRQfqhN6.css" />
         </head>
         <body></body>
       </html>
     `);
 
-    expect(assets['assets/styles-CecXjwpw.css']).to.equal(css`
+    expect(assets['assets/styles-BRQfqhN6.css']).to.equal(css`
       @font-face {
         font-family: Font;
         src: url('font-normal-Cht9ZB76.woff2') format('woff2');
@@ -2288,20 +2288,20 @@ describe('rollup-plugin-html', () => {
     expect(assets).to.have.keys([
       'assets/font-normal-Cht9ZB76.woff2',
       'assets/font-bold-eQjSonqH.woff2',
-      'assets/styles-CecXjwpw.css',
+      'assets/styles-BRQfqhN6.css',
       'index.html',
     ]);
 
     expect(assets['index.html']).to.equal(html`
       <html>
         <head>
-          <link rel="stylesheet" href="assets/styles-CecXjwpw.css" />
+          <link rel="stylesheet" href="assets/styles-BRQfqhN6.css" />
         </head>
         <body></body>
       </html>
     `);
 
-    expect(assets['assets/styles-CecXjwpw.css']).to.equal(css`
+    expect(assets['assets/styles-BRQfqhN6.css']).to.equal(css`
       @font-face {
         font-family: Font;
         src: url('font-normal-Cht9ZB76.woff2') format('woff2');
@@ -2453,22 +2453,22 @@ describe('rollup-plugin-html', () => {
 
     expect(assets).to.have.keys([
       'assets/font-normal-Cht9ZB76.woff2',
-      'assets/styles-a-rwPD8h6c.css',
-      'assets/styles-b-DbSntrij.css',
+      'assets/styles-a-CKKhzbId.css',
+      'assets/styles-b-DdUNHRx0.css',
       'index.html',
     ]);
 
     expect(assets['index.html']).to.equal(html`
       <html>
         <head>
-          <link rel="stylesheet" href="assets/styles-a-rwPD8h6c.css" />
-          <link rel="stylesheet" href="assets/styles-b-DbSntrij.css" />
+          <link rel="stylesheet" href="assets/styles-a-CKKhzbId.css" />
+          <link rel="stylesheet" href="assets/styles-b-DdUNHRx0.css" />
         </head>
         <body></body>
       </html>
     `);
 
-    expect(assets['assets/styles-a-rwPD8h6c.css']).to.equal(css`
+    expect(assets['assets/styles-a-CKKhzbId.css']).to.equal(css`
       @font-face {
         font-family: Font;
         src: url('font-normal-Cht9ZB76.woff2') format('woff2');
@@ -2478,7 +2478,7 @@ describe('rollup-plugin-html', () => {
       }
     `);
 
-    expect(assets['assets/styles-b-DbSntrij.css']).to.equal(css`
+    expect(assets['assets/styles-b-DdUNHRx0.css']).to.equal(css`
       @font-face {
         font-family: Font2;
         src: url('font-normal-Cht9ZB76.woff2') format('woff2');
@@ -2565,20 +2565,20 @@ describe('rollup-plugin-html', () => {
       'assets/star-CXig10q7.png',
       'assets/star-CwhgM_z4.svg',
       'assets/star-CKbh5mKn.webp',
-      'assets/styles-BDpW-xH8.css',
+      'assets/styles-DgHxUupJ.css',
       'index.html',
     ]);
 
     expect(assets['index.html']).to.equal(html`
       <html>
         <head>
-          <link rel="stylesheet" href="assets/styles-BDpW-xH8.css" />
+          <link rel="stylesheet" href="assets/styles-DgHxUupJ.css" />
         </head>
         <body></body>
       </html>
     `);
 
-    expect(assets['assets/styles-BDpW-xH8.css']).to.equal(css`
+    expect(assets['assets/styles-DgHxUupJ.css']).to.equal(css`
       #a {
         background-image: url('star-D_LO5feX.avif');
       }
@@ -2814,7 +2814,7 @@ describe('rollup-plugin-html', () => {
     expect(assets).to.have.keys([
       'assets/image-a-XOCPHCrV.png',
       'assets/image-b-BgQHKcRn.png',
-      'assets/styles-ChLnYIUS.css',
+      'assets/styles-pLj9D-P3.css',
       'assets/webmanifest-BkrOR1WG.json',
       'index.html',
     ]);
@@ -2827,7 +2827,7 @@ describe('rollup-plugin-html', () => {
           <link rel="manifest" href="assets/webmanifest-BkrOR1WG.json" />
           <link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
           <link rel="mask-icon" href="image-b.svg" color="#3f93ce" />
-          <link rel="stylesheet" href="assets/styles-ChLnYIUS.css" />
+          <link rel="stylesheet" href="assets/styles-pLj9D-P3.css" />
           <link rel="stylesheet" href="./foo/x.css" />
           <link rel="stylesheet" href="foo/bar/y.css" />
         </head>
@@ -2840,7 +2840,7 @@ describe('rollup-plugin-html', () => {
       </html>
     `);
 
-    expect(assets['assets/styles-ChLnYIUS.css']).to.equal(css`
+    expect(assets['assets/styles-pLj9D-P3.css']).to.equal(css`
       #a1 {
         background-image: url('image-a-XOCPHCrV.png');
       }
@@ -3044,17 +3044,17 @@ describe('rollup-plugin-html', () => {
 
     expect(assets).to.have.keys([
       'static/font.immutable.C5MNjX-h.woff2',
-      'static/global.immutable.CMNZTtZG.css',
+      'static/global.immutable.BRYeVgdd.css',
       'static/image.immutable.7xJLr_7N.png',
-      'static/styles.immutable.A_CLU19q.css',
+      'static/styles.immutable.exe7_Vpw.css',
       'index.html',
     ]);
 
     expect(assets['index.html']).to.equal(html`
       <html>
         <head>
-          <link rel="stylesheet" href="static/global.immutable.CMNZTtZG.css" />
-          <link rel="stylesheet" href="static/styles.immutable.A_CLU19q.css" />
+          <link rel="stylesheet" href="static/global.immutable.BRYeVgdd.css" />
+          <link rel="stylesheet" href="static/styles.immutable.exe7_Vpw.css" />
           <link
             rel="preload"
             href="static/font.immutable.C5MNjX-h.woff2"
@@ -3068,7 +3068,7 @@ describe('rollup-plugin-html', () => {
       </html>
     `);
 
-    expect(assets['static/global.immutable.CMNZTtZG.css']).to.equal(css`
+    expect(assets['static/global.immutable.BRYeVgdd.css']).to.equal(css`
       @font-face {
         font-family: Font;
         src: url('font.immutable.C5MNjX-h.woff2') format('woff2');
@@ -3078,7 +3078,7 @@ describe('rollup-plugin-html', () => {
       }
     `);
 
-    expect(assets['static/styles.immutable.A_CLU19q.css']).to.equal(css`
+    expect(assets['static/styles.immutable.exe7_Vpw.css']).to.equal(css`
       #a {
         background-image: url('image.immutable.7xJLr_7N.png');
       }
@@ -3157,17 +3157,17 @@ describe('rollup-plugin-html', () => {
 
     expect(assets).to.have.keys([
       'fonts/font.immutable.C5MNjX-h.woff2',
-      'styles/global.immutable.D9Em-vEE.css',
+      'styles/global.immutable.CIo7MOhV.css',
       'images/image.immutable.7xJLr_7N.png',
-      'styles/styles.immutable.Boq6Yn2f.css',
+      'styles/styles.immutable.BxCpevuY.css',
       'index.html',
     ]);
 
     expect(assets['index.html']).to.equal(html`
       <html>
         <head>
-          <link rel="stylesheet" href="/static/styles/global.immutable.D9Em-vEE.css" />
-          <link rel="stylesheet" href="/static/styles/styles.immutable.Boq6Yn2f.css" />
+          <link rel="stylesheet" href="/static/styles/global.immutable.CIo7MOhV.css" />
+          <link rel="stylesheet" href="/static/styles/styles.immutable.BxCpevuY.css" />
           <link
             rel="preload"
             href="/static/fonts/font.immutable.C5MNjX-h.woff2"
@@ -3181,7 +3181,7 @@ describe('rollup-plugin-html', () => {
       </html>
     `);
 
-    expect(assets['styles/global.immutable.D9Em-vEE.css']).to.equal(css`
+    expect(assets['styles/global.immutable.CIo7MOhV.css']).to.equal(css`
       @font-face {
         font-family: Font;
         src: url('/static/fonts/font.immutable.C5MNjX-h.woff2') format('woff2');
@@ -3191,7 +3191,7 @@ describe('rollup-plugin-html', () => {
       }
     `);
 
-    expect(assets['styles/styles.immutable.Boq6Yn2f.css']).to.equal(css`
+    expect(assets['styles/styles.immutable.BxCpevuY.css']).to.equal(css`
       #a {
         background-image: url('/static/images/image.immutable.7xJLr_7N.png');
       }
@@ -3357,7 +3357,7 @@ describe('rollup-plugin-html', () => {
 
     expect(assets).to.have.keys([
       'assets/bg-image-B8JuQo5R.png',
-      'assets/styles-BxLNtjaG.css',
+      'assets/styles-Brz3za0w.css',
       'index.html',
     ]);
 
@@ -3419,8 +3419,8 @@ describe('rollup-plugin-html', () => {
 
     expect(assets).to.have.keys([
       'assets/filters-BNeK3QVf.svg',
-      'assets/design-system-32qJiweK.css',
-      'assets/styles-l1gnljqF.css',
+      'assets/design-system-DznFRd92.css',
+      'assets/styles-CWG_g22Q.css',
       'index.html',
     ]);
 

@@ -1,8 +1,8 @@
+import { createHash } from 'node:crypto';
 import { PluginContext } from 'rollup';
 import path from 'path';
 import { bundleAsync, transform } from 'lightningcss';
 import fs from 'fs';
-import xxhash from 'xxhash-wasm';
 
 import { InputAsset, InputData } from '../input/InputData';
 import { createAssetPicomatchMatcher } from '../assets/utils.js';
@@ -42,8 +42,6 @@ export async function emitAssets(
   inputs: InputData[],
   options: RollupPluginHTMLOptions,
 ) {
-  const { create64 } = await xxhash();
-
   const extractAssets = options.extractAssets ?? true;
   const bundleCss = options.bundleCss ?? true;
   const minifyCss = options.minifyCss ?? false;
@@ -158,13 +156,11 @@ export async function emitAssets(
               assetInCss.ref = ref;
               assetInCss.outputPath = this.getFileName(ref);
               if (!extractAssetsLegacyCss) {
-                assetInCss.hash = create64()
+                assetInCss.hash = createHash('sha256')
                   .update(transformedContent)
                   .update('\0')
                   .update(assetInCss.outputPath)
-                  .digest()
-                  .toString(16)
-                  .padStart(16, '0');
+                  .digest('hex');
               }
             }
 
