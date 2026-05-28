@@ -1,10 +1,8 @@
+import { describe, it, before, after, beforeEach, afterEach } from 'node:test';
 import puppeteer from 'puppeteer';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
 import { startDevServer } from '../index.mjs';
-
-const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const testCases = [
   {
@@ -53,15 +51,14 @@ describe('integration tests', () => {
   });
 
   for (const testCase of testCases) {
-    describe(`testcase ${testCase.name}`, function test() {
-      this.timeout(30000);
+    describe(`testcase ${testCase.name}`, { timeout: 30000 }, () => {
       let server;
 
       beforeEach(async () => {
         server = await startDevServer({
           autoExitProcess: false,
           logStartMessage: false,
-          argv: ['--config', path.join(dirname, `../demo/${testCase.name}/config.mjs`)],
+          argv: ['--config', path.join(import.meta.dirname, `../demo/${testCase.name}/config.mjs`)],
         });
       });
 
@@ -69,7 +66,7 @@ describe('integration tests', () => {
         await server.stop();
       });
 
-      it('passes the in-browser tests', async function it() {
+      it('passes the in-browser tests', async () => {
         const openPath = `/demo/${testCase.name}/`;
         const browserPath = `http://${server.config.hostname}:${server.config.port}${openPath}`;
         const page = await browser.newPage();
@@ -79,7 +76,6 @@ describe('integration tests', () => {
 
         const browserTests = await page.evaluate(() => window.__tests);
 
-        // the demos run "tests", which we check here
         for (const test of testCase.tests) {
           if (!browserTests[test]) {
             throw new Error(`Expected test ${test} to have passed in the browser.`);

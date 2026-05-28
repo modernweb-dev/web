@@ -1,5 +1,6 @@
 const path = require('path');
-const { expect } = require('chai');
+const { describe, it } = require('node:test');
+const assert = require('node:assert/strict');
 const { readConfig } = require('../src/index');
 
 const configName = 'my-project.config';
@@ -12,11 +13,11 @@ async function expectThrowsOldNodeError(configPath) {
     await readConfig(configName, undefined, configPath);
   } catch (error) {
     thrown = true;
-    expect(error.message).to.include(
+    assert.ok(error.message.includes(
       'You are trying to load a config as es module but your version of node does not support it',
-    );
+    ));
   }
-  expect(thrown).to.equal(true);
+  assert.equal(thrown, true);
 }
 
 describe('cjs package', () => {
@@ -26,7 +27,7 @@ describe('cjs package', () => {
       undefined,
       path.resolve(packageCjsPath, 'commonjs-in-.cjs'),
     );
-    expect(result).to.eql({ foo: 'bar' });
+    assert.deepEqual(result, { foo: 'bar' });
   });
 
   it('can load commonjs-in-.js', async () => {
@@ -35,7 +36,7 @@ describe('cjs package', () => {
       undefined,
       path.resolve(packageCjsPath, 'commonjs-in-.js'),
     );
-    expect(result).to.eql({ foo: 'bar' });
+    assert.deepEqual(result, { foo: 'bar' });
   });
 
     it('can load module-in-.mjs', async () => {
@@ -44,7 +45,7 @@ describe('cjs package', () => {
         undefined,
         path.resolve(packageCjsPath, 'module-in-.mjs'),
       );
-      expect(result).to.eql({ foo: 'bar' });
+      assert.deepEqual(result, { foo: 'bar' });
     });
 
   it('throws when loading module-in-.cjs', async () => {
@@ -53,11 +54,11 @@ describe('cjs package', () => {
       await readConfig(configName, undefined, path.resolve(packageCjsPath, 'module-in-.cjs'));
     } catch (error) {
       thrown = true;
-      expect(error.message).to.include(
+      assert.ok(error.message.includes(
         'You are using es module syntax in a config loaded as CommonJS module.',
-      );
+      ));
     }
-    expect(thrown).to.equal(true);
+    assert.equal(thrown, true);
   });
 
   it('throws when loading module-in-.js', async () => {
@@ -66,11 +67,11 @@ describe('cjs package', () => {
       await readConfig(configName, undefined, path.resolve(packageCjsPath, 'module-in-.js'));
     } catch (error) {
       thrown = true;
-      expect(error.message).to.include(
+      assert.ok(error.message.includes(
         'You are using es module syntax in a config loaded as CommonJS module.',
-      );
+      ));
     }
-    expect(thrown).to.equal(true);
+    assert.equal(thrown, true);
   });
 
     it('throws when loading commonjs-in-.mjs', async () => {
@@ -79,11 +80,11 @@ describe('cjs package', () => {
         await readConfig(configName, undefined, path.resolve(packageCjsPath, 'commonjs-in-.mjs'));
       } catch (error) {
         thrown = true;
-        expect(error.message).to.include(
+        assert.ok(error.message.includes(
           'You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module.',
-        );
+        ));
       }
-      expect(thrown).to.equal(true);
+      assert.equal(thrown, true);
     });
 });
 
@@ -94,7 +95,7 @@ describe('mjs package', () => {
       undefined,
       path.resolve(packageMjsPath, 'commonjs-in-.cjs'),
     );
-    expect(result).to.eql({ foo: 'bar' });
+    assert.deepEqual(result, { foo: 'bar' });
   });
 
     it('throws when loading commonjs-in-.js', async () => {
@@ -103,11 +104,11 @@ describe('mjs package', () => {
         await readConfig(configName, undefined, path.resolve(packageMjsPath, 'commonjs-in-.js'));
       } catch (error) {
         thrown = true;
-        expect(error.message).to.include(
+        assert.ok(error.message.includes(
           'You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module.',
-        );
+        ));
       }
-      expect(thrown).to.equal(true);
+      assert.equal(thrown, true);
     });
 
     it('throws when loading commonjs-in-.mjs', async () => {
@@ -116,11 +117,11 @@ describe('mjs package', () => {
         await readConfig(configName, undefined, path.resolve(packageMjsPath, 'commonjs-in-.mjs'));
       } catch (error) {
         thrown = true;
-        expect(error.message).to.include(
+        assert.ok(error.message.includes(
           'You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module.',
-        );
+        ));
       }
-      expect(thrown).to.equal(true);
+      assert.equal(thrown, true);
     });
 
   it('throws when loading module-in-.cjs', async () => {
@@ -129,11 +130,11 @@ describe('mjs package', () => {
       await readConfig(configName, undefined, path.resolve(packageCjsPath, 'module-in-.cjs'));
     } catch (error) {
       thrown = true;
-      expect(error.message).to.include(
+      assert.ok(error.message.includes(
         'You are using es module syntax in a config loaded as CommonJS module.',
-      );
+      ));
     }
-    expect(thrown).to.equal(true);
+    assert.equal(thrown, true);
   });
 
     it('can load module-in-.js', async () => {
@@ -142,7 +143,7 @@ describe('mjs package', () => {
         undefined,
         path.resolve(packageMjsPath, 'module-in-.js'),
       );
-      expect(result).to.eql({ foo: 'bar' });
+      assert.deepEqual(result, { foo: 'bar' });
     });
 
     it('can load module-in-.mjs', async () => {
@@ -151,6 +152,6 @@ describe('mjs package', () => {
         undefined,
         path.resolve(packageMjsPath, 'module-in-.mjs'),
       );
-      expect(result).to.eql({ foo: 'bar' });
+      assert.deepEqual(result, { foo: 'bar' });
     });
 });

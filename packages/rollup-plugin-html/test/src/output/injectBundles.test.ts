@@ -1,17 +1,18 @@
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import { getTextContent } from '@web/parse5-utils';
-import { expect } from 'chai';
 import { parse, serialize } from 'parse5';
 import { html } from '../../../../../test-utils/rollup-test-utils.js';
 
-import { injectBundles, createLoadScript } from '../../../src/output/injectBundles.js';
+import { injectBundles, createLoadScript } from '../../../dist/output/injectBundles.js';
 
 describe('createLoadScript()', () => {
   it('creates a script for es modules', () => {
     // parse5 types are broken
     const scriptAst = createLoadScript('./app.js', 'es') as any;
 
-    expect(scriptAst.tagName).to.equal('script');
-    expect(scriptAst.attrs).to.eql([
+    assert.equal(scriptAst.tagName, 'script');
+    assert.deepEqual(scriptAst.attrs, [
       { name: 'type', value: 'module' },
       { name: 'src', value: './app.js' },
     ]);
@@ -21,15 +22,15 @@ describe('createLoadScript()', () => {
     // parse5 types are broken
     const scriptAst = createLoadScript('./app.js', 'system') as any;
 
-    expect(scriptAst.tagName).to.equal('script');
-    expect(getTextContent(scriptAst)).to.equal('System.import("./app.js");');
+    assert.equal(scriptAst.tagName, 'script');
+    assert.equal(getTextContent(scriptAst), 'System.import("./app.js");');
   });
 
   it('creates a script for other modules types', () => {
     const scriptAst = createLoadScript('./app.js', 'iife') as any;
 
-    expect(scriptAst.tagName).to.equal('script');
-    expect(scriptAst.attrs).to.eql([
+    assert.equal(scriptAst.tagName, 'script');
+    assert.deepEqual(scriptAst.attrs, [
       { name: 'src', value: './app.js' },
       { name: 'defer', value: '' },
     ]);
@@ -62,15 +63,18 @@ describe('injectBundles()', () => {
 
     const htmlWithBundles = serialize(document);
 
-    expect(html`${htmlWithBundles}`).to.eql(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>Hello world</h1>
-          <script type="module" src="app.js"></script>
-        </body>
-      </html>
-    `);
+    assert.deepEqual(
+      html`${htmlWithBundles}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Hello world</h1>
+            <script type="module" src="app.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can inject multiple bundles', () => {
@@ -110,15 +114,18 @@ describe('injectBundles()', () => {
 
     const htmlWithBundles = serialize(document);
 
-    expect(html`${htmlWithBundles}`).to.eql(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>Hello world</h1>
-          <script type="module" src="./app.js"></script>
-          <script src="/scripts/script.js" defer=""></script>
-        </body>
-      </html>
-    `);
+    assert.deepEqual(
+      html`${htmlWithBundles}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Hello world</h1>
+            <script type="module" src="./app.js"></script>
+            <script src="/scripts/script.js" defer=""></script>
+          </body>
+        </html>
+      `,
+    );
   });
 });

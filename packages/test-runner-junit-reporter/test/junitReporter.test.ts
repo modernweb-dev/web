@@ -1,18 +1,19 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it, after } from 'node:test';
 import { promises as fs } from 'fs';
 import path from 'path';
 import globby from 'globby';
 
 import { chromeLauncher } from '@web/test-runner-chrome';
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
+import type { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
-import { junitReporter } from '../src/junitReporter.js';
+import { junitReporter } from '../dist/junitReporter.js';
 
 const NON_ZERO_TIME_VALUE_REGEX = /time="((\d\.\d+)|(\d))"/g;
 
 const USER_AGENT_STRING_REGEX = /"Mozilla\/5\.0 (.*)"/g;
 
-const rootDir = path.join(__dirname, '..', '..', '..');
+const rootDir = path.join(import.meta.dirname, '..', '..', '..');
 
 const normalizeOutput = (cwd: string, output: string) =>
   output
@@ -20,11 +21,11 @@ const normalizeOutput = (cwd: string, output: string) =>
     .replace(USER_AGENT_STRING_REGEX, '"<<useragent>>"')
     .replace(/(Context|n).<anonymous>/g, '<<anonymous>>')
     // don't judge - normalizing paths for windblows
-    .replace(/\/>/g, '🙈>')
-    .replace(/<\//g, '<🙈')
+    .replace(/\/>/g, '\u{1F648}>')
+    .replace(/<\//g, '<\u{1F648}')
     .replace(/\//g, path.sep)
-    .replace(/🙈>/g, '/>')
-    .replace(/<🙈/g, '</')
+    .replace(/\u{1F648}>/g, '/>')
+    .replace(/<\u{1F648}/g, '</')
     .trimEnd();
 
 const readNormalized = (filePath: string): Promise<string> =>
@@ -64,35 +65,35 @@ async function run(cwd: string): Promise<{ actual: string; expected: string }> {
 async function cleanupFixtures() {
   for (const file of await globby('fixtures/**/test-results.xml', {
     absolute: true,
-    cwd: __dirname,
+    cwd: import.meta.dirname,
   }))
     await fs.unlink(file);
 }
 
-describe('junitReporter', function () {
+describe('junitReporter', { timeout: 60000 }, () => {
   after(cleanupFixtures);
 
-  describe('for a simple case', function () {
-    const fixtureDir = path.join(__dirname, 'fixtures/simple');
-    it('produces expected results', async function () {
+  describe('for a simple case', () => {
+    const fixtureDir = path.join(import.meta.dirname, 'fixtures/simple');
+    it('produces expected results', async () => {
       const { actual, expected } = await run(fixtureDir);
-      expect(actual).to.equal(expected);
+      assert.equal(actual, expected);
     });
   });
 
-  describe('for a nested suite', function () {
-    const fixtureDir = path.join(__dirname, 'fixtures/nested');
-    it('produces expected results', async function () {
+  describe('for a nested suite', () => {
+    const fixtureDir = path.join(import.meta.dirname, 'fixtures/nested');
+    it('produces expected results', async () => {
       const { actual, expected } = await run(fixtureDir);
-      expect(actual).to.equal(expected);
+      assert.equal(actual, expected);
     });
   });
 
-  describe('for multiple test files', function () {
-    const fixtureDir = path.join(__dirname, 'fixtures/multiple');
-    it('produces expected results', async function () {
+  describe('for multiple test files', () => {
+    const fixtureDir = path.join(import.meta.dirname, 'fixtures/multiple');
+    it('produces expected results', async () => {
       const { actual, expected } = await run(fixtureDir);
-      expect(actual).to.equal(expected);
+      assert.equal(actual, expected);
     });
   });
 });

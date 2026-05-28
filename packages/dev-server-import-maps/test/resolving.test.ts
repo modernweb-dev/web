@@ -1,11 +1,11 @@
+import { describe, it, mock } from 'node:test';
+import assert from 'node:assert/strict';
 import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expect } from 'chai';
-import { spy } from 'hanbi';
 import path from 'path';
 
-import { importMapsPlugin } from '../src/importMapsPlugin.js';
-import { IMPORT_MAP_PARAM } from '../src/utils.js';
+import { importMapsPlugin } from '../dist/importMapsPlugin.js';
+import { IMPORT_MAP_PARAM } from '../dist/utils.js';
 
 function createHtml(importMap: Record<string, unknown>) {
   return `
@@ -33,7 +33,7 @@ describe('applies import map id', () => {
       '/index.html': createHtml({ foo: './mocked-foo.js' }),
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -48,7 +48,7 @@ describe('applies import map id', () => {
       '/index.html': createHtml({ foo: './mocked-foo.js' }),
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -63,7 +63,7 @@ describe('applies import map id', () => {
       '/index.html': createHtml({ foo: './mocked-foo.js' }),
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -80,7 +80,7 @@ describe('applies import map id', () => {
       '/app.js': 'import "foo"; import foo from "./bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -98,7 +98,7 @@ describe('applies import map id', () => {
       '/app.js': 'import "bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -124,7 +124,7 @@ describe('applies import map id', () => {
       '/app.js': 'import "bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -150,7 +150,7 @@ describe('applies import map id', () => {
       '/app.js': 'import "bar?foo=bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -169,7 +169,7 @@ describe('resolving imports', () => {
       '/app.js': 'import "foo";\nimport bar from "./bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -187,7 +187,7 @@ describe('resolving imports', () => {
       '/x/y/app.js': 'import bar from "../../bar.js";\nimport bar from "../bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -205,7 +205,7 @@ describe('resolving imports', () => {
       '/x/y/app.js': 'import "x";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -222,7 +222,7 @@ describe('resolving imports', () => {
       '/x/app.js': 'import "./y/bar.js"; \n import "./bar.js"; \n import "../bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -249,7 +249,7 @@ describe('resolving imports', () => {
       '/x/app.js': 'import "bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -274,7 +274,7 @@ describe('resolving imports', () => {
       '/x/app.js': 'import "bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -289,7 +289,7 @@ describe('resolving imports', () => {
     let i = 0;
 
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -329,7 +329,7 @@ describe('resolving imports', () => {
       '/index.html': '<html><body><script src="./app.js"></script></body></html>',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
@@ -351,27 +351,19 @@ describe('resolving imports', () => {
           </body>
         </html>`,
     };
-    const loggerSpies = {
-      log: spy(),
-      debug: spy(),
-      error: spy(),
-      warn: spy(),
-      group: spy(),
-      groupEnd: spy(),
-      logSyntaxError: spy(),
-    };
+    const warnFn = mock.fn();
     const logger = {
-      log: loggerSpies.log.handler,
-      debug: loggerSpies.debug.handler,
-      error: loggerSpies.error.handler,
-      warn: loggerSpies.warn.handler,
-      group: loggerSpies.group.handler,
-      groupEnd: loggerSpies.groupEnd.handler,
-      logSyntaxError: loggerSpies.logSyntaxError.handler,
+      log: mock.fn(),
+      debug: mock.fn(),
+      error: mock.fn(),
+      warn: warnFn,
+      group: mock.fn(),
+      groupEnd: mock.fn(),
+      logSyntaxError: mock.fn(),
     };
     const { server, host } = await createTestServer(
       {
-        rootDir: __dirname,
+        rootDir: import.meta.dirname,
         plugins: [virtualFilesPlugin(files), importMapsPlugin()],
       },
       logger,
@@ -379,8 +371,8 @@ describe('resolving imports', () => {
 
     const text = await fetchText(`${host}/index.html`);
     expectIncludes(text, '<script type="importmap">{</script>');
-    expect(loggerSpies.warn.callCount).to.equal(1);
-    const warning = loggerSpies.warn.getCall(0).args[0];
+    assert.equal(warnFn.mock.callCount(), 1);
+    const warning = warnFn.mock.calls[0].arguments[0];
     expectIncludes(warning, 'Failed to parse import map in "');
     expectIncludes(warning, `test${path.sep}index.html": `);
     server.stop();
@@ -392,7 +384,7 @@ describe('resolving imports', () => {
       '/app.js': 'import "foo";\nimport bar from "./bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 

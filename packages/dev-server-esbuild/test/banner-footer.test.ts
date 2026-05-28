@@ -1,20 +1,19 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index.js';
+import { esbuildPlugin } from '../dist/index.js';
 
-describe('esbuildPlugin banner/footers', function () {
-  this.timeout(5000);
-
+describe('esbuildPlugin banner/footers', { timeout: 5000 }, () => {
   it('prepends custom banner', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
           serve(context) {
-            if (context.path === '/foo.ts') {
+            if (context.path === '/foo.js') {
               return `export const foo = 5;`;
             }
           },
@@ -31,7 +30,7 @@ describe('esbuildPlugin banner/footers', function () {
       const indexOfBanner = text.indexOf('/* hello there */');
 
       expectIncludes(text, '/* hello there */');
-      expect(indexOfExpr).to.be.greaterThan(indexOfBanner);
+      assert.ok(indexOfExpr > indexOfBanner);
     } finally {
       server.stop();
     }
@@ -39,12 +38,12 @@ describe('esbuildPlugin banner/footers', function () {
 
   it('appends custom footer', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
           serve(context) {
-            if (context.path === '/foo.ts') {
+            if (context.path === '/foo.js') {
               return `export const foo = 5;`;
             }
           },
@@ -61,7 +60,7 @@ describe('esbuildPlugin banner/footers', function () {
       const indexOfFooter = text.indexOf('/* hello there */');
 
       expectIncludes(text, '/* hello there */');
-      expect(indexOfFooter).to.be.greaterThan(indexOfExpr);
+      assert.ok(indexOfFooter > indexOfExpr);
     } finally {
       server.stop();
     }

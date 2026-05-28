@@ -20,8 +20,8 @@
   "scripts": {
     "build": "tsc",
     "build:production": "rimraf dist && rollup -c ./rollup.config.mjs",
-    "test": "mocha test/**/*.test.js --reporter dot",
-    "test:watch": "mocha test/**/*.test.js --watch --watch-files src,test"
+    "test:watch": "node --test --watch test/**/*.test.js",
+    "test:node": "node --test test/**/*.test.js"
   },
   "files": [
     "dist"
@@ -38,8 +38,8 @@
     "@web/test-runner-core": "^0.13.0"
   },
   "devDependencies": {
-    "@types/mocha": "^10.0.1",
     "deepmerge": "^4.2.2",
-    "mocha": "^10.8.2"
+    "mocha": "^10.8.2",
+    "@types/mocha": "^10.0.1"
   }
 }

@@ -1,16 +1,19 @@
-import { expect } from 'chai';
-import puppeteer, { Browser, Page } from 'puppeteer';
+import assert from 'node:assert/strict';
+import { deepEqual as looseDeepEqual } from 'node:assert';
+import { describe, it, before, after } from 'node:test';
+import { createRequire } from 'node:module';
+import puppeteer from 'puppeteer';
+import type { Browser, Page } from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
 
-import { deserialize } from '../src/deserialize.js';
+import { deserialize } from '../dist/deserialize.js';
 
+const require = createRequire(import.meta.url);
 const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
-const defaultOptions = { browserRootDir: __dirname, cwd: __dirname };
+const defaultOptions = { browserRootDir: import.meta.dirname, cwd: import.meta.dirname };
 
-describe('serialize deserialize', function () {
-  this.timeout(10000);
-
+describe('serialize deserialize', { timeout: 10000 }, () => {
   let browser: Browser;
   let page: Page;
   before(async () => {
@@ -29,13 +32,13 @@ describe('serialize deserialize', function () {
   it('handles strings', async () => {
     const serialized = await page.evaluate(() => (window as any)._serialize('foo'));
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.equal('foo');
+    assert.equal(deserialized, 'foo');
   });
 
   it('handles numbers', async () => {
     const serialized = await page.evaluate(() => (window as any)._serialize(1));
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.equal(1);
+    assert.equal(deserialized, 1);
   });
 
   it('handles Date', async () => {
@@ -43,7 +46,7 @@ describe('serialize deserialize', function () {
       (window as any)._serialize(new Date('2020-07-25T12:00:00.000Z')),
     );
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.equal('2020-07-25T12:00:00.000Z');
+    assert.equal(deserialized, '2020-07-25T12:00:00.000Z');
   });
 
   it('handles Function', async () => {
@@ -54,8 +57,8 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(foo);
     });
     const deserialized = await deserialize(serialized);
-    expect(typeof deserialized).to.equal('function');
-    expect(deserialized.name).to.equal('foo');
+    assert.equal(typeof deserialized, 'function');
+    assert.equal(deserialized.name, 'foo');
   });
 
   it('handles bound Function', async () => {
@@ -66,14 +69,14 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(foo.bind(null));
     });
     const deserialized = await deserialize(serialized);
-    expect(typeof deserialized).to.equal('function');
-    expect(deserialized.name).to.equal('foo');
+    assert.equal(typeof deserialized, 'function');
+    assert.equal(deserialized.name, 'foo');
   });
 
   it('handles Symbol', async () => {
     const serialized = await page.evaluate(() => (window as any)._serialize(Symbol('foo')));
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.equal('Symbol(foo)');
+    assert.equal(deserialized, 'Symbol(foo)');
   });
 
   it('handles arrow functions', async () => {
@@ -82,8 +85,8 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(foo);
     });
     const deserialized = await deserialize(serialized);
-    expect(typeof deserialized).to.equal('function');
-    expect(deserialized.name).to.equal('foo');
+    assert.equal(typeof deserialized, 'function');
+    assert.equal(deserialized.name, 'foo');
   });
 
   it('handles anonymous arrow functions', async () => {
@@ -91,8 +94,8 @@ describe('serialize deserialize', function () {
       (window as any)._serialize((x: number, y: number) => x * y),
     );
     const deserialized = await deserialize(serialized);
-    expect(typeof deserialized).to.equal('function');
-    expect(deserialized.name).to.equal('');
+    assert.equal(typeof deserialized, 'function');
+    assert.equal(deserialized.name, '');
   });
 
   it('handles Text nodes', async () => {
@@ -100,7 +103,7 @@ describe('serialize deserialize', function () {
       (window as any)._serialize(document.createTextNode('hello world')),
     );
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.equal('Text: hello world');
+    assert.equal(deserialized, 'Text: hello world');
   });
 
   it('handles Comment nodes', async () => {
@@ -108,7 +111,7 @@ describe('serialize deserialize', function () {
       (window as any)._serialize(document.createComment('hello world')),
     );
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.equal('Comment: hello world');
+    assert.equal(deserialized, 'Comment: hello world');
   });
 
   it('handles HTMLElement', async () => {
@@ -118,7 +121,7 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(element);
     });
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.equal('HTMLDivElement: <div><h1><span>Hello world</span></h1></div>');
+    assert.equal(deserialized, 'HTMLDivElement: <div><h1><span>Hello world</span></h1></div>');
   });
 
   it('handles ShadowRoot', async () => {
@@ -129,15 +132,15 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(element.shadowRoot);
     });
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.equal('ShadowRoot: <h1><span>Hello world</span></h1>');
+    assert.equal(deserialized, 'ShadowRoot: <h1><span>Hello world</span></h1>');
   });
 
   it('handles RegExp', async () => {
     const serialized = await page.evaluate(() => (window as any)._serialize(/foo.*?\\/));
     const deserialized = await deserialize(serialized);
-    expect(deserialized instanceof RegExp).to.be.true;
-    expect(deserialized.source).to.equal('foo.*?\\\\');
-    expect(deserialized.flags).to.equal('');
+    assert.equal(deserialized instanceof RegExp, true);
+    assert.equal(deserialized.source, 'foo.*?\\\\');
+    assert.equal(deserialized.flags, '');
   });
 
   it('handles RegExp with flags', async () => {
@@ -145,9 +148,9 @@ describe('serialize deserialize', function () {
       (window as any)._serialize(new RegExp('foo.*?\\\\', 'g')),
     );
     const deserialized = await deserialize(serialized);
-    expect(deserialized instanceof RegExp).to.be.true;
-    expect(deserialized.source).to.equal('foo.*?\\\\');
-    expect(deserialized.flags).to.equal('g');
+    assert.equal(deserialized instanceof RegExp, true);
+    assert.equal(deserialized.source, 'foo.*?\\\\');
+    assert.equal(deserialized.flags, 'g');
   });
 
   it('handles URL', async () => {
@@ -155,7 +158,7 @@ describe('serialize deserialize', function () {
       (window as any)._serialize(new URL('https://www.example.com')),
     );
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.equal('https://www.example.com/');
+    assert.equal(deserialized, 'https://www.example.com/');
   });
 
   it('handles URLSearchparams', async () => {
@@ -163,7 +166,7 @@ describe('serialize deserialize', function () {
       (window as any)._serialize(new URLSearchParams('foo=bar&lorem=ipsum')),
     );
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.equal('URLSearchParams: foo=bar&lorem=ipsum');
+    assert.equal(deserialized, 'URLSearchParams: foo=bar&lorem=ipsum');
   });
 
   it('handles classes', async () => {
@@ -175,26 +178,26 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(new Foo());
     });
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.eql({ a: 1, b: 2 });
-    expect(deserialized.constructor.name).to.equal('Foo');
+    looseDeepEqual(deserialized, { a: 1, b: 2 });
+    assert.equal(deserialized.constructor.name, 'Foo');
   });
 
   it('handles objects', async () => {
     const serialized = await page.evaluate(() => (window as any)._serialize({ a: 1, b: 2 }));
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.eql({ a: 1, b: 2 });
+    looseDeepEqual(deserialized, { a: 1, b: 2 });
   });
 
   it('handles arrays', async () => {
     const serialized = await page.evaluate(() => (window as any)._serialize([1, 2, 3]));
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.eql([1, 2, 3]);
+    looseDeepEqual(deserialized, [1, 2, 3]);
   });
 
   it('handles objects', async () => {
     const serialized = await page.evaluate(() => (window as any)._serialize({ a: 1, b: 2 }));
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.eql({ a: 1, b: 2 });
+    looseDeepEqual(deserialized, { a: 1, b: 2 });
   });
 
   it('handles objects with methods', async () => {
@@ -213,14 +216,14 @@ describe('serialize deserialize', function () {
       }),
     );
     const deserialized = await deserialize(serialized);
-    expect(deserialized.foo).to.be.a('function');
-    expect(deserialized.foo.name).to.equal('foo');
-    expect(deserialized.bar).to.be.a('function');
-    expect(deserialized.bar.name).to.equal('bar');
-    expect(deserialized.baz).to.be.a('function');
-    expect(deserialized.baz.name).to.equal('baz');
-    expect(deserialized['my-element']).to.be.a('function');
-    expect(deserialized['my-element'].name).to.equal('my-element');
+    assert.equal(typeof deserialized.foo, 'function');
+    assert.equal(deserialized.foo.name, 'foo');
+    assert.equal(typeof deserialized.bar, 'function');
+    assert.equal(deserialized.bar.name, 'bar');
+    assert.equal(typeof deserialized.baz, 'function');
+    assert.equal(deserialized.baz.name, 'baz');
+    assert.equal(typeof deserialized['my-element'], 'function');
+    assert.equal(deserialized['my-element'].name, 'my-element');
   });
 
   it('handles deep objects', async () => {
@@ -239,14 +242,14 @@ describe('serialize deserialize', function () {
       }),
     );
     const deserialized = await deserialize(serialized);
-    expect(deserialized.myNumber).to.equal(123);
-    expect(deserialized.myString).to.equal('foo');
-    expect(deserialized.myObject.myUrl).to.equal('http://www.example.com/');
-    expect(deserialized.myObject.myMethod).to.be.a('function');
-    expect(deserialized.myObject.myMethod.name).to.equal('myMethod');
-    expect(deserialized.myObject.myRegExp).to.a('RegExp');
-    expect(deserialized.myObject.myRegExp.source).to.equal('x');
-    expect(deserialized.myArray).to.eql([1, '2']);
+    assert.equal(deserialized.myNumber, 123);
+    assert.equal(deserialized.myString, 'foo');
+    assert.equal(deserialized.myObject.myUrl, 'http://www.example.com/');
+    assert.equal(typeof deserialized.myObject.myMethod, 'function');
+    assert.equal(deserialized.myObject.myMethod.name, 'myMethod');
+    assert.ok(deserialized.myObject.myRegExp instanceof RegExp);
+    assert.equal(deserialized.myObject.myRegExp.source, 'x');
+    looseDeepEqual(deserialized.myArray, [1, '2']);
   });
 
   it('handles deep arrays', async () => {
@@ -264,17 +267,17 @@ describe('serialize deserialize', function () {
       ]);
     });
     const deserialized = await deserialize(serialized);
-    expect(deserialized[0]).to.equal(1);
-    expect(deserialized[1]).to.equal('2');
-    expect(deserialized[2]).to.a('RegExp');
-    expect(deserialized[2].source).to.equal('x');
-    expect(deserialized[3]).to.equal('http://www.example.com/');
-    expect(deserialized[4]).to.equal('Symbol(foo)');
-    expect(deserialized[5].a).to.equal(1);
-    expect(deserialized[5].b).to.equal(2);
-    expect(deserialized[5].c).to.equal('URLSearchParams: x=y');
-    expect(deserialized[5].d).to.eql({ x: 'y' });
-    expect(deserialized[5].d.constructor.name).to.equal('Foo');
+    assert.equal(deserialized[0], 1);
+    assert.equal(deserialized[1], '2');
+    assert.ok(deserialized[2] instanceof RegExp);
+    assert.equal(deserialized[2].source, 'x');
+    assert.equal(deserialized[3], 'http://www.example.com/');
+    assert.equal(deserialized[4], 'Symbol(foo)');
+    assert.equal(deserialized[5].a, 1);
+    assert.equal(deserialized[5].b, 2);
+    assert.equal(deserialized[5].c, 'URLSearchParams: x=y');
+    looseDeepEqual(deserialized[5].d, { x: 'y' });
+    assert.equal(deserialized[5].d.constructor.name, 'Foo');
   });
 
   it('handles circular references', async () => {
@@ -284,7 +287,7 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(foo);
     });
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.eql({
+    looseDeepEqual(deserialized, {
       circular: '[Circular]',
     });
   });
@@ -298,7 +301,7 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(foo);
     });
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.eql({
+    looseDeepEqual(deserialized, {
       circular1: '[Circular]',
       x: {
         circular2: '[Circular]',
@@ -321,7 +324,7 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(foo);
     });
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.eql({ circulars: ['[Circular]', 'bar', '[Circular]'] });
+    looseDeepEqual(deserialized, { circulars: ['[Circular]', 'bar', '[Circular]'] });
   });
 
   it('handles generated circular references', async () => {
@@ -332,8 +335,8 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(obj);
     });
     const deserialized = await deserialize(serialized);
-    expect(deserialized.f).to.be.a('function');
-    expect(deserialized.x).to.equal('[Circular]');
+    assert.equal(typeof deserialized.f, 'function');
+    assert.equal(deserialized.x, '[Circular]');
   });
 
   it('handles errors', async () => {
@@ -344,12 +347,12 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(a());
     });
     const deserialized = await deserialize(serialized, defaultOptions);
-    expect(deserialized).to.be.a('string');
-    expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include('2:29');
-    expect(deserialized).to.include('3:29');
-    expect(deserialized).to.include('4:29');
-    expect(deserialized).to.include('5:38');
+    assert.equal(typeof deserialized, 'string');
+    assert.ok(deserialized.includes('my error msg'));
+    assert.ok(deserialized.includes('2:29'));
+    assert.ok(deserialized.includes('3:29'));
+    assert.ok(deserialized.includes('4:29'));
+    assert.ok(deserialized.includes('5:38'));
   });
 
   it('handles errors in objects', async () => {
@@ -360,12 +363,12 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize({ myError: a() });
     });
     const deserialized = await deserialize(serialized, defaultOptions);
-    expect(deserialized.myError).to.be.a('string');
-    expect(deserialized.myError).to.include('my error msg');
-    expect(deserialized.myError).to.include('2:29');
-    expect(deserialized.myError).to.include('3:29');
-    expect(deserialized.myError).to.include('4:29');
-    expect(deserialized.myError).to.include('5:49');
+    assert.equal(typeof deserialized.myError, 'string');
+    assert.ok(deserialized.myError.includes('my error msg'));
+    assert.ok(deserialized.myError.includes('2:29'));
+    assert.ok(deserialized.myError.includes('3:29'));
+    assert.ok(deserialized.myError.includes('4:29'));
+    assert.ok(deserialized.myError.includes('5:49'));
   });
 
   it('handles errors in arrays', async () => {
@@ -376,21 +379,21 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize([a(), b(), c()]);
     });
     const deserialized = await deserialize(serialized, defaultOptions);
-    expect(deserialized[0]).to.be.a('string');
-    expect(deserialized[0]).to.include('my error msg');
-    expect(deserialized[0]).to.include('2:29');
-    expect(deserialized[0]).to.include('3:29');
-    expect(deserialized[0]).to.include('4:29');
-    expect(deserialized[0]).to.include('5:39');
-    expect(deserialized[1]).to.be.a('string');
-    expect(deserialized[1]).to.include('my error msg');
-    expect(deserialized[1]).to.include('2:29');
-    expect(deserialized[1]).to.include('3:29');
-    expect(deserialized[1]).to.include('5:44');
-    expect(deserialized[2]).to.be.a('string');
-    expect(deserialized[2]).to.include('my error msg');
-    expect(deserialized[2]).to.include('2:29');
-    expect(deserialized[2]).to.include('5:49');
+    assert.equal(typeof deserialized[0], 'string');
+    assert.ok(deserialized[0].includes('my error msg'));
+    assert.ok(deserialized[0].includes('2:29'));
+    assert.ok(deserialized[0].includes('3:29'));
+    assert.ok(deserialized[0].includes('4:29'));
+    assert.ok(deserialized[0].includes('5:39'));
+    assert.equal(typeof deserialized[1], 'string');
+    assert.ok(deserialized[1].includes('my error msg'));
+    assert.ok(deserialized[1].includes('2:29'));
+    assert.ok(deserialized[1].includes('3:29'));
+    assert.ok(deserialized[1].includes('5:44'));
+    assert.equal(typeof deserialized[2], 'string');
+    assert.ok(deserialized[2].includes('my error msg'));
+    assert.ok(deserialized[2].includes('2:29'));
+    assert.ok(deserialized[2].includes('5:49'));
   });
 
   it('can map stack trace locations', async () => {
@@ -404,9 +407,9 @@ describe('serialize deserialize', function () {
       ...defaultOptions,
       mapStackLocation: l => ({ ...l, filePath: `${l.filePath}__MAPPED__`, line: 1, column: 2 }),
     });
-    expect(deserialized).to.be.a('string');
-    expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include(`__MAPPED__:1:2`);
+    assert.equal(typeof deserialized, 'string');
+    assert.ok(deserialized.includes('my error msg'));
+    assert.ok(deserialized.includes(`__MAPPED__:1:2`));
   });
 
   it('mapped stack traces can be async', async () => {
@@ -423,9 +426,9 @@ describe('serialize deserialize', function () {
         return { ...l, filePath: `${l.filePath}__MAPPED__`, line: 1, column: 2 };
       },
     });
-    expect(deserialized).to.be.a('string');
-    expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include(`__MAPPED__:1:2`);
+    assert.equal(typeof deserialized, 'string');
+    assert.ok(deserialized.includes('my error msg'));
+    assert.ok(deserialized.includes(`__MAPPED__:1:2`));
   });
 
   it('can define a cwd below current directory', async () => {
@@ -437,14 +440,14 @@ describe('serialize deserialize', function () {
     });
     const deserialized = await deserialize(serialized, {
       ...defaultOptions,
-      cwd: path.resolve(__dirname, '..'),
+      cwd: path.resolve(import.meta.dirname, '..'),
     });
-    expect(deserialized).to.be.a('string');
-    expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include(`2:29`);
-    expect(deserialized).to.include(`3:29`);
-    expect(deserialized).to.include(`4:29`);
-    expect(deserialized).to.include(`5:38`);
+    assert.equal(typeof deserialized, 'string');
+    assert.ok(deserialized.includes('my error msg'));
+    assert.ok(deserialized.includes(`2:29`));
+    assert.ok(deserialized.includes(`3:29`));
+    assert.ok(deserialized.includes(`4:29`));
+    assert.ok(deserialized.includes(`5:38`));
   });
 
   it('can define a cwd above current directory', async () => {
@@ -455,33 +458,33 @@ describe('serialize deserialize', function () {
       return (window as any)._serialize(a());
     });
     const deserialized = await deserialize(serialized, {
-      cwd: path.resolve(__dirname, '..', 'foo'),
-      browserRootDir: path.resolve(__dirname, '..'),
+      cwd: path.resolve(import.meta.dirname, '..', 'foo'),
+      browserRootDir: path.resolve(import.meta.dirname, '..'),
     });
-    expect(deserialized).to.be.a('string');
-    expect(deserialized).to.include('my error msg');
-    expect(deserialized).to.include(`2:29`);
-    expect(deserialized).to.include(`3:29`);
-    expect(deserialized).to.include(`4:29`);
-    expect(deserialized).to.include(`5:38`);
+    assert.equal(typeof deserialized, 'string');
+    assert.ok(deserialized.includes('my error msg'));
+    assert.ok(deserialized.includes(`2:29`));
+    assert.ok(deserialized.includes(`3:29`));
+    assert.ok(deserialized.includes(`4:29`));
+    assert.ok(deserialized.includes(`5:38`));
   });
 
   it('handles null', async () => {
     const serialized = await page.evaluate(() => (window as any)._serialize(null));
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.equal(null);
+    assert.equal(deserialized, null);
   });
 
   it('handles undefined', async () => {
     const serialized = await page.evaluate(() => (window as any)._serialize(undefined));
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.equal(undefined);
+    assert.equal(deserialized, undefined);
   });
 
   it('handles undefined in an object', async () => {
     const serialized = await page.evaluate(() => (window as any)._serialize({ x: undefined }));
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.eql({ x: undefined });
+    looseDeepEqual(deserialized, { x: undefined });
   });
 
   it('handles undefined in an array', async () => {
@@ -489,7 +492,7 @@ describe('serialize deserialize', function () {
       (window as any)._serialize([1, undefined, '2', undefined]),
     );
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.eql([1, undefined, '2', undefined]);
+    looseDeepEqual(deserialized, [1, undefined, '2', undefined]);
   });
 
   it('handles multiple undefined values', async () => {
@@ -501,7 +504,7 @@ describe('serialize deserialize', function () {
       }),
     );
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.eql({
+    looseDeepEqual(deserialized, {
       a: { a1: undefined, a2: undefined, a3: { x: undefined } },
       b: undefined,
       c: { q: [1, undefined] },
@@ -513,7 +516,7 @@ describe('serialize deserialize', function () {
       (window as any)._serialize(new Promise(resolve => resolve(1))),
     );
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.eql('Promise { }');
+    looseDeepEqual(deserialized, 'Promise { }');
   });
 
   it('handles errors thrown during serialization', async () => {
@@ -525,6 +528,6 @@ describe('serialize deserialize', function () {
       }),
     );
     const deserialized = await deserialize(serialized);
-    expect(deserialized).to.eql(null);
+    looseDeepEqual(deserialized, null);
   });
 });

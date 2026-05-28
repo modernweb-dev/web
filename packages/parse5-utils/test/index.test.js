@@ -1,4 +1,5 @@
-const { expect } = require('chai');
+const { describe, it } = require('node:test');
+const assert = require('node:assert/strict');
 const { parse, serialize } = require('parse5');
 const { getAttribute, getTextContent, findElement } = require('../src/index');
 const utils = require('../src/index');
@@ -9,7 +10,8 @@ describe('parse5-utils', () => {
       const doc = parse('');
       const el = utils.createElement('my-element');
       utils.appendChild(doc, el);
-      expect(serialize(doc)).to.equal(
+      assert.equal(
+        serialize(doc),
         '<html><head></head><body></body></html><my-element></my-element>',
       );
     });
@@ -18,7 +20,8 @@ describe('parse5-utils', () => {
       const doc = parse('');
       const el = utils.createElement('my-element', { foo: 'bar', x: '' });
       utils.appendChild(doc, el);
-      expect(serialize(doc)).to.equal(
+      assert.equal(
+        serialize(doc),
         '<html><head></head><body></body></html><my-element foo="bar" x=""></my-element>',
       );
     });
@@ -29,14 +32,15 @@ describe('parse5-utils', () => {
       const doc = parse('');
       const el = utils.createScript();
       utils.appendChild(doc, el);
-      expect(serialize(doc)).to.equal('<html><head></head><body></body></html><script></script>');
+      assert.equal(serialize(doc), '<html><head></head><body></body></html><script></script>');
     });
 
     it('create a script with attributes', () => {
       const doc = parse('');
       const el = utils.createScript({ type: 'module' });
       utils.appendChild(doc, el);
-      expect(serialize(doc)).to.equal(
+      assert.equal(
+        serialize(doc),
         '<html><head></head><body></body></html><script type="module"></script>',
       );
     });
@@ -45,7 +49,8 @@ describe('parse5-utils', () => {
       const doc = parse('');
       const el = utils.createScript({ type: 'module' }, 'console.log("x");');
       utils.appendChild(doc, el);
-      expect(serialize(doc)).to.equal(
+      assert.equal(
+        serialize(doc),
         '<html><head></head><body></body></html><script type="module">console.log("x");</script>',
       );
     });
@@ -53,47 +58,49 @@ describe('parse5-utils', () => {
 
   describe('isHtmlFragment()', () => {
     it('returns whether a HTML string is a fragment', () => {
-      expect(utils.isHtmlFragment('<my-element></my-element>')).to.equal(true);
-      expect(utils.isHtmlFragment('')).to.equal(true);
-      expect(utils.isHtmlFragment('foo')).to.equal(true);
-      expect(utils.isHtmlFragment('<div></div>')).to.equal(true);
-      expect(utils.isHtmlFragment('<!-- COMMENT --><!DOCTYPE><my-element></my-element>')).to.equal(
+      assert.equal(utils.isHtmlFragment('<my-element></my-element>'), true);
+      assert.equal(utils.isHtmlFragment(''), true);
+      assert.equal(utils.isHtmlFragment('foo'), true);
+      assert.equal(utils.isHtmlFragment('<div></div>'), true);
+      assert.equal(
+        utils.isHtmlFragment('<!-- COMMENT --><!DOCTYPE><my-element></my-element>'),
         false,
       );
-      expect(
+      assert.equal(
         utils.isHtmlFragment(`<!--
       COMMENT
       --><!DOCTYPE><my-element></my-element>`),
-      ).to.equal(false);
-      expect(utils.isHtmlFragment('<!DOCTYPE><my-element></my-element>')).to.equal(false);
-      expect(utils.isHtmlFragment('  <!DOCTYPE><my-element></my-element>')).to.equal(false);
-      expect(utils.isHtmlFragment('  <html><my-element></my-element></html>')).to.equal(false);
-      expect(utils.isHtmlFragment('  <body><my-element></my-element></body>')).to.equal(false);
-      expect(utils.isHtmlFragment('  <head><my-element></my-element></head>')).to.equal(false);
+        false,
+      );
+      assert.equal(utils.isHtmlFragment('<!DOCTYPE><my-element></my-element>'), false);
+      assert.equal(utils.isHtmlFragment('  <!DOCTYPE><my-element></my-element>'), false);
+      assert.equal(utils.isHtmlFragment('  <html><my-element></my-element></html>'), false);
+      assert.equal(utils.isHtmlFragment('  <body><my-element></my-element></body>'), false);
+      assert.equal(utils.isHtmlFragment('  <head><my-element></my-element></head>'), false);
     });
   });
 
   describe('getAttributes()', () => {
     it('returns the attributes of an element', () => {
       const el = utils.createElement('my-element', { foo: 'bar', x: '' });
-      expect(utils.getAttributes(el)).to.eql({ foo: 'bar', x: '' });
+      assert.deepEqual(utils.getAttributes(el), { foo: 'bar', x: '' });
     });
 
     it('returns an empty object if there are no attributes', () => {
       const el = utils.createElement('my-element');
-      expect(utils.getAttributes(el)).to.eql({});
+      assert.deepEqual(utils.getAttributes(el), {});
     });
   });
 
   describe('getAttribute()', () => {
     it('returns a single attribute', () => {
       const el = utils.createElement('my-element', { foo: 'bar', x: '' });
-      expect(utils.getAttribute(el, 'foo')).to.eql('bar');
+      assert.deepEqual(utils.getAttribute(el, 'foo'), 'bar');
     });
 
     it('returns undefined if the attribute was not found', () => {
       const el = utils.createElement('my-element', { foo: 'bar', x: '' });
-      expect(utils.getAttribute(el, 'y')).to.eql(undefined);
+      assert.deepEqual(utils.getAttribute(el, 'y'), undefined);
     });
   });
 
@@ -103,7 +110,8 @@ describe('parse5-utils', () => {
       const el = utils.createElement('my-element');
       utils.appendChild(doc, el);
       utils.setAttribute(el, 'foo', 'bar');
-      expect(serialize(doc)).to.eql(
+      assert.deepEqual(
+        serialize(doc),
         '<html><head></head><body></body></html><my-element foo="bar"></my-element>',
       );
     });
@@ -113,7 +121,8 @@ describe('parse5-utils', () => {
       const el = utils.createElement('my-element', { foo: 'bar' });
       utils.appendChild(doc, el);
       utils.setAttribute(el, 'foo', 'not-bar');
-      expect(serialize(doc)).to.eql(
+      assert.deepEqual(
+        serialize(doc),
         '<html><head></head><body></body></html><my-element foo="not-bar"></my-element>',
       );
     });
@@ -125,7 +134,8 @@ describe('parse5-utils', () => {
       const el = utils.createElement('my-element');
       utils.appendChild(doc, el);
       utils.setAttributes(el, { foo: 'bar', lorem: 'ipsum', x: undefined });
-      expect(serialize(doc)).to.eql(
+      assert.deepEqual(
+        serialize(doc),
         '<html><head></head><body></body></html><my-element foo="bar" lorem="ipsum"></my-element>',
       );
     });
@@ -137,7 +147,8 @@ describe('parse5-utils', () => {
       const el = utils.createElement('my-element', { foo: 'bar', x: 'y' });
       utils.appendChild(doc, el);
       utils.removeAttribute(el, 'x');
-      expect(serialize(doc)).to.eql(
+      assert.deepEqual(
+        serialize(doc),
         '<html><head></head><body></body></html><my-element foo="bar"></my-element>',
       );
     });
@@ -148,7 +159,7 @@ describe('parse5-utils', () => {
       const doc = parse('<html><body><div id="myDiv">Hello world</div></body></html>');
       const myDiv = utils.findElement(doc, e => getAttribute(e, 'id') === 'myDiv');
       if (!myDiv) throw new Error();
-      expect(getTextContent(myDiv)).to.equal('Hello world');
+      assert.equal(getTextContent(myDiv), 'Hello world');
     });
 
     it('returns multiple nodes text', () => {
@@ -157,7 +168,7 @@ describe('parse5-utils', () => {
       );
       const myDiv = utils.findElement(doc, e => getAttribute(e, 'id') === 'myDiv');
       if (!myDiv) throw new Error();
-      expect(getTextContent(myDiv)).to.equal('Top levelBeforeABAfter');
+      assert.equal(getTextContent(myDiv), 'Top levelBeforeABAfter');
     });
   });
 
@@ -167,7 +178,8 @@ describe('parse5-utils', () => {
       const el = utils.createElement('script');
       utils.setTextContent(el, 'foo bar');
       utils.appendChild(doc, el);
-      expect(serialize(doc)).to.equal(
+      assert.equal(
+        serialize(doc),
         '<html><head></head><body></body></html><script>foo bar</script>',
       );
     });
@@ -179,7 +191,7 @@ describe('parse5-utils', () => {
       const div = findElement(doc, e => utils.getAttribute(e, 'id') === 'myDiv');
       if (!div) throw new Error('element not found');
       utils.remove(div);
-      expect(serialize(doc)).to.equal('<html><head></head><body></body></html>');
+      assert.equal(serialize(doc), '<html><head></head><body></body></html>');
     });
   });
 
@@ -198,7 +210,7 @@ describe('parse5-utils', () => {
       if (!found) {
         throw new Error('No element found.');
       }
-      expect(utils.getAttribute(found, 'foo')).to.equal('2');
+      assert.equal(utils.getAttribute(found, 'foo'), '2');
     });
 
     it('returns the first match', () => {
@@ -215,8 +227,8 @@ describe('parse5-utils', () => {
       if (!found) {
         throw new Error('No element found.');
       }
-      expect(utils.getAttribute(found, 'foo')).to.equal('bar');
-      expect(utils.getAttribute(found, 'index')).to.equal('1');
+      assert.equal(utils.getAttribute(found, 'foo'), 'bar');
+      assert.equal(utils.getAttribute(found, 'index'), '1');
     });
 
     it('returns nested elements', () => {
@@ -239,7 +251,7 @@ describe('parse5-utils', () => {
       if (!found) {
         throw new Error('No element found.');
       }
-      expect(found).to.exist;
+      assert.ok(found);
     });
   });
 
@@ -255,8 +267,8 @@ describe('parse5-utils', () => {
       </html>
     `);
       const found = utils.findElements(doc, el => utils.getAttribute(el, 'foo') === '2');
-      expect(found.length).to.equal(1);
-      expect(utils.getAttribute(found[0], 'foo')).to.equal('2');
+      assert.equal(found.length, 1);
+      assert.equal(utils.getAttribute(found[0], 'foo'), '2');
     });
 
     it('returns multiple matched elements', () => {
@@ -270,9 +282,9 @@ describe('parse5-utils', () => {
       </html>
     `);
       const found = utils.findElements(doc, el => utils.getAttribute(el, 'foo') === 'bar');
-      expect(found.length).to.equal(3);
+      assert.equal(found.length, 3);
       const indices = found.map(f => utils.getAttribute(f, 'index'));
-      expect(indices).to.eql(['1', '2', '3']);
+      assert.deepEqual(indices, ['1', '2', '3']);
     });
 
     it('returns an empty array when there are no matches', () => {
@@ -286,7 +298,7 @@ describe('parse5-utils', () => {
       </html>
     `);
       const found = utils.findElements(doc, el => utils.hasAttribute(el, 'non-existing'));
-      expect(found.length).to.equal(0);
+      assert.equal(found.length, 0);
     });
 
     it('returns child elements within template elements', () => {
@@ -301,7 +313,7 @@ describe('parse5-utils', () => {
     `);
 
       const found = utils.findElements(doc, el => utils.hasAttribute(el, 'src'));
-      expect(found.length).to.equal(1);
+      assert.equal(found.length, 1);
     });
   });
 
@@ -310,7 +322,7 @@ describe('parse5-utils', () => {
       const document = '<html><head></head><body></body></html>';
       const result = utils.prependToDocument(document, '<div>Hello world</div>');
       if (!result) throw new Error();
-      expect(result).to.equal('<html><head><div>Hello world</div></head><body></body></html>');
+      assert.equal(result, '<html><head><div>Hello world</div></head><body></body></html>');
     });
 
     it('injects before other elements', () => {
@@ -318,7 +330,8 @@ describe('parse5-utils', () => {
         '<html><head><div>A</div><div>B</div></head><body><div>C</div></body></html>';
       const result = utils.prependToDocument(document, '<div>Hello world</div>');
       if (!result) throw new Error();
-      expect(result).to.equal(
+      assert.equal(
+        result,
         '<html><head><div>Hello world</div><div>A</div><div>B</div></head><body><div>C</div></body></html>',
       );
     });
@@ -327,13 +340,13 @@ describe('parse5-utils', () => {
       const document = '<html><body><div>A</div></body></html>';
       const result = utils.prependToDocument(document, '<div>Hello world</div>');
       if (!result) throw new Error();
-      expect(result).to.equal('<html><body><div>Hello world</div><div>A</div></body></html>');
+      assert.equal(result, '<html><body><div>Hello world</div><div>A</div></body></html>');
     });
 
     it('uses AST manipulation if there is no head or body', () => {
       const document = '<html></html>';
       const result = utils.prependToDocument(document, '<div>A</div><div>B</div>');
-      expect(result).to.equal('<html><head><div>A</div><div>B</div></head><body></body></html>');
+      assert.equal(result, '<html><head><div>A</div><div>B</div></head><body></body></html>');
     });
   });
 
@@ -342,7 +355,7 @@ describe('parse5-utils', () => {
       const document = '<html><head></head><body></body></html>';
       const result = utils.appendToDocument(document, '<div>Hello world</div>');
       if (!result) throw new Error();
-      expect(result).to.equal('<html><head></head><body><div>Hello world</div></body></html>');
+      assert.equal(result, '<html><head></head><body><div>Hello world</div></body></html>');
     });
 
     it('injects after other elements', () => {
@@ -350,7 +363,8 @@ describe('parse5-utils', () => {
         '<html><head><script>A</script></head><body><script>B</script><script>C</script></body></html>';
       const result = utils.appendToDocument(document, '<div>Hello world</div>');
       if (!result) throw new Error();
-      expect(result).to.equal(
+      assert.equal(
+        result,
         '<html><head><script>A</script></head><body><script>B</script><script>C</script><div>Hello world</div></body></html>',
       );
     });
@@ -359,13 +373,13 @@ describe('parse5-utils', () => {
       const document = '<html><head><script>A</script></head></html>';
       const result = utils.appendToDocument(document, '<div>Hello world</div>');
       if (!result) throw new Error();
-      expect(result).to.equal('<html><head><script>A</script><div>Hello world</div></head></html>');
+      assert.equal(result, '<html><head><script>A</script><div>Hello world</div></head></html>');
     });
 
     it('returns null if there is no head or body', () => {
       const document = '<html></html>';
       const result = utils.appendToDocument(document, '<div>A</div><div>B</div>');
-      expect(result).to.equal('<html><head></head><body><div>A</div><div>B</div></body></html>');
+      assert.equal(result, '<html><head></head><body><div>A</div><div>B</div></body></html>');
     });
   });
 });

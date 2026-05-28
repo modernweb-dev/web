@@ -1,18 +1,17 @@
 import path from 'path';
 import { runTests } from '@web/test-runner-core/test-helpers';
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import { chromeLauncher } from '@web/test-runner-chrome';
 
-import { visualRegressionPlugin } from '../src/visualRegressionPlugin.js';
-import { fileExists } from '../src/fs.js';
+import { visualRegressionPlugin } from '../dist/visualRegressionPlugin.js';
+import { fileExists } from '../dist/fs.js';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
-describe('visualRegressionPlugin', function test() {
-  this.timeout(20000);
-
+describe('visualRegressionPlugin', { timeout: 20000 }, () => {
   it('can run a passing test', async () => {
     await runTests({
-      files: [path.join(__dirname, 'diff-pass-test.js')],
+      files: [path.join(import.meta.dirname, 'diff-pass-test.js')],
       browsers: [
         chromeLauncher(),
         playwrightLauncher({ product: 'firefox' }),
@@ -38,7 +37,7 @@ describe('visualRegressionPlugin', function test() {
   it('can run a failed test', async () => {
     const { sessions } = await runTests(
       {
-        files: [path.join(__dirname, 'diff-fail-test.js')],
+        files: [path.join(import.meta.dirname, 'diff-fail-test.js')],
         browsers: [
           chromeLauncher(),
           playwrightLauncher({ product: 'firefox' }),
@@ -63,18 +62,20 @@ describe('visualRegressionPlugin', function test() {
       { allowFailure: true, reportErrors: false },
     );
 
-    expect(sessions.length).to.equal(3);
+    assert.equal(sessions.length, 3);
 
     for (const session of sessions) {
-      expect(session.passed).to.equal(false);
-      expect(session.testResults!.tests.length).to.equal(1);
-      expect(session.testResults!.tests[0].error!.message).to.include(
-        'Visual diff failed. New screenshot is ',
+      assert.equal(session.passed, false);
+      assert.equal(session.testResults!.tests.length, 1);
+      assert.ok(
+        session.testResults!.tests[0].error!.message.includes(
+          'Visual diff failed. New screenshot is ',
+        ),
       );
-      expect(
+      assert.equal(
         await fileExists(
           path.resolve(
-            __dirname,
+            import.meta.dirname,
             '..',
             'screenshots',
             session.browser.name,
@@ -82,11 +83,12 @@ describe('visualRegressionPlugin', function test() {
             'my-failed-element.png',
           ),
         ),
-      ).to.equal(true);
-      expect(
+        true,
+      );
+      assert.equal(
         await fileExists(
           path.resolve(
-            __dirname,
+            import.meta.dirname,
             '..',
             'screenshots',
             session.browser.name,
@@ -94,7 +96,8 @@ describe('visualRegressionPlugin', function test() {
             'my-failed-element-diff.png',
           ),
         ),
-      ).to.equal(true);
+        true,
+      );
     }
   });
 });

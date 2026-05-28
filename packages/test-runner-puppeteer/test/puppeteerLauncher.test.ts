@@ -1,8 +1,8 @@
+import { describe } from 'node:test';
 import { runIntegrationTests } from '../../../integration/test-runner/index.js';
-import { puppeteerLauncher } from '../src/index.js';
+import { puppeteerLauncher } from '../dist/index.js';
 
 describe('test-runner-puppeteer', function testRunnerPuppeteer() {
-  this.timeout(20000);
 
   function createConfig() {
     return {
