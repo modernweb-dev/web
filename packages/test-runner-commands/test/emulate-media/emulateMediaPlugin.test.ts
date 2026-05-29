@@ -1,4 +1,4 @@
-import { describe,it } from 'node:test';
+import { describe, it } from 'node:test';
 import path from 'path';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
@@ -7,7 +7,6 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 import { emulateMediaPlugin } from '../../dist/emulateMediaPlugin.js';
 
 describe('emulateMediaPlugin', function test() {
-
   it('can emulate media on puppeteer', async () => {
     await runTests({
       files: [

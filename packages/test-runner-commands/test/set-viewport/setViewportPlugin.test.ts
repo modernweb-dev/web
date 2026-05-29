@@ -1,4 +1,4 @@
-import { describe,it } from 'node:test';
+import { describe, it } from 'node:test';
 import path from 'path';
 
 import { runTests } from '@web/test-runner-core/test-helpers';
@@ -8,7 +8,6 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 import { setViewportPlugin } from '../../dist/setViewportPlugin.js';
 
 describe('setViewportPlugin', function test() {
-
   it('can set the viewport on puppeteer', async () => {
     await runTests({
       files: [path.join(import.meta.dirname, 'browser-test.js')],

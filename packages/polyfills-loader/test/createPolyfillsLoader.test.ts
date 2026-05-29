@@ -15,13 +15,21 @@ interface TestSnapshotArgs {
 }
 
 async function testSnapshot({ name, config, expectedFiles = [] }: TestSnapshotArgs) {
-  const snapshotPath = path.join(import.meta.dirname, 'snapshots', 'createPolyfillsLoader', `${name}.js`);
+  const snapshotPath = path.join(
+    import.meta.dirname,
+    'snapshots',
+    'createPolyfillsLoader',
+    `${name}.js`,
+  );
   const loader = await createPolyfillsLoader(config);
   if (!loader) {
     throw new Error('No loader was generated');
   }
 
-  assert.deepEqual(loader.polyfillFiles.map(f => f.path), expectedFiles);
+  assert.deepEqual(
+    loader.polyfillFiles.map(f => f.path),
+    expectedFiles,
+  );
 
   if (updateSnapshots) {
     fs.writeFileSync(snapshotPath, loader.code, 'utf-8');

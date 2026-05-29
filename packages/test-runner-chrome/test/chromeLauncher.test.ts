@@ -3,7 +3,6 @@ import { runIntegrationTests } from '../../../integration/test-runner/index.js';
 import { chromeLauncher } from '../dist/index.js';
 
 describe('test-runner-chrome', function testRunnerChrome() {
-
   function createConfig() {
     return {
       browsers: [chromeLauncher()],

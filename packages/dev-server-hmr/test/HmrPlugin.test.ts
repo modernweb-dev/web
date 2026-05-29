@@ -31,7 +31,8 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/foo.js`);
       fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/foo.js'));
 
-      assert.equal(stub.mock.calls[0].arguments[0],
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -61,7 +62,8 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/bar.js`);
       fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
 
-      assert.equal(stub.mock.calls[0].arguments[0],
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -89,7 +91,8 @@ describe('HmrPlugin', () => {
       fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
 
       assert.equal(stub.mock.callCount(), 1);
-      assert.equal(stub.mock.calls[0].arguments[0],
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -117,7 +120,8 @@ describe('HmrPlugin', () => {
       fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
 
       assert.equal(stub.mock.callCount(), 1);
-      assert.equal(stub.mock.calls[0].arguments[0],
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:reload',
         }),
@@ -146,7 +150,8 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/root/bar.js`);
       fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/root/bar.js'));
 
-      assert.equal(stub.mock.calls[0].arguments[0],
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/root/foo.js',
@@ -176,7 +181,8 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/bar.js`);
       fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
 
-      assert.equal(stub.mock.calls[0].arguments[0],
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -296,7 +302,8 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/bar.js`);
       fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
 
-      assert.equal(stub.mock.calls[0].arguments[0],
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -326,7 +333,8 @@ describe('HmrPlugin', () => {
       await fetch(`${host}/foo.js`);
       fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/foo.js'));
 
-      assert.equal(stub.mock.calls[0].arguments[0],
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:reload',
         }),

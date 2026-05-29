@@ -25,7 +25,9 @@ describe('TestScheduler', () => {
     } as Partial<TestSession> as TestSession;
   }
 
-  function createBrowserStub(name: string): [Record<string, ReturnType<typeof mock.fn>>, BrowserLauncher] {
+  function createBrowserStub(
+    name: string,
+  ): [Record<string, ReturnType<typeof mock.fn>>, BrowserLauncher] {
     const spies = {
       stop: mock.fn(() => timeout(1)),
       startDebugSession: mock.fn(() => timeout(1)),
@@ -74,7 +76,12 @@ describe('TestScheduler', () => {
 
   function createTestFixture(
     ...ids: string[]
-  ): [TestScheduler, TestSessionManager, TestSession[], Record<string, ReturnType<typeof mock.fn>>] {
+  ): [
+    TestScheduler,
+    TestSessionManager,
+    TestSession[],
+    Record<string, ReturnType<typeof mock.fn>>,
+  ] {
     const [browserStubs, browser] = createBrowserStub('a');
     const sessions: TestSession[] = [];
     for (const id of ids) {
@@ -299,7 +306,12 @@ describe('TestScheduler', () => {
   describe('multi browsers', () => {
     function createTestFixture(
       fixtures: { name: string; ids: string[] }[],
-    ): [TestScheduler, TestSessionManager, Array<[Record<string, ReturnType<typeof mock.fn>>, BrowserLauncher]>, TestSession[]] {
+    ): [
+      TestScheduler,
+      TestSessionManager,
+      Array<[Record<string, ReturnType<typeof mock.fn>>, BrowserLauncher]>,
+      TestSession[],
+    ] {
       const browsers: Array<[Record<string, ReturnType<typeof mock.fn>>, BrowserLauncher]> = [];
       const sessions: TestSession[] = [];
 

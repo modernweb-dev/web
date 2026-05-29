@@ -218,12 +218,16 @@ describe('TestRunner', () => {
         [
           {
             name: 'a',
-            files: [path.join(import.meta.dirname, '..', '..', 'fixtures', 'group-a', 'a-1.test.js')],
+            files: [
+              path.join(import.meta.dirname, '..', '..', 'fixtures', 'group-a', 'a-1.test.js'),
+            ],
           },
           {
             name: 'b',
             browsers: [browserB],
-            files: [path.join(import.meta.dirname, '..', '..', 'fixtures', 'group-b', 'b-1.test.js')],
+            files: [
+              path.join(import.meta.dirname, '..', '..', 'fixtures', 'group-b', 'b-1.test.js'),
+            ],
           },
         ],
       );

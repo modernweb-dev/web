@@ -201,9 +201,10 @@ exports.default = _default;`;
   });
 
   it('passes the in-browser tests', { timeout: 40000 }, async () => {
-
     await runTests({
-      files: [resolve(import.meta.dirname, '..', 'fixtures', 'commonjs', 'commonjs-browser-test.js')],
+      files: [
+        resolve(import.meta.dirname, '..', 'fixtures', 'commonjs', 'commonjs-browser-test.js'),
+      ],
       browsers: [chromeLauncher({ launchOptions: { devtools: false } })],
       plugins: [
         fromRollup(rollupCommonjs)({

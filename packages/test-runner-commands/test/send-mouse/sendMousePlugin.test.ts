@@ -1,4 +1,4 @@
-import { after,before,describe,it } from 'node:test';
+import { after, before, describe, it } from 'node:test';
 import path from 'path';
 import selenium from 'selenium-standalone';
 import { runTests } from '@web/test-runner-core/test-helpers';
@@ -9,7 +9,6 @@ import { sendMousePlugin } from '../../dist/sendMousePlugin.js';
 import { startSeleniumServer } from '../selenium-server.ts';
 
 describe('sendMousePlugin', function test() {
-
   it('can send mouse on puppeteer', async () => {
     await runTests({
       files: [path.join(import.meta.dirname, 'browser-test.js')],

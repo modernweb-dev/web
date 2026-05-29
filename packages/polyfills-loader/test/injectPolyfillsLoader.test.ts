@@ -16,7 +16,12 @@ const defaultConfig = {
 };
 
 async function testSnapshot(name: string, htmlString: string, config: PolyfillsLoaderConfig) {
-  const snapshotPath = path.join(import.meta.dirname, 'snapshots', 'injectPolyfillsLoader', `${name}.html`);
+  const snapshotPath = path.join(
+    import.meta.dirname,
+    'snapshots',
+    'injectPolyfillsLoader',
+    `${name}.html`,
+  );
   const result = await injectPolyfillsLoader(htmlString, config);
 
   if (updateSnapshots) {

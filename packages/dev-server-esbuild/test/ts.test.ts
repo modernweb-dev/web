@@ -69,7 +69,11 @@ class Bar {
         },
         esbuildPlugin({
           ts: true,
-          tsconfig: path.join(import.meta.dirname, 'fixture', 'tsconfig-with-experimental-decorators.json'),
+          tsconfig: path.join(
+            import.meta.dirname,
+            'fixture',
+            'tsconfig-with-experimental-decorators.json',
+          ),
         }),
       ],
     });
@@ -244,7 +248,10 @@ class Bar {
         {
           name: 'test',
         },
-        esbuildPlugin({ ts: true, tsconfig: path.join(import.meta.dirname, 'fixture', 'tsconfig.json') }),
+        esbuildPlugin({
+          ts: true,
+          tsconfig: path.join(import.meta.dirname, 'fixture', 'tsconfig.json'),
+        }),
       ],
     });
 

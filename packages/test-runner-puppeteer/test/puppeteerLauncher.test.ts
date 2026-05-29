@@ -3,7 +3,6 @@ import { runIntegrationTests } from '../../../integration/test-runner/index.js';
 import { puppeteerLauncher } from '../dist/index.js';
 
 describe('test-runner-puppeteer', function testRunnerPuppeteer() {
-
   function createConfig() {
     return {
       browsers: [puppeteerLauncher()],

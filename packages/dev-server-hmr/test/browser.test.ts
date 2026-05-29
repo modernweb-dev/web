@@ -67,13 +67,15 @@ describe('browser tests', { timeout: 5000 }, () => {
       fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
 
       assert.equal(stub.mock.callCount(), 2);
-      assert.equal(stub.mock.calls[0].arguments[0],
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/bar.js',
         }),
       );
-      assert.equal(stub.mock.calls[1].arguments[0],
+      assert.equal(
+        stub.mock.calls[1].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',

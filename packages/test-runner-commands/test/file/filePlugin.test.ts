@@ -1,4 +1,4 @@
-import { describe,it } from 'node:test';
+import { describe, it } from 'node:test';
 import path from 'path';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
@@ -6,7 +6,6 @@ import { chromeLauncher } from '@web/test-runner-chrome';
 import { filePlugin } from '../../dist/filePlugin.js';
 
 describe('filePlugin', function test() {
-
   it('passes file plugin tests', async () => {
     await runTests({
       files: [path.join(import.meta.dirname, 'browser-test.js')],
