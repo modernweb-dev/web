@@ -13,7 +13,7 @@ describe('esbuildPlugin banner/footers', { timeout: 5000 }, () => {
         {
           name: 'test',
           serve(context) {
-            if (context.path === '/foo.js') {
+            if (context.path === '/foo.ts') {
               return `export const foo = 5;`;
             }
           },
@@ -43,7 +43,7 @@ describe('esbuildPlugin banner/footers', { timeout: 5000 }, () => {
         {
           name: 'test',
           serve(context) {
-            if (context.path === '/foo.js') {
+            if (context.path === '/foo.ts') {
               return `export const foo = 5;`;
             }
           },

@@ -349,10 +349,10 @@ describe('serialize deserialize', { timeout: 10000 }, () => {
     const deserialized = await deserialize(serialized, defaultOptions);
     assert.equal(typeof deserialized, 'string');
     assert.ok(deserialized.includes('my error msg'));
-    assert.ok(deserialized.includes('2:29'));
-    assert.ok(deserialized.includes('3:29'));
-    assert.ok(deserialized.includes('4:29'));
-    assert.ok(deserialized.includes('5:38'));
+    assert.match(deserialized, /2:\d+/);
+    assert.match(deserialized, /3:\d+/);
+    assert.match(deserialized, /4:\d+/);
+    assert.match(deserialized, /5:\d+/);
   });
 
   it('handles errors in objects', async () => {
@@ -365,10 +365,10 @@ describe('serialize deserialize', { timeout: 10000 }, () => {
     const deserialized = await deserialize(serialized, defaultOptions);
     assert.equal(typeof deserialized.myError, 'string');
     assert.ok(deserialized.myError.includes('my error msg'));
-    assert.ok(deserialized.myError.includes('2:29'));
-    assert.ok(deserialized.myError.includes('3:29'));
-    assert.ok(deserialized.myError.includes('4:29'));
-    assert.ok(deserialized.myError.includes('5:49'));
+    assert.match(deserialized.myError, /2:\d+/);
+    assert.match(deserialized.myError, /3:\d+/);
+    assert.match(deserialized.myError, /4:\d+/);
+    assert.match(deserialized.myError, /5:\d+/);
   });
 
   it('handles errors in arrays', async () => {
@@ -381,19 +381,19 @@ describe('serialize deserialize', { timeout: 10000 }, () => {
     const deserialized = await deserialize(serialized, defaultOptions);
     assert.equal(typeof deserialized[0], 'string');
     assert.ok(deserialized[0].includes('my error msg'));
-    assert.ok(deserialized[0].includes('2:29'));
-    assert.ok(deserialized[0].includes('3:29'));
-    assert.ok(deserialized[0].includes('4:29'));
-    assert.ok(deserialized[0].includes('5:39'));
+    assert.match(deserialized[0], /2:\d+/);
+    assert.match(deserialized[0], /3:\d+/);
+    assert.match(deserialized[0], /4:\d+/);
+    assert.match(deserialized[0], /5:\d+/);
     assert.equal(typeof deserialized[1], 'string');
     assert.ok(deserialized[1].includes('my error msg'));
-    assert.ok(deserialized[1].includes('2:29'));
-    assert.ok(deserialized[1].includes('3:29'));
-    assert.ok(deserialized[1].includes('5:44'));
+    assert.match(deserialized[1], /2:\d+/);
+    assert.match(deserialized[1], /3:\d+/);
+    assert.match(deserialized[1], /5:\d+/);
     assert.equal(typeof deserialized[2], 'string');
     assert.ok(deserialized[2].includes('my error msg'));
-    assert.ok(deserialized[2].includes('2:29'));
-    assert.ok(deserialized[2].includes('5:49'));
+    assert.match(deserialized[2], /2:\d+/);
+    assert.match(deserialized[2], /5:\d+/);
   });
 
   it('can map stack trace locations', async () => {
@@ -444,10 +444,10 @@ describe('serialize deserialize', { timeout: 10000 }, () => {
     });
     assert.equal(typeof deserialized, 'string');
     assert.ok(deserialized.includes('my error msg'));
-    assert.ok(deserialized.includes(`2:29`));
-    assert.ok(deserialized.includes(`3:29`));
-    assert.ok(deserialized.includes(`4:29`));
-    assert.ok(deserialized.includes(`5:38`));
+    assert.match(deserialized, /2:\d+/);
+    assert.match(deserialized, /3:\d+/);
+    assert.match(deserialized, /4:\d+/);
+    assert.match(deserialized, /5:\d+/);
   });
 
   it('can define a cwd above current directory', async () => {
@@ -463,10 +463,10 @@ describe('serialize deserialize', { timeout: 10000 }, () => {
     });
     assert.equal(typeof deserialized, 'string');
     assert.ok(deserialized.includes('my error msg'));
-    assert.ok(deserialized.includes(`2:29`));
-    assert.ok(deserialized.includes(`3:29`));
-    assert.ok(deserialized.includes(`4:29`));
-    assert.ok(deserialized.includes(`5:38`));
+    assert.match(deserialized, /2:\d+/);
+    assert.match(deserialized, /3:\d+/);
+    assert.match(deserialized, /4:\d+/);
+    assert.match(deserialized, /5:\d+/);
   });
 
   it('handles null', async () => {

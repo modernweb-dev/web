@@ -63,8 +63,8 @@ describe('rollup-plugin-html', () => {
     assert.equal(Object.keys(chunks).length, 3);
     assert.equal(Object.keys(assets).length, 1);
 
-    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js'));`);
-    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js'));`);
+    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js');`));
+    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js');`));
 
     assert.equal(assets['index.html'], html`
       <html>
@@ -120,8 +120,8 @@ describe('rollup-plugin-html', () => {
     assert.equal(Object.keys(chunks).length, 3);
     assert.equal(Object.keys(assets).length, 1);
 
-    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js'));`);
-    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js'));`);
+    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js');`));
+    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js');`));
 
     assert.equal(assets['index.html'], html`
       <html>
@@ -177,8 +177,8 @@ describe('rollup-plugin-html', () => {
     assert.equal(Object.keys(chunks).length, 3);
     assert.equal(Object.keys(assets).length, 1);
 
-    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js'));`);
-    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js'));`);
+    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js');`));
+    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js');`));
 
     assert.equal(assets['index.html'], html`
       <html>
@@ -375,7 +375,7 @@ describe('rollup-plugin-html', () => {
 
     const hash = '16165cb387fc14ed1fe1749d05f19f7b';
 
-    assert.ok(chunks[`inline-module-${hash}.js`].includes(js`console.log('app.js'));`);
+    assert.ok(chunks[`inline-module-${hash}.js`].includes(js`console.log('app.js');`));
 
     assert.equal(assets['index.html'], html`
       <html>
@@ -420,7 +420,7 @@ describe('rollup-plugin-html', () => {
     assert.equal(Object.keys(assets).length, 1);
 
     const hash = 'b774aefb8bf002b291fd54d27694a34d';
-    assert.ok(chunks[`inline-module-${hash}.js`].includes(js`console.log('app.js'));`);
+    assert.ok(chunks[`inline-module-${hash}.js`].includes(js`console.log('app.js');`));
   });
 
   it('can build transforming final output', async () => {
@@ -578,10 +578,10 @@ describe('rollup-plugin-html', () => {
     assert.equal(Object.keys(chunksB).length, 1);
     assert.equal(Object.keys(assetsB).length, 1);
 
-    assert.ok(chunksA['app.js'].includes(js`console.log('app.js'));`);
-    assert.ok(chunksA['app.js'].includes(js`console.log('module.js'));`);
-    assert.ok(chunksB['app.js'].includes(js`console.log('app.js'));`);
-    assert.ok(chunksB['app.js'].includes(js`console.log('module.js'));`);
+    assert.ok(chunksA['app.js'].includes(js`console.log('app.js');`));
+    assert.ok(chunksA['app.js'].includes(js`console.log('module.js');`));
+    assert.ok(chunksB['app.js'].includes(js`console.log('app.js');`));
+    assert.ok(chunksB['app.js'].includes(js`console.log('module.js');`));
 
     assert.equal(assetsA['index.html'], undefined);
     assert.equal(assetsB['index.html'], html`
@@ -1206,8 +1206,8 @@ describe('rollup-plugin-html', () => {
     assert.equal(Object.keys(chunks).length, 3);
     assert.equal(Object.keys(assets).length, 1);
 
-    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js'));`);
-    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js'));`);
+    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js');`));
+    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js');`));
 
     assert.equal(assets['index.html'], html`
       <html>
@@ -1771,8 +1771,8 @@ describe('rollup-plugin-html', () => {
     assert.equal(Object.keys(chunks).length, 2);
     assert.equal(Object.keys(assets).length, 1);
 
-    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js'));`);
-    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js'));`);
+    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js');`));
+    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js');`));
 
     assert.equal(assets['index.html'], html`
       <html>
@@ -1842,8 +1842,8 @@ describe('rollup-plugin-html', () => {
     assert.equal(Object.keys(chunks).length, 2);
     assert.equal(Object.keys(assets).length, 1);
 
-    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js'));`);
-    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js'));`);
+    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js');`));
+    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js');`));
 
     assert.equal(assets['index.html'], html`
       <html>
@@ -1913,8 +1913,8 @@ describe('rollup-plugin-html', () => {
     assert.equal(Object.keys(chunks).length, 2);
     assert.equal(Object.keys(assets).length, 1);
 
-    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js'));`);
-    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js'));`);
+    assert.ok(chunks['entrypoint-a.js'].includes(js`console.log('entrypoint-a.js');`));
+    assert.ok(chunks['entrypoint-b.js'].includes(js`console.log('entrypoint-b.js');`));
 
     assert.equal(assets['index.html'], html`
       <html>

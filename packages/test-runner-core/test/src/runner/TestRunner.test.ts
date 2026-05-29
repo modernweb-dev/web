@@ -9,7 +9,7 @@ import type { TestRunnerCoreConfig } from '../../../dist/config/TestRunnerCoreCo
 import { TestRunner } from '../../../dist/runner/TestRunner.js';
 import type { Logger } from '../../../dist/logger/Logger.js';
 import { SESSION_STATUS } from '../../../dist/test-session/TestSessionStatus.js';
-import { TestRunnerGroupConfig } from '../../../dist/index.js';
+import type { TestRunnerGroupConfig } from '../../../dist/index.js';
 
 function createBrowserStub(): [Record<string, ReturnType<typeof mock.fn>>, BrowserLauncher] {
   const spies = {

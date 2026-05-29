@@ -6,7 +6,7 @@ import { describe, it } from 'node:test';
 import fs from 'fs';
 import path from 'path';
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
-import polyfillsLoader from '../../dist/index.js';
+import { polyfillsLoader } from '../../dist/index.js';
 
 type Output = (OutputChunk | OutputAsset)[];
 

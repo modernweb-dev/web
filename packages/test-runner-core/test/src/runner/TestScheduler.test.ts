@@ -99,7 +99,7 @@ describe('TestScheduler', () => {
     it('when a session goes to status test finished, the browser is stopped and results is stored', async () => {
       const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
       const testCoverage = {};
-      stubs.stopSession = mock.fn(() => timeout(1).then(() => ({ testCoverage })));
+      stubs.stopSession.mock.mockImplementation(() => timeout(1).then(() => ({ testCoverage })));
       scheduler.schedule(1, [session1]);
 
       await timeout(2);
@@ -187,7 +187,7 @@ describe('TestScheduler', () => {
 
     it('error while starting browser marks session as failed', async () => {
       const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
-      stubs.startSession = mock.fn(() => Promise.reject(new Error('mock error')));
+      stubs.startSession.mock.mockImplementation(() => Promise.reject(new Error('mock error')));
       scheduler.schedule(1, [session1]);
 
       await timeout(4);
@@ -202,7 +202,7 @@ describe('TestScheduler', () => {
     it('error while starting browser after a session changed state gets logged', async () => {
       const errorStub = mock.method(mockConfig.logger, 'error');
       const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
-      stubs.startSession = mock.fn(() =>
+      stubs.startSession.mock.mockImplementation(() =>
         timeout(5).then(() => {
           throw new Error('mock error');
         }),
@@ -227,7 +227,7 @@ describe('TestScheduler', () => {
 
     it('error while stopping browser marks session as failed', async () => {
       const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
-      stubs.stopSession = mock.fn(() => Promise.reject(new Error('mock error')));
+      stubs.stopSession.mock.mockImplementation(() => Promise.reject(new Error('mock error')));
       scheduler.schedule(1, [session1]);
 
       await timeout(2);
@@ -244,7 +244,7 @@ describe('TestScheduler', () => {
     it('timeout starting the browser marks the session as failed', async () => {
       mockConfig.browserStartTimeout = 2;
       const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
-      stubs.startSession = mock.fn(() => timeout(4));
+      stubs.startSession.mock.mockImplementation(() => timeout(4));
       scheduler.schedule(1, [session1]);
 
       await timeout(3);
