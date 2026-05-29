@@ -20,8 +20,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "node --test test/**/*.test.js",
-    "test:watch": "node --test --watch test/**/*.test.js"
+    "test:node": "node --test --test-force-exit test/**/*.test.js",
+    "test:watch": "node --test --test-force-exit --watch test/**/*.test.js"
   },
   "files": [
     "*.d.ts",

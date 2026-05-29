@@ -25,8 +25,8 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "test:node": "node --test test/node/**/*.test.ts",
-    "test:watch": "node --test --watch test/node/**/*.test.ts"
+    "test:node": "node --test --test-force-exit test/node/**/*.test.ts",
+    "test:watch": "node --test --test-force-exit --watch test/node/**/*.test.ts"
   },
   "files": [
     "*.d.ts",
