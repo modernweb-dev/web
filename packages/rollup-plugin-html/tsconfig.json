@@ -4,6 +4,7 @@
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
     "module": "commonjs",
+    "lib": ["ES2021"],
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,

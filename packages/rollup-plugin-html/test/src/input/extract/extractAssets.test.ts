@@ -2,7 +2,14 @@ import { expect } from 'chai';
 import { parse } from 'parse5';
 import path from 'path';
 import { extractAssets } from '../../../../src/input/extract/extractAssets.js';
-import { html, css, js, svg, createApp, cleanApp } from '../../../utils.js';
+import {
+  html,
+  css,
+  js,
+  svg,
+  createApp,
+  cleanApp,
+} from '../../../../../../test-utils/rollup-test-utils.js';
 
 describe('extractAssets', () => {
   afterEach(() => {

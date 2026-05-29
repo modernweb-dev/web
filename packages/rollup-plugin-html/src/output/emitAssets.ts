@@ -1,16 +1,18 @@
+import { createHash } from 'node:crypto';
 import { PluginContext } from 'rollup';
 import path from 'path';
 import { bundleAsync, transform } from 'lightningcss';
 import fs from 'fs';
 
 import { InputAsset, InputData } from '../input/InputData';
-import { toBrowserPath } from './utils.js';
 import { createAssetPicomatchMatcher } from '../assets/utils.js';
 import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions';
+import { createAssetPlaceholder } from './css.js';
 
 export interface EmittedAssets {
   static: Map<string, string>;
   hashed: Map<string, string>;
+  assetsInCssByHash: Record<string, { ref: string }>;
 }
 
 const allowedFileExtensions = [
@@ -56,8 +58,27 @@ export async function emitAssets(
       transforms.push(options.transformAsset);
     }
   }
+
+  async function getTransformedAsset(content: Buffer, filePath: string): Promise<Buffer> {
+    let source: Buffer = content;
+    for (const transform of transforms) {
+      const result = await transform(content, filePath);
+      if (result != null) {
+        source = typeof result === 'string' ? Buffer.from(result, 'utf-8') : result;
+      }
+    }
+    return source;
+  }
+
   const staticAssets: InputAsset[] = [];
   const hashedAssets: InputAsset[] = [];
+
+  let assetsInCssCounter = 0;
+  const assetsInCssByAbsPath: Record<
+    string,
+    { tempPlaceholder: string; ref?: string; outputPath?: string; hash?: string }
+  > = {};
+  const assetsInCssByHash: Record<string, { ref: string }> = {};
 
   for (const input of inputs) {
     for (const asset of input.assets) {
@@ -75,20 +96,10 @@ export async function emitAssets(
   for (const asset of allAssets) {
     const map = asset.hashed ? emittedHashedAssets : emittedStaticAssets;
     if (!map.has(asset.filePath)) {
-      let source: Buffer = asset.content;
-
-      // run user's transform functions
-      for (const transform of transforms) {
-        const result = await transform(asset.content, asset.filePath);
-        if (result != null) {
-          source = typeof result === 'string' ? Buffer.from(result, 'utf-8') : result;
-        }
-      }
-
+      let source = await getTransformedAsset(asset.content, asset.filePath);
       let ref: string;
       let basename = path.basename(asset.filePath);
       const isExternal = createAssetPicomatchMatcher(options.externalAssets);
-      const emittedExternalAssets = new Map();
       if (asset.hashed) {
         if (basename.endsWith('.css') && extractAssets) {
           const { code } = await (bundleCss ? bundleAsync : transform)({
@@ -99,69 +110,88 @@ export async function emitAssets(
               Url: url => {
                 // Support foo.svg#bar
                 // https://www.w3.org/TR/html4/types.html#:~:text=ID%20and%20NAME%20tokens%20must,tokens%20defined%20by%20other%20attributes.
-                const [filePath, idRef] = url.url.split('#');
+                const [srcAssetPath, srcAssetId] = url.url.split('#');
 
-                if (shouldHandleAsset(filePath) && !isExternal(filePath)) {
-                  // Read the asset file, get the asset from the source location on the FS using asset.filePath
-                  const assetLocation = path.resolve(path.dirname(asset.filePath), filePath);
-                  const assetContent = fs.readFileSync(assetLocation);
+                if (shouldHandleAsset(srcAssetPath) && !isExternal(srcAssetPath)) {
+                  const assetAbsPath = path.resolve(path.dirname(asset.filePath), srcAssetPath);
 
-                  // Avoid duplicates
-                  if (!emittedExternalAssets.has(assetLocation)) {
-                    const basename = path.basename(filePath);
-                    const fileRef = this.emitFile({
-                      type: 'asset',
-                      name: extractAssetsLegacyCss ? `assets/${basename}` : basename,
-                      source: assetContent,
-                    });
-                    const emittedAssetFilepath = this.getFileName(fileRef);
-                    const emittedAssetBasename = path.basename(emittedAssetFilepath);
-                    emittedExternalAssets.set(assetLocation, emittedAssetFilepath);
-                    // Update the URL in the original CSS file to point to the emitted asset file
-                    if (extractAssetsLegacyCss) {
-                      url.url = `assets/${emittedAssetBasename}`;
-                    } else {
-                      if (options.publicPath) {
-                        url.url = toBrowserPath(
-                          path.join(options.publicPath, emittedAssetFilepath),
-                        );
-                      } else {
-                        url.url = emittedAssetBasename;
-                      }
-                    }
-                    if (idRef) {
-                      url.url = `${url.url}#${idRef}`;
-                    }
-                  } else {
-                    const emittedAssetFilepath = emittedExternalAssets.get(assetLocation);
-                    const emittedAssetBasename = path.basename(emittedAssetFilepath);
-                    if (extractAssetsLegacyCss) {
-                      url.url = `assets/${emittedAssetBasename}`;
-                    } else {
-                      if (options.publicPath) {
-                        url.url = toBrowserPath(
-                          path.join(options.publicPath, emittedAssetFilepath),
-                        );
-                      } else {
-                        url.url = emittedAssetBasename;
-                      }
-                    }
-                    if (idRef) {
-                      url.url = `${url.url}#${idRef}`;
-                    }
+                  let assetInCss = assetsInCssByAbsPath[assetAbsPath];
+
+                  if (!assetInCss) {
+                    // Avoid duplicates
+                    assetsInCssCounter++;
+                    assetInCss = {
+                      tempPlaceholder: createAssetPlaceholder(assetsInCssCounter.toString()),
+                      ref: undefined,
+                      hash: undefined,
+                    };
+                    assetsInCssByAbsPath[assetAbsPath] = assetInCss;
                   }
+
+                  url.url = srcAssetId
+                    ? `${assetInCss.tempPlaceholder}#${srcAssetId}`
+                    : assetInCss.tempPlaceholder;
                 }
+
                 return url;
               },
             },
           });
-          const codeBuffer = Buffer.from(code);
+
+          let codeString = code.toString();
+
+          for (const assetInCssAbsPath of Object.keys(assetsInCssByAbsPath)) {
+            const assetInCss = assetsInCssByAbsPath[assetInCssAbsPath];
+
+            if (!assetInCss.ref) {
+              const basename = path.basename(assetInCssAbsPath);
+              const content = await fs.promises.readFile(assetInCssAbsPath);
+              const transformedContent = await getTransformedAsset(content, assetInCssAbsPath);
+              const ref = this.emitFile({
+                type: 'asset',
+                name: extractAssetsLegacyCss ? `assets/${basename}` : basename,
+                originalFileName: assetInCssAbsPath,
+                source: transformedContent,
+              });
+              assetInCss.ref = ref;
+              assetInCss.outputPath = this.getFileName(ref);
+              if (!extractAssetsLegacyCss) {
+                assetInCss.hash = createHash('sha256')
+                  .update(transformedContent)
+                  .update('\0')
+                  .update(assetInCss.outputPath)
+                  .digest('hex');
+              }
+            }
+
+            if (extractAssetsLegacyCss) {
+              const outputName = path.basename(assetInCss.outputPath!);
+              codeString = codeString.replaceAll(
+                assetInCss.tempPlaceholder,
+                `assets/${outputName}`,
+              );
+            } else {
+              const hash = assetInCss.hash!;
+              assetsInCssByHash[hash] = { ref: assetInCss.ref };
+              codeString = codeString.replaceAll(
+                assetInCss.tempPlaceholder,
+                createAssetPlaceholder(hash),
+              );
+            }
+          }
+
+          const codeBuffer = Buffer.from(codeString);
           if (!asset.content.equals(codeBuffer)) {
             source = codeBuffer;
           }
         }
 
-        ref = this.emitFile({ type: 'asset', name: basename, source });
+        ref = this.emitFile({
+          type: 'asset',
+          name: basename,
+          originalFileName: asset.filePath,
+          source,
+        });
       } else {
         // ensure the output filename is unique
         let i = 1;
@@ -179,5 +209,5 @@ export async function emitAssets(
     }
   }
 
-  return { static: emittedStaticAssets, hashed: emittedHashedAssets };
+  return { static: emittedStaticAssets, hashed: emittedHashedAssets, assetsInCssByHash };
 }

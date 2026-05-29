@@ -1,7 +1,7 @@
 import { getTextContent } from '@web/parse5-utils';
 import { expect } from 'chai';
 import { parse, serialize } from 'parse5';
-import { html } from '../../utils.js';
+import { html } from '../../../../../test-utils/rollup-test-utils.js';
 
 import { injectBundles, createLoadScript } from '../../../src/output/injectBundles.js';
 

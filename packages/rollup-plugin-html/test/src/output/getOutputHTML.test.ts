@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import path from 'path';
 import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.js';
 import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.js';
-import { html } from '../../utils.js';
+import { html } from '../../../../../test-utils/rollup-test-utils.js';
 
 describe('getOutputHTML()', () => {
   const defaultEntrypointBundles: Record<string, EntrypointBundle> = {
@@ -17,7 +17,7 @@ describe('getOutputHTML()', () => {
   const defaultOptions: GetOutputHTMLParams = {
     pluginOptions: {},
     outputDir: '/',
-    emittedAssets: { static: new Map(), hashed: new Map() },
+    emittedAssets: { static: new Map(), hashed: new Map(), assetsInCssByHash: {} },
     entrypointBundles: defaultEntrypointBundles,
     input: {
       html: html`<h1>Input HTML</h1>`,
@@ -176,7 +176,7 @@ describe('getOutputHTML()', () => {
         absoluteBaseUrl: 'http://test.com',
         rootDir,
       },
-      emittedAssets: { static: new Map(), hashed },
+      emittedAssets: { static: new Map(), hashed, assetsInCssByHash: {} },
       input: {
         ...defaultOptions.input,
         html: html`

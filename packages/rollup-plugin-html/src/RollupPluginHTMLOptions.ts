@@ -31,7 +31,7 @@ export interface RollupPluginHTMLOptions {
   extractAssets?: boolean | 'legacy-html' | 'legacy-html-and-css';
   /** Whether to bundle extracted CSS assets. Bundling is done via Lightning CSS. Defaults to true. */
   bundleCss?: boolean;
-  /** Whether to minify extracted CSS assets. Minificaiton is done via Lightning CSS. Defaults to false. */
+  /** Whether to minify extracted CSS assets. Minification is done via Lightning CSS. Defaults to false. */
   minifyCss?: boolean;
   /** Whether to ignore assets referenced in HTML and CSS with glob patterns. */
   externalAssets?: string | string[];

@@ -74,9 +74,9 @@ export function getEntrypointBundles(params: GetEntrypointBundlesParams) {
               outputDir,
               fileOutputDir: options.dir ?? '',
               htmlFileName,
-              fileName: chunkOrAsset.fileName,
+              fileName: chunk.fileName,
             });
-            entrypoints.push({ importPath, chunk: chunkOrAsset, attributes: found.attributes });
+            entrypoints.push({ importPath, chunk, attributes: found.attributes });
           }
         }
       }
