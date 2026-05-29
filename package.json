@@ -71,7 +71,8 @@
     "rimraf": "^4.4.1",
     "rollup": "^4.4.0",
     "typescript": "~5.0.4",
-    "wireit": "^0.14.2"
+    "wireit": "^0.14.2",
+    "@types/react": ">=16"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -88,6 +89,23 @@
       "node": true,
       "es2020": true
     },
+    "overrides": [
+      {
+        "files": [
+          "packages/*/test/fixtures/**/*.js",
+          "packages/*/test/**/fixtures/**/*.js",
+          "packages/*/test/**/*-test.js",
+          "packages/*/test-browser/**/*.js",
+          "packages/*/test-remote/**/*.js",
+          "packages/*/demo/**/*.js",
+          "integration/**/tests/**/*.js",
+          "integration/**/fixtures/**/*.js"
+        ],
+        "env": {
+          "mocha": true
+        }
+      }
+    ],
     "rules": {
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/explicit-module-boundary-types": "off",

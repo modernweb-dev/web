@@ -60,7 +60,7 @@ describe('browser tests', { timeout: 5000 }, () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = mock.method(webSockets!, 'send', () => {});
+    const stub = mock.method(webSockets!, 'send');
     const page = await browser.newPage();
     try {
       await page.goto(`${host}/foo.html`, { waitUntil: 'networkidle0' });
