@@ -16,7 +16,7 @@ describe('esbuildPlugin TS', { timeout: 5000 }, () => {
         {
           name: 'test',
           serve(context) {
-            if (context.path === '/foo.js') {
+            if (context.path === '/foo.ts') {
               return `
       interface MyInterface {
         id: number;
@@ -57,7 +57,7 @@ describe('esbuildPlugin TS', { timeout: 5000 }, () => {
         {
           name: 'test',
           serve(context) {
-            if (context.path === '/foo.js') {
+            if (context.path === '/foo.ts') {
               return `
 @foo
 class Bar {

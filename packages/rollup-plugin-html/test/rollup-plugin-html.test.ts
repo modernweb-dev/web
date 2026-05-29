@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { describe, it, afterEach } from 'node:test';
 import path from 'path';
 import { rollupPluginHTML } from '../dist/index.js';
-import { html, css, js, svg, generateTestBundle, createApp, cleanApp } from './utils.ts';
+import { html, css, js, svg, generateTestBundle, createApp, cleanApp } from '../../../test-utils/rollup-test-utils.js';
 
 const outputConfig: OutputOptions = {
   format: 'es',
