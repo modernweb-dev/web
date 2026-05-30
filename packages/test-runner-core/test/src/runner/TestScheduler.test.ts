@@ -249,12 +249,12 @@ describe('TestScheduler', () => {
     });
 
     it('timeout starting the browser marks the session as failed', async () => {
-      mockConfig.browserStartTimeout = 2;
+      mockConfig.browserStartTimeout = 20;
       const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
-      stubs.startSession.mock.mockImplementation(() => timeout(4));
+      stubs.startSession.mock.mockImplementation(() => timeout(100));
       scheduler.schedule(1, [session1]);
 
-      await timeout(3);
+      await timeout(50);
 
       const finalSession1 = sessions.get(session1.id)!;
       assert.equal(finalSession1.status, SESSION_STATUS.FINISHED);
@@ -262,7 +262,7 @@ describe('TestScheduler', () => {
       assert.equal(finalSession1.errors.length, 1);
       assert.equal(
         finalSession1.errors[0].message,
-        'The browser was unable to create and start a test page after 2ms. You can increase this timeout with the browserStartTimeout option.',
+        'The browser was unable to create and start a test page after 20ms. You can increase this timeout with the browserStartTimeout option.',
       );
     });
 

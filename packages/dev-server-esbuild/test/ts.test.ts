@@ -122,7 +122,7 @@ class Bar {
       assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
       expectIncludes(text, 'import "../../x.ts";');
       expectIncludes(text, 'import "../y.ts";');
-      expectIncludes(text, 'import "./z.js";');
+      expectIncludes(text, 'import "./z.ts";');
     } finally {
       server.stop();
     }

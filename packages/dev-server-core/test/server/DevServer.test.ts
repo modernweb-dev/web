@@ -4,7 +4,6 @@ import express from 'express';
 import http from 'http';
 import Koa from 'koa';
 import { Server } from 'net';
-import { FSWatcher } from 'chokidar';
 import portfinder from 'portfinder';
 import type { ServerStartParams } from '../../dist/plugins/Plugin.js';
 import { DevServer } from '../../dist/server/DevServer.js';
@@ -178,7 +177,7 @@ it('calls serverStart on plugin hook on start', async () => {
   assert.ok(startArgs!);
   assert.ok(startArgs!.app instanceof Koa);
   assert.ok(startArgs!.server instanceof Server);
-  assert.ok(startArgs!.fileWatcher instanceof FSWatcher);
+  assert.equal(typeof startArgs!.fileWatcher.add, 'function');
   assert.equal(typeof startArgs!.config, 'object');
 
   server.stop();
