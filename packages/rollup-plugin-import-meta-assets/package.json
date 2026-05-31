@@ -25,9 +25,8 @@
   },
   "scripts": {
     "test": "npm run test:node",
-    "test:node": "mocha test/**/*.test.js test/*.test.js --reporter dot",
-    "test:update-snapshots": "mocha test/**/*.test.js test/*.test.js --update-snapshots",
-    "test:watch": "npm run test:node -- --watch"
+    "test:node": "node --test --test-force-exit test/**/*.test.js",
+    "test:watch": "node --test --test-force-exit --watch test/**/*.test.js"
   },
   "files": [
     "*.js",
