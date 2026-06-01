@@ -1,9 +1,10 @@
-import { expect } from 'chai';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import path from 'path';
 import fs from 'fs';
-import { injectPolyfillsLoader } from '../src/injectPolyfillsLoader.js';
-import { noModuleSupportTest, fileTypes } from '../src/utils.js';
-import { PolyfillsLoaderConfig } from '../src/types.js';
+import { injectPolyfillsLoader } from '../dist/injectPolyfillsLoader.js';
+import { noModuleSupportTest, fileTypes } from '../dist/utils.js';
+import type { PolyfillsLoaderConfig } from '../dist/types.js';
 
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
@@ -15,14 +16,19 @@ const defaultConfig = {
 };
 
 async function testSnapshot(name: string, htmlString: string, config: PolyfillsLoaderConfig) {
-  const snapshotPath = path.join(__dirname, 'snapshots', 'injectPolyfillsLoader', `${name}.html`);
+  const snapshotPath = path.join(
+    import.meta.dirname,
+    'snapshots',
+    'injectPolyfillsLoader',
+    `${name}.html`,
+  );
   const result = await injectPolyfillsLoader(htmlString, config);
 
   if (updateSnapshots) {
     fs.writeFileSync(snapshotPath, result.htmlString, 'utf-8');
   } else {
     const snapshot = fs.readFileSync(snapshotPath, 'utf-8');
-    expect(result.htmlString.trim()).to.equal(snapshot.trim());
+    assert.equal(result.htmlString.trim(), snapshot.trim());
   }
 }
 
