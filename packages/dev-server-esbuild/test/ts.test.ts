@@ -1,18 +1,17 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import path from 'path';
-import { expect } from 'chai';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
-import { Plugin as RollupPlugin } from 'rollup';
+import type { Plugin as RollupPlugin } from 'rollup';
 import { fromRollup } from '@web/dev-server-rollup';
 
-import { esbuildPlugin } from '../src/index.js';
+import { esbuildPlugin } from '../dist/index.js';
 
-describe('esbuildPlugin TS', function () {
-  this.timeout(5000);
-
+describe('esbuildPlugin TS', { timeout: 5000 }, () => {
   it('transforms .ts files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -39,10 +38,8 @@ describe('esbuildPlugin TS', function () {
     try {
       const response = await fetch(`${host}/foo.ts`);
       const text = await response.text();
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
       expectIncludes(text, 'export function foo(a, b) {');
       expectIncludes(text, 'return a + b;');
       expectIncludes(text, '}');
@@ -55,7 +52,7 @@ describe('esbuildPlugin TS', function () {
 
   it('transforms TS decorators', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -72,7 +69,11 @@ class Bar {
         },
         esbuildPlugin({
           ts: true,
-          tsconfig: path.join(__dirname, 'fixture', 'tsconfig-with-experimental-decorators.json'),
+          tsconfig: path.join(
+            import.meta.dirname,
+            'fixture',
+            'tsconfig-with-experimental-decorators.json',
+          ),
         }),
       ],
     });
@@ -81,10 +82,8 @@ class Bar {
       const response = await fetch(`${host}/foo.ts`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
       expectIncludes(text, '__decorate');
       expectIncludes(text, '__publicField(this, "x", "y");');
       expectIncludes(
@@ -106,7 +105,7 @@ class Bar {
 
   it('resolves relative ending with .js to .ts files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixture'),
+      rootDir: path.join(import.meta.dirname, 'fixture'),
       plugins: [
         {
           name: 'test',
@@ -119,10 +118,8 @@ class Bar {
       const response = await fetch(`${host}/a/b/foo.ts`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
       expectIncludes(text, 'import "../../x.ts";');
       expectIncludes(text, 'import "../y.ts";');
       expectIncludes(text, 'import "./z.ts";');
@@ -133,7 +130,7 @@ class Bar {
 
   it('does not change imports where the TS file does not exist', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixture'),
+      rootDir: path.join(import.meta.dirname, 'fixture'),
       plugins: [
         {
           name: 'test',
@@ -146,10 +143,8 @@ class Bar {
       const response = await fetch(`${host}/a/b/foo.ts`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
       expectIncludes(text, 'import "../../1.js";');
       expectIncludes(text, 'import "../2.js";');
       expectIncludes(text, 'import "./3.js";');
@@ -164,7 +159,7 @@ class Bar {
 
   it('does not change imports when ts transform is not enabled', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixture'),
+      rootDir: path.join(import.meta.dirname, 'fixture'),
       plugins: [
         {
           name: 'test',
@@ -177,7 +172,7 @@ class Bar {
       const response = await fetch(`${host}/a/b/foo.ts`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
+      assert.equal(response.status, 200);
       expectIncludes(text, "import '../../x.js';");
       expectIncludes(text, "import '../y.js';");
       expectIncludes(text, "import './z.js';");
@@ -188,7 +183,7 @@ class Bar {
 
   it('does not change imports in non-TS files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixture'),
+      rootDir: path.join(import.meta.dirname, 'fixture'),
       plugins: [
         {
           name: 'test',
@@ -201,7 +196,7 @@ class Bar {
       const response = await fetch(`${host}/a/b/bar.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
+      assert.equal(response.status, 200);
       expectIncludes(text, "import '../../x.js';");
       expectIncludes(text, "import '../y.js';");
       expectIncludes(text, "import './z.js';");
@@ -214,7 +209,7 @@ class Bar {
     const plugin: RollupPlugin = {
       name: 'my-plugin',
       load(id) {
-        if (id === path.join(__dirname, 'app.js')) {
+        if (id === path.join(import.meta.dirname, 'app.js')) {
           return 'import "\0foo.js";';
         }
       },
@@ -225,7 +220,7 @@ class Bar {
       },
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         fromRollup(() => plugin)(),
         esbuildPlugin({
@@ -248,12 +243,15 @@ class Bar {
 
   it('reads tsconfig.json file', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.join(__dirname, 'fixture'),
+      rootDir: path.join(import.meta.dirname, 'fixture'),
       plugins: [
         {
           name: 'test',
         },
-        esbuildPlugin({ ts: true, tsconfig: path.join(__dirname, 'fixture', 'tsconfig.json') }),
+        esbuildPlugin({
+          ts: true,
+          tsconfig: path.join(import.meta.dirname, 'fixture', 'tsconfig.json'),
+        }),
       ],
     });
 
@@ -261,10 +259,8 @@ class Bar {
       const response = await fetch(`${host}/a/b/foo.ts`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
 
       expectIncludes(text, '__publicField(this, "prop");');
     } finally {
