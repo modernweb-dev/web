@@ -1,9 +1,10 @@
-import { expect } from 'chai';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 
-import { legacyPlugin } from '../src/legacyPlugin.js';
-import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+import { legacyPlugin } from '../dist/legacyPlugin.js';
+import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
 
 const modernCode = `
 class Foo {
@@ -16,13 +17,11 @@ async function doImport() {
 
 console.log(window?.foo?.bar);`;
 
-describe('legacyPlugin - transform js', function () {
-  this.timeout(10000);
-
+describe('legacyPlugin - transform js', { timeout: 10000 }, () => {
   for (const [name, userAgent] of Object.entries(modernUserAgents)) {
     it(`does not do any work on ${name}`, async () => {
       const { server, host } = await createTestServer({
-        rootDir: __dirname,
+        rootDir: import.meta.dirname,
         plugins: [
           {
             name: 'test',
@@ -39,7 +38,7 @@ describe('legacyPlugin - transform js', function () {
       const text = await fetchText(`${host}/app.js`, {
         headers: { 'user-agent': userAgent },
       });
-      expect(text.trim()).to.equal(modernCode.trim());
+      assert.equal(text.trim(), modernCode.trim());
       server.stop();
     });
   }
@@ -47,7 +46,7 @@ describe('legacyPlugin - transform js', function () {
   for (const [name, userAgent] of Object.entries(legacyUserAgents)) {
     it(`transforms to es5 on ${name}`, async () => {
       const { server, host } = await createTestServer({
-        rootDir: __dirname,
+        rootDir: import.meta.dirname,
         plugins: [
           {
             name: 'test',
@@ -78,7 +77,7 @@ describe('legacyPlugin - transform js', function () {
 
     it(`transforms to SystemJS when systemjs paramater is given ${name}`, async () => {
       const { server, host } = await createTestServer({
-        rootDir: __dirname,
+        rootDir: import.meta.dirname,
         plugins: [
           {
             name: 'test',

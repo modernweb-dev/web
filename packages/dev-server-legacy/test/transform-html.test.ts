@@ -1,9 +1,10 @@
-import { expect } from 'chai';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
 
-import { legacyPlugin } from '../src/legacyPlugin.js';
-import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+import { legacyPlugin } from '../dist/legacyPlugin.js';
+import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
 
 const htmlBody = `
 <html>
@@ -25,12 +26,10 @@ const inlineScriptHtmlBody = `
 </body>
 </html>`;
 
-describe('legacyPlugin - transform html', function () {
-  this.timeout(10000);
-
+describe('legacyPlugin - transform html', { timeout: 10000 }, () => {
   it(`does not do any work on a modern browser`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -48,13 +47,13 @@ describe('legacyPlugin - transform html', function () {
       headers: { 'user-agent': modernUserAgents['Chrome 78'] },
     });
 
-    expect(text.trim()).to.equal(htmlBody.trim());
+    assert.equal(text.trim(), htmlBody.trim());
     server.stop();
   });
 
   it(`injects polyfills into the HTML page on legacy browsers`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -80,7 +79,7 @@ describe('legacyPlugin - transform html', function () {
 
   it(`injects systemjs param to inline modules`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -104,7 +103,7 @@ describe('legacyPlugin - transform html', function () {
 
   it(`handles inline scripts`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -131,7 +130,7 @@ describe('legacyPlugin - transform html', function () {
 
   it(`can request inline scripts`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -158,7 +157,7 @@ describe('legacyPlugin - transform html', function () {
 
   it(`includes url parameters in inline script key`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
