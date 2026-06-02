@@ -82,10 +82,7 @@ describe('plugin-serve middleware', () => {
 
       assert.equal(response.status, 200);
       assert.ok(responseText.includes('serving non-existing.js'));
-      assert.equal(
-        response.headers.get('content-type'),
-        'application/javascript; charset=utf-8',
-      );
+      assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
     } finally {
       server.stop();
     }

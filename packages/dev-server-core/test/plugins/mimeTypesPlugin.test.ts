@@ -24,10 +24,7 @@ describe('mimeTypesPLugin', () => {
     try {
       const response = await fetch(`${host}/foo.css`);
       assert.equal(response.status, 200);
-      assert.equal(
-        response.headers.get('content-type'),
-        'application/javascript; charset=utf-8',
-      );
+      assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
     } finally {
       server.stop();
     }
@@ -54,10 +51,7 @@ describe('mimeTypesPLugin', () => {
     try {
       const responseA = await fetch(`${host}/foo.css`);
       assert.equal(responseA.status, 200);
-      assert.equal(
-        responseA.headers.get('content-type'),
-        'application/javascript; charset=utf-8',
-      );
+      assert.equal(responseA.headers.get('content-type'), 'application/javascript; charset=utf-8');
 
       const responseB = await fetch(`${host}/x/foo.css`);
       assert.equal(responseB.status, 200);

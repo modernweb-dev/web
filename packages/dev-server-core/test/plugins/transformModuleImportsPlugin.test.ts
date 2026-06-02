@@ -420,9 +420,7 @@ describe('transformImport', () => {
 
       assert.equal(response.status, 200);
       assert.ok(
-        responseText.includes(
-          "import { message } from 'my-module?transformed-1&transformed-2';",
-        ),
+        responseText.includes("import { message } from 'my-module?transformed-1&transformed-2';"),
       );
       assert.ok(responseText.includes('./src/local-module.js?transformed-1&transformed-2'));
     } finally {
@@ -460,9 +458,7 @@ describe('transformImport', () => {
 
       assert.equal(response.status, 200);
       assert.ok(
-        responseText.includes(
-          "import { message } from 'my-module?transformed-1&transformed-2';",
-        ),
+        responseText.includes("import { message } from 'my-module?transformed-1&transformed-2';"),
       );
       assert.ok(responseText.includes('./src/local-module.js?transformed-1&transformed-2'));
     } finally {
