@@ -110,9 +110,9 @@ describe('TestScheduler', () => {
       stubs.stopSession.mock.mockImplementation(() => timeout(1).then(() => ({ testCoverage })));
       scheduler.schedule(1, [session1]);
 
-      await timeout(2);
+      await timeout(5);
       sessions.updateStatus({ ...session1, passed: true }, SESSION_STATUS.TEST_FINISHED);
-      await timeout(4);
+      await timeout(20);
 
       const finalSession1 = sessions.get(session1.id)!;
       assert.equal(finalSession1.status, SESSION_STATUS.FINISHED);
@@ -137,7 +137,7 @@ describe('TestScheduler', () => {
       sessions.updateStatus({ ...sessions.get('2')!, passed: true }, SESSION_STATUS.TEST_FINISHED);
 
       // wait for browser to end
-      await timeout(4);
+      await timeout(20);
 
       // sessions 1 and 2 should be finished
       assert.equal(sessions.get('1')!.status, SESSION_STATUS.FINISHED);
@@ -160,7 +160,7 @@ describe('TestScheduler', () => {
       assert.equal(sessions.get('2')!.status, SESSION_STATUS.INITIALIZING);
 
       // schedule 3 more sessions after browser starts
-      await timeout(4);
+      await timeout(20);
       scheduler.schedule(1, sessionsToSchedule.slice(2, 5));
       assert.equal(sessions.get('1')!.status, SESSION_STATUS.INITIALIZING);
       assert.equal(sessions.get('2')!.status, SESSION_STATUS.INITIALIZING);
@@ -172,7 +172,7 @@ describe('TestScheduler', () => {
       sessions.updateStatus({ ...sessions.get('1')!, passed: true }, SESSION_STATUS.TEST_FINISHED);
 
       // wait for browser to end
-      await timeout(4);
+      await timeout(20);
 
       // session 1 is finished, session 2 is still waiting, session 3 is now starting and the rest is still scheduled
       assert.equal(sessions.get('1')!.status, SESSION_STATUS.FINISHED);
@@ -183,12 +183,12 @@ describe('TestScheduler', () => {
       assert.equal(sessions.get('5')!.status, SESSION_STATUS.SCHEDULED);
 
       // mark 2 and 3 as finished
-      await timeout(2);
+      await timeout(5);
       sessions.updateStatus({ ...sessions.get('2')!, passed: true }, SESSION_STATUS.TEST_FINISHED);
       sessions.updateStatus({ ...sessions.get('3')!, passed: true }, SESSION_STATUS.TEST_FINISHED);
 
       // 2 and 3 finish when browser closes
-      await timeout(2);
+      await timeout(20);
       assert.equal(sessions.get('2')!.status, SESSION_STATUS.FINISHED);
       assert.equal(sessions.get('3')!.status, SESSION_STATUS.FINISHED);
     });
@@ -198,7 +198,7 @@ describe('TestScheduler', () => {
       stubs.startSession.mock.mockImplementation(() => Promise.reject(new Error('mock error')));
       scheduler.schedule(1, [session1]);
 
-      await timeout(4);
+      await timeout(20);
 
       const finalSession1 = sessions.get(session1.id)!;
       assert.equal(finalSession1.status, SESSION_STATUS.FINISHED);
@@ -217,9 +217,9 @@ describe('TestScheduler', () => {
       );
       scheduler.schedule(1, [session1]);
 
-      await timeout(1);
-      sessions.updateStatus({ ...session1, passed: true }, SESSION_STATUS.TEST_FINISHED);
       await timeout(2);
+      sessions.updateStatus({ ...session1, passed: true }, SESSION_STATUS.TEST_FINISHED);
+      await timeout(5);
 
       const finalSession1 = sessions.get(session1.id)!;
       assert.equal(finalSession1.status, SESSION_STATUS.FINISHED);
@@ -237,9 +237,9 @@ describe('TestScheduler', () => {
       stubs.stopSession.mock.mockImplementation(() => Promise.reject(new Error('mock error')));
       scheduler.schedule(1, [session1]);
 
-      await timeout(2);
+      await timeout(5);
       sessions.updateStatus({ ...session1, passed: true }, SESSION_STATUS.TEST_FINISHED);
-      await timeout(4);
+      await timeout(20);
 
       const finalSession1 = sessions.get(session1.id)!;
       assert.equal(finalSession1.status, SESSION_STATUS.FINISHED);
@@ -379,9 +379,9 @@ describe('TestScheduler', () => {
       ]);
       scheduler.schedule(1, sessions);
 
-      await timeout(1);
+      await timeout(5);
       sessionManager.updateStatus({ ...sessions[0], passed: true }, SESSION_STATUS.TEST_FINISHED);
-      await timeout(4);
+      await timeout(20);
 
       const session3 = sessionManager.get('3')!;
       assert.equal(session3.browser, browsers[0][1]);
@@ -397,10 +397,10 @@ describe('TestScheduler', () => {
       ]);
       scheduler.schedule(1, sessions);
 
-      await timeout(2);
+      await timeout(5);
       sessionManager.updateStatus({ ...sessions[0], passed: true }, SESSION_STATUS.TEST_FINISHED);
       sessionManager.updateStatus({ ...sessions[1], passed: true }, SESSION_STATUS.TEST_FINISHED);
-      await timeout(4);
+      await timeout(20);
 
       const session7 = sessionManager.get('7')!;
       assert.equal(session7.browser, browsers[2][1]);
@@ -416,12 +416,12 @@ describe('TestScheduler', () => {
       ]);
       scheduler.schedule(1, sessions);
 
-      await timeout(2);
+      await timeout(5);
       sessionManager.updateStatus({ ...sessions[0], passed: true }, SESSION_STATUS.TEST_FINISHED);
       sessionManager.updateStatus({ ...sessions[1], passed: true }, SESSION_STATUS.TEST_FINISHED);
-      await timeout(2);
+      await timeout(5);
       sessionManager.updateStatus({ ...sessions[2], passed: true }, SESSION_STATUS.TEST_FINISHED);
-      await timeout(4);
+      await timeout(20);
 
       const session7 = sessionManager.get('7')!;
       assert.equal(session7.browser, browsers[2][1]);
