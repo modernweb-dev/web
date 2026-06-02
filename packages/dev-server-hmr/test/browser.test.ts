@@ -1,11 +1,12 @@
-import { expect } from 'chai';
-import { stubMethod } from 'hanbi';
+import { describe, it, before, after, mock } from 'node:test';
+import assert from 'node:assert/strict';
 import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
-import { Browser, HTTPResponse, launch as launchPuppeteer, Page } from 'puppeteer';
+import puppeteer from 'puppeteer';
+import type { Browser, HTTPResponse, Page } from 'puppeteer';
 import { posix as pathUtil } from 'path';
 
-import { hmrPlugin } from '../src/index.js';
-import { mockFiles } from './utils.js';
+import { hmrPlugin } from '../dist/index.js';
+import { mockFiles } from './utils.ts';
 
 function trackErrors(page: Page) {
   const errors: any[] = [];
@@ -36,12 +37,11 @@ async function mockFaviconRequests(page: Page) {
   });
 }
 
-describe('browser tests', function () {
-  this.timeout(5000);
+describe('browser tests', { timeout: 5000 }, () => {
   let browser: Browser;
 
   before(async () => {
-    browser = await launchPuppeteer();
+    browser = await puppeteer.launch();
   });
 
   after(async () => {
@@ -50,7 +50,7 @@ describe('browser tests', function () {
 
   it('should bubble when bubbles is true', async function () {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFiles({
           '/foo.html': '<script src="/foo.js" type="module"></script>',
@@ -61,20 +61,22 @@ describe('browser tests', function () {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets!, 'send');
+    const stub = mock.method(webSockets!, 'send');
     const page = await browser.newPage();
     try {
       await page.goto(`${host}/foo.html`, { waitUntil: 'networkidle0' });
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
+      fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
 
-      expect(stub.callCount).to.equal(2);
-      expect(stub.getCall(0)!.args[0]).to.equal(
+      assert.equal(stub.mock.callCount(), 2);
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/bar.js',
         }),
       );
-      expect(stub.getCall(1)!.args[0]).to.equal(
+      assert.equal(
+        stub.mock.calls[1].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -93,7 +95,7 @@ describe('browser tests', function () {
         'import.meta.hot.accept(); document.body.appendChild(document.createTextNode(" a "));',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [mockFiles(files), hmrPlugin()],
     });
     const page = await browser.newPage();
@@ -105,7 +107,7 @@ describe('browser tests', function () {
       expectIncludes(await page.content(), '<body> a </body>');
 
       files['/foo.js'] = files['/foo.js'].replace('" a "', '" b "');
-      server.fileWatcher.emit('change', pathUtil.join(__dirname, '/foo.js'));
+      server.fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/foo.js'));
       await page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/foo.js`));
       expectIncludes(await page.content(), '<body> a  b </body>');
 
@@ -126,7 +128,7 @@ describe('browser tests', function () {
       '/bar.js': 'export default " a ";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [mockFiles(files), hmrPlugin()],
     });
     const page = await browser.newPage();
@@ -138,7 +140,7 @@ describe('browser tests', function () {
       expectIncludes(await page.content(), '<body> a </body>');
 
       files['/bar.js'] = 'export default " b ";';
-      server.fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
+      server.fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
       await page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/bar.js`));
       expectIncludes(await page.content(), '<body> a  b </body>');
 
@@ -164,7 +166,7 @@ describe('browser tests', function () {
       '/baz.js': 'export default " a ";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [mockFiles(files), hmrPlugin()],
     });
     const page = await browser.newPage();
@@ -175,7 +177,7 @@ describe('browser tests', function () {
       expectIncludes(await page.content(), '<body> foo  a  bar  a </body>');
 
       files['/baz.js'] = 'export default " b ";';
-      server.fileWatcher.emit('change', pathUtil.join(__dirname, '/baz.js'));
+      server.fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/baz.js'));
       await Promise.all([
         page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/foo.js`)),
         page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/bar.js`)),
@@ -205,7 +207,7 @@ describe('browser tests', function () {
       '/baz.js': 'document.body.appendChild(document.createTextNode(" b "));',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [mockFiles(files), hmrPlugin()],
     });
     const page = await browser.newPage();
@@ -217,7 +219,7 @@ describe('browser tests', function () {
       await page.evaluate('document.body.appendChild(document.createTextNode(" c "))');
       expectIncludes(await page.content(), '<body> a  b  c </body>');
 
-      server.fileWatcher.emit('change', pathUtil.join(__dirname, '/baz.js'));
+      server.fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/baz.js'));
       await page.waitForNavigation();
       expectIncludes(await page.content(), '<body> a  b </body>');
 
