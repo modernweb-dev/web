@@ -13,7 +13,7 @@ const NON_ZERO_TIME_VALUE_REGEX = /time="((\d\.\d+)|(\d))"/g;
 
 const USER_AGENT_STRING_REGEX = /"Mozilla\/5\.0 (.*)"/g;
 
-const rootDir = path.join(import.meta.dirname, '..', '..', '..');
+const rootDir = path.resolve(import.meta.dirname, '..', '..', '..');
 
 const normalizeOutput = (cwd: string, output: string) =>
   output
