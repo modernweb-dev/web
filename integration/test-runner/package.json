@@ -16,8 +16,9 @@
   "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-integration-tests",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test --reporter dot"
+    "test": "node --experimental-strip-types --test --test-force-exit \"test/**/*.test.ts\"",
+    "test:node": "node --experimental-strip-types --test --test-force-exit \"test/**/*.test.ts\"",
+    "test:watch": "node --experimental-strip-types --test --test-force-exit --watch \"test/**/*.test.ts\""
   },
   "dependencies": {
     "@web/dev-server-legacy": "^2.1.0",

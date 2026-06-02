@@ -1,4 +1,5 @@
-import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
+import { describe, it } from 'node:test';
+import type { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';
 import { resolve } from 'path';
@@ -14,13 +15,13 @@ export function runParallelTest(
       await Promise.all([
         runTests({
           ...configA,
-          files: [...(configA.files ?? []), resolve(__dirname, 'browser-tests', '*.test.js')],
+          files: [...(configA.files ?? []), resolve(import.meta.dirname, 'browser-tests', '*.test.js')],
           plugins: [...(configA.plugins ?? []), legacyPlugin()],
         }),
 
         runTests({
           ...configB,
-          files: [...(configB.files ?? []), resolve(__dirname, 'browser-tests', '*.test.js')],
+          files: [...(configB.files ?? []), resolve(import.meta.dirname, 'browser-tests', '*.test.js')],
           plugins: [...(configB.plugins ?? []), legacyPlugin()],
         }),
       ]);
