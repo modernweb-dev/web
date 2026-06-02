@@ -12,7 +12,10 @@ export function runManyTests(
       await Promise.all([
         runTests({
           ...config,
-          files: [...(config.files ?? []), resolve(import.meta.dirname, 'browser-tests', '*.test.js')],
+          files: [
+            ...(config.files ?? []),
+            resolve(import.meta.dirname, 'browser-tests', '*.test.js'),
+          ],
           plugins: [...(config.plugins ?? []), legacyPlugin()],
         }),
       ]);

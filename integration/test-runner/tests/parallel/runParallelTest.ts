@@ -15,13 +15,19 @@ export function runParallelTest(
       await Promise.all([
         runTests({
           ...configA,
-          files: [...(configA.files ?? []), resolve(import.meta.dirname, 'browser-tests', '*.test.js')],
+          files: [
+            ...(configA.files ?? []),
+            resolve(import.meta.dirname, 'browser-tests', '*.test.js'),
+          ],
           plugins: [...(configA.plugins ?? []), legacyPlugin()],
         }),
 
         runTests({
           ...configB,
-          files: [...(configB.files ?? []), resolve(import.meta.dirname, 'browser-tests', '*.test.js')],
+          files: [
+            ...(configB.files ?? []),
+            resolve(import.meta.dirname, 'browser-tests', '*.test.js'),
+          ],
           plugins: [...(configB.plugins ?? []), legacyPlugin()],
         }),
       ]);

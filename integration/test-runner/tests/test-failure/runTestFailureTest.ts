@@ -35,7 +35,10 @@ export function runTestFailureTest(
       const result = await runTests(
         {
           ...config,
-          files: [...(config.files ?? []), resolve(import.meta.dirname, 'browser-tests', '*.test.js')],
+          files: [
+            ...(config.files ?? []),
+            resolve(import.meta.dirname, 'browser-tests', '*.test.js'),
+          ],
           plugins: [...(config.plugins ?? []), legacyPlugin()],
         },
         undefined,
@@ -43,7 +46,11 @@ export function runTestFailureTest(
       );
       allSessions = result.sessions;
 
-      assert.equal(allSessions.every(s => s.passed), false, 'All sessions should have failed');
+      assert.equal(
+        allSessions.every(s => s.passed),
+        false,
+        'All sessions should have failed',
+      );
     });
 
     it('handles tests with 404 imports', () => {
@@ -65,7 +72,10 @@ export function runTestFailureTest(
       const sessions = allSessions.filter(s => s.testFile.endsWith('fail-circular-error.test.js'));
       assert.equal(sessions.length === browserCount, true);
       for (const session of sessions) {
-        assert.deepEqual(session.testResults!.tests.map(t => t.name), ['bad predicate']);
+        assert.deepEqual(
+          session.testResults!.tests.map(t => t.name),
+          ['bad predicate'],
+        );
         assert.equal(session.passed, false);
         assert.equal(
           session.testResults!.tests![0].error!.message,
@@ -78,10 +88,10 @@ export function runTestFailureTest(
       const sessions = allSessions.filter(s => s.testFile.endsWith('fail-after-each.test.js'));
       assert.equal(sessions.length === browserCount, true);
       for (const session of sessions) {
-        assert.deepEqual(session.testResults!.tests.map(t => t.name), [
-          'true is true',
-          'true is really true',
-        ]);
+        assert.deepEqual(
+          session.testResults!.tests.map(t => t.name),
+          ['true is true', 'true is really true'],
+        );
         assert.equal(session.errors.length, 1);
         assert.ok(session.errors[0].message.includes('error thrown in afterEach hook'));
         assert.ok(
@@ -97,10 +107,10 @@ export function runTestFailureTest(
       const sessions = allSessions.filter(s => s.testFile.endsWith('fail-after.test.js'));
       assert.equal(sessions.length === browserCount, true);
       for (const session of sessions) {
-        assert.deepEqual(session.testResults!.tests.map(t => t.name), [
-          'true is true',
-          'true is really true',
-        ]);
+        assert.deepEqual(
+          session.testResults!.tests.map(t => t.name),
+          ['true is true', 'true is really true'],
+        );
         assert.equal(session.errors.length, 1);
         assert.ok(session.errors[0].message.includes('error thrown in after hook'));
         assert.ok(
@@ -116,10 +126,10 @@ export function runTestFailureTest(
       const sessions = allSessions.filter(s => s.testFile.endsWith('fail-before-each.test.js'));
       assert.equal(sessions.length === browserCount, true);
       for (const session of sessions) {
-        assert.deepEqual(session.testResults!.tests.map(t => t.name), [
-          'true is true',
-          'true is really true',
-        ]);
+        assert.deepEqual(
+          session.testResults!.tests.map(t => t.name),
+          ['true is true', 'true is really true'],
+        );
         assert.equal(session.errors.length, 1);
         assert.ok(session.errors[0].message.includes('error thrown in beforeEach hook'));
         assert.ok(
@@ -135,10 +145,10 @@ export function runTestFailureTest(
       const sessions = allSessions.filter(s => s.testFile.endsWith('fail-before.test.js'));
       assert.equal(sessions.length === browserCount, true);
       for (const session of sessions) {
-        assert.deepEqual(session.testResults!.tests.map(t => t.name), [
-          'true is true',
-          'true is really true',
-        ]);
+        assert.deepEqual(
+          session.testResults!.tests.map(t => t.name),
+          ['true is true', 'true is really true'],
+        );
         assert.equal(session.errors.length, 1);
         assert.ok(session.errors[0].message.includes('error thrown in before hook'));
         assert.ok(
@@ -154,7 +164,10 @@ export function runTestFailureTest(
       const sessions = allSessions.filter(s => s.testFile.endsWith('fail-custom-error.test.js'));
       assert.equal(sessions.length === browserCount, true);
       for (const session of sessions) {
-        assert.deepEqual(session.testResults!.tests.map(t => t.name), ['custom error']);
+        assert.deepEqual(
+          session.testResults!.tests.map(t => t.name),
+          ['custom error'],
+        );
         assert.ok(session.testResults!.tests[0].error!.message.includes('a custom error thrown'));
         assert.ok(
           session.testResults!.tests[0].error!.stack!.includes(
@@ -186,9 +199,7 @@ export function runTestFailureTest(
         assert.equal(session.testResults!.tests.length, 1);
         assert.ok(session.testResults!.tests[0]!.error!.message.includes('My error'));
         assert.ok(session.testResults!.tests[0]!.error!.stack!.includes('throwErrorC'));
-        assert.ok(
-          session.testResults!.tests[0]!.error!.stack!.includes('fail-stack-trace-c.js'),
-        );
+        assert.ok(session.testResults!.tests[0]!.error!.stack!.includes('fail-stack-trace-c.js'));
         assert.deepEqual(session.errors, []);
         assert.deepEqual(session.logs, []);
       }
@@ -224,7 +235,10 @@ export function runTestFailureTest(
       const sessions = allSessions.filter(s => s.testFile.endsWith('fail-readonly-actual.test.js'));
       assert.equal(sessions.length === browserCount, true);
       for (const session of sessions) {
-        assert.deepEqual(session.testResults!.tests.map(t => t.name), ['readonly actual']);
+        assert.deepEqual(
+          session.testResults!.tests.map(t => t.name),
+          ['readonly actual'],
+        );
         assert.equal(session.passed, false);
         assert.equal(
           session.testResults!.tests![0].error!.message,

@@ -15,14 +15,21 @@ export function runFocusTest(
       const result = await runTests({
         ...config,
         concurrency: 2,
-        files: [...(config.files ?? []), resolve(import.meta.dirname, 'browser-tests', '*.test.js')],
+        files: [
+          ...(config.files ?? []),
+          resolve(import.meta.dirname, 'browser-tests', '*.test.js'),
+        ],
         plugins: [...(config.plugins ?? []), legacyPlugin()],
       });
       allSessions = result.sessions;
     });
 
     it.skip('can run tests with focus, concurrently and sequentially', () => {
-      assert.equal(allSessions.every(s => s.passed), true, 'All sessions should have passed');
+      assert.equal(
+        allSessions.every(s => s.passed),
+        true,
+        'All sessions should have passed',
+      );
     });
   });
 }

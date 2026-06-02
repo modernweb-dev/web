@@ -15,12 +15,19 @@ export function runBasicTest(
     before(async () => {
       const result = await runTests({
         ...config,
-        files: [...(config.files ?? []), resolve(import.meta.dirname, 'browser-tests', '*.test.js')],
+        files: [
+          ...(config.files ?? []),
+          resolve(import.meta.dirname, 'browser-tests', '*.test.js'),
+        ],
         plugins: [...(config.plugins ?? []), legacyPlugin()],
       });
       allSessions = result.sessions;
 
-      assert.equal(allSessions.every(s => s.passed), true, 'All sessions should have passed');
+      assert.equal(
+        allSessions.every(s => s.passed),
+        true,
+        'All sessions should have passed',
+      );
     });
 
     it('passes basic test', () => {
@@ -30,7 +37,10 @@ export function runBasicTest(
         assert.equal(session.testResults!.tests.length, 0);
         assert.equal(session.testResults!.suites.length, 1);
         assert.equal(session.testResults!.suites[0].tests.length, 1);
-        assert.deepEqual(session.testResults!.suites[0].tests.map(t => t.name), ['works']);
+        assert.deepEqual(
+          session.testResults!.suites[0].tests.map(t => t.name),
+          ['works'],
+        );
       }
     });
 
@@ -42,15 +52,18 @@ export function runBasicTest(
         'Each browser should run js-syntax.test.js',
       );
       for (const session of sessions) {
-        assert.deepEqual(session.testResults!.tests.map(t => t.name), [
-          'supports object spread',
-          'supports async functions',
-          'supports exponentiation',
-          'supports classes',
-          'supports template literals',
-          'supports optional chaining',
-          'supports nullish coalescing',
-        ]);
+        assert.deepEqual(
+          session.testResults!.tests.map(t => t.name),
+          [
+            'supports object spread',
+            'supports async functions',
+            'supports exponentiation',
+            'supports classes',
+            'supports template literals',
+            'supports optional chaining',
+            'supports nullish coalescing',
+          ],
+        );
       }
     });
 
@@ -62,11 +75,10 @@ export function runBasicTest(
         'Each browser should run module-features.test.js',
       );
       for (const session of sessions) {
-        assert.deepEqual(session.testResults!.tests.map(t => t.name), [
-          'supports static imports',
-          'supports dynamic imports',
-          'supports import meta',
-        ]);
+        assert.deepEqual(
+          session.testResults!.tests.map(t => t.name),
+          ['supports static imports', 'supports dynamic imports', 'supports import meta'],
+        );
       }
     });
 
@@ -80,13 +92,16 @@ export function runBasicTest(
       for (const session of sessions) {
         assert.equal(session.testResults!.tests.length, 0);
         assert.equal(session.testResults!.suites.length, 1);
-        assert.deepEqual(session.testResults!.suites[0].tests.map(t => t.name), [
-          'can call setTimeout',
-          'can cancel setTimeout',
-          'can call and cancel setInterval',
-          'can call requestAnimationFrame',
-          'can cancel requestAnimationFrame',
-        ]);
+        assert.deepEqual(
+          session.testResults!.suites[0].tests.map(t => t.name),
+          [
+            'can call setTimeout',
+            'can cancel setTimeout',
+            'can call and cancel setInterval',
+            'can call requestAnimationFrame',
+            'can cancel requestAnimationFrame',
+          ],
+        );
       }
     });
   });

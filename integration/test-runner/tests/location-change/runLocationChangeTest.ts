@@ -16,7 +16,10 @@ export function runLocationChangeTest(
       const result = await runTests(
         {
           ...config,
-          files: [...(config.files ?? []), resolve(import.meta.dirname, 'browser-tests', '*.test.js')],
+          files: [
+            ...(config.files ?? []),
+            resolve(import.meta.dirname, 'browser-tests', '*.test.js'),
+          ],
           plugins: [...(config.plugins ?? []), legacyPlugin()],
         },
         undefined,
@@ -24,7 +27,11 @@ export function runLocationChangeTest(
       );
       allSessions = result.sessions;
 
-      assert.equal(allSessions.every(s => s.passed), false, 'All sessions should have failed');
+      assert.equal(
+        allSessions.every(s => s.passed),
+        false,
+        'All sessions should have failed',
+      );
     });
 
     it('handles tests which assign to window.location.href', () => {
