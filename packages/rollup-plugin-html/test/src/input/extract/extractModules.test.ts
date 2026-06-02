@@ -1,10 +1,11 @@
 import path from 'path';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { parse, serialize } from 'parse5';
-import { expect } from 'chai';
 import { html, js } from '../../../../../../test-utils/rollup-test-utils.js';
 
-import { extractModules } from '../../../../src/input/extract/extractModules.js';
-import { ScriptModuleTag } from '../../../../src/RollupPluginHTMLOptions.js';
+import { extractModules } from '../../../../dist/input/extract/extractModules.js';
+import type { ScriptModuleTag } from '../../../../dist/RollupPluginHTMLOptions.js';
 
 const { sep } = path;
 
@@ -31,20 +32,23 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect(inlineModules.length).to.equal(0);
-    expect(moduleImports).to.eql([
+    assert.equal(inlineModules.length, 0);
+    assert.deepEqual(moduleImports, [
       { importPath: `${sep}foo.js`, attributes: [] },
       { importPath: `${sep}bar.js`, attributes: [] },
     ]);
-    expect(html`${htmlWithoutModules}`).to.eql(html`
-      <html>
-        <head></head>
-        <body>
-          <div>before</div>
-          <div>after</div>
-        </body>
-      </html>
-    `);
+    assert.deepEqual(
+      html`${htmlWithoutModules}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <div>before</div>
+            <div>after</div>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('does not touch non module scripts', () => {
@@ -62,19 +66,22 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect(inlineModules.length).to.equal(0);
-    expect(moduleImports).to.eql([]);
-    expect(html`${htmlWithoutModules}`).to.eql(html`
-      <html>
-        <head></head>
-        <body>
-          <div>before</div>
-          <script src="./foo.js"></script>
-          <script></script>
-          <div>after</div>
-        </body>
-      </html>
-    `);
+    assert.equal(inlineModules.length, 0);
+    assert.deepEqual(moduleImports, []);
+    assert.deepEqual(
+      html`${htmlWithoutModules}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <div>before</div>
+            <script src="./foo.js"></script>
+            <script></script>
+            <div>after</div>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('resolves imports relative to the root dir', () => {
@@ -92,20 +99,23 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect(inlineModules.length).to.equal(0);
-    expect(moduleImports).to.eql([
+    assert.equal(inlineModules.length, 0);
+    assert.deepEqual(moduleImports, [
       { importPath: `${sep}foo.js`, attributes: [] },
       { importPath: `${sep}base${sep}bar.js`, attributes: [] },
     ]);
-    expect(html`${htmlWithoutModules}`).to.eql(html`
-      <html>
-        <head></head>
-        <body>
-          <div>before</div>
-          <div>after</div>
-        </body>
-      </html>
-    `);
+    assert.deepEqual(
+      html`${htmlWithoutModules}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <div>before</div>
+            <div>after</div>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('resolves relative imports relative to the relative import base', () => {
@@ -123,20 +133,23 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect(inlineModules.length).to.equal(0);
-    expect(moduleImports).to.eql([
+    assert.equal(inlineModules.length, 0);
+    assert.deepEqual(moduleImports, [
       { importPath: `${sep}base-1${sep}base-2${sep}foo.js`, attributes: [] },
       { importPath: `${sep}base-1${sep}bar.js`, attributes: [] },
     ]);
-    expect(html`${htmlWithoutModules}`).to.eql(html`
-      <html>
-        <head></head>
-        <body>
-          <div>before</div>
-          <div>after</div>
-        </body>
-      </html>
-    `);
+    assert.deepEqual(
+      html`${htmlWithoutModules}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <div>before</div>
+            <div>after</div>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('extracts all inline modules from a html document', () => {
@@ -158,7 +171,7 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect(cleanupInlineModules(inlineModules)).to.eql([
+    assert.deepEqual(cleanupInlineModules(inlineModules), [
       {
         importPath: '/inline-module-80efb22c2d1ce27c40eae10611f7680f.js',
         code: js`/* my module 1 */`,
@@ -170,16 +183,19 @@ describe('extractModules()', () => {
         attributes: [],
       },
     ]);
-    expect(moduleImports).to.eql([]);
-    expect(html`${htmlWithoutModules}`).to.eql(html`
-      <html>
-        <head></head>
-        <body>
-          <div>before</div>
-          <div>after</div>
-        </body>
-      </html>
-    `);
+    assert.deepEqual(moduleImports, []);
+    assert.deepEqual(
+      html`${htmlWithoutModules}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <div>before</div>
+            <div>after</div>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('prefixes inline module with index.html directory', () => {
@@ -201,7 +217,7 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect(cleanupInlineModules(inlineModules)).to.eql([
+    assert.deepEqual(cleanupInlineModules(inlineModules), [
       {
         importPath: '/foo/bar/inline-module-80efb22c2d1ce27c40eae10611f7680f.js',
         code: js`/* my module 1 */`,
@@ -213,16 +229,19 @@ describe('extractModules()', () => {
         attributes: [],
       },
     ]);
-    expect(moduleImports).to.eql([]);
-    expect(html`${htmlWithoutModules}`).to.eql(html`
-      <html>
-        <head></head>
-        <body>
-          <div>before</div>
-          <div>after</div>
-        </body>
-      </html>
-    `);
+    assert.deepEqual(moduleImports, []);
+    assert.deepEqual(
+      html`${htmlWithoutModules}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <div>before</div>
+            <div>after</div>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('ignores absolute paths', () => {
@@ -240,17 +259,20 @@ describe('extractModules()', () => {
     });
     const htmlWithoutModules = serialize(document);
 
-    expect(inlineModules.length).to.equal(0);
-    expect(moduleImports).to.eql([{ importPath: `${sep}bar.js`, attributes: [] }]);
-    expect(html`${htmlWithoutModules}`).to.eql(html`
-      <html>
-        <head></head>
-        <body>
-          <div>before</div>
-          <script type="module" src="https://www.my-cdn.com/foo.js"></script>
-          <div>after</div>
-        </body>
-      </html>
-    `);
+    assert.equal(inlineModules.length, 0);
+    assert.deepEqual(moduleImports, [{ importPath: `${sep}bar.js`, attributes: [] }]);
+    assert.deepEqual(
+      html`${htmlWithoutModules}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <div>before</div>
+            <script type="module" src="https://www.my-cdn.com/foo.js"></script>
+            <div>after</div>
+          </body>
+        </html>
+      `,
+    );
   });
 });

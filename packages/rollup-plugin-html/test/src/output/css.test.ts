@@ -1,13 +1,14 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import {
   createAssetPlaceholder,
   replacePlaceholders,
   calculateRelativePath,
-} from '../../../src/output/css.js';
+} from '../../../dist/output/css.js';
 
 describe('createAssetPlaceholder', () => {
   it('creates a placeholder with the given hash', () => {
-    expect(createAssetPlaceholder('abc123')).to.equal('__ROLLUP_ASSET_URL_abc123__');
+    assert.equal(createAssetPlaceholder('abc123'), '__ROLLUP_ASSET_URL_abc123__');
   });
 });
 
@@ -16,28 +17,28 @@ describe('replacePlaceholders', () => {
     const css = `.foo { background: url('__ROLLUP_ASSET_URL_abc123__'); }`;
     const resolver = (hash: string) => (hash === 'abc123' ? '../assets/image.png' : undefined);
     const result = replacePlaceholders(css, resolver);
-    expect(result).to.equal(`.foo { background: url('../assets/image.png'); }`);
+    assert.equal(result, `.foo { background: url('../assets/image.png'); }`);
   });
 
   it('preserves fragments after placeholder', () => {
     const css = `.foo { background: url('__ROLLUP_ASSET_URL_abc123__#icon'); }`;
     const resolver = () => '../assets/sprite.svg';
     const result = replacePlaceholders(css, resolver);
-    expect(result).to.equal(`.foo { background: url('../assets/sprite.svg#icon'); }`);
+    assert.equal(result, `.foo { background: url('../assets/sprite.svg#icon'); }`);
   });
 
   it('preserves query strings after placeholder', () => {
     const css = `.foo { src: url('__ROLLUP_ASSET_URL_abc123__?v=1.0'); }`;
     const resolver = () => '../fonts/font.woff2';
     const result = replacePlaceholders(css, resolver);
-    expect(result).to.equal(`.foo { src: url('../fonts/font.woff2?v=1.0'); }`);
+    assert.equal(result, `.foo { src: url('../fonts/font.woff2?v=1.0'); }`);
   });
 
   it('keeps placeholder when resolver returns undefined', () => {
     const css = `.foo { background: url('__ROLLUP_ASSET_URL_unknown__'); }`;
     const resolver = () => undefined;
     const result = replacePlaceholders(css, resolver);
-    expect(result).to.equal(css);
+    assert.equal(result, css);
   });
 
   it('replaces multiple placeholders', () => {
@@ -51,38 +52,41 @@ describe('replacePlaceholders', () => {
       return undefined;
     };
     const result = replacePlaceholders(css, resolver);
-    expect(result).to.include("url('assets/image1.png')");
-    expect(result).to.include("url('assets/image2.png')");
+    assert.ok(result.includes("url('assets/image1.png')"));
+    assert.ok(result.includes("url('assets/image2.png')"));
   });
 });
 
 describe('calculateRelativePath', () => {
   it('calculates relative path for same directory', () => {
-    expect(calculateRelativePath('styles/main.css', 'styles/image.png')).to.equal('image.png');
+    assert.equal(calculateRelativePath('styles/main.css', 'styles/image.png'), 'image.png');
   });
 
   it('calculates relative path for parent directory', () => {
-    expect(calculateRelativePath('styles/main.css', 'image.png')).to.equal('../image.png');
+    assert.equal(calculateRelativePath('styles/main.css', 'image.png'), '../image.png');
   });
 
   it('calculates relative path for sibling directory', () => {
-    expect(calculateRelativePath('styles/main.css', 'assets/image.png')).to.equal(
+    assert.equal(
+      calculateRelativePath('styles/main.css', 'assets/image.png'),
       '../assets/image.png',
     );
   });
 
   it('calculates relative path for deeply nested CSS', () => {
-    expect(
+    assert.equal(
       calculateRelativePath('styles/components/button.css', 'assets/icons/arrow.svg'),
-    ).to.equal('../../assets/icons/arrow.svg');
+      '../../assets/icons/arrow.svg',
+    );
   });
 
   it('calculates relative path when CSS is at root', () => {
-    expect(calculateRelativePath('main.css', 'assets/image.png')).to.equal('assets/image.png');
+    assert.equal(calculateRelativePath('main.css', 'assets/image.png'), 'assets/image.png');
   });
 
   it('calculates relative path when both are deeply nested', () => {
-    expect(calculateRelativePath('a/b/c/style.css', 'x/y/z/image.png')).to.equal(
+    assert.equal(
+      calculateRelativePath('a/b/c/style.css', 'x/y/z/image.png'),
       '../../../x/y/z/image.png',
     );
   });

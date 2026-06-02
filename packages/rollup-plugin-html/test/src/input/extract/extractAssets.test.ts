@@ -1,7 +1,8 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it, afterEach } from 'node:test';
 import { parse } from 'parse5';
 import path from 'path';
-import { extractAssets } from '../../../../src/input/extract/extractAssets.js';
+import { extractAssets } from '../../../../dist/input/extract/extractAssets.js';
 import {
   html,
   css,
@@ -59,7 +60,7 @@ describe('extractAssets', () => {
     });
 
     const assetsWithoutcontent = assets.map(a => ({ ...a, content: undefined }));
-    expect(assetsWithoutcontent).to.eql([
+    assert.deepEqual(assetsWithoutcontent, [
       {
         content: undefined,
         filePath: path.join(rootDir, 'image-a.png'),
@@ -141,7 +142,7 @@ describe('extractAssets', () => {
       ...asset,
       content: asset.content.toString('utf-8').replace(/\s/g, ''),
     }));
-    expect(transformedAssets).to.eql([
+    assert.deepEqual(transformedAssets, [
       {
         content: '{"message":"helloworld"}',
         filePath: path.join(rootDir, 'webmanifest.json'),
@@ -195,11 +196,11 @@ describe('extractAssets', () => {
       extractAssets: true,
     });
 
-    expect(assets.length).to.equal(2);
-    expect(assets[0].filePath).to.equal(path.join(rootDir, 'foo', 'x.css'));
-    expect(assets[1].filePath).to.equal(path.join(rootDir, 'foo', 'bar', 'y.css'));
-    expect(assets[0].content.toString('utf-8').replace(/\s/g, '')).to.equal(':root{color:x;}');
-    expect(assets[1].content.toString('utf-8').replace(/\s/g, '')).to.equal(':root{color:y;}');
+    assert.equal(assets.length, 2);
+    assert.equal(assets[0].filePath, path.join(rootDir, 'foo', 'x.css'));
+    assert.equal(assets[1].filePath, path.join(rootDir, 'foo', 'bar', 'y.css'));
+    assert.equal(assets[0].content.toString('utf-8').replace(/\s/g, ''), ':root{color:x;}');
+    assert.equal(assets[1].content.toString('utf-8').replace(/\s/g, ''), ':root{color:y;}');
   });
 
   it('resolves relative to HTML file location', () => {
@@ -232,11 +233,11 @@ describe('extractAssets', () => {
       extractAssets: true,
     });
 
-    expect(assets.length).to.equal(2);
-    expect(assets[0].filePath).to.equal(path.join(rootDir, 'foo', 'x.css'));
-    expect(assets[1].filePath).to.equal(path.join(rootDir, 'styles.css'));
-    expect(assets[0].content.toString('utf-8').replace(/\s/g, '')).to.equal(':root{color:x;}');
-    expect(assets[1].content.toString('utf-8').replace(/\s/g, '')).to.equal(':root{color:blue;}');
+    assert.equal(assets.length, 2);
+    assert.equal(assets[0].filePath, path.join(rootDir, 'foo', 'x.css'));
+    assert.equal(assets[1].filePath, path.join(rootDir, 'styles.css'));
+    assert.equal(assets[0].content.toString('utf-8').replace(/\s/g, ''), ':root{color:x;}');
+    assert.equal(assets[1].content.toString('utf-8').replace(/\s/g, ''), ':root{color:blue;}');
   });
 
   it('resolves absolute paths relative to root dir', () => {
@@ -269,11 +270,11 @@ describe('extractAssets', () => {
       extractAssets: true,
     });
 
-    expect(assets.length).to.equal(2);
-    expect(assets[0].filePath).to.equal(path.join(rootDir, 'foo', 'x.css'));
-    expect(assets[1].filePath).to.equal(path.join(rootDir, 'styles.css'));
-    expect(assets[0].content.toString('utf-8').replace(/\s/g, '')).to.equal(':root{color:x;}');
-    expect(assets[1].content.toString('utf-8').replace(/\s/g, '')).to.equal(':root{color:blue;}');
+    assert.equal(assets.length, 2);
+    assert.equal(assets[0].filePath, path.join(rootDir, 'foo', 'x.css'));
+    assert.equal(assets[1].filePath, path.join(rootDir, 'styles.css'));
+    assert.equal(assets[0].content.toString('utf-8').replace(/\s/g, ''), ':root{color:x;}');
+    assert.equal(assets[1].content.toString('utf-8').replace(/\s/g, ''), ':root{color:blue;}');
   });
 
   it('can deduplicate assets with same names', () => {
@@ -297,9 +298,9 @@ describe('extractAssets', () => {
       extractAssets: true,
     });
 
-    expect(assets.length).to.equal(1);
+    assert.equal(assets.length, 1);
     const assetsWithoutcontent = assets.map(a => ({ ...a, content: undefined }));
-    expect(assetsWithoutcontent).to.eql([
+    assert.deepEqual(assetsWithoutcontent, [
       {
         content: undefined,
         filePath: path.join(rootDir, 'image-a.png'),
@@ -326,7 +327,7 @@ describe('extractAssets', () => {
       extractAssets: true,
     });
 
-    expect(assets.length).to.equal(0);
+    assert.equal(assets.length, 0);
   });
 
   it('does treat non module script tags as assets', () => {
@@ -349,9 +350,9 @@ describe('extractAssets', () => {
       extractAssets: true,
     });
 
-    expect(assets.length).to.equal(1);
-    expect(assets[0].filePath).to.equal(path.join(rootDir, 'no-module.js'));
-    expect(assets[0].content.toString('utf-8')).to.equal('/* no module script file */\n');
+    assert.equal(assets.length, 1);
+    assert.equal(assets[0].filePath, path.join(rootDir, 'no-module.js'));
+    assert.equal(assets[0].content.toString('utf-8'), '/* no module script file */\n');
   });
 
   it('handles a picture tag using source tags with srcset', () => {
@@ -398,10 +399,10 @@ describe('extractAssets', () => {
     });
 
     // the <img> src is not the same as the small jpeg image
-    expect(assets.length).to.equal(4);
-    expect(assets[0].filePath).to.equal(path.join(rootDir, 'images', 'eb26e6ca-30.avif'));
-    expect(assets[1].filePath).to.equal(path.join(rootDir, 'images', 'eb26e6ca-60.avif'));
-    expect(assets[2].filePath).to.equal(path.join(rootDir, 'images', 'eb26e6ca-30.jpeg'));
-    expect(assets[3].filePath).to.equal(path.join(rootDir, 'images', 'eb26e6ca-60.jpeg'));
+    assert.equal(assets.length, 4);
+    assert.equal(assets[0].filePath, path.join(rootDir, 'images', 'eb26e6ca-30.avif'));
+    assert.equal(assets[1].filePath, path.join(rootDir, 'images', 'eb26e6ca-60.avif'));
+    assert.equal(assets[2].filePath, path.join(rootDir, 'images', 'eb26e6ca-30.jpeg'));
+    assert.equal(assets[3].filePath, path.join(rootDir, 'images', 'eb26e6ca-60.jpeg'));
   });
 });
