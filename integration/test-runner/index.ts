@@ -1,4 +1,3 @@
-import { describe } from 'node:test';
 import type { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { runBasicTest } from './tests/basic/runBasicTest.ts';
 import { runConfigGroupsTest } from './tests/config-groups/runConfigGroupsTest.ts';
