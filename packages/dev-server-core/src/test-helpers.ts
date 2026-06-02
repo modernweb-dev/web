@@ -1,5 +1,5 @@
 import portfinder from 'portfinder';
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
 import { green, red, yellow } from 'nanocolors';
 
 import { DevServer } from './server/DevServer.js';
@@ -63,7 +63,7 @@ export const timeout = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms
 export async function fetchText(url: string, init?: RequestInit) {
   const response = await fetch(url, init);
 
-  expect(response.status).to.equal(200);
+  assert.equal(response.status, 200);
   return response.text();
 }
 

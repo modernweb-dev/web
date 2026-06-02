@@ -1,8 +1,9 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { transformImports } from '../../src/plugins/transformModuleImportsPlugin.js';
-import type { PluginSyntaxError } from '../../src/logger/PluginSyntaxError.js';
-import { createTestServer } from '../helpers.js';
+import { transformImports } from '../../dist/plugins/transformModuleImportsPlugin.js';
+import type { PluginSyntaxError } from '../../dist/logger/PluginSyntaxError.js';
+import { createTestServer } from '../helpers.ts';
 
 const defaultFilePath = '/root/my-file.js';
 const defaultResolveImport = (src: string) => `RESOLVED__${src}`;
@@ -21,7 +22,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    expect(result.split('\n')).to.eql([
+    assert.deepEqual(result.split('\n'), [
       'import "RESOLVED__my-module";',
       'import foo from "RESOLVED__my-module";',
       'import { bar } from "RESOLVED__my-module";',
@@ -41,7 +42,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    expect(result.split('\n')).to.eql([
+    assert.deepEqual(result.split('\n'), [
       //
       "export * from 'RESOLVED__my-module';",
       "export { foo } from 'RESOLVED__my-module';",
@@ -55,7 +56,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    expect(result).to.eql("import 'RESOLVED__my-module/bar/index.js");
+    assert.equal(result, "import 'RESOLVED__my-module/bar/index.js");
   });
 
   it('resolves dynamic imports', async () => {
@@ -70,7 +71,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    expect(result.split('\n')).to.eql([
+    assert.deepEqual(result.split('\n'), [
       'import("RESOLVED__/bar.js");',
       // 'function lazyLoad() { return import("RESOLVED__my-module-2"); }',
       // 'import("RESOLVED__my-module");',
@@ -89,7 +90,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    expect(result.split('\n')).to.eql([
+    assert.deepEqual(result.split('\n'), [
       'console.log(import.meta.url);',
       "import 'RESOLVED__my-module';",
     ]);
@@ -106,7 +107,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    expect(result.split('\n')).to.eql([
+    assert.deepEqual(result.split('\n'), [
       "import 'RESOLVED__my-module';",
       "// Example: import('my-module');",
     ]);
@@ -125,7 +126,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    expect(result.split('\n')).to.eql([
+    assert.deepEqual(result.split('\n'), [
       'function myimport() { }',
       'function my_import() { }',
       'function importShim() { }',
@@ -147,7 +148,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    expect(result.split('\n')).to.eql([
+    assert.deepEqual(result.split('\n'), [
       'import(`RESOLVED__@namespace/my-module-3/dynamic-files/${file}.js`);',
       'import(`RESOLVED__my-module/dynamic-files/${file}.js`);',
       'import("RESOLVED__my-module/dynamic-files" + "/" + file + ".js");',
@@ -167,7 +168,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    expect(result.split('\n')).to.eql([
+    assert.deepEqual(result.split('\n'), [
       'import("RESOLVED__./a.js");',
       "import('RESOLVED__./b.js');",
     ]);
@@ -187,7 +188,7 @@ describe('transformImports()', () => {
       defaultFilePath,
       defaultResolveImport,
     );
-    expect(result.split('\n')).to.eql([
+    assert.deepEqual(result.split('\n'), [
       'import( "RESOLVED__./a.js" );',
       'import(   "RESOLVED__./b.js"   );',
       'import(   "./c"   +    ".js"   );',
@@ -211,7 +212,7 @@ describe('transformImports()', () => {
     );
   });
 
-  it('does not change import with string concatenation cannot be resolved', async () => {
+  it('does not change import with string concatenation cannot be resolved (2)', async () => {
     await transformImports(
       [
         'const file = "a";',
@@ -240,7 +241,7 @@ describe('transformImports()', () => {
       defaultResolveImport,
     );
 
-    expect(result.split('\n')).to.eql([
+    assert.deepEqual(result.split('\n'), [
       'import(`./foo/${file}.js`);',
       'import(`/${file}.js`);',
       'import("./foo" + "/" + file + ".js");',
@@ -251,19 +252,16 @@ describe('transformImports()', () => {
   });
 
   it('throws a syntax error on invalid imports', async () => {
-    let thrown = false;
-
-    try {
-      await transformImports('\n\nconst file = "a', defaultFilePath, defaultResolveImport);
-    } catch (error) {
-      thrown = true;
-      expect((error as PluginSyntaxError).message).to.equal('Syntax error');
-      expect((error as PluginSyntaxError).filePath).to.equal('/root/my-file.js');
-      expect((error as PluginSyntaxError).column).to.equal(16);
-      expect((error as PluginSyntaxError).line).to.equal(3);
-    }
-
-    expect(thrown).to.be.true;
+    await assert.rejects(
+      () => transformImports('\n\nconst file = "a', defaultFilePath, defaultResolveImport),
+      (error: PluginSyntaxError) => {
+        assert.equal(error.message, 'Syntax error');
+        assert.equal(error.filePath, '/root/my-file.js');
+        assert.equal(error.column, 16);
+        assert.equal(error.line, 3);
+        return true;
+      },
+    );
   });
 });
 
@@ -284,8 +282,8 @@ describe('resolveImport', () => {
       const response = await fetch(`${host}/src/app.js`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.include("import { message } from 'RESOLVED__my-module';");
+      assert.equal(response.status, 200);
+      assert.ok(responseText.includes("import { message } from 'RESOLVED__my-module';"));
     } finally {
       server.stop();
     }
@@ -307,8 +305,8 @@ describe('resolveImport', () => {
       const response = await fetch(`${host}/index.html`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.include("import { message } from 'RESOLVED__my-module';");
+      assert.equal(response.status, 200);
+      assert.ok(responseText.includes("import { message } from 'RESOLVED__my-module';"));
     } finally {
       server.stop();
     }
@@ -330,8 +328,8 @@ describe('resolveImport', () => {
       const response = await fetch(`${host}/src/app.js`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.include("import { message } from 'my-module';");
+      assert.equal(response.status, 200);
+      assert.ok(responseText.includes("import { message } from 'my-module';"));
     } finally {
       server.stop();
     }
@@ -363,10 +361,10 @@ describe('resolveImport', () => {
       const responseTextA = await responseA.text();
       const responseTextB = await responseB.text();
 
-      expect(responseA.status).to.equal(200);
-      expect(responseB.status).to.equal(200);
-      expect(responseTextA).to.include("import { message } from 'RESOLVED__A__my-module';");
-      expect(responseTextB).to.include("import { message } from 'RESOLVED__B__my-module';");
+      assert.equal(responseA.status, 200);
+      assert.equal(responseB.status, 200);
+      assert.ok(responseTextA.includes("import { message } from 'RESOLVED__A__my-module';"));
+      assert.ok(responseTextB.includes("import { message } from 'RESOLVED__B__my-module';"));
     } finally {
       server.stop();
     }
@@ -390,9 +388,9 @@ describe('transformImport', () => {
       const response = await fetch(`${host}/src/app.js`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.include("import { message } from 'my-module?transformed-1';");
-      expect(responseText).to.include('./src/local-module.js?transformed-1');
+      assert.equal(response.status, 200);
+      assert.ok(responseText.includes("import { message } from 'my-module?transformed-1';"));
+      assert.ok(responseText.includes('./src/local-module.js?transformed-1'));
     } finally {
       server.stop();
     }
@@ -420,11 +418,13 @@ describe('transformImport', () => {
       const response = await fetch(`${host}/src/app.js`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.include(
-        "import { message } from 'my-module?transformed-1&transformed-2';",
+      assert.equal(response.status, 200);
+      assert.ok(
+        responseText.includes(
+          "import { message } from 'my-module?transformed-1&transformed-2';",
+        ),
       );
-      expect(responseText).to.include('./src/local-module.js?transformed-1&transformed-2');
+      assert.ok(responseText.includes('./src/local-module.js?transformed-1&transformed-2'));
     } finally {
       server.stop();
     }
@@ -458,11 +458,13 @@ describe('transformImport', () => {
       const response = await fetch(`${host}/src/app.js`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.include(
-        "import { message } from 'my-module?transformed-1&transformed-2';",
+      assert.equal(response.status, 200);
+      assert.ok(
+        responseText.includes(
+          "import { message } from 'my-module?transformed-1&transformed-2';",
+        ),
       );
-      expect(responseText).to.include('./src/local-module.js?transformed-1&transformed-2');
+      assert.ok(responseText.includes('./src/local-module.js?transformed-1&transformed-2'));
     } finally {
       server.stop();
     }
@@ -490,7 +492,7 @@ describe('transformImport', () => {
     try {
       await fetch(`${host}/src/app.js`);
 
-      expect(receivedImports).to.eql(['RESOLVED__my-module', 'RESOLVED__./src/local-module.js']);
+      assert.deepEqual(receivedImports, ['RESOLVED__my-module', 'RESOLVED__./src/local-module.js']);
     } finally {
       server.stop();
     }

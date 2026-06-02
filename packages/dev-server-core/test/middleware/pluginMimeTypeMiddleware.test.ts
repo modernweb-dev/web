@@ -1,6 +1,7 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { createTestServer } from '../helpers.js';
+import { createTestServer } from '../helpers.ts';
 
 describe('plugin-mime-type middleware', () => {
   it('can set the mime type of a file with a string', async () => {
@@ -20,8 +21,8 @@ describe('plugin-mime-type middleware', () => {
     try {
       const response = await fetch(`${host}/src/hello-world.txt`);
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.include('application/javascript');
+      assert.equal(response.status, 200);
+      assert.ok(response.headers.get('content-type')?.includes('application/javascript'));
     } finally {
       server.stop();
     }
@@ -44,8 +45,8 @@ describe('plugin-mime-type middleware', () => {
     try {
       const response = await fetch(`${host}/src/hello-world.txt`);
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.include('application/javascript');
+      assert.equal(response.status, 200);
+      assert.ok(response.headers.get('content-type')?.includes('application/javascript'));
     } finally {
       server.stop();
     }
