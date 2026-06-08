@@ -3,8 +3,6 @@
 '@web/config-loader': major
 '@web/dev-server-core': major
 '@web/dev-server-esbuild': major
-'@web/dev-server-hmr': major
-'@web/dev-server-import-maps': major
 '@web/dev-server-legacy': major
 '@web/dev-server': major
 '@web/dev-server-polyfill': major
@@ -29,7 +27,6 @@
 '@web/test-runner-coverage-v8': major
 '@web/test-runner-junit-reporter': major
 '@web/test-runner-mocha': major
-'@web/test-runner-module-mocking': major
 '@web/test-runner': major
 '@web/test-runner-playwright': major
 '@web/test-runner-puppeteer': major
