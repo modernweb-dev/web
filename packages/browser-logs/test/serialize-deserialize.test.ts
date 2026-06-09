@@ -9,6 +9,14 @@ import puppeteer from 'puppeteer';
 
 import { deserialize } from '../dist/deserialize.js';
 
+function expectIncludes(actual: string, expected: string) {
+  if (!actual.includes(expected)) {
+    throw new Error(
+      `Expected substring not found.\n\nExpected:\n${expected}\n\nActual:\n${actual}`,
+    );
+  }
+}
+
 const require = createRequire(import.meta.url);
 const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
 const defaultOptions = { browserRootDir: import.meta.dirname, cwd: import.meta.dirname };
@@ -350,11 +358,11 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
     });
     const deserialized = await deserialize(serialized, defaultOptions);
     assert.equal(typeof deserialized, 'string');
-    assert.ok(deserialized.includes('my error msg'));
-    assert.ok(deserialized.includes('2:23'));
-    assert.ok(deserialized.includes('3:23'));
-    assert.ok(deserialized.includes('4:23'));
-    assert.ok(deserialized.includes('5:35'));
+    expectIncludes(deserialized, 'my error msg');
+    expectIncludes(deserialized, '2:23');
+    expectIncludes(deserialized, '3:23');
+    expectIncludes(deserialized, '4:23');
+    expectIncludes(deserialized, '5:35');
   });
 
   it('handles errors in objects', async () => {
@@ -366,11 +374,11 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
     });
     const deserialized = await deserialize(serialized, defaultOptions);
     assert.equal(typeof deserialized.myError, 'string');
-    assert.ok(deserialized.myError.includes('my error msg'));
-    assert.ok(deserialized.myError.includes('2:23'));
-    assert.ok(deserialized.myError.includes('3:23'));
-    assert.ok(deserialized.myError.includes('4:23'));
-    assert.ok(deserialized.myError.includes('5:46'));
+    expectIncludes(deserialized.myError, 'my error msg');
+    expectIncludes(deserialized.myError, '2:23');
+    expectIncludes(deserialized.myError, '3:23');
+    expectIncludes(deserialized.myError, '4:23');
+    expectIncludes(deserialized.myError, '5:46');
   });
 
   it('handles errors in arrays', async () => {
@@ -382,20 +390,20 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
     });
     const deserialized = await deserialize(serialized, defaultOptions);
     assert.equal(typeof deserialized[0], 'string');
-    assert.ok(deserialized[0].includes('my error msg'));
-    assert.ok(deserialized[0].includes('2:23'));
-    assert.ok(deserialized[0].includes('3:23'));
-    assert.ok(deserialized[0].includes('4:23'));
-    assert.ok(deserialized[0].includes('5:36'));
+    expectIncludes(deserialized[0], 'my error msg');
+    expectIncludes(deserialized[0], '2:23');
+    expectIncludes(deserialized[0], '3:23');
+    expectIncludes(deserialized[0], '4:23');
+    expectIncludes(deserialized[0], '5:36');
     assert.equal(typeof deserialized[1], 'string');
-    assert.ok(deserialized[1].includes('my error msg'));
-    assert.ok(deserialized[1].includes('2:23'));
-    assert.ok(deserialized[1].includes('3:23'));
-    assert.ok(deserialized[1].includes('5:41'));
+    expectIncludes(deserialized[1], 'my error msg');
+    expectIncludes(deserialized[1], '2:23');
+    expectIncludes(deserialized[1], '3:23');
+    expectIncludes(deserialized[1], '5:41');
     assert.equal(typeof deserialized[2], 'string');
-    assert.ok(deserialized[2].includes('my error msg'));
-    assert.ok(deserialized[2].includes('2:23'));
-    assert.ok(deserialized[2].includes('5:46'));
+    expectIncludes(deserialized[2], 'my error msg');
+    expectIncludes(deserialized[2], '2:23');
+    expectIncludes(deserialized[2], '5:46');
   });
 
   it('can map stack trace locations', async () => {
@@ -410,8 +418,8 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
       mapStackLocation: l => ({ ...l, filePath: `${l.filePath}__MAPPED__`, line: 1, column: 2 }),
     });
     assert.equal(typeof deserialized, 'string');
-    assert.ok(deserialized.includes('my error msg'));
-    assert.ok(deserialized.includes(`__MAPPED__:1:2`));
+    expectIncludes(deserialized, 'my error msg');
+    expectIncludes(deserialized, `__MAPPED__:1:2`);
   });
 
   it('mapped stack traces can be async', async () => {
@@ -429,8 +437,8 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
       },
     });
     assert.equal(typeof deserialized, 'string');
-    assert.ok(deserialized.includes('my error msg'));
-    assert.ok(deserialized.includes(`__MAPPED__:1:2`));
+    expectIncludes(deserialized, 'my error msg');
+    expectIncludes(deserialized, `__MAPPED__:1:2`);
   });
 
   it('can define a cwd below current directory', async () => {
@@ -445,11 +453,11 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
       cwd: path.resolve(import.meta.dirname, '..'),
     });
     assert.equal(typeof deserialized, 'string');
-    assert.ok(deserialized.includes('my error msg'));
-    assert.ok(deserialized.includes(`2:23`));
-    assert.ok(deserialized.includes(`3:23`));
-    assert.ok(deserialized.includes(`4:23`));
-    assert.ok(deserialized.includes(`5:35`));
+    expectIncludes(deserialized, 'my error msg');
+    expectIncludes(deserialized, `2:23`);
+    expectIncludes(deserialized, `3:23`);
+    expectIncludes(deserialized, `4:23`);
+    expectIncludes(deserialized, `5:35`);
   });
 
   it('can define a cwd above current directory', async () => {
@@ -464,11 +472,11 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
       browserRootDir: path.resolve(import.meta.dirname, '..'),
     });
     assert.equal(typeof deserialized, 'string');
-    assert.ok(deserialized.includes('my error msg'));
-    assert.ok(deserialized.includes(`2:23`));
-    assert.ok(deserialized.includes(`3:23`));
-    assert.ok(deserialized.includes(`4:23`));
-    assert.ok(deserialized.includes(`5:35`));
+    expectIncludes(deserialized, 'my error msg');
+    expectIncludes(deserialized, `2:23`);
+    expectIncludes(deserialized, `3:23`);
+    expectIncludes(deserialized, `4:23`);
+    expectIncludes(deserialized, `5:35`);
   });
 
   it('handles null', async () => {
