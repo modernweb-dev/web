@@ -367,8 +367,8 @@ describe('esbuildPlugin target', () => {
 
       assert.equal(response.status, 200);
       assert.equal(response.headers.get('content-type'), 'text/html; charset=utf-8');
-      assert.ok(text.includes(importmapString));
-      assert.ok(text.includes(jsonString));
+      expectIncludes(text, importmapString);
+      expectIncludes(text, jsonString);
     } finally {
       server.stop();
     }
