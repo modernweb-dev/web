@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { createTestServer } from '../helpers.ts';
+import { createTestServer, expectIncludes, expectNotIncludes } from '../helpers.ts';
 import { webSocketScript } from '../../dist/web-sockets/webSocketsPlugin.js';
 
 describe('webSocketsPlugin', () => {
@@ -21,7 +21,7 @@ describe('webSocketsPlugin', () => {
       const body = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(body.includes(webSocketScript));
+      expectIncludes(body, webSocketScript);
     } finally {
       server.stop();
     }
@@ -43,7 +43,7 @@ describe('webSocketsPlugin', () => {
       const body = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(!body.includes(webSocketScript));
+      expectNotIncludes(body, webSocketScript);
     } finally {
       server.stop();
     }
@@ -56,7 +56,7 @@ describe('webSocketsPlugin', () => {
       const body = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(!body.includes(webSocketScript));
+      expectNotIncludes(body, webSocketScript);
     } finally {
       server.stop();
     }
@@ -80,8 +80,8 @@ describe('webSocketsPlugin', () => {
 
       assert.equal(responseA.status, 200);
       assert.equal(responseB.status, 200);
-      assert.ok(!bodyA.includes(webSocketScript));
-      assert.ok(!bodyB.includes(webSocketScript));
+      expectNotIncludes(bodyA, webSocketScript);
+      expectNotIncludes(bodyB, webSocketScript);
     } finally {
       server.stop();
     }

@@ -3,7 +3,7 @@ import { describe, it } from 'node:test';
 
 import { transformImports } from '../../dist/plugins/transformModuleImportsPlugin.js';
 import type { PluginSyntaxError } from '../../dist/logger/PluginSyntaxError.js';
-import { createTestServer } from '../helpers.ts';
+import { createTestServer, expectIncludes } from '../helpers.ts';
 
 const defaultFilePath = '/root/my-file.js';
 const defaultResolveImport = (src: string) => `RESOLVED__${src}`;
@@ -283,7 +283,7 @@ describe('resolveImport', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes("import { message } from 'RESOLVED__my-module';"));
+      expectIncludes(responseText, "import { message } from 'RESOLVED__my-module';");
     } finally {
       server.stop();
     }
@@ -306,7 +306,7 @@ describe('resolveImport', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes("import { message } from 'RESOLVED__my-module';"));
+      expectIncludes(responseText, "import { message } from 'RESOLVED__my-module';");
     } finally {
       server.stop();
     }
@@ -329,7 +329,7 @@ describe('resolveImport', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes("import { message } from 'my-module';"));
+      expectIncludes(responseText, "import { message } from 'my-module';");
     } finally {
       server.stop();
     }
@@ -363,8 +363,8 @@ describe('resolveImport', () => {
 
       assert.equal(responseA.status, 200);
       assert.equal(responseB.status, 200);
-      assert.ok(responseTextA.includes("import { message } from 'RESOLVED__A__my-module';"));
-      assert.ok(responseTextB.includes("import { message } from 'RESOLVED__B__my-module';"));
+      expectIncludes(responseTextA, "import { message } from 'RESOLVED__A__my-module';");
+      expectIncludes(responseTextB, "import { message } from 'RESOLVED__B__my-module';");
     } finally {
       server.stop();
     }
@@ -389,8 +389,8 @@ describe('transformImport', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes("import { message } from 'my-module?transformed-1';"));
-      assert.ok(responseText.includes('./src/local-module.js?transformed-1'));
+      expectIncludes(responseText, "import { message } from 'my-module?transformed-1';");
+      expectIncludes(responseText, './src/local-module.js?transformed-1');
     } finally {
       server.stop();
     }
@@ -422,7 +422,7 @@ describe('transformImport', () => {
       assert.ok(
         responseText.includes("import { message } from 'my-module?transformed-1&transformed-2';"),
       );
-      assert.ok(responseText.includes('./src/local-module.js?transformed-1&transformed-2'));
+      expectIncludes(responseText, './src/local-module.js?transformed-1&transformed-2');
     } finally {
       server.stop();
     }
@@ -460,7 +460,7 @@ describe('transformImport', () => {
       assert.ok(
         responseText.includes("import { message } from 'my-module?transformed-1&transformed-2';"),
       );
-      assert.ok(responseText.includes('./src/local-module.js?transformed-1&transformed-2'));
+      expectIncludes(responseText, './src/local-module.js?transformed-1&transformed-2');
     } finally {
       server.stop();
     }

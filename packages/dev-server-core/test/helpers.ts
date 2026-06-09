@@ -4,6 +4,7 @@ import {
   timeout,
   fetchText,
   expectIncludes,
+  expectNotIncludes,
   virtualFilesPlugin,
 } from '../dist/test-helpers.js';
 import type { DevServerCoreConfig } from '../dist/server/DevServerCoreConfig.js';
@@ -15,4 +16,4 @@ export function createTestServer(config: Partial<DevServerCoreConfig> = {}) {
   });
 }
 
-export { timeout, fetchText, expectIncludes, virtualFilesPlugin };
+export { timeout, fetchText, expectIncludes, expectNotIncludes, virtualFilesPlugin };

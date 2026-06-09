@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { describe, it, beforeEach, afterEach } from 'node:test';
 
 import type { DevServer } from '../../dist/server/DevServer.js';
-import { createTestServer } from '../helpers.ts';
+import { createTestServer, expectIncludes } from '../helpers.ts';
 
 describe('base path middleware', () => {
   describe('without a trailing /', () => {
@@ -21,7 +21,7 @@ describe('base path middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes('<title>My app</title>'));
+      expectIncludes(responseText, '<title>My app</title>');
     });
 
     it('can request without base path', async () => {
@@ -29,7 +29,7 @@ describe('base path middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes('<title>My app</title>'));
+      expectIncludes(responseText, '<title>My app</title>');
     });
   });
 
@@ -49,7 +49,7 @@ describe('base path middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes('<title>My app</title>'));
+      expectIncludes(responseText, '<title>My app</title>');
     });
 
     it('can request without base path', async () => {
@@ -57,7 +57,7 @@ describe('base path middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes('<title>My app</title>'));
+      expectIncludes(responseText, '<title>My app</title>');
     });
   });
 });

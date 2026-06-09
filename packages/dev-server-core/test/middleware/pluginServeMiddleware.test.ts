@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { createTestServer } from '../helpers.ts';
+import { createTestServer, expectIncludes } from '../helpers.ts';
 
 describe('plugin-serve middleware', () => {
   it('can serve non-existing files', async () => {
@@ -23,7 +23,7 @@ describe('plugin-serve middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes('serving non-existing.js'));
+      expectIncludes(responseText, 'serving non-existing.js');
     } finally {
       server.stop();
     }
@@ -56,7 +56,7 @@ describe('plugin-serve middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes('serve a'));
+      expectIncludes(responseText, 'serve a');
     } finally {
       server.stop();
     }
@@ -81,7 +81,7 @@ describe('plugin-serve middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes('serving non-existing.js'));
+      expectIncludes(responseText, 'serving non-existing.js');
       assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
     } finally {
       server.stop();
@@ -130,7 +130,7 @@ describe('plugin-serve middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes('overwritten index.html'));
+      expectIncludes(responseText, 'overwritten index.html');
     } finally {
       server.stop();
     }
@@ -179,7 +179,7 @@ describe('plugin-serve middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      assert.ok(responseText.includes('serving non-existing.js'));
+      expectIncludes(responseText, 'serving non-existing.js');
     } finally {
       server.stop();
     }
