@@ -5,6 +5,14 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';
 import { resolve } from 'path';
 
+function expectIncludes(actual: string, expected: string) {
+  if (!actual.includes(expected)) {
+    throw new Error(
+      `Expected substring not found.\n\nExpected:\n${expected}\n\nActual:\n${actual}`,
+    );
+  }
+}
+
 export function runLocationChangeTest(
   config: Partial<TestRunnerCoreConfig> & { browsers: BrowserLauncher[] },
 ) {
@@ -83,7 +91,7 @@ export function runLocationChangeTest(
             'Tests were interrupted because the page navigated to',
           ),
         );
-        assert.ok(session.errors[0].message.includes('/new-page/'));
+        expectIncludes(session.errors[0].message, '/new-page/');
         assert.ok(
           session.errors[0].message.includes(
             'This can happen when clicking a link, submitting a form or interacting with window.location.',
