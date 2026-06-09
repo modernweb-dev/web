@@ -1,5 +1,13 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
+
+function expectIncludes(actual: string, expected: string) {
+  if (!actual.includes(expected)) {
+    throw new Error(
+      `Expected substring not found.\n\nExpected:\n${expected}\n\nActual:\n${actual}`,
+    );
+  }
+}
 import {
   createAssetPlaceholder,
   replacePlaceholders,
@@ -52,8 +60,8 @@ describe('replacePlaceholders', () => {
       return undefined;
     };
     const result = replacePlaceholders(css, resolver);
-    assert.ok(result.includes("url('assets/image1.png')"));
-    assert.ok(result.includes("url('assets/image2.png')"));
+    expectIncludes(result, "url('assets/image1.png')");
+    expectIncludes(result, "url('assets/image2.png')");
   });
 });
 
