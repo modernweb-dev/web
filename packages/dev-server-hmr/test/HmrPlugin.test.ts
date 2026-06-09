@@ -1,6 +1,11 @@
 import { describe, it, afterEach, mock } from 'node:test';
 import assert from 'node:assert/strict';
-import { createTestServer, fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
+import {
+  createTestServer,
+  fetchText,
+  expectIncludes,
+  expectNotIncludes,
+} from '@web/dev-server-core/test-helpers';
 import { posix as pathUtil } from 'path';
 
 import { hmrPlugin } from '../dist/index.js';
@@ -353,7 +358,7 @@ describe('HmrPlugin', () => {
     try {
       const response = await fetch(`${host}${NAME_HMR_CLIENT_IMPORT}`);
       const body = await response.text();
-      assert.ok(body.includes('class HotModule'));
+      expectIncludes(body, 'class HotModule');
     } finally {
       await server.stop();
     }
@@ -377,7 +382,7 @@ describe('HmrPlugin', () => {
       const response = await fetch(`${host}/foo.js`);
       const body = await response.text();
 
-      assert.ok(body.includes('__WDS_HMR__'));
+      expectIncludes(body, '__WDS_HMR__');
     } finally {
       await server.stop();
     }
@@ -393,7 +398,7 @@ describe('HmrPlugin', () => {
       const response = await fetch(`${host}/foo.js`);
       const body = await response.text();
 
-      assert.ok(!body.includes('__WDS_HMR__'));
+      expectNotIncludes(body, '__WDS_HMR__');
     } finally {
       await server.stop();
     }
