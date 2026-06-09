@@ -20,7 +20,7 @@
   "module": "index.mjs",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
+      "types": "./dist/copy.d.ts",
       "import": "./index.mjs",
       "require": "./src/copy.js"
     }
