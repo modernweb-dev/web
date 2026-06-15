@@ -1,7 +1,17 @@
-import { rollup, OutputChunk, OutputOptions, Plugin } from 'rollup';
-import { expect } from 'chai';
+import { rollup } from 'rollup';
+import type { OutputChunk, OutputOptions, Plugin } from 'rollup';
+import assert from 'node:assert/strict';
+import { describe, it, afterEach } from 'node:test';
+
+function expectIncludes(actual: string, expected: string) {
+  if (!actual.includes(expected)) {
+    throw new Error(
+      `Expected substring not found.\n\nExpected:\n${expected}\n\nActual:\n${actual}`,
+    );
+  }
+}
 import path from 'path';
-import { rollupPluginHTML } from '../src/index.js';
+import { rollupPluginHTML } from '../dist/index.js';
 import {
   html,
   css,
@@ -66,21 +76,24 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(3);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 3);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(chunks['entrypoint-a.js']).to.include(js`console.log('entrypoint-a.js');`);
-    expect(chunks['entrypoint-b.js']).to.include(js`console.log('entrypoint-b.js');`);
+    expectIncludes(chunks['entrypoint-a.js'], js`console.log('entrypoint-a.js');`);
+    expectIncludes(chunks['entrypoint-b.js'], js`console.log('entrypoint-b.js');`);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="./entrypoint-a.js"></script>
-          <script type="module" src="./entrypoint-b.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="./entrypoint-a.js"></script>
+            <script type="module" src="./entrypoint-b.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can build with html file as rollup input', async () => {
@@ -123,21 +136,24 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(3);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 3);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(chunks['entrypoint-a.js']).to.include(js`console.log('entrypoint-a.js');`);
-    expect(chunks['entrypoint-b.js']).to.include(js`console.log('entrypoint-b.js');`);
+    expectIncludes(chunks['entrypoint-a.js'], js`console.log('entrypoint-a.js');`);
+    expectIncludes(chunks['entrypoint-b.js'], js`console.log('entrypoint-b.js');`);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="./entrypoint-a.js"></script>
-          <script type="module" src="./entrypoint-b.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="./entrypoint-a.js"></script>
+            <script type="module" src="./entrypoint-b.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('will retain attributes on script tags', async () => {
@@ -180,21 +196,24 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(3);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 3);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(chunks['entrypoint-a.js']).to.include(js`console.log('entrypoint-a.js');`);
-    expect(chunks['entrypoint-b.js']).to.include(js`console.log('entrypoint-b.js');`);
+    expectIncludes(chunks['entrypoint-a.js'], js`console.log('entrypoint-a.js');`);
+    expectIncludes(chunks['entrypoint-b.js'], js`console.log('entrypoint-b.js');`);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="./entrypoint-a.js" keep-this-attribute=""></script>
-          <script type="module" src="./entrypoint-b.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="./entrypoint-a.js" keep-this-attribute=""></script>
+            <script type="module" src="./entrypoint-b.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can build with pure html file as rollup input', async () => {
@@ -217,17 +236,20 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>hello world</h1>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>hello world</h1>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can build with multiple pure html inputs', async () => {
@@ -262,26 +284,32 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(2);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 2);
 
-    expect(assets['index1.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>hello world</h1>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index1.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>hello world</h1>
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['index2.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>hey there</h1>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index2.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>hey there</h1>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can build with html string as input', async () => {
@@ -306,17 +334,20 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="./app.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('resolves paths relative to virtual html filename', async () => {
@@ -341,17 +372,20 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(assets['nested/index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="../app.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['nested/index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="../app.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can build with inline modules', async () => {
@@ -376,21 +410,24 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
     const hash = '16165cb387fc14ed1fe1749d05f19f7b';
 
-    expect(chunks[`inline-module-${hash}.js`]).to.include(js`console.log('app.js');`);
+    expectIncludes(chunks[`inline-module-${hash}.js`], js`console.log('app.js');`);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="./inline-module-${hash}.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="./inline-module-${hash}.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('resolves inline module imports relative to the HTML file', async () => {
@@ -422,11 +459,11 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
     const hash = 'b774aefb8bf002b291fd54d27694a34d';
-    expect(chunks[`inline-module-${hash}.js`]).to.include(js`console.log('app.js');`);
+    expectIncludes(chunks[`inline-module-${hash}.js`], js`console.log('app.js');`);
   });
 
   it('can build transforming final output', async () => {
@@ -453,18 +490,21 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>Goodbye world</h1>
-          <script type="module" src="./app.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Goodbye world</h1>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can build with a public path', async () => {
@@ -489,17 +529,20 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="/static/app.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="/static/app.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can build with a public path with a file in a directory', async () => {
@@ -525,17 +568,20 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(assets['nested/index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="/static/app.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['nested/index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="/static/app.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can build with multiple build outputs', async () => {
@@ -579,28 +625,31 @@ describe('rollup-plugin-html', () => {
     const { chunks: chunksA, assets: assetsA } = await bundleA;
     const { chunks: chunksB, assets: assetsB } = await bundleB;
 
-    expect(Object.keys(chunksA)).to.have.lengthOf(1);
-    expect(Object.keys(assetsA)).to.have.lengthOf(0);
-    expect(Object.keys(chunksB)).to.have.lengthOf(1);
-    expect(Object.keys(assetsB)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunksA).length, 1);
+    assert.equal(Object.keys(assetsA).length, 0);
+    assert.equal(Object.keys(chunksB).length, 1);
+    assert.equal(Object.keys(assetsB).length, 1);
 
-    expect(chunksA['app.js']).to.include(js`console.log('app.js');`);
-    expect(chunksA['app.js']).to.include(js`console.log('module.js');`);
-    expect(chunksB['app.js']).to.include(js`console.log('app.js');`);
-    expect(chunksB['app.js']).to.include(js`console.log('module.js');`);
+    expectIncludes(chunksA['app.js'], js`console.log('app.js');`);
+    expectIncludes(chunksA['app.js'], js`console.log('module.js');`);
+    expectIncludes(chunksB['app.js'], js`console.log('app.js');`);
+    expectIncludes(chunksB['app.js'], js`console.log('module.js');`);
 
-    expect(assetsA['index.html']).to.not.exist;
-    expect(assetsB['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script>
-            System.import('/static/app.js');
-          </script>
-          <script type="module" src="/static/app.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(assetsA['index.html'], undefined);
+    assert.equal(
+      assetsB['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script>
+              System.import('/static/app.js');
+            </script>
+            <script type="module" src="/static/app.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can build with index.html as input and an extra html file as output', async () => {
@@ -631,28 +680,34 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(2);
-    expect(Object.keys(assets)).to.have.lengthOf(2);
+    assert.equal(Object.keys(chunks).length, 2);
+    assert.equal(Object.keys(assets).length, 2);
 
-    expect(chunks['app.js']).to.exist;
+    assert.ok(chunks['app.js']);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="./app.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['foo.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>foo.html</h1>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['foo.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>foo.html</h1>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can build with multiple html inputs', async () => {
@@ -711,42 +766,51 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(4);
-    expect(Object.keys(assets)).to.have.lengthOf(3);
+    assert.equal(Object.keys(chunks).length, 4);
+    assert.equal(Object.keys(assets).length, 3);
 
-    expect(chunks['entrypoint-a.js']).to.exist;
-    expect(chunks['entrypoint-b.js']).to.exist;
-    expect(chunks['entrypoint-c.js']).to.exist;
+    assert.ok(chunks['entrypoint-a.js']);
+    assert.ok(chunks['entrypoint-b.js']);
+    assert.ok(chunks['entrypoint-c.js']);
 
-    expect(assets['page-a.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>Page A</h1>
-          <script type="module" src="./entrypoint-a.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['page-a.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Page A</h1>
+            <script type="module" src="./entrypoint-a.js"></script>
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['page-b.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>Page B</h1>
-          <script type="module" src="./entrypoint-b.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['page-b.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Page B</h1>
+            <script type="module" src="./entrypoint-b.js"></script>
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['page-c.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>Page C</h1>
-          <script type="module" src="./entrypoint-c.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['page-c.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Page C</h1>
+            <script type="module" src="./entrypoint-c.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can use a glob to build multiple pages', async () => {
@@ -804,46 +868,55 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(4);
-    expect(Object.keys(assets)).to.have.lengthOf(3);
+    assert.equal(Object.keys(chunks).length, 4);
+    assert.equal(Object.keys(assets).length, 3);
 
-    expect(chunks['page-a.js']).to.exist;
-    expect(chunks['page-b.js']).to.exist;
-    expect(chunks['page-c.js']).to.exist;
+    assert.ok(chunks['page-a.js']);
+    assert.ok(chunks['page-b.js']);
+    assert.ok(chunks['page-c.js']);
 
-    expect(assets['page-a.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <p>page-a.html</p>
-          <script type="module" src="./shared.js"></script>
-          <script type="module" src="./page-a.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['page-a.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <p>page-a.html</p>
+            <script type="module" src="./shared.js"></script>
+            <script type="module" src="./page-a.js"></script>
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['page-b.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <p>page-b.html</p>
-          <script type="module" src="./shared.js"></script>
-          <script type="module" src="./page-b.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['page-b.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <p>page-b.html</p>
+            <script type="module" src="./shared.js"></script>
+            <script type="module" src="./page-b.js"></script>
+          </body>
+        </html>
+      `,
+    );
 
     // TODO: investigate why shared.js is after page-c.js here but before in the others
-    expect(assets['page-c.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <p>page-c.html</p>
-          <script type="module" src="./page-c.js"></script>
-          <script type="module" src="./shared.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['page-c.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <p>page-c.html</p>
+            <script type="module" src="./page-c.js"></script>
+            <script type="module" src="./shared.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can exclude globs', async () => {
@@ -865,10 +938,10 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(assets).to.have.keys(['index.html']);
+    assert.deepEqual(Object.keys(assets).sort(), ['index.html'].sort());
   });
 
   it('creates unique inline script names', async () => {
@@ -898,42 +971,60 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(3);
-    expect(Object.keys(assets)).to.have.lengthOf(3);
+    assert.equal(Object.keys(chunks).length, 3);
+    assert.equal(Object.keys(assets).length, 3);
 
-    expect(chunks['inline-module-d463148d1d5869e52917a3b270db9e72.js']).to.exist;
-    expect(chunks['inline-module-b81da853430abdf130bcc7c4d0ade6d9.js']).to.exist;
-    expect(chunks['inline-module-170bb2146da66c440259138c7e0fea7e.js']).to.exist;
+    assert.ok(chunks['inline-module-d463148d1d5869e52917a3b270db9e72.js']);
+    assert.ok(chunks['inline-module-b81da853430abdf130bcc7c4d0ade6d9.js']);
+    assert.ok(chunks['inline-module-170bb2146da66c440259138c7e0fea7e.js']);
 
-    expect(assets['nestedA/indexA.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>Page A</h1>
-          <script type="module" src="../inline-module-d463148d1d5869e52917a3b270db9e72.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['nestedA/indexA.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Page A</h1>
+            <script
+              type="module"
+              src="../inline-module-d463148d1d5869e52917a3b270db9e72.js"
+            ></script>
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['nestedB/indexB.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>Page B</h1>
-          <script type="module" src="../inline-module-b81da853430abdf130bcc7c4d0ade6d9.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['nestedB/indexB.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Page B</h1>
+            <script
+              type="module"
+              src="../inline-module-b81da853430abdf130bcc7c4d0ade6d9.js"
+            ></script>
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['indexC.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>Page C</h1>
-          <script type="module" src="./inline-module-170bb2146da66c440259138c7e0fea7e.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['indexC.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Page C</h1>
+            <script
+              type="module"
+              src="./inline-module-170bb2146da66c440259138c7e0fea7e.js"
+            ></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('deduplicates common modules', async () => {
@@ -964,40 +1055,58 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(3);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 3);
 
-    expect(chunks['inline-module-44281cf3dede62434e0dd368df08902f.js']).to.exist;
+    assert.ok(chunks['inline-module-44281cf3dede62434e0dd368df08902f.js']);
 
-    expect(assets['a.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>Page A</h1>
-          <script type="module" src="./inline-module-44281cf3dede62434e0dd368df08902f.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['a.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Page A</h1>
+            <script
+              type="module"
+              src="./inline-module-44281cf3dede62434e0dd368df08902f.js"
+            ></script>
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['b.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>Page B</h1>
-          <script type="module" src="./inline-module-44281cf3dede62434e0dd368df08902f.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['b.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Page B</h1>
+            <script
+              type="module"
+              src="./inline-module-44281cf3dede62434e0dd368df08902f.js"
+            ></script>
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['c.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <h1>Page C</h1>
-          <script type="module" src="./inline-module-44281cf3dede62434e0dd368df08902f.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['c.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Page C</h1>
+            <script
+              type="module"
+              src="./inline-module-44281cf3dede62434e0dd368df08902f.js"
+            ></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('outputs the hashed entrypoint name', async () => {
@@ -1024,8 +1133,8 @@ describe('rollup-plugin-html', () => {
       entryFileNames: '[name]-[hash].js',
     });
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
     const appChunk = output.find(f =>
       // @ts-ignore
@@ -1033,17 +1142,20 @@ describe('rollup-plugin-html', () => {
     ) as OutputChunk;
 
     // ensure it's actually hashed
-    expect(appChunk.fileName).to.not.equal('app.js');
+    assert.notEqual(appChunk.fileName, 'app.js');
 
     // get hashed name dynamically
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="./${appChunk.fileName}"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="./${appChunk.fileName}"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('outputs import path relative to the final output html', async () => {
@@ -1068,17 +1180,20 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(assets['nested/index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="../app.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['nested/index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="../app.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can change HTML root directory', async () => {
@@ -1103,17 +1218,20 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(assets['src/nested/index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="../../app.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['src/nested/index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="../../app.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can get the input with getInputs()', async () => {
@@ -1145,9 +1263,9 @@ describe('rollup-plugin-html', () => {
     await rollup({ plugins: [pluginB] });
     await rollup({ plugins: [pluginC] });
 
-    expect(pluginA.api.getInputs()[0].name).to.equal('index.html');
-    expect(pluginB.api.getInputs()[0].name).to.equal('my-page.html');
-    expect(pluginC.api.getInputs()[0].name).to.equal('nested/my-other-page.html');
+    assert.equal(pluginA.api.getInputs()[0].name, 'index.html');
+    assert.equal(pluginB.api.getInputs()[0].name, 'my-page.html');
+    assert.equal(pluginC.api.getInputs()[0].name, 'nested/my-other-page.html');
   });
 
   it('supports other plugins injecting a transform function', async () => {
@@ -1209,22 +1327,25 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(3);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 3);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(chunks['entrypoint-a.js']).to.include(js`console.log('entrypoint-a.js');`);
-    expect(chunks['entrypoint-b.js']).to.include(js`console.log('entrypoint-b.js');`);
+    expectIncludes(chunks['entrypoint-a.js'], js`console.log('entrypoint-a.js');`);
+    expectIncludes(chunks['entrypoint-b.js'], js`console.log('entrypoint-b.js');`);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <script type="module" src="./entrypoint-a.js"></script>
-          <script type="module" src="./entrypoint-b.js"></script>
-          <!-- injected -->
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <script type="module" src="./entrypoint-a.js"></script>
+            <script type="module" src="./entrypoint-b.js"></script>
+            <!-- injected -->
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('includes referenced assets in the bundle', async () => {
@@ -1286,43 +1407,46 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(11);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 11);
 
-    expect(assets).to.have.keys([
+    assert.deepEqual(Object.keys(assets).sort(), [
+      'assets/image-a-BCCvKrTe.svg',
       'assets/image-a-XOCPHCrV.png',
       'assets/image-b-BgQHKcRn.png',
-      'assets/image-c-C4yLPiIL.png',
-      'assets/image-a-BCCvKrTe.svg',
       'assets/image-b-C4stzVZW.svg',
+      'assets/image-c-C4yLPiIL.png',
       'assets/image-c-DPeYetg3.svg',
       'assets/styles-Bh7Pnjui.css',
+      'assets/webmanifest-BkrOR1WG.json',
       'assets/x-DDGg8O6h.css',
       'assets/y-DJTrnPH3.css',
-      'assets/webmanifest-BkrOR1WG.json',
       'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a-XOCPHCrV.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b-BgQHKcRn.png" />
-          <link rel="manifest" href="assets/webmanifest-BkrOR1WG.json" />
-          <link rel="mask-icon" href="assets/image-a-BCCvKrTe.svg" color="#3f93ce" />
-          <link rel="stylesheet" href="assets/styles-Bh7Pnjui.css" />
-          <link rel="stylesheet" href="assets/x-DDGg8O6h.css" />
-          <link rel="stylesheet" href="assets/y-DJTrnPH3.css" />
-          <meta property="og:image" content="assets/image-c-DPeYetg3.svg" />
-        </head>
-        <body>
-          <img src="assets/image-c-C4yLPiIL.png" />
-          <div>
-            <img src="assets/image-b-C4stzVZW.svg" />
-          </div>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a-XOCPHCrV.png" />
+            <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b-BgQHKcRn.png" />
+            <link rel="manifest" href="assets/webmanifest-BkrOR1WG.json" />
+            <link rel="mask-icon" href="assets/image-a-BCCvKrTe.svg" color="#3f93ce" />
+            <link rel="stylesheet" href="assets/styles-Bh7Pnjui.css" />
+            <link rel="stylesheet" href="assets/x-DDGg8O6h.css" />
+            <link rel="stylesheet" href="assets/y-DJTrnPH3.css" />
+            <meta property="og:image" content="assets/image-c-DPeYetg3.svg" />
+          </head>
+          <body>
+            <img src="assets/image-c-C4yLPiIL.png" />
+            <div>
+              <img src="assets/image-b-C4stzVZW.svg" />
+            </div>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('[legacy] includes referenced assets in the bundle', async () => {
@@ -1383,41 +1507,44 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(10);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 10);
 
-    expect(assets).to.have.keys([
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/image-a.png',
-      'assets/image-b.png',
-      'assets/image-c-C4yLPiIL.png',
       'assets/image-a.svg',
       'assets/image-b-C4stzVZW.svg',
+      'assets/image-b.png',
+      'assets/image-c-C4yLPiIL.png',
       'assets/styles-Bh7Pnjui.css',
+      'assets/webmanifest.json',
       'assets/x-DDGg8O6h.css',
       'assets/y-DJTrnPH3.css',
-      'assets/webmanifest.json',
       'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b.png" />
-          <link rel="manifest" href="assets/webmanifest.json" />
-          <link rel="mask-icon" href="assets/image-a.svg" color="#3f93ce" />
-          <link rel="stylesheet" href="assets/styles-Bh7Pnjui.css" />
-          <link rel="stylesheet" href="assets/x-DDGg8O6h.css" />
-          <link rel="stylesheet" href="assets/y-DJTrnPH3.css" />
-        </head>
-        <body>
-          <img src="assets/image-c-C4yLPiIL.png" />
-          <div>
-            <img src="assets/image-b-C4stzVZW.svg" />
-          </div>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png" />
+            <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b.png" />
+            <link rel="manifest" href="assets/webmanifest.json" />
+            <link rel="mask-icon" href="assets/image-a.svg" color="#3f93ce" />
+            <link rel="stylesheet" href="assets/styles-Bh7Pnjui.css" />
+            <link rel="stylesheet" href="assets/x-DDGg8O6h.css" />
+            <link rel="stylesheet" href="assets/y-DJTrnPH3.css" />
+          </head>
+          <body>
+            <img src="assets/image-c-C4yLPiIL.png" />
+            <div>
+              <img src="assets/image-b-C4stzVZW.svg" />
+            </div>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('does not deduplicate static assets with similar names', async () => {
@@ -1447,24 +1574,27 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(3);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 3);
 
-    expect(assets).to.have.keys([
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/foo-BCCvKrTe.svg',
       'assets/foo-C4stzVZW.svg',
       'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="icon" type="image/png" sizes="32x32" href="assets/foo-BCCvKrTe.svg" />
-          <link rel="mask-icon" href="assets/foo-C4stzVZW.svg" color="#3f93ce" />
-        </head>
-        <body></body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="icon" type="image/png" sizes="32x32" href="assets/foo-BCCvKrTe.svg" />
+            <link rel="mask-icon" href="assets/foo-C4stzVZW.svg" color="#3f93ce" />
+          </head>
+          <body></body>
+        </html>
+      `,
+    );
   });
 
   it('[legacy] deduplicates static assets with similar names', async () => {
@@ -1495,20 +1625,26 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(3);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 3);
 
-    expect(assets).to.have.keys(['assets/foo.svg', 'assets/foo1.svg', 'index.html']);
+    assert.deepEqual(
+      Object.keys(assets).sort(),
+      ['assets/foo.svg', 'assets/foo1.svg', 'index.html'].sort(),
+    );
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg" />
-          <link rel="mask-icon" href="assets/foo1.svg" color="#3f93ce" />
-        </head>
-        <body></body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg" />
+            <link rel="mask-icon" href="assets/foo1.svg" color="#3f93ce" />
+          </head>
+          <body></body>
+        </html>
+      `,
+    );
   });
 
   it('[legacy] static and hashed asset nodes can reference the same files', async () => {
@@ -1538,21 +1674,27 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(3);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 3);
 
-    expect(assets).to.have.keys(['assets/foo.svg', 'assets/foo-BCCvKrTe.svg', 'index.html']);
+    assert.deepEqual(
+      Object.keys(assets).sort(),
+      ['assets/foo-BCCvKrTe.svg', 'assets/foo.svg', 'index.html'].sort(),
+    );
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg" />
-        </head>
-        <body>
-          <img src="assets/foo-BCCvKrTe.svg" />
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="icon" type="image/png" sizes="32x32" href="assets/foo.svg" />
+          </head>
+          <body>
+            <img src="assets/foo-BCCvKrTe.svg" />
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('deduplicates common assets', async () => {
@@ -1582,21 +1724,27 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(2);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 2);
 
-    expect(assets).to.have.keys(['assets/image-a-XOCPHCrV.png', 'index.html']);
+    assert.deepEqual(
+      Object.keys(assets).sort(),
+      ['assets/image-a-XOCPHCrV.png', 'index.html'].sort(),
+    );
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a-XOCPHCrV.png" />
-          <img src="assets/image-a-XOCPHCrV.png" />
-          <img src="assets/image-a-XOCPHCrV.png" />
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a-XOCPHCrV.png" />
+            <img src="assets/image-a-XOCPHCrV.png" />
+            <img src="assets/image-a-XOCPHCrV.png" />
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('deduplicates common assets across HTML files', async () => {
@@ -1648,43 +1796,52 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(assets).to.have.keys([
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/image-a-XOCPHCrV.png',
       'page-a.html',
       'page-b.html',
       'page-c.html',
     ]);
 
-    expect(assets['page-a.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <img src="assets/image-a-XOCPHCrV.png" />
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['page-a.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <img src="assets/image-a-XOCPHCrV.png" />
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['page-b.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <link rel="stylesheet" href="assets/image-a-XOCPHCrV.png" />
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['page-b.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <link rel="stylesheet" href="assets/image-a-XOCPHCrV.png" />
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['page-c.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <link rel="stylesheet" href="assets/image-a-XOCPHCrV.png" />
-          <img src="assets/image-a-XOCPHCrV.png" />
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['page-c.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <link rel="stylesheet" href="assets/image-a-XOCPHCrV.png" />
+            <img src="assets/image-a-XOCPHCrV.png" />
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can turn off extracting assets', async () => {
@@ -1721,19 +1878,22 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head></head>
-        <body>
-          <img src="./image-c.png" />
-          <link rel="stylesheet" href="./styles.css" />
-          <img src="./image-b.svg" />
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head></head>
+          <body>
+            <img src="./image-c.png" />
+            <link rel="stylesheet" href="./styles.css" />
+            <img src="./image-b.svg" />
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can inject a CSP meta tag for inline scripts', async () => {
@@ -1774,32 +1934,35 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(2);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 2);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(chunks['entrypoint-a.js']).to.include(js`console.log('entrypoint-a.js');`);
-    expect(chunks['entrypoint-b.js']).to.include(js`console.log('entrypoint-b.js');`);
+    expectIncludes(chunks['entrypoint-a.js'], js`console.log('entrypoint-a.js');`);
+    expectIncludes(chunks['entrypoint-b.js'], js`console.log('entrypoint-b.js');`);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <meta
-            http-equiv="Content-Security-Policy"
-            content="script-src 'self' 'sha256-i3pLwbgo/1tHMlVCX/8cE1S2t3ZzlhEPeNmM4xk64js=' 'sha256-uUbL3ywlVw8QBfbTFDrWGvD2pgGen1hZoNcjvB62h/w=';"
-          />
-        </head>
-        <body>
-          <script>
-            console.log('foo');
-          </script>
-          <script>
-            console.log('bar');
-          </script>
-          <script type="module" src="./entrypoint-a.js"></script>
-          <script type="module" src="./entrypoint-b.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <meta
+              http-equiv="Content-Security-Policy"
+              content="script-src 'self' 'sha256-i3pLwbgo/1tHMlVCX/8cE1S2t3ZzlhEPeNmM4xk64js=' 'sha256-uUbL3ywlVw8QBfbTFDrWGvD2pgGen1hZoNcjvB62h/w=';"
+            />
+          </head>
+          <body>
+            <script>
+              console.log('foo');
+            </script>
+            <script>
+              console.log('bar');
+            </script>
+            <script type="module" src="./entrypoint-a.js"></script>
+            <script type="module" src="./entrypoint-b.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can add to an existing CSP meta tag for inline scripts', async () => {
@@ -1845,32 +2008,35 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(2);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 2);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(chunks['entrypoint-a.js']).to.include(js`console.log('entrypoint-a.js');`);
-    expect(chunks['entrypoint-b.js']).to.include(js`console.log('entrypoint-b.js');`);
+    expectIncludes(chunks['entrypoint-a.js'], js`console.log('entrypoint-a.js');`);
+    expectIncludes(chunks['entrypoint-b.js'], js`console.log('entrypoint-b.js');`);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <meta
-            http-equiv="Content-Security-Policy"
-            content="default-src 'self'; prefetch-src 'self'; upgrade-insecure-requests; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-i3pLwbgo/1tHMlVCX/8cE1S2t3ZzlhEPeNmM4xk64js=' 'sha256-uUbL3ywlVw8QBfbTFDrWGvD2pgGen1hZoNcjvB62h/w=';"
-          />
-        </head>
-        <body>
-          <script>
-            console.log('foo');
-          </script>
-          <script>
-            console.log('bar');
-          </script>
-          <script type="module" src="./entrypoint-a.js"></script>
-          <script type="module" src="./entrypoint-b.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <meta
+              http-equiv="Content-Security-Policy"
+              content="default-src 'self'; prefetch-src 'self'; upgrade-insecure-requests; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-i3pLwbgo/1tHMlVCX/8cE1S2t3ZzlhEPeNmM4xk64js=' 'sha256-uUbL3ywlVw8QBfbTFDrWGvD2pgGen1hZoNcjvB62h/w=';"
+            />
+          </head>
+          <body>
+            <script>
+              console.log('foo');
+            </script>
+            <script>
+              console.log('bar');
+            </script>
+            <script type="module" src="./entrypoint-a.js"></script>
+            <script type="module" src="./entrypoint-b.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can add to an existing CSP meta tag for inline scripts even if script-src is already there', async () => {
@@ -1916,32 +2082,35 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(2);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 2);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(chunks['entrypoint-a.js']).to.include(js`console.log('entrypoint-a.js');`);
-    expect(chunks['entrypoint-b.js']).to.include(js`console.log('entrypoint-b.js');`);
+    expectIncludes(chunks['entrypoint-a.js'], js`console.log('entrypoint-a.js');`);
+    expectIncludes(chunks['entrypoint-b.js'], js`console.log('entrypoint-b.js');`);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <meta
-            http-equiv="Content-Security-Policy"
-            content="default-src 'self'; prefetch-src 'self'; upgrade-insecure-requests; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-i3pLwbgo/1tHMlVCX/8cE1S2t3ZzlhEPeNmM4xk64js=' 'sha256-uUbL3ywlVw8QBfbTFDrWGvD2pgGen1hZoNcjvB62h/w=';"
-          />
-        </head>
-        <body>
-          <script>
-            console.log('foo');
-          </script>
-          <script>
-            console.log('bar');
-          </script>
-          <script type="module" src="./entrypoint-a.js"></script>
-          <script type="module" src="./entrypoint-b.js"></script>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <meta
+              http-equiv="Content-Security-Policy"
+              content="default-src 'self'; prefetch-src 'self'; upgrade-insecure-requests; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-i3pLwbgo/1tHMlVCX/8cE1S2t3ZzlhEPeNmM4xk64js=' 'sha256-uUbL3ywlVw8QBfbTFDrWGvD2pgGen1hZoNcjvB62h/w=';"
+            />
+          </head>
+          <body>
+            <script>
+              console.log('foo');
+            </script>
+            <script>
+              console.log('bar');
+            </script>
+            <script type="module" src="./entrypoint-a.js"></script>
+            <script type="module" src="./entrypoint-b.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can inject a service worker registration script if injectServiceWorker and serviceWorkerPath are provided', async () => {
@@ -1989,13 +2158,13 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(3);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 3);
 
-    expect(assets).to.have.keys([
+    assert.deepEqual(Object.keys(assets).sort(), [
       'index.html',
-      'sub-with-js/index.html',
       'sub-pure-html/index.html',
+      'sub-with-js/index.html',
     ]);
 
     function extractServiceWorkerPath(code: string) {
@@ -2004,11 +2173,13 @@ describe('rollup-plugin-html', () => {
       return code.substring(registerOpen + 11, registerClose);
     }
 
-    expect(extractServiceWorkerPath(assets['index.html'] as string)).to.equal('service-worker.js');
-    expect(extractServiceWorkerPath(assets['sub-with-js/index.html'] as string)).to.equal(
+    assert.equal(extractServiceWorkerPath(assets['index.html'] as string), 'service-worker.js');
+    assert.equal(
+      extractServiceWorkerPath(assets['sub-with-js/index.html'] as string),
       '../service-worker.js',
     );
-    expect(extractServiceWorkerPath(assets['sub-pure-html/index.html'] as string)).to.equal(
+    assert.equal(
+      extractServiceWorkerPath(assets['sub-pure-html/index.html'] as string),
       '../service-worker.js',
     );
   });
@@ -2050,27 +2221,30 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(assets).to.have.keys([
-      'assets/styles-Bh7Pnjui.css',
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/foo-CxmWeBHm.svg',
       'assets/image-b-C4stzVZW.svg',
+      'assets/styles-Bh7Pnjui.css',
       'x/index.html',
     ]);
 
-    expect(assets['x/index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="../assets/styles-Bh7Pnjui.css" />
-        </head>
-        <body>
-          <img src="../assets/foo-CxmWeBHm.svg" />
-          <img src="../assets/image-b-C4stzVZW.svg" />
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['x/index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="../assets/styles-Bh7Pnjui.css" />
+          </head>
+          <body>
+            <img src="../assets/foo-CxmWeBHm.svg" />
+            <img src="../assets/image-b-C4stzVZW.svg" />
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('handles fonts linked from css files', async () => {
@@ -2117,42 +2291,48 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(assets).to.have.keys([
-      'assets/font-normal-Cht9ZB76.woff2',
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/font-bold-eQjSonqH.woff2',
+      'assets/font-normal-Cht9ZB76.woff2',
       'assets/styles-BRQfqhN6.css',
       'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="assets/styles-BRQfqhN6.css" />
-        </head>
-        <body></body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="assets/styles-BRQfqhN6.css" />
+          </head>
+          <body></body>
+        </html>
+      `,
+    );
 
-    expect(assets['assets/styles-BRQfqhN6.css']).to.equal(css`
-      @font-face {
-        font-family: Font;
-        src: url('font-normal-Cht9ZB76.woff2') format('woff2');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
+    assert.equal(
+      assets['assets/styles-BRQfqhN6.css'],
+      css`
+        @font-face {
+          font-family: Font;
+          src: url('font-normal-Cht9ZB76.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
 
-      @font-face {
-        font-family: Font;
-        src: url('font-bold-eQjSonqH.woff2') format('woff2');
-        font-weight: bold;
-        font-style: normal;
-        font-display: swap;
-      }
-    `);
+        @font-face {
+          font-family: Font;
+          src: url('font-bold-eQjSonqH.woff2') format('woff2');
+          font-weight: bold;
+          font-style: normal;
+          font-display: swap;
+        }
+      `,
+    );
   });
 
   it('[legacy] handles fonts linked from css files', async () => {
@@ -2200,42 +2380,48 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(assets).to.have.keys([
-      'assets/assets/font-normal-Cht9ZB76.woff2',
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/assets/font-bold-eQjSonqH.woff2',
+      'assets/assets/font-normal-Cht9ZB76.woff2',
       'assets/styles-BUBaODov.css',
       'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="assets/styles-BUBaODov.css" />
-        </head>
-        <body></body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="assets/styles-BUBaODov.css" />
+          </head>
+          <body></body>
+        </html>
+      `,
+    );
 
-    expect(assets['assets/styles-BUBaODov.css']).to.equal(css`
-      @font-face {
-        font-family: Font;
-        src: url('assets/font-normal-Cht9ZB76.woff2') format('woff2');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
+    assert.equal(
+      assets['assets/styles-BUBaODov.css'],
+      css`
+        @font-face {
+          font-family: Font;
+          src: url('assets/font-normal-Cht9ZB76.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
 
-      @font-face {
-        font-family: Font;
-        src: url('assets/font-bold-eQjSonqH.woff2') format('woff2');
-        font-weight: bold;
-        font-style: normal;
-        font-display: swap;
-      }
-    `);
+        @font-face {
+          font-family: Font;
+          src: url('assets/font-bold-eQjSonqH.woff2') format('woff2');
+          font-weight: bold;
+          font-style: normal;
+          font-display: swap;
+        }
+      `,
+    );
   });
 
   it('handles fonts linked from css files in node_modules', async () => {
@@ -2282,42 +2468,48 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(assets).to.have.keys([
-      'assets/font-normal-Cht9ZB76.woff2',
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/font-bold-eQjSonqH.woff2',
+      'assets/font-normal-Cht9ZB76.woff2',
       'assets/styles-BRQfqhN6.css',
       'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="assets/styles-BRQfqhN6.css" />
-        </head>
-        <body></body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="assets/styles-BRQfqhN6.css" />
+          </head>
+          <body></body>
+        </html>
+      `,
+    );
 
-    expect(assets['assets/styles-BRQfqhN6.css']).to.equal(css`
-      @font-face {
-        font-family: Font;
-        src: url('font-normal-Cht9ZB76.woff2') format('woff2');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
+    assert.equal(
+      assets['assets/styles-BRQfqhN6.css'],
+      css`
+        @font-face {
+          font-family: Font;
+          src: url('font-normal-Cht9ZB76.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
 
-      @font-face {
-        font-family: Font;
-        src: url('font-bold-eQjSonqH.woff2') format('woff2');
-        font-weight: bold;
-        font-style: normal;
-        font-display: swap;
-      }
-    `);
+        @font-face {
+          font-family: Font;
+          src: url('font-bold-eQjSonqH.woff2') format('woff2');
+          font-weight: bold;
+          font-style: normal;
+          font-display: swap;
+        }
+      `,
+    );
   });
 
   it('[legacy] handles fonts linked from css files in node_modules', async () => {
@@ -2365,42 +2557,48 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(assets).to.have.keys([
-      'assets/assets/font-normal-Cht9ZB76.woff2',
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/assets/font-bold-eQjSonqH.woff2',
+      'assets/assets/font-normal-Cht9ZB76.woff2',
       'assets/styles-BUBaODov.css',
       'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="assets/styles-BUBaODov.css" />
-        </head>
-        <body></body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="assets/styles-BUBaODov.css" />
+          </head>
+          <body></body>
+        </html>
+      `,
+    );
 
-    expect(assets['assets/styles-BUBaODov.css']).to.equal(css`
-      @font-face {
-        font-family: Font;
-        src: url('assets/font-normal-Cht9ZB76.woff2') format('woff2');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
+    assert.equal(
+      assets['assets/styles-BUBaODov.css'],
+      css`
+        @font-face {
+          font-family: Font;
+          src: url('assets/font-normal-Cht9ZB76.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
 
-      @font-face {
-        font-family: Font;
-        src: url('assets/font-bold-eQjSonqH.woff2') format('woff2');
-        font-weight: bold;
-        font-style: normal;
-        font-display: swap;
-      }
-    `);
+        @font-face {
+          font-family: Font;
+          src: url('assets/font-bold-eQjSonqH.woff2') format('woff2');
+          font-weight: bold;
+          font-style: normal;
+          font-display: swap;
+        }
+      `,
+    );
   });
 
   it('handles duplicate fonts correctly', async () => {
@@ -2448,45 +2646,54 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(assets).to.have.keys([
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/font-normal-Cht9ZB76.woff2',
       'assets/styles-a-CKKhzbId.css',
       'assets/styles-b-DdUNHRx0.css',
       'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="assets/styles-a-CKKhzbId.css" />
-          <link rel="stylesheet" href="assets/styles-b-DdUNHRx0.css" />
-        </head>
-        <body></body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="assets/styles-a-CKKhzbId.css" />
+            <link rel="stylesheet" href="assets/styles-b-DdUNHRx0.css" />
+          </head>
+          <body></body>
+        </html>
+      `,
+    );
 
-    expect(assets['assets/styles-a-CKKhzbId.css']).to.equal(css`
-      @font-face {
-        font-family: Font;
-        src: url('font-normal-Cht9ZB76.woff2') format('woff2');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
-    `);
+    assert.equal(
+      assets['assets/styles-a-CKKhzbId.css'],
+      css`
+        @font-face {
+          font-family: Font;
+          src: url('font-normal-Cht9ZB76.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
+      `,
+    );
 
-    expect(assets['assets/styles-b-DdUNHRx0.css']).to.equal(css`
-      @font-face {
-        font-family: Font2;
-        src: url('font-normal-Cht9ZB76.woff2') format('woff2');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
-    `);
+    assert.equal(
+      assets['assets/styles-b-DdUNHRx0.css'],
+      css`
+        @font-face {
+          font-family: Font2;
+          src: url('font-normal-Cht9ZB76.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
+      `,
+    );
   });
 
   it('handles images referenced from css', async () => {
@@ -2554,63 +2761,69 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(9);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 9);
 
-    expect(assets).to.have.keys([
-      'assets/star-D_LO5feX.avif',
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/star-BKg9qmmf.gif',
       'assets/star-BZWqL7hS.jpeg',
-      'assets/star-Df0JryvN.jpg',
+      'assets/star-CKbh5mKn.webp',
       'assets/star-CXig10q7.png',
       'assets/star-CwhgM_z4.svg',
-      'assets/star-CKbh5mKn.webp',
+      'assets/star-D_LO5feX.avif',
+      'assets/star-Df0JryvN.jpg',
       'assets/styles-DgHxUupJ.css',
       'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="assets/styles-DgHxUupJ.css" />
-        </head>
-        <body></body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="assets/styles-DgHxUupJ.css" />
+          </head>
+          <body></body>
+        </html>
+      `,
+    );
 
-    expect(assets['assets/styles-DgHxUupJ.css']).to.equal(css`
-      #a {
-        background-image: url('star-D_LO5feX.avif');
-      }
+    assert.equal(
+      assets['assets/styles-DgHxUupJ.css'],
+      css`
+        #a {
+          background-image: url('star-D_LO5feX.avif');
+        }
 
-      #b {
-        background-image: url('star-BKg9qmmf.gif');
-      }
+        #b {
+          background-image: url('star-BKg9qmmf.gif');
+        }
 
-      #c {
-        background-image: url('star-BZWqL7hS.jpeg');
-      }
+        #c {
+          background-image: url('star-BZWqL7hS.jpeg');
+        }
 
-      #d {
-        background-image: url('star-Df0JryvN.jpg');
-      }
+        #d {
+          background-image: url('star-Df0JryvN.jpg');
+        }
 
-      #e {
-        background-image: url('star-CXig10q7.png');
-      }
+        #e {
+          background-image: url('star-CXig10q7.png');
+        }
 
-      #f {
-        background-image: url('star-CwhgM_z4.svg');
-      }
+        #f {
+          background-image: url('star-CwhgM_z4.svg');
+        }
 
-      #g {
-        background-image: url('star-CwhgM_z4.svg#foo');
-      }
+        #g {
+          background-image: url('star-CwhgM_z4.svg#foo');
+        }
 
-      #h {
-        background-image: url('star-CKbh5mKn.webp');
-      }
-    `);
+        #h {
+          background-image: url('star-CKbh5mKn.webp');
+        }
+      `,
+    );
   });
 
   it('[legacy] handles images referenced from css', async () => {
@@ -2679,63 +2892,69 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(9);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 9);
 
-    expect(assets).to.have.keys([
-      'assets/assets/star-D_LO5feX.avif',
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/assets/star-BKg9qmmf.gif',
       'assets/assets/star-BZWqL7hS.jpeg',
-      'assets/assets/star-Df0JryvN.jpg',
+      'assets/assets/star-CKbh5mKn.webp',
       'assets/assets/star-CXig10q7.png',
       'assets/assets/star-CwhgM_z4.svg',
-      'assets/assets/star-CKbh5mKn.webp',
+      'assets/assets/star-D_LO5feX.avif',
+      'assets/assets/star-Df0JryvN.jpg',
       'assets/styles-Cuqf3qRf.css',
       'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="assets/styles-Cuqf3qRf.css" />
-        </head>
-        <body></body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="assets/styles-Cuqf3qRf.css" />
+          </head>
+          <body></body>
+        </html>
+      `,
+    );
 
-    expect(assets['assets/styles-Cuqf3qRf.css']).to.equal(css`
-      #a {
-        background-image: url('assets/star-D_LO5feX.avif');
-      }
+    assert.equal(
+      assets['assets/styles-Cuqf3qRf.css'],
+      css`
+        #a {
+          background-image: url('assets/star-D_LO5feX.avif');
+        }
 
-      #b {
-        background-image: url('assets/star-BKg9qmmf.gif');
-      }
+        #b {
+          background-image: url('assets/star-BKg9qmmf.gif');
+        }
 
-      #c {
-        background-image: url('assets/star-BZWqL7hS.jpeg');
-      }
+        #c {
+          background-image: url('assets/star-BZWqL7hS.jpeg');
+        }
 
-      #d {
-        background-image: url('assets/star-Df0JryvN.jpg');
-      }
+        #d {
+          background-image: url('assets/star-Df0JryvN.jpg');
+        }
 
-      #e {
-        background-image: url('assets/star-CXig10q7.png');
-      }
+        #e {
+          background-image: url('assets/star-CXig10q7.png');
+        }
 
-      #f {
-        background-image: url('assets/star-CwhgM_z4.svg');
-      }
+        #f {
+          background-image: url('assets/star-CwhgM_z4.svg');
+        }
 
-      #g {
-        background-image: url('assets/star-CwhgM_z4.svg#foo');
-      }
+        #g {
+          background-image: url('assets/star-CwhgM_z4.svg#foo');
+        }
 
-      #h {
-        background-image: url('assets/star-CKbh5mKn.webp');
-      }
-    `);
+        #h {
+          background-image: url('assets/star-CKbh5mKn.webp');
+        }
+      `,
+    );
   });
 
   it('allows to exclude external assets usign a glob pattern', async () => {
@@ -2808,10 +3027,10 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(5);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 5);
 
-    expect(assets).to.have.keys([
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/image-a-XOCPHCrV.png',
       'assets/image-b-BgQHKcRn.png',
       'assets/styles-pLj9D-P3.css',
@@ -2819,44 +3038,50 @@ describe('rollup-plugin-html', () => {
       'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a-XOCPHCrV.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b-BgQHKcRn.png" />
-          <link rel="manifest" href="assets/webmanifest-BkrOR1WG.json" />
-          <link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
-          <link rel="mask-icon" href="image-b.svg" color="#3f93ce" />
-          <link rel="stylesheet" href="assets/styles-pLj9D-P3.css" />
-          <link rel="stylesheet" href="./foo/x.css" />
-          <link rel="stylesheet" href="foo/bar/y.css" />
-        </head>
-        <body>
-          <img src="assets/image-b-BgQHKcRn.png" />
-          <div>
-            <img src="./image-b.svg" />
-          </div>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a-XOCPHCrV.png" />
+            <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b-BgQHKcRn.png" />
+            <link rel="manifest" href="assets/webmanifest-BkrOR1WG.json" />
+            <link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
+            <link rel="mask-icon" href="image-b.svg" color="#3f93ce" />
+            <link rel="stylesheet" href="assets/styles-pLj9D-P3.css" />
+            <link rel="stylesheet" href="./foo/x.css" />
+            <link rel="stylesheet" href="foo/bar/y.css" />
+          </head>
+          <body>
+            <img src="assets/image-b-BgQHKcRn.png" />
+            <div>
+              <img src="./image-b.svg" />
+            </div>
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['assets/styles-pLj9D-P3.css']).to.equal(css`
-      #a1 {
-        background-image: url('image-a-XOCPHCrV.png');
-      }
+    assert.equal(
+      assets['assets/styles-pLj9D-P3.css'],
+      css`
+        #a1 {
+          background-image: url('image-a-XOCPHCrV.png');
+        }
 
-      #a2 {
-        background-image: url('image-a.svg');
-      }
+        #a2 {
+          background-image: url('image-a.svg');
+        }
 
-      #d1 {
-        background-image: url('image-b-BgQHKcRn.png');
-      }
+        #d1 {
+          background-image: url('image-b-BgQHKcRn.png');
+        }
 
-      #d2 {
-        background-image: url('./image-b.svg');
-      }
-    `);
+        #d2 {
+          background-image: url('./image-b.svg');
+        }
+      `,
+    );
   });
 
   it('[legacy] allows to exclude external assets usign a glob pattern', async () => {
@@ -2930,10 +3155,10 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(7);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 7);
 
-    expect(assets).to.have.keys([
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/assets/image-a-XOCPHCrV.png',
       'assets/assets/image-b-BgQHKcRn.png',
       'assets/image-a.png',
@@ -2943,44 +3168,50 @@ describe('rollup-plugin-html', () => {
       'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b.png" />
-          <link rel="manifest" href="assets/webmanifest.json" />
-          <link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
-          <link rel="mask-icon" href="image-b.svg" color="#3f93ce" />
-          <link rel="stylesheet" href="assets/styles-DFIb0lB5.css" />
-          <link rel="stylesheet" href="./foo/x.css" />
-          <link rel="stylesheet" href="foo/bar/y.css" />
-        </head>
-        <body>
-          <img src="assets/assets/image-b-BgQHKcRn.png" />
-          <div>
-            <img src="./image-b.svg" />
-          </div>
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="apple-touch-icon" sizes="180x180" href="assets/image-a.png" />
+            <link rel="icon" type="image/png" sizes="32x32" href="assets/image-b.png" />
+            <link rel="manifest" href="assets/webmanifest.json" />
+            <link rel="mask-icon" href="./image-a.svg" color="#3f93ce" />
+            <link rel="mask-icon" href="image-b.svg" color="#3f93ce" />
+            <link rel="stylesheet" href="assets/styles-DFIb0lB5.css" />
+            <link rel="stylesheet" href="./foo/x.css" />
+            <link rel="stylesheet" href="foo/bar/y.css" />
+          </head>
+          <body>
+            <img src="assets/assets/image-b-BgQHKcRn.png" />
+            <div>
+              <img src="./image-b.svg" />
+            </div>
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['assets/styles-DFIb0lB5.css']).to.equal(css`
-      #a1 {
-        background-image: url('assets/image-a-XOCPHCrV.png');
-      }
+    assert.equal(
+      assets['assets/styles-DFIb0lB5.css'],
+      css`
+        #a1 {
+          background-image: url('assets/image-a-XOCPHCrV.png');
+        }
 
-      #a2 {
-        background-image: url('image-a.svg');
-      }
+        #a2 {
+          background-image: url('image-a.svg');
+        }
 
-      #d1 {
-        background-image: url('assets/image-b-BgQHKcRn.png');
-      }
+        #d1 {
+          background-image: url('assets/image-b-BgQHKcRn.png');
+        }
 
-      #d2 {
-        background-image: url('./image-b.svg');
-      }
-    `);
+        #d2 {
+          background-image: url('./image-b.svg');
+        }
+      `,
+    );
   });
 
   it('rewrites paths according to assetFileNames', async () => {
@@ -3039,50 +3270,59 @@ describe('rollup-plugin-html', () => {
       assetFileNames: 'static/[name].immutable.[hash][extname]',
     });
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(5);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 5);
 
-    expect(assets).to.have.keys([
+    assert.deepEqual(Object.keys(assets).sort(), [
+      'index.html',
       'static/font.immutable.C5MNjX-h.woff2',
       'static/global.immutable.BRYeVgdd.css',
       'static/image.immutable.7xJLr_7N.png',
       'static/styles.immutable.exe7_Vpw.css',
-      'index.html',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="static/global.immutable.BRYeVgdd.css" />
-          <link rel="stylesheet" href="static/styles.immutable.exe7_Vpw.css" />
-          <link
-            rel="preload"
-            href="static/font.immutable.C5MNjX-h.woff2"
-            as="font"
-            type="font/woff2"
-          />
-        </head>
-        <body>
-          <img src="static/image.immutable.7xJLr_7N.png" />
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="static/global.immutable.BRYeVgdd.css" />
+            <link rel="stylesheet" href="static/styles.immutable.exe7_Vpw.css" />
+            <link
+              rel="preload"
+              href="static/font.immutable.C5MNjX-h.woff2"
+              as="font"
+              type="font/woff2"
+            />
+          </head>
+          <body>
+            <img src="static/image.immutable.7xJLr_7N.png" />
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['static/global.immutable.BRYeVgdd.css']).to.equal(css`
-      @font-face {
-        font-family: Font;
-        src: url('font.immutable.C5MNjX-h.woff2') format('woff2');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
-    `);
+    assert.equal(
+      assets['static/global.immutable.BRYeVgdd.css'],
+      css`
+        @font-face {
+          font-family: Font;
+          src: url('font.immutable.C5MNjX-h.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
+      `,
+    );
 
-    expect(assets['static/styles.immutable.exe7_Vpw.css']).to.equal(css`
-      #a {
-        background-image: url('image.immutable.7xJLr_7N.png');
-      }
-    `);
+    assert.equal(
+      assets['static/styles.immutable.exe7_Vpw.css'],
+      css`
+        #a {
+          background-image: url('image.immutable.7xJLr_7N.png');
+        }
+      `,
+    );
   });
 
   it('resolves paths by using publicPath when assetFileNames puts assets in different dirs', async () => {
@@ -3152,50 +3392,59 @@ describe('rollup-plugin-html', () => {
       },
     });
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(5);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 5);
 
-    expect(assets).to.have.keys([
+    assert.deepEqual(Object.keys(assets).sort(), [
       'fonts/font.immutable.C5MNjX-h.woff2',
-      'styles/global.immutable.CIo7MOhV.css',
       'images/image.immutable.7xJLr_7N.png',
-      'styles/styles.immutable.BxCpevuY.css',
       'index.html',
+      'styles/global.immutable.CIo7MOhV.css',
+      'styles/styles.immutable.BxCpevuY.css',
     ]);
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="/static/styles/global.immutable.CIo7MOhV.css" />
-          <link rel="stylesheet" href="/static/styles/styles.immutable.BxCpevuY.css" />
-          <link
-            rel="preload"
-            href="/static/fonts/font.immutable.C5MNjX-h.woff2"
-            as="font"
-            type="font/woff2"
-          />
-        </head>
-        <body>
-          <img src="/static/images/image.immutable.7xJLr_7N.png" />
-        </body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="/static/styles/global.immutable.CIo7MOhV.css" />
+            <link rel="stylesheet" href="/static/styles/styles.immutable.BxCpevuY.css" />
+            <link
+              rel="preload"
+              href="/static/fonts/font.immutable.C5MNjX-h.woff2"
+              as="font"
+              type="font/woff2"
+            />
+          </head>
+          <body>
+            <img src="/static/images/image.immutable.7xJLr_7N.png" />
+          </body>
+        </html>
+      `,
+    );
 
-    expect(assets['styles/global.immutable.CIo7MOhV.css']).to.equal(css`
-      @font-face {
-        font-family: Font;
-        src: url('/static/fonts/font.immutable.C5MNjX-h.woff2') format('woff2');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
-    `);
+    assert.equal(
+      assets['styles/global.immutable.CIo7MOhV.css'],
+      css`
+        @font-face {
+          font-family: Font;
+          src: url('/static/fonts/font.immutable.C5MNjX-h.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
+      `,
+    );
 
-    expect(assets['styles/styles.immutable.BxCpevuY.css']).to.equal(css`
-      #a {
-        background-image: url('/static/images/image.immutable.7xJLr_7N.png');
-      }
-    `);
+    assert.equal(
+      assets['styles/styles.immutable.BxCpevuY.css'],
+      css`
+        #a {
+          background-image: url('/static/images/image.immutable.7xJLr_7N.png');
+        }
+      `,
+    );
   });
 
   it('can minify extracted CSS', async () => {
@@ -3229,21 +3478,27 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets, assetsUnformatted } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(2);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 2);
 
-    expect(assets).to.have.keys(['assets/styles-DPU2l-t7.css', 'index.html']);
+    assert.deepEqual(
+      Object.keys(assets).sort(),
+      ['assets/styles-DPU2l-t7.css', 'index.html'].sort(),
+    );
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="assets/styles-DPU2l-t7.css" />
-        </head>
-        <body></body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="assets/styles-DPU2l-t7.css" />
+          </head>
+          <body></body>
+        </html>
+      `,
+    );
 
-    expect(assetsUnformatted['assets/styles-DPU2l-t7.css']).to.equal('p{font-weight:700}');
+    assert.equal(assetsUnformatted['assets/styles-DPU2l-t7.css'], 'p{font-weight:700}');
   });
 
   it('can bundle extracted CSS', async () => {
@@ -3288,31 +3543,40 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(2);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 2);
 
-    expect(assets).to.have.keys(['assets/styles-Dc1pq4Qu.css', 'index.html']);
+    assert.deepEqual(
+      Object.keys(assets).sort(),
+      ['assets/styles-Dc1pq4Qu.css', 'index.html'].sort(),
+    );
 
-    expect(assets['index.html']).to.equal(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="assets/styles-Dc1pq4Qu.css" />
-        </head>
-        <body></body>
-      </html>
-    `);
+    assert.equal(
+      assets['index.html'],
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="assets/styles-Dc1pq4Qu.css" />
+          </head>
+          <body></body>
+        </html>
+      `,
+    );
 
-    expect(assets['assets/styles-Dc1pq4Qu.css']).to.equal(css`
-      body {
-        background-color: #fff;
-      }
-
-      @media (prefers-color-scheme: dark) {
+    assert.equal(
+      assets['assets/styles-Dc1pq4Qu.css'],
+      css`
         body {
-          background-color: #000;
+          background-color: #fff;
         }
-      }
-    `);
+
+        @media (prefers-color-scheme: dark) {
+          body {
+            background-color: #000;
+          }
+        }
+      `,
+    );
   });
 
   it('can transform assets in CSS', async () => {
@@ -3352,16 +3616,16 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(3);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 3);
 
-    expect(assets).to.have.keys([
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/bg-image-B8JuQo5R.png',
       'assets/styles-Brz3za0w.css',
       'index.html',
     ]);
 
-    expect(assets['assets/bg-image-B8JuQo5R.png']).to.equal('bg-image-transformed.png');
+    assert.equal(assets['assets/bg-image-B8JuQo5R.png'], 'bg-image-transformed.png');
   });
 
   it('transforms asset only once for the same file in same CSS and other CSS files', async () => {
@@ -3414,17 +3678,17 @@ describe('rollup-plugin-html', () => {
     const build = await rollup(config);
     const { chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(assets).to.have.keys([
-      'assets/filters-BNeK3QVf.svg',
+    assert.deepEqual(Object.keys(assets).sort(), [
       'assets/design-system-DznFRd92.css',
+      'assets/filters-BNeK3QVf.svg',
       'assets/styles-CWG_g22Q.css',
       'index.html',
     ]);
 
-    expect(countTransformAssetCalls).to.equal(1);
+    assert.equal(countTransformAssetCalls, 1);
   });
 
   it('recalculates the hash of the CSS output filename when it references the file that changed the content', async () => {
@@ -3493,7 +3757,7 @@ describe('rollup-plugin-html', () => {
     const output1StylesName = Object.keys(bundle1.assets).find(name => name.endsWith('.css'))!;
     const output2StylesName = Object.keys(bundle2.assets).find(name => name.endsWith('.css'))!;
 
-    expect(output1StylesName).to.not.equal(output2StylesName);
+    assert.notEqual(output1StylesName, output2StylesName);
   });
 
   it('recalculates the hash of the CSS output filename when it references the same file which was transformed', async () => {
@@ -3560,7 +3824,7 @@ describe('rollup-plugin-html', () => {
     const output1StylesName = Object.keys(bundle1.assets).find(name => name.endsWith('.css'))!;
     const output2StylesName = Object.keys(bundle2.assets).find(name => name.endsWith('.css'))!;
 
-    expect(output1StylesName).to.not.equal(output2StylesName);
+    assert.notEqual(output1StylesName, output2StylesName);
   });
 
   it('recalculates the hash of the CSS output filename when it references the file that is moved in the output', async () => {
@@ -3626,7 +3890,7 @@ describe('rollup-plugin-html', () => {
     const output1StylesName = Object.keys(bundle1.assets).find(name => name.endsWith('.css'))!;
     const output2StylesName = Object.keys(bundle2.assets).find(name => name.endsWith('.css'))!;
 
-    expect(output1StylesName).to.not.equal(output2StylesName);
+    assert.notEqual(output1StylesName, output2StylesName);
   });
 
   describe('preserved output paths', () => {
@@ -3677,22 +3941,28 @@ describe('rollup-plugin-html', () => {
           path.relative(rootDir, asset.originalFileNames[0]).split(path.sep).join('/'),
       });
 
-      expect(assets['styles/main.css']).to.equal(css`
-        @font-face {
-          font-family: Font;
-          src: url('../fonts/font.woff2') format('woff2');
-        }
+      assert.equal(
+        assets['styles/main.css'],
+        css`
+          @font-face {
+            font-family: Font;
+            src: url('../fonts/font.woff2') format('woff2');
+          }
 
-        .arrow {
-          background: url('../assets/icons/arrow.svg');
-        }
-      `);
+          .arrow {
+            background: url('../assets/icons/arrow.svg');
+          }
+        `,
+      );
 
-      expect(assets['styles/components/button.css']).to.equal(css`
-        .button {
-          background: url('../../assets/icons/arrow.svg');
-        }
-      `);
+      assert.equal(
+        assets['styles/components/button.css'],
+        css`
+          .button {
+            background: url('../../assets/icons/arrow.svg');
+          }
+        `,
+      );
     });
 
     it('handles CSS files with SVG fragments (#icon)', async () => {
@@ -3730,11 +4000,14 @@ describe('rollup-plugin-html', () => {
           path.relative(rootDir, asset.originalFileNames[0]).split(path.sep).join('/'),
       });
 
-      expect(assets['styles.css']).to.equal(css`
-        .icon {
-          background: url('assets/sprite.svg#icon');
-        }
-      `);
+      assert.equal(
+        assets['styles.css'],
+        css`
+          .icon {
+            background: url('assets/sprite.svg#icon');
+          }
+        `,
+      );
     });
 
     it('handles multiple CSS files referencing the same asset', async () => {
@@ -3778,17 +4051,23 @@ describe('rollup-plugin-html', () => {
           path.relative(rootDir, asset.originalFileNames[0]).split(path.sep).join('/'),
       });
 
-      expect(assets['styles/a.css']).to.equal(css`
-        .a {
-          background: url('../shared/image.png');
-        }
-      `);
+      assert.equal(
+        assets['styles/a.css'],
+        css`
+          .a {
+            background: url('../shared/image.png');
+          }
+        `,
+      );
 
-      expect(assets['styles/nested/b.css']).to.equal(css`
-        .b {
-          background: url('../../shared/image.png');
-        }
-      `);
+      assert.equal(
+        assets['styles/nested/b.css'],
+        css`
+          .b {
+            background: url('../../shared/image.png');
+          }
+        `,
+      );
     });
   });
 });

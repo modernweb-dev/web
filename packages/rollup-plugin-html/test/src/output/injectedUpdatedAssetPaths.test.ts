@@ -1,10 +1,11 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import path from 'path';
 import { parse, serialize } from 'parse5';
 import { html } from '../../../../../test-utils/rollup-test-utils.js';
-import { InputData } from '../../../src/input/InputData.js';
+import type { InputData } from '../../../dist/input/InputData.js';
 
-import { injectedUpdatedAssetPaths } from '../../../src/output/injectedUpdatedAssetPaths.js';
+import { injectedUpdatedAssetPaths } from '../../../dist/output/injectedUpdatedAssetPaths.js';
 
 describe('injectedUpdatedAssetPaths()', () => {
   it('injects updated asset paths', () => {
@@ -45,18 +46,21 @@ describe('injectedUpdatedAssetPaths()', () => {
 
     const result = serialize(document);
 
-    expect(html`${result}`).to.eql(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="styles-xxx.css" />
-        </head>
-        <body>
-          <img src="image-a-xxx.png" />
-          <img src="image-b-xxx.png" />
-          <script src="no-module-xxx.js"></script>
-        </body>
-      </html>
-    `);
+    assert.deepEqual(
+      html`${result}`,
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="styles-xxx.css" />
+          </head>
+          <body>
+            <img src="image-a-xxx.png" />
+            <img src="image-b-xxx.png" />
+            <script src="no-module-xxx.js"></script>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('handles a picture tag using source tags with srcset', () => {
@@ -112,34 +116,37 @@ describe('injectedUpdatedAssetPaths()', () => {
 
     const result = serialize(document);
 
-    expect(html`${result}`).to.eql(html`
-      <html>
-        <head></head>
-        <body>
-          <picture>
-            <source
-              type="image/avif"
-              srcset="eb26e6ca-30-xxx.avif 30w, eb26e6ca-60-xxx.avif 60w"
-              sizes="30px"
-            />
-            <source
-              type="image/jpeg"
-              srcset="eb26e6ca-30-xxx.jpeg 30w, eb26e6ca-60-xxx.jpeg 60w"
-              sizes="30px"
-            />
-            <img
-              alt="My Image Alternative Text"
-              rocket-image="responsive"
-              src="eb26e6ca-30-xxx.jpeg"
-              width="30"
-              height="15"
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
-        </body>
-      </html>
-    `);
+    assert.deepEqual(
+      html`${result}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <picture>
+              <source
+                type="image/avif"
+                srcset="eb26e6ca-30-xxx.avif 30w, eb26e6ca-60-xxx.avif 60w"
+                sizes="30px"
+              />
+              <source
+                type="image/jpeg"
+                srcset="eb26e6ca-30-xxx.jpeg 30w, eb26e6ca-60-xxx.jpeg 60w"
+                sizes="30px"
+              />
+              <img
+                alt="My Image Alternative Text"
+                rocket-image="responsive"
+                src="eb26e6ca-30-xxx.jpeg"
+                width="30"
+                height="15"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('handles video tag using source tags with src', () => {
@@ -177,16 +184,19 @@ describe('injectedUpdatedAssetPaths()', () => {
 
     const result = serialize(document);
 
-    expect(html`${result}`).to.eql(html`
-      <html>
-        <head></head>
-        <body>
-          <video controls="">
-            <source src="typer-hydration-xxx.mp4" type="video/mp4" />
-          </video>
-        </body>
-      </html>
-    `);
+    assert.deepEqual(
+      html`${result}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <video controls="">
+              <source src="typer-hydration-xxx.mp4" type="video/mp4" />
+            </video>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('handles virtual files', () => {
@@ -224,17 +234,20 @@ describe('injectedUpdatedAssetPaths()', () => {
 
     const result = serialize(document);
 
-    expect(html`${result}`).to.eql(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="styles-xxx.css" />
-        </head>
-        <body>
-          <img src="image-a-xxx.png" />
-          <img src="image-b-xxx.png" />
-        </body>
-      </html>
-    `);
+    assert.deepEqual(
+      html`${result}`,
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="styles-xxx.css" />
+          </head>
+          <body>
+            <img src="image-a-xxx.png" />
+            <img src="image-b-xxx.png" />
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('handles HTML files in a sub directory', () => {
@@ -273,17 +286,20 @@ describe('injectedUpdatedAssetPaths()', () => {
 
     const result = serialize(document);
 
-    expect(html`${result}`).to.eql(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="../styles-xxx.css" />
-        </head>
-        <body>
-          <img src="../image-a-xxx.png" />
-          <img src="../image-b-xxx.png" />
-        </body>
-      </html>
-    `);
+    assert.deepEqual(
+      html`${result}`,
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="../styles-xxx.css" />
+          </head>
+          <body>
+            <img src="../image-a-xxx.png" />
+            <img src="../image-b-xxx.png" />
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('handles virtual HTML files in a sub directory', () => {
@@ -321,17 +337,20 @@ describe('injectedUpdatedAssetPaths()', () => {
 
     const result = serialize(document);
 
-    expect(html`${result}`).to.eql(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="../styles-xxx.css" />
-        </head>
-        <body>
-          <img src="../image-a-xxx.png" />
-          <img src="../image-b-xxx.png" />
-        </body>
-      </html>
-    `);
+    assert.deepEqual(
+      html`${result}`,
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="../styles-xxx.css" />
+          </head>
+          <body>
+            <img src="../image-a-xxx.png" />
+            <img src="../image-b-xxx.png" />
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('prefixes a publicpath', () => {
@@ -371,16 +390,19 @@ describe('injectedUpdatedAssetPaths()', () => {
 
     const result = serialize(document);
 
-    expect(html`${result}`).to.eql(html`
-      <html>
-        <head>
-          <link rel="stylesheet" href="public/styles-xxx.css" />
-        </head>
-        <body>
-          <img src="public/image-a-xxx.png" />
-          <img src="public/image-b-xxx.png" />
-        </body>
-      </html>
-    `);
+    assert.deepEqual(
+      html`${result}`,
+      html`
+        <html>
+          <head>
+            <link rel="stylesheet" href="public/styles-xxx.css" />
+          </head>
+          <body>
+            <img src="public/image-a-xxx.png" />
+            <img src="public/image-b-xxx.png" />
+          </body>
+        </html>
+      `,
+    );
   });
 });

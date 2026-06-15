@@ -1,9 +1,10 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it, afterEach } from 'node:test';
 import path from 'path';
 import { cleanApp, createApp, html, js } from '../../../../../test-utils/rollup-test-utils.js';
 
-import { getInputData } from '../../../src/input/getInputData.js';
-import { InputData } from '../../../src/input/InputData.js';
+import { getInputData } from '../../../dist/input/getInputData.js';
+import type { InputData } from '../../../dist/input/InputData.js';
 
 function cleanupHtml(str: string) {
   return str.replace(/(\r\n|\n|\r| )/gm, '');
@@ -37,7 +38,7 @@ describe('getInputData()', () => {
       `,
     });
     const result = getInputData({ input: 'index.html', rootDir });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -64,7 +65,7 @@ describe('getInputData()', () => {
       `,
     });
     const result = getInputData({ input: { path: 'index.html' }, rootDir });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -91,7 +92,7 @@ describe('getInputData()', () => {
       `,
     });
     const result = getInputData({ input: { path: 'index.html', name: 'foo.html' }, rootDir });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -128,7 +129,7 @@ describe('getInputData()', () => {
       input: [{ path: 'index.html' }, { path: 'not-index.html' }],
       rootDir,
     });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -163,7 +164,7 @@ describe('getInputData()', () => {
       `,
     });
     const result = getInputData({ input: 'src/index.html', rootDir });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'src/index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -190,7 +191,7 @@ describe('getInputData()', () => {
       `,
     });
     const result = getInputData({ rootDir }, 'index.html');
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -217,7 +218,7 @@ describe('getInputData()', () => {
       `,
     });
     const result = getInputData({ rootDir }, ['index.html']);
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -251,7 +252,7 @@ describe('getInputData()', () => {
       `,
     });
     const result = getInputData({ rootDir }, ['index.html', 'not-index.html']);
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -296,7 +297,7 @@ describe('getInputData()', () => {
       { rootDir },
       { 'a.html': 'index.html', 'b.html': 'not-index.html' },
     );
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -338,7 +339,7 @@ describe('getInputData()', () => {
       `,
     });
     const result = getInputData({ input: 'index.html', rootDir }, 'not-index.html');
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -369,7 +370,7 @@ describe('getInputData()', () => {
       },
       rootDir,
     });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: undefined,
         html: '<html><head></head><body><p>HTMLasstring</p></body></html>',
@@ -413,7 +414,7 @@ describe('getInputData()', () => {
         },
       ],
     });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: undefined,
         html: '<html><head></head><body><p>HTML1</p></body></html>',
@@ -476,7 +477,7 @@ describe('getInputData()', () => {
       `,
     });
     const result = getInputData({ input: 'pages/**/*.html', rootDir });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'pages', 'page-c.html'),
         html: '<html><head></head><body><p>page-c.html</p></body></html>',
@@ -556,7 +557,7 @@ describe('getInputData()', () => {
       `,
     });
     const result = getInputData({ input: 'pages/**/*.html', flattenOutput: false, rootDir });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'pages', 'page-c.html'),
         html: '<html><head></head><body><p>page-c.html</p></body></html>',
@@ -607,7 +608,7 @@ describe('getInputData()', () => {
         `,
       },
     });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: undefined,
         html: '<html><head></head><body><p>pureHTML</p></body></html>',
@@ -621,6 +622,6 @@ describe('getInputData()', () => {
 
   it('throws when no files or html is given', () => {
     const rootDir = createApp({});
-    expect(() => getInputData({ rootDir })).to.throw();
+    assert.throws(() => getInputData({ rootDir }));
   });
 });
