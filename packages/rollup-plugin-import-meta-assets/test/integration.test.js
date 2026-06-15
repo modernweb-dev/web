@@ -1,7 +1,7 @@
+const { describe, it, beforeEach, afterEach, mock } = require('node:test');
+const assert = require('node:assert/strict');
 const path = require('path');
 const { rollup } = require('rollup');
-const { expect } = require('chai');
-const hanbi = require('hanbi');
 
 const { importMetaAssets } = require('../src/rollup-plugin-import-meta-assets.js');
 const {
@@ -21,11 +21,11 @@ describe('rollup-plugin-import-meta-assets', () => {
   let consoleStub;
 
   beforeEach(() => {
-    consoleStub = hanbi.stubMethod(console, 'warn');
+    consoleStub = mock.method(console, 'warn');
   });
 
   afterEach(() => {
-    hanbi.restore();
+    mock.restoreAll();
     cleanApp();
   });
 
@@ -61,10 +61,12 @@ describe('rollup-plugin-import-meta-assets', () => {
     const build = await rollup(config);
     const { output, chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(5);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 5);
 
-    expect(chunks['app.js']).to.equal(js`
+    assert.equal(
+      chunks['app.js'],
+      js`
       const justUrlObject = new URL(
         new URL('assets/one-BCCvKrTe.svg', import.meta.url).href
       );
@@ -87,10 +89,11 @@ describe('rollup-plugin-import-meta-assets', () => {
         searchParams,
         noExtension,
       });
-    `);
+    `,
+    );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-    expect(appChunk.referencedFiles).to.deep.equal([
+    assert.deepEqual(appChunk.referencedFiles, [
       'assets/one-BCCvKrTe.svg',
       'assets/two-C4stzVZW.svg',
       'assets/three-DPeYetg3.svg',
@@ -98,19 +101,23 @@ describe('rollup-plugin-import-meta-assets', () => {
       'assets/five-DeBsXz7d',
     ]);
 
-    expect(assets['assets/one-BCCvKrTe.svg']).to.equal(
+    assert.equal(
+      assets['assets/one-BCCvKrTe.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
     );
-    expect(assets['assets/two-C4stzVZW.svg']).to.equal(
+    assert.equal(
+      assets['assets/two-C4stzVZW.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
     );
-    expect(assets['assets/three-DPeYetg3.svg']).to.equal(
+    assert.equal(
+      assets['assets/three-DPeYetg3.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
     );
-    expect(assets['assets/four-2QgOKKkO.svg']).to.equal(
+    assert.equal(
+      assets['assets/four-2QgOKKkO.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
     );
-    expect(assets['assets/five-DeBsXz7d']).to.equal('five');
+    assert.equal(assets['assets/five-DeBsXz7d'], 'five');
   });
 
   it('simple bundle with transform assets', async () => {
@@ -155,10 +162,12 @@ describe('rollup-plugin-import-meta-assets', () => {
     const build = await rollup(config);
     const { output, chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(5);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 5);
 
-    expect(chunks['app.js']).to.equal(js`
+    assert.equal(
+      chunks['app.js'],
+      js`
       const justUrlObject = new URL(
         new URL('assets/one-QPKGlwhS.svg', import.meta.url).href
       );
@@ -181,10 +190,11 @@ describe('rollup-plugin-import-meta-assets', () => {
         searchParams,
         someJpg,
       });
-    `);
+    `,
+    );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-    expect(appChunk.referencedFiles).to.deep.equal([
+    assert.deepEqual(appChunk.referencedFiles, [
       'assets/one-QPKGlwhS.svg',
       'assets/two-T4ecKj7d.svg',
       'assets/three-LuNZrcLX.svg',
@@ -192,19 +202,23 @@ describe('rollup-plugin-import-meta-assets', () => {
       'assets/image-B360jR14.jpg',
     ]);
 
-    expect(assets['assets/one-QPKGlwhS.svg']).to.equal(
+    assert.equal(
+      assets['assets/one-QPKGlwhS.svg'],
       svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`}<!-- minified -->`,
     );
-    expect(assets['assets/two-T4ecKj7d.svg']).to.equal(
+    assert.equal(
+      assets['assets/two-T4ecKj7d.svg'],
       svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`}<!-- minified -->`,
     );
-    expect(assets['assets/three-LuNZrcLX.svg']).to.equal(
+    assert.equal(
+      assets['assets/three-LuNZrcLX.svg'],
       svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`}<!-- minified -->`,
     );
-    expect(assets['assets/four-Cf59sBI1.svg']).to.equal(
+    assert.equal(
+      assets['assets/four-Cf59sBI1.svg'],
       svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`}<!-- minified -->`,
     );
-    expect(assets['assets/image-B360jR14.jpg']).to.equal('image.jpg');
+    assert.equal(assets['assets/image-B360jR14.jpg'], 'image.jpg');
   });
 
   it('simple bundle with ignored assets', async () => {
@@ -249,11 +263,13 @@ describe('rollup-plugin-import-meta-assets', () => {
     const build = await rollup(config);
     const { output, chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
     // image.jpg is NOT transformed, so it keeps original URL
-    expect(chunks['app.js']).to.equal(js`
+    assert.equal(
+      chunks['app.js'],
+      js`
       const justUrlObject = new URL(
         new URL('assets/one-QPKGlwhS.svg', import.meta.url).href
       );
@@ -274,26 +290,31 @@ describe('rollup-plugin-import-meta-assets', () => {
         searchParams,
         someJpg,
       });
-    `);
+    `,
+    );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-    expect(appChunk.referencedFiles).to.deep.equal([
+    assert.deepEqual(appChunk.referencedFiles, [
       'assets/one-QPKGlwhS.svg',
       'assets/two-T4ecKj7d.svg',
       'assets/three-LuNZrcLX.svg',
       'assets/four-Cf59sBI1.svg',
     ]);
 
-    expect(assets['assets/one-QPKGlwhS.svg']).to.equal(
+    assert.equal(
+      assets['assets/one-QPKGlwhS.svg'],
       svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`}<!-- minified -->`,
     );
-    expect(assets['assets/two-T4ecKj7d.svg']).to.equal(
+    assert.equal(
+      assets['assets/two-T4ecKj7d.svg'],
       svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`}<!-- minified -->`,
     );
-    expect(assets['assets/three-LuNZrcLX.svg']).to.equal(
+    assert.equal(
+      assets['assets/three-LuNZrcLX.svg'],
       svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`}<!-- minified -->`,
     );
-    expect(assets['assets/four-Cf59sBI1.svg']).to.equal(
+    assert.equal(
+      assets['assets/four-Cf59sBI1.svg'],
       svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`}<!-- minified -->`,
     );
   });
@@ -343,10 +364,12 @@ describe('rollup-plugin-import-meta-assets', () => {
     const build = await rollup(config);
     const { output, chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(chunks['app.js']).to.equal(js`
+    assert.equal(
+      chunks['app.js'],
+      js`
       const nameOne = 'one-name';
       const imageOne = new URL(
         new URL('assets/one-BCCvKrTe.svg', import.meta.url).href
@@ -373,26 +396,31 @@ describe('rollup-plugin-import-meta-assets', () => {
         [nameThree]: imageThree,
         [nameFour]: imageFour,
       });
-    `);
+    `,
+    );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-    expect(appChunk.referencedFiles).to.deep.equal([
+    assert.deepEqual(appChunk.referencedFiles, [
       'assets/one-BCCvKrTe.svg',
       'assets/two-C4stzVZW.svg',
       'assets/three-DPeYetg3.svg',
       'assets/four-2QgOKKkO.svg',
     ]);
 
-    expect(assets['assets/one-BCCvKrTe.svg']).to.equal(
+    assert.equal(
+      assets['assets/one-BCCvKrTe.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
     );
-    expect(assets['assets/two-C4stzVZW.svg']).to.equal(
+    assert.equal(
+      assets['assets/two-C4stzVZW.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
     );
-    expect(assets['assets/three-DPeYetg3.svg']).to.equal(
+    assert.equal(
+      assets['assets/three-DPeYetg3.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
     );
-    expect(assets['assets/four-2QgOKKkO.svg']).to.equal(
+    assert.equal(
+      assets['assets/four-2QgOKKkO.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
     );
   });
@@ -444,10 +472,12 @@ describe('rollup-plugin-import-meta-assets', () => {
     const build = await rollup(config);
     const { output, chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(chunks['app.js']).to.equal(js`
+    assert.equal(
+      chunks['app.js'],
+      js`
       const nameOne = 'one-name';
       const imageOne = new URL(
         new URL('assets/one-BCCvKrTe.svg', import.meta.url).href
@@ -474,26 +504,31 @@ describe('rollup-plugin-import-meta-assets', () => {
         [nameThree]: imageThree,
         [nameFour]: imageFour,
       });
-    `);
+    `,
+    );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-    expect(appChunk.referencedFiles).to.deep.equal([
+    assert.deepEqual(appChunk.referencedFiles, [
       'assets/one-BCCvKrTe.svg',
       'assets/two-C4stzVZW.svg',
       'assets/three-DPeYetg3.svg',
       'assets/four-2QgOKKkO.svg',
     ]);
 
-    expect(assets['assets/one-BCCvKrTe.svg']).to.equal(
+    assert.equal(
+      assets['assets/one-BCCvKrTe.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
     );
-    expect(assets['assets/two-C4stzVZW.svg']).to.equal(
+    assert.equal(
+      assets['assets/two-C4stzVZW.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
     );
-    expect(assets['assets/three-DPeYetg3.svg']).to.equal(
+    assert.equal(
+      assets['assets/three-DPeYetg3.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
     );
-    expect(assets['assets/four-2QgOKKkO.svg']).to.equal(
+    assert.equal(
+      assets['assets/four-2QgOKKkO.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
     );
   });
@@ -536,10 +571,12 @@ describe('rollup-plugin-import-meta-assets', () => {
     const build = await rollup(config);
     const { output, chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(chunks['app.js']).to.equal(js`
+    assert.equal(
+      chunks['app.js'],
+      js`
       const nameOne = 'one-name';
       const imageOne = new URL(
         new URL('assets/one-deep-BCCvKrTe.svg', import.meta.url).href
@@ -566,26 +603,31 @@ describe('rollup-plugin-import-meta-assets', () => {
         [nameThree]: imageThree,
         [nameFour]: imageFour,
       });
-    `);
+    `,
+    );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-    expect(appChunk.referencedFiles).to.deep.equal([
+    assert.deepEqual(appChunk.referencedFiles, [
       'assets/one-deep-BCCvKrTe.svg',
       'assets/two-deep-C4stzVZW.svg',
       'assets/three-deep-DPeYetg3.svg',
       'assets/four-deep-2QgOKKkO.svg',
     ]);
 
-    expect(assets['assets/one-deep-BCCvKrTe.svg']).to.equal(
+    assert.equal(
+      assets['assets/one-deep-BCCvKrTe.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
     );
-    expect(assets['assets/two-deep-C4stzVZW.svg']).to.equal(
+    assert.equal(
+      assets['assets/two-deep-C4stzVZW.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
     );
-    expect(assets['assets/three-deep-DPeYetg3.svg']).to.equal(
+    assert.equal(
+      assets['assets/three-deep-DPeYetg3.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
     );
-    expect(assets['assets/four-deep-2QgOKKkO.svg']).to.equal(
+    assert.equal(
+      assets['assets/four-deep-2QgOKKkO.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
     );
   });
@@ -632,10 +674,12 @@ describe('rollup-plugin-import-meta-assets', () => {
         path.relative(rootDir, asset.originalFileNames[0]).split(path.sep).join('/'),
     });
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(chunks['app.js']).to.equal(js`
+    assert.equal(
+      chunks['app.js'],
+      js`
       const nameOne = 'one-name';
       const imageOne = new URL(
         new URL('one/one-deep.svg', import.meta.url).href
@@ -665,26 +709,31 @@ describe('rollup-plugin-import-meta-assets', () => {
         [nameThree]: imageThree,
         [nameFour]: imageFour,
       });
-    `);
+    `,
+    );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-    expect(appChunk.referencedFiles).to.deep.equal([
+    assert.deepEqual(appChunk.referencedFiles, [
       'one/one-deep.svg',
       'one/two/two-deep.svg',
       'one/two/three/three-deep.svg',
       'one/two/three/four/four-deep.svg',
     ]);
 
-    expect(assets['one/one-deep.svg']).to.equal(
+    assert.equal(
+      assets['one/one-deep.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
     );
-    expect(assets['one/two/two-deep.svg']).to.equal(
+    assert.equal(
+      assets['one/two/two-deep.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
     );
-    expect(assets['one/two/three/three-deep.svg']).to.equal(
+    assert.equal(
+      assets['one/two/three/three-deep.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
     );
-    expect(assets['one/two/three/four/four-deep.svg']).to.equal(
+    assert.equal(
+      assets['one/two/three/four/four-deep.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
     );
   });
@@ -734,45 +783,59 @@ describe('rollup-plugin-import-meta-assets', () => {
     const build = await rollup(config);
     const { output, chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(4);
-    expect(Object.keys(assets)).to.have.lengthOf(2);
+    assert.equal(Object.keys(chunks).length, 4);
+    assert.equal(Object.keys(assets).length, 2);
 
     // one and two keep original URLs (excluded)
-    expect(chunks['one.js']).to.equal(js`
+    assert.equal(
+      chunks['one.js'],
+      js`
       const nameOne = 'one-name';
       const imageOne = new URL('../one.svg', import.meta.url).href;
 
       export { imageOne, nameOne };
-    `);
-    expect(chunks['two.js']).to.equal(js`
+    `,
+    );
+    assert.equal(
+      chunks['two.js'],
+      js`
       const nameTwo = 'two-name';
       const imageTwo = new URL('../../two.svg', import.meta.url).href;
 
       export { imageTwo, nameTwo };
-    `);
+    `,
+    );
 
     // three and four have transformed URLs (included)
-    expect(chunks['three.js']).to.equal(js`
+    assert.equal(
+      chunks['three.js'],
+      js`
       const nameThree = 'three-name';
       const imageThree = new URL(
         new URL('assets/three-DPeYetg3.svg', import.meta.url).href
       ).href;
 
       export { imageThree, nameThree };
-    `);
-    expect(chunks['four.js']).to.equal(js`
+    `,
+    );
+    assert.equal(
+      chunks['four.js'],
+      js`
       const nameFour = 'four-name';
       const imageFour = new URL(
         new URL('assets/four-2QgOKKkO.svg', import.meta.url).href
       ).href;
 
       export { imageFour, nameFour };
-    `);
+    `,
+    );
 
-    expect(assets['assets/three-DPeYetg3.svg']).to.equal(
+    assert.equal(
+      assets['assets/three-DPeYetg3.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
     );
-    expect(assets['assets/four-2QgOKKkO.svg']).to.equal(
+    assert.equal(
+      assets['assets/four-2QgOKKkO.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
     );
 
@@ -781,10 +844,10 @@ describe('rollup-plugin-import-meta-assets', () => {
     const threeChunk = output.find(({ fileName }) => fileName === 'three.js');
     const fourChunk = output.find(({ fileName }) => fileName === 'four.js');
 
-    expect(oneChunk.referencedFiles).to.deep.equal([]);
-    expect(twoChunk.referencedFiles).to.deep.equal([]);
-    expect(threeChunk.referencedFiles).to.deep.equal(['assets/three-DPeYetg3.svg']);
-    expect(fourChunk.referencedFiles).to.deep.equal(['assets/four-2QgOKKkO.svg']);
+    assert.deepEqual(oneChunk.referencedFiles, []);
+    assert.deepEqual(twoChunk.referencedFiles, []);
+    assert.deepEqual(threeChunk.referencedFiles, ['assets/three-DPeYetg3.svg']);
+    assert.deepEqual(fourChunk.referencedFiles, ['assets/four-2QgOKKkO.svg']);
   });
 
   it('bad URL example', async () => {
@@ -810,7 +873,7 @@ describe('rollup-plugin-import-meta-assets', () => {
       error = e;
     }
 
-    expect(error.message).to.match(/no such file or directory/);
+    assert.match(error.message, /no such file or directory/);
   });
 
   it('bad URL example with warnOnError: true', async () => {
@@ -830,11 +893,13 @@ describe('rollup-plugin-import-meta-assets', () => {
     const build = await rollup(config);
     await build.generate(outputConfig);
 
-    expect(consoleStub.callCount).to.equal(2);
-    expect(consoleStub.getCall(0).args[0]).to.match(
+    assert.equal(consoleStub.mock.callCount(), 2);
+    assert.match(
+      consoleStub.mock.calls[0].arguments[0],
       /ENOENT: no such file or directory, open '.*[/\\]absolute-path\.svg'/,
     );
-    expect(consoleStub.getCall(1).args[0]).to.match(
+    assert.match(
+      consoleStub.mock.calls[1].arguments[0],
       /ENOENT: no such file or directory, open '.*[/\\]missing-relative-path\.svg'/,
     );
   });
@@ -854,21 +919,25 @@ describe('rollup-plugin-import-meta-assets', () => {
     const build = await rollup(config);
     const { output, chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(1);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 1);
 
-    expect(chunks['app.js']).to.equal(js`
+    assert.equal(
+      chunks['app.js'],
+      js`
       const backticksImg = new URL(
         new URL('assets/one-deep-BCCvKrTe.svg', import.meta.url).href
       );
 
       console.log(backticksImg);
-    `);
+    `,
+    );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-    expect(appChunk.referencedFiles).to.deep.equal(['assets/one-deep-BCCvKrTe.svg']);
+    assert.deepEqual(appChunk.referencedFiles, ['assets/one-deep-BCCvKrTe.svg']);
 
-    expect(assets['assets/one-deep-BCCvKrTe.svg']).to.equal(
+    assert.equal(
+      assets['assets/one-deep-BCCvKrTe.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
     );
   });
@@ -898,10 +967,12 @@ describe('rollup-plugin-import-meta-assets', () => {
     const build = await rollup(config);
     const { output, chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(3);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 3);
 
-    expect(chunks['app.js']).to.equal(js`
+    assert.equal(
+      chunks['app.js'],
+      js`
       function __variableDynamicURLRuntime0__(path) {
         switch (path) {
           case './assets/images/image-one.svg':
@@ -930,22 +1001,26 @@ describe('rollup-plugin-import-meta-assets', () => {
       const paths = images.map((name) => __variableDynamicURLRuntime0__(\`./assets/images/image-\${name}.svg\`));
 
       console.log(paths);
-    `);
+    `,
+    );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-    expect(appChunk.referencedFiles).to.deep.equal([
+    assert.deepEqual(appChunk.referencedFiles, [
       'assets/image-two-C4stzVZW.svg',
       'assets/image-three-DPeYetg3.svg',
       'assets/image-one-BCCvKrTe.svg',
     ]);
 
-    expect(assets['assets/image-one-BCCvKrTe.svg']).to.equal(
+    assert.equal(
+      assets['assets/image-one-BCCvKrTe.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
     );
-    expect(assets['assets/image-two-C4stzVZW.svg']).to.equal(
+    assert.equal(
+      assets['assets/image-two-C4stzVZW.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
     );
-    expect(assets['assets/image-three-DPeYetg3.svg']).to.equal(
+    assert.equal(
+      assets['assets/image-three-DPeYetg3.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
     );
   });
@@ -992,10 +1067,12 @@ describe('rollup-plugin-import-meta-assets', () => {
     const build = await rollup(config);
     const { output, chunks, assets } = await generateTestBundle(build, outputConfig);
 
-    expect(Object.keys(chunks)).to.have.lengthOf(1);
-    expect(Object.keys(assets)).to.have.lengthOf(4);
+    assert.equal(Object.keys(chunks).length, 1);
+    assert.equal(Object.keys(assets).length, 4);
 
-    expect(chunks['app.js']).to.equal(js`
+    assert.equal(
+      chunks['app.js'],
+      js`
       const justUrlObject = new URL(
         new URL('assets/one-BCCvKrTe.svg', import.meta.url).href
       );
@@ -1023,26 +1100,31 @@ describe('rollup-plugin-import-meta-assets', () => {
         searchParams,
         directories,
       });
-    `);
+    `,
+    );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-    expect(appChunk.referencedFiles).to.deep.equal([
+    assert.deepEqual(appChunk.referencedFiles, [
       'assets/one-BCCvKrTe.svg',
       'assets/two-C4stzVZW.svg',
       'assets/three-DPeYetg3.svg',
       'assets/four-2QgOKKkO.svg',
     ]);
 
-    expect(assets['assets/one-BCCvKrTe.svg']).to.equal(
+    assert.equal(
+      assets['assets/one-BCCvKrTe.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
     );
-    expect(assets['assets/two-C4stzVZW.svg']).to.equal(
+    assert.equal(
+      assets['assets/two-C4stzVZW.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
     );
-    expect(assets['assets/three-DPeYetg3.svg']).to.equal(
+    assert.equal(
+      assets['assets/three-DPeYetg3.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
     );
-    expect(assets['assets/four-2QgOKKkO.svg']).to.equal(
+    assert.equal(
+      assets['assets/four-2QgOKKkO.svg'],
       svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
     );
   });
@@ -1077,10 +1159,12 @@ describe('rollup-plugin-import-meta-assets', () => {
           path.relative(rootDir, asset.originalFileNames[0]).split(path.sep).join('/'),
       });
 
-      expect(Object.keys(chunks)).to.have.lengthOf(1);
-      expect(Object.keys(assets)).to.have.lengthOf(3);
+      assert.equal(Object.keys(chunks).length, 1);
+      assert.equal(Object.keys(assets).length, 3);
 
-      expect(chunks['app.js']).to.equal(js`
+      assert.equal(
+        chunks['app.js'],
+        js`
         const images = ['one', 'two'];
 
         const paths = images.map((name) =>
@@ -1088,18 +1172,22 @@ describe('rollup-plugin-import-meta-assets', () => {
         );
 
         console.log(paths);
-      `);
+      `,
+      );
 
       const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-      expect(appChunk.referencedFiles).to.deep.equal(['assets/images/image-one.svg']);
+      assert.deepEqual(appChunk.referencedFiles, ['assets/images/image-one.svg']);
 
-      expect(assets['assets/images/image-one.svg']).to.equal(
+      assert.equal(
+        assets['assets/images/image-one.svg'],
         svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
       );
-      expect(assets['assets/images/image-two.svg']).to.equal(
+      assert.equal(
+        assets['assets/images/image-two.svg'],
         svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
       );
-      expect(assets['assets/images/image-three.svg']).to.equal(
+      assert.equal(
+        assets['assets/images/image-three.svg'],
         svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
       );
     });
@@ -1138,10 +1226,12 @@ describe('rollup-plugin-import-meta-assets', () => {
           path.relative(rootDir, asset.originalFileNames[0]).split(path.sep).join('/'),
       });
 
-      expect(Object.keys(chunks)).to.have.lengthOf(1);
-      expect(Object.keys(assets)).to.have.lengthOf(4);
+      assert.equal(Object.keys(chunks).length, 1);
+      assert.equal(Object.keys(assets).length, 4);
 
-      expect(chunks['app.js']).to.equal(js`
+      assert.equal(
+        chunks['app.js'],
+        js`
         const images = {
           'category-name': ['image-name'],
         };
@@ -1153,21 +1243,26 @@ describe('rollup-plugin-import-meta-assets', () => {
         );
 
         console.log(paths);
-      `);
+      `,
+      );
 
       const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-      expect(appChunk.referencedFiles).to.deep.equal(['assets/images/category-one/image-one.svg']);
+      assert.deepEqual(appChunk.referencedFiles, ['assets/images/category-one/image-one.svg']);
 
-      expect(assets['assets/images/category-one/image-one.svg']).to.equal(
+      assert.equal(
+        assets['assets/images/category-one/image-one.svg'],
         svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
       );
-      expect(assets['assets/images/category-one/image-two.svg']).to.equal(
+      assert.equal(
+        assets['assets/images/category-one/image-two.svg'],
         svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
       );
-      expect(assets['assets/images/category-two/image-three.svg']).to.equal(
+      assert.equal(
+        assets['assets/images/category-two/image-three.svg'],
         svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
       );
-      expect(assets['assets/images/category-two/image-four.svg']).to.equal(
+      assert.equal(
+        assets['assets/images/category-two/image-four.svg'],
         svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
       );
     });
@@ -1206,10 +1301,12 @@ describe('rollup-plugin-import-meta-assets', () => {
           path.relative(rootDir, asset.originalFileNames[0]).split(path.sep).join('/'),
       });
 
-      expect(Object.keys(chunks)).to.have.lengthOf(1);
-      expect(Object.keys(assets)).to.have.lengthOf(4);
+      assert.equal(Object.keys(chunks).length, 1);
+      assert.equal(Object.keys(assets).length, 4);
 
-      expect(chunks['app.js']).to.equal(js`
+      assert.equal(
+        chunks['app.js'],
+        js`
         const images = {
           'category-name': ['image-name'],
         };
@@ -1221,23 +1318,28 @@ describe('rollup-plugin-import-meta-assets', () => {
         );
 
         console.log(paths);
-      `);
+      `,
+      );
 
       const appChunk = output.find(({ fileName }) => fileName === 'app.js');
-      expect(appChunk.referencedFiles).to.deep.equal([
+      assert.deepEqual(appChunk.referencedFiles, [
         'assets/images/category-one/static/image-one.svg',
       ]);
 
-      expect(assets['assets/images/category-one/static/image-one.svg']).to.equal(
+      assert.equal(
+        assets['assets/images/category-one/static/image-one.svg'],
         svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
       );
-      expect(assets['assets/images/category-one/static/image-two.svg']).to.equal(
+      assert.equal(
+        assets['assets/images/category-one/static/image-two.svg'],
         svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
       );
-      expect(assets['assets/images/category-two/static/image-three.svg']).to.equal(
+      assert.equal(
+        assets['assets/images/category-two/static/image-three.svg'],
         svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
       );
-      expect(assets['assets/images/category-two/static/image-four.svg']).to.equal(
+      assert.equal(
+        assets['assets/images/category-two/static/image-four.svg'],
         svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
       );
     });
