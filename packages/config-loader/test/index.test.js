@@ -38,42 +38,21 @@ describe('cjs package', () => {
   it('throws when loading module-in-.cjs', async () => {
     await assert.rejects(
       () => readConfig(configName, undefined, path.resolve(packageCjsPath, 'module-in-.cjs')),
-      error => {
-        assert.ok(
-          error.message.includes(
-            'You are using es module syntax in a config loaded as CommonJS module.',
-          ),
-        );
-        return true;
-      },
+      /You are using es module syntax in a config loaded as CommonJS module./,
     );
   });
 
   it('throws when loading module-in-.js', async () => {
     await assert.rejects(
       () => readConfig(configName, undefined, path.resolve(packageCjsPath, 'module-in-.js')),
-      error => {
-        assert.ok(
-          error.message.includes(
-            'You are using es module syntax in a config loaded as CommonJS module.',
-          ),
-        );
-        return true;
-      },
+      /You are using es module syntax in a config loaded as CommonJS module./,
     );
   });
 
   it('throws when loading commonjs-in-.mjs', async () => {
     await assert.rejects(
       () => readConfig(configName, undefined, path.resolve(packageCjsPath, 'commonjs-in-.mjs')),
-      error => {
-        assert.ok(
-          error.message.includes(
-            'You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module.',
-          ),
-        );
-        return true;
-      },
+      /You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module./,
     );
   });
 });
@@ -91,42 +70,21 @@ describe('mjs package', () => {
   it('throws when loading commonjs-in-.js', async () => {
     await assert.rejects(
       () => readConfig(configName, undefined, path.resolve(packageMjsPath, 'commonjs-in-.js')),
-      error => {
-        assert.ok(
-          error.message.includes(
-            'You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module.',
-          ),
-        );
-        return true;
-      },
+      /You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module./,
     );
   });
 
   it('throws when loading commonjs-in-.mjs', async () => {
     await assert.rejects(
       () => readConfig(configName, undefined, path.resolve(packageMjsPath, 'commonjs-in-.mjs')),
-      error => {
-        assert.ok(
-          error.message.includes(
-            'You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module.',
-          ),
-        );
-        return true;
-      },
+      /You are using CommonJS syntax such as "require" or "module.exports" in a config loaded as es module./,
     );
   });
 
   it('throws when loading module-in-.cjs', async () => {
     await assert.rejects(
       () => readConfig(configName, undefined, path.resolve(packageCjsPath, 'module-in-.cjs')),
-      error => {
-        assert.ok(
-          error.message.includes(
-            'You are using es module syntax in a config loaded as CommonJS module.',
-          ),
-        );
-        return true;
-      },
+      /You are using es module syntax in a config loaded as CommonJS module./,
     );
   });
 
