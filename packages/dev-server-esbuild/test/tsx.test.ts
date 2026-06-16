@@ -1,15 +1,14 @@
-import { expect } from 'chai';
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
 
-import { esbuildPlugin } from '../src/index.js';
+import { esbuildPlugin } from '../dist/index.js';
 
-describe('esbuildPlugin TSX', function () {
-  this.timeout(5000);
-
+describe('esbuildPlugin TSX', { timeout: 5000 }, () => {
   it('transforms .tsx files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -37,8 +36,9 @@ export function foo (a: number, b: number): Foo {
       const response = await fetch(`${host}/foo.tsx`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
       expectIncludes(text, 'React.createElement("div", {');
@@ -55,7 +55,7 @@ export function foo (a: number, b: number): Foo {
 
   it('can set the JSX factory', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -83,8 +83,9 @@ export function foo (a: number, b: number): Foo {
       const response = await fetch(`${host}/foo.tsx`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
       expectIncludes(text, 'h("div", {');
