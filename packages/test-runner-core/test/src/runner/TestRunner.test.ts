@@ -11,17 +11,10 @@ import type { Logger } from '../../../dist/logger/Logger.js';
 import { SESSION_STATUS } from '../../../dist/test-session/TestSessionStatus.js';
 import type { TestRunnerGroupConfig } from '../../../dist/index.js';
 
-interface BrowserStubs {
-  stop: ReturnType<typeof mock.fn>;
-  startDebugSession: ReturnType<typeof mock.fn>;
-  startSession: ReturnType<typeof mock.fn>;
-  stopSession: ReturnType<typeof mock.fn>;
-  isActive: ReturnType<typeof mock.fn>;
-  getBrowserUrl: ReturnType<typeof mock.fn>;
-}
-
-function createBrowserStub(): [BrowserStubs, BrowserLauncher] {
-  const stubs: BrowserStubs = {
+function createBrowserStub(): BrowserLauncher {
+  return {
+    name: 'myBrowser',
+    type: 'myBrowser',
     stop: mock.fn(() => Promise.resolve()),
     getBrowserUrl: mock.fn(() => ''),
     startDebugSession: mock.fn(() => Promise.resolve()),
@@ -29,19 +22,6 @@ function createBrowserStub(): [BrowserStubs, BrowserLauncher] {
     stopSession: mock.fn(() => Promise.resolve({})),
     isActive: mock.fn(() => true),
   };
-  return [
-    stubs,
-    {
-      name: 'myBrowser',
-      type: 'myBrowser',
-      stop: stubs.stop,
-      getBrowserUrl: stubs.getBrowserUrl,
-      startDebugSession: stubs.startDebugSession,
-      startSession: stubs.startSession,
-      stopSession: stubs.stopSession,
-      isActive: stubs.isActive,
-    },
-  ];
 }
 
 const logger: Logger = {
@@ -62,7 +42,7 @@ async function createTestRunner(
     port: 9000 + Math.floor(Math.random() * 1000),
   });
 
-  const [browserStubs, browser] = createBrowserStub();
+  const browser = createBrowserStub();
 
   console.log(path.resolve(import.meta.dirname, '..', '..', '..', '..', '..'));
 
@@ -89,16 +69,16 @@ async function createTestRunner(
     ...extraConfig,
   };
   const runner = new TestRunner(config, groupConfigs);
-  return { runner, browser, browserStubs };
+  return { runner, browser };
 }
 
 describe('TestRunner', function () {
   it('can run a single test file', async () => {
-    const { runner, browserStubs } = await createTestRunner();
+    const { runner, browser } = await createTestRunner();
 
     await runner.start();
     assert.equal(runner.started, true, 'runner is started');
-    assert.equal(browserStubs.startSession.mock.callCount(), 1);
+    assert.equal(browser.startSession.mock.callCount(), 1);
 
     const sessions = Array.from(runner.sessions.all());
     assert.equal(sessions.length, 1, 'one session is created');
@@ -106,7 +86,7 @@ describe('TestRunner', function () {
   });
 
   it('closes test runner for a successful test', async () => {
-    const { runner, browserStubs } = await createTestRunner();
+    const { runner, browser } = await createTestRunner();
     let resolveStopped: (passed: boolean) => void;
     const stopped = new Promise<boolean>(resolve => {
       resolveStopped = resolve;
@@ -125,13 +105,13 @@ describe('TestRunner', function () {
 
     const passed = await stopped;
 
-    assert.equal(browserStubs.stopSession.mock.callCount(), 1, 'browser session is stopped');
-    assert.equal(browserStubs.stop.mock.callCount(), 1, 'browser is stopped');
+    assert.equal(browser.stopSession.mock.callCount(), 1, 'browser session is stopped');
+    assert.equal(browser.stop.mock.callCount(), 1, 'browser is stopped');
     assert.equal(passed, true, 'test runner quits with true');
   });
 
   it('closes test runner for a failed test', async () => {
-    const { runner, browserStubs } = await createTestRunner();
+    const { runner, browser } = await createTestRunner();
     let resolveStopped: (passed: boolean) => void;
     const stopped = new Promise<boolean>(resolve => {
       resolveStopped = resolve;
@@ -149,8 +129,8 @@ describe('TestRunner', function () {
     runner.sessions.updateStatus({ ...sessions[0], passed: false }, SESSION_STATUS.TEST_FINISHED);
     const passed = await stopped;
 
-    assert.equal(browserStubs.stopSession.mock.callCount(), 1, 'browser session is stopped');
-    assert.equal(browserStubs.stop.mock.callCount(), 1, 'browser is stopped');
+    assert.equal(browser.stopSession.mock.callCount(), 1, 'browser session is stopped');
+    assert.equal(browser.stop.mock.callCount(), 1, 'browser is stopped');
     assert.equal(passed, false, 'test runner quits with false');
   });
 
@@ -170,7 +150,7 @@ describe('TestRunner', function () {
     });
 
     it('can create a group with a custom browser, inheriting test files', async () => {
-      const [, groupBrowser] = createBrowserStub();
+      const groupBrowser = createBrowserStub();
       const { browser, runner } = await createTestRunner(undefined, [
         {
           name: 'a',
@@ -219,7 +199,7 @@ describe('TestRunner', function () {
     });
 
     it('can create test groups with custom browsers', async () => {
-      const [, browserB] = createBrowserStub();
+      const browserB = createBrowserStub();
       const { browser, runner } = await createTestRunner(
         {
           files: undefined,

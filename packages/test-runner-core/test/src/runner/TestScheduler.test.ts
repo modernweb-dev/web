@@ -13,15 +13,6 @@ function timeout(ms = 0): Promise<void> {
   return new Promise(r => setTimeout(r, ms));
 }
 
-interface BrowserStubs {
-  stop: ReturnType<typeof mock.fn>;
-  startDebugSession: ReturnType<typeof mock.fn>;
-  startSession: ReturnType<typeof mock.fn>;
-  stopSession: ReturnType<typeof mock.fn>;
-  isActive: ReturnType<typeof mock.fn>;
-  getBrowserUrl: ReturnType<typeof mock.fn>;
-}
-
 describe('TestScheduler', () => {
   let mockConfig: TestRunnerCoreConfig;
 
@@ -33,8 +24,10 @@ describe('TestScheduler', () => {
     } as Partial<TestSession> as TestSession;
   }
 
-  function createBrowserStub(name: string): [BrowserStubs, BrowserLauncher] {
-    const stubs: BrowserStubs = {
+  function createBrowserStub(name: string): BrowserLauncher {
+    return {
+      name,
+      type: name,
       stop: mock.fn(() => timeout(1)),
       startDebugSession: mock.fn(() => timeout(1)),
       startSession: mock.fn(() => timeout(1)),
@@ -42,19 +35,6 @@ describe('TestScheduler', () => {
       isActive: mock.fn(() => true),
       getBrowserUrl: mock.fn(() => ''),
     };
-    return [
-      stubs,
-      {
-        name,
-        type: name,
-        stop: stubs.stop,
-        startDebugSession: stubs.startDebugSession,
-        startSession: stubs.startSession,
-        stopSession: stubs.stopSession,
-        isActive: stubs.isActive,
-        getBrowserUrl: stubs.getBrowserUrl,
-      },
-    ];
   }
 
   beforeEach(() => {
@@ -82,8 +62,8 @@ describe('TestScheduler', () => {
 
   function createTestFixture(
     ...ids: string[]
-  ): [TestScheduler, TestSessionManager, TestSession[], BrowserStubs] {
-    const [browserStubs, browser] = createBrowserStub('a');
+  ): [TestScheduler, TestSessionManager, TestSession[], BrowserLauncher] {
+    const browser = createBrowserStub('a');
     const sessions: TestSession[] = [];
     for (const id of ids) {
       const session = createSession({ id, browser });
@@ -91,23 +71,23 @@ describe('TestScheduler', () => {
     }
     const sessionManager = new TestSessionManager([], sessions);
     const scheduler = new TestScheduler(mockConfig, sessionManager, [browser]);
-    return [scheduler, sessionManager, sessions, browserStubs];
+    return [scheduler, sessionManager, sessions, browser];
   }
 
   describe('single browser', () => {
     it('scheduling a session starts the browser and marks initializing', async () => {
-      const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
+      const [scheduler, sessions, [session1], browser] = createTestFixture('1');
       scheduler.schedule(1, [session1]);
 
       const finalSession1 = sessions.get(session1.id)!;
       assert.equal(finalSession1.status, SESSION_STATUS.INITIALIZING);
-      assert.equal(stubs.startSession.mock.callCount(), 1);
+      assert.equal(browser.startSession.mock.callCount(), 1);
     });
 
     it('when a session goes to status test finished, the browser is stopped and results is stored', async () => {
-      const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
+      const [scheduler, sessions, [session1], browser] = createTestFixture('1');
       const testCoverage = {};
-      stubs.stopSession.mock.mockImplementation(() => timeout(1).then(() => ({ testCoverage })));
+      browser.stopSession.mock.mockImplementation(() => timeout(1).then(() => ({ testCoverage })));
       scheduler.schedule(1, [session1]);
 
       await timeout(5);
@@ -194,8 +174,8 @@ describe('TestScheduler', () => {
     });
 
     it('error while starting browser marks session as failed', async () => {
-      const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
-      stubs.startSession.mock.mockImplementation(() => Promise.reject(new Error('mock error')));
+      const [scheduler, sessions, [session1], browser] = createTestFixture('1');
+      browser.startSession.mock.mockImplementation(() => Promise.reject(new Error('mock error')));
       scheduler.schedule(1, [session1]);
 
       await timeout(20);
@@ -209,8 +189,8 @@ describe('TestScheduler', () => {
 
     it('error while starting browser after a session changed state gets logged', async () => {
       const errorStub = mock.method(mockConfig.logger, 'error');
-      const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
-      stubs.startSession.mock.mockImplementation(() =>
+      const [scheduler, sessions, [session1], browser] = createTestFixture('1');
+      browser.startSession.mock.mockImplementation(() =>
         timeout(5).then(() => {
           throw new Error('mock error');
         }),
@@ -233,8 +213,8 @@ describe('TestScheduler', () => {
     });
 
     it('error while stopping browser marks session as failed', async () => {
-      const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
-      stubs.stopSession.mock.mockImplementation(() => Promise.reject(new Error('mock error')));
+      const [scheduler, sessions, [session1], browser] = createTestFixture('1');
+      browser.stopSession.mock.mockImplementation(() => Promise.reject(new Error('mock error')));
       scheduler.schedule(1, [session1]);
 
       await timeout(5);
@@ -250,8 +230,8 @@ describe('TestScheduler', () => {
 
     it('timeout starting the browser marks the session as failed', async () => {
       mockConfig.browserStartTimeout = 2;
-      const [scheduler, sessions, [session1], stubs] = createTestFixture('1');
-      stubs.startSession.mock.mockImplementation(() => timeout(40));
+      const [scheduler, sessions, [session1], browser] = createTestFixture('1');
+      browser.startSession.mock.mockImplementation(() => timeout(40));
       scheduler.schedule(1, [session1]);
 
       await timeout(20);
@@ -306,13 +286,13 @@ describe('TestScheduler', () => {
   describe('multi browsers', () => {
     function createTestFixture(
       fixtures: { name: string; ids: string[] }[],
-    ): [TestScheduler, TestSessionManager, Array<[BrowserStubs, BrowserLauncher]>, TestSession[]] {
-      const browsers: Array<[BrowserStubs, BrowserLauncher]> = [];
+    ): [TestScheduler, TestSessionManager, Array<BrowserLauncher>, TestSession[]] {
+      const browsers: Array<BrowserLauncher> = [];
       const sessions: TestSession[] = [];
 
       for (const fixture of fixtures) {
-        const [stubs, browser] = createBrowserStub(fixture.name);
-        browsers.push([stubs, browser]);
+        const browser = createBrowserStub(fixture.name);
+        browsers.push(browser);
 
         for (const id of fixture.ids) {
           const session = createSession({ id, browser });
@@ -321,11 +301,7 @@ describe('TestScheduler', () => {
       }
 
       const sessionManager = new TestSessionManager([], sessions);
-      const scheduler = new TestScheduler(
-        mockConfig,
-        sessionManager,
-        browsers.map(b => b[1]),
-      );
+      const scheduler = new TestScheduler(mockConfig, sessionManager, browsers);
       return [scheduler, sessionManager, browsers, sessions];
     }
 
@@ -340,35 +316,35 @@ describe('TestScheduler', () => {
       const session1 = sessionManager.get('1')!;
       const session2 = sessionManager.get('2')!;
       const session3 = sessionManager.get('3')!;
-      assert.equal(session1.browser, browsers[0][1]);
-      assert.equal(session2.browser, browsers[0][1]);
-      assert.equal(session3.browser, browsers[0][1]);
+      assert.equal(session1.browser, browsers[0]);
+      assert.equal(session2.browser, browsers[0]);
+      assert.equal(session3.browser, browsers[0]);
       assert.equal(session1.status, SESSION_STATUS.INITIALIZING);
       assert.equal(session2.status, SESSION_STATUS.INITIALIZING);
       assert.equal(session3.status, SESSION_STATUS.SCHEDULED);
-      assert.equal(browsers[0][0].startSession.mock.callCount(), 2);
+      assert.equal(browsers[0].startSession.mock.callCount(), 2);
 
       const session4 = sessionManager.get('4')!;
       const session5 = sessionManager.get('5')!;
       const session6 = sessionManager.get('6')!;
-      assert.equal(session4.browser, browsers[1][1]);
-      assert.equal(session5.browser, browsers[1][1]);
-      assert.equal(session6.browser, browsers[1][1]);
+      assert.equal(session4.browser, browsers[1]);
+      assert.equal(session5.browser, browsers[1]);
+      assert.equal(session6.browser, browsers[1]);
       assert.equal(session4.status, SESSION_STATUS.INITIALIZING);
       assert.equal(session5.status, SESSION_STATUS.INITIALIZING);
       assert.equal(session6.status, SESSION_STATUS.SCHEDULED);
-      assert.equal(browsers[1][0].startSession.mock.callCount(), 2);
+      assert.equal(browsers[1].startSession.mock.callCount(), 2);
 
       const session7 = sessionManager.get('7')!;
       const session8 = sessionManager.get('8')!;
       const session9 = sessionManager.get('9')!;
-      assert.equal(session7.browser, browsers[2][1]);
-      assert.equal(session8.browser, browsers[2][1]);
-      assert.equal(session9.browser, browsers[2][1]);
+      assert.equal(session7.browser, browsers[2]);
+      assert.equal(session8.browser, browsers[2]);
+      assert.equal(session9.browser, browsers[2]);
       assert.equal(session7.status, SESSION_STATUS.SCHEDULED);
       assert.equal(session8.status, SESSION_STATUS.SCHEDULED);
       assert.equal(session9.status, SESSION_STATUS.SCHEDULED);
-      assert.equal(browsers[2][0].startSession.mock.callCount(), 0);
+      assert.equal(browsers[2].startSession.mock.callCount(), 0);
     });
 
     it('finishing a test schedules a new one', async () => {
@@ -384,9 +360,9 @@ describe('TestScheduler', () => {
       await timeout(20);
 
       const session3 = sessionManager.get('3')!;
-      assert.equal(session3.browser, browsers[0][1]);
+      assert.equal(session3.browser, browsers[0]);
       assert.equal(session3.status, SESSION_STATUS.INITIALIZING);
-      assert.equal(browsers[0][0].startSession.mock.callCount(), 3);
+      assert.equal(browsers[0].startSession.mock.callCount(), 3);
     });
 
     it('overflow of concurrency budget does not trigger a new browser to start', async () => {
@@ -403,9 +379,9 @@ describe('TestScheduler', () => {
       await timeout(20);
 
       const session7 = sessionManager.get('7')!;
-      assert.equal(session7.browser, browsers[2][1]);
+      assert.equal(session7.browser, browsers[2]);
       assert.equal(session7.status, SESSION_STATUS.SCHEDULED);
-      assert.equal(browsers[2][0].startSession.mock.callCount(), 0);
+      assert.equal(browsers[2].startSession.mock.callCount(), 0);
     });
 
     it('finishing one browsers schedules a new browser', async () => {
@@ -424,9 +400,9 @@ describe('TestScheduler', () => {
       await timeout(20);
 
       const session7 = sessionManager.get('7')!;
-      assert.equal(session7.browser, browsers[2][1]);
+      assert.equal(session7.browser, browsers[2]);
       assert.equal(session7.status, SESSION_STATUS.INITIALIZING);
-      assert.equal(browsers[2][0].startSession.mock.callCount(), 2);
+      assert.equal(browsers[2].startSession.mock.callCount(), 2);
     });
   });
 });
