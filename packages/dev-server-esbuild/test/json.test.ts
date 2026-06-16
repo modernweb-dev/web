@@ -25,8 +25,11 @@ describe('esbuildPlugin JSON', () => {
       const response = await fetch(`${host}/foo.json`);
       const text = await response.text();
 
-      assert.equal(response.status, 200);
-      assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
+        'application/javascript; charset=utf-8',
+      );
       expectIncludes(text, 'var foo = "bar";');
       expectIncludes(text, 'var foo_default = { foo };');
       expectIncludes(text, 'export {');
