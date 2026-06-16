@@ -14,7 +14,7 @@ describe('cjs package', () => {
       undefined,
       path.resolve(packageCjsPath, 'commonjs-in-.cjs'),
     );
-    assert.deepEqual(result, { foo: 'bar' });
+    assert.deepStrictEqual(result, { foo: 'bar' });
   });
 
   it('can load commonjs-in-.js', async () => {
@@ -23,7 +23,7 @@ describe('cjs package', () => {
       undefined,
       path.resolve(packageCjsPath, 'commonjs-in-.js'),
     );
-    assert.deepEqual(result, { foo: 'bar' });
+    assert.deepStrictEqual(result, { foo: 'bar' });
   });
 
   it('can load module-in-.mjs', async () => {
@@ -32,7 +32,7 @@ describe('cjs package', () => {
       undefined,
       path.resolve(packageCjsPath, 'module-in-.mjs'),
     );
-    assert.deepEqual(result, { foo: 'bar' });
+    assert.deepStrictEqual(result, { foo: 'bar' });
   });
 
   it('throws when loading module-in-.cjs', async () => {
@@ -64,7 +64,7 @@ describe('mjs package', () => {
       undefined,
       path.resolve(packageMjsPath, 'commonjs-in-.cjs'),
     );
-    assert.deepEqual(result, { foo: 'bar' });
+    assert.deepStrictEqual(result, { foo: 'bar' });
   });
 
   it('throws when loading commonjs-in-.js', async () => {
@@ -94,7 +94,7 @@ describe('mjs package', () => {
       undefined,
       path.resolve(packageMjsPath, 'module-in-.js'),
     );
-    assert.deepEqual(result, { foo: 'bar' });
+    assert.deepStrictEqual(result, { foo: 'bar' });
   });
 
   it('can load module-in-.mjs', async () => {
@@ -103,6 +103,6 @@ describe('mjs package', () => {
       undefined,
       path.resolve(packageMjsPath, 'module-in-.mjs'),
     );
-    assert.deepEqual(result, { foo: 'bar' });
+    assert.deepStrictEqual(result, { foo: 'bar' });
   });
 });
