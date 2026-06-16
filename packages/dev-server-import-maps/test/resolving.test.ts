@@ -351,16 +351,14 @@ describe('resolving imports', () => {
           </body>
         </html>`,
     };
-    const warnFn = mock.fn();
-    const noopFn = mock.fn();
     const logger = {
-      log: noopFn,
-      debug: noopFn,
-      error: noopFn,
-      warn: warnFn,
-      group: noopFn,
-      groupEnd: noopFn,
-      logSyntaxError: noopFn,
+      log: mock.fn(),
+      debug: mock.fn(),
+      error: mock.fn(),
+      warn: mock.fn(),
+      group: mock.fn(),
+      groupEnd: mock.fn(),
+      logSyntaxError: mock.fn(),
     };
     const { server, host } = await createTestServer(
       {
@@ -372,8 +370,8 @@ describe('resolving imports', () => {
 
     const text = await fetchText(`${host}/index.html`);
     expectIncludes(text, '<script type="importmap">{</script>');
-    assert.equal(warnFn.mock.callCount(), 1);
-    const warning = warnFn.mock.calls[0].arguments[0];
+    assert.equal(logger.warn.mock.callCount(), 1);
+    const warning = logger.warn.mock.calls[0].arguments[0];
     expectIncludes(warning, 'Failed to parse import map in "');
     expectIncludes(warning, `test${path.sep}index.html": `);
     server.stop();
