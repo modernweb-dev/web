@@ -26,7 +26,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "node --experimental-strip-types --test --test-force-exit \"test-remote/**/*.test.ts\"",
+    "test": "node --experimental-strip-types --test --test-force-exit \"test-remote/**/*.test.ts\"",
     "test:watch": "node --experimental-strip-types --test --test-force-exit --watch \"test-remote/**/*.test.ts\""
   },
   "files": [
