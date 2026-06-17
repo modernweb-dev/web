@@ -39,7 +39,6 @@
     "start:event-stream": "node demo/event-stream/start-server.js",
     "start:http2": "node demo/http2/start-server.js",
     "start:import-asset": "node demo/import-asset/start-server.js",
-    "test": "node --experimental-strip-types --test --test-force-exit \"test/**/*.test.ts\"",
     "test:node": "node --experimental-strip-types --test --test-force-exit \"test/**/*.test.ts\"",
     "test:watch": "node --experimental-strip-types --test --test-force-exit --watch \"test/**/*.test.ts\""
   },
