@@ -54,6 +54,9 @@ jobs:
       - name: Install Playwright dependencies
         run: npx playwright install --with-deps
 
+      - name: Install Selenium dependencies
+        run: npx selenium-standalone install
+
       - name: Test
         run: npm run test:node
         env:
@@ -95,6 +98,9 @@ jobs:
 
       - name: Install Playwright dependencies
         run: npx playwright install --with-deps
+
+      - name: Install Selenium dependencies
+        run: npx selenium-standalone install
 
       - name: Test
         run: npm run test:node

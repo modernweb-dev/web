@@ -52,7 +52,7 @@
     "webdriverio": "^9.0.0"
   },
   "devDependencies": {
-    "@types/selenium-standalone": "^7.0.1",
-    "selenium-standalone": "^8.0.4"
+    "@types/selenium-standalone": "^7.0.4",
+    "selenium-standalone": "^10.0.2"
   }
 }
