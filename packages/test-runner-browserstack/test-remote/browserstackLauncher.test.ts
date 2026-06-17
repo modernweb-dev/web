@@ -1,5 +1,6 @@
-import { runIntegrationTests } from '../../../integration/test-runner/index.js';
-import { browserstackLauncher } from '../src/index.js';
+import { describe } from 'node:test';
+import { runIntegrationTests } from '../../../integration/test-runner/index.ts';
+import { browserstackLauncher } from '../dist/index.js';
 
 if (!process.env.BROWSER_STACK_USERNAME) {
   throw new Error('Missing env var BROWSER_STACK_USERNAME');
@@ -20,9 +21,7 @@ const sharedCapabilities = {
   }`,
 };
 
-describe('test-runner-browserstack', function () {
-  this.timeout(200000);
-
+describe('test-runner-browserstack', { timeout: 200000 }, () => {
   function createConfig() {
     return {
       browserStartTimeout: 1000 * 60 * 2,

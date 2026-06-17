@@ -26,8 +26,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test-remote/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test-remote/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+    "test:node": "node --experimental-strip-types --test --test-force-exit \"test-remote/**/*.test.ts\"",
+    "test:watch": "node --experimental-strip-types --test --test-force-exit --watch \"test-remote/**/*.test.ts\""
   },
   "files": [
     "*.d.ts",

@@ -1,9 +1,10 @@
+import { describe, before, after } from 'node:test';
 import selenium from 'selenium-standalone';
 import { Builder } from 'selenium-webdriver';
-import { Options as ChromeOptions } from 'selenium-webdriver/chrome';
-import { Options as FirefoxOptions } from 'selenium-webdriver/firefox';
-import { runIntegrationTests } from '../../../integration/test-runner';
-import { seleniumLauncher } from '../src/seleniumLauncher';
+import { Options as ChromeOptions } from 'selenium-webdriver/chrome.js';
+import { Options as FirefoxOptions } from 'selenium-webdriver/firefox.js';
+import { runIntegrationTests } from '../../../integration/test-runner/index.ts';
+import { seleniumLauncher } from '../dist/index.js';
 
 async function startSeleniumServer() {
   let server: selenium.ChildProcess;
@@ -39,9 +40,7 @@ async function startSeleniumServer() {
 
 let seleniumServer: selenium.ChildProcess;
 
-describe('test-runner-selenium', function testRunnerSelenium() {
-  this.timeout(50000);
-
+describe('test-runner-selenium', { timeout: 50000 }, () => {
   before(async function () {
     seleniumServer = await startSeleniumServer();
   });
