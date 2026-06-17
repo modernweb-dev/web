@@ -14,6 +14,12 @@ const require = createRequire(import.meta.url);
 const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
 const defaultOptions = { browserRootDir: import.meta.dirname, cwd: import.meta.dirname };
 
+declare global {
+  interface Window {
+    _serialize: (value: unknown) => string;
+  }
+}
+
 describe('serialize deserialize', { timeout: 10000 }, function () {
   let browser: Browser;
   let page: Page;
@@ -30,8 +36,6 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
     await browser.close();
   });
 
-  // window['_serialize'] avoids TS `as any` cast -- strip-types replaces casts with whitespace,
-  // which shifts column numbers in Chrome-evaluated code and breaks error stack trace assertions.
   it('handles strings', async () => {
     const serialized = await page.evaluate(() => window['_serialize']('foo'));
     const deserialized = await deserialize(serialized);
