@@ -1,8 +1,12 @@
 /// <reference types="../../../types/rollup__plugin-babel" />
+import { describe, it } from 'node:test';
+import { createRequire } from 'node:module';
 import rollupBabel from '@rollup/plugin-babel';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
+import { fromRollup } from '../../../dist/index.js';
+
+const require = createRequire(import.meta.url);
 
 const babel = fromRollup(rollupBabel);
 

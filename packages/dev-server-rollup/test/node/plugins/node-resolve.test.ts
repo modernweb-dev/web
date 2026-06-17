@@ -1,10 +1,11 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
 import path from 'path';
 import rollupNodeResolve from '@rollup/plugin-node-resolve';
 import rollupCommonjs from '@rollup/plugin-commonjs';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
-import { expect } from 'chai';
+import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
+import { fromRollup } from '../../../dist/index.js';
 
 const nodeResolve = fromRollup(rollupNodeResolve, {}, { throwOnUnresolvedImport: true });
 const commonjs = fromRollup(rollupCommonjs);
@@ -61,7 +62,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
   it('can resolve private imports in inline scripts', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.resolve(__dirname, '..', 'fixtures', 'private-imports'),
+      rootDir: path.resolve(import.meta.dirname, '..', 'fixtures', 'private-imports'),
       plugins: [nodeResolve()],
     });
 
@@ -76,13 +77,13 @@ describe('@rollup/plugin-node-resolve', () => {
 
   it('throws when trying to access files from the package directly if they are not exposed in the export map', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.resolve(__dirname, '..', 'fixtures', 'private-imports'),
+      rootDir: path.resolve(import.meta.dirname, '..', 'fixtures', 'private-imports'),
       plugins: [nodeResolve()],
     });
 
     try {
       const response = await fetch(`${host}/import-private-directly.html`);
-      expect(response.status).to.equal(500);
+      assert.equal(response.status, 500);
     } finally {
       server.stop();
     }
@@ -105,7 +106,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const response = await fetch(`${host}/test-app.js`);
-      expect(response.status).to.equal(500);
+      assert.equal(response.status, 500);
     } finally {
       server.stop();
     }
@@ -128,7 +129,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const text = await fetchText(`${host}/test-app.js`);
-      expect(text).to.equal('import "/non-existing.js"; import "./src/non-existing.js";');
+      assert.equal(text, 'import "/non-existing.js"; import "./src/non-existing.js";');
     } finally {
       server.stop();
     }
@@ -136,7 +137,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
   it('node modules resolved outside root directory with matching basename via symlink are rewritten', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir'),
+      rootDir: path.resolve(import.meta.dirname, '..', 'fixtures', 'resolve-outside-dir'),
       plugins: [nodeResolve()],
     });
 
@@ -153,7 +154,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
   it('node modules resolved outside root directory are rewritten', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
+      rootDir: path.resolve(import.meta.dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
       plugins: [nodeResolve()],
     });
 
@@ -170,7 +171,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
   it('node modules resolved outside root directory are rewritten with commonjs', async () => {
     const { server, host } = await createTestServer({
-      rootDir: path.resolve(__dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
+      rootDir: path.resolve(import.meta.dirname, '..', 'fixtures', 'resolve-outside-dir', 'src'),
       plugins: [commonjs(), nodeResolve()],
     });
 

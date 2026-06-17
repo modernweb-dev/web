@@ -25,8 +25,8 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "test:node": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --exit --reporter dot",
-    "test:watch": "mocha \"test/node/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
+    "test:node": "node --experimental-strip-types --test --test-force-exit 'test/node/**/*.test.ts'",
+    "test:watch": "node --experimental-strip-types --test --test-force-exit --watch 'test/node/**/*.test.ts'"
   },
   "files": [
     "*.d.ts",
@@ -65,8 +65,6 @@
     "@types/whatwg-url": "^11.0.0",
     "@web/test-runner-chrome": "^0.18.0",
     "@web/test-runner-core": "^0.13.0",
-    "chai": "^4.2.0",
-    "mocha": "^10.8.2",
     "postcss": "^8.5.14",
     "rollup-plugin-postcss": "^4.0.2"
   }
