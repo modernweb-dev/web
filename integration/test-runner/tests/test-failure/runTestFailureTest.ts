@@ -2,16 +2,9 @@ import assert from 'node:assert/strict';
 import { describe, before, it } from 'node:test';
 import type { BrowserLauncher, TestRunnerCoreConfig, TestSession } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
+import { expectIncludes } from '@web/dev-server-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';
 import { resolve, sep } from 'path';
-
-function expectIncludes(actual: string, expected: string) {
-  if (!actual.includes(expected)) {
-    throw new Error(
-      `Expected substring not found.\n\nExpected:\n${expected}\n\nActual:\n${actual}`,
-    );
-  }
-}
 
 const ERROR_NOT_IMPORTABLE = {
   message:

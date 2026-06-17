@@ -2,16 +2,9 @@ import assert from 'node:assert/strict';
 import { describe, before, it } from 'node:test';
 import type { BrowserLauncher, TestRunnerCoreConfig, TestSession } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
+import { expectIncludes } from '@web/dev-server-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';
 import { resolve } from 'path';
-
-function expectIncludes(actual: string, expected: string) {
-  if (!actual.includes(expected)) {
-    throw new Error(
-      `Expected substring not found.\n\nExpected:\n${expected}\n\nActual:\n${actual}`,
-    );
-  }
-}
 
 export function runLocationChangeTest(
   config: Partial<TestRunnerCoreConfig> & { browsers: BrowserLauncher[] },
@@ -49,15 +42,13 @@ export function runLocationChangeTest(
         assert.equal(session.testResults, undefined);
         assert.deepEqual(session.logs, []);
         assert.equal(session.errors.length, 1);
-        assert.ok(
-          session.errors[0].message.includes(
-            'Tests were interrupted because the page navigated to',
-          ),
+        expectIncludes(
+          session.errors[0].message,
+          'Tests were interrupted because the page navigated to',
         );
-        assert.ok(
-          session.errors[0].message.includes(
-            'This can happen when clicking a link, submitting a form or interacting with window.location.',
-          ),
+        expectIncludes(
+          session.errors[0].message,
+          'This can happen when clicking a link, submitting a form or interacting with window.location.',
         );
       }
     });
@@ -86,16 +77,14 @@ export function runLocationChangeTest(
         assert.equal(session.testResults, undefined);
         assert.deepEqual(session.logs, []);
         assert.equal(session.errors.length, 1);
-        assert.ok(
-          session.errors[0].message.includes(
-            'Tests were interrupted because the page navigated to',
-          ),
+        expectIncludes(
+          session.errors[0].message,
+          'Tests were interrupted because the page navigated to',
         );
         expectIncludes(session.errors[0].message, '/new-page/');
-        assert.ok(
-          session.errors[0].message.includes(
-            'This can happen when clicking a link, submitting a form or interacting with window.location.',
-          ),
+        expectIncludes(
+          session.errors[0].message,
+          'This can happen when clicking a link, submitting a form or interacting with window.location.',
         );
       }
     });
