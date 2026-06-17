@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import { expectIncludes } from '@web/dev-server-core/test-helpers';
 import fs from 'node:fs';
-import { createRequire } from 'node:module';
 import path from 'node:path';
 import { describe, it, before, after } from 'node:test';
 
@@ -10,8 +9,8 @@ import puppeteer from 'puppeteer';
 
 import { deserialize } from '../dist/deserialize.js';
 
-const require = createRequire(import.meta.url);
-const serializeScript = fs.readFileSync(require.resolve('../dist/serialize.js'), 'utf-8');
+const serializeScript = fs.readFileSync(new URL('../dist/serialize.js', import.meta.url), 'utf-8');
+
 const defaultOptions = { browserRootDir: import.meta.dirname, cwd: import.meta.dirname };
 
 declare global {
