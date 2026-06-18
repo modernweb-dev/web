@@ -58,7 +58,7 @@ export async function startTestRunner(options: StartTestRunnerParams = {}) {
     const { config, groupConfigs } = await parseConfig(mergedConfig, cliArgs);
 
     const runner = new TestRunner(config, groupConfigs);
-    const cli = new TestRunnerCli(config, runner);
+    const cli = new TestRunnerCli(runner.config, runner);
 
     function stop() {
       runner.stop();
