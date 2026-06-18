@@ -102,11 +102,14 @@ export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig
         const crossorigin = type === fileTypes.MODULE ? ' crossorigin="anonymous"' : '';
         const shim = type === fileTypes.MODULESHIM;
         const rel = `${shim ? 'module' : ''}preload${shim ? '-shim' : ''}`;
-        const as = shim ? '' : ' as="script"';
+        const asScript = shim ? '' : ' as="script"';
         return htmlString.replace(
           '</head>',
           `\n${preloaded
-            .map(i => `<link rel="${rel}" href="${i}"${as}${crossorigin} />\n`)
+            .map(i => {
+              const as = i.endsWith('.css') ? ' as="style"' : asScript;
+              return `<link rel="${rel}" href="${i}"${as}${crossorigin} />\n`;
+            })
             .join('')}</head>`,
         );
       });
