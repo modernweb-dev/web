@@ -209,13 +209,18 @@ export function runTestFailureTest(
       }
     });
 
-    it('handles tests that error with a readonly actual', () => {
-      const sessions = allSessions.filter(s => s.testFile.endsWith('fail-readonly-actual.test.js'));
+    it('handles tests that error with an immutable or unserializable actual', () => {
+      const sessions = allSessions.filter(s =>
+        s.testFile.endsWith('fail-unserializable-actual.test.js'),
+      );
       expect(sessions.length === browserCount).to.equal(true);
       for (const session of sessions) {
-        expect(session.testResults!.tests.map(t => t.name)).to.eql(['readonly actual']);
+        expect(session.testResults!.tests.map(t => t.name)).to.eql(['unserializable actual']);
         expect(session.passed).to.be.false;
         expect(session.testResults!.tests![0].error!.message).to.equal(
+          'expected { x: {} } to equal null',
+        );
+        expect(session.testResults!.tests![1].error!.message).to.equal(
           'expected { x: {} } to equal null',
         );
       }
