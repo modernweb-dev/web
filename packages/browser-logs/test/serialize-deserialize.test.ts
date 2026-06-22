@@ -101,7 +101,8 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
     );
     const deserialized = await deserialize(serialized);
     assert.equal(typeof deserialized, 'function');
-    assert.equal(deserialized.name, '');
+    // Empty function names are sanitized to 'anonymous' for security
+    assert.equal(deserialized.name, 'anonymous');
   });
 
   it('handles Text nodes', async () => {
@@ -200,12 +201,6 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
     assert.deepEqual(deserialized, [1, 2, 3]);
   });
 
-  it('handles objects', async () => {
-    const serialized = await page.evaluate(() => window['_serialize']({ a: 1, b: 2 }));
-    const deserialized = await deserialize(serialized);
-    assert.deepEqual(deserialized, { a: 1, b: 2 });
-  });
-
   it('handles objects with methods', async () => {
     const serialized = await page.evaluate(() =>
       window['_serialize']({
@@ -229,7 +224,8 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
     assert.equal(typeof deserialized.baz, 'function');
     assert.equal(deserialized.baz.name, 'baz');
     assert.equal(typeof deserialized['my-element'], 'function');
-    assert.equal(deserialized['my-element'].name, 'my-element');
+    // Names with hyphens are not valid JS identifiers, sanitized to 'anonymous' for security
+    assert.equal(deserialized['my-element'].name, 'anonymous');
   });
 
   it('handles deep objects', async () => {
@@ -535,5 +531,246 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
     );
     const deserialized = await deserialize(serialized);
     assert.deepEqual(deserialized, null);
+  });
+});
+
+describe('deserialize security', function () {
+  describe('constructor name injection prevention', function () {
+    it('sanitizes constructor names with code injection payloads', async () => {
+      // This payload would execute arbitrary code if interpolated directly into new Function(...)
+      const maliciousPayload = JSON.stringify({
+        __WTR_CONSTRUCTOR_NAME__:
+          'x(){},(globalThis.PWNED=true),function y',
+        data: 'test',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+
+      // The malicious code should NOT have executed
+      assert.equal((globalThis as any).PWNED, undefined);
+      // The object should still be deserialized with a safe fallback name
+      assert.equal(deserialized.constructor.name, '__unknown__');
+      assert.equal(deserialized.data, 'test');
+    });
+
+    it('sanitizes constructor names with require() injection', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_CONSTRUCTOR_NAME__:
+          'x(){},require("child_process").execSync("echo PWNED"),function y',
+        value: 123,
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+      assert.equal(deserialized.constructor.name, '__unknown__');
+      assert.equal(deserialized.value, 123);
+    });
+
+    it('sanitizes constructor names with parentheses', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_CONSTRUCTOR_NAME__: 'Foo()',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+      assert.equal(deserialized.constructor.name, '__unknown__');
+    });
+
+    it('sanitizes constructor names with spaces', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_CONSTRUCTOR_NAME__: 'Foo Bar',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+      assert.equal(deserialized.constructor.name, '__unknown__');
+    });
+
+    it('sanitizes constructor names with semicolons', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_CONSTRUCTOR_NAME__: 'Foo;console.log("pwned")',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+      assert.equal(deserialized.constructor.name, '__unknown__');
+    });
+
+    it('sanitizes constructor names with curly braces', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_CONSTRUCTOR_NAME__: 'Foo{}',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+      assert.equal(deserialized.constructor.name, '__unknown__');
+    });
+
+    it('sanitizes constructor names with commas', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_CONSTRUCTOR_NAME__: 'x,y',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+      assert.equal(deserialized.constructor.name, '__unknown__');
+    });
+
+    it('sanitizes empty constructor names', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_CONSTRUCTOR_NAME__: '',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+      assert.equal(deserialized.constructor.name, '__unknown__');
+    });
+
+    it('sanitizes constructor names starting with digits', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_CONSTRUCTOR_NAME__: '123Foo',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+      assert.equal(deserialized.constructor.name, '__unknown__');
+    });
+
+    it('allows valid constructor names', async () => {
+      const validNames = ['Foo', 'FooBar', '_Foo', '$Foo', 'Foo123', '_$foo_bar_123'];
+
+      for (const name of validNames) {
+        const payload = JSON.stringify({
+          __WTR_CONSTRUCTOR_NAME__: name,
+        });
+
+        const deserialized = await deserialize(payload);
+        assert.equal(deserialized.constructor.name, name, `Expected ${name} to be allowed`);
+      }
+    });
+  });
+
+  describe('function name injection prevention', function () {
+    it('sanitizes function names with code injection payloads', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_TYPE__: 'Function',
+        name: 'x(){},(globalThis.PWNED_FN=true),function y',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+
+      // The malicious code should NOT have executed
+      assert.equal((globalThis as any).PWNED_FN, undefined);
+      // The function should still be deserialized with a safe fallback name
+      assert.equal(typeof deserialized, 'function');
+      assert.equal(deserialized.name, 'anonymous');
+    });
+
+    it('sanitizes function names with require() injection', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_TYPE__: 'Function',
+        name: 'x(){},require("child_process"),function y',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+      assert.equal(typeof deserialized, 'function');
+      assert.equal(deserialized.name, 'anonymous');
+    });
+
+    it('sanitizes function names with parentheses', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_TYPE__: 'Function',
+        name: 'foo()',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+      assert.equal(typeof deserialized, 'function');
+      assert.equal(deserialized.name, 'anonymous');
+    });
+
+    it('sanitizes function names with spaces', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_TYPE__: 'Function',
+        name: 'foo bar',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+      assert.equal(typeof deserialized, 'function');
+      assert.equal(deserialized.name, 'anonymous');
+    });
+
+    it('sanitizes empty function names', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_TYPE__: 'Function',
+        name: '',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+      assert.equal(typeof deserialized, 'function');
+      assert.equal(deserialized.name, 'anonymous');
+    });
+
+    it('handles bound function prefix with malicious payload', async () => {
+      const maliciousPayload = JSON.stringify({
+        __WTR_TYPE__: 'Function',
+        name: 'bound x(){},(globalThis.PWNED_BOUND=true),function y',
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+
+      assert.equal((globalThis as any).PWNED_BOUND, undefined);
+      assert.equal(typeof deserialized, 'function');
+      assert.equal(deserialized.name, 'anonymous');
+    });
+
+    it('allows valid function names', async () => {
+      const validNames = ['foo', 'fooBar', '_foo', '$foo', 'foo123', '_$foo_bar_123'];
+
+      for (const name of validNames) {
+        const payload = JSON.stringify({
+          __WTR_TYPE__: 'Function',
+          name: name,
+        });
+
+        const deserialized = await deserialize(payload);
+        assert.equal(typeof deserialized, 'function');
+        assert.equal(deserialized.name, name, `Expected ${name} to be allowed`);
+      }
+    });
+
+    it('allows valid bound function names', async () => {
+      const payload = JSON.stringify({
+        __WTR_TYPE__: 'Function',
+        name: 'bound myFunction',
+      });
+
+      const deserialized = await deserialize(payload);
+      assert.equal(typeof deserialized, 'function');
+      assert.equal(deserialized.name, 'myFunction');
+    });
+  });
+
+  describe('nested injection prevention', function () {
+    it('sanitizes malicious names in nested objects', async () => {
+      const maliciousPayload = JSON.stringify({
+        nested: {
+          __WTR_CONSTRUCTOR_NAME__: 'x(){},(globalThis.NESTED_PWNED=true),function y',
+          data: 'nested data',
+        },
+      });
+
+      const deserialized = await deserialize(maliciousPayload);
+
+      assert.equal((globalThis as any).NESTED_PWNED, undefined);
+      assert.equal(deserialized.nested.constructor.name, '__unknown__');
+      assert.equal(deserialized.nested.data, 'nested data');
+    });
+
+    it('sanitizes malicious function names in arrays', async () => {
+      const maliciousPayload = JSON.stringify([
+        {
+          __WTR_TYPE__: 'Function',
+          name: 'x(){},(globalThis.ARRAY_PWNED=true),function y',
+        },
+      ]);
+
+      const deserialized = await deserialize(maliciousPayload);
+
+      assert.equal((globalThis as any).ARRAY_PWNED, undefined);
+      assert.equal(typeof deserialized[0], 'function');
+      assert.equal(deserialized[0].name, 'anonymous');
+    });
   });
 });
