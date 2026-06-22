@@ -64,9 +64,7 @@ function createReviver(promises: Promise<unknown>[], options?: DeserializeOption
           const safeName = isValidIdentifier(rawName) ? rawName : 'anonymous';
 
           // Create a fake function with the same name. We don't log the function implementation.
-          return new Function(
-            `return function ${safeName}() { /* implementation hidden */ }`,
-          )();
+          return new Function(`return function ${safeName}() { /* implementation hidden */ }`)();
         }
         case 'RegExp':
           // Create a new RegExp using the same parameters
@@ -127,7 +125,7 @@ function createReviver(promises: Promise<unknown>[], options?: DeserializeOption
 
 const { hasOwnProperty } = Object.prototype;
 
-interface DeserializeOptions extends ParseStackTraceOptions { }
+interface DeserializeOptions extends ParseStackTraceOptions {}
 
 export async function deserialize(value: string, options?: DeserializeOptions) {
   try {

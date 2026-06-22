@@ -539,8 +539,7 @@ describe('deserialize security', function () {
     it('sanitizes constructor names with code injection payloads', async () => {
       // This payload would execute arbitrary code if interpolated directly into new Function(...)
       const maliciousPayload = JSON.stringify({
-        __WTR_CONSTRUCTOR_NAME__:
-          'x(){},(globalThis.PWNED=true),function y',
+        __WTR_CONSTRUCTOR_NAME__: 'x(){},(globalThis.PWNED=true),function y',
         data: 'test',
       });
 
