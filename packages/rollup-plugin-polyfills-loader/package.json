@@ -25,8 +25,8 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "test:node": "node --experimental-strip-types --test --test-force-exit test/**/*.test.ts",
-    "test:watch": "node --experimental-strip-types --test --test-force-exit --watch test/**/*.test.ts"
+    "test:node": "node --experimental-strip-types --test --test-force-exit \"test/**/*.test.ts\"",
+    "test:watch": "node --experimental-strip-types --test --test-force-exit --watch \"test/**/*.test.ts\""
   },
   "files": [
     "*.d.ts",

@@ -25,8 +25,8 @@
   },
   "scripts": {
     "test": "npm run test:node",
-    "test:node": "node --test --test-force-exit test/**/*.test.js",
-    "test:watch": "node --test --test-force-exit --watch test/**/*.test.js"
+    "test:node": "node --test --test-force-exit \"test/**/*.test.js\"",
+    "test:watch": "node --test --test-force-exit --watch \"test/**/*.test.js\""
   },
   "files": [
     "*.js",
