@@ -27,8 +27,8 @@
   "scripts": {
     "build": "tsc",
     "start": "wds --open --config demo/server.config.mjs",
-    "test:node": "node --experimental-strip-types --test --test-force-exit test/**/*.test.ts",
-    "test:watch": "node --experimental-strip-types --test --test-force-exit --watch test/**/*.test.ts"
+    "test:node": "node --experimental-strip-types --test --test-force-exit \"test/**/*.test.ts\"",
+    "test:watch": "node --experimental-strip-types --test --test-force-exit --watch \"test/**/*.test.ts\""
   },
   "files": [
     "*.d.ts",
