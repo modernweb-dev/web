@@ -95,4 +95,12 @@ describe('junitReporter', function () {
       expect(actual).to.equal(expected);
     });
   });
+
+  describe('for flat test files', function () {
+    const fixtureDir = path.join(__dirname, 'fixtures/flat');
+    it('produces expected results', async function () {
+      const { actual, expected } = await run(fixtureDir);
+      expect(actual).to.equal(expected);
+    });
+  });
 });
