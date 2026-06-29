@@ -44,9 +44,7 @@ export class PlaywrightLauncherPage {
   }
 
   async stopSession(): Promise<SessionResult> {
-    const testCoverage = this.nativeInstrumentationEnabledOnPage
-      ? await this.collectTestCoverage(this.config, this.testFiles)
-      : undefined;
+    const testCoverage = await this.collectTestCoverage(this.config, this.testFiles);
 
     // navigate to an empty page to kill any running code on the page, stopping timers and
     // breaking a potential endless reload loop
@@ -80,6 +78,10 @@ export class PlaywrightLauncherPage {
           'Expected coverage provided in the browser as a global __coverage__ variable.' +
           'Use a plugin like babel-plugin-istanbul to generate the coverage, or enable native instrumentation.',
       );
+    }
+
+    if (!this.nativeInstrumentationEnabledOnPage) {
+      return undefined;
     }
 
     // get native coverage from playwright
