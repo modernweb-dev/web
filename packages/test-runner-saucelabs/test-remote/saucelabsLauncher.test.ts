@@ -1,5 +1,6 @@
-import { runIntegrationTests } from '../../../integration/test-runner/index.js';
-import { createSauceLabsLauncher } from '../src/index.js';
+import { describe } from 'node:test';
+import { runIntegrationTests } from '../../../integration/test-runner/index.ts';
+import { createSauceLabsLauncher } from '../dist/index.js';
 
 if (!process.env.SAUCE_USERNAME) {
   throw new Error('Missing env var SAUCE_USERNAME');
@@ -24,9 +25,7 @@ const sauceLabsLauncher = createSauceLabsLauncher(
   sauceLabsCapabilities,
 );
 
-describe('test-runner-saucelabs', function () {
-  this.timeout(400000);
-
+describe('test-runner-saucelabs', { timeout: 400000 }, () => {
   function createConfig() {
     return {
       browserStartTimeout: 1000 * 60 * 2,

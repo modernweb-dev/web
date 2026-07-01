@@ -26,8 +26,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+    "test:node": "node --experimental-strip-types --test --test-force-exit \"test/**/*.test.ts\"",
+    "test:watch": "node --experimental-strip-types --test --test-force-exit --watch \"test/**/*.test.ts\""
   },
   "files": [
     "*.d.ts",
@@ -51,8 +51,8 @@
     "selenium-webdriver": "^4.0.0"
   },
   "devDependencies": {
-    "@types/selenium-standalone": "^7.0.1",
+    "@types/selenium-standalone": "^7.0.4",
     "@types/selenium-webdriver": "^4.0.11",
-    "selenium-standalone": "^8.0.4"
+    "selenium-standalone": "^10.0.2"
   }
 }
