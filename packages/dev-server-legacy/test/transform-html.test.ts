@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
 
+// rewrite to ../src/legacyPlugin.ts when TS 5.7+ / rewriteRelativeImportExtensions
 import { legacyPlugin } from '../dist/legacyPlugin.js';
 import { modernUserAgents, legacyUserAgents } from './userAgents.ts';
 
