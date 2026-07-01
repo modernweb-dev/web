@@ -1,8 +1,9 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import WebSocket from 'ws';
-import { NAME_WEB_SOCKET_API } from '../../src/web-sockets/WebSocketsManager.js';
+import { NAME_WEB_SOCKET_API } from '../../dist/web-sockets/WebSocketsManager.js';
 
-import { createTestServer } from '../helpers.js';
+import { createTestServer } from '../helpers.ts';
 
 function waitFor(fn: (resolve: () => void) => void, msg: string) {
   return new Promise<void>((resolve, reject) => {
@@ -56,7 +57,7 @@ describe('WebSocketManager', () => {
 
       const waitForMessage = waitFor(resolve => {
         ws.on('message', data => {
-          expect(data).to.equal('hello world');
+          assert.equal(data, 'hello world');
           resolve();
         });
       }, 'expected a message event');
@@ -91,13 +92,13 @@ describe('WebSocketManager', () => {
 
       const waitForMessage1 = waitFor(resolve => {
         ws1.on('message', data => {
-          expect(data).to.equal('hello world');
+          assert.equal(data, 'hello world');
           resolve();
         });
       }, 'expected message');
       const waitForMessage2 = waitFor(resolve => {
         ws1.on('message', data => {
-          expect(data).to.equal('hello world');
+          assert.equal(data, 'hello world');
           resolve();
         });
       }, 'expected message');
@@ -126,8 +127,8 @@ describe('WebSocketManager', () => {
 
       const waitForMessage = waitFor(resolve => {
         server.webSockets!.on('message', ({ webSocket, data }) => {
-          expect(webSocket).to.be.an.instanceOf(WebSocket);
-          expect(data).to.eql({ type: 'foo' });
+          assert.ok(webSocket instanceof WebSocket);
+          assert.deepEqual(data, { type: 'foo' });
           resolve();
         });
       }, 'expected message event fired from manager');
@@ -156,7 +157,7 @@ describe('WebSocketManager', () => {
       const waitForMessage = waitFor(resolve => {
         ws.on('message', data => {
           const parsedData = JSON.parse(data as any);
-          expect(parsedData).to.eql({
+          assert.deepEqual(parsedData, {
             data: {
               args: [],
               importPath: 'data:text/javascript,console.log("hello world");',
@@ -191,7 +192,7 @@ describe('WebSocketManager', () => {
       const waitForMessage = waitFor(resolve => {
         ws.on('message', data => {
           const parsedData = JSON.parse(data as any);
-          expect(parsedData).to.eql({
+          assert.deepEqual(parsedData, {
             data: {
               args: [],
               importPath: '/foo.js',

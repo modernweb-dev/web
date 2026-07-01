@@ -1,5 +1,4 @@
 import portfinder from 'portfinder';
-import { expect } from 'chai';
 import { green, red, yellow } from 'nanocolors';
 
 import { DevServer } from './server/DevServer.js';
@@ -62,8 +61,9 @@ export const timeout = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms
 
 export async function fetchText(url: string, init?: RequestInit) {
   const response = await fetch(url, init);
-
-  expect(response.status).to.equal(200);
+  if (response.status !== 200) {
+    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+  }
   return response.text();
 }
 

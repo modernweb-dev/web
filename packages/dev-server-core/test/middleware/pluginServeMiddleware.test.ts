@@ -1,6 +1,7 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { createTestServer } from '../helpers.js';
+import { createTestServer, expectIncludes } from '../helpers.ts';
 
 describe('plugin-serve middleware', () => {
   it('can serve non-existing files', async () => {
@@ -21,8 +22,8 @@ describe('plugin-serve middleware', () => {
       const response = await fetch(`${host}/non-existing.js`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.include('serving non-existing.js');
+      assert.equal(response.status, 200);
+      expectIncludes(responseText, 'serving non-existing.js');
     } finally {
       server.stop();
     }
@@ -54,8 +55,8 @@ describe('plugin-serve middleware', () => {
       const response = await fetch(`${host}/non-existing.js`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.include('serve a');
+      assert.equal(response.status, 200);
+      expectIncludes(responseText, 'serve a');
     } finally {
       server.stop();
     }
@@ -79,11 +80,9 @@ describe('plugin-serve middleware', () => {
       const response = await fetch(`${host}/non-existing.js`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.include('serving non-existing.js');
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.equal(response.status, 200);
+      expectIncludes(responseText, 'serving non-existing.js');
+      assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
     } finally {
       server.stop();
     }
@@ -105,8 +104,8 @@ describe('plugin-serve middleware', () => {
 
     try {
       const response = await fetch(`${host}/foo.bar`);
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal('text/css; charset=utf-8');
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('content-type'), 'text/css; charset=utf-8');
     } finally {
       server.stop();
     }
@@ -130,8 +129,8 @@ describe('plugin-serve middleware', () => {
       const response = await fetch(`${host}/index.html`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.include('overwritten index.html');
+      assert.equal(response.status, 200);
+      expectIncludes(responseText, 'overwritten index.html');
     } finally {
       server.stop();
     }
@@ -154,8 +153,8 @@ describe('plugin-serve middleware', () => {
     try {
       const response = await fetch(`${host}/index.html`);
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('x-foo')).to.equal('bar');
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('x-foo'), 'bar');
     } finally {
       server.stop();
     }
@@ -179,8 +178,8 @@ describe('plugin-serve middleware', () => {
       const response = await fetch(`${host}/non-existing.js`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.include('serving non-existing.js');
+      assert.equal(response.status, 200);
+      expectIncludes(responseText, 'serving non-existing.js');
     } finally {
       server.stop();
     }

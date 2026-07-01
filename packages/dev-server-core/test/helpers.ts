@@ -4,15 +4,16 @@ import {
   timeout,
   fetchText,
   expectIncludes,
+  expectNotIncludes,
   virtualFilesPlugin,
-} from '../src/test-helpers.js';
-import { DevServerCoreConfig } from '../src/server/DevServerCoreConfig.js';
+} from '../dist/test-helpers.js';
+import type { DevServerCoreConfig } from '../dist/server/DevServerCoreConfig.js';
 
 export function createTestServer(config: Partial<DevServerCoreConfig> = {}) {
   return originalCreateTestServer({
-    rootDir: path.resolve(__dirname, 'fixtures', 'basic'),
+    rootDir: path.resolve(import.meta.dirname, 'fixtures', 'basic'),
     ...config,
   });
 }
 
-export { timeout, fetchText, expectIncludes, virtualFilesPlugin };
+export { timeout, fetchText, expectIncludes, expectNotIncludes, virtualFilesPlugin };

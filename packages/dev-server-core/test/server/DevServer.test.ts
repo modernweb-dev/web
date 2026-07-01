@@ -1,14 +1,13 @@
+import assert from 'node:assert/strict';
+import { describe, it, beforeEach, afterEach, before, after, mock } from 'node:test';
 import express from 'express';
 import http from 'http';
 import Koa from 'koa';
 import { Server } from 'net';
-import { FSWatcher } from 'chokidar';
-import { expect } from 'chai';
 import portfinder from 'portfinder';
-import { Stub, stubMethod } from 'hanbi';
-import { ServerStartParams } from '../../src/plugins/Plugin.js';
-import { DevServer } from '../../src/server/DevServer.js';
-import { createTestServer } from '../helpers.js';
+import type { ServerStartParams } from '../../dist/plugins/Plugin.js';
+import type { DevServer } from '../../dist/server/DevServer.js';
+import { createTestServer, expectIncludes } from '../helpers.ts';
 
 describe('basic', () => {
   let host: string;
@@ -26,37 +25,37 @@ describe('basic', () => {
     const response = await fetch(`${host}/index.html`);
     const responseText = await response.text();
 
-    expect(response.status).to.equal(200);
-    expect(responseText).to.include('<title>My app</title>');
+    assert.equal(response.status, 200);
+    expectIncludes(responseText, '<title>My app</title>');
   });
 
   it('returns hidden files', async () => {
     const response = await fetch(`${host}/.hidden`);
     const responseText = await response.text();
 
-    expect(response.status).to.equal(200);
-    expect(responseText).to.include('this file is hidden');
+    assert.equal(response.status, 200);
+    expectIncludes(responseText, 'this file is hidden');
   });
 
   it('returns files in a folder', async () => {
     const response = await fetch(`${host}/src/hello-world.txt`);
     const responseText = await response.text();
 
-    expect(response.status).to.equal(200);
-    expect(responseText).to.equal('Hello world!');
+    assert.equal(response.status, 200);
+    assert.equal(responseText, 'Hello world!');
   });
 
   it('returns a 404 for unknown files', async () => {
     const response = await fetch(`${host}/non-existing.js`);
 
-    expect(response.status).to.equal(404);
+    assert.equal(response.status, 404);
   });
 
   it('sets no-cache header', async () => {
     const response = await fetch(`${host}/index.html`);
 
-    expect(response.status).to.equal(200);
-    expect(response.headers.get('cache-control')).to.equal('no-cache');
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('cache-control'), 'no-cache');
   });
 });
 
@@ -65,18 +64,13 @@ it('can configure the hostname', async () => {
   const response = await fetch(`${host}/index.html`);
   const responseText = await response.text();
 
-  expect(response.status).to.equal(200);
-  expect(responseText).to.include('<title>My app</title>');
+  assert.equal(response.status, 200);
+  expectIncludes(responseText, '<title>My app</title>');
   server.stop();
 });
 
 describe('http2', () => {
   before(() => {
-    // Turn off the TLS authorized check in node.js so that we don't reject the network response
-    // based off the fact it has a self-signed certificate.
-    //
-    // A better way to achive this might be to _somehow_ load up the certificate used into the
-    // testing process so that we aren't just turning off the TLS/SSL certificate validation.
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   });
 
@@ -89,19 +83,15 @@ describe('http2', () => {
     const response = await fetch(`${host}/index.html`);
     const responseText = await response.text();
 
-    // It's a bit of a shame that we can't verify that the response was delivered with a http/2
-    // protocol. It would be good to have a extra assertion here. Something like:
-    //
-    // expect(response.protocol).to.equal('http2');
-    expect(response.status).to.equal(200);
-    expect(responseText).to.include('<title>My app</title>');
+    assert.equal(response.status, 200);
+    expectIncludes(responseText, '<title>My app</title>');
     server.stop();
   });
 });
 
 it('can run in middleware mode', async () => {
   const { server: wdsServer } = await createTestServer({ middlewareMode: true });
-  expect(wdsServer.server).to.equal(undefined);
+  assert.equal(wdsServer.server, undefined);
 
   const app = express();
   let httpServer: http.Server;
@@ -117,8 +107,8 @@ it('can run in middleware mode', async () => {
   const response = await fetch(`http://localhost:${port}/index.html`);
   const responseText = await response.text();
 
-  expect(response.status).to.equal(200);
-  expect(responseText).to.include('<title>My app</title>');
+  assert.equal(response.status, 200);
+  expectIncludes(responseText, '<title>My app</title>');
 
   httpServer!.close();
 });
@@ -136,8 +126,8 @@ it('can run multiple servers in parallel', async () => {
     const response = await fetch(`${result.host}/index.html`);
     const responseText = await response.text();
 
-    expect(response.status).to.equal(200);
-    expect(responseText).to.include('<title>My app</title>');
+    assert.equal(response.status, 200);
+    expectIncludes(responseText, '<title>My app</title>');
     result.server.stop();
   }
 });
@@ -157,8 +147,8 @@ it('can add extra middleware', async () => {
   const response = await fetch(`${host}/foo`);
   const responseText = await response.text();
 
-  expect(response.status).to.equal(200);
-  expect(responseText).to.include('response from middleware');
+  assert.equal(response.status, 200);
+  expectIncludes(responseText, 'response from middleware');
   server.stop();
 });
 
@@ -175,11 +165,11 @@ it('calls serverStart on plugin hook on start', async () => {
     ],
   });
 
-  expect(startArgs!).to.exist;
-  expect(startArgs!.app).to.be.an.instanceOf(Koa);
-  expect(startArgs!.server).to.be.an.instanceOf(Server);
-  expect(startArgs!.fileWatcher).to.be.an.instanceOf(FSWatcher);
-  expect(startArgs!.config).to.be.an('object');
+  assert.ok(startArgs!);
+  assert.ok(startArgs!.app instanceof Koa);
+  assert.ok(startArgs!.server instanceof Server);
+  assert.equal(startArgs!.fileWatcher.constructor.name, 'FSWatcher');
+  assert.equal(typeof startArgs!.config, 'object');
 
   server.stop();
 });
@@ -198,7 +188,7 @@ it('calls serverStop on plugin hook on stop', async () => {
   });
 
   await server.stop();
-  expect(stopCalled).to.be.true;
+  assert.equal(stopCalled, true);
 });
 
 it('waits on server start hooks before starting', async () => {
@@ -210,7 +200,7 @@ it('waits on server start hooks before starting', async () => {
       {
         name: 'test-a',
         serverStart() {
-          return new Promise(resolve =>
+          return new Promise<void>(resolve =>
             setTimeout(() => {
               aFinished = true;
               resolve();
@@ -221,7 +211,7 @@ it('waits on server start hooks before starting', async () => {
       {
         name: 'test-b',
         serverStart() {
-          return new Promise(resolve =>
+          return new Promise<void>(resolve =>
             setTimeout(() => {
               bFinished = true;
               resolve();
@@ -232,52 +222,45 @@ it('waits on server start hooks before starting', async () => {
     ],
   });
 
-  expect(aFinished).to.be.true;
-  expect(bFinished).to.be.true;
+  assert.equal(aFinished, true);
+  assert.equal(bFinished, true);
   server.stop();
 });
 
 describe('disableFileWatcher', () => {
-  /**
-   * Extracted setup to ensure `fileWatcher.add` is called when
-   * `disableFileWatch = false`. Only then there is confidence that the
-   * `disableFileWatch = true` actually works.
-   * */
   const setupDisableFileWatch = async (config: { disableFileWatcher: boolean }) => {
-    let fileWatchStub: Stub<FSWatcher['add']>;
+    let addMock: ReturnType<typeof mock.method> | undefined;
     const { host, server } = await createTestServer({
       disableFileWatcher: config.disableFileWatcher,
       plugins: [
         {
           name: 'watcher-stub',
           serverStart({ fileWatcher }) {
-            fileWatchStub = stubMethod(fileWatcher, 'add');
+            addMock = mock.method(fileWatcher, 'add');
           },
         },
       ],
     });
-    // @ts-ignore
-    if (!fileWatchStub) {
-      throw new Error('Something went wrong with stubbing the file watcher');
+    if (!addMock) {
+      throw new Error('Something went wrong with mocking the file watcher');
     }
 
-    // Ensure something is fetched to trigger all the middlewares
     await fetch(`${host}/index.html`);
 
-    return { fileWatchStub, host, server };
+    return { addMock, host, server };
   };
 
   it('disables file watch when true', async () => {
-    const { fileWatchStub, server } = await setupDisableFileWatch({ disableFileWatcher: true });
+    const { addMock, server } = await setupDisableFileWatch({ disableFileWatcher: true });
 
-    expect(fileWatchStub.callCount).to.equal(0);
+    assert.equal(addMock.mock.callCount(), 0);
     server.stop();
   });
 
   it('leaves file watch in tact when false', async () => {
-    const { fileWatchStub, server } = await setupDisableFileWatch({ disableFileWatcher: false });
+    const { addMock, server } = await setupDisableFileWatch({ disableFileWatcher: false });
 
-    expect(fileWatchStub.callCount).to.gt(0);
+    assert.ok(addMock.mock.callCount() > 0);
     server.stop();
   });
 });
