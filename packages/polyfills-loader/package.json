@@ -45,7 +45,7 @@
     "feature detection"
   ],
   "dependencies": {
-    "@babel/core": "^7.12.10",
+    "@babel/core": "^7.29.6",
     "@web/parse5-utils": "^2.1.0",
     "@webcomponents/scoped-custom-element-registry": "^0.0.10",
     "@webcomponents/shadycss": "^1.11.0",
