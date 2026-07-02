@@ -1,5 +1,23 @@
 # @web/test-runner
 
+## 1.0.0
+
+### Major Changes
+
+- 5260164: Drop support for Node.js 18 and 20, which have reached end-of-life. The minimum supported Node.js version is now 22.0.0.
+
+### Patch Changes
+
+- Updated dependencies [5260164]
+- Updated dependencies [8fe1b90]
+  - @web/browser-logs@1.0.0
+  - @web/config-loader@1.0.0
+  - @web/dev-server@1.0.0
+  - @web/test-runner-chrome@1.0.0
+  - @web/test-runner-commands@1.0.0
+  - @web/test-runner-core@1.0.0
+  - @web/test-runner-mocha@1.0.0
+
 ## 0.20.2
 
 ### Patch Changes

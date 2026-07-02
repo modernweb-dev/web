@@ -1,5 +1,17 @@
 # @web/storybook-framework-web-components
 
+## 1.0.0
+
+### Major Changes
+
+- 5260164: Drop support for Node.js 18 and 20, which have reached end-of-life. The minimum supported Node.js version is now 22.0.0.
+
+### Patch Changes
+
+- Updated dependencies [532e76d]
+- Updated dependencies [5260164]
+  - @web/storybook-builder@1.0.0
+
 ## 0.3.0
 
 ### Minor Changes

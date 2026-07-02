@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-rollup",
-  "version": "0.6.4",
+  "version": "1.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -49,7 +49,7 @@
   ],
   "dependencies": {
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@web/dev-server-core": "^0.7.2",
+    "@web/dev-server-core": "^1.0.0",
     "nanocolors": "^0.2.1",
     "parse5": "^6.0.1",
     "rollup": "^4.4.0",
@@ -63,8 +63,8 @@
     "@rollup/plugin-replace": "^5.0.5",
     "@types/parse5": "^6.0.1",
     "@types/whatwg-url": "^11.0.0",
-    "@web/test-runner-chrome": "^0.18.0",
-    "@web/test-runner-core": "^0.13.0",
+    "@web/test-runner-chrome": "^1.0.0",
+    "@web/test-runner-core": "^1.0.0",
     "postcss": "^8.5.14",
     "rollup-plugin-postcss": "^4.0.2"
   }
