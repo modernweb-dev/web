@@ -1,4 +1,4 @@
-import { type MapStackLocation, type StackLocation, type MapBrowserUrl } from '@web/browser-logs';
+import { type MapBrowserUrl, type MapStackLocation, type StackLocation } from '@web/browser-logs';
 
 import { type TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig';
 import { type TestSession } from '../../../test-session/TestSession';

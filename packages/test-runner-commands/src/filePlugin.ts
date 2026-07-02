@@ -1,8 +1,8 @@
 import { TestRunnerPlugin } from '@web/test-runner-core';
-import path from 'path';
 import fs from 'fs';
-import { promisify } from 'util';
 import mkdirp from 'mkdirp';
+import path from 'path';
+import { promisify } from 'util';
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);

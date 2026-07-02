@@ -1,11 +1,11 @@
 /* eslint-disable no-async-promise-executor, no-inner-declarations */
-import { getPortPromise } from 'portfinder';
 import path from 'path';
+import { getPortPromise } from 'portfinder';
+import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.js';
 import { TestRunner, TestRunnerCoreConfig } from './index.js';
 import { Logger } from './logger/Logger.js';
 import { TestResult, TestSession, TestSuiteResult } from './test-session/TestSession.js';
 import { SESSION_STATUS } from './test-session/TestSessionStatus.js';
-import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.js';
 
 const logger: Logger = {
   ...console,

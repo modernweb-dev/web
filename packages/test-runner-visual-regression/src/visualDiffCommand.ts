@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { VisualRegressionPluginOptions, DiffResult } from './config.js';
+import { DiffResult, VisualRegressionPluginOptions } from './config.js';
 import { VisualRegressionError } from './VisualRegressionError.js';
 
 function resolveImagePath(baseDir: string, name: string) {

@@ -1,9 +1,9 @@
-import { type TestSession } from '../test-session/TestSession';
-import { type TestSessionManager } from '../test-session/TestSessionManager';
+import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher';
 import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 import { type TestCoverage } from '../coverage/getTestCoverage';
 import { type Logger } from '../logger/Logger';
-import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher';
+import { type TestSession } from '../test-session/TestSession';
+import { type TestSessionManager } from '../test-session/TestSessionManager';
 
 export interface ReporterArgs {
   config: TestRunnerCoreConfig;

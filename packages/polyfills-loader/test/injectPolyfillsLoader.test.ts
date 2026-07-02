@@ -1,10 +1,10 @@
-import { describe, it } from 'node:test';
-import assert from 'node:assert/strict';
-import path from 'path';
 import fs from 'fs';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
+import path from 'path';
 import { injectPolyfillsLoader } from '../dist/injectPolyfillsLoader.js';
-import { noModuleSupportTest, fileTypes } from '../dist/utils.js';
 import type { PolyfillsLoaderConfig } from '../dist/types.js';
+import { fileTypes, noModuleSupportTest } from '../dist/utils.js';
 
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
@@ -18,7 +18,7 @@ const defaultConfig = {
 async function testSnapshot(name: string, htmlString: string, config: PolyfillsLoaderConfig) {
   const snapshotPath = path.join(
     import.meta.dirname,
-    'snapshots',
+    '__snapshots__',
     'injectPolyfillsLoader',
     `${name}.html`,
   );

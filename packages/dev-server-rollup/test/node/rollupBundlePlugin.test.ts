@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
-import { rollupBundlePlugin } from '../../dist/rollupBundlePlugin.js';
 import path from 'path';
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.ts';
+import { rollupBundlePlugin } from '../../dist/rollupBundlePlugin.js';
+import { createTestServer, expectIncludes, fetchText } from './test-helpers.ts';
 
 describe('rollupBundlePlugin', () => {
   it('can bundle a single entrypoint', async () => {

@@ -1,3 +1,3 @@
 export function fail() {
-  throw new Error("failed");
+  throw new Error('failed');
 }

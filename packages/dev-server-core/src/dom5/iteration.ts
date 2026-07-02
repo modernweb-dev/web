@@ -12,8 +12,8 @@
  * http://polymer.github.io/PATENTS.txt
  */
 
-import { isElement, Predicate, predicates as p } from './predicates.js';
-import { defaultChildNodes, GetChildNodes } from './util.js';
+import { Predicate, isElement, predicates as p } from './predicates.js';
+import { GetChildNodes, defaultChildNodes } from './util.js';
 
 /**
  * Applies `mapfn` to `node` and the tree below `node`, yielding a flattened

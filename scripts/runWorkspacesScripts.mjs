@@ -1,8 +1,8 @@
-import fs from 'fs';
-import { join, dirname, basename } from 'path';
-import { fileURLToPath } from 'url';
 import concurrently from 'concurrently';
+import fs from 'fs';
 import { green, red, yellow } from 'nanocolors';
+import { basename, dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
 export function runWorkspacesScripts({ script, concurrency, filteredPackages = [] }) {
   const moduleDir = dirname(fileURLToPath(import.meta.url));

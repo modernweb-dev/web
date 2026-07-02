@@ -1,7 +1,7 @@
 // based on https://github.com/storybookjs/storybook/blob/v9.1.20/code/builders/builder-vite/src/codegen-importfn-script.ts
 
-import type { Options } from 'storybook/internal/types';
 import { relative } from 'node:path';
+import type { Options } from 'storybook/internal/types';
 import { listStories } from './list-stories';
 
 export async function generateStoriesScript(options: Options): Promise<string> {

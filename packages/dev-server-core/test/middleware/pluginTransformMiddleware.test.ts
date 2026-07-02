@@ -2,8 +2,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
+import { expectIncludes, fetchText } from '../../dist/test-helpers.js';
 import { createTestServer } from '../helpers.ts';
-import { fetchText, expectIncludes } from '../../dist/test-helpers.js';
 
 describe('plugin-transform middleware', () => {
   it('can transform a served file', async () => {

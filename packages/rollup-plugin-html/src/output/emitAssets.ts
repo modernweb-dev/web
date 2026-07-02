@@ -1,12 +1,12 @@
-import { createHash } from 'node:crypto';
-import { PluginContext } from 'rollup';
-import path from 'path';
-import { bundleAsync, transform } from 'lightningcss';
 import fs from 'fs';
+import { bundleAsync, transform } from 'lightningcss';
+import { createHash } from 'node:crypto';
+import path from 'path';
+import { PluginContext } from 'rollup';
 
-import { InputAsset, InputData } from '../input/InputData';
-import { createAssetPicomatchMatcher } from '../assets/utils.js';
 import { RollupPluginHTMLOptions, TransformAssetFunction } from '../RollupPluginHTMLOptions';
+import { createAssetPicomatchMatcher } from '../assets/utils.js';
+import { InputAsset, InputData } from '../input/InputData';
 import { createAssetPlaceholder } from './css.js';
 
 export interface EmittedAssets {

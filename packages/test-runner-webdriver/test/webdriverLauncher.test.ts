@@ -1,4 +1,4 @@
-import { describe, before, after } from 'node:test';
+import { after, before, describe } from 'node:test';
 import selenium from 'selenium-standalone';
 import { runIntegrationTests } from '../../../integration/test-runner/index.ts';
 import { webdriverLauncher } from '../dist/index.js';

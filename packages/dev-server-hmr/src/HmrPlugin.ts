@@ -1,15 +1,15 @@
 import type {
-  Plugin,
-  WebSocketsManager,
-  Logger,
-  WebSocketData,
-  ServerStartParams,
   DevServerCoreConfig,
+  Logger,
+  Plugin,
+  ServerStartParams,
+  WebSocketData,
+  WebSocketsManager,
 } from '@web/dev-server-core';
-import WebSocket from 'ws';
+import fs from 'fs';
 import type { Context } from 'koa';
 import path, { posix as pathUtil } from 'path';
-import fs from 'fs';
+import WebSocket from 'ws';
 
 const hmrClientScriptPath = require.resolve('../scripts/hmrClientScript.js');
 let hmrClientScript = fs.readFileSync(hmrClientScriptPath, 'utf-8');

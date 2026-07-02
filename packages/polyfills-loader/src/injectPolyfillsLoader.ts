@@ -1,20 +1,20 @@
-import { Document, Node, ParentNode, parse, serialize } from 'parse5';
 import {
-  findElements,
-  getAttribute,
-  createScript,
-  getTextContent,
-  insertBefore,
+  Element,
   appendChild,
   createElement,
+  createScript,
   findElement,
+  findElements,
+  getAttribute,
   getTagName,
-  Element,
+  getTextContent,
+  insertBefore,
 } from '@web/parse5-utils';
+import { Document, Node, ParentNode, parse, serialize } from 'parse5';
 
-import { PolyfillsLoaderConfig, PolyfillsLoader, GeneratedFile } from './types.js';
 import { createPolyfillsLoader } from './createPolyfillsLoader.js';
-import { hasFileOfType, fileTypes } from './utils.js';
+import { GeneratedFile, PolyfillsLoader, PolyfillsLoaderConfig } from './types.js';
+import { fileTypes, hasFileOfType } from './utils.js';
 
 function injectImportMapPolyfill(headAst: ParentNode, originalScript: Node, type: string) {
   const systemJsScript = createScript({ type }, getTextContent(originalScript));

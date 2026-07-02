@@ -1,17 +1,17 @@
 import {
-  PolyfillsLoaderConfig,
   File,
   GeneratedFile,
+  LegacyEntrypoint,
   PolyfillFile,
   PolyfillsLoader,
-  LegacyEntrypoint,
+  PolyfillsLoaderConfig,
 } from './types.js';
 
 import { transformAsync } from '@babel/core';
-import { minify } from 'terser';
-import { fileTypes, hasFileOfType, cleanImportPath } from './utils.js';
-import { createPolyfillsData } from './createPolyfillsData.js';
 import path from 'path';
+import { minify } from 'terser';
+import { createPolyfillsData } from './createPolyfillsData.js';
+import { cleanImportPath, fileTypes, hasFileOfType } from './utils.js';
 
 /**
  * Function which loads a script dynamically, returning a thenable (object with then function)

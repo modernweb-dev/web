@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import path from 'path';
 import { parse, serialize } from 'parse5';
+import path from 'path';
 import { html } from '../../../../../test-utils/rollup-test-utils.js';
 import type { InputData } from '../../../dist/input/InputData.js';
 

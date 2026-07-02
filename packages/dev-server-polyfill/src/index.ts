@@ -1,6 +1,6 @@
-import { createPolyfillsData } from '@web/polyfills-loader';
-import type { PolyfillsConfig } from '@web/polyfills-loader';
 import type { Plugin } from '@web/dev-server-core';
+import type { PolyfillsConfig } from '@web/polyfills-loader';
+import { createPolyfillsData } from '@web/polyfills-loader';
 
 export function polyfill(polyfillsConfig: PolyfillsConfig): Plugin {
   let polyfillScripts: string[];

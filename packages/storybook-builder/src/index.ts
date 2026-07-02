@@ -1,13 +1,5 @@
 import rollupPluginNodeResolve from '@rollup/plugin-node-resolve';
 import rollupPluginReplace from '@rollup/plugin-replace';
-import { getBuilderOptions } from 'storybook/internal/common';
-import { logger } from 'storybook/internal/node-logger';
-import { globalsNameReferenceMap } from 'storybook/internal/preview/globals';
-import type {
-  Builder,
-  Options,
-  StorybookConfig as StorybookConfigBase,
-} from 'storybook/internal/types';
 import { DevServerConfig, mergeConfigs, startDevServer } from '@web/dev-server';
 import type { DevServer } from '@web/dev-server-core';
 import { fromRollup } from '@web/dev-server-rollup';
@@ -17,6 +9,14 @@ import { join, parse, resolve } from 'node:path';
 import { OutputOptions, RollupBuild, RollupOptions, rollup } from 'rollup';
 import rollupPluginExternalGlobals from 'rollup-plugin-external-globals';
 import sirv from 'sirv';
+import { getBuilderOptions } from 'storybook/internal/common';
+import { logger } from 'storybook/internal/node-logger';
+import { globalsNameReferenceMap } from 'storybook/internal/preview/globals';
+import type {
+  Builder,
+  Options,
+  StorybookConfig as StorybookConfigBase,
+} from 'storybook/internal/types';
 import { generateIframeHtml } from './generate-iframe-html.js';
 import { getNodeModuleDir } from './get-node-module-dir.js';
 import { readFileConfig } from './read-file-config.js';

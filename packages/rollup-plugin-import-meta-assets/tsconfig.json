@@ -13,13 +13,6 @@
     "emitDeclarationOnly": true
   },
   "references": [],
-  "include": [
-    "src",
-    "types"
-  ],
-  "exclude": [
-    "src/browser",
-    "tests",
-    "dist"
-  ]
+  "include": ["src", "types"],
+  "exclude": ["src/browser", "tests", "dist"]
 }

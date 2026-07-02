@@ -1,7 +1,7 @@
-import { Middleware } from 'koa';
-import { Plugin } from '../plugins/Plugin';
-import { Server } from 'net';
 import type { ChokidarOptions } from 'chokidar';
+import { Middleware } from 'koa';
+import { Server } from 'net';
+import { Plugin } from '../plugins/Plugin';
 
 export type MimeTypeMappings = Record<string, string>;
 

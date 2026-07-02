@@ -1,10 +1,10 @@
-import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import path from 'path';
 
-import type { PolyfillsLoaderConfig, PolyfillFile } from '../dist/types.js';
 import { createPolyfillsData } from '../dist/createPolyfillsData.js';
-import { noModuleSupportTest, fileTypes } from '../dist/utils.js';
+import type { PolyfillFile, PolyfillsLoaderConfig } from '../dist/types.js';
+import { fileTypes, noModuleSupportTest } from '../dist/utils.js';
 
 function cleanupPolyfill(polyfill: PolyfillFile) {
   if (!polyfill) {

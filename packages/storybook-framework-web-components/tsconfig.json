@@ -53,13 +53,6 @@
       "path": "../storybook-utils/tsconfig.json"
     }
   ],
-  "include": [
-    "src",
-    "types"
-  ],
-  "exclude": [
-    "src/browser",
-    "tests",
-    "dist"
-  ]
+  "include": ["src", "types"],
+  "exclude": ["src/browser", "tests", "dist"]
 }

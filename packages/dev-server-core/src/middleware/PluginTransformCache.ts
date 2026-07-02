@@ -1,6 +1,6 @@
-import LRUCache from 'lru-cache';
 import { FSWatcher } from 'chokidar';
 import fs from 'fs';
+import LRUCache from 'lru-cache';
 import { promisify } from 'util';
 import { RequestCancelledError } from '../utils.js';
 
@@ -29,7 +29,10 @@ export class PluginTransformCache {
 
   private lruCache: LRUCache<string, CacheEntry>;
 
-  constructor(private fileWatcher: FSWatcher, private rootDir: string) {
+  constructor(
+    private fileWatcher: FSWatcher,
+    private rootDir: string,
+  ) {
     this.lruCache = new LRUCache<string, CacheEntry>({
       sizeCalculation: (e, key) => e.body.length + (key ? key.length : 0),
       maxSize: 52428800,
