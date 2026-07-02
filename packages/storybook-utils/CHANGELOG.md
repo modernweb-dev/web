@@ -1,5 +1,11 @@
 # @web/storybook-utils
 
+## 3.0.0
+
+### Major Changes
+
+- 5260164: Drop support for Node.js 18 and 20, which have reached end-of-life. The minimum supported Node.js version is now 22.0.0.
+
 ## 2.0.0
 
 ### Major Changes

@@ -1,5 +1,15 @@
 # @web/browser-logs
 
+## 1.0.0
+
+### Major Changes
+
+- 5260164: Drop support for Node.js 18 and 20, which have reached end-of-life. The minimum supported Node.js version is now 22.0.0.
+
+### Patch Changes
+
+- 8fe1b90: Fix RCE issue
+
 ## 0.4.1
 
 ### Patch Changes

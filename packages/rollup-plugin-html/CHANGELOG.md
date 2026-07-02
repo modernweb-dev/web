@@ -1,5 +1,21 @@
 # @web/rollup-plugin-html
 
+## 4.0.0
+
+### Major Changes
+
+- 5260164: Drop support for Node.js 18 and 20, which have reached end-of-life. The minimum supported Node.js version is now 22.0.0.
+
+### Minor Changes
+
+- 9105501: Support preserving the assets input structure in the output.
+  Support transforming of assets found in CSS.
+
+### Patch Changes
+
+- Updated dependencies [5260164]
+  - @web/parse5-utils@3.0.0
+
 ## 3.1.0
 
 ### Minor Changes

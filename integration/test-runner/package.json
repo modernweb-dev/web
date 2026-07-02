@@ -17,8 +17,8 @@
   "main": "index.js",
   "scripts": {},
   "dependencies": {
-    "@web/dev-server-legacy": "^2.1.0",
-    "@web/test-runner-core": "^0.13.4"
+    "@web/dev-server-legacy": "^3.0.0",
+    "@web/test-runner-core": "^1.0.0"
   },
   "devDependencies": {
     "@esm-bundle/chai": "^4.1.5"
