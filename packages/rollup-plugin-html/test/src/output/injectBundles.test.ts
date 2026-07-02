@@ -5,7 +5,7 @@ import { getTextContent } from '@web/parse5-utils';
 import { parse, serialize } from 'parse5';
 import { html } from '../../../../../test-utils/rollup-test-utils.js';
 
-import { injectBundles, createLoadScript } from '../../../dist/output/injectBundles.js';
+import { createLoadScript, injectBundles } from '../../../dist/output/injectBundles.js';
 
 describe('createLoadScript()', () => {
   it('creates a script for es modules', () => {

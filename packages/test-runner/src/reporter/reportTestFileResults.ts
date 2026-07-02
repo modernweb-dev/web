@@ -1,11 +1,11 @@
-import { type TestSession, type BufferedLogger } from '@web/test-runner-core';
+import { type BufferedLogger, type TestSession } from '@web/test-runner-core';
 import { bold, cyan } from 'nanocolors';
 import { relative } from 'path';
 
-import { reportTestsErrors } from './reportTestsErrors.js';
 import { reportBrowserLogs } from './reportBrowserLogs.js';
 import { reportRequest404s } from './reportRequest404s.js';
 import { reportTestFileErrors } from './reportTestFileErrors.js';
+import { reportTestsErrors } from './reportTestsErrors.js';
 
 export function reportTestFileResults(
   logger: BufferedLogger,

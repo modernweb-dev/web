@@ -46,10 +46,10 @@ describe('rollup-plugin-import-meta-assets', () => {
           noExtension,
         });
       `,
-      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
-      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
+      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
+      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
       five: 'five',
     });
 
@@ -67,29 +67,22 @@ describe('rollup-plugin-import-meta-assets', () => {
     assert.equal(
       chunks['app.js'],
       js`
-      const justUrlObject = new URL(
-        new URL('assets/one-BCCvKrTe.svg', import.meta.url).href
-      );
-      const href = new URL(new URL('assets/two-C4stzVZW.svg', import.meta.url).href)
-        .href;
-      const pathname = new URL(
-        new URL('assets/three-DPeYetg3.svg', import.meta.url).href
-      ).pathname;
-      const searchParams = new URL(
-        new URL('assets/four-2QgOKKkO.svg', import.meta.url).href
-      ).searchParams;
-      const noExtension = new URL(
-        new URL('assets/five-DeBsXz7d', import.meta.url).href
-      );
+        const justUrlObject = new URL(new URL('assets/one-BCCvKrTe.svg', import.meta.url).href);
+        const href = new URL(new URL('assets/two-C4stzVZW.svg', import.meta.url).href).href;
+        const pathname = new URL(new URL('assets/three-DPeYetg3.svg', import.meta.url).href)
+          .pathname;
+        const searchParams = new URL(new URL('assets/four-2QgOKKkO.svg', import.meta.url).href)
+          .searchParams;
+        const noExtension = new URL(new URL('assets/five-DeBsXz7d', import.meta.url).href);
 
-      console.log({
-        justUrlObject,
-        href,
-        pathname,
-        searchParams,
-        noExtension,
-      });
-    `,
+        console.log({
+          justUrlObject,
+          href,
+          pathname,
+          searchParams,
+          noExtension,
+        });
+      `,
     );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -103,19 +96,19 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     assert.equal(
       assets['assets/one-BCCvKrTe.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
     );
     assert.equal(
       assets['assets/two-C4stzVZW.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
     );
     assert.equal(
       assets['assets/three-DPeYetg3.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
     );
     assert.equal(
       assets['assets/four-2QgOKKkO.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
     );
     assert.equal(assets['assets/five-DeBsXz7d'], 'five');
   });
@@ -137,10 +130,10 @@ describe('rollup-plugin-import-meta-assets', () => {
           someJpg,
         });
       `,
-      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
-      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
+      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
+      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
       'image.jpg': 'image.jpg',
     });
 
@@ -168,29 +161,22 @@ describe('rollup-plugin-import-meta-assets', () => {
     assert.equal(
       chunks['app.js'],
       js`
-      const justUrlObject = new URL(
-        new URL('assets/one-QPKGlwhS.svg', import.meta.url).href
-      );
-      const href = new URL(new URL('assets/two-T4ecKj7d.svg', import.meta.url).href)
-        .href;
-      const pathname = new URL(
-        new URL('assets/three-LuNZrcLX.svg', import.meta.url).href
-      ).pathname;
-      const searchParams = new URL(
-        new URL('assets/four-Cf59sBI1.svg', import.meta.url).href
-      ).searchParams;
-      const someJpg = new URL(
-        new URL('assets/image-B360jR14.jpg', import.meta.url).href
-      );
+        const justUrlObject = new URL(new URL('assets/one-QPKGlwhS.svg', import.meta.url).href);
+        const href = new URL(new URL('assets/two-T4ecKj7d.svg', import.meta.url).href).href;
+        const pathname = new URL(new URL('assets/three-LuNZrcLX.svg', import.meta.url).href)
+          .pathname;
+        const searchParams = new URL(new URL('assets/four-Cf59sBI1.svg', import.meta.url).href)
+          .searchParams;
+        const someJpg = new URL(new URL('assets/image-B360jR14.jpg', import.meta.url).href);
 
-      console.log({
-        justUrlObject,
-        href,
-        pathname,
-        searchParams,
-        someJpg,
-      });
-    `,
+        console.log({
+          justUrlObject,
+          href,
+          pathname,
+          searchParams,
+          someJpg,
+        });
+      `,
     );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -204,19 +190,35 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     assert.equal(
       assets['assets/one-QPKGlwhS.svg'],
-      svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`}<!-- minified -->`,
+      svg`${svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="red"
+            /></svg>`}<!-- minified -->`,
     );
     assert.equal(
       assets['assets/two-T4ecKj7d.svg'],
-      svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`}<!-- minified -->`,
+      svg`${svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="green"
+            /></svg>`}<!-- minified -->`,
     );
     assert.equal(
       assets['assets/three-LuNZrcLX.svg'],
-      svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`}<!-- minified -->`,
+      svg`${svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="blue"
+            /></svg>`}<!-- minified -->`,
     );
     assert.equal(
       assets['assets/four-Cf59sBI1.svg'],
-      svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`}<!-- minified -->`,
+      svg`${svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="orange"
+            /></svg>`}<!-- minified -->`,
     );
     assert.equal(assets['assets/image-B360jR14.jpg'], 'image.jpg');
   });
@@ -238,10 +240,10 @@ describe('rollup-plugin-import-meta-assets', () => {
           someJpg,
         });
       `,
-      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
-      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
+      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
+      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
       'image.jpg': 'image.jpg',
     });
 
@@ -270,27 +272,22 @@ describe('rollup-plugin-import-meta-assets', () => {
     assert.equal(
       chunks['app.js'],
       js`
-      const justUrlObject = new URL(
-        new URL('assets/one-QPKGlwhS.svg', import.meta.url).href
-      );
-      const href = new URL(new URL('assets/two-T4ecKj7d.svg', import.meta.url).href)
-        .href;
-      const pathname = new URL(
-        new URL('assets/three-LuNZrcLX.svg', import.meta.url).href
-      ).pathname;
-      const searchParams = new URL(
-        new URL('assets/four-Cf59sBI1.svg', import.meta.url).href
-      ).searchParams;
-      const someJpg = new URL('./image.jpg', import.meta.url);
+        const justUrlObject = new URL(new URL('assets/one-QPKGlwhS.svg', import.meta.url).href);
+        const href = new URL(new URL('assets/two-T4ecKj7d.svg', import.meta.url).href).href;
+        const pathname = new URL(new URL('assets/three-LuNZrcLX.svg', import.meta.url).href)
+          .pathname;
+        const searchParams = new URL(new URL('assets/four-Cf59sBI1.svg', import.meta.url).href)
+          .searchParams;
+        const someJpg = new URL('./image.jpg', import.meta.url);
 
-      console.log({
-        justUrlObject,
-        href,
-        pathname,
-        searchParams,
-        someJpg,
-      });
-    `,
+        console.log({
+          justUrlObject,
+          href,
+          pathname,
+          searchParams,
+          someJpg,
+        });
+      `,
     );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -303,19 +300,35 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     assert.equal(
       assets['assets/one-QPKGlwhS.svg'],
-      svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`}<!-- minified -->`,
+      svg`${svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="red"
+            /></svg>`}<!-- minified -->`,
     );
     assert.equal(
       assets['assets/two-T4ecKj7d.svg'],
-      svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`}<!-- minified -->`,
+      svg`${svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="green"
+            /></svg>`}<!-- minified -->`,
     );
     assert.equal(
       assets['assets/three-LuNZrcLX.svg'],
-      svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`}<!-- minified -->`,
+      svg`${svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="blue"
+            /></svg>`}<!-- minified -->`,
     );
     assert.equal(
       assets['assets/four-Cf59sBI1.svg'],
-      svg`${svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`}<!-- minified -->`,
+      svg`${svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="orange"
+            /></svg>`}<!-- minified -->`,
     );
   });
 
@@ -350,10 +363,10 @@ describe('rollup-plugin-import-meta-assets', () => {
         export const nameFour = 'four-name';
         export const imageFour = new URL('../../../../four.svg', import.meta.url).href;
       `,
-      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
-      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
+      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
+      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
     });
 
     const config = {
@@ -370,33 +383,25 @@ describe('rollup-plugin-import-meta-assets', () => {
     assert.equal(
       chunks['app.js'],
       js`
-      const nameOne = 'one-name';
-      const imageOne = new URL(
-        new URL('assets/one-BCCvKrTe.svg', import.meta.url).href
-      ).href;
+        const nameOne = 'one-name';
+        const imageOne = new URL(new URL('assets/one-BCCvKrTe.svg', import.meta.url).href).href;
 
-      const nameTwo = 'two-name';
-      const imageTwo = new URL(
-        new URL('assets/two-C4stzVZW.svg', import.meta.url).href
-      ).href;
+        const nameTwo = 'two-name';
+        const imageTwo = new URL(new URL('assets/two-C4stzVZW.svg', import.meta.url).href).href;
 
-      const nameThree = 'three-name';
-      const imageThree = new URL(
-        new URL('assets/three-DPeYetg3.svg', import.meta.url).href
-      ).href;
+        const nameThree = 'three-name';
+        const imageThree = new URL(new URL('assets/three-DPeYetg3.svg', import.meta.url).href).href;
 
-      const nameFour = 'four-name';
-      const imageFour = new URL(
-        new URL('assets/four-2QgOKKkO.svg', import.meta.url).href
-      ).href;
+        const nameFour = 'four-name';
+        const imageFour = new URL(new URL('assets/four-2QgOKKkO.svg', import.meta.url).href).href;
 
-      console.log({
-        [nameOne]: imageOne,
-        [nameTwo]: imageTwo,
-        [nameThree]: imageThree,
-        [nameFour]: imageFour,
-      });
-    `,
+        console.log({
+          [nameOne]: imageOne,
+          [nameTwo]: imageTwo,
+          [nameThree]: imageThree,
+          [nameFour]: imageFour,
+        });
+      `,
     );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -409,19 +414,19 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     assert.equal(
       assets['assets/one-BCCvKrTe.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
     );
     assert.equal(
       assets['assets/two-C4stzVZW.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
     );
     assert.equal(
       assets['assets/three-DPeYetg3.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
     );
     assert.equal(
       assets['assets/four-2QgOKKkO.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
     );
   });
 
@@ -456,10 +461,10 @@ describe('rollup-plugin-import-meta-assets', () => {
         export const nameFour = 'four-name';
         export const imageFour = new URL('../../../../four.svg', import.meta.url).href;
       `,
-      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
-      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
+      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
+      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
     });
 
     const config = {
@@ -478,33 +483,25 @@ describe('rollup-plugin-import-meta-assets', () => {
     assert.equal(
       chunks['app.js'],
       js`
-      const nameOne = 'one-name';
-      const imageOne = new URL(
-        new URL('assets/one-BCCvKrTe.svg', import.meta.url).href
-      ).href;
+        const nameOne = 'one-name';
+        const imageOne = new URL(new URL('assets/one-BCCvKrTe.svg', import.meta.url).href).href;
 
-      const nameTwo = 'two-name';
-      const imageTwo = new URL(
-        new URL('assets/two-C4stzVZW.svg', import.meta.url).href
-      ).href;
+        const nameTwo = 'two-name';
+        const imageTwo = new URL(new URL('assets/two-C4stzVZW.svg', import.meta.url).href).href;
 
-      const nameThree = 'three-name';
-      const imageThree = new URL(
-        new URL('assets/three-DPeYetg3.svg', import.meta.url).href
-      ).href;
+        const nameThree = 'three-name';
+        const imageThree = new URL(new URL('assets/three-DPeYetg3.svg', import.meta.url).href).href;
 
-      const nameFour = 'four-name';
-      const imageFour = new URL(
-        new URL('assets/four-2QgOKKkO.svg', import.meta.url).href
-      ).href;
+        const nameFour = 'four-name';
+        const imageFour = new URL(new URL('assets/four-2QgOKKkO.svg', import.meta.url).href).href;
 
-      console.log({
-        [nameOne]: imageOne,
-        [nameTwo]: imageTwo,
-        [nameThree]: imageThree,
-        [nameFour]: imageFour,
-      });
-    `,
+        console.log({
+          [nameOne]: imageOne,
+          [nameTwo]: imageTwo,
+          [nameThree]: imageThree,
+          [nameFour]: imageFour,
+        });
+      `,
     );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -517,19 +514,19 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     assert.equal(
       assets['assets/one-BCCvKrTe.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
     );
     assert.equal(
       assets['assets/two-C4stzVZW.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
     );
     assert.equal(
       assets['assets/three-DPeYetg3.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
     );
     assert.equal(
       assets['assets/four-2QgOKKkO.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
     );
   });
 
@@ -555,10 +552,26 @@ describe('rollup-plugin-import-meta-assets', () => {
           [nameFour]: imageFour,
         });
       `,
-      'one/one-deep.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'one/two/two-deep.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-      'one/two/three/three-deep.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
-      'one/two/three/four/four-deep.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      'one/one-deep.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="red"
+          /></svg>`,
+      'one/two/two-deep.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="green"
+          /></svg>`,
+      'one/two/three/three-deep.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="blue"
+          /></svg>`,
+      'one/two/three/four/four-deep.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="orange"
+          /></svg>`,
     });
 
     const config = {
@@ -577,33 +590,29 @@ describe('rollup-plugin-import-meta-assets', () => {
     assert.equal(
       chunks['app.js'],
       js`
-      const nameOne = 'one-name';
-      const imageOne = new URL(
-        new URL('assets/one-deep-BCCvKrTe.svg', import.meta.url).href
-      ).href;
+        const nameOne = 'one-name';
+        const imageOne = new URL(new URL('assets/one-deep-BCCvKrTe.svg', import.meta.url).href)
+          .href;
 
-      const nameTwo = 'two-name';
-      const imageTwo = new URL(
-        new URL('assets/two-deep-C4stzVZW.svg', import.meta.url).href
-      ).href;
+        const nameTwo = 'two-name';
+        const imageTwo = new URL(new URL('assets/two-deep-C4stzVZW.svg', import.meta.url).href)
+          .href;
 
-      const nameThree = 'three-name';
-      const imageThree = new URL(
-        new URL('assets/three-deep-DPeYetg3.svg', import.meta.url).href
-      ).href;
+        const nameThree = 'three-name';
+        const imageThree = new URL(new URL('assets/three-deep-DPeYetg3.svg', import.meta.url).href)
+          .href;
 
-      const nameFour = 'four-name';
-      const imageFour = new URL(
-        new URL('assets/four-deep-2QgOKKkO.svg', import.meta.url).href
-      ).href;
+        const nameFour = 'four-name';
+        const imageFour = new URL(new URL('assets/four-deep-2QgOKKkO.svg', import.meta.url).href)
+          .href;
 
-      console.log({
-        [nameOne]: imageOne,
-        [nameTwo]: imageTwo,
-        [nameThree]: imageThree,
-        [nameFour]: imageFour,
-      });
-    `,
+        console.log({
+          [nameOne]: imageOne,
+          [nameTwo]: imageTwo,
+          [nameThree]: imageThree,
+          [nameFour]: imageFour,
+        });
+      `,
     );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -616,48 +625,64 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     assert.equal(
       assets['assets/one-deep-BCCvKrTe.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
     );
     assert.equal(
       assets['assets/two-deep-C4stzVZW.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
     );
     assert.equal(
       assets['assets/three-deep-DPeYetg3.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
     );
     assert.equal(
       assets['assets/four-deep-2QgOKKkO.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
     );
   });
 
   it('different asset levels with static paths and preserved output structure', async () => {
     const rootDir = createApp({
       'one/two/app.js': js`
-          const nameOne = 'one-name';
-          const imageOne = new URL('../one-deep.svg', import.meta.url).href;
+        const nameOne = 'one-name';
+        const imageOne = new URL('../one-deep.svg', import.meta.url).href;
 
-          const nameTwo = 'two-name';
-          const imageTwo = new URL('./two-deep.svg', import.meta.url).href;
+        const nameTwo = 'two-name';
+        const imageTwo = new URL('./two-deep.svg', import.meta.url).href;
 
-          const nameThree = 'three-name';
-          const imageThree = new URL('./three/three-deep.svg', import.meta.url).href;
+        const nameThree = 'three-name';
+        const imageThree = new URL('./three/three-deep.svg', import.meta.url).href;
 
-          const nameFour = 'four-name';
-          const imageFour = new URL('./three/four/four-deep.svg', import.meta.url).href;
+        const nameFour = 'four-name';
+        const imageFour = new URL('./three/four/four-deep.svg', import.meta.url).href;
 
-          console.log({
-            [nameOne]: imageOne,
-            [nameTwo]: imageTwo,
-            [nameThree]: imageThree,
-            [nameFour]: imageFour,
-          });
-        `,
-      'one/one-deep.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'one/two/two-deep.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-      'one/two/three/three-deep.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
-      'one/two/three/four/four-deep.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+        console.log({
+          [nameOne]: imageOne,
+          [nameTwo]: imageTwo,
+          [nameThree]: imageThree,
+          [nameFour]: imageFour,
+        });
+      `,
+      'one/one-deep.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="red"
+          /></svg>`,
+      'one/two/two-deep.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="green"
+          /></svg>`,
+      'one/two/three/three-deep.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="blue"
+          /></svg>`,
+      'one/two/three/four/four-deep.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="orange"
+          /></svg>`,
     });
 
     const config = {
@@ -680,36 +705,27 @@ describe('rollup-plugin-import-meta-assets', () => {
     assert.equal(
       chunks['app.js'],
       js`
-      const nameOne = 'one-name';
-      const imageOne = new URL(
-        new URL('one/one-deep.svg', import.meta.url).href
-      ).href;
+        const nameOne = 'one-name';
+        const imageOne = new URL(new URL('one/one-deep.svg', import.meta.url).href).href;
 
-      const nameTwo = 'two-name';
-      const imageTwo = new URL(
-        new URL('one/two/two-deep.svg', import.meta.url).href
-      ).href;
+        const nameTwo = 'two-name';
+        const imageTwo = new URL(new URL('one/two/two-deep.svg', import.meta.url).href).href;
 
-      const nameThree = 'three-name';
-      const imageThree = new URL(
-        new URL('one/two/three/three-deep.svg', import.meta.url).href
-      ).href;
+        const nameThree = 'three-name';
+        const imageThree = new URL(new URL('one/two/three/three-deep.svg', import.meta.url).href)
+          .href;
 
-      const nameFour = 'four-name';
-      const imageFour = new URL(
-        new URL(
-          'one/two/three/four/four-deep.svg',
-          import.meta.url
-        ).href
-      ).href;
+        const nameFour = 'four-name';
+        const imageFour = new URL(new URL('one/two/three/four/four-deep.svg', import.meta.url).href)
+          .href;
 
-      console.log({
-        [nameOne]: imageOne,
-        [nameTwo]: imageTwo,
-        [nameThree]: imageThree,
-        [nameFour]: imageFour,
-      });
-    `,
+        console.log({
+          [nameOne]: imageOne,
+          [nameTwo]: imageTwo,
+          [nameThree]: imageThree,
+          [nameFour]: imageFour,
+        });
+      `,
     );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -722,19 +738,19 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     assert.equal(
       assets['one/one-deep.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
     );
     assert.equal(
       assets['one/two/two-deep.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
     );
     assert.equal(
       assets['one/two/three/three-deep.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
     );
     assert.equal(
       assets['one/two/three/four/four-deep.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
     );
   });
 
@@ -756,10 +772,10 @@ describe('rollup-plugin-import-meta-assets', () => {
         export const nameFour = 'four-name';
         export const imageFour = new URL('../../../../four.svg', import.meta.url).href;
       `,
-      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
-      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
+      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
+      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
     });
 
     const config = {
@@ -790,53 +806,49 @@ describe('rollup-plugin-import-meta-assets', () => {
     assert.equal(
       chunks['one.js'],
       js`
-      const nameOne = 'one-name';
-      const imageOne = new URL('../one.svg', import.meta.url).href;
+        const nameOne = 'one-name';
+        const imageOne = new URL('../one.svg', import.meta.url).href;
 
-      export { imageOne, nameOne };
-    `,
+        export { imageOne, nameOne };
+      `,
     );
     assert.equal(
       chunks['two.js'],
       js`
-      const nameTwo = 'two-name';
-      const imageTwo = new URL('../../two.svg', import.meta.url).href;
+        const nameTwo = 'two-name';
+        const imageTwo = new URL('../../two.svg', import.meta.url).href;
 
-      export { imageTwo, nameTwo };
-    `,
+        export { imageTwo, nameTwo };
+      `,
     );
 
     // three and four have transformed URLs (included)
     assert.equal(
       chunks['three.js'],
       js`
-      const nameThree = 'three-name';
-      const imageThree = new URL(
-        new URL('assets/three-DPeYetg3.svg', import.meta.url).href
-      ).href;
+        const nameThree = 'three-name';
+        const imageThree = new URL(new URL('assets/three-DPeYetg3.svg', import.meta.url).href).href;
 
-      export { imageThree, nameThree };
-    `,
+        export { imageThree, nameThree };
+      `,
     );
     assert.equal(
       chunks['four.js'],
       js`
-      const nameFour = 'four-name';
-      const imageFour = new URL(
-        new URL('assets/four-2QgOKKkO.svg', import.meta.url).href
-      ).href;
+        const nameFour = 'four-name';
+        const imageFour = new URL(new URL('assets/four-2QgOKKkO.svg', import.meta.url).href).href;
 
-      export { imageFour, nameFour };
-    `,
+        export { imageFour, nameFour };
+      `,
     );
 
     assert.equal(
       assets['assets/three-DPeYetg3.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
     );
     assert.equal(
       assets['assets/four-2QgOKKkO.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
     );
 
     const oneChunk = output.find(({ fileName }) => fileName === 'one.js');
@@ -908,7 +920,11 @@ describe('rollup-plugin-import-meta-assets', () => {
     const rootDir = createApp({
       'app.js':
         'const backticksImg = new URL(`./one/one-deep.svg`, import.meta.url);\n\nconsole.log(backticksImg);\n',
-      'one/one-deep.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      'one/one-deep.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="red"
+          /></svg>`,
     });
 
     const config = {
@@ -925,12 +941,10 @@ describe('rollup-plugin-import-meta-assets', () => {
     assert.equal(
       chunks['app.js'],
       js`
-      const backticksImg = new URL(
-        new URL('assets/one-deep-BCCvKrTe.svg', import.meta.url).href
-      );
+        const backticksImg = new URL(new URL('assets/one-deep-BCCvKrTe.svg', import.meta.url).href);
 
-      console.log(backticksImg);
-    `,
+        console.log(backticksImg);
+      `,
     );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -938,7 +952,7 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     assert.equal(
       assets['assets/one-deep-BCCvKrTe.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
     );
   });
 
@@ -948,15 +962,27 @@ describe('rollup-plugin-import-meta-assets', () => {
       'app.js': js`
         const images = ['one', 'two'];
 
-        const paths = images.map((name) =>
-          new URL(\`./assets/images/image-\${name}.svg\`, import.meta.url),
+        const paths = images.map(
+          name => new URL(\`./assets/images/image-\${name}.svg\`, import.meta.url),
         );
 
         console.log(paths);
       `,
-      'assets/images/image-one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'assets/images/image-two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-      'assets/images/image-three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+      'assets/images/image-one.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="red"
+          /></svg>`,
+      'assets/images/image-two.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="green"
+          /></svg>`,
+      'assets/images/image-three.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="blue"
+          /></svg>`,
     });
 
     const config = {
@@ -973,35 +999,34 @@ describe('rollup-plugin-import-meta-assets', () => {
     assert.equal(
       chunks['app.js'],
       js`
-      function __variableDynamicURLRuntime0__(path) {
-        switch (path) {
-          case './assets/images/image-one.svg':
-            return new URL(
-              new URL('assets/image-one-BCCvKrTe.svg', import.meta.url).href
-            );
-          case './assets/images/image-three.svg':
-            return new URL(
-              new URL('assets/image-three-DPeYetg3.svg', import.meta.url).href
-            );
-          case './assets/images/image-two.svg':
-            return new URL(
-              new URL('assets/image-two-C4stzVZW.svg', import.meta.url).href
-            );
-          default:
-            return new Promise(function (resolve, reject) {
-              (typeof queueMicrotask === 'function'
-                ? queueMicrotask
-                : setTimeout)(reject.bind(null, new Error('Unknown variable dynamic new URL statement: ' + path)));
-            });
+        function __variableDynamicURLRuntime0__(path) {
+          switch (path) {
+            case './assets/images/image-one.svg':
+              return new URL(new URL('assets/image-one-BCCvKrTe.svg', import.meta.url).href);
+            case './assets/images/image-three.svg':
+              return new URL(new URL('assets/image-three-DPeYetg3.svg', import.meta.url).href);
+            case './assets/images/image-two.svg':
+              return new URL(new URL('assets/image-two-C4stzVZW.svg', import.meta.url).href);
+            default:
+              return new Promise(function (resolve, reject) {
+                (typeof queueMicrotask === 'function' ? queueMicrotask : setTimeout)(
+                  reject.bind(
+                    null,
+                    new Error('Unknown variable dynamic new URL statement: ' + path),
+                  ),
+                );
+              });
+          }
         }
-      }
 
-      const images = ['one', 'two'];
+        const images = ['one', 'two'];
 
-      const paths = images.map((name) => __variableDynamicURLRuntime0__(\`./assets/images/image-\${name}.svg\`));
+        const paths = images.map(name =>
+          __variableDynamicURLRuntime0__(\`./assets/images/image-\${name}.svg\`),
+        );
 
-      console.log(paths);
-    `,
+        console.log(paths);
+      `,
     );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -1013,15 +1038,15 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     assert.equal(
       assets['assets/image-one-BCCvKrTe.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
     );
     assert.equal(
       assets['assets/image-two-C4stzVZW.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
     );
     assert.equal(
       assets['assets/image-three-DPeYetg3.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
     );
   });
 
@@ -1049,10 +1074,10 @@ describe('rollup-plugin-import-meta-assets', () => {
           directories,
         });
       `,
-      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
-      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      'one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
+      'three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
+      'four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
       'one/': '', // create directory
       'one/two/': '', // create directory
     });
@@ -1073,34 +1098,29 @@ describe('rollup-plugin-import-meta-assets', () => {
     assert.equal(
       chunks['app.js'],
       js`
-      const justUrlObject = new URL(
-        new URL('assets/one-BCCvKrTe.svg', import.meta.url).href
-      );
-      const href = new URL(new URL('assets/two-C4stzVZW.svg', import.meta.url).href)
-        .href;
-      const pathname = new URL(
-        new URL('assets/three-DPeYetg3.svg', import.meta.url).href
-      ).pathname;
-      const searchParams = new URL(
-        new URL('assets/four-2QgOKKkO.svg', import.meta.url).href
-      ).searchParams;
+        const justUrlObject = new URL(new URL('assets/one-BCCvKrTe.svg', import.meta.url).href);
+        const href = new URL(new URL('assets/two-C4stzVZW.svg', import.meta.url).href).href;
+        const pathname = new URL(new URL('assets/three-DPeYetg3.svg', import.meta.url).href)
+          .pathname;
+        const searchParams = new URL(new URL('assets/four-2QgOKKkO.svg', import.meta.url).href)
+          .searchParams;
 
-      const directories = [
-        new URL('./', import.meta.url),
-        new URL('./one', import.meta.url),
-        new URL('./one/', import.meta.url),
-        new URL('./one/two', import.meta.url),
-        new URL('./one/two/', import.meta.url),
-      ];
+        const directories = [
+          new URL('./', import.meta.url),
+          new URL('./one', import.meta.url),
+          new URL('./one/', import.meta.url),
+          new URL('./one/two', import.meta.url),
+          new URL('./one/two/', import.meta.url),
+        ];
 
-      console.log({
-        justUrlObject,
-        href,
-        pathname,
-        searchParams,
-        directories,
-      });
-    `,
+        console.log({
+          justUrlObject,
+          href,
+          pathname,
+          searchParams,
+          directories,
+        });
+      `,
     );
 
     const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -1113,19 +1133,19 @@ describe('rollup-plugin-import-meta-assets', () => {
 
     assert.equal(
       assets['assets/one-BCCvKrTe.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
     );
     assert.equal(
       assets['assets/two-C4stzVZW.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
     );
     assert.equal(
       assets['assets/three-DPeYetg3.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
     );
     assert.equal(
       assets['assets/four-2QgOKKkO.svg'],
-      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+      svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
     );
   });
 
@@ -1136,15 +1156,27 @@ describe('rollup-plugin-import-meta-assets', () => {
         'app.js': js`
           const images = ['one', 'two'];
 
-          const paths = images.map((name) =>
-            new URL(\`./assets/images/image-\${name}.svg\`, import.meta.url),
+          const paths = images.map(
+            name => new URL(\`./assets/images/image-\${name}.svg\`, import.meta.url),
           );
 
           console.log(paths);
         `,
-        'assets/images/image-one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-        'assets/images/image-two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-        'assets/images/image-three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+        'assets/images/image-one.svg': svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="red"
+            /></svg>`,
+        'assets/images/image-two.svg': svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="green"
+            /></svg>`,
+        'assets/images/image-three.svg': svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="blue"
+            /></svg>`,
       });
 
       const config = {
@@ -1165,14 +1197,18 @@ describe('rollup-plugin-import-meta-assets', () => {
       assert.equal(
         chunks['app.js'],
         js`
-        const images = ['one', 'two'];
+          const images = ['one', 'two'];
 
-        const paths = images.map((name) =>
-          new URL(\`./image-\${name}.svg\`, new URL('assets/images/image-one.svg', import.meta.url).href),
-        );
+          const paths = images.map(
+            name =>
+              new URL(
+                \`./image-\${name}.svg\`,
+                new URL('assets/images/image-one.svg', import.meta.url).href,
+              ),
+          );
 
-        console.log(paths);
-      `,
+          console.log(paths);
+        `,
       );
 
       const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -1180,15 +1216,15 @@ describe('rollup-plugin-import-meta-assets', () => {
 
       assert.equal(
         assets['assets/images/image-one.svg'],
-        svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+        svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
       );
       assert.equal(
         assets['assets/images/image-two.svg'],
-        svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+        svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
       );
       assert.equal(
         assets['assets/images/image-three.svg'],
-        svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+        svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
       );
     });
 
@@ -1201,17 +1237,33 @@ describe('rollup-plugin-import-meta-assets', () => {
           };
 
           const paths = Object.entries(images).flatMap(([category, names]) =>
-            names.map((name) =>
-              new URL(\`./assets/images/\${category}/\${name}.svg\`, import.meta.url),
+            names.map(
+              name => new URL(\`./assets/images/\${category}/\${name}.svg\`, import.meta.url),
             ),
           );
 
           console.log(paths);
         `,
-        'assets/images/category-one/image-one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-        'assets/images/category-one/image-two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-        'assets/images/category-two/image-three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
-        'assets/images/category-two/image-four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+        'assets/images/category-one/image-one.svg': svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="red"
+            /></svg>`,
+        'assets/images/category-one/image-two.svg': svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="green"
+            /></svg>`,
+        'assets/images/category-two/image-three.svg': svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="blue"
+            /></svg>`,
+        'assets/images/category-two/image-four.svg': svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="orange"
+            /></svg>`,
       });
 
       const config = {
@@ -1232,18 +1284,22 @@ describe('rollup-plugin-import-meta-assets', () => {
       assert.equal(
         chunks['app.js'],
         js`
-        const images = {
-          'category-name': ['image-name'],
-        };
+          const images = {
+            'category-name': ['image-name'],
+          };
 
-        const paths = Object.entries(images).flatMap(([category, names]) =>
-          names.map((name) =>
-            new URL(\`../\${category}/\${name}.svg\`, new URL('assets/images/category-one/image-one.svg', import.meta.url).href),
-          ),
-        );
+          const paths = Object.entries(images).flatMap(([category, names]) =>
+            names.map(
+              name =>
+                new URL(
+                  \`../\${category}/\${name}.svg\`,
+                  new URL('assets/images/category-one/image-one.svg', import.meta.url).href,
+                ),
+            ),
+          );
 
-        console.log(paths);
-      `,
+          console.log(paths);
+        `,
       );
 
       const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -1251,19 +1307,19 @@ describe('rollup-plugin-import-meta-assets', () => {
 
       assert.equal(
         assets['assets/images/category-one/image-one.svg'],
-        svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+        svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
       );
       assert.equal(
         assets['assets/images/category-one/image-two.svg'],
-        svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+        svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
       );
       assert.equal(
         assets['assets/images/category-two/image-three.svg'],
-        svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+        svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
       );
       assert.equal(
         assets['assets/images/category-two/image-four.svg'],
-        svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+        svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
       );
     });
 
@@ -1276,17 +1332,34 @@ describe('rollup-plugin-import-meta-assets', () => {
           };
 
           const paths = Object.entries(images).flatMap(([category, names]) =>
-            names.map((name) =>
-              new URL(\`./assets/images/\${category}/static/\${name}.svg\`, import.meta.url),
+            names.map(
+              name =>
+                new URL(\`./assets/images/\${category}/static/\${name}.svg\`, import.meta.url),
             ),
           );
 
           console.log(paths);
         `,
-        'assets/images/category-one/static/image-one.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-        'assets/images/category-one/static/image-two.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-        'assets/images/category-two/static/image-three.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
-        'assets/images/category-two/static/image-four.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+        'assets/images/category-one/static/image-one.svg': svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="red"
+            /></svg>`,
+        'assets/images/category-one/static/image-two.svg': svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="green"
+            /></svg>`,
+        'assets/images/category-two/static/image-three.svg': svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="blue"
+            /></svg>`,
+        'assets/images/category-two/static/image-four.svg': svg`<svg width="1" height="1"><rect
+              width="1"
+              height="1"
+              fill="orange"
+            /></svg>`,
       });
 
       const config = {
@@ -1307,18 +1380,22 @@ describe('rollup-plugin-import-meta-assets', () => {
       assert.equal(
         chunks['app.js'],
         js`
-        const images = {
-          'category-name': ['image-name'],
-        };
+          const images = {
+            'category-name': ['image-name'],
+          };
 
-        const paths = Object.entries(images).flatMap(([category, names]) =>
-          names.map((name) =>
-            new URL(\`../../\${category}/static/\${name}.svg\`, new URL('assets/images/category-one/static/image-one.svg', import.meta.url).href),
-          ),
-        );
+          const paths = Object.entries(images).flatMap(([category, names]) =>
+            names.map(
+              name =>
+                new URL(
+                  \`../../\${category}/static/\${name}.svg\`,
+                  new URL('assets/images/category-one/static/image-one.svg', import.meta.url).href,
+                ),
+            ),
+          );
 
-        console.log(paths);
-      `,
+          console.log(paths);
+        `,
       );
 
       const appChunk = output.find(({ fileName }) => fileName === 'app.js');
@@ -1328,19 +1405,19 @@ describe('rollup-plugin-import-meta-assets', () => {
 
       assert.equal(
         assets['assets/images/category-one/static/image-one.svg'],
-        svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+        svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
       );
       assert.equal(
         assets['assets/images/category-one/static/image-two.svg'],
-        svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+        svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
       );
       assert.equal(
         assets['assets/images/category-two/static/image-three.svg'],
-        svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+        svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
       );
       assert.equal(
         assets['assets/images/category-two/static/image-four.svg'],
-        svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange"/></svg>`,
+        svg`<svg width="1" height="1"><rect width="1" height="1" fill="orange" /></svg>`,
       );
     });
   });

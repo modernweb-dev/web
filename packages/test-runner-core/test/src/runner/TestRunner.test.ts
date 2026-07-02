@@ -6,10 +6,10 @@ import portfinder from 'portfinder';
 
 import type { BrowserLauncher } from '../../../dist/browser-launcher/BrowserLauncher.js';
 import type { TestRunnerCoreConfig } from '../../../dist/config/TestRunnerCoreConfig.js';
-import { TestRunner } from '../../../dist/runner/TestRunner.js';
-import type { Logger } from '../../../dist/logger/Logger.js';
-import { SESSION_STATUS } from '../../../dist/test-session/TestSessionStatus.js';
 import type { TestRunnerGroupConfig } from '../../../dist/index.js';
+import type { Logger } from '../../../dist/logger/Logger.js';
+import { TestRunner } from '../../../dist/runner/TestRunner.js';
+import { SESSION_STATUS } from '../../../dist/test-session/TestSessionStatus.js';
 
 function createBrowserStub(): BrowserLauncher {
   return {

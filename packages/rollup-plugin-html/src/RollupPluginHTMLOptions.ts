@@ -1,5 +1,5 @@
-import { OutputChunk, OutputOptions, OutputBundle } from 'rollup';
 import { Attribute } from 'parse5';
+import { OutputBundle, OutputChunk, OutputOptions } from 'rollup';
 
 export interface InputHTMLOptions {
   /** The html source code. If set, overwrites path. */

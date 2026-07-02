@@ -1,4 +1,5 @@
 import './polyfills.js';
+
 import { swPath } from '#sw-path';
 import { setupWorker } from 'msw/browser';
 import { _registerMockRoutes } from './registerMockRoutes.js';

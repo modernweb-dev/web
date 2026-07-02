@@ -1,5 +1,4 @@
-import { deserialize, MapStackLocation } from '@web/browser-logs';
-import { type MapBrowserUrl } from '@web/browser-logs';
+import { MapStackLocation, deserialize, type MapBrowserUrl } from '@web/browser-logs';
 
 import { type TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.js';
 import { type TestSession } from '../../../test-session/TestSession.js';

@@ -1,4 +1,4 @@
-import { writeFile, readFile, removeFile } from '../../browser/commands.mjs';
+import { readFile, removeFile, writeFile } from '../../browser/commands.mjs';
 
 it('can write and read a file', async () => {
   const path = 'hello-world.txt';

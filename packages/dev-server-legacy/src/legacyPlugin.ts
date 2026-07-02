@@ -1,10 +1,10 @@
-import { Plugin, Logger, getRequestFilePath, isInlineScriptRequest } from '@web/dev-server-core';
+import { Logger, Plugin, getRequestFilePath, isInlineScriptRequest } from '@web/dev-server-core';
 import { GeneratedFile, PolyfillsConfig } from '@web/polyfills-loader';
 import path from 'path';
-import { isLegacyBrowser } from './isLegacyBrowser.js';
 import { babelTransform, es5Config, systemJsConfig } from './babelTransform.js';
-import { injectPolyfillsLoader } from './injectPolyfillsLoader.js';
 import { PARAM_TRANSFORM_SYSTEMJS } from './constants.js';
+import { injectPolyfillsLoader } from './injectPolyfillsLoader.js';
+import { isLegacyBrowser } from './isLegacyBrowser.js';
 
 interface inlineScripts {
   lastModified: string;

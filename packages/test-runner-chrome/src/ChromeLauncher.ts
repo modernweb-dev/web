@@ -1,14 +1,14 @@
+import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import * as puppeteerCore from 'puppeteer-core';
 import {
   Browser,
-  Page,
-  LaunchOptions,
-  launch as puppeteerCoreLaunch,
   BrowserContext,
+  LaunchOptions,
+  Page,
+  launch as puppeteerCoreLaunch,
 } from 'puppeteer-core';
-import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { findExecutablePath } from './findExecutablePath.js';
 import { ChromeLauncherPage } from './ChromeLauncherPage.js';
+import { findExecutablePath } from './findExecutablePath.js';
 
 function capitalize(str: string) {
   return `${str[0].toUpperCase()}${str.substring(1)}`;

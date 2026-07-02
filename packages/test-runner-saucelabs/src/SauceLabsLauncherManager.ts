@@ -1,19 +1,22 @@
 import { BrowserLauncher } from '@web/test-runner-core';
-import SaucelabsAPI, {
-  SauceLabsOptions,
-  SauceConnectOptions,
-  SauceConnectInstance,
-} from 'saucelabs';
 import internalIp from 'internal-ip';
+import SaucelabsAPI, {
+  SauceConnectInstance,
+  SauceConnectOptions,
+  SauceLabsOptions,
+} from 'saucelabs';
 
 /**
  * Wraps a Promise with a timeout, rejecing the promise with the timeout.
  */
 export function withTimeout<T>(promise: Promise<T>, message: string): Promise<T> {
   return new Promise<T>((resolve, reject) => {
-    const timeoutId = setTimeout(() => {
-      reject(new Error(message));
-    }, 5 * 60 * 1000);
+    const timeoutId = setTimeout(
+      () => {
+        reject(new Error(message));
+      },
+      5 * 60 * 1000,
+    );
 
     promise
       .then(val => resolve(val))

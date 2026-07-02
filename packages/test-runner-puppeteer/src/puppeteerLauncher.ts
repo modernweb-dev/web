@@ -1,8 +1,8 @@
+import { chromeLauncher } from '@web/test-runner-chrome';
+import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import * as puppeteer from 'puppeteer';
 import * as puppeteerCore from 'puppeteer-core';
-import { Browser, Page, LaunchOptions } from 'puppeteer-core';
-import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
-import { chromeLauncher } from '@web/test-runner-chrome';
+import { Browser, LaunchOptions, Page } from 'puppeteer-core';
 
 export interface PuppeteerLauncherConfig {
   launchOptions?: LaunchOptions;

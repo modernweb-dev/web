@@ -1,9 +1,9 @@
-import { describe, it, before, after, mock } from 'node:test';
-import assert from 'node:assert/strict';
 import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
-import puppeteer from 'puppeteer';
-import type { Browser, HTTPResponse, Page } from 'puppeteer';
+import assert from 'node:assert/strict';
+import { after, before, describe, it, mock } from 'node:test';
 import { posix as pathUtil } from 'path';
+import type { Browser, HTTPResponse, Page } from 'puppeteer';
+import puppeteer from 'puppeteer';
 
 import { hmrPlugin } from '../dist/index.js';
 import { mockFiles } from './utils.ts';

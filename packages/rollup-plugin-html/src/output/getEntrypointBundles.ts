@@ -8,7 +8,7 @@ import {
   RollupPluginHTMLOptions,
   ScriptModuleTag,
 } from '../RollupPluginHTMLOptions';
-import { createError, NOOP_IMPORT } from '../utils.js';
+import { NOOP_IMPORT, createError } from '../utils.js';
 import { toBrowserPath } from './utils.js';
 
 export interface CreateImportPathParams {

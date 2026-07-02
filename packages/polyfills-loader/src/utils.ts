@@ -1,6 +1,6 @@
-import { Element } from 'parse5';
 import { getAttribute } from '@web/parse5-utils';
 import crypto from 'crypto';
+import { Element } from 'parse5';
 import { FileType, PolyfillsLoaderConfig } from './types.js';
 
 export const noModuleSupportTest = "!('noModule' in HTMLScriptElement.prototype)";

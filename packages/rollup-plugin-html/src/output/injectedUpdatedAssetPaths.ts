@@ -3,12 +3,12 @@ import type { Document } from 'parse5';
 import path from 'path';
 
 import {
+  createAssetPicomatchMatcher,
   findAssets,
   getSourceAttribute,
   getSourcePaths,
   isHashedAsset,
   resolveAssetFilePath,
-  createAssetPicomatchMatcher,
 } from '../assets/utils.js';
 import { type InputData } from '../input/InputData.js';
 import { createError } from '../utils.js';

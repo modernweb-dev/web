@@ -1,8 +1,8 @@
-import assert from 'node:assert/strict';
-import { describe, before, it } from 'node:test';
+import { legacyPlugin } from '@web/dev-server-legacy';
 import type { BrowserLauncher, TestRunnerCoreConfig, TestSession } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
-import { legacyPlugin } from '@web/dev-server-legacy';
+import assert from 'node:assert/strict';
+import { before, describe, it } from 'node:test';
 import { resolve } from 'path';
 
 export function runFocusTest(

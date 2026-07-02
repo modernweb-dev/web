@@ -7,22 +7,29 @@ export default {
     format: 'esm',
   },
   plugins: [
-    generateSW({
-      swDest: 'demo/dist/generateSW_sw.js',
-      globDirectory: 'demo/dist/',
-      globIgnores: ['injectManifest_sw.js'],
-    },
-    {
-      render: ({ swDest, count, size }) => {
-        console.log(`\nCustom render! ${swDest}`);
-        console.log(`Custom render! The service worker will precache ${count} URLs, totaling ${size}.\n`);
-      }
-    }),
-    injectManifest({
-      swSrc: 'demo/injectManifestSwSrc.js',
-      swDest: 'demo/dist/injectManifest_sw.js',
-      globDirectory: 'demo/dist/',
-      globIgnores: ['generateSW_sw.js'],
-    }, {esbuild: {minify: false}}),
+    generateSW(
+      {
+        swDest: 'demo/dist/generateSW_sw.js',
+        globDirectory: 'demo/dist/',
+        globIgnores: ['injectManifest_sw.js'],
+      },
+      {
+        render: ({ swDest, count, size }) => {
+          console.log(`\nCustom render! ${swDest}`);
+          console.log(
+            `Custom render! The service worker will precache ${count} URLs, totaling ${size}.\n`,
+          );
+        },
+      },
+    ),
+    injectManifest(
+      {
+        swSrc: 'demo/injectManifestSwSrc.js',
+        swDest: 'demo/dist/injectManifest_sw.js',
+        globDirectory: 'demo/dist/',
+        globIgnores: ['generateSW_sw.js'],
+      },
+      { esbuild: { minify: false } },
+    ),
   ],
 };

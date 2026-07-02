@@ -1,11 +1,11 @@
 /* eslint-disable no-await-in-loop */
-import { describe, it } from 'node:test';
-import assert from 'node:assert/strict';
-import { rollup } from 'rollup';
-import type { OutputChunk, OutputAsset, RollupOptions, OutputOptions } from 'rollup';
-import fs from 'fs';
-import path from 'path';
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
+import fs from 'fs';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
+import path from 'path';
+import type { OutputAsset, OutputChunk, OutputOptions, RollupOptions } from 'rollup';
+import { rollup } from 'rollup';
 import { polyfillsLoader } from '../../dist/index.js';
 
 type Output = (OutputChunk | OutputAsset)[];
@@ -28,7 +28,7 @@ interface SnapshotArgs {
 }
 
 async function testSnapshot({ name, fileName, inputOptions, outputOptions }: SnapshotArgs) {
-  const snapshotPath = path.join(import.meta.dirname, '..', 'snapshots', `${name}.html`);
+  const snapshotPath = path.join(import.meta.dirname, '..', '__snapshots__', `${name}.html`);
   const bundle = await rollup(inputOptions);
   let output;
   for (const outputConfig of outputOptions) {

@@ -1,5 +1,5 @@
-import { cyan, gray } from 'nanocolors';
 import internalIp from 'internal-ip';
+import { cyan, gray } from 'nanocolors';
 
 import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
 

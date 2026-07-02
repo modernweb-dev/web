@@ -1,10 +1,10 @@
+import '../../../node_modules/mocha/mocha.js';
 import {
+  getConfig,
+  sessionFailed,
   sessionStarted,
   sessionFinished as testRunnerOnSessionFinished,
-  sessionFailed,
-  getConfig,
 } from '../../test-runner-core/browser/session.js';
-import '../../../node_modules/mocha/mocha.js';
 import { collectTestResults } from './collectTestResults.js';
 import { setupMocha } from './mochaSetup.js';
 

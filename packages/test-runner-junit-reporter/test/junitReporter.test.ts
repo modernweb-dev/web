@@ -1,8 +1,8 @@
-import { describe, it, after } from 'node:test';
-import assert from 'node:assert/strict';
 import { promises as fs } from 'fs';
-import path from 'path';
 import globby from 'globby';
+import assert from 'node:assert/strict';
+import { after, describe, it } from 'node:test';
+import path from 'path';
 
 import { chromeLauncher } from '@web/test-runner-chrome';
 import type { TestRunnerCoreConfig } from '@web/test-runner-core';

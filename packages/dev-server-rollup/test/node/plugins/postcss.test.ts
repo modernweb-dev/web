@@ -1,12 +1,12 @@
 /// <reference types="../../../types/rollup-plugin-postcss" />
-import { describe, it } from 'node:test';
-import rollupPostcss from 'rollup-plugin-postcss';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import { runTests } from '@web/test-runner-core/test-helpers';
+import { describe, it } from 'node:test';
 import { resolve } from 'path';
+import rollupPostcss from 'rollup-plugin-postcss';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../dist/index.js';
+import { createTestServer, expectIncludes, fetchText } from '../test-helpers.ts';
 
 const postcss = fromRollup(rollupPostcss);
 

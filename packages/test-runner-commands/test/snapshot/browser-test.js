@@ -1,8 +1,8 @@
 import {
-  saveSnapshot,
+  compareSnapshot,
   getSnapshot,
   removeSnapshot,
-  compareSnapshot,
+  saveSnapshot,
 } from '../../browser/commands.mjs';
 import { expect } from '../chai.js';
 

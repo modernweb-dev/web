@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { describe, it, afterEach } from 'node:test';
+import { afterEach, describe, it } from 'node:test';
 import path from 'path';
 import { cleanApp, createApp, html, js } from '../../../../../test-utils/rollup-test-utils.js';
 
@@ -33,9 +33,7 @@ describe('getInputData()', () => {
           </body>
         </html>
       `,
-      'app.js': js`
-        console.log('hello world');
-      `,
+      'app.js': js` console.log('hello world'); `,
     });
     const result = getInputData({ input: 'index.html', rootDir });
     assert.deepEqual(cleanupResult(result), [
@@ -60,9 +58,7 @@ describe('getInputData()', () => {
           </body>
         </html>
       `,
-      'app.js': js`
-        console.log('hello world');
-      `,
+      'app.js': js` console.log('hello world'); `,
     });
     const result = getInputData({ input: { path: 'index.html' }, rootDir });
     assert.deepEqual(cleanupResult(result), [
@@ -87,9 +83,7 @@ describe('getInputData()', () => {
           </body>
         </html>
       `,
-      'app.js': js`
-        console.log('hello world');
-      `,
+      'app.js': js` console.log('hello world'); `,
     });
     const result = getInputData({ input: { path: 'index.html', name: 'foo.html' }, rootDir });
     assert.deepEqual(cleanupResult(result), [
@@ -121,9 +115,7 @@ describe('getInputData()', () => {
           </body>
         </html>
       `,
-      'app.js': js`
-        console.log('hello world');
-      `,
+      'app.js': js` console.log('hello world'); `,
     });
     const result = getInputData({
       input: [{ path: 'index.html' }, { path: 'not-index.html' }],
@@ -159,9 +151,7 @@ describe('getInputData()', () => {
           </body>
         </html>
       `,
-      'src/app.js': js`
-        console.log('hello world');
-      `,
+      'src/app.js': js` console.log('hello world'); `,
     });
     const result = getInputData({ input: 'src/index.html', rootDir });
     assert.deepEqual(cleanupResult(result), [
@@ -186,9 +176,7 @@ describe('getInputData()', () => {
           </body>
         </html>
       `,
-      'app.js': js`
-        console.log('hello world');
-      `,
+      'app.js': js` console.log('hello world'); `,
     });
     const result = getInputData({ rootDir }, 'index.html');
     assert.deepEqual(cleanupResult(result), [
@@ -213,9 +201,7 @@ describe('getInputData()', () => {
           </body>
         </html>
       `,
-      'app.js': js`
-        console.log('hello world');
-      `,
+      'app.js': js` console.log('hello world'); `,
     });
     const result = getInputData({ rootDir }, ['index.html']);
     assert.deepEqual(cleanupResult(result), [
@@ -247,9 +233,7 @@ describe('getInputData()', () => {
           </body>
         </html>
       `,
-      'app.js': js`
-        console.log('hello world');
-      `,
+      'app.js': js` console.log('hello world'); `,
     });
     const result = getInputData({ rootDir }, ['index.html', 'not-index.html']);
     assert.deepEqual(cleanupResult(result), [
@@ -289,9 +273,7 @@ describe('getInputData()', () => {
           </body>
         </html>
       `,
-      'app.js': js`
-        console.log('hello world');
-      `,
+      'app.js': js` console.log('hello world'); `,
     });
     const result = getInputData(
       { rootDir },
@@ -334,9 +316,7 @@ describe('getInputData()', () => {
           </body>
         </html>
       `,
-      'app.js': js`
-        console.log('hello world');
-      `,
+      'app.js': js` console.log('hello world'); `,
     });
     const result = getInputData({ input: 'index.html', rootDir }, 'not-index.html');
     assert.deepEqual(cleanupResult(result), [
@@ -353,9 +333,7 @@ describe('getInputData()', () => {
 
   it('can set html string as input', () => {
     const rootDir = createApp({
-      'app.js': js`
-        console.log('hello world');
-      `,
+      'app.js': js` console.log('hello world'); `,
     });
     const result = getInputData({
       input: {
@@ -384,9 +362,7 @@ describe('getInputData()', () => {
 
   it('can set multiple html strings as input', () => {
     const rootDir = createApp({
-      'app.js': js`
-        console.log('hello world');
-      `,
+      'app.js': js` console.log('hello world'); `,
     });
     const result = getInputData({
       rootDir,
@@ -463,18 +439,10 @@ describe('getInputData()', () => {
           </body>
         </html>
       `,
-      'pages/page-a.js': js`
-        export default 'page a';
-      `,
-      'pages/page-b.js': js`
-        export default 'page b';
-      `,
-      'pages/page-c.js': js`
-        export default 'page c';
-      `,
-      'pages/shared.js': js`
-        export default 'shared';
-      `,
+      'pages/page-a.js': js` export default 'page a'; `,
+      'pages/page-b.js': js` export default 'page b'; `,
+      'pages/page-c.js': js` export default 'page c'; `,
+      'pages/shared.js': js` export default 'shared'; `,
     });
     const result = getInputData({ input: 'pages/**/*.html', rootDir });
     assert.deepEqual(cleanupResult(result), [
@@ -543,18 +511,10 @@ describe('getInputData()', () => {
           </body>
         </html>
       `,
-      'pages/page-a.js': js`
-        export default 'page a';
-      `,
-      'pages/page-b.js': js`
-        export default 'page b';
-      `,
-      'pages/page-c.js': js`
-        export default 'page c';
-      `,
-      'pages/shared.js': js`
-        export default 'shared';
-      `,
+      'pages/page-a.js': js` export default 'page a'; `,
+      'pages/page-b.js': js` export default 'page b'; `,
+      'pages/page-c.js': js` export default 'page c'; `,
+      'pages/shared.js': js` export default 'shared'; `,
     });
     const result = getInputData({ input: 'pages/**/*.html', flattenOutput: false, rootDir });
     assert.deepEqual(cleanupResult(result), [

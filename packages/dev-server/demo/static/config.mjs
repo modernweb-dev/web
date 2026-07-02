@@ -4,4 +4,3 @@ import { resolve } from 'path';
 export default {
   rootDir: resolve(fileURLToPath(import.meta.url), '..', '..', '..'),
 };
-

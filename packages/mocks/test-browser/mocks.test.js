@@ -1,6 +1,6 @@
-import { http } from '../http.js';
 import { expect } from '@esm-bundle/chai';
 import { registerMockRoutes } from '../browser.js';
+import { http } from '../http.js';
 
 it('mocks a request', async () => {
   registerMockRoutes(http.get('/api/foo', () => Response.json({ foo: 'foo' })));

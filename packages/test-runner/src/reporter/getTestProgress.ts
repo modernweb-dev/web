@@ -1,16 +1,16 @@
 import {
+  SESSION_STATUS,
+  type BrowserLauncher,
+  type CoverageConfig,
+  type TestCoverage,
   type TestRunnerCoreConfig,
   type TestSessionManager,
-  SESSION_STATUS,
-  type TestCoverage,
-  type CoverageConfig,
-  type BrowserLauncher,
 } from '@web/test-runner-core';
 import { bold, gray, green, red } from 'nanocolors';
 
-import { getPassedFailedSkippedCount } from './utils/getPassedFailedSkippedCount.js';
 import { getCodeCoverage } from './getCodeCoverage.js';
 import { renderProgressBar } from './renderProgressBar.js';
+import { getPassedFailedSkippedCount } from './utils/getPassedFailedSkippedCount.js';
 
 export interface TestProgressArgs {
   browsers: BrowserLauncher[];
