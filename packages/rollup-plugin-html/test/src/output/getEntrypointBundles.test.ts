@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import {
-  getEntrypointBundles,
-  createImportPath,
-} from '../../../dist/output/getEntrypointBundles.js';
 import type { GeneratedBundle, ScriptModuleTag } from '../../../dist/RollupPluginHTMLOptions.js';
+import {
+  createImportPath,
+  getEntrypointBundles,
+} from '../../../dist/output/getEntrypointBundles.js';
 
 describe('createImportPath()', () => {
   it('creates a relative import path', () => {

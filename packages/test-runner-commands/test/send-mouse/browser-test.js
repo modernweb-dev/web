@@ -1,4 +1,4 @@
-import { sendMouse, resetMouse } from '../../browser/commands.mjs';
+import { resetMouse, sendMouse } from '../../browser/commands.mjs';
 import { expect } from '../chai.js';
 
 function spyEvent() {

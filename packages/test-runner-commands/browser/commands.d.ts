@@ -1,15 +1,15 @@
 import {
-  Media,
-  Viewport,
-  SendKeysPayload,
   A11ySnapshotPayload,
-  WriteFilePayload,
+  Media,
   ReadFilePayload,
   RemoveFilePayload,
-  SnapshotPluginConfig,
   SaveSnapshotPayload,
   SelectOptionPayload,
+  SendKeysPayload,
   SendMousePayload,
+  SnapshotPluginConfig,
+  Viewport,
+  WriteFilePayload,
 } from '../dist/index.js';
 
 /**

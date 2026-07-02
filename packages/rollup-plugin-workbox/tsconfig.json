@@ -8,17 +8,9 @@
     "rootDir": "./src",
     "composite": true,
     "allowJs": true,
-    "lib": [
-      "webworker"
-    ]
+    "lib": ["webworker"]
   },
   "references": [],
-  "include": [
-    "src",
-    "types"
-  ],
-  "exclude": [
-    "dist",
-    "demo"
-  ]
+  "include": ["src", "types"],
+  "exclude": ["dist", "demo"]
 }

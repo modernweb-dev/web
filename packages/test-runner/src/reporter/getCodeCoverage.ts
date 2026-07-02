@@ -1,10 +1,10 @@
 import {
+  type CoverageConfig,
   type CoverageThresholdConfig,
   type TestCoverage,
-  type CoverageConfig,
 } from '@web/test-runner-core';
-import path from 'path';
 import { bold, green, red, underline } from 'nanocolors';
+import path from 'path';
 
 const coverageTypes: (keyof CoverageThresholdConfig)[] = [
   'lines',

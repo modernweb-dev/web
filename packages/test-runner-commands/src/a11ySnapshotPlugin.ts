@@ -1,5 +1,5 @@
-import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher, puppeteerCore } from '@web/test-runner-chrome';
+import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { PlaywrightLauncher, playwright } from '@web/test-runner-playwright';
 
 export type A11ySnapshotPayload = { selector?: string };

@@ -1,11 +1,11 @@
-import assert from 'node:assert/strict';
-import { describe, it, beforeEach, afterEach } from 'node:test';
-import path from 'path';
 import fs from 'fs';
 import { nanoid } from 'nanoid';
+import assert from 'node:assert/strict';
+import { afterEach, beforeEach, describe, it } from 'node:test';
+import path from 'path';
 
-import { createTestServer, timeout } from '../helpers.ts';
 import type { DevServer } from '../../dist/server/DevServer.js';
+import { createTestServer, timeout } from '../helpers.ts';
 
 const fixtureDir = path.resolve(import.meta.dirname, '..', 'fixtures', 'basic');
 const testFileAName = '/cached-file-a.js';

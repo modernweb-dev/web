@@ -1,4 +1,4 @@
-import { readConfig, ConfigLoaderError } from '@web/config-loader';
+import { ConfigLoaderError, readConfig } from '@web/config-loader';
 
 import { TestRunnerStartError } from '../TestRunnerStartError.js';
 

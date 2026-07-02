@@ -1,5 +1,5 @@
-import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher } from '@web/test-runner-chrome';
+import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
 type SelectByValuePayload = { selector: string; value: string };
@@ -7,9 +7,7 @@ type SelectByLabelPayload = { selector: string; label: string };
 type SelectMultipleValuesPayload = { selector: string; values: string[] };
 
 export type SelectOptionPayload =
-  | SelectByLabelPayload
-  | SelectByValuePayload
-  | SelectMultipleValuesPayload;
+  SelectByLabelPayload | SelectByValuePayload | SelectMultipleValuesPayload;
 
 function isObject(payload: unknown): payload is Record<string, unknown> {
   return payload != null && typeof payload === 'object';

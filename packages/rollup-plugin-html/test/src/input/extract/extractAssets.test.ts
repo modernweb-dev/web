@@ -1,16 +1,16 @@
 import assert from 'node:assert/strict';
-import { describe, it, afterEach } from 'node:test';
+import { afterEach, describe, it } from 'node:test';
 import { parse } from 'parse5';
 import path from 'path';
-import { extractAssets } from '../../../../dist/input/extract/extractAssets.js';
 import {
-  html,
+  cleanApp,
+  createApp,
   css,
+  html,
   js,
   svg,
-  createApp,
-  cleanApp,
 } from '../../../../../../test-utils/rollup-test-utils.js';
+import { extractAssets } from '../../../../dist/input/extract/extractAssets.js';
 
 describe('extractAssets', () => {
   afterEach(() => {
@@ -22,9 +22,13 @@ describe('extractAssets', () => {
       'image-a.png': 'image-a.png',
       'image-b.png': 'image-b.png',
       'image-c.png': 'image-c.png',
-      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'image-b.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-      'image-c.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'image-b.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="green"
+          /></svg>`,
+      'image-c.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
       'styles.css': css`
         :root {
           color: blue;
@@ -106,8 +110,12 @@ describe('extractAssets', () => {
 
   it('reads file sources', () => {
     const rootDir = createApp({
-      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'image-b.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'image-b.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="green"
+          /></svg>`,
       'styles.css': css`
         :root {
           color: blue;

@@ -1,1 +1,1 @@
-export { webdriverLauncher, WebdriverLauncher } from './webdriverLauncher.js';
+export { WebdriverLauncher, webdriverLauncher } from './webdriverLauncher.js';

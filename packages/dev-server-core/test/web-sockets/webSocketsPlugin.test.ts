@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { createTestServer, expectIncludes, expectNotIncludes } from '../helpers.ts';
 import { webSocketScript } from '../../dist/web-sockets/webSocketsPlugin.js';
+import { createTestServer, expectIncludes, expectNotIncludes } from '../helpers.ts';
 
 describe('webSocketsPlugin', () => {
   it('injects an event stream script if a plugin has inject set and event stream is enabled', async () => {

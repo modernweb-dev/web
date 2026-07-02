@@ -1,7 +1,7 @@
 import type { Reporter, ReporterArgs, TestSuiteResult } from '@web/test-runner-core';
 
-import { reportTestsErrors } from './reportTestsErrors.js';
 import { reportTestFileErrors } from './reportTestFileErrors.js';
+import { reportTestsErrors } from './reportTestsErrors.js';
 
 import { TestRunnerLogger } from '../logger/TestRunnerLogger.js';
 

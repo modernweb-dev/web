@@ -1,5 +1,5 @@
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Capabilities } from '@wdio/types';
+import { TestRunnerCoreConfig } from '@web/test-runner-core';
 import { WebdriverLauncher } from '@web/test-runner-webdriver';
 import internalIp from 'internal-ip';
 import { SauceLabsLauncherManager } from './SauceLabsLauncherManager.js';

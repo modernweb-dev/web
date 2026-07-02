@@ -1,5 +1,5 @@
+import { FileType, PolyfillsLoaderConfig, fileTypes } from '@web/polyfills-loader';
 import { EntrypointBundle } from '@web/rollup-plugin-html';
-import { PolyfillsLoaderConfig, FileType, fileTypes } from '@web/polyfills-loader';
 import { ModuleFormat } from 'rollup';
 
 import { RollupPluginPolyfillsLoaderConfig } from './types';

@@ -1,7 +1,7 @@
-import path from 'path';
 import { parse, serialize } from 'parse5';
-import { extractModules } from './extractModules.js';
+import path from 'path';
 import { extractAssets } from './extractAssets.js';
+import { extractModules } from './extractModules.js';
 
 export interface ExtractParams {
   html: string;

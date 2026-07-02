@@ -1,5 +1,5 @@
-import type { StorybookConfig as StorybookConfigBase } from 'storybook/internal/types';
 import type { BuilderOptions, StorybookConfigWds } from '@web/storybook-builder';
+import type { StorybookConfig as StorybookConfigBase } from 'storybook/internal/types';
 
 type FrameworkName = '@web/storybook-framework-web-components';
 type BuilderName = '@web/storybook-builder';

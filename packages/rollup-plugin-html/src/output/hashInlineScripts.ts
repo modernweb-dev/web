@@ -1,17 +1,17 @@
-import type { Document, Element, ParentNode } from 'parse5';
 import {
+  createElement,
   findElement,
   findElements,
-  getTagName,
-  hasAttribute,
-  getAttribute,
-  getTextContent,
-  createElement,
   findNode,
+  getAttribute,
+  getTagName,
+  getTextContent,
+  hasAttribute,
   prepend,
   setAttribute,
 } from '@web/parse5-utils';
 import crypto from 'crypto';
+import type { Document, Element, ParentNode } from 'parse5';
 
 function isMetaCSPTag(node: Element) {
   if (

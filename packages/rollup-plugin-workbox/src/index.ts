@@ -1,8 +1,8 @@
-import { generateSW as _generateSw, injectManifest as _injectManifest } from 'workbox-build';
-import type { GenerateSWOptions, InjectManifestOptions } from 'workbox-build';
-import * as prettyBytes from 'pretty-bytes';
-import * as esbuild from 'esbuild';
 import type { BuildOptions } from 'esbuild';
+import * as esbuild from 'esbuild';
+import * as prettyBytes from 'pretty-bytes';
+import type { GenerateSWOptions, InjectManifestOptions } from 'workbox-build';
+import { generateSW as _generateSw, injectManifest as _injectManifest } from 'workbox-build';
 
 const name = 'workbox';
 

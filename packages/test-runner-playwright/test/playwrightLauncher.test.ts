@@ -1,5 +1,5 @@
-import os from 'os';
 import { describe } from 'node:test';
+import os from 'os';
 import { runIntegrationTests } from '../../../integration/test-runner/index.ts';
 import { playwrightLauncher } from '../dist/index.js';
 

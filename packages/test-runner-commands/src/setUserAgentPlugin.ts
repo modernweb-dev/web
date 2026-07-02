@@ -1,5 +1,5 @@
-import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher } from '@web/test-runner-chrome';
+import { TestRunnerPlugin } from '@web/test-runner-core';
 
 export function setUserAgentPlugin(): TestRunnerPlugin {
   return {

@@ -1,13 +1,13 @@
 import fs from 'fs';
+import { GlobOptionsWithFileTypesFalse, globSync } from 'glob';
 import path from 'path';
-import { globSync, GlobOptionsWithFileTypesFalse } from 'glob';
 
-import { createError } from '../utils.js';
-import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions.js';
-import { InputData } from './InputData.js';
-import { normalizeInputOptions } from './normalizeInputOptions.js';
-import { extractModulesAndAssets } from './extract/extractModulesAndAssets.js';
 import { InputOption } from 'rollup';
+import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions.js';
+import { createError } from '../utils.js';
+import { InputData } from './InputData.js';
+import { extractModulesAndAssets } from './extract/extractModulesAndAssets.js';
+import { normalizeInputOptions } from './normalizeInputOptions.js';
 
 function resolveGlob(fromGlob: string, opts: GlobOptionsWithFileTypesFalse) {
   const files = globSync(fromGlob, { ...opts, absolute: true });

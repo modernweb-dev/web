@@ -38,13 +38,9 @@ import { Server } from 'net';
 import { DevServerCoreConfig, Logger, WebSocketsManager } from '@web/dev-server-core';
 
 export type ServeResult =
-  | void
-  | string
-  | { body: string; type?: string; headers?: Record<string, string> };
+  void | string | { body: string; type?: string; headers?: Record<string, string> };
 export type TransformResult =
-  | void
-  | string
-  | { body?: string; headers?: Record<string, string>; transformCache?: boolean };
+  void | string | { body?: string; headers?: Record<string, string>; transformCache?: boolean };
 export type ResolveResult = void | string | { id?: string };
 export type ResolveMimeTypeResult = void | string | { type?: string };
 

@@ -1,15 +1,15 @@
-import { describe, it, afterEach, mock } from 'node:test';
-import assert from 'node:assert/strict';
 import {
   createTestServer,
-  fetchText,
   expectIncludes,
   expectNotIncludes,
+  fetchText,
 } from '@web/dev-server-core/test-helpers';
+import assert from 'node:assert/strict';
+import { afterEach, describe, it, mock } from 'node:test';
 import { posix as pathUtil } from 'path';
 
-import { hmrPlugin } from '../dist/index.js';
 import { NAME_HMR_CLIENT_IMPORT } from '../dist/HmrPlugin.js';
+import { hmrPlugin } from '../dist/index.js';
 import { mockFile, mockFiles } from './utils.ts';
 
 describe('HmrPlugin', () => {

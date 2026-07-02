@@ -1,21 +1,20 @@
 import { codeFrameColumns } from '@babel/code-frame';
-import path from 'path';
 import { bold, cyan, red } from 'nanocolors';
 import openBrowser from 'open';
+import path from 'path';
 
-import { writeCoverageReport } from './writeCoverageReport.js';
+import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
+import { type TestCoverage } from '../coverage/getTestCoverage.js';
+import { ErrorWithLocation, type Logger } from '../logger/Logger.js';
+import { TestRunner } from '../runner/TestRunner.js';
+import { type TestSessionManager } from '../test-session/TestSessionManager.js';
+import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
+import { BufferedLogger } from './BufferedLogger.js';
+import { getManualDebugMenu } from './getManualDebugMenu.js';
 import { getSelectFilesMenu } from './getSelectFilesMenu.js';
 import { getWatchCommands } from './getWatchCommands.js';
 import { DynamicTerminal } from './terminal/DynamicTerminal.js';
-import { BufferedLogger } from './BufferedLogger.js';
-import { getManualDebugMenu } from './getManualDebugMenu.js';
-import { ErrorWithLocation } from '../logger/Logger.js';
-import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
-import { type TestSessionManager } from '../test-session/TestSessionManager.js';
-import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
-import { type Logger } from '../logger/Logger.js';
-import { TestRunner } from '../runner/TestRunner.js';
-import { type TestCoverage } from '../coverage/getTestCoverage.js';
+import { writeCoverageReport } from './writeCoverageReport.js';
 
 export type MenuType = 'none' | 'overview' | 'focus' | 'debug' | 'manual-debug';
 

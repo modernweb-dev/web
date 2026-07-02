@@ -1,11 +1,11 @@
+import { File, GeneratedFile, fileTypes, injectPolyfillsLoader } from '@web/polyfills-loader';
 import { RollupPluginHtml } from '@web/rollup-plugin-html';
-import { Plugin } from 'rollup';
-import { GeneratedFile, injectPolyfillsLoader, File, fileTypes } from '@web/polyfills-loader';
 import path from 'path';
+import { Plugin } from 'rollup';
 
+import { createPolyfillsLoaderConfig, formatToFileType } from './createPolyfillsLoaderConfig.js';
 import { RollupPluginPolyfillsLoaderConfig } from './types';
 import { createError, shouldInjectLoader } from './utils.js';
-import { createPolyfillsLoaderConfig, formatToFileType } from './createPolyfillsLoaderConfig.js';
 
 export function polyfillsLoader(pluginOptions: RollupPluginPolyfillsLoaderConfig = {}): Plugin {
   let generatedFiles: GeneratedFile[] | undefined;

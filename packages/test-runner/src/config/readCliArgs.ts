@@ -1,29 +1,28 @@
+import camelCase from 'camelcase';
 import commandLineArgs from 'command-line-args';
 import commandLineUsage, { OptionDefinition } from 'command-line-usage';
-import camelCase from 'camelcase';
 
 import { type TestRunnerConfig } from './TestRunnerConfig.js';
 
-export interface TestRunnerCliArgs
-  extends Partial<
-    Pick<
-      TestRunnerConfig,
-      | 'files'
-      | 'rootDir'
-      | 'watch'
-      | 'coverage'
-      | 'concurrentBrowsers'
-      | 'concurrency'
-      | 'staticLogging'
-      | 'manual'
-      | 'open'
-      | 'port'
-      | 'preserveSymlinks'
-      | 'nodeResolve'
-      | 'debug'
-      | 'esbuildTarget'
-    >
-  > {
+export interface TestRunnerCliArgs extends Partial<
+  Pick<
+    TestRunnerConfig,
+    | 'files'
+    | 'rootDir'
+    | 'watch'
+    | 'coverage'
+    | 'concurrentBrowsers'
+    | 'concurrency'
+    | 'staticLogging'
+    | 'manual'
+    | 'open'
+    | 'port'
+    | 'preserveSymlinks'
+    | 'nodeResolve'
+    | 'debug'
+    | 'esbuildTarget'
+  >
+> {
   config?: string;
   groups?: string;
   group?: string;

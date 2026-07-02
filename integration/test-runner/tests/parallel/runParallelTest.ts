@@ -1,7 +1,7 @@
-import { describe, it } from 'node:test';
+import { legacyPlugin } from '@web/dev-server-legacy';
 import type { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
-import { legacyPlugin } from '@web/dev-server-legacy';
+import { describe, it } from 'node:test';
 import { resolve } from 'path';
 
 export function runParallelTest(

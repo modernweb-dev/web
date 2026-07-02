@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { transformImports } from '../../dist/plugins/transformModuleImportsPlugin.js';
 import type { PluginSyntaxError } from '../../dist/logger/PluginSyntaxError.js';
+import { transformImports } from '../../dist/plugins/transformModuleImportsPlugin.js';
 import { createTestServer, expectIncludes } from '../helpers.ts';
 
 const defaultFilePath = '/root/my-file.js';

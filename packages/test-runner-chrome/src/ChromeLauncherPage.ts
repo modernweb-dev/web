@@ -1,7 +1,6 @@
-import { Page, JSCoverageEntry } from 'puppeteer-core';
-import { TestRunnerCoreConfig } from '@web/test-runner-core';
+import { SessionResult, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { v8ToIstanbul } from '@web/test-runner-coverage-v8';
-import { SessionResult } from '@web/test-runner-core';
+import { JSCoverageEntry, Page } from 'puppeteer-core';
 
 declare global {
   interface Window {

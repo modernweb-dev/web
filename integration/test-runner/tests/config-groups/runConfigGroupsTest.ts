@@ -1,12 +1,12 @@
-import assert from 'node:assert/strict';
-import { describe, it } from 'node:test';
+import { legacyPlugin } from '@web/dev-server-legacy';
 import type {
   BrowserLauncher,
   TestRunnerCoreConfig,
   TestRunnerGroupConfig,
 } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
-import { legacyPlugin } from '@web/dev-server-legacy';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import { resolve } from 'path';
 
 export function runConfigGroupsTest(

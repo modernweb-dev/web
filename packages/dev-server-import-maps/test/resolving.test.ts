@@ -1,7 +1,11 @@
-import { describe, it, mock } from 'node:test';
+import {
+  createTestServer,
+  expectIncludes,
+  fetchText,
+  virtualFilesPlugin,
+} from '@web/dev-server-core/test-helpers';
 import assert from 'node:assert/strict';
-import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
+import { describe, it, mock } from 'node:test';
 import path from 'path';
 
 import { importMapsPlugin } from '../dist/importMapsPlugin.js';

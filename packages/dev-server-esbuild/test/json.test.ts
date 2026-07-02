@@ -1,6 +1,6 @@
-import { describe, it } from 'node:test';
+import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
 import assert from 'node:assert/strict';
-import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
+import { describe, it } from 'node:test';
 
 import { esbuildPlugin } from '../dist/index.js';
 

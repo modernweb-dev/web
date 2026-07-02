@@ -1,5 +1,5 @@
-import type { Options } from 'storybook/internal/types';
 import type { Plugin } from 'rollup';
+import type { Options } from 'storybook/internal/types';
 import { generateAppScript } from './generate-app-script.js';
 import { generateSetupAddonsScript } from './generate-setup-addons-script.js';
 import { generateStoriesScript } from './generate-stories-script.js';

@@ -1,10 +1,13 @@
-import { describe, it } from 'node:test';
-import assert from 'node:assert/strict';
-import path from 'path';
-import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
-import type { Plugin as RollupPlugin } from 'rollup';
+import {
+  createTestServer,
+  expectIncludes,
+  expectNotIncludes,
+} from '@web/dev-server-core/test-helpers';
 import { fromRollup } from '@web/dev-server-rollup';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
+import path from 'path';
+import type { Plugin as RollupPlugin } from 'rollup';
 
 import { esbuildPlugin } from '../dist/index.js';
 

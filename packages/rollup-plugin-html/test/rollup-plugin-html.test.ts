@@ -1,7 +1,18 @@
-import { rollup } from 'rollup';
-import type { OutputChunk, OutputOptions, Plugin } from 'rollup';
 import assert from 'node:assert/strict';
-import { describe, it, afterEach } from 'node:test';
+import { afterEach, describe, it } from 'node:test';
+import path from 'path';
+import type { OutputChunk, OutputOptions, Plugin } from 'rollup';
+import { rollup } from 'rollup';
+import {
+  cleanApp,
+  createApp,
+  css,
+  generateTestBundle,
+  html,
+  js,
+  svg,
+} from '../../../test-utils/rollup-test-utils.js';
+import { rollupPluginHTML } from '../dist/index.js';
 
 function expectIncludes(actual: string, expected: string) {
   if (!actual.includes(expected)) {
@@ -10,17 +21,6 @@ function expectIncludes(actual: string, expected: string) {
     );
   }
 }
-import path from 'path';
-import { rollupPluginHTML } from '../dist/index.js';
-import {
-  html,
-  css,
-  js,
-  svg,
-  generateTestBundle,
-  createApp,
-  cleanApp,
-} from '../../../test-utils/rollup-test-utils.js';
 
 const outputConfig: OutputOptions = {
   format: 'es',
@@ -59,9 +59,7 @@ describe('rollup-plugin-html', () => {
         import './shared-module.js';
         console.log('module-b.js');
       `,
-      'modules/shared-module.js': js`
-        console.log('shared-module.js');
-      `,
+      'modules/shared-module.js': js`console.log('shared-module.js');`,
     });
 
     const config = {
@@ -123,9 +121,7 @@ describe('rollup-plugin-html', () => {
         import './shared-module.js';
         console.log('module-b.js');
       `,
-      'modules/shared-module.js': js`
-        console.log('shared-module.js');
-      `,
+      'modules/shared-module.js': js`console.log('shared-module.js');`,
     });
 
     const config = {
@@ -183,9 +179,7 @@ describe('rollup-plugin-html', () => {
         import './shared-module.js';
         console.log('module-b.js');
       `,
-      'modules/shared-module.js': js`
-        console.log('shared-module.js');
-      `,
+      'modules/shared-module.js': js`console.log('shared-module.js');`,
     });
 
     const config = {
@@ -314,9 +308,7 @@ describe('rollup-plugin-html', () => {
 
   it('can build with html string as input', async () => {
     const rootDir = createApp({
-      'app.js': js`
-        console.log('app.js');
-      `,
+      'app.js': js`console.log('app.js');`,
     });
 
     const config = {
@@ -352,9 +344,7 @@ describe('rollup-plugin-html', () => {
 
   it('resolves paths relative to virtual html filename', async () => {
     const rootDir = createApp({
-      'app.js': js`
-        console.log('app.js');
-      `,
+      'app.js': js`console.log('app.js');`,
     });
 
     const config = {
@@ -390,9 +380,7 @@ describe('rollup-plugin-html', () => {
 
   it('can build with inline modules', async () => {
     const rootDir = createApp({
-      'app.js': js`
-        console.log('app.js');
-      `,
+      'app.js': js`console.log('app.js');`,
     });
 
     const config = {
@@ -442,9 +430,7 @@ describe('rollup-plugin-html', () => {
           </body>
         </html>
       `,
-      'nested/app.js': js`
-        console.log('app.js');
-      `,
+      'nested/app.js': js`console.log('app.js');`,
     });
 
     const config = {
@@ -468,9 +454,7 @@ describe('rollup-plugin-html', () => {
 
   it('can build transforming final output', async () => {
     const rootDir = createApp({
-      'app.js': js`
-        console.log('app.js');
-      `,
+      'app.js': js`console.log('app.js');`,
     });
 
     const config = {
@@ -509,9 +493,7 @@ describe('rollup-plugin-html', () => {
 
   it('can build with a public path', async () => {
     const rootDir = createApp({
-      'app.js': js`
-        console.log('app.js');
-      `,
+      'app.js': js`console.log('app.js');`,
     });
 
     const config = {
@@ -547,9 +529,7 @@ describe('rollup-plugin-html', () => {
 
   it('can build with a public path with a file in a directory', async () => {
     const rootDir = createApp({
-      'app.js': js`
-        console.log('app.js');
-      `,
+      'app.js': js`console.log('app.js');`,
     });
 
     const config = {
@@ -590,9 +570,7 @@ describe('rollup-plugin-html', () => {
         import './modules/module.js';
         console.log('app.js');
       `,
-      'modules/module.js': js`
-        console.log('module.js');
-      `,
+      'modules/module.js': js`console.log('module.js');`,
     });
 
     const plugin = rollupPluginHTML({
@@ -654,9 +632,7 @@ describe('rollup-plugin-html', () => {
 
   it('can build with index.html as input and an extra html file as output', async () => {
     const rootDir = createApp({
-      'app.js': js`
-        console.log('app.js');
-      `,
+      'app.js': js`console.log('app.js');`,
     });
 
     const config = {
@@ -719,7 +695,7 @@ describe('rollup-plugin-html', () => {
       'entrypoint-b.js': js`
         import './modules/module-b.js';
         console.log('entrypoint-b.js');
-        `,
+      `,
       'entrypoint-c.js': js`
         import './modules/module-c.js';
         console.log('entrypoint-c.js');
@@ -736,9 +712,7 @@ describe('rollup-plugin-html', () => {
         import './shared-module.js';
         console.log('module-c.js');
       `,
-      'modules/shared-module.js': js`
-        console.log('shared-module.js');
-      `,
+      'modules/shared-module.js': js`console.log('shared-module.js');`,
     });
 
     const config = {
@@ -842,18 +816,10 @@ describe('rollup-plugin-html', () => {
           </body>
         </html>
       `,
-      'pages/page-a.js': js`
-        export default 'page a';
-      `,
-      'pages/page-b.js': js`
-        export default 'page b';
-      `,
-      'pages/page-c.js': js`
-        export default 'page c';
-      `,
-      'pages/shared.js': js`
-        export default 'shared';
-      `,
+      'pages/page-a.js': js`export default 'page a';`,
+      'pages/page-b.js': js`export default 'page b';`,
+      'pages/page-c.js': js`export default 'page c';`,
+      'pages/shared.js': js`export default 'shared';`,
     });
 
     const config = {
@@ -1111,9 +1077,7 @@ describe('rollup-plugin-html', () => {
 
   it('outputs the hashed entrypoint name', async () => {
     const rootDir = createApp({
-      'app.js': js`
-        console.log('app.js');
-      `,
+      'app.js': js`console.log('app.js');`,
     });
 
     const config = {
@@ -1160,9 +1124,7 @@ describe('rollup-plugin-html', () => {
 
   it('outputs import path relative to the final output html', async () => {
     const rootDir = createApp({
-      'app.js': js`
-        console.log('app.js');
-      `,
+      'app.js': js`console.log('app.js');`,
     });
 
     const config = {
@@ -1198,9 +1160,7 @@ describe('rollup-plugin-html', () => {
 
   it('can change HTML root directory', async () => {
     const rootDir = createApp({
-      'different-root/src/app.js': js`
-        console.log('app.js');
-      `,
+      'different-root/src/app.js': js`console.log('app.js');`,
     });
 
     const config = {
@@ -1295,9 +1255,7 @@ describe('rollup-plugin-html', () => {
         import './shared-module.js';
         console.log('module-b.js');
       `,
-      'modules/shared-module.js': js`
-        console.log('shared-module.js');
-      `,
+      'modules/shared-module.js': js`console.log('shared-module.js');`,
     });
 
     const config = {
@@ -1353,9 +1311,13 @@ describe('rollup-plugin-html', () => {
       'image-a.png': 'image-a.png',
       'image-b.png': 'image-b.png',
       'image-c.png': 'image-c.png',
-      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'image-b.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
-      'image-c.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue"/></svg>`,
+      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'image-b.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="green"
+          /></svg>`,
+      'image-c.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="blue" /></svg>`,
       'styles.css': css`
         :root {
           color: blue;
@@ -1454,8 +1416,12 @@ describe('rollup-plugin-html', () => {
       'image-a.png': 'image-a.png',
       'image-b.png': 'image-b.png',
       'image-c.png': 'image-c.png',
-      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'image-b.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'image-b.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="green"
+          /></svg>`,
       'styles.css': css`
         :root {
           color: blue;
@@ -1549,8 +1515,8 @@ describe('rollup-plugin-html', () => {
 
   it('does not deduplicate static assets with similar names', async () => {
     const rootDir = createApp({
-      'foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'x/foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      'foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'x/foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
     });
 
     const config = {
@@ -1599,8 +1565,8 @@ describe('rollup-plugin-html', () => {
 
   it('[legacy] deduplicates static assets with similar names', async () => {
     const rootDir = createApp({
-      'foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'x/foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      'foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'x/foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green" /></svg>`,
     });
 
     const config = {
@@ -1649,7 +1615,7 @@ describe('rollup-plugin-html', () => {
 
   it('[legacy] static and hashed asset nodes can reference the same files', async () => {
     const rootDir = createApp({
-      'foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
+      'foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
     });
 
     const config = {
@@ -1847,7 +1813,11 @@ describe('rollup-plugin-html', () => {
   it('can turn off extracting assets', async () => {
     const rootDir = createApp({
       'image-c.png': 'image-c.png',
-      'image-b.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      'image-b.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="green"
+          /></svg>`,
       'styles.css': css`
         :root {
           color: blue;
@@ -1913,12 +1883,8 @@ describe('rollup-plugin-html', () => {
           </body>
         </html>
       `,
-      'entrypoint-a.js': js`
-        console.log('entrypoint-a.js');
-      `,
-      'entrypoint-b.js': js`
-        console.log('entrypoint-b.js');
-      `,
+      'entrypoint-a.js': js`console.log('entrypoint-a.js');`,
+      'entrypoint-b.js': js`console.log('entrypoint-b.js');`,
     });
 
     const config = {
@@ -1987,12 +1953,8 @@ describe('rollup-plugin-html', () => {
           </body>
         </html>
       `,
-      'entrypoint-a.js': js`
-        console.log('entrypoint-a.js');
-      `,
-      'entrypoint-b.js': js`
-        console.log('entrypoint-b.js');
-      `,
+      'entrypoint-a.js': js`console.log('entrypoint-a.js');`,
+      'entrypoint-b.js': js`console.log('entrypoint-b.js');`,
     });
 
     const config = {
@@ -2061,12 +2023,8 @@ describe('rollup-plugin-html', () => {
           </body>
         </html>
       `,
-      'entrypoint-a.js': js`
-        console.log('entrypoint-a.js');
-      `,
-      'entrypoint-b.js': js`
-        console.log('entrypoint-b.js');
-      `,
+      'entrypoint-a.js': js`console.log('entrypoint-a.js');`,
+      'entrypoint-b.js': js`console.log('entrypoint-b.js');`,
     });
 
     const config = {
@@ -2186,8 +2144,12 @@ describe('rollup-plugin-html', () => {
 
   it('does support a absolutePathPrefix to allow for sub folder deployments', async () => {
     const rootDir = createApp({
-      'x/foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="yellow"/></svg>`,
-      'image-b.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      'x/foo.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="yellow" /></svg>`,
+      'image-b.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="green"
+          /></svg>`,
       'styles.css': css`
         :root {
           color: blue;
@@ -2961,8 +2923,12 @@ describe('rollup-plugin-html', () => {
     const rootDir = createApp({
       'image-a.png': 'image-a.png',
       'image-b.png': 'image-b.png',
-      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'image-b.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'image-b.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="green"
+          /></svg>`,
       'styles.css': css`
         #a1 {
           background-image: url('image-a.png');
@@ -3088,8 +3054,12 @@ describe('rollup-plugin-html', () => {
     const rootDir = createApp({
       'image-a.png': 'image-a.png',
       'image-b.png': 'image-b.png',
-      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red"/></svg>`,
-      'image-b.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="green"/></svg>`,
+      'image-a.svg': svg`<svg width="1" height="1"><rect width="1" height="1" fill="red" /></svg>`,
+      'image-b.svg': svg`<svg width="1" height="1"><rect
+            width="1"
+            height="1"
+            fill="green"
+          /></svg>`,
       'styles.css': css`
         #a1 {
           background-image: url('image-a.png');
