@@ -1,10 +1,10 @@
-import { expectIncludes } from '@web/dev-server-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';
 import type { BrowserLauncher, TestRunnerCoreConfig, TestSession } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import assert from 'node:assert/strict';
 import { before, describe, it } from 'node:test';
 import { resolve } from 'path';
+import { assertIncludes } from '../../../../test-helpers/node-test-helpers.js';
 
 export function runLocationChangeTest(
   config: Partial<TestRunnerCoreConfig> & { browsers: BrowserLauncher[] },
@@ -42,11 +42,11 @@ export function runLocationChangeTest(
         assert.equal(session.testResults, undefined);
         assert.deepEqual(session.logs, []);
         assert.equal(session.errors.length, 1);
-        expectIncludes(
+        assertIncludes(
           session.errors[0].message,
           'Tests were interrupted because the page navigated to',
         );
-        expectIncludes(
+        assertIncludes(
           session.errors[0].message,
           'This can happen when clicking a link, submitting a form or interacting with window.location.',
         );
@@ -77,12 +77,12 @@ export function runLocationChangeTest(
         assert.equal(session.testResults, undefined);
         assert.deepEqual(session.logs, []);
         assert.equal(session.errors.length, 1);
-        expectIncludes(
+        assertIncludes(
           session.errors[0].message,
           'Tests were interrupted because the page navigated to',
         );
-        expectIncludes(session.errors[0].message, '/new-page/');
-        expectIncludes(
+        assertIncludes(session.errors[0].message, '/new-page/');
+        assertIncludes(
           session.errors[0].message,
           'This can happen when clicking a link, submitting a form or interacting with window.location.',
         );

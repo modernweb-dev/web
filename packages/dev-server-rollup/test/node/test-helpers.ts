@@ -1,10 +1,5 @@
 import type { DevServerCoreConfig, Logger } from '@web/dev-server-core';
-import {
-  expectIncludes,
-  fetchText,
-  createTestServer as originalCreateTestServer,
-  timeout,
-} from '@web/dev-server-core/test-helpers';
+import { createTestServer as originalCreateTestServer } from '@web/dev-server-core/test-helpers';
 import path from 'path';
 
 export function createTestServer(config: Partial<DevServerCoreConfig> = {}, mockLogger?: Logger) {
@@ -16,5 +11,3 @@ export function createTestServer(config: Partial<DevServerCoreConfig> = {}, mock
     mockLogger,
   );
 }
-
-export { timeout, fetchText, expectIncludes };

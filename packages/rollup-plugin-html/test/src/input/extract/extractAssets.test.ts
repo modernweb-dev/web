@@ -9,7 +9,7 @@ import {
   html,
   js,
   svg,
-} from '../../../../../../test-utils/rollup-test-utils.js';
+} from '../../../../../../test-helpers/node-test-helpers.js';
 import { extractAssets } from '../../../../dist/input/extract/extractAssets.js';
 
 describe('extractAssets', () => {

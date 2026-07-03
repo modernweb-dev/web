@@ -1,7 +1,8 @@
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
+import { assertIncludes } from '../../../test-helpers/node-test-helpers.js';
 import { esbuildPlugin } from '../dist/index.js';
 
 describe('esbuildPlugin JSON', () => {
@@ -30,12 +31,12 @@ describe('esbuildPlugin JSON', () => {
         response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
-      expectIncludes(text, 'var foo = "bar";');
-      expectIncludes(text, 'var foo_default = { foo };');
-      expectIncludes(text, 'export {');
-      expectIncludes(text, 'foo_default as default');
-      expectIncludes(text, 'foo');
-      expectIncludes(text, '}');
+      assertIncludes(text, 'var foo = "bar";');
+      assertIncludes(text, 'var foo_default = { foo };');
+      assertIncludes(text, 'export {');
+      assertIncludes(text, 'foo_default as default');
+      assertIncludes(text, 'foo');
+      assertIncludes(text, '}');
     } finally {
       server.stop();
     }

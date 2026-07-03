@@ -1,12 +1,12 @@
-import {
-  createTestServer,
-  expectIncludes,
-  expectNotIncludes,
-  fetchText,
-} from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
+import {
+  assertIncludes,
+  assertNotIncludes,
+  fetchText,
+} from '../../../test-helpers/node-test-helpers.js';
 // rewrite to ../src/legacyPlugin.ts when TS 5.7+ / rewriteRelativeImportExtensions
 import { legacyPlugin } from '../dist/legacyPlugin.js';
 import { legacyUserAgents, modernUserAgents } from './userAgents.ts';
@@ -68,12 +68,12 @@ describe('legacyPlugin - transform js', { timeout: 10000 }, () => {
       const text = await fetchText(`${host}/app.js`, {
         headers: { 'user-agent': userAgent },
       });
-      expectNotIncludes(text, 'System.register(');
-      expectIncludes(text, "import('./xyz.js?systemjs=true');");
-      expectIncludes(text, 'function asyncGeneratorStep');
-      expectIncludes(text, 'function _classCallCheck(instance');
-      expectIncludes(text, '_asyncToGenerator');
-      expectIncludes(
+      assertNotIncludes(text, 'System.register(');
+      assertIncludes(text, "import('./xyz.js?systemjs=true');");
+      assertIncludes(text, 'function asyncGeneratorStep');
+      assertIncludes(text, 'function _classCallCheck(instance');
+      assertIncludes(text, '_asyncToGenerator');
+      assertIncludes(
         text,
         'console.log((_window = window) === null || _window === void 0 || (_window = _window.foo) === null || _window === void 0 ? void 0 : _window.bar);',
       );
@@ -99,12 +99,12 @@ describe('legacyPlugin - transform js', { timeout: 10000 }, () => {
       const text = await fetchText(`${host}/app.js?systemjs=true`, {
         headers: { 'user-agent': userAgent },
       });
-      expectIncludes(text, 'System.register(');
-      expectIncludes(text, "_context.import('./xyz.js?systemjs=true');");
-      expectIncludes(text, 'function asyncGeneratorStep');
-      expectIncludes(text, 'function _classCallCheck(instance');
-      expectIncludes(text, '_asyncToGenerator');
-      expectIncludes(
+      assertIncludes(text, 'System.register(');
+      assertIncludes(text, "_context.import('./xyz.js?systemjs=true');");
+      assertIncludes(text, 'function asyncGeneratorStep');
+      assertIncludes(text, 'function _classCallCheck(instance');
+      assertIncludes(text, '_asyncToGenerator');
+      assertIncludes(
         text,
         'console.log((_window = window) === null || _window === void 0 || (_window = _window.foo) === null || _window === void 0 ? void 0 : _window.bar);',
       );

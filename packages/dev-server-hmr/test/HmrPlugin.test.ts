@@ -1,13 +1,13 @@
-import {
-  createTestServer,
-  expectIncludes,
-  expectNotIncludes,
-  fetchText,
-} from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
 import assert from 'node:assert/strict';
 import { afterEach, describe, it, mock } from 'node:test';
 import { posix as pathUtil } from 'path';
 
+import {
+  assertIncludes,
+  assertNotIncludes,
+  fetchText,
+} from '../../../test-helpers/node-test-helpers.js';
 import { NAME_HMR_CLIENT_IMPORT } from '../dist/HmrPlugin.js';
 import { hmrPlugin } from '../dist/index.js';
 import { mockFile, mockFiles } from './utils.ts';
@@ -220,7 +220,7 @@ describe('HmrPlugin', () => {
       const updatedA = await fetchText(`${host}/a.js?m=1234567890123`);
       await fetchText(`${host}/b.js?m=1234567890123`);
       assert.match(updatedA, /import '\/b\.js\?m=\d{13}';/);
-      expectIncludes(updatedA, "import '/c.js';");
+      assertIncludes(updatedA, "import '/c.js';");
     } finally {
       await server.stop();
     }
@@ -358,7 +358,7 @@ describe('HmrPlugin', () => {
     try {
       const response = await fetch(`${host}${NAME_HMR_CLIENT_IMPORT}`);
       const body = await response.text();
-      expectIncludes(body, 'class HotModule');
+      assertIncludes(body, 'class HotModule');
     } finally {
       await server.stop();
     }
@@ -382,7 +382,7 @@ describe('HmrPlugin', () => {
       const response = await fetch(`${host}/foo.js`);
       const body = await response.text();
 
-      expectIncludes(body, '__WDS_HMR__');
+      assertIncludes(body, '__WDS_HMR__');
     } finally {
       await server.stop();
     }
@@ -398,7 +398,7 @@ describe('HmrPlugin', () => {
       const response = await fetch(`${host}/foo.js`);
       const body = await response.text();
 
-      expectNotIncludes(body, '__WDS_HMR__');
+      assertNotIncludes(body, '__WDS_HMR__');
     } finally {
       await server.stop();
     }

@@ -1,7 +1,8 @@
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
+import { assertIncludes } from '../../../test-helpers/node-test-helpers.js';
 import { esbuildPlugin } from '../dist/index.js';
 
 describe('esbuildPlugin banner/footers', { timeout: 5000 }, () => {
@@ -28,7 +29,7 @@ describe('esbuildPlugin banner/footers', { timeout: 5000 }, () => {
       const indexOfExpr = text.indexOf('export const foo = 5;');
       const indexOfBanner = text.indexOf('/* hello there */');
 
-      expectIncludes(text, '/* hello there */');
+      assertIncludes(text, '/* hello there */');
       assert.ok(indexOfExpr > indexOfBanner);
     } finally {
       server.stop();
@@ -58,7 +59,7 @@ describe('esbuildPlugin banner/footers', { timeout: 5000 }, () => {
       const indexOfExpr = text.indexOf('export const foo = 5;');
       const indexOfFooter = text.indexOf('/* hello there */');
 
-      expectIncludes(text, '/* hello there */');
+      assertIncludes(text, '/* hello there */');
       assert.ok(indexOfFooter > indexOfExpr);
     } finally {
       server.stop();

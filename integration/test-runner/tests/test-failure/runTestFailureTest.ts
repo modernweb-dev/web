@@ -1,10 +1,10 @@
-import { expectIncludes } from '@web/dev-server-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';
 import type { BrowserLauncher, TestRunnerCoreConfig, TestSession } from '@web/test-runner-core';
 import { runTests } from '@web/test-runner-core/test-helpers';
 import assert from 'node:assert/strict';
 import { before, describe, it } from 'node:test';
 import { resolve, sep } from 'path';
+import { assertIncludes } from '../../../../test-helpers/node-test-helpers.js';
 
 const ERROR_NOT_IMPORTABLE = {
   message:
@@ -94,7 +94,7 @@ export function runTestFailureTest(
           ['true is true', 'true is really true'],
         );
         assert.equal(session.errors.length, 1);
-        expectIncludes(session.errors[0].message, 'error thrown in afterEach hook');
+        assertIncludes(session.errors[0].message, 'error thrown in afterEach hook');
         assert.ok(
           session.errors[0].stack!.includes(
             `test-failure${sep}browser-tests${sep}fail-after-each.test.js`,
@@ -113,7 +113,7 @@ export function runTestFailureTest(
           ['true is true', 'true is really true'],
         );
         assert.equal(session.errors.length, 1);
-        expectIncludes(session.errors[0].message, 'error thrown in after hook');
+        assertIncludes(session.errors[0].message, 'error thrown in after hook');
         assert.ok(
           session.errors[0].stack!.includes(
             `test-failure${sep}browser-tests${sep}fail-after.test.js`,
@@ -132,7 +132,7 @@ export function runTestFailureTest(
           ['true is true', 'true is really true'],
         );
         assert.equal(session.errors.length, 1);
-        expectIncludes(session.errors[0].message, 'error thrown in beforeEach hook');
+        assertIncludes(session.errors[0].message, 'error thrown in beforeEach hook');
         assert.ok(
           session.errors[0].stack!.includes(
             `test-failure${sep}browser-tests${sep}fail-before-each.test.js`,
@@ -151,7 +151,7 @@ export function runTestFailureTest(
           ['true is true', 'true is really true'],
         );
         assert.equal(session.errors.length, 1);
-        expectIncludes(session.errors[0].message, 'error thrown in before hook');
+        assertIncludes(session.errors[0].message, 'error thrown in before hook');
         assert.ok(
           session.errors[0].stack!.includes(
             `test-failure${sep}browser-tests${sep}fail-before.test.js`,
@@ -169,7 +169,7 @@ export function runTestFailureTest(
           session.testResults!.tests.map(t => t.name),
           ['custom error'],
         );
-        expectIncludes(session.testResults!.tests[0].error!.message, 'a custom error thrown');
+        assertIncludes(session.testResults!.tests[0].error!.message, 'a custom error thrown');
         assert.ok(
           session.testResults!.tests[0].error!.stack!.includes(
             `browser-tests${sep}fail-custom-error.test.js`,
@@ -189,7 +189,7 @@ export function runTestFailureTest(
         assert.equal(session.testResults!.suites.length, 0);
         assert.equal(session.testResults!.tests.length, 0);
         assert.deepEqual(session.errors, [ERROR_NOT_IMPORTABLE]);
-        expectIncludes(session.logs[0][0] as string, 'This is thrown before running tests');
+        assertIncludes(session.logs[0][0] as string, 'This is thrown before running tests');
       }
     });
 
@@ -198,9 +198,9 @@ export function runTestFailureTest(
       assert.equal(sessions.length === browserCount, true);
       for (const session of sessions) {
         assert.equal(session.testResults!.tests.length, 1);
-        expectIncludes(session.testResults!.tests[0]!.error!.message, 'My error');
-        expectIncludes(session.testResults!.tests[0]!.error!.stack!, 'throwErrorC');
-        expectIncludes(session.testResults!.tests[0]!.error!.stack!, 'fail-stack-trace-c.js');
+        assertIncludes(session.testResults!.tests[0]!.error!.message, 'My error');
+        assertIncludes(session.testResults!.tests[0]!.error!.stack!, 'throwErrorC');
+        assertIncludes(session.testResults!.tests[0]!.error!.stack!, 'fail-stack-trace-c.js');
         assert.deepEqual(session.errors, []);
         assert.deepEqual(session.logs, []);
       }

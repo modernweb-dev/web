@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
 
-import { createTestServer, expectIncludes } from '../helpers.ts';
+import { assertIncludes } from '../../../../test-helpers/node-test-helpers.js';
+import { createTestServer } from '../helpers.ts';
 
 describe('serveFilesMiddleware', () => {
   it('can serve files outside of the root directory', async () => {
@@ -23,7 +24,7 @@ describe('serveFilesMiddleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, "export default 'foo'");
+      assertIncludes(responseText, "export default 'foo'");
     } finally {
       server.stop();
     }

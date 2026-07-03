@@ -1,8 +1,8 @@
-import { expectIncludes } from '@web/dev-server-core/test-helpers';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { after, before, describe, it } from 'node:test';
+import { assertIncludes } from '../../../test-helpers/node-test-helpers.js';
 
 import type { Browser, Page } from 'puppeteer';
 import puppeteer from 'puppeteer';
@@ -350,11 +350,11 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
     });
     const deserialized = await deserialize(serialized, defaultOptions);
     assert.equal(typeof deserialized, 'string');
-    expectIncludes(deserialized, 'my error msg');
-    expectIncludes(deserialized, '2:23');
-    expectIncludes(deserialized, '3:23');
-    expectIncludes(deserialized, '4:23');
-    expectIncludes(deserialized, '5:35');
+    assertIncludes(deserialized, 'my error msg');
+    assertIncludes(deserialized, '2:23');
+    assertIncludes(deserialized, '3:23');
+    assertIncludes(deserialized, '4:23');
+    assertIncludes(deserialized, '5:35');
   });
 
   it('handles errors in objects', async () => {
@@ -366,11 +366,11 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
     });
     const deserialized = await deserialize(serialized, defaultOptions);
     assert.equal(typeof deserialized.myError, 'string');
-    expectIncludes(deserialized.myError, 'my error msg');
-    expectIncludes(deserialized.myError, '2:23');
-    expectIncludes(deserialized.myError, '3:23');
-    expectIncludes(deserialized.myError, '4:23');
-    expectIncludes(deserialized.myError, '5:46');
+    assertIncludes(deserialized.myError, 'my error msg');
+    assertIncludes(deserialized.myError, '2:23');
+    assertIncludes(deserialized.myError, '3:23');
+    assertIncludes(deserialized.myError, '4:23');
+    assertIncludes(deserialized.myError, '5:46');
   });
 
   it('handles errors in arrays', async () => {
@@ -382,20 +382,20 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
     });
     const deserialized = await deserialize(serialized, defaultOptions);
     assert.equal(typeof deserialized[0], 'string');
-    expectIncludes(deserialized[0], 'my error msg');
-    expectIncludes(deserialized[0], '2:23');
-    expectIncludes(deserialized[0], '3:23');
-    expectIncludes(deserialized[0], '4:23');
-    expectIncludes(deserialized[0], '5:36');
+    assertIncludes(deserialized[0], 'my error msg');
+    assertIncludes(deserialized[0], '2:23');
+    assertIncludes(deserialized[0], '3:23');
+    assertIncludes(deserialized[0], '4:23');
+    assertIncludes(deserialized[0], '5:36');
     assert.equal(typeof deserialized[1], 'string');
-    expectIncludes(deserialized[1], 'my error msg');
-    expectIncludes(deserialized[1], '2:23');
-    expectIncludes(deserialized[1], '3:23');
-    expectIncludes(deserialized[1], '5:41');
+    assertIncludes(deserialized[1], 'my error msg');
+    assertIncludes(deserialized[1], '2:23');
+    assertIncludes(deserialized[1], '3:23');
+    assertIncludes(deserialized[1], '5:41');
     assert.equal(typeof deserialized[2], 'string');
-    expectIncludes(deserialized[2], 'my error msg');
-    expectIncludes(deserialized[2], '2:23');
-    expectIncludes(deserialized[2], '5:46');
+    assertIncludes(deserialized[2], 'my error msg');
+    assertIncludes(deserialized[2], '2:23');
+    assertIncludes(deserialized[2], '5:46');
   });
 
   it('can map stack trace locations', async () => {
@@ -410,8 +410,8 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
       mapStackLocation: l => ({ ...l, filePath: `${l.filePath}__MAPPED__`, line: 1, column: 2 }),
     });
     assert.equal(typeof deserialized, 'string');
-    expectIncludes(deserialized, 'my error msg');
-    expectIncludes(deserialized, `__MAPPED__:1:2`);
+    assertIncludes(deserialized, 'my error msg');
+    assertIncludes(deserialized, `__MAPPED__:1:2`);
   });
 
   it('mapped stack traces can be async', async () => {
@@ -429,8 +429,8 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
       },
     });
     assert.equal(typeof deserialized, 'string');
-    expectIncludes(deserialized, 'my error msg');
-    expectIncludes(deserialized, `__MAPPED__:1:2`);
+    assertIncludes(deserialized, 'my error msg');
+    assertIncludes(deserialized, `__MAPPED__:1:2`);
   });
 
   it('can define a cwd below current directory', async () => {
@@ -445,11 +445,11 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
       cwd: path.resolve(import.meta.dirname, '..'),
     });
     assert.equal(typeof deserialized, 'string');
-    expectIncludes(deserialized, 'my error msg');
-    expectIncludes(deserialized, `2:23`);
-    expectIncludes(deserialized, `3:23`);
-    expectIncludes(deserialized, `4:23`);
-    expectIncludes(deserialized, `5:35`);
+    assertIncludes(deserialized, 'my error msg');
+    assertIncludes(deserialized, `2:23`);
+    assertIncludes(deserialized, `3:23`);
+    assertIncludes(deserialized, `4:23`);
+    assertIncludes(deserialized, `5:35`);
   });
 
   it('can define a cwd above current directory', async () => {
@@ -464,11 +464,11 @@ describe('serialize deserialize', { timeout: 10000 }, function () {
       browserRootDir: path.resolve(import.meta.dirname, '..'),
     });
     assert.equal(typeof deserialized, 'string');
-    expectIncludes(deserialized, 'my error msg');
-    expectIncludes(deserialized, `2:23`);
-    expectIncludes(deserialized, `3:23`);
-    expectIncludes(deserialized, `4:23`);
-    expectIncludes(deserialized, `5:35`);
+    assertIncludes(deserialized, 'my error msg');
+    assertIncludes(deserialized, `2:23`);
+    assertIncludes(deserialized, `3:23`);
+    assertIncludes(deserialized, `4:23`);
+    assertIncludes(deserialized, `5:35`);
   });
 
   it('handles null', async () => {

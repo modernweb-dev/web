@@ -5,8 +5,9 @@ import { describe, it } from 'node:test';
 import { resolve } from 'path';
 import rollupPostcss from 'rollup-plugin-postcss';
 
+import { assertIncludes, fetchText } from '../../../../../test-helpers/node-test-helpers.js';
 import { fromRollup } from '../../../dist/index.js';
-import { createTestServer, expectIncludes, fetchText } from '../test-helpers.ts';
+import { createTestServer } from '../test-helpers.ts';
 
 const postcss = fromRollup(rollupPostcss);
 
@@ -43,16 +44,16 @@ html {
 
     try {
       const text = await fetchText(`${host}/my-styles.css`);
-      expectIncludes(
+      assertIncludes(
         text,
         '"\\nhtml {\\n  font-size: 20px;\\n}\\n\\n.foo {\\n  color: blue;\\n}\\n\\n#bar {\\n  color: red;\\n}";',
       );
-      expectIncludes(text, 'export default');
-      expectIncludes(
+      assertIncludes(text, 'export default');
+      assertIncludes(
         text,
         "import styleInject from './node_modules/style-inject/dist/style-inject.es.js';",
       );
-      expectIncludes(text, 'styleInject(css_248z);');
+      assertIncludes(text, 'styleInject(css_248z);');
     } finally {
       server.stop();
     }

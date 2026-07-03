@@ -4,8 +4,9 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
 
+import { assertIncludes, fetchText } from '../../../../../test-helpers/node-test-helpers.js';
 import { fromRollup } from '../../../dist/index.js';
-import { createTestServer, expectIncludes, fetchText } from '../test-helpers.ts';
+import { createTestServer } from '../test-helpers.ts';
 
 const nodeResolve = fromRollup(rollupNodeResolve, {}, { throwOnUnresolvedImport: true });
 const commonjs = fromRollup(rollupCommonjs);
@@ -18,7 +19,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const text = await fetchText(`${host}/app.js`);
-      expectIncludes(text, "import moduleA from './node_modules/module-a/index.js'");
+      assertIncludes(text, "import moduleA from './node_modules/module-a/index.js'");
     } finally {
       server.stop();
     }
@@ -41,7 +42,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const text = await fetchText(`${host}/index`);
-      expectIncludes(text, "import './node_modules/module-a/index.js'");
+      assertIncludes(text, "import './node_modules/module-a/index.js'");
     } finally {
       server.stop();
     }
@@ -54,7 +55,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const text = await fetchText(`${host}/index.html`);
-      expectIncludes(text, "import './node_modules/module-a/index.js';");
+      assertIncludes(text, "import './node_modules/module-a/index.js';");
     } finally {
       server.stop();
     }
@@ -69,7 +70,7 @@ describe('@rollup/plugin-node-resolve', () => {
     try {
       const text = await fetchText(`${host}/index.html`);
       console.log(text);
-      expectIncludes(text, "import './internal-a.js';");
+      assertIncludes(text, "import './internal-a.js';");
     } finally {
       server.stop();
     }
@@ -143,7 +144,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const responseText = await fetchText(`${host}/src/app.js`);
-      expectIncludes(
+      assertIncludes(
         responseText,
         "import moduleB from '/__wds-outside-root__/1/resolve-outside-dir-foo/index.js'",
       );
@@ -160,7 +161,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const responseText = await fetchText(`${host}/app.js`);
-      expectIncludes(
+      assertIncludes(
         responseText,
         "import moduleA from '/__wds-outside-root__/1/node_modules/module-a/index.js'",
       );
@@ -177,7 +178,7 @@ describe('@rollup/plugin-node-resolve', () => {
 
     try {
       const responseText = await fetchText(`${host}/app.js`);
-      expectIncludes(
+      assertIncludes(
         responseText,
         "import moduleA from '/__wds-outside-root__/1/node_modules/module-a/index.js'",
       );

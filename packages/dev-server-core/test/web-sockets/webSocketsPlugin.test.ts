@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
+import { assertIncludes, assertNotIncludes } from '../../../../test-helpers/node-test-helpers.js';
 import { webSocketScript } from '../../dist/web-sockets/webSocketsPlugin.js';
-import { createTestServer, expectIncludes, expectNotIncludes } from '../helpers.ts';
+import { createTestServer } from '../helpers.ts';
 
 describe('webSocketsPlugin', () => {
   it('injects an event stream script if a plugin has inject set and event stream is enabled', async () => {
@@ -21,7 +22,7 @@ describe('webSocketsPlugin', () => {
       const body = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(body, webSocketScript);
+      assertIncludes(body, webSocketScript);
     } finally {
       server.stop();
     }
@@ -43,7 +44,7 @@ describe('webSocketsPlugin', () => {
       const body = await response.text();
 
       assert.equal(response.status, 200);
-      expectNotIncludes(body, webSocketScript);
+      assertNotIncludes(body, webSocketScript);
     } finally {
       server.stop();
     }
@@ -56,7 +57,7 @@ describe('webSocketsPlugin', () => {
       const body = await response.text();
 
       assert.equal(response.status, 200);
-      expectNotIncludes(body, webSocketScript);
+      assertNotIncludes(body, webSocketScript);
     } finally {
       server.stop();
     }
@@ -80,8 +81,8 @@ describe('webSocketsPlugin', () => {
 
       assert.equal(responseA.status, 200);
       assert.equal(responseB.status, 200);
-      expectNotIncludes(bodyA, webSocketScript);
-      expectNotIncludes(bodyB, webSocketScript);
+      assertNotIncludes(bodyA, webSocketScript);
+      assertNotIncludes(bodyB, webSocketScript);
     } finally {
       server.stop();
     }

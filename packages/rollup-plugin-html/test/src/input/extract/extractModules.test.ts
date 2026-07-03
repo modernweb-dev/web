@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { parse, serialize } from 'parse5';
 import path from 'path';
-import { html, js } from '../../../../../../test-utils/rollup-test-utils.js';
+import { html, js } from '../../../../../../test-helpers/node-test-helpers.js';
 
 import { extractModules } from '../../../../dist/input/extract/extractModules.js';
 import type { ScriptModuleTag } from '../../../../dist/RollupPluginHTMLOptions.js';

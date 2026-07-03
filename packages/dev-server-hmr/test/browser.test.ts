@@ -1,10 +1,11 @@
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
 import assert from 'node:assert/strict';
 import { after, before, describe, it, mock } from 'node:test';
 import { posix as pathUtil } from 'path';
 import type { Browser, HTTPResponse, Page } from 'puppeteer';
 import puppeteer from 'puppeteer';
 
+import { assertIncludes } from '../../../test-helpers/node-test-helpers.js';
 import { hmrPlugin } from '../dist/index.js';
 import { mockFiles } from './utils.ts';
 
@@ -104,12 +105,12 @@ describe('browser tests', { timeout: 5000 }, () => {
 
     try {
       await page.goto(`${host}/foo.html`);
-      expectIncludes(await page.content(), '<body> a </body>');
+      assertIncludes(await page.content(), '<body> a </body>');
 
       files['/foo.js'] = files['/foo.js'].replace('" a "', '" b "');
       server.fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/foo.js'));
       await page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/foo.js`));
-      expectIncludes(await page.content(), '<body> a  b </body>');
+      assertIncludes(await page.content(), '<body> a  b </body>');
 
       for (const error of errors) {
         throw error;
@@ -137,12 +138,12 @@ describe('browser tests', { timeout: 5000 }, () => {
 
     try {
       await page.goto(`${host}/foo.html`);
-      expectIncludes(await page.content(), '<body> a </body>');
+      assertIncludes(await page.content(), '<body> a </body>');
 
       files['/bar.js'] = 'export default " b ";';
       server.fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
       await page.waitForResponse((r: HTTPResponse) => r.url().startsWith(`${host}/bar.js`));
-      expectIncludes(await page.content(), '<body> a  b </body>');
+      assertIncludes(await page.content(), '<body> a  b </body>');
 
       for (const error of errors) {
         throw error;
@@ -174,7 +175,7 @@ describe('browser tests', { timeout: 5000 }, () => {
 
     try {
       await page.goto(`${host}/foo.html`);
-      expectIncludes(await page.content(), '<body> foo  a  bar  a </body>');
+      assertIncludes(await page.content(), '<body> foo  a  bar  a </body>');
 
       files['/baz.js'] = 'export default " b ";';
       server.fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/baz.js'));
@@ -217,11 +218,11 @@ describe('browser tests', { timeout: 5000 }, () => {
     try {
       await page.goto(`${host}/foo.html`);
       await page.evaluate('document.body.appendChild(document.createTextNode(" c "))');
-      expectIncludes(await page.content(), '<body> a  b  c </body>');
+      assertIncludes(await page.content(), '<body> a  b  c </body>');
 
       server.fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/baz.js'));
       await page.waitForNavigation();
-      expectIncludes(await page.content(), '<body> a  b </body>');
+      assertIncludes(await page.content(), '<body> a  b </body>');
 
       for (const error of errors) {
         throw error;
