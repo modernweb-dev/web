@@ -1,9 +1,9 @@
-export { Viewport, setViewportPlugin } from './setViewportPlugin.js';
+export { A11ySnapshotPayload, a11ySnapshotPlugin } from './a11ySnapshotPlugin.js';
 export { Media, emulateMediaPlugin } from './emulateMediaPlugin.js';
-export { selectOptionPlugin, SelectOptionPayload } from './selectOptionPlugin.js';
+export { ReadFilePayload, RemoveFilePayload, WriteFilePayload, filePlugin } from './filePlugin.js';
+export { SelectOptionPayload, selectOptionPlugin } from './selectOptionPlugin.js';
+export { SendKeysPayload, sendKeysPlugin } from './sendKeysPlugin.js';
+export { SendMousePayload, sendMousePlugin } from './sendMousePlugin.js';
 export { setUserAgentPlugin } from './setUserAgentPlugin.js';
-export { sendKeysPlugin, SendKeysPayload } from './sendKeysPlugin.js';
-export { sendMousePlugin, SendMousePayload } from './sendMousePlugin.js';
-export { a11ySnapshotPlugin, A11ySnapshotPayload } from './a11ySnapshotPlugin.js';
-export { WriteFilePayload, ReadFilePayload, RemoveFilePayload, filePlugin } from './filePlugin.js';
+export { Viewport, setViewportPlugin } from './setViewportPlugin.js';
 export { SaveSnapshotPayload, SnapshotPluginConfig, snapshotPlugin } from './snapshotPlugin.js';

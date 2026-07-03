@@ -1,11 +1,11 @@
-import { describe, it } from 'node:test';
-import assert from 'node:assert/strict';
-import path from 'path';
-import rollupNodeResolve from '@rollup/plugin-node-resolve';
 import rollupCommonjs from '@rollup/plugin-commonjs';
+import rollupNodeResolve from '@rollup/plugin-node-resolve';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
+import path from 'path';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../dist/index.js';
+import { createTestServer, expectIncludes, fetchText } from '../test-helpers.ts';
 
 const nodeResolve = fromRollup(rollupNodeResolve, {}, { throwOnUnresolvedImport: true });
 const commonjs = fromRollup(rollupCommonjs);

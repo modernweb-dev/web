@@ -1,5 +1,10 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
+import {
+  calculateRelativePath,
+  createAssetPlaceholder,
+  replacePlaceholders,
+} from '../../../dist/output/css.js';
 
 function expectIncludes(actual: string, expected: string) {
   if (!actual.includes(expected)) {
@@ -8,11 +13,6 @@ function expectIncludes(actual: string, expected: string) {
     );
   }
 }
-import {
-  createAssetPlaceholder,
-  replacePlaceholders,
-  calculateRelativePath,
-} from '../../../dist/output/css.js';
 
 describe('createAssetPlaceholder', () => {
   it('creates a placeholder with the given hash', () => {

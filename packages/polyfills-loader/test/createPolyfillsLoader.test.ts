@@ -1,10 +1,10 @@
-import { describe, it } from 'node:test';
-import assert from 'node:assert/strict';
 import fs from 'fs';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import path from 'path';
-import type { PolyfillsLoaderConfig } from '../dist/types.js';
 import { createPolyfillsLoader } from '../dist/createPolyfillsLoader.js';
-import { noModuleSupportTest, fileTypes } from '../dist/utils.js';
+import type { PolyfillsLoaderConfig } from '../dist/types.js';
+import { fileTypes, noModuleSupportTest } from '../dist/utils.js';
 
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
@@ -17,7 +17,7 @@ interface TestSnapshotArgs {
 async function testSnapshot({ name, config, expectedFiles = [] }: TestSnapshotArgs) {
   const snapshotPath = path.join(
     import.meta.dirname,
-    'snapshots',
+    '__snapshots__',
     'createPolyfillsLoader',
     `${name}.js`,
   );

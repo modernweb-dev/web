@@ -1,8 +1,8 @@
-import { describe, it } from 'node:test';
 import rollupReplace from '@rollup/plugin-replace';
+import { describe, it } from 'node:test';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.ts';
 import { fromRollup } from '../../../dist/index.js';
+import { createTestServer, expectIncludes, fetchText } from '../test-helpers.ts';
 
 const replace = fromRollup(rollupReplace as any);
 

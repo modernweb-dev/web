@@ -1,14 +1,14 @@
-import { type Document, serialize } from 'parse5';
 import fs from 'fs';
+import { serialize, type Document } from 'parse5';
 import path from 'path';
-import { type InputAsset } from '../InputData.js';
 import {
+  createAssetPicomatchMatcher,
   findAssets,
   getSourcePaths,
   isHashedAsset,
   resolveAssetFilePath,
-  createAssetPicomatchMatcher,
 } from '../../assets/utils.js';
+import { type InputAsset } from '../InputData.js';
 
 export interface ExtractAssetsParams {
   document: Document;

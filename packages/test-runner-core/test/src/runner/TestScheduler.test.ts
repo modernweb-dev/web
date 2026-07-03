@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { describe, it, beforeEach, mock } from 'node:test';
+import { beforeEach, describe, it, mock } from 'node:test';
 
 import type { BrowserLauncher } from '../../../dist/browser-launcher/BrowserLauncher.js';
 

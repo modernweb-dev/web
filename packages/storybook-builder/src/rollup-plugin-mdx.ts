@@ -1,9 +1,9 @@
-import type { Options } from 'storybook/internal/types';
 import { readFile } from 'node:fs/promises';
 import { dirname, join, sep } from 'node:path';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeSlug from 'rehype-slug';
 import type { Plugin } from 'rollup';
+import type { Options } from 'storybook/internal/types';
 
 export function rollupPluginMdx(options: Options): Plugin {
   let mdxPluginOptions: Record<string, any>;

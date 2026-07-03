@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { TestRunnerPlugin } from '@web/test-runner-core';
 import { ServerStartParams } from '@web/dev-server-core';
-import path from 'path';
+import { TestRunnerPlugin } from '@web/test-runner-core';
 import fs from 'fs';
-import { promisify } from 'util';
 import mkdirp from 'mkdirp';
+import path from 'path';
+import { promisify } from 'util';
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);

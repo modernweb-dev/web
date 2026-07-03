@@ -1,9 +1,9 @@
 import {
-  rollup,
   InputOptions,
   NormalizedInputOptions,
   PluginContext,
   TransformPluginContext,
+  rollup,
 } from 'rollup';
 
 export interface RollupPluginContexts {

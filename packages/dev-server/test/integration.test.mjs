@@ -1,6 +1,6 @@
-import { describe, it, before, after, beforeEach, afterEach } from 'node:test';
-import puppeteer from 'puppeteer';
+import { after, afterEach, before, beforeEach, describe, it } from 'node:test';
 import path from 'path';
+import puppeteer from 'puppeteer';
 
 import { startDevServer } from '../index.mjs';
 

@@ -1,5 +1,4 @@
-import { MapStackLocation, parseStackTrace } from '@web/browser-logs';
-import { type MapBrowserUrl } from '@web/browser-logs';
+import { MapStackLocation, parseStackTrace, type MapBrowserUrl } from '@web/browser-logs';
 
 import { type TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.js';
 import {

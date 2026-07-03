@@ -1,4 +1,4 @@
-import { type TestSession, type TestResultError, type Logger } from '@web/test-runner-core';
+import { type Logger, type TestResultError, type TestSession } from '@web/test-runner-core';
 import { gray, red } from 'nanocolors';
 
 import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers.js';

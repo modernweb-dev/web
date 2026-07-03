@@ -1,10 +1,10 @@
-import { describe, it, before, after } from 'node:test';
+import { chromeLauncher } from '@web/test-runner-chrome';
+import { runTests } from '@web/test-runner-core/test-helpers';
+import { playwrightLauncher } from '@web/test-runner-playwright';
+import { webdriverLauncher } from '@web/test-runner-webdriver';
+import { after, before, describe, it } from 'node:test';
 import path from 'path';
 import selenium from 'selenium-standalone';
-import { runTests } from '@web/test-runner-core/test-helpers';
-import { chromeLauncher } from '@web/test-runner-chrome';
-import { webdriverLauncher } from '@web/test-runner-webdriver';
-import { playwrightLauncher } from '@web/test-runner-playwright';
 import { sendMousePlugin } from '../../dist/sendMousePlugin.js';
 import { startSeleniumServer } from '../selenium-server.ts';
 

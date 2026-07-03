@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { describe, it, beforeEach, afterEach } from 'node:test';
+import { afterEach, beforeEach, describe, it } from 'node:test';
 
 import type { DevServer } from '../../dist/server/DevServer.js';
 import { createTestServer, expectIncludes } from '../helpers.ts';

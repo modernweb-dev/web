@@ -31,7 +31,5 @@
       "path": "../test-runner-chrome/tsconfig.json"
     }
   ],
-  "include": [
-    "src",
-  ]
+  "include": ["src"]
 }

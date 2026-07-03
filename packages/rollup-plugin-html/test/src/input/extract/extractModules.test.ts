@@ -1,7 +1,7 @@
-import path from 'path';
-import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import { parse, serialize } from 'parse5';
+import path from 'path';
 import { html, js } from '../../../../../../test-utils/rollup-test-utils.js';
 
 import { extractModules } from '../../../../dist/input/extract/extractModules.js';
@@ -12,7 +12,7 @@ const { sep } = path;
 function cleanupInlineModules(modules: ScriptModuleTag[]) {
   return modules.map(module => ({
     ...module,
-    code: module.code ? js`${module.code}` : undefined,
+    code: module.code ? js`${module.code};` : undefined,
   }));
 }
 

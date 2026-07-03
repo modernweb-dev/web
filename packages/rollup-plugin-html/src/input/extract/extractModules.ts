@@ -1,10 +1,16 @@
-import { findElements, getAttribute, getTagName, getTextContent, remove } from '@web/parse5-utils';
-import { type Document, type Attribute } from 'parse5';
-import path from 'path';
+import {
+  findElements,
+  getAttribute,
+  getAttributes,
+  getTagName,
+  getTextContent,
+  remove,
+} from '@web/parse5-utils';
 import crypto from 'crypto';
-import { resolveAssetFilePath } from '../../assets/utils.js';
-import { getAttributes } from '@web/parse5-utils';
+import { type Attribute, type Document } from 'parse5';
+import path from 'path';
 import { type ScriptModuleTag } from '../../RollupPluginHTMLOptions.js';
+import { resolveAssetFilePath } from '../../assets/utils.js';
 
 export interface ExtractModulesParams {
   document: Document;

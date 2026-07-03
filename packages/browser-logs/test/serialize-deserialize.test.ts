@@ -1,8 +1,8 @@
-import assert from 'node:assert/strict';
 import { expectIncludes } from '@web/dev-server-core/test-helpers';
+import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { describe, it, before, after } from 'node:test';
+import { after, before, describe, it } from 'node:test';
 
 import type { Browser, Page } from 'puppeteer';
 import puppeteer from 'puppeteer';

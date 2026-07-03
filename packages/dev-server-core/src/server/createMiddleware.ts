@@ -1,18 +1,18 @@
+import { FSWatcher } from 'chokidar';
 import { Middleware } from 'koa';
 import koaEtag from 'koa-etag';
-import { FSWatcher } from 'chokidar';
 
-import { DevServerCoreConfig } from './DevServerCoreConfig.js';
+import { Logger } from '../logger/Logger.js';
 import { basePathMiddleware } from '../middleware/basePathMiddleware.js';
 import { etagCacheMiddleware } from '../middleware/etagCacheMiddleware.js';
 import { historyApiFallbackMiddleware } from '../middleware/historyApiFallbackMiddleware.js';
+import { pluginFileParsedMiddleware } from '../middleware/pluginFileParsedMiddleware.js';
 import { pluginMimeTypeMiddleware } from '../middleware/pluginMimeTypeMiddleware.js';
 import { pluginServeMiddleware } from '../middleware/pluginServeMiddleware.js';
 import { pluginTransformMiddleware } from '../middleware/pluginTransformMiddleware.js';
-import { Logger } from '../logger/Logger.js';
-import { watchServedFilesMiddleware } from '../middleware/watchServedFilesMiddleware.js';
-import { pluginFileParsedMiddleware } from '../middleware/pluginFileParsedMiddleware.js';
 import { serveFilesMiddleware } from '../middleware/serveFilesMiddleware.js';
+import { watchServedFilesMiddleware } from '../middleware/watchServedFilesMiddleware.js';
+import { DevServerCoreConfig } from './DevServerCoreConfig.js';
 
 /**
  * Creates middlewares based on the given configuration. The middlewares can be

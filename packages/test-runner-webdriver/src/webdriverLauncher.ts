@@ -1,6 +1,6 @@
+import { Capabilities } from '@wdio/types';
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Browser, remote } from 'webdriverio';
-import { Capabilities } from '@wdio/types';
 import { IFrameManager } from './IFrameManager.js';
 import { SessionManager } from './SessionManager.js';
 import { getBrowserLabel } from './utils.js';

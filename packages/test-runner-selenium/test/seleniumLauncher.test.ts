@@ -1,4 +1,4 @@
-import { describe, before, after } from 'node:test';
+import { after, before, describe } from 'node:test';
 import selenium from 'selenium-standalone';
 import { Builder } from 'selenium-webdriver';
 import { Options as ChromeOptions } from 'selenium-webdriver/chrome.js';

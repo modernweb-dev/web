@@ -1,10 +1,10 @@
 import { DevServer } from '@web/dev-server-core';
+import { DevServerStartError } from './DevServerStartError.js';
 import { DevServerConfig } from './config/DevServerConfig.js';
 import { mergeConfigs } from './config/mergeConfigs.js';
 import { parseConfig } from './config/parseConfig.js';
 import { readCliArgs } from './config/readCliArgs.js';
 import { readFileConfig } from './config/readFileConfig.js';
-import { DevServerStartError } from './DevServerStartError.js';
 import { createLogger } from './logger/createLogger.js';
 import { openBrowser } from './openBrowser.js';
 

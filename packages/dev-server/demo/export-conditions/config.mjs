@@ -5,6 +5,6 @@ export default {
   rootDir: resolve(fileURLToPath(import.meta.url), '..', '..', '..'),
   appIndex: '/demo/export-conditions/index.html',
   nodeResolve: {
-    exportConditions: ['default']
+    exportConditions: ['default'],
   },
 };

@@ -1,5 +1,5 @@
-import reports from 'istanbul-reports';
 import libReport from 'istanbul-lib-report';
+import reports from 'istanbul-reports';
 
 import { type CoverageConfig } from '../config/TestRunnerCoreConfig';
 import { type TestCoverage } from '../coverage/getTestCoverage';

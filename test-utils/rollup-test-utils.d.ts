@@ -1,4 +1,4 @@
-import type { OutputOptions, RollupBuild, OutputChunk, OutputAsset } from 'rollup';
+import type { OutputAsset, OutputChunk, OutputOptions, RollupBuild } from 'rollup';
 
 export function html(strings: TemplateStringsArray, ...values: string[]): string;
 export function css(strings: TemplateStringsArray, ...values: string[]): string;

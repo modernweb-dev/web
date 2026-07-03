@@ -2,7 +2,7 @@ import { expect } from '../../../../../node_modules/@esm-bundle/chai/esm/chai.js
 
 describe('timers test', () => {
   it('can call setTimeout', async () => {
-    const promise = new Promise((resolve) => {
+    const promise = new Promise(resolve => {
       window.setTimeout(() => {
         resolve();
       }, 0);
@@ -20,7 +20,7 @@ describe('timers test', () => {
 
     window.clearTimeout(timer);
 
-    await new Promise((resolve) => {
+    await new Promise(resolve => {
       window.setTimeout(() => resolve(), 2);
     });
 
@@ -34,7 +34,7 @@ describe('timers test', () => {
       callCount++;
     }, 1);
 
-    await new Promise((resolve) => {
+    await new Promise(resolve => {
       window.setTimeout(() => resolve(), 2);
     });
 
@@ -44,7 +44,7 @@ describe('timers test', () => {
 
     window.clearInterval(interval);
 
-    await new Promise((resolve) => {
+    await new Promise(resolve => {
       window.setTimeout(() => resolve(), 2);
     });
 
@@ -52,7 +52,7 @@ describe('timers test', () => {
   });
 
   it('can call requestAnimationFrame', async () => {
-    const promise = new Promise((resolve) => {
+    const promise = new Promise(resolve => {
       window.requestAnimationFrame(() => {
         resolve();
       });
@@ -71,7 +71,7 @@ describe('timers test', () => {
 
     window.cancelAnimationFrame(timer);
 
-    await new Promise((resolve) => {
+    await new Promise(resolve => {
       window.setTimeout(() => resolve(), 2);
     });
 

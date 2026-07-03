@@ -1,36 +1,35 @@
-import { Plugin, Logger, getRequestFilePath } from '@web/dev-server-core';
 import {
   ParsedImportMap,
   parse as parseFromObject,
   parseFromString,
   resolve,
 } from '@import-maps/resolve';
-import { getHtmlPath } from '@web/dev-server-core';
-import { parse as parseHtml, serialize as serializeHtml, Element as ElementAst } from 'parse5';
+import { Logger, Plugin, getHtmlPath, getRequestFilePath } from '@web/dev-server-core';
+import { Element as ElementAst, parse as parseHtml, serialize as serializeHtml } from 'parse5';
 import path from 'path';
 
-import {
-  IMPORT_MAP_PARAM,
-  normalizeInjectSetting,
-  withImportMapIdParam,
-  getRequestImportMapId,
-  shouldInject,
-  mergeImportMaps,
-  getDocumentBaseUrl,
-} from './utils.js';
 import { ImportMap } from '@import-maps/resolve';
 import {
   createElement,
   findElement,
   findElements,
-  getTagName,
-  isHtmlFragment,
   getAttribute,
+  getTagName,
   getTextContent,
   hasAttribute,
+  isHtmlFragment,
   setAttribute,
   setTextContent,
 } from '@web/parse5-utils';
+import {
+  IMPORT_MAP_PARAM,
+  getDocumentBaseUrl,
+  getRequestImportMapId,
+  mergeImportMaps,
+  normalizeInjectSetting,
+  shouldInject,
+  withImportMapIdParam,
+} from './utils.js';
 
 export interface ImportMapData {
   htmlPath: string;

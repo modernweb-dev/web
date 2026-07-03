@@ -1,6 +1,6 @@
 import fs from 'fs';
-import path from 'path';
 import { createRequire } from 'module';
+import path from 'path';
 import { packages } from '../workspace-packages.mjs';
 
 const require = createRequire(import.meta.url);

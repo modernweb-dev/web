@@ -1,9 +1,9 @@
-import assert from 'node:assert/strict';
-import { describe, before, it } from 'node:test';
-import type { BrowserLauncher, TestRunnerCoreConfig, TestSession } from '@web/test-runner-core';
-import { runTests } from '@web/test-runner-core/test-helpers';
 import { expectIncludes } from '@web/dev-server-core/test-helpers';
 import { legacyPlugin } from '@web/dev-server-legacy';
+import type { BrowserLauncher, TestRunnerCoreConfig, TestSession } from '@web/test-runner-core';
+import { runTests } from '@web/test-runner-core/test-helpers';
+import assert from 'node:assert/strict';
+import { before, describe, it } from 'node:test';
 import { resolve, sep } from 'path';
 
 const ERROR_NOT_IMPORTABLE = {

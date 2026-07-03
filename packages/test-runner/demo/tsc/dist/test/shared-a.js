@@ -1,8 +1,8 @@
 // this file is shared by all tests
 export function sharedA() {
-    return 'hello world';
+  return 'hello world';
 }
 export function throwError() {
-    throw Error('Some error');
+  throw Error('Some error');
 }
 //# sourceMappingURL=shared-a.js.map

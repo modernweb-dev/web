@@ -1,9 +1,9 @@
+import { findElements, getAttribute, getTagName } from '@web/parse5-utils';
 import type { Document, Element } from 'parse5';
 import path from 'path';
 import picomatch from 'picomatch';
-import { findElements, getTagName, getAttribute } from '@web/parse5-utils';
-import { createError } from '../utils.js';
 import { serialize } from 'v8';
+import { createError } from '../utils.js';
 
 const assetLinkRels = [
   'icon',

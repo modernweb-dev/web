@@ -1,4 +1,4 @@
-import { request as httpRequest, type RequestOptions, IncomingMessage } from 'http';
+import { IncomingMessage, request as httpRequest, type RequestOptions } from 'http';
 import { request as httpsRequest, type RequestOptions as HttpsRequestOptions } from 'https';
 
 export interface Response {

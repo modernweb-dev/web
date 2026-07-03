@@ -44,8 +44,8 @@ export default {
 };
 ```
 
-</details>  
-  
+</details>
+
 ## Rewriting request urls
 
 You can rewrite certain file requests using a middleware. This can be useful for example to serve your `index.html` from a different file location or to alias a module.

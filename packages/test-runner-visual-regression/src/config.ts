@@ -1,8 +1,8 @@
-import path from 'path';
 import mkdirp from 'mkdirp';
+import path from 'path';
 import pixelmatch from 'pixelmatch';
 
-import { readFile, writeFile, fileExists } from './fs.js';
+import { fileExists, readFile, writeFile } from './fs.js';
 import { pixelMatchDiff } from './pixelMatchDiff.js';
 
 type PixelMatchParams = Parameters<typeof pixelmatch>;

@@ -1,9 +1,9 @@
 // @ts-nocheck
 
 import { createAddon } from '@web/storybook-utils';
-import React from 'react';
-import { LitElement, html, css } from 'lit';
+import { LitElement, css, html } from 'lit';
 import { when } from 'lit/directives/when.js';
+import React from 'react';
 import { addons, types } from 'storybook/manager-api';
 
 const { createElement } = React;
@@ -118,13 +118,13 @@ class MocksAddonElement extends LitElement {
                         </td>
                         <td>
                           <textarea aria-label="Response" name="response-${i}" .value=${
-                        JSON.stringify(data) ?? ''
-                      }></textarea>
+                            JSON.stringify(data) ?? ''
+                          }></textarea>
                         </td>
                         <td>
                           <input type="number" aria-label="Status code" name="status-${i}" .value=${
-                        status ?? ''
-                      }></input>
+                            status ?? ''
+                          }></input>
                         </td>
                       `,
                       () => html`

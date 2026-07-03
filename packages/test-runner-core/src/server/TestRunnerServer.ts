@@ -1,14 +1,14 @@
 import { DevServer, type Plugin } from '@web/dev-server-core';
 import chokidar from 'chokidar';
 
-import { type RunSessions, watchFilesMiddleware } from './middleware/watchFilesMiddleware.js';
-import { cacheMiddleware } from './middleware/cacheMiddleware.js';
-import { serveTestRunnerHtmlPlugin } from './plugins/serveTestRunnerHtmlPlugin.js';
-import { serveTestFrameworkPlugin } from './plugins/serveTestFrameworkPlugin.js';
-import { testRunnerApiPlugin } from './plugins/api/testRunnerApiPlugin.js';
 import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { type TestSessionManager } from '../test-session/TestSessionManager';
 import { TestRunner } from '../runner/TestRunner';
+import { type TestSessionManager } from '../test-session/TestSessionManager';
+import { cacheMiddleware } from './middleware/cacheMiddleware.js';
+import { watchFilesMiddleware, type RunSessions } from './middleware/watchFilesMiddleware.js';
+import { testRunnerApiPlugin } from './plugins/api/testRunnerApiPlugin.js';
+import { serveTestFrameworkPlugin } from './plugins/serveTestFrameworkPlugin.js';
+import { serveTestRunnerHtmlPlugin } from './plugins/serveTestRunnerHtmlPlugin.js';
 
 const CACHED_PATTERNS = [
   'node_modules/@web/test-runner-',

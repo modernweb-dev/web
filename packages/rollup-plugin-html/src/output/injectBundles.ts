@@ -1,5 +1,5 @@
-import type { Document, Attribute } from 'parse5';
-import { createScript, findElement, getTagName, appendChild } from '@web/parse5-utils';
+import { appendChild, createScript, findElement, getTagName } from '@web/parse5-utils';
+import type { Attribute, Document } from 'parse5';
 
 import { type EntrypointBundle } from '../RollupPluginHTMLOptions.js';
 import { createError } from '../utils.js';

@@ -1,9 +1,9 @@
-import assert from 'node:assert/strict';
-import { describe, it, beforeEach, afterEach, before, after, mock } from 'node:test';
 import express from 'express';
 import http from 'http';
 import Koa from 'koa';
 import { Server } from 'net';
+import assert from 'node:assert/strict';
+import { after, afterEach, before, beforeEach, describe, it, mock } from 'node:test';
 import portfinder from 'portfinder';
 import type { ServerStartParams } from '../../dist/plugins/Plugin.js';
 import type { DevServer } from '../../dist/server/DevServer.js';
