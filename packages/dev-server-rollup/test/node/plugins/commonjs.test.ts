@@ -6,7 +6,7 @@ import { resolve } from 'path';
 
 import { nodeResolvePlugin } from '@web/dev-server';
 import * as path from 'path';
-import { assertIncludes, fetchText } from '../../../../../test-helpers/node-test-helpers.js';
+import { assertIncludes, fetchText } from '../../../../../test-helpers/node.js';
 import { fromRollup } from '../../../dist/index.js';
 import { createTestServer } from '../test-helpers.ts';
 

@@ -5,7 +5,7 @@ import { Server } from 'net';
 import assert from 'node:assert/strict';
 import { after, afterEach, before, beforeEach, describe, it, mock } from 'node:test';
 import portfinder from 'portfinder';
-import { assertIncludes } from '../../../../test-helpers/node-test-helpers.js';
+import { assertIncludes } from '../../../../test-helpers/node.js';
 import type { ServerStartParams } from '../../dist/plugins/Plugin.js';
 import type { DevServer } from '../../dist/server/DevServer.js';
 import { createTestServer } from '../helpers.ts';

@@ -10,7 +10,7 @@ const {
   generateTestBundle,
   createApp,
   cleanApp,
-} = require('../../../test-helpers/node-test-helpers.js');
+} = require('../../../test-helpers/node.js');
 
 const outputConfig = {
   format: 'es',

@@ -3,7 +3,7 @@ import { beforeEach, describe, it, mock } from 'node:test';
 
 import type { BrowserLauncher } from '../../../dist/browser-launcher/BrowserLauncher.js';
 
-import { timeout } from '../../../../../test-helpers/node-test-helpers.js';
+import { timeout } from '../../../../../test-helpers/node.js';
 import type { TestRunnerCoreConfig } from '../../../dist/config/TestRunnerCoreConfig.js';
 import { TestScheduler } from '../../../dist/runner/TestScheduler.js';
 import type { TestSession } from '../../../dist/test-session/TestSession.js';

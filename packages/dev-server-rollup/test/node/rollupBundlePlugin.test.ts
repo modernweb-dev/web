@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import path from 'path';
-import { assertIncludes, fetchText } from '../../../../test-helpers/node-test-helpers.js';
+import { assertIncludes, fetchText } from '../../../../test-helpers/node.js';
 import { rollupBundlePlugin } from '../../dist/rollupBundlePlugin.js';
 import { createTestServer } from './test-helpers.ts';
 

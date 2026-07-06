@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
 
-import { assertIncludes, fetchText } from '../../../../../test-helpers/node-test-helpers.js';
+import { assertIncludes, fetchText } from '../../../../../test-helpers/node.js';
 import { fromRollup } from '../../../dist/index.js';
 import { createTestServer } from '../test-helpers.ts';
 

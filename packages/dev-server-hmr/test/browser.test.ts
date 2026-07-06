@@ -5,7 +5,7 @@ import { posix as pathUtil } from 'path';
 import type { Browser, HTTPResponse, Page } from 'puppeteer';
 import puppeteer from 'puppeteer';
 
-import { assertIncludes } from '../../../test-helpers/node-test-helpers.js';
+import { assertIncludes } from '../../../test-helpers/node.js';
 import { hmrPlugin } from '../dist/index.js';
 import { mockFiles } from './utils.ts';
 

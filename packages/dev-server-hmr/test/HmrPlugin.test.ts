@@ -3,11 +3,7 @@ import assert from 'node:assert/strict';
 import { afterEach, describe, it, mock } from 'node:test';
 import { posix as pathUtil } from 'path';
 
-import {
-  assertIncludes,
-  assertNotIncludes,
-  fetchText,
-} from '../../../test-helpers/node-test-helpers.js';
+import { assertIncludes, assertNotIncludes, fetchText } from '../../../test-helpers/node.js';
 import { NAME_HMR_CLIENT_IMPORT } from '../dist/HmrPlugin.js';
 import { hmrPlugin } from '../dist/index.js';
 import { mockFile, mockFiles } from './utils.ts';

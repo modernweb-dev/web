@@ -3,7 +3,7 @@ import { describe, it } from 'node:test';
 
 import { getTextContent } from '@web/parse5-utils';
 import { parse, serialize } from 'parse5';
-import { html } from '../../../../../test-helpers/node-test-helpers.js';
+import { html } from '../../../../../test-helpers/node.js';
 
 import { createLoadScript, injectBundles } from '../../../dist/output/injectBundles.js';
 

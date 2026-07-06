@@ -3,7 +3,7 @@ import { describe, it } from 'node:test';
 import path from 'path';
 import type { AstNode, Plugin as RollupPlugin } from 'rollup';
 
-import { assertIncludes, fetchText } from '../../../../test-helpers/node-test-helpers.js';
+import { assertIncludes, fetchText } from '../../../../test-helpers/node.js';
 import { fromRollup } from '../../dist/index.js';
 import { createTestServer } from './test-helpers.ts';
 

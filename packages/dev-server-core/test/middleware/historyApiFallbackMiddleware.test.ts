@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import path from 'path';
 
-import { assertIncludes, assertNotIncludes } from '../../../../test-helpers/node-test-helpers.js';
+import { assertIncludes, assertNotIncludes } from '../../../../test-helpers/node.js';
 import type { DevServer } from '../../dist/server/DevServer.js';
 import { createTestServer } from '../helpers.ts';
 

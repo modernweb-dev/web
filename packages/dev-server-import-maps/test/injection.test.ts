@@ -1,11 +1,7 @@
 import { createTestServer } from '@web/dev-server-core/test-helpers';
 import { it } from 'node:test';
 
-import {
-  assertIncludes,
-  assertNotIncludes,
-  fetchText,
-} from '../../../test-helpers/node-test-helpers.js';
+import { assertIncludes, assertNotIncludes, fetchText } from '../../../test-helpers/node.js';
 import { importMapsPlugin } from '../dist/importMapsPlugin.js';
 import { virtualFilesPlugin } from './test-helpers.ts';
 

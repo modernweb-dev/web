@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { describe, it, mock } from 'node:test';
 import path from 'path';
 
-import { assertIncludes, fetchText } from '../../../test-helpers/node-test-helpers.js';
+import { assertIncludes, fetchText } from '../../../test-helpers/node.js';
 import { importMapsPlugin } from '../dist/importMapsPlugin.js';
 import { IMPORT_MAP_PARAM } from '../dist/utils.js';
 import { virtualFilesPlugin } from './test-helpers.ts';

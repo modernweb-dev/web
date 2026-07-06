@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { parse, serialize } from 'parse5';
 import path from 'path';
-import { html } from '../../../../../test-helpers/node-test-helpers.js';
+import { html } from '../../../../../test-helpers/node.js';
 import type { InputData } from '../../../dist/input/InputData.js';
 
 import { injectedUpdatedAssetPaths } from '../../../dist/output/injectedUpdatedAssetPaths.js';

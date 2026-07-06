@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 
-import { assertIncludes } from '../../../../test-helpers/node-test-helpers.js';
+import { assertIncludes } from '../../../../test-helpers/node.js';
 import type { DevServer } from '../../dist/server/DevServer.js';
 import { createTestServer } from '../helpers.ts';
 

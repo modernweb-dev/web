@@ -2,7 +2,7 @@ import type { Context } from 'koa';
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { assertIncludes } from '../../../../test-helpers/node-test-helpers.js';
+import { assertIncludes } from '../../../../test-helpers/node.js';
 import { createTestServer } from '../helpers.ts';
 
 describe('plugin-file-parsed middleware', () => {

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { assertIncludes } from '../../../../test-helpers/node-test-helpers.js';
+import { assertIncludes } from '../../../../test-helpers/node.js';
 import type { PluginSyntaxError } from '../../dist/logger/PluginSyntaxError.js';
 import { transformImports } from '../../dist/plugins/transformModuleImportsPlugin.js';
 import { createTestServer } from '../helpers.ts';

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { after, before, describe, it } from 'node:test';
-import { assertIncludes } from '../../../test-helpers/node-test-helpers.js';
+import { assertIncludes } from '../../../test-helpers/node.js';
 
 import type { Browser, Page } from 'puppeteer';
 import puppeteer from 'puppeteer';

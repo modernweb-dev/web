@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { assertIncludes, fetchText } from '../../../../test-helpers/node-test-helpers.js';
+import { assertIncludes, fetchText } from '../../../../test-helpers/node.js';
 import { createTestServer } from '../helpers.ts';
 
 describe('plugin-transform middleware', () => {

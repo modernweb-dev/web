@@ -4,7 +4,7 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import assert from 'node:assert/strict';
 import { before, describe, it } from 'node:test';
 import { resolve, sep } from 'path';
-import { assertIncludes } from '../../../../test-helpers/node-test-helpers.js';
+import { assertIncludes } from '../../../../test-helpers/node.js';
 
 const ERROR_NOT_IMPORTABLE = {
   message:

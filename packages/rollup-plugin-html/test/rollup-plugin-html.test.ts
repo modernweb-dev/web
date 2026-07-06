@@ -12,7 +12,7 @@ import {
   html,
   js,
   svg,
-} from '../../../test-helpers/node-test-helpers.js';
+} from '../../../test-helpers/node.js';
 import { rollupPluginHTML } from '../dist/index.js';
 
 const outputConfig: OutputOptions = {

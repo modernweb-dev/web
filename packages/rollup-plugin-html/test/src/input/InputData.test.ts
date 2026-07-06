@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { afterEach, describe, it } from 'node:test';
 import path from 'path';
-import { cleanApp, createApp, html, js } from '../../../../../test-helpers/node-test-helpers.js';
+import { cleanApp, createApp, html, js } from '../../../../../test-helpers/node.js';
 
 import { getInputData } from '../../../dist/input/getInputData.js';
 import type { InputData } from '../../../dist/input/InputData.js';

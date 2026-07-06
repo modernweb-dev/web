@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { assertIncludes, assertNotIncludes } from '../../../../test-helpers/node-test-helpers.js';
+import { assertIncludes, assertNotIncludes } from '../../../../test-helpers/node.js';
 import { webSocketScript } from '../../dist/web-sockets/webSocketsPlugin.js';
 import { createTestServer } from '../helpers.ts';
 

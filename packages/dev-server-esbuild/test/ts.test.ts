@@ -5,7 +5,7 @@ import { describe, it } from 'node:test';
 import path from 'path';
 import type { Plugin as RollupPlugin } from 'rollup';
 
-import { assertIncludes, assertNotIncludes } from '../../../test-helpers/node-test-helpers.js';
+import { assertIncludes, assertNotIncludes } from '../../../test-helpers/node.js';
 import { esbuildPlugin } from '../dist/index.js';
 
 describe('esbuildPlugin TS', { timeout: 5000 }, () => {
