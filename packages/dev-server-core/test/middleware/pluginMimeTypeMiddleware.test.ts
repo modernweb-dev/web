@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { createTestServer, expectIncludes } from '../helpers.ts';
+import { assertIncludes } from '../../../../test-helpers/node.js';
+import { createTestServer } from '../helpers.ts';
 
 describe('plugin-mime-type middleware', () => {
   it('can set the mime type of a file with a string', async () => {
@@ -22,7 +23,7 @@ describe('plugin-mime-type middleware', () => {
       const response = await fetch(`${host}/src/hello-world.txt`);
 
       assert.equal(response.status, 200);
-      expectIncludes(response.headers.get('content-type')!, 'application/javascript');
+      assertIncludes(response.headers.get('content-type')!, 'application/javascript');
     } finally {
       server.stop();
     }
@@ -46,7 +47,7 @@ describe('plugin-mime-type middleware', () => {
       const response = await fetch(`${host}/src/hello-world.txt`);
 
       assert.equal(response.status, 200);
-      expectIncludes(response.headers.get('content-type')!, 'application/javascript');
+      assertIncludes(response.headers.get('content-type')!, 'application/javascript');
     } finally {
       server.stop();
     }

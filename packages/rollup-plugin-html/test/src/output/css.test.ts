@@ -1,18 +1,11 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
+import { assertIncludes } from '../../../../../test-helpers/node.js';
 import {
   calculateRelativePath,
   createAssetPlaceholder,
   replacePlaceholders,
 } from '../../../dist/output/css.js';
-
-function expectIncludes(actual: string, expected: string) {
-  if (!actual.includes(expected)) {
-    throw new Error(
-      `Expected substring not found.\n\nExpected:\n${expected}\n\nActual:\n${actual}`,
-    );
-  }
-}
 
 describe('createAssetPlaceholder', () => {
   it('creates a placeholder with the given hash', () => {
@@ -60,8 +53,8 @@ describe('replacePlaceholders', () => {
       return undefined;
     };
     const result = replacePlaceholders(css, resolver);
-    expectIncludes(result, "url('assets/image1.png')");
-    expectIncludes(result, "url('assets/image2.png')");
+    assertIncludes(result, "url('assets/image1.png')");
+    assertIncludes(result, "url('assets/image2.png')");
   });
 });
 

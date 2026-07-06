@@ -2,7 +2,8 @@ import type { Context } from 'koa';
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { createTestServer, expectIncludes } from '../helpers.ts';
+import { assertIncludes } from '../../../../test-helpers/node.js';
+import { createTestServer } from '../helpers.ts';
 
 describe('plugin-file-parsed middleware', () => {
   it('is called after other plugin hooks', async () => {
@@ -46,7 +47,7 @@ describe('plugin-file-parsed middleware', () => {
       const response = await fetch(`${host}/foo.js`);
 
       assert.equal(response.status, 200);
-      expectIncludes(response.headers.get('content-type')!, 'application/javascript');
+      assertIncludes(response.headers.get('content-type')!, 'application/javascript');
       assert.equal(order[order.length - 1], 'fileParsed');
       assert.ok(context);
       assert.equal(context!.path, '/foo.js');

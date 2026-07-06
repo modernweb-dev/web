@@ -1,7 +1,8 @@
-import { createTestServer, expectIncludes, fetchText } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
+import { assertIncludes, fetchText } from '../../../test-helpers/node.js';
 // rewrite to ../src/legacyPlugin.ts when TS 5.7+ / rewriteRelativeImportExtensions
 import { legacyPlugin } from '../dist/legacyPlugin.js';
 import { legacyUserAgents, modernUserAgents } from './userAgents.ts';
@@ -70,10 +71,10 @@ describe('legacyPlugin - transform html', { timeout: 10000 }, () => {
     const text = await fetchText(`${host}/index.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text, 'function polyfillsLoader() {');
-    expectIncludes(text, "loadScript('./polyfills/regenerator-runtime.");
-    expectIncludes(text, "loadScript('./polyfills/fetch.");
-    expectIncludes(text, "loadScript('./polyfills/systemjs.");
+    assertIncludes(text, 'function polyfillsLoader() {');
+    assertIncludes(text, "loadScript('./polyfills/regenerator-runtime.");
+    assertIncludes(text, "loadScript('./polyfills/fetch.");
+    assertIncludes(text, "loadScript('./polyfills/systemjs.");
     server.stop();
   });
 
@@ -96,8 +97,8 @@ describe('legacyPlugin - transform html', { timeout: 10000 }, () => {
     const text = await fetchText(`${host}/index.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text, "loadScript('./bar.js'");
-    expectIncludes(text, "System.import('./foo.js?systemjs=true');");
+    assertIncludes(text, "loadScript('./bar.js'");
+    assertIncludes(text, "System.import('./foo.js?systemjs=true');");
     server.stop();
   });
 
@@ -120,8 +121,8 @@ describe('legacyPlugin - transform html', { timeout: 10000 }, () => {
     const text = await fetchText(`${host}/index.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text, "loadScript('./inline-script-0.js?source=%2Findex.html'");
-    expectIncludes(
+    assertIncludes(text, "loadScript('./inline-script-0.js?source=%2Findex.html'");
+    assertIncludes(
       text,
       "System.import('./inline-script-1.js?source=%2Findex.html&systemjs=true');",
     );
@@ -150,8 +151,8 @@ describe('legacyPlugin - transform html', { timeout: 10000 }, () => {
     const text = await fetchText(`${host}/inline-script-1.js?source=%2Findex.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text, 'var InlineClass =');
-    expectIncludes(text, '_classCallCheck(this, InlineClass);');
+    assertIncludes(text, 'var InlineClass =');
+    assertIncludes(text, '_classCallCheck(this, InlineClass);');
     server.stop();
   });
 
@@ -192,8 +193,8 @@ describe('legacyPlugin - transform html', { timeout: 10000 }, () => {
     const text2 = await fetchText(`${host}/inline-script-0.js?source=%2F%3Ffoo%3D2`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text1, 'console.log("1");');
-    expectIncludes(text2, 'console.log("2");');
+    assertIncludes(text1, 'console.log("1");');
+    assertIncludes(text2, 'console.log("2");');
     server.stop();
   });
 });

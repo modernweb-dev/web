@@ -2,14 +2,7 @@ import assert from 'node:assert/strict';
 import { afterEach, describe, it } from 'node:test';
 import { parse } from 'parse5';
 import path from 'path';
-import {
-  cleanApp,
-  createApp,
-  css,
-  html,
-  js,
-  svg,
-} from '../../../../../../test-utils/rollup-test-utils.js';
+import { cleanApp, createApp, css, html, js, svg } from '../../../../../../test-helpers/node.js';
 import { extractAssets } from '../../../../dist/input/extract/extractAssets.js';
 
 describe('extractAssets', () => {

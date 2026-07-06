@@ -1,7 +1,8 @@
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
+import { assertIncludes } from '../../../test-helpers/node.js';
 import { esbuildPlugin } from '../dist/index.js';
 
 describe('esbuildPlugin JSX', () => {
@@ -34,10 +35,10 @@ export function foo(bar) {
         response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
-      expectIncludes(text, 'React.createElement("div", {');
-      expectIncludes(text, 'id: "myDiv"');
-      expectIncludes(text, 'React.createElement(MyElement, {');
-      expectIncludes(text, 'foo: bar');
+      assertIncludes(text, 'React.createElement("div", {');
+      assertIncludes(text, 'id: "myDiv"');
+      assertIncludes(text, 'React.createElement(MyElement, {');
+      assertIncludes(text, 'foo: bar');
     } finally {
       server.stop();
     }
@@ -72,10 +73,10 @@ export function foo(bar) {
         response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
-      expectIncludes(text, 'h("div", {');
-      expectIncludes(text, 'id: "myDiv"');
-      expectIncludes(text, 'h(MyElement, {');
-      expectIncludes(text, 'foo: bar');
+      assertIncludes(text, 'h("div", {');
+      assertIncludes(text, 'id: "myDiv"');
+      assertIncludes(text, 'h(MyElement, {');
+      assertIncludes(text, 'foo: bar');
     } finally {
       server.stop();
     }

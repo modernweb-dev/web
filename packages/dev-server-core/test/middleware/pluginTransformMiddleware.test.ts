@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { expectIncludes, fetchText } from '../../dist/test-helpers.js';
+import { assertIncludes, fetchText } from '../../../../test-helpers/node.js';
 import { createTestServer } from '../helpers.ts';
 
 describe('plugin-transform middleware', () => {
@@ -294,23 +294,23 @@ describe('plugin-transform middleware', () => {
       const responseA1 = await fetchText(`${host}/src/hello-world.txt`, {
         headers: { 'user-agent': 'agent-a' },
       });
-      expectIncludes(responseA1, 'Hello world! injected text A 1');
+      assertIncludes(responseA1, 'Hello world! injected text A 1');
 
       const responseB1 = await fetchText(`${host}/src/hello-world.txt`, {
         headers: { 'user-agent': 'agent-b' },
       });
-      expectIncludes(responseB1, 'Hello world! injected text B 1');
+      assertIncludes(responseB1, 'Hello world! injected text B 1');
 
       const responseA2 = await fetchText(`${host}/src/hello-world.txt`, {
         headers: { 'user-agent': 'agent-a' },
       });
-      expectIncludes(responseA2, 'Hello world! injected text A 1');
+      assertIncludes(responseA2, 'Hello world! injected text A 1');
       assert.equal(callCountA, 1);
 
       const responseB2 = await fetchText(`${host}/src/hello-world.txt`, {
         headers: { 'user-agent': 'agent-b' },
       });
-      expectIncludes(responseB2, 'Hello world! injected text B 1');
+      assertIncludes(responseB2, 'Hello world! injected text B 1');
       assert.equal(callCountB, 1);
     } finally {
       server.stop();

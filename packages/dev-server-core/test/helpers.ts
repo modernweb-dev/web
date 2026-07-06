@@ -1,13 +1,6 @@
 import path from 'path';
 import type { DevServerCoreConfig } from '../dist/server/DevServerCoreConfig.js';
-import {
-  expectIncludes,
-  expectNotIncludes,
-  fetchText,
-  createTestServer as originalCreateTestServer,
-  timeout,
-  virtualFilesPlugin,
-} from '../dist/test-helpers.js';
+import { createTestServer as originalCreateTestServer } from '../dist/test-helpers.js';
 
 export function createTestServer(config: Partial<DevServerCoreConfig> = {}) {
   return originalCreateTestServer({
@@ -15,5 +8,3 @@ export function createTestServer(config: Partial<DevServerCoreConfig> = {}) {
     ...config,
   });
 }
-
-export { timeout, fetchText, expectIncludes, expectNotIncludes, virtualFilesPlugin };

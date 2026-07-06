@@ -3,8 +3,9 @@ import { describe, it } from 'node:test';
 import path from 'path';
 import type { AstNode, Plugin as RollupPlugin } from 'rollup';
 
+import { assertIncludes, fetchText } from '../../../../test-helpers/node.js';
 import { fromRollup } from '../../dist/index.js';
-import { createTestServer, expectIncludes, fetchText } from './test-helpers.ts';
+import { createTestServer } from './test-helpers.ts';
 
 describe('@web/dev-server-rollup', () => {
   describe('resolveId', () => {
@@ -21,7 +22,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, "import moduleA from 'RESOLVED_module-a'");
+        assertIncludes(text, "import moduleA from 'RESOLVED_module-a'");
       } finally {
         server.stop();
       }
@@ -40,7 +41,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, "import moduleA from 'RESOLVED_module-a'");
+        assertIncludes(text, "import moduleA from 'RESOLVED_module-a'");
       } finally {
         server.stop();
       }
@@ -59,7 +60,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/index.html`);
-        expectIncludes(text, "import 'RESOLVED_module-a'");
+        assertIncludes(text, "import 'RESOLVED_module-a'");
       } finally {
         server.stop();
       }
@@ -78,7 +79,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, "import moduleA from './src/foo.js'");
+        assertIncludes(text, "import moduleA from './src/foo.js'");
       } finally {
         server.stop();
       }
@@ -98,7 +99,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const responseText = await fetchText(`${host}/app.js`);
-        expectIncludes(responseText, "import moduleA from '/__wds-outside-root__/7/foo.js'");
+        assertIncludes(responseText, "import moduleA from '/__wds-outside-root__/7/foo.js'");
       } finally {
         server.stop();
       }
@@ -132,11 +133,11 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       const responseTextInside = await fetchText(`${host}/app.js`);
-      expectIncludes(responseTextInside, "import './node_modules/.prebundled_modules/react.mjs'");
+      assertIncludes(responseTextInside, "import './node_modules/.prebundled_modules/react.mjs'");
       const responseTextOutside = await fetchText(
         `${host}/__wds-outside-root__/3/node_modules/storybook/index.js`,
       );
-      expectIncludes(
+      assertIncludes(
         responseTextOutside,
         "import './../../../../node_modules/.prebundled_modules/react.mjs'",
       );
@@ -161,7 +162,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/src/foo.js`);
-        expectIncludes(text, 'console.log("hello world")');
+        assertIncludes(text, 'console.log("hello world")');
       } finally {
         server.stop();
       }
@@ -182,7 +183,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/src/foo.js`);
-        expectIncludes(text, 'console.log("hello world")');
+        assertIncludes(text, 'console.log("hello world")');
       } finally {
         server.stop();
       }
@@ -205,7 +206,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, 'console.log("transformed");');
+        assertIncludes(text, 'console.log("transformed");');
       } finally {
         server.stop();
       }
@@ -226,7 +227,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, 'console.log("transformed");');
+        assertIncludes(text, 'console.log("transformed");');
       } finally {
         server.stop();
       }
@@ -274,7 +275,7 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       const text = await fetchText(`${host}/app.js`);
-      expectIncludes(text, 'import "./foo.js"');
+      assertIncludes(text, 'import "./foo.js"');
     } finally {
       server.stop();
     }
@@ -300,7 +301,7 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       const text = await fetchText(`${host}/app.js`);
-      expectIncludes(
+      assertIncludes(
         text,
         'import "/__web-dev-server__/rollup/foo.js?web-dev-server-rollup-null-byte=%00foo.js"',
       );
@@ -326,7 +327,7 @@ describe('@web/dev-server-rollup', () => {
       const text = await fetchText(
         `${host}/__web-dev-server__/rollup/foo.js?web-dev-server-rollup-null-byte=%00foo.js`,
       );
-      expectIncludes(text, 'console.log("foo");');
+      assertIncludes(text, 'console.log("foo");');
     } finally {
       server.stop();
     }
@@ -410,7 +411,7 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       const text = await fetchText(`${host}/index.html`);
-      expectIncludes(
+      assertIncludes(
         text,
         'import "/__web-dev-server__/rollup/foo.js?web-dev-server-rollup-null-byte=%00foo.js"',
       );

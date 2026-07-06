@@ -1,6 +1,29 @@
 const synchronizedPrettier = require('@prettier/sync');
+const { green, red, yellow } = require('nanocolors');
 const fs = require('fs');
 const path = require('path');
+
+const timeout = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
+
+async function fetchText(url, init) {
+  const response = await fetch(url, init);
+  if (response.status !== 200) {
+    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+  }
+  return response.text();
+}
+
+function assertIncludes(text, expected) {
+  if (!text.includes(expected)) {
+    throw new Error(red(`Expected "${yellow(expected)}" in string: \n\n${green(text)}`));
+  }
+}
+
+function assertNotIncludes(text, expected) {
+  if (text.includes(expected)) {
+    throw new Error(`Did not expect "${expected}" in string: \n\n${text}`);
+  }
+}
 
 function collapseWhitespaceAll(str) {
   return (
@@ -108,6 +131,10 @@ function cleanApp() {
 }
 
 module.exports = {
+  timeout,
+  fetchText,
+  assertIncludes,
+  assertNotIncludes,
   html,
   css,
   js,

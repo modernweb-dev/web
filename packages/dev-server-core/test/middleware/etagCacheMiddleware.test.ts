@@ -4,8 +4,9 @@ import assert from 'node:assert/strict';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import path from 'path';
 
+import { timeout } from '../../../../test-helpers/node.js';
 import type { DevServer } from '../../dist/server/DevServer.js';
-import { createTestServer, timeout } from '../helpers.ts';
+import { createTestServer } from '../helpers.ts';
 
 const fixtureDir = path.resolve(import.meta.dirname, '..', 'fixtures', 'basic');
 const testFileAName = '/cached-file-a.js';

@@ -10,7 +10,7 @@ const {
   generateTestBundle,
   createApp,
   cleanApp,
-} = require('../../../test-utils/rollup-test-utils.js');
+} = require('../../../test-helpers/node.js');
 
 const outputConfig = {
   format: 'es',

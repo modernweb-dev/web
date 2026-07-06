@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { createTestServer, expectIncludes } from '../helpers.ts';
+import { assertIncludes } from '../../../../test-helpers/node.js';
+import { createTestServer } from '../helpers.ts';
 
 describe('plugin-serve middleware', () => {
   it('can serve non-existing files', async () => {
@@ -23,7 +24,7 @@ describe('plugin-serve middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, 'serving non-existing.js');
+      assertIncludes(responseText, 'serving non-existing.js');
     } finally {
       server.stop();
     }
@@ -56,7 +57,7 @@ describe('plugin-serve middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, 'serve a');
+      assertIncludes(responseText, 'serve a');
     } finally {
       server.stop();
     }
@@ -81,7 +82,7 @@ describe('plugin-serve middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, 'serving non-existing.js');
+      assertIncludes(responseText, 'serving non-existing.js');
       assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
     } finally {
       server.stop();
@@ -130,7 +131,7 @@ describe('plugin-serve middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, 'overwritten index.html');
+      assertIncludes(responseText, 'overwritten index.html');
     } finally {
       server.stop();
     }
@@ -179,7 +180,7 @@ describe('plugin-serve middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, 'serving non-existing.js');
+      assertIncludes(responseText, 'serving non-existing.js');
     } finally {
       server.stop();
     }

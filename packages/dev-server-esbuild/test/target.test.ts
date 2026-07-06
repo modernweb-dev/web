@@ -1,7 +1,8 @@
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
+import { assertIncludes } from '../../../test-helpers/node.js';
 import { esbuildPlugin } from '../dist/index.js';
 
 const modernJs = `
@@ -86,17 +87,17 @@ describe('esbuildPlugin target', () => {
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of syntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, syntax.optionalChaining);
-      expectIncludes(text, syntax.optionalCatch);
+      assertIncludes(text, syntax.optionalChaining);
+      assertIncludes(text, syntax.optionalCatch);
       for (const e of syntax.objectSpread) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
       for (const e of syntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -129,17 +130,17 @@ describe('esbuildPlugin target', () => {
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, syntax.optionalChaining);
-      expectIncludes(text, syntax.optionalCatch);
+      assertIncludes(text, syntax.optionalChaining);
+      assertIncludes(text, syntax.optionalCatch);
       for (const e of syntax.objectSpread) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
       for (const e of syntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -172,17 +173,17 @@ describe('esbuildPlugin target', () => {
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, transformedSyntax.optionalChaining);
-      expectIncludes(text, syntax.optionalCatch);
+      assertIncludes(text, transformedSyntax.optionalChaining);
+      assertIncludes(text, syntax.optionalCatch);
       for (const e of syntax.objectSpread) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
       for (const e of syntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -215,17 +216,17 @@ describe('esbuildPlugin target', () => {
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, transformedSyntax.optionalChaining);
-      expectIncludes(text, transformedSyntax.optionalCatch);
+      assertIncludes(text, transformedSyntax.optionalChaining);
+      assertIncludes(text, transformedSyntax.optionalCatch);
       for (const e of syntax.objectSpread) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
       for (const e of syntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -258,15 +259,15 @@ describe('esbuildPlugin target', () => {
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, transformedSyntax.optionalChaining);
-      expectIncludes(text, transformedSyntax.optionalCatch);
-      expectIncludes(text, transformedSyntax.objectSpread);
+      assertIncludes(text, transformedSyntax.optionalChaining);
+      assertIncludes(text, transformedSyntax.optionalCatch);
+      assertIncludes(text, transformedSyntax.objectSpread);
       for (const e of syntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -299,15 +300,15 @@ describe('esbuildPlugin target', () => {
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, transformedSyntax.optionalChaining);
-      expectIncludes(text, transformedSyntax.optionalCatch);
-      expectIncludes(text, transformedSyntax.objectSpread);
+      assertIncludes(text, transformedSyntax.optionalChaining);
+      assertIncludes(text, transformedSyntax.optionalCatch);
+      assertIncludes(text, transformedSyntax.objectSpread);
       for (const e of transformedSyntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -341,15 +342,15 @@ describe('esbuildPlugin target', () => {
       assert.strictEqual(response.status, 200);
       assert.strictEqual(response.headers.get('content-type'), 'text/html; charset=utf-8');
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, transformedSyntax.optionalChaining);
-      expectIncludes(text, transformedSyntax.optionalCatch);
-      expectIncludes(text, transformedSyntax.objectSpread);
+      assertIncludes(text, transformedSyntax.optionalChaining);
+      assertIncludes(text, transformedSyntax.optionalCatch);
+      assertIncludes(text, transformedSyntax.objectSpread);
       for (const e of transformedSyntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -385,8 +386,8 @@ describe('esbuildPlugin target', () => {
 
       assert.strictEqual(response.status, 200);
       assert.strictEqual(response.headers.get('content-type'), 'text/html; charset=utf-8');
-      expectIncludes(text, importmapString);
-      expectIncludes(text, jsonString);
+      assertIncludes(text, importmapString);
+      assertIncludes(text, jsonString);
     } finally {
       server.stop();
     }

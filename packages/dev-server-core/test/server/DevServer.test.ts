@@ -5,9 +5,10 @@ import { Server } from 'net';
 import assert from 'node:assert/strict';
 import { after, afterEach, before, beforeEach, describe, it, mock } from 'node:test';
 import portfinder from 'portfinder';
+import { assertIncludes } from '../../../../test-helpers/node.js';
 import type { ServerStartParams } from '../../dist/plugins/Plugin.js';
 import type { DevServer } from '../../dist/server/DevServer.js';
-import { createTestServer, expectIncludes } from '../helpers.ts';
+import { createTestServer } from '../helpers.ts';
 
 describe('basic', () => {
   let host: string;
@@ -26,7 +27,7 @@ describe('basic', () => {
     const responseText = await response.text();
 
     assert.equal(response.status, 200);
-    expectIncludes(responseText, '<title>My app</title>');
+    assertIncludes(responseText, '<title>My app</title>');
   });
 
   it('returns hidden files', async () => {
@@ -34,7 +35,7 @@ describe('basic', () => {
     const responseText = await response.text();
 
     assert.equal(response.status, 200);
-    expectIncludes(responseText, 'this file is hidden');
+    assertIncludes(responseText, 'this file is hidden');
   });
 
   it('returns files in a folder', async () => {
@@ -65,7 +66,7 @@ it('can configure the hostname', async () => {
   const responseText = await response.text();
 
   assert.equal(response.status, 200);
-  expectIncludes(responseText, '<title>My app</title>');
+  assertIncludes(responseText, '<title>My app</title>');
   server.stop();
 });
 
@@ -84,7 +85,7 @@ describe('http2', () => {
     const responseText = await response.text();
 
     assert.equal(response.status, 200);
-    expectIncludes(responseText, '<title>My app</title>');
+    assertIncludes(responseText, '<title>My app</title>');
     server.stop();
   });
 });
@@ -108,7 +109,7 @@ it('can run in middleware mode', async () => {
   const responseText = await response.text();
 
   assert.equal(response.status, 200);
-  expectIncludes(responseText, '<title>My app</title>');
+  assertIncludes(responseText, '<title>My app</title>');
 
   httpServer!.close();
 });
@@ -127,7 +128,7 @@ it('can run multiple servers in parallel', async () => {
     const responseText = await response.text();
 
     assert.equal(response.status, 200);
-    expectIncludes(responseText, '<title>My app</title>');
+    assertIncludes(responseText, '<title>My app</title>');
     result.server.stop();
   }
 });
@@ -148,7 +149,7 @@ it('can add extra middleware', async () => {
   const responseText = await response.text();
 
   assert.equal(response.status, 200);
-  expectIncludes(responseText, 'response from middleware');
+  assertIncludes(responseText, 'response from middleware');
   server.stop();
 });
 

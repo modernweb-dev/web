@@ -3,15 +3,12 @@ import { beforeEach, describe, it, mock } from 'node:test';
 
 import type { BrowserLauncher } from '../../../dist/browser-launcher/BrowserLauncher.js';
 
+import { timeout } from '../../../../../test-helpers/node.js';
 import type { TestRunnerCoreConfig } from '../../../dist/config/TestRunnerCoreConfig.js';
 import { TestScheduler } from '../../../dist/runner/TestScheduler.js';
 import type { TestSession } from '../../../dist/test-session/TestSession.js';
 import { TestSessionManager } from '../../../dist/test-session/TestSessionManager.js';
 import { SESSION_STATUS } from '../../../dist/test-session/TestSessionStatus.js';
-
-function timeout(ms = 0): Promise<void> {
-  return new Promise(r => setTimeout(r, ms));
-}
 
 describe('TestScheduler', () => {
   let mockConfig: TestRunnerCoreConfig;

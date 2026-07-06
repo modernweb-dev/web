@@ -1,8 +1,9 @@
 import rollupReplace from '@rollup/plugin-replace';
 import { describe, it } from 'node:test';
 
+import { assertIncludes, fetchText } from '../../../../../test-helpers/node.js';
 import { fromRollup } from '../../../dist/index.js';
-import { createTestServer, expectIncludes, fetchText } from '../test-helpers.ts';
+import { createTestServer } from '../test-helpers.ts';
 
 const replace = fromRollup(rollupReplace as any);
 
@@ -22,7 +23,7 @@ describe('@rollup/plugin-replace', () => {
 
     try {
       const text = await fetchText(`${host}/foo.js`);
-      expectIncludes(text, 'if ("production" === "production") { console.log("foo"); }');
+      assertIncludes(text, 'if ("production" === "production") { console.log("foo"); }');
     } finally {
       server.stop();
     }

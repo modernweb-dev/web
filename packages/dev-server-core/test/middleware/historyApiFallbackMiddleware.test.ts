@@ -2,8 +2,9 @@ import assert from 'node:assert/strict';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import path from 'path';
 
+import { assertIncludes, assertNotIncludes } from '../../../../test-helpers/node.js';
 import type { DevServer } from '../../dist/server/DevServer.js';
-import { createTestServer, expectIncludes, expectNotIncludes } from '../helpers.ts';
+import { createTestServer } from '../helpers.ts';
 
 describe('history api fallback middleware', () => {
   describe('index in root', () => {
@@ -25,7 +26,7 @@ describe('history api fallback middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, '<title>My app</title>');
+      assertIncludes(responseText, '<title>My app</title>');
     });
 
     it('returns the fallback index.html for non-file requests', async () => {
@@ -33,7 +34,7 @@ describe('history api fallback middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, '<title>My app</title>');
+      assertIncludes(responseText, '<title>My app</title>');
     });
 
     it('returns the fallback index.html for file requests with multiple segments', async () => {
@@ -41,7 +42,7 @@ describe('history api fallback middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, '<title>My app</title>');
+      assertIncludes(responseText, '<title>My app</title>');
     });
 
     it('does not return index.html for file requests', async () => {
@@ -49,8 +50,8 @@ describe('history api fallback middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, 'Hello world!');
-      expectNotIncludes(responseText, '<title>My app</title>');
+      assertIncludes(responseText, 'Hello world!');
+      assertNotIncludes(responseText, '<title>My app</title>');
     });
 
     it('does return index.html for requests that have url parameters with . characters (issue 1059)', async () => {
@@ -58,7 +59,7 @@ describe('history api fallback middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, '<title>My app</title>');
+      assertIncludes(responseText, '<title>My app</title>');
     });
   });
 
@@ -81,7 +82,7 @@ describe('history api fallback middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, '<title>My app 2</title>');
+      assertIncludes(responseText, '<title>My app 2</title>');
     });
 
     it('returns the fallback index.html for non-file requests', async () => {
@@ -89,7 +90,7 @@ describe('history api fallback middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, '<title>My app 2</title>');
+      assertIncludes(responseText, '<title>My app 2</title>');
     });
 
     it('returns the fallback index.html for file requests with multiple segments', async () => {
@@ -97,7 +98,7 @@ describe('history api fallback middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, '<title>My app 2</title>');
+      assertIncludes(responseText, '<title>My app 2</title>');
     });
 
     it('does not return the index.html for requests outside the index root', async () => {
@@ -105,7 +106,7 @@ describe('history api fallback middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 404);
-      expectNotIncludes(responseText, '<title>My app 2</title>');
+      assertNotIncludes(responseText, '<title>My app 2</title>');
     });
 
     it('does return index.html for requests that have url parameters with . characters (issue 1059)', async () => {
@@ -113,7 +114,7 @@ describe('history api fallback middleware', () => {
       const responseText = await response.text();
 
       assert.equal(response.status, 200);
-      expectIncludes(responseText, '<title>My app 2</title>');
+      assertIncludes(responseText, '<title>My app 2</title>');
     });
   });
 });

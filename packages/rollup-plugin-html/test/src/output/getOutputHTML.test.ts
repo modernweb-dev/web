@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import path from 'path';
-import { html } from '../../../../../test-utils/rollup-test-utils.js';
+import { html } from '../../../../../test-helpers/node.js';
 import type { EntrypointBundle } from '../../../dist/RollupPluginHTMLOptions.js';
 import type { GetOutputHTMLParams } from '../../../dist/output/getOutputHTML.js';
 import { getOutputHTML } from '../../../dist/output/getOutputHTML.js';
