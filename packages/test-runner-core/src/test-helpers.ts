@@ -1,4 +1,4 @@
-/* eslint-disable no-async-promise-executor, no-inner-declarations */
+/* eslint-disable no-async-promise-executor */
 import path from 'path';
 import { getPortPromise } from 'portfinder';
 import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.js';

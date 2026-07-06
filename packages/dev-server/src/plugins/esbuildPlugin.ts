@@ -6,6 +6,7 @@ function requirePlugin() {
     if ((error as NodeJS.ErrnoException).code === 'MODULE_NOT_FOUND') {
       throw new Error(
         'You need to add @web/dev-server-esbuild as a dependency of your project to use the esbuild flags.',
+        { cause: error },
       );
     } else {
       throw error;

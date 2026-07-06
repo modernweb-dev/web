@@ -1,4 +1,3 @@
-/* eslint-env browser, es2020 */
 /** @typedef {import('../dist/index').TestResultError} TestResultError */
 /** @typedef {import('../dist/index').TestResult} TestResult */
 /** @typedef {import('../dist/index').TestSuiteResult} TestSuiteResult */

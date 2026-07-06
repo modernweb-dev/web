@@ -129,7 +129,7 @@ export class WebdriverLauncher implements BrowserLauncher {
       if (!this.driver) return;
       try {
         await this.driver.getTitle();
-      } catch (e) {
+      } catch {
         // Do nothing, just clear the timeout
         if (this.pendingHeartbeat != null) {
           clearInterval(this.pendingHeartbeat);

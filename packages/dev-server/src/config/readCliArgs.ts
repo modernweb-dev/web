@@ -104,7 +104,6 @@ export function readCliArgs({ argv = process.argv }: ReadCliArgsParams = {}): De
   }
 
   if ('help' in cliArgs) {
-    /* eslint-disable-next-line no-console */
     console.log(
       commandLineUsage([
         {

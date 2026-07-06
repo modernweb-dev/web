@@ -125,7 +125,7 @@ function createReviver(promises: Promise<unknown>[], options?: DeserializeOption
 
 const { hasOwnProperty } = Object.prototype;
 
-interface DeserializeOptions extends ParseStackTraceOptions {}
+type DeserializeOptions = ParseStackTraceOptions;
 
 export async function deserialize(value: string, options?: DeserializeOptions) {
   try {

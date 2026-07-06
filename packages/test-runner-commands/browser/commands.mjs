@@ -1,4 +1,3 @@
-/* eslint-env browser, es2020 */
 const PARAM_SESSION_ID = 'wtr-session-id';
 
 const sessionId = new URL(window.location.href).searchParams.get(PARAM_SESSION_ID);
@@ -19,7 +18,7 @@ export async function executeServerCommand(command, payload, pluginName) {
   try {
     const webSocketModule = await import('/__web-dev-server__web-socket.js');
     ({ sendMessageWaitForResponse } = webSocketModule);
-  } catch (error) {
+  } catch {
     throw new Error(
       'Could not setup web socket connection. Are you executing this test through Web Test Runner?',
     );
@@ -49,6 +48,7 @@ export async function executeServerCommand(command, payload, pluginName) {
       `Error while executing command ${command}${
         payload ? ` with payload ${JSON.stringify(payload)}` : ''
       }: ${error.message}`,
+      { cause: error },
     );
   }
 }

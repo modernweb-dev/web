@@ -78,7 +78,7 @@ function moduleExists(moduleName: string) {
   try {
     require.resolve(moduleName, { paths: [process.cwd()] });
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 }

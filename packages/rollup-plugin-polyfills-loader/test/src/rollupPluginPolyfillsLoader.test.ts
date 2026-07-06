@@ -1,4 +1,3 @@
-/* eslint-disable no-await-in-loop */
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 import fs from 'fs';
 import assert from 'node:assert/strict';

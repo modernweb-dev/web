@@ -1,4 +1,3 @@
-/* eslint-disable no-control-regex */
 import {
   Context,
   DevServerCoreConfig,
@@ -38,7 +37,7 @@ const OUTSIDE_ROOT_REGEXP = /\/__wds-outside-root__\/([0-9]+)\/(.*)/;
  * Wraps rollup error in a custom error for web dev server.
  */
 function wrapRollupError(filePath: string, context: Context, error: any) {
-  if (typeof error == null || typeof error !== 'object') {
+  if (error == null || typeof error !== 'object') {
     return error;
   }
 

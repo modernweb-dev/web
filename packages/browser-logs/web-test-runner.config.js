@@ -1,4 +1,3 @@
-/* eslint-disable */
 const { esbuildPlugin } = require('@web/dev-server-esbuild');
 
 module.exports = {

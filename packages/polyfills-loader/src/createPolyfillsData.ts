@@ -17,6 +17,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
         throw new Error(
           `[Polyfills loader]: Error resolving polyfill ${polyfillConfig.name}` +
             ' Are dependencies installed correctly?',
+          { cause: error },
         );
       }
 
@@ -218,7 +219,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     if (!polyfillConfig.name || !polyfillConfig.path) {
       throw new Error(`A polyfill should have a name and a path property.`);
     }
-    let content = '';
+    let content: string;
     if (Array.isArray(polyfillConfig.path)) {
       content = polyfillConfig.path.map(p => readPolyfillFileContents(p)).join('');
     } else {
