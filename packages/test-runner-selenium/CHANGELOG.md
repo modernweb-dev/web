@@ -1,5 +1,17 @@
 # @web/test-runner-selenium
 
+## 1.0.0
+
+### Major Changes
+
+- 5260164: Drop support for Node.js 18 and 20, which have reached end-of-life. The minimum supported Node.js version is now 22.0.0.
+  The Node code is compiled to ES2024 which is aligned with the Node 22.
+
+### Patch Changes
+
+- Updated dependencies [5260164]
+  - @web/test-runner-core@1.0.0
+
 ## 0.7.0
 
 ### Minor Changes
