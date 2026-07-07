@@ -8,7 +8,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/modern-web/web.git",
+    "url": "https://github.com/modernweb-dev/web.git",
     "directory": "packages/rollup-plugin-polyfills-loader"
   },
   "author": "modern-web",
