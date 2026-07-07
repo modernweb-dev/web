@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { ServerStartParams } from '@web/dev-server-core';
 import { TestRunnerPlugin } from '@web/test-runner-core';
 import fs from 'fs';

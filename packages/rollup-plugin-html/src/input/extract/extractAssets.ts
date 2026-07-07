@@ -41,7 +41,7 @@ export function extractAssets(params: ExtractAssetsParams): InputAsset[] {
       if (!alreadyHandled) {
         try {
           fs.accessSync(filePath);
-        } catch (error) {
+        } catch {
           const elStr = serialize(node);
           const htmlPath = path.relative(process.cwd(), params.htmlFilePath);
           throw new Error(

@@ -216,7 +216,7 @@ export class EsbuildPlugin implements Plugin {
           );
         }
 
-        throw new Error(msg.text);
+        throw new Error(msg.text, { cause: e });
       }
 
       throw e;

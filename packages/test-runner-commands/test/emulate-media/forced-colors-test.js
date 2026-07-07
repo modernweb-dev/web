@@ -3,7 +3,7 @@ import { expect } from '../chai.js';
 
 it('can emulate forced colors', async () => {
   await emulateMedia({ forcedColors: 'active' });
-  expect(matchMedia('(forced-colors: active)').matches).to.be.true;
+  expect(matchMedia('(forced-colors: active)').matches).to.equal(true);
   await emulateMedia({ forcedColors: 'none' });
-  expect(matchMedia('(forced-colors: none)').matches).to.be.true;
+  expect(matchMedia('(forced-colors: none)').matches).to.equal(true);
 });

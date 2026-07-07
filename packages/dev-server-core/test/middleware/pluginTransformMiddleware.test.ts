@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax, no-await-in-loop */
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 

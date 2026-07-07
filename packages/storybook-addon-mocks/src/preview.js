@@ -17,7 +17,7 @@ function getEditedMocks() {
   try {
     return JSON.parse(decodeURIComponent(param));
   } catch (error) {
-    throw new Error(`Cannot parse mocks: ${error.message}`);
+    throw new Error(`Cannot parse mocks: ${error.message}`, { cause: error });
   }
 }
 

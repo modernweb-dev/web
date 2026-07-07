@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Context } from 'koa';
 import path from 'path';
 // @ts-ignore
@@ -45,7 +44,7 @@ async function resolveConcatenatedImport(
   column: number,
 ): Promise<string> {
   let pathToResolve = importSpecifier;
-  let pathToAppend = '';
+  let pathToAppend: string;
 
   if (['/', '../', './'].some(p => pathToResolve.startsWith(p))) {
     // don't handle non-bare imports
@@ -97,7 +96,7 @@ async function maybeResolveImport(
       resolvedImportFilePath =
         (await resolveConcatenatedImport(importSpecifier, resolveImport, code, line, column)) ??
         importSpecifier;
-    } catch (error) {
+    } catch {
       return importSpecifier;
     }
   } else {

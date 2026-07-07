@@ -3,7 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "NodeNext",
-    "lib": ["es2017", "dom"],
+    "lib": ["es2022", "dom"],
     "allowJs": true,
     "checkJs": true,
     "strict": true,

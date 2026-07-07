@@ -76,7 +76,7 @@ function isAsset(node: Element) {
   try {
     new URL(path);
     return false;
-  } catch (e) {
+  } catch {
     return true;
   }
 }

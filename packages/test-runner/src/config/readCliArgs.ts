@@ -161,7 +161,6 @@ export function readCliArgs({ argv = process.argv }: ReadCliArgsParams = {}): Te
   const cliArgs = commandLineArgs(options, { argv, partial: true });
 
   if ('help' in cliArgs) {
-    /* eslint-disable-next-line no-console */
     console.log(
       commandLineUsage([
         {

@@ -2,7 +2,6 @@
 var KEY_WTR_TYPE = '__WTR_TYPE__';
 var KEY_CONSTRUCTOR_NAME = '__WTR_CONSTRUCTOR_NAME__';
 
-/* eslint-disable @typescript-eslint/ban-types */
 function catchFallback<T>(fn: (...args: any[]) => T, fallback = null) {
   try {
     return fn();
@@ -98,12 +97,12 @@ function createReplacer() {
     if (type === 'function') {
       return {
         [KEY_WTR_TYPE]: 'Function',
-        name: (value as Function).name,
+        name: (value as { name: string }).name,
       };
     }
 
     if (type === 'symbol') {
-      return (value as Symbol).toString();
+      return (value as symbol).toString();
     }
 
     if (type === 'object') {

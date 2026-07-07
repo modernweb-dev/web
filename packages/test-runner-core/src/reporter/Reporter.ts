@@ -32,7 +32,7 @@ export interface TestRunArgs {
   testRun: number;
 }
 
-export interface TestRunStartedArgs extends TestRunArgs {}
+export type TestRunStartedArgs = TestRunArgs;
 export interface TestRunFinishedArgs extends TestRunArgs {
   sessions: TestSession[];
   testCoverage?: TestCoverage;
@@ -44,8 +44,6 @@ export interface StopArgs {
   testCoverage?: TestCoverage;
   focusedTestFile?: string;
 }
-
-export interface ReporterConstructor {}
 
 export interface Reporter {
   reportTestFileResults?(args: ReportTestResultsArgs): void;

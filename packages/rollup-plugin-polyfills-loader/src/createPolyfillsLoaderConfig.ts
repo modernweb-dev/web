@@ -72,7 +72,6 @@ export function createPolyfillsLoaderConfig(
     }
 
     if (!bundles[modernOutput.name]) throw bundleNotFoundError(modernOutput.name);
-    modernOutput.type;
     modern = createEntrypoints(bundles[modernOutput.name], modernOutput.type);
 
     /** @type {LegacyEntrypoint[]} */

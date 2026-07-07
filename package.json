@@ -17,11 +17,11 @@
     "build:watch": "npm run build:clean && tsc --build --watch",
     "dev-to-git": "dev-to-git",
     "format": "npm run format:eslint && npm run format:prettier",
-    "format:eslint": "eslint --ext .ts,.js,.mjs,.cjs . --fix",
+    "format:eslint": "eslint . --fix",
     "format:prettier": "prettier \"**/*.{ts,js,mjs,cjs,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
     "install-puppeteer-firefox": "cd node_modules/puppeteer && PUPPETEER_BROWSER=firefox node install.js",
     "lint": "npm run lint:eslint && npm run lint:prettier",
-    "lint:eslint": "eslint --ext .ts,.js,.mjs,.cjs .",
+    "lint:eslint": "eslint .",
     "lint:prettier": "prettier \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
     "prepare": "husky",
     "reinstall-workspace": "rimraf --glob packages/*/node_modules && rimraf node_modules && npm install && npm run build",
@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
+    "@eslint/js": "^10.0.1",
     "@prettier/plugin-xml": "^3.4.2",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
@@ -58,15 +59,14 @@
     "@types/fs-extra": "^11.0.4",
     "@types/mocha": "^10.0.1",
     "@types/node": "*",
-    "@typescript-eslint/eslint-plugin": "^5.3.0",
-    "@typescript-eslint/parser": "^5.59.1",
     "alex": "^11.0.0",
     "chai": "^4.3.4",
     "concurrently": "^8.0.1",
     "deepmerge": "^4.2.2",
     "dev-to-git": "^1.4.1",
-    "eslint": "^8.1.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint": "^10.6.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.7.0",
     "hanbi": "^1.0.1",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
@@ -80,33 +80,8 @@
     "rollup": "^4.4.0",
     "ts-node": "^10.4.0",
     "typescript": "~5.0.4",
+    "typescript-eslint": "^8.62.1",
     "wireit": "^0.14.2"
-  },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "extends": [
-      "eslint:recommended",
-      "eslint-config-prettier",
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "env": {
-      "browser": true,
-      "node": true,
-      "mocha": true,
-      "es2020": true
-    },
-    "rules": {
-      "@typescript-eslint/no-non-null-assertion": "off",
-      "@typescript-eslint/explicit-module-boundary-types": "off",
-      "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-empty-interface": "off",
-      "@typescript-eslint/no-unused-vars": "error",
-      "@typescript-eslint/no-var-requires": "off",
-      "@typescript-eslint/ban-ts-comment": "off"
-    }
   },
   "lint-staged": {
     "*.js": [
