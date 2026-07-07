@@ -1,5 +1,27 @@
 # @web/storybook-builder
 
+## 1.0.0
+
+### Major Changes
+
+- 5260164: Drop support for Node.js 18 and 20, which have reached end-of-life. The minimum supported Node.js version is now 22.0.0.
+  The Node code is compiled to ES2024 which is aligned with the Node 22.
+
+### Minor Changes
+
+- 532e76d: Upgrade esbuild dependency version to 0.28.1
+
+### Patch Changes
+
+- Updated dependencies [1a058e6]
+- Updated dependencies [5260164]
+- Updated dependencies [9105501]
+  - @web/dev-server-core@1.0.0
+  - @web/config-loader@1.0.0
+  - @web/dev-server@1.0.0
+  - @web/dev-server-rollup@1.0.0
+  - @web/rollup-plugin-html@4.0.0
+
 ## 0.3.0
 
 ### Minor Changes
