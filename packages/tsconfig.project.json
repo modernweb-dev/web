@@ -21,9 +21,6 @@
       "path": "./test-runner-chrome/tsconfig.json"
     },
     {
-      "path": "./test-runner-cli/tsconfig.json"
-    },
-    {
       "path": "./dev-server-legacy/tsconfig.json"
     },
     {

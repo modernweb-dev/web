@@ -21,7 +21,6 @@
 '@web/storybook-utils': major
 '@web/test-runner-browserstack': major
 '@web/test-runner-chrome': major
-'@web/test-runner-cli': major
 '@web/test-runner-commands': major
 '@web/test-runner-core': major
 '@web/test-runner-coverage-v8': major

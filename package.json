@@ -78,7 +78,6 @@
     "prettier-plugin-package": "^2.0.0",
     "rimraf": "^4.4.1",
     "rollup": "^4.4.0",
-    "ts-node": "^10.4.0",
     "typescript": "~5.0.4",
     "typescript-eslint": "^8.62.1",
     "wireit": "^0.14.2"
@@ -91,11 +90,6 @@
     "*.md": [
       "prettier --write --ignore-path .eslintignore"
     ]
-  },
-  "mocha": {
-    "loader": "ts-node/esm",
-    "exit": true,
-    "retries": 3
   },
   "overrides": {
     "@lion/accordion": "^0.11.1",
