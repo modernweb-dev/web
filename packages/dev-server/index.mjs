@@ -4,4 +4,4 @@ import cjsEntrypoint from './dist/index.js';
 const { startDevServer, mergeConfigs, DevServerStartError, esbuildPlugin, nodeResolvePlugin } =
   cjsEntrypoint;
 
-export { startDevServer, mergeConfigs, DevServerStartError, esbuildPlugin, nodeResolvePlugin };
+export { DevServerStartError, esbuildPlugin, mergeConfigs, nodeResolvePlugin, startDevServer };

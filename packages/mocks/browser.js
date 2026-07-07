@@ -45,4 +45,4 @@ function registerMockRoutes(...mocks) {
   _registerMockRoutes(worker, bypassServiceWorker, ...mocks);
 }
 
-export { worker, registerMockRoutes };
+export { registerMockRoutes, worker };

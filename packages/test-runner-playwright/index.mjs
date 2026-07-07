@@ -3,4 +3,4 @@ import cjsEntrypoint from './dist/index.js';
 
 const { playwright, PlaywrightLauncher, devices, playwrightLauncher } = cjsEntrypoint;
 
-export { playwright, PlaywrightLauncher, devices, playwrightLauncher };
+export { PlaywrightLauncher, devices, playwright, playwrightLauncher };

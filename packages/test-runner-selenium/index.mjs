@@ -3,4 +3,4 @@ import cjsEntrypoint from './dist/index.js';
 
 const { seleniumLauncher, SeleniumLauncher } = cjsEntrypoint;
 
-export { seleniumLauncher, SeleniumLauncher };
+export { SeleniumLauncher, seleniumLauncher };
