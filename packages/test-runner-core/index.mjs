@@ -14,13 +14,13 @@ const {
 } = cjsEntrypoint;
 
 export {
-  constants,
+  BufferedLogger,
+  EventEmitter,
+  SESSION_STATUS,
   TestRunner,
   TestRunnerCli,
-  BufferedLogger,
   TestSessionManager,
-  SESSION_STATUS,
-  EventEmitter,
-  isTestFilePath,
+  constants,
   fetchSourceMap,
+  isTestFilePath,
 };

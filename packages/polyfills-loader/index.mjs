@@ -13,8 +13,8 @@ const {
 export {
   createPolyfillsData,
   createPolyfillsLoader,
-  injectPolyfillsLoader,
-  hasFileOfType,
   fileTypes,
   getScriptFileType,
+  hasFileOfType,
+  injectPolyfillsLoader,
 };

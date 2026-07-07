@@ -32,7 +32,7 @@ export {
 } from './test-session/TestSession.js';
 export { TestSessionManager } from './test-session/TestSessionManager.js';
 export { SESSION_STATUS, TestSessionStatus } from './test-session/TestSessionStatus.js';
-export { EventEmitter } from './utils/EventEmitter.js';
 export * as constants from './utils/constants.js';
+export { EventEmitter } from './utils/EventEmitter.js';
 export { fetchSourceMap } from './utils/fetchSourceMap.js';
 export { isTestFilePath } from './utils/isTestFilePath.js';

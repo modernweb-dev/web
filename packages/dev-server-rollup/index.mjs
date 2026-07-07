@@ -3,4 +3,4 @@ import cjsEntrypoint from './dist/index.js';
 
 const { nodeResolve, fromRollup, rollupAdapter, rollupBundlePlugin } = cjsEntrypoint;
 
-export { nodeResolve, fromRollup, rollupAdapter, rollupBundlePlugin };
+export { fromRollup, nodeResolve, rollupAdapter, rollupBundlePlugin };

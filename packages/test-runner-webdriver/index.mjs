@@ -3,4 +3,4 @@ import cjsEntrypoint from './dist/index.js';
 
 const { webdriverLauncher, WebdriverLauncher } = cjsEntrypoint;
 
-export { webdriverLauncher, WebdriverLauncher };
+export { WebdriverLauncher, webdriverLauncher };

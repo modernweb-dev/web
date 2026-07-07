@@ -312,4 +312,4 @@ export function removeSnapshot(options: { name: string }): Promise<void>;
  */
 export function compareSnapshot(options: { name: string; content: string }): Promise<void>;
 
-export { Media, Viewport, SendKeysPayload, WriteFilePayload, ReadFilePayload, RemoveFilePayload };
+export { Media, ReadFilePayload, RemoveFilePayload, SendKeysPayload, Viewport, WriteFilePayload };

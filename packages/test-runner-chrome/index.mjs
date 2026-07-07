@@ -3,4 +3,4 @@ import cjsEntrypoint from './dist/index.js';
 
 const { ChromeLauncher, puppeteerCore, chromeLauncher } = cjsEntrypoint;
 
-export { ChromeLauncher, puppeteerCore, chromeLauncher };
+export { ChromeLauncher, chromeLauncher, puppeteerCore };

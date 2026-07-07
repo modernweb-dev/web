@@ -37,4 +37,4 @@ export function sessionStarted(): Promise<void>;
  */
 export function sessionFinished(result: BrowserSessionResult): Promise<void>;
 
-export { TestSession, TestResultError, TestSuiteResult, TestResult };
+export { TestResult, TestResultError, TestSession, TestSuiteResult };
