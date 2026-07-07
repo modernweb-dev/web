@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "lib": ["es2022", "dom"],
+    "lib": ["ES2024", "DOM"],
     "allowJs": true,
     "checkJs": true,
     "strict": true,
@@ -11,7 +11,6 @@
     "composite": true,
     "emitDeclarationOnly": true,
     "alwaysStrict": true,
-    "types": ["node"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "incremental": true,

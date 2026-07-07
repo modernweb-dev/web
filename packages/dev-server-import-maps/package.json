@@ -58,6 +58,8 @@
     "picomatch": "^2.3.2"
   },
   "devDependencies": {
-    "@web/test-runner": "^0.20.0"
+    "@web/test-runner": "^0.20.0",
+    "chai": "^4.3.4",
+    "hanbi": "^1.0.1"
   }
 }
