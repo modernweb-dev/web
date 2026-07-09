@@ -1,9 +1,11 @@
-import { expect } from 'chai';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { legacyPlugin } from '../src/legacyPlugin.js';
-import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+import { assertIncludes, fetchText } from '../../../test-helpers/node.js';
+// rewrite to ../src/legacyPlugin.ts when TS 5.7+ / rewriteRelativeImportExtensions
+import { legacyPlugin } from '../dist/legacyPlugin.js';
+import { legacyUserAgents, modernUserAgents } from './userAgents.ts';
 
 const htmlBody = `
 <html>
@@ -25,12 +27,10 @@ const inlineScriptHtmlBody = `
 </body>
 </html>`;
 
-describe('legacyPlugin - transform html', function () {
-  this.timeout(10000);
-
+describe('legacyPlugin - transform html', { timeout: 10000 }, () => {
   it(`does not do any work on a modern browser`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -48,13 +48,13 @@ describe('legacyPlugin - transform html', function () {
       headers: { 'user-agent': modernUserAgents['Chrome 78'] },
     });
 
-    expect(text.trim()).to.equal(htmlBody.trim());
+    assert.equal(text.trim(), htmlBody.trim());
     server.stop();
   });
 
   it(`injects polyfills into the HTML page on legacy browsers`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -71,16 +71,16 @@ describe('legacyPlugin - transform html', function () {
     const text = await fetchText(`${host}/index.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text, 'function polyfillsLoader() {');
-    expectIncludes(text, "loadScript('./polyfills/regenerator-runtime.");
-    expectIncludes(text, "loadScript('./polyfills/fetch.");
-    expectIncludes(text, "loadScript('./polyfills/systemjs.");
+    assertIncludes(text, 'function polyfillsLoader() {');
+    assertIncludes(text, "loadScript('./polyfills/regenerator-runtime.");
+    assertIncludes(text, "loadScript('./polyfills/fetch.");
+    assertIncludes(text, "loadScript('./polyfills/systemjs.");
     server.stop();
   });
 
   it(`injects systemjs param to inline modules`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -97,14 +97,14 @@ describe('legacyPlugin - transform html', function () {
     const text = await fetchText(`${host}/index.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text, "loadScript('./bar.js'");
-    expectIncludes(text, "System.import('./foo.js?systemjs=true');");
+    assertIncludes(text, "loadScript('./bar.js'");
+    assertIncludes(text, "System.import('./foo.js?systemjs=true');");
     server.stop();
   });
 
   it(`handles inline scripts`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -121,8 +121,8 @@ describe('legacyPlugin - transform html', function () {
     const text = await fetchText(`${host}/index.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text, "loadScript('./inline-script-0.js?source=%2Findex.html'");
-    expectIncludes(
+    assertIncludes(text, "loadScript('./inline-script-0.js?source=%2Findex.html'");
+    assertIncludes(
       text,
       "System.import('./inline-script-1.js?source=%2Findex.html&systemjs=true');",
     );
@@ -131,7 +131,7 @@ describe('legacyPlugin - transform html', function () {
 
   it(`can request inline scripts`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -151,14 +151,14 @@ describe('legacyPlugin - transform html', function () {
     const text = await fetchText(`${host}/inline-script-1.js?source=%2Findex.html`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text, 'var InlineClass =');
-    expectIncludes(text, '_classCallCheck(this, InlineClass);');
+    assertIncludes(text, 'var InlineClass =');
+    assertIncludes(text, '_classCallCheck(this, InlineClass);');
     server.stop();
   });
 
   it(`includes url parameters in inline script key`, async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -193,8 +193,8 @@ describe('legacyPlugin - transform html', function () {
     const text2 = await fetchText(`${host}/inline-script-0.js?source=%2F%3Ffoo%3D2`, {
       headers: { 'user-agent': legacyUserAgents['IE 11'] },
     });
-    expectIncludes(text1, 'console.log("1");');
-    expectIncludes(text2, 'console.log("2");');
+    assertIncludes(text1, 'console.log("1");');
+    assertIncludes(text2, 'console.log("2");');
     server.stop();
   });
 });

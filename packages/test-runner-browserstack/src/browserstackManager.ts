@@ -3,10 +3,10 @@
  * instance set up for all browser launchers.
  */
 
-import browserstack from 'browserstack-local';
 import { BrowserLauncher } from '@web/test-runner-core';
-import { promisify } from 'util';
+import browserstack from 'browserstack-local';
 import { nanoid } from 'nanoid';
+import { promisify } from 'util';
 
 const launchers = new Set<BrowserLauncher>();
 let connection: browserstack.Local | undefined = undefined;

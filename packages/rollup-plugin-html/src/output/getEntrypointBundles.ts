@@ -8,7 +8,7 @@ import {
   RollupPluginHTMLOptions,
   ScriptModuleTag,
 } from '../RollupPluginHTMLOptions';
-import { createError, NOOP_IMPORT } from '../utils.js';
+import { NOOP_IMPORT, createError } from '../utils.js';
 import { toBrowserPath } from './utils.js';
 
 export interface CreateImportPathParams {
@@ -74,9 +74,9 @@ export function getEntrypointBundles(params: GetEntrypointBundlesParams) {
               outputDir,
               fileOutputDir: options.dir ?? '',
               htmlFileName,
-              fileName: chunkOrAsset.fileName,
+              fileName: chunk.fileName,
             });
-            entrypoints.push({ importPath, chunk: chunkOrAsset, attributes: found.attributes });
+            entrypoints.push({ importPath, chunk, attributes: found.attributes });
           }
         }
       }

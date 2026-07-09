@@ -1,14 +1,15 @@
-import { getEntrypointBundles } from './getEntrypointBundles.js';
-import { getOutputHTML } from './getOutputHTML.js';
-import { createError } from '../utils.js';
+import * as path from 'path';
+import { EmittedFile } from 'rollup';
 import {
   GeneratedBundle,
   RollupPluginHTMLOptions,
   TransformHtmlFunction,
 } from '../RollupPluginHTMLOptions.js';
-import { EmittedFile } from 'rollup';
 import { InputData } from '../input/InputData.js';
+import { createError } from '../utils.js';
 import { EmittedAssets } from './emitAssets.js';
+import { getEntrypointBundles } from './getEntrypointBundles.js';
+import { getOutputHTML } from './getOutputHTML.js';
 
 export interface CreateHTMLAssetParams {
   outputDir: string;
@@ -65,7 +66,14 @@ export async function createHTMLAsset(params: CreateHTMLAssetParams): Promise<Em
     strictCSPInlineScripts,
   });
 
-  return { fileName: input.name, name: input.name, source: outputHtml, type: 'asset' };
+  const normalizedInputName = input.name.split(path.sep).join('/');
+
+  return {
+    fileName: normalizedInputName,
+    name: normalizedInputName,
+    source: outputHtml,
+    type: 'asset',
+  };
 }
 
 export interface CreateHTMLAssetsParams {

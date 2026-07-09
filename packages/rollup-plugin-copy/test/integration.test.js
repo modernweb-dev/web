@@ -1,5 +1,6 @@
+const { describe, it } = require('node:test');
+const assert = require('node:assert/strict');
 const path = require('path');
-const { expect } = require('chai');
 const rollup = require('rollup');
 
 const { copy } = require('../src/copy.js');
@@ -12,12 +13,13 @@ describe('rollup-plugin-copy', () => {
     });
     const { output } = await bundle.generate({ format: 'es' });
 
-    expect(output.length).to.equal(5);
-    expect(output.map(x => x.fileName).filter(x => x.endsWith('.svg'))).to.have.members([
-      'a.svg',
-      'b.svg',
-      `sub${path.sep}sub-a.svg`,
-      `sub${path.sep}sub-b.mark.svg`,
-    ]);
+    assert.equal(output.length, 5);
+    assert.deepEqual(
+      output
+        .map(x => x.fileName)
+        .filter(x => x.endsWith('.svg'))
+        .sort(),
+      ['a.svg', 'b.svg', `sub${path.sep}sub-a.svg`, `sub${path.sep}sub-b.mark.svg`].sort(),
+    );
   });
 });

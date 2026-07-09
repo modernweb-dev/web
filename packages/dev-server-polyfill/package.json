@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-polyfill",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -21,7 +21,7 @@
     }
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "build": "tsc"
@@ -38,7 +38,7 @@
     "polyfill"
   ],
   "dependencies": {
-    "@web/dev-server": "^0.4.0",
-    "@web/polyfills-loader": "^2.3.1"
+    "@web/dev-server": "^1.0.0",
+    "@web/polyfills-loader": "^3.0.0"
   }
 }

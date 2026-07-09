@@ -1,23 +1,23 @@
 import {
   Context,
+  DevServerCoreConfig,
+  Logger,
   Plugin,
   PluginSyntaxError,
-  Logger,
-  DevServerCoreConfig,
   getRequestFilePath,
 } from '@web/dev-server-core';
-import type { TransformOptions, BuildFailure } from 'esbuild';
-import { Loader, Message, transform } from 'esbuild';
-import { promisify } from 'util';
-import path from 'path';
-import fs from 'fs';
 import {
-  queryAll,
-  predicates,
   getTextContent,
+  predicates,
+  queryAll,
   setTextContent,
 } from '@web/dev-server-core/dist/dom5';
+import type { BuildFailure, TransformOptions } from 'esbuild';
+import { Loader, Message, transform } from 'esbuild';
+import fs from 'fs';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
+import path from 'path';
+import { promisify } from 'util';
 
 import { getEsbuildTarget } from './getEsbuildTarget.js';
 
@@ -216,7 +216,7 @@ export class EsbuildPlugin implements Plugin {
           );
         }
 
-        throw new Error(msg.text);
+        throw new Error(msg.text, { cause: e });
       }
 
       throw e;

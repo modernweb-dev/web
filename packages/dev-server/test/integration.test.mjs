@@ -1,10 +1,8 @@
-import puppeteer from 'puppeteer';
+import { after, afterEach, before, beforeEach, describe, it } from 'node:test';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import puppeteer from 'puppeteer';
 
 import { startDevServer } from '../index.mjs';
-
-const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const testCases = [
   {
@@ -53,15 +51,14 @@ describe('integration tests', () => {
   });
 
   for (const testCase of testCases) {
-    describe(`testcase ${testCase.name}`, function test() {
-      this.timeout(30000);
+    describe(`testcase ${testCase.name}`, { timeout: 30000 }, () => {
       let server;
 
       beforeEach(async () => {
         server = await startDevServer({
           autoExitProcess: false,
           logStartMessage: false,
-          argv: ['--config', path.join(dirname, `../demo/${testCase.name}/config.mjs`)],
+          argv: ['--config', path.join(import.meta.dirname, `../demo/${testCase.name}/config.mjs`)],
         });
       });
 
@@ -69,7 +66,7 @@ describe('integration tests', () => {
         await server.stop();
       });
 
-      it('passes the in-browser tests', async function it() {
+      it('passes the in-browser tests', async () => {
         const openPath = `/demo/${testCase.name}/`;
         const browserPath = `http://${server.config.hostname}:${server.config.port}${openPath}`;
         const page = await browser.newPage();

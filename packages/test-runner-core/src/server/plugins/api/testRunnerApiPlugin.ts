@@ -1,17 +1,22 @@
-import { Context, getRequestFilePath, ServerStartParams, WebSocket } from '@web/dev-server-core';
-import { MapBrowserUrl } from '@web/browser-logs';
+import { type MapBrowserUrl } from '@web/browser-logs';
+import {
+  getRequestFilePath,
+  WebSocket,
+  type Context,
+  type ServerStartParams,
+} from '@web/dev-server-core';
 import parse from 'co-body';
 
-import { TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.js';
-import { TestSessionManager } from '../../../test-session/TestSessionManager.js';
-import { PARAM_SESSION_ID } from '../../../utils/constants.js';
-import { TestRunnerPlugin } from '../../TestRunnerPlugin.js';
-import { SESSION_STATUS } from '../../../test-session/TestSessionStatus.js';
-import { TestSession } from '../../../test-session/TestSession.js';
-import { parseBrowserResult } from './parseBrowserResult.js';
+import { type TestRunnerCoreConfig } from '../../../config/TestRunnerCoreConfig.js';
 import { TestRunner } from '../../../runner/TestRunner.js';
-import { createSourceMapFunction, SourceMapFunction } from './createSourceMapFunction.js';
-import { DebugTestSession } from '../../../test-session/DebugTestSession.js';
+import { type DebugTestSession } from '../../../test-session/DebugTestSession.js';
+import { type TestSession } from '../../../test-session/TestSession.js';
+import { type TestSessionManager } from '../../../test-session/TestSessionManager.js';
+import { SESSION_STATUS } from '../../../test-session/TestSessionStatus.js';
+import { PARAM_SESSION_ID } from '../../../utils/constants.js';
+import { type TestRunnerPlugin } from '../../TestRunnerPlugin.js';
+import { createSourceMapFunction, type SourceMapFunction } from './createSourceMapFunction.js';
+import { parseBrowserResult } from './parseBrowserResult.js';
 
 interface SessionMessage extends Record<string, unknown> {
   sessionId: string;

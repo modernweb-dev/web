@@ -1,9 +1,13 @@
-import type { PresetProperty } from '@storybook/types';
+import { dirname, join } from 'node:path';
+import type { PresetProperty } from 'storybook/internal/types';
 import type { StorybookConfig } from './types.js';
 
+const getAbsolutePath = <I extends string>(input: I): I =>
+  dirname(require.resolve(join(input, 'package.json'))) as any;
+
 export const core: PresetProperty<'core', StorybookConfig> = {
-  builder: '@web/storybook-builder',
-  renderer: '@storybook/web-components',
+  builder: getAbsolutePath('@web/storybook-builder'),
+  renderer: getAbsolutePath('@storybook/web-components'),
 };
 
 export const wdsFinal: StorybookConfig['wdsFinal'] = wdsConfig => {

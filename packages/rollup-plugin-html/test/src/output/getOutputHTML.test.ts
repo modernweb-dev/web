@@ -1,7 +1,10 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import path from 'path';
-import { getOutputHTML, GetOutputHTMLParams } from '../../../src/output/getOutputHTML.js';
-import { EntrypointBundle } from '../../../src/RollupPluginHTMLOptions.js';
+import { html } from '../../../../../test-helpers/node.js';
+import type { EntrypointBundle } from '../../../dist/RollupPluginHTMLOptions.js';
+import type { GetOutputHTMLParams } from '../../../dist/output/getOutputHTML.js';
+import { getOutputHTML } from '../../../dist/output/getOutputHTML.js';
 
 describe('getOutputHTML()', () => {
   const defaultEntrypointBundles: Record<string, EntrypointBundle> = {
@@ -16,10 +19,10 @@ describe('getOutputHTML()', () => {
   const defaultOptions: GetOutputHTMLParams = {
     pluginOptions: {},
     outputDir: '/',
-    emittedAssets: { static: new Map(), hashed: new Map() },
+    emittedAssets: { static: new Map(), hashed: new Map(), assetsInCssByHash: {} },
     entrypointBundles: defaultEntrypointBundles,
     input: {
-      html: '<h1>Input HTML</h1>',
+      html: html`<h1>Input HTML</h1>`,
       name: 'index.html',
       moduleImports: [],
       assets: [],
@@ -33,11 +36,18 @@ describe('getOutputHTML()', () => {
 
   it('injects output into the input HTML', async () => {
     const output = await getOutputHTML(defaultOptions);
-    expect(output).to.equal(
-      '<html><head></head><body><h1>Input HTML</h1>' +
-        '<script type="module" src="/app.js"></script>' +
-        '<script type="module" src="/module.js"></script>' +
-        '</body></html>',
+    assert.equal(
+      html`${output}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Input HTML</h1>
+            <script type="module" src="/app.js"></script>
+            <script type="module" src="/module.js"></script>
+          </body>
+        </html>
+      `,
     );
   });
 
@@ -58,13 +68,24 @@ describe('getOutputHTML()', () => {
     };
 
     const output = await getOutputHTML({ ...defaultOptions, entrypointBundles });
-    expect(output).to.equal(
-      '<html><head></head><body><h1>Input HTML</h1>' +
-        '<script type="module" src="/app.js"></script>' +
-        '<script type="module" src="/module.js"></script>' +
-        '<script>System.import("/legacy/app.js");</script>' +
-        '<script>System.import("/legacy/module.js");</script>' +
-        '</body></html>',
+    assert.equal(
+      html`${output}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Input HTML</h1>
+            <script type="module" src="/app.js"></script>
+            <script type="module" src="/module.js"></script>
+            <script>
+              System.import('/legacy/app.js');
+            </script>
+            <script>
+              System.import('/legacy/module.js');
+            </script>
+          </body>
+        </html>
+      `,
     );
   });
 
@@ -77,11 +98,18 @@ describe('getOutputHTML()', () => {
       },
     });
 
-    expect(output).to.equal(
-      '<html><head></head><body><h1>Transformed Input HTML</h1>' +
-        '<script type="module" src="/app.js"></script>' +
-        '<script type="module" src="/module.js"></script>' +
-        '</body></html>',
+    assert.equal(
+      html`${output}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Transformed Input HTML</h1>
+            <script type="module" src="/app.js"></script>
+            <script type="module" src="/module.js"></script>
+          </body>
+        </html>
+      `,
     );
   });
 
@@ -97,11 +125,18 @@ describe('getOutputHTML()', () => {
       },
     });
 
-    expect(output).to.equal(
-      '<html><head></head><body><h2>Transformed Input HTML</h2>' +
-        '<script type="module" src="/app.js"></script>' +
-        '<script type="module" src="/module.js"></script>' +
-        '</body></html>',
+    assert.equal(
+      html`${output}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h2>Transformed Input HTML</h2>
+            <script type="module" src="/app.js"></script>
+            <script type="module" src="/module.js"></script>
+          </body>
+        </html>
+      `,
     );
   });
 
@@ -115,11 +150,18 @@ describe('getOutputHTML()', () => {
       externalTransformHtmlFns: [html => html.replace(/h1/g, 'h2')],
     });
 
-    expect(output).to.equal(
-      '<html><head></head><body><h2>Transformed Input HTML</h2>' +
-        '<script type="module" src="/app.js"></script>' +
-        '<script type="module" src="/module.js"></script>' +
-        '</body></html>',
+    assert.equal(
+      html`${output}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h2>Transformed Input HTML</h2>
+            <script type="module" src="/app.js"></script>
+            <script type="module" src="/module.js"></script>
+          </body>
+        </html>
+      `,
     );
   });
 
@@ -129,11 +171,21 @@ describe('getOutputHTML()', () => {
       defaultInjectDisabled: true,
     });
 
-    expect(output).to.equal('<html><head></head><body><h1>Input HTML</h1></body></html>');
+    assert.equal(
+      html`${output}`,
+      html`
+        <html>
+          <head></head>
+          <body>
+            <h1>Input HTML</h1>
+          </body>
+        </html>
+      `,
+    );
   });
 
   it('can converts absolute urls to full absolute urls', async () => {
-    const rootDir = path.resolve(__dirname, '..', '..', 'fixtures', 'assets');
+    const rootDir = path.resolve(import.meta.dirname, '..', '..', 'fixtures', 'assets');
     const hashed = new Map<string, string>();
     hashed.set(path.join(rootDir, 'image-social.png'), 'image-social-xxx.png');
 
@@ -144,32 +196,39 @@ describe('getOutputHTML()', () => {
         absoluteBaseUrl: 'http://test.com',
         rootDir,
       },
-      emittedAssets: { static: new Map(), hashed },
+      emittedAssets: { static: new Map(), hashed, assetsInCssByHash: {} },
       input: {
         ...defaultOptions.input,
-        html: [
-          '<html><head>',
-          '<meta property="og:image" content="/image-social.png">',
-          '<meta property="og:image" content="http://domain.com/image-social.png">',
-          '<link rel="canonical" href="/">',
-          '<link rel="canonical" href="http://domain.com/">',
-          '<meta property="og:url" content="/">',
-          '</head><body></body></html>',
-        ].join('\n'),
+        html: html`
+          <html>
+            <head>
+              <meta property="og:image" content="/image-social.png" />
+              <meta property="og:image" content="http://domain.com/image-social.png" />
+              <link rel="canonical" href="/" />
+              <link rel="canonical" href="http://domain.com/" />
+              <meta property="og:url" content="/" />
+            </head>
+            <body></body>
+          </html>
+        `,
         filePath: path.join(rootDir, 'index.html'),
       },
     });
 
-    expect(output).to.equal(
-      [
-        '<html><head>',
-        '<meta property="og:image" content="http://test.com/image-social-xxx.png">',
-        '<meta property="og:image" content="http://domain.com/image-social.png">',
-        '<link rel="canonical" href="http://test.com/">',
-        '<link rel="canonical" href="http://domain.com/">',
-        '<meta property="og:url" content="http://test.com/">',
-        '</head><body></body></html>',
-      ].join('\n'),
+    assert.equal(
+      html`${output}`,
+      html`
+        <html>
+          <head>
+            <meta property="og:image" content="http://test.com/image-social-xxx.png" />
+            <meta property="og:image" content="http://domain.com/image-social.png" />
+            <link rel="canonical" href="http://test.com/" />
+            <link rel="canonical" href="http://domain.com/" />
+            <meta property="og:url" content="http://test.com/" />
+          </head>
+          <body></body>
+        </html>
+      `,
     );
   });
 
@@ -203,7 +262,8 @@ describe('getOutputHTML()', () => {
       },
     });
 
-    expect(output).to.equal(
+    assert.equal(
+      output,
       '<html><head></head><body><script>console.log("x")</script><script type="module" src="/app.js"></script><script type="module" src="/module.js"></script></body></html>',
     );
   });

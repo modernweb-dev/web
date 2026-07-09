@@ -1,6 +1,6 @@
-import { TestResultError, TestSession, Logger } from '@web/test-runner-core';
-import { gray, green, red } from 'nanocolors';
+import { type Logger, type TestResultError, type TestSession } from '@web/test-runner-core';
 import * as diff from 'diff';
+import { gray, green, red } from 'nanocolors';
 
 import { getFailedOnBrowsers } from './utils/getFailedOnBrowsers.js';
 import { getFlattenedTestResults } from './utils/getFlattenedTestResults.js';

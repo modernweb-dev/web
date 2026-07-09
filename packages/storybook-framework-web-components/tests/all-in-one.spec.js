@@ -28,50 +28,35 @@ test.describe('all in one', () => {
       await sbPage.waitUntilLoaded();
     });
 
-    test('renders core manager toolbar', async () => {
+    test('renders core toolbars', async () => {
       await expect(sbPage.toolbarItemByTitle('Remount component')).toBeVisible();
       await expect(sbPage.toolbarItemByTitle('Zoom in')).toBeVisible();
       await expect(sbPage.toolbarItemByTitle('Zoom out')).toBeVisible();
       await expect(sbPage.toolbarItemByTitle('Reset zoom')).toBeVisible();
-    });
 
-    test('renders @storybook/addon-backgrounds toolbar', async () => {
-      await expect(sbPage.toolbarItemByTitle('Change the background of the preview')).toBeVisible();
       await expect(sbPage.toolbarItemByTitle('Apply a grid to the preview')).toBeVisible();
-    });
-
-    test('renders @storybook/addon-viewport toolbar', async () => {
+      await expect(sbPage.toolbarItemByTitle('Change the background of the preview')).toBeVisible();
+      await expect(sbPage.toolbarItemByTitle('Enable measure')).toBeVisible();
+      await expect(sbPage.toolbarItemByTitle('Apply outlines to the preview')).toBeVisible();
       await expect(sbPage.toolbarItemByTitle('Change the size of the preview')).toBeVisible();
     });
 
-    test('renders @storybook/addon-measure toolbar', async () => {
-      await expect(sbPage.toolbarItemByTitle('Enable measure')).toBeVisible();
-    });
+    test('renders core panels', async () => {
+      const controlsButton = sbPage.panelButtonByText('Controls');
+      await controlsButton.click();
+      await expect(controlsButton).toHaveClass(/tabbutton-active/);
 
-    test('renders @storybook/addon-outline toolbar', async () => {
-      await expect(sbPage.toolbarItemByTitle('Apply outlines to the preview')).toBeVisible();
+      const actionsButton = sbPage.panelButtonByText('Actions');
+      await actionsButton.click();
+      await expect(actionsButton).toHaveClass(/tabbutton-active/);
+
+      const interactionsButton = sbPage.panelButtonByText('Interactions');
+      await interactionsButton.click();
+      await expect(interactionsButton).toHaveClass(/tabbutton-active/);
     });
 
     test('renders @storybook/addon-a11y toolbar', async () => {
       await expect(sbPage.toolbarItemByTitle('Vision simulator')).toBeVisible();
-    });
-
-    test('renders @storybook/addon-controls panel', async () => {
-      const panelButton = sbPage.panelButtonByText('Controls');
-      await panelButton.click();
-      await expect(panelButton).toHaveClass(/tabbutton-active/);
-    });
-
-    test('renders @storybook/addon-actions panel', async () => {
-      const panelButton = sbPage.panelButtonByText('Actions');
-      await panelButton.click();
-      await expect(panelButton).toHaveClass(/tabbutton-active/);
-    });
-
-    test('renders @storybook/addon-interactions panel', async () => {
-      const panelButton = sbPage.panelButtonByText('Interactions');
-      await panelButton.click();
-      await expect(panelButton).toHaveClass(/tabbutton-active/);
     });
 
     test('renders @storybook/addon-a11y panel', async () => {
@@ -80,7 +65,7 @@ test.describe('all in one', () => {
       await expect(panelButton).toHaveClass(/tabbutton-active/);
     });
 
-    test('renders @web/mocks/storybook-addon panel', async () => {
+    test('renders @web/storybook-addon-mocks panel', async () => {
       const panelButton = sbPage.panelButtonByText('Mocks');
       await panelButton.click();
       await expect(panelButton).toHaveClass(/tabbutton-active/);

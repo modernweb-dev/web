@@ -32,16 +32,7 @@ We expose the following options for esbuild. Most of them are a mirror of the es
 
 ```ts
 type Loader =
-  | 'js'
-  | 'jsx'
-  | 'ts'
-  | 'tsx'
-  | 'json'
-  | 'text'
-  | 'base64'
-  | 'file'
-  | 'dataurl'
-  | 'binary';
+  'js' | 'jsx' | 'ts' | 'tsx' | 'json' | 'text' | 'base64' | 'file' | 'dataurl' | 'binary';
 
 interface EsbuildPluginArgs {
   target?: string | string[];

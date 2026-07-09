@@ -12,14 +12,14 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - name: Setup Node 20
-        uses: actions/setup-node@v4
+      - name: Setup Node 22
+        uses: actions/setup-node@v6
         env:
           FORCE_COLOR: 0
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install Dependencies

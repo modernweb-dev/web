@@ -5,7 +5,7 @@ import { DevServerConfig } from './config/DevServerConfig.js';
 function isValidURL(str: string) {
   try {
     return !!new URL(str);
-  } catch (error) {
+  } catch {
     return false;
   }
 }

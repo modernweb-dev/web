@@ -1,7 +1,7 @@
-import { Logger, PluginSyntaxError } from '@web/dev-server-core';
 import { codeFrameColumns } from '@babel/code-frame';
+import { PluginSyntaxError, type Logger } from '@web/dev-server-core';
+import { cyan, red } from 'nanocolors';
 import path from 'path';
-import { red, cyan } from 'nanocolors';
 
 export class DevServerLogger implements Logger {
   private debugLogging: boolean;

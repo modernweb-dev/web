@@ -7,7 +7,7 @@
     "url": "https://github.com/modernweb-dev/web.git"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "build": "npm run build:clean && tsc --build",
@@ -17,14 +17,14 @@
     "build:watch": "npm run build:clean && tsc --build --watch",
     "dev-to-git": "dev-to-git",
     "format": "npm run format:eslint && npm run format:prettier",
-    "format:eslint": "eslint --ext .ts,.js,.mjs,.cjs . --fix",
-    "format:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
+    "format:eslint": "eslint . --fix",
+    "format:prettier": "prettier \"**/*.{ts,js,mjs,cjs,md}\" \"**/package.json\" --write --ignore-path .eslintignore",
     "install-puppeteer-firefox": "cd node_modules/puppeteer && PUPPETEER_BROWSER=firefox node install.js",
     "lint": "npm run lint:eslint && npm run lint:prettier",
-    "lint:eslint": "eslint --ext .ts,.js,.mjs,.cjs .",
-    "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
+    "lint:eslint": "eslint .",
+    "lint:prettier": "prettier \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
     "prepare": "husky",
-    "reinstall-workspace": "rimraf --glob packages/*/node_modules && rimraf node_modules && npm run install && npm run build",
+    "reinstall-workspace": "rimraf --glob packages/*/node_modules && rimraf node_modules && npm install && npm run build",
     "release": "changeset publish && npm run format",
     "release:enter-pre": "[ ! -f .changeset/pre.json ] && npx changeset pre enter next || echo 'Already in pre mode'",
     "review-content": "alex 'docs/**/*.md'",
@@ -49,61 +49,33 @@
     "@rocket/search": "^0.6.0"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.11",
+    "@changesets/cli": "^2.31.0",
+    "@eslint/js": "^10.0.1",
+    "@prettier/plugin-xml": "^3.4.2",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.5",
-    "@types/chai": "^4.2.22",
     "@types/fs-extra": "^11.0.4",
-    "@types/mocha": "^10.0.1",
     "@types/node": "*",
-    "@typescript-eslint/eslint-plugin": "^5.3.0",
-    "@typescript-eslint/parser": "^5.59.1",
     "alex": "^11.0.0",
-    "chai": "^4.3.4",
     "concurrently": "^8.0.1",
     "deepmerge": "^4.2.2",
     "dev-to-git": "^1.4.1",
-    "eslint": "^8.1.0",
-    "eslint-config-prettier": "^8.3.0",
-    "hanbi": "^1.0.1",
+    "eslint": "^10.6.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.7.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
-    "mocha": "^10.2.0",
     "nanocolors": "^0.2.1",
-    "prettier": "^2.4.1",
-    "prettier-plugin-package": "^1.3.0",
+    "prettier": "^3.9.4",
+    "prettier-plugin-embed": "^0.5.1",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "prettier-plugin-package": "^2.0.0",
     "rimraf": "^4.4.1",
     "rollup": "^4.4.0",
-    "ts-node": "^10.4.0",
-    "typescript": "~5.0.4",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.62.1",
     "wireit": "^0.14.2"
-  },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "extends": [
-      "eslint:recommended",
-      "eslint-config-prettier",
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "env": {
-      "browser": true,
-      "node": true,
-      "mocha": true,
-      "es2020": true
-    },
-    "rules": {
-      "@typescript-eslint/no-non-null-assertion": "off",
-      "@typescript-eslint/explicit-module-boundary-types": "off",
-      "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-empty-interface": "off",
-      "@typescript-eslint/no-unused-vars": "error",
-      "@typescript-eslint/no-var-requires": "off",
-      "@typescript-eslint/ban-ts-comment": "off"
-    }
   },
   "lint-staged": {
     "*.js": [
@@ -113,11 +85,6 @@
     "*.md": [
       "prettier --write --ignore-path .eslintignore"
     ]
-  },
-  "mocha": {
-    "loader": "ts-node/esm",
-    "exit": true,
-    "retries": 3
   },
   "overrides": {
     "@lion/accordion": "^0.11.1",
@@ -129,12 +96,6 @@
     "@mdjs/mdjs-preview": "^0.5.5",
     "@rocket/drawer": "^0.1.4",
     "sharp": "^0.30.7"
-  },
-  "prettier": {
-    "singleQuote": true,
-    "arrowParens": "avoid",
-    "printWidth": 100,
-    "trailingComma": "all"
   },
   "wireit": {
     "types": {

@@ -1,5 +1,3 @@
-// based on https://github.com/modernweb-dev/web/blob/%40web/dev-server-storybook%400.7.1/packages/dev-server-storybook/src/shared/stories/injectExportsOrder.ts
-
 import { parse } from 'es-module-lexer';
 
 export async function injectExportsOrder(source: string, filePath: string) {

@@ -14,13 +14,13 @@ jobs:
       fail-fast: false
       matrix:
         node-version:
-          - '18'
-          - '20'
           - '22'
-          - 'latest'
+          # TODO: add 'latest' once Playwright fixes yauzl for Node 26
+          # https://github.com/microsoft/playwright/issues/40724
+          - '24'
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       # TODO: remove when GitHub fixes this https://github.com/actions/runner-images/issues/10015
       # (this workaround is practically the same what Playwright did in https://github.com/microsoft/playwright/pull/34238/files)
@@ -28,15 +28,12 @@ jobs:
         run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 
       - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         env:
           FORCE_COLOR: 0
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
-
-      - name: Install Playwright dependencies
-        run: npx playwright install --with-deps
 
       # Set up GitHub Actions caching for Wireit.
       - uses: google/wireit@setup-github-actions-caching/v2
@@ -54,8 +51,17 @@ jobs:
       - name: Build specific packages for production
         run: npm run build:production
 
+      - name: Install Playwright dependencies
+        run: npx playwright install --with-deps
+
+      - name: Install Selenium dependencies
+        run: npx selenium-standalone install
+
       - name: Test
         run: npm run test:node
+        env:
+          # Node 22.18+ native type stripping preempts ts-node. Remove when mocha is replaced with node:test.
+          NODE_OPTIONS: '--no-experimental-strip-types'
 
   verify-windows:
     timeout-minutes: 30
@@ -67,18 +73,15 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.eol lf
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - name: Setup Node '20'
-        uses: actions/setup-node@v4
+      - name: Setup Node '22'
+        uses: actions/setup-node@v6
         env:
           FORCE_COLOR: 0
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
-
-      - name: Install Playwright dependencies
-        run: npx playwright install --with-deps
 
       # Set up GitHub Actions caching for Wireit.
       - uses: google/wireit@setup-github-actions-caching/v2
@@ -93,5 +96,14 @@ jobs:
       - name: Build specific packages for production
         run: npm run build:production
 
+      - name: Install Playwright dependencies
+        run: npx playwright install --with-deps
+
+      - name: Install Selenium dependencies
+        run: npx selenium-standalone install
+
       - name: Test
         run: npm run test:node
+        env:
+          # Node 22.18+ native type stripping preempts ts-node. Remove when mocha is replaced with node:test.
+          NODE_OPTIONS: '--no-experimental-strip-types'

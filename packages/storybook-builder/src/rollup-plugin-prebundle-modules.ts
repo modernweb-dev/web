@@ -1,8 +1,8 @@
-import type { Options } from '@storybook/types';
 import { build } from 'esbuild';
 import { readFile, rm } from 'node:fs/promises';
 import { dirname, isAbsolute, join, normalize } from 'node:path';
 import type { Plugin } from 'rollup';
+import type { Options } from 'storybook/internal/types';
 import { esbuildPluginCommonjsNamedExports } from './esbuild-plugin-commonjs-named-exports.js';
 import { stringifyProcessEnvs } from './stringify-process-envs.js';
 
@@ -56,7 +56,7 @@ export function rollupPluginPrebundleModules(
   };
 }
 
-// this is different to https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/optimizeDeps.ts
+// this is different to https://github.com/storybookjs/storybook/blob/v9.1.20/code/builders/builder-vite/src/optimizeDeps.ts
 // builder-vite bundles different dependencies for performance reasons
 // we aim only at browserifying NodeJS dependencies (CommonJS/process.env/...)
 export const CANDIDATES = [
@@ -68,25 +68,17 @@ export const CANDIDATES = [
   'react-dom/client',
 
   /* for different packages */
-  'memoizerific',
   'tiny-invariant',
-
-  /* for @storybook/core */
-  'jsdoc-type-pratt-parser', // TODO: Remove this once it's converted to ESM: https://github.com/jsdoc-type-pratt-parser/jsdoc-type-pratt-parser/issues/173
 
   /* for @storybook/addon-a11y */
   'axe-core',
-  'vitest-axe/matchers',
-
-  /* for @storybook/addon-docs */
-  'color-convert',
 ];
 
 function moduleExists(moduleName: string) {
   try {
     require.resolve(moduleName, { paths: [process.cwd()] });
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 }

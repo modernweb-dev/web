@@ -1,6 +1,6 @@
+import { Capabilities } from '@wdio/types';
 import { BrowserLauncher, TestRunnerCoreConfig } from '@web/test-runner-core';
 import { Browser, remote } from 'webdriverio';
-import { Capabilities } from '@wdio/types';
 import { IFrameManager } from './IFrameManager.js';
 import { SessionManager } from './SessionManager.js';
 import { getBrowserLabel } from './utils.js';
@@ -129,7 +129,7 @@ export class WebdriverLauncher implements BrowserLauncher {
       if (!this.driver) return;
       try {
         await this.driver.getTitle();
-      } catch (e) {
+      } catch {
         // Do nothing, just clear the timeout
         if (this.pendingHeartbeat != null) {
           clearInterval(this.pendingHeartbeat);

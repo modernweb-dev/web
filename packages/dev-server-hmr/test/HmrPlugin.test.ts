@@ -1,20 +1,21 @@
-import { expect } from 'chai';
-import { stubMethod, restore as restoreStubs } from 'hanbi';
-import { createTestServer, fetchText, expectIncludes } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
+import assert from 'node:assert/strict';
+import { afterEach, describe, it, mock } from 'node:test';
 import { posix as pathUtil } from 'path';
 
-import { hmrPlugin } from '../src/index.js';
-import { NAME_HMR_CLIENT_IMPORT } from '../src/HmrPlugin.js';
-import { mockFile, mockFiles } from './utils.js';
+import { assertIncludes, assertNotIncludes, fetchText } from '../../../test-helpers/node.js';
+import { NAME_HMR_CLIENT_IMPORT } from '../dist/HmrPlugin.js';
+import { hmrPlugin } from '../dist/index.js';
+import { mockFile, mockFiles } from './utils.ts';
 
 describe('HmrPlugin', () => {
   afterEach(async () => {
-    restoreStubs();
+    mock.restoreAll();
   });
 
   it('should emit update for tracked files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFile(
           '/foo.js',
@@ -26,12 +27,13 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets!, 'send');
+    const stub = mock.method(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/foo.js'));
+      fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/foo.js'));
 
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -44,7 +46,7 @@ describe('HmrPlugin', () => {
 
   it('should bubble updates for changed dependencies', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFile(
           '/foo.js',
@@ -55,13 +57,14 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets!, 'send');
+    const stub = mock.method(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
       await fetch(`${host}/bar.js`);
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
+      fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
 
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -74,7 +77,7 @@ describe('HmrPlugin', () => {
 
   it('should not reload if dependent handles change', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFile('/foo.js', `import '/bar.js'; import.meta.hot.accept();`),
         mockFile('/bar.js', `export const s = 808;`),
@@ -82,14 +85,15 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets!, 'send');
+    const stub = mock.method(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
       await fetch(`${host}/bar.js`);
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
+      fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
 
-      expect(stub.callCount).to.equal(1);
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(stub.mock.callCount(), 1);
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -102,7 +106,7 @@ describe('HmrPlugin', () => {
 
   it('should reload if dependents do not handle change', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFile('/foo.js', `import '/bar.js';`),
         mockFile('/bar.js', `export const s = 808;`),
@@ -110,14 +114,15 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets!, 'send');
+    const stub = mock.method(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
       await fetch(`${host}/bar.js`);
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
+      fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
 
-      expect(stub.callCount).to.equal(1);
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(stub.mock.callCount(), 1);
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:reload',
         }),
@@ -129,7 +134,7 @@ describe('HmrPlugin', () => {
 
   it('handles dependencies referenced relatively', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFile(
           '/root/foo.js',
@@ -140,13 +145,14 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets!, 'send');
+    const stub = mock.method(webSockets!, 'send');
     try {
       await fetch(`${host}/root/foo.js`);
       await fetch(`${host}/root/bar.js`);
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/root/bar.js'));
+      fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/root/bar.js'));
 
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/root/foo.js',
@@ -159,7 +165,7 @@ describe('HmrPlugin', () => {
 
   it('should bubble updates for changed dynamic import dependencies', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFile(
           '/foo.js',
@@ -170,13 +176,14 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets!, 'send');
+    const stub = mock.method(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
       await fetch(`${host}/bar.js`);
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
+      fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
 
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -189,7 +196,7 @@ describe('HmrPlugin', () => {
 
   it('imports changed dependencies with a unique URL', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFiles({
           '/a.js': "import '/b.js'; import '/c.js'; import.meta.hot.accept();",
@@ -204,12 +211,12 @@ describe('HmrPlugin', () => {
       await fetchText(`${host}/a.js`);
       await fetchText(`${host}/b.js`);
       await fetchText(`${host}/c.js`);
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/b.js'));
+      fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/b.js'));
 
       const updatedA = await fetchText(`${host}/a.js?m=1234567890123`);
       await fetchText(`${host}/b.js?m=1234567890123`);
-      expect(/import '\/b\.js\?m=\d{13}';/.test(updatedA)).to.equal(true);
-      expectIncludes(updatedA, "import '/c.js';");
+      assert.match(updatedA, /import '\/b\.js\?m=\d{13}';/);
+      assertIncludes(updatedA, "import '/c.js';");
     } finally {
       await server.stop();
     }
@@ -217,7 +224,7 @@ describe('HmrPlugin', () => {
 
   it('imports deeply changed dependencies with a unique URL', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFiles({
           '/a.js': "import '/b.js'; import.meta.hot.accept();",
@@ -232,13 +239,13 @@ describe('HmrPlugin', () => {
       await fetchText(`${host}/a.js`);
       await fetchText(`${host}/b.js`);
       await fetchText(`${host}/c.js`);
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/c.js'));
+      fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/c.js'));
 
       const updatedA = await fetchText(`${host}/a.js?m=1234567890123`);
       const updatedB = await fetchText(`${host}/b.js?m=1234567890123`);
       await fetchText(`${host}/c.js?m=1234567890123`);
-      expect(/import '\/b\.js\?m=\d{13}';/.test(updatedA)).to.equal(true);
-      expect(/import '\/c\.js\?m=\d{13}';/.test(updatedB)).to.equal(true);
+      assert.match(updatedA, /import '\/b\.js\?m=\d{13}';/);
+      assert.match(updatedB, /import '\/c\.js\?m=\d{13}';/);
     } finally {
       await server.stop();
     }
@@ -246,7 +253,7 @@ describe('HmrPlugin', () => {
 
   it('multiple dependents will import deep dependency changes with a unique URL', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFiles({
           '/a1.js': "import '/b.js'; import.meta.hot.accept(); // a1",
@@ -264,14 +271,14 @@ describe('HmrPlugin', () => {
       await fetchText(`${host}/a2.js`);
       await fetchText(`${host}/b.js`);
       await fetchText(`${host}/c.js`);
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/c.js'));
+      fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/c.js'));
 
       const updatedA1 = await fetchText(`${host}/a1.js?m=1234567890123`);
       const updatedA2 = await fetchText(`${host}/a2.js?m=1234567890123`);
       await fetchText(`${host}/b.js?m=1234567890123`);
       await fetchText(`${host}/c.js?m=1234567890123`);
-      expect(/import '\/b\.js\?m=\d{13}';/.test(updatedA1)).to.equal(true);
-      expect(/import '\/b\.js\?m=\d{13}';/.test(updatedA2)).to.equal(true);
+      assert.match(updatedA1, /import '\/b\.js\?m=\d{13}';/);
+      assert.match(updatedA2, /import '\/b\.js\?m=\d{13}';/);
     } finally {
       await server.stop();
     }
@@ -279,7 +286,7 @@ describe('HmrPlugin', () => {
 
   it('does not get confused by dynamic imports with non string literals', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFile(
           '/foo.js',
@@ -290,13 +297,14 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets!, 'send');
+    const stub = mock.method(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
       await fetch(`${host}/bar.js`);
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/bar.js'));
+      fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/bar.js'));
 
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:update',
           url: '/foo.js',
@@ -309,7 +317,7 @@ describe('HmrPlugin', () => {
 
   it('should emit reload for tracked files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFile(
           '/foo.js',
@@ -321,12 +329,13 @@ describe('HmrPlugin', () => {
       ],
     });
     const { fileWatcher, webSockets } = server;
-    const stub = stubMethod(webSockets!, 'send');
+    const stub = mock.method(webSockets!, 'send');
     try {
       await fetch(`${host}/foo.js`);
-      fileWatcher.emit('change', pathUtil.join(__dirname, '/foo.js'));
+      fileWatcher.emit('change', pathUtil.join(import.meta.dirname, '/foo.js'));
 
-      expect(stub.firstCall!.args[0]).to.equal(
+      assert.equal(
+        stub.mock.calls[0].arguments[0],
         JSON.stringify({
           type: 'hmr:reload',
         }),
@@ -338,14 +347,14 @@ describe('HmrPlugin', () => {
 
   it('serves a hmr client', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [hmrPlugin()],
     });
 
     try {
       const response = await fetch(`${host}${NAME_HMR_CLIENT_IMPORT}`);
       const body = await response.text();
-      expect(body.includes('class HotModule')).to.equal(true);
+      assertIncludes(body, 'class HotModule');
     } finally {
       await server.stop();
     }
@@ -353,7 +362,7 @@ describe('HmrPlugin', () => {
 
   it('transforms hmr-capable js files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         mockFile(
           '/foo.js',
@@ -369,7 +378,7 @@ describe('HmrPlugin', () => {
       const response = await fetch(`${host}/foo.js`);
       const body = await response.text();
 
-      expect(body.includes('__WDS_HMR__')).to.equal(true);
+      assertIncludes(body, '__WDS_HMR__');
     } finally {
       await server.stop();
     }
@@ -377,7 +386,7 @@ describe('HmrPlugin', () => {
 
   it('does not transform non-hmr js files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [mockFile('/foo.js', `export const foo = 5;`), hmrPlugin()],
     });
 
@@ -385,7 +394,7 @@ describe('HmrPlugin', () => {
       const response = await fetch(`${host}/foo.js`);
       const body = await response.text();
 
-      expect(body.includes('__WDS_HMR__')).to.equal(false);
+      assertNotIncludes(body, '__WDS_HMR__');
     } finally {
       await server.stop();
     }

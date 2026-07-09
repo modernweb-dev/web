@@ -1,12 +1,12 @@
-import path from 'path';
-import { Document } from 'parse5';
 import {
-  findElement,
-  getTagName,
   appendChild,
   createScript,
+  findElement,
+  getTagName,
   setAttribute,
 } from '@web/parse5-utils';
+import type { Document } from 'parse5';
+import path from 'path';
 
 export interface injectServiceWorkerRegistrationArgs {
   document: Document;

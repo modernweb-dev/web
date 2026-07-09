@@ -1,9 +1,11 @@
-import { expect } from 'chai';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { fetchText, expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { legacyPlugin } from '../src/legacyPlugin.js';
-import { modernUserAgents, legacyUserAgents } from './userAgents.js';
+import { assertIncludes, assertNotIncludes, fetchText } from '../../../test-helpers/node.js';
+// rewrite to ../src/legacyPlugin.ts when TS 5.7+ / rewriteRelativeImportExtensions
+import { legacyPlugin } from '../dist/legacyPlugin.js';
+import { legacyUserAgents, modernUserAgents } from './userAgents.ts';
 
 const modernCode = `
 class Foo {
@@ -16,13 +18,11 @@ async function doImport() {
 
 console.log(window?.foo?.bar);`;
 
-describe('legacyPlugin - transform js', function () {
-  this.timeout(10000);
-
+describe('legacyPlugin - transform js', { timeout: 10000 }, () => {
   for (const [name, userAgent] of Object.entries(modernUserAgents)) {
     it(`does not do any work on ${name}`, async () => {
       const { server, host } = await createTestServer({
-        rootDir: __dirname,
+        rootDir: import.meta.dirname,
         plugins: [
           {
             name: 'test',
@@ -39,7 +39,7 @@ describe('legacyPlugin - transform js', function () {
       const text = await fetchText(`${host}/app.js`, {
         headers: { 'user-agent': userAgent },
       });
-      expect(text.trim()).to.equal(modernCode.trim());
+      assert.equal(text.trim(), modernCode.trim());
       server.stop();
     });
   }
@@ -47,7 +47,7 @@ describe('legacyPlugin - transform js', function () {
   for (const [name, userAgent] of Object.entries(legacyUserAgents)) {
     it(`transforms to es5 on ${name}`, async () => {
       const { server, host } = await createTestServer({
-        rootDir: __dirname,
+        rootDir: import.meta.dirname,
         plugins: [
           {
             name: 'test',
@@ -64,12 +64,12 @@ describe('legacyPlugin - transform js', function () {
       const text = await fetchText(`${host}/app.js`, {
         headers: { 'user-agent': userAgent },
       });
-      expectNotIncludes(text, 'System.register(');
-      expectIncludes(text, "import('./xyz.js?systemjs=true');");
-      expectIncludes(text, 'function asyncGeneratorStep');
-      expectIncludes(text, 'function _classCallCheck(instance');
-      expectIncludes(text, '_asyncToGenerator');
-      expectIncludes(
+      assertNotIncludes(text, 'System.register(');
+      assertIncludes(text, "import('./xyz.js?systemjs=true');");
+      assertIncludes(text, 'function asyncGeneratorStep');
+      assertIncludes(text, 'function _classCallCheck(instance');
+      assertIncludes(text, '_asyncToGenerator');
+      assertIncludes(
         text,
         'console.log((_window = window) === null || _window === void 0 || (_window = _window.foo) === null || _window === void 0 ? void 0 : _window.bar);',
       );
@@ -78,7 +78,7 @@ describe('legacyPlugin - transform js', function () {
 
     it(`transforms to SystemJS when systemjs paramater is given ${name}`, async () => {
       const { server, host } = await createTestServer({
-        rootDir: __dirname,
+        rootDir: import.meta.dirname,
         plugins: [
           {
             name: 'test',
@@ -95,12 +95,12 @@ describe('legacyPlugin - transform js', function () {
       const text = await fetchText(`${host}/app.js?systemjs=true`, {
         headers: { 'user-agent': userAgent },
       });
-      expectIncludes(text, 'System.register(');
-      expectIncludes(text, "_context.import('./xyz.js?systemjs=true');");
-      expectIncludes(text, 'function asyncGeneratorStep');
-      expectIncludes(text, 'function _classCallCheck(instance');
-      expectIncludes(text, '_asyncToGenerator');
-      expectIncludes(
+      assertIncludes(text, 'System.register(');
+      assertIncludes(text, "_context.import('./xyz.js?systemjs=true');");
+      assertIncludes(text, 'function asyncGeneratorStep');
+      assertIncludes(text, 'function _classCallCheck(instance');
+      assertIncludes(text, '_asyncToGenerator');
+      assertIncludes(
         text,
         'console.log((_window = window) === null || _window === void 0 || (_window = _window.foo) === null || _window === void 0 ? void 0 : _window.bar);',
       );

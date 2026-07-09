@@ -1,8 +1,7 @@
-// based on https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/codegen-importfn-script.ts
+// based on https://github.com/storybookjs/storybook/blob/v9.1.20/code/builders/builder-vite/src/codegen-importfn-script.ts
 
-import { normalizePath } from '@rollup/pluginutils';
-import type { Options } from '@storybook/types';
 import { relative } from 'node:path';
+import type { Options } from 'storybook/internal/types';
 import { listStories } from './list-stories';
 
 export async function generateStoriesScript(options: Options): Promise<string> {
@@ -23,8 +22,10 @@ export async function generateStoriesScript(options: Options): Promise<string> {
  * @param stories An array of absolute story paths.
  */
 async function toImportFn(stories: string[]) {
+  const slash = (await import('slash')).default; // for CJS compatibility
+
   const objectEntries = stories.map(file => {
-    const relativePath = normalizePath(relative(process.cwd(), file));
+    const relativePath = slash(relative(process.cwd(), file));
     const importPath = toImportPath(relativePath);
     let actualPath = file;
     if (actualPath.endsWith('.mdx')) {

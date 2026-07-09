@@ -74,7 +74,7 @@ export function esbuildPluginCommonjsNamedExports(modules: string[]): Plugin {
         let reexports: string[] = [];
         try {
           ({ exports, reexports } = parse(source));
-        } catch (e) {
+        } catch {
           // good place to start debugging if imports are not working
         }
 

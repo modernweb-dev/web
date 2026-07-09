@@ -1,8 +1,7 @@
-/* eslint-disable no-console */
-import { resolveUserAgent, ResolvedUserAgent } from 'browserslist-useragent';
+import { Context, Logger } from '@web/dev-server-core';
 import browserslist from 'browserslist';
+import { ResolvedUserAgent, resolveUserAgent } from 'browserslist-useragent';
 import * as caniuse from 'caniuse-api';
-import { Logger, Context } from '@web/dev-server-core';
 
 /**
  * We compile to es modules when the browser supports module scripts, dynamic imports
@@ -25,7 +24,7 @@ function normalizeSamsungVersion(browser: string, version: string[]) {
     browserslist(`${browser} ${version}`);
     // browserslist didn't throw, return the valid version
     return version;
-  } catch (error) {
+  } catch {
     // we gave an invalid version to browserslist, so we try to
     // find the nearest matching major version for samsung browser
     const validVersions = [
@@ -79,7 +78,7 @@ function calculateIsLegacyBrowser(userAgent: string, logger: Logger) {
     const resolvedUA = resolveUserAgent(userAgent);
     const browserTarget = `${getBrowserName(resolvedUA.family)} ${getBrowserVersion(resolvedUA)}`;
     return !getSupportsEsm(browserTarget);
-  } catch (error) {
+  } catch {
     logger.warn(
       `[@web/dev-server-legacy]: Unknown user agent ${userAgent}, treating it as a legacy browser.`,
     );

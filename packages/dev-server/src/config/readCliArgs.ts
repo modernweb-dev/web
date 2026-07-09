@@ -1,21 +1,14 @@
+import camelCase from 'camelcase';
 import commandLineArgs from 'command-line-args';
 import commandLineUsage, { OptionDefinition } from 'command-line-usage';
-import camelCase from 'camelcase';
-import { DevServerConfig } from './DevServerConfig.js';
+import { type DevServerConfig } from './DevServerConfig.js';
 
-export interface DevServerCliArgs
-  extends Partial<
-    Pick<
-      DevServerConfig,
-      | 'rootDir'
-      | 'open'
-      | 'appIndex'
-      | 'preserveSymlinks'
-      | 'nodeResolve'
-      | 'watch'
-      | 'esbuildTarget'
-    >
-  > {
+export interface DevServerCliArgs extends Partial<
+  Pick<
+    DevServerConfig,
+    'rootDir' | 'open' | 'appIndex' | 'preserveSymlinks' | 'nodeResolve' | 'watch' | 'esbuildTarget'
+  >
+> {
   config?: string;
 }
 
@@ -111,7 +104,6 @@ export function readCliArgs({ argv = process.argv }: ReadCliArgsParams = {}): De
   }
 
   if ('help' in cliArgs) {
-    /* eslint-disable-next-line no-console */
     console.log(
       commandLineUsage([
         {

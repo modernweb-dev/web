@@ -1,12 +1,14 @@
 import rollupCommonjs from '@rollup/plugin-commonjs';
-import { runTests } from '@web/test-runner-core/test-helpers';
-import { resolve } from 'path';
 import { chromeLauncher } from '@web/test-runner-chrome';
+import { runTests } from '@web/test-runner-core/test-helpers';
+import { describe, it } from 'node:test';
+import { resolve } from 'path';
 
-import * as path from 'path';
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
 import { nodeResolvePlugin } from '@web/dev-server';
+import * as path from 'path';
+import { assertIncludes, fetchText } from '../../../../../test-helpers/node.js';
+import { fromRollup } from '../../../dist/index.js';
+import { createTestServer } from '../test-helpers.ts';
 
 const commonjs = fromRollup(rollupCommonjs);
 
@@ -28,8 +30,8 @@ describe('@rollup/plugin-commonjs', () => {
 
     try {
       const text = await fetchText(`${host}/foo.js`);
-      expectIncludes(text, 'var foo = "foo";');
-      expectIncludes(
+      assertIncludes(text, 'var foo = "foo";');
+      assertIncludes(
         text,
         'export default /*@__PURE__*/commonjsHelpers.getDefaultExportFromCjs(foo)',
       );
@@ -55,8 +57,8 @@ describe('@rollup/plugin-commonjs', () => {
 
     try {
       const text = await fetchText(`${host}/foo.js`);
-      expectIncludes(text, 'var foo_1 = foo.foo = "bar"; var lorem = foo.lorem = "ipsum";');
-      expectIncludes(
+      assertIncludes(text, 'var foo_1 = foo.foo = "bar"; var lorem = foo.lorem = "ipsum";');
+      assertIncludes(
         text,
         'export { foo as __moduleExports, foo_1 as foo, lorem, foo as default };',
       );
@@ -90,12 +92,12 @@ module.exports.lorem = lorem;`;
     try {
       const text = await fetchText(`${host}/foo.js`);
 
-      expectIncludes(text, 'foo_1.__esModule = true;');
-      expectIncludes(text, "const foo = 'bar';");
-      expectIncludes(text, 'var foo_2 = foo_1.foo = foo;');
-      expectIncludes(text, "const lorem = 'ipsum';");
-      expectIncludes(text, 'var lorem_1 = foo_1.lorem = lorem;');
-      expectIncludes(
+      assertIncludes(text, 'foo_1.__esModule = true;');
+      assertIncludes(text, "const foo = 'bar';");
+      assertIncludes(text, 'var foo_2 = foo_1.foo = foo;');
+      assertIncludes(text, "const lorem = 'ipsum';");
+      assertIncludes(text, 'var lorem_1 = foo_1.lorem = lorem;');
+      assertIncludes(
         text,
         'export { foo_1 as __moduleExports, foo_2 as foo, lorem_1 as lorem, foo_1 as default };',
       );
@@ -125,22 +127,22 @@ exports.default = _default;`;
 
     try {
       const text = await fetchText(`${host}/foo.js`);
-      expectIncludes(
+      assertIncludes(
         text,
         'import * as commonjsHelpers from "/__web-dev-server__/rollup/commonjsHelpers.js?web-dev-server-rollup-null-byte=%00commonjsHelpers.js";',
       );
-      expectIncludes(text, 'foo.__esModule = true;');
-      expectIncludes(text, 'var default_1 = foo.default = void 0;');
-      expectIncludes(text, "var _default = 'foo';");
-      expectIncludes(text, 'default_1 = foo.default = _default;');
-      expectIncludes(text, 'export { foo as __moduleExports, default_1 as default };');
+      assertIncludes(text, 'foo.__esModule = true;');
+      assertIncludes(text, 'var default_1 = foo.default = void 0;');
+      assertIncludes(text, "var _default = 'foo';");
+      assertIncludes(text, 'default_1 = foo.default = _default;');
+      assertIncludes(text, 'export { foo as __moduleExports, default_1 as default };');
     } finally {
       server.stop();
     }
   });
 
   it('can transform modules which require node-resolved modules', async () => {
-    const rootDir = path.resolve(__dirname, '..', 'fixtures', 'basic');
+    const rootDir = path.resolve(import.meta.dirname, '..', 'fixtures', 'basic');
     const { server, host } = await createTestServer({
       plugins: [
         {
@@ -158,11 +160,11 @@ exports.default = _default;`;
 
     try {
       const text = await fetchText(`${host}/foo.js`);
-      expectIncludes(
+      assertIncludes(
         text,
         'import {expect} from "/__wds-outside-root__/6/node_modules/chai/index.mjs"',
       );
-      expectIncludes(text, 'export {expect};');
+      assertIncludes(text, 'export {expect};');
     } finally {
       server.stop();
     }
@@ -191,19 +193,19 @@ exports.default = _default;`;
 
     try {
       const text = await fetchText(`${host}/foo.js`);
-      expectIncludes(text, 'import require$$0 from "');
-      expectIncludes(text, 'const bar = require$$0; var bar_1 = foo.bar = bar;');
-      expectIncludes(text, 'export { foo as __moduleExports, bar_1 as bar, foo as default };');
+      assertIncludes(text, 'import require$$0 from "');
+      assertIncludes(text, 'const bar = require$$0; var bar_1 = foo.bar = bar;');
+      assertIncludes(text, 'export { foo as __moduleExports, bar_1 as bar, foo as default };');
     } finally {
       server.stop();
     }
   });
 
-  it('passes the in-browser tests', async function () {
-    this.timeout(40000);
-
+  it('passes the in-browser tests', { timeout: 40000 }, async () => {
     await runTests({
-      files: [resolve(__dirname, '..', 'fixtures', 'commonjs', 'commonjs-browser-test.js')],
+      files: [
+        resolve(import.meta.dirname, '..', 'fixtures', 'commonjs', 'commonjs-browser-test.js'),
+      ],
       browsers: [chromeLauncher({ launchOptions: { devtools: false } })],
       plugins: [
         fromRollup(rollupCommonjs)({

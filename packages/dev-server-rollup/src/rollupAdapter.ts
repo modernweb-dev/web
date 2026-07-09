@@ -1,29 +1,32 @@
-/* eslint-disable no-control-regex */
-import path from 'path';
-import whatwgUrl from 'whatwg-url';
 import {
-  Plugin as WdsPlugin,
+  Context,
   DevServerCoreConfig,
   FSWatcher,
   PluginError,
   PluginSyntaxError,
-  Context,
+  Plugin as WdsPlugin,
   getRequestFilePath,
 } from '@web/dev-server-core';
 import {
-  queryAll,
-  predicates,
   getTextContent,
+  predicates,
+  queryAll,
   setTextContent,
 } from '@web/dev-server-core/dist/dom5';
+import { cyan, red } from 'nanocolors';
 import { parse as parseHtml, serialize as serializeHtml } from 'parse5';
-import { CustomPluginOptions, Plugin as RollupPlugin, TransformPluginContext } from 'rollup';
-import { InputOptions } from 'rollup';
-import { red, cyan } from 'nanocolors';
+import path from 'path';
+import {
+  CustomPluginOptions,
+  InputOptions,
+  Plugin as RollupPlugin,
+  TransformPluginContext,
+} from 'rollup';
+import whatwgUrl from 'whatwg-url';
 
-import { toBrowserPath, isAbsoluteFilePath, isOutsideRootDir } from './utils.js';
 import { createRollupPluginContextAdapter } from './createRollupPluginContextAdapter.js';
-import { createRollupPluginContexts, RollupPluginContexts } from './createRollupPluginContexts.js';
+import { RollupPluginContexts, createRollupPluginContexts } from './createRollupPluginContexts.js';
+import { isAbsoluteFilePath, isOutsideRootDir, toBrowserPath } from './utils.js';
 
 const NULL_BYTE_PARAM = 'web-dev-server-rollup-null-byte';
 const VIRTUAL_FILE_PREFIX = '/__web-dev-server__/rollup';
@@ -34,7 +37,7 @@ const OUTSIDE_ROOT_REGEXP = /\/__wds-outside-root__\/([0-9]+)\/(.*)/;
  * Wraps rollup error in a custom error for web dev server.
  */
 function wrapRollupError(filePath: string, context: Context, error: any) {
-  if (typeof error == null || typeof error !== 'object') {
+  if (error == null || typeof error !== 'object') {
     return error;
   }
 

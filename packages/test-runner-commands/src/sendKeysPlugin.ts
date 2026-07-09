@@ -1,5 +1,5 @@
-import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { ChromeLauncher, puppeteerCore } from '@web/test-runner-chrome';
+import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 import type { WebdriverLauncher } from '@web/test-runner-webdriver';
 

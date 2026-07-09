@@ -1,11 +1,13 @@
-import { Plugin } from 'rollup';
 import path from 'path';
+import { Plugin } from 'rollup';
 
 import { addRollupInput } from './input/addRollupInput.js';
 import { getInputData } from './input/getInputData.js';
 import { InputData } from './input/InputData.js';
 import { createHTMLOutput } from './output/createHTMLOutput.js';
 
+import { processCssAssets } from './output/css.js';
+import { emitAssets } from './output/emitAssets.js';
 import {
   GeneratedBundle,
   RollupPluginHTMLOptions,
@@ -13,7 +15,6 @@ import {
   TransformHtmlFunction,
 } from './RollupPluginHTMLOptions.js';
 import { createError, NOOP_IMPORT } from './utils.js';
-import { emitAssets } from './output/emitAssets.js';
 
 export interface RollupPluginHtml extends Plugin {
   api: {
@@ -72,7 +73,6 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
       if (pluginOptions.strictCSPInlineScripts) {
         strictCSPInlineScripts = pluginOptions.strictCSPInlineScripts;
       }
-      pluginOptions.bundleAssetsFromCss = !!pluginOptions.bundleAssetsFromCss;
 
       if (pluginOptions.input == null) {
         // we are reading rollup input, so replace whatever was there
@@ -141,6 +141,9 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
       generatedBundles.push({ name: 'default', options, bundle });
 
       const emittedAssets = await emitAssets.call(this, inputs, pluginOptions);
+
+      processCssAssets(this, bundle, emittedAssets.assetsInCssByHash, pluginOptions.publicPath);
+
       const outputs = await createHTMLOutput({
         outputDir: path.resolve(options.dir),
         inputs,
@@ -200,6 +203,14 @@ export function rollupPluginHTML(pluginOptions: RollupPluginHTMLOptions = {}): R
               }
 
               const emittedAssets = await emitAssets.call(this, inputs, pluginOptions);
+
+              processCssAssets(
+                this,
+                bundle,
+                emittedAssets.assetsInCssByHash,
+                pluginOptions.publicPath,
+              );
+
               const outputs = await createHTMLOutput({
                 outputDir: path.resolve(options.dir),
                 inputs,

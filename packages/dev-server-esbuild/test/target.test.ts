@@ -1,7 +1,9 @@
-import { expect } from 'chai';
-import { createTestServer, expectIncludes } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { esbuildPlugin } from '../src/index.js';
+import { assertIncludes } from '../../../test-helpers/node.js';
+import { esbuildPlugin } from '../dist/index.js';
 
 const modernJs = `
 class MyClass {
@@ -58,10 +60,10 @@ const transformedSyntax = {
   ],
 };
 
-describe('esbuildPlugin target', function () {
+describe('esbuildPlugin target', () => {
   it('does not transform anything when set to esnext', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -79,22 +81,23 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/foo.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of syntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, syntax.optionalChaining);
-      expectIncludes(text, syntax.optionalCatch);
+      assertIncludes(text, syntax.optionalChaining);
+      assertIncludes(text, syntax.optionalCatch);
       for (const e of syntax.objectSpread) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
       for (const e of syntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -103,7 +106,7 @@ describe('esbuildPlugin target', function () {
 
   it('can transform to es2020', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -121,22 +124,23 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/foo.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, syntax.optionalChaining);
-      expectIncludes(text, syntax.optionalCatch);
+      assertIncludes(text, syntax.optionalChaining);
+      assertIncludes(text, syntax.optionalCatch);
       for (const e of syntax.objectSpread) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
       for (const e of syntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -145,7 +149,7 @@ describe('esbuildPlugin target', function () {
 
   it('can transform to es2019', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -163,22 +167,23 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/foo.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, transformedSyntax.optionalChaining);
-      expectIncludes(text, syntax.optionalCatch);
+      assertIncludes(text, transformedSyntax.optionalChaining);
+      assertIncludes(text, syntax.optionalCatch);
       for (const e of syntax.objectSpread) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
       for (const e of syntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -187,7 +192,7 @@ describe('esbuildPlugin target', function () {
 
   it('can transform to es2018', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -205,22 +210,23 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/foo.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, transformedSyntax.optionalChaining);
-      expectIncludes(text, transformedSyntax.optionalCatch);
+      assertIncludes(text, transformedSyntax.optionalChaining);
+      assertIncludes(text, transformedSyntax.optionalCatch);
       for (const e of syntax.objectSpread) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
       for (const e of syntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -229,7 +235,7 @@ describe('esbuildPlugin target', function () {
 
   it('can transform to es2017', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -247,20 +253,21 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/foo.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, transformedSyntax.optionalChaining);
-      expectIncludes(text, transformedSyntax.optionalCatch);
-      expectIncludes(text, transformedSyntax.objectSpread);
+      assertIncludes(text, transformedSyntax.optionalChaining);
+      assertIncludes(text, transformedSyntax.optionalCatch);
+      assertIncludes(text, transformedSyntax.objectSpread);
       for (const e of syntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -269,7 +276,7 @@ describe('esbuildPlugin target', function () {
 
   it('can transform to es2016', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -287,20 +294,21 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/foo.js`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, transformedSyntax.optionalChaining);
-      expectIncludes(text, transformedSyntax.optionalCatch);
-      expectIncludes(text, transformedSyntax.objectSpread);
+      assertIncludes(text, transformedSyntax.optionalChaining);
+      assertIncludes(text, transformedSyntax.optionalCatch);
+      assertIncludes(text, transformedSyntax.objectSpread);
       for (const e of transformedSyntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -309,7 +317,7 @@ describe('esbuildPlugin target', function () {
 
   it('can transform inline scripts', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -331,18 +339,18 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/index.html`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal('text/html; charset=utf-8');
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(response.headers.get('content-type'), 'text/html; charset=utf-8');
 
-      expectIncludes(text, syntax.classes);
+      assertIncludes(text, syntax.classes);
       for (const e of transformedSyntax.classFields) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
-      expectIncludes(text, transformedSyntax.optionalChaining);
-      expectIncludes(text, transformedSyntax.optionalCatch);
-      expectIncludes(text, transformedSyntax.objectSpread);
+      assertIncludes(text, transformedSyntax.optionalChaining);
+      assertIncludes(text, transformedSyntax.optionalCatch);
+      assertIncludes(text, transformedSyntax.objectSpread);
       for (const e of transformedSyntax.asyncFunctions) {
-        expectIncludes(text, e);
+        assertIncludes(text, e);
       }
     } finally {
       server.stop();
@@ -353,7 +361,7 @@ describe('esbuildPlugin target', function () {
     const importmapString = '{"imports":{"foo":"./bar.js"}}';
     const jsonString = '{test:1}';
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -376,10 +384,10 @@ describe('esbuildPlugin target', function () {
       const response = await fetch(`${host}/index.html`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal('text/html; charset=utf-8');
-      expect(text).to.include(importmapString);
-      expect(text).to.include(jsonString);
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(response.headers.get('content-type'), 'text/html; charset=utf-8');
+      assertIncludes(text, importmapString);
+      assertIncludes(text, jsonString);
     } finally {
       server.stop();
     }

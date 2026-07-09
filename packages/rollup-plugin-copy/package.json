@@ -1,6 +1,6 @@
 {
   "name": "@web/rollup-plugin-copy",
-  "version": "0.5.1",
+  "version": "1.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -20,17 +20,17 @@
   "module": "index.mjs",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
+      "types": "./dist/copy.d.ts",
       "import": "./index.mjs",
       "require": "./src/copy.js"
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
-    "test:node": "mocha test/**/*.test.js --reporter dot",
-    "test:watch": "mocha test/**/*.test.js --watch --watch-files src,test --reporter dot"
+    "test:node": "node --test --test-force-exit \"test/**/*.test.js\"",
+    "test:watch": "node --test --test-force-exit --watch \"test/**/*.test.js\""
   },
   "files": [
     "*.d.ts",

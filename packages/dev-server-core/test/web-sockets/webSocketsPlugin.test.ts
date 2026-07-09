@@ -1,7 +1,9 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { createTestServer } from '../helpers.js';
-import { webSocketScript } from '../../src/web-sockets/webSocketsPlugin.js';
+import { assertIncludes, assertNotIncludes } from '../../../../test-helpers/node.js';
+import { webSocketScript } from '../../dist/web-sockets/webSocketsPlugin.js';
+import { createTestServer } from '../helpers.ts';
 
 describe('webSocketsPlugin', () => {
   it('injects an event stream script if a plugin has inject set and event stream is enabled', async () => {
@@ -19,8 +21,8 @@ describe('webSocketsPlugin', () => {
       const response = await fetch(`${host}/index.html`);
       const body = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(body).to.include(webSocketScript);
+      assert.equal(response.status, 200);
+      assertIncludes(body, webSocketScript);
     } finally {
       server.stop();
     }
@@ -41,8 +43,8 @@ describe('webSocketsPlugin', () => {
       const response = await fetch(`${host}/index.html`);
       const body = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(body).to.not.include(webSocketScript);
+      assert.equal(response.status, 200);
+      assertNotIncludes(body, webSocketScript);
     } finally {
       server.stop();
     }
@@ -54,8 +56,8 @@ describe('webSocketsPlugin', () => {
       const response = await fetch(`${host}/index.html`);
       const body = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(body).to.not.include(webSocketScript);
+      assert.equal(response.status, 200);
+      assertNotIncludes(body, webSocketScript);
     } finally {
       server.stop();
     }
@@ -77,10 +79,10 @@ describe('webSocketsPlugin', () => {
       const bodyA = await responseA.text();
       const bodyB = await responseB.text();
 
-      expect(responseA.status).to.equal(200);
-      expect(responseB.status).to.equal(200);
-      expect(bodyA).to.not.include(webSocketScript);
-      expect(bodyB).to.not.include(webSocketScript);
+      assert.equal(responseA.status, 200);
+      assert.equal(responseB.status, 200);
+      assertNotIncludes(bodyA, webSocketScript);
+      assertNotIncludes(bodyB, webSocketScript);
     } finally {
       server.stop();
     }

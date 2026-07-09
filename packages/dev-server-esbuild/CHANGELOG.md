@@ -1,5 +1,28 @@
 # @web/dev-server-esbuild
 
+## 2.0.0
+
+### Major Changes
+
+- 5260164: Drop support for Node.js 18 and 20, which have reached end-of-life. The minimum supported Node.js version is now 22.0.0.
+  The Node code is compiled to ES2024 which is aligned with the Node 22.
+
+### Minor Changes
+
+- 532e76d: Upgrade esbuild dependency version to 0.28.1
+
+### Patch Changes
+
+- Updated dependencies [1a058e6]
+- Updated dependencies [5260164]
+  - @web/dev-server-core@1.0.0
+
+## 1.0.5
+
+### Patch Changes
+
+- d304459: Bump esbuild version to 0.27.0
+
 ## 1.0.4
 
 ### Patch Changes

@@ -1,6 +1,7 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { createTestServer } from '../helpers.js';
+import { createTestServer } from '../helpers.ts';
 
 describe('mimeTypesPLugin', () => {
   it('can configure mime types for files', async () => {
@@ -22,10 +23,8 @@ describe('mimeTypesPLugin', () => {
 
     try {
       const response = await fetch(`${host}/foo.css`);
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('content-type'), 'application/javascript; charset=utf-8');
     } finally {
       server.stop();
     }
@@ -33,7 +32,7 @@ describe('mimeTypesPLugin', () => {
 
   it('can resolve literal paths', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       mimeTypes: {
         'foo.css': 'js',
       },
@@ -51,14 +50,13 @@ describe('mimeTypesPLugin', () => {
 
     try {
       const responseA = await fetch(`${host}/foo.css`);
-      expect(responseA.status).to.equal(200);
-      expect(responseA.headers.get('content-type')).to.equal(
-        'application/javascript; charset=utf-8',
-      );
+      assert.equal(responseA.status, 200);
+      assert.equal(responseA.headers.get('content-type'), 'application/javascript; charset=utf-8');
 
       const responseB = await fetch(`${host}/x/foo.css`);
-      expect(responseB.status).to.equal(200);
-      expect(responseB.headers.get('content-type')).not.to.equal(
+      assert.equal(responseB.status, 200);
+      assert.notEqual(
+        responseB.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
     } finally {

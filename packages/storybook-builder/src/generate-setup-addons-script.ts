@@ -1,9 +1,9 @@
-// based on https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/codegen-set-addon-channel.ts
+// based on https://github.com/storybookjs/storybook/blob/v9.1.20/code/builders/builder-vite/src/codegen-set-addon-channel.ts
 
 export async function generateSetupAddonsScript() {
   return `
 import { createBrowserChannel } from 'storybook/internal/channels';
-import { addons } from 'storybook/internal/preview-api';
+import { addons } from 'storybook/preview-api';
 
 const channel = createBrowserChannel({ page: 'preview' });
 addons.setChannel(channel);

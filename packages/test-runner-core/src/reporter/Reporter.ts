@@ -1,9 +1,9 @@
-import { TestSession } from '../test-session/TestSession';
-import { TestSessionManager } from '../test-session/TestSessionManager';
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
-import { TestCoverage } from '../coverage/getTestCoverage';
-import { Logger } from '../logger/Logger';
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher';
+import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher';
+import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig';
+import { type TestCoverage } from '../coverage/getTestCoverage';
+import { type Logger } from '../logger/Logger';
+import { type TestSession } from '../test-session/TestSession';
+import { type TestSessionManager } from '../test-session/TestSessionManager';
 
 export interface ReporterArgs {
   config: TestRunnerCoreConfig;
@@ -32,7 +32,7 @@ export interface TestRunArgs {
   testRun: number;
 }
 
-export interface TestRunStartedArgs extends TestRunArgs {}
+export type TestRunStartedArgs = TestRunArgs;
 export interface TestRunFinishedArgs extends TestRunArgs {
   sessions: TestSession[];
   testCoverage?: TestCoverage;
@@ -44,8 +44,6 @@ export interface StopArgs {
   testCoverage?: TestCoverage;
   focusedTestFile?: string;
 }
-
-export interface ReporterConstructor {}
 
 export interface Reporter {
   reportTestFileResults?(args: ReportTestResultsArgs): void;

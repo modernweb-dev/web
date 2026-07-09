@@ -1,13 +1,13 @@
 import fs from 'fs';
+import { GlobOptionsWithFileTypesFalse, globSync } from 'glob';
 import path from 'path';
-import { globSync, GlobOptionsWithFileTypesFalse } from 'glob';
 
-import { createError } from '../utils.js';
-import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions.js';
-import { InputData } from './InputData.js';
-import { normalizeInputOptions } from './normalizeInputOptions.js';
-import { extractModulesAndAssets } from './extract/extractModulesAndAssets.js';
 import { InputOption } from 'rollup';
+import { RollupPluginHTMLOptions } from '../RollupPluginHTMLOptions.js';
+import { createError } from '../utils.js';
+import { InputData } from './InputData.js';
+import { extractModulesAndAssets } from './extract/extractModulesAndAssets.js';
+import { normalizeInputOptions } from './normalizeInputOptions.js';
 
 function resolveGlob(fromGlob: string, opts: GlobOptionsWithFileTypesFalse) {
   const files = globSync(fromGlob, { ...opts, absolute: true });
@@ -30,14 +30,21 @@ export interface CreateInputDataParams {
   html: string;
   rootDir: string;
   filePath?: string;
-  extractAssets: boolean;
+  extractAssets: boolean | 'legacy-html' | 'legacy-html-and-css';
   externalAssets?: string | string[];
   absolutePathPrefix?: string;
 }
 
 function createInputData(params: CreateInputDataParams): InputData {
-  const { name, html, rootDir, filePath, extractAssets, externalAssets, absolutePathPrefix } =
-    params;
+  const {
+    name,
+    html,
+    rootDir,
+    filePath,
+    extractAssets = true,
+    externalAssets,
+    absolutePathPrefix,
+  } = params;
   const htmlFilePath = filePath ? filePath : path.resolve(rootDir, name);
   const result = extractModulesAndAssets({
     html,

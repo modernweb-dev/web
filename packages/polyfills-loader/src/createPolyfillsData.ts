@@ -1,8 +1,8 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 import { minify } from 'terser';
-import { PolyfillsLoaderConfig, PolyfillConfig, PolyfillFile } from './types.js';
-import { createContentHash, noModuleSupportTest, hasFileOfType, fileTypes } from './utils.js';
+import { PolyfillConfig, PolyfillFile, PolyfillsLoaderConfig } from './types.js';
+import { createContentHash, fileTypes, hasFileOfType, noModuleSupportTest } from './utils.js';
 
 export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<PolyfillFile[]> {
   const { polyfills = {} } = cfg;
@@ -17,6 +17,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
         throw new Error(
           `[Polyfills loader]: Error resolving polyfill ${polyfillConfig.name}` +
             ' Are dependencies installed correctly?',
+          { cause: error },
         );
       }
 
@@ -158,9 +159,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     addPolyfillConfig({
       name: 'scoped-custom-element-registry',
       test: "!('createElement' in ShadowRoot.prototype)",
-      path: require.resolve(
-        '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js',
-      ),
+      path: require.resolve('@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js'),
     });
   }
 
@@ -220,7 +219,7 @@ export async function createPolyfillsData(cfg: PolyfillsLoaderConfig): Promise<P
     if (!polyfillConfig.name || !polyfillConfig.path) {
       throw new Error(`A polyfill should have a name and a path property.`);
     }
-    let content = '';
+    let content: string;
     if (Array.isArray(polyfillConfig.path)) {
       content = polyfillConfig.path.map(p => readPolyfillFileContents(p)).join('');
     } else {

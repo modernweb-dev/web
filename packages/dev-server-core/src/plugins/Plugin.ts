@@ -1,19 +1,15 @@
 import { FSWatcher } from 'chokidar';
 import Koa, { Context } from 'koa';
-import { Server } from 'net';
+import { type Server } from 'net';
 
-import { DevServerCoreConfig } from '../server/DevServerCoreConfig';
-import { Logger } from '../logger/Logger';
+import type { Logger } from '../logger/Logger';
+import type { DevServerCoreConfig } from '../server/DevServerCoreConfig';
 import { WebSocketsManager } from '../web-sockets/WebSocketsManager';
 
 export type ServeResult =
-  | void
-  | string
-  | { body: string; type?: string; headers?: Record<string, string> };
+  void | string | { body: string; type?: string; headers?: Record<string, string> };
 export type TransformResult =
-  | void
-  | string
-  | { body?: string; headers?: Record<string, string>; transformCache?: boolean };
+  void | string | { body?: string; headers?: Record<string, string>; transformCache?: boolean };
 export type ResolveResult = void | string | { id?: string };
 export type ResolveMimeTypeResult = void | string | { type?: string };
 

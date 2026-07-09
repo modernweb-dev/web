@@ -1,6 +1,6 @@
 {
   "name": "@web/rollup-plugin-import-meta-assets",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -21,13 +21,12 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "test": "npm run test:node",
-    "test:node": "mocha test/**/*.test.js test/*.test.js --reporter dot",
-    "test:update-snapshots": "mocha test/**/*.test.js test/*.test.js --update-snapshots",
-    "test:watch": "npm run test:node -- --watch"
+    "test:node": "node --test --test-force-exit \"test/**/*.test.js\"",
+    "test:watch": "node --test --test-force-exit --watch \"test/**/*.test.js\""
   },
   "files": [
     "*.js",
@@ -41,6 +40,7 @@
     "import-meta"
   ],
   "dependencies": {
+    "@jridgewell/remapping": "^2.3.5",
     "@rollup/plugin-dynamic-import-vars": "^2.1.0",
     "@rollup/pluginutils": "^5.0.2",
     "estree-walker": "^2.0.2",

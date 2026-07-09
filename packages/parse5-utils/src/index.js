@@ -362,6 +362,7 @@ module.exports.isDocumentTypeNode = adapter.isDocumentTypeNode;
 module.exports.isElementNode = adapter.isElementNode;
 module.exports.setNodeSourceCodeLocation = adapter.setNodeSourceCodeLocation;
 module.exports.getNodeSourceCodeLocation = adapter.getNodeSourceCodeLocation;
+module.exports.updateNodeSourceCodeLocation = adapter.updateNodeSourceCodeLocation;
 module.exports.isHtmlFragment = isHtmlFragment;
 module.exports.hasAttribute = hasAttribute;
 module.exports.getAttribute = getAttribute;

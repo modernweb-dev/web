@@ -1,16 +1,15 @@
-import path from 'path';
-import { runTests } from '@web/test-runner-core/test-helpers';
 import { chromeLauncher } from '@web/test-runner-chrome';
+import { runTests } from '@web/test-runner-core/test-helpers';
 import { playwrightLauncher } from '@web/test-runner-playwright';
+import { describe, it } from 'node:test';
+import path from 'path';
 
-import { selectOptionPlugin } from '../../src/selectOptionPlugin.js';
+import { selectOptionPlugin } from '../../dist/selectOptionPlugin.js';
 
-describe('selectOptionPlugin', function test() {
-  this.timeout(20000);
-
+describe('selectOptionPlugin', { timeout: 20000 }, () => {
   it('can send keys on puppeteer', async () => {
     await runTests({
-      files: [path.join(__dirname, 'puppeteer-test.js')],
+      files: [path.join(import.meta.dirname, 'puppeteer-test.js')],
       browsers: [chromeLauncher()],
       plugins: [selectOptionPlugin()],
     });
@@ -18,7 +17,7 @@ describe('selectOptionPlugin', function test() {
 
   it('can send keys on playwright', async () => {
     await runTests({
-      files: [path.join(__dirname, 'playwright-test.js')],
+      files: [path.join(import.meta.dirname, 'playwright-test.js')],
       browsers: [
         playwrightLauncher({ product: 'chromium' }),
         playwrightLauncher({ product: 'firefox' }),

@@ -1,11 +1,12 @@
-import { fetchText, expectIncludes, virtualFilesPlugin } from '@web/dev-server-core/test-helpers';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expect } from 'chai';
-import { spy } from 'hanbi';
+import assert from 'node:assert/strict';
+import { describe, it, mock } from 'node:test';
 import path from 'path';
 
-import { importMapsPlugin } from '../src/importMapsPlugin.js';
-import { IMPORT_MAP_PARAM } from '../src/utils.js';
+import { assertIncludes, fetchText } from '../../../test-helpers/node.js';
+import { importMapsPlugin } from '../dist/importMapsPlugin.js';
+import { IMPORT_MAP_PARAM } from '../dist/utils.js';
+import { virtualFilesPlugin } from './test-helpers.ts';
 
 function createHtml(importMap: Record<string, unknown>) {
   return `
@@ -33,12 +34,12 @@ describe('applies import map id', () => {
       '/index.html': createHtml({ foo: './mocked-foo.js' }),
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     const text = await fetchText(`${host}/index.html`);
-    expectIncludes(text, `<script type="module" src="./app.js?${IMPORT_MAP_PARAM}=0"></script>`);
+    assertIncludes(text, `<script type="module" src="./app.js?${IMPORT_MAP_PARAM}=0"></script>`);
 
     server.stop();
   });
@@ -48,12 +49,12 @@ describe('applies import map id', () => {
       '/index.html': createHtml({ foo: './mocked-foo.js' }),
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     const text = await fetchText(`${host}/index.html`);
-    expectIncludes(text, `<link rel="preload" href="./app.js?${IMPORT_MAP_PARAM}=0">`);
+    assertIncludes(text, `<link rel="preload" href="./app.js?${IMPORT_MAP_PARAM}=0">`);
 
     server.stop();
   });
@@ -63,13 +64,13 @@ describe('applies import map id', () => {
       '/index.html': createHtml({ foo: './mocked-foo.js' }),
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     const text = await fetchText(`${host}/index.html`);
-    expectIncludes(text, `import "/mocked-foo.js?${IMPORT_MAP_PARAM}=0"`);
-    expectIncludes(text, `import foo from "./bar.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(text, `import "/mocked-foo.js?${IMPORT_MAP_PARAM}=0"`);
+    assertIncludes(text, `import foo from "./bar.js?${IMPORT_MAP_PARAM}=0";`);
 
     server.stop();
   });
@@ -80,14 +81,14 @@ describe('applies import map id', () => {
       '/app.js': 'import "foo"; import foo from "./bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     await fetchText(`${host}/index.html`);
     const text = await fetchText(`${host}/app.js?${IMPORT_MAP_PARAM}=0`);
-    expectIncludes(text, `import "/mocked-foo.js?${IMPORT_MAP_PARAM}=0"`);
-    expectIncludes(text, `import foo from "./bar.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(text, `import "/mocked-foo.js?${IMPORT_MAP_PARAM}=0"`);
+    assertIncludes(text, `import foo from "./bar.js?${IMPORT_MAP_PARAM}=0";`);
 
     server.stop();
   });
@@ -98,7 +99,7 @@ describe('applies import map id', () => {
       '/app.js': 'import "bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -113,7 +114,7 @@ describe('applies import map id', () => {
 
     await fetchText(`${host}/index.html`);
     const text = await fetchText(`${host}/app.js?${IMPORT_MAP_PARAM}=0`);
-    expectIncludes(text, `import "RESOLVED__bar?${IMPORT_MAP_PARAM}=0"`);
+    assertIncludes(text, `import "RESOLVED__bar?${IMPORT_MAP_PARAM}=0"`);
 
     server.stop();
   });
@@ -124,7 +125,7 @@ describe('applies import map id', () => {
       '/app.js': 'import "bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -139,7 +140,7 @@ describe('applies import map id', () => {
 
     await fetchText(`${host}/index.html`);
     const text = await fetchText(`${host}/app.js?${IMPORT_MAP_PARAM}=0`);
-    expectIncludes(text, `import "TRANSFORMED__bar?${IMPORT_MAP_PARAM}=0"`);
+    assertIncludes(text, `import "TRANSFORMED__bar?${IMPORT_MAP_PARAM}=0"`);
 
     server.stop();
   });
@@ -150,13 +151,13 @@ describe('applies import map id', () => {
       '/app.js': 'import "bar?foo=bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     await fetchText(`${host}/index.html`);
     const text = await fetchText(`${host}/app.js?${IMPORT_MAP_PARAM}=0`);
-    expectIncludes(text, `import "bar?foo=bar&${IMPORT_MAP_PARAM}=0"`);
+    assertIncludes(text, `import "bar?foo=bar&${IMPORT_MAP_PARAM}=0"`);
 
     server.stop();
   });
@@ -169,14 +170,14 @@ describe('resolving imports', () => {
       '/app.js': 'import "foo";\nimport bar from "./bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     await fetchText(`${host}/index.html`);
     const text = await fetchText(`${host}/app.js?${IMPORT_MAP_PARAM}=0`);
-    expectIncludes(text, `import "/mocked-bare-foo.js?${IMPORT_MAP_PARAM}=0";`);
-    expectIncludes(text, `import bar from "/mocked-bar.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(text, `import "/mocked-bare-foo.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(text, `import bar from "/mocked-bar.js?${IMPORT_MAP_PARAM}=0";`);
 
     server.stop();
   });
@@ -187,14 +188,14 @@ describe('resolving imports', () => {
       '/x/y/app.js': 'import bar from "../../bar.js";\nimport bar from "../bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     await fetchText(`${host}/index.html`);
     const text = await fetchText(`${host}/x/y/app.js?${IMPORT_MAP_PARAM}=0`);
-    expectIncludes(text, `import bar from "/mocked-bar.js?${IMPORT_MAP_PARAM}=0";`);
-    expectIncludes(text, `import bar from "../bar.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(text, `import bar from "/mocked-bar.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(text, `import bar from "../bar.js?${IMPORT_MAP_PARAM}=0";`);
 
     server.stop();
   });
@@ -205,13 +206,13 @@ describe('resolving imports', () => {
       '/x/y/app.js': 'import "x";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     await fetchText(`${host}/index.html`);
     const text = await fetchText(`${host}/x/y/app.js?${IMPORT_MAP_PARAM}=0`);
-    expectIncludes(text, `import "x?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(text, `import "x?${IMPORT_MAP_PARAM}=0";`);
 
     server.stop();
   });
@@ -222,15 +223,15 @@ describe('resolving imports', () => {
       '/x/app.js': 'import "./y/bar.js"; \n import "./bar.js"; \n import "../bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     await fetchText(`${host}/x/y/index.html`);
     const text = await fetchText(`${host}/x/app.js?${IMPORT_MAP_PARAM}=0`);
-    expectIncludes(text, `import "/x/y/mocked-bar.js?${IMPORT_MAP_PARAM}=0";`);
-    expectIncludes(text, `import "./bar.js?${IMPORT_MAP_PARAM}=0";`);
-    expectIncludes(text, `import "../bar.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(text, `import "/x/y/mocked-bar.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(text, `import "./bar.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(text, `import "../bar.js?${IMPORT_MAP_PARAM}=0";`);
 
     server.stop();
   });
@@ -249,13 +250,13 @@ describe('resolving imports', () => {
       '/x/app.js': 'import "bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     await fetchText(`${host}/x/y/index.html`);
     const text = await fetchText(`${host}/x/app.js?${IMPORT_MAP_PARAM}=0`);
-    expectIncludes(text, `import "/foo/bar.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(text, `import "/foo/bar.js?${IMPORT_MAP_PARAM}=0";`);
 
     server.stop();
   });
@@ -274,13 +275,13 @@ describe('resolving imports', () => {
       '/x/app.js': 'import "bar";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     await fetchText(`${host}/x/y/index.html`);
     const text = await fetchText(`${host}/x/app.js?${IMPORT_MAP_PARAM}=0`);
-    expectIncludes(text, `import "/x/y/foo/bar.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(text, `import "/x/y/foo/bar.js?${IMPORT_MAP_PARAM}=0";`);
 
     server.stop();
   });
@@ -289,7 +290,7 @@ describe('resolving imports', () => {
     let i = 0;
 
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -307,19 +308,19 @@ describe('resolving imports', () => {
     });
 
     const textA = await fetchText(`${host}/foo.html`);
-    expectIncludes(textA, `<script type="module" src="./app.js?${IMPORT_MAP_PARAM}=0"></script>`);
-    expectIncludes(textA, `import "/mocked-foo.js?${IMPORT_MAP_PARAM}=0"`);
-    expectIncludes(textA, `import foo from "./bar.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(textA, `<script type="module" src="./app.js?${IMPORT_MAP_PARAM}=0"></script>`);
+    assertIncludes(textA, `import "/mocked-foo.js?${IMPORT_MAP_PARAM}=0"`);
+    assertIncludes(textA, `import foo from "./bar.js?${IMPORT_MAP_PARAM}=0";`);
 
     const textB = await fetchText(`${host}/foo.html`);
-    expectIncludes(textB, `<script type="module" src="./app.js?${IMPORT_MAP_PARAM}=0"></script>`);
-    expectIncludes(textB, `import "/mocked-foo.js?${IMPORT_MAP_PARAM}=0"`);
-    expectIncludes(textB, `import foo from "./bar.js?${IMPORT_MAP_PARAM}=0";`);
+    assertIncludes(textB, `<script type="module" src="./app.js?${IMPORT_MAP_PARAM}=0"></script>`);
+    assertIncludes(textB, `import "/mocked-foo.js?${IMPORT_MAP_PARAM}=0"`);
+    assertIncludes(textB, `import foo from "./bar.js?${IMPORT_MAP_PARAM}=0";`);
 
     const textC = await fetchText(`${host}/foo.html`);
-    expectIncludes(textC, `<script type="module" src="./app.js?${IMPORT_MAP_PARAM}=1"></script>`);
-    expectIncludes(textC, `import "/not-mocked-foo.js?${IMPORT_MAP_PARAM}=1"`);
-    expectIncludes(textC, `import foo from "./bar.js?${IMPORT_MAP_PARAM}=1";`);
+    assertIncludes(textC, `<script type="module" src="./app.js?${IMPORT_MAP_PARAM}=1"></script>`);
+    assertIncludes(textC, `import "/not-mocked-foo.js?${IMPORT_MAP_PARAM}=1"`);
+    assertIncludes(textC, `import foo from "./bar.js?${IMPORT_MAP_PARAM}=1";`);
 
     server.stop();
   });
@@ -329,12 +330,12 @@ describe('resolving imports', () => {
       '/index.html': '<html><body><script src="./app.js"></script></body></html>',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     const text = await fetchText(`${host}/index.html`);
-    expectIncludes(text, '<html><body><script src="./app.js"></script></body></html>');
+    assertIncludes(text, '<html><body><script src="./app.js"></script></body></html>');
 
     server.stop();
   });
@@ -351,38 +352,29 @@ describe('resolving imports', () => {
           </body>
         </html>`,
     };
-    const loggerSpies = {
-      log: spy(),
-      debug: spy(),
-      error: spy(),
-      warn: spy(),
-      group: spy(),
-      groupEnd: spy(),
-      logSyntaxError: spy(),
-    };
     const logger = {
-      log: loggerSpies.log.handler,
-      debug: loggerSpies.debug.handler,
-      error: loggerSpies.error.handler,
-      warn: loggerSpies.warn.handler,
-      group: loggerSpies.group.handler,
-      groupEnd: loggerSpies.groupEnd.handler,
-      logSyntaxError: loggerSpies.logSyntaxError.handler,
+      log: mock.fn(),
+      debug: mock.fn(),
+      error: mock.fn(),
+      warn: mock.fn(),
+      group: mock.fn(),
+      groupEnd: mock.fn(),
+      logSyntaxError: mock.fn(),
     };
     const { server, host } = await createTestServer(
       {
-        rootDir: __dirname,
+        rootDir: import.meta.dirname,
         plugins: [virtualFilesPlugin(files), importMapsPlugin()],
       },
       logger,
     );
 
     const text = await fetchText(`${host}/index.html`);
-    expectIncludes(text, '<script type="importmap">{</script>');
-    expect(loggerSpies.warn.callCount).to.equal(1);
-    const warning = loggerSpies.warn.getCall(0).args[0];
-    expectIncludes(warning, 'Failed to parse import map in "');
-    expectIncludes(warning, `test${path.sep}index.html": `);
+    assertIncludes(text, '<script type="importmap">{</script>');
+    assert.equal(logger.warn.mock.callCount(), 1);
+    const warning = logger.warn.mock.calls[0].arguments[0];
+    assertIncludes(warning, 'Failed to parse import map in "');
+    assertIncludes(warning, `test${path.sep}index.html": `);
     server.stop();
   });
 
@@ -392,13 +384,13 @@ describe('resolving imports', () => {
       '/app.js': 'import "foo";\nimport bar from "./bar.js";',
     };
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [virtualFilesPlugin(files), importMapsPlugin()],
     });
 
     await fetchText(`${host}/index.html`);
     const text = await fetchText(`${host}/app.js?${IMPORT_MAP_PARAM}=0`);
-    expectIncludes(text, `https://my-cdn.com/foo/bar.js?wds-import-map=0`);
+    assertIncludes(text, `https://my-cdn.com/foo/bar.js?wds-import-map=0`);
 
     server.stop();
   });

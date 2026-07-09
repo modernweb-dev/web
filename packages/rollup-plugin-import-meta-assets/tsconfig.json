@@ -3,7 +3,8 @@
 {
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "node16",
+    "moduleResolution": "node16",
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
@@ -12,13 +13,6 @@
     "emitDeclarationOnly": true
   },
   "references": [],
-  "include": [
-    "src",
-    "types"
-  ],
-  "exclude": [
-    "src/browser",
-    "tests",
-    "dist"
-  ]
+  "include": ["src", "types"],
+  "exclude": ["src/browser", "tests", "dist"]
 }

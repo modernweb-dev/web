@@ -1,11 +1,10 @@
-import path from 'path';
-import { runTests } from '@web/test-runner-core/test-helpers';
+import type { Logger } from '@web/dev-server-core';
 import { chromeLauncher } from '@web/test-runner-chrome';
-import { Logger } from '@web/dev-server-core';
+import { runTests } from '@web/test-runner-core/test-helpers';
+import { describe, it } from 'node:test';
+import path from 'path';
 
-describe('executeServerCommand', function test() {
-  this.timeout(20000);
-
+describe('executeServerCommand', { timeout: 20000 }, () => {
   it('can execute commands', async () => {
     const logger: Logger = {
       ...console,
@@ -26,7 +25,7 @@ describe('executeServerCommand', function test() {
     };
 
     await runTests({
-      files: [path.join(__dirname, 'browser-test.js')],
+      files: [path.join(import.meta.dirname, 'browser-test.js')],
       logger,
       browsers: [chromeLauncher()],
       plugins: [

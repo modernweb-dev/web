@@ -1,5 +1,48 @@
 # @web/rollup-plugin-html
 
+## 4.0.0
+
+### Major Changes
+
+- 5260164: Drop support for Node.js 18 and 20, which have reached end-of-life. The minimum supported Node.js version is now 22.0.0.
+  The Node code is compiled to ES2024 which is aligned with the Node 22.
+
+### Minor Changes
+
+- 9105501: Support preserving the assets input structure in the output.
+  Support transforming of assets found in CSS.
+
+### Patch Changes
+
+- Updated dependencies [5260164]
+  - @web/parse5-utils@3.0.0
+
+## 3.1.0
+
+### Minor Changes
+
+- 3a9c97b: add CSS bundling and minification
+
+## 3.0.0
+
+### Major Changes
+
+- 9781c19: 1. Enabled CSS assets extraction by default (as a result, removed configuration option bundleAssetsFromCss). 2. Made extraction of assets from all link rel types 3. Fixed "assetFileNames" behavior 4. Refactored all tests, added tests for more corner cases 5. Added legacy modes for old 2.x.x behavior.
+
+  See MIGRATION.md for migration notes.
+
+## 2.4.1
+
+### Patch Changes
+
+- bd12d3c: revert support transform on input html
+
+## 2.4.0
+
+### Minor Changes
+
+- 44fff34: support transform on input html
+
 ## 2.3.0
 
 ### Minor Changes

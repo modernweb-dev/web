@@ -1,8 +1,8 @@
-/* eslint-disable no-restricted-syntax, no-await-in-loop */
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { createTestServer } from '../helpers.js';
-import { fetchText, expectIncludes } from '../../src/test-helpers.js';
+import { assertIncludes, fetchText } from '../../../../test-helpers/node.js';
+import { createTestServer } from '../helpers.ts';
 
 describe('plugin-transform middleware', () => {
   it('can transform a served file', async () => {
@@ -23,8 +23,8 @@ describe('plugin-transform middleware', () => {
       const response = await fetch(`${host}/src/hello-world.txt`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.equal('Hello world! injected text');
+      assert.equal(response.status, 200);
+      assert.equal(responseText, 'Hello world! injected text');
     } finally {
       server.stop();
     }
@@ -54,8 +54,8 @@ describe('plugin-transform middleware', () => {
       const response = await fetch(`${host}/non-existing.js`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.equal('my non existing file injected text');
+      assert.equal(response.status, 200);
+      assert.equal(responseText, 'my non existing file injected text');
     } finally {
       server.stop();
     }
@@ -87,8 +87,8 @@ describe('plugin-transform middleware', () => {
       const response = await fetch(`${host}/src/hello-world.txt`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.equal('Hello world! INJECT_A INJECT_B');
+      assert.equal(response.status, 200);
+      assert.equal(responseText, 'Hello world! INJECT_A INJECT_B');
     } finally {
       server.stop();
     }
@@ -112,8 +112,8 @@ describe('plugin-transform middleware', () => {
       const response = await fetch(`${host}/non-existing.js`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(404);
-      expect(responseText).to.equal('Not Found');
+      assert.equal(response.status, 404);
+      assert.equal(responseText, 'Not Found');
     } finally {
       server.stop();
     }
@@ -136,8 +136,8 @@ describe('plugin-transform middleware', () => {
     try {
       const response = await fetch(`${host}/index.html`);
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('x-foo')).to.equal('bar');
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('x-foo'), 'bar');
     } finally {
       server.stop();
     }
@@ -164,7 +164,7 @@ describe('plugin-transform middleware', () => {
       const responseTwo = await fetch(`${host}/src/hello-world.txt`);
       const timestampTwo = await responseTwo.text();
 
-      expect(timestampOne).equal(timestampTwo);
+      assert.equal(timestampOne, timestampTwo);
     } finally {
       server.stop();
     }
@@ -195,10 +195,11 @@ describe('plugin-transform middleware', () => {
       const textTwo = await responseTwo.text();
       const headersTwo = responseTwo.headers;
 
-      expect(textOne).equal('console.log("foo")');
-      expect(textTwo).equal('console.log("foo")');
-      expect(headersOne.get('x-foo')).eql('bar');
-      expect(Object.fromEntries(headersOne.entries())).eql(
+      assert.equal(textOne, 'console.log("foo")');
+      assert.equal(textTwo, 'console.log("foo")');
+      assert.equal(headersOne.get('x-foo'), 'bar');
+      assert.deepEqual(
+        Object.fromEntries(headersOne.entries()),
         Object.fromEntries(headersTwo.entries()),
       );
     } finally {
@@ -227,7 +228,7 @@ describe('plugin-transform middleware', () => {
       const responseTwo = await fetch(`${host}/src/hello-world.txt`);
       const timestampTwo = await responseTwo.text();
 
-      expect(timestampOne).to.not.equal(timestampTwo);
+      assert.notEqual(timestampOne, timestampTwo);
     } finally {
       server.stop();
     }
@@ -251,8 +252,8 @@ describe('plugin-transform middleware', () => {
       const response = await fetch(`${host}/src/hello-world.txt`);
       const responseText = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(responseText).to.equal('Hello world! injected text');
+      assert.equal(response.status, 200);
+      assert.equal(responseText, 'Hello world! injected text');
     } finally {
       server.stop();
     }
@@ -289,29 +290,27 @@ describe('plugin-transform middleware', () => {
     });
 
     try {
-      // response is transformed based on user agent
       const responseA1 = await fetchText(`${host}/src/hello-world.txt`, {
         headers: { 'user-agent': 'agent-a' },
       });
-      expectIncludes(responseA1, 'Hello world! injected text A 1');
+      assertIncludes(responseA1, 'Hello world! injected text A 1');
 
       const responseB1 = await fetchText(`${host}/src/hello-world.txt`, {
         headers: { 'user-agent': 'agent-b' },
       });
-      expectIncludes(responseB1, 'Hello world! injected text B 1');
+      assertIncludes(responseB1, 'Hello world! injected text B 1');
 
-      // A1 and B1 are now cached separately, we should receive them based on user agent
       const responseA2 = await fetchText(`${host}/src/hello-world.txt`, {
         headers: { 'user-agent': 'agent-a' },
       });
-      expectIncludes(responseA2, 'Hello world! injected text A 1');
-      expect(callCountA).to.equal(1);
+      assertIncludes(responseA2, 'Hello world! injected text A 1');
+      assert.equal(callCountA, 1);
 
       const responseB2 = await fetchText(`${host}/src/hello-world.txt`, {
         headers: { 'user-agent': 'agent-b' },
       });
-      expectIncludes(responseB2, 'Hello world! injected text B 1');
-      expect(callCountB).to.equal(1);
+      assertIncludes(responseB2, 'Hello world! injected text B 1');
+      assert.equal(callCountB, 1);
     } finally {
       server.stop();
     }

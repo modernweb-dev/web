@@ -1,5 +1,35 @@
 # @web/rollup-plugin-import-meta-assets
 
+## 3.0.0
+
+### Major Changes
+
+- 5260164: Drop support for Node.js 18 and 20, which have reached end-of-life. The minimum supported Node.js version is now 22.0.0.
+  The Node code is compiled to ES2024 which is aligned with the Node 22.
+
+### Minor Changes
+
+- 9105501: Add option `preserveDynamicStructure` that emits dynamic assets and rewrites the URL pattern to resolve the original dynamic path relative to the first emitted asset.
+  It requires that the output preserves both filenames (no hashing) and directory structure from the dynamic expression onwards.
+
+## 2.3.3
+
+### Patch Changes
+
+- 89d66fb: fix source map when path has a dynamic var
+
+## 2.3.2
+
+### Patch Changes
+
+- 2c2f92e: sort glob to ensure the order of switch cases and consistent build output for same files
+
+## 2.3.1
+
+### Patch Changes
+
+- ef0641b: add originalFileName to emitFile
+
 ## 2.3.0
 
 ### Minor Changes

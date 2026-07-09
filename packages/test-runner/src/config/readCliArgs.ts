@@ -1,29 +1,28 @@
+import camelCase from 'camelcase';
 import commandLineArgs from 'command-line-args';
 import commandLineUsage, { OptionDefinition } from 'command-line-usage';
-import camelCase from 'camelcase';
 
-import { TestRunnerConfig } from './TestRunnerConfig.js';
+import { type TestRunnerConfig } from './TestRunnerConfig.js';
 
-export interface TestRunnerCliArgs
-  extends Partial<
-    Pick<
-      TestRunnerConfig,
-      | 'files'
-      | 'rootDir'
-      | 'watch'
-      | 'coverage'
-      | 'concurrentBrowsers'
-      | 'concurrency'
-      | 'staticLogging'
-      | 'manual'
-      | 'open'
-      | 'port'
-      | 'preserveSymlinks'
-      | 'nodeResolve'
-      | 'debug'
-      | 'esbuildTarget'
-    >
-  > {
+export interface TestRunnerCliArgs extends Partial<
+  Pick<
+    TestRunnerConfig,
+    | 'files'
+    | 'rootDir'
+    | 'watch'
+    | 'coverage'
+    | 'concurrentBrowsers'
+    | 'concurrency'
+    | 'staticLogging'
+    | 'manual'
+    | 'open'
+    | 'port'
+    | 'preserveSymlinks'
+    | 'nodeResolve'
+    | 'debug'
+    | 'esbuildTarget'
+  >
+> {
   config?: string;
   groups?: string;
   group?: string;
@@ -162,7 +161,6 @@ export function readCliArgs({ argv = process.argv }: ReadCliArgsParams = {}): Te
   const cliArgs = commandLineArgs(options, { argv, partial: true });
 
   if ('help' in cliArgs) {
-    /* eslint-disable-next-line no-console */
     console.log(
       commandLineUsage([
         {

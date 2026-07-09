@@ -1,6 +1,5 @@
 import { TestRunnerStartError } from '../TestRunnerStartError.js';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
 const puppeteerBrowsers = ['chrome', 'firefox'];
 const playwrightBrowsers = ['chromium', 'firefox', 'webkit'];
 

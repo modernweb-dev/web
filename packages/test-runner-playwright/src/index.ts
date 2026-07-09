@@ -1,15 +1,15 @@
-import { LaunchOptions, devices } from 'playwright';
 import * as playwright from 'playwright';
+import { LaunchOptions, devices } from 'playwright';
 import {
-  PlaywrightLauncher,
-  ProductType,
   CreateBrowserContextFn,
   CreatePageFn,
+  PlaywrightLauncher,
+  ProductType,
 } from './PlaywrightLauncher.js';
 
 const validProductTypes: ProductType[] = ['chromium', 'firefox', 'webkit'];
 
-export { ProductType, playwright };
+export { PlaywrightLauncher, ProductType, devices, playwright };
 
 export interface PlaywrightLauncherArgs {
   product?: ProductType;
@@ -19,8 +19,6 @@ export interface PlaywrightLauncherArgs {
   __experimentalWindowFocus__?: boolean;
   concurrency?: number;
 }
-
-export { PlaywrightLauncher, devices };
 
 export function playwrightLauncher(args: PlaywrightLauncherArgs = {}) {
   const {

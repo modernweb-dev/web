@@ -1,4 +1,4 @@
-import { stringifyProcessEnvs as storybookStringifyProcessEnvs } from '@storybook/core-common';
+import { stringifyProcessEnvs as storybookStringifyProcessEnvs } from 'storybook/internal/common';
 
 export function stringifyProcessEnvs(env: Record<string, string>) {
   const result = storybookStringifyProcessEnvs(env);

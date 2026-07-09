@@ -1,8 +1,13 @@
 /// <reference types="../../../types/rollup__plugin-babel" />
 import rollupBabel from '@rollup/plugin-babel';
+import { createRequire } from 'node:module';
+import { describe, it } from 'node:test';
 
-import { createTestServer, fetchText, expectIncludes } from '../test-helpers.js';
-import { fromRollup } from '../../../src/index.js';
+import { assertIncludes, fetchText } from '../../../../../test-helpers/node.js';
+import { fromRollup } from '../../../dist/index.js';
+import { createTestServer } from '../test-helpers.ts';
+
+const require = createRequire(import.meta.url);
 
 const babel = fromRollup(rollupBabel);
 
@@ -27,9 +32,9 @@ describe('@rollup/plugin-alias', () => {
 
     try {
       const text = await fetchText(`${host}/app.js`);
-      expectIncludes(text, 'function _taggedTemplateLiteral(');
-      expectIncludes(text, '_taggedTemplateLiteral(["bar ", " foo"])');
-      expectIncludes(text, 'html(_templateObject');
+      assertIncludes(text, 'function _taggedTemplateLiteral(');
+      assertIncludes(text, '_taggedTemplateLiteral(["bar ", " foo"])');
+      assertIncludes(text, 'html(_templateObject');
     } finally {
       server.stop();
     }

@@ -1,9 +1,11 @@
-import { Plugin as RollupPlugin, AstNode } from 'rollup';
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import path from 'path';
+import type { AstNode, Plugin as RollupPlugin } from 'rollup';
 
-import { createTestServer, fetchText, expectIncludes } from './test-helpers.js';
-import { fromRollup } from '../../src/index.js';
+import { assertIncludes, fetchText } from '../../../../test-helpers/node.js';
+import { fromRollup } from '../../dist/index.js';
+import { createTestServer } from './test-helpers.ts';
 
 describe('@web/dev-server-rollup', () => {
   describe('resolveId', () => {
@@ -20,7 +22,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, "import moduleA from 'RESOLVED_module-a'");
+        assertIncludes(text, "import moduleA from 'RESOLVED_module-a'");
       } finally {
         server.stop();
       }
@@ -39,7 +41,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, "import moduleA from 'RESOLVED_module-a'");
+        assertIncludes(text, "import moduleA from 'RESOLVED_module-a'");
       } finally {
         server.stop();
       }
@@ -58,7 +60,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/index.html`);
-        expectIncludes(text, "import 'RESOLVED_module-a'");
+        assertIncludes(text, "import 'RESOLVED_module-a'");
       } finally {
         server.stop();
       }
@@ -68,7 +70,7 @@ describe('@web/dev-server-rollup', () => {
       const plugin: RollupPlugin = {
         name: 'my-plugin',
         resolveId() {
-          return path.join(__dirname, 'fixtures', 'basic', 'src', 'foo.js');
+          return path.join(import.meta.dirname, 'fixtures', 'basic', 'src', 'foo.js');
         },
       };
       const { server, host } = await createTestServer({
@@ -77,14 +79,14 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, "import moduleA from './src/foo.js'");
+        assertIncludes(text, "import moduleA from './src/foo.js'");
       } finally {
         server.stop();
       }
     });
 
     it('files resolved outside root directory are rewritten', async () => {
-      const resolvedId = path.resolve(__dirname, '..', '..', '..', '..', '..', 'foo.js');
+      const resolvedId = path.resolve(import.meta.dirname, '..', '..', '..', '..', '..', 'foo.js');
       const plugin: RollupPlugin = {
         name: 'my-plugin',
         resolveId() {
@@ -97,7 +99,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const responseText = await fetchText(`${host}/app.js`);
-        expectIncludes(responseText, "import moduleA from '/__wds-outside-root__/7/foo.js'");
+        assertIncludes(responseText, "import moduleA from '/__wds-outside-root__/7/foo.js'");
       } finally {
         server.stop();
       }
@@ -106,7 +108,7 @@ describe('@web/dev-server-rollup', () => {
 
   it('files inside root directory imported by files inside or outside are resolved to be deduped in the browser', async () => {
     const rootDir = path.resolve(
-      __dirname,
+      import.meta.dirname,
       'fixtures',
       'monorepo-import-inside-from-outside',
       'src',
@@ -131,11 +133,11 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       const responseTextInside = await fetchText(`${host}/app.js`);
-      expectIncludes(responseTextInside, "import './node_modules/.prebundled_modules/react.mjs'");
+      assertIncludes(responseTextInside, "import './node_modules/.prebundled_modules/react.mjs'");
       const responseTextOutside = await fetchText(
         `${host}/__wds-outside-root__/3/node_modules/storybook/index.js`,
       );
-      expectIncludes(
+      assertIncludes(
         responseTextOutside,
         "import './../../../../node_modules/.prebundled_modules/react.mjs'",
       );
@@ -149,7 +151,7 @@ describe('@web/dev-server-rollup', () => {
       const plugin: RollupPlugin = {
         name: 'my-plugin',
         load(id) {
-          if (id === path.join(__dirname, 'fixtures', 'basic', 'src', 'foo.js')) {
+          if (id === path.join(import.meta.dirname, 'fixtures', 'basic', 'src', 'foo.js')) {
             return 'console.log("hello world")';
           }
         },
@@ -160,7 +162,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/src/foo.js`);
-        expectIncludes(text, 'console.log("hello world")');
+        assertIncludes(text, 'console.log("hello world")');
       } finally {
         server.stop();
       }
@@ -170,7 +172,7 @@ describe('@web/dev-server-rollup', () => {
       const plugin: RollupPlugin = {
         name: 'my-plugin',
         load(id) {
-          if (id === path.join(__dirname, 'fixtures', 'basic', 'src', 'foo.js')) {
+          if (id === path.join(import.meta.dirname, 'fixtures', 'basic', 'src', 'foo.js')) {
             return { code: 'console.log("hello world")' };
           }
         },
@@ -181,7 +183,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/src/foo.js`);
-        expectIncludes(text, 'console.log("hello world")');
+        assertIncludes(text, 'console.log("hello world")');
       } finally {
         server.stop();
       }
@@ -193,7 +195,7 @@ describe('@web/dev-server-rollup', () => {
       const plugin: RollupPlugin = {
         name: 'my-plugin',
         transform(code, id) {
-          if (id === path.join(__dirname, 'fixtures', 'basic', 'app.js')) {
+          if (id === path.join(import.meta.dirname, 'fixtures', 'basic', 'app.js')) {
             return `${code}\nconsole.log("transformed");`;
           }
         },
@@ -204,7 +206,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, 'console.log("transformed");');
+        assertIncludes(text, 'console.log("transformed");');
       } finally {
         server.stop();
       }
@@ -214,7 +216,7 @@ describe('@web/dev-server-rollup', () => {
       const plugin: RollupPlugin = {
         name: 'my-plugin',
         transform(code, id) {
-          if (id === path.join(__dirname, 'fixtures', 'basic', 'app.js')) {
+          if (id === path.join(import.meta.dirname, 'fixtures', 'basic', 'app.js')) {
             return { code: `${code}\nconsole.log("transformed");` };
           }
         },
@@ -225,7 +227,7 @@ describe('@web/dev-server-rollup', () => {
 
       try {
         const text = await fetchText(`${host}/app.js`);
-        expectIncludes(text, 'console.log("transformed");');
+        assertIncludes(text, 'console.log("transformed");');
       } finally {
         server.stop();
       }
@@ -237,7 +239,7 @@ describe('@web/dev-server-rollup', () => {
     const plugin: RollupPlugin = {
       name: 'my-plugin',
       transform(code, id) {
-        if (id === path.join(__dirname, 'fixtures', 'basic', 'app.js')) {
+        if (id === path.join(import.meta.dirname, 'fixtures', 'basic', 'app.js')) {
           parsed = this.parse(code, {});
           return undefined;
         }
@@ -249,7 +251,7 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       await fetchText(`${host}/app.js`);
-      expect(parsed).to.exist;
+      assert.ok(parsed);
     } finally {
       server.stop();
     }
@@ -259,9 +261,9 @@ describe('@web/dev-server-rollup', () => {
     const plugin: RollupPlugin = {
       name: 'my-plugin',
       transform(code, id) {
-        if (id === path.join(__dirname, 'fixtures', 'basic', 'app.js')) {
+        if (id === path.join(import.meta.dirname, 'fixtures', 'basic', 'app.js')) {
           return `import "${path
-            .join(__dirname, 'fixtures', 'basic', 'foo.js')
+            .join(import.meta.dirname, 'fixtures', 'basic', 'foo.js')
             .split('\\')
             .join('/')}";\n${code}`;
         }
@@ -273,7 +275,7 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       const text = await fetchText(`${host}/app.js`);
-      expectIncludes(text, 'import "./foo.js"');
+      assertIncludes(text, 'import "./foo.js"');
     } finally {
       server.stop();
     }
@@ -283,7 +285,7 @@ describe('@web/dev-server-rollup', () => {
     const plugin: RollupPlugin = {
       name: 'my-plugin',
       load(id) {
-        if (id === path.join(__dirname, 'fixtures', 'basic', 'app.js')) {
+        if (id === path.join(import.meta.dirname, 'fixtures', 'basic', 'app.js')) {
           return 'import "\0foo.js";';
         }
       },
@@ -299,7 +301,7 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       const text = await fetchText(`${host}/app.js`);
-      expectIncludes(
+      assertIncludes(
         text,
         'import "/__web-dev-server__/rollup/foo.js?web-dev-server-rollup-null-byte=%00foo.js"',
       );
@@ -325,7 +327,7 @@ describe('@web/dev-server-rollup', () => {
       const text = await fetchText(
         `${host}/__web-dev-server__/rollup/foo.js?web-dev-server-rollup-null-byte=%00foo.js`,
       );
-      expectIncludes(text, 'console.log("foo");');
+      assertIncludes(text, 'console.log("foo");');
     } finally {
       server.stop();
     }
@@ -335,7 +337,7 @@ describe('@web/dev-server-rollup', () => {
     const plugin: RollupPlugin = {
       name: 'my-plugin',
       transform(code, id) {
-        if (id === path.join(__dirname, 'fixtures', 'basic', 'foo.html')) {
+        if (id === path.join(import.meta.dirname, 'fixtures', 'basic', 'foo.html')) {
           return { code: code.replace('foo', 'transformed') };
         }
       },
@@ -347,8 +349,9 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       const text = await fetchText(`${host}/foo.html`);
-      expect(text).to.equal(
-        `<html><head></head><body>\n    <script type="module">\n      console.log("transformed");\n    </script>\n  \n\n</body></html>`,
+      assert.equal(
+        text,
+        `<html><head></head><body>\n    <script type="module">\n      console.log('transformed');\n    </script>\n  \n\n</body></html>`,
       );
     } finally {
       server.stop();
@@ -359,7 +362,7 @@ describe('@web/dev-server-rollup', () => {
     const plugin: RollupPlugin = {
       name: 'my-plugin',
       transform(code, id) {
-        if (id === path.join(__dirname, 'fixtures', 'basic', 'multiple-inline.html')) {
+        if (id === path.join(import.meta.dirname, 'fixtures', 'basic', 'multiple-inline.html')) {
           return { code: code.replace('bar', 'transformed') };
         }
       },
@@ -371,8 +374,9 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       const text = await fetchText(`${host}/multiple-inline.html`);
-      expect(text).to.equal(
-        `<html><head></head><body>\n    <script type="module">\n      console.log("asd");\n    </script>\n    <script type="module">\n      console.log("transformed");\n    </script>\n  \n\n</body></html>`,
+      assert.equal(
+        text,
+        `<html><head></head><body>\n    <script type="module">\n      console.log('asd');\n    </script>\n    <script type="module">\n      console.log('transformed');\n    </script>\n  \n\n</body></html>`,
       );
     } finally {
       server.stop();
@@ -407,7 +411,7 @@ describe('@web/dev-server-rollup', () => {
 
     try {
       const text = await fetchText(`${host}/index.html`);
-      expectIncludes(
+      assertIncludes(
         text,
         'import "/__web-dev-server__/rollup/foo.js?web-dev-server-rollup-null-byte=%00foo.js"',
       );

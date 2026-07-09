@@ -14,13 +14,13 @@ const {
 } = cjsEntrypoint;
 
 export {
-  setViewportPlugin,
+  a11ySnapshotPlugin,
   emulateMediaPlugin,
+  filePlugin,
   selectOptionPlugin,
-  setUserAgentPlugin,
   sendKeysPlugin,
   sendMousePlugin,
-  a11ySnapshotPlugin,
-  filePlugin,
+  setUserAgentPlugin,
+  setViewportPlugin,
   snapshotPlugin,
 };

@@ -1,10 +1,10 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { afterEach, describe, it } from 'node:test';
 import path from 'path';
+import { cleanApp, createApp, html, js } from '../../../../../test-helpers/node.js';
 
-import { getInputData } from '../../../src/input/getInputData.js';
-import { InputData } from '../../../src/input/InputData.js';
-
-const rootDir = path.join(__dirname, '..', '..', 'fixtures', 'basic');
+import { getInputData } from '../../../dist/input/getInputData.js';
+import type { InputData } from '../../../dist/input/InputData.js';
 
 function cleanupHtml(str: string) {
   return str.replace(/(\r\n|\n|\r| )/gm, '');
@@ -19,9 +19,24 @@ function cleanupResult(result: InputData[]) {
 }
 
 describe('getInputData()', () => {
+  afterEach(() => {
+    cleanApp();
+  });
+
   it('supports setting input as string', () => {
+    const rootDir = createApp({
+      'index.html': html`
+        <html>
+          <body>
+            <p>Hello world</p>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+      'app.js': js` console.log('hello world'); `,
+    });
     const result = getInputData({ input: 'index.html', rootDir });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -34,8 +49,19 @@ describe('getInputData()', () => {
   });
 
   it('supports setting input as object', () => {
+    const rootDir = createApp({
+      'index.html': html`
+        <html>
+          <body>
+            <p>Hello world</p>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+      'app.js': js` console.log('hello world'); `,
+    });
     const result = getInputData({ input: { path: 'index.html' }, rootDir });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -48,8 +74,19 @@ describe('getInputData()', () => {
   });
 
   it('supports changing file name', () => {
+    const rootDir = createApp({
+      'index.html': html`
+        <html>
+          <body>
+            <p>Hello world</p>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+      'app.js': js` console.log('hello world'); `,
+    });
     const result = getInputData({ input: { path: 'index.html', name: 'foo.html' }, rootDir });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -62,11 +99,29 @@ describe('getInputData()', () => {
   });
 
   it('supports setting multiple inputs', () => {
+    const rootDir = createApp({
+      'index.html': html`
+        <html>
+          <body>
+            <p>Hello world</p>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+      'not-index.html': html`
+        <html>
+          <body>
+            <p>not-index.html</p>
+          </body>
+        </html>
+      `,
+      'app.js': js` console.log('hello world'); `,
+    });
     const result = getInputData({
       input: [{ path: 'index.html' }, { path: 'not-index.html' }],
       rootDir,
     });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -87,13 +142,24 @@ describe('getInputData()', () => {
   });
 
   it('resolves modules relative to HTML file', () => {
+    const rootDir = createApp({
+      'src/index.html': html`
+        <html>
+          <body>
+            <p>Hello world</p>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+      'src/app.js': js` console.log('hello world'); `,
+    });
     const result = getInputData({ input: 'src/index.html', rootDir });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'src/index.html'),
-        html: '<html><head></head><body><p>Foo</p></body></html>',
+        html: '<html><head></head><body><p>Helloworld</p></body></html>',
         inlineModules: [],
-        moduleImports: [{ importPath: path.join(rootDir, 'src', 'foo.js'), attributes: [] }],
+        moduleImports: [{ importPath: path.join(rootDir, 'src', 'app.js'), attributes: [] }],
         assets: [],
         name: 'index.html',
       },
@@ -101,8 +167,19 @@ describe('getInputData()', () => {
   });
 
   it('supports setting input as rollup input string', () => {
+    const rootDir = createApp({
+      'index.html': html`
+        <html>
+          <body>
+            <p>Hello world</p>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+      'app.js': js` console.log('hello world'); `,
+    });
     const result = getInputData({ rootDir }, 'index.html');
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -115,8 +192,19 @@ describe('getInputData()', () => {
   });
 
   it('supports setting input as rollup input array', () => {
+    const rootDir = createApp({
+      'index.html': html`
+        <html>
+          <body>
+            <p>Hello world</p>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+      'app.js': js` console.log('hello world'); `,
+    });
     const result = getInputData({ rootDir }, ['index.html']);
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -129,8 +217,26 @@ describe('getInputData()', () => {
   });
 
   it('supports setting input as rollup input array', () => {
+    const rootDir = createApp({
+      'index.html': html`
+        <html>
+          <body>
+            <p>Hello world</p>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+      'not-index.html': html`
+        <html>
+          <body>
+            <p>not-index.html</p>
+          </body>
+        </html>
+      `,
+      'app.js': js` console.log('hello world'); `,
+    });
     const result = getInputData({ rootDir }, ['index.html', 'not-index.html']);
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -151,11 +257,29 @@ describe('getInputData()', () => {
   });
 
   it('supports setting input as rollup input object', () => {
+    const rootDir = createApp({
+      'index.html': html`
+        <html>
+          <body>
+            <p>Hello world</p>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+      'not-index.html': html`
+        <html>
+          <body>
+            <p>not-index.html</p>
+          </body>
+        </html>
+      `,
+      'app.js': js` console.log('hello world'); `,
+    });
     const result = getInputData(
       { rootDir },
       { 'a.html': 'index.html', 'b.html': 'not-index.html' },
     );
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -176,8 +300,26 @@ describe('getInputData()', () => {
   });
 
   it('plugin input takes presedence over rollup input', () => {
+    const rootDir = createApp({
+      'index.html': html`
+        <html>
+          <body>
+            <p>Hello world</p>
+            <script type="module" src="./app.js"></script>
+          </body>
+        </html>
+      `,
+      'not-index.html': html`
+        <html>
+          <body>
+            <p>not-index.html</p>
+          </body>
+        </html>
+      `,
+      'app.js': js` console.log('hello world'); `,
+    });
     const result = getInputData({ input: 'index.html', rootDir }, 'not-index.html');
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'index.html'),
         html: '<html><head></head><body><p>Helloworld</p></body></html>',
@@ -190,16 +332,23 @@ describe('getInputData()', () => {
   });
 
   it('can set html string as input', () => {
-    const html = `
-      <html>
-        <body>
-          <p>HTML as string</p>
-          <script type="module" src="./app.js"></script>
-        </body>
-      </html>
-    `;
-    const result = getInputData({ input: { html }, rootDir });
-    expect(cleanupResult(result)).to.eql([
+    const rootDir = createApp({
+      'app.js': js` console.log('hello world'); `,
+    });
+    const result = getInputData({
+      input: {
+        html: html`
+          <html>
+            <body>
+              <p>HTML as string</p>
+              <script type="module" src="./app.js"></script>
+            </body>
+          </html>
+        `,
+      },
+      rootDir,
+    });
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: undefined,
         html: '<html><head></head><body><p>HTMLasstring</p></body></html>',
@@ -212,29 +361,36 @@ describe('getInputData()', () => {
   });
 
   it('can set multiple html strings as input', () => {
-    const html1 = `
-      <html>
-        <body>
-          <p>HTML1</p>
-          <script type="module" src="./app.js"></script>
-        </body>
-      </html>
-    `;
-    const html2 = `
-    <html>
-      <body>
-        <p>HTML2</p>
-      </body>
-    </html>
-  `;
-    const result = getInputData({
-      input: [
-        { html: html1, name: '1.html' },
-        { html: html2, name: '2.html' },
-      ],
-      rootDir,
+    const rootDir = createApp({
+      'app.js': js` console.log('hello world'); `,
     });
-    expect(cleanupResult(result)).to.eql([
+    const result = getInputData({
+      rootDir,
+      input: [
+        {
+          name: '1.html',
+          html: html`
+            <html>
+              <body>
+                <p>HTML1</p>
+                <script type="module" src="./app.js"></script>
+              </body>
+            </html>
+          `,
+        },
+        {
+          name: '2.html',
+          html: html`
+            <html>
+              <body>
+                <p>HTML2</p>
+              </body>
+            </html>
+          `,
+        },
+      ],
+    });
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: undefined,
         html: '<html><head></head><body><p>HTML1</p></body></html>',
@@ -255,8 +411,41 @@ describe('getInputData()', () => {
   });
 
   it('supports setting input to a glob', () => {
+    const rootDir = createApp({
+      'pages/page-a.html': html`
+        <html>
+          <body>
+            <p>page-a.html</p>
+            <script type="module" src="./page-a.js"></script>
+            <script type="module" src="./shared.js"></script>
+          </body>
+        </html>
+      `,
+      'pages/page-b.html': html`
+        <html>
+          <body>
+            <p>page-b.html</p>
+            <script type="module" src="./page-b.js"></script>
+            <script type="module" src="./shared.js"></script>
+          </body>
+        </html>
+      `,
+      'pages/page-c.html': html`
+        <html>
+          <body>
+            <p>page-c.html</p>
+            <script type="module" src="./page-c.js"></script>
+            <script type="module" src="./shared.js"></script>
+          </body>
+        </html>
+      `,
+      'pages/page-a.js': js` export default 'page a'; `,
+      'pages/page-b.js': js` export default 'page b'; `,
+      'pages/page-c.js': js` export default 'page c'; `,
+      'pages/shared.js': js` export default 'shared'; `,
+    });
     const result = getInputData({ input: 'pages/**/*.html', rootDir });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'pages', 'page-c.html'),
         html: '<html><head></head><body><p>page-c.html</p></body></html>',
@@ -294,8 +483,41 @@ describe('getInputData()', () => {
   });
 
   it('supports not flattening output directories', () => {
+    const rootDir = createApp({
+      'pages/page-a.html': html`
+        <html>
+          <body>
+            <p>page-a.html</p>
+            <script type="module" src="./page-a.js"></script>
+            <script type="module" src="./shared.js"></script>
+          </body>
+        </html>
+      `,
+      'pages/page-b.html': html`
+        <html>
+          <body>
+            <p>page-b.html</p>
+            <script type="module" src="./page-b.js"></script>
+            <script type="module" src="./shared.js"></script>
+          </body>
+        </html>
+      `,
+      'pages/page-c.html': html`
+        <html>
+          <body>
+            <p>page-c.html</p>
+            <script type="module" src="./page-c.js"></script>
+            <script type="module" src="./shared.js"></script>
+          </body>
+        </html>
+      `,
+      'pages/page-a.js': js` export default 'page a'; `,
+      'pages/page-b.js': js` export default 'page b'; `,
+      'pages/page-c.js': js` export default 'page c'; `,
+      'pages/shared.js': js` export default 'shared'; `,
+    });
     const result = getInputData({ input: 'pages/**/*.html', flattenOutput: false, rootDir });
-    expect(cleanupResult(result)).to.eql([
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: path.join(rootDir, 'pages', 'page-c.html'),
         html: '<html><head></head><body><p>page-c.html</p></body></html>',
@@ -333,15 +555,20 @@ describe('getInputData()', () => {
   });
 
   it('supports pure HTML files', () => {
-    const html = `
-      <html>
-        <body>
-          <p>pure HTML</p>
-        </body>
-      </html>
-    `;
-    const result = getInputData({ input: { html }, rootDir });
-    expect(cleanupResult(result)).to.eql([
+    const rootDir = createApp({});
+    const result = getInputData({
+      rootDir,
+      input: {
+        html: html`
+          <html>
+            <body>
+              <p>pure HTML</p>
+            </body>
+          </html>
+        `,
+      },
+    });
+    assert.deepEqual(cleanupResult(result), [
       {
         filePath: undefined,
         html: '<html><head></head><body><p>pureHTML</p></body></html>',
@@ -354,6 +581,7 @@ describe('getInputData()', () => {
   });
 
   it('throws when no files or html is given', () => {
-    expect(() => getInputData({ rootDir })).to.throw();
+    const rootDir = createApp({});
+    assert.throws(() => getInputData({ rootDir }));
   });
 });

@@ -18,17 +18,17 @@ const {
 } = cjsEntrypoint;
 
 export {
+  DevServer,
   FSWatcher,
   Koa,
+  PluginError,
+  PluginSyntaxError,
   Server,
   WebSocket,
-  DevServer,
   WebSocketsManager,
+  getHtmlPath,
   getRequestBrowserPath,
   getRequestFilePath,
   getResponseBody,
-  getHtmlPath,
   isInlineScriptRequest,
-  PluginSyntaxError,
-  PluginError,
 };

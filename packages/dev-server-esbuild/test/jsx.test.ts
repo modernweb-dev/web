@@ -1,12 +1,14 @@
-import { expect } from 'chai';
-import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { esbuildPlugin } from '../src/index.js';
+import { assertIncludes } from '../../../test-helpers/node.js';
+import { esbuildPlugin } from '../dist/index.js';
 
-describe('esbuildPlugin JSX', function () {
+describe('esbuildPlugin JSX', () => {
   it('transforms .jsx files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -28,14 +30,15 @@ export function foo(bar) {
       const response = await fetch(`${host}/foo.jsx`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
-      expectIncludes(text, 'React.createElement("div", {');
-      expectIncludes(text, 'id: "myDiv"');
-      expectIncludes(text, 'React.createElement(MyElement, {');
-      expectIncludes(text, 'foo: bar');
+      assertIncludes(text, 'React.createElement("div", {');
+      assertIncludes(text, 'id: "myDiv"');
+      assertIncludes(text, 'React.createElement(MyElement, {');
+      assertIncludes(text, 'foo: bar');
     } finally {
       server.stop();
     }
@@ -43,7 +46,7 @@ export function foo(bar) {
 
   it('can set the JSX factory', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -65,14 +68,15 @@ export function foo(bar) {
       const response = await fetch(`${host}/foo.jsx`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
-      expectIncludes(text, 'h("div", {');
-      expectIncludes(text, 'id: "myDiv"');
-      expectIncludes(text, 'h(MyElement, {');
-      expectIncludes(text, 'foo: bar');
+      assertIncludes(text, 'h("div", {');
+      assertIncludes(text, 'id: "myDiv"');
+      assertIncludes(text, 'h(MyElement, {');
+      assertIncludes(text, 'foo: bar');
     } finally {
       server.stop();
     }

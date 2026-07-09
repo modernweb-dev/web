@@ -1,15 +1,14 @@
-import { expect } from 'chai';
 import { createTestServer } from '@web/dev-server-core/test-helpers';
-import { expectIncludes, expectNotIncludes } from '@web/dev-server-core/test-helpers';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { esbuildPlugin } from '../src/index.js';
+import { assertIncludes, assertNotIncludes } from '../../../test-helpers/node.js';
+import { esbuildPlugin } from '../dist/index.js';
 
-describe('esbuildPlugin TSX', function () {
-  this.timeout(5000);
-
+describe('esbuildPlugin TSX', { timeout: 5000 }, () => {
   it('transforms .tsx files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -37,17 +36,18 @@ export function foo (a: number, b: number): Foo {
       const response = await fetch(`${host}/foo.tsx`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
-      expectIncludes(text, 'React.createElement("div", {');
-      expectIncludes(text, 'id: "myDiv"');
-      expectIncludes(text, 'React.createElement(MyElement, {');
-      expectIncludes(text, 'foo: bar');
-      expectIncludes(text, 'export function foo(a, b) {');
-      expectNotIncludes(text, 'type Foo');
-      expectNotIncludes(text, 'interface MyInterface');
+      assertIncludes(text, 'React.createElement("div", {');
+      assertIncludes(text, 'id: "myDiv"');
+      assertIncludes(text, 'React.createElement(MyElement, {');
+      assertIncludes(text, 'foo: bar');
+      assertIncludes(text, 'export function foo(a, b) {');
+      assertNotIncludes(text, 'type Foo');
+      assertNotIncludes(text, 'interface MyInterface');
     } finally {
       server.stop();
     }
@@ -55,7 +55,7 @@ export function foo (a: number, b: number): Foo {
 
   it('can set the JSX factory', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -83,17 +83,18 @@ export function foo (a: number, b: number): Foo {
       const response = await fetch(`${host}/foo.tsx`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
-      expectIncludes(text, 'h("div", {');
-      expectIncludes(text, 'id: "myDiv"');
-      expectIncludes(text, 'h(MyElement, {');
-      expectIncludes(text, 'foo: bar');
-      expectIncludes(text, 'export function foo(a, b) {');
-      expectNotIncludes(text, 'type Foo');
-      expectNotIncludes(text, 'interface MyInterface');
+      assertIncludes(text, 'h("div", {');
+      assertIncludes(text, 'id: "myDiv"');
+      assertIncludes(text, 'h(MyElement, {');
+      assertIncludes(text, 'foo: bar');
+      assertIncludes(text, 'export function foo(a, b) {');
+      assertNotIncludes(text, 'type Foo');
+      assertNotIncludes(text, 'interface MyInterface');
     } finally {
       server.stop();
     }

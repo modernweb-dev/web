@@ -1,4 +1,5 @@
 import './polyfills.js';
+
 import { swPath } from '#sw-path';
 import { setupWorker } from 'msw/browser';
 import { _registerMockRoutes } from './registerMockRoutes.js';
@@ -44,4 +45,4 @@ function registerMockRoutes(...mocks) {
   _registerMockRoutes(worker, bypassServiceWorker, ...mocks);
 }
 
-export { worker, registerMockRoutes };
+export { registerMockRoutes, worker };

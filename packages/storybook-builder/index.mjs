@@ -3,4 +3,4 @@ import cjsEntrypoint from './dist/index.js';
 
 const { bail, start, build } = cjsEntrypoint;
 
-export { bail, start, build };
+export { bail, build, start };

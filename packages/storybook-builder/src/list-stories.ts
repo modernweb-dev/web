@@ -1,9 +1,9 @@
-// based on https://github.com/storybookjs/storybook/blob/v8.5.0/code/builders/builder-vite/src/list-stories.ts
+// based on https://github.com/storybookjs/storybook/blob/v9.1.20/code/builders/builder-vite/src/list-stories.ts
 
-import { normalizeStories } from '@storybook/core-common';
-import type { Options } from '@storybook/types';
-import { promise as glob } from 'glob-promise';
+import { glob } from 'glob';
 import { isAbsolute, join } from 'node:path';
+import { commonGlobOptions, normalizeStories } from 'storybook/internal/common';
+import type { Options } from 'storybook/internal/types';
 
 export async function listStories(options: Options) {
   const slash = (await import('slash')).default; // for CJS compatibility
@@ -17,8 +17,13 @@ export async function listStories(options: Options) {
         const pattern = join(directory, files);
         const absolutePattern = isAbsolute(pattern) ? pattern : join(options.configDir, pattern);
 
-        return glob(slash(absolutePattern), { follow: true });
+        return glob(slash(absolutePattern), {
+          ...commonGlobOptions(absolutePattern),
+          follow: true,
+        });
       }),
     )
-  ).reduce((carry, stories) => carry.concat(stories), []);
+  )
+    .reduce((carry, stories) => carry.concat(stories.map(slash)), [])
+    .sort();
 }

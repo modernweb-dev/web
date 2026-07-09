@@ -1,6 +1,6 @@
 {
   "name": "@web/browser-logs",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -22,12 +22,12 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.{ts,js,mjs,cjs}\" --require ts-node/register --watch --watch-files src,test"
+    "test:node": "node --experimental-strip-types --test --test-force-exit \"test/**/*.test.ts\"",
+    "test:watch": "node --experimental-strip-types --test --test-force-exit --watch \"test/**/*.test.ts\""
   },
   "files": [
     "*.d.ts",
@@ -50,7 +50,6 @@
     "errorstacks": "^2.4.1"
   },
   "devDependencies": {
-    "@esm-bundle/chai": "^4.1.5",
     "puppeteer": "^24.0.0"
   }
 }

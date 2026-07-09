@@ -1,7 +1,7 @@
-import { DevServerConfig } from '../config/DevServerConfig';
-import { Logger } from '@web/dev-server-core';
+import { type Logger } from '@web/dev-server-core';
 import internalIp from 'internal-ip';
 import { bold, cyan, white } from 'nanocolors';
+import { type DevServerConfig } from '../config/DevServerConfig';
 
 const createAddress = (config: DevServerConfig, host: string, path: string) =>
   `http${config.http2 ? 's' : ''}://${host}:${config.port}${path}`;

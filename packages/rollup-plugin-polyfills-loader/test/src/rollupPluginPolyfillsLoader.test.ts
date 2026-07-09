@@ -1,14 +1,15 @@
-/* eslint-disable no-await-in-loop */
-import { OutputChunk, rollup, OutputAsset, RollupOptions, OutputOptions } from 'rollup';
-import { expect } from 'chai';
-import fs from 'fs';
-import path from 'path';
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
-import polyfillsLoader from '../../src/index.js';
+import fs from 'fs';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
+import path from 'path';
+import type { OutputAsset, OutputChunk, OutputOptions, RollupOptions } from 'rollup';
+import { rollup } from 'rollup';
+import { polyfillsLoader } from '../../dist/index.js';
 
 type Output = (OutputChunk | OutputAsset)[];
 
-const relativeUrl = `./${path.relative(process.cwd(), path.join(__dirname, '..'))}`;
+const relativeUrl = `./${path.relative(process.cwd(), path.join(import.meta.dirname, '..'))}`;
 
 const updateSnapshots = process.argv.includes('--update-snapshots');
 
@@ -26,7 +27,7 @@ interface SnapshotArgs {
 }
 
 async function testSnapshot({ name, fileName, inputOptions, outputOptions }: SnapshotArgs) {
-  const snapshotPath = path.join(__dirname, '..', 'snapshots', `${name}.html`);
+  const snapshotPath = path.join(import.meta.dirname, '..', '__snapshots__', `${name}.html`);
   const bundle = await rollup(inputOptions);
   let output;
   for (const outputConfig of outputOptions) {
@@ -42,8 +43,7 @@ async function testSnapshot({ name, fileName, inputOptions, outputOptions }: Sna
     fs.writeFileSync(snapshotPath, file.source, 'utf-8');
   } else {
     const snapshot = fs.readFileSync(snapshotPath, 'utf-8');
-    expect(file.source.trim()).to.equal(snapshot.trim());
-    // expect(file.source.replace(/\s/g, '')).to.equal(snapshot.replace(/\s/g, ''));
+    assert.equal(file.source.trim(), snapshot.trim());
   }
   return output;
 }
@@ -55,10 +55,7 @@ const defaultOutputOptions: OutputOptions[] = [
   },
 ];
 
-describe('rollup-plugin-polyfills-loader', function describe() {
-  // bootup of the first test can take a long time in CI to load all the polyfills
-  this.timeout(5000);
-
+describe('rollup-plugin-polyfills-loader', { timeout: 5000 }, () => {
   it('can inject a polyfills loader with a single output', async () => {
     const inputOptions: RollupOptions = {
       plugins: [
@@ -167,7 +164,7 @@ describe('rollup-plugin-polyfills-loader', function describe() {
 
     await testSnapshot({
       name: 'non-flattened',
-      fileName: path.normalize(`non-flat/index.html`),
+      fileName: 'non-flat/index.html',
       inputOptions,
       outputOptions: defaultOutputOptions,
     });
@@ -225,8 +222,8 @@ describe('rollup-plugin-polyfills-loader', function describe() {
       outputOptions: defaultOutputOptions,
     });
 
-    expect(output.find(o => o.fileName.startsWith('polyfills/webcomponents'))).to.exist;
-    expect(output.find(o => o.fileName.startsWith('polyfills/fetch'))).to.exist;
+    assert.ok(output.find(o => o.fileName.startsWith('polyfills/webcomponents')));
+    assert.ok(output.find(o => o.fileName.startsWith('polyfills/fetch')));
   });
 
   it('can inject with multiple build outputs', async () => {

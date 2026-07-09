@@ -1,5 +1,20 @@
 # @web/mocks
 
+## 3.0.0
+
+### Major Changes
+
+- 5260164: Drop support for Node.js 18 and 20, which have reached end-of-life. The minimum supported Node.js version is now 22.0.0.
+  The Node code is compiled to ES2024 which is aligned with the Node 22.
+
+## 2.0.0
+
+### Major Changes
+
+- 2bc4206: Decouple `@web/mocks` from Storybook.
+  Extract Storybook addon to the package `@web/storybook-addon-mocks`.
+  See MIGRATION.md for more info.
+
 ## 1.3.2
 
 ### Patch Changes

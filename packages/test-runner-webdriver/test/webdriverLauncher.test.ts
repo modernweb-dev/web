@@ -1,6 +1,7 @@
+import { after, before, describe } from 'node:test';
 import selenium from 'selenium-standalone';
-import { runIntegrationTests } from '../../../integration/test-runner';
-import { webdriverLauncher } from '../src/webdriverLauncher';
+import { runIntegrationTests } from '../../../integration/test-runner/index.ts';
+import { webdriverLauncher } from '../dist/index.js';
 
 async function startSeleniumServer() {
   let server;
@@ -34,9 +35,7 @@ async function startSeleniumServer() {
 
 let seleniumServer: selenium.ChildProcess;
 
-describe('test-runner-webdriver', function testRunnerWebdriver() {
-  this.timeout(50000);
-
+describe('test-runner-webdriver', { timeout: 50000 }, () => {
   before(async function () {
     seleniumServer = await startSeleniumServer();
   });

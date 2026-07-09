@@ -1,6 +1,6 @@
 {
   "name": "@web/test-runner-core",
-  "version": "0.13.4",
+  "version": "1.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -29,12 +29,12 @@
     "./browser/session.js": "./browser/session.js"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "build": "tsc",
-    "test:node": "mocha test/**/*.test.ts --require ts-node/register --reporter dot",
-    "test:watch": "mocha test/**/*.test.ts --require ts-node/register --watch --watch-files src,test"
+    "test:node": "node --experimental-strip-types --test --test-force-exit \"test/**/*.test.ts\"",
+    "test:watch": "node --experimental-strip-types --test --test-force-exit --watch \"test/**/*.test.ts\""
   },
   "files": [
     "*.d.ts",
@@ -59,8 +59,8 @@
     "@types/debounce": "^1.2.0",
     "@types/istanbul-lib-coverage": "^2.0.3",
     "@types/istanbul-reports": "^3.0.0",
-    "@web/browser-logs": "^0.4.0",
-    "@web/dev-server-core": "^0.7.3",
+    "@web/browser-logs": "^1.0.0",
+    "@web/dev-server-core": "^1.0.0",
     "chokidar": "^4.0.1",
     "cli-cursor": "^3.1.0",
     "co-body": "^6.1.0",
@@ -76,7 +76,7 @@
     "nanocolors": "^0.2.1",
     "nanoid": "^3.1.25",
     "open": "^8.0.2",
-    "picomatch": "^2.2.2",
+    "picomatch": "^2.3.2",
     "source-map": "^0.7.3"
   },
   "devDependencies": {

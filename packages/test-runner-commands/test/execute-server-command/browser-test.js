@@ -12,15 +12,15 @@ it('a command can return an object', async () => {
 
 it('a command can pass along parameters', async () => {
   const resultA = await executeServerCommand('command-b', { message: 'hello world' });
-  expect(resultA).to.be.true;
+  expect(resultA).to.equal(true);
 
   const resultB = await executeServerCommand('command-b', { message: 'not hello world' });
-  expect(resultB).to.be.false;
+  expect(resultB).to.equal(false);
 });
 
 it('an unmatched command falls through to the next plugin', async () => {
   const result = await executeServerCommand('command-c');
-  expect(result).to.be.true;
+  expect(result).to.equal(true);
 });
 
 it('a server error causes the command to fail', async () => {
@@ -33,7 +33,7 @@ it('a server error causes the command to fail', async () => {
     );
     thrown = true;
   }
-  expect(thrown).to.be.true;
+  expect(thrown).to.equal(true);
 });
 
 it('an unknown command causes the command to fail', async () => {
@@ -46,5 +46,5 @@ it('an unknown command causes the command to fail', async () => {
     );
     thrown = true;
   }
-  expect(thrown).to.be.true;
+  expect(thrown).to.equal(true);
 });

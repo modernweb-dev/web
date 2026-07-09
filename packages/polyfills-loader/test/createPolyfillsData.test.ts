@@ -1,9 +1,10 @@
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import path from 'path';
-import { expect } from 'chai';
 
-import { PolyfillsLoaderConfig, PolyfillFile } from '../src/types.js';
-import { createPolyfillsData } from '../src/createPolyfillsData.js';
-import { noModuleSupportTest, fileTypes } from '../src/utils.js';
+import { createPolyfillsData } from '../dist/createPolyfillsData.js';
+import type { PolyfillFile, PolyfillsLoaderConfig } from '../dist/types.js';
+import { fileTypes, noModuleSupportTest } from '../dist/utils.js';
 
 function cleanupPolyfill(polyfill: PolyfillFile) {
   if (!polyfill) {
@@ -40,11 +41,11 @@ describe('polyfills', () => {
 
     const polyfillFiles = await createPolyfillsData(config);
     for (const p of polyfillFiles) {
-      expect(p.content).to.be.a('string', `Polyfill ${p.name} has no content`);
+      assert.equal(typeof p.content, 'string', `Polyfill ${p.name} has no content`);
       cleanupPolyfill(p);
     }
 
-    expect(polyfillFiles).to.eql([
+    assert.deepEqual(polyfillFiles, [
       {
         name: 'core-js',
         type: fileTypes.SCRIPT,
@@ -138,11 +139,11 @@ describe('polyfills', () => {
     };
     const polyfillFiles = await createPolyfillsData(config);
     for (const p of polyfillFiles) {
-      expect(p.content).to.be.a('string', `Polyfill ${p.name} has no content`);
+      assert.equal(typeof p.content, 'string', `Polyfill ${p.name} has no content`);
       cleanupPolyfill(p);
     }
 
-    expect(polyfillFiles).to.eql([
+    assert.deepEqual(polyfillFiles, [
       {
         name: 'fetch',
         path: 'polyfills/fetch.js',
@@ -165,11 +166,11 @@ describe('polyfills', () => {
 
     const polyfillFiles = await createPolyfillsData(config);
     for (const p of polyfillFiles) {
-      expect(p.content).to.be.a('string', `Polyfill ${p.name} has no content`);
+      assert.equal(typeof p.content, 'string', `Polyfill ${p.name} has no content`);
       cleanupPolyfill(p);
     }
 
-    expect(polyfillFiles).to.eql([
+    assert.deepEqual(polyfillFiles, [
       {
         name: 'webcomponents-shady-css-custom-style',
         type: fileTypes.SCRIPT,
@@ -197,11 +198,11 @@ describe('polyfills', () => {
 
     const polyfillFiles = await createPolyfillsData(config);
     for (const p of polyfillFiles) {
-      expect(p.content).to.be.a('string', `Polyfill ${p.name} has no content`);
+      assert.equal(typeof p.content, 'string', `Polyfill ${p.name} has no content`);
       cleanupPolyfill(p);
     }
 
-    expect(polyfillFiles).to.eql([
+    assert.deepEqual(polyfillFiles, [
       {
         name: 'systemjs',
         type: fileTypes.SCRIPT,
@@ -232,11 +233,11 @@ describe('polyfills', () => {
 
     const polyfillFiles = await createPolyfillsData(config);
     for (const p of polyfillFiles) {
-      expect(p.content).to.be.a('string', `Polyfill ${p.name} has no content`);
+      assert.equal(typeof p.content, 'string', `Polyfill ${p.name} has no content`);
       cleanupPolyfill(p);
     }
 
-    expect(polyfillFiles).to.eql([
+    assert.deepEqual(polyfillFiles, [
       {
         name: 'systemjs',
         type: fileTypes.SCRIPT,
@@ -257,11 +258,11 @@ describe('polyfills', () => {
 
     const polyfillFiles = await createPolyfillsData(config);
     for (const p of polyfillFiles) {
-      expect(p.content).to.be.a('string', `Polyfill ${p.name} has no content`);
+      assert.equal(typeof p.content, 'string', `Polyfill ${p.name} has no content`);
       cleanupPolyfill(p);
     }
 
-    expect(polyfillFiles).to.eql([
+    assert.deepEqual(polyfillFiles, [
       {
         name: 'systemjs',
         type: fileTypes.SCRIPT,
@@ -277,12 +278,12 @@ describe('polyfills', () => {
         name: 'polyfill-a',
         test: "'foo' in window",
         content: '',
-        path: path.resolve(__dirname, 'custom-polyfills/polyfill-a.js'),
+        path: path.resolve(import.meta.dirname, 'custom-polyfills/polyfill-a.js'),
       },
       {
         name: 'polyfill-b',
         content: '',
-        path: path.resolve(__dirname, 'custom-polyfills/polyfill-b.js'),
+        path: path.resolve(import.meta.dirname, 'custom-polyfills/polyfill-b.js'),
       },
     ];
 
@@ -300,11 +301,11 @@ describe('polyfills', () => {
 
     const polyfillFiles = await createPolyfillsData(config);
     for (const p of polyfillFiles) {
-      expect(p.content).to.be.a('string', `Polyfill ${p.name} has no content`);
+      assert.equal(typeof p.content, 'string', `Polyfill ${p.name} has no content`);
       cleanupPolyfill(p);
     }
 
-    expect(polyfillFiles).to.eql([
+    assert.deepEqual(polyfillFiles, [
       {
         name: 'core-js',
         type: fileTypes.SCRIPT,
@@ -338,11 +339,11 @@ describe('polyfills', () => {
 
     const polyfillFiles = await createPolyfillsData(config);
     for (const p of polyfillFiles) {
-      expect(p.content).to.be.a('string', `Polyfill ${p.name} has no content`);
+      assert.equal(typeof p.content, 'string', `Polyfill ${p.name} has no content`);
       cleanupPolyfill(p);
     }
 
-    expect(polyfillFiles).to.eql([
+    assert.deepEqual(polyfillFiles, [
       {
         name: 'systemjs',
         type: fileTypes.SCRIPT,

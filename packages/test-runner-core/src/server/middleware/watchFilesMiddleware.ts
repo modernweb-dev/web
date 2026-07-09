@@ -1,15 +1,14 @@
-import { Middleware, Context } from '@web/dev-server-core';
-import { DepGraph } from 'dependency-graph';
-import debounce from 'debounce';
-import path from 'path';
+import { type Context, type Middleware } from '@web/dev-server-core';
 import { FSWatcher } from 'chokidar';
+import debounce from 'debounce';
+import { DepGraph } from 'dependency-graph';
+import path from 'path';
 
-import { TestSessionManager } from '../../test-session/TestSessionManager.js';
-import { constants } from '../../index.js';
-import { TestSession } from '../../test-session/TestSession.js';
+import { type TestSession } from '../../test-session/TestSession.js';
+import { type TestSessionManager } from '../../test-session/TestSessionManager.js';
+import { PARAM_SESSION_ID } from '../../utils/constants.js';
 
 const IGNORED_404s = ['favicon.ico'];
-const { PARAM_SESSION_ID } = constants;
 
 export type RunSessions = (sessions: Iterable<TestSession>) => void;
 

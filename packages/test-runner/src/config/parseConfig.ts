@@ -1,28 +1,32 @@
-import { CoverageConfig, TestRunnerCoreConfig, TestRunnerGroupConfig } from '@web/test-runner-core';
 import { chromeLauncher } from '@web/test-runner-chrome';
 import {
   emulateMediaPlugin,
+  filePlugin,
   selectOptionPlugin,
+  sendKeysPlugin,
+  sendMousePlugin,
   setUserAgentPlugin,
   setViewportPlugin,
-  sendKeysPlugin,
-  filePlugin,
   snapshotPlugin,
-  sendMousePlugin,
 } from '@web/test-runner-commands/plugins';
-import { getPortPromise } from 'portfinder';
-import path from 'path';
+import {
+  type CoverageConfig,
+  type TestRunnerCoreConfig,
+  type TestRunnerGroupConfig,
+} from '@web/test-runner-core';
 import { cpus } from 'os';
+import path from 'path';
+import { getPortPromise } from 'portfinder';
 
-import { TestRunnerCliArgs } from './readCliArgs.js';
-import { mergeConfigs } from './mergeConfigs.js';
-import { TestRunnerConfig } from './TestRunnerConfig.js';
 import { esbuildPlugin, nodeResolvePlugin } from '@web/dev-server';
 import { TestRunnerStartError } from '../TestRunnerStartError.js';
+import { TestRunnerLogger } from '../logger/TestRunnerLogger.js';
+import { defaultReporter } from '../reporter/defaultReporter.js';
+import { type TestRunnerConfig } from './TestRunnerConfig.js';
 import { collectGroupConfigs } from './collectGroupConfigs.js';
 import { playwrightLauncher, puppeteerLauncher } from './loadLauncher.js';
-import { defaultReporter } from '../reporter/defaultReporter.js';
-import { TestRunnerLogger } from '../logger/TestRunnerLogger.js';
+import { mergeConfigs } from './mergeConfigs.js';
+import { type TestRunnerCliArgs } from './readCliArgs.js';
 
 const secondMs = 1000;
 const minuteMs = secondMs * 60;

@@ -18,7 +18,7 @@ it('returns an accessibility tree with appropriately labelled element in it', as
     snapshot,
     node => node.name === fullText && node.role === 'button',
   );
-  expect(foundNode, 'A node with the supplied name has been found').to.not.be.null;
+  expect(foundNode, 'A node with the supplied name has been found').to.not.equal(null);
   label.remove();
   button.remove();
 });

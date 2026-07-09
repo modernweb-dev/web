@@ -138,7 +138,6 @@ Official dev server plugins:
 - [@web/dev-server-import-maps](https://modern-web.dev/docs/dev-server/plugins/import-maps/) for injecting or polyfilling import maps
 - [@web/dev-server-legacy](https://modern-web.dev/docs/dev-server/plugins/legacy/) for usage on legacy browsers
 - [@web/dev-server-hmr](https://modern-web.dev/docs/dev-server/plugins/hmr/) for hot module replacement with es modules
-- [@web/dev-server-storybook](https://modern-web.dev/docs/dev-server/plugins/storybook/) for using storybook with Web Dev Server
 
 Useful rollup plugins:
 

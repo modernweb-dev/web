@@ -3,4 +3,4 @@ import cjsEntrypoint from './dist/index.js';
 
 const { deserialize, browserScript, parseStackTrace } = cjsEntrypoint;
 
-export { deserialize, browserScript, parseStackTrace };
+export { browserScript, deserialize, parseStackTrace };

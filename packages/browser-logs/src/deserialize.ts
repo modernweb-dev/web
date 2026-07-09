@@ -7,6 +7,21 @@ const ASYNC_DESERIALIZE_WRAPPER = Symbol('ASYNC_DESERIALIZE_WRAPPER');
 
 const BOUND_NAME_FUNCTION_REGEX = /^bound\s+/;
 
+/**
+ * Validates that a string is a safe JavaScript identifier before it is
+ * interpolated into a new Function(...) call. Accepts only strings composed
+ * of ASCII letters, digits, $ and _, with a non-digit first character.
+ *
+ * This prevents browser-controlled constructor/function names from breaking
+ * out of the generated function declaration and executing arbitrary code in
+ * the Node.js host process.
+ */
+const SAFE_IDENTIFIER_RE = /^[$A-Za-z_][$\w]*$/;
+
+function isValidIdentifier(name: string): boolean {
+  return SAFE_IDENTIFIER_RE.test(name);
+}
+
 function createReviver(promises: Promise<unknown>[], options?: DeserializeOptions) {
   const undefinedPropsPerObject = new Map();
 
@@ -41,20 +56,16 @@ function createReviver(promises: Promise<unknown>[], options?: DeserializeOption
             keys.push(key);
           }
           return;
-        case 'Function':
-          if (value.name.includes('-')) {
-            const { name } = value;
-            // eslint-disable-next-line
-            const placeholder = { [name]: () => {} };
-            return placeholder[name];
-          }
+        case 'Function': {
+          const rawName = value.name.replace(BOUND_NAME_FUNCTION_REGEX, '');
+          // Only allow names that are valid JS identifiers. Any payload that
+          // tries to inject syntax (parentheses, spaces, commas, etc.) will
+          // fail the check and be replaced with a safe literal fallback.
+          const safeName = isValidIdentifier(rawName) ? rawName : 'anonymous';
+
           // Create a fake function with the same name. We don't log the function implementation.
-          return new Function(
-            `return function ${value.name.replace(
-              BOUND_NAME_FUNCTION_REGEX,
-              '',
-            )}() { /* implementation hidden */ }`,
-          )();
+          return new Function(`return function ${safeName}() { /* implementation hidden */ }`)();
+        }
         case 'RegExp':
           // Create a new RegExp using the same parameters
           return new RegExp(value.source, value.flags);
@@ -95,12 +106,14 @@ function createReviver(promises: Promise<unknown>[], options?: DeserializeOption
 
     /**
      * Objects in the browser are serialized to a simple object. We preserve the
-     * constructor name and assign a fake prototpe to it here so that the name
+     * constructor name and assign a fake prototype to it here so that the name
      * appears in the logs.
      */
     if (hasOwnProperty.call(value, KEY_CONSTRUCTOR_NAME)) {
-      const constructorName = value[KEY_CONSTRUCTOR_NAME];
-      const ConstructorFunction = new Function(`return function ${constructorName}(){}`)();
+      const rawName = value[KEY_CONSTRUCTOR_NAME];
+      const safeName = isValidIdentifier(rawName) ? rawName : '__unknown__';
+
+      const ConstructorFunction = new Function(`return function ${safeName}(){}`)();
       Object.setPrototypeOf(value, new ConstructorFunction());
       delete value[KEY_CONSTRUCTOR_NAME];
       return value;
@@ -112,7 +125,7 @@ function createReviver(promises: Promise<unknown>[], options?: DeserializeOption
 
 const { hasOwnProperty } = Object.prototype;
 
-interface DeserializeOptions extends ParseStackTraceOptions {}
+type DeserializeOptions = ParseStackTraceOptions;
 
 export async function deserialize(value: string, options?: DeserializeOptions) {
   try {

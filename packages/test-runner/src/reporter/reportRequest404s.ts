@@ -1,4 +1,4 @@
-import { TestSession, Logger } from '@web/test-runner-core';
+import { type Logger, type TestSession } from '@web/test-runner-core';
 import { bold, gray } from 'nanocolors';
 
 export function reportRequest404s(logger: Logger, sessions: TestSession[]) {

@@ -1,5 +1,6 @@
-import { expect } from 'chai';
-import { createPolyfillsLoaderConfig } from '../../src/createPolyfillsLoaderConfig.js';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
+import { createPolyfillsLoaderConfig } from '../../dist/createPolyfillsLoaderConfig.js';
 
 describe('createPolyfillsLoaderConfig()', () => {
   it('creates a config for a single module build', () => {
@@ -12,7 +13,7 @@ describe('createPolyfillsLoaderConfig()', () => {
     // @ts-ignore
     const config = createPolyfillsLoaderConfig(pluginConfig, bundle);
 
-    expect(config).to.eql({
+    assert.deepEqual(config, {
       legacy: undefined,
       modern: { files: [{ path: 'app.js', type: 'module', attributes: [] }] },
       polyfills: undefined,
@@ -33,7 +34,7 @@ describe('createPolyfillsLoaderConfig()', () => {
     // @ts-ignore
     const config = createPolyfillsLoaderConfig(pluginConfig, bundle);
 
-    expect(config).to.eql({
+    assert.deepEqual(config, {
       legacy: undefined,
       modern: {
         files: [
@@ -59,7 +60,7 @@ describe('createPolyfillsLoaderConfig()', () => {
     // @ts-ignore
     const config = createPolyfillsLoaderConfig(pluginConfig, bundle);
 
-    expect(config).to.eql({
+    assert.deepEqual(config, {
       legacy: undefined,
       modern: { files: [{ path: 'app.js', type: 'systemjs', attributes: [] }] },
       polyfills: undefined,
@@ -86,7 +87,7 @@ describe('createPolyfillsLoaderConfig()', () => {
     // @ts-ignore
     const config = createPolyfillsLoaderConfig(pluginConfig, undefined, bundles);
 
-    expect(config).to.eql({
+    assert.deepEqual(config, {
       modern: { files: [{ path: 'app.js', type: 'module', attributes: [] }] },
       legacy: [
         {
@@ -125,7 +126,7 @@ describe('createPolyfillsLoaderConfig()', () => {
     // @ts-ignore
     const config = createPolyfillsLoaderConfig(pluginConfig, undefined, bundles);
 
-    expect(config).to.eql({
+    assert.deepEqual(config, {
       modern: { files: [{ path: 'app.js', type: 'module', attributes: [] }] },
       legacy: [
         {
@@ -165,7 +166,7 @@ describe('createPolyfillsLoaderConfig()', () => {
     // @ts-ignore
     const config = createPolyfillsLoaderConfig(pluginConfig, undefined, bundles);
 
-    expect(config).to.eql({
+    assert.deepEqual(config, {
       modern: { files: [{ path: 'app.js', type: 'script', attributes: [] }] },
       legacy: [
         {
@@ -190,7 +191,7 @@ describe('createPolyfillsLoaderConfig()', () => {
     // @ts-ignore
     const config = createPolyfillsLoaderConfig(pluginConfig, bundle);
 
-    expect(config).to.eql({
+    assert.deepEqual(config, {
       legacy: undefined,
       modern: { files: [{ path: 'app.js', type: 'module', attributes: [] }] },
       polyfills: { fetch: true, webcomponents: true },
@@ -210,7 +211,7 @@ describe('createPolyfillsLoaderConfig()', () => {
 
     // @ts-ignore
     const action = () => createPolyfillsLoaderConfig(pluginConfig, bundle);
-    expect(action).to.throw();
+    assert.throws(action);
   });
 
   it('throws when a multiple builds are output while no builds are configured', () => {
@@ -228,7 +229,7 @@ describe('createPolyfillsLoaderConfig()', () => {
 
     // @ts-ignore
     const action = () => createPolyfillsLoaderConfig(pluginConfig, undefined, bundles);
-    expect(action).to.throw();
+    assert.throws(action);
   });
 
   it('throws when the modern build could not be found', () => {
@@ -249,6 +250,6 @@ describe('createPolyfillsLoaderConfig()', () => {
 
     // @ts-ignore
     const action = () => createPolyfillsLoaderConfig(pluginConfig, undefined, bundles);
-    expect(action).to.throw();
+    assert.throws(action);
   });
 });

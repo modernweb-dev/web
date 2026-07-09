@@ -1,4 +1,4 @@
-import { TestSession, Logger } from '@web/test-runner-core';
+import { type Logger, type TestSession } from '@web/test-runner-core';
 
 export function reportBrowserLogs(logger: Logger, sessions: TestSession[]) {
   const commonLogs: any[] = [];

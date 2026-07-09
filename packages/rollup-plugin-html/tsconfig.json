@@ -4,6 +4,7 @@
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
     "module": "commonjs",
+    "lib": ["ES2021"],
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
@@ -14,13 +15,6 @@
       "path": "../parse5-utils/tsconfig.json"
     }
   ],
-  "include": [
-    "src",
-    "types"
-  ],
-  "exclude": [
-    "src/browser",
-    "tests",
-    "dist"
-  ]
+  "include": ["src", "types"],
+  "exclude": ["src/browser", "tests", "dist"]
 }

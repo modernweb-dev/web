@@ -98,9 +98,7 @@ In this example, we use it to optimize SVG images with [svgo](https://github.com
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 const svgo = new SVGO({
   // See https://github.com/svg/svgo#what-it-can-do
-  plugins: [
-    /* plugins here */
-  ],
+  plugins: [/* plugins here */],
 });
 
 export default {
@@ -120,6 +118,52 @@ export default {
   ],
 };
 ```
+
+### `preserveDynamicStructure`
+
+Type: `Boolean`<br>
+Default: `false`
+
+When enabled, dynamic asset URLs (using template literals) are emitted to the Rollup pipeline and the URL pattern is rewritten to resolve relative to the first emitted asset.
+
+**Requirements:** The output must preserve both filenames (no hashing) and the directory structure from the dynamic expression onwards.
+If filenames are hashed or the directory structure changes, the runtime URL resolution will fail.
+
+This is useful when your application or CDN already has versioned URLs, so you don't need filename hashing.
+It also avoids generating a large switch statement in the output when you have many dynamic assets (e.g. an icon library).
+
+```js
+import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
+
+const projectRoot = process.cwd();
+
+export default {
+  input: 'src/index.js',
+  output: {
+    dir: 'output',
+    format: 'es',
+    // preserve original file paths, relative to the project root
+    assetFileNames: asset =>
+      path.relative(projectRoot, asset.originalFileNames[0]).split(path.sep).join('/'),
+  },
+  plugins: [
+    importMetaAssets({
+      preserveDynamicStructure: true,
+    }),
+  ],
+};
+```
+
+Given this source code:
+
+```js
+const icon = new URL(`./assets/icons/${category}/${name}.svg`, import.meta.url);
+```
+
+The plugin will:
+
+1. Emit all matching assets (e.g. `./assets/icons/outline/arrow.svg`, `./assets/icons/solid/check.svg`, etc..)
+2. Rewrite the URL to resolve relative to the first emitted asset
 
 ## Examples
 

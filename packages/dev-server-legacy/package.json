@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-legacy",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -22,13 +22,13 @@
     }
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "build": "tsc",
     "start": "wds --open --config demo/server.config.mjs",
-    "test:node": "mocha \"test/**/*.test.ts\" --require ts-node/register --reporter dot",
-    "test:watch": "mocha \"test/**/*.test.ts\" --require ts-node/register --watch --watch-files src,test"
+    "test:node": "node --experimental-strip-types --test --test-force-exit \"test/**/*.test.ts\"",
+    "test:watch": "node --experimental-strip-types --test --test-force-exit --watch \"test/**/*.test.ts\""
   },
   "files": [
     "*.d.ts",
@@ -59,8 +59,8 @@
     "@babel/plugin-transform-modules-systemjs": "^7.12.1",
     "@babel/plugin-transform-template-literals": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
-    "@web/dev-server-core": "^0.7.2",
-    "@web/polyfills-loader": "^2.2.0",
+    "@web/dev-server-core": "^1.0.0",
+    "@web/polyfills-loader": "^3.0.0",
     "browserslist": "^4.16.0",
     "browserslist-useragent": "^4.0.0",
     "caniuse-api": "^3.0.0",

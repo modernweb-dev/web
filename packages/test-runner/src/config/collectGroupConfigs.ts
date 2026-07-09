@@ -1,5 +1,5 @@
-import { TestRunnerGroupConfig } from '@web/test-runner-core';
-import { readConfig, ConfigLoaderError } from '@web/config-loader';
+import { ConfigLoaderError, readConfig } from '@web/config-loader';
+import { type TestRunnerGroupConfig } from '@web/test-runner-core';
 import globby from 'globby';
 import { TestRunnerStartError } from '../TestRunnerStartError.js';
 

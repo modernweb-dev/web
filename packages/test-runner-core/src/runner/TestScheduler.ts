@@ -1,11 +1,11 @@
-import { createSessionUrl } from './createSessionUrl.js';
-import { TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
-import { TestSessionManager } from '../test-session/TestSessionManager.js';
-import { TestSession, TestResultError } from '../test-session/TestSession.js';
+import { type BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
+import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
+import { type TestResultError, type TestSession } from '../test-session/TestSession.js';
+import { type TestSessionManager } from '../test-session/TestSessionManager.js';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
 import { withTimeout } from '../utils/async.js';
 import { TestSessionTimeoutHandler } from './TestSessionTimeoutHandler.js';
-import { BrowserLauncher } from '../browser-launcher/BrowserLauncher.js';
+import { createSessionUrl } from './createSessionUrl.js';
 
 export class TestScheduler {
   private config: TestRunnerCoreConfig;

@@ -3,9 +3,9 @@ import { WebdriverLauncher } from '@web/test-runner-webdriver';
 import browserstack from 'browserstack-local';
 import internalIp from 'internal-ip';
 import {
+  localId,
   registerBrowserstackLocal,
   unregisterBrowserstackLocal,
-  localId,
 } from './browserstackManager.js';
 
 export interface BrowserstackLauncherArgs {

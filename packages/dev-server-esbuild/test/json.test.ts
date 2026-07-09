@@ -1,12 +1,14 @@
-import { expect } from 'chai';
-import { expectIncludes, createTestServer } from '@web/dev-server-core/test-helpers';
+import { createTestServer } from '@web/dev-server-core/test-helpers';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
-import { esbuildPlugin } from '../src/index.js';
+import { assertIncludes } from '../../../test-helpers/node.js';
+import { esbuildPlugin } from '../dist/index.js';
 
-describe('esbuildPlugin JSON', function () {
+describe('esbuildPlugin JSON', () => {
   it('transforms .json files', async () => {
     const { server, host } = await createTestServer({
-      rootDir: __dirname,
+      rootDir: import.meta.dirname,
       plugins: [
         {
           name: 'test',
@@ -24,16 +26,17 @@ describe('esbuildPlugin JSON', function () {
       const response = await fetch(`${host}/foo.json`);
       const text = await response.text();
 
-      expect(response.status).to.equal(200);
-      expect(response.headers.get('content-type')).to.equal(
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(
+        response.headers.get('content-type'),
         'application/javascript; charset=utf-8',
       );
-      expectIncludes(text, 'var foo = "bar";');
-      expectIncludes(text, 'var foo_default = { foo };');
-      expectIncludes(text, 'export {');
-      expectIncludes(text, 'foo_default as default');
-      expectIncludes(text, 'foo');
-      expectIncludes(text, '}');
+      assertIncludes(text, 'var foo = "bar";');
+      assertIncludes(text, 'var foo_default = { foo };');
+      assertIncludes(text, 'export {');
+      assertIncludes(text, 'foo_default as default');
+      assertIncludes(text, 'foo');
+      assertIncludes(text, '}');
     } finally {
       server.stop();
     }

@@ -1,5 +1,7 @@
 # Dev Server >> Plugins >> Storybook ||7
 
+> `@web/dev-server-storybook` is deprecated. Use [@web/storybook-builder](../../../docs/storybook-builder/index.md) instead.
+
 Plugin for using Storybook with Web Dev Server using es modules.
 
 ## How it works

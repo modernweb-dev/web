@@ -4,12 +4,12 @@
 /packages/test-runner-mocha/*.d.ts
 /packages/config-loader/
 /packages/*/test/**/fixtures
-/packages/*/test/**/snapshots
+/packages/*/test/**/__snapshots__
 /packages/dev-server-rollup/test/browser/**/*
 /integration/test-runner/tests/*/browser-tests
-/packages/dev-server-storybook/storybook-static/**/*
 /packages/dev-server-hmr/scripts/**/*
 /packages/test-runner/demo/
+/packages/storybook-framework-web-components/tests/fixtures/all-in-one/storybook-build/
 /node_modules/
 /packages/*/node_modules/
 dist
@@ -20,3 +20,4 @@ _site
 _site-dev
 dist-types
 /docs/_merged_data
+**/__snapshots__/**
