@@ -1,5 +1,6 @@
  ---
+ '@web/test-runner-commands': patch
  '@web/test-runner-visual-regression': patch
  ---
 
-@web/test-runner-visual-regression - fixes importing under typescript
+fix importing under typescript
