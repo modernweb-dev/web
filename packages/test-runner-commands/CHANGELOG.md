@@ -1,5 +1,11 @@
 # @web/test-runner-commands
 
+## 1.0.1
+
+### Patch Changes
+
+- 19de300: fix importing under typescript
+
 ## 1.0.0
 
 ### Major Changes

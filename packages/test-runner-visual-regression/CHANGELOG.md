@@ -1,5 +1,13 @@
 # @web/test-runner-visual-regression
 
+## 1.0.1
+
+### Patch Changes
+
+- 19de300: fix importing under typescript
+- Updated dependencies [19de300]
+  - @web/test-runner-commands@1.0.1
+
 ## 1.0.0
 
 ### Major Changes
