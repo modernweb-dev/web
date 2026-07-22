@@ -48,10 +48,10 @@
   "dependencies": {
     "@web/test-runner-chrome": "^1.0.0",
     "@web/test-runner-core": "^1.0.0",
-    "puppeteer": "^24.0.0"
+    "puppeteer": "^25.0.0"
   },
   "devDependencies": {
     "@web/test-runner-mocha": "^1.0.0",
-    "puppeteer-core": "^24.0.0"
+    "puppeteer-core": "^25.0.0"
   }
 }
