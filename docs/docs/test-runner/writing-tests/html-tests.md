@@ -13,8 +13,8 @@ With mocha, you need to define your tests inside the `runTests` function:
 
       runTests(async () => {
         // write your tests inline
-        describe('HTML tests', () => {
-          it('works', () => {
+        describe('HTML tests', function () {
+          it('works', async function () {
             expect('foo').to.equal('foo');
           });
         });
