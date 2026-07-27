@@ -123,10 +123,10 @@ export class ChromeLauncher implements BrowserLauncher {
   }
 
   async stop() {
-    if (this.browser?.isConnected()) {
+    if (this.browser?.connected) {
       await this.browser.close();
     }
-    if (this.debugBrowser?.isConnected()) {
+    if (this.debugBrowser?.connected) {
       await this.debugBrowser.close();
     }
   }
@@ -210,7 +210,7 @@ export class ChromeLauncher implements BrowserLauncher {
       return this.__startBrowserPromise;
     }
 
-    if (!this.browser || !this.browser?.isConnected() || !this.browserContext) {
+    if (!this.browser || !this.browser?.connected || !this.browserContext) {
       this.__startBrowserPromise = this.startBrowser();
       const { browser, context } = await this.__startBrowserPromise;
       this.browser = browser;

@@ -127,6 +127,7 @@ export function webSocketsPlugin(): Plugin {
           }
         }
 
+window.addEventListener('unload', () => {});
 
 const { protocol, host } = new URL(import.meta.url);
 const webSocketUrl = \`ws\${protocol === 'https:' ? 's' : ''}://\${host}/${NAME_WEB_SOCKET_API}\`;
