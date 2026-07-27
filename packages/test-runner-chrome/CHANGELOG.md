@@ -1,5 +1,11 @@
 # @web/test-runner-chrome
 
+## 1.0.1
+
+### Patch Changes
+
+- 44b178f: update puppeteer to v25
+
 ## 1.0.0
 
 ### Major Changes
