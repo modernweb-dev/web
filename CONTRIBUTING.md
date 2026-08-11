@@ -12,11 +12,11 @@ Next, clone your fork onto your computer (replacing YOUR_USERNAME with your actu
 git clone git@github.com:YOUR_USERNAME/web.git
 ```
 
-Once cloning is complete, change directory to the repository and add the Modern Web project as a remote.
+Once cloning is complete, change directory to the repository.
 
 ```sh
 cd web
-git remote add upstream git@github.com:modernweb-dev/web.git
+git remote -v # GitHub should add upstream remote for forked repos
 ```
 
 ## Preparing Your Local Environment for Development
@@ -28,7 +28,7 @@ npm install
 npm run build
 ```
 
-This will download and install all packages needed.
+This will download and install all packages needed, and prepares for local development.
 
 ## Making Your Changes
 
