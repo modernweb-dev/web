@@ -1,5 +1,7 @@
 window.addEventListener('error', e => {
-  console.error(e.error);
+  if (e.error != null) {
+    console.error(e.error);
+  }
 });
 
 window.addEventListener('unhandledrejection', e => {
