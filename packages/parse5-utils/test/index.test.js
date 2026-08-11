@@ -253,6 +253,24 @@ describe('parse5-utils', () => {
       }
       assert.ok(found);
     });
+
+    it('returns elements within template element', () => {
+      const doc = parse(`
+      <html>
+        <body>
+          <template>
+            <div id="foo">Hello world</div>
+          </template>
+        </body>
+      </html>
+    `);
+
+      const found = utils.findElement(doc, el => utils.getAttribute(el, 'id') === 'foo');
+      if (!found) {
+        throw new Error('No element found.');
+      }
+      expect(found).to.exist;
+    });
   });
 
   describe('findElements()', () => {
