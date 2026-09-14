@@ -61,7 +61,7 @@
     "@babel/preset-env": "^7.12.11",
     "@web/dev-server-core": "^1.0.0",
     "@web/polyfills-loader": "^3.0.0",
-    "browserslist": "^4.16.0",
+    "browserslist": "^4.28.8",
     "browserslist-useragent": "^4.0.0",
     "caniuse-api": "^3.0.0",
     "parse5": "^6.0.1",
