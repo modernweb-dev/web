@@ -11,15 +11,14 @@ import {
 export interface BrowserstackLauncherArgs {
   capabilities: Record<string, unknown>;
   localOptions?: Partial<browserstack.Options>;
+  local?: boolean
 }
 
 const REQUIRED_CAPABILITIES = ['name', 'browserstack.user', 'browserstack.key', 'project', 'build'];
-const localIp = internalIp.v4.sync() as string;
-if (!localIp) {
-  throw new Error('Can not determine the local IP.');
-}
 
 export class BrowserstackLauncher extends WebdriverLauncher {
+  private localIp?: string;
+
   constructor(
     private capabilities: Record<string, unknown>,
     public name: string,
@@ -34,19 +33,35 @@ export class BrowserstackLauncher extends WebdriverLauncher {
       user: capabilities['browserstack.user'] as string,
       key: capabilities['browserstack.key'] as string,
     });
+
+    if (this.capabilities['browserstack.local']) {
+      this.localIp = internalIp.v4.sync() as string;
+      if (!this.localIp) {
+        throw new Error('Can not determine the local IP.');
+      }
+    }
   }
 
   async initialize(config: TestRunnerCoreConfig) {
-    await registerBrowserstackLocal(
-      this,
-      this.capabilities['browserstack.key'] as string,
-      this.localOptions,
-    );
+    if (this.capabilities['browserstack.local']) {
+      await registerBrowserstackLocal(
+        this,
+        this.capabilities['browserstack.key'] as string,
+        this.localOptions,
+      );
+    }
     await super.initialize(config);
   }
 
   startSession(sessionId: string, url: string) {
-    return super.startSession(sessionId, url.replace(/(localhost|127\.0\.0\.1)/, localIp));
+    if (url.includes('localhost') || url.includes('127.0.0.1')) {
+      if (!this.localIp) {
+        throw new Error('If you want to use a local domain, make sure to enable the browserstack.local capability.');
+      }
+      url = url.replace(/(localhost|127\.0\.0\.1)/, this.localIp)
+    }
+
+    return super.startSession(sessionId, url);
   }
 
   async startDebugSession() {
@@ -55,7 +70,9 @@ export class BrowserstackLauncher extends WebdriverLauncher {
 
   stop() {
     const stopPromise = super.stop();
-    unregisterBrowserstackLocal(this);
+    if (this.capabilities['browserstack.local']) {
+      unregisterBrowserstackLocal(this);
+    }
     return stopPromise;
   }
 }
@@ -79,7 +96,7 @@ export function browserstackLauncher(args: BrowserstackLauncherArgs): BrowserLau
 
   const capabilities = { ...args.capabilities };
   capabilities['timeout'] = 300;
-  capabilities['browserstack.local'] = true;
+  capabilities['browserstack.local'] = args.local ?? true;
   capabilities['browserstack.localIdentifier'] = localId;
 
   // we need to allow popups since we open new windows
