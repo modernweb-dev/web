@@ -7,8 +7,8 @@ Test framework implementation of [Mocha](https://mochajs.org/).
 Mocha relies on global variables, in any JS test file `describe` and `it` are available globally and can be used directly:
 
 ```js
-describe('my test', () => {
-  it('foo is bar', () => {
+describe('my test', function () {
+  it('foo is bar', async function () {
     if ('foo' !== 'bar') {
       throw new Error('foo does not equal bar');
     }
