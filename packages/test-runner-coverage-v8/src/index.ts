@@ -66,21 +66,27 @@ export async function v8ToIstanbul(
   const istanbulCoverage: CoverageMapData = {};
 
   for (const entry of coverage) {
-    const url = new URL(entry.url);
-    const path = url.pathname;
-    if (
-      // ignore non-http protocols (for exmaple webpack://)
-      url.protocol.startsWith('http') &&
-      // ignore external urls
-      url.hostname === config.hostname &&
-      url.port === `${config.port}` &&
-      // ignore non-files
-      !!extname(path) &&
-      // ignore virtual files
-      !path.startsWith('/__web-test-runner') &&
-      !path.startsWith('/__web-dev-server')
-    ) {
-      try {
+    let url;
+    try {
+      url = new URL(entry.url);
+    } catch (_) {
+      // ignore invalid URLs
+      continue;
+    }
+    try {
+      const path = url.pathname;
+      if (
+        // ignore non-http protocols (for example webpack://)
+        url.protocol.startsWith('http') &&
+        // ignore external urls
+        url.hostname === config.hostname &&
+        url.port === `${config.port}` &&
+        // ignore non-files
+        !!extname(path) &&
+        // ignore virtual files
+        !path.startsWith('/__web-test-runner') &&
+        !path.startsWith('/__web-dev-server')
+      ) {
         const filePath = join(config.rootDir, toFilePath(path));
 
         if (!testFiles.includes(filePath) && included(filePath) && !excluded(filePath)) {
@@ -110,10 +116,10 @@ export async function v8ToIstanbul(
           converter.applyCoverage(entry.functions);
           Object.assign(istanbulCoverage, converter.toIstanbul());
         }
-      } catch (error) {
-        console.error(`Error while generating code coverage for ${entry.url}.`);
-        console.error(error);
       }
+    } catch (error) {
+      console.error(`Error while generating code coverage for ${entry.url}.`);
+      console.error(error);
     }
   }
 
