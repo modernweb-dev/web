@@ -16,6 +16,7 @@ export interface TestRunnerCliArgs extends Partial<
     | 'staticLogging'
     | 'manual'
     | 'open'
+    | 'passWithNoTests'
     | 'port'
     | 'preserveSymlinks'
     | 'nodeResolve'
@@ -86,6 +87,12 @@ const options: OptionDefinition[] = [
     name: 'open',
     type: Boolean,
     description: 'Opens browser for manual testing. Requires the manual option to be set.',
+  },
+  {
+    name: 'pass-with-no-tests',
+    type: Boolean,
+    description:
+      'Passes the test run when no tests were executed. By default the test run fails when none of the test files executed any tests.',
   },
   {
     name: 'port',

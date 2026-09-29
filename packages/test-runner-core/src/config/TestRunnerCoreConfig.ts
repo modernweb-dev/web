@@ -63,6 +63,8 @@ export interface TestRunnerCoreConfig {
   manual?: boolean;
   /** Opens browser for manual testing. Requires the manual option to be set. */
   open?: boolean;
+  /** Passes the test run when no tests were executed. By default a test run fails when none of the test files executed any tests. */
+  passWithNoTests?: boolean;
 
   debug?: boolean;
   mimeTypes?: Record<string, string>;
