@@ -11,6 +11,8 @@ import type { Logger } from '../../../dist/logger/Logger.js';
 import { TestRunner } from '../../../dist/runner/TestRunner.js';
 import { SESSION_STATUS } from '../../../dist/test-session/TestSessionStatus.js';
 
+import { type TestSuiteResult } from '../../../dist/test-session/TestSession.js';
+
 function createBrowserStub(): BrowserLauncher {
   return {
     name: 'myBrowser',
@@ -72,6 +74,23 @@ async function createTestRunner(
   return { runner, browser };
 }
 
+function createTestResults(...tests: TestSuiteResult['tests']): TestSuiteResult {
+  return { name: 'root', suites: [], tests };
+}
+
+const passedTest: TestSuiteResult['tests'][number] = {
+  name: 'my test',
+  passed: true,
+  skipped: false,
+};
+
+const failedTest: TestSuiteResult['tests'][number] = {
+  name: 'my test',
+  passed: false,
+  skipped: false,
+  error: { message: 'test failed' },
+};
+
 describe('TestRunner', function () {
   it('can run a single test file', async () => {
     const { runner, browser } = await createTestRunner();
@@ -101,7 +120,10 @@ describe('TestRunner', function () {
     await runner.start();
 
     const sessions = Array.from(runner.sessions.all());
-    runner.sessions.updateStatus({ ...sessions[0], passed: true }, SESSION_STATUS.TEST_FINISHED);
+    runner.sessions.updateStatus(
+      { ...sessions[0], passed: true, testResults: createTestResults(passedTest) },
+      SESSION_STATUS.TEST_FINISHED,
+    );
 
     const passed = await stopped;
 
@@ -126,12 +148,94 @@ describe('TestRunner', function () {
     await runner.start();
 
     const sessions = Array.from(runner.sessions.all());
-    runner.sessions.updateStatus({ ...sessions[0], passed: false }, SESSION_STATUS.TEST_FINISHED);
+    runner.sessions.updateStatus(
+      { ...sessions[0], passed: false, testResults: createTestResults(failedTest) },
+      SESSION_STATUS.TEST_FINISHED,
+    );
     const passed = await stopped;
 
     assert.equal(browser.stopSession.mock.callCount(), 1, 'browser session is stopped');
     assert.equal(browser.stop.mock.callCount(), 1, 'browser is stopped');
     assert.equal(passed, false, 'test runner quits with false');
+  });
+
+  it('fails the test run when no tests were executed', async () => {
+    const { runner } = await createTestRunner();
+    let resolveStopped: (passed: boolean) => void;
+    const stopped = new Promise<boolean>(resolve => {
+      resolveStopped = resolve;
+    });
+    runner.on('finished', () => {
+      runner.stop();
+    });
+    runner.on('stopped', passed => {
+      resolveStopped(passed);
+    });
+
+    await runner.start();
+
+    const sessions = Array.from(runner.sessions.all());
+    runner.sessions.updateStatus(
+      { ...sessions[0], passed: true, testResults: createTestResults() },
+      SESSION_STATUS.TEST_FINISHED,
+    );
+    const passed = await stopped;
+
+    assert.equal(passed, false, 'test runner quits with false when no tests were executed');
+  });
+
+  it('passes the test run when no tests were executed and passWithNoTests is enabled', async () => {
+    const { runner } = await createTestRunner({ passWithNoTests: true });
+    let resolveStopped: (passed: boolean) => void;
+    const stopped = new Promise<boolean>(resolve => {
+      resolveStopped = resolve;
+    });
+    runner.on('finished', () => {
+      runner.stop();
+    });
+    runner.on('stopped', passed => {
+      resolveStopped(passed);
+    });
+
+    await runner.start();
+
+    const sessions = Array.from(runner.sessions.all());
+    runner.sessions.updateStatus(
+      { ...sessions[0], passed: true, testResults: createTestResults() },
+      SESSION_STATUS.TEST_FINISHED,
+    );
+    const passed = await stopped;
+
+    assert.equal(passed, true, 'test runner quits with true when passWithNoTests is enabled');
+  });
+
+  it('counts skipped tests as executed tests', async () => {
+    const { runner } = await createTestRunner();
+    let resolveStopped: (passed: boolean) => void;
+    const stopped = new Promise<boolean>(resolve => {
+      resolveStopped = resolve;
+    });
+    runner.on('finished', () => {
+      runner.stop();
+    });
+    runner.on('stopped', passed => {
+      resolveStopped(passed);
+    });
+
+    await runner.start();
+
+    const sessions = Array.from(runner.sessions.all());
+    runner.sessions.updateStatus(
+      {
+        ...sessions[0],
+        passed: true,
+        testResults: createTestResults({ name: 'skipped test', passed: false, skipped: true }),
+      },
+      SESSION_STATUS.TEST_FINISHED,
+    );
+    const passed = await stopped;
+
+    assert.equal(passed, true, 'test runner quits with true when only skipped tests ran');
   });
 
   describe('groups', () => {
