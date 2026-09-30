@@ -17,7 +17,8 @@
   "exports": {
     ".": {
       "import": "./index.mjs",
-      "require": "./src/index.js"
+      "require": "./src/index.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "engines": {
