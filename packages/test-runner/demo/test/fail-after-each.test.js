@@ -1,4 +1,4 @@
-import { expect } from './chai.js';
+import { expect } from 'chai';
 
 beforeEach(() => {
   throw new Error('error thrown in afterEach hook');

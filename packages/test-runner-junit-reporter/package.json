@@ -52,6 +52,7 @@
   },
   "devDependencies": {
     "@types/xml": "^1.0.11",
-    "@web/test-runner-playwright": "^1.0.0"
+    "@web/test-runner-playwright": "^1.0.0",
+    "chai": "^6.0.0"
   }
 }

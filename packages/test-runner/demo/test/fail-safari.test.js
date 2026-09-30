@@ -1,4 +1,4 @@
-import { expect } from './chai.js';
+import { expect } from 'chai';
 
 it('only fails on safari', () => {
   if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {

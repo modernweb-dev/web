@@ -1,4 +1,4 @@
-import { expect } from '../../chai.js';
+import { expect } from 'chai';
 import '../../shared-a.js';
 import '../../shared-b.js';
 

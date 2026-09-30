@@ -42,7 +42,7 @@ npm i --save-dev @web/test-runner-commands
 With that we get a `setViewport` method which we can put to good use.
 
 ```js
-import { expect } from '@esm-bundle/chai';
+import { expect } from 'chai';
 import { setViewport } from '@web/test-runner-commands';
 import { isMobile } from '../src/isMobile';
 
@@ -110,7 +110,7 @@ Next, we can write our tests to change the viewport and check if our media queri
 
     <script type="module">
       import { runTests } from '@web/test-runner-mocha';
-      import { expect } from '@esm-bundle/chai';
+      import { expect } from 'chai';
       import { setViewport } from '@web/test-runner-commands';
 
       runTests(() => {

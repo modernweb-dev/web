@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@web/test-runner-chrome": "^1.0.0",
-    "@web/test-runner-core": "^1.0.0"
+    "@web/test-runner-core": "^1.0.0",
+    "chai": "^6.0.0"
   }
 }

@@ -1,5 +1,5 @@
+import { expect } from '../../../../node_modules/chai/index.js';
 import { selectOption } from '../../browser/commands.mjs';
-import { expect } from '../chai.js';
 
 const selectTemplate = `<select id="testSelect">
   <option value="first">first option</option>

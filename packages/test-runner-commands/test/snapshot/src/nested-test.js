@@ -1,5 +1,5 @@
+import { expect } from '../../../../../node_modules/chai/index.js';
 import { getSnapshot } from '../../../browser/commands.mjs';
-import { expect } from '../../chai.js';
 
 it('can persist snapshot A between test runs', async () => {
   const name = 'persistent-a';

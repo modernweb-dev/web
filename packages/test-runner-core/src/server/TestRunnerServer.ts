@@ -12,7 +12,7 @@ import { serveTestRunnerHtmlPlugin } from './plugins/serveTestRunnerHtmlPlugin.j
 
 const CACHED_PATTERNS = [
   'node_modules/@web/test-runner-',
-  'node_modules/@esm-bundle/chai',
+  'node_modules/@esm-bundle/chai', // TODO: kept for backwards compatibility, remove in next major
   'node_modules/mocha/',
   'node_modules/chai/',
 ];

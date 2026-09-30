@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@types/selenium-standalone": "^7.0.4",
+    "chai": "^6.0.0",
     "selenium-standalone": "^10.0.2"
   }
 }

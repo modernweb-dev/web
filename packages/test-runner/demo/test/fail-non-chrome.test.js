@@ -1,5 +1,3 @@
-import { expect } from './chai.js';
-
 it('fails on non-chrome browsers', () => {
   if (
     /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||

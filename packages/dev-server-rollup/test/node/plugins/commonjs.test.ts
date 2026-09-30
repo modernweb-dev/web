@@ -162,7 +162,7 @@ exports.default = _default;`;
       const text = await fetchText(`${host}/foo.js`);
       assertIncludes(
         text,
-        'import {expect} from "/__wds-outside-root__/6/node_modules/chai/index.mjs"',
+        'import {expect} from "/__wds-outside-root__/6/node_modules/chai/index.js"',
       );
       assertIncludes(text, 'export {expect};');
     } finally {

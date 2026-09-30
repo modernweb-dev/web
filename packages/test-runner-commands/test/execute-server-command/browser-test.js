@@ -1,5 +1,5 @@
+import { expect } from '../../../../node_modules/chai/index.js';
 import { executeServerCommand } from '../../browser/commands.mjs';
-import { expect } from '../chai.js';
 
 it('a known command does not throw', async () => {
   await executeServerCommand('command-a');

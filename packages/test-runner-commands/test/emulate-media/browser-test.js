@@ -1,5 +1,5 @@
+import { expect } from '../../../../node_modules/chai/index.js';
 import { emulateMedia } from '../../browser/commands.mjs';
-import { expect } from '../chai.js';
 
 it('can emulate print media type', async () => {
   await emulateMedia({ media: 'print' });

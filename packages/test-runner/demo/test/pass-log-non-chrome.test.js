@@ -1,4 +1,4 @@
-import { expect } from './chai.js';
+import { expect } from 'chai';
 
 it('test 1', () => {
   if (

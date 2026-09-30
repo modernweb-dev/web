@@ -1,5 +1,5 @@
+import { expect } from '../../../../node_modules/chai/index.js';
 import { a11ySnapshot, findAccessibilityNode } from '../../browser/commands.mjs';
-import { expect } from '../chai.js';
 
 it('returns an accessibility tree with appropriately labelled element in it', async () => {
   const buttonText = 'Button Text';

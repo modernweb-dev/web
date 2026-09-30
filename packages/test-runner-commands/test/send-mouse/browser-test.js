@@ -1,5 +1,5 @@
+import { expect } from '../../../../node_modules/chai/index.js';
 import { resetMouse, sendMouse } from '../../browser/commands.mjs';
-import { expect } from '../chai.js';
 
 function spyEvent() {
   let events = [];
