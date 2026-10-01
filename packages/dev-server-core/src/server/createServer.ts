@@ -2,6 +2,7 @@ import { FSWatcher } from 'chokidar';
 import fs from 'fs';
 import httpServer, { IncomingMessage, ServerResponse } from 'http';
 import http2Server from 'http2';
+import httpsServer from 'https';
 import Koa from 'koa';
 import net, { ListenOptions, Server, Socket } from 'net';
 import path from 'path';
@@ -65,7 +66,7 @@ export function createServer(
   }
 
   let server: Server;
-  if (cfg.http2) {
+  if (cfg.http2 || cfg.https) {
     const dir = path.join(__dirname, '..');
     const options = {
       key: fs.readFileSync(
@@ -78,12 +79,15 @@ export function createServer(
           ? path.resolve(cfg.sslCert)
           : path.join(dir, '..', '.self-signed-dev-server-ssl.cert'),
       ),
-      allowHTTP1: true,
-      maxSessionMemory: 20,
     };
 
     const httpsRedirectServer = httpServer.createServer(httpsRedirect);
-    server = http2Server.createSecureServer(options, app.callback());
+    server = cfg.http2
+      ? http2Server.createSecureServer(
+          { ...options, allowHTTP1: true, maxSessionMemory: 20 },
+          app.callback(),
+        )
+      : httpsServer.createServer(options, app.callback());
     let appServerPort: number;
     let httpsRedirectServerPort: number;
 
