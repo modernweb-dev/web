@@ -107,6 +107,9 @@
       "path": "./packages/test-runner-junit-reporter/tsconfig.json"
     },
     {
+      "path": "./packages/test-runner-pact-reporter/tsconfig.json"
+    },
+    {
       "path": "./packages/test-runner-visual-regression/tsconfig.json"
     }
   ]
