@@ -158,30 +158,28 @@ UMD modules are "universal modules", meaning they support multiple module format
 
 You can actually import these libraries using a module import, but instead of exporting something, the UMD module will register itself to the window. You can set up a proxy file to reexport this variable from the window.
 
-A good example of this is the chai library:
-
-`test/chai.js`:
+`test/some-umd-lib.js`:
 
 ```js
-// import the chai UMD file
-import 'chai/chai.js';
+// import the UMD file
+import 'some-umd-lib/dist/some-umd-lib.js';
 
-// get a reference to chai on the window
-const chai = window.chai;
-const { expect, assert } = chai;
+// get a reference to the library on the window
+const someUmdLib = window.someUmdLib;
+const { foo, bar } = someUmdLib;
 
-// reexport chai
-export default chai;
-// reexport names exports from chai
-export { expect, assert };
+// reexport the library
+export default someUmdLib;
+// reexport named exports from the library
+export { foo, bar };
 ```
 
 `test/my-element.test.js`:
 
 ```js
-import { expect } from './chai.js';
+import { foo } from './some-umd-lib.js';
 
-expect('foo').to.equal('bar');
+foo('bar');
 ```
 
 This approach has the downside of polluting the global scope. And you can only use a single version of this library since different versions would overwrite each other. This makes it unsuitable for shared code, but this is a good option for applications and tests.
@@ -191,8 +189,7 @@ This approach has the downside of polluting the global scope. And you can only u
 JSPM is a CDN which ships es module variants of the NPM registry, using a clever build system to transform CommonJS into es modules. You could import from your CDN directly in your code. This will always require an internet connection and is unsuitable for published code. But it is an interesting option.
 
 ```js
-import chai from 'https://jspm.dev/chai';
-const { expect } = chai;
+import { expect } from 'https://jspm.dev/chai';
 
 expect('foo').to.equal('bar');
 ```

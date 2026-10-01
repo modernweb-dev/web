@@ -1,5 +1,5 @@
+import { expect } from '../../../../node_modules/chai/index.js';
 import { sendKeys } from '../../browser/commands.mjs';
-import { expect } from '../chai.js';
 
 it('natively types into an input', async () => {
   const keys = 'abc123';

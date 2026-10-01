@@ -1,5 +1,5 @@
-import { setViewport, emulateMedia } from '@web/test-runner-commands';
-import { expect } from './chai.js';
+import { emulateMedia, setViewport } from '@web/test-runner-commands';
+import { expect } from 'chai';
 
 it('can resize to a small viewport', async () => {
   await setViewport({ height: 200, width: 100 });

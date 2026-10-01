@@ -1,5 +1,5 @@
+import { expect } from '../../../../node_modules/chai/index.js';
 import { setViewport } from '../../browser/commands.js';
-import { expect } from '../chai.js';
 
 it('can resize to a small viewport', async () => {
   await setViewport({ height: 200, width: 100 });

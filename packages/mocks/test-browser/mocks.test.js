@@ -1,4 +1,4 @@
-import { expect } from '@esm-bundle/chai';
+import { expect } from 'chai';
 import { registerMockRoutes } from '../browser.js';
 import { http } from '../http.js';
 

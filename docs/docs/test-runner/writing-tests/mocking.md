@@ -105,7 +105,7 @@ Test file:
   <body>
     <script type="module">
       import { runTests } from '@web/test-runner-mocha';
-      import { expect } from '@esm-bundle/chai';
+      import { expect } from 'chai';
       // import inside will resolve to ./mocks/postData.js
       import { sendMessage } from '../src/sendMessage.js';
       // resolves to ./mocks/postData.js

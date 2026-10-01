@@ -1,4 +1,4 @@
-import { assert } from '../chai.js';
+import { assert } from 'chai';
 
 suite('my suite', () => {
   test('passes a', () => {

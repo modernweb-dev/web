@@ -1,4 +1,4 @@
-import { expect } from '../chai.js';
+import { expect } from '../../../../../node_modules/chai/index.js';
 import { importMockable } from '../../../browser/index.js';
 
 const timeLibrary = await importMockable('time-library/hour');

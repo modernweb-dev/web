@@ -55,7 +55,8 @@
   },
   "devDependencies": {
     "@web/storybook-builder": "^1.0.0",
-    "@web/storybook-framework-web-components": "^1.0.0"
+    "@web/storybook-framework-web-components": "^1.0.0",
+    "chai": "^6.0.0"
   },
   "imports": {
     "#sw-path": {

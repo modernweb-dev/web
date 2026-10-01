@@ -1,10 +1,10 @@
+import { expect } from '../../../../node_modules/chai/index.js';
 import {
   compareSnapshot,
   getSnapshot,
   removeSnapshot,
   saveSnapshot,
 } from '../../browser/commands.mjs';
-import { expect } from '../chai.js';
 
 it('can save, read and remove snapshot a', async () => {
   const name = 'a';

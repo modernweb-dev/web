@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@web/test-runner": "^1.0.0",
-    "chai": "^4.3.4",
+    "chai": "^6.0.0",
     "hanbi": "^1.0.1"
   }
 }
