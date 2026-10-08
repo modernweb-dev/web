@@ -1,10 +1,14 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { describe, it, mock } from 'node:test';
+import { setTimeout } from 'node:timers/promises';
 
 import portfinder from 'portfinder';
 
-import type { BrowserLauncher } from '../../../dist/browser-launcher/BrowserLauncher.js';
+import type {
+  BrowserLauncher,
+  SessionResult,
+} from '../../../dist/browser-launcher/BrowserLauncher.js';
 import type { TestRunnerCoreConfig } from '../../../dist/config/TestRunnerCoreConfig.js';
 import type { TestRunnerGroupConfig } from '../../../dist/index.js';
 import type { Logger } from '../../../dist/logger/Logger.js';
@@ -133,6 +137,94 @@ describe('TestRunner', function () {
     assert.equal(browser.stop.mock.callCount(), 1, 'browser is stopped');
     assert.equal(passed, false, 'test runner quits with false');
   });
+
+  for (const stopRunner of [false, true]) {
+    it(
+      stopRunner
+        ? 'does not start queued sessions after stopping during page teardown'
+        : 'starts queued sessions after page teardown while running',
+      async () => {
+        const { runner, browser } = await createTestRunner({
+          watch: true,
+          concurrency: 1,
+          files: ['a-1.test.js', 'a-2.test.js'].map(file =>
+            path.resolve(import.meta.dirname, '..', '..', 'fixtures', 'group-a', file),
+          ),
+        });
+        const [firstSession, queuedSession] = Array.from(runner.sessions.all());
+        const pageStopped = Promise.withResolvers<SessionResult>();
+        let stopping: Promise<void> | undefined;
+
+        function waitForFinished(sessionId: string) {
+          return new Promise<void>(resolve => {
+            const onStatus = (session: typeof firstSession) => {
+              if (session.id === sessionId && session.status === SESSION_STATUS.FINISHED) {
+                runner.sessions.off('session-status-updated', onStatus);
+                resolve();
+              }
+            };
+            runner.sessions.on('session-status-updated', onStatus);
+          });
+        }
+
+        browser.stopSession.mock.mockImplementation((sessionId: string) =>
+          sessionId === firstSession.id ? pageStopped.promise : Promise.resolve({}),
+        );
+
+        try {
+          await runner.start();
+          await setTimeout();
+          assert.equal(browser.startSession.mock.callCount(), 1, 'only the first page starts');
+          assert.equal(runner.sessions.get(queuedSession.id)!.status, SESSION_STATUS.SCHEDULED);
+
+          const finished = waitForFinished(firstSession.id);
+          runner.sessions.updateStatus(
+            { ...runner.sessions.get(firstSession.id)!, passed: true },
+            SESSION_STATUS.TEST_FINISHED,
+          );
+          assert.equal(browser.stopSession.mock.callCount(), 1, 'page teardown has started');
+          if (stopRunner) {
+            stopping = runner.stop();
+          }
+          pageStopped.resolve({});
+          await finished;
+          await setTimeout();
+          await stopping;
+
+          assert.equal(
+            browser.startSession.mock.callCount(),
+            stopRunner ? 1 : 2,
+            stopRunner
+              ? 'stopped runner must not launch queued sessions'
+              : 'active runner starts the next page',
+          );
+          assert.equal(
+            runner.sessions.get(queuedSession.id)!.status,
+            stopRunner ? SESSION_STATUS.SCHEDULED : SESSION_STATUS.INITIALIZING,
+          );
+        } finally {
+          pageStopped.resolve({});
+          for (const session of runner.sessions.all()) {
+            if (session.status === SESSION_STATUS.TEST_FINISHED) {
+              await waitForFinished(session.id);
+            } else if (
+              session.status === SESSION_STATUS.INITIALIZING ||
+              session.status === SESSION_STATUS.TEST_STARTED
+            ) {
+              const finished = waitForFinished(session.id);
+              runner.sessions.updateStatus(
+                { ...session, passed: true },
+                SESSION_STATUS.TEST_FINISHED,
+              );
+              await finished;
+            }
+          }
+          await stopping;
+          await runner.stop();
+        }
+      },
+    );
+  }
 
   describe('groups', () => {
     it('can create a group in addition to the default group', async () => {
