@@ -1,14 +1,19 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { describe, it, mock } from 'node:test';
+import { setImmediate } from 'node:timers/promises';
 
 import portfinder from 'portfinder';
 
-import type { BrowserLauncher } from '../../../dist/browser-launcher/BrowserLauncher.js';
+import type {
+  BrowserLauncher,
+  SessionResult,
+} from '../../../dist/browser-launcher/BrowserLauncher.js';
 import type { TestRunnerCoreConfig } from '../../../dist/config/TestRunnerCoreConfig.js';
 import type { TestRunnerGroupConfig } from '../../../dist/index.js';
 import type { Logger } from '../../../dist/logger/Logger.js';
 import { TestRunner } from '../../../dist/runner/TestRunner.js';
+import { TestRunnerServer } from '../../../dist/server/TestRunnerServer.js';
 import { SESSION_STATUS } from '../../../dist/test-session/TestSessionStatus.js';
 
 function createBrowserStub(): BrowserLauncher {
@@ -132,6 +137,125 @@ describe('TestRunner', function () {
     assert.equal(browser.stopSession.mock.callCount(), 1, 'browser session is stopped');
     assert.equal(browser.stop.mock.callCount(), 1, 'browser is stopped');
     assert.equal(passed, false, 'test runner quits with false');
+  });
+
+  for (const cleanupPending of [false, true]) {
+    it(
+      cleanupPending
+        ? 'waits for in-flight page cleanup during shutdown'
+        : 'closes the browser after completed page cleanup during shutdown',
+      async () => {
+        const { runner, browser } = await createTestRunner({ watch: true });
+        const [session] = Array.from(runner.sessions.all());
+        const pageStopped = Promise.withResolvers<SessionResult>();
+        const testCoverage = {};
+        const stopped = mock.fn();
+        let finishing: Promise<void> | undefined;
+        let stopping: Promise<void> | undefined;
+        runner.on('stopped', stopped);
+        browser.stopSession.mock.mockImplementation(() => pageStopped.promise);
+
+        try {
+          await runner.start();
+          await setImmediate();
+          assert.equal(browser.startSession.mock.callCount(), 1);
+          finishing = new Promise<void>(resolve => {
+            const onStatus = (updatedSession: typeof session) => {
+              if (
+                updatedSession.id === session.id &&
+                updatedSession.status === SESSION_STATUS.FINISHED
+              ) {
+                runner.sessions.off('session-status-updated', onStatus);
+                resolve();
+              }
+            };
+            runner.sessions.on('session-status-updated', onStatus);
+          });
+          runner.sessions.updateStatus(
+            { ...runner.sessions.get(session.id)!, passed: true },
+            SESSION_STATUS.TEST_FINISHED,
+          );
+          assert.equal(browser.stopSession.mock.callCount(), 1, 'page cleanup has started');
+
+          if (!cleanupPending) {
+            pageStopped.resolve({ testCoverage });
+            await finishing;
+          }
+          stopping = runner.stop();
+          await setImmediate();
+          if (cleanupPending) {
+            assert.equal(
+              browser.stop.mock.callCount(),
+              0,
+              'browser shutdown must wait for in-flight page cleanup',
+            );
+            assert.equal(
+              stopped.mock.callCount(),
+              0,
+              'shutdown must not finish before page cleanup',
+            );
+          }
+        } finally {
+          pageStopped.resolve({ testCoverage });
+          await finishing;
+          await stopping;
+          await runner.stop();
+        }
+
+        assert.equal(browser.stop.mock.callCount(), 1, 'the browser is closed after cleanup');
+        assert.equal(stopped.mock.callCount(), 1, 'shutdown completes exactly once');
+        assert.equal(runner.sessions.get(session.id)!.status, SESSION_STATUS.FINISHED);
+        assert.equal(runner.sessions.get(session.id)!.testCoverage, testCoverage);
+      },
+    );
+  }
+
+  it('waits for browser cleanup created by page cleanup during shutdown', async t => {
+    const { runner, browser } = await createTestRunner();
+    const stopServer = t.mock.method(TestRunnerServer.prototype, 'stop');
+    const pageStopped = Promise.withResolvers<SessionResult>();
+    const browserStopping = Promise.withResolvers<void>();
+    const browserStopped = Promise.withResolvers<void>();
+    const stopped = mock.fn();
+    let stopping: Promise<void> | undefined;
+    runner.on('stopped', stopped);
+    browser.stopSession.mock.mockImplementation(() => pageStopped.promise);
+    browser.stop.mock.mockImplementation(() => {
+      browserStopping.resolve();
+      return browserStopped.promise;
+    });
+
+    try {
+      await runner.start();
+      await setImmediate();
+      const [session] = Array.from(runner.sessions.all());
+      runner.sessions.updateStatus({ ...session, passed: true }, SESSION_STATUS.TEST_FINISHED);
+      assert.equal(browser.stopSession.mock.callCount(), 1, 'page cleanup has started');
+      stopping = runner.stop();
+      pageStopped.resolve({});
+      await browserStopping.promise;
+      await setImmediate();
+
+      assert.equal(
+        stopServer.mock.callCount(),
+        0,
+        'server shutdown must wait for browser cleanup created by page cleanup',
+      );
+      assert.equal(
+        stopped.mock.callCount(),
+        0,
+        'shutdown waits for the newly created browser cleanup',
+      );
+    } finally {
+      pageStopped.resolve({});
+      browserStopped.resolve();
+      await stopping;
+      await runner.stop();
+    }
+
+    assert.equal(browser.stop.mock.callCount(), 1);
+    assert.equal(stopServer.mock.callCount(), 1);
+    assert.equal(stopped.mock.callCount(), 1);
   });
 
   describe('groups', () => {
