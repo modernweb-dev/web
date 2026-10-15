@@ -188,7 +188,7 @@ function findNode(nodes, test) {
     if (test(node)) {
       return node;
     }
-    const children = adapter.getChildNodes(/** @type {ParentNode} */ (node));
+    const children = getNodeChildren(node);
     if (Array.isArray(children)) {
       n.unshift(...children);
     }
@@ -216,23 +216,31 @@ function findNodes(nodes, test) {
       found.push(node);
     }
 
-    /** @type {Node[]} */
-    let children = [];
-
-    if (adapter.isElementNode(node) && adapter.getTagName(node) === 'template') {
-      const content = adapter.getTemplateContent(node);
-      if (content) {
-        children = adapter.getChildNodes(content);
-      }
-    } else {
-      children = adapter.getChildNodes(/** @type {ParentNode} */ (node));
-    }
-
+    const children = getNodeChildren(node);
     if (Array.isArray(children)) {
       n.unshift(...children);
     }
   }
   return found;
+}
+
+/**
+ * Get all children of a node or all children of a `<template>` element's content
+ * @param {Node} node
+ * @returns {Node[]}
+ */
+function getNodeChildren(node) {
+  /** @type {Node[]} */
+  let children = [];
+  if (adapter.isElementNode(node) && adapter.getTagName(node) === 'template') {
+    const content = adapter.getTemplateContent(node);
+    if (content) {
+      children = adapter.getChildNodes(content);
+    }
+  } else {
+    children = adapter.getChildNodes(/** @type {ParentNode} */ (node));
+  }
+  return children;
 }
 
 /**
