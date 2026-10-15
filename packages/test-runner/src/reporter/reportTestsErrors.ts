@@ -75,15 +75,21 @@ export function reportTestsErrors(
     if (session.testResults) {
       const flattenedTests = getFlattenedTestResults(session.testResults);
       for (const test of flattenedTests) {
-        if (test.error) {
+        if (test.error || (!test.passed && !test.skipped)) {
           let testErrorsForBrowser = testErrorsPerBrowser.get(test.name);
           if (!testErrorsForBrowser) {
             testErrorsForBrowser = new Map<string, TestResultError>();
             testErrorsPerBrowser.set(test.name, testErrorsForBrowser);
           }
-          if (test.error) {
-            testErrorsForBrowser.set(session.browser.name, test.error);
-          }
+
+          test.error = test.error || { 
+            name: 'Unknown error', 
+            message: 'Test failed without any errors. One reason could be that you have code outside of your test.',
+            expected: "",
+            actual: "",
+            stack: "",
+          };
+          testErrorsForBrowser.set(session.browser.name, test.error);
         }
       }
     }
