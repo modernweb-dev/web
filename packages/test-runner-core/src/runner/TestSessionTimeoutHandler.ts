@@ -95,6 +95,7 @@ export class TestSessionTimeoutHandler {
     const timeoutIds = this.timeoutIdsPerSession.get(session.id);
     if (timeoutIds) {
       this.clearTimeouts(timeoutIds);
+      this.timeoutIdsPerSession.delete(session.id);
     }
   }
 
