@@ -415,8 +415,14 @@ export function rollupAdapter(
           );
 
           let result;
-          if (typeof rollupPlugin.transform === 'function') {
-            result = await rollupPlugin.transform?.call(
+
+          const transformHandler = typeof rollupPlugin.transform === 'function'
+            ? rollupPlugin.transform
+            : typeof rollupPlugin.transform?.handler === 'function'
+              ? rollupPlugin.transform.handler
+              : null;
+          if (transformHandler) {
+            result = await transformHandler.call(
               rollupPluginContext as TransformPluginContext,
               context.body as string,
               filePath,
