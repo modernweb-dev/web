@@ -7,6 +7,7 @@ import { type TestSession } from '../test-session/TestSession.js';
 import { TestSessionManager } from '../test-session/TestSessionManager.js';
 import { SESSION_STATUS } from '../test-session/TestSessionStatus.js';
 import { EventEmitter } from '../utils/EventEmitter.js';
+import { getExecutedTestCount } from '../utils/getExecutedTestCount.js';
 import { createDebugSessions } from './createDebugSessions.js';
 import { createTestSessions } from './createSessionGroups.js';
 import { createSessionUrl } from './createSessionUrl.js';
@@ -222,7 +223,13 @@ export class TestRunner extends EventEmitter<EventMap> {
 
         if (!this.config.watch) {
           setTimeout(async () => {
-            this.passed = passedCoverage && Array.from(this.sessions.failed()).length === 0;
+            const noFailedSessions = Array.from(this.sessions.failed()).length === 0;
+            const hasExecutedTests = this.countExecutedTests() > 0;
+            // manual mode is for interactive testing and does not require executed tests.
+            this.passed =
+              passedCoverage &&
+              noFailedSessions &&
+              (this.config.manual || this.config.passWithNoTests || hasExecutedTests);
             this.emit('finished', this.passed);
           });
         }
@@ -230,5 +237,15 @@ export class TestRunner extends EventEmitter<EventMap> {
     } catch (error) {
       this.stop(error);
     }
+  }
+
+  private countExecutedTests(): number {
+    let count = 0;
+    for (const session of this.sessions.all()) {
+      if (session.testResults) {
+        count += getExecutedTestCount(session.testResults);
+      }
+    }
+    return count;
   }
 }
