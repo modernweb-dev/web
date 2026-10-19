@@ -81,6 +81,7 @@ const booleanSettings = [
   'staticLogging',
   'manual',
   'open',
+  'passWithNoTests',
   'debug',
 ];
 
