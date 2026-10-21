@@ -223,6 +223,23 @@ describe('TestScheduler', () => {
       assert.equal(finalSession1.errors[0].message, 'mock error');
     });
 
+    it('errors returned while stopping browser mark session as failed', async () => {
+      const [scheduler, sessions, [session1], browser] = createTestFixture('1');
+      browser.stopSession.mock.mockImplementation(() =>
+        Promise.resolve({ errors: [{ message: 'mock error' }] }),
+      );
+      scheduler.schedule(1, [session1]);
+
+      await waitUntilEqual(() => sessions.get(session1.id)!.status, SESSION_STATUS.INITIALIZING);
+
+      sessions.updateStatus({ ...session1, passed: true }, SESSION_STATUS.TEST_FINISHED);
+      await waitUntilEqual(() => sessions.get(session1.id)!.status, SESSION_STATUS.FINISHED);
+      const finalSession1 = sessions.get(session1.id)!;
+      assert.equal(finalSession1.passed, false);
+      assert.equal(finalSession1.errors.length, 1);
+      assert.equal(finalSession1.errors[0].message, 'mock error');
+    });
+
     it('timeout starting the browser marks the session as failed', async () => {
       mockConfig.browserStartTimeout = 2;
       const [scheduler, sessions, [session1], browser] = createTestFixture('1');
