@@ -39,7 +39,7 @@ export async function createTestServer(
   await server.start();
 
   const url = new URL('http://localhost');
-  url.protocol = config.http2 ? 'https' : 'http';
+  url.protocol = config.http2 || config.https ? 'https' : 'http';
   url.port = port.toString();
   return { server, port, host: url.toString().slice(0, -1) };
 }
