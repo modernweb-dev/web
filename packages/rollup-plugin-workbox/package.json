@@ -34,7 +34,7 @@
   "dependencies": {
     "esbuild": "^0.28.1",
     "pretty-bytes": "^5.5.0",
-    "workbox-build": "^7.0.0"
+    "workbox-build": "^7.4.1"
   },
   "contributors": [
     "Pascal Schilp <pascalschilp@gmail.com>",
