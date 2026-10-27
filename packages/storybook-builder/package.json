@@ -66,6 +66,6 @@
     "rollup-plugin-external-globals": "^0.9.0",
     "sirv": "^3.0.2",
     "slash": "^5.1.0",
-    "storybook": "^9.1.20"
+    "storybook": "^9.1.21"
   }
 }

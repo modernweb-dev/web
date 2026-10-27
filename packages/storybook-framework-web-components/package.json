@@ -68,6 +68,6 @@
     "@web/rollup-plugin-import-meta-assets": "^3.0.0",
     "@web/storybook-addon-mocks": "^2.0.0",
     "@web/storybook-utils": "^3.0.0",
-    "storybook": "^9.1.20"
+    "storybook": "^9.1.21"
   }
 }
