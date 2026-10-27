@@ -50,6 +50,6 @@
     "errorstacks": "^2.4.1"
   },
   "devDependencies": {
-    "puppeteer": "^25.0.0"
+    "puppeteer": "^25.16.0"
   }
 }
