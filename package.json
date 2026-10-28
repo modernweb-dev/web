@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@rocket/blog": "^0.4.0",
-    "@rocket/cli": "^0.10.1",
+    "@rocket/cli": "^0.21.0",
     "@rocket/core": "^0.1.2",
     "@rocket/launch": "^0.6.0",
     "@rocket/search": "^0.6.0"
@@ -53,7 +53,7 @@
     "@eslint/js": "^10.0.1",
     "@prettier/plugin-xml": "^3.4.2",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-terser": "^1.0.2",
     "@rollup/plugin-typescript": "^11.1.5",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "*",
