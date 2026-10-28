@@ -52,7 +52,7 @@
     "@web/dev-server-core": "^1.0.0",
     "nanocolors": "^0.2.1",
     "parse5": "^6.0.1",
-    "rollup": "^4.4.0",
+    "rollup": "^4.62.3",
     "whatwg-url": "^14.0.0"
   },
   "devDependencies": {
