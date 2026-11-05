@@ -3,7 +3,8 @@ import { executeServerCommand } from '@web/test-runner-commands';
 const PLUGIN_NAME = 'pactPlugin from @web/test-runner-pact-reporter';
 
 /**
- * Reports a captured Pact file to the Node-side `pactPlugin`/`pactReporter`.
+ * Reports a captured Pact file to the Node-side `pactPlugin`/`pactReporter`. `consumer` and
+ * `metadata` may be omitted if a default was configured on `pactPlugin`/`pactReporter`.
  */
 export function reportPact(pactFile) {
   return executeServerCommand('pact:report', pactFile, PLUGIN_NAME);

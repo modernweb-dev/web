@@ -32,6 +32,35 @@ export interface PactFile {
   };
 }
 
+/**
+ * Payload accepted from the browser via `reportPact()`. `consumer` and `metadata` are optional
+ * here because `pactPlugin`/`pactReporter` can fill them in from project-wide defaults
+ * (see `PactDefaults`), so most callers only need to send `{ provider, interactions }`.
+ */
+export interface PactReportPayload {
+  consumer?: { name: string };
+  provider: { name: string };
+  interactions: PactInteraction[];
+  metadata?: {
+    pactSpecification?: { version: string };
+    client?: { name: string; version: string };
+  };
+}
+
+/** Project-wide defaults, configured once on the plugin/reporter, to fill in payloads that omit them. */
+export interface PactDefaults {
+  consumer?: { name: string };
+  pactSpecVersion?: string;
+}
+
+/**
+ * Strategy used to collapse interactions that only differ in test data:
+ * - `'structural'` (default): collapse interactions with the same method, path, status and
+ *   request/response shape, keeping the first one seen.
+ * - `'strict'`: keep every interaction as reported, without deduplication.
+ */
+export type PactDedupStrategy = 'structural' | 'strict';
+
 export interface PactReportResult {
   success: boolean;
   provider?: string;
@@ -59,8 +88,18 @@ function getStructuralShape(value: unknown, jsonPath = '$'): string[] {
   return [jsonPath];
 }
 
-/** Collapses interactions that only differ in test data (not in method/path/status/schema) to one representative. */
-export function deduplicateInteractions(interactions: PactInteraction[]): PactInteraction[] {
+/**
+ * Collapses interactions that only differ in test data (not in method/path/status/schema) to one
+ * representative. Pass `strategy: 'strict'` to disable deduplication and keep every interaction.
+ */
+export function deduplicateInteractions(
+  interactions: PactInteraction[],
+  strategy: PactDedupStrategy = 'structural',
+): PactInteraction[] {
+  if (strategy === 'strict') {
+    return interactions;
+  }
+
   const seen = new Map<string, PactInteraction>();
 
   for (const interaction of interactions) {
