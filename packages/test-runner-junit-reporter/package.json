@@ -47,7 +47,6 @@
   "dependencies": {
     "@web/test-runner-chrome": "^1.0.0",
     "@web/test-runner-core": "^1.0.0",
-    "array-flat-polyfill": "^1.0.1",
     "xml": "^1.0.1"
   },
   "devDependencies": {

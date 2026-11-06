@@ -1,5 +1,4 @@
 import { Reporter, TestResult, TestSession, TestSuiteResult } from '@web/test-runner-core';
-import 'array-flat-polyfill';
 import fs from 'fs';
 import path from 'path';
 
