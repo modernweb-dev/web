@@ -29,13 +29,13 @@ describe('timers test', () => {
 
   it('can call and cancel setInterval', async () => {
     let callCount = 0;
-
-    const interval = window.setInterval(() => {
-      callCount++;
-    }, 1);
+    let interval;
 
     await new Promise(resolve => {
-      window.setTimeout(() => resolve(), 2);
+      interval = window.setInterval(() => {
+        callCount++;
+        resolve();
+      }, 1);
     });
 
     expect(callCount).to.be.greaterThan(0);
