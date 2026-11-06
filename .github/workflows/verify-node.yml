@@ -59,9 +59,6 @@ jobs:
 
       - name: Test
         run: npm run test:node
-        env:
-          # Node 22.18+ native type stripping preempts ts-node. Remove when mocha is replaced with node:test.
-          NODE_OPTIONS: '--no-experimental-strip-types'
 
   verify-windows:
     timeout-minutes: 30
@@ -104,6 +101,3 @@ jobs:
 
       - name: Test
         run: npm run test:node
-        env:
-          # Node 22.18+ native type stripping preempts ts-node. Remove when mocha is replaced with node:test.
-          NODE_OPTIONS: '--no-experimental-strip-types'
