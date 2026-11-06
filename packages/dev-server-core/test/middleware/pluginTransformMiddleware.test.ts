@@ -198,10 +198,11 @@ describe('plugin-transform middleware', () => {
       assert.equal(textOne, 'console.log("foo")');
       assert.equal(textTwo, 'console.log("foo")');
       assert.equal(headersOne.get('x-foo'), 'bar');
-      assert.deepEqual(
-        Object.fromEntries(headersOne.entries()),
-        Object.fromEntries(headersTwo.entries()),
-      );
+      const { date: dateOne, ...cachedHeadersOne } = Object.fromEntries(headersOne.entries());
+      const { date: dateTwo, ...cachedHeadersTwo } = Object.fromEntries(headersTwo.entries());
+      assert.ok(dateOne);
+      assert.ok(dateTwo);
+      assert.deepEqual(cachedHeadersOne, cachedHeadersTwo);
     } finally {
       server.stop();
     }
