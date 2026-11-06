@@ -1,0 +1,61 @@
+{
+  "name": "@web/test-runner-pact-reporter",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Pact contract file plugin and reporter for @web/test-runner",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/web.git",
+    "directory": "packages/test-runner-pact-reporter"
+  },
+  "author": "modern-web",
+  "homepage": "https://github.com/modernweb-dev/web/tree/master/packages/test-runner-pact-reporter",
+  "main": "browser/pact.mjs",
+  "exports": {
+    ".": {
+      "types": "./browser/pact.d.ts",
+      "default": "./browser/pact.mjs"
+    },
+    "./plugin": {
+      "types": "./plugin.d.ts",
+      "import": "./plugin.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test:node": "node --experimental-strip-types --test --test-force-exit \"test/**/*.test.ts\"",
+    "test:watch": "node --experimental-strip-types --test --test-force-exit --watch \"test/**/*.test.ts\""
+  },
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "*.mjs",
+    "browser",
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "web",
+    "test",
+    "runner",
+    "testrunner",
+    "pact",
+    "contract-testing",
+    "reporter"
+  ],
+  "dependencies": {
+    "@web/test-runner-commands": "^1.0.1",
+    "@web/test-runner-core": "^1.0.0"
+  },
+  "devDependencies": {
+    "@web/test-runner-chrome": "^1.0.0",
+    "@web/test-runner-playwright": "^1.0.0"
+  }
+}
