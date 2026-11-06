@@ -59,10 +59,11 @@ html {
     }
   });
 
-  it('passes the in-browser tests', { timeout: 40000 }, async () => {
+  it('passes the in-browser tests', { timeout: 70000 }, async () => {
     await runTests({
       files: [resolve(import.meta.dirname, '..', 'fixtures', 'postcss', 'postcss-browser-test.js')],
       browsers: [chromeLauncher()],
+      browserStartTimeout: 60000,
       mimeTypes: {
         '**/*.css': 'js',
       },
