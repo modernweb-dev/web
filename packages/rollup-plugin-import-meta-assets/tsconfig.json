@@ -3,14 +3,13 @@
 {
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
-    "module": "node16",
+    "module": "node20",
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,
     "allowJs": true,
     "checkJs": true,
-    "emitDeclarationOnly": true,
-    "moduleResolution": "node16"
+    "emitDeclarationOnly": true
   },
   "references": [],
   "include": ["src", "types"],

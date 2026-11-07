@@ -1,5 +1,5 @@
 {
   "compilerOptions": {
-    "module": "ESNext"
+    "module": "node20"
   }
 }

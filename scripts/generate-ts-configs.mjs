@@ -84,7 +84,7 @@ packageDirnameMap.forEach((packageDirname, packageName) => {
     {
       extends: `../../tsconfig.${pkg.environment === 'browser' ? 'browser' : 'node'}-base.json`,
       compilerOptions: {
-        module: pkg.environment === 'browser' ? 'ESNext' : 'commonjs',
+        module: pkg.environment === 'browser' ? 'ESNext' : 'node20',
         outDir: './dist',
         rootDir: './src',
         composite: true,
