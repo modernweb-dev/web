@@ -176,7 +176,7 @@ export class TestScheduler {
           'Timed out stopping the browser page',
           this.config.testsFinishTimeout,
         );
-        updatedSession.errors = [...(updatedSession.errors ?? []), ...(errors ?? [])];
+        sessionErrors.push(...(errors ?? []));
         updatedSession.testCoverage = testCoverage;
       }
     } catch (error) {
