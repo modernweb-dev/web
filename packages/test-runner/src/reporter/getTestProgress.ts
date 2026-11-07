@@ -77,6 +77,14 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
   const finishedFiles = new Set<string>();
   let failedTestCount = 0;
   let failed = false;
+  let executedTestCount = 0;
+
+  for (const session of sessions.all()) {
+    if (session.testResults) {
+      const parsed = getPassedFailedSkippedCount(session.testResults);
+      executedTestCount += parsed.passed + parsed.failed + parsed.skipped;
+    }
+  }
 
   const longestBrowser = [...browserNames].sort((a, b) => b.length - a.length)[0];
   const minWidth = longestBrowser ? longestBrowser.length + 1 : 0;
@@ -167,6 +175,15 @@ export function getTestProgressReport(config: TestRunnerCoreConfig, args: TestPr
         } else {
           entries.push(bold(red(`Failed to run any tests.`)));
         }
+      } else if (executedTestCount === 0 && !config.passWithNoTests) {
+        entries.push(
+          bold(red(`Finished running tests in ${duration}s, but no tests were executed.`)),
+        );
+        entries.push(
+          bold(
+            `A test run without executed tests fails. Add tests to your test files, or enable the "passWithNoTests" option to pass on test runs without executed tests.`,
+          ),
+        );
       } else {
         entries.push(bold(`Finished running tests in ${duration}s, all tests passed! 🎉`));
       }

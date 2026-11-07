@@ -16,6 +16,7 @@ The test runner can be configured using CLI flags, or with a configuration file.
 | static-logging      | boolean           | Disables rendering a progress bar dynamically to the terminal.                                                        |
 | manual              | boolean           | Starts test runner in manual testing mode. Ignores browsers option and prints manual testing URL.                     |
 | open                | boolean           | Opens browser for manual testing. Requires the manual option to be set.                                               |
+| pass-with-no-tests  | boolean           | pass the test run when no tests were executed                                                                         |
 | port                | number            | Port to bind the server on.                                                                                           |
 | groups              | string            | pattern of where to read test group config files from                                                                 |
 | group               | string            | runs tests only for the test group with this name                                                                     |
@@ -188,6 +189,8 @@ interface TestRunnerConfig {
   manual?: boolean;
   /** Opens browser for manual testing. Requires the manual option to be set. */
   open?: boolean;
+  /** Passes the test run when no tests were executed. By default a test run fails when none of the test files executed any tests. */
+  passWithNoTests?: boolean;
 
   // how long a browser can take to start up before failing. defaults to 30000 (30 sec)
   browserStartTimeout?: number;
