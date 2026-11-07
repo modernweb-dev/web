@@ -87,10 +87,11 @@ export class PlaywrightLauncher implements BrowserLauncher {
 
   async startDebugSession(sessionId: string, url: string) {
     if (!this.debugBrowser) {
+      const args = this.launchOptions.args ?? [];
       this.debugBrowser = await playwright[this.product].launch({
         ...this.launchOptions,
-        // devtools is only supported on chromium
-        devtools: this.product === 'chromium',
+        // only chromium supports opening devtools on launch
+        args: this.product === 'chromium' ? [...args, '--auto-open-devtools-for-tabs'] : args,
         headless: false,
       });
     }
