@@ -2,4 +2,4 @@
 '@web/dev-server-core': patch
 ---
 
-Fix missing portfinder dependency when using test helpers
+Moved portfinder used by test helpers from dev dependencies to dependencies
