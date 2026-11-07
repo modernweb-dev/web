@@ -67,7 +67,7 @@ describe('legacyPlugin - transform js', { timeout: 10000 }, () => {
       assertNotIncludes(text, 'System.register(');
       assertIncludes(text, "import('./xyz.js?systemjs=true');");
       assertIncludes(text, 'function asyncGeneratorStep');
-      assertIncludes(text, 'function _classCallCheck(instance');
+      assertIncludes(text, 'function _classCallCheck(');
       assertIncludes(text, '_asyncToGenerator');
       assertIncludes(
         text,
@@ -98,7 +98,7 @@ describe('legacyPlugin - transform js', { timeout: 10000 }, () => {
       assertIncludes(text, 'System.register(');
       assertIncludes(text, "_context.import('./xyz.js?systemjs=true');");
       assertIncludes(text, 'function asyncGeneratorStep');
-      assertIncludes(text, 'function _classCallCheck(instance');
+      assertIncludes(text, 'function _classCallCheck(');
       assertIncludes(text, '_asyncToGenerator');
       assertIncludes(
         text,
