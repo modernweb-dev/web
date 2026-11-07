@@ -841,8 +841,8 @@ describe('rollup-plugin-html', () => {
           <head></head>
           <body>
             <p>page-a.html</p>
-            <script type="module" src="./shared.js"></script>
             <script type="module" src="./page-a.js"></script>
+            <script type="module" src="./shared.js"></script>
           </body>
         </html>
       `,
@@ -855,14 +855,13 @@ describe('rollup-plugin-html', () => {
           <head></head>
           <body>
             <p>page-b.html</p>
-            <script type="module" src="./shared.js"></script>
             <script type="module" src="./page-b.js"></script>
+            <script type="module" src="./shared.js"></script>
           </body>
         </html>
       `,
     );
 
-    // TODO: investigate why shared.js is after page-c.js here but before in the others
     assert.equal(
       assets['page-c.html'],
       html`
