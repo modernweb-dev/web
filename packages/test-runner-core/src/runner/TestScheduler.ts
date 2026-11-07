@@ -14,6 +14,7 @@ export class TestScheduler {
   private browsers: BrowserLauncher[];
   private finishedBrowsers = new Set<BrowserLauncher>();
   private stopPromises = new Set<Promise<unknown>>();
+  private stopped = false;
   private browserStartTimeoutMsg: string;
 
   constructor(
@@ -70,12 +71,17 @@ export class TestScheduler {
   }
 
   stop(): Promise<unknown> {
+    this.stopped = true;
     this.timeoutHandler.clearAllTimeouts();
     return Promise.all(Array.from(this.stopPromises));
   }
 
   /** Runs the next batch of scheduled sessions, if any. */
   private runNextScheduled() {
+    if (this.stopped) {
+      return;
+    }
+
     let runningBrowsers = 0;
 
     for (const browser of this.browsers) {
