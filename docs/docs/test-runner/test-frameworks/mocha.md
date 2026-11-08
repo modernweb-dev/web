@@ -56,10 +56,10 @@ If you're writing tests as HTML, you can import this library to run tests with m
 
 ## Configuring mocha options
 
-You can configure mocha options using the `testFramework.config` option in your `web-test-runner.config.js`:
+You can configure Mocha options using the `testFramework.config` option in your `web-test-runner.config.mjs`:
 
 ```js
-module.exports = {
+export default {
   testFramework: {
     config: {
       ui: 'bdd',
@@ -68,3 +68,47 @@ module.exports = {
   },
 };
 ```
+
+The server sends this configuration to the browser as JSON, so functions such as `rootHooks.beforeEach` are dropped. Define them in a browser setup module instead.
+
+Do not use Mocha's `require` option, because the browser build does not support it and the test run does not finish.
+
+### Shared hooks and browser setup
+
+To share hooks across JavaScript test files, use `testRunnerHtml` to load a setup module before importing the test framework. In `web-test-runner.config.mjs`:
+
+```js
+export default {
+  nodeResolve: true,
+  testRunnerHtml: testFramework =>
+    `<!DOCTYPE html>
+    <html>
+      <body>
+        <script type="module">
+          // Finish async setup before mocha starts
+          await import('/test/setup-tests.js');
+          await import('${testFramework}');
+        </script>
+      </body>
+    </html>`,
+};
+```
+
+Then create `test/setup-tests.js`:
+
+```js
+import sinon from 'sinon';
+
+const config = window.__WTR_CONFIG__.testFrameworkConfig || {};
+
+window.__WTR_CONFIG__.testFrameworkConfig = {
+  ...config, // Keep options from testFramework.config
+  rootHooks: {
+    afterEach() {
+      sinon.restore();
+    },
+  },
+};
+```
+
+Root hooks run in every test file, because each file runs in its own page.

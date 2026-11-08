@@ -231,6 +231,8 @@ export default {
 };
 ```
 
+For a setup module that runs before the test framework initializes, see [Shared hooks and browser setup](./test-frameworks/mocha.md#shared-hooks-and-browser-setup).
+
 ## Test groups
 
 ### In the main config
