@@ -56,7 +56,7 @@ If you're writing tests as HTML, you can import this library to run tests with m
 
 ## Configuring mocha options
 
-You can configure browser Mocha options using the `testFramework.config` option in your `web-test-runner.config.mjs`:
+You can configure Mocha options using the `testFramework.config` option in your `web-test-runner.config.mjs`:
 
 ```js
 export default {
