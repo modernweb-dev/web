@@ -70,6 +70,7 @@ export default {
 ```
 
 The server sends this configuration to the browser as JSON, so functions such as `rootHooks.beforeEach` are dropped. Define them in a browser setup module instead.
+Do not use Mocha's `require` option, because the browser build does not support it and the test run does not finish.
 
 ### Shared hooks and browser setup
 
@@ -83,6 +84,7 @@ export default {
     <html>
       <body>
         <script type="module">
+          // Finish async setup before mocha starts
           await import('/test/setup-tests.js');
           await import('${testFramework}');
         </script>
@@ -99,7 +101,7 @@ import sinon from 'sinon';
 const config = window.__WTR_CONFIG__.testFrameworkConfig || {};
 
 window.__WTR_CONFIG__.testFrameworkConfig = {
-  ...config,
+  ...config, // Keep options from testFramework.config
   rootHooks: {
     afterEach() {
       sinon.restore();
@@ -110,6 +112,3 @@ window.__WTR_CONFIG__.testFrameworkConfig = {
 
 Root hooks run in every test file, because each file runs in its own page.
 
-The sequential `await import()` calls let async setup and plugin registration finish before Mocha starts.
-
-Do not use Mocha's `require` option, because the browser build does not support it and the test run does not finish.
