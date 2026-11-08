@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 1.0.2
+
+### Patch Changes
+
+- fe453c3: Moved portfinder used by test helpers from dev dependencies to dependencies
+
 ## 1.0.1
 
 ### Patch Changes
