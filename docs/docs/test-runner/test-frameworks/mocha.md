@@ -70,6 +70,7 @@ export default {
 ```
 
 The server sends this configuration to the browser as JSON, so functions such as `rootHooks.beforeEach` are dropped. Define them in a browser setup module instead.
+
 Do not use Mocha's `require` option, because the browser build does not support it and the test run does not finish.
 
 ### Shared hooks and browser setup
@@ -111,4 +112,3 @@ window.__WTR_CONFIG__.testFrameworkConfig = {
 ```
 
 Root hooks run in every test file, because each file runs in its own page.
-
