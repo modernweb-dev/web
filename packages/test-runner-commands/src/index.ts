@@ -1,9 +1,18 @@
-export { A11ySnapshotPayload, a11ySnapshotPlugin } from './a11ySnapshotPlugin.js';
-export { Media, emulateMediaPlugin } from './emulateMediaPlugin.js';
-export { ReadFilePayload, RemoveFilePayload, WriteFilePayload, filePlugin } from './filePlugin.js';
-export { SelectOptionPayload, selectOptionPlugin } from './selectOptionPlugin.js';
-export { SendKeysPayload, sendKeysPlugin } from './sendKeysPlugin.js';
-export { SendMousePayload, sendMousePlugin } from './sendMousePlugin.js';
+export { a11ySnapshotPlugin, type A11ySnapshotPayload } from './a11ySnapshotPlugin.js';
+export { emulateMediaPlugin, type Media } from './emulateMediaPlugin.js';
+export {
+  filePlugin,
+  type ReadFilePayload,
+  type RemoveFilePayload,
+  type WriteFilePayload,
+} from './filePlugin.js';
+export { selectOptionPlugin, type SelectOptionPayload } from './selectOptionPlugin.js';
+export { sendKeysPlugin, type SendKeysPayload } from './sendKeysPlugin.js';
+export { sendMousePlugin, type SendMousePayload } from './sendMousePlugin.js';
 export { setUserAgentPlugin } from './setUserAgentPlugin.js';
-export { Viewport, setViewportPlugin } from './setViewportPlugin.js';
-export { SaveSnapshotPayload, SnapshotPluginConfig, snapshotPlugin } from './snapshotPlugin.js';
+export { setViewportPlugin, type Viewport } from './setViewportPlugin.js';
+export {
+  snapshotPlugin,
+  type SaveSnapshotPayload,
+  type SnapshotPluginConfig,
+} from './snapshotPlugin.js';

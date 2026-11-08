@@ -1,7 +1,7 @@
 export { createPolyfillsData } from './createPolyfillsData.js';
 export { createPolyfillsLoader } from './createPolyfillsLoader.js';
 export { injectPolyfillsLoader } from './injectPolyfillsLoader.js';
-export {
+export type {
   File,
   FileType,
   GeneratedFile,

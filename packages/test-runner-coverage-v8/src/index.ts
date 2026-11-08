@@ -120,4 +120,4 @@ export async function v8ToIstanbul(
   return istanbulCoverage;
 }
 
-export { V8Coverage };
+export type { V8Coverage };
