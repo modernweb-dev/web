@@ -69,7 +69,7 @@ export default {
 };
 ```
 
-The server JSON-serializes this configuration before sending it to the browser, so its values must be JSON-serializable. Functions, such as `rootHooks.beforeEach` and `rootHooks.afterEach`, cannot be passed directly in this configuration. Define them in a browser setup module instead.
+The server sends this configuration to the browser as JSON, so functions such as `rootHooks.beforeEach` are dropped. Define them in a browser setup module instead.
 
 ### Shared hooks and browser setup
 
