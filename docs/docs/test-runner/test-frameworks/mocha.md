@@ -77,14 +77,7 @@ To share hooks across JavaScript test files, use `testRunnerHtml` to load a setu
 
 ```js
 export default {
-  files: 'test/**/*.test.js',
-  rootDir: '.',
-  testFramework: {
-    config: {
-      ui: 'bdd',
-      timeout: '2000',
-    },
-  },
+  nodeResolve: true,
   testRunnerHtml: testFramework =>
     `<!DOCTYPE html>
     <html>
@@ -101,29 +94,22 @@ export default {
 Then create `test/setup-tests.js`:
 
 ```js
-const existingConfig = window.__WTR_CONFIG__.testFrameworkConfig || {};
-let fixture;
+import sinon from 'sinon';
+
+const config = window.__WTR_CONFIG__.testFrameworkConfig || {};
 
 window.__WTR_CONFIG__.testFrameworkConfig = {
-  ...existingConfig,
+  ...config,
   rootHooks: {
-    ...existingConfig.rootHooks,
-    beforeEach() {
-      fixture = document.createElement('div');
-      fixture.id = 'test-fixture';
-      document.body.appendChild(fixture);
-    },
     afterEach() {
-      fixture.remove();
+      sinon.restore();
     },
   },
 };
 ```
 
-Each test can use `document.querySelector('#test-fixture')` as its container. The `beforeEach` hook creates a fresh fixture for each test, and `afterEach` removes it and its contents. These root hooks are registered separately in each test-file session; they do not run once globally across all files or workers.
+Root hooks run in every test file, because each file runs in its own page.
 
-The assignment preserves existing options such as `ui` and `timeout`, as well as unrelated root-hook keys. It also works when `testFramework.config` is absent. The example replaces any existing `beforeEach` and `afterEach` hooks rather than combining them.
+The sequential `await import()` calls let async setup and plugin registration finish before Mocha starts.
 
-The sequential `await import(...)` calls ensure that setup finishes before Mocha initializes, including any asynchronous work awaited by the setup module. Do not replace the framework import with a static import in the same module: static imports execute before the module body. Browser-compatible plugin initialization can also happen in the setup module before the framework import; any plugin imports must be resolvable by your configured server.
-
-Mocha's Node-side `require` option does not load a Node setup module in this browser runner. Use the browser imports above instead. Setup module URLs must be served within `rootDir`: this example assumes you run from the project root, so `/test/setup-tests.js` resolves to `test/setup-tests.js` in your project. The setup file is outside the selected `test/**/*.test.js` glob, so it is not run as a test file itself.
+Do not use Mocha's `require` option, because the browser build does not support it and the test run does not finish.
