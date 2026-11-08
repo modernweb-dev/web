@@ -22,7 +22,7 @@
     "install-puppeteer-firefox": "cd node_modules/puppeteer && PUPPETEER_BROWSER=firefox node install.js",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint .",
-    "lint:prettier": "prettier \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
+    "lint:prettier": "prettier \"**/*.{ts,js,mjs,cjs,md}\" \"**/package.json\" --check --ignore-path .eslintignore",
     "prepare": "husky",
     "reinstall-workspace": "rimraf --glob packages/*/node_modules && rimraf node_modules && npm install && npm run build",
     "release": "changeset publish && npm run format",
