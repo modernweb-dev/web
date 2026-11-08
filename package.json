@@ -78,11 +78,14 @@
     "wireit": "^0.14.2"
   },
   "lint-staged": {
-    "*.js": [
+    "*.{ts,js,mjs,cjs}": [
       "eslint --fix",
       "prettier --write --ignore-path .eslintignore"
     ],
     "*.md": [
+      "prettier --write --ignore-path .eslintignore"
+    ],
+    "package.json": [
       "prettier --write --ignore-path .eslintignore"
     ]
   },
