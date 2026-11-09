@@ -1,5 +1,11 @@
 # @web/test-runner-junit-reporter
 
+## 1.0.1
+
+### Patch Changes
+
+- 076d1f9: Remove the `array-flat-polyfill` dependency. Node supports `Array.prototype.flat` natively.
+
 ## 1.0.0
 
 ### Major Changes
