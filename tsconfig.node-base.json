@@ -3,6 +3,7 @@
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */
     "target": "ES2024" /* Specify ECMAScript target version. */,
+    "module": "node20" /* Specify module code generation. It also sets moduleResolution to node16. */,
     // "allowJs": true,                       /* Allow javascript files to be compiled. */
     // "checkJs": true,                       /* Report errors in .js files. */
     // "jsx": "preserve",                     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
@@ -36,7 +37,6 @@
     // "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
 
     /* Module Resolution Options */
-    "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
     // "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
     // "paths": {},                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
