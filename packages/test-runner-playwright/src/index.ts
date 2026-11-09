@@ -9,7 +9,7 @@ import {
 
 const validProductTypes: ProductType[] = ['chromium', 'firefox', 'webkit'];
 
-export { PlaywrightLauncher, ProductType, devices, playwright };
+export { PlaywrightLauncher, devices, playwright, type ProductType };
 
 export interface PlaywrightLauncherArgs {
   product?: ProductType;
