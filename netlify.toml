@@ -1,0 +1,4 @@
+# Netlify build settings for modern-web.dev
+[build.environment]
+  # Match the root package.json engines field
+  NODE_VERSION = "22"
