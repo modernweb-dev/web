@@ -1,5 +1,11 @@
 # @web/storybook-builder
 
+## 1.0.1
+
+### Patch Changes
+
+- 00c2791: Load `slash` and `@mdx-js/mdx` with a native dynamic `import()`, so the builder works on Node versions without `require(esm)` support.
+
 ## 1.0.0
 
 ### Major Changes
