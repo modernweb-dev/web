@@ -96,6 +96,7 @@
     "source-map": "^0.7.3"
   },
   "devDependencies": {
+    "@types/chai": "^5.2.3",
     "@types/diff": "^5.0.0",
     "@web/dev-server-legacy": "^3.0.0",
     "@web/test-runner-saucelabs": "^1.0.0",
