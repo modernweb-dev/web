@@ -1,6 +1,6 @@
 {
   "name": "@web/storybook-builder",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publishConfig": {
     "access": "public"
   },
@@ -51,11 +51,11 @@
     "@mdx-js/mdx": "^3.0.0",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-replace": "^6.0.2",
-    "@web/config-loader": "^1.0.0",
-    "@web/dev-server": "^1.0.0",
-    "@web/dev-server-core": "^1.0.0",
-    "@web/dev-server-rollup": "^1.0.0",
-    "@web/rollup-plugin-html": "^4.0.0",
+    "@web/config-loader": "^1.0.1",
+    "@web/dev-server": "^1.0.1",
+    "@web/dev-server-core": "^1.0.3",
+    "@web/dev-server-rollup": "^1.0.1",
+    "@web/rollup-plugin-html": "^4.0.1",
     "cjs-module-lexer": "^1.2.3",
     "es-module-lexer": "^1.2.1",
     "esbuild": "^0.28.1",

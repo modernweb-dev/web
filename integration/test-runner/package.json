@@ -18,8 +18,8 @@
   "type": "module",
   "scripts": {},
   "dependencies": {
-    "@web/dev-server-legacy": "^3.0.0",
-    "@web/test-runner-core": "^1.0.0"
+    "@web/dev-server-legacy": "^3.0.1",
+    "@web/test-runner-core": "^1.0.1"
   },
   "devDependencies": {
     "chai": "^6.0.0"
