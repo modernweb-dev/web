@@ -2,11 +2,11 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noEmitOnError": true,
     "lib": ["es2017", "dom"],
     "strict": true,
-    "esModuleInterop": false,
+    "types": ["mocha"],
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "importHelpers": true,
