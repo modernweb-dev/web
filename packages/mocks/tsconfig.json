@@ -1,6 +1,20 @@
 {
-  "extends": "../../tsconfig.new.json",
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2024", "DOM"],
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    "composite": true,
+    "emitDeclarationOnly": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "incremental": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "outDir": "./dist-types",
     "rootDir": "."
   },
