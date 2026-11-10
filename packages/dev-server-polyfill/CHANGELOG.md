@@ -1,5 +1,14 @@
 # @web/dev-server-polyfill
 
+## 2.0.1
+
+### Patch Changes
+
+- b251f86: Build with TypeScript 6.0. TypeScript 6 emits the same JavaScript and declaration files as TypeScript 5.9.
+- Updated dependencies [b251f86]
+  - @web/dev-server@1.0.1
+  - @web/polyfills-loader@3.0.1
+
 ## 2.0.0
 
 ### Major Changes

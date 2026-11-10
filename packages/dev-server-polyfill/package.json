@@ -1,6 +1,6 @@
 {
   "name": "@web/dev-server-polyfill",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "publishConfig": {
     "access": "public"
   },
@@ -38,7 +38,7 @@
     "polyfill"
   ],
   "dependencies": {
-    "@web/dev-server": "^1.0.0",
-    "@web/polyfills-loader": "^3.0.0"
+    "@web/dev-server": "^1.0.1",
+    "@web/polyfills-loader": "^3.0.1"
   }
 }
