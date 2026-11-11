@@ -8,7 +8,7 @@ export type {
   TestRunnerCoreConfig,
 } from './config/TestRunnerCoreConfig.js';
 export type { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.js';
-export type { TestCoverage } from './coverage/getTestCoverage.js';
+export type { TestCoverage, TestCoverageFileFailure } from './coverage/getTestCoverage.js';
 export type { ErrorWithLocation, Logger } from './logger/Logger.js';
 export type {
   GetTestProgressArgs,

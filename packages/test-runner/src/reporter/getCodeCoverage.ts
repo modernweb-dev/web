@@ -6,7 +6,7 @@ import {
 import { bold, green, red, underline } from 'nanocolors';
 import path from 'path';
 
-const coverageTypes: (keyof CoverageThresholdConfig)[] = [
+const coverageTypes: Exclude<keyof CoverageThresholdConfig, 'perFile'>[] = [
   'lines',
   'statements',
   'branches',
@@ -29,15 +29,30 @@ export function getCodeCoverage(
   }
 
   if (!testCoverage.passed && coverageConfig.threshold) {
-    coverageTypes.forEach(type => {
-      if (testCoverage.summary[type].pct < coverageConfig.threshold![type]) {
-        entries.push(
-          `Coverage for ${bold(type)} failed with ${bold(
-            red(`${testCoverage.summary[type].pct} %`),
-          )} compared to configured ${bold(`${coverageConfig.threshold![type]} %`)}`,
-        );
+    if (coverageConfig.threshold.perFile) {
+      for (const { file, summary } of testCoverage.failedFiles ?? []) {
+        entries.push(`Coverage for ${bold(path.relative(process.cwd(), file))} failed:`);
+        for (const type of coverageTypes) {
+          if (summary[type].pct < coverageConfig.threshold[type]) {
+            entries.push(
+              `  ${bold(type)} is ${bold(red(`${summary[type].pct} %`))} compared to configured ${bold(
+                `${coverageConfig.threshold[type]} %`,
+              )}`,
+            );
+          }
+        }
       }
-    });
+    } else {
+      coverageTypes.forEach(type => {
+        if (testCoverage.summary[type].pct < coverageConfig.threshold![type]) {
+          entries.push(
+            `Coverage for ${bold(type)} failed with ${bold(
+              red(`${testCoverage.summary[type].pct} %`),
+            )} compared to configured ${bold(`${coverageConfig.threshold![type]} %`)}`,
+          );
+        }
+      });
+    }
   }
 
   if (!watch && coverageConfig.report && coverageConfig.reporters?.includes('lcov')) {
