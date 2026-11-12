@@ -41,7 +41,7 @@ export async function openBrowser(config: DevServerConfig) {
     // construct a full URL to open if the user didn't provide a full URL
     openPath = new URL(
       openPath,
-      `http${config.http2 ? 's' : ''}://${config.hostname}:${config.port}`,
+      `http${config.http2 || config.https ? 's' : ''}://${config.hostname}:${config.port}`,
     ).href;
   }
 
