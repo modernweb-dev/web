@@ -30,6 +30,7 @@ const packages = [
   { name: 'test-runner-commands', type: 'ts', environment: 'node' },
   { name: 'test-runner-module-mocking', ignoreTsConfig: true },
   { name: 'test-runner-junit-reporter', type: 'ts', environment: 'node' },
+  { name: 'test-runner-pact-reporter', type: 'ts', environment: 'node' },
   { name: 'test-runner-mocha', type: 'ts', environment: 'browser' },
   { name: 'test-runner-saucelabs', type: 'ts', environment: 'node' },
   { name: 'test-runner-visual-regression', type: 'ts', environment: 'node' },
