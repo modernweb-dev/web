@@ -12,6 +12,18 @@ export function a11ySnapshotPlugin(): TestRunnerPlugin<A11ySnapshotPayload> {
         // handle specific behavior for playwright
         if (session.browser.type === 'playwright') {
           const page = (session.browser as PlaywrightLauncher).getPage(session.id);
+          // Playwright 1.57 removed page.accessibility
+          const { accessibility } = page as playwright.Page & {
+            accessibility?: {
+              snapshot(options: { root?: playwright.ElementHandle }): Promise<unknown>;
+            };
+          };
+          if (!accessibility) {
+            throw new Error(
+              'Accessibility snapshot is not supported for Playwright 1.57 and later. ' +
+                'Use Playwright 1.56 or earlier, or the Chrome or Puppeteer launcher.',
+            );
+          }
           const options: {
             root?: playwright.ElementHandle;
           } = {};
@@ -21,7 +33,7 @@ export function a11ySnapshotPlugin(): TestRunnerPlugin<A11ySnapshotPayload> {
               options.root = root;
             }
           }
-          const snapshot = await page.accessibility.snapshot(options);
+          const snapshot = await accessibility.snapshot(options);
           return snapshot;
         }
 
