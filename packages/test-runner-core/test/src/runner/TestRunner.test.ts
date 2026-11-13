@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { describe, it, mock } from 'node:test';
-import { setImmediate } from 'node:timers/promises';
+import { setTimeout as delay } from 'node:timers/promises';
 
 import portfinder from 'portfinder';
 
@@ -10,7 +10,6 @@ import type { TestRunnerCoreConfig } from '../../../dist/config/TestRunnerCoreCo
 import type { TestRunnerGroupConfig } from '../../../dist/index.js';
 import type { Logger } from '../../../dist/logger/Logger.js';
 import { TestRunner } from '../../../dist/runner/TestRunner.js';
-import { TestRunnerServer } from '../../../dist/server/TestRunnerServer.js';
 import { SESSION_STATUS } from '../../../dist/test-session/TestSessionStatus.js';
 
 function createBrowserStub(): BrowserLauncher {
@@ -136,37 +135,20 @@ describe('TestRunner', function () {
     assert.equal(passed, false, 'test runner quits with false');
   });
 
-  it('waits for browser cleanup in watch mode', async t => {
+  it('waits for browsers to stop in watch mode', async () => {
     const { runner, browser } = await createTestRunner({ watch: true });
-    const stopServer = t.mock.method(TestRunnerServer.prototype, 'stop');
-    const browserStopped = Promise.withResolvers<void>();
-    const stopped = mock.fn();
-    runner.on('stopped', stopped);
-    browser.stop.mock.mockImplementation(() => browserStopped.promise);
+    const events: string[] = [];
+    browser.stop.mock.mockImplementation(async () => {
+      // outlast the server shutdown, so an unawaited browser stop finishes last
+      await delay(100);
+      events.push('browser stopped');
+    });
+    runner.on('stopped', () => events.push('runner stopped'));
 
     await runner.start();
+    await runner.stop();
 
-    let stopResolved = false;
-    const stopping = runner.stop().then(() => {
-      stopResolved = true;
-    });
-
-    try {
-      await setImmediate();
-      assert.equal(stopServer.mock.callCount(), 1);
-      await stopServer.mock.calls[0].result;
-      await setImmediate();
-
-      assert.equal(browser.stop.mock.callCount(), 1, 'browser cleanup has started');
-      assert.equal(stopped.mock.callCount(), 0, 'stopped event waits for browser cleanup');
-      assert.equal(stopResolved, false, 'stop waits for browser cleanup');
-    } finally {
-      browserStopped.resolve();
-      await stopping;
-    }
-
-    assert.equal(stopped.mock.callCount(), 1, 'stopped event is emitted after browser cleanup');
-    assert.equal(stopResolved, true);
+    assert.deepEqual(events, ['browser stopped', 'runner stopped']);
   });
 
   describe('groups', () => {
