@@ -38,6 +38,9 @@ beforeEach(() => {
     <x-shadow-host><a href="#slotted">Slotted</a></x-shadow-host>
     <x-internals-checkbox></x-internals-checkbox>
     <nav aria-label="Navigation"><p>Text</p></nav>
+    <div id="avatar" role="img" aria-label="Avatar"><span>AB</span></div>
+    <meter aria-label="Level" min="0" max="10" value="3"></meter>
+    <div role="meter" aria-label="Score" aria-valuemin="0" aria-valuemax="10" aria-valuenow="7"><span>7 of 10</span></div>
   `;
   document.body.append(container);
   container.querySelector('#mixed').indeterminate = true;
@@ -72,6 +75,33 @@ it('returns nodes from shadow DOM and element internals', async () => {
   expect(find('Inner')).to.deep.equal({ role: 'button', name: 'Inner' });
   expect(find('Slotted')).to.deep.equal({ role: 'link', name: 'Slotted' });
   expect(find('Internals')).to.deep.equal({ role: 'checkbox', name: 'Internals', checked: true });
+});
+
+it('returns named images and meters with child nodes as leaf nodes', async () => {
+  const snapshot = await a11ySnapshot();
+  const find = name => findAccessibilityNode(snapshot, node => node.name === name);
+  expect(find('Avatar')).to.deep.equal({ role: 'image', name: 'Avatar' });
+  expect(find('AB')).to.equal(null);
+  expect(find('Level')).to.deep.equal({
+    role: 'meter',
+    name: 'Level',
+    valuetext: '',
+    valuemin: 0,
+    valuemax: 10,
+    value: 3,
+  });
+  expect(find('Score')).to.deep.equal({
+    role: 'meter',
+    name: 'Score',
+    valuetext: '',
+    valuemin: 0,
+    valuemax: 10,
+    value: 7,
+  });
+  expect(await a11ySnapshot({ selector: '#avatar' })).to.deep.equal({
+    role: 'image',
+    name: 'Avatar',
+  });
 });
 
 it('returns the tree of the element that matches the selector', async () => {

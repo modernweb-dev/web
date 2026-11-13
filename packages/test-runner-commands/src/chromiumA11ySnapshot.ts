@@ -17,8 +17,9 @@
 
 /**
  * Ported from Playwright 1.56 `crAccessibility.ts` and `accessibility.ts`, which
- * Playwright 1.57 removed. Changes: only the `interestingOnly: true` mode, and
- * the tree is read through a public CDP session.
+ * Playwright 1.57 removed. Changes: only the `interestingOnly: true` mode, the
+ * tree is read through a public CDP session, and the leaf roles include the
+ * `image` and `meter` role names that Chromium reports.
  */
 import type { playwright } from '@web/test-runner-playwright';
 
@@ -84,7 +85,9 @@ const LEAF_ROLES = new Set([
   'doc-cover',
   'graphics-symbol',
   'img',
+  'image',
   'Meter',
+  'meter',
   'scrollbar',
   'slider',
   'separator',
@@ -232,8 +235,8 @@ function serializeTree(node: TreeNode, interestingNodes: Set<TreeNode>): A11ySna
 }
 
 /**
- * Returns the same accessibility snapshot as `page.accessibility.snapshot()` in
- * Playwright 1.56, which Playwright 1.57 removed. Works in Chromium only.
+ * Returns an accessibility snapshot in the format of `page.accessibility.snapshot()`
+ * in Playwright 1.56, which Playwright 1.57 removed. Works in Chromium only.
  */
 export async function chromiumA11ySnapshot(
   page: playwright.Page,
