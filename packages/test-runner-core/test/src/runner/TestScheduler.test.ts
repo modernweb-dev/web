@@ -173,12 +173,12 @@ describe('TestScheduler', () => {
       await waitUntilEqual(() => sessions.get('3')!.status, SESSION_STATUS.FINISHED);
     });
 
-    it('clears the same number of timeouts on each watch run', async t => {
+    it('does not clear timeouts of a previous watch run again', async t => {
       mockConfig.watch = true;
       const [scheduler, sessions, [session1]] = createTestFixture('1');
       const clearTimeoutSpy = t.mock.method(globalThis, 'clearTimeout');
 
-      async function runAndCountClearedTimeouts(testRun: number) {
+      async function runAndGetClearedTimeouts(testRun: number) {
         clearTimeoutSpy.mock.resetCalls();
         scheduler.schedule(testRun, [sessions.get(session1.id)!]);
         await waitUntilEqual(() => sessions.get(session1.id)!.status, SESSION_STATUS.INITIALIZING);
@@ -187,12 +187,16 @@ describe('TestScheduler', () => {
           SESSION_STATUS.TEST_FINISHED,
         );
         await waitUntilEqual(() => sessions.get(session1.id)!.status, SESSION_STATUS.FINISHED);
-        return clearTimeoutSpy.mock.callCount();
+        // compare handles, not counts: unrelated timers may be cleared at the same time
+        return clearTimeoutSpy.mock.calls.map(call => call.arguments[0]);
       }
 
-      const firstRun = await runAndCountClearedTimeouts(1);
-      const secondRun = await runAndCountClearedTimeouts(2);
-      assert.equal(secondRun, firstRun, 'timeouts of the first run are not cleared again');
+      const firstRun = await runAndGetClearedTimeouts(1);
+      const secondRun = await runAndGetClearedTimeouts(2);
+      assert.deepEqual(
+        secondRun.filter(id => firstRun.includes(id)),
+        [],
+      );
     });
 
     it('error while starting browser marks session as failed', async () => {
