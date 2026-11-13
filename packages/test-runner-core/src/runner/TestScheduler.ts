@@ -14,6 +14,7 @@ export class TestScheduler {
   private browsers: BrowserLauncher[];
   private finishedBrowsers = new Set<BrowserLauncher>();
   private stopPromises = new Set<Promise<unknown>>();
+  private sessionStopPromises = new Set<Promise<void>>();
   private browserStartTimeoutMsg: string;
 
   constructor(
@@ -69,8 +70,9 @@ export class TestScheduler {
     this.runNextScheduled();
   }
 
-  stop(): Promise<unknown> {
+  async stop(): Promise<unknown> {
     this.timeoutHandler.clearAllTimeouts();
+    await Promise.all(Array.from(this.sessionStopPromises));
     return Promise.all(Array.from(this.stopPromises));
   }
 
@@ -163,6 +165,16 @@ export class TestScheduler {
   }
 
   async stopSession(session: TestSession, errors: TestResultError[] = []) {
+    const stopPromise = this.stopSessionInternal(session, errors);
+    this.sessionStopPromises.add(stopPromise);
+    try {
+      await stopPromise;
+    } finally {
+      this.sessionStopPromises.delete(stopPromise);
+    }
+  }
+
+  private async stopSessionInternal(session: TestSession, errors: TestResultError[]) {
     if (this.timeoutHandler.isStale(session)) {
       return;
     }
