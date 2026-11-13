@@ -1,5 +1,11 @@
 # @web/dev-server-core
 
+## 1.0.4
+
+### Patch Changes
+
+- eb4f65e: Store a transformed file in the plugin transform cache before the response is sent. A request that follows right away now uses the cache instead of running the transform again.
+
 ## 1.0.3
 
 ### Patch Changes

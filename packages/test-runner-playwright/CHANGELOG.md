@@ -1,5 +1,14 @@
 # @web/test-runner-playwright
 
+## 1.0.2
+
+### Patch Changes
+
+- 91a5a39: Open devtools in Chromium debug sessions with `--auto-open-devtools-for-tabs`. Playwright 1.58 removed the `devtools` launch option.
+- Updated dependencies [3153721]
+- Updated dependencies [00eba4e]
+  - @web/test-runner-core@1.0.2
+
 ## 1.0.1
 
 ### Patch Changes
