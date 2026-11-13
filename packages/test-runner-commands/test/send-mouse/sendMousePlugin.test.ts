@@ -8,7 +8,7 @@ import selenium from 'selenium-standalone';
 import { sendMousePlugin } from '../../dist/sendMousePlugin.js';
 import { startSeleniumServer } from '../selenium-server.ts';
 
-describe('sendMousePlugin', { timeout: 50000 }, () => {
+describe('sendMousePlugin', () => {
   it('can send mouse on puppeteer', async () => {
     await runTests({
       files: [path.join(import.meta.dirname, 'browser-test.js')],

@@ -5,7 +5,7 @@ import path from 'path';
 
 import { snapshotPlugin } from '../../dist/snapshotPlugin.js';
 
-describe('snapshotPlugin', { timeout: 20000 }, () => {
+describe('snapshotPlugin', () => {
   it('passes snapshot tests', async () => {
     await runTests({
       files: [path.join(import.meta.dirname, 'browser-test.js')],

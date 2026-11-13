@@ -7,7 +7,7 @@ import path from 'path';
 
 import { a11ySnapshotPlugin } from '../../dist/a11ySnapshotPlugin.js';
 
-describe('a11ySnapshotPlugin', { timeout: 20000 }, () => {
+describe('a11ySnapshotPlugin', () => {
   it('can find accessibility nodes in the returned accessibility tree on puppeteer', async () => {
     await runTests({
       files: [path.join(import.meta.dirname, 'browser-test.js')],

@@ -6,7 +6,7 @@ import path from 'path';
 
 import { selectOptionPlugin } from '../../dist/selectOptionPlugin.js';
 
-describe('selectOptionPlugin', { timeout: 20000 }, () => {
+describe('selectOptionPlugin', () => {
   it('can send keys on puppeteer', async () => {
     await runTests({
       files: [path.join(import.meta.dirname, 'puppeteer-test.js')],

@@ -7,7 +7,7 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 
 import { setViewportPlugin } from '../../dist/setViewportPlugin.js';
 
-describe('setViewportPlugin', { timeout: 20000 }, () => {
+describe('setViewportPlugin', () => {
   it('can set the viewport on puppeteer', async () => {
     await runTests({
       files: [path.join(import.meta.dirname, 'browser-test.js')],

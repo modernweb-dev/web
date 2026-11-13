@@ -5,7 +5,7 @@ import path from 'path';
 
 import { setUserAgentPlugin } from '../../dist/setUserAgentPlugin.js';
 
-describe('setUserAgentPlugin', { timeout: 20000 }, () => {
+describe('setUserAgentPlugin', () => {
   it('can set the user agent on puppeteer', async () => {
     await runTests({
       files: [path.join(import.meta.dirname, 'browser-test.js')],

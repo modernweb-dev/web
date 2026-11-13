@@ -6,7 +6,7 @@ import path from 'path';
 
 import { sendKeysPlugin } from '../../dist/sendKeysPlugin.js';
 
-describe('sendKeysPlugin', { timeout: 20000 }, () => {
+describe('sendKeysPlugin', () => {
   it('can send keys on puppeteer', async () => {
     await runTests({
       files: [path.join(import.meta.dirname, 'browser-test.js')],

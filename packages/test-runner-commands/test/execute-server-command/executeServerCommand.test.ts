@@ -4,7 +4,7 @@ import { runTests } from '@web/test-runner-core/test-helpers';
 import { describe, it } from 'node:test';
 import path from 'path';
 
-describe('executeServerCommand', { timeout: 20000 }, () => {
+describe('executeServerCommand', () => {
   it('can execute commands', async () => {
     const logger: Logger = {
       ...console,

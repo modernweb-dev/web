@@ -6,7 +6,7 @@ import path from 'path';
 
 import { emulateMediaPlugin } from '../../dist/emulateMediaPlugin.js';
 
-describe('emulateMediaPlugin', { timeout: 60000 }, () => {
+describe('emulateMediaPlugin', () => {
   it('can emulate media on puppeteer', async () => {
     await runTests({
       files: [

@@ -5,7 +5,7 @@ import path from 'path';
 
 import { filePlugin } from '../../dist/filePlugin.js';
 
-describe('filePlugin', { timeout: 20000 }, () => {
+describe('filePlugin', () => {
   it('passes file plugin tests', async () => {
     await runTests({
       files: [path.join(import.meta.dirname, 'browser-test.js')],
