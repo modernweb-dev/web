@@ -1,5 +1,14 @@
 # @web/test-runner-core
 
+## 1.0.2
+
+### Patch Changes
+
+- 3153721: Prevent completed session timeout handles from accumulating across watch-mode runs.
+- 00eba4e: Wait for browsers to finish closing before completing test runner shutdown in watch mode.
+- Updated dependencies [eb4f65e]
+  - @web/dev-server-core@1.0.4
+
 ## 1.0.1
 
 ### Patch Changes

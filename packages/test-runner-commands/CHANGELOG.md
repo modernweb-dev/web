@@ -1,5 +1,14 @@
 # @web/test-runner-commands
 
+## 1.0.3
+
+### Patch Changes
+
+- 91a5a39: Throw a clear error from `a11ySnapshot` in Playwright 1.57 and later, which removed `page.accessibility`.
+- Updated dependencies [3153721]
+- Updated dependencies [00eba4e]
+  - @web/test-runner-core@1.0.2
+
 ## 1.0.2
 
 ### Patch Changes
