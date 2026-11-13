@@ -164,8 +164,7 @@ export class TestRunner extends EventEmitter<EventMap> {
     stopActions.push(stopServerAction);
 
     if (this.config.watch) {
-      // we only need to stop the browsers in watch mode, in non-watch
-      // mode the scheduler has already stopped them
+      // in non-watch mode the scheduler stops each browser after its last session
       for (const browser of this.browsers) {
         if (browser.stop) {
           stopActions.push(
