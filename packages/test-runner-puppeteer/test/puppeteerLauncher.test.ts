@@ -2,7 +2,7 @@ import { describe } from 'node:test';
 import { runIntegrationTests } from '../../../integration/test-runner/index.ts';
 import { puppeteerLauncher } from '../dist/index.js';
 
-describe('test-runner-puppeteer', { timeout: 20000 }, () => {
+describe('test-runner-puppeteer', () => {
   function createConfig() {
     return {
       browsers: [puppeteerLauncher()],
