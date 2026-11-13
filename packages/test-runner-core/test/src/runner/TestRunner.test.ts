@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { describe, it, mock } from 'node:test';
+import { setTimeout as delay } from 'node:timers/promises';
 
 import portfinder from 'portfinder';
 
@@ -132,6 +133,22 @@ describe('TestRunner', function () {
     assert.equal(browser.stopSession.mock.callCount(), 1, 'browser session is stopped');
     assert.equal(browser.stop.mock.callCount(), 1, 'browser is stopped');
     assert.equal(passed, false, 'test runner quits with false');
+  });
+
+  it('waits for browsers to stop in watch mode', async () => {
+    const { runner, browser } = await createTestRunner({ watch: true });
+    const events: string[] = [];
+    browser.stop.mock.mockImplementation(async () => {
+      // outlast the server shutdown, so an unawaited browser stop finishes last
+      await delay(100);
+      events.push('browser stopped');
+    });
+    runner.on('stopped', () => events.push('runner stopped'));
+
+    await runner.start();
+    await runner.stop();
+
+    assert.deepEqual(events, ['browser stopped', 'runner stopped']);
   });
 
   describe('groups', () => {
