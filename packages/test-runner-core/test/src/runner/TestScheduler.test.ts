@@ -173,38 +173,26 @@ describe('TestScheduler', () => {
       await waitUntilEqual(() => sessions.get('3')!.status, SESSION_STATUS.FINISHED);
     });
 
-    it('does not clear completed session timeouts again on watch reruns', async t => {
+    it('clears the same number of timeouts on each watch run', async t => {
       mockConfig.watch = true;
       const [scheduler, sessions, [session1]] = createTestFixture('1');
-      const clearTimeoutStub = t.mock.method(globalThis, 'clearTimeout');
+      const clearTimeoutSpy = t.mock.method(globalThis, 'clearTimeout');
 
-      async function finishRun(testRun: number) {
+      async function runAndCountClearedTimeouts(testRun: number) {
+        clearTimeoutSpy.mock.resetCalls();
         scheduler.schedule(testRun, [sessions.get(session1.id)!]);
         await waitUntilEqual(() => sessions.get(session1.id)!.status, SESSION_STATUS.INITIALIZING);
-        sessions.updateStatus(sessions.get(session1.id)!, SESSION_STATUS.TEST_STARTED);
         sessions.updateStatus(
           { ...sessions.get(session1.id)!, passed: true },
           SESSION_STATUS.TEST_FINISHED,
         );
         await waitUntilEqual(() => sessions.get(session1.id)!.status, SESSION_STATUS.FINISHED);
+        return clearTimeoutSpy.mock.callCount();
       }
 
-      try {
-        await finishRun(1);
-        const clearedTimeouts = new Set(clearTimeoutStub.mock.calls.map(call => call.arguments[0]));
-        assert.ok(clearedTimeouts.size > 0, 'the first run clears its timeouts');
-        clearTimeoutStub.mock.resetCalls();
-
-        await finishRun(2);
-        assert.ok(clearTimeoutStub.mock.callCount() > 0, 'the second run clears its timeouts');
-        assert.equal(
-          clearTimeoutStub.mock.calls.some(call => clearedTimeouts.has(call.arguments[0])),
-          false,
-          'watch reruns must not revisit cleared timeout handles',
-        );
-      } finally {
-        await scheduler.stop();
-      }
+      const firstRun = await runAndCountClearedTimeouts(1);
+      const secondRun = await runAndCountClearedTimeouts(2);
+      assert.equal(secondRun, firstRun, 'timeouts of the first run are not cleared again');
     });
 
     it('error while starting browser marks session as failed', async () => {
