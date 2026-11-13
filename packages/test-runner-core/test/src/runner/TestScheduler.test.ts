@@ -173,6 +173,32 @@ describe('TestScheduler', () => {
       await waitUntilEqual(() => sessions.get('3')!.status, SESSION_STATUS.FINISHED);
     });
 
+    it('does not clear timeouts of a previous watch run again', async t => {
+      mockConfig.watch = true;
+      const [scheduler, sessions, [session1]] = createTestFixture('1');
+      const clearTimeoutSpy = t.mock.method(globalThis, 'clearTimeout');
+
+      async function runAndGetClearedTimeouts(testRun: number) {
+        clearTimeoutSpy.mock.resetCalls();
+        scheduler.schedule(testRun, [sessions.get(session1.id)!]);
+        await waitUntilEqual(() => sessions.get(session1.id)!.status, SESSION_STATUS.INITIALIZING);
+        sessions.updateStatus(
+          { ...sessions.get(session1.id)!, passed: true },
+          SESSION_STATUS.TEST_FINISHED,
+        );
+        await waitUntilEqual(() => sessions.get(session1.id)!.status, SESSION_STATUS.FINISHED);
+        // compare handles, not counts: unrelated timers may be cleared at the same time
+        return clearTimeoutSpy.mock.calls.map(call => call.arguments[0]);
+      }
+
+      const firstRun = await runAndGetClearedTimeouts(1);
+      const secondRun = await runAndGetClearedTimeouts(2);
+      assert.deepEqual(
+        secondRun.filter(id => firstRun.includes(id)),
+        [],
+      );
+    });
+
     it('error while starting browser marks session as failed', async () => {
       const [scheduler, sessions, [session1], browser] = createTestFixture('1');
       browser.startSession.mock.mockImplementation(() => Promise.reject(new Error('mock error')));
