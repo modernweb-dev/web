@@ -60,6 +60,10 @@ export class DevServer {
       });
       // rejects on 'error', so a busy port does not crash the process
       await once(this.server, 'listening');
+      const address = this.server.address();
+      if (address && typeof address === 'object') {
+        this.config.port = address.port;
+      }
     }
 
     for (const plugin of this.config.plugins ?? []) {
