@@ -3,8 +3,6 @@ import path from 'node:path';
 import { describe, it, mock } from 'node:test';
 import { setTimeout as delay } from 'node:timers/promises';
 
-import portfinder from 'portfinder';
-
 import type { BrowserLauncher } from '../../../dist/browser-launcher/BrowserLauncher.js';
 import type { TestRunnerCoreConfig } from '../../../dist/config/TestRunnerCoreConfig.js';
 import type { TestRunnerGroupConfig } from '../../../dist/index.js';
@@ -39,13 +37,7 @@ async function createTestRunner(
   extraConfig: Partial<TestRunnerCoreConfig> = {},
   groupConfigs?: TestRunnerGroupConfig[],
 ) {
-  const port = await portfinder.getPortPromise({
-    port: 9000 + Math.floor(Math.random() * 1000),
-  });
-
   const browser = createBrowserStub();
-
-  console.log(path.resolve(import.meta.dirname, '..', '..', '..', '..', '..'));
 
   const config: TestRunnerCoreConfig = {
     files: [path.resolve(import.meta.dirname, '..', '..', 'fixtures', 'a.test.js')],
@@ -66,7 +58,7 @@ async function createTestRunner(
       report: false,
       reportDir: process.cwd(),
     },
-    port,
+    port: 0,
     ...extraConfig,
   };
   const runner = new TestRunner(config, groupConfigs);
@@ -84,6 +76,17 @@ describe('TestRunner', function () {
     const sessions = Array.from(runner.sessions.all());
     assert.equal(sessions.length, 1, 'one session is created');
     await runner.stop();
+  });
+
+  it('starts sessions on the bound port', async () => {
+    const { runner, browser } = await createTestRunner();
+
+    await runner.start();
+    const [, url] = browser.startSession.mock.calls[0].arguments;
+    const response = await fetch(url);
+    await runner.stop();
+
+    assert.equal(response.status, 200);
   });
 
   it('closes test runner for a successful test', async () => {

@@ -1,6 +1,4 @@
-/* eslint-disable no-async-promise-executor */
 import path from 'path';
-import { getPortPromise } from 'portfinder';
 import { TestRunnerGroupConfig } from './config/TestRunnerGroupConfig.js';
 import { TestRunner, TestRunnerCoreConfig } from './index.js';
 import { Logger } from './logger/Logger.js';
@@ -46,10 +44,9 @@ export async function runTests(
     reportErrors = true,
   }: { allowFailure?: boolean; reportErrors?: boolean } = {},
 ): Promise<{ runner: TestRunner; sessions: TestSession[] }> {
-  return new Promise(async (resolve, reject) => {
-    const port = await getPortPromise({ port: 9000 + Math.floor(Math.random() * 1000) });
+  return new Promise((resolve, reject) => {
     const finalConfig = {
-      port,
+      port: 0,
       ...defaultBaseConfig,
       ...config,
       testFramework: {
