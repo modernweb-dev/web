@@ -15,9 +15,9 @@ jobs:
       matrix:
         node-version:
           - '22'
-          # TODO: add 'latest' once Playwright fixes yauzl for Node 26
-          # https://github.com/microsoft/playwright/issues/40724
           - '24'
+          # TODO: switch to 'latest' once npm 12 allowScripts and pngjs work with Node 27
+          - '26'
 
     steps:
       - uses: actions/checkout@v6
