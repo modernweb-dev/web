@@ -1,5 +1,3 @@
-import portfinder from 'portfinder';
-
 import { Logger } from './logger/Logger.js';
 import { DevServer } from './server/DevServer.js';
 import { DevServerCoreConfig } from './server/DevServerCoreConfig.js';
@@ -29,14 +27,12 @@ export async function createTestServer(
     throw new Error('A rootDir must be configured.');
   }
 
-  const port = await portfinder.getPortPromise({
-    port: 9000 + Math.floor(Math.random() * 1000),
-  });
   const server = new DevServer(
-    { ...defaultConfig, ...config, rootDir: config.rootDir, port },
+    { ...defaultConfig, ...config, rootDir: config.rootDir, port: 0 },
     _mockLogger,
   );
   await server.start();
+  const port = server.config.port!;
 
   const url = new URL('http://localhost');
   url.protocol = config.http2 ? 'https' : 'http';
