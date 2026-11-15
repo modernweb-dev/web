@@ -522,7 +522,26 @@ export default {
 };
 ```
 
-To run the snapshot tests in Chromium only, put them in a [test group](./cli-and-configuration.md#test-groups) with its own `browsers`, which overrides `--browsers` passed from the command line.
+To run the snapshot tests in Chromium only, move them to separate test files. Put these files in a [test group](./cli-and-configuration.md#test-groups) with its own `browsers`, which overrides `--browsers` passed from the command line:
+
+```js
+import { playwrightLauncher } from '@web/test-runner-playwright';
+import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
+
+export default {
+  files: ['test/**/*.test.js', '!test/**/*.a11y.test.js'],
+  groups: [
+    {
+      name: 'a11y',
+      files: 'test/**/*.a11y.test.js',
+      browsers: [playwrightLauncher({ product: 'chromium' })],
+    },
+  ],
+  plugins: [a11ySnapshotPlugin()],
+};
+```
+
+Exclude these files from the top-level `files`, or the default group runs them too.
 
 <details>
 <summary>View example</summary>
