@@ -2,6 +2,8 @@ import type { ChromeLauncher, puppeteerCore } from '@web/test-runner-chrome';
 import { TestRunnerPlugin } from '@web/test-runner-core';
 import type { PlaywrightLauncher, playwright } from '@web/test-runner-playwright';
 
+import { chromiumA11ySnapshot } from './chromiumA11ySnapshot.js';
+
 export type A11ySnapshotPayload = { selector?: string };
 
 export function a11ySnapshotPlugin(): TestRunnerPlugin<A11ySnapshotPayload> {
@@ -19,9 +21,14 @@ export function a11ySnapshotPlugin(): TestRunnerPlugin<A11ySnapshotPayload> {
             };
           };
           if (!accessibility) {
+            // Chromium exposes the same tree through the Chrome DevTools Protocol
+            if (session.browser.name === 'Chromium') {
+              const root = payload && payload.selector ? await page.$(payload.selector) : null;
+              return chromiumA11ySnapshot(page, root);
+            }
             throw new Error(
-              'Accessibility snapshot is not supported for Playwright 1.57 and later. ' +
-                'Use Playwright 1.56 or earlier, or the Chrome or Puppeteer launcher.',
+              'Accessibility snapshot is not supported for Firefox and WebKit in Playwright 1.57 and later. ' +
+                'Use Chromium, or Playwright 1.56 or earlier.',
             );
           }
           const options: {
