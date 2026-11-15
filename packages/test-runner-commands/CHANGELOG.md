@@ -1,5 +1,15 @@
 # @web/test-runner-commands
 
+## 1.1.0
+
+### Minor Changes
+
+- 70ff30b: Restore `a11ySnapshot` for Chromium in Playwright 1.57 and later. The command reads the accessibility tree through the Chrome DevTools Protocol and returns the same snapshot as `page.accessibility.snapshot()` in Playwright 1.56. Firefox and WebKit still need Playwright 1.56 or earlier.
+
+### Patch Changes
+
+- 5e9d140: Keep named `image` and `meter` nodes with child nodes in the `a11ySnapshot` of Playwright Chromium.
+
 ## 1.0.3
 
 ### Patch Changes
