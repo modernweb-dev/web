@@ -510,7 +510,7 @@ File commands are supported in all test runner browsers.
 
 The `a11ySnapshot` command requests a snapshot of the accessibility tree built in the browser representing the current page or the tree rooter by the passed `selector` property. The function is async and should be awaited.
 
-`a11ySnapshot` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
+`a11ySnapshot` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`. With Playwright 1.57 and later, it works in Chromium only. In Firefox and WebKit, the command throws an error.
 
 The `a11ySnapshot` plugin is not loaded by the Web Test Runner's default configuration, make sure to enable it in your configuration:
 
@@ -521,6 +521,27 @@ export default {
   plugins: [a11ySnapshotPlugin()],
 };
 ```
+
+To run the snapshot tests in Chromium only, move them to separate test files. Put these files in a [test group](./cli-and-configuration.md#test-groups) with its own `browsers`, which overrides `--browsers` passed from the command line:
+
+```js
+import { playwrightLauncher } from '@web/test-runner-playwright';
+import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
+
+export default {
+  files: ['test/**/*.test.js', '!test/**/*.a11y.test.js'],
+  groups: [
+    {
+      name: 'a11y',
+      files: 'test/**/*.a11y.test.js',
+      browsers: [playwrightLauncher({ product: 'chromium' })],
+    },
+  ],
+  plugins: [a11ySnapshotPlugin()],
+};
+```
+
+Exclude these files from the top-level `files`, or the default group runs them too.
 
 <details>
 <summary>View example</summary>
