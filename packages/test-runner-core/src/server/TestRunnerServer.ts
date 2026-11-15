@@ -23,7 +23,7 @@ export class TestRunnerServer {
   private fileWatcher = chokidar.watch([]);
 
   constructor(
-    config: TestRunnerCoreConfig,
+    private config: TestRunnerCoreConfig,
     testRunner: TestRunner,
     sessions: TestSessionManager,
     testFiles: string[],
@@ -67,6 +67,8 @@ export class TestRunnerServer {
 
   async start() {
     await this.devServer.start();
+    // the dev server stores the port it is bound to, which differs for port 0
+    this.config.port = this.devServer.config.port!;
   }
 
   async stop() {

@@ -45,7 +45,6 @@ export class TestRunnerCli {
   private testCoverage?: TestCoverage;
   private pendingReportPromises: Promise<any>[] = [];
   private logger: Logger;
-  private localAddress: string;
   private lastStaticLog = -1;
 
   constructor(config: TestRunnerCoreConfig, runner: TestRunner) {
@@ -53,11 +52,14 @@ export class TestRunnerCli {
     this.runner = runner;
     this.logger = this.config.logger;
     this.sessions = runner.sessions;
-    this.localAddress = `${this.config.protocol}//${this.config.hostname}:${this.config.port}/`;
 
     if (config.watch && !this.terminal.isInteractive) {
       this.runner.stop(new Error('Cannot run watch mode in a non-interactive (TTY) terminal.'));
     }
+  }
+
+  private get localAddress() {
+    return `${this.config.protocol}//${this.config.hostname}:${this.config.port}/`;
   }
 
   start() {
