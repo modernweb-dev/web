@@ -136,14 +136,18 @@ export default {
 
 ### Using with Github Actions
 
-When used with Github Actions, the above will not work because Playwright requires
-specific packages not available in the Github Actions container. Rather than installing
-the required packages manually, the easiest work around is to use
-the official Playwright Action provided by Microsoft.
+Playwright needs browser binaries and system dependencies that the GitHub Actions runner does not include.
+Install them with the Playwright CLI before you run your tests:
 
-https://github.com/marketplace/actions/run-playwright-tests
+```yaml
+- name: Install Playwright browsers
+  run: npx playwright install --with-deps
 
-This action will allow you to run the Playwright launcher provided by web-test-runner.
+- name: Run tests
+  run: npm test
+```
+
+To install only the browsers that you use, pass their names, for example `npx playwright install --with-deps chromium`.
 
 ### CI / Docker
 
