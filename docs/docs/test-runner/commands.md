@@ -510,7 +510,7 @@ File commands are supported in all test runner browsers.
 
 The `a11ySnapshot` command requests a snapshot of the accessibility tree built in the browser representing the current page or the tree rooter by the passed `selector` property. The function is async and should be awaited.
 
-`a11ySnapshot` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`.
+`a11ySnapshot` is supported in `@web/test-runner-chrome`, `-puppeteer` and `-playwright`. With Playwright 1.57 and later, it works in Chromium only. In Firefox and WebKit, the command throws an error.
 
 The `a11ySnapshot` plugin is not loaded by the Web Test Runner's default configuration, make sure to enable it in your configuration:
 
@@ -521,6 +521,8 @@ export default {
   plugins: [a11ySnapshotPlugin()],
 };
 ```
+
+To run the snapshot tests in Chromium only, put them in a [test group](./cli-and-configuration.md#test-groups) with its own `browsers`, which overrides `--browsers` passed from the command line.
 
 <details>
 <summary>View example</summary>
