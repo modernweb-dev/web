@@ -1,7 +1,7 @@
 import chokidar from 'chokidar';
+import { once } from 'events';
 import Koa from 'koa';
-import { ListenOptions, Server, Socket } from 'net';
-import { promisify } from 'util';
+import { Server, Socket } from 'net';
 
 import { Logger } from '../logger/Logger.js';
 import { WebSocketsManager } from '../web-sockets/WebSocketsManager.js';
@@ -50,7 +50,7 @@ export class DevServer {
   async start() {
     this.started = true;
     if (this.server && this.config.hostname) {
-      await (promisify<ListenOptions>(this.server.listen).bind(this.server) as any)({
+      this.server.listen({
         port: this.config.port,
         // in case of localhost the host should be undefined, otherwise some browsers
         // connect to it via local network. for example safari on browserstack
@@ -58,6 +58,8 @@ export class DevServer {
           ? undefined
           : this.config.hostname,
       });
+      // rejects on 'error', so a busy port does not crash the process
+      await once(this.server, 'listening');
     }
 
     for (const plugin of this.config.plugins ?? []) {
@@ -73,7 +75,7 @@ export class DevServer {
   }
 
   private closeServer() {
-    if (!this.server) {
+    if (!this.server?.listening) {
       return;
     }
 

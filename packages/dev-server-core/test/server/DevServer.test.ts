@@ -7,7 +7,7 @@ import { after, afterEach, before, beforeEach, describe, it, mock } from 'node:t
 import portfinder from 'portfinder';
 import { assertIncludes } from '../../../../test-helpers/node.js';
 import type { ServerStartParams } from '../../dist/plugins/Plugin.js';
-import type { DevServer } from '../../dist/server/DevServer.js';
+import { DevServer } from '../../dist/server/DevServer.js';
 import { createTestServer } from '../helpers.ts';
 
 describe('basic', () => {
@@ -88,6 +88,18 @@ describe('http2', () => {
     assertIncludes(responseText, '<title>My app</title>');
     server.stop();
   });
+});
+
+it('rejects start when the port is in use', async t => {
+  const { server, port } = await createTestServer();
+  t.after(() => server.stop());
+  const second = new DevServer({ ...server.config, plugins: [] }, server.logger);
+
+  await assert.rejects(second.start(), { code: 'EADDRINUSE', port });
+
+  const consoleError = t.mock.method(console, 'error', () => {});
+  await second.stop();
+  assert.equal(consoleError.mock.callCount(), 0);
 });
 
 it('can run in middleware mode', async () => {
