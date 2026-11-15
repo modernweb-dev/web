@@ -40,7 +40,7 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
   private plugins: TestRunnerPlugin[];
   private testRunner: TestRunner;
   private sessions: TestSessionManager;
-  private sourceMapFunction: SourceMapFunction;
+  private sourceMapFunction?: SourceMapFunction;
   private mapBrowserUrl: MapBrowserUrl;
   /** key: session id, value: browser url */
   private testSessionUrls = new Map<string, string>();
@@ -56,21 +56,10 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
     this.sessions = sessions;
     this.plugins = plugins;
     this.mapBrowserUrl = createMapBrowserUrl(config.rootDir);
-    this.sourceMapFunction = createSourceMapFunction(
-      this.config.protocol,
-      this.config.hostname,
-      this.config.port,
-    );
 
-    this.testRunner.on('test-run-started', ({ testRun }) => {
-      if (testRun !== 0) {
-        // create a new source map function to clear the cached source maps
-        this.sourceMapFunction = createSourceMapFunction(
-          this.config.protocol,
-          this.config.hostname,
-          this.config.port,
-        );
-      }
+    this.testRunner.on('test-run-started', () => {
+      // clear the cached source maps
+      this.sourceMapFunction = undefined;
     });
   }
 
@@ -186,6 +175,12 @@ class TestRunnerApiPlugin implements TestRunnerPlugin {
       throw new Error('Missing userAgent in session-finished message.');
     }
 
+    // created on first use, after the server is bound to its port
+    this.sourceMapFunction ??= createSourceMapFunction(
+      this.config.protocol,
+      this.config.hostname,
+      this.config.port,
+    );
     const result = await parseBrowserResult(
       this.config,
       this.mapBrowserUrl,
