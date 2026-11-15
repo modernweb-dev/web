@@ -95,6 +95,7 @@ interface CoverageThresholdConfig {
   branches: number;
   functions: number;
   lines: number;
+  perFile?: boolean;
 }
 
 interface CoverageConfig {

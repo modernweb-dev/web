@@ -27,6 +27,24 @@ export default {
 };
 ```
 
+By default the thresholds are checked against the total coverage of all files. Set `perFile: true` to check each file individually instead. The test run fails if any single file drops below the threshold, and the failing files are listed in the output:
+
+```js
+// web-test-runner.config.mjs
+
+export default {
+  coverageConfig: {
+    threshold: {
+      statements: 70,
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      perFile: true,
+    },
+  },
+};
+```
+
 ## Ignoring uncovered lines
 
 Web Test Runner uses [`v8-to-istanbul`](https://github.com/istanbuljs/v8-to-istanbul) to covert V8 based code coverage to a form that can be reported by Istanbul. `v8-to-istanbul` allows for ignoring uncovered lines when calculating code coverage through the use of the following custom comment:

@@ -12,6 +12,11 @@ export interface CoverageThresholdConfig {
   branches: number;
   functions: number;
   lines: number;
+  /**
+   * Check the thresholds against each file individually, instead of against the
+   * aggregate of all files.
+   */
+  perFile?: boolean;
 }
 
 export interface CoverageConfig {

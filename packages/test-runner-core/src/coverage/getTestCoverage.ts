@@ -22,6 +22,17 @@ export interface TestCoverage {
   passed: boolean;
   coverageMap: CoverageMap;
   summary: CoverageSummaryData;
+  /**
+   * Files that did not meet the configured threshold. Only populated when
+   * `threshold.perFile` is enabled.
+   */
+  failedFiles?: TestCoverageFileFailure[];
+}
+
+export interface TestCoverageFileFailure {
+  /** Path of the file as reported by the coverage data. */
+  file: string;
+  summary: CoverageSummaryData;
 }
 
 const locEquals = (a: Location, b: Location) => a.column === b.column && a.line === b.line;
@@ -196,10 +207,22 @@ export function getTestCoverage(
 
   const summary = coverageMap.getCoverageSummary().data;
 
-  if (config?.threshold) {
+  const { threshold } = config ?? {};
+  if (threshold?.perFile) {
+    const failedFiles: TestCoverageFileFailure[] = [];
+    for (const file of coverageMap.files()) {
+      const fileSummary = coverageMap.fileCoverageFor(file).toSummary().data;
+      if (coverageTypes.some(type => fileSummary[type].pct < threshold[type])) {
+        failedFiles.push({ file, summary: fileSummary });
+      }
+    }
+    return { coverageMap, summary, passed: failedFiles.length === 0, failedFiles };
+  }
+
+  if (threshold) {
     for (const type of coverageTypes) {
       const { pct } = summary[type];
-      if (pct < config.threshold[type]) {
+      if (pct < threshold[type]) {
         return { coverageMap, summary, passed: false };
       }
     }
