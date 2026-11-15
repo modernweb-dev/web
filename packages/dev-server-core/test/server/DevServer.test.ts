@@ -1,7 +1,7 @@
 import express from 'express';
 import http from 'http';
 import Koa from 'koa';
-import { Server } from 'net';
+import { type AddressInfo, Server } from 'net';
 import assert from 'node:assert/strict';
 import { after, afterEach, before, beforeEach, describe, it, mock } from 'node:test';
 import portfinder from 'portfinder';
@@ -167,12 +167,14 @@ it('can add extra middleware', async () => {
 
 it('calls serverStart on plugin hook on start', async () => {
   let startArgs: ServerStartParams;
+  let startPort: number | undefined;
   const { server } = await createTestServer({
     plugins: [
       {
         name: 'test',
         serverStart(args) {
           startArgs = args;
+          startPort = args.config.port;
         },
       },
     ],
@@ -183,6 +185,7 @@ it('calls serverStart on plugin hook on start', async () => {
   assert.ok(startArgs!.server instanceof Server);
   assert.equal(startArgs!.fileWatcher.constructor.name, 'FSWatcher');
   assert.equal(typeof startArgs!.config, 'object');
+  assert.equal(startPort, (server.server!.address() as AddressInfo).port);
 
   server.stop();
 });

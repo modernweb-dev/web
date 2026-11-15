@@ -139,7 +139,7 @@ it('merges with an existing import map', async () => {
 
   const text = await fetchText(`${host}/index.html`);
   assertIncludes(
-    text.replace(/http:\/\/localhost:(\d){4}/g, '<replaced>'),
+    text.replace(/http:\/\/localhost:\d+/g, '<replaced>'),
     `<script type="importmap">{"imports":{"bar":"<replaced>/foo.js","foo":"<replaced>/bar.js"},"scopes":{}}</script>`,
   );
 
@@ -169,7 +169,7 @@ it('merges import map scopes', async () => {
 
   const text = await fetchText(`${host}/index.html`);
   assertIncludes(
-    text.replace(/http:\/\/localhost:(\d){4}/g, '<replaced>'),
+    text.replace(/http:\/\/localhost:\d+/g, '<replaced>'),
     `<script type="importmap">{"imports":{},"scopes":{"<replaced>/foo.js":{"foo":"<replaced>/bar.js"}}}</script>`,
   );
 
@@ -199,7 +199,7 @@ it('the import map in the HTML file takes priority over the injected import map'
 
   const text = await fetchText(`${host}/index.html`);
   assertIncludes(
-    text.replace(/http:\/\/localhost:(\d){4}/g, '<replaced>'),
+    text.replace(/http:\/\/localhost:\d+/g, '<replaced>'),
     `<script type="importmap">{"imports":{"foo":"<replaced>/bar.js"},"scopes":{}}</script>`,
   );
 
