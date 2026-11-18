@@ -5,8 +5,10 @@ import type { StorybookConfig } from './types.js';
 const getAbsolutePath = <I extends string>(input: I): I =>
   dirname(require.resolve(join(input, 'package.json'))) as any;
 
+const getEntryPath = <I extends string>(input: I): I => require.resolve(input) as any;
+
 export const core: PresetProperty<'core', StorybookConfig> = {
-  builder: getAbsolutePath('@web/storybook-builder'),
+  builder: getEntryPath('@web/storybook-builder'),
   renderer: getAbsolutePath('@storybook/web-components'),
 };
 
