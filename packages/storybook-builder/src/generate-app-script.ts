@@ -18,7 +18,7 @@ export async function generateAppScript(options: Options) {
 
   const previewAnnotationURLs = [...previewAnnotations, previewOrConfigFile]
     .filter((path): path is PreviewAnnotation => !!path)
-    .map((path: PreviewAnnotation) => (typeof path === 'object' ? path.bare : path));
+    .map((path: PreviewAnnotation) => (typeof path === 'object' ? path.absolute : path));
 
   // This is pulled out to a variable because it is reused in both the initial page load
   // and the HMR handler.  We don't use the hot.accept callback params because only the changed
