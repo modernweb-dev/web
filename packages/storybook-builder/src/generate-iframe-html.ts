@@ -2,7 +2,7 @@
 
 import { readFile } from 'node:fs/promises';
 import { normalizeStories } from 'storybook/internal/common';
-import type { DocsOptions, Options, TagsOptions } from 'storybook/internal/types';
+import type { DocsOptions, Options, SecurityConfig, TagsOptions } from 'storybook/internal/types';
 import { virtualAppFilename } from './virtual-file-names.js';
 
 export type PreviewHtml = string | undefined;
@@ -19,6 +19,7 @@ export async function generateIframeHtml(options: Options): Promise<string> {
   const logLevel = await presets.apply('logLevel', undefined);
   const docsOptions = await presets.apply<DocsOptions>('docs');
   const tagsOptions = await presets.apply<TagsOptions>('tags');
+  const security = await presets.apply<SecurityConfig | undefined>('security');
   const coreOptions = await presets.apply('core');
   const stories = normalizeStories(await options.presets.apply('stories', [], options), {
     configDir: options.configDir,
@@ -29,6 +30,7 @@ export async function generateIframeHtml(options: Options): Promise<string> {
   }));
   const otherGlobals = {
     ...(build?.test?.disableBlocks ? { __STORYBOOK_BLOCKS_EMPTY_MODULE__: {} } : {}),
+    ...(security?.insecureIframeMessaging ? { INSECURE_IFRAME_MESSAGING: true } : {}),
   };
   return iframeHtmlTemplate
     .replace('[CONFIG_TYPE HERE]', configType || '')
