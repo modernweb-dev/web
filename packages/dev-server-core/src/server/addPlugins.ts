@@ -14,7 +14,7 @@ export function addPlugins(logger: Logger, config: DevServerCoreConfig) {
   }
 
   if (config.injectWebSocket && config.plugins?.some(pl => pl.injectWebSocket)) {
-    config.plugins.unshift(webSocketsPlugin());
+    config.plugins.unshift(webSocketsPlugin(config.basePath));
   }
 
   if (config.plugins?.some(pl => 'resolveImport' in pl || 'transformImport' in pl)) {
