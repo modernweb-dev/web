@@ -96,9 +96,9 @@ Links with fully qualified URLs can link a page on your server, to pages on anot
 <a href="https://google.com/">if you click me I will open google</a>
 ```
 
-Because the URL is fully-qualified, adding that `<a>` tag to any page anywhere on the web will have the same behavior[^1], namely opening google's home page.
+Because the URL is fully-qualified, adding that `<a>` tag to any page anywhere on the web will have the same behavior<sup>[^1]</sup>, namely opening google's home page.
 
-[^1]: Assuming that the page doesn't use JavaScript or other techniques to surreptitiously change the destination of the link
+<sup>[^1]</sup>: Assuming that the page doesn't use JavaScript or other techniques to surreptitiously change the destination of the link
 
 ### Absolute URLs
 
