@@ -10,6 +10,7 @@ export class PlaywrightLauncherPage {
   public playwrightContext: BrowserContext;
   public playwrightPage: Page;
   private nativeInstrumentationEnabledOnPage = false;
+  private collectCoverage = false;
 
   constructor(
     config: TestRunnerCoreConfig,
@@ -26,6 +27,8 @@ export class PlaywrightLauncherPage {
   }
 
   async runSession(url: string, coverage: boolean) {
+    this.collectCoverage = coverage;
+
     if (
       coverage &&
       this.product === 'chromium' &&
@@ -43,7 +46,7 @@ export class PlaywrightLauncherPage {
   }
 
   async stopSession(): Promise<SessionResult> {
-    const testCoverage = this.nativeInstrumentationEnabledOnPage
+    const testCoverage = this.collectCoverage
       ? await this.collectTestCoverage(this.config, this.testFiles)
       : undefined;
 
@@ -76,8 +79,8 @@ export class PlaywrightLauncherPage {
     if (config.coverageConfig?.nativeInstrumentation === false) {
       throw new Error(
         'Coverage is enabled with nativeInstrumentation disabled. ' +
-          'Expected coverage provided in the browser as a global __coverage__ variable.' +
-          'Use a plugin like babel-plugin-istanbul to generate the coverage, or enable native instrumentation.',
+        'Expected coverage provided in the browser as a global __coverage__ variable.' +
+        'Use a plugin like babel-plugin-istanbul to generate the coverage, or enable native instrumentation.',
       );
     }
 
