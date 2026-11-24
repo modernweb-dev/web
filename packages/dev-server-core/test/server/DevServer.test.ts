@@ -1,10 +1,12 @@
 import express from 'express';
 import http from 'http';
+import https from 'https';
 import Koa from 'koa';
 import { Server } from 'net';
 import assert from 'node:assert/strict';
 import { after, afterEach, before, beforeEach, describe, it, mock } from 'node:test';
 import portfinder from 'portfinder';
+import type { TLSSocket } from 'tls';
 import { assertIncludes } from '../../../../test-helpers/node.js';
 import type { ServerStartParams } from '../../dist/plugins/Plugin.js';
 import type { DevServer } from '../../dist/server/DevServer.js';
@@ -86,6 +88,35 @@ describe('http2', () => {
 
     assert.equal(response.status, 200);
     assertIncludes(responseText, '<title>My app</title>');
+    server.stop();
+  });
+});
+
+describe('https', () => {
+  it('serves a website over HTTP/1.1 with TLS', async () => {
+    const { server, host } = await createTestServer({ hostname: 'localhost', https: true });
+    assert.ok(host.startsWith('https://'));
+
+    const { res, body, encrypted } = await new Promise<{
+      res: http.IncomingMessage;
+      body: string;
+      encrypted: boolean;
+    }>((resolve, reject) => {
+      https
+        .get(`${host}/index.html`, { rejectUnauthorized: false }, res => {
+          const { encrypted } = res.socket as TLSSocket;
+          let body = '';
+          res.setEncoding('utf8');
+          res.on('data', chunk => (body += chunk));
+          res.on('end', () => resolve({ res, body, encrypted }));
+        })
+        .on('error', reject);
+    });
+
+    assert.ok(encrypted);
+    assert.equal(res.httpVersion, '1.1');
+    assert.equal(res.statusCode, 200);
+    assertIncludes(body, '<title>My app</title>');
     server.stop();
   });
 });

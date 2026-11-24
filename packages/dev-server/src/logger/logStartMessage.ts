@@ -4,7 +4,7 @@ import { bold, cyan, white } from 'nanocolors';
 import { type DevServerConfig } from '../config/DevServerConfig';
 
 const createAddress = (config: DevServerConfig, host: string, path: string) =>
-  `http${config.http2 ? 's' : ''}://${host}:${config.port}${path}`;
+  `http${config.http2 || config.https ? 's' : ''}://${host}:${config.port}${path}`;
 
 function logNetworkAddress(config: DevServerConfig, logger: Logger, openPath: string) {
   try {

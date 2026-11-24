@@ -31,7 +31,7 @@ function validate(config: Record<string, unknown>, key: string, type: string) {
 
 const stringSettings = ['rootDir', 'hostname', 'basePath', 'appIndex', 'sslKey', 'sslCert'];
 const numberSettings = ['port'];
-const booleanSettings = ['watch', 'preserveSymlinks', 'http2', 'eventStream'];
+const booleanSettings = ['watch', 'preserveSymlinks', 'http2', 'https', 'eventStream'];
 
 export function validateConfig(config: Partial<DevServerConfig>) {
   stringSettings.forEach(key => validate(config, key, 'string'));

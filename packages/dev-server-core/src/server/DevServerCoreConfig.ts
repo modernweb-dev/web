@@ -49,6 +49,10 @@ export interface DevServerCoreConfig {
    */
   http2?: boolean;
   /**
+   * Whether to run the server with HTTPS over HTTP/1.1. Ignored when http2 is set.
+   */
+  https?: boolean;
+  /**
    * Path to SSL key
    */
   sslKey?: string;

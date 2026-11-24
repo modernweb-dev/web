@@ -120,6 +120,8 @@ interface DevServerConfig {
 
   // whether to run the server with HTTP2
   http2?: boolean;
+  // whether to run the server with HTTPS over HTTP/1.1, ignored when http2 is set
+  https?: boolean;
   // path to SSL key
   sslKey?: string;
   // path to SSL certificate
