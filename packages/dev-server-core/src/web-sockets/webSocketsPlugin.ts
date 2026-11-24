@@ -164,13 +164,27 @@ function setupWebSocket() {
       'WebSocket' in window
       ? new WebSocket(webSocketUrl)
         : null;
-    webSocketOpened = new Promise(resolve => {
+    webSocketOpened = new Promise((resolve, reject) => {
       if (!webSocket) {
         resolve();
       } else {
-        webSocket.addEventListener('open', () => {
+        const onOpen = () => {
+          cleanup();
           resolve();
-        });
+        };
+        const onFailure = () => {
+          cleanup();
+          reject(new Error('WebSocket connection failed before opening'));
+        };
+        const cleanup = () => {
+          webSocket.removeEventListener('open', onOpen);
+          webSocket.removeEventListener('error', onFailure);
+          webSocket.removeEventListener('close', onFailure);
+        };
+
+        webSocket.addEventListener('open', onOpen);
+        webSocket.addEventListener('error', onFailure);
+        webSocket.addEventListener('close', onFailure);
       }
     });
     let messageId = 0;
