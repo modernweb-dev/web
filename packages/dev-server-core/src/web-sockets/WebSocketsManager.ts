@@ -29,7 +29,10 @@ export class WebSocketsManager extends EventEmitter<Events> {
     });
     this.webSocketServer.on('connection', webSocket => {
       this.openSockets.add(webSocket);
+      // Ping periodically to prevent socket from being closed with error status 1006 due to inactivity e.g. when testing on Browserstack
+      const pingInterval = setInterval(() => { webSocket.ping() }, 10000);
       webSocket.on('close', () => {
+        clearInterval(pingInterval);
         this.openSockets.delete(webSocket);
       });
 
