@@ -70,14 +70,26 @@ export default {
         os_version: '7',
       },
     }),
+
+    browserstackLauncher({
+      capabilities: {
+        ...sharedCapabilities,
+        browserName: 'Chrome',
+        os: 'Windows',
+        os_version: '10',
+      },
+      local: false, // disables the local proxy
+    }),
   ],
 };
 ```
 
 ## Configuration
 
-The Browserstack launcher takes two properties, `capabilities` and `localOptions`.
+The Browserstack launcher takes three properties, `capabilities`, `localOptions` and `local`.
 
 `capabilities` are the selenium capabilities used to configure the browser to launch in Browserstack. You can generate most of these on the Saucelabs. It must contain a `browserstack.user` and `browserstack.key` property to authenticate with Browserstack, as well as `name`, `build` and `project` to identify the test run.
 
 `localOptions` are options to configure the [browserstack-local](https://www.npmjs.com/package/browserstack-local) proxy. For most use cases, you don't need to configure this property.
+
+`local` is a property which, when set to `false`, disables the local proxy entirely. This can be particularly helpful in CI environment where you may not need to proxy local resources through Browserstack.
