@@ -1,4 +1,3 @@
-const open = require('open');
 const { DevServer } = require('../../dist/index');
 
 const server = new DevServer(
@@ -32,5 +31,7 @@ const server = new DevServer(
   },
 );
 
-server.start();
-open('http://localhost:8080/demo/event-stream/');
+server.start().then(async () => {
+  const { openBrowser } = await import('@web/dev-server-core');
+  openBrowser('http://localhost:8080/demo/event-stream/');
+});

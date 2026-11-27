@@ -15,6 +15,7 @@ export {
   getRequestFilePath,
   getResponseBody,
   isInlineScriptRequest,
+  openBrowser,
 } from './utils.js';
 export { WebSocketsManager, type WebSocketData } from './web-sockets/WebSocketsManager.js';
 export { WebSocket };

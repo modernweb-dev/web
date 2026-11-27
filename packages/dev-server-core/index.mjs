@@ -13,6 +13,7 @@ const {
   getResponseBody,
   getHtmlPath,
   isInlineScriptRequest,
+  openBrowser,
   PluginSyntaxError,
   PluginError,
 } = cjsEntrypoint;
@@ -31,4 +32,5 @@ export {
   getRequestFilePath,
   getResponseBody,
   isInlineScriptRequest,
+  openBrowser,
 };

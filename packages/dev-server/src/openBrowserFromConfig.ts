@@ -1,4 +1,4 @@
-import openBrowserWindow from 'open';
+import { openBrowser } from '@web/dev-server-core';
 import path from 'path';
 import { DevServerConfig } from './config/DevServerConfig.js';
 
@@ -20,7 +20,7 @@ function getBasePath(basePath?: string) {
   return basePath;
 }
 
-export async function openBrowser(config: DevServerConfig) {
+export async function openBrowserFromConfig(config: DevServerConfig) {
   const basePath = getBasePath(config.basePath);
   let openPath: string;
   if (typeof config.open === 'string') {
@@ -45,5 +45,5 @@ export async function openBrowser(config: DevServerConfig) {
     ).href;
   }
 
-  await openBrowserWindow(openPath);
+  await openBrowser(openPath);
 }

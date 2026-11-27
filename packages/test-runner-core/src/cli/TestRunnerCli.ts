@@ -1,6 +1,7 @@
 import { codeFrameColumns } from '@babel/code-frame';
+import { openBrowser } from '@web/dev-server-core';
 import { bold, cyan, red } from 'nanocolors';
-import openBrowser from 'open';
+import { pathToFileURL } from 'node:url';
 import path from 'path';
 
 import { type TestRunnerCoreConfig } from '../config/TestRunnerCoreConfig.js';
@@ -134,11 +135,13 @@ export class TestRunnerCli {
         case 'C':
           if (this.activeMenu === MENUS.OVERVIEW && this.config.coverage) {
             openBrowser(
-              `file://${path.resolve(
-                this.config.coverageConfig!.reportDir ?? '',
-                'lcov-report',
-                'index.html',
-              )}`,
+              pathToFileURL(
+                path.resolve(
+                  this.config.coverageConfig!.reportDir ?? '',
+                  'lcov-report',
+                  'index.html',
+                ),
+              ).href,
             );
           }
           return;
