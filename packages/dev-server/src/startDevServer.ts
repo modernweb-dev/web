@@ -6,7 +6,7 @@ import { parseConfig } from './config/parseConfig.js';
 import { readCliArgs } from './config/readCliArgs.js';
 import { readFileConfig } from './config/readFileConfig.js';
 import { createLogger } from './logger/createLogger.js';
-import { openBrowser } from './openBrowser.js';
+import { openBrowserFromConfig } from './openBrowserFromConfig.js';
 
 export interface StartDevServerParams {
   /**
@@ -85,7 +85,7 @@ export async function startDevServer(options: StartDevServerParams = {}) {
     await server.start();
 
     if (config.open != null && config.open !== false) {
-      await openBrowser(config);
+      await openBrowserFromConfig(config);
     }
 
     return server;

@@ -2,6 +2,7 @@ import getStream from 'get-stream';
 import isStream from 'is-stream';
 import { isBinaryFile } from 'isbinaryfile';
 import { Context } from 'koa';
+import { spawn } from 'node:child_process';
 import path from 'path';
 
 const OUTSIDE_ROOT_KEY = '/__wds-outside-root__/';
@@ -134,4 +135,23 @@ export function resolvePathOutsideRootDir(browserPath: string, rootDir: string) 
   const newRootDir = path.resolve(rootDir, `..${path.sep}`.repeat(depth));
 
   return { normalizedPath, newRootDir };
+}
+
+export function openBrowser(target: string) {
+  return new Promise((resolve, reject) => {
+    const cmd =
+      process.platform === 'win32'
+        ? 'cmd.exe'
+        : process.platform === 'darwin'
+          ? 'open'
+          : 'xdg-open';
+    const args = process.platform === 'win32' ? ['/c', 'start', '""', target] : [target];
+    const child = spawn(cmd, args);
+    child.once('error', reject);
+    child.once('close', code =>
+      code === 0
+        ? resolve(undefined)
+        : reject(new Error(`"${cmd} ${args.join(' ')}" exited with code ${code}`)),
+    );
+  });
 }
